@@ -74,10 +74,8 @@
             }
         }];
     }
-    run_after(.3, ^{
-        [self.navigationController popViewControllerAnimated:YES];
-    });
-    
+    [[WLEntryManager manager].context processPendingChanges];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

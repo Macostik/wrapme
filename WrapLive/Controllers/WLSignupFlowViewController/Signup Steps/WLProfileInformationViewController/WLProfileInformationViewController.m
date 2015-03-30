@@ -24,13 +24,14 @@
 #import "WLUpdateUserRequest.h"
 #import "WLProfileEditSession.h"
 #import "WLButton.h"
+#import "WLNavigationAnimator.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutlet WLImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UIButton *createImageButton;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
-@property (strong, nonatomic) WLUser * user;
+@property (weak, nonatomic) WLUser * user;
 @property (strong, nonatomic) IBOutlet WLButton *continueButton;
 @property (strong, nonatomic) WLProfileEditSession *editSession;
 
@@ -88,6 +89,7 @@
     cameraNavigation.delegate = self;
     cameraNavigation.defaultPosition = AVCaptureDevicePositionFront;
     cameraNavigation.mode = WLStillPictureModeSquare;
+    cameraNavigation.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
     [self.navigationController pushViewController:cameraNavigation animated:YES];
 }
 

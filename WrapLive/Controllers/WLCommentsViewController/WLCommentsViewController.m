@@ -19,6 +19,7 @@
 #import "UIView+AnimationHelper.h"
 #import "WLNavigation.h"
 #import "WLCollectionView.h"
+#import "NSString+Additions.h"
 
 @interface WLCommentsViewController () <WLEntryNotifyReceiver, UIViewControllerTransitioningDelegate>
 
@@ -39,16 +40,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.composeBar.placeholder = @"Write your comment ...";
+    self.composeBar.placeholder = WLLS(@"Write your comment ...");
     self.refresher = [WLRefresher refresher:self.collectionView target:self
                                      action:@selector(refresh:)
                                       style:WLRefresherStyleWhite_Clear];
     [self refresh:nil];
-    NSArray *entries = [[self.candy.comments reverseObjectEnumerator] allObjects];
-    self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];
+    self.dataSection.entries = [self.candy sortedComments];
     self.collectionView.layer.geometryFlipped = YES;
     [[WLComment notifier] addReceiver:self];
     [[WLCandy notifier] addReceiver:self];
+    [[WLWrap notifier] addReceiver:self];
+}
+
+- (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
+    if (completion) completion(![self.candy.comments containsObject:entry]);
 }
 
 - (void)refresh:(WLRefresher*)sender {
@@ -65,10 +70,12 @@
 }
 
 - (void)sendMessageWithText:(NSString*)text {
-    [WLSoundPlayer playSound:WLSound_s04];
-    [self.candy uploadComment:text success:^(WLComment *comment) {
-    } failure:^(NSError *error) {
-    }];
+    if (self.candy.valid) {
+        [WLSoundPlayer playSound:WLSound_s04];
+        [self.candy uploadComment:[text trim] success:^(WLComment *comment) {
+        } failure:^(NSError *error) {
+        }];
+    }
     run_after(.0, ^{
         [self onClose:nil];
     });
@@ -79,9 +86,10 @@
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    [fromViewController viewWillDisappear:YES];
+    [toViewController viewWillAppear:YES];
     __weak typeof(self)weakSelf = self;
     if (self.isBeingPresented) {
-        fromViewController.view.userInteractionEnabled = NO;
         toViewController.view.frame = fromViewController.view.frame;
         [transitionContext.containerView addSubview:toViewController.view];
         self.contentView.transform = CGAffineTransformMakeScale(0.5, 0.5);
@@ -96,7 +104,8 @@
                              weakSelf.view.backgroundColor = [UIColor colorWithWhite:.0 alpha:0.5];
                          } completion:^(BOOL finished) {
                              [transitionContext completeTransition:YES];
-                             fromViewController.view.userInteractionEnabled = YES;
+                             [fromViewController viewDidDisappear:YES];
+                             [toViewController viewDidAppear:YES];
                          }];
     } else {
         [UIView animateWithDuration:0.5f
@@ -110,6 +119,8 @@
                          } completion:^(BOOL finished) {
                              weakSelf.contentView.transform = CGAffineTransformIdentity;
                              [transitionContext completeTransition:YES];
+                             [fromViewController viewDidDisappear:YES];
+                             [toViewController viewDidAppear:YES];
                          }];
     }
 }
@@ -147,11 +158,7 @@
 
 - (IBAction)onClose:(id)sender {
     [self.view endEditing:YES];
-    id candyViewController = [UINavigationController topViewController];
-    if ([candyViewController respondsToSelector:@selector(movingDetailViews)]) {
-        [candyViewController movingDetailViews];
-    }
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
@@ -159,14 +166,15 @@
     CGPoint touchPoint = [sender locationInView:collectionView];
     if (CGRectContainsPoint(collectionView.bounds, touchPoint)) {
         [self.view endEditing:YES];
+    } else {
+        [self onClose:nil];
     }
 }
 
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier*)notifier candyUpdated:(WLComment *)comment {
-    NSArray *entries = [[self.candy.comments reverseObjectEnumerator] allObjects];
-    self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];
+    self.dataSection.entries =  [self.candy sortedComments];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
@@ -174,8 +182,7 @@
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
-    NSArray *entries = [[self.candy.comments reverseObjectEnumerator] allObjects];
-    self.dataSection.entries = [NSMutableOrderedSet orderedSetWithArray:entries];
+    self.dataSection.entries = [self.candy sortedComments];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentDeleted:(WLComment *)comment {
@@ -186,8 +193,16 @@
     }
 }
 
+- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
+    [self onClose:nil];
+}
+
 - (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
     return self.candy;
+}
+
+- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
+    return self.candy.wrap;
 }
 
 #pragma mark - WLComposeBarDelegate

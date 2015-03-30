@@ -11,7 +11,7 @@
 
 @class WLEntryNotifier;
 
-@protocol WLEntryNotifyReceiver
+@protocol WLEntryNotifyReceiver <WLBroadcastReceiver>
 
 @optional
 
@@ -62,6 +62,14 @@
 + (instancetype)notifier;
 
 + (instancetype)notifier:(Class)entryClass;
+
++ (void)beginBatchUpdates;
+
++ (void)commitBatchUpdates;
+
+- (void)beginBatchUpdates;
+
+- (void)commitBatchUpdates;
 
 - (void)notifyOnAddition:(WLEntry*)entry;
 

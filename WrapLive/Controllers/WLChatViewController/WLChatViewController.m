@@ -106,7 +106,7 @@ CGFloat WLMaxTextViewWidth;
     
     self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
     
-    WLMaxTextViewWidth = [UIScreen mainScreen].bounds.size.width - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
+    WLMaxTextViewWidth = WLConstants.screenWidth - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
     
 	__weak typeof(self)weakSelf = self;
     [self.wrap fetchIfNeeded:^(id object) {
@@ -121,7 +121,7 @@ CGFloat WLMaxTextViewWidth;
     if (self.wrap.messages.nonempty) {
         [self refreshMessages:^{
         } failure:^(NSError *error) {
-            [error show];
+            [error showIgnoringNetworkError];
         }];
     }
 	
@@ -204,7 +204,7 @@ CGFloat WLMaxTextViewWidth;
     [self refreshMessages:^{
         [sender setRefreshing:NO animated:YES];
     } failure:^(NSError *error) {
-        [error show];
+        [error showIgnoringNetworkError];
         [sender setRefreshing:NO animated:YES];
     }];
 }
@@ -301,15 +301,19 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - WLComposeBarDelegate
 
 - (void)sendMessageWithText:(NSString*)text {
-    __weak typeof(self)weakSelf = self;
-    [self.wrap uploadMessage:text success:^(WLMessage *message) {
-		[weakSelf.collectionView setMinimumContentOffsetAnimated:YES];
-        [WLSoundPlayer playSound:WLSound_s04];
-    } failure:^(NSError *error) {
-		[error show];
-        [weakSelf.composeBar performSelector:@selector(setText:) withObject:text afterDelay:0.0f];
-    }];
-    [weakSelf.collectionView setMinimumContentOffsetAnimated:YES];
+    if (self.wrap.valid) {
+        __weak typeof(self)weakSelf = self;
+        [self.wrap uploadMessage:text success:^(WLMessage *message) {
+            [weakSelf.collectionView setMinimumContentOffsetAnimated:YES];
+            [WLSoundPlayer playSound:WLSound_s04];
+        } failure:^(NSError *error) {
+            [error show];
+            [weakSelf.composeBar performSelector:@selector(setText:) withObject:text afterDelay:0.0f];
+        }];
+        [self.collectionView setMinimumContentOffsetAnimated:YES];
+    } else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
@@ -384,8 +388,7 @@ CGFloat WLMaxTextViewWidth;
             loadingView.error = NO;
             [self appendMessages:^{
             } failure:^(NSError *error) {
-                [error show];
-                loadingView.error = YES;
+                [error showIgnoringNetworkError];
             }];
         }
         return loadingView;
@@ -393,10 +396,10 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGFloat)heightOfMessageCell:(WLMessage *)message containsName:(BOOL)containsName showDay:(BOOL)showDay {
-	CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth];
+    CGFloat commentHeight = WLCalculateHeightString(message.text, WLMaxTextViewWidth);
     CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
     if (showDay) {
-        topInset += WLMessageDayLabelHeight + WLMessageGroupSpacing;
+        topInset += WLMessageDayLabelHeight;
     } else if (containsName) {
         topInset += WLMessageGroupSpacing;
     }
@@ -408,19 +411,19 @@ CGFloat WLMaxTextViewWidth;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
     WLMessage* previousMessage = [self.chat.entries tryObjectAtIndex:indexPath.item + 1];
-    BOOL containsName = (previousMessage == nil || previousMessage.contributor != message.contributor);
     BOOL showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
+    BOOL containsName = (previousMessage == nil || previousMessage.contributor != message.contributor) || showDay;
     if (containsName) {
         [self.itemsWithName addIndex:indexPath.item];
     }
     if (showDay) {
         [self.itemsWithDay addIndex:indexPath.item];
     }
-    return CGSizeMake(collectionView.width, [self heightOfMessageCell:message containsName:containsName showDay:showDay]);
+    return CGSizeMake(WLConstants.screenWidth, [self heightOfMessageCell:message containsName:containsName showDay:showDay]);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    if (section != WLChatLoadingSection || self.chat.completed) return CGSizeZero;
+    if (section != WLChatLoadingSection || self.chat.completed || ![WLNetwork network].reachable) return CGSizeZero;
     return CGSizeMake(collectionView.width, WLLoadingViewDefaultSize);
 }
 
@@ -436,7 +439,7 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - WLFontPresetterReceiver
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
-    self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
+    self.messageFont = [self.messageFont preferredFontWithPreset:WLFontPresetSmall];
     [self.collectionView reloadData];
 }
 

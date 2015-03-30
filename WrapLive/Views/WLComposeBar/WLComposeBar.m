@@ -22,7 +22,7 @@
 #import "UIFont+CustomFonts.h"
 #import "UIScrollView+Additions.h"
 
-static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
+static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 
 @interface WLComposeBar () <UITextViewDelegate, UICollectionViewDelegate>
 
@@ -33,6 +33,7 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
 @property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *horizontalSpaceDoneButtonContstraint;
 @property (assign, nonatomic) IBInspectable CGFloat maxLines;
+@property (assign, nonatomic) IBInspectable UIColor *borderColor;
 
 @end
 
@@ -41,8 +42,7 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
 - (void)awakeFromNib {
 	[super awakeFromNib];
     
-    UIColor *color = [UIColor colorWithHexString:@"#EEEEEE"];
-	self.textView.superview.layer.borderColor = color.CGColor;
+	self.textView.superview.layer.borderColor = self.borderColor.CGColor;
     self.textView.superview.layer.borderWidth = WLConstants.pixelSize;
     self.textView.layoutManager.allowsNonContiguousLayout = NO;
     self.textView.textContainerInset = self.textView.contentInset = UIEdgeInsetsZero;
@@ -109,7 +109,6 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 360.0f;
 
 - (void)setDoneButtonHidden:(BOOL)hidden animated:(BOOL)animated {
     self.doneButton.userInteractionEnabled = !hidden;
-    self.doneButton.hidden = hidden;
     [UIView performAnimated:animated animation:^{
         self.horizontalSpaceDoneButtonContstraint.constant = hidden ? 0 : -self.doneButton.width;
         [self layoutIfNeeded];

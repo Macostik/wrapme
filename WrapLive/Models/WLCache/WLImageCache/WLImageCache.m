@@ -51,7 +51,7 @@ static NSUInteger WLImageCacheSize = 524288000;
 - (id)read:(NSString *)identifier {
     UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
     if (image == nil) {
-        image = [UIImage imageWithData:[[NSFileManager defaultManager] contentsAtPath:[self pathWithIdentifier:identifier]]];
+        image = [UIImage imageWithContentsOfFile:[self pathWithIdentifier:identifier]];
         [WLSystemImageCache setImage:image withIdentifier:identifier];
     }
     return image;
@@ -119,12 +119,14 @@ static NSUInteger WLImageCacheSize = 524288000;
 		return;
 	}
 	dispatch_async(self.queue, ^{
-        [data writeToFile:[self pathWithIdentifier:identifier] atomically:NO];
-        [self.identifiers addObject:identifier];
-		run_in_main_queue(^{
-			if (completion) completion(identifier);
-            [self enqueueCheckSizePerforming];
-		});
+        if (identifier) {
+            [data writeToFile:[self pathWithIdentifier:identifier] atomically:NO];
+            run_in_main_queue(^{
+                [self.identifiers addObject:identifier];
+                if (completion) completion(identifier);
+                [self enqueueCheckSizePerforming];
+            });
+        }
     });
 }
 

@@ -12,6 +12,7 @@
 #import "WLChatViewController.h"
 #import "NSArray+Additions.h"
 #import "UIAlertView+Blocks.h"
+#import "WLToast.h"
 
 @implementation UIStoryboard (WLNavigation)
 
@@ -53,6 +54,10 @@ static NSMapTable *storyboards = nil;
 
 + (instancetype)instantiate:(UIStoryboard *)storyboard {
 	return [self instantiateWithIdentifier:NSStringFromClass(self) storyboard:storyboard];
+}
+
+- (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
+    if (completion) completion(YES);
 }
 
 @end
@@ -162,31 +167,42 @@ static UIWindow* mainWindow = nil;
 - (NSMutableArray *)newStackViewControllersWithNavigationController:(UINavigationController*)navigationController {
     WLEntry *entry = self;
     NSMutableArray *viewControllers = [NSMutableArray array];
-    while (entry) {
+    while (entry.valid) {
         UIViewController *viewController = [entry viewControllerWithNavigationController:navigationController];
         if (viewController) {
             [viewControllers addObject:viewController];
+            if (entry != self) {
+                [self configureViewController:viewController fromContainingEntry:entry];
+            }
         }
         entry = entry.containingEntry;
+    }
+    
+    if (![viewControllers count]) {
+        [WLToast showWithMessage:WLLS(@"Data is not valid.")];
     }
     
     return [[[viewControllers reverseObjectEnumerator] allObjects] mutableCopy];
 }
 
 - (void)presentViewControllerWithoutLostData {
+    __weak __typeof(self)weakSelf = self;
     UINavigationController *navigationController = [UINavigationController mainNavigationController];
-    if ([navigationController presentedViewController]) {
-        [UIAlertView showWithTitle:WLLS(@"Unsaved photo")
-                           message:WLLS(@"You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?")
-                            cancel:WLLS(@"Cancel")
-                            action:WLLS(@"Continue")
-                        completion:^{
-                            [navigationController dismissViewControllerAnimated:YES completion:nil];
-                            [self present];
-                        }];
+    UIViewController *presentedViewController = [navigationController presentedViewController];
+    if (presentedViewController) {
+        [presentedViewController requestAuthorizationForPresentingEntry:self completion:^(BOOL flag) {
+            if (flag) {
+                [navigationController dismissViewControllerAnimated:YES completion:^{
+                    [weakSelf present];
+                }];
+            }
+        }];
     } else {
         [self present:NO];
     }
+}
+
+- (void)configureViewController:(UIViewController*)controller fromContainingEntry:(WLEntry*)containingEntry {
 }
 
 @end
@@ -235,6 +251,21 @@ static UIWindow* mainWindow = nil;
     if (![controller isKindOfClass:[WLWrapViewController class]]) return NO;
     if ([(WLWrapViewController*)controller wrap] != self) return NO;
     return YES;
+}
+
+@end
+
+@implementation WLComment (WLNavigation)
+
+- (void)configureViewController:(UIViewController *)controller fromContainingEntry:(WLEntry *)containingEntry {
+    if (containingEntry == self.candy) {
+        WLCandyViewController *candyViewController = (WLCandyViewController *)controller;
+        if (candyViewController.isViewLoaded) {
+            [candyViewController showCommentView];
+        } else {
+            candyViewController.showCommentViewController = YES;
+        }
+    }
 }
 
 @end

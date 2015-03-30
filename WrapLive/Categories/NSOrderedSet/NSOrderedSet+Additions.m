@@ -110,7 +110,7 @@
 	return nil;
 }
 
-- (NSOrderedSet *)selectObjects:(SelectBlock)block {
+- (instancetype)selectObjects:(SelectBlock)block {
 	return [self map:^id(id item) {
 		return block(item) ? item : nil;
 	}];
@@ -145,6 +145,17 @@
 	return [self mutate:^(NSMutableOrderedSet *mutableCopy) {
 		[mutableCopy removeObjectsWhileEnumerating:enumerator];
 	}];
+}
+
+- (instancetype)objectsWhere:(NSString *)predicateFormat, ... {
+    va_list args;
+    va_start(args, predicateFormat);
+    va_end(args);
+    if (predicateFormat && ![predicateFormat isKindOfClass:[NSString class]]) {
+        NSString *reason = @"predicate must be an NSString with optional format va_list";
+        [NSException exceptionWithName:@"WLException" reason:reason userInfo:nil];
+    }
+    return [self filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
 }
 
 @end
@@ -230,6 +241,19 @@
 			index++;
 		}
 	}
+}
+
+- (instancetype)removeObjectsWhere:(NSString *)predicateFormat, ... {
+    va_list args;
+    va_start(args, predicateFormat);
+    va_end(args);
+    if (predicateFormat && ![predicateFormat isKindOfClass:[NSString class]]) {
+        NSString *reason = @"predicate must be an NSString with optional format va_list";
+        [NSException exceptionWithName:@"WLException" reason:reason userInfo:nil];
+    }
+    NSOrderedSet *removedObjects = [self filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
+    [self minusOrderedSet:removedObjects];
+    return self;
 }
 
 @end

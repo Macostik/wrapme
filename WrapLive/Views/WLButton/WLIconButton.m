@@ -15,17 +15,17 @@
 
 - (void)setIconColor:(UIColor *)iconColor {
     _iconColor = iconColor;
-    [self enqueueSelectorPerforming:@selector(setup) afterDelay:0.0f];
+    [self setup];
 }
 
 - (void)setIconName:(NSString *)iconName {
     _iconName = iconName;
-    [self enqueueSelectorPerforming:@selector(setup) afterDelay:0.0f];
+    [self setup];
 }
 
 - (void)setIconPreset:(NSString *)iconPreset {
     _iconPreset = iconPreset;
-    [self enqueueSelectorPerforming:@selector(setup) afterDelay:0.0f];
+    [self setup];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame iconName:(NSString *)name iconColor:(UIColor *)color preset:(NSString *)preset {
@@ -57,6 +57,16 @@
             [icon addAttribute:NSForegroundColorAttributeName value:color];
         }
         [self setAttributedTitle:icon.attributedString forState:UIControlStateHighlighted];
+    }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.layer.cornerRadius = self.bounds.size.width/2;
+    self.layer.masksToBounds = _circled;
+    if (_borderWidth) {
+        self.layer.borderWidth = _borderWidth;
+        self.layer.borderColor = _iconColor ? _iconColor.CGColor : [UIColor whiteColor].CGColor;
     }
 }
 

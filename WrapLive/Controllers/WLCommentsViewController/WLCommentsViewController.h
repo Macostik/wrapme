@@ -10,6 +10,6 @@
 
 @interface WLCommentsViewController : WLBaseViewController
 
-@property (strong, nonatomic) WLCandy *candy;
+@property (weak, nonatomic) WLCandy *candy;
 
 @end

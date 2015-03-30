@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 @property (nonatomic) WLEvent event;
 
-@property (strong, nonatomic) WLEntry* targetEntry;
+@property (weak, nonatomic) WLEntry* targetEntry;
 
 @property (readonly, nonatomic) BOOL playSound;
 

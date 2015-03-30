@@ -31,8 +31,8 @@
 }
 
 - (void)setHighlighted:(BOOL)highlighted {
-	[super setHighlighted:highlighted];
-	[self update];
+    [super setHighlighted:highlighted];
+    [self update];
 }
 
 - (void)setSelected:(BOOL)selected {
@@ -162,6 +162,22 @@
 - (CGSize)intrinsicContentSize {
     CGSize intrinsicSize = super.intrinsicContentSize;
     return CGSizeMake(intrinsicSize.width + self.insets.width, intrinsicSize.height + self.insets.height);
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    static CGFloat minTouchSize = 44;
+    CGRect rect = self.bounds;
+    if (rect.size.width < minTouchSize) {
+        CGFloat dx = minTouchSize - rect.size.width;
+        rect.size.width += dx;
+        rect.origin.x -= dx/2;
+    }
+    if (rect.size.height < minTouchSize) {
+        CGFloat dy = minTouchSize - rect.size.height;
+        rect.size.height += dy;
+        rect.origin.y -= dy/2;
+    }
+    return CGRectContainsPoint(rect, point);
 }
 
 @end

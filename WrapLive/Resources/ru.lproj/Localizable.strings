@@ -10,7 +10,7 @@
 "Cannot delete chat message already posted." = "Отправленное сообщение нельзя удалить.";
 "You" = "Вы";
 "Edit wrap" = "Редактирование врапа";
-"Write your comment ..." = "Напишите свой комментарий ...";
+"Write your comment ..." = "Оставьте свой комментарий ...";
 "Delete" = "Удалить";
 "Write your message ..." = "Напишите свое сообщение ...";
 "Chat in %@" = "Чат в %@";
@@ -119,6 +119,11 @@
 "last updated %@" = "последнее обновление %@";
 "Wrap %@ is no longer available." = "Врап %@ больше не доступен.";
 "Posted by %@" = "Разместил %@";
+"Photo by %@" = "Разместил %@";
 "Comment" = "Комментарий";
 "1 comment" = "1 комментарий";
 "%i comments" = "%i комментариев";
+"Data is not valid." = "Данные не валидны.";
+"Sorry you can't chat when internet connection is unavailable. Please try again later." = "К сожалению, Вы не можете отправлять сообщения когда нету интернета. Попробуйте немного позже.";
+"Sorry, you cannot upload more than 10 pictures at a time" = "Извените, Вы не можете загрузить больше 10 фотографий сразу";
+"No internet connections available. Please try downloading it later." = "Интернет не доступен. Попытайтесь скачать позже, пожалуйста.";

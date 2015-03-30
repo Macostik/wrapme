@@ -9,6 +9,9 @@
 #import "WLAuthorizationRequest.h"
 #import "WLWelcomeViewController.h"
 #import "WLNavigation.h"
+#import "WLUploadingQueue.h"
+#import "WLWrapsRequest.h"
+#import "WLOperationQueue.h"
 
 @implementation WLAuthorizationRequest
 
@@ -91,7 +94,7 @@ static BOOL authorized = NO;
     } else if (self.step == WLAuthorizationStepSignIn) {
         if (!authorized) {
             authorized = YES;
-            [WLUploading enqueueAutomaticUploading:^{ }];
+            [WLUploadingQueue start];
         }
         id pageSize = [response.data objectForKey:@"pagination_fetch_size"];
         if (pageSize) {
@@ -103,9 +106,34 @@ static BOOL authorized = NO;
 		WLUser* user = [WLUser API_entry:userData];
         [self.authorization updateWithUserData:userData];
 		[user setCurrent];
+        
+        if (user.firstTimeUse) {
+            [self preloadFirstWrapsWithUser:user];
+        }
+        
 		return user;
     }
     return self.authorization;
+}
+
+- (void)preloadFirstWrapsWithUser:(WLUser*)user {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        runUnaryQueuedOperation(WLOperationFetchingDataQueue,^(WLOperation *operation) {
+            [[WLWrapsRequest request] fresh:^(NSOrderedSet *orderedSet) {
+                NSOrderedSet *wraps = [user sortedWraps];
+                if (wraps.count > 0) {
+                    [wraps enumerateObjectsUsingBlock:^(WLWrap *wrap, NSUInteger idx, BOOL *stop) {
+                        [wrap preload];
+                        if (idx == 2) *stop = YES;
+                    }];
+                }
+                [operation finish];
+            } failure:^(NSError *error) {
+                [operation finish];
+            }];
+        });
+    });
 }
 
 - (void)handleFailure:(NSError *)error {

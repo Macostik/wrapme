@@ -12,6 +12,7 @@
 static NSString *WLMainStoryboard = @"Main";
 static NSString *WLSignUpStoryboard = @"SignUp";
 static NSString *WLCameraStoryboard = @"Camera";
+static NSString *WLIntroductionStoryboard = @"Introduction";
 
 @interface UIStoryboard (WLNavigation)
 
@@ -28,6 +29,8 @@ static NSString *WLCameraStoryboard = @"Camera";
 + (instancetype)instantiateWithIdentifier:(NSString*)identifier storyboard:(UIStoryboard*)storyboard;
 
 + (instancetype)instantiate:(UIStoryboard*)storyboard;
+
+- (void)requestAuthorizationForPresentingEntry:(WLEntry*)entry completion:(WLBooleanBlock)completion;
 
 @end
 
@@ -69,6 +72,8 @@ static NSString *WLCameraStoryboard = @"Camera";
 
 - (BOOL)isValidViewController:(UIViewController*)controller;
 
+- (void)configureViewController:(UIViewController*)controller fromContainingEntry:(WLEntry*)containingEntry;
+
 - (void)present;
 
 - (void)present:(BOOL)animated;
@@ -86,3 +91,5 @@ static NSString *WLCameraStoryboard = @"Camera";
 @interface WLMessage (WLNavigation) @end
 
 @interface WLWrap (WLNavigation) @end
+
+@interface WLComment (WLNavigation) @end

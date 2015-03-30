@@ -17,7 +17,7 @@
 }
 
 - (CGSize)size:(NSIndexPath *)indexPath {
-    int size = (self.collectionView.bounds.size.width - 2.0f)/3.0f;
+    int size = (WLConstants.screenWidth - 2.0f)/3.0f;
     return CGSizeMake(size, size);
 }
 

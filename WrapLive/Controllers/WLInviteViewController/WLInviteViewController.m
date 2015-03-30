@@ -13,14 +13,13 @@
 #import "NSString+Additions.h"
 #import "UIButton+Additions.h"
 #import "NSArray+Additions.h"
-#import "WLPerson.h"
+#import "WLAddressBookPhoneNumber.h"
 #import "WLContributorsRequest.h"
 #import "WLButton.h"
 
 @interface WLInviteViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
-@property (strong, nonatomic) NSMutableArray *contacts;
 @property (weak, nonatomic) IBOutlet UIButton *addUserButton;
 
 @end
@@ -35,34 +34,22 @@
     [self validateAddUserButton];
 }
 
-- (NSMutableArray *)contacts {
-	if (!_contacts) {
-		_contacts = [NSMutableArray new];
-	}
-	return _contacts;
-}
-
 #pragma mark - actions
 
 - (IBAction)addContact:(WLButton *)sender {
     self.view.userInteractionEnabled = NO;
     sender.loading = YES;
-	WLContact * contact = [WLContact new];
+	WLAddressBookRecord * contact = [WLAddressBookRecord new];
 	contact.name = self.userNameTextField.text;
-	WLPerson * person = [WLPerson new];
+	WLAddressBookPhoneNumber * person = [WLAddressBookPhoneNumber new];
 	person.phone = self.phoneNumberTextField.text;
     person.name = self.userNameTextField.text;
-	contact.persons = @[person];
+	contact.phoneNumbers = @[person];
 	__weak typeof(self)weakSelf = self;
     [[WLContributorsRequest request:@[contact]] send:^(id object) {
         sender.loading = NO;
 		if ([object count]) {
-			NSError* error = [weakSelf.delegate inviteViewController:weakSelf didInviteContact:contact];
-            if (error) {
-                [error show];
-            } else {
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-            }
+			[weakSelf.delegate inviteViewController:weakSelf didInviteContact:contact];
 		}
         weakSelf.view.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
@@ -73,7 +60,7 @@
 }
 
 - (void)validateAddUserButton {
-    self.addUserButton.active = self.userNameTextField.text.nonempty && self.phoneNumberTextField.text.length >= WLMinPhoneLenth;
+    self.addUserButton.active = self.userNameTextField.text.nonempty && self.phoneNumberTextField.text.length >= WLAddressBookPhoneNumberMinimumLength;
 }
 
 - (IBAction)textChanged:(UITextField *)sender {

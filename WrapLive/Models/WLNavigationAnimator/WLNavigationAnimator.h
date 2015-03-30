@@ -8,10 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSUInteger, WLNavigationAnimatorPresentationType) {
+    WLNavigationAnimatorPresentationTypeDefault,
+    WLNavigationAnimatorPresentationTypeModal
+};
+
 @interface WLNavigationAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
-@property (nonatomic) BOOL modal;
-
 @property (nonatomic) BOOL presenting;
+
+@end
+
+@interface UIViewController (WLNavigationAnimator)
+
+@property (nonatomic) WLNavigationAnimatorPresentationType animatorPresentationType;
 
 @end

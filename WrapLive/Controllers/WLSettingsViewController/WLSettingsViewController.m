@@ -12,6 +12,8 @@
 #import "WLNavigation.h"
 #import "UIAlertView+Blocks.h"
 #import "NSDate+Formatting.h"
+#import "ALAssetsLibrary+Additions.h"
+#import "WLAuthorizationRequest.h"
 
 @interface WLSettingsViewController ()
 
@@ -29,23 +31,9 @@
 - (IBAction)about:(id)sender {
     NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
     NSString* appName = [info objectForKey:@"CFBundleDisplayName"]?:@"wrapLive";
-    NSString* version = [info objectForKey:(id)kCFBundleVersionKey];
-    NSString *message;
-    if ([WLAPIManager instance].environment.isProduction) {
-        message = [NSString stringWithFormat:WLLS(@"You are using %@ v%@"), appName,version];
-    } else {
-        NSMutableString *_message = [NSMutableString stringWithFormat:WLLS(@"You are using %@ v%@"), appName,version];
-        NSString *sourceFile = [[NSBundle mainBundle] pathForResource:@"WLAPIEnvironmentProduction" ofType:@"plist"];
-        NSDate *lastModif = [[[NSFileManager defaultManager] attributesOfItemAtPath:sourceFile error:NULL] objectForKey:NSFileModificationDate];
-        if (lastModif) {
-            [_message appendFormat:@"\nInstalled %@", [lastModif stringWithFormat:@"MMM d, yyyy h:mm:ss"]];
-        }
-
-#if CI_BUILD_NUMBER > 0
-        [_message appendFormat:WLLS(@"\nJenkins build number %d"), CI_BUILD_NUMBER];
-#endif
-        message = _message;
-    }
+    NSString* version = [info objectForKey:@"CFBundleShortVersionString"];
+    NSString* build = [info objectForKey:(id)kCFBundleVersionKey];
+    NSString *message = [NSString stringWithFormat:WLLS(@"You are using %@\nv%@\nBuild %@"), appName, version, build];
     [UIAlertView showWithMessage:message];
 }
 
@@ -53,6 +41,20 @@
     [UIAlertView showWithTitle:WLLS(@"Sign Out") message:WLLS(@"Are you sure you want to sign out?") action:WLLS(@"YES") cancel:WLLS(@"NO") completion:^{
         [WLSession clear];
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+    }];
+}
+
+- (IBAction)addDemoImages:(id)sender {
+    [ALAssetsLibrary addDemoImages:10];
+}
+
+- (IBAction)cleanCache:(id)sender {
+    [WLUser setCurrentUser:nil];
+    [[WLEntryManager manager] clear];
+    [[WLAuthorization currentAuthorization] signIn:^(WLUser *user) {
+        [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+    } failure:^(NSError *error) {
+        [error show];
     }];
 }
 

@@ -40,6 +40,8 @@ static NSUInteger WLPageSize = 10;
 
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
+- (id)remove:(BOOL)confirm success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (id)fetchIfNeeded:(WLObjectBlock)success failure:(WLFailureBlock)failure;
@@ -59,6 +61,8 @@ static NSUInteger WLPageSize = 10;
 - (id)latestMessage:(WLMessageBlock)success failure:(WLFailureBlock)failure;
 
 - (id)leave:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+
+- (void)preload;
 
 @end
 

@@ -55,22 +55,21 @@
 
 - (void)handleResultForUrl:(NSString*)url block:(void (^)(NSObject <WLImageFetching> *receiver))block {
     [self.urls removeObject:url];
-    NSHashTable *receivers = self.receivers;
-    if (receivers.count == 1) {
-        NSObject <WLImageFetching> *receiver = [receivers anyObject];
+    NSHashTable *receivers = [self.receivers copy];
+    
+    void (^handler)(id) = ^(id receiver) {
         if ([[receiver fetcherTargetUrl:self] isEqualToString:url]) {
             block(receiver);
-            [receivers removeObject:receiver];
+            [self.receivers removeObject:receiver];
         }
+    };
+    
+    if (receivers.count == 1) {
+        handler([receivers anyObject]);
     } else {
-        NSHashTable *discardedReceivers = [NSHashTable weakObjectsHashTable];
-        for (NSObject <WLImageFetching> *receiver in self.receivers) {
-            if ([[receiver fetcherTargetUrl:self] isEqualToString:url]) {
-                block(receiver);
-                [discardedReceivers addObject:receiver];
-            }
+        for (NSObject <WLImageFetching> *receiver in receivers) {
+            handler(receiver);
         }
-        [self.receivers minusHashTable:discardedReceivers];
     }
 }
 

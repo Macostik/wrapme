@@ -22,7 +22,7 @@
 
 - (NSArray*)arrayByReplacingObject:(id)object withObject:(id)replaceObject;
 
-- (id)safeObjectAtIndex:(NSInteger)index;
+- (id)tryObjectAtIndex:(NSInteger)index;
 
 - (NSArray*)arrayByAddingUniqueObjects:(NSArray *)objects equality:(EqualityBlock)equality;
 
@@ -40,11 +40,11 @@
 
 - (NSArray*)arrayByRemovingUniqueObjects:(NSArray*)objects equality:(EqualityBlock)equality;
 
-- (NSArray*)map:(MapBlock)block;
+- (instancetype)map:(MapBlock)block;
 
 - (id)selectObject:(SelectBlock)block;
 
-- (NSArray*)selectObjects:(SelectBlock)block;
+- (instancetype)selectObjects:(SelectBlock)block;
 
 - (NSUInteger)indexOfObjectEqualToObject:(id)object equality:(EqualityBlock)equality;
 
@@ -71,6 +71,8 @@
 - (NSArray*)arrayByRemovingObjectsWhileEnumerating:(SelectBlock)enumerator;
 
 - (instancetype)objectsWhere:(NSString *)predicateFormat, ...;
+
+- (instancetype)arrayWithArray:(NSArray *)array;
 
 @end
 

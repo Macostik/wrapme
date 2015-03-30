@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="32" text="Swipe to see next photo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="LpS-0e-hFu" customClass="WLLabel">
-                    <rect key="frame" x="28" y="54" width="229" height="32"/>
+                    <rect key="frame" x="28" y="64" width="229" height="32"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="ugQ-Sb-22Q"/>
                     </constraints>
@@ -41,7 +41,7 @@
             <constraints>
                 <constraint firstItem="LpS-0e-hFu" firstAttribute="leading" secondItem="kzF-Xz-cLA" secondAttribute="leading" constant="28" id="355-Uj-xzF"/>
                 <constraint firstAttribute="trailing" secondItem="gHY-2V-Myp" secondAttribute="trailing" constant="45" id="L8e-89-Z7W"/>
-                <constraint firstItem="LpS-0e-hFu" firstAttribute="top" secondItem="kzF-Xz-cLA" secondAttribute="top" constant="54" id="Rzp-lg-76L"/>
+                <constraint firstItem="LpS-0e-hFu" firstAttribute="top" secondItem="kzF-Xz-cLA" secondAttribute="top" constant="64" id="Rzp-lg-76L"/>
                 <constraint firstAttribute="centerY" secondItem="gHY-2V-Myp" secondAttribute="centerY" id="flK-2t-Yn5"/>
             </constraints>
             <userDefinedRuntimeAttributes>
@@ -70,7 +70,7 @@
         </swipeGestureRecognizer>
     </objects>
     <resources>
-        <image name="candy_screen_pic_hand_swipe" width="178" height="194"/>
+        <image name="candy_screen_pic_hand_swipe" width="119" height="192"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

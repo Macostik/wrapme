@@ -46,7 +46,7 @@
 	}];
 }
 
-- (id)safeObjectAtIndex:(NSInteger)index {
+- (id)tryObjectAtIndex:(NSInteger)index {
 	return [self containsIndex:index] ? self[index] : nil;
 }
 
@@ -94,13 +94,13 @@
 	}];
 }
 
-- (NSArray *)map:(MapBlock)block {
+- (instancetype)map:(MapBlock)block {
 	NSMutableArray *result = [NSMutableArray array];
 	for (id element in self) {
 		id newElement = block(element);
 		if (newElement != nil) [result addObject:newElement];
 	}
-	return [NSArray arrayWithArray:result];
+    return [self arrayWithArray:result];
 }
 
 - (id)selectObject:(SelectBlock)block {
@@ -112,7 +112,7 @@
 	return nil;
 }
 
-- (NSArray *)selectObjects:(SelectBlock)block {
+- (instancetype)selectObjects:(SelectBlock)block {
 	return [self map:^id(id item) {
 		return block(item) ? item : nil;
 	}];
@@ -208,6 +208,10 @@
         [NSException exceptionWithName:@"WLException" reason:reason userInfo:nil];
     }
     return [self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
+}
+
+- (instancetype)arrayWithArray:(NSArray *)array {
+    return [NSArray arrayWithArray:array];
 }
 
 @end
@@ -355,6 +359,10 @@
 			index++;
 		}
 	}
+}
+
+- (instancetype)arrayWithArray:(NSArray *)array {
+    return [NSMutableArray arrayWithArray:array];
 }
 
 @end

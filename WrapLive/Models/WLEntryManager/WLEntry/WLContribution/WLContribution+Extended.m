@@ -70,10 +70,6 @@
                        small:[dictionary stringForKey:WLContributorSmallAvatarKey]];
 }
 
-- (BOOL)shouldStartUploadingAutomatically {
-    return NO;
-}
-
 - (BOOL)canBeUploaded {
     return YES;
 }

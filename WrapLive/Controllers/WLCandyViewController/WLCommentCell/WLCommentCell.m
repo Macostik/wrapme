@@ -21,21 +21,21 @@
 #import "WLEntryManager.h"
 #import "WLMenu.h"
 #import "NSString+Additions.h"
-#import "WLProgressBar+WLContribution.h"
 #import "WLNetwork.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
 #import "UIColor+CustomColors.h"
 #import "TTTAttributedLabel.h"
 #import "UIImage+Drawing.h"
+#import "WLTextView.h"
 
-@interface WLCommentCell () <TTTAttributedLabelDelegate>
+
+@interface WLCommentCell ()
 
 @property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) WLProgressBar *progressBar;
-@property (weak, nonatomic) IBOutlet TTTAttributedLabel *textLabel;
+@property (weak, nonatomic) IBOutlet WLTextView *commenttextView;
 
 @end
 
@@ -45,6 +45,7 @@
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
     self.layer.geometryFlipped = YES;
+    self.commenttextView.textContainerInset = UIEdgeInsetsZero;
     
     [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
@@ -66,50 +67,16 @@
             [WLToast showWithMessage:WLLS(@"Cannot delete comment not posted by you.")];
         }
     }];
-    self.textLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
-}
-
-- (void)setEntry:(id)entry {
-    if (self.entry != entry) {
-        self.progressBar = nil;
-    }
-    [super setEntry:entry];
 }
 
 - (void)setup:(WLComment *)entry {
 	self.userInteractionEnabled = YES;
+    [[WLEntryManager manager].context processPendingChanges];
     if (entry.unread) entry.unread = NO;
 	self.authorNameLabel.text = entry.contributor.name;
-    self.textLabel.text = entry.text;
+    [self.commenttextView determineHyperLink:entry.text];
 	self.authorImageView.url = entry.contributor.picture.small;
     self.dateLabel.text = entry.createdAt.timeAgoString;
-    
-    if (entry.status != WLContributionStatusUploaded) {
-        WLUploadingData* uploadingData = entry.uploading.data;
-        WLProgressBar* progressBar = (id)uploadingData.progressBar;
-        if (!progressBar) {
-            uploadingData.progressBar = progressBar = [[WLProgressBar alloc] initWithFrame:self.authorImageView.frame];
-        }
-        self.progressBar = progressBar;
-    }
-}
-
-- (void)setProgressBar:(WLProgressBar *)progressBar {
-    if (progressBar != _progressBar) {
-        [_progressBar removeFromSuperview];
-        if (progressBar) {
-            [self.authorImageView.superview addSubview:progressBar];
-        }
-        _progressBar = progressBar;
-    }
-}
-
-#pragma mark - TTTAttributedLabelDelegate
-
-- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
-    if ([[UIApplication sharedApplication] canOpenURL:url]) {
-        [[UIApplication sharedApplication] openURL:url];
-    }
 }
 
 @end

@@ -27,7 +27,11 @@
 #import "WLHomeViewController.h"
 #import "iVersion.h"
 #import "WLLaunchScreenViewController.h"
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
+#import "WLSignupFlowViewController.h"
+#import "WLUploadingQueue.h"
+#import "GAI.h"
+#import <NewRelicAgent/NewRelic.h>
 
 @interface WLAppDelegate () <iVersionDelegate>
 
@@ -67,19 +71,21 @@
 }
 
 - (void)initializeCrashlyticsAndLogging {
+    
     [LELog sharedInstance].token = @"e9e259b1-98e6-41b5-b530-d89d1f5af01d";
+    
     run_release(^{
-        [Crashlytics startWithAPIKey:@"69a3b8800317dbff68b803e0aea860a48c73d998"];
-        
-        void (^notificationBlock) (NSNotification *n) = ^ (NSNotification *n) {
-            [Crashlytics setIntValue:[UIApplication sharedApplication].applicationState forKey:@"applicationState"];
-        };
-        
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:nil usingBlock:notificationBlock];
-        [center addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:nil usingBlock:notificationBlock];
-        [center addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:nil usingBlock:notificationBlock];
-        [center addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:notificationBlock];
+        WLAPIEnvironment *environment = [WLAPIManager manager].environment;
+        if ([environment.name isEqualToString:WLAPIEnvironmentProduction]) {
+            [NewRelicAgent enableCrashReporting:YES];
+            [NewRelicAgent startWithApplicationToken:@"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8"];
+            [[GAI sharedInstance] trackerWithTrackingId:@"UA-60538241-1"];
+        } else if ([environment.name isEqualToString:WLAPIEnvironmentDevelopment]) {
+            [NewRelicAgent startWithApplicationToken:@"AA55a96d2575ba2f5c16268eb56c94e91264d5236b"];
+        } else {
+            [NewRelicAgent enableCrashReporting:YES];
+            [NewRelicAgent startWithApplicationToken:@"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c"];
+        }
     });
 }
 
@@ -105,13 +111,23 @@
     }
     [WLSession setCurrentAppVersion];
     
+    void (^successBlock) (WLUser *user) = ^(WLUser *user) {
+        if (user.isSignupCompleted) {
+            [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+        } else {
+            UINavigationController *signupNavigationController = [[UIStoryboard storyboardNamed:WLSignUpStoryboard] instantiateInitialViewController];
+            WLSignupFlowViewController *signupFlowViewController = [WLSignupFlowViewController instantiate:signupNavigationController.storyboard];
+            signupFlowViewController.registrationNotCompleted = YES;
+            signupNavigationController.viewControllers = @[signupFlowViewController];
+            [UIWindow mainWindow].rootViewController = signupNavigationController;
+        }
+    };
+    
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
     if ([authorization canAuthorize]) {
-        [authorization signIn:^(WLUser *user) {
-            [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
-        } failure:^(NSError *error) {
+        [authorization signIn:successBlock failure:^(NSError *error) {
             if ([error isNetworkError]) {
-                [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+                successBlock([WLUser currentUser]);
             } else {
                 [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
             }
@@ -122,7 +138,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [WLUploading enqueueAutomaticUploading];
+    [WLUploadingQueue start];
 }
 
 
@@ -151,9 +167,7 @@
         return;
     }
     
-    NSOperationQueue *queue = [NSOperationQueue queueWithIdentifier:@"background_fetch"];
-    
-    [queue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+    runDefaultQueuedOperations (@"background_fetch", ^(WLOperation *operation) {
         [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
             if (hasChanges) {
                 UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
@@ -168,15 +182,13 @@
                 completionHandler(hasChanges ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
             }];
         }];
-    }];
-    
-    [queue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
-        [WLUploading enqueueAutomaticUploading:^{
+    }, ^(WLOperation *operation) {
+        [WLUploadingQueue start:^{
             [operation finish:^{
                 completionHandler(UIBackgroundFetchResultNoData);
             }];
         }];
-    }];
+    }, nil);
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {

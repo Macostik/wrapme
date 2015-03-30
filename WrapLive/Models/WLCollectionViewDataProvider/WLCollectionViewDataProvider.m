@@ -8,7 +8,7 @@
 //
 
 #import "WLCollectionViewDataProvider.h"
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 #import "UIView+Shorthand.h"
 #import "UIScrollView+Additions.h"
 
@@ -96,9 +96,8 @@
 }
 
 - (void)refresh:(WLRefresher*)sender {
-    NSOperationQueue *refreshingQueue = [[NSOperationQueue alloc] init];
     for (WLCollectionViewSection* section in _sections) {
-        [refreshingQueue addAsynchronousOperationWithBlock:^(AsynchronousOperation *operation) {
+        runQueuedOperation(@"wl_refreshing_queue", 3, ^(WLOperation *operation) {
             [section refresh:^(NSOrderedSet *orderedSet) {
                 [operation finish:^{
                     [sender setRefreshing:NO animated:YES];
@@ -109,7 +108,7 @@
                     [error showIgnoringNetworkError];
                 }];
             }];
-        }];
+        });
     }
 }
 

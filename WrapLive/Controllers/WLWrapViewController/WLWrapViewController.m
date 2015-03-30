@@ -53,35 +53,36 @@
 #import "WLCreateWrapViewController.h"
 #import "WLPickerViewController.h"
 #import "UIFont+CustomFonts.h"
-
-typedef NS_ENUM(NSUInteger, WLWrapViewMode) {
-    WLWrapViewModeTimeline,
-    WLWrapViewModeHistory
-};
-
-static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
+#import "WLHintView.h"
+#import "WLNetwork.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIButton *viewButton;
 
 @property (strong, nonatomic) WLHistory *history;
 
-@property (nonatomic) WLWrapViewMode mode;
-
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCandiesHistoryViewSection *historyViewSection;
-@property (strong, nonatomic) IBOutlet WLTimelineViewDataProvider *timelineDataProvider;
 @property (weak, nonatomic) IBOutlet UIButton *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightViewConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *inviteButton;
 
 @end
 
 @implementation WLWrapViewController
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        [[WLWrap notifier] addReceiver:self];
+        [[WLCandy notifier] addReceiver:self];
+        [[WLMessage notifier] addReceiver:self];
+        [[WLNetwork network] addReceiver:self];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     
@@ -98,57 +99,41 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     }
     
     // force set hostory mode to remove timeline from UI but keep it in code
-    self.mode = WLWrapViewModeHistory;
     
     self.history = [WLHistory historyWithWrap:self.wrap];
     self.historyViewSection.entries = self.history;
-    self.timelineDataProvider.timeline = [WLTimeline timelineWithWrap:self.wrap];
     
     [self.dataProvider setRefreshableWithStyle:WLRefresherStyleOrange];
-    
-    [[WLWrap notifier] addReceiver:self];
-	[[WLCandy notifier] addReceiver:self];
-	[[WLMessage notifier] addReceiver:self];
     
     [self.historyViewSection setSelection:^ (id entry) {
         [entry present];
     }];
-    self.timelineDataProvider.selection = self.historyViewSection.selection;
     
     [self firstLoadRequest];
     
-    self.dataProvider.animatableConstraints = self.timelineDataProvider.animatableConstraints;
-    if (![self placeholderVisibleForType:self.mode]) {
+    if (self.wrap.candies.nonempty) {
         [self dropDownCollectionView];
     }
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    UIEdgeInsets inset = self.collectionView.contentInset;
+    inset.top = self.contributorsLabel.superview.height;
+    self.collectionView.contentInset = inset;
 }
 
 - (void)updateWrapData {
     [self.nameLabel setTitle:WLString(self.wrap.name) forState:UIControlStateNormal];
     self.contributorsLabel.text = [self.wrap contributorNames];
-    CGFloat height = [self.contributorsLabel.text heightWithFont:self.contributorsLabel.font width:self.contributorsLabel.width];
-    self.heightViewConstraint.constant = height + self.contributorsLabel.y * 2;
-    [self.contributorsLabel.superview layoutIfNeeded];
-    UIEdgeInsets inset = self.collectionView.contentInset;
-    inset.top = self.contributorsLabel.superview.height + self.nameLabel.superview.height;
-    self.collectionView.contentInset = inset;
 }
 
 - (void)firstLoadRequest {
-    __weak typeof(self)weakSelf = self;
-    WLWrapRequest* wrapRequest = [WLWrapRequest request:self.wrap];
-    wrapRequest.contentType = WLWrapContentTypePaginated;
-    wrapRequest.type = [self.history.entries count] > 10 ? WLPaginatedRequestTypeNewer : WLPaginatedRequestTypeFresh;
-    wrapRequest.newer = [[self.history.entries firstObject] date];
-    [wrapRequest send:^(NSOrderedSet *orderedSet) {
-        [weakSelf reloadData];
-        if (weakSelf.mode == WLWrapViewModeTimeline && !weakSelf.timelineDataProvider.timeline.entries.nonempty) {
-            [weakSelf changeMode:WLWrapViewModeHistory];
-            [weakSelf dropDownCollectionView];
-        }
-    } failure:^(NSError *error) {
-        [error showIgnoringNetworkError];
-    }];
+    if (self.history.entries.count > WLPageSize) {
+        [self.history newer:nil failure:nil];
+    } else {
+        [self.history fresh:nil failure:nil];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -167,14 +152,13 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
             [weakSelf.navigationController popViewControllerAnimated:YES];
         });
     }
+    if ([self.wrap isFirstCreated]) {
+        [WLHintView showInviteHintViewInView:[UIWindow mainWindow] withFocusToView:self.inviteButton];
+    }
 }
 
 - (void)updateNotificationCouter {
     self.messageCountLabel.intValue = [self.wrap unreadNotificationsMessageCount];
-}
-
-- (void)reloadData {
-    [self.history resetEntries:self.wrap.candies];
 }
 
 - (UIViewController *)shakePresentedViewController {
@@ -183,9 +167,10 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     controller.wrap = self.wrap;
     controller.delegate = self;
     controller.mode = WLStillPictureModeDefault;
-    
 	return controller;
 }
+
+// MARK: - User Actions
 
 - (IBAction)editWrapClick:(id)sender {
     WLEditWrapViewController* editWrapViewController = [WLEditWrapViewController new];
@@ -193,15 +178,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [self presentViewController:editWrapViewController animated:YES completion:nil];
 }
 
-- (BOOL)placeholderVisibleForType:(NSUInteger)type {
-    if (type == WLWrapViewModeTimeline) {
-        return !self.timelineDataProvider.timeline.entries.nonempty;
-    } else {
-        return !self.wrap.candies.nonempty;
-    }
-}
-
-#pragma mark - WLEntryNotifyReceiver
+// MARK: - WLEntryNotifyReceiver
 
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
 	return self.wrap;
@@ -225,39 +202,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [self updateNotificationCouter];
 }
 
-#pragma mark - User Actions
-
-- (void)setMode:(WLWrapViewMode)mode {
-    _mode = mode;
-    if (mode == WLWrapViewModeTimeline) {
-        [self.timelineDataProvider connect];
-    } else {
-        [self.dataProvider connect];
-    }
-    self.viewButton.selected = mode == WLWrapViewModeHistory;
-}
-
-- (IBAction)viewChanged:(UIButton*)sender {
-    [self dropUpCollectionView];
-    [self changeMode:sender.selected ? WLWrapViewModeTimeline : WLWrapViewModeHistory];
-}
-
-- (void)changeMode:(WLWrapViewMode)mode {
-    if (_mode != mode) {
-        self.mode = mode;
-        if (mode == WLWrapViewModeTimeline) {
-            [self.timelineDataProvider.timeline update];
-        } else {
-            [self.history addEntries:self.wrap.candies];
-        }
-        [WLSession setInteger:self.mode key:WLWrapViewDefaultModeKey];
-        self.historyViewSection.completed = NO;
-        [self.collectionView setMinimumContentOffsetAnimated:YES];
-        [self.dataProvider reload];
-    }
-}
-
-#pragma mark - WLStillPictureViewControllerDelegate
+// MARK: - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     WLWrap* wrap = controller.wrap ? : self.wrap;
@@ -278,7 +223,7 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [controller presentViewController:pickerViewController animated:YES completion:nil];
 }
 
-#pragma mark - WLPickerViewDelegate
+// MARK: - WLPickerViewDelegate
 
 - (void)pickerViewControllerNewWrapClicked:(WLPickerViewController *)pickerViewController {
     WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
@@ -304,22 +249,20 @@ static NSString* WLWrapViewDefaultModeKey = @"WLWrapViewDefaultModeKey";
     [pickerViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - Custom animation
-
-- (void)dropUpCollectionView {
-    if (self.wrap.candies.nonempty) {
-        [self.collectionView revealFrom:kCATransitionFromTop withDuration:1 delegate:nil];
-    }
-}
+// MARK: - Custom animation
 
 - (void)dropDownCollectionView {
-    if (self.wrap.candies.nonempty) {
-        self.collectionView.transform = CGAffineTransformMakeTranslation(0, -self.view.height);
-        [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
-            self.collectionView.transform = CGAffineTransformIdentity;
-        } completion:^(BOOL finished) {
-        }];
-    }
+    self.collectionView.transform = CGAffineTransformMakeTranslation(0, -self.view.height);
+    [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
+        self.collectionView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+    }];
+}
+
+// MARK: - WLNetwork
+
+- (void)networkDidChangeReachability:(WLNetwork *)network {
+    [self.historyViewSection reload];
 }
 
 @end

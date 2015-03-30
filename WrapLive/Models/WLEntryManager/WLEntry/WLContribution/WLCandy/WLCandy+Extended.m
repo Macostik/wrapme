@@ -13,6 +13,8 @@
 #import "WLImageCache.h"
 #import "UIImage+Drawing.h"
 #import "WLImageFetcher.h"
+#import "WLUploadingQueue.h"
+#import "NSError+WLAPIManager.h"
 
 @implementation WLCandy (Extended)
 
@@ -41,6 +43,7 @@
         comments = [NSMutableOrderedSet orderedSetWithCapacity:[commentsArray count]];
         self.comments = comments;
     }
+    [comments removeObjectsWhere:@"isFirst == YES"];
     [WLComment API_entries:commentsArray relatedEntry:self container:comments];
     if (comments.nonempty && [comments sortByCreatedAt:NO]) {
         self.comments = comments;
@@ -87,6 +90,7 @@
 
 - (void)addComment:(WLComment *)comment {
     NSMutableOrderedSet* comments = self.comments;
+    self.commentCount++;
     if (!comment || [comments containsObject:comment]) {
         if ([comments sortByCreatedAt:NO]) {
             self.comments = comments;
@@ -94,7 +98,6 @@
         return;
     }
     comment.candy = self;
-    self.commentCount++;
     [comments addObject:comment comparator:comparatorByCreatedAt descending:NO];
     [self touch];
     [comment notifyOnAddition];
@@ -104,16 +107,17 @@
     NSMutableOrderedSet* comments = self.comments;
     if ([comments containsObject:comment]) {
         [comments removeObject:comment];
+        if (self.commentCount > 0)  self.commentCount--;
         self.comments = comments;
     }
 }
 
 - (void)uploadComment:(NSString *)text success:(WLCommentBlock)success failure:(WLFailureBlock)failure {
     WLComment* comment = [WLComment comment:text];
-    [self addComment:comment];
     WLUploading* uploading = [WLUploading uploading:comment];
+    [self addComment:comment];
     run_after(0.3f,^{
-        [uploading upload:success failure:failure];
+        [WLUploadingQueue upload:uploading success:success failure:failure];
     });
 }
 
@@ -135,22 +139,21 @@
     }
 }
 
-- (void)enqueueUnuploadedComments {
-    [self.comments enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WLComment* comment, NSUInteger idx, BOOL *stop) {
-        if (comment.status == WLContributionStatusReady) {
-            [WLUploading enqueueAutomaticUploading];
-            *stop = YES;
-        }
-    }];
-}
-
 - (void)download:(WLBlock)success failure:(WLFailureBlock)failure {
     
     [self setDownloadSuccessBlock:^(UIImage *image) {
         [image save:nil completion:success failure:failure];
     }];
-    
-    [self setDownloadFailureBlock:failure];
+   
+    [self setDownloadFailureBlock:^(NSError *error) {
+        if (error.isNetworkError) {
+            error = [NSError errorWithDescription:
+                     WLLS(@"No internet connections available. Please try downloading it later.")];
+        }
+        if (failure) {
+            failure(error);
+        }
+    }];
     
     [[WLImageFetcher fetcher] addReceiver:self];
     [[WLImageFetcher fetcher] enqueueImageWithUrl:self.picture.original];
@@ -176,6 +179,13 @@
         self.downloadFailureBlock = nil;
     }
     self.downloadSuccessBlock = nil;
+}
+
+- (NSMutableOrderedSet *)sortedComments {
+    NSMutableOrderedSet* comments = self.comments;
+    [comments sortByCreatedAt];
+
+    return comments;
 }
 
 @end

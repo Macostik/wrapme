@@ -57,7 +57,6 @@
 #pragma mark - UIKit interface
 
 @property (weak, nonatomic) IBOutlet UIView *cropAreaView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topWrapViewConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *unauthorizedStatusView;
 @property (weak, nonatomic) IBOutlet WLCameraView *cameraView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -221,6 +220,7 @@
 	}
 	[session commitConfiguration];
 	self.flashModeControl.hidden = !self.input.device.hasFlash;
+    self.connection = nil;
 	[self applyDeviceOrientation:[UIDevice currentDevice].orientation];
 }
 
@@ -282,7 +282,9 @@
 - (void)captureImage:(void (^)(UIImage*image, NSMutableDictionary* metadata))completion {
 #if TARGET_IPHONE_SIMULATOR
 	run_getting_object(^id{
-		NSString* url = url = @"http://placeimg.com/720/720/any";
+        CGSize size = CGSizeMake(720, 720);
+        size = [UIScreen mainScreen].bounds.size;
+		NSString* url = url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
 		return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
 	}, ^ (UIImage* image) {
 		completion(image, nil);
@@ -301,6 +303,7 @@
 		completion(image, metadata);
 	};
     AVCaptureConnection *connection = self.connection;
+    [self applyDeviceOrientation:[UIDevice currentDevice].orientation forConnection:connection];
 	connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
     [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
 }
@@ -437,7 +440,6 @@
         }
     }
     
-//	self.cameraView.layer.affineTransform = CGAffineTransformMakeScale(_zoomScale, _zoomScale);
 	[self showZoomLabel];
 }
 
@@ -457,15 +459,19 @@
 }
 
 - (void)applyDeviceOrientation:(UIDeviceOrientation)orientation {
-	if (orientation == UIDeviceOrientationLandscapeLeft) {
-		self.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
-	} else if (orientation == UIDeviceOrientationLandscapeRight) {
-		self.connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
-	} else if (orientation == UIDeviceOrientationPortrait) {
-		self.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
-	} else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
-		self.connection.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
-	}
+    [self applyDeviceOrientation:orientation forConnection:self.connection];
+}
+
+- (void)applyDeviceOrientation:(UIDeviceOrientation)orientation forConnection:(AVCaptureConnection*)connection {
+    if (orientation == UIDeviceOrientationLandscapeLeft) {
+        connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+    } else if (orientation == UIDeviceOrientationLandscapeRight) {
+        connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+    } else if (orientation == UIDeviceOrientationPortrait) {
+        connection.videoOrientation = AVCaptureVideoOrientationPortrait;
+    } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
+        connection.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
+    }
 }
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver

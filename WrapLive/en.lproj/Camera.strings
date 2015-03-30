@@ -1,0 +1,36 @@
+
+/* Class = "IBUILabel"; text = "Photos"; ObjectID = "6BU-Ee-6ek"; */
+"6BU-Ee-6ek.text" = "Photos";
+
+/* Class = "IBUILabel"; text = "Add a comment..."; ObjectID = "CtH-sR-dzA"; */
+"CtH-sR-dzA.text" = "Add a comment...";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "DHt-ol-7Ct"; */
+"DHt-ol-7Ct.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "HfH-Bq-DQ2"; */
+"HfH-Bq-DQ2.text" = "Label";
+
+/* Class = "IBUILabel"; text = "To allow access to the camera go to the Settings → Privacy → Camera"; ObjectID = "Jwv-dz-I8C"; */
+"Jwv-dz-I8C.text" = "To allow access to the camera go to the Settings → Privacy → Camera";
+
+/* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "N3t-xp-O3A"; */
+"N3t-xp-O3A.normalTitle" = "Done";
+
+/* Class = "IBUILabel"; text = "To allow access to the photos go to the Settings → Privacy → Photos"; ObjectID = "bvQ-XE-Vmc"; */
+"bvQ-XE-Vmc.text" = "To allow access to the photos go to the Settings → Privacy → Photos";
+
+/* Class = "IBUILabel"; text = "Photos"; ObjectID = "dGM-vI-GSH"; */
+"dGM-vI-GSH.text" = "Photos";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "dM8-hb-sBn"; */
+"dM8-hb-sBn.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "kFf-Hj-CxU"; */
+"kFf-Hj-CxU.text" = "Label";
+
+/* Class = "IBUILabel"; text = "0"; ObjectID = "ovx-WR-Sdy"; */
+"ovx-WR-Sdy.text" = "0";
+
+/* Class = "IBUILabel"; text = "8x"; ObjectID = "q4z-2J-r1c"; */
+"q4z-2J-r1c.text" = "8x";

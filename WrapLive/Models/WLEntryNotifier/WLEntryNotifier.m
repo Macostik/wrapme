@@ -9,14 +9,29 @@
 #import "WLEntryNotifier.h"
 #import "WLEntryManager.h"
 #import "NSDate+Additions.h"
+#import "WLOperationQueue.h"
 
 @interface WLEntryNotifier ()
 
 @property (strong, nonatomic) WLBroadcastSelectReceiver selectBlock;
 
+@property (nonatomic) BOOL batchUpdating;
+
+@property (strong, nonatomic) NSMutableArray* batchUpdatesNotifies;
+
 @end
 
 @implementation WLEntryNotifier
+
++ (void)initialize {
+    WLOperationQueue *queue = [WLOperationQueue queueNamed:WLOperationFetchingDataQueue];
+    [queue setStartQueueBlock:^{
+        [self beginBatchUpdates];
+    }];
+    [queue setFinishQueueBlock:^{
+        [self commitBatchUpdates];
+    }];
+}
 
 + (instancetype)notifier {
     static id instance = nil;
@@ -27,8 +42,9 @@
     return instance;
 }
 
+static NSMapTable* notifiers = nil;
+
 + (instancetype)notifier:(Class)entryClass {
-	static NSMapTable* notifiers = nil;
 	if (!notifiers) notifiers = [NSMapTable strongToStrongObjectsMapTable];
 	WLEntryNotifier *notifier = [notifiers objectForKey:entryClass];
 	if (!notifier) {
@@ -61,16 +77,76 @@
     return self;
 }
 
++ (void)beginBatchUpdates {
+    WLEntryNotifier *notifier = nil;
+    NSEnumerator *enumerator = [notifiers objectEnumerator];
+    while (notifier = [enumerator nextObject]) {
+        [notifier beginBatchUpdates];
+    }
+}
+
++ (void)commitBatchUpdates {
+    WLEntryNotifier *notifier = nil;
+    NSEnumerator *enumerator = [notifiers objectEnumerator];
+    while (notifier = [enumerator nextObject]) {
+        [notifier commitBatchUpdates];
+    }
+}
+
+- (void)beginBatchUpdates {
+    self.batchUpdating = YES;
+}
+
+- (void)commitBatchUpdates {
+    self.batchUpdating = NO;
+    NSMutableArray *notifies = self.batchUpdatesNotifies;
+    if (notifies.count > 0) {
+        for (NSDictionary *notify in notifies) {
+            WLEntry *entry = notify[@"entry"];
+            NSString *selector = notify[@"selector"];
+            [self broadcast:NSSelectorFromString(selector) object:entry select:self.selectBlock];
+        }
+        [notifies removeAllObjects];
+    }
+}
+
+- (void)addBatchUpdatesNotify:(SEL)selector entry:(WLEntry*)entry {
+    NSMutableArray *notifies = self.batchUpdatesNotifies;
+    if (!notifies) {
+        notifies = self.batchUpdatesNotifies = [NSMutableArray array];
+    }
+    NSString *selectorString = NSStringFromSelector(selector);
+    for (NSDictionary *notify in notifies) {
+        if (notify[@"entry"] == entry && [notify[@"selector"] isEqualToString:selectorString]) {
+            [notifies removeObject:notify];
+            break;
+        }
+    }
+    [notifies addObject:@{@"entry":entry,@"selector":selectorString}];
+}
+
 - (void)notifyOnAddition:(WLEntry *)entry {
-	[self broadcast:entry.notifyOnAdditionSelector object:entry select:self.selectBlock];
+    if (self.batchUpdating) {
+        [self addBatchUpdatesNotify:entry.notifyOnAdditionSelector entry:entry];
+    } else {
+        [self broadcast:entry.notifyOnAdditionSelector object:entry select:self.selectBlock];
+    }
 }
 
 - (void)notifyOnUpdate:(WLEntry *)entry {
-	[self broadcast:entry.notifyOnUpdateSelector object:entry select:self.selectBlock];
+    if (self.batchUpdating) {
+        [self addBatchUpdatesNotify:entry.notifyOnUpdateSelector entry:entry];
+    } else {
+        [self broadcast:entry.notifyOnUpdateSelector object:entry select:self.selectBlock];
+    }
 }
 
 - (void)notifyOnDeleting:(WLEntry *)entry {
-	[self broadcast:entry.notifyOnDeletingSelector object:entry select:self.selectBlock];
+    if (self.batchUpdating) {
+        [self addBatchUpdatesNotify:entry.notifyOnDeletingSelector entry:entry];
+    } else {
+        [self broadcast:entry.notifyOnDeletingSelector object:entry select:self.selectBlock];
+    }
 }
 
 @end

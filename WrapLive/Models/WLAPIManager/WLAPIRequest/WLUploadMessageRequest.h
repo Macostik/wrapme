@@ -10,7 +10,7 @@
 
 @interface WLUploadMessageRequest : WLAPIRequest
 
-@property (strong, nonatomic) WLMessage* message;
+@property (weak, nonatomic) WLMessage* message;
 
 + (instancetype)request:(WLMessage*)message;
 

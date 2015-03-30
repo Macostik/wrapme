@@ -6,13 +6,36 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "WLBroadcaster.h"
+#import "WLAddressBookRecord.h"
+#import "WLAddressBookPhoneNumber.h"
 
 @class WLPicture;
+@class WLAddressBook;
 
-static NSInteger WLMinPhoneLenth = 6;
+@protocol WLAddressBookReceiver <NSObject>
 
-@interface WLAddressBook : NSObject
+@optional
+- (void)addressBook:(WLAddressBook*)addressBook didUpdateCachedRecords:(NSArray*)cachedRecords;
+
+@end
+
+
+@interface WLAddressBook : WLBroadcaster
+
++ (instancetype)addressBook;
+
+- (BOOL)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+- (void)records:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+- (void)beginCaching;
+
+- (void)endCaching;
+
+- (void)updateCachedRecords;
+
+- (void)updateCachedRecordsAfterFailure;
 
 /**
  *  Get the list of records from Address Book.
@@ -21,20 +44,6 @@ static NSInteger WLMinPhoneLenth = 6;
  *  @param success block for successful completion
  *  @param failure block for failed completion
  */
-+ (void)contacts:(WLArrayBlock)success failure:(WLFailureBlock)failure;
-
-@end
-
-@interface WLContact : NSObject
-
-@property (strong, nonatomic) NSString *name;
-
-@property (strong, nonatomic) NSArray *persons;
-
-@end
-
-@interface NSString (WLAddressBook)
-
-@property (nonatomic, strong) NSString *label;
+- (void)contacts:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 @end

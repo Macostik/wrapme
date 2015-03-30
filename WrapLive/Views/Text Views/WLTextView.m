@@ -13,7 +13,7 @@
 
 @interface WLTextView ()
 
-@property (weak, nonatomic) UILabel* placeholderLabel;
+@property (weak, nonatomic) IBOutlet UILabel* placeholderLabel;
 
 @end
 
@@ -25,6 +25,11 @@
                                              selector:@selector(textDidChange)
                                                  name:UITextViewTextDidChangeNotification
                                                object:self];
+}
+
+- (void)setHidden:(BOOL)hidden {
+    [super setHidden:hidden];
+    self.placeholderLabel.hidden = hidden;
 }
 
 - (void)dealloc {

@@ -15,9 +15,7 @@
 
 @end
 
-@implementation WLBroadcaster {
-    BOOL broadcasting;
-}
+@implementation WLBroadcaster
 
 + (instancetype)broadcaster {
     return nil;
@@ -48,23 +46,32 @@
 }
 
 - (void)addReceiver:(id)receiver {
-    if (!broadcasting) {
-        [self.receivers addObject:receiver];
-    } else {
-        [self.receivers performSelector:@selector(addObject:) withObject:receiver afterDelay:0.0f];
-    }
+    [self.receivers addObject:receiver];
 }
 
 - (void)removeReceiver:(id)receiver {
-    if (!broadcasting) {
-        [self.receivers removeObject:receiver];
-    } else {
-        [self.receivers performSelector:@selector(removeObject:) withObject:receiver afterDelay:0.0f];
-    }
+    [self.receivers removeObject:receiver];
 }
 
 - (BOOL)containsReceiver:(id)receiver {
 	return [self.receivers containsObject:receiver];
+}
+
+- (NSArray *)sortedReceivers {
+    
+    NSComparator comparator = ^NSComparisonResult(id <WLBroadcastReceiver> obj1, id <WLBroadcastReceiver> obj2) {
+        NSNumber *first = @(0);
+        NSNumber *second = first;
+        if ([obj1 respondsToSelector:@selector(peferedOrderEntry:)]) {
+            first = [obj1 peferedOrderEntry:self];
+        }
+        if ([obj2 respondsToSelector:@selector(peferedOrderEntry:)]) {
+            second = [obj2 peferedOrderEntry:self];
+        }
+        return [first compare:second];
+    };
+    
+    return [[self.receivers allObjects] sortedArrayUsingComparator:comparator];
 }
 
 - (void)broadcast:(SEL)selector object:(id)object {
@@ -72,16 +79,15 @@
 }
 
 - (void)broadcast:(SEL)selector object:(id)object select:(WLBroadcastSelectReceiver)select {
-    broadcasting = YES;
-    for (id receiver in self.receivers) {
-        if ((select ? select(receiver, object) : YES) && [receiver respondsToSelector:selector]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    NSArray *receivers = [self sortedReceivers];
+    for (id receiver in receivers) {
+        if ((select ? select(receiver, object) : YES) && [receiver respondsToSelector:selector]) {
             [receiver performSelector:selector withObject:self withObject:object];
-#pragma clang diagnostic pop
         }
     }
-    broadcasting = NO;
+#pragma clang diagnostic pop
 }
 
 - (void)broadcast:(SEL)selector {

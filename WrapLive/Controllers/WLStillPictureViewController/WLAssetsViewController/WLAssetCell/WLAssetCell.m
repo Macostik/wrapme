@@ -19,7 +19,7 @@
 @implementation WLAssetCell
 
 - (void)setupItemData:(ALAsset *)asset {
-    self.imageView.image = [UIImage imageWithCGImage:asset.thumbnail];
+    self.imageView.image = [UIImage imageWithCGImage:asset.aspectRatioThumbnail];
 }
 
 - (IBAction)select:(id)sender {

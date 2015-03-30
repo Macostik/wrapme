@@ -25,12 +25,13 @@
 #import "WLImageFetcher.h"
 #import "WLInviteeCell.h"
 #import "WLNavigation.h"
-#import "WLPerson.h"
+#import "WLAddressBookPhoneNumber.h"
 #import "WLToast.h"
 #import "WLUser.h"
 #import "WLWrap.h"
 #import "WLWrapViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "WLUploadingQueue.h"
 
 @interface WLCreateWrapViewController () 
 
@@ -69,7 +70,7 @@
     self.wrap = [WLWrap wrap];
     self.wrap.name = name;
     [self.wrap notifyOnAddition];
-    [[WLUploading uploading:self.wrap] upload:^(id object) {
+    [WLUploadingQueue upload:[WLUploading uploading:self.wrap] success:^(id object) {
         sender.loading = NO;
         if (weakSelf.createHandler) weakSelf.createHandler(weakSelf.wrap);
     } failure:^(NSError *error) {

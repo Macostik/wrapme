@@ -42,8 +42,9 @@
 #import "WLScrollView.h"
 #import "WLIconButton.h"
 #import "WLDeviceOrientationBroadcaster.h"
+#import "WLProgressBar+WLContribution.h"
 
-@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver, WLDeviceOrientationBroadcastReceiver>
+@interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver, WLDeviceOrientationBroadcastReceiver, WLBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -52,8 +53,9 @@
 @property (weak, nonatomic) IBOutlet WLIconButton *actionButton;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
+@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 
-@property (strong, nonatomic) WLComment *lastComment;
+@property (weak, nonatomic) WLComment *lastComment;
 @property (nonatomic) BOOL scrolledToInitialItem;
 
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
@@ -70,7 +72,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewContstraint;
 
-@property (strong, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) WLWrap* wrap;
 
 @end
 
@@ -86,6 +88,8 @@
     [super viewDidLoad];
         
     self.wrap = _candy.wrap;
+    
+    [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
     
     if (!self.history) {
         self.history = [WLHistory historyWithWrap:self.wrap];
@@ -117,7 +121,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (!self.scrolledToInitialItem) return;
+    if (!self.scrolledToInitialItem || !CGPointEqualToPoint(self.scrollPositionBeforeRotation, CGPointZero)) return;
     CGFloat indexPosition = roundf(self.collectionView.contentOffset.x / self.collectionView.width);
     if ([self.historyItem.entries containsIndex:indexPosition]) {
         self.candy = [self.historyItem.entries objectAtIndex:indexPosition];
@@ -135,10 +139,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
     self.lastComment = nil;
     [self updateOwnerData];
     [self.collectionView reloadData];
+    if (self.showCommentViewController) {
+        [self showCommentView];
+    } else {
+        [self setBarsHidden:NO animated:animated];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -147,12 +155,30 @@
     [WLHintView showCandySwipeHintView];
 }
 
+- (void)showCommentView {
+    [self.commentButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    self.showCommentViewController = NO;
+}
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     NSUInteger index = [self.historyItem.entries indexOfObject:_candy];
     if (!self.scrolledToInitialItem && index != NSNotFound) {
         [self.collectionView setContentOffset:CGPointMake(index*self.collectionView.width, 0)];
     }
+}
+
+- (IBAction)hideBars {
+    [self setBarsHidden:YES animated:YES];
+}
+
+- (IBAction)setBarsHidden:(BOOL)hidden animated:(BOOL)animated {
+    __weak typeof(self)weakSelf = self;
+    [UIView performAnimated:animated animation:^{
+        weakSelf.topViewConstraint.constant = hidden ? -weakSelf.topView.height : .0f;
+        weakSelf.bottomViewContstraint.constant = hidden ? -weakSelf.bottomView.height : .0f;
+        [weakSelf.view setNeedsLayout];
+    }];
 }
 
 - (void)setHistoryItem:(WLHistoryItem *)historyItem {
@@ -220,16 +246,17 @@
         _lastComment = lastComment;
         self.avatarImageView.url = _lastComment.contributor.picture.small;
         self.lastCommentLabel.text = _lastComment.valid ? _lastComment.text :@"";
+        [self.progressBar setContribution:lastComment];
     }
 }
 
 - (void)updateOwnerData {
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"exclamationTriangle";
     [self setCommentButtonTitle:_candy];
-    self.postLabel.text = [NSString stringWithFormat:WLLS(@"Posted by %@"), _candy.contributor.name];
+    self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), _candy.contributor.name];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
     self.timeLabel.text = timeAgoString;
-    self.lastComment = _candy.comments.lastObject;
+    self.lastComment = [[_candy sortedComments] firstObject];
 }
 
 - (void)setCommentButtonTitle:(WLCandy *)candy {
@@ -306,6 +333,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     return self.wrap;
 }
 
+- (NSNumber *)peferedOrderEntry:(WLBroadcaster *)broadcaster {
+    return @(2);
+}
+
 - (void)scrollToCurrentCandy {
     WLCandy *candy = self.candy;
     [self.collectionView reloadData];
@@ -314,7 +345,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         NSUInteger index = [self.historyItem.entries indexOfObject:candy];
         if (index != NSNotFound) {
             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]
-                                            atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+                                            atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
         }
     }
 }
@@ -324,7 +355,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 - (IBAction)back:(id)sender {
     WLCandy* candy = self.candy;
     __weak __typeof(self)weakSelf = self;
-    if (candy.valid && candy.wrap.valid) {
+    if (candy.valid) {
         BOOL animate = self.interfaceOrientation == UIInterfaceOrientationPortrait ||
                        self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown;
         [weakSelf.navigationController popViewControllerAnimated:animate];
@@ -368,12 +399,16 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     } else {
         cell.entry = nil;
     }
-   
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return collectionView.size;
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    CGFloat x = targetContentOffset->x;
+    targetContentOffset->x = roundf(x / scrollView.width) * scrollView.width;
 }
 
 #pragma mark - WLNetworkReceiver
@@ -386,6 +421,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -401,24 +440,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                                            self.scrollPositionBeforeRotation.y * self.collectionView.contentSize.height);
  
     [self.collectionView trySetContentOffset:newContentOffset animated:NO];
+    self.scrollPositionBeforeRotation = CGPointZero;
     self.collectionView.alpha = 1;
-}
-
-#pragma mark - WLScrollViewDelegate method
-
-- (UIView *)viewForZoomingInScrollView:(WLScrollView *)scrollView {
-    return [scrollView isKindOfClass:[WLScrollView class]] ? scrollView.zoomingView : nil;
-}
-
-static CGFloat WLTopContraintConstant = -20.0f;
-
-- (IBAction)movingDetailViews {
-   BOOL hide = self.topViewConstraint.constant == WLTopContraintConstant;
-    [UIView performAnimated:YES animation:^{
-        self.topViewConstraint.constant = hide ? -self.topView.height + WLTopContraintConstant : WLTopContraintConstant;
-        self.bottomViewContstraint.constant = hide ? -self.bottomView.height : .0f;
-        [self.view layoutIfNeeded];
-    }];
 }
 
 @end

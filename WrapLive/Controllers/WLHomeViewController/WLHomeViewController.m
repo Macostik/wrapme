@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "AsynchronousOperation.h"
+#import "WLOperationQueue.h"
 #import "NSArray+Additions.h"
 #import "NSDate+Formatting.h"
 #import "NSString+Additions.h"
@@ -40,7 +40,6 @@
 #import "WLResendConfirmationRequest.h"
 #import "WLSession.h"
 #import "WLBadgeLabel.h"
-#import "WLStillPictureViewController.h"
 #import "WLToast.h"
 #import "WLUserView.h"
 #import "WLWrapCell.h"
@@ -50,13 +49,14 @@
 #import "WLRemoteObjectHandler.h"
 #import "WLPickerViewController.h"
 #import "WLEditWrapViewController.h"
+#import "WLUploadingView.h"
+#import "WLUploadingQueue.h"
+#import "WLAddressBook.h"
+#import "WLIntroductionViewController.h"
+#import "UIView+QuatzCoreAnimations.h"
+#import "WLTouchView.h"
 
-BOOL isPresentHomeViewController;
-
-static NSString *const WLTimeLineKey = @"WLTimeLineKey";
-static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
-
-@interface WLHomeViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate>
+@interface WLHomeViewController () <WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
@@ -65,15 +65,30 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
+@property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
+@property (weak, nonatomic) IBOutlet UIView *createWrapTipView;
+@property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 
-@property (strong, nonatomic) WLWrap* chatSegueWrap;
+@property (weak, nonatomic) WLWrap* chatSegueWrap;
+
+@property (nonatomic) BOOL createWrapTipHidden;
 
 @end
 
 @implementation WLHomeViewController
 
+- (void)dealloc {
+    [[WLAddressBook addressBook] endCaching];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.createWrapTipHidden = YES;
+    
+    [[WLAddressBook addressBook] beginCaching];
     
     self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
     
@@ -88,18 +103,6 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     __weak WLHomeViewSection *section = self.section;
     section.entries.request = [WLWrapsRequest new];
     [section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
-
-    [section setChange:^(WLPaginatedSet* entries) {
-        WLUser *user = [WLUser currentUser];
-        if (user.firstTimeUse && [user.wraps match:^BOOL(WLWrap *wrap) {
-            return !wrap.isDefault;
-        }]) {
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                [section.wrap present];
-            });
-        }
-    }];
     
     [section setSelection:^(id entry) {
         [entry present];
@@ -110,6 +113,73 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     if (wraps.nonempty) {
         [section refresh];
     }
+    
+    self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
+    
+    [WLSession setNumberOfLaunches:[WLSession numberOfLaunches] + 1];
+    
+    [self performSelector:@selector(showIntroductionIfNeeded) withObject:nil afterDelay:0.0];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCreateWrapTipIfNeeded) name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+- (void)setCreateWrapTipHidden:(BOOL)createWrapTipHidden {
+    _createWrapTipHidden = createWrapTipHidden;
+    if (self.createWrapTipView.hidden != createWrapTipHidden) {
+        [self.createWrapTipView fade];
+        self.createWrapTipView.hidden = createWrapTipHidden;
+    }
+}
+
+- (void)hideCreateWrapTip {
+    self.createWrapTipHidden = YES;
+}
+
+- (void)showCreateWrapTipIfNeeded {
+    __weak typeof(self)weakSelf = self;
+    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+        WLUser *user = [WLUser currentUser];
+        NSOrderedSet *wraps = user.wraps;
+        NSUInteger numberOfLaunches = [WLSession numberOfLaunches];
+        
+        void (^showBlock)(void) = ^ {
+            if (weakSelf.createWrapTipHidden) {
+                weakSelf.createWrapTipHidden = NO;
+                [weakSelf performSelector:@selector(hideCreateWrapTip) withObject:nil afterDelay:10.0f];
+            }
+        };
+        
+        if (numberOfLaunches == 1) {
+            if (!self.presentedViewController && wraps.count == 0) {
+                showBlock();
+            }
+        } else if (numberOfLaunches == 2) {
+            static BOOL shownForSecondLaunch = NO;
+            if (wraps.count == 0 || !shownForSecondLaunch) {
+                shownForSecondLaunch = YES;
+                showBlock();
+            }
+        } else if (wraps.count == 0) {
+            showBlock();
+        }
+        [operation finish];
+    });
+}
+
+- (void)showIntroductionIfNeeded {
+    NSUInteger numberOfLaunches = [WLSession numberOfLaunches];
+    if (numberOfLaunches == 1) {
+        static BOOL introductionShown = NO;
+        if (!introductionShown) {
+            introductionShown = YES;
+            WLIntroductionViewController *introduction = [[UIStoryboard storyboardNamed:WLIntroductionStoryboard] instantiateInitialViewController];
+            introduction.delegate = self;
+            [self presentViewController:introduction animated:YES completion:nil];
+            return;
+        }
+    }
+    
+    [self showCreateWrapTipIfNeeded];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -118,6 +188,12 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
     [WLRemoteObjectHandler sharedObject].isLoaded = [self isViewLoaded];
+    [self.uploadingView update];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self hideCreateWrapTip];
 }
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
@@ -165,7 +241,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     }
 }
 
-#pragma mark - WLWrapCellDelegate 
+// MARK: - WLWrapCellDelegate
 
 - (void)wrapCell:(WLWrapCell *)wrapCell didDeleteWrap:(WLWrap *)wrap {
     if (wrap.valid) {
@@ -180,7 +256,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     self.chatSegueWrap = wrap;
 }
 
-#pragma mark - WLEntryNotifyReceiver
+// MARK: - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
     [self updateEmailConfirmationView:YES];
@@ -209,13 +285,13 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 	});
 }
 
-#pragma mark - WLNotificationReceiver
+// MARK: - WLNotificationReceiver
 
 - (void)updateNotificationsLabel {
     self.notificationsLabel.intValue = [[WLUser currentUser] unreadNotificationsCount];
 }
 
-#pragma mark - Actions
+// MARK: - Actions
 
 - (IBAction)resendConfirmation:(id)sender {
     [[WLResendConfirmationRequest request] send:^(id object) {
@@ -235,6 +311,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     __weak __typeof(self)weakSelf = self;
     WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
     [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
+        if (wrap.isFirstCreated) [wrap present:NO];
         stillPictureViewController.wrap = wrap;
         [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
     }];
@@ -252,7 +329,7 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     [self openCameraAnimated:YES startFromGallery:NO];
 }
 
-#pragma mark - WLStillPictureViewControllerDelegate
+// MARK: - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     WLWrap* wrap = controller.wrap;
@@ -275,11 +352,12 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
     }
 }
 
-#pragma mark - WLPickerViewDelegate
+// MARK: - WLPickerViewDelegate
 
 - (void)createWrapWithStillPictureViewController:(WLStillPictureViewController*)stillPictureViewController {
     WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
     [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
+        if (wrap.isFirstCreated) [wrap present:NO];
         stillPictureViewController.wrap = wrap;
         [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
     }];
@@ -304,6 +382,26 @@ static NSString *const WLUnconfirmedEmailKey = @"WLUnconfirmedEmailKey";
 
 - (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
     [pickerViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+// MARK: - WLIntroductionViewControllerDelegate
+
+- (void)introductionViewControllerDidFinish:(WLIntroductionViewController *)controller {
+    __weak typeof(self)weakSelf = self;
+    [self dismissViewControllerAnimated:YES completion:^{
+        [weakSelf showCreateWrapTipIfNeeded];
+    }];
+}
+
+// MARK: - WLTouchViewDelegate
+
+- (void)touchViewDidReceiveTouch:(WLTouchView *)touchView {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideCreateWrapTip) object:nil];
+    [self hideCreateWrapTip];
+}
+
+- (NSSet *)touchViewExclusionRects:(WLTouchView *)touchView {
+    return [NSSet setWithObject:[NSValue valueWithCGRect:[touchView convertRect:self.createWrapButton.bounds fromView:self.createWrapButton]]];
 }
 
 @end

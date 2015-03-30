@@ -8,6 +8,7 @@
 
 #import "WLNavigationAnimator.h"
 #import "UIView+Shorthand.h"
+#import "NSObject+AssociatedObjects.h"
 
 @implementation WLNavigationAnimator
 
@@ -26,14 +27,13 @@
     CGAffineTransform toStartTransform;
     CGAffineTransform fromEndTransform;
     CGAffineTransform toEndTransform;
-    
+    fromViewController.view.userInteractionEnabled = toViewController.view.userInteractionEnabled = NO;
     if (self.presenting) {
-        fromViewController.view.userInteractionEnabled = NO;
-        toViewController.view.frame = fromViewController.view.frame;
         
+        toViewController.view.frame = fromViewController.view.frame;
         [transitionContext.containerView addSubview:fromViewController.view];
         [transitionContext.containerView addSubview:toViewController.view];
-        if (self.modal) {
+        if (toViewController.animatorPresentationType == WLNavigationAnimatorPresentationTypeModal) {
             toStartTransform = CGAffineTransformMakeTranslation(0, toViewController.view.height);
             fromStartTransform = CGAffineTransformIdentity;
             toEndTransform = CGAffineTransformIdentity;
@@ -45,10 +45,9 @@
             fromEndTransform = CGAffineTransformMakeScale(0.8, 0.8);
         }
     } else {
-        toViewController.view.userInteractionEnabled = YES;
         [transitionContext.containerView addSubview:toViewController.view];
         [transitionContext.containerView addSubview:fromViewController.view];
-        if (self.modal) {
+        if (fromViewController.animatorPresentationType == WLNavigationAnimatorPresentationTypeModal) {
             toStartTransform = CGAffineTransformMakeScale(0.8, 0.8);
             fromStartTransform = CGAffineTransformIdentity;
             toEndTransform = CGAffineTransformIdentity;
@@ -70,7 +69,20 @@
         fromViewController.view.transform = CGAffineTransformIdentity;
         toViewController.view.transform = CGAffineTransformIdentity;
         [transitionContext completeTransition:YES];
+        fromViewController.view.userInteractionEnabled = toViewController.view.userInteractionEnabled = YES;
     }];
+}
+
+@end
+
+@implementation UIViewController (WLNavigationAnimator)
+
+- (void)setAnimatorPresentationType:(WLNavigationAnimatorPresentationType)animatorPresentationType {
+    [self setAssociatedObject:@(animatorPresentationType) forKey:"animatorPresentationType"];
+}
+
+- (WLNavigationAnimatorPresentationType)animatorPresentationType {
+    return [[self associatedObjectForKey:"animatorPresentationType"] integerValue];
 }
 
 @end

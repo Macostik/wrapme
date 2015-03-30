@@ -49,7 +49,7 @@
 
 - (NSString *)identifier {
     if (!_identifier) {
-        _identifier = [NSString stringWithFormat:@"%lu_%@", self.type, self.entryIdentifier];
+        _identifier = [NSString stringWithFormat:@"%lu_%@_%f", self.type, self.entryIdentifier, self.date.timestamp];
     }
     return _identifier;
 }
@@ -207,15 +207,18 @@
             switch (weakSelf.type) {
                 case WLNotificationCommentAdd: {
                     WLCandy *candy = [(WLComment*)targetEntry candy];
-                    if (candy.valid && !targetEntry.unread) {
-                        candy.commentCount++;
+                    if (candy.valid &&
+                        !targetEntry.unread &&
+                        targetEntry.inserted &&
+                        [[candy updatedAt] earlier:[targetEntry updatedAt]]) {
+                             candy.commentCount++;
                     }
                     if (targetEntry.notifiable && !targetEntry.unread) targetEntry.unread = YES;
                     break;
                 }
                 case WLNotificationCandyAdd:
                 case WLNotificationMessageAdd:
-                    if (!targetEntry.unread) targetEntry.unread = YES;
+                    if (!targetEntry.unread && targetEntry.valid) targetEntry.unread = YES;
                     break;
                 default:
                     break;
@@ -224,14 +227,9 @@
         } else if (event == WLEventUpdate) {
             [targetEntry notifyOnUpdate];
         } else if (event == WLEventDelete) {
-            if (weakSelf.type == WLNotificationCommentDelete) {
-                WLCandy *candy = [(WLComment*)targetEntry candy];
-                if (candy.valid) {
-                    candy.commentCount--;
-                }
-            }
             [targetEntry remove];
         }
+        [[WLEntryManager manager].context processPendingChanges];
         if (success) success();
     };
     
@@ -258,7 +256,7 @@
     }
 }
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%lu : %@", self.type, self.entryIdentifier];
+    return [NSString stringWithFormat:@"%i : %@", (int)self.type, self.entryIdentifier];
 }
 
 @end
@@ -340,7 +338,7 @@
         NSUInteger index = [candy.comments indexOfObjectPassingTest:^BOOL(WLComment* comment, NSUInteger idx, BOOL *stop) {
             return comment.contributedByCurrentUser;
         }];
-        if (index != NSNotFound && [candy.comments indexOfObject:self] > index) {
+        if (index != NSNotFound && [candy.comments indexOfObject:self] < index) {
             return YES;
         }
     }

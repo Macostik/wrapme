@@ -9,11 +9,11 @@
 #import "WLItemCell.h"
 
 @class WLInviteeCell;
-@class WLPerson;
+@class WLAddressBookPhoneNumber;
 
 @protocol WLInviteeCellDelegate <NSObject>
 
-- (void)inviteeCell:(WLInviteeCell*)cell didRemovePerson:(WLPerson*)person;
+- (void)inviteeCell:(WLInviteeCell*)cell didRemovePerson:(WLAddressBookPhoneNumber*)person;
 
 @end
 

@@ -31,10 +31,10 @@
     self = [super init];
     if (self) {
         self.cachedEntries = [NSMapTable strongToWeakObjectsMapTable];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:UIApplicationWillTerminateNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:UIApplicationDidEnterBackgroundNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:UIApplicationWillResignActiveNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:self selector:@selector(save) name:UIApplicationWillTerminateNotification object:nil];
+        [notificationCenter addObserver:self selector:@selector(save) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [notificationCenter addObserver:self selector:@selector(save) name:UIApplicationWillResignActiveNotification object:nil];
     }
     return self;
 }
@@ -48,6 +48,7 @@
         _context = [[NSManagedObjectContext alloc] init];
         [_context setPersistentStoreCoordinator:coordinator];
         _context.mergePolicy = NSOverwriteMergePolicy;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:NSManagedObjectContextObjectsDidChangeNotification object:_context];
     }
     return _context;
 }
@@ -137,11 +138,6 @@
 }
 
 - (void)save {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayedSave) object:nil];
-    [self performSelector:@selector(delayedSave) withObject:nil afterDelay:0.1];
-}
-
-- (void)delayedSave {
     if ([self.context hasChanges] && self.coordinator.persistentStores.nonempty) {
         NSError* error = nil;
         [self.context save:&error];
@@ -152,7 +148,14 @@
 }
 
 - (void)clear {
-    [self.context reset];
+    for (NSPersistentStore* store in self.coordinator.persistentStores) {
+        NSError *error;
+        NSURL *storeURL = store.URL;
+        [self.coordinator removePersistentStore:store error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:storeURL.path error:&error];
+    }
+    self.coordinator = nil;
+    self.context = nil;
     [self.cachedEntries removeAllObjects];
 }
 
@@ -166,7 +169,7 @@
 
 + (NSEntityDescription *)entity {
     static char *WLEntityDescriptionKey = "WLEntityDescriptionKey";
-    NSEntityDescription* entity = objc_getAssociatedObject(self, WLEntityDescriptionKey);
+    NSEntityDescription *entity = objc_getAssociatedObject(self, WLEntityDescriptionKey);
     if (!entity) {
         entity = [NSEntityDescription entityForName:NSStringFromClass(self) inManagedObjectContext:[WLEntryManager manager].context];
         objc_setAssociatedObject(self, WLEntityDescriptionKey, entity, OBJC_ASSOCIATION_RETAIN);
@@ -220,7 +223,11 @@
 }
 
 - (BOOL)valid {
-    return self.managedObjectContext != nil;
+    return self.managedObjectContext != nil && !self.deleted && (self.containingEntry ? self.containingEntry.valid : YES);
+}
+
+- (BOOL)invalid {
+    return self.managedObjectContext == nil || self.deleted || (self.containingEntry ? self.containingEntry.invalid : NO);
 }
 
 @end

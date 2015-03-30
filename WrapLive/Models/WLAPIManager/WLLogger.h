@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import <Crashlytics/Crashlytics.h>
 #import "lelib.h"
 #import "WLUser+Extended.h"
 #import "WLAuthorization.h"
@@ -17,7 +16,7 @@
 
 #define WLLog(LABEL,ACTION,OBJECT)\
 NSString *str = [NSString stringWithFormat:@"%@ - %@",(LABEL), (ACTION)];\
-CLS_LOG(@"%@: %@", str, (OBJECT));\
+NSLog(@"%@: %@", str, (OBJECT));\
 int state = (int)[UIApplication sharedApplication].applicationState;\
 [[LELog sharedInstance] log:[NSString stringWithFormat:@"%@ >> (app state: %d) >> %@: %@", [WLUser combinedIdentifier], state, str, (OBJECT)]];
 
@@ -25,7 +24,7 @@ int state = (int)[UIApplication sharedApplication].applicationState;\
 
 #define WLLog(LABEL,ACTION,OBJECT)\
 NSString *str = [NSString stringWithFormat:@"%@ - %@",(LABEL), (ACTION)];\
-CLS_LOG(@"%@", str);\
+NSLog(@"%@", str);\
 int state = (int)[UIApplication sharedApplication].applicationState;\
 [[LELog sharedInstance] log:[NSString stringWithFormat:@"%@ >> (app state: %d) >> %@", [WLUser combinedIdentifier], state, str]];
 

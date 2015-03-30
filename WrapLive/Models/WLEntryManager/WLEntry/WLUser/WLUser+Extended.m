@@ -66,6 +66,25 @@
     return self.wraps;
 }
 
+- (BOOL)isSignupCompleted {
+    return self.name.nonempty && self.picture.medium.nonempty;
+}
+
+- (BOOL)isInvited {
+    if ([self isCurrentUser]) return NO;
+    NSOrderedSet *devices = self.devices;
+    if (devices.nonempty) {
+        for (WLDevice *device in devices) {
+            if (device.activated) {
+                return NO;
+            }
+        }
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end
 
 @implementation WLUser (CurrentUser)
@@ -105,11 +124,6 @@ static NSString *_combinedIdentifier = nil;
         WLAuthorization *authorization = [WLAuthorization currentAuthorization];
         _combinedIdentifier = [NSString stringWithFormat:@"%@-%@", user.identifier, authorization.deviceUID];
         [[WLNotificationCenter defaultCenter] subscribe];
-        run_release(^{
-            [Crashlytics setUserEmail:authorization.email];
-            [Crashlytics setUserIdentifier:user.identifier];
-            [Crashlytics setUserName:user.name];
-        });
     }
 }
 

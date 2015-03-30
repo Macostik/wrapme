@@ -8,6 +8,10 @@
 
 #import "WLCollectionViewSection.h"
 
+@class WLWrap;
+
 @interface WLContributorsViewSection : WLCollectionViewSection
+
+@property (weak, nonatomic) WLWrap* wrap;
 
 @end

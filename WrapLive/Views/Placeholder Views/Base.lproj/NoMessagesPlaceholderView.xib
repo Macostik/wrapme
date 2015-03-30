@@ -33,11 +33,10 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="largest"/>
                     </userDefinedRuntimeAttributes>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No messages today." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7x-T0-suZ" customClass="WLLabel">
-                    <rect key="frame" x="20" y="343" width="280" height="30"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No messages today." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7x-T0-suZ" customClass="WLLabel">
+                    <rect key="frame" x="20" y="344" width="280" height="29"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="280" id="XPw-cI-5ZT"/>
-                        <constraint firstAttribute="height" constant="30" id="kOb-B3-oHN"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>
                     <color key="textColor" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>

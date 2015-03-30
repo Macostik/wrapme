@@ -13,9 +13,12 @@
 
 @protocol WLContributorCellDelegate <NSObject>
 
-@optional
 - (void)contributorCell:(WLContributorCell*)cell didRemoveContributor:(WLUser*)contributor;
+- (void)contributorCell:(WLContributorCell*)cell didInviteContributor:(WLUser*)contributor completionHandler:(void (^)(BOOL))completionHandler;
+- (BOOL)contributorCell:(WLContributorCell*)cell isInvitedContributor:(WLUser*)contributor;
 - (BOOL)contributorCell:(WLContributorCell*)cell isCreator:(WLUser*)contributor;
+- (void)contributorCell:(WLContributorCell*)cell didToggleMenu:(WLUser*)contributor;
+- (BOOL)contributorCell:(WLContributorCell*)cell showMenu:(WLUser*)contributor;
 
 @end
 

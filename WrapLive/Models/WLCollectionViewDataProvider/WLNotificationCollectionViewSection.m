@@ -27,8 +27,8 @@
     WLComment *comment = [self.entries.entries objectAtIndex:indexPath.item];
     CGFloat textHeight = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular
                                                                              preset:WLFontPresetNormal]
-                                                width:[UIScreen mainScreen].bounds.size.width - WLNotificationCommentHorizontalSpacing];
-    return CGSizeMake(self.collectionView.bounds.size.width, textHeight + WLNotificationCommentVerticalSpacing);
+                                                width:WLConstants.screenWidth - WLNotificationCommentHorizontalSpacing];
+    return CGSizeMake(WLConstants.screenWidth, textHeight + WLNotificationCommentVerticalSpacing);
 }
 
 #pragma mark - WLFontPresetterReceiver

@@ -17,6 +17,8 @@
 #import "WLAPIResponse.h"
 #import "WLNetwork.h"
 #import "NSDate+Additions.h"
+#import "WLUploadingQueue.h"
+#import "WLOperationQueue.h"
 
 @implementation WLWrap (Extended)
 
@@ -222,8 +224,10 @@
 
 - (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
 	
+    NSError *internetConnectionError = [NSError errorWithDescription:
+                                        WLLS(@"Sorry you can't chat when internet connection is unavailable. Please try again later.")];
 	if (![WLNetwork network].reachable) {
-		failure([NSError errorWithDescription:WLLS(@"Internet connection is not reachable.")]);
+		failure(internetConnectionError);
 		return;
 	}
 	
@@ -234,14 +238,21 @@
     [message notifyOnAddition];
 	[message add:success failure:^(NSError *error) {
 		[message remove];
-        failure(error);
+        failure(error.isNetworkError ? internetConnectionError : error);
 	}];
 }
 
 - (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     WLCandy* candy = [WLCandy candyWithType:WLCandyTypeImage wrap:self];
     candy.picture = picture;
-    [[WLUploading uploading:candy] upload:success failure:failure];
+    if (picture.comment.nonempty) {
+        WLComment *comment = [WLComment comment:picture.comment];
+        comment.isFirst = YES;
+        [candy uploadComment:comment.text success:^(WLComment *comment) {
+        } failure:^(NSError *error) {
+        }];
+    }
+    [WLUploadingQueue upload:[WLUploading uploading:candy] success:success failure:failure];
 }
 
 - (void)uploadPicture:(WLPicture *)picture {
@@ -249,15 +260,15 @@
 }
 
 - (void)uploadPictures:(NSArray *)pictures {
-    NSUInteger count = [pictures count];
-    NSTimeInterval time = count/2.0f;
     __weak typeof(self)weakSelf = self;
-    [pictures enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSTimeInterval delay = time*((CGFloat)idx/(CGFloat)(count - 1));
-        run_after(delay, ^{
-            [weakSelf uploadPicture:obj];
+    for (WLPicture *picture in pictures) {
+        runUnaryQueuedOperation(@"wl_upload_candies_queue", ^(WLOperation *operation) {
+            [weakSelf uploadPicture:picture];
+            run_after(0.6f, ^{
+                [operation finish];
+            });
         });
-    }];
+    }
 }
 
 - (void)uploadImage:(UIImage *)image success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
@@ -267,8 +278,9 @@
     }];
 }
 
-- (BOOL)shouldStartUploadingAutomatically {
-    return YES;
+- (BOOL)isFirstCreated {
+    NSOrderedSet *wraps = [self.contributor.wraps objectsWhere:@"isDefault != YES AND contributor == %@", [WLUser currentUser]];
+    return [wraps containsObject:self] && wraps.count == 1;
 }
 
 @end

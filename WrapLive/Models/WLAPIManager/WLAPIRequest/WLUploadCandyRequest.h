@@ -10,7 +10,7 @@
 
 @interface WLUploadCandyRequest : WLUploadAPIRequest
 
-@property (strong, nonatomic) WLCandy* candy;
+@property (weak, nonatomic) WLCandy* candy;
 
 + (instancetype)request:(WLCandy*)candy;
 

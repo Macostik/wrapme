@@ -8,7 +8,6 @@
 
 #import "WLContributorsRequest.h"
 #import "WLAddressBook.h"
-#import "WLPerson.h"
 
 @implementation WLContributorsRequest
 
@@ -28,7 +27,7 @@
 
 - (id)send {
     if (!self.contacts.nonempty) {
-        [WLAddressBook contacts:^(NSArray *contacts) {
+        [[WLAddressBook addressBook] contacts:^(NSArray *contacts) {
             self.contacts = contacts;
             [super send];
         } failure:^(NSError *error) {
@@ -43,8 +42,8 @@
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
     NSArray* contacts = self.contacts;
     NSMutableArray* phones = [NSMutableArray array];
-	[contacts all:^(WLContact* contact) {
-		[contact.persons all:^(WLPerson* person) {
+	[contacts all:^(WLAddressBookRecord* contact) {
+		[contact.phoneNumbers all:^(WLAddressBookPhoneNumber* person) {
 			[phones addObject:person.phone];
 		}];
 	}];
@@ -53,31 +52,36 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    NSArray* contacts = self.contacts;
+    NSMutableArray* contacts = [self.contacts mutableCopy];
     NSArray* users = response.data[@"users"];
-	[contacts all:^(WLContact* contact) {
-        NSMutableArray* personsToRemove = [NSMutableArray array];
-		[contact.persons all:^(WLPerson* person) {
-			for (NSDictionary* userData in users) {
-				if ([userData[@"address_book_number"] isEqualToString:person.phone]) {
-                    WLUser * user = [WLUser API_entry:userData];
-                    __block BOOL exists = NO;
-                    [contact.persons all:^(WLPerson* _person) {
-                        if (_person != person && _person.user == user) {
-                            [personsToRemove addObject:person];
-                            exists = YES;
+	[contacts removeObjectsWhileEnumerating:^BOOL (WLAddressBookRecord* contact) {
+        NSMutableArray *phoneNumbers = [contact.phoneNumbers mutableCopy];
+        [phoneNumbers removeObjectsWhileEnumerating:^BOOL (WLAddressBookPhoneNumber *phoneNumber) {
+            NSDictionary *userData = [[users objectsWhere:@"address_book_number == %@", phoneNumber.phone] lastObject];
+            if (userData) {
+                WLUser *user = [WLUser API_entry:userData];
+                if ([user isCurrentUser]) {
+                    return YES;
+                } else {
+                    for (WLAddressBookPhoneNumber* _phoneNumber in contact.phoneNumbers) {
+                        if (_phoneNumber != phoneNumber && _phoneNumber.user == user) {
+                            return YES;
                         }
-                    }];
-                    if (!exists) {
-                        person.user = user;
                     }
-                    break;
-				}
-			}
-		}];
-        contact.persons = [contact.persons arrayByRemovingObjectsFromArray:personsToRemove];
+                    phoneNumber.user = user;
+                    phoneNumber.activated = [userData integerForKey:WLSignInCountKey] > 0;
+                }
+            }
+            return NO;
+        }];
+        if (phoneNumbers.nonempty) {
+            contact.phoneNumbers = [phoneNumbers copy];
+            return NO;
+        } else {
+            return YES;
+        }
 	}];
-	return contacts;
+	return [contacts copy];
 }
 
 @end

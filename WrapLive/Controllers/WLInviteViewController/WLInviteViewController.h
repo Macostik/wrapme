@@ -9,11 +9,11 @@
 #import "WLBaseViewController.h"
 
 @class WLInviteViewController;
-@class WLContact;
+@class WLAddressBookRecord;
 
 @protocol WLInviteViewControllerDelegate <NSObject>
 
-- (NSError*)inviteViewController:(WLInviteViewController*)controller didInviteContact:(WLContact*)contact;
+- (void)inviteViewController:(WLInviteViewController*)controller didInviteContact:(WLAddressBookRecord*)contact;
 
 @end
 

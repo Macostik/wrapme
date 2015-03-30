@@ -7,6 +7,7 @@
         <relationship name="wrap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLWrap" inverseName="candies" inverseEntity="WLWrap" syncable="YES"/>
     </entity>
     <entity name="WLComment" representedClassName="WLComment" parentEntity="WLContribution" syncable="YES">
+        <attribute name="isFirst" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="candy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLCandy" inverseName="comments" inverseEntity="WLCandy" syncable="YES"/>
     </entity>
@@ -56,7 +57,7 @@
     </entity>
     <elements>
         <element name="WLCandy" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="WLComment" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="WLComment" positionX="0" positionY="0" width="128" height="90"/>
         <element name="WLContribution" positionX="0" positionY="0" width="128" height="88"/>
         <element name="WLDevice" positionX="9" positionY="63" width="128" height="103"/>
         <element name="WLEntry" positionX="0" positionY="0" width="128" height="118"/>

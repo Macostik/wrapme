@@ -15,10 +15,16 @@
 
 @interface WLCandyViewController : WLShakeViewController
 
-@property (strong, nonatomic) WLCandy *candy;
+@property (weak, nonatomic) WLCandy *candy;
 
 @property (nonatomic) BOOL showCommentInputKeyboard;
 
-- (IBAction)movingDetailViews;
+@property (nonatomic) BOOL showCommentViewController;
+
+- (IBAction)hideBars;
+
+- (IBAction)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
+
+- (void)showCommentView;
 
 @end

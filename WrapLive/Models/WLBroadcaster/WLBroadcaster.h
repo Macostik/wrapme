@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class WLBroadcaster;
+
+@protocol WLBroadcastReceiver <NSObject>
+@optional
+- (NSNumber *)peferedOrderEntry:(WLBroadcaster *)broadcaster;
+
+@end
+
 typedef BOOL (^WLBroadcastSelectReceiver)(id receiver, id object);
 
 @interface WLBroadcaster : NSObject
@@ -17,6 +25,8 @@ typedef BOOL (^WLBroadcastSelectReceiver)(id receiver, id object);
 + (instancetype)broadcaster;
 
 - (instancetype)initWithReceiver:(id)receiver;
+
+- (NSArray*)sortedReceivers;
 
 - (void)setup;
 

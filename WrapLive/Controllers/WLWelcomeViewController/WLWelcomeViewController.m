@@ -79,7 +79,7 @@ typedef enum : NSUInteger {
 
 - (void)presentHomeViewController {
     WLUser *user = [WLUser currentUser];
-    if (user.name.nonempty && user.picture.medium.nonempty) {
+    if (user.isSignupCompleted) {
         [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
     } else {
         [self continueSignUp];

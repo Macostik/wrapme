@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *aspectRatioConstraint;
 
 @end
 
@@ -30,47 +31,52 @@
     [super awakeFromNib];
     self.scrollView.userInteractionEnabled = NO;
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
+    [self.imageView setContentMode:UIViewContentModeCenter forState:WLImageViewStateFailed];
+    [self.imageView setContentMode:UIViewContentModeCenter forState:WLImageViewStateEmpty];
+    [self.imageView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateFailed];
+    [self.imageView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateEmpty];
+    self.scrollView.minimumZoomScale = 1;
+    self.scrollView.maximumZoomScale = 2;
+    
+    [self.scrollView.superview addGestureRecognizer:self.scrollView.panGestureRecognizer];
+    [self.scrollView.superview addGestureRecognizer:self.scrollView.pinchGestureRecognizer];
 }
 
 - (void)setup:(WLCandy *)candy {
     __weak typeof(self)weakSelf = self;
     self.spinner.hidden = NO;
+    self.errorLabel.hidden = YES;
     [self.imageView setUrl:candy.picture.large success:^(UIImage *image, BOOL cached) {
-        if (image) {
-            [weakSelf calculateScaleValues];
-        }
+        [weakSelf calculateScaleValues];
         weakSelf.scrollView.userInteractionEnabled = YES;
-        weakSelf.errorLabel.hidden = YES;
-        weakSelf.spinner.hidden = YES;
+        weakSelf.spinner.hidden = weakSelf.errorLabel.hidden = YES;
     } failure:^(NSError *error) {
-        if ([error isNetworkError]) {
-            weakSelf.errorLabel.hidden = NO;
-        } else {
-            weakSelf.errorLabel.hidden = YES;
-            weakSelf.spinner.hidden = YES;
-            weakSelf.imageView.contentMode = UIViewContentModeCenter;
-            weakSelf.imageView.image = [UIImage imageNamed:@"ic_photo_placeholder"];
-        }
+        weakSelf.errorLabel.hidden = ![error isNetworkError];
+        weakSelf.spinner.hidden = YES;
     }];
 }
 
 - (void)calculateScaleValues {
-    if (self.imageView.image) {
-        CGFloat minimumZoomScale = CGSizeScaleToFitSize(self.size, self.imageView.image.size);
-        if (minimumZoomScale <= 0) minimumZoomScale = 0.01;
-        self.scrollView.maximumZoomScale = minimumZoomScale < 1 ? 2 : (minimumZoomScale + 2);
-        self.scrollView.minimumZoomScale = minimumZoomScale;
-        self.scrollView.zoomScale  = minimumZoomScale;
+    UIImage *image = self.imageView.image;
+    if (image) {
+        NSLayoutConstraint *constraint = self.aspectRatioConstraint;
+        constraint = [NSLayoutConstraint constraintWithItem:constraint.firstItem attribute:constraint.firstAttribute relatedBy:constraint.relation toItem:constraint.secondItem attribute:constraint.secondAttribute multiplier:image.size.width/image.size.height constant:0];
+        [self.scrollView removeConstraint:self.aspectRatioConstraint];
+        [self.scrollView addConstraint:constraint];
+        self.aspectRatioConstraint = constraint;
+        [self.scrollView layoutIfNeeded];
+        self.scrollView.zoomScale = 1;
     }
 }
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver
 
 - (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {
-    if (self.imageView.image) {
-        self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
-        [self calculateScaleValues];
-    }
+    self.scrollView.zoomScale = 1;
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return self.imageView;
 }
 
 @end

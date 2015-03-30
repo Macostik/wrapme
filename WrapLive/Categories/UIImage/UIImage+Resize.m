@@ -6,6 +6,8 @@
 #import "UIImage+Resize.h"
 #import "UIImage+RoundedCorner.h"
 #import "UIImage+Alpha.h"
+#import "NSObject+NibAdditions.h"
+#import "UIView+Shorthand.h"
 
 @implementation UIImage (Resize)
 
@@ -201,6 +203,45 @@
     }
     
     return transform;
+}
+
++ (void)allImagesSizeOfScreenView:(UIView *)view {
+    NSDictionary *images = @{@"Default.png" : @[[NSValue valueWithCGSize:CGSizeMake(320, 480)], @(1)],
+                             @"Default@2x.png" : @[[NSValue valueWithCGSize:CGSizeMake(320, 480)], @(2)],
+                             @"Default_6@3x.png" : @[[NSValue valueWithCGSize:CGSizeMake(375, 627)], @(2)],
+                              @"Default_6+@3x.png" : @[[NSValue valueWithCGSize:CGSizeMake(414, 736)], @(3)],
+                             @"Default-568h@2x.png" : @[[NSValue valueWithCGSize:CGSizeMake(320, 568)], @(2)],
+                             @"Default~ipad.png" : @[[NSValue valueWithCGSize:CGSizeMake(768, 1024)], @(1)],
+                             @"Default~ipad@2x.png" : @[[NSValue valueWithCGSize:CGSizeMake(768, 1024)], @(2)]};
+    
+    
+    [images enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray *value, BOOL *stop) {
+        
+        view.size = [[value firstObject] CGSizeValue];
+        
+        [view layoutIfNeeded];
+        
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, [[value lastObject] intValue]);
+        
+        [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
+        
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        UIGraphicsEndImageContext();
+        
+        NSString *fileName = [@"/Users/Yuriy/Desktop/" stringByAppendingString:key];
+        
+        BOOL success = [UIImagePNGRepresentation(image) writeToFile:fileName atomically:YES];
+        
+        if (!success) {
+            NSLog(@"Something went wrong!!!");
+        }
+    }];
+}
+
++ (void)allImagesSizeOfLaunchScreenView {
+    UIView *view = [UIView loadFromNibNamed:@"LaunchScreen" ownedBy:nil];
+    [self allImagesSizeOfScreenView:view];
 }
 
 @end

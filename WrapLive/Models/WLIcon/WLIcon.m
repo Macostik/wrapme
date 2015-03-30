@@ -15,22 +15,28 @@
 + (UIFont *)iconFontWithSize:(CGFloat)size {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self registerIconFontWithURL:[[NSBundle mainBundle] URLForResource:@"wrapLiveIcons" withExtension:@"ttf"]];
+        [self registerIconFontWithURL:[[NSBundle mainBundle] URLForResource:@"wrapliveicons" withExtension:@"ttf"]];
     });
-    return [UIFont fontWithName:@"wrapLiveIcons" size:size];
+    return [UIFont fontWithName:@"wrapliveicons" size:size];
 }
 
 + (CGFloat)sizeWithPreset:(NSString *)preset {
     static NSDictionary *sizes = nil;
     if (!sizes) {
         if (WLConstants.iPhone) {
-            sizes = @{WLIconPresetBase:@(24),
+            sizes = @{WLIconPresetSmaller:@(14),
+                      WLIconPresetSmall:@(18),
+                      WLIconPresetBase:@(24),
                       WLIconPresetLarge:@(36),
+                      WLIconPresetNormal:@(40),
                       WLIconPresetLarger:@(48),
                       WLIconPresetXLarge:@(72),
                       WLIconPresetLargest:@(96)};
         } else {
-            sizes = @{WLIconPresetBase:@(36),
+            sizes = @{WLIconPresetSmaller:@(14),
+                      WLIconPresetSmall:@(24),
+                      WLIconPresetBase:@(36),
+                      WLIconPresetNormal:@(46),
                       WLIconPresetLarge:@(54),
                       WLIconPresetLarger:@(72),
                       WLIconPresetXLarge:@(108),
@@ -78,7 +84,7 @@
 }
 
 + (NSDictionary *)allIcons {
-    return @{@"\uf102":@"wl-flashOn",@"\uf100":@"wl-flashAuto",@"\uf101":@"wl-flashOff"};
+    return @{@"a":@"wl-circleCandy",@"e":@"wl-candy",@"b":@"wl-flashOn",@"c":@"wl-flashAuto",@"d":@"wl-flashOff"};
 }
 
 @end

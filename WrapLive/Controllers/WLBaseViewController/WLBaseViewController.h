@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "WLKeyboard.h"
+#import "GAITrackedViewController.h"
 
-@interface WLBaseViewController : UIViewController <WLKeyboardBroadcastReceiver>
+@interface WLBaseViewController : GAITrackedViewController <WLKeyboardBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *keyboardAdjustmentLayoutViews;
 

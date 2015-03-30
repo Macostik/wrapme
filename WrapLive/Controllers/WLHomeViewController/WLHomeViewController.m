@@ -79,6 +79,8 @@
 
 - (void)dealloc {
     [[WLAddressBook addressBook] endCaching];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)viewDidLoad {
@@ -117,6 +119,8 @@
     [WLSession setNumberOfLaunches:[WLSession numberOfLaunches] + 1];
     
     [self performSelector:@selector(showIntroductionIfNeeded) withObject:nil afterDelay:0.0];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCreateWrapTipIfNeeded) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)setCreateWrapTipHidden:(BOOL)createWrapTipHidden {
@@ -132,47 +136,50 @@
 }
 
 - (void)showCreateWrapTipIfNeeded {
-    WLUser *user = [WLUser currentUser];
-    NSOrderedSet *wraps = user.wraps;
-    NSUInteger numberOfLaunches = [WLSession numberOfLaunches];
-    
     __weak typeof(self)weakSelf = self;
-    void (^showBlock)(void) = ^ {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            if (!weakSelf.createWrapTipHidden) return;
-            weakSelf.createWrapTipHidden = NO;
-            [weakSelf performSelector:@selector(hideCreateWrapTip) withObject:nil afterDelay:10.0f];
-        });
-    };
-    
-    if (numberOfLaunches == 1) {
-        if (!self.presentedViewController && wraps.count == 0) {
+    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+        WLUser *user = [WLUser currentUser];
+        NSOrderedSet *wraps = user.wraps;
+        NSUInteger numberOfLaunches = [WLSession numberOfLaunches];
+        
+        void (^showBlock)(void) = ^ {
+            if (weakSelf.createWrapTipHidden) {
+                weakSelf.createWrapTipHidden = NO;
+                [weakSelf performSelector:@selector(hideCreateWrapTip) withObject:nil afterDelay:10.0f];
+            }
+        };
+        
+        if (numberOfLaunches == 1) {
+            if (!self.presentedViewController && wraps.count == 0) {
+                showBlock();
+            }
+        } else if (numberOfLaunches == 2) {
+            static BOOL shownForSecondLaunch = NO;
+            if (wraps.count == 0 || !shownForSecondLaunch) {
+                shownForSecondLaunch = YES;
+                showBlock();
+            }
+        } else if (wraps.count == 0) {
             showBlock();
         }
-    } else if (numberOfLaunches == 2) {
-        showBlock();
-    } else if (wraps.count == 0) {
-        showBlock();
-    }
+        [operation finish];
+    });
 }
 
 - (void)showIntroductionIfNeeded {
     NSUInteger numberOfLaunches = [WLSession numberOfLaunches];
     if (numberOfLaunches == 1) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
+        static BOOL introductionShown = NO;
+        if (!introductionShown) {
+            introductionShown = YES;
             WLIntroductionViewController *introduction = [[UIStoryboard storyboardNamed:WLIntroductionStoryboard] instantiateInitialViewController];
             introduction.delegate = self;
             [self presentViewController:introduction animated:YES completion:nil];
-        });
+            return;
+        }
     }
     
-    __weak typeof(self)weakSelf = self;
-    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-        [weakSelf showCreateWrapTipIfNeeded];
-        [operation finish];
-    });
+    [self showCreateWrapTipIfNeeded];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -382,10 +389,7 @@
 - (void)introductionViewControllerDidFinish:(WLIntroductionViewController *)controller {
     __weak typeof(self)weakSelf = self;
     [self dismissViewControllerAnimated:YES completion:^{
-        runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-            [weakSelf showCreateWrapTipIfNeeded];
-            [operation finish];
-        });
+        [weakSelf showCreateWrapTipIfNeeded];
     }];
 }
 

@@ -21,8 +21,8 @@
     return @"WLAPIEnvironmentDevelopment";
 }
 
-+ (instancetype)configuration:(NSString *)name {
-    NSString* path = [[NSBundle mainBundle] pathForResource:[self propertyListNameForEnvironment:name] ofType:@"plist"];
++ (instancetype)environmentNamed:(NSString *)name {
+    NSString* path = [[NSBundle bundleForClass:self] pathForResource:[self propertyListNameForEnvironment:name] ofType:@"plist"];
     NSDictionary* dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     WLAPIEnvironment* environment = [[WLAPIEnvironment alloc] init];
     environment.endpoint = dictionary[@"endpoint"];

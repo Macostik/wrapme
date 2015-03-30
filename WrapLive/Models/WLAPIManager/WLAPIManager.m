@@ -36,6 +36,7 @@
 #import "WLLeaveWrapRequest.h"
 #import "WLOperationQueue.h"
 #import "WLHistory.h"
+#import "NSUserDefaults+WLAppGroup.h"
 
 #ifndef WRAPLIVE_KIT_TARGET
 #import "WLAlertView.h"
@@ -54,10 +55,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     static WLAPIManager* instance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-        NSString* environmentName = [[[NSBundle mainBundle] infoDictionary] stringForKey:@"WLAPIEnvironment"];
-        if (!environmentName.nonempty) environmentName = WLAPIEnvironmentDefault;
-        WLAPIEnvironment* environment = [WLAPIEnvironment configuration:environmentName];
-         WLLog(environment.endpoint, @"API environment initialized", environment.name);
+        WLAPIEnvironment* environment = [self initializationEnvironment];
+        WLLog(environment.endpoint, @"API environment initialized", environment.name);
         instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:environment.endpoint]];
         instance.environment = environment;
 		instance.requestSerializer.timeoutInterval = 45;
@@ -68,10 +67,20 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     return instance;
 }
 
-static BOOL signedIn = NO;
-
-+ (BOOL)signedIn {
-    return signedIn;
++ (WLAPIEnvironment*)initializationEnvironment {
+    NSString* environmentName = [[[NSBundle mainBundle] infoDictionary] stringForKey:@"WLAPIEnvironment"];
+    if (!environmentName.nonempty) {
+        environmentName = [[NSUserDefaults appGroupUserDefaults] objectForKey:WLAppGroupEnvironment];
+    } else {
+        run_in_background_queue(^{
+            NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
+            [userDefaults setObject:environmentName forKey:WLAppGroupEnvironment];
+            [userDefaults synchronize];
+        });
+    }
+    if (!environmentName.nonempty) environmentName = WLAPIEnvironmentDefault;
+    
+    return [WLAPIEnvironment environmentNamed:environmentName];
 }
 
 - (NSString *)urlWithPath:(NSString *)path {

@@ -27,6 +27,6 @@ static NSString* WLAPIEnvironmentProduction = @"production";
 
 @property (readonly, nonatomic) BOOL isProduction;
 
-+ (instancetype)configuration:(NSString*)name;
++ (instancetype)environmentNamed:(NSString*)name;
 
 @end

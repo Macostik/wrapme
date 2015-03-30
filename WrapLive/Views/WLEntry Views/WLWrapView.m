@@ -7,7 +7,6 @@
 //
 
 #import "WLWrapView.h"
-#import "UIView+Shorthand.h"
 
 @implementation WLWrapView
 

@@ -8,7 +8,6 @@
 
 #import "WLProfileInformationViewController.h"
 #import "WLNavigation.h"
-#import "UIView+Shorthand.h"
 #import "UIButton+Additions.h"
 #import "WLKeyboard.h"
 #import "WLStillPictureViewController.h"

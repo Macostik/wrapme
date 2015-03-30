@@ -11,7 +11,6 @@
 #import "WLNavigationAnimator.h"
 #import "WLHintView.h"
 #import "WLNavigation.h"
-#import "UIView+Shorthand.h"
 #import "WLIconButton.h"
 #import "WLComposeBar.h"
 #import "WLAlertView.h"

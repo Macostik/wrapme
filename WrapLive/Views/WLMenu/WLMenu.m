@@ -9,7 +9,6 @@
 #import "WLMenu.h"
 #import <AudioToolbox/AudioServices.h>
 #import "UIFont+CustomFonts.h"
-#import "UIView+Shorthand.h"
 #import "UIView+AnimationHelper.h"
 #import "WLButton.h"
 

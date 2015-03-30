@@ -7,7 +7,6 @@
 //
 
 #import "WLContributorCell.h"
-#import "UIView+Shorthand.h"
 #import "WLButton.h"
 
 @interface WLContributorCell ()

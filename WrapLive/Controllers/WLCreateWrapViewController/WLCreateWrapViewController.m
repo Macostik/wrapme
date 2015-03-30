@@ -8,7 +8,6 @@
 
 #import "NSArray+Additions.h"
 #import "UIButton+Additions.h"
-#import "UIView+Shorthand.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLAddressBook.h"
 #import "WLButton.h"

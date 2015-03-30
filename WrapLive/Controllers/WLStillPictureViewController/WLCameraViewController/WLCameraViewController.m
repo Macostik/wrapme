@@ -10,7 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Resize.h"
-#import "UIView+Shorthand.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIButton+Additions.h"
 #import "WLFlashModeControl.h"

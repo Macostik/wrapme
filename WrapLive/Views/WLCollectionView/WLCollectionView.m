@@ -8,7 +8,6 @@
 
 #import "WLCollectionView.h"
 #import "WLLoadingView.h"
-#import "UIView+Shorthand.h"
 #import "UIView+AnimationHelper.h"
 #import "NSObject+NibAdditions.h"
 

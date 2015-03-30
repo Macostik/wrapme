@@ -7,7 +7,6 @@
 //
 
 #import "WLCommentCell.h"
-#import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
 #import "UILabel+Additions.h"
 #import "UIAlertView+Blocks.h"

@@ -10,7 +10,6 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIView+AnimationHelper.h"
-#import "UIView+Shorthand.h"
 #import "WLAssetsGroupViewController.h"
 #import "WLNavigation.h"
 #import "WLStillPictureViewController.h"

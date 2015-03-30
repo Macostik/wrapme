@@ -9,7 +9,6 @@
 #import "NSObject+NibAdditions.h"
 #import "UIFont+CustomFonts.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "UIView+Shorthand.h"
 #import "WLButton.h"
 #import "WLPickerViewController.h"
 #import "WLWrapCell.h"

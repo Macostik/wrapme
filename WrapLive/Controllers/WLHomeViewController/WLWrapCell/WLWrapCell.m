@@ -11,7 +11,6 @@
 #import "UIAlertView+Blocks.h"
 #import "UILabel+Additions.h"
 #import "UIView+GestureRecognizing.h"
-#import "UIView+Shorthand.h"
 #import "WLCandyCell.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLHomeCandiesViewSection.h"

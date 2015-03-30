@@ -7,7 +7,6 @@
 //
 
 #import "WLUserView.h"
-#import "UIView+Shorthand.h"
 
 @implementation WLUserView
 

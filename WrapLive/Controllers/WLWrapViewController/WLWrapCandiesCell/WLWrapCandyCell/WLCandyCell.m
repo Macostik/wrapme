@@ -11,7 +11,6 @@
 #import "UIActionSheet+Blocks.h"
 #import "UIView+GestureRecognizing.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "UIView+Shorthand.h"
 #import "WLToast.h"
 #import "MFMailComposeViewController+Additions.h"
 #import "WLMenu.h"

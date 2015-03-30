@@ -9,7 +9,6 @@
 #import "WLContactCell.h"
 #import "WLAddressBook.h"
 #import "WLAddressBookPhoneNumberCell.h"
-#import "UIView+Shorthand.h"
 #import "WLAddressBookPhoneNumber.h"
 
 @interface WLContactCell () <UITableViewDataSource, UITableViewDelegate, WLAddressBookPhoneNumberCellDelegate>

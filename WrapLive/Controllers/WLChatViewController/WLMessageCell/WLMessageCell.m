@@ -7,20 +7,10 @@
 //
 
 #import "WLMessageCell.h"
-#import "WLCandy.h"
-#import "WLImageFetcher.h"
-#import "WLUser.h"
-#import "UIView+Shorthand.h"
 #import "UILabel+Additions.h"
 #import "UIFont+CustomFonts.h"
-#import "WLUser+Extended.h"
-#import "NSString+Additions.h"
-#import "NSDate+Formatting.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
-#import "WLAPIRequest.h"
-#import "UIDevice+SystemVersion.h"
-#import "UIColor+CustomColors.h"
 #import "WLTextView.h"
 
 @interface WLMessageCell ()

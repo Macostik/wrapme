@@ -15,7 +15,6 @@
 #import "WLToast.h"
 #import "UIButton+Additions.h"
 #import "NSArray+Additions.h"
-#import "UIView+Shorthand.h"
 
 static NSUInteger WLAssetsSelectionLimit = 10;
 

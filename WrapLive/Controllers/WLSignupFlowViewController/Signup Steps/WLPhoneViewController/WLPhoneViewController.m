@@ -10,7 +10,6 @@
 #import "WLCountriesViewController.h"
 #import "WLCountry.h"
 #import "WLInputAccessoryView.h"
-#import "UIView+Shorthand.h"
 #import "UIButton+Additions.h"
 #import "UIAlertView+Blocks.h"
 #import "WLNavigation.h"

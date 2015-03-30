@@ -7,7 +7,6 @@
 //
 
 #import "WLEditViewController.h"
-#import "UIView+Shorthand.h"
 #import "WLNavigation.h"
 #import "UIView+AnimationHelper.h"
 #import "UIView+QuatzCoreAnimations.h"

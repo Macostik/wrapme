@@ -7,12 +7,7 @@
 //
 
 #import "WLTimelineEventCommentCell.h"
-#import "WLImageView.h"
-#import "WLComment.h"
-#import "NSString+Additions.h"
-#import "WLEntryManager.h"
 #import "WLCommentCell.h"
-#import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
 #import "WLNavigation.h"
 #import "WLCandyViewController.h"

@@ -8,12 +8,7 @@
 
 #import "WLNotificationCell.h"
 #import "WLNotification.h"
-#import "WLImageFetcher.h"
-#import "WLUser+Extended.h"
-#import "NSDate+Additions.h"
 #import "UILabel+Additions.h"
-#import "WLEntryManager.h"
-#import "UIView+Shorthand.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
 #import "TTTAttributedLabel.h"

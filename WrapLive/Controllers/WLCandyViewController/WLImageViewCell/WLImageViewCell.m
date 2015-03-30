@@ -9,7 +9,6 @@
 #import "WLImageViewCell.h"
 #import "WLDeviceOrientationBroadcaster.h"
 #import "UIView+AnimationHelper.h"
-#import "UIView+Shorthand.h"
 #import "WLButton.h"
 
 @interface WLImageViewCell () <UIScrollViewDelegate, WLDeviceOrientationBroadcastReceiver>

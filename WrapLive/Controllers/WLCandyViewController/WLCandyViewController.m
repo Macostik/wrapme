@@ -12,7 +12,6 @@
 #import "UIFont+CustomFonts.h"
 #import "UIScrollView+Additions.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "UIView+Shorthand.h"
 #import "WLCandyViewController.h"
 #import "WLImageViewCell.h"
 #import "WLComposeBar.h"

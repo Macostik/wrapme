@@ -9,7 +9,6 @@
 #import "WLEditWrapViewController.h"
 #import "WLButton.h"
 #import "NSObject+NibAdditions.h"
-#import "UIView+Shorthand.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLToast.h"
 

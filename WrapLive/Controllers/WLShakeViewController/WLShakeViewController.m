@@ -8,7 +8,6 @@
 
 #import "WLShakeViewController.h"
 #import "UIViewController+Additions.h"
-#import "UIView+Shorthand.h"
 #import "WLNavigation.h"
 #import "WLTelephony.h"
 

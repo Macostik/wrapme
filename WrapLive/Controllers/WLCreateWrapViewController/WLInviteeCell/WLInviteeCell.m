@@ -7,7 +7,6 @@
 //
 
 #import "WLInviteeCell.h"
-#import "UIView+Shorthand.h"
 #import "WLAddressBookPhoneNumber.h"
 
 @interface WLInviteeCell ()

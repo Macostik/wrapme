@@ -113,3 +113,4 @@ FOUNDATION_EXPORT const unsigned char WrapLiveKitVersionString[];
 #import <WrapLiveKit/WLLogger.h>
 #import <WrapLiveKit/WLLocalization.h>
 #import <WrapLiveKit/NSUserDefaults+WLAppGroup.h>
+#import <WrapLiveKit/UIView+Shorthand.h>

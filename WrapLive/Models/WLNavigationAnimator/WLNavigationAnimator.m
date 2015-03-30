@@ -7,7 +7,6 @@
 //
 
 #import "WLNavigationAnimator.h"
-#import "UIView+Shorthand.h"
 #import "NSObject+AssociatedObjects.h"
 
 @implementation WLNavigationAnimator

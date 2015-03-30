@@ -7,7 +7,6 @@
 //
 
 #import "WLProgressBar.h"
-#import "UIView+Shorthand.h"
 
 @interface WLProgressBar ()
 

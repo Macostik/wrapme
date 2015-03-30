@@ -11,7 +11,6 @@
 #import "UIFont+CustomFonts.h"
 #import "UIScrollView+Additions.h"
 #import "UIView+AnimationHelper.h"
-#import "UIView+Shorthand.h"
 #import "WLChat.h"
 #import "WLChatViewController.h"
 #import "WLCollectionViewFlowLayout.h"

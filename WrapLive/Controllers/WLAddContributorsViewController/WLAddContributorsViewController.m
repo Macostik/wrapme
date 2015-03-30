@@ -8,7 +8,6 @@
 
 #import "WLAddContributorsViewController.h"
 #import "WLAddressBook.h"
-#import "UIView+Shorthand.h"
 #import "WLContactCell.h"
 #import "UIFont+CustomFonts.h"
 #import "WLInviteViewController.h"

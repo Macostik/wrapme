@@ -8,7 +8,6 @@
 
 #import "WLContributorsViewSection.h"
 #import "UIFont+CustomFonts.h"
-#import "UIView+Shorthand.h"
 #import "WLFontPresetter.h"
 
 const static CGFloat WLContributorsVerticalIndent = 48.0f;

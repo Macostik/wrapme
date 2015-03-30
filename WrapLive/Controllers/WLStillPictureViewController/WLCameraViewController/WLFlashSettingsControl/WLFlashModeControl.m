@@ -7,7 +7,6 @@
 //
 
 #import "WLFlashModeControl.h"
-#import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
 #import "UIColor+CustomColors.h"
 #import "WLButton.h"

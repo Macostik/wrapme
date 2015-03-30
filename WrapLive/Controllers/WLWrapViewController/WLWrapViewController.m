@@ -9,7 +9,6 @@
 
 #import "WLWrapViewController.h"
 #import "WLCandiesCell.h"
-#import "UIView+Shorthand.h"
 #import "WLNavigation.h"
 #import "WLCandyViewController.h"
 #import "WLComposeBar.h"

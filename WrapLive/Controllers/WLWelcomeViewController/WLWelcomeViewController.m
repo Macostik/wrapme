@@ -8,7 +8,6 @@
 
 #import "UIFont+CustomFonts.h"
 #import "UIView+GestureRecognizing.h"
-#import "UIView+Shorthand.h"
 #import "WLLoadingView.h"
 #import "WLNavigation.h"
 #import "WLSignupFlowViewController.h"

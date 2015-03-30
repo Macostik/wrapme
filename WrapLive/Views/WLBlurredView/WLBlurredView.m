@@ -7,7 +7,6 @@
 //
 
 #import "WLBlurredView.h"
-#import "UIView+Shorthand.h"
 
 @implementation WLBlurredView
 

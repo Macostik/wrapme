@@ -203,10 +203,6 @@
 		5BA60CF41A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C591A8257ED000F795C /* UIView+QuatzCoreAnimations.m */; };
 		5BA60CF51A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C591A8257ED000F795C /* UIView+QuatzCoreAnimations.m */; };
 		5BA60CF61A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C591A8257ED000F795C /* UIView+QuatzCoreAnimations.m */; };
-		5BA60CF71A8257ED000F795C /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5B1A8257ED000F795C /* UIView+Shorthand.m */; };
-		5BA60CF81A8257ED000F795C /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5B1A8257ED000F795C /* UIView+Shorthand.m */; };
-		5BA60CF91A8257ED000F795C /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5B1A8257ED000F795C /* UIView+Shorthand.m */; };
-		5BA60CFA1A8257ED000F795C /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5B1A8257ED000F795C /* UIView+Shorthand.m */; };
 		5BA60CFB1A8257ED000F795C /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5E1A8257ED000F795C /* UIViewController+Additions.m */; };
 		5BA60CFC1A8257ED000F795C /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5E1A8257ED000F795C /* UIViewController+Additions.m */; };
 		5BA60CFD1A8257ED000F795C /* UIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5E1A8257ED000F795C /* UIViewController+Additions.m */; };
@@ -1125,6 +1121,8 @@
 		C55B25B21AC9A6220072E9D2 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
 		C55B25B31AC9A6220072E9D2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
 		C55B25B41AC9A6220072E9D2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
+		C55B25B51AC9BA220072E9D2 /* UIView+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BA60C5A1A8257ED000F795C /* UIView+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C55B25B61AC9BA260072E9D2 /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5B1A8257ED000F795C /* UIView+Shorthand.m */; };
 		C55C8D6A19C98A9400199245 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6319C98A9400199245 /* WLNotification.m */; };
 		C55C8D6B19C98A9400199245 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6319C98A9400199245 /* WLNotification.m */; };
 		C55C8D6C19C98A9400199245 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6319C98A9400199245 /* WLNotification.m */; };
@@ -4981,6 +4979,7 @@
 				C50647431ABD85C200CB4BE3 /* WLPaginatedRequest.h in Headers */,
 				C50647441ABD85C200CB4BE3 /* WLWrapsRequest.h in Headers */,
 				C50647451ABD85C200CB4BE3 /* WLBaseOperationWrapRequest.h in Headers */,
+				C55B25B51AC9BA220072E9D2 /* UIView+Shorthand.h in Headers */,
 				C50647461ABD85C200CB4BE3 /* WLAuthorizationRequest.h in Headers */,
 				C50647471ABD85C200CB4BE3 /* WLUpdateUserRequest.h in Headers */,
 				C50647491ABD85C200CB4BE3 /* WLWrapRequest.h in Headers */,
@@ -6193,7 +6192,6 @@
 				C53F2CCC1A6EB5FB00D99741 /* lecore.m in Sources */,
 				C53E5D741A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C55C8D6E19C98A9400199245 /* WLNotificationCenter.m in Sources */,
-				5BA60CF71A8257ED000F795C /* UIView+Shorthand.m in Sources */,
 				5B2B0C1C1A77A83900DADC9D /* WLIconButton.m in Sources */,
 				14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */,
 				C5C20BE91A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
@@ -6455,6 +6453,7 @@
 				C5DD471F1ABD8AAE00C07050 /* WLUploading.m in Sources */,
 				C55912691AC0383F00320483 /* NSString+MD5.m in Sources */,
 				C5DD47201ABD8AAE00C07050 /* WLUploadingData.m in Sources */,
+				C55B25B61AC9BA260072E9D2 /* UIView+Shorthand.m in Sources */,
 				C5DD47211ABD8AAE00C07050 /* WLUser.m in Sources */,
 				C5DD47221ABD8AAE00C07050 /* WLUser+Extended.m in Sources */,
 				C5DD47231ABD8AAE00C07050 /* WLMessage+Extended.m in Sources */,
@@ -6533,7 +6532,6 @@
 				C53F2CCD1A6EB5FB00D99741 /* lecore.m in Sources */,
 				C53E5D751A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C55C8D6F19C98A9400199245 /* WLNotificationCenter.m in Sources */,
-				5BA60CF81A8257ED000F795C /* UIView+Shorthand.m in Sources */,
 				5B2B0C1D1A77A83900DADC9D /* WLIconButton.m in Sources */,
 				C54AF46119B8C437006F7EDB /* WLProfileEditSession.m in Sources */,
 				C5C20BEA1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
@@ -6720,7 +6718,6 @@
 				C53F2CCE1A6EB5FB00D99741 /* lecore.m in Sources */,
 				C53E5D761A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C55C8D7019C98A9400199245 /* WLNotificationCenter.m in Sources */,
-				5BA60CF91A8257ED000F795C /* UIView+Shorthand.m in Sources */,
 				5B2B0C1E1A77A83900DADC9D /* WLIconButton.m in Sources */,
 				C54AF55E19B8C467006F7EDB /* WLProfileEditSession.m in Sources */,
 				C5C20BEB1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
@@ -6907,7 +6904,6 @@
 				C53F2CCF1A6EB5FB00D99741 /* lecore.m in Sources */,
 				C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C55C8D7119C98A9400199245 /* WLNotificationCenter.m in Sources */,
-				5BA60CFA1A8257ED000F795C /* UIView+Shorthand.m in Sources */,
 				5B2B0C1F1A77A83900DADC9D /* WLIconButton.m in Sources */,
 				C54AF65B19B8C491006F7EDB /* WLProfileEditSession.m in Sources */,
 				C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,

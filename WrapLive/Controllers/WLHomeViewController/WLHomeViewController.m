@@ -12,7 +12,6 @@
 #import "UIFont+CustomFonts.h"
 #import "UILabel+Additions.h"
 #import "UIView+AnimationHelper.h"
-#import "UIView+Shorthand.h"
 #import "UIViewController+Additions.h"
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"

@@ -10,7 +10,6 @@
 #import "WLCameraViewController.h"
 #import "WLStillPictureViewController.h"
 #import "WLNavigation.h"
-#import "UIView+Shorthand.h"
 #import "WLKeyboard.h"
 #import "WLInputAccessoryView.h"
 #import "WLToast.h"

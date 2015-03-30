@@ -28,6 +28,8 @@ static NSUInteger WLPageSize = 10;
 
 - (NSString*)urlWithPath:(NSString*)path;
 
++ (void)saveEnvironmentName:(NSString*)environmentName;
+
 @end
 
 @interface WLEntry (WLAPIManager)

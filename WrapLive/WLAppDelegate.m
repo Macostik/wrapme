@@ -207,4 +207,22 @@
     }
 }
 
+- (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
+    NSString *action = userInfo[@"action"];
+    if (action.nonempty) {
+        if ([action isEqualToString:@"authorization"]) {
+            if ([[WLAuthorization currentAuthorization] canAuthorize]) {
+                [[WLAuthorization currentAuthorization] setCurrent];
+                [WLAPIManager saveEnvironmentName:[WLAPIManager manager].environment.name];
+                if (reply) reply(@{@"success":@YES});
+            } else {
+                if (reply) reply(@{@"message":@"Please, launch wrapLive containing app for registration",@"success":@NO});
+            }
+            return;
+        }
+    }
+    
+    if (reply) reply(@{@"success":@NO});
+}
+
 @end

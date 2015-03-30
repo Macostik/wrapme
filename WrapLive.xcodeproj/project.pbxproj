@@ -1123,6 +1123,8 @@
 		C55B25B41AC9A6220072E9D2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
 		C55B25B51AC9BA220072E9D2 /* UIView+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BA60C5A1A8257ED000F795C /* UIView+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C55B25B61AC9BA260072E9D2 /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5B1A8257ED000F795C /* UIView+Shorthand.m */; };
+		C55B25B91AC9BF0A0072E9D2 /* WLWKErrorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */; };
+		C55B25BA1AC9BF0A0072E9D2 /* WLWKErrorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */; };
 		C55C8D6A19C98A9400199245 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6319C98A9400199245 /* WLNotification.m */; };
 		C55C8D6B19C98A9400199245 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6319C98A9400199245 /* WLNotification.m */; };
 		C55C8D6C19C98A9400199245 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6319C98A9400199245 /* WLNotification.m */; };
@@ -2306,6 +2308,8 @@
 		C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		C559974E1A262BD8003D4B29 /* WLTelephony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTelephony.h; sourceTree = "<group>"; };
 		C559974F1A262BD8003D4B29 /* WLTelephony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTelephony.m; sourceTree = "<group>"; };
+		C55B25B71AC9BF0A0072E9D2 /* WLWKErrorRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKErrorRow.h; sourceTree = "<group>"; };
+		C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKErrorRow.m; sourceTree = "<group>"; };
 		C55C8D6219C98A9400199245 /* WLNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotification.h; sourceTree = "<group>"; };
 		C55C8D6319C98A9400199245 /* WLNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotification.m; sourceTree = "<group>"; };
 		C55C8D6419C98A9400199245 /* WLNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationCenter.h; sourceTree = "<group>"; };
@@ -3841,6 +3845,8 @@
 				C50645DC1ABD815200CB4BE3 /* WLWKCommentEventRow.m */,
 				C50645DD1ABD815200CB4BE3 /* WLWKEntryRow.h */,
 				C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */,
+				C55B25B71AC9BF0A0072E9D2 /* WLWKErrorRow.h */,
+				C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */,
 				C50645DF1ABD815200CB4BE3 /* WLWKEventsController.h */,
 				C50645E01ABD815200CB4BE3 /* WLWKEventsController.m */,
 			);
@@ -6391,6 +6397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C50646801ABD815200CB4BE3 /* WLWKEntryRow.m in Sources */,
+				C55B25B91AC9BF0A0072E9D2 /* WLWKErrorRow.m in Sources */,
 				C50646641ABD815200CB4BE3 /* WLWKCandyController.m in Sources */,
 				C506465D1ABD815200CB4BE3 /* WLWKReplyPresetsController.m in Sources */,
 				C50646791ABD815200CB4BE3 /* WLWKCommentEventRow.m in Sources */,
@@ -6408,6 +6415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C50646AF1ABD831F00CB4BE3 /* WLWKEntryRow.m in Sources */,
+				C55B25BA1AC9BF0A0072E9D2 /* WLWKErrorRow.m in Sources */,
 				C50646B11ABD831F00CB4BE3 /* WLWKCandyController.m in Sources */,
 				C50646B31ABD831F00CB4BE3 /* WLWKReplyPresetsController.m in Sources */,
 				C50646B41ABD831F00CB4BE3 /* WLWKCommentEventRow.m in Sources */,

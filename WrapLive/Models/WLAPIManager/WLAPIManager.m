@@ -73,14 +73,18 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
         environmentName = [[NSUserDefaults appGroupUserDefaults] objectForKey:WLAppGroupEnvironment];
     } else {
         run_in_background_queue(^{
-            NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
-            [userDefaults setObject:environmentName forKey:WLAppGroupEnvironment];
-            [userDefaults synchronize];
+            [self saveEnvironmentName:environmentName];
         });
     }
     if (!environmentName.nonempty) environmentName = WLAPIEnvironmentDefault;
     
     return [WLAPIEnvironment environmentNamed:environmentName];
+}
+
++ (void)saveEnvironmentName:(NSString*)environmentName {
+    NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
+    [userDefaults setObject:environmentName forKey:WLAppGroupEnvironment];
+    [userDefaults synchronize];
 }
 
 - (NSString *)urlWithPath:(NSString *)path {

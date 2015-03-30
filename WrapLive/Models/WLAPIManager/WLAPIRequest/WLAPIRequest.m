@@ -140,7 +140,17 @@ static NSTimeInterval _difference = 0;
         [[WLAuthorizationRequest signInRequest] send:^(id object) {
             [strongSelf send];
         } failure:^(NSError *error) {
+#ifndef WRAPLIVE_KIT_TARGET
             [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+#else
+            if (strongSelf.failureBlock) {
+                if (error.code != NSURLErrorCancelled) {
+                    strongSelf.failureBlock(error);
+                }
+                strongSelf.failureBlock = nil;
+                strongSelf.successBlock = nil;
+            }
+#endif
         }];
     } else {
         if (self.failureBlock) {

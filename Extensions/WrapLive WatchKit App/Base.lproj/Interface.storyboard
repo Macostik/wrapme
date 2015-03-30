@@ -11,6 +11,7 @@
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
@@ -80,6 +81,22 @@
                                     <connections>
                                         <outlet property="group" destination="vkL-k8-NHu" id="0SV-Yk-O4f"/>
                                         <outlet property="text" destination="7wg-8q-jSs" id="oeW-Dm-MLA"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="error" id="xnS-Rj-tN0" userLabel="error" customClass="WLWKErrorRow">
+                                    <group key="rootItem" width="1" height="100" alignment="left" contentMode="scaleAspectFill" animationDuration="0.59999999999999998" layout="vertical" radius="0.0" spacing="0.0" id="vvx-eG-fSN">
+                                        <items>
+                                            <label alignment="left" verticalAlignment="center" textAlignment="left" numberOfLines="0" id="6lc-1Q-Z11">
+                                                <string key="text">detailed localized Error description detailed localized Error description detailed localized Error description detailed localized Error description</string>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="12"/>
+                                            </label>
+                                        </items>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="errorDescriptionLabel" destination="6lc-1Q-Z11" id="ZM8-Xo-RyU"/>
                                     </connections>
                                 </tableRow>
                             </items>

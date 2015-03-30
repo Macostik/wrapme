@@ -8,10 +8,7 @@
 
 #import "WLWKEventsController.h"
 #import "WLWKCommentEventRow.h"
-#import "NSURL+WLRemoteEntryHandler.h"
-#import "NSDate+Formatting.h"
-#import <WrapLiveKit/WLRecentContributionsRequest.h>
-#import <WrapLiveKit/WLEntry+Extended.h>
+#import "WLWKErrorRow.h"
 
 @interface WLWKEventsController()
 
@@ -26,8 +23,6 @@
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-
-    
 }
 
 - (void)setEntries:(NSOrderedSet *)entries {
@@ -51,12 +46,31 @@
     }
 }
 
-//- (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
-//    WLExtensionEvent *event = self.events[rowIndex];
-//    [WKInterfaceController openParentApplication:@{@"event":[event archive]} reply:^(NSDictionary *replyInfo, NSError *error) {
-//        
-//    }];
-//}
+- (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
+    if (self.entries.count == 0) {
+        __weak typeof(self)weakSelf = self;
+        [WKInterfaceController openParentApplication:@{@"action":@"authorization"} reply:^(NSDictionary *replyInfo, NSError *error) {
+            if (error) {
+                [weakSelf showError:error];
+            } else {
+                BOOL success = [replyInfo boolForKey:@"success"];
+                NSString *message = [replyInfo stringForKey:@"message"];
+                if (!success && message) {
+                    [weakSelf showError:WLError(message)];
+                } else {
+                    [weakSelf updateContributions];
+                }
+            }
+        }];
+    }
+}
+
+- (void)showError:(NSError*)error {
+    self.entries = nil;
+    [self.table setRowTypes:@[@"error"]];
+    WLWKErrorRow* row = [self.table rowControllerAtIndex:0];
+    [row setError:error];
+}
 
 - (id)contextForSegueWithIdentifier:(NSString *)segueIdentifier inTable:(WKInterfaceTable *)table rowIndex:(NSInteger)rowIndex {
     WLEntry *entry = self.entries[rowIndex];
@@ -69,11 +83,15 @@
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
+    [self updateContributions];
+}
+
+- (void)updateContributions {
     __weak typeof(self)weakSelf = self;
     [[WLRecentContributionsRequest request] send:^(id object) {
         weakSelf.entries = object;
     } failure:^(NSError *error) {
-        
+        [weakSelf showError:error];
     }];
 }
 

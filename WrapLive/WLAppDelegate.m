@@ -32,9 +32,8 @@
 #import "WLUploadingQueue.h"
 #import "GAI.h"
 #import <NewRelicAgent/NewRelic.h>
-#import <CoreLocation/CoreLocation.h>
 
-@interface WLAppDelegate () <iVersionDelegate, CLLocationManagerDelegate>
+@interface WLAppDelegate () <iVersionDelegate>
 
 @end
 
@@ -68,24 +67,7 @@
         }];
     });
     
-    static CLLocationManager *l = nil;
-    l = [[CLLocationManager alloc] init];
-    l.delegate = self;
-    
-    
-    
-    run_after(2, ^{
-        [l requestAlwaysAuthorization];
-        run_after(2, ^{
-            [l startUpdatingLocation];
-        });
-    });
-    
 	return YES;
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    
 }
 
 - (void)initializeCrashlyticsAndLogging {

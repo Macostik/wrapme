@@ -154,7 +154,11 @@
                 showBlock();
             }
         } else if (numberOfLaunches == 2) {
-            showBlock();
+            static BOOL shownForSecondLaunch = NO;
+            if (wraps.count == 0 || !shownForSecondLaunch) {
+                shownForSecondLaunch = YES;
+                showBlock();
+            }
         } else if (wraps.count == 0) {
             showBlock();
         }

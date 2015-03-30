@@ -7,21 +7,13 @@
 //
 
 #import "WLCandyCell.h"
-#import "WLImageFetcher.h"
-#import "WLEntryNotifier.h"
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
-#import "NSString+Additions.h"
 #import "UIView+GestureRecognizing.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "UIView+Shorthand.h"
 #import "WLToast.h"
-#import "WLImageFetcher.h"
 #import "MFMailComposeViewController+Additions.h"
-#import "WLUploading.h"
-#import "WLUser.h"
-#import "WLAPIManager.h"
-#import "WLEntryManager.h"
 #import "WLMenu.h"
 #import "UIFont+CustomFonts.h"
 

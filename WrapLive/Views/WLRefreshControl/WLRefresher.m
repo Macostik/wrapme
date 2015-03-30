@@ -7,7 +7,6 @@
 //
 
 #import "WLRefresher.h"
-#import "UIColor+CustomColors.h"
 #import "UIView+Shorthand.h"
 #import "UIView+AnimationHelper.h"
 #import "UIScrollView+Additions.h"

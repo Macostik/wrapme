@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLEntryManager.h"
 
 static NSString *WLMainStoryboard = @"Main";
 static NSString *WLSignUpStoryboard = @"SignUp";

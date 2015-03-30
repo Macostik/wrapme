@@ -12,18 +12,13 @@
 #import "UILabel+Additions.h"
 #import "UIView+GestureRecognizing.h"
 #import "UIView+Shorthand.h"
-#import "WLAPIManager.h"
 #import "WLCandyCell.h"
 #import "WLCollectionViewDataProvider.h"
-#import "WLEntryManager.h"
-#import "WLEntryNotifier.h"
 #import "WLHomeCandiesViewSection.h"
-#import "WLImageFetcher.h"
 #import "WLNotification.h"
 #import "WLNotificationCenter.h"
 #import "WLBadgeLabel.h"
 #import "WLWrapCell.h"
-#import "TTTAttributedLabel.h"
 #import "UIFont+CustomFonts.h"
 
 @interface WLWrapCell ()

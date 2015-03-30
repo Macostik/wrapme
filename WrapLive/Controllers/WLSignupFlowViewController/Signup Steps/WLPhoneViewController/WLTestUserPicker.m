@@ -8,13 +8,8 @@
 
 #import "WLTestUserPicker.h"
 #import "NSPropertyListSerialization+Shorthand.h"
-#import "WLAuthorization.h"
-#import "NSArray+Additions.h"
-#import "WLAPIManager.h"
-#import "UIColor+CustomColors.h"
 #import "WLTestUserCell.h"
 #import "NSObject+NibAdditions.h"
-#import "WLAPIEnvironment+TestUsers.h"
 
 @interface WLTestUserPicker () <UITableViewDataSource, UITableViewDelegate>
 

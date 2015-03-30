@@ -7,27 +7,13 @@
 //
 
 #import "WLNotificationCenter.h"
-#import "NSArray+Additions.h"
-#import "WLSession.h"
 #import "UIAlertView+Blocks.h"
 #import "WLToast.h"
-#import "NSString+Additions.h"
 #import "WLNotification.h"
-#import "WLAPIManager.h"
-#import "WLAuthorization.h"
-#import "WLEntryManager.h"
-#import "WLWrap.h"
 #import "WLSoundPlayer.h"
 #import "WLNotificationChannel.h"
 #import "NSPropertyListSerialization+Shorthand.h"
-#import "NSString+Documents.h"
-#import "NSDate+Additions.h"
-#import "WLAPIRequest.h"
-#import "UIDevice+SystemVersion.h"
 #import "WLRemoteEntryHandler.h"
-#import "WLImageFetcher.h"
-#import "WLOperationQueue.h"
-#import "WLEntryNotifier.h"
 
 @interface WLNotificationCenter () <PNDelegate>
 

@@ -8,11 +8,7 @@
 
 #import "WLInviteeCell.h"
 #import "UIView+Shorthand.h"
-#import "NSString+Additions.h"
-#import "WLImageFetcher.h"
-#import "WLPicture.h"
 #import "WLAddressBookPhoneNumber.h"
-#import "WLUser.h"
 
 @interface WLInviteeCell ()
 

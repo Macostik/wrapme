@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class WLPicture;
-@class WLUser;
 @class WLAddressBookRecord;
 
 static NSInteger WLAddressBookPhoneNumberMinimumLength = 6;

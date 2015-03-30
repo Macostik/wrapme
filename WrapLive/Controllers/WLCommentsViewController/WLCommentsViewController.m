@@ -10,15 +10,12 @@
 #import "WLCandyViewController.h"
 #import "WLComposeBar.h"
 #import "WLRefresher.h"
-#import "WLEntryNotifier.h"
-#import "WLAPIManager.h"
 #import "WLCommentsViewSection.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLCollectionViewFlowLayout.h"
 #import "WLSoundPlayer.h"
 #import "UIView+AnimationHelper.h"
 #import "WLNavigation.h"
-#import "NSString+Additions.h"
 
 @interface WLCommentsViewController () <WLEntryNotifyReceiver, UIViewControllerTransitioningDelegate>
 

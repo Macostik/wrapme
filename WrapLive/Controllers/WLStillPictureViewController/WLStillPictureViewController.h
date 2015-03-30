@@ -11,7 +11,6 @@
 
 @class WLStillPictureViewController;
 @class WLCameraViewController;
-@class WLWrap;
 
 @protocol WLStillPictureViewControllerDelegate <WLStillPictureBaseViewControllerDelegate>
 

@@ -7,8 +7,6 @@
 //
 
 #import "WLTestUserCell.h"
-#import "NSString+Additions.h"
-#import "WLAuthorization.h"
 
 @interface WLTestUserCell ()
 

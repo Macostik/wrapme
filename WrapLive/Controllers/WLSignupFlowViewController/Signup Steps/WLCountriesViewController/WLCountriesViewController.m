@@ -12,7 +12,6 @@
 #import "NSObject+NibAdditions.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLCollectionViewSection.h"
-#import "UIColor+CustomColors.h"
 #import "WLNavigationAnimator.h"
 
 @interface WLCountriesViewController ()

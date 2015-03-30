@@ -7,13 +7,9 @@
 //
 
 #import "WLSettingsViewController.h"
-#import "WLAPIManager.h"
-#import "WLSession.h"
 #import "WLNavigation.h"
 #import "UIAlertView+Blocks.h"
-#import "NSDate+Formatting.h"
 #import "ALAssetsLibrary+Additions.h"
-#import "WLAuthorizationRequest.h"
 
 @interface WLSettingsViewController ()
 

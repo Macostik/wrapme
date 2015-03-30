@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class WLAuthorization;
-
 @interface WLTestUserCell : UITableViewCell
 
 @property (strong, nonatomic) WLAuthorization *authorization;

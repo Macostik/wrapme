@@ -7,22 +7,15 @@
 //
 
 #import "NSDate+Additions.h"
-#import "NSDate+Formatting.h"
 #import "NSObject+NibAdditions.h"
-#import "NSString+Additions.h"
-#import "UIDevice+SystemVersion.h"
 #import "UIFont+CustomFonts.h"
 #import "UIScrollView+Additions.h"
 #import "UIView+AnimationHelper.h"
 #import "UIView+Shorthand.h"
-#import "WLAPIManager.h"
 #import "WLChat.h"
 #import "WLChatViewController.h"
 #import "WLCollectionViewFlowLayout.h"
 #import "WLComposeBar.h"
-#import "WLEntryNotifier.h"
-#import "WLHistory.h"
-#import "WLNetwork.h"
 #import "WLKeyboard.h"
 #import "WLLoadingView.h"
 #import "WLMessageCell.h"
@@ -31,8 +24,6 @@
 #import "WLSignificantTimeBroadcaster.h"
 #import "WLSoundPlayer.h"
 #import "WLTypingViewCell.h"
-#import "WLUser.h"
-#import "WLWrap.h"
 #import "WLFontPresetter.h"
 
 static NSUInteger WLChatTypingSection = 0;

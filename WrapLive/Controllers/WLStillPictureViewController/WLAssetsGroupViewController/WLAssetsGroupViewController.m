@@ -12,7 +12,6 @@
 #import "NSObject+NibAdditions.h"
 #import "UIViewController+Additions.h"
 #import "SegmentedControl.h"
-#import "NSDate+Formatting.h"
 #import "WLNavigation.h"
 
 @interface WLAssetsGroupViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLAssetsGroupCellDelegate>

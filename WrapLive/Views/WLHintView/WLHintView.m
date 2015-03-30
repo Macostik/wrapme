@@ -7,13 +7,11 @@
 //
 
 #import "WLHintView.h"
-#import "WLSession.h"
 #import "WLNavigation.h"
 #import "NSObject+NibAdditions.h"
 #import "UIView+Shorthand.h"
 #import "WLButton.h"
 #import "UIFont+CustomFonts.h"
-#import "UIColor+CustomColors.h"
 
 @implementation WLHintView 
 

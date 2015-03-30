@@ -7,8 +7,6 @@
 //
 
 #import "WLEmailViewController.h"
-#import "WLAuthorization.h"
-#import "WLAuthorizationRequest.h"
 #import "WLTelephony.h"
 #import "WLButton.h"
 #import "WLTestUserPicker.h"

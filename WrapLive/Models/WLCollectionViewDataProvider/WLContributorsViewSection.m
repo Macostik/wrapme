@@ -10,8 +10,6 @@
 #import "UIFont+CustomFonts.h"
 #import "UIView+Shorthand.h"
 #import "WLFontPresetter.h"
-#import "NSString+Additions.h"
-#import "WLContribution+Extended.h"
 
 const static CGFloat WLContributorsVerticalIndent = 48.0f;
 const static CGFloat WLContributorsHorizontalIndent = 96.0f;

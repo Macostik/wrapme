@@ -8,10 +8,7 @@
 
 #import "WLHomeViewSection.h"
 #import "WLWrapCell.h"
-#import "WLOperationQueue.h"
 #import "UIView+Shorthand.h"
-#import "WLWrapRequest.h"
-#import "WLEntryNotifier.h"
 
 @interface WLHomeViewSection () <WLEntryNotifyReceiver>
 

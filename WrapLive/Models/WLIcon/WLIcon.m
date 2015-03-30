@@ -8,7 +8,6 @@
 
 #import "WLIcon.h"
 #import <objc/message.h>
-#import "NSDictionary+Extended.h"
 
 @implementation WLIcon
 

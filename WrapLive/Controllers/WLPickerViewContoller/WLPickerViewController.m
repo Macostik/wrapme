@@ -12,13 +12,9 @@
 #import "UIView+Shorthand.h"
 #import "WLButton.h"
 #import "WLPickerViewController.h"
-#import "WLUser+Extended.h"
-#import "WLWrap+Extended.h"
 #import "WLWrapCell.h"
-#import "NSString+Additions.h"
 #import "UIView+GestureRecognizing.h"
 #import "WLStillPictureViewController.h"
-#import "WLEntryNotifier.h"
 
 static NSString *const WLPickerViewCell = @"WLPickerViewCell";
 static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";

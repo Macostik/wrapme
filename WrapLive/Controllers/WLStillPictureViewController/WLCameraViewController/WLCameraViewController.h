@@ -10,7 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 
 @class WLCameraViewController;
-@class WLWrap;
 
 @protocol WLCameraViewControllerDelegate <WLStillPictureBaseViewControllerDelegate>
 

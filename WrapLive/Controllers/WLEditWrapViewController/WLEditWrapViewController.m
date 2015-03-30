@@ -8,14 +8,9 @@
 
 #import "WLEditWrapViewController.h"
 #import "WLButton.h"
-#import "UIColor+CustomColors.h"
-#import "WLWrap+Extended.h"
-#import "WLUser+Extended.h"
 #import "NSObject+NibAdditions.h"
 #import "UIView+Shorthand.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLEntryManager.h"
-#import "WLAPIManager.h"
 #import "WLToast.h"
 
 static NSString *const WLDelete = @"Delete";

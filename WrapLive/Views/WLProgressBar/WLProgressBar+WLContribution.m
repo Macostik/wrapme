@@ -8,9 +8,6 @@
 
 #import "WLProgressBar+WLContribution.h"
 #import <AFNetworking/AFURLConnectionOperation.h>
-#import "WLNetwork.h"
-#import "WLContribution+Extended.h"
-#import "WLUploading+Extended.h"
 #import "NSObject+AssociatedObjects.h"
 
 @implementation WLProgressBar (WLContribution)

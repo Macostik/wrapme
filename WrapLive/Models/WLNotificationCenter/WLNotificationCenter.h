@@ -10,8 +10,6 @@
 
 @class WLNotificationCenter;
 @class WLNotification;
-@class WLUser;
-@class WLWrap;
 
 @interface WLNotificationCenter : WLBroadcaster
 

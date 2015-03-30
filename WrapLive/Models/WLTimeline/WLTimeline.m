@@ -7,10 +7,7 @@
 //
 
 #import "WLTimeline.h"
-#import "WLWrap.h"
-#import "WLEntryNotifier.h"
 #import "WLTimelineEvent.h"
-#import "WLCandiesRequest.h"
 
 @interface WLTimeline () <WLEntryNotifyReceiver>
 

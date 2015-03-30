@@ -7,9 +7,7 @@
 //
 
 #import "WLChat.h"
-#import "NSDate+Formatting.h"
 #import "NSMutableOrderedSet+Sorting.h"
-#import "WLMessage.h"
 
 @interface WLChat () <WLChatTypingChannelDelegate>
 

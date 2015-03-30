@@ -7,7 +7,6 @@
 //
 
 #import "WLAlertView.h"
-#import "UIDevice+SystemVersion.h"
 
 @implementation WLAlertView
 

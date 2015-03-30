@@ -8,8 +8,6 @@
 
 #import "WLCandiesHistoryViewSection.h"
 #import "UIView+Shorthand.h"
-#import "WLWrapRequest.h"
-#import "WLHistory.h"
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 

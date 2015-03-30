@@ -8,14 +8,10 @@
 
 #import "WLEditViewController.h"
 #import "UIView+Shorthand.h"
-#import "UIImage+Resize.h"
-#import "WLEntryManager.h"
 #import "WLNavigation.h"
 #import "UIView+AnimationHelper.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLImageFetcher.h"
 #import "WLButton.h"
-#import "NSError+WLAPIManager.h"
 
 @interface WLEditViewController ()
 

@@ -7,7 +7,6 @@
 //
 
 #import "WLConfirmView.h"
-#import "WLAuthorization.h"
 #import "NSObject+NibAdditions.h"
 
 @interface WLConfirmView ()

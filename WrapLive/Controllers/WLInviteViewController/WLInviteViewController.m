@@ -8,14 +8,10 @@
 
 #import "WLInviteViewController.h"
 #import "WLAddressBook.h"
-#import "WLAPIManager.h"
-#import "WLUser.h"
-#import "NSString+Additions.h"
 #import "UIButton+Additions.h"
-#import "NSArray+Additions.h"
 #import "WLAddressBookPhoneNumber.h"
-#import "WLContributorsRequest.h"
 #import "WLButton.h"
+#import "WLContributorsRequest.h"
 
 @interface WLInviteViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;

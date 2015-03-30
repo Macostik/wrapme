@@ -9,7 +9,6 @@
 #import "WLCandiesViewSection.h"
 #import "UIScrollView+Additions.h"
 #import "WLCandyCell.h"
-#import "WLHistory.h"
 
 @implementation WLCandiesViewSection
 

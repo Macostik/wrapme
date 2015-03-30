@@ -8,10 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class WLUser;
-@class WLContribution;
-@class WLEntry;
-
 @interface WLTimelineEvent : NSObject
 
 @property (weak, nonatomic) WLUser* user;

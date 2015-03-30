@@ -10,7 +10,6 @@
 #import "WLAddressBookRecord.h"
 #import "WLAddressBookPhoneNumber.h"
 
-@class WLPicture;
 @class WLAddressBook;
 
 @protocol WLAddressBookReceiver <NSObject>

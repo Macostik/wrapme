@@ -10,8 +10,6 @@
 #import <PubNub/PubNub.h>
 #import "WLNotificationCenter.h"
 #import "WLNotification.h"
-#import "WLUser+Extended.h"
-#import "NSString+Additions.h"
 
 @interface WLNotificationChannel ()
 

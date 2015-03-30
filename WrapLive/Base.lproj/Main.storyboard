@@ -1498,13 +1498,13 @@
                                 <rect key="frame" x="278" y="529" width="34" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zzu-qX-c4N" userLabel="iCloudButton" customClass="WLIconButton">
-                                        <rect key="frame" x="2" y="-3" width="30" height="34"/>
+                                        <rect key="frame" x="2" y="-5" width="30" height="34"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="cloud"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="small"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="ios7Cloud"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="base"/>
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1RC-4W-wDl" userLabel="PlaceholderButton" customClass="WLIconButton">
@@ -1521,7 +1521,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hw2-sP-LBk" userLabel="countLabel" customClass="WLLabel">
-                                        <rect key="frame" x="3" y="17" width="28" height="20"/>
+                                        <rect key="frame" x="3" y="14" width="28" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="ufx-u4-PEc"/>
                                         </constraints>
@@ -1539,10 +1539,10 @@
                                     <constraint firstAttribute="width" secondItem="Zzu-qX-c4N" secondAttribute="width" constant="4" id="6Qg-FS-Ant"/>
                                     <constraint firstAttribute="trailing" secondItem="hw2-sP-LBk" secondAttribute="trailing" constant="3" id="QwG-w2-X10"/>
                                     <constraint firstAttribute="bottom" secondItem="1RC-4W-wDl" secondAttribute="bottom" id="Uyx-gw-lFq"/>
-                                    <constraint firstItem="hw2-sP-LBk" firstAttribute="top" secondItem="Zzu-qX-c4N" secondAttribute="bottom" constant="-14" id="XIl-Pn-Kdy"/>
                                     <constraint firstAttribute="centerX" secondItem="Zzu-qX-c4N" secondAttribute="centerX" id="aWB-jT-sDl"/>
                                     <constraint firstItem="1RC-4W-wDl" firstAttribute="leading" secondItem="IWZ-KR-48g" secondAttribute="leading" id="c5C-8p-AqM"/>
-                                    <constraint firstAttribute="bottom" secondItem="Zzu-qX-c4N" secondAttribute="bottom" constant="3" id="mZU-b6-54m"/>
+                                    <constraint firstAttribute="bottom" secondItem="Zzu-qX-c4N" secondAttribute="bottom" constant="5" id="mZU-b6-54m"/>
+                                    <constraint firstAttribute="bottom" secondItem="hw2-sP-LBk" secondAttribute="bottom" id="qTw-Jp-TW1"/>
                                     <constraint firstAttribute="height" secondItem="Zzu-qX-c4N" secondAttribute="height" id="r3t-Tc-3Ib"/>
                                     <constraint firstAttribute="trailing" secondItem="1RC-4W-wDl" secondAttribute="trailing" id="vpQ-fx-9Oz"/>
                                     <constraint firstItem="1RC-4W-wDl" firstAttribute="top" secondItem="IWZ-KR-48g" secondAttribute="top" id="zIW-4I-pNb"/>

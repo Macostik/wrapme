@@ -61,7 +61,7 @@ static NSString * const kPNCodebaseBranch = @"master";
 /**
  SHA of the commit which stores actual changes in this codebase.
  */
-static NSString * const kPNCodeCommitIdentifier = @"ccc25929cb9268c2178687a8659b1f24cee45ef7";
+static NSString * const kPNCodeCommitIdentifier = @"d0367a4932299d49aba45c82876b342999cad294";
 
 /**
  Stores reference on singleton PubNub instance and dispatch once token.
@@ -530,9 +530,10 @@ shouldObserveProcessing:(BOOL)shouldObserveProcessing;
             _sharedInstance.state = PNPubNubClientStateReset;
             [_sharedInstance destroyHeartbeatTimer:YES];
 
-            onceToken = 0;
+
             [PNObservationCenter resetCenter];
             [PNChannel purgeChannelsCache];
+            onceToken = 0;
             _sharedInstance.cryptoHelper = nil;
             
             _sharedInstance.clientConfiguration = nil;
@@ -2886,6 +2887,7 @@ shouldObserveProcessing:(BOOL)shouldObserveProcessing;
 #if __IPHONE_OS_VERSION_MIN_REQUIRED
 - (void)handleApplicationDidEnterBackgroundState:(NSNotification *)__unused notification {
 
+#if !PN_APP_EXTENSION
     [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
 
         return @[PNLoggerSymbols.api.handleEnteredBackground, [self humanReadableStateFrom:self.state]];
@@ -3068,10 +3070,12 @@ shouldObserveProcessing:(BOOL)shouldObserveProcessing;
             });
         }
     }
+#endif
 }
 
 - (void)handleApplicationDidEnterForegroundState:(NSNotification *)__unused notification  {
 
+#if !PN_APP_EXTENSION
     [self pn_dispatchBlock:^{
 
         [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
@@ -3161,6 +3165,7 @@ shouldObserveProcessing:(BOOL)shouldObserveProcessing;
             }];
         }];
     }];
+#endif
 }
 #else
 - (void)handleWorkspaceWillSleep:(NSNotification *)notification {
@@ -3901,6 +3906,7 @@ shouldObserveProcessing:(BOOL)shouldObserveProcessing;
     [self unsubscribeFromNotifications];
     
 #if __IPHONE_OS_VERSION_MIN_REQUIRED
+    #if !PN_APP_EXTENSION
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleApplicationDidEnterBackgroundState:)
                                                  name:UIApplicationDidEnterBackgroundNotification
@@ -3909,6 +3915,7 @@ shouldObserveProcessing:(BOOL)shouldObserveProcessing;
                                              selector:@selector(handleApplicationDidEnterForegroundState:)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
+    #endif
 #else
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self
                                                            selector:@selector(handleWorkspaceWillSleep:)
@@ -3933,8 +3940,10 @@ shouldObserveProcessing:(BOOL)shouldObserveProcessing;
 - (void)unsubscribeFromNotifications {
     
 #if __IPHONE_OS_VERSION_MIN_REQUIRED
+    #if !PN_APP_EXTENSION
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    #endif
 #else
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self name:NSWorkspaceWillSleepNotification object:nil];
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self name:NSWorkspaceSessionDidResignActiveNotification object:nil];

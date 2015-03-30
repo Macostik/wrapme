@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08C5C259A2AA343B0F6FF920 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21D94414E2FB37DADB3B220F /* libPods.a */; };
-		0AAB6028A03217FEAD635DD1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21D94414E2FB37DADB3B220F /* libPods.a */; };
 		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B4418E08B7E001F585C /* CountryCodes.json */; };
 		121FC9E3190A93D80034486D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E2190A93D80034486D /* CFNetwork.framework */; };
@@ -57,8 +55,9 @@
 		14B134E11952FEB2004F86AC /* WLInviteeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B134E01952FEB2004F86AC /* WLInviteeCell.m */; };
 		14B2429D195C4CEB00C5D208 /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
-		2AD3D0A114FCE5F8449461F1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21D94414E2FB37DADB3B220F /* libPods.a */; };
-		319C4C4114EEFAC6507F519C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21D94414E2FB37DADB3B220F /* libPods.a */; };
+		1A195D885E6E90115CA279ED /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
+		400482A4B90D23DE4D812D69 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
+		506B6B9F22C6B94BB0FB6A7A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
 		5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
 		5B2199FF1A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B219A041A66C94600D131C3 /* WLWrapOptionsViewController.xib */; };
 		5B219A001A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B219A041A66C94600D131C3 /* WLWrapOptionsViewController.xib */; };
@@ -329,9 +328,10 @@
 		5BF583471A1F984200922BD5 /* ic_quote.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833B1A1F983B00922BD5 /* ic_quote.png */; };
 		5BF583481A1F984200922BD5 /* ic_quote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833C1A1F983B00922BD5 /* ic_quote@2x.png */; };
 		5BF583491A1F984200922BD5 /* ic_quote@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833D1A1F983B00922BD5 /* ic_quote@3x.png */; };
-		8751BF6083032C173191E8C6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21D94414E2FB37DADB3B220F /* libPods.a */; };
-		88D5E5E8BCA77EA52AD3BB7D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21D94414E2FB37DADB3B220F /* libPods.a */; };
-		A39FD8A885970A545E4E35D0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21D94414E2FB37DADB3B220F /* libPods.a */; };
+		608D7F0A6D4C8BBD035EEE5A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
+		664CF9948363F83EEFB3E74B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
+		67264C225529D7077B5BA325 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
+		6DDD927D617D145F2EAF7577 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
 		AC1A179D1937694B002B3737 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A179C1937694B002B3737 /* MessageUI.framework */; };
@@ -1422,8 +1422,8 @@
 		C5FFB03419AC8FA5006F27A7 /* WLTimelineEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03319AC8FA5006F27A7 /* WLTimelineEvent.m */; };
 		C5FFB03719AC9248006F27A7 /* WLTimelineViewDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03619AC9248006F27A7 /* WLTimelineViewDataProvider.m */; };
 		C5FFB03B19AC9562006F27A7 /* WLTimelineEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03A19AC9562006F27A7 /* WLTimelineEventCell.m */; };
-		D9434BF3F06BA5CC596E67E4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21D94414E2FB37DADB3B220F /* libPods.a */; };
-		DD1453587989F3A5070BEAB7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21D94414E2FB37DADB3B220F /* libPods.a */; };
+		CBD6CE543E285A466D78CBC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
+		E8E2A506E5CD8744156E7EB2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1806,10 +1806,7 @@
 		14B242A2195C4D9200C5D208 /* WLProfileEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileEditSession.h; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.h; sourceTree = "<group>"; };
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
 		21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		21D94414E2FB37DADB3B220F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3272A1C39BD41FBFE03B2A92 /* libPods-WrapLive-Beta.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WrapLive-Beta.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
-		42CA3AF521263747CD1779EC /* Pods-WrapLive-QA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WrapLive-QA.release.xcconfig"; path = "Pods/Target Support Files/Pods-WrapLive-QA/Pods-WrapLive-QA.release.xcconfig"; sourceTree = "<group>"; };
 		5B2199FE1A66C8F400D131C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLEditWrapViewController.strings; sourceTree = "<group>"; };
 		5B219A031A66C94600D131C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLWrapOptionsViewController.xib; sourceTree = "<group>"; };
 		5B219A061A66C94700D131C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLWrapOptionsViewController.strings; sourceTree = "<group>"; };
@@ -1989,9 +1986,8 @@
 		5BF5833B1A1F983B00922BD5 /* ic_quote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_quote.png; sourceTree = "<group>"; };
 		5BF5833C1A1F983B00922BD5 /* ic_quote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_quote@2x.png"; sourceTree = "<group>"; };
 		5BF5833D1A1F983B00922BD5 /* ic_quote@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_quote@3x.png"; sourceTree = "<group>"; };
-		63802D691111B6CA45B3027C /* Pods-WrapLive-QA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WrapLive-QA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WrapLive-QA/Pods-WrapLive-QA.debug.xcconfig"; sourceTree = "<group>"; };
 		6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		9565E5E9BCA1A39C1389C28C /* libPods-WrapLive-Development.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WrapLive-Development.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D8D5146BE9EE27E27B6A61C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
 		AC17ADAF18F8147900F55E17 /* WLCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionViewFlowLayout.h; path = WLChatViewController/WLCollectionViewFlowLayout.h; sourceTree = "<group>"; };
@@ -2009,7 +2005,6 @@
 		ACF8D9131934B4460001E570 /* flowers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = flowers.plist; sourceTree = "<group>"; };
 		ACF8D9151934B44D0001E570 /* rings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = rings.plist; sourceTree = "<group>"; };
 		ACF8D9171934B45C0001E570 /* cars.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cars.plist; sourceTree = "<group>"; };
-		C2D43A591674DA2A59FC5C5B /* libPods-WrapLive-Production.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WrapLive-Production.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50236121979032400996D07 /* WLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLImageView.h; path = WLImageFetcher/WLImageView.h; sourceTree = "<group>"; };
 		C50236131979032400996D07 /* WLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLImageView.m; path = WLImageFetcher/WLImageView.m; sourceTree = "<group>"; };
 		C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLSplashLoadingView.xib; path = WLLoadingView/WLSplashLoadingView.xib; sourceTree = "<group>"; };
@@ -2108,7 +2103,6 @@
 		C50F48381973EFCB00929AA9 /* WLPaginatedSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPaginatedSet.m; path = WLPagination/WLPaginatedSet.m; sourceTree = "<group>"; };
 		C50FD420199B69FD00B52B33 /* WLCandiesHistoryViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCandiesHistoryViewSection.h; path = WLCollectionViewDataProvider/WLCandiesHistoryViewSection.h; sourceTree = "<group>"; };
 		C50FD421199B69FD00B52B33 /* WLCandiesHistoryViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCandiesHistoryViewSection.m; path = WLCollectionViewDataProvider/WLCandiesHistoryViewSection.m; sourceTree = "<group>"; };
-		C5111D321AB2E1060094275C /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		C5111D371AB345D10094275C /* WLIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIntroductionViewController.h; sourceTree = "<group>"; };
 		C5111D381AB345D10094275C /* WLIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIntroductionViewController.m; sourceTree = "<group>"; };
 		C51383CE19A4AB3300D23257 /* WLNotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLNotificationsViewController.h; path = WLNotificationsViewController/WLNotificationsViewController.h; sourceTree = "<group>"; };
@@ -2455,7 +2449,6 @@
 		C5FFB03619AC9248006F27A7 /* WLTimelineViewDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTimelineViewDataProvider.m; path = WLCollectionViewDataProvider/WLTimelineViewDataProvider.m; sourceTree = "<group>"; };
 		C5FFB03919AC9562006F27A7 /* WLTimelineEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimelineEventCell.h; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCell.h; sourceTree = "<group>"; };
 		C5FFB03A19AC9562006F27A7 /* WLTimelineEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTimelineEventCell.m; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCell.m; sourceTree = "<group>"; };
-		DB3E1BA25DBEAE84AEE5004A /* libPods-WrapLive-QA.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WrapLive-QA.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2474,7 +2467,7 @@
 				12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */,
 				12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */,
 				C5D41CF21AB1EE4600990944 /* libGoogleAnalyticsServices.a in Frameworks */,
-				0AAB6028A03217FEAD635DD1 /* libPods.a in Frameworks */,
+				67264C225529D7077B5BA325 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2484,7 +2477,7 @@
 			files = (
 				C57678E51AC02CCF001FE2D0 /* WrapLiveKit.framework in Frameworks */,
 				5B787D9D1A27876F004AE459 /* NotificationCenter.framework in Frameworks */,
-				A39FD8A885970A545E4E35D0 /* libPods.a in Frameworks */,
+				1A195D885E6E90115CA279ED /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2494,7 +2487,7 @@
 			files = (
 				C559126C1AC038FE00320483 /* WrapLiveKit.framework in Frameworks */,
 				5BF1B23B1A49A683000BB2C1 /* NotificationCenter.framework in Frameworks */,
-				D9434BF3F06BA5CC596E67E4 /* libPods.a in Frameworks */,
+				6DDD927D617D145F2EAF7577 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2503,7 +2496,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C55912851AC03CCE00320483 /* WrapLiveKit.framework in Frameworks */,
-				2AD3D0A114FCE5F8449461F1 /* libPods.a in Frameworks */,
+				CBD6CE543E285A466D78CBC8 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2512,7 +2505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C55912881AC03CDE00320483 /* WrapLiveKit.framework in Frameworks */,
-				88D5E5E8BCA77EA52AD3BB7D /* libPods.a in Frameworks */,
+				664CF9948363F83EEFB3E74B /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2523,7 +2516,7 @@
 				C50647691ABD889100CB4BE3 /* CoreData.framework in Frameworks */,
 				C50647671ABD888800CB4BE3 /* Foundation.framework in Frameworks */,
 				C50647661ABD888100CB4BE3 /* UIKit.framework in Frameworks */,
-				08C5C259A2AA343B0F6FF920 /* libPods.a in Frameworks */,
+				400482A4B90D23DE4D812D69 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2542,7 +2535,7 @@
 				C54AF51C19B8C437006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF51E19B8C437006F7EDB /* Foundation.framework in Frameworks */,
 				C5D41CF31AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
-				DD1453587989F3A5070BEAB7 /* libPods.a in Frameworks */,
+				608D7F0A6D4C8BBD035EEE5A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2561,7 +2554,7 @@
 				C54AF61919B8C467006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF61B19B8C467006F7EDB /* Foundation.framework in Frameworks */,
 				C5D41CF41AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
-				8751BF6083032C173191E8C6 /* libPods.a in Frameworks */,
+				E8E2A506E5CD8744156E7EB2 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2580,7 +2573,7 @@
 				C54AF71619B8C491006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF71819B8C491006F7EDB /* Foundation.framework in Frameworks */,
 				C5D41CF51AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
-				319C4C4114EEFAC6507F519C /* libPods.a in Frameworks */,
+				506B6B9F22C6B94BB0FB6A7A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2761,7 +2754,6 @@
 			isa = PBXGroup;
 			children = (
 				C50647681ABD889100CB4BE3 /* CoreData.framework */,
-				C5111D321AB2E1060094275C /* libPods.a */,
 				C5D41CE61AB1EE4600990944 /* GoogleAnalyticsServices */,
 				C53F2CA51A6EB5FA00D99741 /* AviarySDK */,
 				C53F2CA91A6EB5FA00D99741 /* lelib */,
@@ -2775,12 +2767,8 @@
 				12A7A70218DA0945008FF6F0 /* Foundation.framework */,
 				12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */,
 				12A7A70618DA0945008FF6F0 /* UIKit.framework */,
-				9565E5E9BCA1A39C1389C28C /* libPods-WrapLive-Development.a */,
-				DB3E1BA25DBEAE84AEE5004A /* libPods-WrapLive-QA.a */,
-				3272A1C39BD41FBFE03B2A92 /* libPods-WrapLive-Beta.a */,
-				C2D43A591674DA2A59FC5C5B /* libPods-WrapLive-Production.a */,
 				5B787D9C1A27876F004AE459 /* NotificationCenter.framework */,
-				21D94414E2FB37DADB3B220F /* libPods.a */,
+				7D8D5146BE9EE27E27B6A61C /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -4913,8 +4901,6 @@
 			children = (
 				21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */,
 				6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */,
-				63802D691111B6CA45B3027C /* Pods-WrapLive-QA.debug.xcconfig */,
-				42CA3AF521263747CD1779EC /* Pods-WrapLive-QA.release.xcconfig */,
 				3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */,
 			);
 			name = Pods;
@@ -5069,6 +5055,7 @@
 				12A7A6FD18DA0945008FF6F0 /* Resources */,
 				5B787DAC1A27876F004AE459 /* Embed App Extensions */,
 				C5394F5C1AC415FC007FFD84 /* Embed Frameworks */,
+				C55B258D1AC98ED20072E9D2 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -5335,6 +5322,11 @@
 					C50645831ABD7FD400CB4BE3 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = 2PW57LM468;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					C50645921ABD7FD500CB4BE3 = {
 						CreatedOnToolsVersion = 6.2;
@@ -5342,6 +5334,11 @@
 					};
 					C50646AB1ABD831F00CB4BE3 = {
 						DevelopmentTeam = 2PW57LM468;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					C50646D21ABD833000CB4BE3 = {
 						DevelopmentTeam = 2PW57LM468;
@@ -6046,6 +6043,21 @@
 			showEnvVarsInLog = 0;
 		};
 		C54AF74519B8C491006F7EDB /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C55B258D1AC98ED20072E9D2 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -7675,6 +7687,7 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -7700,6 +7713,7 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COPY_PHASE_STRIP = NO;
@@ -7722,6 +7736,7 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COPY_PHASE_STRIP = NO;
@@ -7744,6 +7759,7 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -7769,6 +7785,7 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COPY_PHASE_STRIP = NO;
@@ -7791,6 +7808,7 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COPY_PHASE_STRIP = NO;

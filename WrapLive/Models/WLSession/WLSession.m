@@ -51,8 +51,9 @@ static WLAuthorization* _authorization = nil;
     _authorization = authorization;
     if (authorization) {
         [authorization archive:^(NSData *data) {
+            NSData *encryptedData = [WLCryptographer encryptData:data];
             NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
-            [userDefaults setObject:[WLCryptographer encryptData:data] forKey:WLAppGroupEncryptedAuthorization];
+            [userDefaults setObject:encryptedData forKey:WLAppGroupEncryptedAuthorization];
             [userDefaults synchronize];
         }];
     } else {

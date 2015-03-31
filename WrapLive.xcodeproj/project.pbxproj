@@ -1548,6 +1548,27 @@
 			remoteGlobalIDString = C50646E81ABD844700CB4BE3;
 			remoteInfo = WrapLiveKit;
 		};
+		C5FBDB7A1ACA9A6600B24BC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
+			remoteInfo = "WrapLiveWatchKitExtension-Development";
+		};
+		C5FBDB7C1ACA9A6E00B24BC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
+			remoteInfo = "WrapLiveWatchKitExtension-Development";
+		};
+		C5FBDB7E1ACA9A7400B24BC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C50646AB1ABD831F00CB4BE3;
+			remoteInfo = "WrapLiveWatchKitExtension-Production";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -5218,6 +5239,7 @@
 			dependencies = (
 				C559CB751AA0BB6200100B2C /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
+				C5FBDB7B1ACA9A6600B24BC2 /* PBXTargetDependency */,
 				C55912791AC03CB800320483 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-QA";
@@ -5243,6 +5265,7 @@
 			dependencies = (
 				C559CB771AA0BB6500100B2C /* PBXTargetDependency */,
 				5BA7AF341A481A9C00C586CA /* PBXTargetDependency */,
+				C5FBDB7D1ACA9A6E00B24BC2 /* PBXTargetDependency */,
 				C559127E1AC03CBD00320483 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Beta";
@@ -5268,6 +5291,7 @@
 			dependencies = (
 				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
 				5BF1B2541A49B63E000BB2C1 /* PBXTargetDependency */,
+				C5FBDB7F1ACA9A7400B24BC2 /* PBXTargetDependency */,
 				C55912831AC03CC300320483 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Production";
@@ -7181,6 +7205,21 @@
 			isa = PBXTargetDependency;
 			target = C50646E81ABD844700CB4BE3 /* WrapLiveKit */;
 			targetProxy = C57678EB1AC02D38001FE2D0 /* PBXContainerItemProxy */;
+		};
+		C5FBDB7B1ACA9A6600B24BC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C50645831ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development */;
+			targetProxy = C5FBDB7A1ACA9A6600B24BC2 /* PBXContainerItemProxy */;
+		};
+		C5FBDB7D1ACA9A6E00B24BC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C50645831ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development */;
+			targetProxy = C5FBDB7C1ACA9A6E00B24BC2 /* PBXContainerItemProxy */;
+		};
+		C5FBDB7F1ACA9A7400B24BC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C50646AB1ABD831F00CB4BE3 /* WrapLiveWatchKitExtension-Production */;
+			targetProxy = C5FBDB7E1ACA9A7400B24BC2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

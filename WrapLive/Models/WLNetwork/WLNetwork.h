@@ -21,6 +21,8 @@
 
 @property (nonatomic, readonly) BOOL reachable;
 
+@property (strong, nonatomic) void (^changeReachabilityBlock) (WLNetwork *network);
+
 + (instancetype)network;
 
 @end

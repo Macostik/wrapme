@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#ifndef WRAPLIVE_KIT_TARGET
+#ifndef WRAPLIVE_EXTENSION_TERGET
 #import "lelib.h"
 #endif
 
@@ -17,7 +17,7 @@
 
 #if WL_LOG_DETAILED
 
-#ifndef WRAPLIVE_KIT_TARGET
+#ifndef WRAPLIVE_EXTENSION_TERGET
 #define WLLog(LABEL,ACTION,OBJECT)\
 NSString *str = [NSString stringWithFormat:@"%@ - %@",(LABEL), (ACTION)];\
 NSLog(@"%@: %@", str, (OBJECT));\
@@ -33,7 +33,7 @@ NSLog(@"%@: %@", str, (OBJECT));\
 
 #else
 
-#ifndef WRAPLIVE_KIT_TARGET
+#ifndef WRAPLIVE_EXTENSION_TERGET
 #define WLLog(LABEL,ACTION,OBJECT)\
 NSString *str = [NSString stringWithFormat:@"%@ - %@",(LABEL), (ACTION)];\
 NSLog(@"%@", str);\

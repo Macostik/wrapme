@@ -15,7 +15,7 @@
 #import "NSPropertyListSerialization+Shorthand.h"
 #import "WLRemoteEntryHandler.h"
 
-@interface WLNotificationCenter () <PNDelegate>
+@interface WLNotificationCenter () <PNDelegate, WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) WLNotificationChannel* userChannel;
 
@@ -117,6 +117,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)configure {
 	[self connect];
+    [[WLUser notifier] addReceiver:self];
     [super configure];
 }
 
@@ -386,6 +387,16 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)pubnubClient:(PubNub *)client didReceivePresenceEvent:(PNPresenceEvent *)event {
     WLLog(@"PUBNUB", @"presence event", @(event.type));
+}
+
+// MARK: - WLEntryNotifyReceiver
+
+- (void)notifier:(WLEntryNotifier *)notifier userAdded:(WLUser *)user {
+    [self subscribe];
+}
+
+- (WLUser *)notifierPreferredUser:(WLEntryNotifier *)notifier {
+    return [WLUser currentUser];
 }
 
 @end

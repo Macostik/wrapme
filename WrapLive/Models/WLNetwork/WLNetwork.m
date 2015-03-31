@@ -14,10 +14,6 @@
 #import <AFNetworking/AFNetworkReachabilityManager.h>
 #import "WLUploadingQueue.h"
 
-#ifndef WRAPLIVE_KIT_TARGET
-#import "WLAddressBook.h"
-#endif
-
 @implementation WLNetwork
 
 + (instancetype)network {
@@ -41,15 +37,8 @@
     run_after(0.2, ^{
         [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
             [weakSelf broadcast:@selector(networkDidChangeReachability:)];
-            if (weakSelf.reachable) {
-                if ([WLAuthorizationRequest authorized]) {
-                    [WLUploadingQueue start];
-#ifndef WRAPLIVE_KIT_TARGET
-                    [[WLAddressBook addressBook] updateCachedRecordsAfterFailure];
-#endif
-                } else {
-                    [[WLAuthorizationRequest signInRequest] send];
-                }
+            if (weakSelf.changeReachabilityBlock) {
+                weakSelf.changeReachabilityBlock(weakSelf);
             }
         }];
     });

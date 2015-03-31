@@ -37,10 +37,7 @@
 #import "WLOperationQueue.h"
 #import "WLHistory.h"
 #import "NSUserDefaults+WLAppGroup.h"
-
-#ifndef WRAPLIVE_KIT_TARGET
 #import "WLAlertView.h"
-#endif
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 
@@ -201,7 +198,6 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
         removeBlock();
         return nil;
     }
-#ifndef WRAPLIVE_KIT_TARGET
     [WLAlertView showWithTitle:WLLS(WLDeleteAlertTitle)
                        message:[NSString stringWithFormat:WLLS(WLDeleteAlertMessage), self.name]
                        buttons:@[WLLS(@"Cancel"),WLLS(@"Delete")]
@@ -212,9 +208,6 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
                             failure([NSError errorWithDescription:@"Action cancelled" code:WLErrorActionCancelled]);
                         }
                     }];
-#else
-    removeBlock();
-#endif
     return nil;
 }
 
@@ -271,7 +264,6 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
 
 - (id)leave:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     __weak __typeof(self)weakSelf = self;
-#ifndef WRAPLIVE_KIT_TARGET
     [WLAlertView showWithTitle:WLLS(WLLeaveAlertTitle)
                        message:WLLS(WLLeaveAlertMessage)
                        buttons:@[WLLS(@"YES"),WLLS(@"NO")]
@@ -285,12 +277,6 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
                             success(nil);
                         }
                     }];
-#else
-    [[WLLeaveWrapRequest request:weakSelf] send:^(id object) {
-        [weakSelf remove];
-        success(object);
-    } failure:failure];
-#endif
     return nil;
 }
 
@@ -342,7 +328,6 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
         removeBlock();
         return nil;
     }
-#ifndef WRAPLIVE_KIT_TARGET
     [WLAlertView showWithTitle:WLLS(@"Delete photo")
                        message:WLLS(@"Are you sure you want to delete this photo?")
                        buttons:@[WLLS(@"Cancel"),WLLS(@"OK")]
@@ -353,9 +338,6 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
                             failure(nil);
                         }
                     }];
-#else
-    removeBlock();
-#endif
     return nil;
 }
 

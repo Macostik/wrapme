@@ -211,10 +211,6 @@
 		5BA60D031A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
 		5BA60D041A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
 		5BA60D051A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
-		5BA60D091A8279FC000F795C /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D081A8279FC000F795C /* WLAlertView.m */; };
-		5BA60D0A1A8279FC000F795C /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D081A8279FC000F795C /* WLAlertView.m */; };
-		5BA60D0B1A8279FC000F795C /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D081A8279FC000F795C /* WLAlertView.m */; };
-		5BA60D0C1A8279FC000F795C /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D081A8279FC000F795C /* WLAlertView.m */; };
 		5BA6AA421A66779D00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA6AA431A66779D00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA6AA441A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
@@ -678,30 +674,6 @@
 		C53F2CC11A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */; };
 		C53F2CC21A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */; };
 		C53F2CC31A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */; };
-		C53F2CC81A6EB5FB00D99741 /* LEBackgroundThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAB1A6EB5FA00D99741 /* LEBackgroundThread.m */; };
-		C53F2CC91A6EB5FB00D99741 /* LEBackgroundThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAB1A6EB5FA00D99741 /* LEBackgroundThread.m */; };
-		C53F2CCA1A6EB5FB00D99741 /* LEBackgroundThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAB1A6EB5FA00D99741 /* LEBackgroundThread.m */; };
-		C53F2CCB1A6EB5FB00D99741 /* LEBackgroundThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAB1A6EB5FA00D99741 /* LEBackgroundThread.m */; };
-		C53F2CCC1A6EB5FB00D99741 /* lecore.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAD1A6EB5FA00D99741 /* lecore.m */; };
-		C53F2CCD1A6EB5FB00D99741 /* lecore.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAD1A6EB5FA00D99741 /* lecore.m */; };
-		C53F2CCE1A6EB5FB00D99741 /* lecore.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAD1A6EB5FA00D99741 /* lecore.m */; };
-		C53F2CCF1A6EB5FB00D99741 /* lecore.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAD1A6EB5FA00D99741 /* lecore.m */; };
-		C53F2CD01A6EB5FB00D99741 /* LELog.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB11A6EB5FA00D99741 /* LELog.m */; };
-		C53F2CD11A6EB5FB00D99741 /* LELog.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB11A6EB5FA00D99741 /* LELog.m */; };
-		C53F2CD21A6EB5FB00D99741 /* LELog.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB11A6EB5FA00D99741 /* LELog.m */; };
-		C53F2CD31A6EB5FB00D99741 /* LELog.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB11A6EB5FA00D99741 /* LELog.m */; };
-		C53F2CD41A6EB5FB00D99741 /* LeNetworkStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB31A6EB5FA00D99741 /* LeNetworkStatus.m */; };
-		C53F2CD51A6EB5FB00D99741 /* LeNetworkStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB31A6EB5FA00D99741 /* LeNetworkStatus.m */; };
-		C53F2CD61A6EB5FB00D99741 /* LeNetworkStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB31A6EB5FA00D99741 /* LeNetworkStatus.m */; };
-		C53F2CD71A6EB5FB00D99741 /* LeNetworkStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB31A6EB5FA00D99741 /* LeNetworkStatus.m */; };
-		C53F2CD81A6EB5FB00D99741 /* LogFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB51A6EB5FA00D99741 /* LogFile.m */; };
-		C53F2CD91A6EB5FB00D99741 /* LogFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB51A6EB5FA00D99741 /* LogFile.m */; };
-		C53F2CDA1A6EB5FB00D99741 /* LogFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB51A6EB5FA00D99741 /* LogFile.m */; };
-		C53F2CDB1A6EB5FB00D99741 /* LogFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB51A6EB5FA00D99741 /* LogFile.m */; };
-		C53F2CDC1A6EB5FB00D99741 /* LogFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB71A6EB5FA00D99741 /* LogFiles.m */; };
-		C53F2CDD1A6EB5FB00D99741 /* LogFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB71A6EB5FA00D99741 /* LogFiles.m */; };
-		C53F2CDE1A6EB5FB00D99741 /* LogFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB71A6EB5FA00D99741 /* LogFiles.m */; };
-		C53F2CDF1A6EB5FB00D99741 /* LogFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB71A6EB5FA00D99741 /* LogFiles.m */; };
 		C53F2CE01A6EB5FB00D99741 /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CB91A6EB5FA00D99741 /* PhoneFormats.dat */; };
 		C53F2CE11A6EB5FB00D99741 /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CB91A6EB5FA00D99741 /* PhoneFormats.dat */; };
 		C53F2CE21A6EB5FB00D99741 /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CB91A6EB5FA00D99741 /* PhoneFormats.dat */; };
@@ -1398,6 +1370,21 @@
 		C5E4CCF91A1BA38B00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
 		C5E4CCFA1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
 		C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
+		C5EE8B4B1ACABA3D0069F9FA /* WLAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BA60D071A8279FC000F795C /* WLAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5EE8B4C1ACABA450069F9FA /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D081A8279FC000F795C /* WLAlertView.m */; };
+		C5EE8B4D1ACABD490069F9FA /* LEBackgroundThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAB1A6EB5FA00D99741 /* LEBackgroundThread.m */; };
+		C5EE8B4E1ACABD490069F9FA /* lecore.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CAD1A6EB5FA00D99741 /* lecore.m */; };
+		C5EE8B4F1ACABD490069F9FA /* LELog.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB11A6EB5FA00D99741 /* LELog.m */; };
+		C5EE8B501ACABD490069F9FA /* LeNetworkStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB31A6EB5FA00D99741 /* LeNetworkStatus.m */; };
+		C5EE8B511ACABD490069F9FA /* LogFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB51A6EB5FA00D99741 /* LogFile.m */; };
+		C5EE8B521ACABD490069F9FA /* LogFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CB71A6EB5FA00D99741 /* LogFiles.m */; };
+		C5EE8B531ACABD520069F9FA /* LEBackgroundThread.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CAA1A6EB5FA00D99741 /* LEBackgroundThread.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C5EE8B541ACABD520069F9FA /* lecore.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CAC1A6EB5FA00D99741 /* lecore.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C5EE8B551ACABD520069F9FA /* lelib.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CAF1A6EB5FA00D99741 /* lelib.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C5EE8B561ACABD520069F9FA /* LELog.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CB01A6EB5FA00D99741 /* LELog.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C5EE8B571ACABD520069F9FA /* LeNetworkStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CB21A6EB5FA00D99741 /* LeNetworkStatus.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C5EE8B581ACABD520069F9FA /* LogFile.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CB41A6EB5FA00D99741 /* LogFile.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C5EE8B591ACABD520069F9FA /* LogFiles.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CB61A6EB5FA00D99741 /* LogFiles.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C5F3E1E21ABB05DC005CFD99 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5F3E1E11ABB05DC005CFD99 /* wrapliveicons.ttf */; };
 		C5F3E1E31ABB05DC005CFD99 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5F3E1E11ABB05DC005CFD99 /* wrapliveicons.ttf */; };
 		C5F3E1E41ABB05DC005CFD99 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5F3E1E11ABB05DC005CFD99 /* wrapliveicons.ttf */; };
@@ -4972,6 +4959,7 @@
 				C5282F0B1ABE116400A78019 /* WLUploadingQueue.h in Headers */,
 				C549B72C1AC0138A003623A7 /* WLConstants.h in Headers */,
 				C50647251ABD85C000CB4BE3 /* WLUploading.h in Headers */,
+				C5EE8B551ACABD520069F9FA /* lelib.h in Headers */,
 				C50647261ABD85C000CB4BE3 /* WLUploadingData.h in Headers */,
 				C50647271ABD85C000CB4BE3 /* WLUser.h in Headers */,
 				C50647281ABD85C000CB4BE3 /* WLUser+Extended.h in Headers */,
@@ -4979,6 +4967,7 @@
 				C506472A1ABD85C000CB4BE3 /* WLMessage.h in Headers */,
 				C506472B1ABD85C000CB4BE3 /* WLWrap+Extended.h in Headers */,
 				C506472C1ABD85C000CB4BE3 /* WLWrap.h in Headers */,
+				C5EE8B4B1ACABA3D0069F9FA /* WLAlertView.h in Headers */,
 				C506472D1ABD85C100CB4BE3 /* WLCandy+Extended.h in Headers */,
 				C506472E1ABD85C100CB4BE3 /* WLCandy.h in Headers */,
 				C506472F1ABD85C100CB4BE3 /* WLComment+Extended.h in Headers */,
@@ -4986,6 +4975,7 @@
 				C50647311ABD85C100CB4BE3 /* WLContribution+Extended.h in Headers */,
 				C50647321ABD85C100CB4BE3 /* WLContribution.h in Headers */,
 				C50647331ABD85C100CB4BE3 /* WLEntry+Extended.h in Headers */,
+				C5EE8B541ACABD520069F9FA /* lecore.h in Headers */,
 				C50647341ABD85C100CB4BE3 /* WLEntry.h in Headers */,
 				C50647351ABD85C100CB4BE3 /* WLEntryKeys.h in Headers */,
 				C549B7461AC01B8F003623A7 /* WLImageView.h in Headers */,
@@ -4997,6 +4987,7 @@
 				C506473B1ABD85C100CB4BE3 /* WLBroadcaster.h in Headers */,
 				C506473C1ABD85C100CB4BE3 /* WLPicture.h in Headers */,
 				C506473D1ABD85C100CB4BE3 /* WLArchivingObject.h in Headers */,
+				C5EE8B561ACABD520069F9FA /* LELog.h in Headers */,
 				C506473E1ABD85C100CB4BE3 /* WLAuthorization.h in Headers */,
 				C506473F1ABD85C200CB4BE3 /* WLAddWrapRequest.h in Headers */,
 				C55B258F1AC9A0D50072E9D2 /* NSUserDefaults+WLAppGroup.h in Headers */,
@@ -5022,6 +5013,7 @@
 				C50647501ABD85C300CB4BE3 /* WLUploadMessageRequest.h in Headers */,
 				C50647511ABD85C300CB4BE3 /* WLDeleteCandyRequest.h in Headers */,
 				C549B72D1AC013B4003623A7 /* WLStillPictureMode.h in Headers */,
+				C5EE8B591ACABD520069F9FA /* LogFiles.h in Headers */,
 				C50647521ABD85C300CB4BE3 /* WLPostCommentRequest.h in Headers */,
 				C50647531ABD85C300CB4BE3 /* WLDeleteCommentRequest.h in Headers */,
 				C50647541ABD85C300CB4BE3 /* WLEntityRequest.h in Headers */,
@@ -5029,10 +5021,13 @@
 				C50647561ABD85C300CB4BE3 /* WLResendInviteRequest.h in Headers */,
 				C50647571ABD85C300CB4BE3 /* WLLeaveWrapRequest.h in Headers */,
 				C50647581ABD85C300CB4BE3 /* WLVerificationCallRequest.h in Headers */,
+				C5EE8B571ACABD520069F9FA /* LeNetworkStatus.h in Headers */,
 				C50647591ABD85C400CB4BE3 /* WLAPIManager.h in Headers */,
+				C5EE8B581ACABD520069F9FA /* LogFile.h in Headers */,
 				C506475A1ABD85C400CB4BE3 /* WLAPIResponse.h in Headers */,
 				C506475B1ABD85C400CB4BE3 /* NSError+WLAPIManager.h in Headers */,
 				C506475C1ABD85C400CB4BE3 /* WLAPIEnvironment.h in Headers */,
+				C5EE8B531ACABD520069F9FA /* LEBackgroundThread.h in Headers */,
 				C549B7381AC0156D003623A7 /* WLRecentContributionsRequest.h in Headers */,
 				C506475D1ABD85C400CB4BE3 /* WLAPIEnvironment+TestUsers.h in Headers */,
 				C506475E1ABD85C400CB4BE3 /* WLLogger.h in Headers */,
@@ -6219,7 +6214,6 @@
 				C53E5CEE1A84D886004F61B0 /* WLWrapView.m in Sources */,
 				12A6BFAC18F2AE7700AE3B62 /* WLRefresher.m in Sources */,
 				5BA44F201A7A4A9800E8ACA5 /* WLCommentsViewSection.m in Sources */,
-				C53F2CCC1A6EB5FB00D99741 /* lecore.m in Sources */,
 				C53E5D741A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C55C8D6E19C98A9400199245 /* WLNotificationCenter.m in Sources */,
 				5B2B0C1C1A77A83900DADC9D /* WLIconButton.m in Sources */,
@@ -6228,7 +6222,6 @@
 				C508E7D31987A396002998CE /* WLCollectionViewDataProvider.m in Sources */,
 				12A8AA6D18F5919700F67113 /* WLLoadingView.m in Sources */,
 				C54E4ADE1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
-				5BA60D091A8279FC000F795C /* WLAlertView.m in Sources */,
 				C5FFB03119AC8956006F27A7 /* WLTimeline.m in Sources */,
 				5BB1F47119EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
 				12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */,
@@ -6259,13 +6252,10 @@
 				5BA60C831A8257ED000F795C /* NSObject+Extension.m in Sources */,
 				C507B9E91948947D00CCB3FE /* WLGestureBroadcaster.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
-				C53F2CD81A6EB5FB00D99741 /* LogFile.m in Sources */,
 				C5C20BE51A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
 				12E1104C19067095007DB4AC /* WLCandyViewController.m in Sources */,
-				C53F2CD41A6EB5FB00D99741 /* LeNetworkStatus.m in Sources */,
 				C5C20BD51A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C55C8D7219C98A9400199245 /* WLNotificationChannel.m in Sources */,
-				C53F2CC81A6EB5FB00D99741 /* LEBackgroundThread.m in Sources */,
 				5BA60CAB1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */,
 				5BBBEB5319D98421008CFE54 /* WLSignificantTimeBroadcaster.m in Sources */,
 				C504179819B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
@@ -6275,7 +6265,6 @@
 				5BB02FF619F00BCE001E1D50 /* WLChat.m in Sources */,
 				C52E1FE81A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B8F1A238AE7008B2E2E /* WLValidation.m in Sources */,
-				C53F2CDC1A6EB5FB00D99741 /* LogFiles.m in Sources */,
 				5BA60CF31A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */,
 				5BA7AC211A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD41A41951300A2C370 /* WLLabel.m in Sources */,
@@ -6298,7 +6287,6 @@
 				14A04F8B1940CB5E005DA4CE /* WLEmoji.m in Sources */,
 				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
 				12D653DD18E4329F009CE64C /* WLProgressBar.m in Sources */,
-				C53F2CD01A6EB5FB00D99741 /* LELog.m in Sources */,
 				C52E1FD81A41951300A2C370 /* WLBadgeLabel.m in Sources */,
 				5BA60CEF1A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */,
 				C5C20BCD1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
@@ -6467,6 +6455,7 @@
 				C5DD475E1ABD8AE800C07050 /* UIColor+CustomColors.m in Sources */,
 				C5DD475F1ABD8AE800C07050 /* UIDevice+SystemVersion.m in Sources */,
 				C55B258E1AC9A0D10072E9D2 /* NSUserDefaults+WLAppGroup.m in Sources */,
+				C5EE8B501ACABD490069F9FA /* LeNetworkStatus.m in Sources */,
 				C5DD47601ABD8AE800C07050 /* UIDevice-Hardware.m in Sources */,
 				C5DD47611ABD8AE800C07050 /* UIImage+Alpha.m in Sources */,
 				C5DD47621ABD8AE800C07050 /* UIImage+Drawing.m in Sources */,
@@ -6475,6 +6464,8 @@
 				C5DD47161ABD8AAE00C07050 /* WLOperation.m in Sources */,
 				C5282F0C1ABE116800A78019 /* WLUploadingQueue.m in Sources */,
 				C5DD47171ABD8AAE00C07050 /* WLOperationQueue.m in Sources */,
+				C5EE8B4D1ACABD490069F9FA /* LEBackgroundThread.m in Sources */,
+				C5EE8B511ACABD490069F9FA /* LogFile.m in Sources */,
 				C5DD47181ABD8AAE00C07050 /* WLCryptographer.m in Sources */,
 				C5DD47191ABD8AAE00C07050 /* WLEntryNotifier.m in Sources */,
 				C5DD471A1ABD8AAE00C07050 /* WLHistory.m in Sources */,
@@ -6498,6 +6489,7 @@
 				C5DD472A1ABD8AAE00C07050 /* WLComment.m in Sources */,
 				C5DD472B1ABD8AAE00C07050 /* WLContribution+Extended.m in Sources */,
 				C559126A1AC0384200320483 /* NSString+Documents.m in Sources */,
+				C5EE8B4E1ACABD490069F9FA /* lecore.m in Sources */,
 				C5DD472C1ABD8AAE00C07050 /* WLContribution.m in Sources */,
 				C5DD472D1ABD8AAE00C07050 /* WLEntry+Extended.m in Sources */,
 				C5DD472E1ABD8AAE00C07050 /* WLEntry.m in Sources */,
@@ -6532,8 +6524,10 @@
 				C5DD47471ABD8AAF00C07050 /* WLMessagesRequest.m in Sources */,
 				C5DD47481ABD8AAF00C07050 /* WLUploadMessageRequest.m in Sources */,
 				C5DD47491ABD8AAF00C07050 /* WLDeleteCandyRequest.m in Sources */,
+				C5EE8B521ACABD490069F9FA /* LogFiles.m in Sources */,
 				C5DD47681ABD8BF000C07050 /* WLNetwork.m in Sources */,
 				C549B73D1AC0156D003623A7 /* WLRecentContributionsRequest.m in Sources */,
+				C5EE8B4C1ACABA450069F9FA /* WLAlertView.m in Sources */,
 				C5DD474A1ABD8AAF00C07050 /* WLPostCommentRequest.m in Sources */,
 				C5DD474B1ABD8AAF00C07050 /* WLDeleteCommentRequest.m in Sources */,
 				C5DD474C1ABD8AAF00C07050 /* WLEntityRequest.m in Sources */,
@@ -6544,6 +6538,7 @@
 				C5DD47501ABD8AAF00C07050 /* WLVerificationCallRequest.m in Sources */,
 				C5DD47511ABD8AAF00C07050 /* WLAPIManager.m in Sources */,
 				C5DD47521ABD8AAF00C07050 /* WLAPIResponse.m in Sources */,
+				C5EE8B4F1ACABD490069F9FA /* LELog.m in Sources */,
 				C5DD47531ABD8AAF00C07050 /* NSError+WLAPIManager.m in Sources */,
 				C5DD47541ABD8AAF00C07050 /* WLAPIEnvironment.m in Sources */,
 				C5DD47551ABD8AAF00C07050 /* WLAPIEnvironment+TestUsers.m in Sources */,
@@ -6561,7 +6556,6 @@
 				C53E5CEF1A84D886004F61B0 /* WLWrapView.m in Sources */,
 				C54AF45C19B8C437006F7EDB /* WLRefresher.m in Sources */,
 				5BA44F211A7A4A9800E8ACA5 /* WLCommentsViewSection.m in Sources */,
-				C53F2CCD1A6EB5FB00D99741 /* lecore.m in Sources */,
 				C53E5D751A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C55C8D6F19C98A9400199245 /* WLNotificationCenter.m in Sources */,
 				5B2B0C1D1A77A83900DADC9D /* WLIconButton.m in Sources */,
@@ -6570,7 +6564,6 @@
 				C54AF46219B8C437006F7EDB /* WLCollectionViewDataProvider.m in Sources */,
 				C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */,
 				C54E4ADF1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
-				5BA60D0A1A8279FC000F795C /* WLAlertView.m in Sources */,
 				C54AF46719B8C437006F7EDB /* WLTimeline.m in Sources */,
 				5BB1F47219EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
 				C54AF46919B8C437006F7EDB /* StreamLayout.m in Sources */,
@@ -6601,13 +6594,10 @@
 				5BA60C841A8257ED000F795C /* NSObject+Extension.m in Sources */,
 				C54AF48119B8C437006F7EDB /* WLGestureBroadcaster.m in Sources */,
 				C54AF48219B8C437006F7EDB /* main.m in Sources */,
-				C53F2CD91A6EB5FB00D99741 /* LogFile.m in Sources */,
 				C5C20BE61A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
 				C54AF48A19B8C437006F7EDB /* WLCandyViewController.m in Sources */,
-				C53F2CD51A6EB5FB00D99741 /* LeNetworkStatus.m in Sources */,
 				C5C20BD61A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C55C8D7319C98A9400199245 /* WLNotificationChannel.m in Sources */,
-				C53F2CC91A6EB5FB00D99741 /* LEBackgroundThread.m in Sources */,
 				5BA60CAC1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */,
 				5BBBEB5419D98421008CFE54 /* WLSignificantTimeBroadcaster.m in Sources */,
 				C504179919B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
@@ -6617,7 +6607,6 @@
 				5BB02FF719F00BCE001E1D50 /* WLChat.m in Sources */,
 				C52E1FE91A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B901A238AE7008B2E2E /* WLValidation.m in Sources */,
-				C53F2CDD1A6EB5FB00D99741 /* LogFiles.m in Sources */,
 				5BA60CF41A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */,
 				5BA7AC221A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD51A41951300A2C370 /* WLLabel.m in Sources */,
@@ -6640,7 +6629,6 @@
 				C54AF4AD19B8C437006F7EDB /* WLEmoji.m in Sources */,
 				C54AF4B119B8C437006F7EDB /* WLHomeViewController.m in Sources */,
 				C54AF4B419B8C437006F7EDB /* WLProgressBar.m in Sources */,
-				C53F2CD11A6EB5FB00D99741 /* LELog.m in Sources */,
 				C52E1FD91A41951300A2C370 /* WLBadgeLabel.m in Sources */,
 				5BA60CF01A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */,
 				C5C20BCE1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
@@ -6747,7 +6735,6 @@
 				C53E5CF01A84D886004F61B0 /* WLWrapView.m in Sources */,
 				C54AF55919B8C467006F7EDB /* WLRefresher.m in Sources */,
 				5BA44F221A7A4A9800E8ACA5 /* WLCommentsViewSection.m in Sources */,
-				C53F2CCE1A6EB5FB00D99741 /* lecore.m in Sources */,
 				C53E5D761A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C55C8D7019C98A9400199245 /* WLNotificationCenter.m in Sources */,
 				5B2B0C1E1A77A83900DADC9D /* WLIconButton.m in Sources */,
@@ -6756,7 +6743,6 @@
 				C54AF55F19B8C467006F7EDB /* WLCollectionViewDataProvider.m in Sources */,
 				C54AF56019B8C467006F7EDB /* WLLoadingView.m in Sources */,
 				C54E4AE01A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
-				5BA60D0B1A8279FC000F795C /* WLAlertView.m in Sources */,
 				C54AF56419B8C467006F7EDB /* WLTimeline.m in Sources */,
 				5BB1F47319EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
 				C54AF56619B8C467006F7EDB /* StreamLayout.m in Sources */,
@@ -6787,13 +6773,10 @@
 				5BA60C851A8257ED000F795C /* NSObject+Extension.m in Sources */,
 				C54AF57E19B8C467006F7EDB /* WLGestureBroadcaster.m in Sources */,
 				C54AF57F19B8C467006F7EDB /* main.m in Sources */,
-				C53F2CDA1A6EB5FB00D99741 /* LogFile.m in Sources */,
 				C5C20BE71A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
 				C54AF58719B8C467006F7EDB /* WLCandyViewController.m in Sources */,
-				C53F2CD61A6EB5FB00D99741 /* LeNetworkStatus.m in Sources */,
 				C5C20BD71A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C55C8D7419C98A9400199245 /* WLNotificationChannel.m in Sources */,
-				C53F2CCA1A6EB5FB00D99741 /* LEBackgroundThread.m in Sources */,
 				5BA60CAD1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */,
 				5BBBEB5519D98421008CFE54 /* WLSignificantTimeBroadcaster.m in Sources */,
 				C504179A19B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
@@ -6803,7 +6786,6 @@
 				5BB02FF819F00BCE001E1D50 /* WLChat.m in Sources */,
 				C52E1FEA1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B911A238AE7008B2E2E /* WLValidation.m in Sources */,
-				C53F2CDE1A6EB5FB00D99741 /* LogFiles.m in Sources */,
 				5BA60CF51A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */,
 				5BA7AC231A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD61A41951300A2C370 /* WLLabel.m in Sources */,
@@ -6826,7 +6808,6 @@
 				C54AF5AA19B8C467006F7EDB /* WLEmoji.m in Sources */,
 				C54AF5AE19B8C467006F7EDB /* WLHomeViewController.m in Sources */,
 				C54AF5B119B8C467006F7EDB /* WLProgressBar.m in Sources */,
-				C53F2CD21A6EB5FB00D99741 /* LELog.m in Sources */,
 				C52E1FDA1A41951300A2C370 /* WLBadgeLabel.m in Sources */,
 				5BA60CF11A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */,
 				C5C20BCF1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
@@ -6933,7 +6914,6 @@
 				C53E5CF11A84D886004F61B0 /* WLWrapView.m in Sources */,
 				C54AF65619B8C491006F7EDB /* WLRefresher.m in Sources */,
 				5BA44F231A7A4A9800E8ACA5 /* WLCommentsViewSection.m in Sources */,
-				C53F2CCF1A6EB5FB00D99741 /* lecore.m in Sources */,
 				C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C55C8D7119C98A9400199245 /* WLNotificationCenter.m in Sources */,
 				5B2B0C1F1A77A83900DADC9D /* WLIconButton.m in Sources */,
@@ -6942,7 +6922,6 @@
 				C54AF65C19B8C491006F7EDB /* WLCollectionViewDataProvider.m in Sources */,
 				C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */,
 				C54E4AE11A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
-				5BA60D0C1A8279FC000F795C /* WLAlertView.m in Sources */,
 				C54AF66119B8C491006F7EDB /* WLTimeline.m in Sources */,
 				5BB1F47419EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
 				C54AF66319B8C491006F7EDB /* StreamLayout.m in Sources */,
@@ -6973,13 +6952,10 @@
 				5BA60C861A8257ED000F795C /* NSObject+Extension.m in Sources */,
 				C54AF67B19B8C491006F7EDB /* WLGestureBroadcaster.m in Sources */,
 				C54AF67C19B8C491006F7EDB /* main.m in Sources */,
-				C53F2CDB1A6EB5FB00D99741 /* LogFile.m in Sources */,
 				C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
 				C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */,
-				C53F2CD71A6EB5FB00D99741 /* LeNetworkStatus.m in Sources */,
 				C5C20BD81A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C55C8D7519C98A9400199245 /* WLNotificationChannel.m in Sources */,
-				C53F2CCB1A6EB5FB00D99741 /* LEBackgroundThread.m in Sources */,
 				5BA60CAE1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */,
 				5BBBEB5619D98421008CFE54 /* WLSignificantTimeBroadcaster.m in Sources */,
 				C504179B19B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
@@ -6989,7 +6965,6 @@
 				5BB02FF919F00BCE001E1D50 /* WLChat.m in Sources */,
 				C52E1FEB1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B921A238AE7008B2E2E /* WLValidation.m in Sources */,
-				C53F2CDF1A6EB5FB00D99741 /* LogFiles.m in Sources */,
 				5BA60CF61A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */,
 				5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */,
@@ -7012,7 +6987,6 @@
 				C54AF6A719B8C491006F7EDB /* WLEmoji.m in Sources */,
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
 				C54AF6AE19B8C491006F7EDB /* WLProgressBar.m in Sources */,
-				C53F2CD31A6EB5FB00D99741 /* LELog.m in Sources */,
 				C52E1FDB1A41951300A2C370 /* WLBadgeLabel.m in Sources */,
 				5BA60CF21A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */,
 				C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
@@ -7539,7 +7513,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"AF_APP_EXTENSIONS=1",
+					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -7567,7 +7541,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"AF_APP_EXTENSIONS=1",
+					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -7595,7 +7569,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"AF_APP_EXTENSIONS=1",
+					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
 				INFOPLIST_FILE = WLTodayExtension/WLTodayExtension_Production.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -7622,7 +7596,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"AF_APP_EXTENSIONS=1",
+					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
 				INFOPLIST_FILE = WLTodayExtension/WLTodayExtension_Production.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -7715,6 +7689,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -7739,6 +7714,11 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"WRAPLIVE_EXTENSION_TERGET=1",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -7762,6 +7742,11 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"WRAPLIVE_EXTENSION_TERGET=1",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -7787,6 +7772,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -7811,6 +7797,11 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"WRAPLIVE_EXTENSION_TERGET=1",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -7834,6 +7825,11 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"WRAPLIVE_EXTENSION_TERGET=1",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -7928,7 +7924,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"WRAPLIVE_KIT_TARGET=1",
 				);
 				INFOPLIST_FILE = WrapLiveKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -7964,7 +7959,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"WRAPLIVE_KIT_TARGET=1",
 				);
 				INFOPLIST_FILE = WrapLiveKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -8000,7 +7994,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"WRAPLIVE_KIT_TARGET=1",
 				);
 				INFOPLIST_FILE = WrapLiveKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -8501,7 +8494,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"AF_APP_EXTENSIONS=1",
+					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -8529,7 +8522,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"AF_APP_EXTENSIONS=1",
+					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
 				INFOPLIST_FILE = WLTodayExtension/WLTodayExtension_Production.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

@@ -24,6 +24,10 @@ static NSUInteger WLPageSize = 10;
 
 @property (strong, nonatomic) WLAPIEnvironment* environment;
 
+@property (strong, nonatomic) WLFailureBlock unauthorizedErrorBlock;
+
+@property (strong, nonatomic) WLFailureBlock showErrorBlock;
+
 + (instancetype)instance;
 
 - (NSString*)urlWithPath:(NSString*)path;

@@ -7,31 +7,24 @@
 //
 
 #import "WLAppDelegate.h"
-#import "WLNetwork.h"
-#import "WLSession.h"
 #import "WLNotificationCenter.h"
 #import "WLKeyboard.h"
-#import "WLGestureBroadcaster.h"
-#import "WLUploading+Extended.h"
 #import "WLEntryManager.h"
 #import "WLMenu.h"
 #import "WLNavigation.h"
 #import "NSPropertyListSerialization+Shorthand.h"
 #import "ALAssetsLibrary+Additions.h"
-#import "UIColor+CustomColors.h"
-#import "UIImage+Drawing.h"
 #import "NSObject+NibAdditions.h"
 #import "ALAssetsLibrary+Additions.h"
-#import "WLAuthorizationRequest.h"
 #import "WLRemoteEntryHandler.h"
 #import "WLHomeViewController.h"
 #import "iVersion.h"
 #import "WLLaunchScreenViewController.h"
-#import "WLOperationQueue.h"
 #import "WLSignupFlowViewController.h"
-#import "WLUploadingQueue.h"
 #import "GAI.h"
 #import <NewRelicAgent/NewRelic.h>
+#import "WLToast.h"
+#import "WLAddressBook.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 
@@ -51,11 +44,23 @@
     
     [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
     
+    [self initializeAPIManager];
+    
     [self presentInitialViewController];
     
     [self initializeVersionTool];
     
 	[[WLNetwork network] configure];
+    [[WLNetwork network] setChangeReachabilityBlock:^(WLNetwork *network) {
+        if (network.reachable) {
+            if ([WLAuthorizationRequest authorized]) {
+                [WLUploadingQueue start];
+                [[WLAddressBook addressBook] updateCachedRecordsAfterFailure];
+            } else {
+                [[WLAuthorizationRequest signInRequest] send];
+            }
+        }
+    }];
 	[[WLKeyboard keyboard] configure];
 	[[WLNotificationCenter defaultCenter] configure];
 	[[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:nil failure:nil];
@@ -68,6 +73,17 @@
     });
     
 	return YES;
+}
+
+- (void)initializeAPIManager {
+    WLAPIManager *manager = [WLAPIManager manager];
+    [manager setUnauthorizedErrorBlock:^ (NSError *error) {
+        [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+    }];
+    
+    [manager setShowErrorBlock:^ (NSError *error) {
+        [WLToast showWithMessage:[error errorMessage]?:error.localizedDescription];
+    }];
 }
 
 - (void)initializeCrashlyticsAndLogging {

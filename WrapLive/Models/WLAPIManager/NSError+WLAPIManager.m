@@ -8,9 +8,7 @@
 
 #import "NSError+WLAPIManager.h"
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
-#ifndef WRAPLIVE_KIT_TARGET
-#import "WLToast.h"
-#endif
+#import "WLAPIManager.h"
 #import "NSDictionary+Extended.h"
 
 @implementation NSError (WLAPIManager)
@@ -53,9 +51,10 @@ static NSDictionary *errorsToIgnore = nil;
 
 - (void)showWithTitle:(NSString *)title callback:(void (^)(void))callback {
 	if (![self ignore]) {
-#ifndef WRAPLIVE_KIT_TARGET
-        [WLToast showWithMessage:[self errorMessage]?:self.localizedDescription];
-#endif
+        WLFailureBlock showErrorBlock = [WLAPIManager manager].showErrorBlock;
+        if (showErrorBlock) {
+            showErrorBlock(self);
+        }
 	}
 }
 

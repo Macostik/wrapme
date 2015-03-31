@@ -41,6 +41,8 @@ typedef NS_ENUM(NSInteger, WLErrorCode) {
 - (void)showWithTitle:(NSString*)title callback:(void (^)(void))callback;
 - (void)showIgnoringNetworkError;
 
+- (NSString *)errorMessage;
+
 - (void)log;
 - (void)log:(NSString*)label;
 

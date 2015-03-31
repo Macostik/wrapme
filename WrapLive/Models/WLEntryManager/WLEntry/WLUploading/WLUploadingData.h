@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFNetworking.h>
 
-@class WLProgressBar;
 @class WLUploading;
 
 static CGFloat WLUploadingDataProgressPart = 0.5f;
@@ -22,8 +21,6 @@ static CGFloat WLDownloadingDataProgressPart = 0.5f;
 @property (weak, nonatomic) AFHTTPRequestOperation* operation;
 
 @property (nonatomic) float progress;
-
-@property (strong, nonatomic) WLProgressBar* progressBar;
 
 @property (strong, nonatomic) void (^progressBlock)(float progress);
 

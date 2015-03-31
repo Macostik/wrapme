@@ -87,9 +87,6 @@
 }
 
 - (void)initializeCrashlyticsAndLogging {
-    
-    [LELog sharedInstance].token = @"e9e259b1-98e6-41b5-b530-d89d1f5af01d";
-    
     run_release(^{
         WLAPIEnvironment *environment = [WLAPIManager manager].environment;
         if ([environment.name isEqualToString:WLAPIEnvironmentProduction]) {

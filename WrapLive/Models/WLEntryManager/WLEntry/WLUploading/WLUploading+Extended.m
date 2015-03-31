@@ -15,7 +15,6 @@
 #import "WLAuthorizationRequest.h"
 #import "WLNetwork.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLProgressBar+WLContribution.h"
 
 @implementation WLUploading (Extended)
 
@@ -35,7 +34,6 @@
     __weak typeof(self)weakSelf = self;
     
     WLObjectBlock uploadingSuccessBlock = ^(WLContribution *contribution) {
-        [weakSelf removeProgressView];
         [weakSelf remove];
         if (success) success(contribution);
         [contribution notifyOnUpdate];
@@ -78,17 +76,6 @@
 - (void)remove {
     self.contribution.uploading = nil;
     [super remove];
-}
-
-- (void)removeProgressView {
-    UIView* progressView = self.data.progressBar;
-    if (progressView) {
-        [UIView animateWithDuration:0.25f delay:0.5f options:0 animations:^{
-            progressView.alpha = 0.0f;
-        } completion:^(BOOL finished) {
-            [progressView removeFromSuperview];
-        }];
-    }
 }
 
 @end

@@ -16,7 +16,7 @@
 }
 
 + (instancetype)WLURLForRemoteEntryWithKey:(NSString *)key identifier:(NSString *)identifier{
-    return [self WLURLWithPath:[key stringByAppendingFormat:@"/?%@=%@", WLUIDKey, identifier]];
+    return [self WLURLWithPath:[NSString stringWithFormat:@"/%@/?%@=%@", key, WLUIDKey, identifier]];
 }
 
 @end

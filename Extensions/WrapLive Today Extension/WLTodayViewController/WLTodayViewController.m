@@ -123,7 +123,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 
 - (void)setContributions:(NSOrderedSet *)contributions {
     _contributions = contributions;
-    if (contributions.count < WLMinRow) {
+    if (contributions.count <= WLMinRow) {
         self.state = WLTodayViewStateNoFooter;
     } else {
         self.state = WLTodayViewStateShowMore;
@@ -212,11 +212,13 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     WLContribution *contribution = self.contributions[indexPath.row];
     if (contribution.identifier != nil) {
+        NSURL *url = nil;
         if ([contribution isKindOfClass:[WLComment class]]) {
-            [self.extensionContext openURL:[NSURL WLURLForRemoteEntryWithKey:WLCandyKey identifier:contribution.containingEntry.identifier] completionHandler:NULL];
+            url = [NSURL WLURLForRemoteEntryWithKey:WLCandyKey identifier:contribution.containingEntry.identifier];
         } else {
-            [self.extensionContext openURL:[NSURL WLURLForRemoteEntryWithKey:WLCandyKey identifier:contribution.identifier] completionHandler:NULL];
+            url = [NSURL WLURLForRemoteEntryWithKey:WLCandyKey identifier:contribution.identifier];
         }
+        [self.extensionContext openURL:url completionHandler:NULL];
     }
 }
 

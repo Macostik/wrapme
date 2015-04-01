@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <PubNub/PNImports.h>
+#import "PNImports.h"
 
 typedef void (^PubNubMessageBlock)(PNMessage *message);
 

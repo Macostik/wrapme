@@ -15,8 +15,6 @@ static NSString *const WLTodayCandyCellIdentifier = @"WLTodayCandyCell";
 static NSString *const WLTodayCommentCellIdentifier = @"WLTodayCommentCell";
 static NSString *const WLLessButtonKey = @"Less wrapLive stories";
 static NSString *const WLMoreButtonKey = @"More wrapLive stories";
-static CGFloat WLIndent = 31.0f;
-static CGFloat WLMaxImageViewAspectRatio = 50.0f;
 static CGFloat WLMaxRow = 6;
 static CGFloat WLMinRow = 3;
 

@@ -7,7 +7,6 @@
 //
 
 #import "NSError+WLAPIManager.h"
-#import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "WLAPIManager.h"
 #import "NSDictionary+Extended.h"
 

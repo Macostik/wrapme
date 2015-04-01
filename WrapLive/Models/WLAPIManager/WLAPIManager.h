@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "NSError+WLAPIManager.h"
 #import "WLEntryManager.h"
 #import "WLAuthorization.h"
 #import "WLAPIEnvironment.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @class WLUser;
 @class WLComment;

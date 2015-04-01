@@ -7,7 +7,6 @@
 //
 
 #import "WLNotificationChannel.h"
-#import <PubNub/PubNub.h>
 #import "WLNotificationCenter.h"
 #import "WLNotification.h"
 

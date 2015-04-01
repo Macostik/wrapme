@@ -7,14 +7,7 @@
 //
 
 #import "WLNotification.h"
-#import "NSDictionary+Extended.h"
-#import "WLWrap.h"
-#import "WLCandy.h"
-#import "WLComment.h"
-#import "NSString+Additions.h"
-#import "WLAPIManager.h"
-#import "WLEntryNotifier.h"
-#import "NSDate+Additions.h"
+#import <PubNub/PNImports.h>
 
 @interface WLNotification ()
 

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "WLEntryManager.h"
 
+@class PNMessage;
+
 typedef NS_ENUM(NSUInteger, WLNotificationType) {
 	WLNotificationContributorAdd        = 100,
 	WLNotificationContributorDelete     = 200,

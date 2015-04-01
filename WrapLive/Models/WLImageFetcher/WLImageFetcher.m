@@ -9,10 +9,11 @@
 #import "WLImageFetcher.h"
 #import "WLImageCache.h"
 #import "WLSystemImageCache.h"
-#import <AFNetworking/AFHTTPRequestOperation.h>
 #import "UIView+QuatzCoreAnimations.h"
 #import "NSObject+AssociatedObjects.h"
 #import "NSString+Additions.h"
+#import "AFURLResponseSerialization.h"
+#import "AFHTTPRequestOperation.h"
 
 @interface WLImageFetcher ()
 

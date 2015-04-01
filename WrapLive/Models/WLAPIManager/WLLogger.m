@@ -7,6 +7,9 @@
 //
 
 #import "WLLogger.h"
+#import "lelib.h"
+#import "WLUser+Extended.h"
+#import "WLAuthorization.h"
 
 @implementation WLLogger
 

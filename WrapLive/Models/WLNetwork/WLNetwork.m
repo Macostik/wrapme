@@ -11,7 +11,6 @@
 #import "WLUploading+Extended.h"
 #import "WLAPIManager.h"
 #import "WLAuthorizationRequest.h"
-#import <AFNetworking/AFNetworkReachabilityManager.h>
 #import "WLUploadingQueue.h"
 
 @implementation WLNetwork

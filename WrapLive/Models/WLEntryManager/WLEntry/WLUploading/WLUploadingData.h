@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AFNetworking/AFNetworking.h>
 
 @class WLUploading;
+@class AFHTTPRequestOperation;
 
 static CGFloat WLUploadingDataProgressPart = 0.5f;
 static CGFloat WLDownloadingDataProgressPart = 0.5f;

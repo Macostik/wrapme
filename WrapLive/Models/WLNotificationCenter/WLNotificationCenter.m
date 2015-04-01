@@ -117,6 +117,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)configure {
 	[self connect];
+    [PNLogger loggerEnabled:NO];
     [[WLUser notifier] addReceiver:self];
     [super configure];
 }

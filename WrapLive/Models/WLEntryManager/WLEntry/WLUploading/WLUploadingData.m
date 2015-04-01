@@ -8,6 +8,7 @@
 
 #import "WLUploadingData.h"
 #import "WLUploading+Extended.h"
+#import "AFHTTPRequestOperation.h"
 
 @implementation WLUploadingData
 

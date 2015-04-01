@@ -15,7 +15,6 @@
 #import "WLCreateWrapViewController.h"
 #import "WLNavigation.h"
 #import "WLToast.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface WLCreateWrapViewController () 
 

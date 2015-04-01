@@ -6,9 +6,8 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "UIAlertController+Blocks.h"
-
 #ifndef WRAPLIVE_EXTENSION_TERGET
+#import "UIAlertController+Blocks.h"
 #import "UIAlertView+Blocks.h"
 #endif
 

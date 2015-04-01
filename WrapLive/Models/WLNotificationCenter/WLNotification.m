@@ -7,7 +7,7 @@
 //
 
 #import "WLNotification.h"
-#import <PubNub/PNImports.h>
+#import "PNImports.h"
 
 @interface WLNotification ()
 

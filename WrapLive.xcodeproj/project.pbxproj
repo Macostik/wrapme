@@ -295,7 +295,6 @@
 		5BD782CB1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782CD1A4EC56A0094BEE5 /* WLConfirmView.xib */; };
 		5BF1B23B1A49A683000BB2C1 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		5BF1B2431A49A683000BB2C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
-		5BF1B2521A49B63E000BB2C1 /* WLTodayExtension_Production.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* WLTodayExtension_Production.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5BF5833E1A1F983B00922BD5 /* ic_quote.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833B1A1F983B00922BD5 /* ic_quote.png */; };
 		5BF5833F1A1F983B00922BD5 /* ic_quote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833C1A1F983B00922BD5 /* ic_quote@2x.png */; };
 		5BF583401A1F983B00922BD5 /* ic_quote@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833D1A1F983B00922BD5 /* ic_quote@3x.png */; };
@@ -309,7 +308,6 @@
 		5BF583481A1F984200922BD5 /* ic_quote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833C1A1F983B00922BD5 /* ic_quote@2x.png */; };
 		5BF583491A1F984200922BD5 /* ic_quote@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF5833D1A1F983B00922BD5 /* ic_quote@3x.png */; };
 		608D7F0A6D4C8BBD035EEE5A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
-		664CF9948363F83EEFB3E74B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
 		67264C225529D7077B5BA325 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
 		6DDD927D617D145F2EAF7577 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8D5146BE9EE27E27B6A61C /* libPods.a */; };
 		AC00A4C719095E9800EE6EDA /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
@@ -325,6 +323,8 @@
 		ACF8D9161934B44D0001E570 /* rings.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* rings.plist */; };
 		ACF8D9181934B45C0001E570 /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
 		C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
+		C50356201ACBDF40009FFFEB /* WrapLiveToday-Production.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* WrapLiveToday-Production.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C50356241ACBDF46009FFFEB /* WrapLiveWatchKitExtension-Production.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C56498C71ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C504178219B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
 		C504178319B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
 		C504178419B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
@@ -385,27 +385,6 @@
 		C506469E1ABD815200CB4BE3 /* WLWKImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E51ABD815200CB4BE3 /* WLWKImageCache.m */; };
 		C50646A51ABD815200CB4BE3 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* PushNotificationPayload.apns */; };
 		C50646A61ABD815200CB4BE3 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* PushNotificationPayload.apns */; };
-		C50646AF1ABD831F00CB4BE3 /* WLWKEntryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */; };
-		C50646B11ABD831F00CB4BE3 /* WLWKCandyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D51ABD815200CB4BE3 /* WLWKCandyController.m */; };
-		C50646B31ABD831F00CB4BE3 /* WLWKReplyPresetsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D21ABD815200CB4BE3 /* WLWKReplyPresetsController.m */; };
-		C50646B41ABD831F00CB4BE3 /* WLWKCommentEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DC1ABD815200CB4BE3 /* WLWKCommentEventRow.m */; };
-		C50646B51ABD831F00CB4BE3 /* WLWKEventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E01ABD815200CB4BE3 /* WLWKEventsController.m */; };
-		C50646B61ABD831F00CB4BE3 /* WLWKImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E51ABD815200CB4BE3 /* WLWKImageCache.m */; };
-		C50646B91ABD831F00CB4BE3 /* WLWKReplyPresetRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645CF1ABD815200CB4BE3 /* WLWKReplyPresetRow.m */; };
-		C50646BB1ABD831F00CB4BE3 /* WLWKCommentRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D71ABD815200CB4BE3 /* WLWKCommentRow.m */; };
-		C50646BC1ABD831F00CB4BE3 /* WLWKCommentNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645CC1ABD815100CB4BE3 /* WLWKCommentNotificationController.m */; };
-		C50646C21ABD831F00CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645E11ABD815200CB4BE3 /* Images.xcassets */; };
-		C50646C41ABD831F00CB4BE3 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* PushNotificationPayload.apns */; };
-		C50646C71ABD831F00CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
-		C50646C81ABD831F00CB4BE3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645C31ABD815100CB4BE3 /* Interface.storyboard */; };
-		C50646C91ABD831F00CB4BE3 /* WrapLiveWatchKitApp-Development.app in Resources */ = {isa = PBXBuildFile; fileRef = C50645931ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development.app */; };
-		C50646CC1ABD831F00CB4BE3 /* WLWKReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645D01ABD815200CB4BE3 /* WLWKReplyPresets.plist */; };
-		C50646D41ABD833000CB4BE3 /* WLWKReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645D01ABD815200CB4BE3 /* WLWKReplyPresets.plist */; };
-		C50646D51ABD833000CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645E11ABD815200CB4BE3 /* Images.xcassets */; };
-		C50646D61ABD833000CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50645E21ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist */; };
-		C50646D71ABD833000CB4BE3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645C31ABD815100CB4BE3 /* Interface.storyboard */; };
-		C50646D81ABD833000CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
-		C50646DE1ABD833000CB4BE3 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* PushNotificationPayload.apns */; };
 		C50646EE1ABD844700CB4BE3 /* WrapLiveKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C50646ED1ABD844700CB4BE3 /* WrapLiveKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C50647041ABD85C000CB4BE3 /* GeometryHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C5A13D19F7BED600E1E033 /* GeometryHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C50647051ABD85C000CB4BE3 /* Timecost.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C5A13E19F7BED600E1E033 /* Timecost.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -549,6 +528,9 @@
 		C51E29621A1CE12E009786C7 /* ic_today_comment@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C51E29541A1CE12E009786C7 /* ic_today_comment@3x.png */; };
 		C51E29631A1CE12E009786C7 /* ic_today_comment@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C51E29541A1CE12E009786C7 /* ic_today_comment@3x.png */; };
 		C51E29641A1CE12E009786C7 /* ic_today_comment@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C51E29541A1CE12E009786C7 /* ic_today_comment@3x.png */; };
+		C520485F1ACB098B009079A6 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
+		C52048601ACB098B009079A6 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C52048631ACB0992009079A6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C52048621ACB0992009079A6 /* libPods.a */; };
 		C521FB061989352E00576281 /* WLHomeViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C521FB051989352E00576281 /* WLHomeViewSection.m */; };
 		C521FB091989382300576281 /* WLPaginatedViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C521FB081989382300576281 /* WLPaginatedViewSection.m */; };
 		C5282F091ABE10F600A78019 /* WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F35CFD1930935200FB99D2 /* WLImageFetcher.m */; };
@@ -727,7 +709,6 @@
 		C549B7381AC0156D003623A7 /* WLRecentContributionsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C549B7361AC0156D003623A7 /* WLRecentContributionsRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C549B73D1AC0156D003623A7 /* WLRecentContributionsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C549B7371AC0156D003623A7 /* WLRecentContributionsRequest.m */; };
 		C549B73E1AC0179B003623A7 /* WLWKCandyEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DA1ABD815200CB4BE3 /* WLWKCandyEventRow.m */; };
-		C549B73F1AC0179C003623A7 /* WLWKCandyEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DA1ABD815200CB4BE3 /* WLWKCandyEventRow.m */; };
 		C549B7461AC01B8F003623A7 /* WLImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C50236121979032400996D07 /* WLImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C549B7471AC01B93003623A7 /* WLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C50236131979032400996D07 /* WLImageView.m */; };
 		C54AF45A19B8C437006F7EDB /* WLNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FCC699199A5C4B009A0DC6 /* WLNavigation.m */; };
@@ -1051,8 +1032,6 @@
 		C55912811AC03CC200320483 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C55912851AC03CCE00320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
 		C55912861AC03CCE00320483 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C55912881AC03CDE00320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
-		C55912891AC03CDE00320483 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C559128E1AC03D1B00320483 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C55912901AC03D3000320483 /* WrapLiveKit.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C55997491A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
@@ -1072,8 +1051,6 @@
 		C55B259C1AC9A6180072E9D2 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
 		C55B259D1AC9A6190072E9D2 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
 		C55B259E1AC9A6190072E9D2 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
-		C55B25A01AC9A61B0072E9D2 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
-		C55B25A11AC9A61C0072E9D2 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
 		C55B25A21AC9A61C0072E9D2 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
 		C55B25A31AC9A6200072E9D2 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
 		C55B25A41AC9A6200072E9D2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
@@ -1087,16 +1064,9 @@
 		C55B25AC1AC9A6210072E9D2 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
 		C55B25AD1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
 		C55B25AE1AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
-		C55B25AF1AC9A6220072E9D2 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
-		C55B25B01AC9A6220072E9D2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
-		C55B25B11AC9A6220072E9D2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
-		C55B25B21AC9A6220072E9D2 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
-		C55B25B31AC9A6220072E9D2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
-		C55B25B41AC9A6220072E9D2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
 		C55B25B51AC9BA220072E9D2 /* UIView+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BA60C5A1A8257ED000F795C /* UIView+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C55B25B61AC9BA260072E9D2 /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C5B1A8257ED000F795C /* UIView+Shorthand.m */; };
 		C55B25B91AC9BF0A0072E9D2 /* WLWKErrorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */; };
-		C55B25BA1AC9BF0A0072E9D2 /* WLWKErrorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */; };
 		C55C8D6A19C98A9400199245 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6319C98A9400199245 /* WLNotification.m */; };
 		C55C8D6B19C98A9400199245 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6319C98A9400199245 /* WLNotification.m */; };
 		C55C8D6C19C98A9400199245 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6319C98A9400199245 /* WLNotification.m */; };
@@ -1119,6 +1089,7 @@
 		C55EE76D1A9F529700EE0EA3 /* wrapLive.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5B787DAF1A27890C004AE459 /* wrapLive.entitlements */; };
 		C55EE76E1A9F529800EE0EA3 /* wrapLive.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5B787DAF1A27890C004AE459 /* wrapLive.entitlements */; };
 		C55EE76F1A9F529800EE0EA3 /* wrapLive.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5B787DAF1A27890C004AE459 /* wrapLive.entitlements */; };
+		C56498D31ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app in Resources */ = {isa = PBXBuildFile; fileRef = C56498D21ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app */; };
 		C568D8D61A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C568D8D71A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C568D8D81A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
@@ -1417,12 +1388,19 @@
 			remoteGlobalIDString = 5B787D9A1A27876F004AE459;
 			remoteInfo = WLTodayExtension;
 		};
-		5BF1B2531A49B63E000BB2C1 /* PBXContainerItemProxy */ = {
+		C50356211ACBDF41009FFFEB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 5BF1B22F1A49A683000BB2C1;
-			remoteInfo = WLTodayExtension_Production;
+			remoteInfo = "WrapLiveToday-Production";
+		};
+		C50356251ACBDF46009FFFEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C56498C61ACB00D2000F1E4B;
+			remoteInfo = "WrapLiveWatchKitExtension-Production";
 		};
 		C50645951ABD7FD500CB4BE3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1437,13 +1415,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
 			remoteInfo = "WrapLive-Development WatchKit Extension";
-		};
-		C50646AD1ABD831F00CB4BE3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C50645921ABD7FD500CB4BE3;
-			remoteInfo = "WrapLive-Development WatchKit App";
 		};
 		C5111D341AB2E2880094275C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1480,13 +1451,6 @@
 			remoteGlobalIDString = C50646E81ABD844700CB4BE3;
 			remoteInfo = WrapLiveKit;
 		};
-		C559128A1AC03CDE00320483 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C50646E81ABD844700CB4BE3;
-			remoteInfo = WrapLiveKit;
-		};
 		C559CB701AA0BB5D00100B2C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -1515,26 +1479,12 @@
 			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
 			remoteInfo = CopyProvisioningProfiles;
 		};
-		C57678E71AC02D30001FE2D0 /* PBXContainerItemProxy */ = {
+		C56498D41ACB00D2000F1E4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = C50646E81ABD844700CB4BE3;
-			remoteInfo = WrapLiveKit;
-		};
-		C57678E91AC02D33001FE2D0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C50646E81ABD844700CB4BE3;
-			remoteInfo = WrapLiveKit;
-		};
-		C57678EB1AC02D38001FE2D0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C50646E81ABD844700CB4BE3;
-			remoteInfo = WrapLiveKit;
+			remoteGlobalIDString = C56498D11ACB00D2000F1E4B;
+			remoteInfo = "WrapLive-Production WatchKit App";
 		};
 		C5FBDB7A1ACA9A6600B24BC2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1549,13 +1499,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
 			remoteInfo = "WrapLiveWatchKitExtension-Development";
-		};
-		C5FBDB7E1ACA9A7400B24BC2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C50646AB1ABD831F00CB4BE3;
-			remoteInfo = "WrapLiveWatchKitExtension-Production";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1594,15 +1537,27 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5BF1B2551A49B63F000BB2C1 /* Embed App Extensions */ = {
+		C50356231ACBDF41009FFFEB /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				5BF1B2521A49B63E000BB2C1 /* WLTodayExtension_Production.appex in Embed App Extensions */,
+				C50356241ACBDF46009FFFEB /* WrapLiveWatchKitExtension-Production.appex in Embed App Extensions */,
+				C50356201ACBDF40009FFFEB /* WrapLiveToday-Production.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C52048611ACB098C009079A6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C52048601ACB098B009079A6 /* WrapLiveKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C5394F5C1AC415FC007FFD84 /* Embed Frameworks */ = {
@@ -1656,17 +1611,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				C55912861AC03CCE00320483 /* WrapLiveKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C559128C1AC03CDF00320483 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				C55912891AC03CDE00320483 /* WrapLiveKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1979,7 +1923,7 @@
 		5BD782CC1A4EC56A0094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLConfirmView.xib; sourceTree = "<group>"; };
 		5BD782CF1A4EC56E0094BEE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLConfirmView.strings; sourceTree = "<group>"; };
 		5BD782D11A4EC56F0094BEE5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLConfirmView.strings; sourceTree = "<group>"; };
-		5BF1B2481A49A683000BB2C1 /* WLTodayExtension_Production.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WLTodayExtension_Production.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BF1B2481A49A683000BB2C1 /* WrapLiveToday-Production.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WrapLiveToday-Production.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF5833B1A1F983B00922BD5 /* ic_quote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_quote.png; sourceTree = "<group>"; };
 		5BF5833C1A1F983B00922BD5 /* ic_quote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_quote@2x.png"; sourceTree = "<group>"; };
 		5BF5833D1A1F983B00922BD5 /* ic_quote@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_quote@3x.png"; sourceTree = "<group>"; };
@@ -2051,8 +1995,6 @@
 		C50645E61ABD815200CB4BE3 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		C50646A71ABD82D400CB4BE3 /* WrapLiveWatchKitExtension-Production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLiveWatchKitExtension-Production-Info.plist"; sourceTree = "<group>"; };
 		C50646A91ABD830C00CB4BE3 /* WrapLiveWatchKitApp-Production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLiveWatchKitApp-Production-Info.plist"; sourceTree = "<group>"; };
-		C50646D11ABD831F00CB4BE3 /* WrapLiveWatchKitExtension-Development.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WrapLiveWatchKitExtension-Development.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C50646E31ABD833000CB4BE3 /* WrapLiveWatchKitApp-Development copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLiveWatchKitApp-Development copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WrapLiveKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50646EC1ABD844700CB4BE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C50646ED1ABD844700CB4BE3 /* WrapLiveKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WrapLiveKit.h; sourceTree = "<group>"; };
@@ -2159,6 +2101,7 @@
 		C51E29521A1CE12E009786C7 /* ic_today_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_today_comment.png; sourceTree = "<group>"; };
 		C51E29531A1CE12E009786C7 /* ic_today_comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_today_comment@2x.png"; sourceTree = "<group>"; };
 		C51E29541A1CE12E009786C7 /* ic_today_comment@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_today_comment@3x.png"; sourceTree = "<group>"; };
+		C52048621ACB0992009079A6 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		C5215DF919C32CB80012AE10 /* WLEntityRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntityRequest.h; path = WLAPIManager/WLAPIRequest/WLEntityRequest.h; sourceTree = "<group>"; };
 		C5215DFA19C32CB80012AE10 /* WLEntityRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEntityRequest.m; path = WLAPIManager/WLAPIRequest/WLEntityRequest.m; sourceTree = "<group>"; };
 		C521FB041989352E00576281 /* WLHomeViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLHomeViewSection.h; path = WLCollectionViewDataProvider/WLHomeViewSection.h; sourceTree = "<group>"; };
@@ -2335,6 +2278,8 @@
 		C56091361A110C9500C48887 /* WLDevice+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLDevice+Extended.h"; sourceTree = "<group>"; };
 		C56091371A110C9500C48887 /* WLDevice+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLDevice+Extended.m"; sourceTree = "<group>"; };
 		C560913C1A110F4200C48887 /* CoreData 1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1.1.xcdatamodel"; sourceTree = "<group>"; };
+		C56498C71ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WrapLiveWatchKitExtension-Production.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C56498D21ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLiveWatchKitApp-Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C566D2911A5C30540081374B /* WLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLConstants.h; sourceTree = "<group>"; };
 		C568D8D41A6D491800C2333B /* WLHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHintView.h; sourceTree = "<group>"; };
 		C568D8D51A6D491800C2333B /* WLHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHintView.m; sourceTree = "<group>"; };
@@ -2500,15 +2445,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C50646BF1ABD831F00CB4BE3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C55912881AC03CDE00320483 /* WrapLiveKit.framework in Frameworks */,
-				664CF9948363F83EEFB3E74B /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C50646E51ABD844700CB4BE3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2574,6 +2510,15 @@
 				C54AF71819B8C491006F7EDB /* Foundation.framework in Frameworks */,
 				C5D41CF51AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
 				506B6B9F22C6B94BB0FB6A7A /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C56498C41ACB00D2000F1E4B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C52048631ACB0992009079A6 /* libPods.a in Frameworks */,
+				C520485F1ACB098B009079A6 /* WrapLiveKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2740,12 +2685,12 @@
 				C54AF64D19B8C467006F7EDB /* WrapLive-Beta.app */,
 				C54AF74A19B8C491006F7EDB /* WrapLive-Production.app */,
 				5B787D9B1A27876F004AE459 /* WrapLiveToday-Development.appex */,
-				5BF1B2481A49A683000BB2C1 /* WLTodayExtension_Production.appex */,
+				5BF1B2481A49A683000BB2C1 /* WrapLiveToday-Production.appex */,
 				C50645841ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development.appex */,
 				C50645931ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development.app */,
-				C50646D11ABD831F00CB4BE3 /* WrapLiveWatchKitExtension-Development.appex */,
-				C50646E31ABD833000CB4BE3 /* WrapLiveWatchKitApp-Development copy.app */,
 				C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */,
+				C56498C71ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production.appex */,
+				C56498D21ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2753,6 +2698,7 @@
 		12A7A70118DA0945008FF6F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C52048621ACB0992009079A6 /* libPods.a */,
 				C50647681ABD889100CB4BE3 /* CoreData.framework */,
 				C5D41CE61AB1EE4600990944 /* GoogleAnalyticsServices */,
 				C53F2CA51A6EB5FA00D99741 /* AviarySDK */,
@@ -5074,9 +5020,9 @@
 			);
 			dependencies = (
 				C559CB711AA0BB5D00100B2C /* PBXTargetDependency */,
+				C55912741AC03C9F00320483 /* PBXTargetDependency */,
 				C5111D351AB2E2880094275C /* PBXTargetDependency */,
 				C50645A01ABD7FD500CB4BE3 /* PBXTargetDependency */,
-				C55912741AC03C9F00320483 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Development";
 			productName = WrapLive;
@@ -5097,7 +5043,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C57678E81AC02D30001FE2D0 /* PBXTargetDependency */,
 			);
 			name = "WrapLiveToday-Development";
 			productName = WLTodayExtension;
@@ -5118,11 +5063,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				C57678EA1AC02D33001FE2D0 /* PBXTargetDependency */,
 			);
 			name = "WrapLiveToday-Production";
 			productName = WLTodayExtension;
-			productReference = 5BF1B2481A49A683000BB2C1 /* WLTodayExtension_Production.appex */;
+			productReference = 5BF1B2481A49A683000BB2C1 /* WrapLiveToday-Production.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		C50645831ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development */ = {
@@ -5139,7 +5083,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C57678EC1AC02D38001FE2D0 /* PBXTargetDependency */,
 				C50645961ABD7FD500CB4BE3 /* PBXTargetDependency */,
 			);
 			name = "WrapLiveWatchKitExtension-Development";
@@ -5160,43 +5103,6 @@
 			name = "WrapLiveWatchKitApp-Development";
 			productName = "WrapLive-Development WatchKit App";
 			productReference = C50645931ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development.app */;
-			productType = "com.apple.product-type.application.watchapp";
-		};
-		C50646AB1ABD831F00CB4BE3 /* WrapLiveWatchKitExtension-Production */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C50646CD1ABD831F00CB4BE3 /* Build configuration list for PBXNativeTarget "WrapLiveWatchKitExtension-Production" */;
-			buildPhases = (
-				FD9145047A5A42D757B16999 /* Check Pods Manifest.lock */,
-				C50646AE1ABD831F00CB4BE3 /* Sources */,
-				C50646BF1ABD831F00CB4BE3 /* Frameworks */,
-				C50646C01ABD831F00CB4BE3 /* Resources */,
-				EB113CBE295F5B0EEB27636E /* Copy Pods Resources */,
-				C559128C1AC03CDF00320483 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C50646AC1ABD831F00CB4BE3 /* PBXTargetDependency */,
-				C559128B1AC03CDE00320483 /* PBXTargetDependency */,
-			);
-			name = "WrapLiveWatchKitExtension-Production";
-			productName = "WrapLive-Development WatchKit Extension";
-			productReference = C50646D11ABD831F00CB4BE3 /* WrapLiveWatchKitExtension-Development.appex */;
-			productType = "com.apple.product-type.watchkit-extension";
-		};
-		C50646D21ABD833000CB4BE3 /* WrapLiveWatchKitApp-Production */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C50646DF1ABD833000CB4BE3 /* Build configuration list for PBXNativeTarget "WrapLiveWatchKitApp-Production" */;
-			buildPhases = (
-				C50646D31ABD833000CB4BE3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "WrapLiveWatchKitApp-Production";
-			productName = "WrapLive-Development WatchKit App";
-			productReference = C50646E31ABD833000CB4BE3 /* WrapLiveWatchKitApp-Development copy.app */;
 			productType = "com.apple.product-type.application.watchapp";
 		};
 		C50646E81ABD844700CB4BE3 /* WrapLiveKit */ = {
@@ -5236,9 +5142,9 @@
 			);
 			dependencies = (
 				C559CB751AA0BB6200100B2C /* PBXTargetDependency */,
+				C55912791AC03CB800320483 /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
 				C5FBDB7B1ACA9A6600B24BC2 /* PBXTargetDependency */,
-				C55912791AC03CB800320483 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-QA";
 			productName = WrapLive;
@@ -5262,9 +5168,9 @@
 			);
 			dependencies = (
 				C559CB771AA0BB6500100B2C /* PBXTargetDependency */,
+				C559127E1AC03CBD00320483 /* PBXTargetDependency */,
 				5BA7AF341A481A9C00C586CA /* PBXTargetDependency */,
 				C5FBDB7D1ACA9A6E00B24BC2 /* PBXTargetDependency */,
-				C559127E1AC03CBD00320483 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Beta";
 			productName = WrapLive;
@@ -5280,22 +5186,56 @@
 				C54AF70F19B8C491006F7EDB /* Frameworks */,
 				C54AF71B19B8C491006F7EDB /* Resources */,
 				C54AF74519B8C491006F7EDB /* Copy Pods Resources */,
-				5BF1B2551A49B63F000BB2C1 /* Embed App Extensions */,
 				C5D41CF91AB1FD6400990944 /* NewRelic upload dSym */,
 				C55912841AC03CC300320483 /* Embed Frameworks */,
+				C50356231ACBDF41009FFFEB /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
-				5BF1B2541A49B63E000BB2C1 /* PBXTargetDependency */,
-				C5FBDB7F1ACA9A7400B24BC2 /* PBXTargetDependency */,
 				C55912831AC03CC300320483 /* PBXTargetDependency */,
+				C50356221ACBDF41009FFFEB /* PBXTargetDependency */,
+				C50356261ACBDF46009FFFEB /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Production";
 			productName = WrapLive;
 			productReference = C54AF74A19B8C491006F7EDB /* WrapLive-Production.app */;
 			productType = "com.apple.product-type.application";
+		};
+		C56498C61ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C56498E51ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "WrapLiveWatchKitExtension-Production" */;
+			buildPhases = (
+				C56498C31ACB00D2000F1E4B /* Sources */,
+				C56498C41ACB00D2000F1E4B /* Frameworks */,
+				C56498C51ACB00D2000F1E4B /* Resources */,
+				C52048611ACB098C009079A6 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C56498D51ACB00D2000F1E4B /* PBXTargetDependency */,
+			);
+			name = "WrapLiveWatchKitExtension-Production";
+			productName = "WrapLive-Production WatchKit Extension";
+			productReference = C56498C71ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		C56498D11ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C56498E11ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "WrapLiveWatchKitApp-Production" */;
+			buildPhases = (
+				C56498D01ACB00D2000F1E4B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WrapLiveWatchKitApp-Production";
+			productName = "WrapLive-Production WatchKit App";
+			productReference = C56498D21ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app */;
+			productType = "com.apple.product-type.application.watchapp";
 		};
 /* End PBXNativeTarget section */
 
@@ -5348,17 +5288,6 @@
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = 2PW57LM468;
 					};
-					C50646AB1ABD831F00CB4BE3 = {
-						DevelopmentTeam = 2PW57LM468;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
-					C50646D21ABD833000CB4BE3 = {
-						DevelopmentTeam = 2PW57LM468;
-					};
 					C50646E81ABD844700CB4BE3 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = 2PW57LM468;
@@ -5387,6 +5316,14 @@
 							};
 						};
 					};
+					C56498C61ACB00D2000F1E4B = {
+						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 2PW57LM468;
+					};
+					C56498D11ACB00D2000F1E4B = {
+						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 2PW57LM468;
+					};
 				};
 			};
 			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
@@ -5412,8 +5349,8 @@
 				5BF1B22F1A49A683000BB2C1 /* WrapLiveToday-Production */,
 				C50645831ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development */,
 				C50645921ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development */,
-				C50646AB1ABD831F00CB4BE3 /* WrapLiveWatchKitExtension-Production */,
-				C50646D21ABD833000CB4BE3 /* WrapLiveWatchKitApp-Production */,
+				C56498C61ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production */,
+				C56498D11ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production */,
 				C50646E81ABD844700CB4BE3 /* WrapLiveKit */,
 			);
 		};
@@ -5575,40 +5512,6 @@
 				C55B25AD1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */,
 				C55B25AE1AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */,
 				C50646A61ABD815200CB4BE3 /* PushNotificationPayload.apns in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C50646C01ABD831F00CB4BE3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C50646C21ABD831F00CB4BE3 /* Images.xcassets in Resources */,
-				C50646C41ABD831F00CB4BE3 /* PushNotificationPayload.apns in Resources */,
-				C55B25AF1AC9A6220072E9D2 /* OpenSans-Light.ttf in Resources */,
-				C50646C71ABD831F00CB4BE3 /* Images.xcassets in Resources */,
-				C50646C81ABD831F00CB4BE3 /* Interface.storyboard in Resources */,
-				C50646C91ABD831F00CB4BE3 /* WrapLiveWatchKitApp-Development.app in Resources */,
-				C55B25A01AC9A61B0072E9D2 /* OpenSans-Semibold.ttf in Resources */,
-				C55B25B01AC9A6220072E9D2 /* OpenSans-Regular.ttf in Resources */,
-				C55B25B11AC9A6220072E9D2 /* OpenSans-Bold.ttf in Resources */,
-				C50646CC1ABD831F00CB4BE3 /* WLWKReplyPresets.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C50646D31ABD833000CB4BE3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C50646D41ABD833000CB4BE3 /* WLWKReplyPresets.plist in Resources */,
-				C50646D51ABD833000CB4BE3 /* Images.xcassets in Resources */,
-				C55B25B21AC9A6220072E9D2 /* OpenSans-Light.ttf in Resources */,
-				C50646D61ABD833000CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist in Resources */,
-				C50646D71ABD833000CB4BE3 /* Interface.storyboard in Resources */,
-				C50646D81ABD833000CB4BE3 /* Images.xcassets in Resources */,
-				C55B25A11AC9A61C0072E9D2 /* OpenSans-Semibold.ttf in Resources */,
-				C55B25B31AC9A6220072E9D2 /* OpenSans-Regular.ttf in Resources */,
-				C55B25B41AC9A6220072E9D2 /* OpenSans-Bold.ttf in Resources */,
-				C50646DE1ABD833000CB4BE3 /* PushNotificationPayload.apns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5888,6 +5791,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C56498C51ACB00D2000F1E4B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C56498D31ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C56498D01ACB00D2000F1E4B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -6158,37 +6076,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		EB113CBE295F5B0EEB27636E /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F98988067B8907B6A37F15F0 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		FD9145047A5A42D757B16999 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6422,24 +6310,6 @@
 				C506464E1ABD815200CB4BE3 /* WLWKReplyPresetRow.m in Sources */,
 				C506466B1ABD815200CB4BE3 /* WLWKCommentRow.m in Sources */,
 				C50646471ABD815200CB4BE3 /* WLWKCommentNotificationController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C50646AE1ABD831F00CB4BE3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C50646AF1ABD831F00CB4BE3 /* WLWKEntryRow.m in Sources */,
-				C55B25BA1AC9BF0A0072E9D2 /* WLWKErrorRow.m in Sources */,
-				C50646B11ABD831F00CB4BE3 /* WLWKCandyController.m in Sources */,
-				C50646B31ABD831F00CB4BE3 /* WLWKReplyPresetsController.m in Sources */,
-				C50646B41ABD831F00CB4BE3 /* WLWKCommentEventRow.m in Sources */,
-				C50646B51ABD831F00CB4BE3 /* WLWKEventsController.m in Sources */,
-				C549B73F1AC0179C003623A7 /* WLWKCandyEventRow.m in Sources */,
-				C50646B61ABD831F00CB4BE3 /* WLWKImageCache.m in Sources */,
-				C50646B91ABD831F00CB4BE3 /* WLWKReplyPresetRow.m in Sources */,
-				C50646BB1ABD831F00CB4BE3 /* WLWKCommentRow.m in Sources */,
-				C50646BC1ABD831F00CB4BE3 /* WLWKCommentNotificationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7086,6 +6956,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C56498C31ACB00D2000F1E4B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -7099,10 +6976,15 @@
 			target = 5B787D9A1A27876F004AE459 /* WrapLiveToday-Development */;
 			targetProxy = 5BA7AF331A481A9C00C586CA /* PBXContainerItemProxy */;
 		};
-		5BF1B2541A49B63E000BB2C1 /* PBXTargetDependency */ = {
+		C50356221ACBDF41009FFFEB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5BF1B22F1A49A683000BB2C1 /* WrapLiveToday-Production */;
-			targetProxy = 5BF1B2531A49B63E000BB2C1 /* PBXContainerItemProxy */;
+			targetProxy = C50356211ACBDF41009FFFEB /* PBXContainerItemProxy */;
+		};
+		C50356261ACBDF46009FFFEB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C56498C61ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production */;
+			targetProxy = C50356251ACBDF46009FFFEB /* PBXContainerItemProxy */;
 		};
 		C50645961ABD7FD500CB4BE3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7113,11 +6995,6 @@
 			isa = PBXTargetDependency;
 			target = C50645831ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development */;
 			targetProxy = C506459F1ABD7FD500CB4BE3 /* PBXContainerItemProxy */;
-		};
-		C50646AC1ABD831F00CB4BE3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C50645921ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development */;
-			targetProxy = C50646AD1ABD831F00CB4BE3 /* PBXContainerItemProxy */;
 		};
 		C5111D351AB2E2880094275C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7144,11 +7021,6 @@
 			target = C50646E81ABD844700CB4BE3 /* WrapLiveKit */;
 			targetProxy = C55912821AC03CC300320483 /* PBXContainerItemProxy */;
 		};
-		C559128B1AC03CDE00320483 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C50646E81ABD844700CB4BE3 /* WrapLiveKit */;
-			targetProxy = C559128A1AC03CDE00320483 /* PBXContainerItemProxy */;
-		};
 		C559CB711AA0BB5D00100B2C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
@@ -7169,20 +7041,10 @@
 			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
 			targetProxy = C559CB781AA0BB6900100B2C /* PBXContainerItemProxy */;
 		};
-		C57678E81AC02D30001FE2D0 /* PBXTargetDependency */ = {
+		C56498D51ACB00D2000F1E4B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C50646E81ABD844700CB4BE3 /* WrapLiveKit */;
-			targetProxy = C57678E71AC02D30001FE2D0 /* PBXContainerItemProxy */;
-		};
-		C57678EA1AC02D33001FE2D0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C50646E81ABD844700CB4BE3 /* WrapLiveKit */;
-			targetProxy = C57678E91AC02D33001FE2D0 /* PBXContainerItemProxy */;
-		};
-		C57678EC1AC02D38001FE2D0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C50646E81ABD844700CB4BE3 /* WrapLiveKit */;
-			targetProxy = C57678EB1AC02D38001FE2D0 /* PBXContainerItemProxy */;
+			target = C56498D11ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production */;
+			targetProxy = C56498D41ACB00D2000F1E4B /* PBXContainerItemProxy */;
 		};
 		C5FBDB7B1ACA9A6600B24BC2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7193,11 +7055,6 @@
 			isa = PBXTargetDependency;
 			target = C50645831ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development */;
 			targetProxy = C5FBDB7C1ACA9A6E00B24BC2 /* PBXContainerItemProxy */;
-		};
-		C5FBDB7F1ACA9A7400B24BC2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C50646AB1ABD831F00CB4BE3 /* WrapLiveWatchKitExtension-Production */;
-			targetProxy = C5FBDB7E1ACA9A7400B24BC2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -7440,10 +7297,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -7481,10 +7335,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -7515,7 +7366,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
@@ -7544,7 +7394,6 @@
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOAPODS=1",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Development-Info.plist";
@@ -7571,15 +7420,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = WLTodayExtension/WLTodayExtension_Production.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = WLTodayExtension_Production;
+				PRODUCT_NAME = "WrapLiveToday-Production";
 				PROVISIONING_PROFILE = "aabbaac6-450c-4784-85d6-84ed5b0b882b";
 				SKIP_INSTALL = YES;
 			};
@@ -7599,14 +7447,13 @@
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOAPODS=1",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = WLTodayExtension/WLTodayExtension_Production.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = WLTodayExtension_Production;
+				PRODUCT_NAME = "WrapLiveToday-Production";
 				PROVISIONING_PROFILE = "725279e2-88fc-47bc-a579-c0ccba7c2956";
 				SKIP_INSTALL = YES;
 			};
@@ -7691,7 +7538,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
@@ -7720,7 +7566,6 @@
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOAPODS=1",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Development-Info.plist";
@@ -7748,7 +7593,6 @@
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOAPODS=1",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Development-Info.plist";
@@ -7758,155 +7602,6 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "0a8be65e-2af3-40cb-ac47-dbe6fd20a381";
 				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		C50646CE1ABD831F00CB4BE3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "WrapLiveWatchKitExtension-Development";
-				PROVISIONING_PROFILE = "ac1587ca-9837-427c-af8c-e7ee9b3b8f85";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		C50646CF1ABD831F00CB4BE3 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */;
-			buildSettings = {
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = wrapLiveDevelopment.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "WrapLiveWatchKitExtension-Development";
-				PROVISIONING_PROFILE = "5d1ff88a-5e78-4ca9-9527-8b667f5ee2c7";
-				SKIP_INSTALL = YES;
-			};
-			name = AdHoc;
-		};
-		C50646D01ABD831F00CB4BE3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
-			buildSettings = {
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "WrapLiveWatchKitExtension-Development";
-				PROVISIONING_PROFILE = "5d1ff88a-5e78-4ca9-9527-8b667f5ee2c7";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		C50646E01ABD833000CB4BE3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				IBSC_MODULE = WrapLive_Development_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "WrapLiveWatchKitApp-Development copy";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = Debug;
-		};
-		C50646E11ABD833000CB4BE3 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IBSC_MODULE = WrapLive_Development_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "WrapLiveWatchKitApp-Development copy";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = AdHoc;
-		};
-		C50646E21ABD833000CB4BE3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IBSC_MODULE = WrapLive_Development_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "WrapLiveWatchKitApp-Development copy";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
 			};
 			name = Release;
 		};
@@ -8033,10 +7728,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -8074,10 +7766,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -8114,10 +7803,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -8154,10 +7840,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -8193,10 +7876,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -8234,10 +7914,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -8271,6 +7948,152 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRODUCT_NAME = CopyProvisioningProfiles;
+			};
+			name = Release;
+		};
+		C56498E21ACB00D3000F1E4B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IBSC_MODULE = WrapLive_Production_WatchKit_Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		C56498E31ACB00D3000F1E4B /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IBSC_MODULE = WrapLive_Production_WatchKit_Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = AdHoc;
+		};
+		C56498E41ACB00D3000F1E4B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IBSC_MODULE = WrapLive_Production_WatchKit_Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Release;
+		};
+		C56498E61ACB00D3000F1E4B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21BDCF3D58C5CF2EC1728EB5 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"WRAPLIVE_EXTENSION_TERGET=1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "ac1587ca-9837-427c-af8c-e7ee9b3b8f85";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C56498E71ACB00D3000F1E4B /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3ED9551C829C0FE17DCF5E43 /* Pods.adhoc.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"WRAPLIVE_EXTENSION_TERGET=1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "5d1ff88a-5e78-4ca9-9527-8b667f5ee2c7";
+				SKIP_INSTALL = YES;
+			};
+			name = AdHoc;
+		};
+		C56498E81ACB00D3000F1E4B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BD9B2D2160BACFC9F47D5E4 /* Pods.release.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"WRAPLIVE_EXTENSION_TERGET=1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "5d1ff88a-5e78-4ca9-9527-8b667f5ee2c7";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -8333,10 +8156,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -8373,10 +8193,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-QA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -8413,10 +8230,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -8452,10 +8266,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WrapLive/WrapLive-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -8496,7 +8307,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
@@ -8524,15 +8334,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = WLTodayExtension/WLTodayExtension_Production.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = WLTodayExtension_Production;
+				PRODUCT_NAME = "WrapLiveToday-Production";
 				PROVISIONING_PROFILE = "db55b54c-da02-43b4-a047-e4fc8f0a82c7";
 				SKIP_INSTALL = YES;
 			};
@@ -8601,26 +8410,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C50646CD1ABD831F00CB4BE3 /* Build configuration list for PBXNativeTarget "WrapLiveWatchKitExtension-Production" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C50646CE1ABD831F00CB4BE3 /* Debug */,
-				C50646CF1ABD831F00CB4BE3 /* AdHoc */,
-				C50646D01ABD831F00CB4BE3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C50646DF1ABD833000CB4BE3 /* Build configuration list for PBXNativeTarget "WrapLiveWatchKitApp-Production" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C50646E01ABD833000CB4BE3 /* Debug */,
-				C50646E11ABD833000CB4BE3 /* AdHoc */,
-				C50646E21ABD833000CB4BE3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		C50646FC1ABD844700CB4BE3 /* Build configuration list for PBXNativeTarget "WrapLiveKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -8657,6 +8446,26 @@
 				C54AF74819B8C491006F7EDB /* Debug */,
 				C5BC485D1AA0C9E500AC5EC8 /* AdHoc */,
 				C54AF74919B8C491006F7EDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C56498E11ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "WrapLiveWatchKitApp-Production" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C56498E21ACB00D3000F1E4B /* Debug */,
+				C56498E31ACB00D3000F1E4B /* AdHoc */,
+				C56498E41ACB00D3000F1E4B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C56498E51ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "WrapLiveWatchKitExtension-Production" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C56498E61ACB00D3000F1E4B /* Debug */,
+				C56498E71ACB00D3000F1E4B /* AdHoc */,
+				C56498E81ACB00D3000F1E4B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

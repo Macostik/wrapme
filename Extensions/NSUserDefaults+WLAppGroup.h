@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString *const WLAppGroupIdentifier = @"group.com.ravenpod.wraplive";
-
 static NSString *const WLAppGroupEncryptedAuthorization = @"encrypted_authorization";
 
 static NSString *const WLAppGroupEnvironment = @"environment";

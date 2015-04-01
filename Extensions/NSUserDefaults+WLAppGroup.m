@@ -7,11 +7,18 @@
 //
 
 #import "NSUserDefaults+WLAppGroup.h"
+#import "NSString+Additions.h"
 
 @implementation NSUserDefaults (WLAppGroup)
 
 + (instancetype)appGroupUserDefaults {
-    return [[NSUserDefaults alloc] initWithSuiteName:WLAppGroupIdentifier];
+    static NSUserDefaults *appGroupUserDefaults = nil;
+    if (!appGroupUserDefaults) {
+        NSString *identifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WLAppGroupIdentifier"];
+        if (!identifier.nonempty) identifier = @"group.com.ravenpod.wraplive";
+        appGroupUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:identifier];
+    }
+    return appGroupUserDefaults;
 }
 
 @end

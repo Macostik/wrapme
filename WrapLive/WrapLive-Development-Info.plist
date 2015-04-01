@@ -74,5 +74,7 @@
 	<true/>
 	<key>WLAPIEnvironment</key>
 	<string>development</string>
+	<key>WLAppGroupIdentifier</key>
+	<string>group.com.ravenpod.wrapliveadhoc</string>
 </dict>
 </plist>

@@ -40,5 +40,7 @@
 		<string>OpenSans-Regular.ttf</string>
 		<string>OpenSans-Bold.ttf</string>
 	</array>
+	<key>WLAppGroupIdentifier</key>
+	<string>group.com.ravenpod.wrapliveadhoc</string>
 </dict>
 </plist>

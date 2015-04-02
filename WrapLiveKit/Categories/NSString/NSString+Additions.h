@@ -43,7 +43,7 @@ static inline NSString* phoneNumberClearing (NSString* phone) {
 }
 
 static inline CGFloat WLCalculateHeightString(NSString *string, CGFloat width) {
-    UITextView *textView = [UIView loadFromNibNamed:@"WLContainerTextView" ownedBy:nil];
+    UITextView *textView = [[[NSBundle bundleWithIdentifier:@"com.mobidev.wraplive.kit"] loadNibNamed:@"WLContainerTextView" owner:nil options:nil] lastObject];
     textView.textContainerInset = UIEdgeInsetsZero;
     textView.text = string;
     return [textView sizeThatFits:CGSizeMake(width, MAXFLOAT)].height;

@@ -7,11 +7,15 @@
 //
 
 #import "WLWKCandyEventRow.h"
-#import "WLWKImageCache.h"
+#import "WKInterfaceImage+WLImageFetcher.h"
 #import "WLUser+Extended.h"
 #import "WLCandy+Extended.h"
 #import "WLWrap+Extended.h"
 #import "NSDate+Additions.h"
+
+@interface WLWKCandyEventRow () <WLImageFetching>
+
+@end
 
 @implementation WLWKCandyEventRow
 
@@ -23,11 +27,7 @@
     NSMutableAttributedString *body = [[NSMutableAttributedString alloc] initWithString:time attributes:@{NSFontAttributeName:[UIFont fontWithName:@"OpenSans-Light" size:10],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [text appendAttributedString:body];
     [self.text setAttributedText:text];
-    
-    __weak typeof(self)weakSelf = self;
-    [WLWKImageCache imageWithURL:entry.picture.small completion:^(UIImage *image) {
-        [weakSelf.group setBackgroundImage:image];
-    }];
+    self.group.url = entry.picture.small;
 }
 
 @end

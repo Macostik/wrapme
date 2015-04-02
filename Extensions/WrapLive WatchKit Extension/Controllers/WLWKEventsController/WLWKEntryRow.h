@@ -12,6 +12,6 @@
 
 @property (strong, nonatomic) IBOutlet WKInterfaceLabel *text;
 
-- (void)setEntry:(WLEntry*)entry;
+@property (strong, nonatomic) WLEntry* entry;
 
 @end

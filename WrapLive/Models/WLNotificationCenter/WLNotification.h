@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "WLEntryManager.h"
 
-@class PNMessage;
-
 typedef NS_ENUM(NSUInteger, WLNotificationType) {
 	WLNotificationContributorAdd        = 100,
 	WLNotificationContributorDelete     = 200,
@@ -51,8 +49,6 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 @property (strong, nonatomic) NSDictionary* entryData;
 
 @property (strong, nonatomic) NSString* containingEntryIdentifier;
-
-+ (instancetype)notificationWithMessage:(PNMessage*)message;
 
 + (instancetype)notificationWithData:(NSDictionary*)data;
 

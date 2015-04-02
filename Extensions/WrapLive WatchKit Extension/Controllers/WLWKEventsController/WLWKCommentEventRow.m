@@ -7,12 +7,12 @@
 //
 
 #import "WLWKCommentEventRow.h"
-#import "WLWKImageCache.h"
 #import "WLComment+Extended.h"
 #import "WLUser+Extended.h"
 #import "WLCandy+Extended.h"
 #import "WLWrap+Extended.h"
 #import "NSDate+Additions.h"
+#import "WKInterfaceImage+WLImageFetcher.h"
 
 @implementation WLWKCommentEventRow
 
@@ -24,10 +24,7 @@
     [text appendAttributedString:body];
     [self.text setAttributedText:text];
     
-    __weak typeof(self)weakSelf = self;
-    [WLWKImageCache imageWithURL:entry.picture.small completion:^(UIImage *image) {
-        [weakSelf.icon setImage:image];
-    }];
+    self.icon.url = entry.picture.small;
     
     NSString *comment = [NSString stringWithFormat:@"\"%@\"", entry.text];
     [self.comment setAttributedText:[[NSAttributedString alloc] initWithString:comment attributes:@{NSFontAttributeName:[UIFont fontWithName:@"OpenSans-Light" size:12], NSForegroundColorAttributeName:[UIColor blackColor]}]];

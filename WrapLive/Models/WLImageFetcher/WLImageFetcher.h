@@ -13,6 +13,7 @@
 
 @protocol WLImageFetching
 
+@optional
 - (NSString*)fetcherTargetUrl:(WLImageFetcher*)fetcher;
 
 - (void)fetcher:(WLImageFetcher*)fetcher didFinishWithImage:(UIImage*)image cached:(BOOL)cached;

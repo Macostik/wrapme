@@ -117,3 +117,4 @@ FOUNDATION_EXPORT const unsigned char WrapLiveKitVersionString[];
 #import <WrapLiveKit/WLAlertView.h>
 #import <WrapLiveKit/AFNetworking.h>
 #import <WrapLiveKit/NSObject+NibAdditions.h>
+#import <WrapLiveKit/WLNotification.h>

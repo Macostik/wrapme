@@ -26,6 +26,10 @@
     return self;
 }
 
+- (WLPicture *)picture {
+    return self.contributor.picture;
+}
+
 - (WLEntry *)containingEntry {
     return self.wrap;
 }

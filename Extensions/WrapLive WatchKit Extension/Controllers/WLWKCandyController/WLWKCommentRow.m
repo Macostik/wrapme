@@ -9,7 +9,7 @@
 #import "WLWKCommentRow.h"
 #import "WLComment+Extended.h"
 #import "WLUser+Extended.h"
-#import "WLWKImageCache.h"
+#import "WKInterfaceImage+WLImageFetcher.h"
 #import "NSDate+Additions.h"
 
 @interface WLWKCommentRow ()
@@ -25,12 +25,8 @@
 @implementation WLWKCommentRow
 
 - (void)setEntry:(WLComment *)comment {
-    __weak typeof(self)weakSelf = self;
-    [WLWKImageCache imageWithURL:comment.contributor.picture.small edit:^UIImage *(UIImage *image) {
-        return [image circleImage];
-    } completion:^(UIImage *image) {
-        [weakSelf.contributorImage setImage:image];
-    }];
+    [super setEntry:comment];
+    self.contributorImage.url = comment.contributor.picture.small;
     [self.contributorName setText:comment.contributor.name];
     [self.text setText:comment.text];
     [self.dateLabel setText:[comment.createdAt timeAgoStringAtAMPM]];

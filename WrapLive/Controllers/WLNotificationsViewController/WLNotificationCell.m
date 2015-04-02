@@ -7,7 +7,6 @@
 //
 
 #import "WLNotificationCell.h"
-#import "WLNotification.h"
 #import "UILabel+Additions.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"

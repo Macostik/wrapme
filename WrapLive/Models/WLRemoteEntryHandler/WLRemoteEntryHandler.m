@@ -9,7 +9,6 @@
 #import "WLRemoteEntryHandler.h"
 #import "WLEntry.h"
 #import "WLNavigation.h"
-#import "WLNotification.h"
 #import "NSString+Additions.h"
 
 @interface WLRemoteEntryHandler ()

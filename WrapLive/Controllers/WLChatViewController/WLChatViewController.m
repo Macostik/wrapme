@@ -18,7 +18,6 @@
 #import "WLKeyboard.h"
 #import "WLLoadingView.h"
 #import "WLMessageCell.h"
-#import "WLNotification.h"
 #import "WLRefresher.h"
 #import "WLSignificantTimeBroadcaster.h"
 #import "WLSoundPlayer.h"

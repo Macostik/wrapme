@@ -9,6 +9,8 @@
 #import "WLContribution+Extended.h"
 #import "WLEntryManager.h"
 #import "NSString+Additions.h"
+#import "NSDate+Additions.h"
+#import "WLAPIRequest.h"
 
 @implementation WLContribution (Extended)
 
@@ -17,6 +19,18 @@
     contributrion.uploadIdentifier = contributrion.identifier;
     contributrion.contributor = [WLUser currentUser];
     return contributrion;
+}
+
++ (NSMutableOrderedSet *)recentContributions {
+    NSMutableOrderedSet *contributions = [NSMutableOrderedSet orderedSet];
+    [contributions unionOrderedSet:[WLComment entries:^(NSFetchRequest *request) {
+        request.predicate = [NSPredicate predicateWithFormat:@"createdAt > %@", [[NSDate now] beginOfDay]];
+    }]];
+    [contributions unionOrderedSet:[WLCandy entries:^(NSFetchRequest *request) {
+        request.predicate = [NSPredicate predicateWithFormat:@"createdAt > %@", [[NSDate now] beginOfDay]];
+    }]];
+    [contributions sortByCreatedAt];
+    return contributions;
 }
 
 + (NSNumber *)uploadingOrder {

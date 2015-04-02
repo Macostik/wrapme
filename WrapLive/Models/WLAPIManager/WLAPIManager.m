@@ -96,6 +96,39 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     return YES;
 }
 
+- (BOOL)recursivelyFetched {
+    WLEntry *entry = self;
+    while (entry) {
+        if (!entry.fetched) {
+            return NO;
+        }
+        entry = entry.containingEntry;
+    }
+    return YES;
+}
+
+- (void)recursivelyFetchIfNeeded:(WLBlock)success failure:(WLFailureBlock)failure {
+    
+    if (self.recursivelyFetched) {
+        if (success) success();
+        return;
+    }
+    
+    WLEntry *entry = self;
+    while (entry) {
+        runUnaryQueuedOperation(@"recursive_entry_fetching", ^(WLOperation *operation) {
+            [entry fetchIfNeeded:^ (WLEntry *entry) {
+                [operation finish:success];
+            } failure:^ (NSError *error) {
+                [operation.queue cancelAllOperations];
+                [operation finish];
+                if (failure) failure(error);
+            }];
+        });
+        entry = entry.containingEntry;
+    }
+}
+
 - (id)fetchIfNeeded:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (self.fetched) {
         if (success) success(self);

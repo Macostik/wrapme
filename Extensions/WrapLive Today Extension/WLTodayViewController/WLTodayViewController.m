@@ -108,14 +108,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (NCUpdateResult)fetchContributions {
-    NSMutableOrderedSet *contributions = [NSMutableOrderedSet orderedSet];
-    [contributions unionOrderedSet:[WLComment entries:^(NSFetchRequest *request) {
-        request.predicate = [NSPredicate predicateWithFormat:@"createdAt > %@", [[NSDate now] beginOfDay]];
-    }]];
-    [contributions unionOrderedSet:[WLCandy entries:^(NSFetchRequest *request) {
-        request.predicate = [NSPredicate predicateWithFormat:@"createdAt > %@", [[NSDate now] beginOfDay]];
-    }]];
-    [contributions sortByCreatedAt];
+    NSMutableOrderedSet *contributions = [WLContribution recentContributions];
     NCUpdateResult updateResult = [self.contributions isEqualToOrderedSet:contributions] ? NCUpdateResultNoData : NCUpdateResultNewData;
     self.contributions = contributions;
     return updateResult;

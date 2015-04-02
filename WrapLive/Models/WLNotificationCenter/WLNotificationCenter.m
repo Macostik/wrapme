@@ -9,11 +9,11 @@
 #import "WLNotificationCenter.h"
 #import "UIAlertView+Blocks.h"
 #import "WLToast.h"
-#import "WLNotification.h"
 #import "WLSoundPlayer.h"
 #import "WLNotificationChannel.h"
 #import "NSPropertyListSerialization+Shorthand.h"
 #import "WLRemoteEntryHandler.h"
+#import "WLNotification+PNMessage.h"
 
 @interface WLNotificationCenter () <PNDelegate, WLEntryNotifyReceiver>
 

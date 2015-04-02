@@ -1,0 +1,9 @@
+{
+    "aps" : {
+        "alert" : "Yura: 'Qwertyuiop' in 'Test3'.",
+        "sound" : "s03.wav",
+        "content-available" : 1
+    },
+    "msg_type" : 700,
+    "chat_uid" : "CTe11faab0bb4501329e170abd3edd1a07"
+}

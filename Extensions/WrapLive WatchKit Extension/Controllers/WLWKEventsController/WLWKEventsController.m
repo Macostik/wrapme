@@ -23,6 +23,7 @@
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
+    self.entries = [WLContribution recentContributions];
 }
 
 - (void)setEntries:(NSOrderedSet *)entries {
@@ -89,7 +90,7 @@
 - (void)updateContributions {
     __weak typeof(self)weakSelf = self;
     [[WLRecentContributionsRequest request] send:^(id object) {
-        weakSelf.entries = object;
+        weakSelf.entries = [WLContribution recentContributions];
     } failure:^(NSError *error) {
         [weakSelf showError:error];
     }];

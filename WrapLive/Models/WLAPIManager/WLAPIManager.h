@@ -40,6 +40,8 @@ static NSUInteger WLPageSize = 10;
 
 @property (readonly, nonatomic) BOOL fetched;
 
+@property (readonly, nonatomic) BOOL recursivelyFetched;
+
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure;
@@ -51,6 +53,8 @@ static NSUInteger WLPageSize = 10;
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (id)fetchIfNeeded:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+
+- (void)recursivelyFetchIfNeeded:(WLBlock)success failure:(WLFailureBlock)failure;
 
 @end
 

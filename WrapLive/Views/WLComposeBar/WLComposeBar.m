@@ -108,6 +108,16 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
     }];
 }
 
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    for (UIView *subview in self.subviews) {
+        BOOL inside = [subview pointInside:[subview convertPoint:point fromView:self] withEvent:event];
+        if (inside) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (WLEmojiView *)emojiView {
 	if (!_emojiView) {
 		_emojiView = [[WLEmojiView alloc] initWithTextView:self.textView];

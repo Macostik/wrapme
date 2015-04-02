@@ -3359,7 +3359,7 @@ Check your internet connection and try again.</string>
                                                     <constraint firstItem="y8m-EE-ge2" firstAttribute="top" secondItem="B4a-CN-Vzs" secondAttribute="top" constant="8" id="zgj-Ah-l6k"/>
                                                 </constraints>
                                             </view>
-                                            <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQY-Cq-aBP">
+                                            <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQY-Cq-aBP" customClass="WLButton">
                                                 <rect key="frame" x="236" y="0.0" width="60" height="44"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -3377,6 +3377,11 @@ Check your internet connection and try again.</string>
                                                 <state key="highlighted">
                                                     <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="size" keyPath="touchArea">
+                                                        <size key="value" width="60" height="60"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="done:" destination="aG1-FG-zzH" eventType="touchUpInside" id="jiw-kB-Nge"/>
                                                 </connections>
@@ -3911,7 +3916,7 @@ Check your internet connection and try again.</string>
                                             <constraint firstAttribute="centerY" secondItem="uda-Ra-Xj8" secondAttribute="centerY" constant="-0.5" id="vQZ-Ec-LeE"/>
                                         </constraints>
                                     </view>
-                                    <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKy-OZ-m8E">
+                                    <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKy-OZ-m8E" customClass="WLButton">
                                         <rect key="frame" x="260" y="0.0" width="60" height="44"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -3929,6 +3934,11 @@ Check your internet connection and try again.</string>
                                         <state key="highlighted">
                                             <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="touchArea">
+                                                <size key="value" width="60" height="60"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="done:" destination="dQp-Lx-kpC" eventType="touchUpInside" id="PV4-Oh-Rbt"/>
                                         </connections>

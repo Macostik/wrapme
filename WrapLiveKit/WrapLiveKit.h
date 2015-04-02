@@ -120,3 +120,4 @@ FOUNDATION_EXPORT const unsigned char WrapLiveKitVersionString[];
 #import <WrapLiveKit/WLNotification.h>
 #import <WrapLiveKit/NSObject+Extension.h>
 #import <WrapLiveKit/NSMutableDictionary+ImageMetadata.h>
+#import <WrapLiveKit/WLStillPictureMode.h>

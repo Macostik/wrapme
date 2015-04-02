@@ -608,7 +608,6 @@
 		C54974591ABC1C34000E3F54 /* WLDebugButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLDebugButton.m */; };
 		C549745A1ABC1C34000E3F54 /* WLDebugButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLDebugButton.m */; };
 		C549745B1ABC1C34000E3F54 /* WLDebugButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLDebugButton.m */; };
-		C549B72D1AC013B4003623A7 /* WLStillPictureMode.h in Headers */ = {isa = PBXBuildFile; fileRef = C54C36061A306C6D006387E2 /* WLStillPictureMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C549B73E1AC0179B003623A7 /* WLWKCandyEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DA1ABD815200CB4BE3 /* WLWKCandyEventRow.m */; };
 		C54AF45A19B8C437006F7EDB /* WLNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FCC699199A5C4B009A0DC6 /* WLNavigation.m */; };
 		C54AF45B19B8C437006F7EDB /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
@@ -1417,6 +1416,7 @@
 		C5FE0A5E1ACD98F3007DBE95 /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FE0A5C1ACD98F3007DBE95 /* WLCircleImageView.m */; };
 		C5FE0A5F1ACD98F3007DBE95 /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FE0A5C1ACD98F3007DBE95 /* WLCircleImageView.m */; };
 		C5FE0A601ACD98F3007DBE95 /* WLCircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FE0A5C1ACD98F3007DBE95 /* WLCircleImageView.m */; };
+		C5FE0A621ACD9FA9007DBE95 /* WLStillPictureMode.h in Headers */ = {isa = PBXBuildFile; fileRef = C5FE0A611ACD9FA9007DBE95 /* WLStillPictureMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5FFB03119AC8956006F27A7 /* WLTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03019AC8956006F27A7 /* WLTimeline.m */; };
 		C5FFB03419AC8FA5006F27A7 /* WLTimelineEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03319AC8FA5006F27A7 /* WLTimelineEvent.m */; };
 		C5FFB03719AC9248006F27A7 /* WLTimelineViewDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03619AC9248006F27A7 /* WLTimelineViewDataProvider.m */; };
@@ -2156,7 +2156,6 @@
 		C54AF85919B8C622006F7EDB /* WLAPIEnvironmentDevelopment.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLAPIEnvironmentDevelopment.plist; sourceTree = "<group>"; };
 		C54AF85A19B8C622006F7EDB /* WLAPIEnvironmentProduction.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLAPIEnvironmentProduction.plist; sourceTree = "<group>"; };
 		C54AF85B19B8C622006F7EDB /* WLAPIEnvironmentQA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLAPIEnvironmentQA.plist; sourceTree = "<group>"; };
-		C54C36061A306C6D006387E2 /* WLStillPictureMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStillPictureMode.h; path = WLStillPictureViewController/WLStillPictureMode.h; sourceTree = "<group>"; };
 		C54C36081A3077ED006387E2 /* WLSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSoundPlayer.h; sourceTree = "<group>"; };
 		C54C36091A3077ED006387E2 /* WLSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSoundPlayer.m; sourceTree = "<group>"; };
 		C54E4ADC1A4C52C900C6B990 /* WLLaunchScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLaunchScreenViewController.h; sourceTree = "<group>"; };
@@ -2496,6 +2495,7 @@
 		C5FE0A551ACD9896007DBE95 /* WLContributorsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLContributorsRequest.m; sourceTree = "<group>"; };
 		C5FE0A5B1ACD98F3007DBE95 /* WLCircleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCircleImageView.h; sourceTree = "<group>"; };
 		C5FE0A5C1ACD98F3007DBE95 /* WLCircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCircleImageView.m; sourceTree = "<group>"; };
+		C5FE0A611ACD9FA9007DBE95 /* WLStillPictureMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLStillPictureMode.h; sourceTree = "<group>"; };
 		C5FFB02F19AC8956006F27A7 /* WLTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimeline.h; path = WLTimeline/WLTimeline.h; sourceTree = "<group>"; };
 		C5FFB03019AC8956006F27A7 /* WLTimeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTimeline.m; path = WLTimeline/WLTimeline.m; sourceTree = "<group>"; };
 		C5FFB03219AC8FA5006F27A7 /* WLTimelineEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimelineEvent.h; path = WLTimeline/WLTimelineEvent.h; sourceTree = "<group>"; };
@@ -2672,7 +2672,6 @@
 				C53E5CF91A84FBDB004F61B0 /* WLStillPictureBaseViewController.m */,
 				128156A91938A1DA00035F89 /* WLStillPictureViewController.h */,
 				128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */,
-				C54C36061A306C6D006387E2 /* WLStillPictureMode.h */,
 			);
 			name = WLStillPictureViewController;
 			sourceTree = "<group>";
@@ -4439,6 +4438,7 @@
 		C5612CB01ACD968A0052578A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C5FE0A611ACD9FA9007DBE95 /* WLStillPictureMode.h */,
 				C5612CB11ACD968A0052578A /* WLAPIManager */,
 				C5612CF61ACD968B0052578A /* WLArchivingObject */,
 				C5612CF91ACD968B0052578A /* WLAuthorization */,
@@ -5230,6 +5230,7 @@
 				C5612DF01ACD968B0052578A /* WLComment.h in Headers */,
 				C5612E2F1ACD968B0052578A /* GeometryHelper.h in Headers */,
 				C5612E321ACD968B0052578A /* WLConstants.h in Headers */,
+				C5FE0A621ACD9FA9007DBE95 /* WLStillPictureMode.h in Headers */,
 				C5612E0F1ACD968B0052578A /* WLUser.h in Headers */,
 				C5612DB41ACD968B0052578A /* WLEntityRequest.h in Headers */,
 				C5612DBA1ACD968B0052578A /* WLPaginatedRequest.h in Headers */,
@@ -5284,7 +5285,6 @@
 				C500C92D1ACBE64E0072BBA8 /* AFURLConnectionOperation.h in Headers */,
 				C55B258F1AC9A0D50072E9D2 /* NSUserDefaults+WLAppGroup.h in Headers */,
 				C500C92E1ACBE64E0072BBA8 /* AFURLRequestSerialization.h in Headers */,
-				C549B72D1AC013B4003623A7 /* WLStillPictureMode.h in Headers */,
 				C5EE8B591ACABD520069F9FA /* LogFiles.h in Headers */,
 				C5EE8B571ACABD520069F9FA /* LeNetworkStatus.h in Headers */,
 				C5EE8B581ACABD520069F9FA /* LogFile.h in Headers */,

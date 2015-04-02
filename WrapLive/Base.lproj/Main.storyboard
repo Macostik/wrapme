@@ -1508,7 +1508,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="ios7Cloud"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="iosCloud"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="base"/>
                                         </userDefinedRuntimeAttributes>
                                     </button>
@@ -4149,7 +4149,7 @@ Check your internet connection and try again.</string>
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="ios7CheckmarkOutline"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="iosCheckmarkOutline"/>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="normal"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </button>

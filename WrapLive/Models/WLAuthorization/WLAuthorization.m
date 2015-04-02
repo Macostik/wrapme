@@ -14,6 +14,7 @@
 #import "WLCryptographer.h"
 #import "NSDictionary+Extended.h"
 #import "WLTelephony.h"
+#import "UIFont+CustomFonts.h"
 
 static NSString *const WLUserDefaultsExtensionKey = @"group.com.ravenpod.wraplive";
 static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
@@ -76,5 +77,33 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
 - (void)setCurrent {
 	[WLAuthorization setCurrentAuthorization:self];
 }
+
+#pragma mark - WLExtension halper
+
++ (void)parseExtensionAutorization:(WLAuthorization *)autorization {
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:WLUserDefaultsExtensionKey];
+    NSMutableDictionary *attDictionary = [NSMutableDictionary dictionary];
+    [attDictionary trySetObject:autorization.deviceUID forKey:WLDeviceIDKey];
+    [attDictionary trySetObject:autorization.countryCode forKey:WLCountryCodeKey];
+    [attDictionary trySetObject:autorization.phone forKey:WLPhoneKey];
+    [attDictionary trySetObject:autorization.email forKey:WLEmailKey];
+    NSString *environmentName = [[[NSBundle mainBundle] infoDictionary] stringForKey:WLEnvironment];
+    [attDictionary trySetObject:environmentName forKey:WLEnvironment];
+    NSData *passwordData = [WLCryptographer encrypt:autorization.password];
+    [attDictionary setObject:passwordData forKey:WLPasswordKey];
+    [userDefaults setObject:attDictionary forKey:WLExtensionWrapKey];
+    [userDefaults synchronize];
+}
+
++ (NSAttributedString *)attributedVerificationSuggestion {
+    NSString *email = [[self currentAuthorization] unconfirmed_email];
+    NSMutableAttributedString *emailVerificationString = [[NSMutableAttributedString alloc] initWithString:
+                                                          [[NSString alloc] initWithFormat:WLLS(@"verification email %@"), email]];
+    NSRange range = [emailVerificationString.string rangeOfString:email];
+    [emailVerificationString setAttributes:@{NSFontAttributeName: [UIFont fontWithName:WLFontOpenSansBold preset:WLFontPresetXSmall]}
+                                     range:range];
+    return emailVerificationString;
+}
+
 
 @end

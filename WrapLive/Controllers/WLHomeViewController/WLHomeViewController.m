@@ -21,7 +21,6 @@
 #import "WLHomeViewSection.h"
 #import "WLLoadingView.h"
 #import "WLNavigation.h"
-#import "WLNotification.h"
 #import "WLNotificationCenter.h"
 #import "WLRefresher.h"
 #import "WLBadgeLabel.h"

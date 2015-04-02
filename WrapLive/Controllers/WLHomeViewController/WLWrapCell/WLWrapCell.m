@@ -14,7 +14,6 @@
 #import "WLCandyCell.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLHomeCandiesViewSection.h"
-#import "WLNotification.h"
 #import "WLNotificationCenter.h"
 #import "WLBadgeLabel.h"
 #import "WLWrapCell.h"

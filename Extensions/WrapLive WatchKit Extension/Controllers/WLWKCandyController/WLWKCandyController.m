@@ -8,11 +8,11 @@
 
 #import "WLWKCandyController.h"
 #import "WLCandy+Extended.h"
-#import "WLWKImageCache.h"
 #import "WLAPIManager.h"
 #import "WLWKCommentRow.h"
+#import "WKInterfaceImage+WLImageFetcher.h"
 
-@interface WLWKCandyController()
+@interface WLWKCandyController ()
 
 @property (weak, nonatomic) IBOutlet WKInterfaceImage *image;
 @property (weak, nonatomic) IBOutlet WKInterfaceTable *table;
@@ -27,13 +27,8 @@
 - (void)awakeWithContext:(WLCandy*)candy {
     [super awakeWithContext:candy];
     self.candy = candy;
-    
     // Configure interface objects here.
     __weak typeof(self)weakSelf = self;
-    [WLWKImageCache imageWithURL:candy.picture.small completion:^(UIImage *image) {
-        [weakSelf.image setImage:image];
-    }];
-    
     [candy fetch:^(id object) {
         [weakSelf update];
     } failure:^(NSError *error) {
@@ -41,6 +36,7 @@
 }
 
 - (void)update {
+    self.image.url = self.candy.picture.small;
     NSOrderedSet *comments = [self.candy.comments reversedOrderedSet];
     [self.table setNumberOfRows:[comments count] withRowType:@"comment"];
     for (WLComment *comment in comments) {

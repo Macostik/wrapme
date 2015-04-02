@@ -10,7 +10,6 @@
 #import "WLUserView.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLNotificationCenter.h"
-#import "WLNotification.h"
 #import "WLNavigation.h"
 #import "WLNotificationCollectionViewSection.h"
 

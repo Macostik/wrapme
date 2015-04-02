@@ -1,0 +1,10 @@
+{
+    "aps" : {
+        "alert" : "Macostik invited you to 'Test3'. Add your photos and watch the fun unfold!",
+        "sound" : "s01.wav",
+        "content-available" : 1
+    },
+    "msg_type" : 100,
+    "wrap_uid" : "WP769fc90098e301326fdb0abd3edd1a07"
+    
+}

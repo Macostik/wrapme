@@ -10,8 +10,4 @@
 
 @implementation WLWKEntryRow
 
-- (void)setEntry:(WLEntry *)entry {
-    
-}
-
 @end

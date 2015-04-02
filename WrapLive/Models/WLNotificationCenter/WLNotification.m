@@ -7,7 +7,10 @@
 //
 
 #import "WLNotification.h"
-#import <PubNub/PNImports.h>
+#import "NSDate+Additions.h"
+#import "WLAuthorization.h"
+#import "WLEntryNotifier.h"
+#import "WLAPIManager.h"
 
 @interface WLNotification ()
 
@@ -19,12 +22,6 @@
     return [NSMutableOrderedSet orderedSetWithArray:[array map:^id(NSDictionary* data) {
         return [WLNotification notificationWithData:data];
     }]];
-}
-
-+ (instancetype)notificationWithMessage:(PNMessage*)message {
-    WLNotification *notification = [self notificationWithData:message.message];
-    notification.date = [(message.receiveDate ? : message.date) date];
-	return notification;
 }
 
 + (instancetype)notificationWithData:(NSDictionary *)data {

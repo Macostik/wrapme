@@ -28,7 +28,6 @@
 #import "WLCollectionViewDataProvider.h"
 #import "UIScrollView+Additions.h"
 #import "WLContributorsViewController.h"
-#import "WLNotification.h"
 #import "WLBadgeLabel.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLCreateWrapViewController.h"

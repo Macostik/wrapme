@@ -88,4 +88,9 @@
     }
 }
 
+- (void)cancelAllOperations {
+    NSMutableArray *operations = (id)self.operations;
+    [operations removeObjectsInArray:[operations objectsWhere:@"executing == NO"]];
+}
+
 @end

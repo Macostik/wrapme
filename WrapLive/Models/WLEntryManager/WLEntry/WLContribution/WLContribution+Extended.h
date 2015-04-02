@@ -26,6 +26,8 @@ typedef NS_ENUM (NSUInteger, WLContributionStatus) {
 
 + (instancetype)contribution;
 
++ (NSMutableOrderedSet*)recentContributions;
+
 + (NSNumber*)uploadingOrder;
 
 - (BOOL)canBeUploaded;

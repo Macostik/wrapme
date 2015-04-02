@@ -35,6 +35,8 @@ static NSString* WLOperationFetchingDataQueue = @"wl_fetching_data_queue";
 
 - (void)finishOperation:(WLOperation*)operation;
 
+- (void)cancelAllOperations;
+
 @end
 
 static inline WLOperation* runQueuedOperation (NSString *queue, NSUInteger capacity, WLOperationBlock block) {

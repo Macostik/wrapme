@@ -80,21 +80,6 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
 
 #pragma mark - WLExtension halper
 
-+ (void)parseExtensionAutorization:(WLAuthorization *)autorization {
-    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:WLUserDefaultsExtensionKey];
-    NSMutableDictionary *attDictionary = [NSMutableDictionary dictionary];
-    [attDictionary trySetObject:autorization.deviceUID forKey:WLDeviceIDKey];
-    [attDictionary trySetObject:autorization.countryCode forKey:WLCountryCodeKey];
-    [attDictionary trySetObject:autorization.phone forKey:WLPhoneKey];
-    [attDictionary trySetObject:autorization.email forKey:WLEmailKey];
-    NSString *environmentName = [[[NSBundle mainBundle] infoDictionary] stringForKey:WLEnvironment];
-    [attDictionary trySetObject:environmentName forKey:WLEnvironment];
-    NSData *passwordData = [WLCryptographer encrypt:autorization.password];
-    [attDictionary setObject:passwordData forKey:WLPasswordKey];
-    [userDefaults setObject:attDictionary forKey:WLExtensionWrapKey];
-    [userDefaults synchronize];
-}
-
 + (NSAttributedString *)attributedVerificationSuggestion {
     NSString *email = [[self currentAuthorization] unconfirmed_email];
     NSMutableAttributedString *emailVerificationString = [[NSMutableAttributedString alloc] initWithString:

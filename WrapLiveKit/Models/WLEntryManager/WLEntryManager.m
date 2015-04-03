@@ -90,18 +90,37 @@
     [self.cachedEntries setObject:entry forKey:entry.identifier];
 }
 
+- (NSFetchRequest*)fetchRequestForClass:(Class)entryClass {
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    [request setFetchLimit:1];
+    request.entity = [entryClass entity];
+    return request;
+}
+
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString *)identifier {
     WLEntry* entry = [self cachedEntry:identifier];
     if (!entry) {
         if (!identifier.nonempty) return nil;
-        NSEntityDescription* entity = [entryClass entity];
-        NSFetchRequest* request = [[NSFetchRequest alloc] init];
-        [request setFetchLimit:1];
-        request.entity = entity;
+        NSFetchRequest* request = [self fetchRequestForClass:entryClass];
         request.predicate = [NSPredicate predicateWithFormat:@"identifier == %@",identifier];
         entry = [[request execute] lastObject];
         if (!entry) {
-            entry = [[entryClass alloc] initWithEntity:entity insertIntoManagedObjectContext:self.context];
+            entry = [[entryClass alloc] initWithEntity:request.entity insertIntoManagedObjectContext:self.context];
+            entry.identifier = identifier;
+        }
+    }
+    return entry;
+}
+
+- (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier uploadIdentifier:(NSString*)uploadIdentifier {
+    WLEntry* entry = [self cachedEntry:identifier];
+    if (!entry) {
+        if (!identifier.nonempty) return nil;
+        NSFetchRequest* request = [self fetchRequestForClass:entryClass];
+        request.predicate = [NSPredicate predicateWithFormat:@"identifier == %@ OR uploadIdentifier == %@", identifier, uploadIdentifier];
+        entry = [[request execute] lastObject];
+        if (!entry) {
+            entry = [[entryClass alloc] initWithEntity:request.entity insertIntoManagedObjectContext:self.context];
             entry.identifier = identifier;
         }
     }
@@ -111,10 +130,11 @@
 - (BOOL)entryExists:(Class)entryClass identifier:(NSString *)identifier {
     if (!identifier.nonempty) return NO;
     
-    NSEntityDescription* entity = [entryClass entity];
-    NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    [request setFetchLimit:1];
-    request.entity = entity;
+    if ([self.cachedEntries objectForKey:identifier] != nil) {
+        return YES;
+    }
+    
+    NSFetchRequest* request = [self fetchRequestForClass:entryClass];
     request.predicate = [NSPredicate predicateWithFormat:@"identifier == %@",identifier];
     return [self.context countForFetchRequest:request error:NULL] > 0;
 }

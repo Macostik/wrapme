@@ -48,7 +48,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 @implementation WLAPIManager
 
-+ (instancetype)instance {
++ (instancetype)manager {
     static WLAPIManager* instance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{

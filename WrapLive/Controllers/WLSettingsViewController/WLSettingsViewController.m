@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.signOutButton.hidden = [WLAPIManager instance].environment.isProduction;
+    self.signOutButton.hidden = [WLAPIManager manager].environment.isProduction;
 }
 
 - (IBAction)about:(id)sender {

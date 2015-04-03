@@ -247,10 +247,7 @@
     candy.picture = picture;
     if (picture.comment.nonempty) {
         WLComment *comment = [WLComment comment:picture.comment];
-        comment.isFirst = YES;
-        [candy uploadComment:comment.text success:^(WLComment *comment) {
-        } failure:^(NSError *error) {
-        }];
+        [candy addComment:comment];
     }
     [WLUploadingQueue upload:[WLUploading uploading:candy] success:success failure:failure];
 }

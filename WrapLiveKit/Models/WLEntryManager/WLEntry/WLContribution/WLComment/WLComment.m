@@ -14,6 +14,5 @@
 
 @dynamic text;
 @dynamic candy;
-@dynamic isFirst;
 
 @end

@@ -23,6 +23,7 @@
 @synthesize highlightedColor = _highlightedColor;
 @synthesize selectedColor = _selectedColor;
 @synthesize disabledColor = _disabledColor;
+@synthesize touchArea = _touchArea;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -154,6 +155,12 @@
     [[WLFontPresetter presetter] addReceiver:self];
 }
 
+static CGFloat minTouchSize = 44;
+- (CGSize)touchArea {
+    if (CGSizeEqualToSize(_touchArea, CGSizeZero)) _touchArea = CGSizeMake(minTouchSize, minTouchSize);
+    return _touchArea;
+}
+
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
     self.titleLabel.font = [self.titleLabel.font preferredFontWithPreset:self.preset];
 }
@@ -164,15 +171,14 @@
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    static CGFloat minTouchSize = 44;
     CGRect rect = self.bounds;
-    if (rect.size.width < minTouchSize) {
-        CGFloat dx = minTouchSize - rect.size.width;
+    if (rect.size.width < self.touchArea.width) {
+        CGFloat dx = self.touchArea.width - rect.size.width;
         rect.size.width += dx;
         rect.origin.x -= dx/2;
     }
-    if (rect.size.height < minTouchSize) {
-        CGFloat dy = minTouchSize - rect.size.height;
+    if (rect.size.height < self.touchArea.height) {
+        CGFloat dy = self.touchArea.height - rect.size.height;
         rect.size.height += dy;
         rect.origin.y -= dy/2;
     }

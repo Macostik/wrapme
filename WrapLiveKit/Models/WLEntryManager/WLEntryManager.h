@@ -30,6 +30,8 @@
 
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier;
 
+- (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier uploadIdentifier:(NSString*)uploadIdentifier;
+
 - (BOOL)entryExists:(Class)entryClass identifier:(NSString*)identifier;
 
 - (NSMutableOrderedSet*)entriesOfClass:(Class)entryClass;

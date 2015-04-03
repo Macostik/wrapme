@@ -25,6 +25,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
+@property (weak, nonatomic) IBOutlet UILabel *verificationEmailLabel;
 
 @property (strong, nonatomic) WLProfileEditSession *editSession;
 
@@ -43,6 +44,7 @@
 }
 
 - (void)updateEmailConfirmationView {
+    self.verificationEmailLabel.attributedText = [WLAuthorization attributedVerificationSuggestion];
     self.emailConfirmationView.hidden = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
 }
 

@@ -59,7 +59,6 @@
 }
 
 - (void)setup:(WLMessage*)message {
-    
     if (_showName) {
         self.avatarView.url = message.contributor.picture.small;
         self.nameLabel.text = message.contributedByCurrentUser ? WLLS(@"You") : message.contributor.name;

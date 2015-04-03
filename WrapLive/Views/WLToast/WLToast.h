@@ -40,21 +40,30 @@ static NSTimeInterval WLToastDismissalDelay = 8.0f;
 
 @end
 
-@interface WLToast : UIView
+@interface WLToast : NSObject
 
-+ (instancetype)toast;
++ (void)showWithMessage:(NSString *)message;
++ (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance;
+- (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance;
 
-+ (void)showWithMessage:(NSString*)message;
+@end
 
-+ (void)showWithMessage:(NSString*)message appearance:(id <WLToastAppearance>)appearance;
+@interface WLToastWindow : UIWindow
 
-+ (void)showWithMessage:(NSString*)message appearance:(id <WLToastAppearance>)appearance inView:(UIView*)view;
++ (WLToastWindow *)sharedWindow;
+- (void)setViewControllerAsRoot;
+- (id)toastAsRootViewController;
+- (void)dismiss;
 
-- (void)showWithMessage:(NSString*)message;
+@end
 
-- (void)showWithMessage:(NSString*)message appearance:(id <WLToastAppearance>)appearance;
+@interface WLToastViewController : UIViewController
 
-- (void)showWithMessage:(NSString*)message appearance:(id <WLToastAppearance>)appearance inView:(UIView*)view;
+@property (weak, nonatomic, readonly) UIView *contentView;
+
++ (void)setMessage:(NSString *)message withAppearance:(id<WLToastAppearance>)appearance;
+- (void)setMessage:(NSString *)message withAppearance:(id<WLToastAppearance>)appearance;
+- (void)dismissWithComplition:(void (^)(BOOL finished))completion;
 
 @end
 

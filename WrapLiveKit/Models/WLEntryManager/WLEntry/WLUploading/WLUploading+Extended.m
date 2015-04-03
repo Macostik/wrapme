@@ -41,12 +41,7 @@
     
     self.data.operation = [self.contribution add:uploadingSuccessBlock failure:^(NSError *error) {
         if (error.isDuplicatedUploading) {
-            if ([weakSelf handleDuplicatedUploading:error]) {
-                uploadingSuccessBlock(weakSelf.contribution);
-            } else {
-                [weakSelf.contribution remove];
-                if (failure) failure(WLError(@"This item is already uploaded."));
-            }
+            uploadingSuccessBlock(weakSelf.contribution);
         } else if ([error isError:WLErrorContentUnavaliable]) {
             [weakSelf.contribution remove];
             if (failure) failure(error);
@@ -57,20 +52,6 @@
     }];
     [self.contribution notifyOnUpdate];
     return self.data.operation;
-}
-
-- (BOOL)handleDuplicatedUploading:(NSError*)error {
-    NSDictionary *data = [[error.userInfo dictionaryForKey:WLErrorResponseDataKey] objectForPossibleKeys:WLCandyKey, WLWrapKey, WLCommentKey, nil];
-    if (![data isKindOfClass:[NSDictionary class]]) return NO;
-    
-    NSOrderedSet *contributions = [[self.contribution class] entries:^(NSFetchRequest *request) {
-        request.predicate = [NSPredicate predicateWithFormat:@"uploadIdentifier == %@ AND SELF != %@", self.contribution.uploadIdentifier, self.contribution];
-    }];
-    for (WLContribution *contribution in contributions) {
-        [contribution remove];
-    }
-    [self.contribution API_setup:data];
-    return YES;
 }
 
 - (void)remove {

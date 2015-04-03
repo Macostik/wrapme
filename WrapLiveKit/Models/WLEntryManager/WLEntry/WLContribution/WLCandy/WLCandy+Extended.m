@@ -43,7 +43,6 @@
         comments = [NSMutableOrderedSet orderedSetWithCapacity:[commentsArray count]];
         self.comments = comments;
     }
-    [comments removeObjectsWhere:@"isFirst == YES"];
     [WLComment API_entries:commentsArray relatedEntry:self container:comments];
     if (comments.nonempty && [comments sortByCreatedAt:NO]) {
         self.comments = comments;

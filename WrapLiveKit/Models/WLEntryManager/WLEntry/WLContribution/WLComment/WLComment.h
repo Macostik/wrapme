@@ -16,6 +16,5 @@
 
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) WLCandy *candy;
-@property (nonatomic) BOOL isFirst;
 
 @end

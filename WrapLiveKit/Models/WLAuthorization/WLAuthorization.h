@@ -50,4 +50,6 @@
 
 - (void)setCurrent;
 
++ (NSAttributedString *)attributedVerificationSuggestion;
+
 @end

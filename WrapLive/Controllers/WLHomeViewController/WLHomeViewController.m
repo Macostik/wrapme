@@ -50,6 +50,7 @@
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
 @property (weak, nonatomic) IBOutlet UIView *createWrapTipView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
+@property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
 
 @property (weak, nonatomic) WLWrap* chatSegueWrap;
 
@@ -180,6 +181,9 @@
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
     BOOL hidden = ([[WLSession confirmationDate] isToday] || ![[WLAuthorization currentAuthorization] unconfirmed_email].nonempty);
+    if (!hidden) {
+        self.verificationEmailLabel.attributedText = [WLAuthorization attributedVerificationSuggestion];
+    }
     [self setEmailConfirmationViewHidden:hidden animated:animated];
 }
 

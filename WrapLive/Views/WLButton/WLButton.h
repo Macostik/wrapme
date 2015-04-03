@@ -24,6 +24,8 @@
 
 @property (assign, nonatomic) IBInspectable CGSize insets;
 
+@property (assign, nonatomic) IBInspectable CGSize touchArea;
+
 @property (weak, nonatomic) IBOutlet UIView* accessoryView;
 
 @property (nonatomic) BOOL loading;

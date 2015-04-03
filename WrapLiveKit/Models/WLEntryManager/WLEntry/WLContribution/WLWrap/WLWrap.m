@@ -18,5 +18,6 @@
 @dynamic messages;
 @dynamic contributors;
 @dynamic isDefault;
+@dynamic lastUnread;
 
 @end

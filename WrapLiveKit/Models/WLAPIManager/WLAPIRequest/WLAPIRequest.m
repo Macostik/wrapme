@@ -72,7 +72,7 @@ static NSTimeInterval _difference = 0;
 }
 
 - (WLAPIManager *)manager {
-    return [WLAPIManager instance];
+    return [WLAPIManager manager];
 }
 
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {

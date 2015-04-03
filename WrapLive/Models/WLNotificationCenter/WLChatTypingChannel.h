@@ -8,9 +8,7 @@
 
 #import "WLNotificationChannel.h"
 
-@class WLWrap;
 @class WLChatTypingChannel;
-@class WLUser;
 
 @protocol WLChatTypingChannelDelegate <NSObject>
 

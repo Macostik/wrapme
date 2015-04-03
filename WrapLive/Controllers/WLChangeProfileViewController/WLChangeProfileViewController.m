@@ -10,25 +10,13 @@
 #import "WLCameraViewController.h"
 #import "WLStillPictureViewController.h"
 #import "WLNavigation.h"
-#import "UIImage+Resize.h"
-#import "UIView+Shorthand.h"
-#import "WLImageFetcher.h"
-#import "WLAPIManager.h"
 #import "WLKeyboard.h"
 #import "WLInputAccessoryView.h"
-#import "NSDate+Formatting.h"
-#import "WLImageCache.h"
-#import "WLSession.h"
-#import "NSString+Additions.h"
 #import "WLToast.h"
 #import "WLWelcomeViewController.h"
-#import "WLEntryManager.h"
 #import "UIButton+Additions.h"
 #import "WLProfileEditSession.h"
-#import "WLUpdateUserRequest.h"
 #import "UIView+AnimationHelper.h"
-#import "WLEntryNotifier.h"
-#import "WLResendConfirmationRequest.h"
 
 @interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
@@ -37,6 +25,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
+@property (weak, nonatomic) IBOutlet UILabel *verificationEmailLabel;
 
 @property (strong, nonatomic) WLProfileEditSession *editSession;
 
@@ -55,6 +44,7 @@
 }
 
 - (void)updateEmailConfirmationView {
+    self.verificationEmailLabel.attributedText = [WLAuthorization attributedVerificationSuggestion];
     self.emailConfirmationView.hidden = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
 }
 

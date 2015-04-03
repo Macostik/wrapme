@@ -7,10 +7,6 @@
 //
 
 #import "WLUserView.h"
-#import "WLImageFetcher.h"
-#import "WLUser+Extended.h"
-#import "UIView+Shorthand.h"
-#import "NSString+Additions.h"
 
 @implementation WLUserView
 

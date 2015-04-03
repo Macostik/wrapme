@@ -7,9 +7,6 @@
 //
 
 #import "WLAddressBookPhoneNumber.h"
-#import "WLUser.h"
-#import "WLEntry+Extended.h"
-#import "NSString+Additions.h"
 #import "NSObject+AssociatedObjects.h"
 
 @implementation WLAddressBookPhoneNumber

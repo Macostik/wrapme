@@ -8,15 +8,8 @@
 
 #import "WLContactCell.h"
 #import "WLAddressBook.h"
-#import "WLUser.h"
-#import "WLImageFetcher.h"
-#import "NSString+Additions.h"
 #import "WLAddressBookPhoneNumberCell.h"
-#import "UIView+Shorthand.h"
-#import "NSArray+Additions.h"
 #import "WLAddressBookPhoneNumber.h"
-#import "WLAPIManager.h"
-#import "UIColor+CustomColors.h"
 
 @interface WLContactCell () <UITableViewDataSource, UITableViewDelegate, WLAddressBookPhoneNumberCellDelegate>
 

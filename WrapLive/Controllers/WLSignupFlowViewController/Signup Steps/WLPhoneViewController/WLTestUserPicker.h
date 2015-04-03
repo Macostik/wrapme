@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class WLAuthorization;
-
 @interface WLTestUserPicker : UITableView
 
 + (void)showInView:(UIView*)view selection:(void (^)(WLAuthorization* authorization))selection;

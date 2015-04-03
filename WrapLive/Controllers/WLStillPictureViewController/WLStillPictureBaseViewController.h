@@ -7,10 +7,8 @@
 //
 
 #import "WLBaseViewController.h"
-#import "WLStillPictureMode.h"
 
 @class WLStillPictureBaseViewController;
-@class WLWrap;
 @class WLWrapView;
 
 @protocol WLStillPictureBaseViewControllerDelegate <NSObject>

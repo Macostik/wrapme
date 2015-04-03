@@ -7,7 +7,6 @@
 //
 
 #import "WLTimelineViewDataProvider.h"
-#import "UIView+Shorthand.h"
 #import "WLTimelineEvent.h"
 #import "WLTimeline.h"
 #import "WLTimelineEvent.h"

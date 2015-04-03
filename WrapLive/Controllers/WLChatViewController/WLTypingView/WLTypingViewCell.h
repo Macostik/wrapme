@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLUser.h"
 
 static CGFloat WLTypingViewMinHeight = 20.0f;
 

@@ -7,7 +7,6 @@
 //
 
 #import "WLCollectionViewSection.h"
-#import "UIView+Shorthand.h"
 #import "WLCollectionViewDataProvider.h"
 
 @implementation WLCollectionViewSection

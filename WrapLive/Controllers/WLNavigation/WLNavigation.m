@@ -10,7 +10,6 @@
 #import "WLWrapViewController.h"
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"
-#import "NSArray+Additions.h"
 #import "UIAlertView+Blocks.h"
 #import "WLToast.h"
 

@@ -1,0 +1,10 @@
+{
+    "aps" : {
+        "alert" : "Yura commented 'Qwertyyyy' on a photo in 'Test3'.",
+        "sound" : "s02.wav",
+        "content-available" : 1
+    },
+    "comment_uid" : "CMd490fe30bb4501329e100abd3edd1a07",
+    "msg_type" : 500
+    
+}

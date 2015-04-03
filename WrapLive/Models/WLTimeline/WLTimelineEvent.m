@@ -7,9 +7,6 @@
 //
 
 #import "WLTimelineEvent.h"
-#import "WLEntryManager.h"
-#import "NSString+Additions.h"
-#import "NSDate+Additions.h"
 
 @implementation WLTimelineEvent
 

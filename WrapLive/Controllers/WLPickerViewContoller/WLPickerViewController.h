@@ -8,7 +8,6 @@
 
 #import "WLBaseViewController.h"
 
-@class WLWrap;
 @class WLPickerViewController;
 
 @protocol WLPickerViewDelegate <NSObject>

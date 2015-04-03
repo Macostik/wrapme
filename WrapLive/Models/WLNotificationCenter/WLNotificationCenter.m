@@ -7,29 +7,15 @@
 //
 
 #import "WLNotificationCenter.h"
-#import "NSArray+Additions.h"
-#import "WLSession.h"
 #import "UIAlertView+Blocks.h"
 #import "WLToast.h"
-#import "NSString+Additions.h"
-#import "WLNotification.h"
-#import "WLAPIManager.h"
-#import "WLAuthorization.h"
-#import "WLEntryManager.h"
-#import "WLWrap.h"
 #import "WLSoundPlayer.h"
 #import "WLNotificationChannel.h"
 #import "NSPropertyListSerialization+Shorthand.h"
-#import "NSString+Documents.h"
-#import "NSDate+Additions.h"
-#import "WLAPIRequest.h"
-#import "UIDevice+SystemVersion.h"
-#import "WLRemoteObjectHandler.h"
-#import "WLImageFetcher.h"
-#import "WLOperationQueue.h"
-#import "WLEntryNotifier.h"
+#import "WLRemoteEntryHandler.h"
+#import "WLNotification+PNMessage.h"
 
-@interface WLNotificationCenter () <PNDelegate>
+@interface WLNotificationCenter () <PNDelegate, WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) WLNotificationChannel* userChannel;
 
@@ -131,6 +117,8 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)configure {
 	[self connect];
+    [PNLogger loggerEnabled:NO];
+    [[WLUser notifier] addReceiver:self];
     [super configure];
 }
 
@@ -341,7 +329,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             WLNotification* notification = [WLNotification notificationWithData:data];
             if (notification) {
                 [notification fetch:^{
-                    [notification handleRemoteObject];
+                    [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:notification];
                     if (success) success();
                 } failure:failure];
             } else if (failure)  {
@@ -400,6 +388,16 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)pubnubClient:(PubNub *)client didReceivePresenceEvent:(PNPresenceEvent *)event {
     WLLog(@"PUBNUB", @"presence event", @(event.type));
+}
+
+// MARK: - WLEntryNotifyReceiver
+
+- (void)notifier:(WLEntryNotifier *)notifier userAdded:(WLUser *)user {
+    [self subscribe];
+}
+
+- (WLUser *)notifierPreferredUser:(WLEntryNotifier *)notifier {
+    return [WLUser currentUser];
 }
 
 @end

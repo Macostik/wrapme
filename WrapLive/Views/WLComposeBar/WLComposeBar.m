@@ -8,18 +8,11 @@
 
 #import "WLComposeBar.h"
 #import "NSObject+NibAdditions.h"
-#import "UIColor+CustomColors.h"
-#import "UIView+Shorthand.h"
-#import "UIFont+CustomFonts.h"
-#import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
 #import <objc/runtime.h>
-#import "NSString+Additions.h"
 #import "WLEmojiView.h"
 #import "WLEmoji.h"
 #import "UIView+AnimationHelper.h"
-#import "GeometryHelper.h"
-#import "UIFont+CustomFonts.h"
 #import "UIScrollView+Additions.h"
 
 static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
@@ -113,6 +106,16 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
         self.horizontalSpaceDoneButtonContstraint.constant = hidden ? 0 : -self.doneButton.width;
         [self layoutIfNeeded];
     }];
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    for (UIView *subview in self.subviews) {
+        BOOL inside = [subview pointInside:[subview convertPoint:point fromView:self] withEvent:event];
+        if (inside) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (WLEmojiView *)emojiView {

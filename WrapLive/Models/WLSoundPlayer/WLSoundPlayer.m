@@ -8,7 +8,6 @@
 
 #import "WLSoundPlayer.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import "WLNotification.h"
 
 static inline NSString *WLSoundFileName(WLSound sound) {
     switch (sound) {

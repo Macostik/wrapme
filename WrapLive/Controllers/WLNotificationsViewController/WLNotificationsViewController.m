@@ -8,15 +8,8 @@
 
 #import "WLNotificationsViewController.h"
 #import "WLUserView.h"
-#import "WLUser+Extended.h"
-#import "WLImageFetcher.h"
 #import "WLCollectionViewDataProvider.h"
-#import "WLCollectionViewSection.h"
 #import "WLNotificationCenter.h"
-#import "WLNotification.h"
-#import "WLEntryNotifier.h"
-#import "NSDate+Formatting.h"
-#import "WLEntryManager.h"
 #import "WLNavigation.h"
 #import "WLNotificationCollectionViewSection.h"
 

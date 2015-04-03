@@ -8,8 +8,6 @@
 
 #import "WLPaginatedViewSection.h"
 
-@class WLWrap;
-
 @interface WLHomeViewSection : WLPaginatedViewSection
 
 @property (weak, nonatomic) WLWrap* wrap;

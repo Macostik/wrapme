@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PNImports.h"
+
+typedef void (^PubNubMessageBlock)(PNMessage *message);
 
 @interface WLNotificationChannel : NSObject
 

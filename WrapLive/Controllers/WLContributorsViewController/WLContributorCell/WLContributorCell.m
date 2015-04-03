@@ -7,11 +7,6 @@
 //
 
 #import "WLContributorCell.h"
-#import "WLImageFetcher.h"
-#import "UIView+Shorthand.h"
-#import "NSString+Additions.h"
-#import "WLEntryManager.h"
-#import "UIColor+CustomColors.h"
 #import "WLButton.h"
 
 @interface WLContributorCell ()

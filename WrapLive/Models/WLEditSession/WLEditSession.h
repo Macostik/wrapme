@@ -10,7 +10,6 @@
 
 typedef BOOL (^WLEditSessionComparator)(id originalValue, id changedValue);
 
-@class WLEntry;
 @class WLEditSession;
 
 @interface WLEditSessionProperty : NSObject

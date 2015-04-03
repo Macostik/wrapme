@@ -7,7 +7,6 @@
 //
 
 #import "WLChatTypingChannel.h"
-#import "WLEntryManager.h"
 
 static NSString *WLChatTypingChannelTypingKey = @"typing";
 static NSString *WLChatTypingChannelSendMessageKey = @"send_message";

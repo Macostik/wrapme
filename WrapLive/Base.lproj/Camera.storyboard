@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="cKg-Y0-d6d">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="cKg-Y0-d6d">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -630,7 +630,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPs-vA-Mlw" customClass="WLIconButton">
+                                    <button tag="5" contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPs-vA-Mlw" customClass="WLIconButton">
                                         <rect key="frame" x="260" y="0.0" width="60" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -652,6 +652,9 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="paperPlane"/>
                                             <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
                                                 <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="touchArea">
+                                                <size key="value" width="70" height="70"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -752,7 +755,7 @@
                                             <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                                 <size key="value" width="16" height="16"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="ios7CloseEmpty"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="iosCloseEmpty"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="large"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -776,7 +779,7 @@
                                             <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                                 <size key="value" width="16" height="16"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="ios7CheckmarkEmpty"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="iosCheckmarkEmpty"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="large"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">

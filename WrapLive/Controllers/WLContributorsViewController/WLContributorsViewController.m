@@ -10,10 +10,7 @@
 #import "WLCollectionViewDataProvider.h"
 #import "WLContributorsViewSection.h"
 #import "WLContributorCell.h"
-#import "WLUpdateContributorsRequest.h"
 #import "WLAddressBookPhoneNumber.h"
-#import "WLEntryNotifier.h"
-#import "WLResendInviteRequest.h"
 
 @interface WLContributorsViewController () <WLContributorCellDelegate>
 

@@ -7,50 +7,32 @@
 //
 
 #import "WLOperationQueue.h"
-#import "NSArray+Additions.h"
-#import "NSDate+Formatting.h"
-#import "NSString+Additions.h"
 #import "UIActionSheet+Blocks.h"
 #import "UIAlertView+Blocks.h"
-#import "UIColor+CustomColors.h"
 #import "UIFont+CustomFonts.h"
 #import "UILabel+Additions.h"
 #import "UIView+AnimationHelper.h"
-#import "UIView+Shorthand.h"
 #import "UIViewController+Additions.h"
-#import "WLAPIManager.h"
-#import "WLCameraViewController.h"
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"
 #import "WLCollectionViewDataProvider.h"
-#import "WLComment.h"
 #import "WLCreateWrapViewController.h"
-#import "WLEntryManager.h"
-#import "WLEntryNotifier.h"
 #import "WLHomeViewController.h"
 #import "WLHomeViewSection.h"
-#import "WLImageCache.h"
-#import "WLImageFetcher.h"
 #import "WLLoadingView.h"
 #import "WLNavigation.h"
-#import "WLNotification.h"
 #import "WLNotificationCenter.h"
-#import "WLPaginatedSet.h"
 #import "WLRefresher.h"
-#import "WLResendConfirmationRequest.h"
-#import "WLSession.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
 #import "WLUserView.h"
 #import "WLWrapCell.h"
 #import "WLWrapViewController.h"
-#import "WLWrapsRequest.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLRemoteObjectHandler.h"
+#import "WLRemoteEntryHandler.h"
 #import "WLPickerViewController.h"
 #import "WLEditWrapViewController.h"
 #import "WLUploadingView.h"
-#import "WLUploadingQueue.h"
 #import "WLAddressBook.h"
 #import "WLIntroductionViewController.h"
 #import "UIView+QuatzCoreAnimations.h"
@@ -68,6 +50,7 @@
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
 @property (weak, nonatomic) IBOutlet UIView *createWrapTipView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
+@property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
 
 @property (weak, nonatomic) WLWrap* chatSegueWrap;
 
@@ -187,7 +170,7 @@
     [self.dataProvider reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
-    [WLRemoteObjectHandler sharedObject].isLoaded = [self isViewLoaded];
+    [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
     [self.uploadingView update];
 }
 
@@ -198,6 +181,9 @@
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
     BOOL hidden = ([[WLSession confirmationDate] isToday] || ![[WLAuthorization currentAuthorization] unconfirmed_email].nonempty);
+    if (!hidden) {
+        self.verificationEmailLabel.attributedText = [WLAuthorization attributedVerificationSuggestion];
+    }
     [self setEmailConfirmationViewHidden:hidden animated:animated];
 }
 

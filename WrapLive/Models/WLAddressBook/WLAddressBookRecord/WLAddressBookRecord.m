@@ -7,14 +7,8 @@
 //
 
 #import "WLAddressBookRecord.h"
-#import "NSError+WLAPIManager.h"
-#import "NSArray+Additions.h"
-#import "NSString+Additions.h"
-#import "WLImageCache.h"
-#import "WLUser.h"
 #import <objc/runtime.h>
 #import "NSObject+AssociatedObjects.h"
-#import "WLEntry+Extended.h"
 #import "WLAddressBookPhoneNumber.h"
 
 @implementation WLAddressBookRecord

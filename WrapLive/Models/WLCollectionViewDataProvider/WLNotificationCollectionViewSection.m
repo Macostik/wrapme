@@ -8,7 +8,6 @@
 
 #import "WLNotificationCollectionViewSection.h"
 #import "UIFont+CustomFonts.h"
-#import "NSString+Additions.h"
 #import "WLFontPresetter.h"
 #import "WLCollectionViewDataProvider.h"
 

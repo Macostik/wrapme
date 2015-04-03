@@ -10,8 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Resize.h"
-#import "UIColor+CustomColors.h"
-#import "UIView+Shorthand.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIButton+Additions.h"
 #import "WLFlashModeControl.h"
@@ -19,8 +17,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceOrientationBroadcaster.h"
 #import "ALAssetsLibrary+Additions.h"
-#import "WLImageFetcher.h"
-#import "WLWrap.h"
 #import "WLToast.h"
 #import "WLWrapView.h"
 

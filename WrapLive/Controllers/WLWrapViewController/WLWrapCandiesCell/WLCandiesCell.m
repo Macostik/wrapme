@@ -7,16 +7,9 @@
 //
 
 #import "WLCandiesCell.h"
-#import "NSDate+Formatting.h"
 #import "WLCandyCell.h"
-#import "WLCandy.h"
 #import "NSObject+NibAdditions.h"
 #import "WLRefresher.h"
-#import "NSArray+Additions.h"
-#import "WLAPIManager.h"
-#import "WLWrap.h"
-#import "NSDate+Additions.h"
-#import "WLHistory.h"
 #import "UIScrollView+Additions.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLCandiesViewSection.h"

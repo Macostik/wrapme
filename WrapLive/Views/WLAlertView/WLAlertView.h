@@ -6,11 +6,21 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
+#ifndef WRAPLIVE_EXTENSION_TERGET
 #import "UIAlertController+Blocks.h"
 #import "UIAlertView+Blocks.h"
+#endif
 
 @interface WLAlertView : UIView
 
+#ifndef WRAPLIVE_EXTENSION_TERGET
+
 + (void)showWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completion:(WLAlertViewCompletion)completion;
+
+#else
+
++ (void)showWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completion:(void (^)(NSUInteger index))completion;
+
+#endif
 
 @end

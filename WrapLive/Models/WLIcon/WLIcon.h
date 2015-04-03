@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FontAwesomeKit/FontAwesomeKit.h>
+#import "FontAwesomeKit.h"
 
 static NSString *WLIconPresetSmaller = @"smaller";
 static NSString *WLIconPresetSmall = @"small";

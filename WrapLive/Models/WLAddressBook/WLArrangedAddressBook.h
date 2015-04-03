@@ -10,8 +10,6 @@
 #import "WLAddressBook.h"
 #import "WLArrangedAddressBookGroup.h"
 
-@class WLWrap;
-
 typedef void (^WLArrangedAddressBookRecordHandler)(NSArray *records, NSArray *groups);
 typedef void (^WLArrangedAddressBookUniqueRecordHandler)(BOOL exists, NSArray *records, NSArray *groups);
 

@@ -7,12 +7,7 @@
 //
 
 #import "WLArrangedAddressBook.h"
-#import "NSError+WLAPIManager.h"
-#import "NSString+Additions.h"
-#import "NSArray+Additions.h"
-#import "WLUser+Extended.h"
 #import "WLArrangedAddressBookGroup.h"
-#import "WLWrap.h"
 #import "NSMutableOrderedSet+Sorting.h"
 
 @implementation WLArrangedAddressBook

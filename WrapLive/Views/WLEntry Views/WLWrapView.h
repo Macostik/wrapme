@@ -8,7 +8,6 @@
 
 #import "WLEntryView.h"
 
-@class WLWrap;
 @class WLImageView;
 
 @interface WLWrapView : WLEntryView

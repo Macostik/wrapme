@@ -7,8 +7,6 @@
 //
 
 #import "WLLinkDeviceViewController.h"
-#import "WLAuthorization.h"
-#import "WLAuthorizationRequest.h"
 #import "WLButton.h"
 #import "WLProfileInformationViewController.h"
 #import "WLNavigation.h"

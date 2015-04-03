@@ -9,7 +9,6 @@
 #import "WLIconButton.h"
 #import "WLIcon.h"
 #import "NSObject+Extension.h"
-#import "UIColor+CustomColors.h"
 
 @implementation WLIconButton
 

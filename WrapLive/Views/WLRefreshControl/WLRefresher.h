@@ -30,6 +30,4 @@ typedef NS_ENUM(NSUInteger, WLRefresherStyle) {
 
 - (void)setRefreshing:(BOOL)refreshing animated:(BOOL)animated;
 
-- (void)setOperation:(AFURLConnectionOperation *)operation;
-
 @end

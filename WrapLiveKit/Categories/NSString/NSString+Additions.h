@@ -42,10 +42,14 @@ static inline NSString* phoneNumberClearing (NSString* phone) {
 	return [_phone copy];
 }
 
-static inline CGFloat WLCalculateHeightString(NSString *string, CGFloat width) {
-    UITextView *textView = [[[NSBundle bundleWithIdentifier:@"com.mobidev.wraplive.kit"] loadNibNamed:@"WLContainerTextView" owner:nil options:nil] lastObject];
-    textView.textContainerInset = UIEdgeInsetsZero;
+static inline CGFloat WLCalculateHeightString(NSString *string, UIFont *font, CGFloat width) {
+    static UITextView *textView = nil;
+    if (!textView) {
+        textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
+        textView.textContainerInset = UIEdgeInsetsZero;
+    }
     textView.text = string;
+    textView.font = font;
     return [textView sizeThatFits:CGSizeMake(width, MAXFLOAT)].height;
 }
 

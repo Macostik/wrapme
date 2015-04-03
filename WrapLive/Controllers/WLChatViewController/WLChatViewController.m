@@ -385,7 +385,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGFloat)heightOfMessageCell:(WLMessage *)message containsName:(BOOL)containsName showDay:(BOOL)showDay {
-    CGFloat commentHeight = WLCalculateHeightString(message.text, WLMaxTextViewWidth);
+    CGFloat commentHeight = WLCalculateHeightString(message.text, self.messageFont, WLMaxTextViewWidth);
     CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
     if (showDay) {
         topInset += WLMessageDayLabelHeight;

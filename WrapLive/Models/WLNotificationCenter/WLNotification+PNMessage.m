@@ -7,7 +7,7 @@
 //
 
 #import "WLNotification+PNMessage.h"
-#import <PubNub/PNImports.h>
+#import "PNImports.h"
 
 @implementation WLNotification (PNMessage)
 

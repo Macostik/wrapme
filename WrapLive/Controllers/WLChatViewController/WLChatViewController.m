@@ -133,6 +133,8 @@ CGFloat WLMaxTextViewWidth;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self reloadData];
+    [self scrollToLastUnreadMessage];
+   
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -140,6 +142,21 @@ CGFloat WLMaxTextViewWidth;
     [self.wrap.messages all:^(WLMessage *message) {
         if(message.unread) message.unread = NO;
     }];
+}
+
+- (void)scrollToLastUnreadMessage {
+    run_after(.05, ^{
+        __weak __typeof(self)weakSelf = self;
+        WLMessage *unreadMessage = [self.wrap.messages selectObject:^BOOL(WLMessage *message) {
+            return [message.updatedAt isEqualToDate:weakSelf.wrap.lastUnread];
+        }];
+        if (unreadMessage.valid) {
+            NSIndexPath *indexPathForCell = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:unreadMessage] inSection:WLChatMessagesSection];
+            if (indexPathForCell.item != NSNotFound) {
+                [self.collectionView scrollToItemAtIndexPath:indexPathForCell atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+            }
+        }
+    });
 }
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
@@ -281,9 +298,26 @@ CGFloat WLMaxTextViewWidth;
     [self.composeBar resignFirstResponder];
     self.typing = NO;
     if (self.wrap.valid) {
+        [self storeVisitSession];
         [self.navigationController popViewControllerAnimated:YES];
     } else {
         [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
+- (void)storeVisitSession {
+    NSMutableArray *arrayIndex = [[NSMutableArray alloc] initWithArray:self.collectionView.indexPathsForVisibleItems];
+    if (arrayIndex.count != 0) {
+        [arrayIndex sortUsingComparator:^NSComparisonResult(NSIndexPath *obj1, NSIndexPath *obj2) {
+            return obj1.item < obj2.item;
+        }];
+        NSIndexPath *lastVisibleIndexPath = arrayIndex.lastObject;
+        WLMessage * message = [self.chat.entries objectAtIndex:lastVisibleIndexPath.item];
+        if (lastVisibleIndexPath.item != NSNotFound && message.valid) {
+            if (!self.wrap.lastUnread || [self.wrap.lastUnread earlier:message.updatedAt]) {
+                self.wrap.lastUnread = message.updatedAt;
+            }
+        }
     }
 }
 

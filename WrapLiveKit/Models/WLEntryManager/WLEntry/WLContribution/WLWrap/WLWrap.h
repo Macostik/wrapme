@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSMutableOrderedSet *messages;
 @property (nonatomic, retain) NSMutableOrderedSet *contributors;
 @property (nonatomic) BOOL isDefault;
+@property (nonatomic) NSDate *lastUnread;
 
 @end
 

@@ -961,6 +961,8 @@
 		C55B25AD1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
 		C55B25AE1AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
 		C55B25B91AC9BF0A0072E9D2 /* WLWKErrorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */; };
+		C55C366B1ACEB7A900C614BD /* WrapLiveKit_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */; };
+		C55C366C1ACEB7A900C614BD /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
 		C55C8D6E19C98A9400199245 /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6519C98A9400199245 /* WLNotificationCenter.m */; };
 		C55C8D6F19C98A9400199245 /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6519C98A9400199245 /* WLNotificationCenter.m */; };
 		C55C8D7019C98A9400199245 /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6519C98A9400199245 /* WLNotificationCenter.m */; };
@@ -1001,7 +1003,6 @@
 		C5612D841ACD968B0052578A /* NSString+Documents.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C981ACD968A0052578A /* NSString+Documents.m */; };
 		C5612D851ACD968B0052578A /* NSString+MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C991ACD968A0052578A /* NSString+MD5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5612D861ACD968B0052578A /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C9A1ACD968A0052578A /* NSString+MD5.m */; };
-		C5612D871ACD968B0052578A /* WLContainerTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5612C9B1ACD968A0052578A /* WLContainerTextView.xib */; };
 		C5612D881ACD968B0052578A /* NSURL+WLRemoteEntryHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C9D1ACD968A0052578A /* NSURL+WLRemoteEntryHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5612D891ACD968B0052578A /* NSURL+WLRemoteEntryHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C9E1ACD968A0052578A /* NSURL+WLRemoteEntryHandler.m */; };
 		C5612D8A1ACD968B0052578A /* UIColor+CustomColors.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CA01ACD968A0052578A /* UIColor+CustomColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1923,6 +1924,13 @@
 			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
 			remoteInfo = CopyProvisioningProfiles;
 		};
+		C55C366D1ACEB7A900C614BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C50646E81ABD844700CB4BE3;
+			remoteInfo = WrapLiveKit;
+		};
 		C56498D41ACB00D2000F1E4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -2595,6 +2603,9 @@
 		C559974F1A262BD8003D4B29 /* WLTelephony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTelephony.m; sourceTree = "<group>"; };
 		C55B25B71AC9BF0A0072E9D2 /* WLWKErrorRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKErrorRow.h; sourceTree = "<group>"; };
 		C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKErrorRow.m; sourceTree = "<group>"; };
+		C55C36661ACEB7A800C614BD /* WrapLiveKit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WrapLiveKit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C55C36691ACEB7A900C614BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WrapLiveKit_Tests.m; sourceTree = "<group>"; };
 		C55C8D6419C98A9400199245 /* WLNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationCenter.h; sourceTree = "<group>"; };
 		C55C8D6519C98A9400199245 /* WLNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationCenter.m; sourceTree = "<group>"; };
 		C55C8D6619C98A9400199245 /* WLNotificationChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationChannel.h; sourceTree = "<group>"; };
@@ -2628,7 +2639,6 @@
 		C5612C981ACD968A0052578A /* NSString+Documents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Documents.m"; sourceTree = "<group>"; };
 		C5612C991ACD968A0052578A /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		C5612C9A1ACD968A0052578A /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
-		C5612C9B1ACD968A0052578A /* WLContainerTextView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContainerTextView.xib; sourceTree = "<group>"; };
 		C5612C9D1ACD968A0052578A /* NSURL+WLRemoteEntryHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WLRemoteEntryHandler.h"; sourceTree = "<group>"; };
 		C5612C9E1ACD968A0052578A /* NSURL+WLRemoteEntryHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WLRemoteEntryHandler.m"; sourceTree = "<group>"; };
 		C5612CA01ACD968A0052578A /* UIColor+CustomColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CustomColors.h"; sourceTree = "<group>"; };
@@ -3302,6 +3312,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C55C36631ACEB7A800C614BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C55C366C1ACEB7A900C614BD /* WrapLiveKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C56498C41ACB00D2000F1E4B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3429,6 +3447,7 @@
 				C50645AA1ABD815100CB4BE3 /* Extensions */,
 				12A7A70818DA0945008FF6F0 /* WrapLive */,
 				C50646EA1ABD844700CB4BE3 /* WrapLiveKit */,
+				C55C36671ACEB7A900C614BD /* WrapLiveKit Tests */,
 				12A7A70118DA0945008FF6F0 /* Frameworks */,
 				12A7A70018DA0945008FF6F0 /* Products */,
 				C5C20B641A23460B008B2E2E /* OptimizationProfiles */,
@@ -3449,6 +3468,7 @@
 				C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */,
 				C56498C71ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production.appex */,
 				C56498D21ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app */,
+				C55C36661ACEB7A800C614BD /* WrapLiveKit Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4954,6 +4974,23 @@
 			path = WLTelephony;
 			sourceTree = "<group>";
 		};
+		C55C36671ACEB7A900C614BD /* WrapLiveKit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */,
+				C55C36681ACEB7A900C614BD /* Supporting Files */,
+			);
+			path = "WrapLiveKit Tests";
+			sourceTree = "<group>";
+		};
+		C55C36681ACEB7A900C614BD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C55C36691ACEB7A900C614BD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		C55C8D6119C98A9400199245 /* WLNotificationCenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -5061,7 +5098,6 @@
 				C5612C981ACD968A0052578A /* NSString+Documents.m */,
 				C5612C991ACD968A0052578A /* NSString+MD5.h */,
 				C5612C9A1ACD968A0052578A /* NSString+MD5.m */,
-				C5612C9B1ACD968A0052578A /* WLContainerTextView.xib */,
 			);
 			path = NSString;
 			sourceTree = "<group>";
@@ -6554,6 +6590,24 @@
 			productReference = C54AF74A19B8C491006F7EDB /* WrapLive-Production.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C55C36651ACEB7A800C614BD /* WrapLiveKit Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C55C36721ACEB7A900C614BD /* Build configuration list for PBXNativeTarget "WrapLiveKit Tests" */;
+			buildPhases = (
+				C55C36621ACEB7A800C614BD /* Sources */,
+				C55C36631ACEB7A800C614BD /* Frameworks */,
+				C55C36641ACEB7A800C614BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C55C366E1ACEB7A900C614BD /* PBXTargetDependency */,
+			);
+			name = "WrapLiveKit Tests";
+			productName = "WrapLiveKit Tests";
+			productReference = C55C36661ACEB7A800C614BD /* WrapLiveKit Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C56498C61ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C56498E51ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "WrapLiveWatchKitExtension-Production" */;
@@ -6667,6 +6721,9 @@
 							};
 						};
 					};
+					C55C36651ACEB7A800C614BD = {
+						CreatedOnToolsVersion = 6.2;
+					};
 					C56498C61ACB00D2000F1E4B = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = 2PW57LM468;
@@ -6703,6 +6760,7 @@
 				C56498C61ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production */,
 				C56498D11ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production */,
 				C50646E81ABD844700CB4BE3 /* WrapLiveKit */,
+				C55C36651ACEB7A800C614BD /* WrapLiveKit Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -6856,7 +6914,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5612D871ACD968B0052578A /* WLContainerTextView.xib in Resources */,
 				C55B25981AC9A3C20072E9D2 /* WLAPIEnvironmentDevelopment.plist in Resources */,
 				C55B259B1AC9A3C20072E9D2 /* WLAPIEnvironmentProduction.plist in Resources */,
 				C55B259A1AC9A3C20072E9D2 /* WLAPIEnvironmentBeta.plist in Resources */,
@@ -7122,6 +7179,13 @@
 				C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				5BA51C9E1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */,
 				C57005D91A1FA19C007257A6 /* chat_bubble_red_right.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C55C36641ACEB7A800C614BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8498,6 +8562,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C55C36621ACEB7A800C614BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C55C366B1ACEB7A900C614BD /* WrapLiveKit_Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C56498C31ACB00D2000F1E4B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -8583,6 +8655,11 @@
 			isa = PBXTargetDependency;
 			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
 			targetProxy = C559CB781AA0BB6900100B2C /* PBXContainerItemProxy */;
+		};
+		C55C366E1ACEB7A900C614BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C50646E81ABD844700CB4BE3 /* WrapLiveKit */;
+			targetProxy = C55C366D1ACEB7A900C614BD /* PBXContainerItemProxy */;
 		};
 		C56498D51ACB00D2000F1E4B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -9575,6 +9652,63 @@
 			};
 			name = Release;
 		};
+		C55C366F1ACEB7A900C614BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "WrapLiveKit Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C55C36701ACEB7A900C614BD /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "WrapLiveKit Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = AdHoc;
+		};
+		C55C36711ACEB7A900C614BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "WrapLiveKit Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		C56498E21ACB00D3000F1E4B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -10077,6 +10211,15 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C55C36721ACEB7A900C614BD /* Build configuration list for PBXNativeTarget "WrapLiveKit Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C55C366F1ACEB7A900C614BD /* Debug */,
+				C55C36701ACEB7A900C614BD /* AdHoc */,
+				C55C36711ACEB7A900C614BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		C56498E11ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "WrapLiveWatchKitApp-Production" */ = {
 			isa = XCConfigurationList;

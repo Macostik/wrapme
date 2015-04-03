@@ -9,14 +9,6 @@
 #import "UIColor+CustomColors.h"
 #import "NSString+Additions.h"
 
-/*
- gray-darker:  #222
- gray-dark: #333
- gray: #555
- gray-light: #777
- gray-lighter: #eee
- */
-
 @implementation UIColor (CustomColors)
 
 + (UIColor*)r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b a:(CGFloat)a {
@@ -36,23 +28,27 @@
 }
 
 + (UIColor*)WL_grayDarker {
-    return [UIColor colorWithWhite:0.101 alpha:1.000];
+    return [UIColor colorWithHex:0x222222];
 }
 
 + (UIColor*)WL_grayDark {
-    return [UIColor colorWithWhite:0.151 alpha:1.000];
+    return [UIColor colorWithHex:0x333333];
 }
 
 + (UIColor*)WL_gray {
-    return [UIColor colorWithWhite:0.264 alpha:1.000];
+    return [UIColor colorWithHex:0x555555];
 }
 
 + (UIColor*)WL_grayLight {
-    return [UIColor colorWithWhite:0.391 alpha:1.000];
+    return [UIColor colorWithHex:0x777777];
 }
 
 + (UIColor*)WL_grayLighter {
-    return [UIColor colorWithWhite:0.917 alpha:1.000];
+    return [UIColor colorWithHex:0x999999];
+}
+
++ (UIColor*)WL_grayLightest {
+    return [UIColor colorWithHex:0xeeeeee];
 }
 
 + (UIColor *)colorWithHexString:(NSString *)str {
@@ -65,10 +61,9 @@
 }
 
 + (UIColor *)colorWithHex:(UInt32)col {
-    unsigned char r, g, b;
-    b = col & 0xFF;
-    g = (col >> 8) & 0xFF;
-    r = (col >> 16) & 0xFF;
+    unsigned char b = col & 0xFF;
+    unsigned char g = (col >> 8) & 0xFF;
+    unsigned char r = (col >> 16) & 0xFF;
     return [UIColor colorWithRed:(float)r/255.0f green:(float)g/255.0f blue:(float)b/255.0f alpha:1];
 }
 

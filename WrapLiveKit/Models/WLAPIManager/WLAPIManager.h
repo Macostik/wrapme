@@ -28,7 +28,7 @@ static NSUInteger WLPageSize = 10;
 
 @property (strong, nonatomic) WLFailureBlock showErrorBlock;
 
-+ (instancetype)instance;
++ (instancetype)manager;
 
 - (NSString*)urlWithPath:(NSString*)path;
 

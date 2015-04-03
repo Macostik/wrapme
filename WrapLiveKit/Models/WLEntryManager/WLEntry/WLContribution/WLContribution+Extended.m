@@ -14,6 +14,20 @@
 
 @implementation WLContribution (Extended)
 
++ (instancetype)entry:(NSString *)identifier uploadIdentifier:(NSString *)uploadIdentifier {
+    return (id)[[WLEntryManager manager] entryOfClass:self identifier:identifier uploadIdentifier:uploadIdentifier];
+}
+
++ (instancetype)API_entry:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
+    NSString *identifier = [self API_identifier:dictionary];
+    NSString *uploadIdentifier = [self API_uploadIdentifier:dictionary];
+    return [[self entry:identifier uploadIdentifier:uploadIdentifier] API_setup:dictionary relatedEntry:relatedEntry];
+}
+
++ (NSString *)API_uploadIdentifier:(NSDictionary *)dictionary {
+    return [dictionary stringForKey:WLUploadUIDKey];
+}
+
 + (instancetype)contribution {
     WLContribution* contributrion = [self entry];
     contributrion.uploadIdentifier = contributrion.identifier;

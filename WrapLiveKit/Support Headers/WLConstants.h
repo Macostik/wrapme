@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-struct WLConstantsStruct {
+typedef struct {
     CGFloat pixelSize;
     CGFloat screenWidth;
     BOOL iPhone;
-};
+} WLConstantsStruct;
 
-struct WLConstantsStruct WLConstants;
+WLConstantsStruct WLConstants;
 
 static inline void WLInitializeConstants (void) {
-    WLConstants = (struct WLConstantsStruct) {
+    WLConstants = (WLConstantsStruct) {
         .pixelSize = 1.0f / ([UIScreen mainScreen].scale < 2 ? : 2),
         .screenWidth = [UIScreen mainScreen].bounds.size.width,
         .iPhone = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone

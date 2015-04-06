@@ -60,6 +60,5 @@ static NSString* WLDeviceIDKey = @"device_uid";
 static NSString* WLCountryCodeKey = @"country_calling_code";
 static NSString* WLPhoneKey = @"phone_number";
 static NSString* WLPasswordKey = @"password";
-static NSString* WLEnvironment = @"WLAPIEnvironment";
 static NSString* WLCommentCountKey = @"comment_count";
 static NSString* WLUIDKey = @"uid";

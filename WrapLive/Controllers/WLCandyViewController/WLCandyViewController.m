@@ -356,11 +356,14 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 - (IBAction)navigationButtonClick:(WLIconButton *)sender {
+    sender.userInteractionEnabled = NO;
     if (self.candy.deletable) {
         [self.candy remove:^(id object) {
             [WLToast showWithMessage:WLLS(@"Candy was deleted successfully.")];
+            sender.userInteractionEnabled = YES;
         } failure:^(NSError *error) {
             [error show];
+            sender.userInteractionEnabled = YES;
         }];
     } else {
         [MFMailComposeViewController messageWithCandy:self.candy];

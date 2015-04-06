@@ -65,13 +65,13 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 + (WLAPIEnvironment*)initializationEnvironment {
-    NSString* environmentName = [[[NSBundle mainBundle] infoDictionary] stringForKey:@"WLAPIEnvironment"];
+    NSString* environmentName = [[[NSBundle mainBundle] infoDictionary] stringForKey:WLAPIEnvironmentKey];
     if (!environmentName.nonempty) {
-        environmentName = [[NSUserDefaults appGroupUserDefaults] objectForKey:WLAppGroupEnvironment];
+        environmentName = [[NSUserDefaults appGroupUserDefaults] objectForKey:WLAPIEnvironmentKey];
     } else {
-        run_in_background_queue(^{
-            [self saveEnvironmentName:environmentName];
-        });
+#ifndef WRAPLIVE_EXTENSION_TERGET
+        [self saveEnvironmentName:environmentName];
+#endif
     }
     if (!environmentName.nonempty) environmentName = WLAPIEnvironmentDefault;
     
@@ -80,7 +80,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 + (void)saveEnvironmentName:(NSString*)environmentName {
     NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
-    [userDefaults setObject:environmentName forKey:WLAppGroupEnvironment];
+    [userDefaults setObject:environmentName forKey:WLAPIEnvironmentKey];
     [userDefaults synchronize];
 }
 

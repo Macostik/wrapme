@@ -570,6 +570,22 @@
 		C53F2CE51A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CBB1A6EB5FA00D99741 /* RMPhoneFormat.m */; };
 		C53F2CE61A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CBB1A6EB5FA00D99741 /* RMPhoneFormat.m */; };
 		C53F2CE71A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CBB1A6EB5FA00D99741 /* RMPhoneFormat.m */; };
+		C54086971AD29C77007E0D12 /* WrapAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232931ACD3F4900886437 /* WrapAPNS.apns */; };
+		C54086981AD29C77007E0D12 /* CandyAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232911ACD3F4900886437 /* CandyAPNS.apns */; };
+		C54086991AD29C77007E0D12 /* CommentAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* CommentAPNS.apns */; };
+		C540869A1AD29C77007E0D12 /* ChatAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232921ACD3F4900886437 /* ChatAPNS.apns */; };
+		C540869B1AD29C77007E0D12 /* WrapAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232931ACD3F4900886437 /* WrapAPNS.apns */; };
+		C540869C1AD29C77007E0D12 /* CandyAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232911ACD3F4900886437 /* CandyAPNS.apns */; };
+		C540869D1AD29C77007E0D12 /* CommentAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* CommentAPNS.apns */; };
+		C540869E1AD29C77007E0D12 /* ChatAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232921ACD3F4900886437 /* ChatAPNS.apns */; };
+		C540869F1AD29C77007E0D12 /* WrapAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232931ACD3F4900886437 /* WrapAPNS.apns */; };
+		C54086A01AD29C77007E0D12 /* CandyAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232911ACD3F4900886437 /* CandyAPNS.apns */; };
+		C54086A11AD29C77007E0D12 /* CommentAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* CommentAPNS.apns */; };
+		C54086A21AD29C77007E0D12 /* ChatAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232921ACD3F4900886437 /* ChatAPNS.apns */; };
+		C54086A31AD29C78007E0D12 /* WrapAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232931ACD3F4900886437 /* WrapAPNS.apns */; };
+		C54086A41AD29C78007E0D12 /* CandyAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232911ACD3F4900886437 /* CandyAPNS.apns */; };
+		C54086A51AD29C78007E0D12 /* CommentAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* CommentAPNS.apns */; };
+		C54086A61AD29C78007E0D12 /* ChatAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232921ACD3F4900886437 /* ChatAPNS.apns */; };
 		C544E4FC1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */; };
 		C544E4FD1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */; };
 		C544E4FE1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C544E4FB1AA069F20025DB3F /* WLArrangedAddressBookGroup.m */; };
@@ -6734,7 +6750,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -6887,12 +6903,16 @@
 			files = (
 				C55B25A91AC9A6210072E9D2 /* OpenSans-Light.ttf in Resources */,
 				C50646371ABD815200CB4BE3 /* Images.xcassets in Resources */,
+				C54086991AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C506462F1ABD815200CB4BE3 /* Interface.storyboard in Resources */,
 				C50645941ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development.app in Resources */,
+				C54086971AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
 				C55B259E1AC9A6190072E9D2 /* OpenSans-Semibold.ttf in Resources */,
 				C55B25AA1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */,
 				C55B25AB1AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */,
 				C50646551ABD815200CB4BE3 /* WLWKReplyPresets.plist in Resources */,
+				C54086981AD29C77007E0D12 /* CandyAPNS.apns in Resources */,
+				C540869A1AD29C77007E0D12 /* ChatAPNS.apns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6900,11 +6920,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C540869E1AD29C77007E0D12 /* ChatAPNS.apns in Resources */,
 				C50646561ABD815200CB4BE3 /* WLWKReplyPresets.plist in Resources */,
+				C540869B1AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
 				C55B25AC1AC9A6210072E9D2 /* OpenSans-Light.ttf in Resources */,
 				C50646301ABD815200CB4BE3 /* Interface.storyboard in Resources */,
 				C50646381ABD815200CB4BE3 /* Images.xcassets in Resources */,
 				C55B25A21AC9A61C0072E9D2 /* OpenSans-Semibold.ttf in Resources */,
+				C540869C1AD29C77007E0D12 /* CandyAPNS.apns in Resources */,
+				C540869D1AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C55B25AD1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */,
 				C55B25AE1AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */,
 			);
@@ -7195,12 +7219,16 @@
 			files = (
 				C5E54B3E1ACBF98D00444F7B /* OpenSans-Light.ttf in Resources */,
 				C5E54B3D1ACBF98D00444F7B /* OpenSans-Semibold.ttf in Resources */,
+				C54086A11AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C5E54B471ACBF9B100444F7B /* Images.xcassets in Resources */,
 				C5E54B3F1ACBF98D00444F7B /* OpenSans-Regular.ttf in Resources */,
+				C540869F1AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
 				C5E54B401ACBF98D00444F7B /* OpenSans-Bold.ttf in Resources */,
 				C5E54B451ACBF9AA00444F7B /* Interface.storyboard in Resources */,
 				C56498D31ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app in Resources */,
 				C5E54B4B1ACBF9CE00444F7B /* WLWKReplyPresets.plist in Resources */,
+				C54086A01AD29C77007E0D12 /* CandyAPNS.apns in Resources */,
+				C54086A21AD29C77007E0D12 /* ChatAPNS.apns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7209,11 +7237,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5E54B421ACBF98D00444F7B /* OpenSans-Light.ttf in Resources */,
+				C54086A61AD29C78007E0D12 /* ChatAPNS.apns in Resources */,
 				C5E54B431ACBF98D00444F7B /* OpenSans-Regular.ttf in Resources */,
 				C5E54B441ACBF98D00444F7B /* OpenSans-Bold.ttf in Resources */,
+				C54086A51AD29C78007E0D12 /* CommentAPNS.apns in Resources */,
+				C54086A31AD29C78007E0D12 /* WrapAPNS.apns in Resources */,
 				C5E54B481ACBF9B200444F7B /* Images.xcassets in Resources */,
 				C5E54B461ACBF9AB00444F7B /* Interface.storyboard in Resources */,
 				C5E54B411ACBF98D00444F7B /* OpenSans-Semibold.ttf in Resources */,
+				C54086A41AD29C78007E0D12 /* CandyAPNS.apns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9447,7 +9479,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
@@ -10118,7 +10150,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

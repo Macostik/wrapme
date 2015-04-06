@@ -113,6 +113,9 @@
 }
 
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier uploadIdentifier:(NSString*)uploadIdentifier {
+    if (!uploadIdentifier.nonempty) {
+        return [self entryOfClass:entryClass identifier:identifier];
+    }
     WLEntry* entry = [self cachedEntry:identifier];
     if (!entry) {
         if (!identifier.nonempty) return nil;

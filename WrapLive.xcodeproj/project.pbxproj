@@ -9213,7 +9213,7 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COPY_PHASE_STRIP = NO;
@@ -9830,7 +9830,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COPY_PHASE_STRIP = NO;

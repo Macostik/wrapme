@@ -85,7 +85,7 @@ static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
     NSMutableAttributedString *emailVerificationString = [[NSMutableAttributedString alloc] initWithString:
                                                           [[NSString alloc] initWithFormat:WLLS(@"verification email %@"), email]];
     NSRange range = [emailVerificationString.string rangeOfString:email];
-    [emailVerificationString setAttributes:@{NSFontAttributeName: [UIFont fontWithName:WLFontOpenSansBold preset:WLFontPresetXSmall]}
+    [emailVerificationString setAttributes:@{NSFontAttributeName: [UIFont fontWithName:WLFontOpenSansRegular preset:WLFontPresetXSmall]}
                                      range:range];
     return emailVerificationString;
 }

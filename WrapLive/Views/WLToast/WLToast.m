@@ -55,7 +55,10 @@
 @implementation WLToast
 
 + (instancetype)toast {
-    WLToast *toast = [self new];
+    static WLToast *toast = nil;
+    if (!toast) {
+        toast = [self new];
+    }
     return toast;
 }
 
@@ -97,7 +100,7 @@ static WLToastWindow *sharedWindow = nil;
 }
 
 - (id)toastAsRootViewController {
-    return (WLToastViewController *)sharedWindow.rootViewController;
+    return sharedWindow.rootViewController;
 }
 
 - (void)dismiss {

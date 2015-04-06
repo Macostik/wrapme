@@ -356,7 +356,6 @@
 		C500C92F1ACBE64E0072BBA8 /* AFURLResponseSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = C500C8B71ACBE37D0072BBA8 /* AFURLResponseSerialization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C500C9301ACBE64E0072BBA8 /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C500C8B91ACBE37D0072BBA8 /* AFURLSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C500C93A1ACBE6650072BBA8 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C500C8D21ACBE37D0072BBA8 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C500C93B1ACBE7040072BBA8 /* WrapLiveWatchKitExtension-Development.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C50645841ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C500C93C1ACBE7090072BBA8 /* WrapLiveWatchKitExtension-Development.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C50645841ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
 		C504178219B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
@@ -1968,13 +1967,6 @@
 			remoteGlobalIDString = C56498C61ACB00D2000F1E4B;
 			remoteInfo = "WrapLiveWatchKitExtension-Production";
 		};
-		C5FBDB7A1ACA9A6600B24BC2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
-			remoteInfo = "WrapLiveWatchKitExtension-Development";
-		};
 		C5FBDB7C1ACA9A6E00B24BC2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -2004,7 +1996,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				5BA7AF2E1A481A9500C586CA /* WrapLiveToday-Development.appex in Embed App Extensions */,
-				C500C93B1ACBE7040072BBA8 /* WrapLiveWatchKitExtension-Development.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6551,7 +6542,6 @@
 				C559CB751AA0BB6200100B2C /* PBXTargetDependency */,
 				C55912791AC03CB800320483 /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
-				C5FBDB7B1ACA9A6600B24BC2 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-QA";
 			productName = WrapLive;
@@ -8707,11 +8697,6 @@
 			isa = PBXTargetDependency;
 			target = C56498C61ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production */;
 			targetProxy = C5E54B3B1ACBF89B00444F7B /* PBXContainerItemProxy */;
-		};
-		C5FBDB7B1ACA9A6600B24BC2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C50645831ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development */;
-			targetProxy = C5FBDB7A1ACA9A6600B24BC2 /* PBXContainerItemProxy */;
 		};
 		C5FBDB7D1ACA9A6E00B24BC2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

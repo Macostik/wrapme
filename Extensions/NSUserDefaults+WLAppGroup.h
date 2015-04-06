@@ -10,7 +10,7 @@
 
 static NSString *const WLAppGroupEncryptedAuthorization = @"encrypted_authorization";
 
-static NSString *const WLAppGroupEnvironment = @"environment";
+static NSString *const WLAPIEnvironmentKey = @"WLAPIEnvironment";
 
 @interface NSUserDefaults (WLAppGroup)
 

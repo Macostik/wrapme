@@ -446,7 +446,7 @@
 		C51E29621A1CE12E009786C7 /* ic_today_comment@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C51E29541A1CE12E009786C7 /* ic_today_comment@3x.png */; };
 		C51E29631A1CE12E009786C7 /* ic_today_comment@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C51E29541A1CE12E009786C7 /* ic_today_comment@3x.png */; };
 		C51E29641A1CE12E009786C7 /* ic_today_comment@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C51E29541A1CE12E009786C7 /* ic_today_comment@3x.png */; };
-		C520485F1ACB098B009079A6 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
+		C520485F1ACB098B009079A6 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C52048601ACB098B009079A6 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C521FB061989352E00576281 /* WLHomeViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C521FB051989352E00576281 /* WLHomeViewSection.m */; };
 		C521FB091989382300576281 /* WLPaginatedViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C521FB081989382300576281 /* WLPaginatedViewSection.m */; };
@@ -490,7 +490,7 @@
 		C537E9F11A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
 		C537E9F21A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
 		C537E9F31A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
-		C5394F5A1AC415FB007FFD84 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
+		C5394F5A1AC415FB007FFD84 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C5394F5B1AC415FB007FFD84 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C53978C919AE2B21006BE8FD /* WLTimelineEventHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53978C819AE2B21006BE8FD /* WLTimelineEventHeaderView.m */; };
 		C53CA3C41A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
@@ -934,14 +934,14 @@
 		C558E7C71A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
 		C558E7C81A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
 		C558E7C91A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
-		C559126C1AC038FE00320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
-		C55912761AC03CB800320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
+		C559126C1AC038FE00320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C55912761AC03CB800320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C55912771AC03CB800320483 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C559127B1AC03CBD00320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
+		C559127B1AC03CBD00320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C559127C1AC03CBD00320483 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C55912801AC03CC200320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
+		C55912801AC03CC200320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C55912811AC03CC200320483 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C55912851AC03CCE00320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; };
+		C55912851AC03CCE00320483 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C55912861AC03CCE00320483 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C559128E1AC03D1B00320483 /* WrapLiveKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C55912901AC03D3000320483 /* WrapLiveKit.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = C50646E91ABD844700CB4BE3 /* WrapLiveKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };

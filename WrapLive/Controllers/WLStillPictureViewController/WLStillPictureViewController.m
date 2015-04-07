@@ -7,7 +7,6 @@
 //
 
 #import "ALAssetsLibrary+Additions.h"
-#import "ALAssetsLibrary+Additions.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIView+AnimationHelper.h"
 #import "WLAssetsGroupViewController.h"

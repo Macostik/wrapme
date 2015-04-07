@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WLKeyboard.h"
 #import "GAITrackedViewController.h"
+#import <WrapLiveKit/WrapLiveKit.h>
 
 @interface WLBaseViewController : GAITrackedViewController <WLKeyboardBroadcastReceiver>
 

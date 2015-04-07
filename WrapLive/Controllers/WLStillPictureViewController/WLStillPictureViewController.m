@@ -270,15 +270,14 @@
             [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
                 [WLPicture picture:croppedImage mode:weakSelf.mode completion:^(id object) {
                     [pictures addObject:object];
-                    [operation finish:^{
-                        run_in_main_queue(^{
-                            weakSelf.view.userInteractionEnabled = YES;
-                            id <WLStillPictureViewControllerDelegate> delegate = [weakSelf getValidDelegate];
-                            if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
-                                [delegate stillPictureViewController:weakSelf didFinishWithPictures:pictures];
-                            }
-                        });
-                    }];
+                    [operation finish];
+                    if (pictures.count == assets.count) {
+                        weakSelf.view.userInteractionEnabled = YES;
+                        id <WLStillPictureViewControllerDelegate> delegate = [weakSelf getValidDelegate];
+                        if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
+                            [delegate stillPictureViewController:weakSelf didFinishWithPictures:pictures];
+                        }
+                    }
                 }];
             }];
         });

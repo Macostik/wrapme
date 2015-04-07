@@ -83,7 +83,7 @@
 }
 
 + (NSDictionary *)allIcons {
-    return @{@"a":@"wl-circleCandy",@"e":@"wl-candy",@"b":@"wl-flashOn",@"c":@"wl-flashAuto",@"d":@"wl-flashOff"};
+    return @{@"a":@"wl-circleCandy",@"e":@"wl-candy",@"b":@"wl-flashOn",@"c":@"wl-flashAuto",@"d":@"wl-flashOff", @"f":@"wl-calendar"};
 }
 
 @end

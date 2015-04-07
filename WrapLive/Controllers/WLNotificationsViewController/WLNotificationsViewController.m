@@ -12,12 +12,12 @@
 #import "WLNotificationCenter.h"
 #import "WLNavigation.h"
 #import "WLNotificationCollectionViewSection.h"
+#import "WLNotificationCell.h"
 
 @interface WLNotificationsViewController () <WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLNotificationCollectionViewSection *dataSection;
-@property (strong, nonatomic) NSMutableOrderedSet *readNotifications;
 
 @end
 
@@ -25,15 +25,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.readNotifications = [NSMutableOrderedSet orderedSet];
-    
-    __weak __typeof(self)weakSelf = self;
-    [self.dataSection setConfigure:^(id cell, id entry) {
-        [weakSelf.readNotifications addObject:entry];
-    }];
     
     [self.dataSection setSelection:^(WLEntry* entry) {
+        if (entry.valid) {
+            entry.unread = NO;
+        }
         [entry present];
+    }];
+    
+    [self.dataSection setConfigure:^(WLNotificationCell *cell, id entry) {
+        [cell setBackgroundColor:[entry unread] ? [UIColor whiteColor] : [UIColor WL_grayLightest]];
     }];
  
     [[WLComment notifier] addReceiver:self];
@@ -49,9 +50,6 @@
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentDeleted:(WLComment *)comment {
-    if ([self.readNotifications containsObject:comment]) {
-        [self.readNotifications removeObject:comment];
-    }
     NSMutableOrderedSet* entries = self.dataSection.entries.entries;
     if ([entries containsObject:comment]) {
         [entries removeObject:comment];
@@ -60,13 +58,6 @@
 }
 
 - (IBAction)back:(id)sender {
-    if (self.readNotifications.nonempty) {
-        [self.readNotifications all:^(WLComment *commment) {
-            if (commment.valid) {
-                commment.unread = NO;
-            }
-        }];
-    }
     [[WLEntryManager manager].context processPendingChanges];
     [self.navigationController popViewControllerAnimated:YES];
 }

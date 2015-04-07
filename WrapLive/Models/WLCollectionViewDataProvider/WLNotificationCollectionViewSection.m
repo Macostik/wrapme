@@ -23,11 +23,11 @@
 }
 
 - (CGSize)size:(NSIndexPath*)indexPath {
-    WLComment *comment = [self.entries.entries objectAtIndex:indexPath.item];
-    CGFloat textHeight = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular
+    id entry = [self.entries.entries objectAtIndex:indexPath.item];
+    CGFloat textHeight = [[entry text] heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular
                                                                              preset:WLFontPresetNormal]
                                                 width:WLConstants.screenWidth - WLNotificationCommentHorizontalSpacing];
-    return CGSizeMake(WLConstants.screenWidth, textHeight + WLNotificationCommentVerticalSpacing);
+    return CGSizeMake(WLConstants.screenWidth, textHeight + WLNotificationCommentVerticalSpacing + 40);
 }
 
 #pragma mark - WLFontPresetterReceiver

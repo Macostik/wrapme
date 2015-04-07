@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *commentLabel;
 @property (weak, nonatomic) IBOutlet WLImageView *wrapImageView;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *composeBarHeightConstrain;
+@property (assign, nonatomic) BOOL isReply;
 
 @end
 
@@ -28,6 +30,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.commentLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    self.pictureView.layer.cornerRadius = self.pictureView.height/2;
+//    self.composeBarHeightConstrain.constant = 0.0;
 }
 
 - (void)setup:(WLComment*)comment {
@@ -37,6 +41,7 @@
     self.commentLabel.text = comment.text;
     self.inWrapLabel.text = comment.candy.wrap.name;
     self.timeLabel.text = comment.createdAt.timeAgoStringAtAMPM;
+    
 }
 
 #pragma mark - TTTAttributedLabelDelegate
@@ -45,6 +50,13 @@
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url];
     }
+}
+
+- (IBAction)retryMessage:(UIButton *)sender {
+    [UIView performWithoutAnimation:^{
+        self.composeBarHeightConstrain.constant = self.isReply != self.isReply ? 40 : 0;
+        [self layoutIfNeeded];
+    }];
 }
 
 @end

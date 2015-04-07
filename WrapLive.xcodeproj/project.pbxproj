@@ -1429,7 +1429,6 @@
 		C5E4CCFA1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
 		C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
 		C5E54B361ACBF83A00444F7B /* WrapLiveToday-Production.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* WrapLiveToday-Production.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C5E54B3A1ACBF89B00444F7B /* WrapLiveWatchKitExtension-Production.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C56498C71ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5E54B3D1ACBF98D00444F7B /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
 		C5E54B3E1ACBF98D00444F7B /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
 		C5E54B3F1ACBF98D00444F7B /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
@@ -1997,13 +1996,6 @@
 			remoteGlobalIDString = 5BF1B22F1A49A683000BB2C1;
 			remoteInfo = "WrapLiveToday-Production";
 		};
-		C5E54B3B1ACBF89B00444F7B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C56498C61ACB00D2000F1E4B;
-			remoteInfo = "WrapLiveWatchKitExtension-Production";
-		};
 		C5FBDB7C1ACA9A6E00B24BC2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -2135,7 +2127,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C5E54B3A1ACBF89B00444F7B /* WrapLiveWatchKitExtension-Production.appex in Embed App Extensions */,
 				C5E54B361ACBF83A00444F7B /* WrapLiveToday-Production.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -6627,7 +6618,6 @@
 				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
 				C587C8E61AD2E8C0003E7647 /* PBXTargetDependency */,
 				C5E54B381ACBF83A00444F7B /* PBXTargetDependency */,
-				C5E54B3C1ACBF89B00444F7B /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Production";
 			productName = WrapLive;
@@ -8799,11 +8789,6 @@
 			isa = PBXTargetDependency;
 			target = 5BF1B22F1A49A683000BB2C1 /* WrapLiveToday-Production */;
 			targetProxy = C5E54B371ACBF83A00444F7B /* PBXContainerItemProxy */;
-		};
-		C5E54B3C1ACBF89B00444F7B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C56498C61ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production */;
-			targetProxy = C5E54B3B1ACBF89B00444F7B /* PBXContainerItemProxy */;
 		};
 		C5FBDB7D1ACA9A6E00B24BC2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

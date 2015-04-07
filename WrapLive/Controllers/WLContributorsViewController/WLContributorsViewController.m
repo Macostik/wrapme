@@ -53,7 +53,21 @@
 }
 
 - (void)setupEditableUserInterface {
-    self.dataSection.entries = [self.wrap.contributors mutableCopy];
+    self.dataSection.entries = [self sortedContributors];
+}
+
+- (NSMutableOrderedSet*)sortedContributors {
+    NSMutableOrderedSet *contributors = [self.wrap.contributors mutableCopy];
+    [contributors sortUsingComparator:^NSComparisonResult(WLUser *obj1, WLUser *obj2) {
+        if ([obj1 isCurrentUser]) {
+            return NSOrderedDescending;
+        }
+        if ([obj2 isCurrentUser]) {
+            return NSOrderedAscending;
+        }
+        return [WLString(obj1.name) compare:WLString(obj2.name)];
+    }];
+    return contributors;
 }
 
 #pragma mark - WLContributorCellDelegate
@@ -108,7 +122,7 @@
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
-    NSMutableOrderedSet* contributors = [self.wrap.contributors mutableCopy];
+    NSMutableOrderedSet* contributors = [self sortedContributors];
     for (WLAddressBookPhoneNumber* person in [self.editSession changedValueForProperty:@"removedContributors"]) {
         [contributors removeObject:person.user];
     }

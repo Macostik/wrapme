@@ -1,10 +1,3 @@
-//
-//  WrapLiveKitPrefixHeader.pch
-//  WrapLive
-//
-//  Created by Sergey Maximenko on 3/21/15.
-//  Copyright (c) 2015 Ravenpod. All rights reserved.
-//
 
 #ifndef WrapLive_WrapLiveKitPrefixHeader_pch
 #define WrapLive_WrapLiveKitPrefixHeader_pch

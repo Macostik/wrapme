@@ -278,10 +278,10 @@
 @implementation WLUser (WLNotification)
 
 - (NSMutableOrderedSet *)notifications {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@", [NSDate dayAgo], [WLUser currentUser]];
-    return [[WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"] map:^id (WLComment *comment) {
-        return comment.notifiable ? comment : nil;
-    }];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@",
+                              [NSDate sinceWeekAgo], [WLUser currentUser]];
+    NSMutableOrderedSet *contribution = [WLContribution entriesWithPredicate:predicate sorterByKey:@"createdAt"];
+    return contribution;
 }
 
 - (NSUInteger)unreadNotificationsCount {

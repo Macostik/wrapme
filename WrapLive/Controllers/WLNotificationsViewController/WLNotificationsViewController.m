@@ -25,7 +25,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self.dataSection setSelection:^(WLEntry* entry) {
         if (entry.valid) {
             entry.unread = NO;

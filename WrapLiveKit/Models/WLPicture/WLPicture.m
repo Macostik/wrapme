@@ -39,7 +39,7 @@
     BOOL isCandy = mode == WLStillPictureModeDefault;
     
     __weak WLImageCache *imageCache = cache;
-    run_in_background_queue(^{
+    run_in_default_queue(^{
         __block NSData *metadataImage = UIImageJPEGRepresentation(image, .5f);
         [imageCache setImageData:metadataImage completion:^(NSString *path) {
             WLPicture* picture = [[self alloc] init];
@@ -52,7 +52,9 @@
                 metadataImage = UIImageJPEGRepresentation([image thumbnailImage:size], 1.0f);
                 [imageCache setImageData:metadataImage completion:^(NSString *path) {
                     picture.small = [imageCache pathWithIdentifier:path];
-                    completion(picture);
+                    run_in_main_queue(^ {
+                        if (completion) completion(picture);
+                    });
                 }];
             }];
         }];

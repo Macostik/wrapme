@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="cKg-Y0-d6d">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="cKg-Y0-d6d">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -581,7 +581,7 @@
                                 </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="296" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="1eI-Kn-Fei" customClass="WLComposeBar">
-                                <rect key="frame" x="0.0" y="297" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="298" width="320" height="44"/>
                                 <subviews>
                                     <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0JJ-xS-AUW">
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="44"/>
@@ -696,6 +696,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <outlet property="delegate" destination="qIf-F1-lSO" id="vf7-mo-eJy"/>
                                     <outlet property="doneButton" destination="sPs-vA-Mlw" id="x17-yw-v4Y"/>
                                     <outlet property="heightConstraint" destination="xbk-bV-eD3" id="5xI-YN-Ab1"/>
                                     <outlet property="horizontalSpaceDoneButtonContstraint" destination="bKW-UB-quO" id="3Va-mV-3yk"/>
@@ -827,24 +828,24 @@
                             <constraint firstItem="rvH-xd-AOc" firstAttribute="leading" secondItem="B8q-mw-gWZ" secondAttribute="leading" id="Kxx-B1-ZOR"/>
                             <constraint firstItem="rvH-xd-AOc" firstAttribute="top" secondItem="PoG-ED-My6" secondAttribute="bottom" id="LWW-SS-UeX"/>
                             <constraint firstItem="PoG-ED-My6" firstAttribute="top" secondItem="bNq-o4-O2V" secondAttribute="bottom" id="NSm-3c-7tT"/>
-                            <constraint firstAttribute="centerX" secondItem="1eI-Kn-Fei" secondAttribute="centerX" id="QZW-Jb-0i7"/>
                             <constraint firstItem="PoG-ED-My6" firstAttribute="leading" secondItem="B8q-mw-gWZ" secondAttribute="leading" id="Rs5-iX-8j8"/>
                             <constraint firstAttribute="trailing" secondItem="1eI-Kn-Fei" secondAttribute="trailing" id="SDt-V3-WqB"/>
-                            <constraint firstItem="PoG-ED-My6" firstAttribute="bottom" secondItem="1eI-Kn-Fei" secondAttribute="bottom" multiplier="1.25" id="Trf-kx-Bgu"/>
                             <constraint firstAttribute="trailing" secondItem="rvH-xd-AOc" secondAttribute="trailing" id="c9M-IM-vaF"/>
                             <constraint firstItem="Y8K-4d-qnf" firstAttribute="top" secondItem="bNq-o4-O2V" secondAttribute="bottom" constant="16" id="kKT-hc-NeX"/>
                             <constraint firstAttribute="trailing" secondItem="Y8K-4d-qnf" secondAttribute="trailing" constant="16" id="rSA-HK-YAx"/>
                             <constraint firstItem="WFI-ef-EyH" firstAttribute="top" secondItem="rvH-xd-AOc" secondAttribute="bottom" id="s0b-SF-Brc"/>
+                            <constraint firstItem="PoG-ED-My6" firstAttribute="centerY" secondItem="1eI-Kn-Fei" secondAttribute="centerY" multiplier="2:3" id="yy6-9U-0kK"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="bottomView" destination="rvH-xd-AOc" id="uD2-bu-GkA"/>
                         <outlet property="composeBar" destination="1eI-Kn-Fei" id="s01-yU-gnO"/>
                         <outlet property="editButton" destination="Y8K-4d-qnf" id="oTP-XH-rNh"/>
                         <outlet property="imageView" destination="PoG-ED-My6" id="ZAJ-M7-0af"/>
                         <outlet property="textView" destination="zXf-UJ-Qz9" id="Jgp-Fp-GtZ"/>
                         <outlet property="wrapView" destination="J38-cV-CNx" id="LXt-PV-vZb"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="Trf-kx-Bgu" id="M1N-Ob-Ytd"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="yy6-9U-0kK" id="Yk7-sT-ag1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="son-Yx-b95" userLabel="First Responder" sceneMemberID="firstResponder"/>

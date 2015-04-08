@@ -12,10 +12,8 @@
 
 @protocol WLComposeBarDelegate <NSObject>
 
-- (void)composeBar:(WLComposeBar*)composeBar didFinishWithText:(NSString*)text;
-
 @optional;
-
+- (void)composeBar:(WLComposeBar*)composeBar didFinishWithText:(NSString*)text;
 - (void)composeBarDidChangeHeight:(WLComposeBar*)composeBar;
 - (void)composeBarDidChangeText:(WLComposeBar*)composeBar;
 - (NSUInteger)composeBarCharactersLimit:(WLComposeBar*)composeBar;

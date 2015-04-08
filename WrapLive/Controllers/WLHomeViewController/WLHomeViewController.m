@@ -44,7 +44,8 @@
 @property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *hiddenEmailConfirmationConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *visibleEmailConfirmationConstraint;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
@@ -183,21 +184,19 @@
     BOOL hidden = ([[WLSession confirmationDate] isToday] || ![[WLAuthorization currentAuthorization] unconfirmed_email].nonempty);
     if (!hidden) {
         self.verificationEmailLabel.attributedText = [WLAuthorization attributedVerificationSuggestion];
+        [self deadlineEmailConfirmationView];
     }
     [self setEmailConfirmationViewHidden:hidden animated:animated];
 }
 
 - (void)setEmailConfirmationViewHidden:(BOOL)hidden animated:(BOOL)animated {
-    CGFloat constraint = hidden ? 0 : self.emailConfirmationView.height;
-    if (self.topConstraint.constant != constraint) {
-        self.topConstraint.constant = constraint;
+    if (self.hiddenEmailConfirmationConstraint.active != hidden || self.visibleEmailConfirmationConstraint.active != !hidden) {
+        self.hiddenEmailConfirmationConstraint.active = hidden;
+        self.visibleEmailConfirmationConstraint.active = !hidden;
         __weak typeof(self)weakSelf = self;
         [UIView performAnimated:animated animation:^{
             [weakSelf.view layoutIfNeeded];
         }];
-        if (!hidden) {
-            [self deadlineEmailConfirmationView];
-        }
     }
 }
 
@@ -245,7 +244,9 @@
 // MARK: - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
-    [self updateEmailConfirmationView:YES];
+    if (self.isTopViewController) {
+        [self updateEmailConfirmationView:YES];
+    }
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {

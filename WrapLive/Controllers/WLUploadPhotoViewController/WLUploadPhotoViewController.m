@@ -15,8 +15,6 @@
 #import "WLComposeBar.h"
 #import "WLAlertView.h"
 
-static CGFloat WLHeightCoposeBarConstrain = 132.0;
-
 @interface WLUploadPhotoViewController () <AFPhotoEditorControllerDelegate, WLComposeBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;

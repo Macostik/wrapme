@@ -459,6 +459,8 @@
 		C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
 		C535F9D11AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
 		C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
+		C535F9D61AD4321F000C81B4 /* NSData+CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = C535F9D41AD4321F000C81B4 /* NSData+CommonCrypto.h */; };
+		C535F9D71AD4321F000C81B4 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9D51AD4321F000C81B4 /* NSData+CommonCrypto.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C537E9F01A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
 		C537E9F11A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
 		C537E9F21A8BBA8100EA450D /* WLIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C537E9EF1A8BBA8100EA450D /* WLIcon.m */; };
@@ -2502,6 +2504,8 @@
 		C535F9C81AA0923D00FF641E /* WLAddressBookGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookGroupView.h; sourceTree = "<group>"; };
 		C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookGroupView.m; sourceTree = "<group>"; };
 		C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAddressBookGroupView.xib; sourceTree = "<group>"; };
+		C535F9D41AD4321F000C81B4 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		C535F9D51AD4321F000C81B4 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		C537E9EE1A8BBA8100EA450D /* WLIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIcon.h; sourceTree = "<group>"; };
 		C537E9EF1A8BBA8100EA450D /* WLIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIcon.m; sourceTree = "<group>"; };
 		C53978C719AE2B21006BE8FD /* WLTimelineEventHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimelineEventHeaderView.h; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventHeaderView.h; sourceTree = "<group>"; };
@@ -4646,6 +4650,15 @@
 			path = WLAddressBookGroupView;
 			sourceTree = "<group>";
 		};
+		C535F9D31AD4321F000C81B4 /* NSData */ = {
+			isa = PBXGroup;
+			children = (
+				C535F9D41AD4321F000C81B4 /* NSData+CommonCrypto.h */,
+				C535F9D51AD4321F000C81B4 /* NSData+CommonCrypto.m */,
+			);
+			path = NSData;
+			sourceTree = "<group>";
+		};
 		C537E9ED1A8BBA7100EA450D /* WLIcon */ = {
 			isa = PBXGroup;
 			children = (
@@ -5026,6 +5039,7 @@
 		C5612C771ACD968A0052578A /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C535F9D31AD4321F000C81B4 /* NSData */,
 				C587C8EE1AD2E980003E7647 /* NSUserDefaults */,
 				C5FE0A4E1ACD97F6007DBE95 /* UIView */,
 				C5612C781ACD968A0052578A /* NSArray */,
@@ -6314,6 +6328,7 @@
 				C587C79B1AD2E6A0003E7647 /* WLAuthorizationRequest.h in Headers */,
 				C587C7BA1AD2E6A0003E7647 /* WLArchivingObject.h in Headers */,
 				C587C79E1AD2E6A0003E7647 /* WLCandyRequest.h in Headers */,
+				C535F9D61AD4321F000C81B4 /* NSData+CommonCrypto.h in Headers */,
 				C587C7931AD2E6A0003E7647 /* UIDevice-Hardware.h in Headers */,
 				C587C7DE1AD2E6A0003E7647 /* WLOperationQueue.h in Headers */,
 				C587C7C81AD2E6A0003E7647 /* WLMessage.h in Headers */,
@@ -8636,6 +8651,7 @@
 				C587C8531AD2E6DB003E7647 /* NSOrderedSet+Additions.m in Sources */,
 				C587C8931AD2E6DB003E7647 /* WLEntry+Extended.m in Sources */,
 				C587C85F1AD2E6DB003E7647 /* UIImage+RoundedCorner.m in Sources */,
+				C535F9D71AD4321F000C81B4 /* NSData+CommonCrypto.m in Sources */,
 				C587C86F1AD2E6DB003E7647 /* WLResendConfirmationRequest.m in Sources */,
 				C587C86A1AD2E6DB003E7647 /* WLLeaveWrapRequest.m in Sources */,
 				C587C8921AD2E6DB003E7647 /* WLDevice.m in Sources */,
@@ -9123,6 +9139,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "2b659bab-8f0b-4739-bcd1-2f0a5a4cd7f3";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -9151,6 +9168,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4785842a-35bf-4d1a-83fa-9f578168b869";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -9177,6 +9195,7 @@
 				PRODUCT_NAME = "WrapLiveToday-Production";
 				PROVISIONING_PROFILE = "aabbaac6-450c-4784-85d6-84ed5b0b882b";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -9204,6 +9223,7 @@
 				PRODUCT_NAME = "WrapLiveToday-Production";
 				PROVISIONING_PROFILE = "725279e2-88fc-47bc-a579-c0ccba7c2956";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -9829,6 +9849,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -9849,6 +9870,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = AdHoc;
@@ -9869,6 +9891,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -10103,6 +10126,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "490fa3f1-7872-4c88-9d07-c0a83edb23b4";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = AdHoc;
 		};
@@ -10129,6 +10153,7 @@
 				PRODUCT_NAME = "WrapLiveToday-Production";
 				PROVISIONING_PROFILE = "db55b54c-da02-43b4-a047-e4fc8f0a82c7";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = AdHoc;
 		};

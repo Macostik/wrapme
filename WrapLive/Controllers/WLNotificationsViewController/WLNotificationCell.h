@@ -8,6 +8,9 @@
 
 #import "WLEntryCell.h"
 
+const static CGFloat WLNotificationCommentHorizontalSpacing = 137.0f;
+const static CGFloat WLNotificationCommentVerticalSpacing = 78.0f;
+
 @class WLNotificationCell, WLComposeBar;
 
 @protocol WLNotificationCellDelegate <NSObject>
@@ -20,9 +23,16 @@
 
 @property (assign, nonatomic) IBOutlet id <WLNotificationCellDelegate> delegate;
 
++ (CGFloat)heightCell:(id)entry;
+- (void)sendMessageWithText:(NSString *)text;
+
 @end
 
 @interface WLMessageNotificationCell : WLNotificationCell
+
+@end
+
+@interface WLCommentNotificationCell : WLNotificationCell
 
 @end
 

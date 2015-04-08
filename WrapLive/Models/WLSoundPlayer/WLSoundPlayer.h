@@ -14,7 +14,8 @@ typedef NS_ENUM(NSUInteger, WLSound) {
     WLSound_s01,
     WLSound_s02,
     WLSound_s03,
-    WLSound_s04
+    WLSound_s04,
+    WLSound_s06
 };
 
 @interface WLSoundPlayer : NSObject

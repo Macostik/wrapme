@@ -23,6 +23,7 @@
 #import "WLUploadPhotoViewController.h"
 #import "WLNavigationAnimator.h"
 #import "WLHomeViewController.h"
+#import "WLSoundPlayer.h"
 
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
 
@@ -193,15 +194,12 @@
     __weak typeof(self)weakSelf = self;
     WLUploadPhotoCompletionBlock finishBlock = ^ (UIImage *resultImage, NSString *comment, BOOL saveToAlbum) {
         if (saveToAlbum) [resultImage save:metadata];
-        id <WLStillPictureViewControllerDelegate> delegate = [weakSelf getValidDelegate];
-        if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
-            weakSelf.view.userInteractionEnabled = NO;
-            [WLPicture picture:resultImage mode:weakSelf.mode completion:^(WLPicture *picture) {
-                picture.comment = comment;
-                [delegate stillPictureViewController:weakSelf didFinishWithPictures:@[picture]];
-                weakSelf.view.userInteractionEnabled = YES;
-            }];
-        }
+        weakSelf.view.userInteractionEnabled = NO;
+        [WLPicture picture:resultImage mode:weakSelf.mode completion:^(WLPicture *picture) {
+            picture.comment = comment;
+            [weakSelf finishWithPictures:@[picture]];
+            weakSelf.view.userInteractionEnabled = YES;
+        }];
     };
     
     [self editImage:image completion:finishBlock];
@@ -272,14 +270,23 @@
                     [operation finish];
                     if (pictures.count == assets.count) {
                         weakSelf.view.userInteractionEnabled = YES;
-                        id <WLStillPictureViewControllerDelegate> delegate = [weakSelf getValidDelegate];
-                        if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
-                            [delegate stillPictureViewController:weakSelf didFinishWithPictures:pictures];
-                        }
+                        [weakSelf finishWithPictures:pictures];
                     }
                 }];
             }];
         });
+    }
+}
+
+- (void)finishWithPictures:(NSArray*)pictures {
+    
+    if (self.mode == WLStillPictureModeDefault) {
+        [WLSoundPlayer playSound:WLSound_s06];
+    }
+    
+    id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
+    if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
+        [delegate stillPictureViewController:self didFinishWithPictures:pictures];
     }
 }
 

@@ -28,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 @property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
-@property (assign, nonatomic) BOOL isReply;
+@property (strong, nonatomic) id storedEntry;
 
 @end
 
@@ -45,6 +45,9 @@
     self.pictureView.url = [entry contributor].picture.small;
     self.timeLabel.text = [entry createdAt].timeAgoStringAtAMPM;
     self.avatarImageView.url = [WLUser currentUser].picture.small;
+    if ([self.delegate respondsToSelector:@selector(notificationCell:createdEntry:)]) {
+       self.storedEntry = [self.delegate notificationCell:self createdEntry:entry];
+    }
 }
 
 + (CGFloat)heightCell:(id)entry {
@@ -86,11 +89,16 @@
     self.userNameLabel.text = [NSString stringWithFormat:@"%@:", message.contributor.name];
     self.textLabel.text = message.text;
     self.inWrapLabel.text = message.wrap.name;
+    [self.progressBar setContribution:self.storedEntry];
+    self.composeBar.hidden =  self.avatarImageView.hidden = self.storedEntry == nil;
+    self.composeBar.text = [self.storedEntry text];
 }
 
 - (void)sendMessageWithText:(NSString *)text {
+    __weak __typeof(self)weakSelf = self;
     if ([self.entry valid]) {
         [[self.entry wrap] uploadMessage:text success:^(WLMessage *message) {
+            [weakSelf.composeBar performSelector:@selector(setText:) withObject:text afterDelay:0.0f];
             [WLSoundPlayer playSound:WLSound_s04];
         } failure:^(NSError *error) {
             [error show];
@@ -108,16 +116,23 @@
     self.wrapImageView.url = comment.picture.small;
     self.inWrapLabel.text = comment.candy.wrap.name;
     self.textLabel.text = comment.text;
+    [self.progressBar setContribution:self.storedEntry];
+    self.composeBar.hidden =  self.avatarImageView.hidden = self.storedEntry == nil;
+     self.composeBar.text = [self.storedEntry text];
 }
 
 - (void)sendMessageWithText:(NSString *)text {
+    __weak __typeof(self)weakSelf = self;
     if ([self.entry valid]) {
         [WLSoundPlayer playSound:WLSound_s04];
-        WLComment *comment = [[self.entry candy] uploadComment:[text trim] success:^(WLComment *comment) {
+        id entry = [[self.entry candy] uploadComment:[text trim] success:^(WLComment *comment) {
+            [weakSelf.composeBar performSelector:@selector(setText:) withObject:text afterDelay:0.0f];
         } failure:^(NSError *error) {
             [error show];
         }];
-        [self.progressBar setContribution:comment];
+        if ([self.delegate respondsToSelector:@selector(notificationCell:createEntry:)]) {
+            [self.delegate notificationCell:self createEntry:entry];
+        }
     }
 }
 
@@ -131,6 +146,9 @@
     self.wrapImageView.url = candy.picture.small;
     self.inWrapLabel.text = candy.wrap.name;
     self.textLabel.text = nil;
+    [self.progressBar setContribution:self.storedEntry];
+    self.composeBar.hidden =  self.avatarImageView.hidden = self.storedEntry == nil;
+     self.composeBar.text = [self.storedEntry text];
 }
 
 + (CGFloat)heightCell:(id)entry {
@@ -138,12 +156,16 @@
 }
 
 - (void)sendMessageWithText:(NSString *)text {
+    __weak __typeof(self)weakSelf = self;
     if ([self.entry valid]) {
         [WLSoundPlayer playSound:WLSound_s04];
-        WLComment *comment = [self.entry uploadComment:[text trim] success:^(WLComment *comment) {
+        id entry = [self.entry uploadComment:[text trim] success:^(WLComment *comment) {
+            [weakSelf.composeBar performSelector:@selector(setText:) withObject:text afterDelay:0.0f];
         } failure:^(NSError *error) {
         }];
-        [self.progressBar setContribution:comment];
+        if ([self.delegate respondsToSelector:@selector(notificationCell:createEntry:)]) {
+            [self.delegate notificationCell:self createEntry:entry];
+        }
     }
 }
 

@@ -16,6 +16,9 @@ const static CGFloat WLNotificationCommentVerticalSpacing = 78.0f;
 @protocol WLNotificationCellDelegate <NSObject>
 
 - (void)notificationCell:(WLNotificationCell *)cell didRetryMessageThroughComposeBar:(WLComposeBar *)composeBar;
+- (void)notificationCell:(WLNotificationCell *)cell createEntry:(id)entry;
+- (id)notificationCell:(WLNotificationCell *)cell createdEntry:(id)entry;
+
 
 @end
 

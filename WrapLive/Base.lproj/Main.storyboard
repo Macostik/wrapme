@@ -327,7 +327,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <outlet property="delegate" destination="iF1-u8-BW0" id="ywJ-h4-4hg"/>
+                                                        <outlet property="delegate" destination="iF1-u8-BW0" id="GTE-Ll-ZFs"/>
                                                         <outlet property="doneButton" destination="qxt-qg-HBo" id="rdL-1Q-OYk"/>
                                                         <outlet property="heightConstraint" destination="bZO-xo-8xe" id="MJu-3H-ZQu"/>
                                                         <outlet property="horizontalSpaceDoneButtonContstraint" destination="fPp-Yi-uVf" id="dEI-zN-zCW"/>
@@ -382,7 +382,7 @@
                                                         <outlet property="delegate" destination="iF1-u8-BW0" id="h6Z-nt-Flw"/>
                                                     </connections>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ilf-Mf-hAy" customClass="WLImageView">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ilf-Mf-hAy" customClass="WLImageView">
                                                     <rect key="frame" x="74" y="97" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -396,7 +396,7 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2bI-Lg-ny7" customClass="WLProgressBar">
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2bI-Lg-ny7" customClass="WLProgressBar">
                                                     <rect key="frame" x="74" y="97" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -405,7 +405,6 @@
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="ilf-Mf-hAy" secondAttribute="bottom" constant="3" id="16H-QJ-r18"/>
                                             <constraint firstAttribute="trailing" secondItem="Ckb-hU-igb" secondAttribute="trailing" id="2ow-jz-T78"/>
                                             <constraint firstItem="ilf-Mf-hAy" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="74" id="6lN-cB-QR0"/>
                                             <constraint firstItem="Ges-BB-Uma" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="12" id="8pZ-k4-H4o"/>
@@ -421,6 +420,7 @@
                                             <constraint firstItem="7nH-rK-CBH" firstAttribute="top" secondItem="FBj-ps-Q2W" secondAttribute="bottom" id="UDV-Ze-Ils"/>
                                             <constraint firstItem="NnN-ec-DhQ" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="12" id="UFU-3j-eIN"/>
                                             <constraint firstItem="FBj-ps-Q2W" firstAttribute="top" secondItem="ZhB-Wt-rBP" secondAttribute="bottom" id="VLI-pI-jL4"/>
+                                            <constraint firstItem="Ckb-hU-igb" firstAttribute="centerY" secondItem="ilf-Mf-hAy" secondAttribute="centerY" constant="2" id="WYi-af-LDs"/>
                                             <constraint firstItem="Ckb-hU-igb" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="72" id="cQm-z0-QN2"/>
                                             <constraint firstAttribute="bottom" secondItem="Ges-BB-Uma" secondAttribute="bottom" id="ehz-un-lWk"/>
                                             <constraint firstItem="BD0-4T-LEV" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="12" id="exr-QC-RXU"/>
@@ -610,7 +610,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <outlet property="delegate" destination="RuV-Ws-o8X" id="Aoh-jJ-rcf"/>
+                                                        <outlet property="delegate" destination="RuV-Ws-o8X" id="KWM-W2-OHz"/>
                                                         <outlet property="doneButton" destination="LVq-3b-cTo" id="q87-ur-m7l"/>
                                                         <outlet property="heightConstraint" destination="HeA-Wk-6Vs" id="8A2-5z-amr"/>
                                                         <outlet property="horizontalSpaceDoneButtonContstraint" destination="tN3-jL-BJp" id="6MG-mE-70x"/>
@@ -665,7 +665,7 @@
                                                         <outlet property="delegate" destination="RuV-Ws-o8X" id="7NC-j8-e5b"/>
                                                     </connections>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Au2-E3-eLk" customClass="WLImageView">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Au2-E3-eLk" customClass="WLImageView">
                                                     <rect key="frame" x="74" y="97" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -679,7 +679,7 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWd-FQ-IWE" customClass="WLProgressBar">
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWd-FQ-IWE" customClass="WLProgressBar">
                                                     <rect key="frame" x="74" y="97" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -696,7 +696,6 @@
                                             <constraint firstItem="yQ5-Zl-CQt" firstAttribute="top" secondItem="qxv-Cb-5DK" secondAttribute="top" id="7Id-ym-Q24"/>
                                             <constraint firstItem="Au2-E3-eLk" firstAttribute="centerX" secondItem="YWd-FQ-IWE" secondAttribute="centerX" id="AIl-nW-bgR"/>
                                             <constraint firstItem="Au2-E3-eLk" firstAttribute="width" secondItem="YWd-FQ-IWE" secondAttribute="width" id="Dc2-El-hNo"/>
-                                            <constraint firstAttribute="bottom" secondItem="Au2-E3-eLk" secondAttribute="bottom" constant="3" id="EnL-Rx-0v0"/>
                                             <constraint firstItem="Au2-E3-eLk" firstAttribute="centerY" secondItem="YWd-FQ-IWE" secondAttribute="centerY" id="FP7-1o-aUG"/>
                                             <constraint firstItem="0YA-Wt-D43" firstAttribute="trailing" secondItem="hfB-G2-EYH" secondAttribute="trailing" id="Gnd-8J-kLL"/>
                                             <constraint firstAttribute="trailing" secondItem="syJ-Pe-nvd" secondAttribute="trailing" constant="12" id="Iap-Dp-CyH"/>
@@ -716,6 +715,7 @@
                                             <constraint firstAttribute="trailing" secondItem="aqj-IZ-kAu" secondAttribute="trailing" id="tYV-MC-VAN"/>
                                             <constraint firstAttribute="trailing" secondItem="Zla-VS-FNB" secondAttribute="trailing" constant="12" id="tZj-Gr-qPu"/>
                                             <constraint firstItem="qxv-Cb-5DK" firstAttribute="leading" secondItem="hfB-G2-EYH" secondAttribute="leading" id="wlk-LK-G4k"/>
+                                            <constraint firstItem="aqj-IZ-kAu" firstAttribute="centerY" secondItem="Au2-E3-eLk" secondAttribute="centerY" constant="2" id="yAj-Mx-yrg"/>
                                             <constraint firstItem="Zla-VS-FNB" firstAttribute="leading" secondItem="RuV-Ws-o8X" secondAttribute="leading" constant="12" id="zfB-zI-MYv"/>
                                             <constraint firstItem="yQ5-Zl-CQt" firstAttribute="leading" secondItem="RuV-Ws-o8X" secondAttribute="leading" constant="12" id="zsd-Gh-BUz"/>
                                         </constraints>
@@ -723,7 +723,7 @@
                                         <connections>
                                             <outlet property="avatarImageView" destination="Au2-E3-eLk" id="uV3-1V-cdB"/>
                                             <outlet property="composeBar" destination="aqj-IZ-kAu" id="bEZ-eD-96l"/>
-                                            <outlet property="delegate" destination="Sb9-ms-INl" id="U6r-Fa-VFW"/>
+                                            <outlet property="delegate" destination="Sb9-ms-INl" id="mAm-az-NNd"/>
                                             <outlet property="inWrapLabel" destination="0YA-Wt-D43" id="zFN-ci-Nhc"/>
                                             <outlet property="pictureView" destination="yQ5-Zl-CQt" id="BuL-oQ-0F9"/>
                                             <outlet property="progressBar" destination="YWd-FQ-IWE" id="4Ie-tx-NFm"/>
@@ -893,7 +893,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <outlet property="delegate" destination="IxJ-uW-dle" id="CTx-df-f7U"/>
+                                                        <outlet property="delegate" destination="IxJ-uW-dle" id="FIq-4x-MPS"/>
                                                         <outlet property="doneButton" destination="3tM-ie-FFR" id="2eG-Pt-V0w"/>
                                                         <outlet property="heightConstraint" destination="dqT-ge-uVw" id="mU8-dW-2gt"/>
                                                         <outlet property="horizontalSpaceDoneButtonContstraint" destination="FrS-gz-uX7" id="qnq-hb-kse"/>
@@ -940,7 +940,7 @@
                                                         <outlet property="delegate" destination="IxJ-uW-dle" id="j1Y-qW-f4t"/>
                                                     </connections>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="afi-eT-Zmp" customClass="WLImageView">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="afi-eT-Zmp" customClass="WLImageView">
                                                     <rect key="frame" x="74" y="97" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -954,7 +954,7 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rky-JL-t3y" customClass="WLProgressBar">
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rky-JL-t3y" customClass="WLProgressBar">
                                                     <rect key="frame" x="74" y="97" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -971,6 +971,7 @@
                                             <constraint firstItem="6uU-Dh-9gQ" firstAttribute="top" secondItem="8v6-uj-wmp" secondAttribute="bottom" constant="-2" id="Cmp-lO-JBe"/>
                                             <constraint firstItem="yAK-Ic-ZAE" firstAttribute="leading" secondItem="2Z7-J3-deT" secondAttribute="leading" id="DzT-Hx-gzW"/>
                                             <constraint firstItem="vW7-cM-8Gv" firstAttribute="leading" secondItem="IxJ-uW-dle" secondAttribute="leading" constant="72" id="E3y-0x-cvx"/>
+                                            <constraint firstItem="afi-eT-Zmp" firstAttribute="centerY" secondItem="vW7-cM-8Gv" secondAttribute="centerY" constant="-2" id="KWB-Se-n9N"/>
                                             <constraint firstAttribute="bottom" secondItem="mdz-vI-GxT" secondAttribute="bottom" id="KiO-nd-WD3"/>
                                             <constraint firstItem="8v6-uj-wmp" firstAttribute="leading" secondItem="IxJ-uW-dle" secondAttribute="leading" constant="12" id="LEc-89-G3K"/>
                                             <constraint firstItem="afi-eT-Zmp" firstAttribute="leading" secondItem="IxJ-uW-dle" secondAttribute="leading" constant="74" id="QY8-RM-tQH"/>
@@ -981,7 +982,6 @@
                                             <constraint firstItem="mdz-vI-GxT" firstAttribute="top" secondItem="vW7-cM-8Gv" secondAttribute="bottom" id="ZU8-eg-cTN"/>
                                             <constraint firstItem="mdz-vI-GxT" firstAttribute="leading" secondItem="IxJ-uW-dle" secondAttribute="leading" constant="12" id="cNa-OV-78l"/>
                                             <constraint firstItem="afi-eT-Zmp" firstAttribute="centerX" secondItem="rky-JL-t3y" secondAttribute="centerX" id="dbZ-x7-2vz"/>
-                                            <constraint firstAttribute="bottom" secondItem="afi-eT-Zmp" secondAttribute="bottom" constant="3" id="g2x-qp-da4"/>
                                             <constraint firstItem="yAK-Ic-ZAE" firstAttribute="trailing" secondItem="b4p-A8-lgh" secondAttribute="trailing" id="iQ2-Fb-1yv"/>
                                             <constraint firstItem="yAK-Ic-ZAE" firstAttribute="leading" secondItem="b4p-A8-lgh" secondAttribute="leading" id="kTX-Kj-9Qn"/>
                                             <constraint firstItem="lFp-aL-Zez" firstAttribute="trailing" secondItem="b4p-A8-lgh" secondAttribute="trailing" id="li1-Mh-16p"/>

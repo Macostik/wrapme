@@ -14,6 +14,7 @@
 #import "WLComposeBar.h"
 
 @interface WLNotificationCollectionViewSection () <WLFontPresetterReceiver>
+@property (strong, nonatomic) NSMapTable *createdEntry;
 @property (strong, nonatomic) NSIndexPath *retryIndexPath;
 @property (strong, nonatomic) WLComposeBar *composeBar;
 @end
@@ -30,6 +31,7 @@
 
 - (void)setup {
     [super setup];
+    self.createdEntry = [NSMapTable weakToWeakObjectsMapTable];
     [[WLFontPresetter presetter] addReceiver:self];
 }
 
@@ -71,7 +73,14 @@
 - (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
     self.composeBar = composeBar;
     [self.collectionView performBatchUpdates:nil completion:nil];
-    
+}
+
+- (void)notificationCell:(WLNotificationCell *)cell createEntry:(id)entry {
+    [self.createdEntry setObject:entry forKey:cell.entry];
+}
+
+- (id)notificationCell:(WLNotificationCell *)cell createdEntry:(id)entry {
+    return [self.createdEntry objectForKey:entry];
 }
 
 @end

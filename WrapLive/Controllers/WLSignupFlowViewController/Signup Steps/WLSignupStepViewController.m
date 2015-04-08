@@ -32,6 +32,13 @@
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    if (self.navigationController == nil) {
+        self.view = nil;
+    }
+}
+
 - (NSMutableDictionary *)completionBlocks {
     if (!_completionBlocks) {
         _completionBlocks = [NSMutableDictionary dictionary];

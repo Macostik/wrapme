@@ -42,6 +42,8 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 @property (strong, nonatomic) NSDate* date;
 
+@property (strong, nonatomic) NSDate *publishedAt;
+
 @property (strong, nonatomic) Class entryClass;
 
 @property (strong, nonatomic) NSString* entryIdentifier;

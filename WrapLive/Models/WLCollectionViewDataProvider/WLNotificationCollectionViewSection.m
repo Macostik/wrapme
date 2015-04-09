@@ -14,9 +14,11 @@
 #import "WLComposeBar.h"
 
 @interface WLNotificationCollectionViewSection () <WLFontPresetterReceiver>
+
 @property (strong, nonatomic) NSMapTable *createdEntry;
-@property (strong, nonatomic) NSIndexPath *retryIndexPath;
-@property (strong, nonatomic) WLComposeBar *composeBar;
+@property (strong, nonatomic) NSMutableOrderedSet *retryIndexPathSet;
+@property (assign, nonatomic) CGFloat addHeight;
+
 @end
 
 @implementation WLNotificationCollectionViewSection
@@ -32,6 +34,7 @@
 - (void)setup {
     [super setup];
     self.createdEntry = [NSMapTable weakToWeakObjectsMapTable];
+    self.retryIndexPathSet = [NSMutableOrderedSet orderedSet];
     [[WLFontPresetter presetter] addReceiver:self];
 }
 
@@ -40,15 +43,13 @@
     CGFloat textHeight = .0;
     textHeight = [entry isKindOfClass:[WLCandy class]] ? [WLCandyNotificationCell heightCell:entry] : [WLNotificationCell heightCell:entry];
     
-    if (self.retryIndexPath != nil && [self.retryIndexPath compare:indexPath] == NSOrderedSame) {
-        textHeight += self.composeBar.height;
+    for (NSIndexPath *_indexPath in self.retryIndexPathSet) {
+        if  ([_indexPath compare:indexPath] == NSOrderedSame) {
+            textHeight += self.addHeight;
+        }
     }
     
     return CGSizeMake(WLConstants.screenWidth, textHeight + WLNotificationCommentVerticalSpacing);
-}
-
-- (BOOL)validIndexPath {
-    return self.retryIndexPath.item != NSNotFound;
 }
 
 #pragma mark - WLFontPresetterReceiver
@@ -59,19 +60,27 @@
 
 #pragma mark - WLNotificationCellDelegate 
 
-- (void)notificationCell:(WLNotificationCell *)cell didRetryMessageThroughComposeBar:(WLComposeBar *)composeBar {
-    self.retryIndexPath = [self.collectionView indexPathForCell:cell];
-    if ([self validIndexPath]) {
-        self.retryIndexPath = !composeBar.hidden ? self.retryIndexPath : nil;
-        self.composeBar = composeBar;
-        [self.collectionView performBatchUpdates:nil completion:nil];
+- (void)notificationCell:(WLNotificationCell *)cell didRetryMessageByComposeBar:(WLComposeBar *)composeBar {
+    NSIndexPath *indexPath =  [self.collectionView indexPathForCell:cell];
+    NSIndexPath *existingIndexPath = [self openedIndexPath:indexPath];
+    if (existingIndexPath) {
+        [self.retryIndexPathSet removeObject:existingIndexPath];
+    } else {
+        [self.retryIndexPathSet addObject:indexPath];
     }
+    self.addHeight = composeBar.height;
+    [self.collectionView performBatchUpdates:nil completion:nil];
 }
 
-#pragma mark - WLComposeBar
+- (void)notificationCell:(WLNotificationCell *)cell didChangeHeightComposeBar:(WLComposeBar *)composeBar {
+    if (composeBar.height > 41) {
+        self.addHeight = composeBar.height;
+    }
+    [self.collectionView performBatchUpdates:nil completion:nil];
+}
 
-- (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
-    self.composeBar = composeBar;
+- (void)notificationCell:(WLNotificationCell *)cell calculateHeightTextView:(CGFloat)height {
+    self.addHeight = MAX(height, 40);
     [self.collectionView performBatchUpdates:nil completion:nil];
 }
 
@@ -81,6 +90,15 @@
 
 - (id)notificationCell:(WLNotificationCell *)cell createdEntry:(id)entry {
     return [self.createdEntry objectForKey:entry];
+}
+
+- (NSIndexPath*)openedIndexPath:(NSIndexPath*)indexPath {
+    for (NSIndexPath* _indexPath in self.retryIndexPathSet) {
+        if ([_indexPath compare:indexPath] == NSOrderedSame) {
+            return _indexPath;
+        }
+    }
+    return nil;
 }
 
 @end

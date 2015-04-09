@@ -16,6 +16,10 @@ static inline float progressValue(float progress) {
 };
 
 - (void)setContribution:(WLContribution *)contribution {
+    [self setContribution:contribution isHideProgress:YES];
+}
+
+- (void)setContribution:(WLContribution *)contribution isHideProgress:(BOOL)hide {
     if (!contribution) {
         self.hidden = YES;
         return;
@@ -30,7 +34,7 @@ static inline float progressValue(float progress) {
                 [weakSelf setProgress:progress animated:animated];
                 if (progress == 1) {
                     run_after(1.0f, ^{
-                        weakSelf.hidden = YES;
+                        weakSelf.hidden = hide;
                     });
                 }
             };

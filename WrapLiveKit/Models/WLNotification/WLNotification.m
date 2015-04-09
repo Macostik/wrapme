@@ -283,6 +283,9 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@",
                               [NSDate sinceWeekAgo], [WLUser currentUser]];
     NSMutableOrderedSet *contribution = [WLContribution entriesWithPredicate:predicate sorterByKey:@"createdAt"];
+    [contribution removeObjectsWhileEnumerating:^BOOL(WLEntry *entry) {
+        return [entry isKindOfClass:[WLWrap class]];
+    }];
     return contribution;
 }
 

@@ -181,7 +181,7 @@
 }
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
-    BOOL hidden = (/*[[WLSession confirmationDate] isToday] || */![[WLAuthorization currentAuthorization] unconfirmed_email].nonempty);
+    BOOL hidden = ([[WLSession confirmationDate] isToday] || ![[WLAuthorization currentAuthorization] unconfirmed_email].nonempty);
     if (!hidden) {
         self.verificationEmailLabel.attributedText = [WLAuthorization attributedVerificationSuggestion];
         [self deadlineEmailConfirmationView];

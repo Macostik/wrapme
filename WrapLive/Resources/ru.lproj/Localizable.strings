@@ -46,7 +46,6 @@
 "No contact data." = "Нет контактной информации.";
 "You cannot add yourself." = "Вы не можете добавить самого себя.";
 "This contact is already added." = "Этот котакт уже существует.";
-"name contains[c] %@" = "имя контакта[c] %@";
 "picture" = "картинка";
 "email" = "почта";
 "phones" = "телефоны";

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
@@ -23,7 +25,7 @@
         <!--events-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="events" id="AgC-eL-Hgc" customClass="WLWKEventsController">
+                <controller identifier="events" spacing="0.0" id="AgC-eL-Hgc" customClass="WLWKEventsController">
                     <items>
                         <table alignment="left" id="iyS-2n-l0O">
                             <items>
@@ -60,27 +62,41 @@
                                     </connections>
                                 </tableRow>
                                 <tableRow identifier="candy" id="OoZ-GV-okk" customClass="WLWKCandyEventRow">
-                                    <group key="rootItem" width="1" height="156" alignment="left" contentMode="scaleAspectFill" animationDuration="0.59999999999999998" radius="0.0" spacing="0.0" id="vkL-k8-NHu">
+                                    <group key="rootItem" width="1" height="136" alignment="left" layout="vertical" radius="0.0" spacing="0.0" id="vkL-k8-NHu">
                                         <items>
-                                            <group width="1" alignment="left" id="xLU-2A-pMR">
+                                            <group width="1" alignment="center" verticalAlignment="bottom" backgroundImage="simple_gradient" layout="vertical" radius="0.0" spacing="0.0" id="xLU-2A-pMR">
                                                 <items>
                                                     <label alignment="left" verticalAlignment="center" text="text" textAlignment="left" numberOfLines="0" id="7wg-8q-jSs">
-                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="12"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                    </label>
+                                                    <label alignment="left" verticalAlignment="center" text="text" textAlignment="left" numberOfLines="0" id="hEJ-g4-zYi">
+                                                        <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                    </label>
+                                                    <label alignment="left" verticalAlignment="center" text="text" textAlignment="left" numberOfLines="0" id="W5b-9z-OPw">
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                                     </label>
                                                 </items>
-                                                <color key="backgroundColor" white="0.10100000351667404" alpha="0.5" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                             </group>
                                         </items>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                        <variation key="device=watch38mm" height="136"/>
+                                        <variation key="device=watch42mm" height="156"/>
                                         <connections>
                                             <segue destination="5u8-yz-26Q" kind="push" id="uNY-jj-NYk"/>
                                         </connections>
                                     </group>
                                     <connections>
+                                        <outlet property="dataGroup" destination="xLU-2A-pMR" id="Ixg-fc-cZi"/>
+                                        <outlet property="dateLabel" destination="W5b-9z-OPw" id="6Kb-cg-d51"/>
                                         <outlet property="group" destination="vkL-k8-NHu" id="0SV-Yk-O4f"/>
-                                        <outlet property="text" destination="7wg-8q-jSs" id="oeW-Dm-MLA"/>
+                                        <outlet property="photoByLabel" destination="7wg-8q-jSs" id="Ept-cD-Vrk"/>
+                                        <outlet property="wrapNameLabel" destination="hEJ-g4-zYi" id="dE6-2T-HnY"/>
                                     </connections>
                                 </tableRow>
                                 <tableRow identifier="error" id="xnS-Rj-tN0" userLabel="error" customClass="WLWKErrorRow">
@@ -103,6 +119,7 @@
                         </table>
                     </items>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="table" destination="iyS-2n-l0O" id="0uf-Qt-re4"/>
                     </connections>
@@ -113,7 +130,7 @@
         <!--candy-->
         <scene sceneID="cLL-hq-3cp">
             <objects>
-                <controller identifier="candy" id="5u8-yz-26Q" customClass="WLWKCandyController">
+                <controller identifier="candy" spacing="0.0" id="5u8-yz-26Q" customClass="WLWKCandyController">
                     <items>
                         <group width="1" alignment="left" layout="vertical" radius="0.0" id="kQ4-Hy-fd6">
                             <items>
@@ -168,6 +185,7 @@
                         </group>
                     </items>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="image" destination="6xC-kw-3Sk" id="1EL-pw-KXe"/>
                         <outlet property="table" destination="l82-W0-vgm" id="S1M-E6-RJs"/>
@@ -179,7 +197,7 @@
         <!--presets-->
         <scene sceneID="DIS-fr-IpB">
             <objects>
-                <controller identifier="presets" id="MCS-JV-aaM" customClass="WLWKReplyPresetsController">
+                <controller identifier="presets" spacing="0.0" id="MCS-JV-aaM" customClass="WLWKReplyPresetsController">
                     <items>
                         <group width="1" alignment="left" radius="0.0" id="gOe-8F-ZMY">
                             <items>
@@ -207,6 +225,7 @@
                         </group>
                     </items>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="table" destination="yKL-qJ-vsL" id="Uw5-No-OAj"/>
                     </connections>
@@ -241,7 +260,7 @@
         <!--Notification Controller-->
         <scene sceneID="eQT-S3-poY">
             <objects>
-                <controller id="ImZ-AM-if7" customClass="WLWKNotificationController">
+                <controller spacing="0.0" id="ImZ-AM-if7" customClass="WLWKNotificationController">
                     <items>
                         <group width="1" alignment="left" layout="vertical" radius="0.0" id="tkG-b3-hT1">
                             <items>
@@ -271,6 +290,7 @@
                         </group>
                     </items>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="image" destination="uee-BH-wcj" id="Nil-TI-7T4"/>
                         <outlet property="label" destination="7l1-25-HMV" id="oNM-Xn-bXz"/>

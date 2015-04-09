@@ -54,7 +54,7 @@
 "Bop-dI-sMz.text" = "Добавить друзей";
 
 /* Class = "IBUILabel"; text = "Email confirmation"; ObjectID = "CSs-OC-vDg"; */
-"CSs-OC-vDg.text" = "Пожалуйста, подтверждите Вашу почту";
+"CSs-OC-vDg.text" = "Пожалуйста, подтвердите Вашу почту";
 
 /* Class = "IBUITextField"; placeholder = "Your name"; ObjectID = "D1N-1e-psu"; */
 "D1N-1e-psu.placeholder" = "Ваше имя";
@@ -105,7 +105,7 @@
 "N9a-4s-fUi.text" = "By Bartholome O'Connell II";
 
 /* Class = "IBUILabel"; text = "Email confirmation"; ObjectID = "Nim-LA-uPS"; */
-"Nim-LA-uPS.text" = "Пожалуйста, подтверждите Вашу почту";
+"Nim-LA-uPS.text" = "Пожалуйста, подтвердите Вашу почту";
 
 /* Class = "IBUIButton"; normalTitle = "wrap name"; ObjectID = "PcB-Yh-hjT"; */
 "PcB-Yh-hjT.normalTitle" = "Имя врапа";
@@ -129,7 +129,7 @@
 "Twb-Mn-vNw.text" = "Имя врапа";
 
 /* Class = "IBUILabel"; text = "You haven't confirmed your e-mail address yet. Please check your e-mail."; ObjectID = "UL6-dF-3Kj"; */
-"UL6-dF-3Kj.text" = "Вы не подтвердили Вашу почту еще. Пожалуйста, проверте ее.";
+"UL6-dF-3Kj.text" = "Вы еще не подтвердили Вашу почту. Пожалуйста, проверте ее.";
 
 /* Class = "IBUITextField"; placeholder = "Name"; ObjectID = "Xmt-yf-g7R"; */
 "Xmt-yf-g7R.placeholder" = "Имя";
@@ -156,7 +156,7 @@
 "dYf-Sg-pHd.normalTitle" = "Отмена";
 
 /* Class = "IBUILabel"; text = "You haven't confirmed your e-mail address yet. Please check your e-mail."; ObjectID = "eHd-9o-24J"; */
-"eHd-9o-24J.text" = "Вы не подтвердили Вашу почту еще. Пожалуйста, проверьте ее.";
+"eHd-9o-24J.text" = "Вы еще не подтвердили Вашу почту. Пожалуйста, проверьте ее.";
 
 /* Class = "IBUILabel"; text = "Comment text g"; ObjectID = "ek8-rH-Jsu"; */
 "ek8-rH-Jsu.text" = "Текст комментария";

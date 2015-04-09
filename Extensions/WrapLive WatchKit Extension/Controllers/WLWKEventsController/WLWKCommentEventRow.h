@@ -10,7 +10,4 @@
 
 @interface WLWKCommentEventRow : WLWKEntryRow
 
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel *comment;
-@property (strong, nonatomic) IBOutlet WKInterfaceImage *icon;
-
 @end

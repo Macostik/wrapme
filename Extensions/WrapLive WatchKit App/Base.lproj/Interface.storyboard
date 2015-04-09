@@ -14,6 +14,8 @@
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
@@ -30,35 +32,53 @@
                         <table alignment="left" id="iyS-2n-l0O">
                             <items>
                                 <tableRow identifier="comment" id="WMP-cV-sdT" customClass="WLWKCommentEventRow">
-                                    <group key="rootItem" width="1" height="0.0" alignment="left" animationDuration="0.59999999999999998" layout="vertical" radius="0.0" spacing="0.0" id="RjA-rA-Wb2">
+                                    <group key="rootItem" width="1" height="136" alignment="left" animationDuration="0.59999999999999998" layout="vertical" radius="0.0" spacing="0.0" id="RjA-rA-Wb2">
                                         <items>
-                                            <group width="1" alignment="left" id="rdj-mU-lHJ">
+                                            <group width="1" alignment="left" verticalAlignment="bottom" backgroundImage="simple_gradient" layout="vertical" spacing="0.0" id="rdj-mU-lHJ">
                                                 <items>
-                                                    <label alignment="left" text="text" textAlignment="left" numberOfLines="0" id="Pyy-yw-gmE">
-                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="12"/>
+                                                    <group width="1" alignment="left" verticalAlignment="bottom" spacing="4" id="17B-FO-IXd">
+                                                        <items>
+                                                            <group width="40" height="40" alignment="left" verticalAlignment="center" contentMode="scaleAspectFill" radius="20" spacing="0.0" id="8q4-xK-lPJ">
+                                                                <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                            </group>
+                                                            <label alignment="left" text="very long comment text very long comment text" textAlignment="left" numberOfLines="2" id="Pyy-yw-gmE">
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="19"/>
+                                                            </label>
+                                                        </items>
+                                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                    </group>
+                                                    <label alignment="left" verticalAlignment="bottom" text="text" textAlignment="left" id="4Gx-Lw-LSq">
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                                     </label>
-                                                    <imageView width="40" height="40" alignment="right" id="XSK-F6-Sn5"/>
+                                                    <label alignment="left" verticalAlignment="bottom" text="text" textAlignment="left" id="xx6-re-wx6">
+                                                        <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                    </label>
+                                                    <label alignment="left" verticalAlignment="bottom" text="text" textAlignment="left" id="Zed-Mn-G3D">
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                    </label>
                                                 </items>
+                                                <edgeInsets key="margins" left="4" right="4" top="4" bottom="4"/>
                                             </group>
-                                            <label alignment="left" text="text" textAlignment="left" numberOfLines="0" id="4Gx-Lw-LSq">
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="12"/>
-                                            </label>
-                                            <separator alignment="left" id="PW1-tZ-A8e">
-                                                <color key="color" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
-                                            </separator>
                                         </items>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                        <variation key="device=watch38mm" height="136"/>
+                                        <variation key="device=watch42mm" height="156"/>
                                         <connections>
                                             <segue destination="5u8-yz-26Q" kind="push" id="Clu-VY-jc3"/>
                                         </connections>
                                     </group>
                                     <connections>
-                                        <outlet property="comment" destination="4Gx-Lw-LSq" id="zgg-j7-3gi"/>
-                                        <outlet property="icon" destination="XSK-F6-Sn5" id="EAd-Vw-XPv"/>
+                                        <outlet property="avatar" destination="8q4-xK-lPJ" id="uEm-aj-SuN"/>
+                                        <outlet property="dateLabel" destination="Zed-Mn-G3D" id="9iH-u9-L9J"/>
+                                        <outlet property="mainGroup" destination="RjA-rA-Wb2" id="JMY-e3-H0F"/>
+                                        <outlet property="photoByLabel" destination="4Gx-Lw-LSq" id="F2f-tg-ebH"/>
                                         <outlet property="text" destination="Pyy-yw-gmE" id="rDM-qi-GUY"/>
+                                        <outlet property="wrapNameLabel" destination="xx6-re-wx6" id="h5W-Gw-73Q"/>
                                     </connections>
                                 </tableRow>
                                 <tableRow identifier="candy" id="OoZ-GV-okk" customClass="WLWKCandyEventRow">
@@ -66,21 +86,21 @@
                                         <items>
                                             <group width="1" alignment="center" verticalAlignment="bottom" backgroundImage="simple_gradient" layout="vertical" radius="0.0" spacing="0.0" id="xLU-2A-pMR">
                                                 <items>
-                                                    <label alignment="left" verticalAlignment="center" text="text" textAlignment="left" numberOfLines="0" id="7wg-8q-jSs">
+                                                    <label alignment="left" verticalAlignment="center" text="text" textAlignment="left" id="7wg-8q-jSs">
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                                     </label>
-                                                    <label alignment="left" verticalAlignment="center" text="text" textAlignment="left" numberOfLines="0" id="hEJ-g4-zYi">
+                                                    <label alignment="left" verticalAlignment="center" text="text" textAlignment="left" id="hEJ-g4-zYi">
                                                         <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                                     </label>
-                                                    <label alignment="left" verticalAlignment="center" text="text" textAlignment="left" numberOfLines="0" id="W5b-9z-OPw">
+                                                    <label alignment="left" verticalAlignment="center" text="text" textAlignment="left" id="W5b-9z-OPw">
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                                     </label>
                                                 </items>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                <edgeInsets key="margins" left="4" right="4" top="4" bottom="4"/>
                                             </group>
                                         </items>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -102,10 +122,9 @@
                                 <tableRow identifier="error" id="xnS-Rj-tN0" userLabel="error" customClass="WLWKErrorRow">
                                     <group key="rootItem" width="1" height="100" alignment="left" contentMode="scaleAspectFill" animationDuration="0.59999999999999998" layout="vertical" radius="0.0" spacing="0.0" id="vvx-eG-fSN">
                                         <items>
-                                            <label alignment="left" verticalAlignment="center" textAlignment="left" numberOfLines="0" id="6lc-1Q-Z11">
-                                                <string key="text">detailed localized Error description detailed localized Error description detailed localized Error description detailed localized Error description</string>
+                                            <label alignment="center" verticalAlignment="center" text="Error" textAlignment="left" numberOfLines="0" id="6lc-1Q-Z11">
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="12"/>
+                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                             </label>
                                         </items>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

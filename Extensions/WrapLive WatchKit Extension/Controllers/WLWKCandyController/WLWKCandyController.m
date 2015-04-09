@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *wrapNameLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *dateLabel;
 
-@property (strong, nonatomic) WLCandy* candy;
+@property (weak, nonatomic) WLCandy* candy;
 
 @end
 

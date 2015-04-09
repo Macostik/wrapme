@@ -374,7 +374,7 @@
 		C506466B1ABD815200CB4BE3 /* WLWKCommentRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D71ABD815200CB4BE3 /* WLWKCommentRow.m */; };
 		C50646791ABD815200CB4BE3 /* WLWKCommentEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DC1ABD815200CB4BE3 /* WLWKCommentEventRow.m */; };
 		C50646801ABD815200CB4BE3 /* WLWKEntryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */; };
-		C50646871ABD815200CB4BE3 /* WLWKEventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E01ABD815200CB4BE3 /* WLWKEventsController.m */; };
+		C50646871ABD815200CB4BE3 /* WLWKContributionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */; };
 		C508E7D31987A396002998CE /* WLCollectionViewDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C508E7D21987A396002998CE /* WLCollectionViewDataProvider.m */; };
 		C508E7D61987A696002998CE /* WLCollectionViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C508E7D51987A696002998CE /* WLCollectionViewSection.m */; };
 		C509CCFB199E0B38006B00AA /* WLCandiesViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C509CCFA199E0B38006B00AA /* WLCandiesViewSection.m */; };
@@ -1417,7 +1417,7 @@
 		C5E54B501ACBF9CE00444F7B /* WLWKCommentEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DC1ABD815200CB4BE3 /* WLWKCommentEventRow.m */; };
 		C5E54B511ACBF9CE00444F7B /* WLWKEntryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */; };
 		C5E54B521ACBF9CE00444F7B /* WLWKErrorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */; };
-		C5E54B531ACBF9CE00444F7B /* WLWKEventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E01ABD815200CB4BE3 /* WLWKEventsController.m */; };
+		C5E54B531ACBF9CE00444F7B /* WLWKContributionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */; };
 		C5EFCE0D1ACE9798009A2EAE /* PNObservationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EFCCF11ACE9797009A2EAE /* PNObservationCenter.m */; };
 		C5EFCE0E1ACE9798009A2EAE /* PNObservationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EFCCF11ACE9797009A2EAE /* PNObservationCenter.m */; };
 		C5EFCE0F1ACE9798009A2EAE /* PNObservationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EFCCF11ACE9797009A2EAE /* PNObservationCenter.m */; };
@@ -2414,8 +2414,8 @@
 		C50645DC1ABD815200CB4BE3 /* WLWKCommentEventRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKCommentEventRow.m; sourceTree = "<group>"; };
 		C50645DD1ABD815200CB4BE3 /* WLWKEntryRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKEntryRow.h; sourceTree = "<group>"; };
 		C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKEntryRow.m; sourceTree = "<group>"; };
-		C50645DF1ABD815200CB4BE3 /* WLWKEventsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKEventsController.h; sourceTree = "<group>"; };
-		C50645E01ABD815200CB4BE3 /* WLWKEventsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKEventsController.m; sourceTree = "<group>"; };
+		C50645DF1ABD815200CB4BE3 /* WLWKContributionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKContributionsController.h; sourceTree = "<group>"; };
+		C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKContributionsController.m; sourceTree = "<group>"; };
 		C50645E21ABD815200CB4BE3 /* WrapLiveWatchKitExtension-Development-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLiveWatchKitExtension-Development-Info.plist"; sourceTree = "<group>"; };
 		C50645E61ABD815200CB4BE3 /* CommentAPNS.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CommentAPNS.apns; sourceTree = "<group>"; };
 		C50646A71ABD82D400CB4BE3 /* WrapLiveWatchKitExtension-Production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLiveWatchKitExtension-Production-Info.plist"; sourceTree = "<group>"; };
@@ -4443,8 +4443,8 @@
 				C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */,
 				C55B25B71AC9BF0A0072E9D2 /* WLWKErrorRow.h */,
 				C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */,
-				C50645DF1ABD815200CB4BE3 /* WLWKEventsController.h */,
-				C50645E01ABD815200CB4BE3 /* WLWKEventsController.m */,
+				C50645DF1ABD815200CB4BE3 /* WLWKContributionsController.h */,
+				C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */,
 			);
 			path = WLWKEventsController;
 			sourceTree = "<group>";
@@ -7638,7 +7638,7 @@
 				C50646641ABD815200CB4BE3 /* WLWKCandyController.m in Sources */,
 				C506465D1ABD815200CB4BE3 /* WLWKReplyPresetsController.m in Sources */,
 				C50646791ABD815200CB4BE3 /* WLWKCommentEventRow.m in Sources */,
-				C50646871ABD815200CB4BE3 /* WLWKEventsController.m in Sources */,
+				C50646871ABD815200CB4BE3 /* WLWKContributionsController.m in Sources */,
 				C549B73E1AC0179B003623A7 /* WLWKCandyEventRow.m in Sources */,
 				C506464E1ABD815200CB4BE3 /* WLWKReplyPresetRow.m in Sources */,
 				C506466B1ABD815200CB4BE3 /* WLWKCommentRow.m in Sources */,
@@ -8512,7 +8512,7 @@
 			files = (
 				C552329F1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m in Sources */,
 				C5E54B511ACBF9CE00444F7B /* WLWKEntryRow.m in Sources */,
-				C5E54B531ACBF9CE00444F7B /* WLWKEventsController.m in Sources */,
+				C5E54B531ACBF9CE00444F7B /* WLWKContributionsController.m in Sources */,
 				C5E54B4F1ACBF9CE00444F7B /* WLWKCandyEventRow.m in Sources */,
 				C5E54B4D1ACBF9CE00444F7B /* WLWKCandyController.m in Sources */,
 				C5E54B521ACBF9CE00444F7B /* WLWKErrorRow.m in Sources */,

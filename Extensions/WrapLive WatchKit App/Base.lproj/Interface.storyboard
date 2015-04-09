@@ -30,7 +30,7 @@
         <!--events-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="events" spacing="0.0" id="AgC-eL-Hgc" customClass="WLWKEventsController">
+                <controller identifier="events" spacing="0.0" id="AgC-eL-Hgc" customClass="WLWKContributionsController">
                     <items>
                         <table alignment="left" id="iyS-2n-l0O">
                             <items>

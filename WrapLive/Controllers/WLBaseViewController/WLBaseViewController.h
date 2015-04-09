@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WLKeyboard.h"
 #import "GAITrackedViewController.h"
+#import <WrapLiveKit/WrapLiveKit.h>
 
 @interface WLBaseViewController : GAITrackedViewController <WLKeyboardBroadcastReceiver>
 
@@ -40,7 +41,10 @@
 
 - (void)awakeAfterInit;
 
-- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight;
+- (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight;
 
+- (CGFloat)constantForKeyboardAdjustmentTopConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight;
+
+- (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight;
 
 @end

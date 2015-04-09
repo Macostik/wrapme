@@ -91,7 +91,9 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 	}
 	NSString* text = [self.text trim];
 	if (text.nonempty) {
-		[self.delegate composeBar:self didFinishWithText:text];
+        if ([self.delegate respondsToSelector:@selector(composeBar:didFinishWithText:)]) {
+            [self.delegate composeBar:self didFinishWithText:text];
+        }
 	}
 	self.text = nil;
 }

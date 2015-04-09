@@ -34,19 +34,19 @@
 
 #pragma mark - WLToastAppearance
 
-- (BOOL)toastAppearanceShouldShowIcon:(WLToast *)toast {
+- (BOOL)toastAppearanceShouldShowIcon:(WLToastViewController *)controller {
 	return self.shouldShowIcon;
 }
 
-- (UIColor*)toastAppearanceBackgroundColor:(WLToast*)toast {
+- (UIColor*)toastAppearanceBackgroundColor:(WLToastViewController *)controller {
     return self.backgroundColor;
 }
 
-- (UIColor*)toastAppearanceTextColor:(WLToast*)toast {
+- (UIColor*)toastAppearanceTextColor:(WLToastViewController *)controller {
     return self.textColor;
 }
 
-- (UIViewContentMode)toastAppearanceContentMode:(WLToast *)toast {
+- (UIViewContentMode)toastAppearanceContentMode:(WLToastViewController *)controller {
     return self.contentMode;
 }
 
@@ -54,24 +54,16 @@
 
 @implementation WLToast
 
-+ (instancetype)toast {
-    static WLToast *toast = nil;
-    if (!toast) {
-        toast = [self new];
-    }
-    return toast;
-}
-
 + (void)showWithMessage:(NSString *)message {
     [WLToast showWithMessage:message appearance:[WLToastAppearance appearance]];
 }
 
 + (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance {
-    [[WLToast toast] showWithMessage:message appearance:appearance];
-}
-
-- (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance {
-    [WLToastViewController setMessage:message withAppearance:appearance];
+    WLToastWindow *window = [WLToastWindow sharedWindow];
+    [window setViewControllerAsRoot];
+    [window makeKeyAndVisible];
+    [window dismissAfterDelay];
+    [[[WLToastWindow sharedWindow] toastAsRootViewController] setMessage:message withAppearance:appearance];
 }
 
 @end
@@ -94,7 +86,10 @@ static WLToastWindow *sharedWindow = nil;
 
 - (void)setViewControllerAsRoot {
     sharedWindow.rootViewController = [[WLToastViewController alloc] initWithNibName:@"WLToast" bundle:nil];
-    [sharedWindow makeKeyAndVisible];
+    
+}
+
+- (void)dismissAfterDelay {
     [WLToastWindow cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
     [self performSelector:@selector(dismiss) withObject:nil afterDelay:WLToastDismissalDelay];
 }
@@ -132,28 +127,23 @@ static WLToastWindow *sharedWindow = nil;
 
 @implementation WLToastViewController
 
-+ (void)setMessage:(NSString *)message withAppearance:(id<WLToastAppearance>)appearance {
-    [[WLToastWindow sharedWindow] setViewControllerAsRoot];
-    [sharedWindow.toastAsRootViewController setMessage:message withAppearance:appearance];
-}
-
 - (void)setMessage:(NSString *)message withAppearance:(id<WLToastAppearance>)appearance {
     
-    self.iconView.hidden = [appearance respondsToSelector:@selector(toastAppearanceShouldShowIcon:)] ? ![appearance toastAppearanceShouldShowIcon:[WLToast toast]] : YES;
+    self.iconView.hidden = [appearance respondsToSelector:@selector(toastAppearanceShouldShowIcon:)] ? ![appearance toastAppearanceShouldShowIcon:self] : YES;
     
     if ([appearance respondsToSelector:@selector(toastAppearanceBackgroundColor:)]) {
-        self.contentView.backgroundColor = [appearance toastAppearanceBackgroundColor:[WLToast toast]];
+        self.contentView.backgroundColor = [appearance toastAppearanceBackgroundColor:self];
     }
     
     if ([appearance respondsToSelector:@selector(toastAppearanceTextColor:)]) {
-        self.messageLabel.textColor = [appearance toastAppearanceTextColor:[WLToast toast]];
+        self.messageLabel.textColor = [appearance toastAppearanceTextColor:self];
     }
     
     self.messageLabel.text = message;
     
     UIViewContentMode contentMode = UIViewContentModeBottom;
     if ([appearance respondsToSelector:@selector(toastAppearanceContentMode:)]) {
-        contentMode = [appearance toastAppearanceContentMode:[WLToast toast]];
+        contentMode = [appearance toastAppearanceContentMode:self];
     }
     
     if (self.topViewConstraint.constant != .0) {
@@ -194,7 +184,7 @@ static WLToastWindow *sharedWindow = nil;
 + (void)showPhotoDownloadingMessage {
     WLToastAppearance *appearance = [[WLToastAppearance alloc] init];
     appearance.shouldShowIcon = NO;
-    [WLToastViewController setMessage:[NSString stringWithFormat:WLLS(@"Downloading the photo now. It will be in \"%@\" album momentarily."), WLAlbumName] withAppearance:appearance];
+    [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Downloading the photo now. It will be in \"%@\" album momentarily."), WLAlbumName] appearance:appearance];
 }
 
 @end

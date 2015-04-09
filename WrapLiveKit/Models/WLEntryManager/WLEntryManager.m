@@ -57,7 +57,7 @@
     if (_model != nil) {
         return _model;
     }
-    NSURL *url = [[NSBundle bundleForClass:[WLEntryManager class]] URLForResource:@"CoreData" withExtension:@"momd"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"CoreData" withExtension:@"momd"];
     _model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
     return _model;
 }
@@ -113,6 +113,9 @@
 }
 
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier uploadIdentifier:(NSString*)uploadIdentifier {
+    if (!uploadIdentifier.nonempty) {
+        return [self entryOfClass:entryClass identifier:identifier];
+    }
     WLEntry* entry = [self cachedEntry:identifier];
     if (!entry) {
         if (!identifier.nonempty) return nil;

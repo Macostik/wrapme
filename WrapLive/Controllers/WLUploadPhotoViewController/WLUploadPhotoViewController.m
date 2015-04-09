@@ -15,14 +15,13 @@
 #import "WLComposeBar.h"
 #import "WLAlertView.h"
 
-static CGFloat WLHeightCoposeBarConstrain = 132.0;
-
-@interface WLUploadPhotoViewController () <AFPhotoEditorControllerDelegate>
+@interface WLUploadPhotoViewController () <AFPhotoEditorControllerDelegate, WLComposeBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet WLIconButton *editButton;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 
 @property (nonatomic) BOOL edited;
 
@@ -105,8 +104,14 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
     return UIInterfaceOrientationMaskAll;
 }
 
-- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
-    return self.view.height - WLHeightCoposeBarConstrain - CGRectGetMaxY(self.editButton.frame) - (self.view.height - keyboardHeight)/2;
+- (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
+    return ((keyboardHeight - self.bottomView.height) - (self.imageView.size.height/4 - self.composeBar.height/2)) * constraint.multiplier;
+}
+
+// MARK: - WLComposeBarDelegate
+
+- (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
+    [self keyboardWillShow:[WLKeyboard keyboard]];
 }
 
 @end

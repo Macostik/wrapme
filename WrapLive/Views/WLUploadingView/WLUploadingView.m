@@ -18,8 +18,6 @@
 
 @property (strong, nonatomic) CABasicAnimation* animation;
 
-@property (nonatomic) BOOL animating;
-
 @end
 
 @implementation WLUploadingView
@@ -61,8 +59,7 @@
         [self stopAnimating];
         return;
     }
-    if (self.animating) return;
-    self.animating = YES;
+    if ([self.arrowIcon.layer animationForKey:@"uploading"] != nil) return;
     [self.arrowIcon.layer addAnimation:self.animation forKey:@"uploading"];
     
 }
@@ -79,7 +76,6 @@
 }
 
 - (void)stopAnimating {
-    self.animating = NO;
     [self.arrowIcon.layer removeAnimationForKey:@"uploading"];
 }
 

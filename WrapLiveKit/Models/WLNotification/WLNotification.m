@@ -29,8 +29,10 @@
 		NSString* type = [data objectForKey:@"msg_type"];
 		if (type) {
 			WLNotification* notification = [[self alloc] init];
+            notification.identifier = [data stringForKey:@"msg_uid"];
 			notification.type = [type integerValue];
             [notification setup:data];
+            notification.publishedAt = [data dateForKey:@"msg_published_at"];
 			return notification;
 		}
 	}
@@ -38,7 +40,7 @@
 }
 
 - (NSString *)identifier {
-    if (!_identifier) {
+    if (!_identifier.nonempty) {
         _identifier = [NSString stringWithFormat:@"%lu_%@_%f", self.type, self.entryIdentifier, self.date.timestamp];
     }
     return _identifier;

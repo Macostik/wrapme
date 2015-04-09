@@ -57,7 +57,9 @@ static WLAuthorization* _authorization = nil;
             [userDefaults synchronize];
         }];
     } else {
-        [self setObject:nil key:WLSessionAuthorizationKey];
+        NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
+        [userDefaults setObject:nil forKey:WLAppGroupEncryptedAuthorization];
+        [userDefaults synchronize];
     }
 }
 

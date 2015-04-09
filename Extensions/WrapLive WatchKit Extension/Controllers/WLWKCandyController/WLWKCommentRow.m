@@ -14,11 +14,9 @@
 
 @interface WLWKCommentRow ()
 
-@property (strong, nonatomic) IBOutlet WKInterfaceLabel *contributorName;
-
-@property (strong, nonatomic) IBOutlet WKInterfaceImage *contributorImage;
-
 @property (strong, nonatomic) IBOutlet WKInterfaceLabel *dateLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *avatar;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *contributorNameLabel;
 
 @end
 
@@ -26,10 +24,10 @@
 
 - (void)setEntry:(WLComment *)comment {
     [super setEntry:comment];
-    self.contributorImage.url = comment.contributor.picture.small;
-    [self.contributorName setText:comment.contributor.name];
+    self.avatar.url = comment.contributor.picture.small;
+    [self.contributorNameLabel setText:comment.contributor.name];
     [self.text setText:comment.text];
-    [self.dateLabel setText:[comment.createdAt timeAgoStringAtAMPM]];
+    [self.dateLabel setText:[comment.createdAt timeAgoStringAtAMPM].stringByCapitalizingFirstCharacter];
 }
 
 @end

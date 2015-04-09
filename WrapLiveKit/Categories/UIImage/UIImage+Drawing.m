@@ -74,4 +74,18 @@
     [UIImagePNGRepresentation(self) writeToFile:path atomically:atomically];
 }
 
++ (UIImage*)gradient:(CGSize)size {
+    return [self draw:size opaque:NO scale:1 drawing:^(CGSize size) {
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        
+        CFArrayRef colors = (__bridge CFArrayRef) @[(id)[UIColor blackColor].CGColor, (id)[[UIColor blackColor] colorWithAlphaComponent:0.0].CGColor];
+        
+        CGGradientRef gradient = CGGradientCreateWithColors(NULL, colors, NULL);
+        
+        CGContextDrawLinearGradient(ctx, gradient, CGPointMake(size.width/2, size.height), CGPointMake(size.width/2, 0.0), kCGGradientDrawsAfterEndLocation);
+        
+        CGGradientRelease(gradient);
+    }];
+}
+
 @end

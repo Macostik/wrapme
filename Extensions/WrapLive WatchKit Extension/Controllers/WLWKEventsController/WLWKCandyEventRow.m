@@ -8,25 +8,22 @@
 
 #import "WLWKCandyEventRow.h"
 #import "WKInterfaceImage+WLImageFetcher.h"
-#import "WLUser+Extended.h"
-#import "WLCandy+Extended.h"
-#import "WLWrap+Extended.h"
-#import "NSDate+Additions.h"
 
 @interface WLWKCandyEventRow () <WLImageFetching>
+
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *dataGroup;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *photoByLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *wrapNameLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *dateLabel;
 
 @end
 
 @implementation WLWKCandyEventRow
 
 - (void)setEntry:(WLCandy *)entry {
-    [self.group setHeight:[WKInterfaceDevice currentDevice].screenBounds.size.width];
-    NSString *header = [NSString stringWithFormat:@"%@ in \"%@\"\n", entry.contributor.name, entry.wrap.name];
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:header attributes:@{NSFontAttributeName:[UIFont fontWithName:@"OpenSans-Light" size:10], NSForegroundColorAttributeName:[UIColor orangeColor]}];
-    NSString *time = [entry.updatedAt timeAgoStringAtAMPM];
-    NSMutableAttributedString *body = [[NSMutableAttributedString alloc] initWithString:time attributes:@{NSFontAttributeName:[UIFont fontWithName:@"OpenSans-Light" size:10],NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [text appendAttributedString:body];
-    [self.text setAttributedText:text];
+    [self.photoByLabel setText:[NSString stringWithFormat:@"Photo by %@", entry.contributor.name]];
+    [self.wrapNameLabel setText:entry.wrap.name];
+    [self.dateLabel setText:[entry.createdAt timeAgoStringAtAMPM].capitalizedString];
     self.group.url = entry.picture.small;
 }
 

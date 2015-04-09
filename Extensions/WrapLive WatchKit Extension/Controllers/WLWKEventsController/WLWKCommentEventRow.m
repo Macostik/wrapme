@@ -14,6 +14,12 @@
 #import "NSDate+Additions.h"
 #import "WKInterfaceImage+WLImageFetcher.h"
 
+@interface WLWKCommentEventRow ()
+
+
+
+@end
+
 @implementation WLWKCommentEventRow
 
 - (void)setEntry:(WLComment *)entry {

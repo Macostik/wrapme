@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -1559,20 +1559,20 @@
                                     <outlet property="countLabel" destination="hw2-sP-LBk" id="DNE-Ow-uoV"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh" customClass="WLTouchView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh" customClass="WLTouchView">
                                 <rect key="frame" x="138" y="64" width="178" height="77"/>
                                 <subviews>
-                                    <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-EK-LgH" customClass="WLTriangleView">
+                                    <view contentMode="top" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-EK-LgH" customClass="WLTriangleView">
                                         <rect key="frame" x="150" y="1" width="16" height="9"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="DYD-eK-tIS"/>
                                         </constraints>
                                     </view>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohz-Ik-QZ1">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ohz-Ik-QZ1">
                                         <rect key="frame" x="0.0" y="10" width="178" height="67"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ka-0F-dc5" customClass="WLLabel">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ka-0F-dc5" customClass="WLLabel">
                                                 <rect key="frame" x="10" y="10" width="158" height="47"/>
                                                 <string key="text">Create wrap is easy!
 Tap here to start.</string>
@@ -1791,6 +1791,7 @@ Tap here to start.</string>
                                 <color key="separatorColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="qNt-W5-WmQ">
+                                    <rect key="frame" x="0.0" y="272" width="320" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
@@ -1868,7 +1869,7 @@ Tap here to start.</string>
                                                         <action selector="select:" destination="kXA-uP-KGc" eventType="touchUpInside" id="Jh1-Ab-mzz"/>
                                                     </connections>
                                                 </button>
-                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="194" translatesAutoresizingMaskIntoConstraints="NO" id="Kag-WO-QAb" customClass="WLLabel">
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="194" translatesAutoresizingMaskIntoConstraints="NO" id="Kag-WO-QAb" customClass="WLLabel">
                                                     <rect key="frame" x="72" y="35" width="178" height="18"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
@@ -2521,10 +2522,10 @@ Tap here to start.</string>
                                     <outlet property="delegate" destination="6Bj-MV-XWG" id="laQ-VS-Bd8"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aqT-yE-MER">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aqT-yE-MER">
                                 <rect key="frame" x="0.0" y="64" width="320" height="45"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSv-FG-iwF">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSv-FG-iwF">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal">
@@ -2534,13 +2535,13 @@ Tap here to start.</string>
                                             <action selector="push:" destination="9U2-ec-pwr" eventType="touchUpInside" id="4H7-mj-Zxu"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="4dW-aC-27b">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="horizontal_separator_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="4dW-aC-27b">
                                         <rect key="frame" x="0.0" y="44" width="320" height="1"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="VXo-Fy-eal"/>
                                         </constraints>
                                     </imageView>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frineds name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dW-gY-pJQ" customClass="WLLabel">
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Frineds name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dW-gY-pJQ" customClass="WLLabel">
                                         <rect key="frame" x="12" y="12" width="254" height="21"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration" label=""/>
@@ -2551,7 +2552,7 @@ Tap here to start.</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppT-EU-1XX">
+                                    <button contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppT-EU-1XX">
                                         <rect key="frame" x="266" y="0.0" width="54" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -2844,7 +2845,7 @@ Tap here to start.</string>
                                                     <rect key="frame" x="150" y="252" width="20" height="20"/>
                                                     <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </activityIndicatorView>
-                                                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="TvM-gd-tcr" customClass="WLLabel">
+                                                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="TvM-gd-tcr" customClass="WLLabel">
                                                     <rect key="frame" x="32" y="80" width="256" height="82"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="256" id="0ZQ-Sa-W7T"/>
@@ -3532,10 +3533,10 @@ Check your internet connection and try again.</string>
                                                         <constraint firstAttribute="width" constant="48" id="P0S-1X-Xlx"/>
                                                     </constraints>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPa-oY-X5B">
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WPa-oY-X5B">
                                                     <rect key="frame" x="139" y="0.0" width="109" height="48"/>
                                                     <subviews>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="0OD-Cn-Lp6" customClass="WLTextView">
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="0OD-Cn-Lp6" customClass="WLTextView">
                                                             <rect key="frame" x="5" y="0.0" width="99" height="30"/>
                                                             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="tintColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3546,7 +3547,7 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </textView>
-                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="v2z-k0-EKs" customClass="WLLabel">
+                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="v2z-k0-EKs" customClass="WLLabel">
                                                             <rect key="frame" x="5" y="0.0" width="99" height="18"/>
                                                             <color key="backgroundColor" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
@@ -3559,7 +3560,7 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="Lc4-Kr-oEr" customClass="WLLabel">
+                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="Lc4-Kr-oEr" customClass="WLLabel">
                                                             <rect key="frame" x="5" y="30" width="99" height="18"/>
                                                             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="0.95000000000000007" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
@@ -3579,7 +3580,7 @@ Check your internet connection and try again.</string>
                                                                 <constraint firstAttribute="width" constant="5" id="2rb-BM-ANI"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chat_bubble_gray_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="CWO-21-w70">
+                                                        <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" image="chat_bubble_gray_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="CWO-21-w70">
                                                             <rect key="frame" x="104" y="0.0" width="5" height="48"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -3673,10 +3674,10 @@ Check your internet connection and try again.</string>
                                                         <constraint firstAttribute="width" constant="48" id="rOt-xb-fLK"/>
                                                     </constraints>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G61-oI-Ifc">
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G61-oI-Ifc">
                                                     <rect key="frame" x="72" y="0.0" width="109" height="48"/>
                                                     <subviews>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="cMC-ND-b5t" customClass="WLTextView">
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="cMC-ND-b5t" customClass="WLTextView">
                                                             <rect key="frame" x="5" y="0.0" width="99" height="30"/>
                                                             <color key="backgroundColor" red="0.98823529409999999" green="0.60784313729999995" blue="0.35294117650000001" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="tintColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3687,7 +3688,7 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </textView>
-                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="HUe-Pv-h6W" customClass="WLLabel">
+                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="HUe-Pv-h6W" customClass="WLLabel">
                                                             <rect key="frame" x="5" y="0.0" width="99" height="18"/>
                                                             <color key="backgroundColor" red="0.9882352941176471" green="0.60784313725490191" blue="0.35294117647058826" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
@@ -3700,7 +3701,7 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="BDu-zS-cNB" customClass="WLLabel">
+                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="BDu-zS-cNB" customClass="WLLabel">
                                                             <rect key="frame" x="5" y="30" width="99" height="18"/>
                                                             <color key="backgroundColor" red="0.9882352941176471" green="0.60784313725490191" blue="0.35294117647058826" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
@@ -3720,7 +3721,7 @@ Check your internet connection and try again.</string>
                                                                 <constraint firstAttribute="width" constant="5" id="cCF-r1-ys9"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chat_bubble_red_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="kCd-6X-09D">
+                                                        <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" image="chat_bubble_red_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="kCd-6X-09D">
                                                             <rect key="frame" x="104" y="0.0" width="5" height="48"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -4203,7 +4204,7 @@ Check your internet connection and try again.</string>
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
-                                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="04J-8C-m9o" userLabel="10089969657 2342342343" customClass="WLLabel">
+                                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="04J-8C-m9o" userLabel="10089969657 2342342343" customClass="WLLabel">
                                                                     <rect key="frame" x="72" y="35" width="224" height="36"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <string key="text">10089969657

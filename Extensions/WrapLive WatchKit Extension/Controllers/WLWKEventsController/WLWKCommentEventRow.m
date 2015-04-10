@@ -16,24 +16,23 @@
 
 @interface WLWKCommentEventRow ()
 
-
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *mainGroup;
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *avatar;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *photoByLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *wrapNameLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *dateLabel;
 
 @end
 
 @implementation WLWKCommentEventRow
 
 - (void)setEntry:(WLComment *)entry {
-    NSString *header = [NSString stringWithFormat:@"%@ in \"%@\"\n", entry.contributor.name, entry.candy.wrap.name];
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:header attributes:@{NSFontAttributeName:[UIFont fontWithName:@"OpenSans-Light" size:10], NSForegroundColorAttributeName:[UIColor orangeColor]}];
-    NSString *time = [entry.updatedAt timeAgoStringAtAMPM];
-    NSMutableAttributedString *body = [[NSMutableAttributedString alloc] initWithString:time attributes:@{NSFontAttributeName:[UIFont fontWithName:@"OpenSans-Light" size:10],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
-    [text appendAttributedString:body];
-    [self.text setAttributedText:text];
-    
-    self.icon.url = entry.picture.small;
-    
-    NSString *comment = [NSString stringWithFormat:@"\"%@\"", entry.text];
-    [self.comment setAttributedText:[[NSAttributedString alloc] initWithString:comment attributes:@{NSFontAttributeName:[UIFont fontWithName:@"OpenSans-Light" size:12], NSForegroundColorAttributeName:[UIColor blackColor]}]];
+    self.avatar.url = entry.contributor.picture.small;
+    self.mainGroup.url = entry.candy.picture.small;
+    [self.photoByLabel setText:[NSString stringWithFormat:@"Photo by %@", entry.candy.contributor.name]];
+    [self.wrapNameLabel setText:entry.candy.wrap.name];
+    [self.text setText:[NSString stringWithFormat:@"\"%@\"", entry.text]];
+    [self.dateLabel setText:entry.createdAt.timeAgoStringAtAMPM.stringByCapitalizingFirstCharacter];
 }
 
 @end

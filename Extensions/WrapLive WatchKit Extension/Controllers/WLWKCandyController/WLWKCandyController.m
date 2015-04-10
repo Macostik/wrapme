@@ -14,10 +14,13 @@
 
 @interface WLWKCandyController ()
 
-@property (weak, nonatomic) IBOutlet WKInterfaceImage *image;
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *image;
 @property (weak, nonatomic) IBOutlet WKInterfaceTable *table;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *photoByLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *wrapNameLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *dateLabel;
 
-@property (strong, nonatomic) WLCandy* candy;
+@property (weak, nonatomic) WLCandy* candy;
 
 @end
 
@@ -36,7 +39,11 @@
 }
 
 - (void)update {
-    self.image.url = self.candy.picture.small;
+    WLCandy *candy = self.candy;
+    [self.photoByLabel setText:[NSString stringWithFormat:@"Photo by %@", candy.contributor.name]];
+    [self.wrapNameLabel setText:candy.wrap.name];
+    [self.dateLabel setText:candy.createdAt.timeAgoStringAtAMPM.stringByCapitalizingFirstCharacter];
+    self.image.url = candy.picture.small;
     NSOrderedSet *comments = [self.candy.comments reversedOrderedSet];
     [self.table setNumberOfRows:[comments count] withRowType:@"comment"];
     for (WLComment *comment in comments) {

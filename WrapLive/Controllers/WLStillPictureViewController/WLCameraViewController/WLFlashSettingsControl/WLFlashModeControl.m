@@ -25,22 +25,22 @@
 @implementation WLFlashModeControl
 
 static inline NSAttributedString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
-    FAKIcon *icon = nil;
+    NSAttributedString *icon = nil;
     switch (mode) {
         case AVCaptureFlashModeOn:
-            icon = [WLIcon iconWithName:@"wl-flashOn"];
+            icon = [WLIcon iconWithName:@"flash-on"];
             break;
         case AVCaptureFlashModeOff:
-            icon = [WLIcon iconWithName:@"wl-flashOff"];
+            icon = [WLIcon iconWithName:@"flash-off"];
             break;
         case AVCaptureFlashModeAuto:
-            icon = [WLIcon iconWithName:@"wl-flashAuto"];
+            icon = [WLIcon iconWithName:@"flash-auto"];
             break;
         default:
-            icon = [WLIcon iconWithName:@"wl-flashOn"];
+            icon = [WLIcon iconWithName:@"flash-on"];
             break;
     }
-    return [icon attributedString];
+    return icon;
 };
 
 - (void)awakeFromNib {

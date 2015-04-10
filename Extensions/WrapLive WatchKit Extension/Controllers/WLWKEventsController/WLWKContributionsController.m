@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLWKEventsController.h"
+#import "WLWKContributionsController.h"
 #import "WLWKCommentEventRow.h"
 #import "WLWKErrorRow.h"
 
-@interface WLWKEventsController()
+@interface WLWKContributionsController()
 
 @property (strong, nonatomic) IBOutlet WKInterfaceTable *table;
 
@@ -19,7 +19,7 @@
 @end
 
 
-@implementation WLWKEventsController
+@implementation WLWKContributionsController
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
@@ -89,11 +89,22 @@
 
 - (void)updateContributions {
     __weak typeof(self)weakSelf = self;
-    [[WLRecentContributionsRequest request] send:^(id object) {
-        weakSelf.entries = [WLContribution recentContributions];
-    } failure:^(NSError *error) {
-        [weakSelf showError:error];
-    }];
+    
+    if ([WLAuthorizationRequest authorized]) {
+        [[WLRecentContributionsRequest request] send:^(id object) {
+            weakSelf.entries = [WLContribution recentContributions];
+        } failure:^(NSError *error) {
+            [weakSelf showError:error];
+        }];
+    } else if ([[WLAuthorization currentAuthorization] canAuthorize]) {
+        [[WLAuthorization currentAuthorization] signIn:^(WLUser *user) {
+            [weakSelf updateContributions];
+        } failure:^(NSError *error) {
+            [weakSelf showError:error];
+        }];
+    } else {
+        [weakSelf showError:WLError(@"No data for authorization. Please, check wrapLive app on you iPhone.")];
+    }
 }
 
 - (void)didDeactivate {

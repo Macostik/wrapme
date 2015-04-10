@@ -9,7 +9,6 @@
 #import "WLBroadcaster.h"
 
 @class WLNotificationCenter;
-@class WLNotification;
 
 @interface WLNotificationCenter : WLBroadcaster
 

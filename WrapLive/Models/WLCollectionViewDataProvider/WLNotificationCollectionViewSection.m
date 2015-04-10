@@ -16,8 +16,7 @@
 @interface WLNotificationCollectionViewSection () <WLFontPresetterReceiver>
 
 @property (strong, nonatomic) NSMapTable *createdEntry;
-@property (strong, nonatomic) NSMutableOrderedSet *retryIndexPathSet;
-@property (assign, nonatomic) CGFloat addHeight;
+@property (strong, nonatomic) NSMapTable *bufferInfoCell;
 
 @end
 
@@ -34,21 +33,24 @@
 - (void)setup {
     [super setup];
     self.createdEntry = [NSMapTable weakToWeakObjectsMapTable];
-    self.retryIndexPathSet = [NSMutableOrderedSet orderedSet];
+    self.bufferInfoCell = [NSMapTable strongToStrongObjectsMapTable];
     [[WLFontPresetter presetter] addReceiver:self];
 }
 
 - (CGSize)size:(NSIndexPath*)indexPath {
     id entry = [self.entries.entries objectAtIndex:indexPath.item];
-    CGFloat textHeight = .0;
-    textHeight = [entry isKindOfClass:[WLCandy class]] ? [WLCandyNotificationCell heightCell:entry] : [WLNotificationCell heightCell:entry];
+    __block CGFloat textHeight = .0;
+    textHeight = [entry isKindOfClass:[WLCandy class]] ? [WLCandyNotificationCell heightCell:entry] :
+                                                         [WLNotificationCell heightCell:entry];
     
-    for (NSIndexPath *_indexPath in self.retryIndexPathSet) {
-        if  ([_indexPath compare:indexPath] == NSOrderedSame) {
-            textHeight += self.addHeight;
+    NSEnumerator *key = [self.bufferInfoCell keyEnumerator];
+    id _key = nil;
+    while((_key = [key nextObject]) != nil) {
+        if ([_key isEqual:entry]) {
+            CGFloat height = [[self.bufferInfoCell objectForKey:_key] floatValue];
+            textHeight += height;
         }
     }
-    
     return CGSizeMake(WLConstants.screenWidth, textHeight + WLNotificationCommentVerticalSpacing);
 }
 
@@ -61,26 +63,35 @@
 #pragma mark - WLNotificationCellDelegate 
 
 - (void)notificationCell:(WLNotificationCell *)cell didRetryMessageByComposeBar:(WLComposeBar *)composeBar {
-    NSIndexPath *indexPath =  [self.collectionView indexPathForCell:cell];
-    NSIndexPath *existingIndexPath = [self openedIndexPath:indexPath];
-    if (existingIndexPath) {
-        [self.retryIndexPathSet removeObject:existingIndexPath];
+    WLEntry *entry = [self openedCellEntry:cell.entry];
+    if (entry) {
+        [self.bufferInfoCell removeObjectForKey:entry];
     } else {
-        [self.retryIndexPathSet addObject:indexPath];
+        [self.bufferInfoCell setObject:[NSNumber numberWithFloat:composeBar.height] forKey:cell.entry];
     }
-    self.addHeight = composeBar.height;
     [self.collectionView performBatchUpdates:nil completion:nil];
 }
 
 - (void)notificationCell:(WLNotificationCell *)cell didChangeHeightComposeBar:(WLComposeBar *)composeBar {
-    if (composeBar.height > 41) {
-        self.addHeight = composeBar.height;
+    if (composeBar.height > WLMinHeightCell) {
+        [self.bufferInfoCell setObject:[NSNumber numberWithFloat:composeBar.height] forKey:cell.entry];
     }
     [self.collectionView performBatchUpdates:nil completion:nil];
+    NSIndexPath *indexPath =  [self.collectionView indexPathForCell:cell];
+    [self.collectionView scrollToItemAtIndexPath:indexPath
+                                atScrollPosition:UICollectionViewScrollPositionBottom
+                                        animated:YES];
+}
+
+- ( void)notificationCell:(WLNotificationCell *)cell beginEditingComposaBar:(WLComposeBar *)composeBar {
+    NSIndexPath *indexPath =  [self.collectionView indexPathForCell:cell];
+    [self.collectionView scrollToItemAtIndexPath:indexPath
+                                atScrollPosition:UICollectionViewScrollPositionBottom
+                                        animated:YES];
 }
 
 - (void)notificationCell:(WLNotificationCell *)cell calculateHeightTextView:(CGFloat)height {
-    self.addHeight = MAX(height, 40);
+    [self.bufferInfoCell setObject:[NSNumber numberWithFloat:MAX(height, WLMinHeightCell)] forKey:cell.entry];
     [self.collectionView performBatchUpdates:nil completion:nil];
 }
 
@@ -92,10 +103,12 @@
     return [self.createdEntry objectForKey:entry];
 }
 
-- (NSIndexPath*)openedIndexPath:(NSIndexPath*)indexPath {
-    for (NSIndexPath* _indexPath in self.retryIndexPathSet) {
-        if ([_indexPath compare:indexPath] == NSOrderedSame) {
-            return _indexPath;
+- (WLEntry *)openedCellEntry:(WLEntry *)entry {
+    NSEnumerator *key = [self.bufferInfoCell keyEnumerator];
+    id _key = nil;
+    while((_key = [key nextObject]) != nil) {
+        if ([_key isEqual:entry]) {
+            return entry;
         }
     }
     return nil;

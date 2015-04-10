@@ -40,6 +40,7 @@
     self.height = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
     self.duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     self.curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    self.isShow = self.height != 0;
 	[self broadcast:@selector(keyboardWillShow:)];
 }
 
@@ -60,6 +61,7 @@
     NSDictionary *userInfo = [notification userInfo];
     self.duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     self.curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    self.isShow = self.height != 0;
 	[self broadcast:@selector(keyboardWillHide:)];
 }
 

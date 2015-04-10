@@ -86,7 +86,3 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 @end
 
-@interface WLComment (WLNotification)
-
-@end
-

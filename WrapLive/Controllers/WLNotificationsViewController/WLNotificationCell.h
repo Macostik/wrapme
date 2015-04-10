@@ -8,15 +8,17 @@
 
 #import "WLEntryCell.h"
 
-const static CGFloat WLNotificationCommentHorizontalSpacing = 137.0f;
-const static CGFloat WLNotificationCommentVerticalSpacing = 78.0f;
+const static CGFloat WLNotificationCommentHorizontalSpacing = 134.0f;
+const static CGFloat WLNotificationCommentVerticalSpacing = 77.0f;
+const static CGFloat WLMinHeightCell = 41.0f;
 
-@class WLNotificationCell, WLComposeBar;
+@class WLNotificationCell, WLComposeBar, WLTextView;
 
 @protocol WLNotificationCellDelegate <NSObject>
 
 - (void)notificationCell:(WLNotificationCell *)cell didRetryMessageByComposeBar:(WLComposeBar *)composeBar;
 - (void)notificationCell:(WLNotificationCell *)cell didChangeHeightComposeBar:(WLComposeBar *)composeBar;
+- (void)notificationCell:(WLNotificationCell *)cell beginEditingComposaBar:(WLComposeBar* )composeBar;
 - (void)notificationCell:(WLNotificationCell *)cell calculateHeightTextView:(CGFloat)height;
 - (void)notificationCell:(WLNotificationCell *)cell createEntry:(id)entry;
 - (id)notificationCell:(WLNotificationCell *)cell createdEntry:(id)entry;

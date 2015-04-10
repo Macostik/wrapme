@@ -33,10 +33,12 @@
     }];
     
     [self.dataSection setConfigure:^(WLNotificationCell *cell, id entry) {
-        [cell setBackgroundColor:[entry unread] ? [UIColor whiteColor] : [UIColor WL_grayLightest]];
+        [cell setBackgroundColor:[entry unread]  ? [UIColor whiteColor] : [UIColor WL_grayLightest]];
     }];
  
     [[WLComment notifier] addReceiver:self];
+    [[WLCandy notifier] addReceiver:self];
+    [[WLMessage notifier] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -44,21 +46,53 @@
     self.dataSection.entries = [[WLUser currentUser] notifications];
 }
 
+- (void)updateNotificaton {
+    if (![WLKeyboard keyboard].isShow) {
+       self.dataSection.entries = [[WLUser currentUser] notifications];
+    }
+}
+
+- (void)removeNotificationEntry:(WLEntry *)entry {
+    NSMutableOrderedSet* entries = self.dataSection.entries.entries;
+    if ([entries containsObject:entry]) {
+        [entries removeObject:entry];
+        if (![WLKeyboard keyboard].isShow) {
+             [self.dataSection reload];
+        }
+    }
+}
+
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
-    self.dataSection.entries = [[WLUser currentUser] notifications];
+    [self updateNotificaton];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
+    [self updateNotificaton];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier messageAdded:(WLMessage *)message {
+    [self updateNotificaton];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentDeleted:(WLComment *)comment {
-    NSMutableOrderedSet* entries = self.dataSection.entries.entries;
-    if ([entries containsObject:comment]) {
-        [entries removeObject:comment];
-        [self.dataSection reload];
-    }
+    [self removeNotificationEntry:comment];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
+    [self removeNotificationEntry:candy];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier messageDeleted:(WLMessage *)message {
+    [self removeNotificationEntry:message];
 }
 
 - (IBAction)back:(id)sender {
     [[WLEntryManager manager].context processPendingChanges];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)keyboardDidHide:(WLKeyboard*)keyboard {
+    self.dataSection.entries = [[WLUser currentUser] notifications];
 }
 
 @end

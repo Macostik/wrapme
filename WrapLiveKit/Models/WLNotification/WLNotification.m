@@ -291,8 +291,8 @@
 
 - (NSUInteger)unreadNotificationsCount {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@ AND unread == YES",
-                              [NSDate dayAgo], [WLUser currentUser]];
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([WLComment class])];
+                              [NSDate sinceWeekAgo], [WLUser currentUser]];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([WLContribution class])];
     request.predicate = predicate;
     request.resultType = NSCountResultType;
     return [[[request execute] lastObject] integerValue];
@@ -322,22 +322,4 @@
 
 @end
 
-@implementation WLComment (WLNotification)
 
-- (BOOL)notifiable {
-    if (self.contributedByCurrentUser) return NO;
-    WLCandy *candy = self.candy;
-    if (candy.contributedByCurrentUser) {
-        return YES;
-    } else {
-        NSUInteger index = [candy.comments indexOfObjectPassingTest:^BOOL(WLComment* comment, NSUInteger idx, BOOL *stop) {
-            return comment.contributedByCurrentUser;
-        }];
-        if (index != NSNotFound && [candy.comments indexOfObject:self] < index) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
-@end

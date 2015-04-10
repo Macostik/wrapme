@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet WLIconButton *retryButton;
 @property (weak, nonatomic) IBOutlet WLButton *sendButton;
 @property (weak, nonatomic) IBOutlet WLTextView *containerTextView;
+@property (assign, nonatomic) BOOL isBorderAvatar;
 @property (strong, nonatomic) id storedEntry;
 
 @end
@@ -56,16 +57,29 @@
        self.storedEntry = [self.delegate notificationCell:self createdEntry:entry];
     }
     
-    self.containerTextView.hidden =  self.avatarImageView.hidden = self.storedEntry == nil;
+    self.containerTextView.hidden = self.avatarImageView.hidden = self.storedEntry == nil;
     self.retryButton.hidden = self.composeBar.hidden = !(self.storedEntry == nil);
     [self.containerTextView determineHyperLink:[self.storedEntry text]];
-    [self.progressBar setContribution:self.storedEntry isHideProgress:NO];
+    __weak __typeof(self)weakSelf = self;
+    [self.progressBar setContribution:self.storedEntry isHideProgress:NO complition:^(BOOL flag) {
+        weakSelf.isBorderAvatar = !(weakSelf.storedEntry == nil);
+    }];
+}
+
+- (void)setIsBorderAvatar:(BOOL)isBorderAvatar {
+      WLImageView *avatarImageView = _avatarImageView;
+    if (isBorderAvatar) {
+        avatarImageView.layer.borderColor = [UIColor WL_orangeColor].CGColor;
+        avatarImageView.layer.borderWidth = 2.0f;
+    } else {
+         avatarImageView.layer.borderWidth = .0f;
+    }
 }
 
 + (CGFloat)heightCell:(id)entry {
-    return [[entry text] heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular
-                                                                 preset:WLFontPresetNormal]
-                                    width:WLConstants.screenWidth - WLNotificationCommentHorizontalSpacing];
+    UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansRegular
+                                          preset:WLFontPresetNormal];
+    return WLCalculateHeightString([entry text], font, WLConstants.screenWidth - WLNotificationCommentHorizontalSpacing);
 }
 
 - (IBAction)retryMessage:(UIButton *)sender {
@@ -80,7 +94,6 @@
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
     [self.entry setUnread:NO];
     [self sendMessageWithText:text];
-    [self.containerTextView determineHyperLink:text];
     if ([self.delegate respondsToSelector:@selector(notificationCell:calculateHeightTextView:)]) {
         UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
         CGFloat height = WLCalculateHeightString(text, font, self.containerTextView.width);
@@ -94,6 +107,11 @@
     }
 }
 
+- (void)composeBarDidBeginEditing:(WLComposeBar*)composeBar {
+    if ([self.delegate respondsToSelector:@selector(notificationCell:beginEditingComposaBar:)]) {
+        [self.delegate notificationCell:self beginEditingComposaBar:composeBar];
+    }
+}
 
 - (void)sendMessageWithText:(NSString *)text {}
 
@@ -149,7 +167,7 @@
 @implementation WLCandyNotificationCell
 
 + (CGFloat)heightCell:(id)entry {
-    return .0;
+    return 12.0;
 }
 
 - (void)setup:(WLCandy *)candy {

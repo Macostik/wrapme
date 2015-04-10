@@ -142,7 +142,7 @@ static WLDataBlock deviceTokenCompletion = nil;
         __weak typeof(self)weakSelf = self;
         [self.userChannel enableAPNS];
         [self.userChannel observeMessages:^(PNMessage *message) {
-            WLNotification *notification = [WLNotification notificationWithMessage:message];
+            WLEntryNotification *notification = [WLEntryNotification notificationWithMessage:message];
             
             if (notification && ![weakSelf isAlreadyHandledNotification:notification]) {
                 runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
@@ -166,7 +166,7 @@ static WLDataBlock deviceTokenCompletion = nil;
     return [self.handledNotifications containsObject:notification.identifier];
 }
 
-- (void)handleNotification:(WLNotification*)notification completion:(WLBlock)completion {
+- (void)handleNotification:(WLEntryNotification*)notification completion:(WLBlock)completion {
     BOOL insertedEntry = notification.targetEntry.inserted;
     [notification fetch:^{
         if (notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
@@ -233,7 +233,7 @@ static WLDataBlock deviceTokenCompletion = nil;
     WLLog(@"PUBNUB", logMessage, nil);
     NSArray *notifications = [self notificationsFromMessages:messages];
     if (notifications.nonempty) {
-        for (WLNotification *notification in notifications) {
+        for (WLEntryNotification *notification in notifications) {
             runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
                 [notification fetch:^{
                     [operation finish];
@@ -257,7 +257,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 - (NSArray*)notificationsFromMessages:(NSArray*)messages {
     if (!messages.nonempty) return nil;
     NSMutableArray *notifications = [[messages map:^id(PNMessage *message) {
-        return [WLNotification notificationWithMessage:message];
+        return [WLEntryNotification notificationWithMessage:message];
     }] mutableCopy];
     
     // remove already handled notifications
@@ -270,7 +270,7 @@ static WLDataBlock deviceTokenCompletion = nil;
     
     NSArray *deleteNotifications = [notifications objectsWhere:@"event == %d", WLEventDelete];
     
-    for (WLNotification *notification in deleteNotifications) {
+    for (WLEntryNotification *notification in deleteNotifications) {
         if (![notifications containsObject:notification]) {
             continue;
         }
@@ -287,11 +287,11 @@ static WLDataBlock deviceTokenCompletion = nil;
     
     deleteNotifications = [notifications objectsWhere:@"event == %d", WLEventDelete];
     
-    deleteNotifications = [deleteNotifications sortedArrayUsingComparator:^NSComparisonResult(WLNotification* n1, WLNotification* n2) {
+    deleteNotifications = [deleteNotifications sortedArrayUsingComparator:^NSComparisonResult(WLEntryNotification* n1, WLEntryNotification* n2) {
         return [[n1.entryClass uploadingOrder] compare:[n2.entryClass uploadingOrder]];
     }];
     
-    for (WLNotification *deleteNotification in deleteNotifications) {
+    for (WLEntryNotification *deleteNotification in deleteNotifications) {
         if (![notifications containsObject:deleteNotification]) {
             continue;
         }
@@ -329,7 +329,9 @@ static WLDataBlock deviceTokenCompletion = nil;
             WLNotification* notification = [WLNotification notificationWithData:data];
             if (notification) {
                 [notification fetch:^{
-                    [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:notification];
+                    if ([notification isKindOfClass:[WLEntryNotification class]]) {
+                        [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+                    }
                     if (success) success();
                 } failure:failure];
             } else if (failure)  {
@@ -339,7 +341,9 @@ static WLDataBlock deviceTokenCompletion = nil;
         case UIApplicationStateBackground: {
             WLNotification* notification = [WLNotification notificationWithData:data];
             if (notification) {
-                [notification fetch:success failure:failure];
+                if ([notification isKindOfClass:[WLEntryNotification class]]) {
+                    [notification fetch:success failure:failure];
+                }
             } else if (failure)  {
                 failure([NSError errorWithDescription:WLLS(@"Data in remote notification is not valid (background).")]);
             }

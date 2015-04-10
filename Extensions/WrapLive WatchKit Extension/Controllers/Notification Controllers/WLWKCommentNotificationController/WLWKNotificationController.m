@@ -19,7 +19,11 @@
 @implementation WLWKNotificationController
 
 - (void)didReceiveRemoteNotification:(NSDictionary *)remoteNotification withCompletion:(void (^)(WKUserNotificationInterfaceType))completionHandler {
-    WLNotification *notification = [WLNotification notificationWithData:remoteNotification];
+    WLEntryNotification *notification = [WLEntryNotification notificationWithData:remoteNotification];
+    if (!notification) {
+        completionHandler(WKUserNotificationInterfaceTypeDefault);
+        return;
+    }
     WLEntry *entry = notification.targetEntry;
     if (entry) {
         __weak typeof(self)weakSelf = self;

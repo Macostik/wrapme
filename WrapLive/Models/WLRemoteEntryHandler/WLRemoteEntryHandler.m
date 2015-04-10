@@ -13,7 +13,7 @@
 
 @interface WLRemoteEntryHandler ()
 
-@property (strong, nonatomic) WLEntry* entry;
+@property (weak, nonatomic) WLEntry* entry;
 
 @end
 
@@ -52,7 +52,7 @@
 
 @implementation WLRemoteEntryHandler (WLNotification)
 
-- (void)presentEntryFromNotification:(WLNotification*)notification {
+- (void)presentEntryFromNotification:(WLEntryNotification*)notification {
     if (notification.event != WLEventDelete) {
         [self presentEntry:notification.targetEntry];
     }

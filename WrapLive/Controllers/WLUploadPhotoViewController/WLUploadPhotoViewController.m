@@ -114,4 +114,12 @@
     [self keyboardWillShow:[WLKeyboard keyboard]];
 }
 
+- (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
+    [composeBar setDoneButtonHidden:!composeBar.text.nonempty animated:YES];
+}
+
+- (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
+    [composeBar setDoneButtonHidden:YES animated:YES];
+}
+
 @end

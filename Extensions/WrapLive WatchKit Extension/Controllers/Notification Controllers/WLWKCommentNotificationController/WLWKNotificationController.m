@@ -34,9 +34,7 @@
             [weakSelf.label setText:remoteNotification[@"aps"][@"alert"]];
             completionHandler(WKUserNotificationInterfaceTypeCustom);
         } failure:^(NSError *error) {
-            weakSelf.image.url = @"https://placeimg.com/100/100/any";
-            [weakSelf.label setText:remoteNotification[@"aps"][@"alert"]];
-            completionHandler(WKUserNotificationInterfaceTypeCustom);
+            completionHandler(WKUserNotificationInterfaceTypeDefault);
         }];
     } else {
         completionHandler(WKUserNotificationInterfaceTypeDefault);

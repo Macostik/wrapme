@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="cKg-Y0-d6d">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="cKg-Y0-d6d">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -573,7 +573,7 @@
                                     <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                         <size key="value" width="16" height="16"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="paintBrush"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="brush"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -663,7 +663,7 @@
                                             <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="paperPlane"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="paper-plane"/>
                                             <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
                                                 <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
@@ -772,7 +772,7 @@
                                             <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                                 <size key="value" width="16" height="16"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="iosCloseEmpty"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="close"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="large"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -796,7 +796,7 @@
                                             <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                                 <size key="value" width="16" height="16"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="iosCheckmarkEmpty"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="tick"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="large"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">

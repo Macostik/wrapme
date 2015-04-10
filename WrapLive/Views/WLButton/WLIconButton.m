@@ -48,15 +48,8 @@
 
 - (void)setup {
     UIColor *color = _iconColor ? : [UIColor whiteColor];
-    FAKIcon *icon = [WLIcon iconWithName:_iconName preset:_iconPreset color:color];
-    if (icon) {
-        [self setAttributedTitle:icon.attributedString forState:UIControlStateNormal];
-        color = [color darkerColor];
-        if (color) {
-            [icon addAttribute:NSForegroundColorAttributeName value:color];
-        }
-        [self setAttributedTitle:icon.attributedString forState:UIControlStateHighlighted];
-    }
+    [self setAttributedTitle:WLIconCreate(_iconName, _iconPreset, color) forState:UIControlStateNormal];
+    [self setAttributedTitle:WLIconCreate(_iconName, _iconPreset, [color darkerColor]) forState:UIControlStateHighlighted];
 }
 
 - (void)layoutSubviews {

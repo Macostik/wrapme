@@ -12,6 +12,7 @@
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
 #import "WLTextView.h"
+#import "UIImage+Drawing.h"
 
 @interface WLMessageCell ()
 
@@ -22,23 +23,39 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topTextLabelConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topAvatarConstraint;
-@property (weak, nonatomic) IBOutlet UIImageView *leftBubble;
-@property (weak, nonatomic) IBOutlet UIImageView *rightBubble;
 @property (weak, nonatomic) IBOutlet UIImageView *tailView;
+@property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
 
 @end
 
 @implementation WLMessageCell
 
++ (UIImage*)bubbleImageWithColor:(UIColor*)color {
+    static NSMutableDictionary *images = nil;
+    UIImage *image = [images objectForKey:color];
+    if (!image) {
+        image = [[UIImage draw:CGSizeMake(11, 11) opaque:YES scale:[UIScreen mainScreen].scale drawing:^(CGSize size) {
+            [[UIColor whiteColor] setFill];
+            [[UIBezierPath bezierPathWithRect:CGRectMake(0, 0, size.width, size.height)] fill];
+            [color setFill];
+            [[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, size.width, size.height) cornerRadius:5] fill];
+        }] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch];
+        if (!images) {
+            images = [NSMutableDictionary dictionary];
+        }
+        images[color] = image;
+    }
+    return image;
+}
+
 - (void)awakeFromNib {
 	[super awakeFromNib];
     self.layer.geometryFlipped = YES;
     self.avatarView.hidden = self.nameLabel.hidden = self.dayLabel.hidden = YES;
-    self.leftBubble.image = [self.leftBubble.image resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 0) resizingMode:UIImageResizingModeStretch];
-    self.rightBubble.image = [self.rightBubble.image resizableImageWithCapInsets:UIEdgeInsetsMake(5, 0, 5, 0) resizingMode:UIImageResizingModeStretch];
     [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateEmpty];
     [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateFailed];
     self.textView.textContainerInset = UIEdgeInsetsZero;
+    self.bubbleImageView.image = [WLMessageCell bubbleImageWithColor:self.bubbleImageView.backgroundColor];
 }
 
 - (void)setShowName:(BOOL)showName {

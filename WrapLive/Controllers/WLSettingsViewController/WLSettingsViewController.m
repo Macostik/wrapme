@@ -7,7 +7,7 @@
 //
 
 #import "WLSettingsViewController.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "UIAlertView+Blocks.h"
 #import "ALAssetsLibrary+Additions.h"
 

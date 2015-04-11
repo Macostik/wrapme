@@ -10,7 +10,7 @@
 #import <AviarySDK/AviarySDK.h>
 #import "WLNavigationAnimator.h"
 #import "WLHintView.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLIconButton.h"
 #import "WLComposeBar.h"
 #import "WLAlertView.h"

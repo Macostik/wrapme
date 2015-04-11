@@ -8,7 +8,6 @@
 
 #import "WLAuthorizationRequest.h"
 #import "WLWelcomeViewController.h"
-#import "WLNavigation.h"
 #import "WLUploadingQueue.h"
 #import "WLWrapsRequest.h"
 #import "WLOperationQueue.h"

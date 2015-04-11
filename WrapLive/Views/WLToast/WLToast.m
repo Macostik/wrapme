@@ -9,11 +9,11 @@
 #import "WLToast.h"
 #import "UIFont+CustomFonts.h"
 #import "UILabel+Additions.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLLabel.h"
 #import "NSObject+NibAdditions.h"
 #import "UIView+AnimationHelper.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 
 @implementation WLToastAppearance
 

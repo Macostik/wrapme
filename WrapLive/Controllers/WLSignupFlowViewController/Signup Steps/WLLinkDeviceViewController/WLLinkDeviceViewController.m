@@ -9,7 +9,7 @@
 #import "WLLinkDeviceViewController.h"
 #import "WLButton.h"
 #import "WLProfileInformationViewController.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLSoundPlayer.h"
 
 @interface WLLinkDeviceViewController ()

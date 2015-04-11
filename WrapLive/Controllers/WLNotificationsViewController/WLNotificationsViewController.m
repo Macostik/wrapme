@@ -10,7 +10,7 @@
 #import "WLUserView.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLNotificationCenter.h"
-#import "WLNavigation.h"
+#import "WLChronologicalEntryPresenter.h"
 #import "WLNotificationCollectionViewSection.h"
 
 @interface WLNotificationsViewController () <WLEntryNotifyReceiver>
@@ -33,7 +33,7 @@
     }];
     
     [self.dataSection setSelection:^(WLEntry* entry) {
-        [entry present];
+        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
     }];
  
     [[WLComment notifier] addReceiver:self];

@@ -9,7 +9,7 @@
 #import "WLStoryboardSegue.h"
 #import "NSString+Additions.h"
 #import "GCDHelper.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 
 @implementation WLSetValueSegue
 

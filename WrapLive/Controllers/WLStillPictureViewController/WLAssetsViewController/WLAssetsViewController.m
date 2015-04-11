@@ -10,7 +10,6 @@
 #import "WLAssetCell.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "UIImage+Resize.h"
-#import "UIViewController+Additions.h"
 #import "NSObject+NibAdditions.h"
 #import "WLToast.h"
 #import "UIButton+Additions.h"

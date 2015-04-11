@@ -15,7 +15,7 @@
 #import "WLCollectionViewFlowLayout.h"
 #import "WLSoundPlayer.h"
 #import "UIView+AnimationHelper.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 
 @interface WLCommentsViewController () <WLEntryNotifyReceiver, UIViewControllerTransitioningDelegate>
 

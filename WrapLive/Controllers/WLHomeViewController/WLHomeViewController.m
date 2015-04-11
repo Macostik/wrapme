@@ -12,7 +12,6 @@
 #import "UIFont+CustomFonts.h"
 #import "UILabel+Additions.h"
 #import "UIView+AnimationHelper.h"
-#import "UIViewController+Additions.h"
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"
 #import "WLCollectionViewDataProvider.h"
@@ -20,7 +19,7 @@
 #import "WLHomeViewController.h"
 #import "WLHomeViewSection.h"
 #import "WLLoadingView.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLNotificationCenter.h"
 #import "WLRefresher.h"
 #import "WLBadgeLabel.h"
@@ -37,6 +36,7 @@
 #import "WLIntroductionViewController.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLTouchView.h"
+#import "WLChronologicalEntryPresenter.h"
 
 @interface WLHomeViewController () <WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate>
 
@@ -89,7 +89,7 @@
     [section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
     
     [section setSelection:^(id entry) {
-        [entry present];
+        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
     }];
     
     NSMutableOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
@@ -310,7 +310,9 @@
     __weak __typeof(self)weakSelf = self;
     WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
     [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
-        if (wrap.isFirstCreated) [wrap present:NO];
+        if (wrap.isFirstCreated) {
+            [WLChronologicalEntryPresenter presentEntry:wrap animated:NO];
+        }
         stillPictureViewController.wrap = wrap;
         [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
     }];
@@ -356,7 +358,9 @@
 - (void)createWrapWithStillPictureViewController:(WLStillPictureViewController*)stillPictureViewController {
     WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
     [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
-        if (wrap.isFirstCreated) [wrap present:NO];
+        if (wrap.isFirstCreated) {
+            [WLChronologicalEntryPresenter presentEntry:wrap animated:NO];
+        }
         stillPictureViewController.wrap = wrap;
         [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
     }];

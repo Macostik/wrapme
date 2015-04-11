@@ -12,7 +12,7 @@
 #import "WLProgressBar+WLContribution.h"
 #import "UIButton+Additions.h"
 #import "WLHomeViewController.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLButton.h"
 #import "WLSoundPlayer.h"
 #import "UIAlertView+Blocks.h"

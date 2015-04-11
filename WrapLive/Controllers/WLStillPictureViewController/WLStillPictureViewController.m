@@ -10,7 +10,7 @@
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIView+AnimationHelper.h"
 #import "WLAssetsGroupViewController.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLStillPictureViewController.h"
 #import <AviarySDK/AviarySDK.h>
 #import <MobileCoreServices/MobileCoreServices.h>

@@ -9,7 +9,7 @@
 #import "UIActionSheet+Blocks.h"
 #import <objc/runtime.h>
 #import "NSObject+AssociatedObjects.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 
 @interface UIActionSheet () <UIActionSheetDelegate>
 

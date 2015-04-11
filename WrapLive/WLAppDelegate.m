@@ -11,7 +11,7 @@
 #import "WLKeyboard.h"
 #import "WLEntryManager.h"
 #import "WLMenu.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "NSPropertyListSerialization+Shorthand.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "NSObject+NibAdditions.h"

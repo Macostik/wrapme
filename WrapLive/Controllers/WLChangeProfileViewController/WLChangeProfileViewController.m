@@ -9,7 +9,7 @@
 #import "WLChangeProfileViewController.h"
 #import "WLCameraViewController.h"
 #import "WLStillPictureViewController.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLKeyboard.h"
 #import "WLInputAccessoryView.h"
 #import "WLToast.h"

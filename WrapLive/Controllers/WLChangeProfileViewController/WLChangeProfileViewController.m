@@ -33,6 +33,8 @@
 
 @implementation WLChangeProfileViewController
 
+@dynamic editSession;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.imageView setImageName:@"default-large-avatar" forState:WLImageViewStateEmpty];

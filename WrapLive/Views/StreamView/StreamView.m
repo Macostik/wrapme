@@ -30,6 +30,8 @@ static NSString *panGestureRecognizerStatePath = @"panGestureRecognizer.state";
 
 @synthesize layout  = _layout;
 
+@dynamic delegate;
+
 - (void)dealloc {
 	[self removeObserver:self forKeyPath:contentOffsetPath];
 	[self removeObserver:self forKeyPath:panGestureRecognizerStatePath];

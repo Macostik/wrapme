@@ -38,6 +38,8 @@
 
 @implementation WLStillPictureViewController
 
+@dynamic delegate;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cameraNavigationController = [self.childViewControllers lastObject];

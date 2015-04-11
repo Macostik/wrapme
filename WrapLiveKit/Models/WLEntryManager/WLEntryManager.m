@@ -57,9 +57,23 @@
     if (_model != nil) {
         return _model;
     }
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"CoreData" withExtension:@"momd"];
+    NSURL *url = [self modelURL];
     _model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
     return _model;
+}
+
+- (NSURL*)modelURL {
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSURL *url = [bundle URLForResource:@"CoreData" withExtension:@"momd"];
+    if (!url) {
+        for (NSBundle *bundle in [NSBundle allBundles]) {
+            url = [bundle URLForResource:@"CoreData" withExtension:@"momd"];
+            if (url) {
+                break;
+            }
+        }
+    }
+    return url;
 }
 
 - (NSPersistentStoreCoordinator *)coordinator {

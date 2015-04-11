@@ -23,6 +23,8 @@
 
 @implementation WLAssetsGroupViewController
 
+@dynamic delegate;
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

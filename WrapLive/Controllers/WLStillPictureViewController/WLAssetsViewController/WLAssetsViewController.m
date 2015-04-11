@@ -31,6 +31,8 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 
 @implementation WLAssetsViewController
 
+@dynamic delegate;
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

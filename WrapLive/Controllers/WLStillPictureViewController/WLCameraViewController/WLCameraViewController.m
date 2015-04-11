@@ -28,6 +28,8 @@
 
 @implementation WLCameraView
 
+@dynamic layer;
+
 + (Class)layerClass {
     return [AVCaptureVideoPreviewLayer class];
 }
@@ -64,6 +66,8 @@
 @end
 
 @implementation WLCameraViewController
+
+@dynamic delegate;
 
 #pragma mark - View controller lifecycle
 

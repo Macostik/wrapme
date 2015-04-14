@@ -234,6 +234,9 @@
 }
 
 - (void)updateOwnerData {
+    if (_candy.unread) {
+        _candy.unread = NO;
+    }
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"warning";
     [self setCommentButtonTitle:_candy];
     self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), _candy.contributor.name];

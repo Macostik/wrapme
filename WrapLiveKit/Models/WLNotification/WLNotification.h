@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLEntryManager.h"
 
 typedef NS_ENUM(NSUInteger, WLNotificationType) {
 	WLNotificationContributorAdd        = 100,
@@ -19,24 +18,18 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 	WLNotificationMessageAdd            = 700,
 	WLNotificationWrapDelete            = 800,
     WLNotificationUserUpdate            = 900,
-    WLNotificationWrapUpdate            = 1000
+    WLNotificationWrapUpdate            = 1000,
+    WLNotificationUpdateAvailable       = 1100
 };
 
-typedef NS_ENUM(NSUInteger, WLEvent) {
-	WLEventAdd,
-    WLEventUpdate,
-    WLEventDelete
-};
-
-@interface WLNotification : NSObject
+@interface WLNotification : NSObject {
+    @protected
+    NSString *_identifier;
+}
 
 @property (strong, nonatomic) NSString* identifier;
 
 @property (nonatomic) WLNotificationType type;
-
-@property (nonatomic) WLEvent event;
-
-@property (weak, nonatomic) WLEntry* targetEntry;
 
 @property (readonly, nonatomic) BOOL playSound;
 
@@ -44,45 +37,15 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 @property (strong, nonatomic) NSDate *publishedAt;
 
-@property (strong, nonatomic) Class entryClass;
-
-@property (strong, nonatomic) NSString* entryIdentifier;
-
-@property (strong, nonatomic) NSDictionary* entryData;
-
-@property (strong, nonatomic) NSString* containingEntryIdentifier;
-
 + (instancetype)notificationWithData:(NSDictionary*)data;
 
 + (NSMutableOrderedSet*)notificationsWithDataArray:(NSArray*)array;
 
++ (BOOL)isSupportedType:(WLNotificationType)type;
+
 - (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure;
 
-@end
-
-@interface WLEntry (WLNotification)
-
-@property (nonatomic, readonly) BOOL notifiable;
-
-- (NSMutableOrderedSet*)notifications;
-
-- (NSUInteger)unreadNotificationsCount;
-
-@end
-
-@interface WLContribution (WLNotification)
-
-@end
-
-@interface WLUser (WLNotification)
-
-@end
-
-@interface WLWrap (WLNotification)
-
-- (NSUInteger)unreadNotificationsCandyCount;
-
-- (NSUInteger)unreadNotificationsMessageCount;
+- (void)setup:(NSDictionary*)data;
 
 @end
 

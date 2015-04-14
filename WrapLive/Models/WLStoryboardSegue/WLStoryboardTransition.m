@@ -7,7 +7,7 @@
 //
 
 #import "WLStoryboardTransition.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 
 @implementation WLStoryboardTransition
 

@@ -11,7 +11,7 @@
 #import "WLKeyboard.h"
 #import "WLEntryManager.h"
 #import "WLMenu.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "NSPropertyListSerialization+Shorthand.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "NSObject+NibAdditions.h"
@@ -104,7 +104,7 @@
 
 - (void)initializeVersionTool {
     iVersion *version = [iVersion sharedInstance];
-    version.appStoreID = 879908578;
+    version.appStoreID = WLConstants.appStoreID;
     version.updateAvailableTitle = WLLS(@"New version of wrapLive is available");
     version.downloadButtonLabel = WLLS(@"Update");
     version.remindButtonLabel = WLLS(@"Not now");

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class WLEntry;
-@class WLNotification;
+@class WLEntryNotification;
 
 @interface WLRemoteEntryHandler : NSObject
 
@@ -25,7 +25,7 @@
 
 @interface WLRemoteEntryHandler (WLNotification)
 
-- (void)presentEntryFromNotification:(WLNotification*)notification;
+- (void)presentEntryFromNotification:(WLEntryNotification*)notification;
 
 @end
 

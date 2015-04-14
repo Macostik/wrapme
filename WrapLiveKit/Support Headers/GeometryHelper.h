@@ -71,12 +71,12 @@ static inline CGRect CGRectThatFillsSize(CGSize sizeToFill, CGSize originalSize)
 }
 
 static inline CGFloat CGSizeScaleForRotation(CGSize size, CGFloat angle) {
-    angle = fabsf(angle);
+    angle = fabs(angle);
     CGFloat k = size.height/size.width;
     if (size.width > size.height) {
-        return fabsf(sinf(angle)/k) + fabsf(cosf(angle));
+        return fabs(sinf(angle)/k) + fabsf(cosf(angle));
     } else {
-        return fabsf(k*sinf(angle)) + fabsf(cosf(angle));
+        return fabs(k*sinf(angle)) + fabsf(cosf(angle));
     }
 }
 

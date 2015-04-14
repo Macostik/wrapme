@@ -15,6 +15,8 @@
 
 @implementation WLChat
 
+@dynamic delegate;
+
 - (void)dealloc {
     [self.typingChannel removeObserving];
 }

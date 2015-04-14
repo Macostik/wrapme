@@ -9,7 +9,7 @@
 #import "WLChangeProfileViewController.h"
 #import "WLCameraViewController.h"
 #import "WLStillPictureViewController.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLKeyboard.h"
 #import "WLInputAccessoryView.h"
 #import "WLToast.h"
@@ -32,6 +32,8 @@
 @end
 
 @implementation WLChangeProfileViewController
+
+@dynamic editSession;
 
 - (void)viewDidLoad {
     [super viewDidLoad];

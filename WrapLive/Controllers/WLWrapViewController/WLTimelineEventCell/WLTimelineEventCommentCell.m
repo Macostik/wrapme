@@ -9,7 +9,7 @@
 #import "WLTimelineEventCommentCell.h"
 #import "WLCommentCell.h"
 #import "UIFont+CustomFonts.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLCandyViewController.h"
 
 static CGFloat WLTimelineEventCommentCellMinHeight = 30.0f;

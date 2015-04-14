@@ -7,8 +7,7 @@
 //
 
 #import "WLEmailConfirmationViewController.h"
-#import "WLNavigation.h"
-#import "UIViewController+Additions.h"
+#import "WLNavigationHelper.h"
 #import "WLNotificationChannel.h"
 #import "WLSoundPlayer.h"
 #import "UIAlertView+Blocks.h"

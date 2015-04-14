@@ -8,8 +8,7 @@
 
 #import "WLBaseViewController.h"
 #import "UIView+AnimationHelper.h"
-#import "WLNavigation.h"
-#import "UIViewController+Additions.h"
+#import "WLNavigationHelper.h"
 #import "NSObject+NibAdditions.h"
 
 @interface WLBaseViewController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>

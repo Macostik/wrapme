@@ -10,7 +10,7 @@
 #import <AviarySDK/AviarySDK.h>
 #import "WLNavigationAnimator.h"
 #import "WLHintView.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLIconButton.h"
 #import "WLComposeBar.h"
 #import "WLAlertView.h"
@@ -112,6 +112,14 @@
 
 - (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
     [self keyboardWillShow:[WLKeyboard keyboard]];
+}
+
+- (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
+    [composeBar setDoneButtonHidden:!composeBar.text.nonempty animated:YES];
+}
+
+- (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
+    [composeBar setDoneButtonHidden:YES animated:YES];
 }
 
 @end

@@ -15,6 +15,8 @@
 
 @implementation WLTextFieldValidation
 
+@dynamic inputView;
+
 - (void)setInputView:(UITextField *)inputView {
     [super setInputView:inputView];
     if ([inputView isKindOfClass:[UITextField class]]) {

@@ -10,7 +10,7 @@
 #import "WLUserView.h"
 #import "WLCollectionViewDataProvider.h"
 #import "WLNotificationCenter.h"
-#import "WLNavigation.h"
+#import "WLChronologicalEntryPresenter.h"
 #import "WLNotificationCollectionViewSection.h"
 #import "WLNotificationCell.h"
 
@@ -26,10 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.dataSection setSelection:^(WLEntry* entry) {
-        if (entry.valid) {
-            entry.unread = NO;
-        }
-        [entry present];
+        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
     }];
     
     [self.dataSection setConfigure:^(WLNotificationCell *cell, id entry) {

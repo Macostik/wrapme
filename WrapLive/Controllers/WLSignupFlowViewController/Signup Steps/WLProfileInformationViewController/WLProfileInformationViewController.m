@@ -7,7 +7,7 @@
 //
 
 #import "WLProfileInformationViewController.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "UIButton+Additions.h"
 #import "WLKeyboard.h"
 #import "WLStillPictureViewController.h"

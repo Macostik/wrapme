@@ -12,7 +12,7 @@
 #import "WLInputAccessoryView.h"
 #import "UIButton+Additions.h"
 #import "UIAlertView+Blocks.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLToast.h"
 #import "WLKeyboard.h"
 #import "WLButton.h"

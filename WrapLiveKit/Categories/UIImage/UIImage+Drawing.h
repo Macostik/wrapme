@@ -24,4 +24,6 @@ static NSString *WLAlbumName = @"wrapLive";
 
 - (void)writeToPNGFile:(NSString*)path atomically:(BOOL)atomically;
 
++ (UIImage*)gradient:(CGSize)size;
+
 @end

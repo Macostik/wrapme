@@ -10,9 +10,8 @@
 #import "WLAssetsGroupCell.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "NSObject+NibAdditions.h"
-#import "UIViewController+Additions.h"
 #import "SegmentedControl.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 
 @interface WLAssetsGroupViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLAssetsGroupCellDelegate>
 
@@ -23,6 +22,8 @@
 @end
 
 @implementation WLAssetsGroupViewController
+
+@dynamic delegate;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

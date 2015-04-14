@@ -7,7 +7,7 @@
 //
 
 #import "WLSignupStepViewController.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 
 @interface WLSignupStepViewController ()
 

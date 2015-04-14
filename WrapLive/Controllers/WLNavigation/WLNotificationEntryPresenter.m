@@ -7,7 +7,6 @@
 //
 
 #import "WLNotificationEntryPresenter.h"
-#import "WLNotificationsViewController.h"
 #import "WLNavigationHelper.h"
 
 @implementation WLNotificationEntryPresenter
@@ -18,11 +17,6 @@
     UIViewController *rootViewController = navigationController.viewControllers.firstObject;
     if (rootViewController) {
         [controllers addObject:rootViewController];
-    }
-    
-    WLNotificationsViewController *notificationViewController = [WLNotificationsViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
-    if (notificationViewController) {
-        [controllers addObject:notificationViewController];
     }
     
     UIViewController *entryViewController = [entry viewControllerWithNavigationController:navigationController];

@@ -27,7 +27,7 @@
 }
 
 - (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)remoteNotification {
-    WLNotification *notification = [WLNotification notificationWithData:remoteNotification];
+    WLEntryNotification *notification = [WLEntryNotification notificationWithData:remoteNotification];
     WLEntry *entry = notification.targetEntry;
     if (entry) {
         __weak typeof(self)weakSelf = self;

@@ -26,6 +26,21 @@
     self.entries = [WLContribution recentContributions];
 }
 
+- (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)remoteNotification {
+    WLEntryNotification *notification = [WLEntryNotification notificationWithData:remoteNotification];
+    WLEntry *entry = notification.targetEntry;
+    if (entry) {
+        __weak typeof(self)weakSelf = self;
+        [entry recursivelyFetchIfNeeded:^ {
+            if ([entry isKindOfClass:[WLComment class]]) {
+                [weakSelf pushControllerWithName:@"candy" context:entry.containingEntry];
+            } else if ([entry isKindOfClass:[WLCandy class]]) {
+                [weakSelf pushControllerWithName:@"candy" context:entry];
+            }
+        } failure:nil];
+    }
+}
+
 - (void)setEntries:(NSOrderedSet *)entries {
     _entries = entries;
     

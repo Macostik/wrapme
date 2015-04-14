@@ -2,11 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
-	<string>Hi</string>
-	<string>How are you?</string>
-	<string>I&apos;m fine, thanks</string>
-	<string>Yes</string>
-	<string>No</string>
-	<string></string>
+	<string>Beautiful!</string>
+	<string>Cute!</string>
+	<string>Is it good?</string>
+	<string>Where is it?</string>
+	<string>Yum!</string>
 </array>
 </plist>

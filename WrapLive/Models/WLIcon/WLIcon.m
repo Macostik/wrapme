@@ -26,8 +26,8 @@
             sizes = @{WLIconPresetSmaller:@(14),
                       WLIconPresetSmall:@(18),
                       WLIconPresetBase:@(24),
-                      WLIconPresetLarge:@(36),
-                      WLIconPresetNormal:@(40),
+                      WLIconPresetNormal:@(36),
+                      WLIconPresetLarge:@(40),
                       WLIconPresetLarger:@(48),
                       WLIconPresetXLarge:@(72),
                       WLIconPresetLargest:@(96)};

@@ -34,7 +34,6 @@
 @property (weak, nonatomic) IBOutlet WLIconButton *retryButton;
 @property (weak, nonatomic) IBOutlet WLButton *sendButton;
 @property (weak, nonatomic) IBOutlet WLTextView *containerTextView;
-@property (assign, nonatomic) BOOL isBorderAvatar;
 @property (strong, nonatomic) id storedEntry;
 
 @end
@@ -60,20 +59,7 @@
     self.containerTextView.hidden = self.avatarImageView.hidden = self.storedEntry == nil;
     self.retryButton.hidden = self.composeBar.hidden = !(self.storedEntry == nil);
     [self.containerTextView determineHyperLink:[self.storedEntry text]];
-    __weak __typeof(self)weakSelf = self;
-    [self.progressBar setContribution:self.storedEntry isHideProgress:NO complition:^(BOOL flag) {
-        weakSelf.isBorderAvatar = !(weakSelf.storedEntry == nil);
-    }];
-}
-
-- (void)setIsBorderAvatar:(BOOL)isBorderAvatar {
-      WLImageView *avatarImageView = _avatarImageView;
-    if (isBorderAvatar) {
-        avatarImageView.layer.borderColor = [UIColor WL_orangeColor].CGColor;
-        avatarImageView.layer.borderWidth = 2.0f;
-    } else {
-         avatarImageView.layer.borderWidth = .0f;
-    }
+    [self.progressBar setContribution:self.storedEntry];
 }
 
 + (CGFloat)heightCell:(id)entry {
@@ -96,7 +82,7 @@
     [self sendMessageWithText:text];
     if ([self.delegate respondsToSelector:@selector(notificationCell:calculateHeightTextView:)]) {
         UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
-        CGFloat height = WLCalculateHeightString(text, font, self.containerTextView.width);
+        CGFloat height = WLCalculateHeightString(text, font, WLConstants.screenWidth - WLNotificationCommentHorizontalSpacing);
         [self.delegate notificationCell:self calculateHeightTextView:height];
     }
 }

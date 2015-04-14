@@ -14,10 +14,6 @@ static CGFloat WLDefaultProgress = 0.1f;
 
 - (void)setContribution:(WLContribution *)contribution;
 
-- (void)setContribution:(WLContribution *)contribution isHideProgress:(BOOL)hide;
-
-- (void)setContribution:(WLContribution *)contribution isHideProgress:(BOOL)hide complition:(WLBooleanBlock)completion;
-
 - (void)setOperation:(id)operation;
 
 @end

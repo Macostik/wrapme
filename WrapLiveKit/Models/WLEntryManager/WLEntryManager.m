@@ -57,7 +57,7 @@
     if (_model != nil) {
         return _model;
     }
-    NSURL *url = [[NSBundle bundleForClass:[WLEntryManager class]] URLForResource:@"CoreData" withExtension:@"momd"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"CoreData" withExtension:@"momd"];
     _model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
     return _model;
 }

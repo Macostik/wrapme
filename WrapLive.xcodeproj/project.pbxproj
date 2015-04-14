@@ -8879,7 +8879,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Development-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -8908,7 +8908,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Development-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -8936,7 +8936,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Production-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -8964,7 +8964,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Production-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -8989,7 +8989,7 @@
 					"$(inherited)",
 				);
 				IBSC_MODULE = WrapLive_Development_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Development-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9010,7 +9010,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IBSC_MODULE = WrapLive_Development_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Development-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9031,7 +9031,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IBSC_MODULE = WrapLive_Development_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Development-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9057,7 +9057,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Development-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -9084,7 +9084,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Development-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -9111,7 +9111,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Development-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -9449,7 +9449,7 @@
 					"$(inherited)",
 				);
 				IBSC_MODULE = WrapLive_Production_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9470,7 +9470,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IBSC_MODULE = WrapLive_Production_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9491,7 +9491,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IBSC_MODULE = WrapLive_Production_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -9516,7 +9516,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -9543,7 +9543,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -9570,7 +9570,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/WrapLiveWatchKitExtension-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -9588,7 +9588,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 370;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9610,7 +9610,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 370;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9631,7 +9631,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 370;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9866,7 +9866,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Development-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -9894,7 +9894,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Production-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/WrapLiveTodayExtension-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;

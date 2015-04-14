@@ -178,32 +178,55 @@ CGFloat WLMaxTextViewWidth;
     self.refresher.enabled = YES;
 }
 
-- (void)performInsertAnimation:(void (^)(WLBlock completion))animation {
+- (void)performInsertAnimation:(void (^)(WLBlock completion))animation failure:(WLFailureBlock)failure {
     if (!self.animating) {
         self.animating = YES;
         __weak typeof(self)weakSelf = self;
         [self.collectionView reloadData];
-        [self.collectionView performBatchUpdates:nil completion:nil];
+        [self.collectionView layoutIfNeeded];
         animation(^{
             weakSelf.animating = NO;
             [weakSelf reloadData];
         });
+    } else {
+        if (failure) failure(nil);
     }
 }
 
 - (void)insertMessage:(WLMessage*)message {
-    if ([self.chat.entries containsObject:message]) return;
     __weak typeof(self)weakSelf = self;
-    [self performInsertAnimation:^(WLBlock completion) {
-        [weakSelf.chat addEntry:message];
-        [weakSelf.collectionView performBatchUpdates:^{
-            [weakSelf.collectionView reloadSections:weakSelf.supplementarySections];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:message] inSection:WLChatMessagesSection];
-            [weakSelf.collectionView insertItemsAtIndexPaths:@[indexPath]];
-        } completion:^(BOOL finished) {
-            completion();
-        }];
-    }];
+    runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
+        if ([weakSelf.chat.entries containsObject:message]) {
+            [operation finish];
+            return;
+        }
+
+        UICollectionView *collectionView = weakSelf.collectionView;
+        if (!weakSelf.animating && collectionView.contentOffset.y > -(weakSelf.composeBar.height + [WLKeyboard keyboard].height)) {
+            [weakSelf.chat addEntry:message];
+            CGFloat offset = collectionView.contentOffset.y;
+            CGFloat contentHeight = collectionView.contentSize.height;
+            [collectionView reloadData];
+            [collectionView layoutIfNeeded];
+            offset += collectionView.contentSize.height - contentHeight;
+            [collectionView trySetContentOffset:CGPointMake(0, offset) animated:NO];
+            [operation finish];
+        } else {
+            [weakSelf performInsertAnimation:^(WLBlock completion) {
+                [weakSelf.chat addEntry:message];
+                [collectionView performBatchUpdates:^{
+                    [collectionView reloadSections:weakSelf.supplementarySections];
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:message] inSection:WLChatMessagesSection];
+                    [collectionView insertItemsAtIndexPaths:@[indexPath]];
+                } completion:^(BOOL finished) {
+                    completion();
+                    [operation finish];
+                }];
+            } failure:^(NSError *error) {
+                [operation finish];
+            }];
+        }
+    });
 }
 
 - (void)refreshMessages:(WLRefresher*)sender {

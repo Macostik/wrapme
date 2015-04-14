@@ -63,7 +63,7 @@
 }
 
 - (NSURL*)modelURL {
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSBundle *bundle = [NSBundle mainBundle];
     NSURL *url = [bundle URLForResource:@"CoreData" withExtension:@"momd"];
     if (!url) {
         for (NSBundle *bundle in [NSBundle allBundles]) {

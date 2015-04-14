@@ -9,7 +9,7 @@
 #import "WLSignupFlowViewController.h"
 #import "WLProfileInformationViewController.h"
 #import "WLPhoneViewController.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLEmailViewController.h"
 #import "WLPhoneViewController.h"
 #import "WLEmailConfirmationViewController.h"

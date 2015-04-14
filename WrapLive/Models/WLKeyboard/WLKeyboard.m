@@ -8,7 +8,7 @@
 
 #import "WLKeyboard.h"
 #import "UIView+GestureRecognizing.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "UIView+AnimationHelper.h"
 
 @interface WLKeyboard ()

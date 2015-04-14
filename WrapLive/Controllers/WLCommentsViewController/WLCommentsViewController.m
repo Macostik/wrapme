@@ -15,14 +15,13 @@
 #import "WLCollectionViewFlowLayout.h"
 #import "WLSoundPlayer.h"
 #import "UIView+AnimationHelper.h"
-#import "WLNavigation.h"
-#import "WLCollectionView.h"
+#import "WLNavigationHelper.h"
 
 @interface WLCommentsViewController () <WLEntryNotifyReceiver, UIViewControllerTransitioningDelegate>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLCommentsViewSection *dataSection;
-@property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 @property (strong, nonatomic) WLRefresher *refresher;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topCommentViewContstrain;

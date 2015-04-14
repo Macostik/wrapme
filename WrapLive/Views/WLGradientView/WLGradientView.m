@@ -16,6 +16,8 @@
 
 @implementation WLGradientView
 
+@dynamic layer;
+
 @synthesize endColor = _endColor;
 
 + (Class)layerClass {

@@ -25,11 +25,23 @@ static NSString *WLIntroductionStoryboard = @"Introduction";
 
 @interface UIViewController (WLNavigation)
 
+@property (readonly, nonatomic) BOOL isTopViewController;
+
 + (instancetype)instantiateWithIdentifier:(NSString*)identifier storyboard:(UIStoryboard*)storyboard;
 
 + (instancetype)instantiate:(UIStoryboard*)storyboard;
 
 - (void)requestAuthorizationForPresentingEntry:(WLEntry*)entry completion:(WLBooleanBlock)completion;
+
+- (void)pushViewController:(UIViewController*)controller animated:(BOOL)animated;
+
+- (void)pushViewControllerNextToCurrent:(UIViewController*)controller animated:(BOOL)animated;
+
+- (void)pushViewControllerNextToRootViewController:(UIViewController*)controller animated:(BOOL)animated;
+
+- (void)pushViewController:(UIViewController*)controller nextToViewController:(UIViewController*)nextToController animated:(BOOL)animated;
+
+- (IBAction)back:(UIButton *)sender;
 
 @end
 
@@ -62,33 +74,3 @@ static NSString *WLIntroductionStoryboard = @"Introduction";
 + (void)setMainWindow:(UIWindow*)window;
 
 @end
-
-@interface WLEntry (WLNavigation)
-
-- (UIViewController *)viewController;
-
-- (NSMutableArray *)newStackViewControllersWithNavigationController:(UINavigationController*)navigationController;
-
-- (BOOL)isValidViewController:(UIViewController*)controller;
-
-- (void)configureViewController:(UIViewController*)controller fromContainingEntry:(WLEntry*)containingEntry;
-
-- (void)present;
-
-- (void)present:(BOOL)animated;
-
-- (void)presentInNavigationController:(UINavigationController*)navigationController;
-
-- (void)presentInNavigationController:(UINavigationController*)navigationController animated:(BOOL)animated;
-
-- (void)presentViewControllerWithoutLostData;
-
-@end
-
-@interface WLCandy (WLNavigation) @end
-
-@interface WLMessage (WLNavigation) @end
-
-@interface WLWrap (WLNavigation) @end
-
-@interface WLComment (WLNavigation) @end

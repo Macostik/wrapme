@@ -8,8 +8,9 @@
 
 #import "WLRemoteEntryHandler.h"
 #import "WLEntry.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "NSString+Additions.h"
+#import "WLNotificationEntryPresenter.h"
 
 @interface WLRemoteEntryHandler ()
 
@@ -34,7 +35,9 @@
 
 - (void)presentEntry:(WLEntry *)entry animated:(BOOL)animated {
     if (_isLoaded) {
-        if (entry.valid) [entry presentViewControllerWithoutLostData];
+        if (entry.valid) {
+            [WLNotificationEntryPresenter presentEntryRequestingAuthorization:entry animated:animated];
+        }
     } else {
         self.entry = entry;
     }

@@ -9,7 +9,7 @@
 
 #import "WLWrapViewController.h"
 #import "WLCandiesCell.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLCandyViewController.h"
 #import "WLComposeBar.h"
 #import "WLRefresher.h"
@@ -23,7 +23,6 @@
 #import "UIView+AnimationHelper.h"
 #import "WLCandyCell.h"
 #import "NSObject+NibAdditions.h"
-#import "UIViewController+Additions.h"
 #import "WLCandiesHistoryViewSection.h"
 #import "WLCollectionViewDataProvider.h"
 #import "UIScrollView+Additions.h"
@@ -34,6 +33,7 @@
 #import "WLPickerViewController.h"
 #import "UIFont+CustomFonts.h"
 #import "WLHintView.h"
+#import "WLChronologicalEntryPresenter.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
@@ -85,7 +85,7 @@
     [self.dataProvider setRefreshableWithStyle:WLRefresherStyleOrange];
     
     [self.historyViewSection setSelection:^ (id entry) {
-        [entry present];
+        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
     }];
     
     [self firstLoadRequest];

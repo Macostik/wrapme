@@ -9,10 +9,9 @@
 #import "UIFont+CustomFonts.h"
 #import "UIView+GestureRecognizing.h"
 #import "WLLoadingView.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLSignupFlowViewController.h"
 #import "WLWelcomeViewController.h"
-#import "UIViewController+Additions.h"
 
 typedef enum : NSUInteger {
     WLFlipDirectionLeft,

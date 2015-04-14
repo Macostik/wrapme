@@ -10,6 +10,8 @@
 
 @implementation WLHistoryItem
 
+@dynamic request;
+
 - (instancetype)init {
     self = [super init];
     if (self) {

@@ -9,7 +9,6 @@
 #import "WLAPIRequest.h"
 #import "WLAuthorizationRequest.h"
 #import "WLWelcomeViewController.h"
-#import "WLNavigation.h"
 #import "NSDate+Formatting.h"
 #import "WLSession.h"
 

@@ -16,7 +16,7 @@
 #import "WLImageViewCell.h"
 #import "WLComposeBar.h"
 #import "WLKeyboard.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLToast.h"
 #import "UIView+AnimationHelper.h"
 #import "WLHintView.h"

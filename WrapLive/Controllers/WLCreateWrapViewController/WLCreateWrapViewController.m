@@ -13,7 +13,7 @@
 #import "WLButton.h"
 #import "WLContributorCell.h"
 #import "WLCreateWrapViewController.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLToast.h"
 
 @interface WLCreateWrapViewController () 

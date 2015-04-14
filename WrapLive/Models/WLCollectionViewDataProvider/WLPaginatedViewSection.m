@@ -17,6 +17,8 @@
 
 @implementation WLPaginatedViewSection
 
+@dynamic entries;
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.entries = [[WLPaginatedSet alloc] init];

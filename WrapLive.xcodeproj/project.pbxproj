@@ -927,7 +927,6 @@
 		C55B25AC1AC9A6210072E9D2 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
 		C55B25AD1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
 		C55B25AE1AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
-		C55B25B91AC9BF0A0072E9D2 /* WLWKErrorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */; };
 		C55C366B1ACEB7A900C614BD /* WrapLiveKit_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */; };
 		C55C8D6E19C98A9400199245 /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6519C98A9400199245 /* WLNotificationCenter.m */; };
 		C55C8D6F19C98A9400199245 /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6519C98A9400199245 /* WLNotificationCenter.m */; };
@@ -1421,7 +1420,6 @@
 		C5E54B4F1ACBF9CE00444F7B /* WLWKCandyEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DA1ABD815200CB4BE3 /* WLWKCandyEventRow.m */; };
 		C5E54B501ACBF9CE00444F7B /* WLWKCommentEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DC1ABD815200CB4BE3 /* WLWKCommentEventRow.m */; };
 		C5E54B511ACBF9CE00444F7B /* WLWKEntryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */; };
-		C5E54B521ACBF9CE00444F7B /* WLWKErrorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */; };
 		C5E54B531ACBF9CE00444F7B /* WLWKContributionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */; };
 		C5EFCE0D1ACE9798009A2EAE /* PNObservationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EFCCF11ACE9797009A2EAE /* PNObservationCenter.m */; };
 		C5EFCE0E1ACE9798009A2EAE /* PNObservationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EFCCF11ACE9797009A2EAE /* PNObservationCenter.m */; };
@@ -2602,8 +2600,6 @@
 		C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		C559974E1A262BD8003D4B29 /* WLTelephony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTelephony.h; sourceTree = "<group>"; };
 		C559974F1A262BD8003D4B29 /* WLTelephony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTelephony.m; sourceTree = "<group>"; };
-		C55B25B71AC9BF0A0072E9D2 /* WLWKErrorRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKErrorRow.h; sourceTree = "<group>"; };
-		C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKErrorRow.m; sourceTree = "<group>"; };
 		C55C36661ACEB7A800C614BD /* WrapLiveKit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WrapLiveKit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C55C36691ACEB7A900C614BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WrapLiveKit_Tests.m; sourceTree = "<group>"; };
@@ -4446,8 +4442,6 @@
 				C50645DC1ABD815200CB4BE3 /* WLWKCommentEventRow.m */,
 				C50645DD1ABD815200CB4BE3 /* WLWKEntryRow.h */,
 				C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */,
-				C55B25B71AC9BF0A0072E9D2 /* WLWKErrorRow.h */,
-				C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */,
 				C50645DF1ABD815200CB4BE3 /* WLWKContributionsController.h */,
 				C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */,
 			);
@@ -7644,7 +7638,6 @@
 			files = (
 				C552329E1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m in Sources */,
 				C50646801ABD815200CB4BE3 /* WLWKEntryRow.m in Sources */,
-				C55B25B91AC9BF0A0072E9D2 /* WLWKErrorRow.m in Sources */,
 				C50646641ABD815200CB4BE3 /* WLWKCandyController.m in Sources */,
 				C506465D1ABD815200CB4BE3 /* WLWKReplyPresetsController.m in Sources */,
 				C50646791ABD815200CB4BE3 /* WLWKCommentEventRow.m in Sources */,
@@ -8525,7 +8518,6 @@
 				C5E54B531ACBF9CE00444F7B /* WLWKContributionsController.m in Sources */,
 				C5E54B4F1ACBF9CE00444F7B /* WLWKCandyEventRow.m in Sources */,
 				C5E54B4D1ACBF9CE00444F7B /* WLWKCandyController.m in Sources */,
-				C5E54B521ACBF9CE00444F7B /* WLWKErrorRow.m in Sources */,
 				C5E54B491ACBF9CE00444F7B /* WLWKNotificationController.m in Sources */,
 				C5E54B4C1ACBF9CE00444F7B /* WLWKReplyPresetsController.m in Sources */,
 				C5E54B4E1ACBF9CE00444F7B /* WLWKCommentRow.m in Sources */,

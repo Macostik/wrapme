@@ -201,8 +201,9 @@ CGFloat WLMaxTextViewWidth;
             return;
         }
 
+        BOOL applicationActive = [UIApplication sharedApplication].applicationState == UIApplicationStateActive;
         UICollectionView *collectionView = weakSelf.collectionView;
-        if (!weakSelf.animating && collectionView.contentOffset.y > -(weakSelf.composeBar.height + [WLKeyboard keyboard].height)) {
+        if (!weakSelf.animating && (collectionView.contentOffset.y > -(weakSelf.composeBar.height + [WLKeyboard keyboard].height) || !applicationActive)) {
             [weakSelf.chat addEntry:message];
             CGFloat offset = collectionView.contentOffset.y;
             CGFloat contentHeight = collectionView.contentSize.height;
@@ -299,10 +300,6 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)notifier:(WLEntryNotifier *)notifier messageDeleted:(WLMessage *)message {
     [self.chat resetEntries:[self.wrap messages]];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier messageUpdated:(WLMessage *)message {
-    [self.chat addEntry:message];
 }
 
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {

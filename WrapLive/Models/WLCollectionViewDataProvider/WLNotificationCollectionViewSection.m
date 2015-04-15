@@ -38,20 +38,19 @@
 }
 
 - (CGSize)size:(NSIndexPath*)indexPath {
-    id entry = [self.entries.entries objectAtIndex:indexPath.item];
-    __block CGFloat textHeight = .0;
-    textHeight = [entry isKindOfClass:[WLCandy class]] ? [WLCandyNotificationCell heightCell:entry] :
-                                                         [WLNotificationCell heightCell:entry];
     
-    NSEnumerator *key = [self.bufferInfoCell keyEnumerator];
-    id _key = nil;
-    while((_key = [key nextObject]) != nil) {
-        if ([_key isEqual:entry]) {
-            CGFloat height = [[self.bufferInfoCell objectForKey:_key] floatValue];
-            textHeight += height;
-        }
-    }
-    return CGSizeMake(WLConstants.screenWidth, textHeight + WLNotificationCommentVerticalSpacing);
+    id entry = [self.entries.entries objectAtIndex:indexPath.item];
+    
+    CGFloat textHeight  = [entry isKindOfClass:[WLCandy class]] ? [WLCandyNotificationCell additionalHeightCell:entry] :
+                                                                  [WLNotificationCell additionalHeightCell:entry];
+    
+    textHeight += [[self.bufferInfoCell objectForKey:entry] floatValue];
+ 
+    UIFont *fontNormal = [UIFont preferredFontWithName:WLFontOpenSansRegular
+                                          preset:WLFontPresetNormal];
+    UIFont *fontSmall = [UIFont preferredFontWithName:WLFontOpenSansRegular
+                                          preset:WLFontPresetSmall];
+    return CGSizeMake(WLConstants.screenWidth, textHeight + 2*floorf(fontNormal.lineHeight) + floorf(fontSmall.lineHeight) + WLPaddingCell);
 }
 
 #pragma mark - WLFontPresetterReceiver
@@ -63,9 +62,8 @@
 #pragma mark - WLNotificationCellDelegate 
 
 - (void)notificationCell:(WLNotificationCell *)cell didRetryMessageByComposeBar:(WLComposeBar *)composeBar {
-    WLEntry *entry = [self openedCellEntry:cell.entry];
-    if (entry) {
-        [self.bufferInfoCell removeObjectForKey:entry];
+    if ([self.bufferInfoCell objectForKey:cell.entry] != nil) {
+        [self.bufferInfoCell removeObjectForKey:cell.entry];
     } else {
         [self.bufferInfoCell setObject:[NSNumber numberWithFloat:composeBar.height] forKey:cell.entry];
     }
@@ -101,17 +99,6 @@
 
 - (id)notificationCell:(WLNotificationCell *)cell createdEntry:(id)entry {
     return [self.createdEntry objectForKey:entry];
-}
-
-- (WLEntry *)openedCellEntry:(WLEntry *)entry {
-    NSEnumerator *key = [self.bufferInfoCell keyEnumerator];
-    id _key = nil;
-    while((_key = [key nextObject]) != nil) {
-        if ([_key isEqual:entry]) {
-            return entry;
-        }
-    }
-    return nil;
 }
 
 @end

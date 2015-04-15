@@ -89,7 +89,9 @@
 }
 
 - (void)keyboardDidHide:(WLKeyboard*)keyboard {
-    self.dataSection.entries = [[WLUser currentUser] notifications];
+    run_after(2.0, ^{
+        self.dataSection.entries = [[WLUser currentUser] notifications];
+    });
 }
 
 @end

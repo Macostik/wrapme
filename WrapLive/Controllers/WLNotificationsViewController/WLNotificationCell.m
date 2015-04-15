@@ -19,8 +19,9 @@
 #import "NSString+Additions.h"
 #import "WLIconButton.h"
 #import "WLTextView.h"
+#import "WLFontPresetter.h"
 
-@interface WLNotificationCell () <TTTAttributedLabelDelegate>
+@interface WLNotificationCell ()
 
 @property (weak, nonatomic) IBOutlet WLImageView *pictureView;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
@@ -43,6 +44,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.containerTextView.textContainerInset = self.textView.textContainerInset = UIEdgeInsetsZero;
+    self.containerTextView.textContainer.lineFragmentPadding = self.textView.textContainer.lineFragmentPadding = 0;
     self.pictureView.layer.cornerRadius = self.pictureView.height/2;
     [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
 }
@@ -62,13 +64,13 @@
     [self.progressBar setContribution:self.storedEntry];
 }
 
-+ (CGFloat)heightCell:(id)entry {
++ (CGFloat)additionalHeightCell:(id)entry {
     UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansRegular
-                                          preset:WLFontPresetNormal];
+                                          preset:WLFontPresetLarge];
     return WLCalculateHeightString([entry text], font, WLConstants.screenWidth - WLNotificationCommentHorizontalSpacing);
 }
 
-- (IBAction)retryMessage:(UIButton *)sender {
+- (IBAction)replyMessage:(UIButton *)sender {
     self.avatarImageView.hidden = self.progressBar.hidden = YES;
     if ([self.delegate respondsToSelector:@selector(notificationCell:didRetryMessageByComposeBar:)]) {
         [self.delegate notificationCell:self didRetryMessageByComposeBar:self.composeBar];
@@ -81,8 +83,8 @@
     [self.entry setUnread:NO];
     [self sendMessageWithText:text];
     if ([self.delegate respondsToSelector:@selector(notificationCell:calculateHeightTextView:)]) {
-        UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
-        CGFloat height = WLCalculateHeightString(text, font, WLConstants.screenWidth - WLNotificationCommentHorizontalSpacing);
+        UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal];
+        CGFloat height = WLCalculateHeightString(text, font, WLConstants.screenWidth - WLNotificationContentHorizontalSpacing);
         [self.delegate notificationCell:self calculateHeightTextView:height];
     }
 }
@@ -115,11 +117,14 @@
 - (void)sendMessageWithText:(NSString *)text {
     self.retryButton.hidden = YES;
     if ([self.entry valid]) {
-        [[self.entry wrap] uploadMessage:text success:^(WLMessage *message) {
+        id entry = [[self.entry wrap] uploadMessage:text success:^(WLMessage *message) {
             [WLSoundPlayer playSound:WLSound_s04];
         } failure:^(NSError *error) {
             [error show];
         }];
+        if ([self.delegate respondsToSelector:@selector(notificationCell:createEntry:)]) {
+            [self.delegate notificationCell:self createEntry:entry];
+        }
     }
 }
 
@@ -152,8 +157,8 @@
 
 @implementation WLCandyNotificationCell
 
-+ (CGFloat)heightCell:(id)entry {
-    return 12.0;
++ (CGFloat)additionalHeightCell:(id)entry {
+    return WLPaddingCell;
 }
 
 - (void)setup:(WLCandy *)candy {

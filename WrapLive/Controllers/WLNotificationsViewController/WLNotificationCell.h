@@ -8,9 +8,11 @@
 
 #import "WLEntryCell.h"
 
-const static CGFloat WLNotificationCommentHorizontalSpacing = 134.0f;
+const static CGFloat WLNotificationCommentHorizontalSpacing = 144.0f;
+const static CGFloat WLNotificationContentHorizontalSpacing = 124.0f;
 const static CGFloat WLNotificationCommentVerticalSpacing = 77.0f;
 const static CGFloat WLMinHeightCell = 41.0f;
+const static CGFloat WLPaddingCell = 12.0;
 
 @class WLNotificationCell, WLComposeBar, WLTextView;
 
@@ -30,7 +32,7 @@ const static CGFloat WLMinHeightCell = 41.0f;
 
 @property (assign, nonatomic) IBOutlet id <WLNotificationCellDelegate> delegate;
 
-+ (CGFloat)heightCell:(id)entry;
++ (CGFloat)additionalHeightCell:(id)entry;
 - (void)sendMessageWithText:(NSString *)text;
 
 @end

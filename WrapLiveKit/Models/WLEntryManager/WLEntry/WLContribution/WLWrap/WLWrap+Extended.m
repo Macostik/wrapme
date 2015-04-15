@@ -222,13 +222,13 @@
     return [self candies:limit];
 }
 
-- (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
+- (id)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
 	
     NSError *internetConnectionError = [NSError errorWithDescription:
                                         WLLS(@"Sorry you can't chat when internet connection is unavailable. Please try again later.")];
 	if (![WLNetwork network].reachable) {
 		failure(internetConnectionError);
-		return;
+		return nil;
 	}
 	
 	__weak WLMessage* message = [WLMessage entry];
@@ -240,6 +240,7 @@
 		[message remove];
         failure(error.isNetworkError ? internetConnectionError : error);
 	}];
+    return message;
 }
 
 - (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {

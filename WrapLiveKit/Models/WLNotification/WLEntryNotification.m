@@ -262,7 +262,6 @@
     [contribution removeObjectsWhileEnumerating:^BOOL(WLEntry *entry) {
         return [entry isKindOfClass:[WLWrap class]];
     }];
-    
     return contribution;
 }
 

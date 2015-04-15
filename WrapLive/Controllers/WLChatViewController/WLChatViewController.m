@@ -459,11 +459,4 @@ CGFloat WLMaxTextViewWidth;
     return 3;
 }
 
-#pragma mark - WLFontPresetterReceiver
-
-- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
-    self.messageFont = [self.messageFont preferredFontWithPreset:WLFontPresetSmall];
-    [self.collectionView reloadData];
-}
-
 @end

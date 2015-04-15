@@ -1640,7 +1640,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y7O-GH-Q4Y" customClass="WLCollectionView">
-                                <rect key="frame" x="0.0" y="184" width="320" height="382"/>
+                                <rect key="frame" x="0.0" y="169" width="320" height="397"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="94"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="cRR-9g-HQh">
@@ -2055,7 +2055,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcq-LH-ZNY">
-                                <rect key="frame" x="0.0" y="56" width="320" height="128"/>
+                                <rect key="frame" x="0.0" y="56" width="320" height="113"/>
                                 <subviews>
                                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help keep your account safe" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="CSs-OC-vDg" customClass="WLLabel">
                                         <rect key="frame" x="10" y="10" width="300" height="21"/>
@@ -2366,7 +2366,7 @@ Tap here to start.</string>
                             <constraint firstItem="Qcq-LH-ZNY" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="aMO-Xl-sXk"/>
                             <constraint firstItem="9Rl-cW-5hv" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="iFH-7m-26c"/>
                             <constraint firstItem="y7O-GH-Q4Y" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="inx-sR-OqM"/>
-                            <constraint firstItem="rgB-qi-Gbh" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" constant="200" id="iuy-XQ-QmQ"/>
+                            <constraint firstItem="rgB-qi-Gbh" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" id="iuy-XQ-QmQ"/>
                             <constraint firstAttribute="trailing" secondItem="y7O-GH-Q4Y" secondAttribute="trailing" id="lsC-oB-Bwq"/>
                             <constraint firstAttribute="trailing" secondItem="Qcq-LH-ZNY" secondAttribute="trailing" id="sog-kt-HWt"/>
                             <constraint firstItem="Qcq-LH-ZNY" firstAttribute="bottom" secondItem="9Rl-cW-5hv" secondAttribute="bottom" priority="750" id="v3N-j7-b7C"/>
@@ -4289,7 +4289,7 @@ Check your internet connection and try again.</string>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="0OD-Cn-Lp6" customClass="WLTextView">
                                                             <rect key="frame" x="5" y="0.0" width="99" height="30"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="tintColor" red="0.26379796862602234" green="0.26379004120826721" blue="0.26379451155662537" alpha="1" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                             <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
@@ -4419,7 +4419,7 @@ Check your internet connection and try again.</string>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="cMC-ND-b5t" customClass="WLTextView">
                                                             <rect key="frame" x="5" y="0.0" width="99" height="30"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="tintColor" red="0.26379796862602234" green="0.26379004120826721" blue="0.26379451155662537" alpha="1" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                             <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>

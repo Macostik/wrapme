@@ -582,17 +582,17 @@
                         <viewControllerLayoutGuide type="bottom" id="JSr-ZC-7FZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Yja-9u-DOv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJq-9P-McW">
-                                <rect key="frame" x="46" y="147" width="228" height="228"/>
+                                <rect key="frame" x="64" y="129" width="192" height="192"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-large-avatar" translatesAutoresizingMaskIntoConstraints="NO" id="AYn-Zt-xUG" customClass="WLImageView">
-                                        <rect key="frame" x="0.0" y="0.0" width="228" height="228"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="192" height="192"/>
                                     </imageView>
                                     <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="aDm-0w-Vn8" customClass="WLGradientView">
-                                        <rect key="frame" x="0.0" y="167" width="228" height="61"/>
+                                        <rect key="frame" x="0.0" y="131" width="192" height="61"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="61" id="IJO-wf-Nhb"/>
@@ -613,7 +613,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zT6-pp-ssq">
-                                        <rect key="frame" x="0.0" y="0.0" width="228" height="228"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="192" height="192"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="5"/>
@@ -647,7 +647,7 @@
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D1N-1e-psu" customClass="WLTextField">
-                                <rect key="frame" x="40" y="399" width="240" height="32"/>
+                                <rect key="frame" x="40" y="345" width="240" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="Rrn-Ex-LdI"/>
                                     <constraint firstAttribute="width" constant="240" id="WNj-30-XX2"/>
@@ -664,7 +664,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="82E-k4-0WJ" customClass="WLTextField">
-                                <rect key="frame" x="40" y="453" width="240" height="32"/>
+                                <rect key="frame" x="40" y="399" width="240" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="MWm-F0-5Vs"/>
                                     <constraint firstAttribute="height" constant="32" id="dpr-Rw-aOn"/>
@@ -681,7 +681,7 @@
                                 </connections>
                             </textField>
                             <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efj-27-0UK" customClass="WLPressButton">
-                                <rect key="frame" x="0.0" y="524" width="160" height="44"/>
+                                <rect key="frame" x="0.0" y="436" width="160" height="44"/>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="hyF-Rr-kHk"/>
@@ -701,7 +701,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GkU-w3-rTK" customClass="WLPressButton">
-                                <rect key="frame" x="160" y="524" width="160" height="44"/>
+                                <rect key="frame" x="160" y="436" width="160" height="44"/>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="WXn-rT-mAl"/>
@@ -763,13 +763,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKa-TF-m51">
-                                <rect key="frame" x="0.0" y="64" width="320" height="91"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="74"/>
                                 <subviews>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please verify your e-mail address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nim-LA-uPS" customClass="WLLabel">
-                                        <rect key="frame" x="10" y="10" width="228" height="21"/>
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Help keep your account safe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nim-LA-uPS" customClass="WLLabel">
+                                        <rect key="frame" x="10" y="10" width="198" height="23"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="dic-VQ-tM0"/>
+                                            <constraint firstAttribute="height" constant="23" id="oou-Ac-InC"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                         <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
@@ -778,13 +778,18 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpG-be-cvC" customClass="WLButton">
-                                        <rect key="frame" x="248" y="10" width="62" height="32"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Please verify your e-mail address **calvinchso@gmail.com** by clicking the link in the verification e-mail." translatesAutoresizingMaskIntoConstraints="NO" id="VXa-Dq-6e9" customClass="WLTextView">
+                                        <rect key="frame" x="5" y="33" width="310" height="46"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="11"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xsmall"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textView>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpG-be-cvC" customClass="WLButton">
+                                        <rect key="frame" x="218" y="10" width="92" height="30"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="Nxh-U7-7Or"/>
-                                            <constraint firstAttribute="width" constant="62" id="Sln-ML-mnT"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
                                         <state key="normal" title="Resend">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -806,35 +811,24 @@
                                             <action selector="resendEmailConfirmation:" destination="7FG-gC-kPg" eventType="touchUpInside" id="GH1-aV-n6f"/>
                                         </connections>
                                     </button>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="eHd-9o-24J" customClass="WLLabel">
-                                        <rect key="frame" x="10" y="31" width="228" height="60"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <string key="text">Help keep your account safe by verifying your e-mail address **calvinchso@gmail.com**. Just click the verification link in the e-mail and you are all set!</string>
-                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="11"/>
-                                        <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xsmall"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="eHd-9o-24J" firstAttribute="leading" secondItem="fKa-TF-m51" secondAttribute="leading" constant="10" id="9Ox-Ld-NEo"/>
-                                    <constraint firstItem="eHd-9o-24J" firstAttribute="top" secondItem="Nim-LA-uPS" secondAttribute="bottom" id="CU6-2D-ugj"/>
-                                    <constraint firstItem="gpG-be-cvC" firstAttribute="top" secondItem="fKa-TF-m51" secondAttribute="top" constant="10" id="EeB-0t-IoN"/>
-                                    <constraint firstItem="Nim-LA-uPS" firstAttribute="leading" secondItem="fKa-TF-m51" secondAttribute="leading" constant="10" id="R6p-K0-8hx"/>
-                                    <constraint firstItem="gpG-be-cvC" firstAttribute="leading" secondItem="Nim-LA-uPS" secondAttribute="trailing" constant="10" id="gtA-cn-SXq"/>
-                                    <constraint firstAttribute="trailing" secondItem="gpG-be-cvC" secondAttribute="trailing" constant="10" id="jD1-c8-B26"/>
-                                    <constraint firstItem="Nim-LA-uPS" firstAttribute="top" secondItem="fKa-TF-m51" secondAttribute="top" constant="10" id="qus-NB-kkD"/>
-                                    <constraint firstAttribute="bottom" secondItem="eHd-9o-24J" secondAttribute="bottom" id="vcB-nU-bzp"/>
-                                    <constraint firstItem="gpG-be-cvC" firstAttribute="leading" secondItem="eHd-9o-24J" secondAttribute="trailing" constant="10" id="vnD-SY-X2k"/>
+                                    <constraint firstAttribute="trailing" secondItem="gpG-be-cvC" secondAttribute="trailing" constant="10" id="1JP-zi-zf1"/>
+                                    <constraint firstAttribute="bottom" secondItem="VXa-Dq-6e9" secondAttribute="bottom" constant="-5" id="Adj-5W-1R7"/>
+                                    <constraint firstItem="Nim-LA-uPS" firstAttribute="top" secondItem="fKa-TF-m51" secondAttribute="top" constant="10" id="JPw-lz-PGS"/>
+                                    <constraint firstItem="gpG-be-cvC" firstAttribute="top" secondItem="fKa-TF-m51" secondAttribute="top" constant="10" id="Nje-Hy-gvM"/>
+                                    <constraint firstItem="gpG-be-cvC" firstAttribute="leading" secondItem="Nim-LA-uPS" secondAttribute="trailing" constant="10" id="aKr-BE-rEq"/>
+                                    <constraint firstItem="VXa-Dq-6e9" firstAttribute="leading" secondItem="fKa-TF-m51" secondAttribute="leading" constant="5" id="dS1-bo-gXJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="VXa-Dq-6e9" secondAttribute="trailing" constant="5" id="ggE-lF-SGS"/>
+                                    <constraint firstItem="Nim-LA-uPS" firstAttribute="leading" secondItem="fKa-TF-m51" secondAttribute="leading" constant="10" id="ghc-CC-XYg"/>
+                                    <constraint firstItem="VXa-Dq-6e9" firstAttribute="top" secondItem="Nim-LA-uPS" secondAttribute="bottom" id="xrk-tf-Zyj"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="SJq-9P-McW" secondAttribute="centerY" constant="23" id="1N0-Ju-AIq"/>
+                            <constraint firstAttribute="centerY" secondItem="SJq-9P-McW" secondAttribute="centerY" constant="15" id="1N0-Ju-AIq"/>
                             <constraint firstAttribute="height" secondItem="SJq-9P-McW" secondAttribute="height" multiplier="2.5" id="9Sa-xz-0jg"/>
                             <constraint firstItem="D1N-1e-psu" firstAttribute="top" secondItem="SJq-9P-McW" secondAttribute="bottom" constant="24" id="BYA-oj-Kaw"/>
                             <constraint firstItem="ant-6l-Vag" firstAttribute="top" secondItem="AL9-yK-5IY" secondAttribute="bottom" constant="-20" id="JWO-6l-Z2H"/>
@@ -856,7 +850,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="jjK-sb-Bg6"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="cancelButton" destination="Efj-27-0UK" id="f9c-Po-yLm"/>
                         <outlet property="doneButton" destination="GkU-w3-rTK" id="CSh-K5-pPH"/>
@@ -865,7 +859,7 @@
                         <outlet property="imagePlaceholderView" destination="SJq-9P-McW" id="amY-pq-Miv"/>
                         <outlet property="imageView" destination="AYn-Zt-xUG" id="RLi-hY-DCv"/>
                         <outlet property="nameTextField" destination="D1N-1e-psu" id="aFX-at-9U5"/>
-                        <outlet property="verificationEmailLabel" destination="eHd-9o-24J" id="Aie-Kk-E1D"/>
+                        <outlet property="verificationEmailTextView" destination="VXa-Dq-6e9" id="hUh-Z4-Apx"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="dqa-OK-Z7G" id="slP-9b-HaW"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="xPd-PQ-LCt" id="wVL-n7-ylr"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="1N0-Ju-AIq" id="Gey-vy-fpK"/>
@@ -897,7 +891,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y7O-GH-Q4Y" customClass="WLCollectionView">
-                                <rect key="frame" x="0.0" y="192" width="320" height="374"/>
+                                <rect key="frame" x="0.0" y="177" width="320" height="389"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="94"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="cRR-9g-HQh">
@@ -1312,9 +1306,9 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcq-LH-ZNY">
-                                <rect key="frame" x="0.0" y="64" width="320" height="128"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="113"/>
                                 <subviews>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please verify your e-mail address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="CSs-OC-vDg" customClass="WLLabel">
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help keep your account safe" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="CSs-OC-vDg" customClass="WLLabel">
                                         <rect key="frame" x="10" y="10" width="300" height="21"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
@@ -1324,10 +1318,9 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="UL6-dF-3Kj" customClass="WLLabel">
-                                        <rect key="frame" x="10" y="31" width="300" height="45"/>
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please verify your e-mail address **calvinchso@gmail.com** by clicking the link in the verification e-mail" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="UL6-dF-3Kj" customClass="WLLabel">
+                                        <rect key="frame" x="10" y="31" width="300" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <string key="text">Help keep your account safe by verifying your e-mail address **calvinchso@gmail.com**. Just click the verification link in the e-mail and you are all set!</string>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="11"/>
                                         <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -1336,7 +1329,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R9i-Mn-k3a" customClass="WLPressButton">
-                                        <rect key="frame" x="10" y="86" width="84" height="32"/>
+                                        <rect key="frame" x="10" y="71" width="84" height="32"/>
                                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="cZq-AT-DO4"/>
@@ -1359,7 +1352,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yk6-tb-7gb" customClass="WLPressButton">
-                                        <rect key="frame" x="266" y="86" width="44" height="32"/>
+                                        <rect key="frame" x="266" y="71" width="44" height="32"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="X5I-V9-6Fr"/>
@@ -1560,7 +1553,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh" customClass="WLTouchView">
-                                <rect key="frame" x="138" y="64" width="178" height="77"/>
+                                <rect key="frame" x="138" y="264" width="178" height="77"/>
                                 <subviews>
                                     <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-EK-LgH" customClass="WLTriangleView">
                                         <rect key="frame" x="150" y="1" width="16" height="9"/>
@@ -1626,7 +1619,7 @@ Tap here to start.</string>
                             <constraint firstItem="Qcq-LH-ZNY" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="aMO-Xl-sXk"/>
                             <constraint firstItem="9Rl-cW-5hv" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="iFH-7m-26c"/>
                             <constraint firstItem="y7O-GH-Q4Y" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="inx-sR-OqM"/>
-                            <constraint firstItem="rgB-qi-Gbh" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" id="iuy-XQ-QmQ"/>
+                            <constraint firstItem="rgB-qi-Gbh" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" constant="200" id="iuy-XQ-QmQ"/>
                             <constraint firstAttribute="trailing" secondItem="y7O-GH-Q4Y" secondAttribute="trailing" id="lsC-oB-Bwq"/>
                             <constraint firstAttribute="trailing" secondItem="Qcq-LH-ZNY" secondAttribute="trailing" id="sog-kt-HWt"/>
                             <constraint firstItem="Qcq-LH-ZNY" firstAttribute="bottom" secondItem="9Rl-cW-5hv" secondAttribute="bottom" priority="750" id="v3N-j7-b7C"/>

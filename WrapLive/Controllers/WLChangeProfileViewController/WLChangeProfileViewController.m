@@ -17,15 +17,17 @@
 #import "UIButton+Additions.h"
 #import "WLProfileEditSession.h"
 #import "UIView+AnimationHelper.h"
+#import "WLTextView.h"
+#import "WLFontPresetter.h"
 
-@interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
+@interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLFontPresetterReceiver, WLBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *imagePlaceholderView;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
-@property (weak, nonatomic) IBOutlet UILabel *verificationEmailLabel;
+@property (weak, nonatomic) IBOutlet WLTextView *verificationEmailTextView;
 
 @property (strong, nonatomic) WLProfileEditSession *editSession;
 
@@ -41,12 +43,14 @@
     [self.imageView setImageName:@"default-large-avatar" forState:WLImageViewStateFailed];
     self.editSession = [[WLProfileEditSession alloc] initWithUser:[WLUser currentUser]];
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
+    self.verificationEmailTextView.textContainerInset = UIEdgeInsetsZero;
     [self updateEmailConfirmationView];
     [[WLUser notifier] addReceiver:self];
+    [[WLFontPresetter presetter] addReceiver:self];
 }
 
 - (void)updateEmailConfirmationView {
-    self.verificationEmailLabel.attributedText = [WLAuthorization attributedVerificationSuggestion];
+    self.verificationEmailTextView.attributedText = [WLAuthorization attributedVerificationSuggestion];
     self.emailConfirmationView.hidden = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
 }
 
@@ -140,6 +144,18 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
     [self updateEmailConfirmationView];
+}
+
+#pragma mark -  WLFontPresetterReceiver
+
+- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+      self.verificationEmailTextView.attributedText = [WLAuthorization attributedVerificationSuggestion];
+}
+
+#pragma mark - WLBroadcastReceiver
+
+- (NSNumber *)peferedOrderEntry:(WLBroadcaster *)broadcaster {
+    return @(2);
 }
 
 @end

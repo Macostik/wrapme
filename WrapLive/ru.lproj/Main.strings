@@ -105,7 +105,7 @@
 "N9a-4s-fUi.text" = "By Bartholome O'Connell II";
 
 /* Class = "IBUILabel"; text = "Email confirmation"; ObjectID = "Nim-LA-uPS"; */
-"Nim-LA-uPS.text" = "Пожалуйста, подтвердите Вашу почту";
+"Nim-LA-uPS.text" = "Help keep your account safe";
 
 /* Class = "IBUIButton"; normalTitle = "wrap name"; ObjectID = "PcB-Yh-hjT"; */
 "PcB-Yh-hjT.normalTitle" = "Имя врапа";
@@ -171,7 +171,7 @@
 "fw4-o4-768.text" = "Лейбочка";
 
 /* Class = "IBUIButton"; normalTitle = "Resend"; ObjectID = "gpG-be-cvC"; */
-"gpG-be-cvC.normalTitle" = "Повторная отправка";
+"gpG-be-cvC.normalTitle" = "Пов. отправка";
 
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "jAi-R7-bNq"; */
 "jAi-R7-bNq.text" = "Лейбочка";

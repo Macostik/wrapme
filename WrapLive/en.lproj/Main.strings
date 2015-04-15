@@ -116,8 +116,8 @@
 /* Class = "IBUIButton"; normalTitle = "Change e-mail"; ObjectID = "R9i-Mn-k3a"; */
 "R9i-Mn-k3a.normalTitle" = "Change e-mail";
 
-/* Class = "IBUILabel"; text = "Notifications"; ObjectID = "Te3-A9-g3F"; */
-"Te3-A9-g3F.text" = "Notifications";
+/* Class = "IBUILabel"; text = "What's up"; ObjectID = "Te3-A9-g3F"; */
+"Te3-A9-g3F.text" = "What's up";
 
 /* Class = "IBUILabel"; text = "Enter your friend's name and phone number"; ObjectID = "TlS-f9-yyB"; */
 "TlS-f9-yyB.text" = "Enter your friend's name and phone number";

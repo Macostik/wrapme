@@ -22,7 +22,7 @@ static NSInteger WLCandyTypeImage = 10;
 
 - (void)removeComment:(WLComment *)comment;
 
-- (void)uploadComment:(NSString *)text success:(WLCommentBlock)success failure:(WLFailureBlock)failure;
+- (id)uploadComment:(NSString *)text success:(WLCommentBlock)success failure:(WLFailureBlock)failure;
 
 - (void)download:(WLBlock)success failure:(WLFailureBlock)failure;
 

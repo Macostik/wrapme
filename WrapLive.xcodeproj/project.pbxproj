@@ -7238,6 +7238,7 @@
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
 				C5EFCE891ACE9798009A2EAE /* PNHereNowResponseParser.m in Sources */,
 				C5EFCF491ACE9798009A2EAE /* PNChannelGroupRemoveRequest.m in Sources */,
+				C55EDB1C1AD3FC600040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				C5EFCF4D1ACE9798009A2EAE /* PNChannelGroupsRequest.m in Sources */,
 				C5EFCF891ACE9798009A2EAE /* PNTimeTokenRequest.m in Sources */,
@@ -7444,6 +7445,7 @@
 			files = (
 				C5475B4F1AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */,
 				C50646261ABD815200CB4BE3 /* WLTodayViewController.m in Sources */,
+				C55EDB201AD3FC620040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C5475B531AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */,
 				C5475B571AC59ACD00F9E8B3 /* WLTodayCandyCell.m in Sources */,
 			);
@@ -7455,6 +7457,7 @@
 			files = (
 				C5475B501AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */,
 				C50646271ABD815200CB4BE3 /* WLTodayViewController.m in Sources */,
+				C55EDB211AD3FC630040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C5475B541AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */,
 				C5475B581AC59ACD00F9E8B3 /* WLTodayCandyCell.m in Sources */,
 			);
@@ -7471,6 +7474,7 @@
 				C50646791ABD815200CB4BE3 /* WLWKCommentEventRow.m in Sources */,
 				C50646871ABD815200CB4BE3 /* WLWKContributionsController.m in Sources */,
 				C549B73E1AC0179B003623A7 /* WLWKCandyEventRow.m in Sources */,
+				C55EDB221AD3FC630040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C506464E1ABD815200CB4BE3 /* WLWKReplyPresetRow.m in Sources */,
 				C506466B1ABD815200CB4BE3 /* WLWKCommentRow.m in Sources */,
 				C50646471ABD815200CB4BE3 /* WLWKNotificationController.m in Sources */,
@@ -7559,6 +7563,7 @@
 				C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */,
 				C5EFCE8A1ACE9798009A2EAE /* PNHereNowResponseParser.m in Sources */,
 				C5EFCF4A1ACE9798009A2EAE /* PNChannelGroupRemoveRequest.m in Sources */,
+				C55EDB1D1AD3FC610040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C5EFCF4E1ACE9798009A2EAE /* PNChannelGroupsRequest.m in Sources */,
 				C5EFCF8A1ACE9798009A2EAE /* PNTimeTokenRequest.m in Sources */,
@@ -7841,6 +7846,7 @@
 				C54AF58E19B8C467006F7EDB /* WLComposeBar.m in Sources */,
 				C5EFCE8B1ACE9798009A2EAE /* PNHereNowResponseParser.m in Sources */,
 				C5EFCF4B1ACE9798009A2EAE /* PNChannelGroupRemoveRequest.m in Sources */,
+				C55EDB1E1AD3FC610040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C54AF59019B8C467006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C5EFCF4F1ACE9798009A2EAE /* PNChannelGroupsRequest.m in Sources */,
 				C5EFCF8B1ACE9798009A2EAE /* PNTimeTokenRequest.m in Sources */,
@@ -8123,6 +8129,7 @@
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
 				C5EFCE8C1ACE9798009A2EAE /* PNHereNowResponseParser.m in Sources */,
 				C5EFCF4C1ACE9798009A2EAE /* PNChannelGroupRemoveRequest.m in Sources */,
+				C55EDB1F1AD3FC610040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C5EFCF501ACE9798009A2EAE /* PNChannelGroupsRequest.m in Sources */,
 				C5EFCF8C1ACE9798009A2EAE /* PNTimeTokenRequest.m in Sources */,
@@ -8342,6 +8349,7 @@
 				C5E54B4D1ACBF9CE00444F7B /* WLWKCandyController.m in Sources */,
 				C5E54B491ACBF9CE00444F7B /* WLWKNotificationController.m in Sources */,
 				C5E54B4C1ACBF9CE00444F7B /* WLWKReplyPresetsController.m in Sources */,
+				C55EDB231AD3FC640040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C5E54B4E1ACBF9CE00444F7B /* WLWKCommentRow.m in Sources */,
 				C5E54B501ACBF9CE00444F7B /* WLWKCommentEventRow.m in Sources */,
 				C5E54B4A1ACBF9CE00444F7B /* WLWKReplyPresetRow.m in Sources */,

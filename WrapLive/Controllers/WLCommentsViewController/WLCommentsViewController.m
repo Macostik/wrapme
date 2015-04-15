@@ -158,9 +158,9 @@
 }
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
-    UICollectionView *collectionView = self.collectionView;
-    CGPoint touchPoint = [sender locationInView:collectionView];
-    if (CGRectContainsPoint(collectionView.bounds, touchPoint)) {
+    UIView *contentView = self.collectionView.superview;
+    CGPoint touchPoint = [sender locationInView:contentView];
+    if (CGRectContainsPoint(contentView.bounds, touchPoint)) {
         [self.view endEditing:YES];
     } else {
         [self onClose:nil];
@@ -170,7 +170,7 @@
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier*)notifier candyUpdated:(WLComment *)comment {
-    self.dataSection.entries =  [self.candy sortedComments];
+    self.dataSection.entries = [self.candy sortedComments];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {

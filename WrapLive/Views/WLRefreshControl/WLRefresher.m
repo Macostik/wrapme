@@ -18,7 +18,6 @@ static CGFloat WLRefresherContentSize = 44.0f;
 @property (weak, nonatomic) UIActivityIndicatorView* spinner;
 @property (weak, nonatomic) UIImageView* arrowView;
 @property (weak, nonatomic) UIView* contentView;
-@property (nonatomic) CGFloat inset;
 @property (weak, nonatomic) CAShapeLayer* strokeLayer;
 
 @property (nonatomic) BOOL refreshable;

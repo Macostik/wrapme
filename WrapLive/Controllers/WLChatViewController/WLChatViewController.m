@@ -30,7 +30,7 @@ static NSUInteger WLChatLoadingSection = 2;
 
 CGFloat WLMaxTextViewWidth;
 
-@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate, WLFontPresetterReceiver>
+@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
@@ -391,6 +391,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
+    self.refresher.inset = composeBar.height;
     [self updateEdgeInsets:[WLKeyboard keyboard].height];
     [self.collectionView setMinimumContentOffsetAnimated:YES];
 }

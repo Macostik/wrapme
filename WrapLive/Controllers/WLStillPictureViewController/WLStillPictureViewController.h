@@ -30,8 +30,6 @@
 
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
 
-@property (nonatomic) AVCaptureDevicePosition defaultPosition;
-
 @property (nonatomic) BOOL startFromGallery;
 
 @end

@@ -76,7 +76,6 @@
 - (IBAction)createImage:(id)sender {
 	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
     cameraNavigation.delegate = self;
-    cameraNavigation.defaultPosition = AVCaptureDevicePositionFront;
     cameraNavigation.mode = WLStillPictureModeSquare;
     cameraNavigation.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
     [self.navigationController pushViewController:cameraNavigation animated:YES];

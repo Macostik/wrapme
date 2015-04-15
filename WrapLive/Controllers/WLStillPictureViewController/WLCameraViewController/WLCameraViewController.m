@@ -83,14 +83,24 @@
     
     self.cropAreaView.layer.borderWidth = 1;
     self.cropAreaView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.25].CGColor;
-	
+    
     __weak typeof(self)weakSelf = self;
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
         run_in_main_queue(^{
             weakSelf.unauthorizedStatusView.hidden = granted;
             if (granted) {
-                weakSelf.position = weakSelf.defaultPosition;
-                weakSelf.flashMode = weakSelf.flashModeControl.mode = AVCaptureFlashModeOff;
+                AVCaptureDevicePosition defaultPosition = AVCaptureDevicePositionBack;
+                AVCaptureFlashMode flashMode = AVCaptureFlashModeOff;
+                if (weakSelf.mode == WLStillPictureModeDefault) {
+                    NSNumber *savedDefaultPosition = [WLSession object:@"WLCameraDefaultPosition"];
+                    if (savedDefaultPosition) defaultPosition = [savedDefaultPosition integerValue];
+                    NSNumber *savedFlashMode = [WLSession object:@"WLCameraDefaultFlashMode"];
+                    if (savedFlashMode) flashMode = [savedFlashMode integerValue];
+                } else {
+                    defaultPosition = AVCaptureDevicePositionFront;
+                }
+                weakSelf.position = defaultPosition;
+                weakSelf.flashMode = weakSelf.flashModeControl.mode = flashMode;
                 weakSelf.cameraView.layer.session = weakSelf.session;
                 [weakSelf start];
             } else {
@@ -136,6 +146,9 @@
 	if (self.flashMode != sender.mode) {
 		sender.mode = self.flashMode;
 	}
+    if (self.mode == WLStillPictureModeDefault) {
+        [WLSession setObject:@(self.flashMode) key:@"WLCameraDefaultFlashMode"];
+    }
 }
 
 - (IBAction)rotateCamera:(id)sender {
@@ -146,6 +159,9 @@
 	}
 	self.flashMode = self.flashModeControl.mode;
 	self.zoomScale = 1;
+    if (self.mode == WLStillPictureModeDefault) {
+        [WLSession setObject:@(self.position) key:@"WLCameraDefaultPosition"];
+    }
 }
 
 - (IBAction)zooming:(UIPinchGestureRecognizer*)sender {
@@ -306,13 +322,6 @@
     [self applyDeviceOrientation:[UIDevice currentDevice].orientation forConnection:connection];
 	connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
     [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
-}
-
-- (AVCaptureDevicePosition)defaultPosition {
-	if (_defaultPosition == AVCaptureDevicePositionUnspecified) {
-		_defaultPosition = AVCaptureDevicePositionBack;
-	}
-	return _defaultPosition;
 }
 
 - (AVCaptureDevicePosition)position {

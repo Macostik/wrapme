@@ -54,6 +54,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewContstraint;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (weak, nonatomic) WLWrap* wrap;
 
@@ -101,6 +102,15 @@
     [self refresh:self.candy];
     
     [self.collectionView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+    
+    __weak typeof(self)weakSelf = self;
+    WLOperationQueue *paginationQueue = [WLOperationQueue queueNamed:@"wl_candy_pagination_queue"];
+    [paginationQueue setStartQueueBlock:^{
+        [weakSelf.spinner startAnimating];
+    }];
+    [paginationQueue setFinishQueueBlock:^{
+        [weakSelf.spinner stopAnimating];
+    }];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -171,19 +181,23 @@
 
 - (void)fetchOlder:(WLCandy*)candy {
     WLHistoryItem *historyItem = self.historyItem;
-    if (historyItem.completed || !candy) return;
+    if (historyItem.completed || historyItem.request.loading || !candy) return;
     NSUInteger count = [historyItem.entries count];
     NSUInteger index = [historyItem.entries indexOfObject:candy];
     BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
     if (shouldAppendCandies) {
         __weak typeof(self)weakSelf = self;
-        [historyItem older:^(NSOrderedSet *candies) {
-            if (candies.nonempty) [weakSelf.collectionView reloadData];
-        } failure:^(NSError *error) {
-            if (error.isNetworkError) {
-                historyItem.completed = YES;
-            }
-        }];
+        runUnaryQueuedOperation(@"wl_candy_pagination_queue", ^(WLOperation *operation) {
+            [historyItem older:^(NSOrderedSet *candies) {
+                if (candies.nonempty) [weakSelf.collectionView reloadData];
+                [operation finish];
+            } failure:^(NSError *error) {
+                if (error.isNetworkError) {
+                    historyItem.completed = YES;
+                }
+                [operation finish];
+            }];
+        });
     }
 }
 
@@ -194,13 +208,16 @@
                                         atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             [self.collectionView leftPush];
             self.candy = [self.historyItem.entries firstObject];
-        } else if (!self.history.completed) {
+        } else if (!self.history.completed && !self.history.request.loading) {
             __weak typeof(self)weakSelf = self;
-            [self.history older:^(NSOrderedSet *orderedSet) {
-                [weakSelf swipeToNextHistoryItem];
-            } failure:^(NSError *error) {
-                
-            }];
+            runUnaryQueuedOperation(@"wl_candy_pagination_queue", ^(WLOperation *operation) {
+                [weakSelf.history older:^(NSOrderedSet *orderedSet) {
+                    [weakSelf swipeToNextHistoryItem];
+                    [operation finish];
+                } failure:^(NSError *error) {
+                    [operation finish];
+                }];
+            });
         }
     } else {
         [self fetchOlder:self.candy];
@@ -410,10 +427,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {

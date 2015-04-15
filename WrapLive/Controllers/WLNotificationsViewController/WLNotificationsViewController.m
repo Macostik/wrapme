@@ -12,12 +12,12 @@
 #import "WLNotificationCenter.h"
 #import "WLChronologicalEntryPresenter.h"
 #import "WLNotificationCollectionViewSection.h"
+#import "WLNotificationCell.h"
 
 @interface WLNotificationsViewController () <WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
 @property (strong, nonatomic) IBOutlet WLNotificationCollectionViewSection *dataSection;
-@property (strong, nonatomic) NSMutableOrderedSet *readNotifications;
 
 @end
 
@@ -25,18 +25,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.readNotifications = [NSMutableOrderedSet orderedSet];
-    
-    __weak __typeof(self)weakSelf = self;
-    [self.dataSection setConfigure:^(id cell, id entry) {
-        [weakSelf.readNotifications addObject:entry];
-    }];
-    
     [self.dataSection setSelection:^(WLEntry* entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
     }];
+    
+    [self.dataSection setConfigure:^(WLNotificationCell *cell, id entry) {
+        [cell setBackgroundColor:[entry unread]  ? [UIColor whiteColor] : [UIColor WL_grayLightest]];
+    }];
  
     [[WLComment notifier] addReceiver:self];
+    [[WLCandy notifier] addReceiver:self];
+    [[WLMessage notifier] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -44,31 +43,55 @@
     self.dataSection.entries = [[WLUser currentUser] notifications];
 }
 
+- (void)updateNotificaton {
+    if (![WLKeyboard keyboard].isShow) {
+       self.dataSection.entries = [[WLUser currentUser] notifications];
+    }
+}
+
+- (void)removeNotificationEntry:(WLEntry *)entry {
+    NSMutableOrderedSet* entries = self.dataSection.entries.entries;
+    if ([entries containsObject:entry]) {
+        [entries removeObject:entry];
+        if (![WLKeyboard keyboard].isShow) {
+             [self.dataSection reload];
+        }
+    }
+}
+
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
-    self.dataSection.entries = [[WLUser currentUser] notifications];
+    [self updateNotificaton];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
+    [self updateNotificaton];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier messageAdded:(WLMessage *)message {
+    [self updateNotificaton];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentDeleted:(WLComment *)comment {
-    if ([self.readNotifications containsObject:comment]) {
-        [self.readNotifications removeObject:comment];
-    }
-    NSMutableOrderedSet* entries = self.dataSection.entries.entries;
-    if ([entries containsObject:comment]) {
-        [entries removeObject:comment];
-        [self.dataSection reload];
-    }
+    [self removeNotificationEntry:comment];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
+    [self removeNotificationEntry:candy];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier messageDeleted:(WLMessage *)message {
+    [self removeNotificationEntry:message];
 }
 
 - (IBAction)back:(id)sender {
-    if (self.readNotifications.nonempty) {
-        [self.readNotifications all:^(WLComment *commment) {
-            if (commment.valid) {
-                commment.unread = NO;
-            }
-        }];
-    }
     [[WLEntryManager manager].context processPendingChanges];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)keyboardDidHide:(WLKeyboard*)keyboard {
+    run_after(2.0, ^{
+        self.dataSection.entries = [[WLUser currentUser] notifications];
+    });
 }
 
 @end

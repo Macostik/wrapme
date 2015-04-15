@@ -30,7 +30,7 @@ static NSUInteger WLChatLoadingSection = 2;
 
 CGFloat WLMaxTextViewWidth;
 
-@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate, WLFontPresetterReceiver>
+@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
@@ -201,8 +201,9 @@ CGFloat WLMaxTextViewWidth;
             return;
         }
 
+        BOOL applicationActive = [UIApplication sharedApplication].applicationState == UIApplicationStateActive;
         UICollectionView *collectionView = weakSelf.collectionView;
-        if (!weakSelf.animating && collectionView.contentOffset.y > -(weakSelf.composeBar.height + [WLKeyboard keyboard].height)) {
+        if (!weakSelf.animating && (collectionView.contentOffset.y > -(weakSelf.composeBar.height + [WLKeyboard keyboard].height) || !applicationActive)) {
             [weakSelf.chat addEntry:message];
             CGFloat offset = collectionView.contentOffset.y;
             CGFloat contentHeight = collectionView.contentSize.height;
@@ -301,10 +302,6 @@ CGFloat WLMaxTextViewWidth;
     [self.chat resetEntries:[self.wrap messages]];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier messageUpdated:(WLMessage *)message {
-    [self.chat addEntry:message];
-}
-
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
     return self.wrap;
 }
@@ -394,6 +391,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
+    self.refresher.inset = composeBar.height;
     [self updateEdgeInsets:[WLKeyboard keyboard].height];
     [self.collectionView setMinimumContentOffsetAnimated:YES];
 }
@@ -480,13 +478,6 @@ CGFloat WLMaxTextViewWidth;
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return 3;
-}
-
-#pragma mark - WLFontPresetterReceiver
-
-- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
-    self.messageFont = [self.messageFont preferredFontWithPreset:WLFontPresetSmall];
-    [self.collectionView reloadData];
 }
 
 @end

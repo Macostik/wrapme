@@ -8,13 +8,24 @@
 
 #import "WLWKContributionsController.h"
 #import "WLWKCommentEventRow.h"
-#import "WLWKErrorRow.h"
+
+typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
+    WLWKContributionsStateDefault,
+    WLWKContributionsStateLoading,
+    WLWKContributionsStateEmpty,
+    WLWKContributionsStateError
+};
 
 @interface WLWKContributionsController()
 
 @property (strong, nonatomic) IBOutlet WKInterfaceTable *table;
 
 @property (strong, nonatomic) NSOrderedSet* entries;
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *errorGroup;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *errorLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *placeholderGroup;
+
+@property (nonatomic) WLWKContributionsState state;
 
 @end
 
@@ -24,6 +35,32 @@
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
     self.entries = [WLContribution recentContributions];
+}
+
+- (void)setState:(WLWKContributionsState)state {
+    _state = state;
+    switch (state) {
+        case WLWKContributionsStateLoading:
+            [self.table setHidden:YES];
+            [self.errorGroup setHidden:YES];
+            [self.placeholderGroup setHidden:YES];
+            break;
+        case WLWKContributionsStateEmpty:
+            [self.table setHidden:YES];
+            [self.errorGroup setHidden:YES];
+            [self.placeholderGroup setHidden:NO];
+            break;
+        case WLWKContributionsStateError:
+            [self.table setHidden:YES];
+            [self.errorGroup setHidden:NO];
+            [self.placeholderGroup setHidden:YES];
+            break;
+        default:
+            [self.table setHidden:NO];
+            [self.errorGroup setHidden:YES];
+            [self.placeholderGroup setHidden:YES];
+            break;
+    }
 }
 
 - (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)remoteNotification {
@@ -51,6 +88,12 @@
         } else {
             [rowTypes addObject:@"comment"];
         }
+    }
+    
+    if (rowTypes.nonempty) {
+        self.state = WLWKContributionsStateDefault;
+    } else {
+        self.state = WLWKContributionsStateEmpty;
     }
     
     [self.table setRowTypes:rowTypes];
@@ -82,10 +125,9 @@
 }
 
 - (void)showError:(NSError*)error {
-    self.entries = nil;
-    [self.table setRowTypes:@[@"error"]];
-    WLWKErrorRow* row = [self.table rowControllerAtIndex:0];
-    [row setError:error];
+    [self.errorLabel setText:error.localizedDescription];
+    self.state = WLWKContributionsStateError;
+    [self.table setRowTypes:@[]];
 }
 
 - (id)contextForSegueWithIdentifier:(NSString *)segueIdentifier inTable:(WKInterfaceTable *)table rowIndex:(NSInteger)rowIndex {
@@ -105,6 +147,7 @@
 - (void)updateContributions {
     __weak typeof(self)weakSelf = self;
     
+    self.state = WLWKContributionsStateLoading;
     if ([WLAuthorizationRequest authorized]) {
         [[WLRecentContributionsRequest request] send:^(id object) {
             weakSelf.entries = [WLContribution recentContributions];

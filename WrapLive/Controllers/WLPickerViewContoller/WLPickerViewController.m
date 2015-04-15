@@ -92,6 +92,14 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
     if (self.isViewLoaded) [_pickerView reloadAllComponents];
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
+}
+
 #pragma mark - UIPickerViewDataSource
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {

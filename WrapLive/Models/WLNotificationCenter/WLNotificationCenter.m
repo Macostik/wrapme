@@ -326,6 +326,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             if (failure) failure([NSError errorWithDescription:WLLS(@"Cannot handle remote notification when app is active.")]);
             break;
         case UIApplicationStateInactive: {
+            WLLog(@"PUBNUB", @"opened APNS", data);
             WLNotification* notification = [WLNotification notificationWithData:data];
             if (notification) {
                 [notification fetch:^{
@@ -339,6 +340,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             }
         } break;
         case UIApplicationStateBackground: {
+            WLLog(@"PUBNUB", @"received background APNS (content-available)", data);
             WLNotification* notification = [WLNotification notificationWithData:data];
             if (notification) {
                 if ([notification isKindOfClass:[WLEntryNotification class]]) {

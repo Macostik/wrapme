@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLBaseViewController.h"
 
-@interface WLNotificationsViewController : UIViewController
+@interface WLNotificationsViewController : WLBaseViewController
 
 @end

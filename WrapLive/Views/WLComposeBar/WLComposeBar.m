@@ -40,6 +40,9 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
     self.textView.layoutManager.allowsNonContiguousLayout = NO;
     self.textView.textContainerInset = self.textView.contentInset = UIEdgeInsetsZero;
 	[self updateStateAnimated:NO];
+    
+    [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(becomeFirstResponder)]];
+    [self.textView.superview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(becomeFirstResponder)]];
 }
 
 - (void)updateHeight {

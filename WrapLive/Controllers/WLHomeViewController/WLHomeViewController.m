@@ -78,7 +78,9 @@
     
 	[[WLUser notifier] addReceiver:self];
 	[[WLWrap notifier] addReceiver:self];
+    [[WLCandy notifier] addReceiver:self];
     [[WLComment notifier] addReceiver:self];
+    [[WLMessage notifier] addReceiver:self];
 	
     [[WLNotificationCenter defaultCenter] addReceiver:self];
     
@@ -181,7 +183,7 @@
 }
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
-    BOOL hidden = ([[WLSession confirmationDate] isToday] || ![[WLAuthorization currentAuthorization] unconfirmed_email].nonempty);
+    BOOL hidden = (/*[[WLSession confirmationDate] isToday] || */![[WLAuthorization currentAuthorization] unconfirmed_email].nonempty);
     if (!hidden) {
         self.verificationEmailLabel.attributedText = [WLAuthorization attributedVerificationSuggestion];
         [self deadlineEmailConfirmationView];
@@ -282,6 +284,26 @@
 	run_after(.5, ^{
 		[self updateNotificationsLabel];
 	});
+}
+
+- (void)notifier:(WLEntryNotifier*)notifier candyAdded:(WLCandy*)candy {
+    [self updateNotificationsLabel];
+}
+
+- (void)notifier:(WLEntryNotifier*)broadcaster candyDeleted:(WLCandy *)candy {
+    run_after(.5, ^{
+        [self updateNotificationsLabel];
+    });
+}
+
+- (void)notifier:(WLEntryNotifier*)notifier messageAdded:(WLMessage*)message {
+    [self updateNotificationsLabel];
+}
+
+- (void)notifier:(WLEntryNotifier*)broadcaster messageDeleted:(WLMessage *)message {
+    run_after(.5, ^{
+        [self updateNotificationsLabel];
+    });
 }
 
 // MARK: - WLNotificationReceiver

@@ -39,7 +39,11 @@ static WLAuthorization* _authorization = nil;
 
 + (WLAuthorization *)authorization {
     if (!_authorization) {
-        _authorization = [WLAuthorization unarchive:[WLCryptographer decryptData:[[NSUserDefaults appGroupUserDefaults] objectForKey:WLAppGroupEncryptedAuthorization]]];
+        NSData *data = [[NSUserDefaults appGroupUserDefaults] objectForKey:WLAppGroupEncryptedAuthorization];
+        if (!data) {
+            [[NSUserDefaults standardUserDefaults] objectForKey:WLAppGroupEncryptedAuthorization];
+        }
+        _authorization = [WLAuthorization unarchive:[WLCryptographer decryptData:data]];
     }
     if (!_authorization) {
         _authorization = [[WLAuthorization alloc] init];
@@ -55,11 +59,15 @@ static WLAuthorization* _authorization = nil;
             NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
             [userDefaults setObject:encryptedData forKey:WLAppGroupEncryptedAuthorization];
             [userDefaults synchronize];
+            [[NSUserDefaults standardUserDefaults] setObject:encryptedData forKey:WLAppGroupEncryptedAuthorization];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }];
     } else {
         NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
         [userDefaults setObject:nil forKey:WLAppGroupEncryptedAuthorization];
         [userDefaults synchronize];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:WLAppGroupEncryptedAuthorization];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 

@@ -48,6 +48,7 @@ static inline CGFloat WLCalculateHeightString(NSString *string, UIFont *font, CG
         textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
         textView.textContainerInset = UIEdgeInsetsZero;
     }
+    textView.textContainer.lineFragmentPadding = 0;
     textView.text = string;
     textView.font = font;
     return [textView sizeThatFits:CGSizeMake(width, MAXFLOAT)].height;

@@ -66,21 +66,6 @@ typedef enum : NSUInteger {
 	[self.licenseButton setAttributedTitle: titleString forState:UIControlStateNormal];
 }
 
-- (void)presentHomeViewController {
-    WLUser *user = [WLUser currentUser];
-    if (user.isSignupCompleted) {
-        [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
-    } else {
-        [self continueSignUp];
-    }
-}
-
-- (void)continueSignUp {
-	WLSignupFlowViewController *controller = [WLSignupFlowViewController instantiate:[UIStoryboard storyboardNamed:WLSignUpStoryboard]];
-    controller.registrationNotCompleted = YES;
-    [self.navigationController pushViewController:controller animated:NO];
-}
-
 - (IBAction)termsAndConditions:(id)sender {
     [self flipAnimationView:WLFlipDirectionRight];
 }

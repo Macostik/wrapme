@@ -23,8 +23,6 @@
 
 @property (nonatomic, weak) id <WLCameraViewControllerDelegate> delegate;
 
-@property (nonatomic) AVCaptureDevicePosition defaultPosition;
-
 @property (nonatomic) AVCaptureDevicePosition position;
 
 - (void)setPosition:(AVCaptureDevicePosition)position animated:(BOOL)animated;

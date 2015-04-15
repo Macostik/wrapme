@@ -111,13 +111,14 @@
     }
 }
 
-- (void)uploadComment:(NSString *)text success:(WLCommentBlock)success failure:(WLFailureBlock)failure {
+- (id)uploadComment:(NSString *)text success:(WLCommentBlock)success failure:(WLFailureBlock)failure {
     WLComment* comment = [WLComment comment:text];
     WLUploading* uploading = [WLUploading uploading:comment];
     [self addComment:comment];
     run_after(0.3f,^{
         [WLUploadingQueue upload:uploading success:success failure:failure];
     });
+    return comment;
 }
 
 - (BOOL)canBeUploaded {

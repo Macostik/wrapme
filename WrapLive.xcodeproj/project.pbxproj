@@ -301,7 +301,6 @@
 		C504179919B9EEB9000E55F3 /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179719B9EEB9000E55F3 /* WLContributorCell.m */; };
 		C504179A19B9EEB9000E55F3 /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179719B9EEB9000E55F3 /* WLContributorCell.m */; };
 		C504179B19B9EEB9000E55F3 /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179719B9EEB9000E55F3 /* WLContributorCell.m */; };
-		C50645941ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development.app in Resources */ = {isa = PBXBuildFile; fileRef = C50645931ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development.app */; };
 		C50645A11ABD7FD500CB4BE3 /* WrapLiveWatchKitExtension-Development.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C50645841ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C506460F1ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */; };
 		C50646101ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */; };
@@ -874,7 +873,6 @@
 		C55B25AC1AC9A6210072E9D2 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
 		C55B25AD1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
 		C55B25AE1AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
-		C55B25B91AC9BF0A0072E9D2 /* WLWKErrorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */; };
 		C55C366B1ACEB7A900C614BD /* WrapLiveKit_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */; };
 		C55C8D6E19C98A9400199245 /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6519C98A9400199245 /* WLNotificationCenter.m */; };
 		C55C8D6F19C98A9400199245 /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8D6519C98A9400199245 /* WLNotificationCenter.m */; };
@@ -937,6 +935,7 @@
 		C5603DD31AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5603DD01AD92B0900427DEC /* WLNotificationEntryPresenter.m */; };
 		C5603DD41AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5603DD01AD92B0900427DEC /* WLNotificationEntryPresenter.m */; };
 		C56498D31ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app in Resources */ = {isa = PBXBuildFile; fileRef = C56498D21ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app */; };
+		C564B2B91ADE6DD5000C3DF1 /* WrapLiveWatchKitApp-Development.app in Resources */ = {isa = PBXBuildFile; fileRef = C50645931ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development.app */; };
 		C568D8D61A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C568D8D71A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C568D8D81A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
@@ -1362,7 +1361,6 @@
 		C5E54B4F1ACBF9CE00444F7B /* WLWKCandyEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DA1ABD815200CB4BE3 /* WLWKCandyEventRow.m */; };
 		C5E54B501ACBF9CE00444F7B /* WLWKCommentEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DC1ABD815200CB4BE3 /* WLWKCommentEventRow.m */; };
 		C5E54B511ACBF9CE00444F7B /* WLWKEntryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */; };
-		C5E54B521ACBF9CE00444F7B /* WLWKErrorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */; };
 		C5E54B531ACBF9CE00444F7B /* WLWKContributionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */; };
 		C5EFCE0D1ACE9798009A2EAE /* PNObservationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EFCCF11ACE9797009A2EAE /* PNObservationCenter.m */; };
 		C5EFCE0E1ACE9798009A2EAE /* PNObservationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EFCCF11ACE9797009A2EAE /* PNObservationCenter.m */; };
@@ -2519,8 +2517,6 @@
 		C55A8DF61ADD035C0069E5C7 /* chat_bubble_tail_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bubble_tail_gray@2x.png"; sourceTree = "<group>"; };
 		C55A8DF71ADD035C0069E5C7 /* chat_bubble_tail_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_bubble_tail_red.png; sourceTree = "<group>"; };
 		C55A8DF81ADD035C0069E5C7 /* chat_bubble_tail_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bubble_tail_red@2x.png"; sourceTree = "<group>"; };
-		C55B25B71AC9BF0A0072E9D2 /* WLWKErrorRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKErrorRow.h; sourceTree = "<group>"; };
-		C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKErrorRow.m; sourceTree = "<group>"; };
 		C55C36661ACEB7A800C614BD /* WrapLiveKit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WrapLiveKit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C55C36691ACEB7A900C614BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WrapLiveKit_Tests.m; sourceTree = "<group>"; };
@@ -2769,7 +2765,6 @@
 		C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
 		C5A82CD01ACD979B00336027 /* WLGestureBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLGestureBroadcaster.h; sourceTree = "<group>"; };
 		C5A82CD11ACD979B00336027 /* WLGestureBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLGestureBroadcaster.m; sourceTree = "<group>"; };
-		C5C20B651A23460B008B2E2E /* WrapLive.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = WrapLive.profdata; sourceTree = "<group>"; };
 		C5C20B8D1A238AE7008B2E2E /* WLValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLValidation.h; path = WLValidation/WLValidation.h; sourceTree = "<group>"; };
 		C5C20B8E1A238AE7008B2E2E /* WLValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLValidation.m; path = WLValidation/WLValidation.m; sourceTree = "<group>"; };
 		C5C20B931A238B3D008B2E2E /* WLValidationGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLValidationGroup.h; path = WLValidation/WLValidationGroup.h; sourceTree = "<group>"; };
@@ -3369,7 +3364,6 @@
 				C55C36671ACEB7A900C614BD /* WrapLiveKit Tests */,
 				12A7A70118DA0945008FF6F0 /* Frameworks */,
 				12A7A70018DA0945008FF6F0 /* Products */,
-				C5C20B641A23460B008B2E2E /* OptimizationProfiles */,
 			);
 			sourceTree = "<group>";
 		};
@@ -4326,8 +4320,6 @@
 				C50645DC1ABD815200CB4BE3 /* WLWKCommentEventRow.m */,
 				C50645DD1ABD815200CB4BE3 /* WLWKEntryRow.h */,
 				C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */,
-				C55B25B71AC9BF0A0072E9D2 /* WLWKErrorRow.h */,
-				C55B25B81AC9BF0A0072E9D2 /* WLWKErrorRow.m */,
 				C50645DF1ABD815200CB4BE3 /* WLWKContributionsController.h */,
 				C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */,
 			);
@@ -5556,14 +5548,6 @@
 				C5A82CD11ACD979B00336027 /* WLGestureBroadcaster.m */,
 			);
 			path = WLGestureBroadcaster;
-			sourceTree = "<group>";
-		};
-		C5C20B641A23460B008B2E2E /* OptimizationProfiles */ = {
-			isa = PBXGroup;
-			children = (
-				C5C20B651A23460B008B2E2E /* WrapLive.profdata */,
-			);
-			path = OptimizationProfiles;
 			sourceTree = "<group>";
 		};
 		C5C20B8C1A238ACC008B2E2E /* WLValidation */ = {
@@ -6796,6 +6780,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C564B2B91ADE6DD5000C3DF1 /* WrapLiveWatchKitApp-Development.app in Resources */,
 				C5DB9F441ADD6CD800A21E42 /* CoreData.xcdatamodeld in Resources */,
 				C55EDB161AD3FC2A0040D4B4 /* WLAPIEnvironmentBeta.plist in Resources */,
 				C55EDB151AD3FC2A0040D4B4 /* WLAPIEnvironmentQA.plist in Resources */,
@@ -6804,7 +6789,6 @@
 				C54086991AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C55EDB171AD3FC2A0040D4B4 /* WLAPIEnvironmentProduction.plist in Resources */,
 				C55EDB141AD3FC2A0040D4B4 /* WLAPIEnvironmentDevelopment.plist in Resources */,
-				C50645941ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development.app in Resources */,
 				C54086971AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
 				C55B259E1AC9A6190072E9D2 /* OpenSans-Semibold.ttf in Resources */,
 				C55B25AA1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */,
@@ -7244,6 +7228,7 @@
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
 				C5EFCE891ACE9798009A2EAE /* PNHereNowResponseParser.m in Sources */,
 				C5EFCF491ACE9798009A2EAE /* PNChannelGroupRemoveRequest.m in Sources */,
+				C55EDB1C1AD3FC600040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				C5EFCF4D1ACE9798009A2EAE /* PNChannelGroupsRequest.m in Sources */,
 				C5EFCF891ACE9798009A2EAE /* PNTimeTokenRequest.m in Sources */,
@@ -7450,6 +7435,7 @@
 			files = (
 				C5475B4F1AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */,
 				C50646261ABD815200CB4BE3 /* WLTodayViewController.m in Sources */,
+				C55EDB201AD3FC620040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C5475B531AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */,
 				C5475B571AC59ACD00F9E8B3 /* WLTodayCandyCell.m in Sources */,
 			);
@@ -7461,6 +7447,7 @@
 			files = (
 				C5475B501AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */,
 				C50646271ABD815200CB4BE3 /* WLTodayViewController.m in Sources */,
+				C55EDB211AD3FC630040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C5475B541AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */,
 				C5475B581AC59ACD00F9E8B3 /* WLTodayCandyCell.m in Sources */,
 			);
@@ -7472,12 +7459,12 @@
 			files = (
 				C552329E1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m in Sources */,
 				C50646801ABD815200CB4BE3 /* WLWKEntryRow.m in Sources */,
-				C55B25B91AC9BF0A0072E9D2 /* WLWKErrorRow.m in Sources */,
 				C50646641ABD815200CB4BE3 /* WLWKCandyController.m in Sources */,
 				C506465D1ABD815200CB4BE3 /* WLWKReplyPresetsController.m in Sources */,
 				C50646791ABD815200CB4BE3 /* WLWKCommentEventRow.m in Sources */,
 				C50646871ABD815200CB4BE3 /* WLWKContributionsController.m in Sources */,
 				C549B73E1AC0179B003623A7 /* WLWKCandyEventRow.m in Sources */,
+				C55EDB221AD3FC630040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C506464E1ABD815200CB4BE3 /* WLWKReplyPresetRow.m in Sources */,
 				C506466B1ABD815200CB4BE3 /* WLWKCommentRow.m in Sources */,
 				C50646471ABD815200CB4BE3 /* WLWKNotificationController.m in Sources */,
@@ -7566,6 +7553,7 @@
 				C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */,
 				C5EFCE8A1ACE9798009A2EAE /* PNHereNowResponseParser.m in Sources */,
 				C5EFCF4A1ACE9798009A2EAE /* PNChannelGroupRemoveRequest.m in Sources */,
+				C55EDB1D1AD3FC610040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C5EFCF4E1ACE9798009A2EAE /* PNChannelGroupsRequest.m in Sources */,
 				C5EFCF8A1ACE9798009A2EAE /* PNTimeTokenRequest.m in Sources */,
@@ -7848,6 +7836,7 @@
 				C54AF58E19B8C467006F7EDB /* WLComposeBar.m in Sources */,
 				C5EFCE8B1ACE9798009A2EAE /* PNHereNowResponseParser.m in Sources */,
 				C5EFCF4B1ACE9798009A2EAE /* PNChannelGroupRemoveRequest.m in Sources */,
+				C55EDB1E1AD3FC610040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C54AF59019B8C467006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C5EFCF4F1ACE9798009A2EAE /* PNChannelGroupsRequest.m in Sources */,
 				C5EFCF8B1ACE9798009A2EAE /* PNTimeTokenRequest.m in Sources */,
@@ -8130,6 +8119,7 @@
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
 				C5EFCE8C1ACE9798009A2EAE /* PNHereNowResponseParser.m in Sources */,
 				C5EFCF4C1ACE9798009A2EAE /* PNChannelGroupRemoveRequest.m in Sources */,
+				C55EDB1F1AD3FC610040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C5EFCF501ACE9798009A2EAE /* PNChannelGroupsRequest.m in Sources */,
 				C5EFCF8C1ACE9798009A2EAE /* PNTimeTokenRequest.m in Sources */,
@@ -8347,9 +8337,9 @@
 				C5E54B531ACBF9CE00444F7B /* WLWKContributionsController.m in Sources */,
 				C5E54B4F1ACBF9CE00444F7B /* WLWKCandyEventRow.m in Sources */,
 				C5E54B4D1ACBF9CE00444F7B /* WLWKCandyController.m in Sources */,
-				C5E54B521ACBF9CE00444F7B /* WLWKErrorRow.m in Sources */,
 				C5E54B491ACBF9CE00444F7B /* WLWKNotificationController.m in Sources */,
 				C5E54B4C1ACBF9CE00444F7B /* WLWKReplyPresetsController.m in Sources */,
+				C55EDB231AD3FC640040D4B4 /* CoreData.xcdatamodeld in Sources */,
 				C5E54B4E1ACBF9CE00444F7B /* WLWKCommentRow.m in Sources */,
 				C5E54B501ACBF9CE00444F7B /* WLWKCommentEventRow.m in Sources */,
 				C5E54B4A1ACBF9CE00444F7B /* WLWKReplyPresetRow.m in Sources */,
@@ -8798,6 +8788,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -8838,7 +8830,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -8878,6 +8871,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -8906,6 +8901,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -8935,6 +8932,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -8962,6 +8961,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -8990,6 +8991,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -9014,6 +9017,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9035,6 +9040,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9056,6 +9063,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -9082,6 +9091,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9109,6 +9120,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9138,6 +9151,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -9177,7 +9192,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9218,6 +9234,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -9256,7 +9274,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9296,6 +9315,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -9335,7 +9356,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9373,6 +9395,7 @@
 		C559CB721AA0BB5D00100B2C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -9383,6 +9406,7 @@
 		C559CB731AA0BB5D00100B2C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRODUCT_NAME = CopyProvisioningProfiles;
@@ -9392,6 +9416,7 @@
 		C55C366F1ACEB7A900C614BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -9413,6 +9438,7 @@
 		C55C36701ACEB7A900C614BD /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -9431,6 +9457,7 @@
 		C55C36711ACEB7A900C614BD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -9450,6 +9477,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -9474,6 +9503,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9495,6 +9526,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9515,6 +9548,8 @@
 		C56498E61ACB00D3000F1E4B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
@@ -9541,6 +9576,8 @@
 		C56498E71ACB00D3000F1E4B /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9568,6 +9605,8 @@
 		C56498E81ACB00D3000F1E4B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9596,6 +9635,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 370;
@@ -9617,6 +9658,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -9638,6 +9681,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -9701,6 +9746,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9741,6 +9788,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9780,6 +9829,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9818,6 +9869,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9854,6 +9907,7 @@
 		C5BC485E1AA0C9E500AC5EC8 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -9865,6 +9919,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhocDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
@@ -9893,6 +9949,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveDevelopment.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";

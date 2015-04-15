@@ -21,6 +21,7 @@
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
@@ -32,117 +33,133 @@
             <objects>
                 <controller identifier="events" spacing="0.0" id="AgC-eL-Hgc" customClass="WLWKContributionsController">
                     <items>
-                        <table alignment="left" id="iyS-2n-l0O">
+                        <group width="1" alignment="left" layout="vertical" radius="0.0" spacing="0.0" id="HgR-35-H2f">
                             <items>
-                                <tableRow identifier="comment" id="WMP-cV-sdT" customClass="WLWKCommentEventRow">
-                                    <group key="rootItem" width="1" height="136" alignment="left" animationDuration="0.59999999999999998" layout="vertical" radius="0.0" spacing="0.0" id="RjA-rA-Wb2">
-                                        <items>
-                                            <group width="1" alignment="left" verticalAlignment="bottom" backgroundImage="simple_gradient" layout="vertical" spacing="0.0" id="rdj-mU-lHJ">
+                                <group width="1" height="136" alignment="center" verticalAlignment="center" hidden="YES" radius="0.0" spacing="0.0" id="AW5-IN-BKT">
+                                    <items>
+                                        <label alignment="center" verticalAlignment="center" text="Label" numberOfLines="0" id="ZOa-1m-kLy">
+                                            <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                        </label>
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                    <variation key="device=watch38mm" height="136"/>
+                                    <variation key="device=watch42mm" height="156"/>
+                                </group>
+                                <group width="1" height="136" alignment="center" verticalAlignment="center" hidden="YES" contentMode="center" layout="vertical" radius="0.0" spacing="0.0" id="v9h-EG-Qd1">
+                                    <items>
+                                        <imageView alignment="center" verticalAlignment="center" image="watchkit_placeholder" contentMode="center" id="kBr-Be-QGw"/>
+                                        <label alignment="center" verticalAlignment="center" text="No recent updates" textAlignment="center" numberOfLines="2" id="jYA-WL-ubk">
+                                            <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                        </label>
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                    <variation key="device=watch38mm" height="136"/>
+                                    <variation key="device=watch42mm" height="156"/>
+                                </group>
+                                <table alignment="left" id="iyS-2n-l0O">
+                                    <items>
+                                        <tableRow identifier="comment" id="WMP-cV-sdT" customClass="WLWKCommentEventRow">
+                                            <group key="rootItem" width="1" height="136" alignment="left" animationDuration="0.59999999999999998" layout="vertical" radius="0.0" spacing="0.0" id="RjA-rA-Wb2">
                                                 <items>
-                                                    <group width="1" alignment="left" verticalAlignment="bottom" spacing="4" id="17B-FO-IXd">
+                                                    <group width="1" alignment="left" verticalAlignment="bottom" backgroundImage="simple_gradient" layout="vertical" spacing="0.0" id="rdj-mU-lHJ">
                                                         <items>
-                                                            <group width="40" height="40" alignment="left" verticalAlignment="center" contentMode="scaleAspectFill" radius="20" spacing="0.0" id="8q4-xK-lPJ">
+                                                            <group width="1" alignment="left" verticalAlignment="bottom" spacing="4" id="17B-FO-IXd">
+                                                                <items>
+                                                                    <group width="40" height="40" alignment="left" verticalAlignment="center" contentMode="scaleAspectFill" radius="20" spacing="0.0" id="8q4-xK-lPJ">
+                                                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                                    </group>
+                                                                    <label alignment="left" verticalAlignment="center" text="Text" textAlignment="left" numberOfLines="2" id="Pyy-yw-gmE">
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="19"/>
+                                                                    </label>
+                                                                </items>
                                                                 <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                             </group>
-                                                            <label alignment="left" verticalAlignment="center" text="Text" textAlignment="left" numberOfLines="2" id="Pyy-yw-gmE">
+                                                            <label alignment="left" verticalAlignment="bottom" text="Photo By" textAlignment="left" id="4Gx-Lw-LSq">
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="19"/>
+                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                            </label>
+                                                            <label alignment="left" verticalAlignment="bottom" text="Wrap Name" textAlignment="left" id="xx6-re-wx6">
+                                                                <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                            </label>
+                                                            <label alignment="left" verticalAlignment="bottom" text="Date" textAlignment="left" id="Zed-Mn-G3D">
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                                             </label>
                                                         </items>
-                                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                        <edgeInsets key="margins" left="4" right="4" top="4" bottom="4"/>
                                                     </group>
-                                                    <label alignment="left" verticalAlignment="bottom" text="Photo By" textAlignment="left" id="4Gx-Lw-LSq">
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                                    </label>
-                                                    <label alignment="left" verticalAlignment="bottom" text="Wrap Name" textAlignment="left" id="xx6-re-wx6">
-                                                        <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                                    </label>
-                                                    <label alignment="left" verticalAlignment="bottom" text="Date" textAlignment="left" id="Zed-Mn-G3D">
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                                    </label>
                                                 </items>
-                                                <edgeInsets key="margins" left="4" right="4" top="4" bottom="4"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                <variation key="device=watch38mm" height="136"/>
+                                                <variation key="device=watch42mm" height="156"/>
+                                                <connections>
+                                                    <segue destination="5u8-yz-26Q" kind="push" id="Clu-VY-jc3"/>
+                                                </connections>
                                             </group>
-                                        </items>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                                        <variation key="device=watch38mm" height="136"/>
-                                        <variation key="device=watch42mm" height="156"/>
-                                        <connections>
-                                            <segue destination="5u8-yz-26Q" kind="push" id="Clu-VY-jc3"/>
-                                        </connections>
-                                    </group>
-                                    <connections>
-                                        <outlet property="avatar" destination="8q4-xK-lPJ" id="uEm-aj-SuN"/>
-                                        <outlet property="dateLabel" destination="Zed-Mn-G3D" id="9iH-u9-L9J"/>
-                                        <outlet property="mainGroup" destination="RjA-rA-Wb2" id="JMY-e3-H0F"/>
-                                        <outlet property="photoByLabel" destination="4Gx-Lw-LSq" id="F2f-tg-ebH"/>
-                                        <outlet property="text" destination="Pyy-yw-gmE" id="rDM-qi-GUY"/>
-                                        <outlet property="wrapNameLabel" destination="xx6-re-wx6" id="h5W-Gw-73Q"/>
-                                    </connections>
-                                </tableRow>
-                                <tableRow identifier="candy" id="OoZ-GV-okk" customClass="WLWKCandyEventRow">
-                                    <group key="rootItem" width="1" height="136" alignment="left" layout="vertical" radius="0.0" spacing="0.0" id="vkL-k8-NHu">
-                                        <items>
-                                            <group width="1" alignment="center" verticalAlignment="bottom" backgroundImage="simple_gradient" layout="vertical" radius="0.0" spacing="0.0" id="xLU-2A-pMR">
+                                            <connections>
+                                                <outlet property="avatar" destination="8q4-xK-lPJ" id="uEm-aj-SuN"/>
+                                                <outlet property="dateLabel" destination="Zed-Mn-G3D" id="9iH-u9-L9J"/>
+                                                <outlet property="mainGroup" destination="RjA-rA-Wb2" id="JMY-e3-H0F"/>
+                                                <outlet property="photoByLabel" destination="4Gx-Lw-LSq" id="F2f-tg-ebH"/>
+                                                <outlet property="text" destination="Pyy-yw-gmE" id="rDM-qi-GUY"/>
+                                                <outlet property="wrapNameLabel" destination="xx6-re-wx6" id="h5W-Gw-73Q"/>
+                                            </connections>
+                                        </tableRow>
+                                        <tableRow identifier="candy" id="OoZ-GV-okk" customClass="WLWKCandyEventRow">
+                                            <group key="rootItem" width="1" height="136" alignment="left" layout="vertical" radius="0.0" spacing="0.0" id="vkL-k8-NHu">
                                                 <items>
-                                                    <label alignment="left" verticalAlignment="center" text="Photo By" textAlignment="left" id="7wg-8q-jSs">
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                                    </label>
-                                                    <label alignment="left" verticalAlignment="center" text="Wrap Name" textAlignment="left" id="hEJ-g4-zYi">
-                                                        <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                                    </label>
-                                                    <label alignment="left" verticalAlignment="center" text="Date" textAlignment="left" id="W5b-9z-OPw">
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                                    </label>
+                                                    <group width="1" alignment="center" verticalAlignment="bottom" backgroundImage="simple_gradient" layout="vertical" radius="0.0" spacing="0.0" id="xLU-2A-pMR">
+                                                        <items>
+                                                            <label alignment="left" verticalAlignment="center" text="Photo By" textAlignment="left" id="7wg-8q-jSs">
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                            </label>
+                                                            <label alignment="left" verticalAlignment="center" text="Wrap Name" textAlignment="left" id="hEJ-g4-zYi">
+                                                                <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                            </label>
+                                                            <label alignment="left" verticalAlignment="center" text="Date" textAlignment="left" id="W5b-9z-OPw">
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                            </label>
+                                                        </items>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <edgeInsets key="margins" left="4" right="4" top="4" bottom="4"/>
+                                                    </group>
                                                 </items>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <edgeInsets key="margins" left="4" right="4" top="4" bottom="4"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                <variation key="device=watch38mm" height="136"/>
+                                                <variation key="device=watch42mm" height="156"/>
+                                                <connections>
+                                                    <segue destination="5u8-yz-26Q" kind="push" id="uNY-jj-NYk"/>
+                                                </connections>
                                             </group>
-                                        </items>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                                        <variation key="device=watch38mm" height="136"/>
-                                        <variation key="device=watch42mm" height="156"/>
-                                        <connections>
-                                            <segue destination="5u8-yz-26Q" kind="push" id="uNY-jj-NYk"/>
-                                        </connections>
-                                    </group>
-                                    <connections>
-                                        <outlet property="dataGroup" destination="xLU-2A-pMR" id="Ixg-fc-cZi"/>
-                                        <outlet property="dateLabel" destination="W5b-9z-OPw" id="6Kb-cg-d51"/>
-                                        <outlet property="group" destination="vkL-k8-NHu" id="0SV-Yk-O4f"/>
-                                        <outlet property="photoByLabel" destination="7wg-8q-jSs" id="Ept-cD-Vrk"/>
-                                        <outlet property="wrapNameLabel" destination="hEJ-g4-zYi" id="dE6-2T-HnY"/>
-                                    </connections>
-                                </tableRow>
-                                <tableRow identifier="error" id="xnS-Rj-tN0" userLabel="error" customClass="WLWKErrorRow">
-                                    <group key="rootItem" width="1" height="100" alignment="left" contentMode="scaleAspectFill" animationDuration="0.59999999999999998" layout="vertical" radius="0.0" spacing="0.0" id="vvx-eG-fSN">
-                                        <items>
-                                            <label alignment="center" verticalAlignment="center" text="Error" textAlignment="left" numberOfLines="0" id="6lc-1Q-Z11">
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                            </label>
-                                        </items>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                                    </group>
-                                    <connections>
-                                        <outlet property="errorDescriptionLabel" destination="6lc-1Q-Z11" id="ZM8-Xo-RyU"/>
-                                    </connections>
-                                </tableRow>
+                                            <connections>
+                                                <outlet property="dataGroup" destination="xLU-2A-pMR" id="Ixg-fc-cZi"/>
+                                                <outlet property="dateLabel" destination="W5b-9z-OPw" id="6Kb-cg-d51"/>
+                                                <outlet property="group" destination="vkL-k8-NHu" id="0SV-Yk-O4f"/>
+                                                <outlet property="photoByLabel" destination="7wg-8q-jSs" id="Ept-cD-Vrk"/>
+                                                <outlet property="wrapNameLabel" destination="hEJ-g4-zYi" id="dE6-2T-HnY"/>
+                                            </connections>
+                                        </tableRow>
+                                    </items>
+                                </table>
                             </items>
-                        </table>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                        </group>
                     </items>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
+                        <outlet property="errorGroup" destination="AW5-IN-BKT" id="EQw-CK-K1l"/>
+                        <outlet property="errorLabel" destination="ZOa-1m-kLy" id="I4u-rH-mhN"/>
+                        <outlet property="placeholderGroup" destination="v9h-EG-Qd1" id="n8Z-vf-gDb"/>
                         <outlet property="table" destination="iyS-2n-l0O" id="0uf-Qt-re4"/>
                     </connections>
                 </controller>

@@ -42,6 +42,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
     
@@ -52,7 +53,7 @@
     
     WLCameraViewController* cameraViewController = [self.cameraNavigationController.viewControllers lastObject];
     cameraViewController.delegate = self;
-    cameraViewController.defaultPosition = self.defaultPosition;
+    cameraViewController.mode = self.mode;
     cameraViewController.wrap = self.wrap;
     self.cameraViewController = cameraViewController;
     

@@ -256,16 +256,19 @@
 @implementation WLUser (WLNotification)
 
 - (NSMutableOrderedSet *)notifications {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@", [NSDate dayAgo], [WLUser currentUser]];
-    return [[WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"] map:^id (WLComment *comment) {
-        return comment.notifiable ? comment : nil;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@",
+                              [NSDate sinceWeekAgo], [WLUser currentUser]];
+    NSMutableOrderedSet *contribution = [WLContribution entriesWithPredicate:predicate sorterByKey:@"createdAt"];
+    [contribution removeObjectsWhileEnumerating:^BOOL(WLEntry *entry) {
+        return [entry isKindOfClass:[WLWrap class]];
     }];
+    return contribution;
 }
 
 - (NSUInteger)unreadNotificationsCount {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@ AND unread == YES",
-                              [NSDate dayAgo], [WLUser currentUser]];
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([WLComment class])];
+                              [NSDate sinceWeekAgo], [WLUser currentUser]];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([WLContribution class])];
     request.predicate = predicate;
     request.resultType = NSCountResultType;
     return [[[request execute] lastObject] integerValue];
@@ -296,21 +299,5 @@
 @end
 
 @implementation WLComment (WLNotification)
-
-- (BOOL)notifiable {
-    if (self.contributedByCurrentUser) return NO;
-    WLCandy *candy = self.candy;
-    if (candy.contributedByCurrentUser) {
-        return YES;
-    } else {
-        NSUInteger index = [candy.comments indexOfObjectPassingTest:^BOOL(WLComment* comment, NSUInteger idx, BOOL *stop) {
-            return comment.contributedByCurrentUser;
-        }];
-        if (index != NSNotFound && [candy.comments indexOfObject:self] < index) {
-            return YES;
-        }
-    }
-    return NO;
-}
 
 @end

@@ -78,6 +78,7 @@
 - (void)initializeAPIManager {
     WLAPIManager *manager = [WLAPIManager manager];
     [manager setUnauthorizedErrorBlock:^ (NSError *error) {
+        WLLog(@"ERROR", @"redirection to welcome screen", error);
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
     }];
     

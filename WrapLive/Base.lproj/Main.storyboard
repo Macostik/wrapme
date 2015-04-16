@@ -450,7 +450,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="154"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="166"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yQ5-Zl-CQt" customClass="WLImageView">
@@ -474,18 +474,6 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <textView clipsSubviews="YES" contentMode="left" scrollEnabled="NO" editable="NO" text="Awesome photo!" translatesAutoresizingMaskIntoConstraints="NO" id="FgB-22-MIB" customClass="WLTextView">
-                                                    <rect key="frame" x="72" y="35" width="176" height="37"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <color key="tintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="textColor" red="0.1505631506" green="0.1505586505" blue="0.15056121350000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES"/>
-                                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </textView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="61" translatesAutoresizingMaskIntoConstraints="NO" id="0YA-Wt-D43" customClass="WLLabel">
                                                     <rect key="frame" x="72" y="72" width="176" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -507,7 +495,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="aqj-IZ-kAu" customClass="WLComposeBar">
-                                                    <rect key="frame" x="72" y="114" width="248" height="40"/>
+                                                    <rect key="frame" x="72" y="126" width="248" height="40"/>
                                                     <subviews>
                                                         <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3V-Pt-cNQ">
                                                             <rect key="frame" x="0.0" y="0.0" width="45" height="40"/>
@@ -621,7 +609,7 @@
                                                     </connections>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="Zla-VS-FNB">
-                                                    <rect key="frame" x="0.0" y="153" width="320" height="1"/>
+                                                    <rect key="frame" x="0.0" y="165" width="320" height="1"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="in0-OD-GvP"/>
                                                     </constraints>
@@ -654,7 +642,7 @@
                                                     </connections>
                                                 </button>
                                                 <textView hidden="YES" autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="193" placeholderIntrinsicHeight="40" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JhP-on-Pvo" customClass="WLTextView">
-                                                    <rect key="frame" x="124" y="114" width="196" height="40"/>
+                                                    <rect key="frame" x="124" y="126" width="196" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -666,7 +654,7 @@
                                                     </connections>
                                                 </textView>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Au2-E3-eLk" customClass="WLImageView">
-                                                    <rect key="frame" x="72" y="114" width="40" height="40"/>
+                                                    <rect key="frame" x="72" y="126" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="1ym-Bs-uzc"/>
@@ -680,9 +668,21 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWd-FQ-IWE" customClass="WLProgressBar">
-                                                    <rect key="frame" x="72" y="114" width="40" height="40"/>
+                                                    <rect key="frame" x="72" y="126" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
+                                                <textView clipsSubviews="YES" contentMode="left" scrollEnabled="NO" editable="NO" text="Awesome photo!" translatesAutoresizingMaskIntoConstraints="NO" id="FgB-22-MIB" customClass="WLTextView">
+                                                    <rect key="frame" x="72" y="35" width="176" height="37"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="tintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.1505631506" green="0.1505586505" blue="0.15056121350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES"/>
+                                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -691,7 +691,7 @@
                                             <constraint firstItem="Au2-E3-eLk" firstAttribute="height" secondItem="YWd-FQ-IWE" secondAttribute="height" id="0bN-0y-alq"/>
                                             <constraint firstItem="Au2-E3-eLk" firstAttribute="leading" secondItem="RuV-Ws-o8X" secondAttribute="leading" constant="72" id="1EH-ux-V2t"/>
                                             <constraint firstItem="0YA-Wt-D43" firstAttribute="trailing" secondItem="gs3-em-Muh" secondAttribute="trailing" id="2CO-eF-88R"/>
-                                            <constraint firstItem="aqj-IZ-kAu" firstAttribute="top" secondItem="gs3-em-Muh" secondAttribute="bottom" id="2pZ-uv-xlb"/>
+                                            <constraint firstItem="aqj-IZ-kAu" firstAttribute="top" secondItem="gs3-em-Muh" secondAttribute="bottom" constant="12" id="2pZ-uv-xlb"/>
                                             <constraint firstItem="syJ-Pe-nvd" firstAttribute="top" secondItem="RuV-Ws-o8X" secondAttribute="top" constant="12" id="3NR-tR-i4b"/>
                                             <constraint firstItem="FgB-22-MIB" firstAttribute="top" secondItem="qxv-Cb-5DK" secondAttribute="bottom" id="4Pc-7l-jOB"/>
                                             <constraint firstAttribute="trailing" secondItem="JhP-on-Pvo" secondAttribute="trailing" id="5as-ws-tBs"/>
@@ -711,7 +711,7 @@
                                             <constraint firstItem="YYP-Rv-9UQ" firstAttribute="leading" secondItem="RuV-Ws-o8X" secondAttribute="leading" constant="12" id="gj7-up-r5T"/>
                                             <constraint firstItem="FgB-22-MIB" firstAttribute="leading" secondItem="0YA-Wt-D43" secondAttribute="leading" id="haq-w0-u7y"/>
                                             <constraint firstAttribute="bottom" secondItem="Zla-VS-FNB" secondAttribute="bottom" id="kfv-c6-GaR"/>
-                                            <constraint firstItem="JhP-on-Pvo" firstAttribute="top" secondItem="gs3-em-Muh" secondAttribute="bottom" id="lyH-ff-0mb"/>
+                                            <constraint firstItem="JhP-on-Pvo" firstAttribute="top" secondItem="gs3-em-Muh" secondAttribute="bottom" constant="12" id="lyH-ff-0mb"/>
                                             <constraint firstItem="0YA-Wt-D43" firstAttribute="leading" secondItem="gs3-em-Muh" secondAttribute="leading" id="nLj-Yq-byc"/>
                                             <constraint firstItem="syJ-Pe-nvd" firstAttribute="leading" secondItem="qxv-Cb-5DK" secondAttribute="trailing" constant="12" id="ra8-Ht-xvW"/>
                                             <constraint firstAttribute="trailing" secondItem="aqj-IZ-kAu" secondAttribute="trailing" id="tYV-MC-VAN"/>
@@ -722,7 +722,7 @@
                                             <constraint firstItem="Zla-VS-FNB" firstAttribute="leading" secondItem="RuV-Ws-o8X" secondAttribute="leading" id="zfB-zI-MYv"/>
                                             <constraint firstItem="yQ5-Zl-CQt" firstAttribute="leading" secondItem="RuV-Ws-o8X" secondAttribute="leading" constant="12" id="zsd-Gh-BUz"/>
                                         </constraints>
-                                        <size key="customSize" width="320" height="154"/>
+                                        <size key="customSize" width="320" height="166"/>
                                         <connections>
                                             <outlet property="avatarImageView" destination="Au2-E3-eLk" id="uV3-1V-cdB"/>
                                             <outlet property="composeBar" destination="aqj-IZ-kAu" id="bEZ-eD-96l"/>
@@ -743,7 +743,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="154"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="166"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8v6-uj-wmp" customClass="WLImageView">
@@ -800,7 +800,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="vW7-cM-8Gv" customClass="WLComposeBar">
-                                                    <rect key="frame" x="72" y="114" width="248" height="40"/>
+                                                    <rect key="frame" x="72" y="126" width="248" height="40"/>
                                                     <subviews>
                                                         <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1zh-3S-2uc">
                                                             <rect key="frame" x="0.0" y="0.0" width="45" height="40"/>
@@ -914,7 +914,7 @@
                                                     </connections>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="mdz-vI-GxT">
-                                                    <rect key="frame" x="0.0" y="153" width="320" height="1"/>
+                                                    <rect key="frame" x="0.0" y="165" width="320" height="1"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="Oi4-jw-loZ"/>
                                                     </constraints>
@@ -939,7 +939,7 @@
                                                     </connections>
                                                 </button>
                                                 <textView hidden="YES" autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="193" placeholderIntrinsicHeight="40" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBP-8I-C4r" customClass="WLTextView">
-                                                    <rect key="frame" x="126" y="114" width="194" height="40"/>
+                                                    <rect key="frame" x="126" y="126" width="194" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -951,7 +951,7 @@
                                                     </connections>
                                                 </textView>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="afi-eT-Zmp" customClass="WLImageView">
-                                                    <rect key="frame" x="74" y="114" width="40" height="40"/>
+                                                    <rect key="frame" x="74" y="126" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="IOn-Pi-94P"/>
@@ -965,7 +965,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rky-JL-t3y" customClass="WLProgressBar">
-                                                    <rect key="frame" x="74" y="114" width="40" height="40"/>
+                                                    <rect key="frame" x="74" y="126" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
@@ -992,20 +992,20 @@
                                             <constraint firstItem="afi-eT-Zmp" firstAttribute="width" secondItem="rky-JL-t3y" secondAttribute="width" id="V47-Jd-3Fw"/>
                                             <constraint firstItem="lFp-aL-Zez" firstAttribute="leading" secondItem="8v6-uj-wmp" secondAttribute="trailing" constant="12" id="VWY-dr-DJY"/>
                                             <constraint firstAttribute="trailing" secondItem="mdz-vI-GxT" secondAttribute="trailing" id="Y3d-5E-pmc"/>
-                                            <constraint firstItem="hBP-8I-C4r" firstAttribute="top" secondItem="2Z7-J3-deT" secondAttribute="bottom" id="b4G-vG-EVA"/>
+                                            <constraint firstItem="hBP-8I-C4r" firstAttribute="top" secondItem="2Z7-J3-deT" secondAttribute="bottom" constant="12" id="b4G-vG-EVA"/>
                                             <constraint firstItem="mdz-vI-GxT" firstAttribute="leading" secondItem="IxJ-uW-dle" secondAttribute="leading" id="cNa-OV-78l"/>
                                             <constraint firstItem="afi-eT-Zmp" firstAttribute="centerX" secondItem="rky-JL-t3y" secondAttribute="centerX" id="dbZ-x7-2vz"/>
                                             <constraint firstItem="hBP-8I-C4r" firstAttribute="leading" secondItem="afi-eT-Zmp" secondAttribute="trailing" constant="12" id="dbz-9H-eTG"/>
                                             <constraint firstAttribute="trailing" secondItem="hBP-8I-C4r" secondAttribute="trailing" id="jT5-Bf-gPl"/>
                                             <constraint firstItem="afi-eT-Zmp" firstAttribute="height" secondItem="rky-JL-t3y" secondAttribute="height" id="lzh-AR-bJO"/>
                                             <constraint firstAttribute="trailing" secondItem="lFp-aL-Zez" secondAttribute="trailing" constant="72" id="msF-X3-VQF"/>
-                                            <constraint firstItem="vW7-cM-8Gv" firstAttribute="top" secondItem="2Z7-J3-deT" secondAttribute="bottom" id="nUb-OD-xNn"/>
+                                            <constraint firstItem="vW7-cM-8Gv" firstAttribute="top" secondItem="2Z7-J3-deT" secondAttribute="bottom" constant="12" id="nUb-OD-xNn"/>
                                             <constraint firstItem="QDZ-V4-X04" firstAttribute="leading" secondItem="yAK-Ic-ZAE" secondAttribute="leading" id="tPo-EA-Xeu"/>
                                             <constraint firstItem="QDZ-V4-X04" firstAttribute="leading" secondItem="lFp-aL-Zez" secondAttribute="leading" id="xCl-Mt-0VN"/>
                                             <constraint firstItem="QDZ-V4-X04" firstAttribute="top" secondItem="lFp-aL-Zez" secondAttribute="bottom" id="xi8-Qq-dXp"/>
                                             <constraint firstItem="QDZ-V4-X04" firstAttribute="trailing" secondItem="yAK-Ic-ZAE" secondAttribute="trailing" id="xyz-Mh-aUV"/>
                                         </constraints>
-                                        <size key="customSize" width="320" height="154"/>
+                                        <size key="customSize" width="320" height="166"/>
                                         <connections>
                                             <outlet property="avatarImageView" destination="afi-eT-Zmp" id="gYb-W0-LdO"/>
                                             <outlet property="composeBar" destination="vW7-cM-8Gv" id="089-lB-IUg"/>

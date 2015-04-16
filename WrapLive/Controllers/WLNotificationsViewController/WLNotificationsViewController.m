@@ -30,7 +30,7 @@
     }];
     
     [self.dataSection setConfigure:^(WLNotificationCell *cell, id entry) {
-        [cell setBackgroundColor:[entry unread]  ? [UIColor whiteColor] : [UIColor WL_grayLightest]];
+        [cell setBackgroundColor:[entry unread] ? [UIColor whiteColor] : [UIColor WL_grayLightest]];
     }];
  
     [[WLComment notifier] addReceiver:self];

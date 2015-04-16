@@ -65,6 +65,9 @@
 }
 
 + (CGFloat)additionalHeightCell:(id)entry {
+    if (![entry respondsToSelector:@selector(text)]) {
+        return .0f;
+    }
     UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansRegular
                                           preset:WLFontPresetLarge];
     return WLCalculateHeightString([entry text], font, WLConstants.screenWidth - WLNotificationCommentHorizontalSpacing);
@@ -156,10 +159,6 @@
 @end
 
 @implementation WLCandyNotificationCell
-
-+ (CGFloat)additionalHeightCell:(id)entry {
-    return WLPaddingCell;
-}
 
 - (void)setup:(WLCandy *)candy {
     [super setup:candy];

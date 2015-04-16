@@ -23,9 +23,6 @@ static inline NSString *WLSoundFileName(WLSound sound) {
         case WLSound_s04:
             return @"s04";
             break;
-        case WLSound_s06:
-            return @"s06";
-            break;
         default:
             return nil;
             break;

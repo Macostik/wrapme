@@ -41,8 +41,7 @@
     
     id entry = [self.entries.entries objectAtIndex:indexPath.item];
     
-    CGFloat textHeight  = [entry isKindOfClass:[WLCandy class]] ? [WLCandyNotificationCell additionalHeightCell:entry] :
-                                                                  [WLNotificationCell additionalHeightCell:entry];
+    CGFloat textHeight  = [WLNotificationCell additionalHeightCell:entry];
     
     textHeight += [[self.bufferInfoCell objectForKey:entry] floatValue];
  

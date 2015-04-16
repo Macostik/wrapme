@@ -284,7 +284,7 @@
 - (void)finishWithPictures:(NSArray*)pictures {
     
     if (self.mode == WLStillPictureModeDefault) {
-        [WLSoundPlayer playSound:WLSound_s06];
+        [WLSoundPlayer playSound:WLSound_s04];
     }
     
     id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];

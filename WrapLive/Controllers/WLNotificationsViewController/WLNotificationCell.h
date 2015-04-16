@@ -12,7 +12,7 @@ const static CGFloat WLNotificationCommentHorizontalSpacing = 144.0f;
 const static CGFloat WLNotificationContentHorizontalSpacing = 124.0f;
 const static CGFloat WLNotificationCommentVerticalSpacing = 77.0f;
 const static CGFloat WLMinHeightCell = 41.0f;
-const static CGFloat WLPaddingCell = 12.0;
+const static CGFloat WLPaddingCell = 24.0;
 
 @class WLNotificationCell, WLComposeBar, WLTextView;
 

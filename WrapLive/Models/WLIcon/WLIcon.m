@@ -90,8 +90,9 @@
                   @"angle-right":@"x",
                   @"angle-down":@"y",
                   @"angle-up":@"z",
+                  @"calendar":@"A",
                   @"reply":@"B",
-                  @"calendar":@"A"};
+                  @"photos":@"C",};
     }
     
     NSString *code = [icons objectForKey:name];

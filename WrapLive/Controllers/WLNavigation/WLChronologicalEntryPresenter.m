@@ -11,17 +11,29 @@
 @implementation WLChronologicalEntryPresenter
 
 + (void)presentEntry:(WLEntry *)entry inNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
-    for (UIViewController *controller in navigationController.viewControllers) {
-        if ([entry isValidViewController:controller]) {
-            if (controller != navigationController.topViewController) {
-                [navigationController popToViewController:controller animated:animated];
+    UIViewController *controller = nil;
+    WLEntry *currentEntry = entry;
+    while (currentEntry.valid) {
+        controller = [currentEntry viewControllerWithNavigationController:navigationController];
+        if (controller) {
+            if (currentEntry != entry) {
+                [entry configureViewController:controller fromContainingEntry:currentEntry];
             }
-            return;
+            currentEntry = nil;
+        } else {
+            currentEntry = currentEntry.containingEntry;
         }
     }
-    UIViewController *controller = [entry viewController];
+    
     if (controller) {
-        [navigationController pushViewController:controller animated:animated];
+        if ([navigationController.viewControllers containsObject:controller]) {
+            if (navigationController.topViewController != controller) {
+                [navigationController popToViewController:controller animated:animated];
+            }
+        } else {
+            [navigationController pushViewController:controller animated:animated];
+        }
+        
     }
 }
 

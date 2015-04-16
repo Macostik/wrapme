@@ -28,6 +28,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (weak, nonatomic) IBOutlet WLTextView *verificationEmailTextView;
+@property (weak, nonatomic) IBOutlet UIButton *resendButton;
 
 @property (strong, nonatomic) WLProfileEditSession *editSession;
 
@@ -44,12 +45,16 @@
     self.editSession = [[WLProfileEditSession alloc] initWithUser:[WLUser currentUser]];
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
     self.verificationEmailTextView.textContainerInset = UIEdgeInsetsZero;
+    self.verificationEmailTextView.textContainer.lineFragmentPadding = 0;
     [self updateEmailConfirmationView];
     [[WLUser notifier] addReceiver:self];
     [[WLFontPresetter presetter] addReceiver:self];
 }
 
 - (void)updateEmailConfirmationView {
+    UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.emailConfirmationView convertRect:self.resendButton.frame
+                                                                                                   toView:self.verificationEmailTextView]];
+    self.verificationEmailTextView.textContainer.exclusionPaths = @[exlusionPath];
     self.verificationEmailTextView.attributedText = [WLAuthorization attributedVerificationSuggestion];
     self.emailConfirmationView.hidden = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
 }

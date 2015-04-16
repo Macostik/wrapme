@@ -6,10 +6,12 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLPaginatedViewSection.h"
+#import "WLSectionedDataSource.h"
 
-@interface WLHomeViewSection : WLPaginatedViewSection
+@class WLWrap;
 
-@property (weak, nonatomic) WLWrap* wrap;
+@interface WLHomeDataSource : WLBasicDataSource
+
+@property (strong, nonatomic) WLWrap* wrap;
 
 @end

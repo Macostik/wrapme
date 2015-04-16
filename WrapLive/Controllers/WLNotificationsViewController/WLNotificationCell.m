@@ -47,6 +47,7 @@
     self.containerTextView.textContainer.lineFragmentPadding = self.textView.textContainer.lineFragmentPadding = 0;
     self.pictureView.layer.cornerRadius = self.pictureView.height/2;
     [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+    self.composeBar.placeholder = WLLS(@"Write your comment ...");
 }
 
 - (void)setup:(id)entry {
@@ -65,12 +66,16 @@
 }
 
 + (CGFloat)additionalHeightCell:(id)entry {
+    if (![entry respondsToSelector:@selector(text)]) {
+        return .0f;
+    }
     UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansRegular
                                           preset:WLFontPresetLarge];
     return WLCalculateHeightString([entry text], font, WLConstants.screenWidth - WLNotificationCommentHorizontalSpacing);
 }
 
 - (IBAction)replyMessage:(UIButton *)sender {
+    [self.composeBar performSelector:@selector(setText:) withObject:@"" afterDelay:.0f];
     self.avatarImageView.hidden = self.progressBar.hidden = YES;
     if ([self.delegate respondsToSelector:@selector(notificationCell:didRetryMessageByComposeBar:)]) {
         [self.delegate notificationCell:self didRetryMessageByComposeBar:self.composeBar];
@@ -156,10 +161,6 @@
 @end
 
 @implementation WLCandyNotificationCell
-
-+ (CGFloat)additionalHeightCell:(id)entry {
-    return WLPaddingCell;
-}
 
 - (void)setup:(WLCandy *)candy {
     [super setup:candy];

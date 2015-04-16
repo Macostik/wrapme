@@ -55,6 +55,7 @@
     [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateEmpty];
     [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateFailed];
     self.textView.textContainerInset = UIEdgeInsetsZero;
+    self.textView.textContainer.lineFragmentPadding = .0;
     self.bubbleImageView.image = [WLMessageCell bubbleImageWithColor:self.bubbleImageView.backgroundColor];
 }
 

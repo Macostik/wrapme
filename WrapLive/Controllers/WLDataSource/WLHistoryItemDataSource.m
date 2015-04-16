@@ -6,16 +6,12 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLCandiesViewSection.h"
+#import "WLHistoryItemDataSource.h"
 #import "UIScrollView+Additions.h"
 #import "WLCandyCell.h"
+#import "WLHistory.h"
 
-@implementation WLCandiesViewSection
-
-- (CGSize)size:(NSIndexPath *)indexPath {
-    CGFloat size = self.collectionView.bounds.size.width/2.5;
-    return CGSizeMake(size, self.collectionView.bounds.size.height);
-}
+@implementation WLHistoryItemDataSource
 
 - (CGFloat)fixedContentOffset:(CGFloat)offset {
     CGFloat size = self.collectionView.bounds.size.width/2.5 + WLCandyCellSpacing;
@@ -23,16 +19,17 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    WLHistoryItem* group = (id)self.entries;
+    WLHistoryItem* group = (id)self.items;
     group.offset = scrollView.contentOffset;
+    [super scrollViewDidScroll:scrollView];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     CGFloat offset = targetContentOffset->x;
-    if (offset <= 0 || offset >= self.collectionView.maximumContentOffset.x) {
-		return;
+    if (IsInBounds(0, scrollView.maximumContentOffset.x, offset)) {
+		targetContentOffset->x = [self fixedContentOffset:offset];
 	}
-    targetContentOffset->x = [self fixedContentOffset:offset];
+    [super scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
 
 @end

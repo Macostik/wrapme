@@ -371,22 +371,18 @@
                     <navigationItem key="navigationItem" id="d7K-bB-fdh"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="dataProvider" destination="ENX-FT-MZw" id="oFn-2T-Gt2"/>
-                        <outlet property="dataSection" destination="RHg-xY-8ib" id="mDe-OP-77h"/>
+                        <outlet property="dataSource" destination="ENX-FT-MZw" id="lw3-ey-47I"/>
                     </connections>
                 </viewController>
-                <customObject id="RHg-xY-8ib" customClass="WLCollectionViewSection">
+                <customObject id="ENX-FT-MZw" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLCountryCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLCountryCell"/>
+                        <userDefinedRuntimeAttribute type="size" keyPath="itemSize">
+                            <size key="value" width="0.0" height="44"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="collectionView" destination="D8n-r4-fYw" id="Xfe-eK-eML"/>
-                    </connections>
-                </customObject>
-                <customObject id="ENX-FT-MZw" customClass="WLCollectionViewDataProvider">
-                    <connections>
                         <outlet property="collectionView" destination="D8n-r4-fYw" id="ryU-nQ-3tF"/>
-                        <outletCollection property="sections" destination="RHg-xY-8ib" collectionClass="NSMutableArray" id="R9t-QN-jGI"/>
                     </connections>
                 </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fA-WY-1QF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1483,21 +1479,8 @@
                                     <constraint firstAttribute="width" constant="98" id="jlA-Tx-0mi"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="calvin@ravenpod.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="Fab-q9-FLD" customClass="WLLabel">
-                                <rect key="frame" x="0.0" y="194" width="320" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="h9t-x4-sE5"/>
-                                    <constraint firstAttribute="height" constant="24" id="tX9-Dr-xfI"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="is not confirmed yet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="Ozz-Wr-kgY" customClass="WLLabel">
-                                <rect key="frame" x="30" y="226" width="260" height="32"/>
+                                <rect key="frame" x="30" y="228" width="260" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="TGN-Av-MY4"/>
                                     <constraint firstAttribute="width" constant="260" id="nAm-rJ-4bJ"/>
@@ -1510,7 +1493,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dM9-5p-U8h" customClass="WLButton">
-                                <rect key="frame" x="60" y="263" width="200" height="32"/>
+                                <rect key="frame" x="60" y="265" width="200" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="BHL-20-h5Y"/>
@@ -1529,7 +1512,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="dRx-kr-5xI" customClass="WLLabel">
-                                <rect key="frame" x="30" y="297" width="260" height="70"/>
+                                <rect key="frame" x="30" y="299" width="260" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="aGr-7z-nFK"/>
                                     <constraint firstAttribute="width" constant="260" id="fuF-xb-vBb"/>
@@ -1543,7 +1526,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oIH-Zc-2Z8" customClass="WLPressButton">
-                                <rect key="frame" x="70" y="387" width="180" height="46"/>
+                                <rect key="frame" x="70" y="389" width="180" height="46"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="JCe-Kf-6hK"/>
@@ -1563,6 +1546,18 @@
                                     <action selector="resend:" destination="vZf-ZB-Nuz" eventType="touchUpInside" id="swH-3u-DcI"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="calvin@ravenpod.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="Fab-q9-FLD" customClass="WLLabel">
+                                <rect key="frame" x="0.0" y="194" width="320" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="h9t-x4-sE5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                                <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

@@ -25,7 +25,7 @@
         if (viewController) {
             [viewControllers addObject:viewController];
             if (currentEntry != entry) {
-                [entry configureViewController:viewController fromContainingEntry:entry];
+                [entry configureViewController:viewController fromContainingEntry:currentEntry];
             }
         }
         currentEntry = currentEntry.containingEntry;

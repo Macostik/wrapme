@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Light.ttf">
@@ -16,41 +16,54 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="no_photo_placeholder_big_gray_lighter" translatesAutoresizingMaskIntoConstraints="NO" id="OOF-BY-Q18">
-                    <rect key="frame" x="81" y="168" width="158" height="167"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="scy-jh-Nrg">
+                    <rect key="frame" x="54" y="248" width="213" height="73"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nll-EC-OTb" customClass="WLIconButton">
+                            <rect key="frame" x="91" y="0.0" width="30" height="34"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="photos"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="largest"/>
+                                <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                    <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No upload in this wrap" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zod-d7-1MU" customClass="WLLabel">
+                            <rect key="frame" x="0.0" y="44" width="213" height="29"/>
+                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>
+                            <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="167" id="9Hu-p1-dxp"/>
-                        <constraint firstAttribute="width" constant="158" id="U8m-Vg-eTj"/>
+                        <constraint firstItem="Nll-EC-OTb" firstAttribute="top" secondItem="scy-jh-Nrg" secondAttribute="top" id="3Gl-cV-HKP"/>
+                        <constraint firstItem="Zod-d7-1MU" firstAttribute="leading" secondItem="scy-jh-Nrg" secondAttribute="leading" id="G43-0C-vFm"/>
+                        <constraint firstAttribute="centerX" secondItem="Nll-EC-OTb" secondAttribute="centerX" id="bHR-qe-uuX"/>
+                        <constraint firstAttribute="trailing" secondItem="Zod-d7-1MU" secondAttribute="trailing" id="jiN-hp-wJ5"/>
+                        <constraint firstAttribute="bottom" secondItem="Zod-d7-1MU" secondAttribute="bottom" id="p9M-53-emp"/>
+                        <constraint firstItem="Zod-d7-1MU" firstAttribute="top" secondItem="Nll-EC-OTb" secondAttribute="bottom" constant="10" id="vgr-Is-Yeg"/>
                     </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No upload in this wrap" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="261" translatesAutoresizingMaskIntoConstraints="NO" id="Zod-d7-1MU" customClass="WLLabel">
-                    <rect key="frame" x="30" y="347" width="261" height="66"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="66" id="2Mf-ms-ZRe"/>
-                        <constraint firstAttribute="width" constant="261" id="Ygh-xd-eHP"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>
-                    <color key="textColor" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="OOF-BY-Q18" secondAttribute="centerX" id="Kyw-5h-j54"/>
-                <constraint firstAttribute="centerY" secondItem="Zod-d7-1MU" secondAttribute="centerY" constant="-96" id="PJJ-FP-mBz"/>
-                <constraint firstAttribute="centerY" secondItem="OOF-BY-Q18" secondAttribute="centerY" constant="32.5" id="ShA-8f-1cp"/>
-                <constraint firstAttribute="centerX" secondItem="Zod-d7-1MU" secondAttribute="centerX" constant="-0.5" id="jnZ-I8-g7O"/>
+                <constraint firstItem="scy-jh-Nrg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xIx-C2-z8G" secondAttribute="leading" constant="10" id="e6X-5t-QZE"/>
+                <constraint firstAttribute="centerX" secondItem="scy-jh-Nrg" secondAttribute="centerX" id="lY4-mF-F5p"/>
+                <constraint firstAttribute="centerY" secondItem="scy-jh-Nrg" secondAttribute="centerY" id="pMh-iA-ClG"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="scy-jh-Nrg" secondAttribute="trailing" constant="10" id="zQB-nr-BvQ"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="344" y="416"/>
         </view>
     </objects>
-    <resources>
-        <image name="no_photo_placeholder_big_gray_lighter" width="151" height="160"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -78,7 +78,7 @@
         return self.cell(identifier, indexPath);
     } else {
         WLEntryCell* cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-        cell.selection = self.selection;
+        cell.selectionBlock = self.selectionBlock;
         id entry = self.entries.entries[indexPath.item];
         cell.entry = entry;
         if (self.configure) {

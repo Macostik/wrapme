@@ -439,7 +439,7 @@
                                             <outlet property="avatarImageView" destination="ilf-Mf-hAy" id="2fp-b0-rZT"/>
                                             <outlet property="composeBar" destination="Ckb-hU-igb" id="E5H-Pg-725"/>
                                             <outlet property="containerTextView" destination="aGU-7c-ypA" id="CYh-3h-dcE"/>
-                                            <outlet property="delegate" destination="Sb9-ms-INl" id="GzX-qi-KZo"/>
+                                            <outlet property="delegate" destination="vgz-ev-iSR" id="4xk-jv-g7Y"/>
                                             <outlet property="inWrapLabel" destination="FBj-ps-Q2W" id="8nR-Un-Hzr"/>
                                             <outlet property="pictureView" destination="NnN-ec-DhQ" id="R4C-Gl-Cm1"/>
                                             <outlet property="progressBar" destination="2bI-Lg-ny7" id="5Kt-4H-UhU"/>
@@ -735,7 +735,7 @@
                                             <outlet property="avatarImageView" destination="Au2-E3-eLk" id="uV3-1V-cdB"/>
                                             <outlet property="composeBar" destination="aqj-IZ-kAu" id="bEZ-eD-96l"/>
                                             <outlet property="containerTextView" destination="JhP-on-Pvo" id="PO5-ii-RTp"/>
-                                            <outlet property="delegate" destination="Sb9-ms-INl" id="mAm-az-NNd"/>
+                                            <outlet property="delegate" destination="vgz-ev-iSR" id="Ifo-1v-jzV"/>
                                             <outlet property="inWrapLabel" destination="0YA-Wt-D43" id="zFN-ci-Nhc"/>
                                             <outlet property="pictureView" destination="yQ5-Zl-CQt" id="BuL-oQ-0F9"/>
                                             <outlet property="progressBar" destination="YWd-FQ-IWE" id="4Ie-tx-NFm"/>
@@ -1022,7 +1022,7 @@
                                             <outlet property="avatarImageView" destination="afi-eT-Zmp" id="gYb-W0-LdO"/>
                                             <outlet property="composeBar" destination="vW7-cM-8Gv" id="089-lB-IUg"/>
                                             <outlet property="containerTextView" destination="hBP-8I-C4r" id="7ox-2G-RcO"/>
-                                            <outlet property="delegate" destination="Sb9-ms-INl" id="slu-cN-CwF"/>
+                                            <outlet property="delegate" destination="vgz-ev-iSR" id="Y41-zP-6mH"/>
                                             <outlet property="inWrapLabel" destination="yAK-Ic-ZAE" id="Ym4-2W-fii"/>
                                             <outlet property="pictureView" destination="8v6-uj-wmp" id="sCH-GX-50p"/>
                                             <outlet property="progressBar" destination="rky-JL-t3y" id="EtU-IB-UBf"/>
@@ -1038,8 +1038,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="nibNamePlaceholder" value="NoMessagesPlaceholderView"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="dataSource" destination="slW-JB-a7I" id="a35-SB-gIr"/>
-                                    <outlet property="delegate" destination="slW-JB-a7I" id="a7v-yB-xdS"/>
+                                    <outlet property="dataSource" destination="Sb9-ms-INl" id="erB-Ap-ktR"/>
+                                    <outlet property="delegate" destination="Sb9-ms-INl" id="kGL-a2-Hwc"/>
                                 </connections>
                             </collectionView>
                         </subviews>
@@ -1056,19 +1056,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="D4X-S5-GBc"/>
                     <connections>
-                        <outlet property="dataProvider" destination="slW-JB-a7I" id="uVh-lx-IXL"/>
-                        <outlet property="dataSection" destination="Sb9-ms-INl" id="cUY-1x-bae"/>
+                        <outlet property="dataSource" destination="Sb9-ms-INl" id="IUo-5V-S9X"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="XyY-4e-Wfg" id="TIc-cZ-AzT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Aj-Ix-LHp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="slW-JB-a7I" customClass="WLCollectionViewDataProvider">
-                    <connections>
-                        <outlet property="collectionView" destination="VLc-fp-pTh" id="1q4-Ry-TOn"/>
-                        <outletCollection property="sections" destination="Sb9-ms-INl" collectionClass="NSMutableArray" id="qx5-GN-PmB"/>
-                    </connections>
-                </customObject>
-                <customObject id="Sb9-ms-INl" customClass="WLNotificationCollectionViewSection">
+                <customObject id="Sb9-ms-INl" customClass="WLBasicDataSource">
                     <connections>
                         <outlet property="collectionView" destination="VLc-fp-pTh" id="1DH-Zb-qvo"/>
                     </connections>
@@ -1651,8 +1644,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y7O-GH-Q4Y" customClass="WLCollectionView">
-                                <rect key="frame" x="0.0" y="184" width="320" height="382"/>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y7O-GH-Q4Y" customClass="WLCollectionView">
+                                <rect key="frame" x="0.0" y="169" width="320" height="397"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="94"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="cRR-9g-HQh">
@@ -2062,12 +2055,12 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="nibNamePlaceholder" value="WLHomePlaceholderView"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="dataSource" destination="5hc-ZE-poP" id="Gcb-Tb-19z"/>
-                                    <outlet property="delegate" destination="5hc-ZE-poP" id="NMR-B2-bda"/>
+                                    <outlet property="dataSource" destination="fHn-3G-fGW" id="QAw-6f-LlG"/>
+                                    <outlet property="delegate" destination="fHn-3G-fGW" id="TVy-PG-UqU"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qcq-LH-ZNY">
-                                <rect key="frame" x="0.0" y="56" width="320" height="128"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcq-LH-ZNY">
+                                <rect key="frame" x="0.0" y="56" width="320" height="113"/>
                                 <subviews>
                                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help keep your account safe" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="CSs-OC-vDg" customClass="WLLabel">
                                         <rect key="frame" x="10" y="10" width="300" height="21"/>
@@ -2392,26 +2385,21 @@ Tap here to start.</string>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="5cB-EH-3pL"/>
                         <outlet property="createWrapButton" destination="KxF-7g-Abs" id="DiP-hq-Kq1"/>
                         <outlet property="createWrapTipView" destination="rgB-qi-Gbh" id="lEh-RQ-itL"/>
-                        <outlet property="dataProvider" destination="5hc-ZE-poP" id="TGs-fS-2pE"/>
+                        <outlet property="dataSource" destination="fHn-3G-fGW" id="mME-eD-7au"/>
                         <outlet property="emailConfirmationView" destination="Qcq-LH-ZNY" id="shZ-oR-vok"/>
                         <outlet property="hiddenEmailConfirmationConstraint" destination="v3N-j7-b7C" id="FWy-iU-7XH"/>
                         <outlet property="navigationBar" destination="9Rl-cW-5hv" id="9kd-xs-4J2"/>
                         <outlet property="notificationsLabel" destination="2L6-nO-etl" id="5XW-mo-EXZ"/>
-                        <outlet property="section" destination="fHn-3G-fGW" id="Wch-lJ-dd2"/>
                         <outlet property="uploadingView" destination="IWZ-KR-48g" id="KrJ-sE-ftu"/>
                         <outlet property="verificationEmailLabel" destination="UL6-dF-3Kj" id="nDG-MA-MkU"/>
                         <outlet property="visibleEmailConfirmationConstraint" destination="ZK0-p3-ckA" id="BZM-Ce-PWI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfT-C3-6mj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="5hc-ZE-poP" customClass="WLCollectionViewDataProvider">
-                    <connections>
-                        <outlet property="collectionView" destination="y7O-GH-Q4Y" id="hWo-I8-leU"/>
-                        <outletCollection property="sections" destination="fHn-3G-fGW" collectionClass="NSMutableArray" id="c3o-N5-KR2"/>
-                        <outletCollection property="animatableConstraints" destination="EPw-hT-f3u" id="wW1-xl-i4Z"/>
-                    </connections>
-                </customObject>
-                <customObject id="fHn-3G-fGW" customClass="WLHomeViewSection">
+                <customObject id="fHn-3G-fGW" customClass="WLHomeDataSource">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLWrapCell"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="QUX-wt-D3B"/>
                     </connections>
@@ -3270,8 +3258,8 @@ Tap here to start.</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="nibNamePlaceholder" value="WLWrapPlaceholderViewHistory"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="dataSource" destination="6Bj-MV-XWG" id="OZB-JA-yAD"/>
-                                    <outlet property="delegate" destination="6Bj-MV-XWG" id="laQ-VS-Bd8"/>
+                                    <outlet property="dataSource" destination="u9r-1x-r06" id="fGY-5B-OQ4"/>
+                                    <outlet property="delegate" destination="u9r-1x-r06" id="fUt-hA-SiD"/>
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aqT-yE-MER">
@@ -3461,23 +3449,14 @@ Tap here to start.</string>
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="GPJ-l7-lNJ"/>
                         <outlet property="contributorsLabel" destination="6dW-gY-pJQ" id="x2W-UL-3a3"/>
-                        <outlet property="dataProvider" destination="6Bj-MV-XWG" id="Xhg-9l-P7S"/>
-                        <outlet property="historyViewSection" destination="u9r-1x-r06" id="nZ4-U4-0Zk"/>
+                        <outlet property="dataSource" destination="u9r-1x-r06" id="ryw-PE-mPw"/>
                         <outlet property="inviteButton" destination="ppT-EU-1XX" id="cVV-qJ-qHZ"/>
                         <outlet property="messageCountLabel" destination="O8y-Vm-wNu" id="VWt-m0-xX0"/>
                         <outlet property="nameLabel" destination="PcB-Yh-hjT" id="Wm5-Y3-if8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUq-C2-qrY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="6Bj-MV-XWG" customClass="WLCollectionViewDataProvider">
-                    <connections>
-                        <outlet property="collectionView" destination="p36-27-cbv" id="yIe-Sg-EMn"/>
-                        <outletCollection property="sections" destination="u9r-1x-r06" collectionClass="NSMutableArray" id="uMo-ah-BC5"/>
-                        <outletCollection property="animatableConstraints" destination="MQg-Fb-Rad" id="AeP-SB-ONL"/>
-                        <outletCollection property="animatableConstraints" destination="fZI-X5-yEI" id="cB9-5U-9ox"/>
-                    </connections>
-                </customObject>
-                <customObject id="u9r-1x-r06" customClass="WLCandiesHistoryViewSection">
+                <customObject id="u9r-1x-r06" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLCandiesCell"/>
                     </userDefinedRuntimeAttributes>
@@ -4055,8 +4034,8 @@ Check your internet connection and try again.</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="nibNamePlaceholder" value="NoCommentsPlaceholderView"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="dataSource" destination="c4T-N6-79M" id="ctK-4f-aNN"/>
-                                            <outlet property="delegate" destination="c4T-N6-79M" id="d0C-46-iAc"/>
+                                            <outlet property="dataSource" destination="RbC-xy-dkj" id="pIQ-gR-PVG"/>
+                                            <outlet property="delegate" destination="RbC-xy-dkj" id="kmT-MT-pwC"/>
                                         </connections>
                                     </collectionView>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="aG1-FG-zzH" customClass="WLComposeBar">
@@ -4219,23 +4198,17 @@ Check your internet connection and try again.</string>
                     <connections>
                         <outlet property="collectionView" destination="Cwv-Gt-Vjm" id="17d-ry-YZF"/>
                         <outlet property="composeBar" destination="aG1-FG-zzH" id="h7O-SD-YJL"/>
-                        <outlet property="dataProvider" destination="c4T-N6-79M" id="qMo-HE-9fg"/>
-                        <outlet property="dataSection" destination="RbC-xy-dkj" id="Sot-Lw-F8A"/>
+                        <outlet property="dataSource" destination="RbC-xy-dkj" id="2Id-hh-byg"/>
                         <outlet property="topCommentViewContstrain" destination="rOF-bj-mRg" id="Cbz-Et-h5w"/>
                         <outlet property="view" destination="Mb1-3b-t3s" id="EJk-Dv-pYy"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="RfD-Sk-oI1" id="6zi-zr-HXV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kjg-TD-Vmm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="c4T-N6-79M" customClass="WLCollectionViewDataProvider">
-                    <connections>
-                        <outlet property="collectionView" destination="Cwv-Gt-Vjm" id="oNq-y9-Ufc"/>
-                        <outletCollection property="sections" destination="RbC-xy-dkj" collectionClass="NSMutableArray" id="8n7-Qj-Zpd"/>
-                    </connections>
-                </customObject>
-                <customObject id="RbC-xy-dkj" customClass="WLCommentsViewSection">
+                <customObject id="RbC-xy-dkj" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLCommentCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLCommentCell"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="Cwv-Gt-Vjm" id="Wa0-u1-TJN"/>
@@ -5055,8 +5028,8 @@ Check your internet connection and try again.</string>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="gJy-hq-1lI" id="ua0-SH-gKj"/>
-                                    <outlet property="delegate" destination="gJy-hq-1lI" id="JZ2-54-WVe"/>
+                                    <outlet property="dataSource" destination="zjC-7P-9tZ" id="5ZN-ae-toI"/>
+                                    <outlet property="delegate" destination="zjC-7P-9tZ" id="LX9-hM-1b7"/>
                                 </connections>
                             </collectionView>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYf-Sg-pHd" customClass="WLPressButton">
@@ -5120,18 +5093,11 @@ Check your internet connection and try again.</string>
                     <navigationItem key="navigationItem" id="eIg-JY-jsf"/>
                     <connections>
                         <outlet property="cancelButton" destination="dYf-Sg-pHd" id="bud-PD-3U6"/>
-                        <outlet property="dataProvider" destination="gJy-hq-1lI" id="8Mr-GR-zwz"/>
-                        <outlet property="dataSection" destination="zjC-7P-9tZ" id="2Sw-EK-CRK"/>
+                        <outlet property="dataSource" destination="zjC-7P-9tZ" id="72Y-Da-JLc"/>
                         <outlet property="doneButton" destination="oMu-AF-YMH" id="lIa-zm-9E9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RN9-r6-64a" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="gJy-hq-1lI" customClass="WLCollectionViewDataProvider">
-                    <connections>
-                        <outlet property="collectionView" destination="DO8-0B-bff" id="puQ-84-yR2"/>
-                        <outletCollection property="sections" destination="zjC-7P-9tZ" collectionClass="NSMutableArray" id="v2r-fd-s4n"/>
-                    </connections>
-                </customObject>
                 <customObject id="J7o-pO-jkz" userLabel="Add Contributors Transition" customClass="WLStoryboardTransition">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLAddContributorsViewController"/>
@@ -5142,7 +5108,7 @@ Check your internet connection and try again.</string>
                         <outlet property="sourceViewController" destination="qRW-aK-Lk5" id="DD7-V9-sE0"/>
                     </connections>
                 </customObject>
-                <customObject id="zjC-7P-9tZ" customClass="WLContributorsViewSection">
+                <customObject id="zjC-7P-9tZ" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLContributorCell"/>
                     </userDefinedRuntimeAttributes>

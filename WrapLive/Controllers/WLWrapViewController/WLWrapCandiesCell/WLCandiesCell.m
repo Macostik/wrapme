@@ -11,18 +11,15 @@
 #import "NSObject+NibAdditions.h"
 #import "WLRefresher.h"
 #import "UIScrollView+Additions.h"
-#import "WLCollectionViewDataProvider.h"
-#import "WLCandiesViewSection.h"
+#import "WLHistoryItemDataSource.h"
+#import "WLChronologicalEntryPresenter.h"
 
 @interface WLCandiesCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-@property (strong, nonatomic) WLCollectionViewDataProvider* dataProvider;
-
-@property (strong, nonatomic) WLPaginatedViewSection* dataSection;
-
+@property (strong, nonatomic) WLHistoryItemDataSource* dataSource;
 
 @end
 
@@ -34,20 +31,16 @@
     layout.minimumLineSpacing = WLConstants.pixelSize;
     layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
     
-    WLCandiesViewSection* section = [[WLCandiesViewSection alloc] initWithCollectionView:self.collectionView];
-    section.reuseCellIdentifier = WLCandyCellIdentifier;
-    section.selection = self.selection;
-    self.dataSection = section;
-    self.dataProvider = [WLCollectionViewDataProvider dataProvider:self.collectionView section:section];
-}
-
-- (void)setSelection:(WLObjectBlock)selection {
-    [super setSelection:selection];
-    self.dataSection.selection = selection;
+    WLHistoryItemDataSource* dataSource = [WLHistoryItemDataSource dataSource:self.collectionView];
+    dataSource.cellIdentifier = WLCandyCellIdentifier;
+    [dataSource setSelectionBlock:^ (id entry) {
+        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
+    }];
+    self.dataSource = dataSource;
 }
 
 - (void)setup:(WLHistoryItem*)item {
-    self.dataSection.entries = item;
+    self.dataSource.items = item;
 	self.dateLabel.text = [item.date string];
     [self.collectionView layoutIfNeeded];
     [self.collectionView trySetContentOffset:item.offset];

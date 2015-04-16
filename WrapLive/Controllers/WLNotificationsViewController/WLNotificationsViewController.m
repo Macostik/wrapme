@@ -8,16 +8,19 @@
 
 #import "WLNotificationsViewController.h"
 #import "WLUserView.h"
-#import "WLCollectionViewDataProvider.h"
+#import "WLBasicDataSource.h"
 #import "WLNotificationCenter.h"
 #import "WLChronologicalEntryPresenter.h"
-#import "WLNotificationCollectionViewSection.h"
 #import "WLNotificationCell.h"
+#import "UIFont+CustomFonts.h"
+#import "WLComposeBar.h"
 
-@interface WLNotificationsViewController () <WLEntryNotifyReceiver>
+@interface WLNotificationsViewController () <WLEntryNotifyReceiver, WLNotificationCellDelegate>
 
-@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
-@property (strong, nonatomic) IBOutlet WLNotificationCollectionViewSection *dataSection;
+@property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
+
+@property (strong, nonatomic) NSMapTable *createdEntry;
+@property (strong, nonatomic) NSMapTable *bufferInfoCell;
 
 @end
 
@@ -25,11 +28,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.dataSection setSelection:^(WLEntry* entry) {
+    
+    self.createdEntry = [NSMapTable weakToWeakObjectsMapTable];
+    self.bufferInfoCell = [NSMapTable strongToStrongObjectsMapTable];
+    
+    [self.dataSource setCellIdentifierForItemBlock:^NSString *(id entry, NSUInteger index) {
+        NSString *_identifier = [entry isKindOfClass:[WLMessage class]] ? @"WLMessageNotificationCell" :
+        [entry isKindOfClass:[WLComment class]] ? @"WLCommentNotificationCell" :
+        @"WLCandyNotificationCell";
+        return _identifier;
+    }];
+    
+    [self.dataSource setItemSizeBlock:^CGSize(id entry, NSUInteger index) {
+        
+        CGFloat textHeight  = [WLNotificationCell additionalHeightCell:entry];
+        
+        textHeight += [[self.bufferInfoCell objectForKey:entry] floatValue];
+        
+        UIFont *fontNormal = [UIFont preferredFontWithName:WLFontOpenSansRegular
+                                                    preset:WLFontPresetNormal];
+        UIFont *fontSmall = [UIFont preferredFontWithName:WLFontOpenSansRegular
+                                                   preset:WLFontPresetSmall];
+        return CGSizeMake(WLConstants.screenWidth, textHeight + 2*floorf(fontNormal.lineHeight) + floorf(fontSmall.lineHeight) + WLPaddingCell);
+
+    }];
+    
+    [self.dataSource setSelectionBlock:^(WLEntry* entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
     }];
     
-    [self.dataSection setConfigure:^(WLNotificationCell *cell, id entry) {
+    [self.dataSource setConfigureCellForItemBlock:^(WLNotificationCell *cell, id entry) {
         [cell setBackgroundColor:[entry unread] ? [UIColor whiteColor] : [UIColor WL_grayLightest]];
     }];
  
@@ -40,21 +68,21 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.dataSection.entries = [[WLUser currentUser] notifications];
+    self.dataSource.items = [[WLUser currentUser] notifications];
 }
 
 - (void)updateNotificaton {
     if (![WLKeyboard keyboard].isShow) {
-       self.dataSection.entries = [[WLUser currentUser] notifications];
+       self.dataSource.items = [[WLUser currentUser] notifications];
     }
 }
 
 - (void)removeNotificationEntry:(WLEntry *)entry {
-    NSMutableOrderedSet* entries = self.dataSection.entries.entries;
+    NSMutableOrderedSet* entries = (id)self.dataSource.items;
     if ([entries containsObject:entry]) {
         [entries removeObject:entry];
         if (![WLKeyboard keyboard].isShow) {
-             [self.dataSection reload];
+             [self.dataSource reload];
         }
     }
 }
@@ -90,8 +118,50 @@
 
 - (void)keyboardDidHide:(WLKeyboard*)keyboard {
     run_after(2.0, ^{
-        self.dataSection.entries = [[WLUser currentUser] notifications];
+        self.dataSource.items = [[WLUser currentUser] notifications];
     });
+}
+
+#pragma mark - WLNotificationCellDelegate
+
+- (void)notificationCell:(WLNotificationCell *)cell didRetryMessageByComposeBar:(WLComposeBar *)composeBar {
+    if ([self.bufferInfoCell objectForKey:cell.entry] != nil) {
+        [self.bufferInfoCell removeObjectForKey:cell.entry];
+    } else {
+        [self.bufferInfoCell setObject:[NSNumber numberWithFloat:composeBar.height] forKey:cell.entry];
+    }
+    [self.dataSource.collectionView performBatchUpdates:nil completion:nil];
+}
+
+- (void)notificationCell:(WLNotificationCell *)cell didChangeHeightComposeBar:(WLComposeBar *)composeBar {
+    if (composeBar.height > WLMinHeightCell) {
+        [self.bufferInfoCell setObject:[NSNumber numberWithFloat:composeBar.height] forKey:cell.entry];
+    }
+    [self.dataSource.collectionView performBatchUpdates:nil completion:nil];
+    NSIndexPath *indexPath =  [self.dataSource.collectionView indexPathForCell:cell];
+    [self.dataSource.collectionView scrollToItemAtIndexPath:indexPath
+                                atScrollPosition:UICollectionViewScrollPositionBottom
+                                        animated:YES];
+}
+
+- ( void)notificationCell:(WLNotificationCell *)cell beginEditingComposaBar:(WLComposeBar *)composeBar {
+    NSIndexPath *indexPath =  [self.dataSource.collectionView indexPathForCell:cell];
+    [self.dataSource.collectionView scrollToItemAtIndexPath:indexPath
+                                atScrollPosition:UICollectionViewScrollPositionBottom
+                                        animated:YES];
+}
+
+- (void)notificationCell:(WLNotificationCell *)cell calculateHeightTextView:(CGFloat)height {
+    [self.bufferInfoCell setObject:[NSNumber numberWithFloat:MAX(height, WLMinHeightCell)] forKey:cell.entry];
+    [self.dataSource.collectionView performBatchUpdates:nil completion:nil];
+}
+
+- (void)notificationCell:(WLNotificationCell *)cell createEntry:(id)entry {
+    [self.createdEntry setObject:entry forKey:cell.entry];
+}
+
+- (id)notificationCell:(WLNotificationCell *)cell createdEntry:(id)entry {
+    return [self.createdEntry objectForKey:entry];
 }
 
 @end

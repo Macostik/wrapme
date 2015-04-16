@@ -12,8 +12,7 @@
 #import "UILabel+Additions.h"
 #import "UIView+GestureRecognizing.h"
 #import "WLCandyCell.h"
-#import "WLCollectionViewDataProvider.h"
-#import "WLHomeCandiesViewSection.h"
+#import "WLBasicDataSource.h"
 #import "WLNotificationCenter.h"
 #import "WLBadgeLabel.h"
 #import "WLWrapCell.h"
@@ -29,8 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
 @property (assign, nonatomic) BOOL embeddedLongPress;
 
-@property (strong, nonatomic) WLCollectionViewDataProvider* candiesDataProvider;
-@property (strong, nonatomic) WLHomeCandiesViewSection* candiesDataSection;
+@property (strong, nonatomic) WLBasicDataSource* candiesDataSource;
 
 @end
 
@@ -44,11 +42,20 @@
         layout.minimumLineSpacing = WLCandyCellSpacing;
         layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
         
-        WLHomeCandiesViewSection* section = [[WLHomeCandiesViewSection alloc] initWithCollectionView:self.candiesView];
-        section.reuseCellIdentifier = WLCandyCellIdentifier;
-        section.selection = self.selection;
-        self.candiesDataSection = section;
-        self.candiesDataProvider = [WLCollectionViewDataProvider dataProvider:self.candiesView section:section];
+        WLBasicDataSource* section = [WLBasicDataSource dataSource:self.candiesView];
+        section.cellIdentifier = WLCandyCellIdentifier;
+        section.selectionBlock = self.selectionBlock;
+        [section setNumberOfItemsBlock:^NSUInteger {
+            return ([section.items count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
+        }];
+        [section setCellIdentifierForItemBlock:^NSString *(id item, NSUInteger index) {
+            return (index < [section.items count]) ? WLCandyCellIdentifier : @"CandyPlaceholderCell";
+        }];
+        [section setItemSizeBlock:^CGSize(id item, NSUInteger index) {
+            int size = (WLConstants.screenWidth - 2.0f)/3.0f;
+            return CGSizeMake(size, size);
+        }];
+        self.candiesDataSource = section;
     }
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
@@ -62,9 +69,9 @@
     }];
 }
 
-- (void)setSelection:(WLObjectBlock)selection {
-    [super setSelection:selection];
-    self.candiesDataSection.selection = selection;
+- (void)setSelectionBlock:(WLObjectBlock)selectionBlock {
+    [super setSelectionBlock:selectionBlock];
+    self.candiesDataSource.selectionBlock = selectionBlock;
 }
 
 - (void)setup:(WLWrap*)wrap {
@@ -72,7 +79,7 @@
     self.dateLabel.text = WLString(wrap.updatedAt.timeAgoStringAtAMPM);
     
     if (self.candiesView) {
-        self.candiesDataSection.entries = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
+        self.candiesDataSource.items = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
     }
     
     self.coverView.url = [wrap.picture anyUrl];

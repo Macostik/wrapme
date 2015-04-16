@@ -54,10 +54,10 @@
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+            <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
@@ -1541,7 +1541,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKa-TF-m51">
-                                <rect key="frame" x="0.0" y="64" width="320" height="74"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="89"/>
                                 <subviews>
                                     <label clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Help keep your account safe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nim-LA-uPS" customClass="WLLabel">
                                         <rect key="frame" x="10" y="10" width="198" height="23"/>
@@ -1556,15 +1556,6 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Please verify your e-mail address **calvinchso@gmail.com** by clicking the link in the verification e-mail." translatesAutoresizingMaskIntoConstraints="NO" id="VXa-Dq-6e9" customClass="WLTextView">
-                                        <rect key="frame" x="5" y="33" width="310" height="46"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="11"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xsmall"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </textView>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpG-be-cvC" customClass="WLButton">
                                         <rect key="frame" x="218" y="10" width="92" height="30"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1589,6 +1580,15 @@
                                             <action selector="resendEmailConfirmation:" destination="7FG-gC-kPg" eventType="touchUpInside" id="GH1-aV-n6f"/>
                                         </connections>
                                     </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Please verify your e-mail address **calvinchso@gmail.com** by clicking the link in the verification e-mail." translatesAutoresizingMaskIntoConstraints="NO" id="VXa-Dq-6e9" customClass="WLTextView">
+                                        <rect key="frame" x="10" y="33" width="300" height="61"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="11"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xsmall"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1597,8 +1597,8 @@
                                     <constraint firstItem="Nim-LA-uPS" firstAttribute="top" secondItem="fKa-TF-m51" secondAttribute="top" constant="10" id="JPw-lz-PGS"/>
                                     <constraint firstItem="gpG-be-cvC" firstAttribute="top" secondItem="fKa-TF-m51" secondAttribute="top" constant="10" id="Nje-Hy-gvM"/>
                                     <constraint firstItem="gpG-be-cvC" firstAttribute="leading" secondItem="Nim-LA-uPS" secondAttribute="trailing" constant="10" id="aKr-BE-rEq"/>
-                                    <constraint firstItem="VXa-Dq-6e9" firstAttribute="leading" secondItem="fKa-TF-m51" secondAttribute="leading" constant="5" id="dS1-bo-gXJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="VXa-Dq-6e9" secondAttribute="trailing" constant="5" id="ggE-lF-SGS"/>
+                                    <constraint firstItem="VXa-Dq-6e9" firstAttribute="leading" secondItem="fKa-TF-m51" secondAttribute="leading" constant="10" id="dS1-bo-gXJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="VXa-Dq-6e9" secondAttribute="trailing" constant="10" id="ggE-lF-SGS"/>
                                     <constraint firstItem="Nim-LA-uPS" firstAttribute="leading" secondItem="fKa-TF-m51" secondAttribute="leading" constant="10" id="ghc-CC-XYg"/>
                                     <constraint firstItem="VXa-Dq-6e9" firstAttribute="top" secondItem="Nim-LA-uPS" secondAttribute="bottom" id="xrk-tf-Zyj"/>
                                 </constraints>
@@ -1637,6 +1637,7 @@
                         <outlet property="imagePlaceholderView" destination="SJq-9P-McW" id="amY-pq-Miv"/>
                         <outlet property="imageView" destination="AYn-Zt-xUG" id="RLi-hY-DCv"/>
                         <outlet property="nameTextField" destination="D1N-1e-psu" id="aFX-at-9U5"/>
+                        <outlet property="resendButton" destination="gpG-be-cvC" id="fQ9-oJ-SwG"/>
                         <outlet property="verificationEmailTextView" destination="VXa-Dq-6e9" id="hUh-Z4-Apx"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="dqa-OK-Z7G" id="slP-9b-HaW"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="xPd-PQ-LCt" id="wVL-n7-ylr"/>
@@ -4304,7 +4305,7 @@ Check your internet connection and try again.</string>
                                                     <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nCf-It-uXS" customClass="WLCircleImageView">
@@ -4316,25 +4317,25 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPa-oY-X5B">
-                                                    <rect key="frame" x="139" y="0.0" width="109" height="48"/>
+                                                    <rect key="frame" x="135" y="0.0" width="113" height="48"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DVA-Yz-AnY">
-                                                            <rect key="frame" x="0.0" y="0.0" width="109" height="48"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="113" height="48"/>
                                                             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </imageView>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="0OD-Cn-Lp6" customClass="WLTextView">
-                                                            <rect key="frame" x="5" y="0.0" width="99" height="30"/>
+                                                            <rect key="frame" x="5" y="0.0" width="103" height="30"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <color key="tintColor" red="0.26379796862602234" green="0.26379004120826721" blue="0.26379451155662537" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                             <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </textView>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="v2z-k0-EKs" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="0.0" width="99" height="18"/>
+                                                            <rect key="frame" x="5" y="0.0" width="103" height="18"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -4348,7 +4349,7 @@ Check your internet connection and try again.</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="Lc4-Kr-oEr" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="30" width="99" height="18"/>
+                                                            <rect key="frame" x="5" y="30" width="103" height="18"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -4434,7 +4435,7 @@ Check your internet connection and try again.</string>
                                                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YII-6v-9r6" customClass="WLCircleImageView">
@@ -4446,25 +4447,25 @@ Check your internet connection and try again.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G61-oI-Ifc">
-                                                    <rect key="frame" x="72" y="0.0" width="109" height="48"/>
+                                                    <rect key="frame" x="72" y="0.0" width="113" height="48"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PxR-zd-fhb">
-                                                            <rect key="frame" x="0.0" y="0.0" width="109" height="48"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="113" height="48"/>
                                                             <color key="backgroundColor" red="1" green="0.67450980392156867" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </imageView>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="cMC-ND-b5t" customClass="WLTextView">
-                                                            <rect key="frame" x="5" y="0.0" width="99" height="30"/>
+                                                            <rect key="frame" x="5" y="0.0" width="103" height="30"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <color key="tintColor" red="0.26379796862602234" green="0.26379004120826721" blue="0.26379451155662537" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                             <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </textView>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="HUe-Pv-h6W" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="0.0" width="99" height="18"/>
+                                                            <rect key="frame" x="5" y="0.0" width="103" height="18"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -4478,7 +4479,7 @@ Check your internet connection and try again.</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="BDu-zS-cNB" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="30" width="99" height="18"/>
+                                                            <rect key="frame" x="5" y="30" width="103" height="18"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -4552,7 +4553,7 @@ Check your internet connection and try again.</string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username is typing..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="eqd-he-vyj" customClass="WLLabel">
-                                            <rect key="frame" x="66" y="0.0" width="188" height="44"/>
+                                            <rect key="frame" x="12" y="0.0" width="242" height="44"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                             <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -4564,7 +4565,7 @@ Check your internet connection and try again.</string>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="eqd-he-vyj" secondAttribute="bottom" id="PNn-eL-PLU"/>
                                         <constraint firstItem="eqd-he-vyj" firstAttribute="top" secondItem="8g1-kn-bOM" secondAttribute="top" id="TA7-Ek-t08"/>
-                                        <constraint firstItem="eqd-he-vyj" firstAttribute="leading" secondItem="8g1-kn-bOM" secondAttribute="leading" constant="66" id="VfW-Ux-eVW"/>
+                                        <constraint firstItem="eqd-he-vyj" firstAttribute="leading" secondItem="8g1-kn-bOM" secondAttribute="leading" constant="12" id="VfW-Ux-eVW"/>
                                         <constraint firstAttribute="trailing" secondItem="eqd-he-vyj" secondAttribute="trailing" constant="66" id="k0z-vA-ZXQ"/>
                                     </constraints>
                                     <connections>

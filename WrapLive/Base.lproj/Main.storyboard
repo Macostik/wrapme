@@ -173,7 +173,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="141"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NnN-ec-DhQ" customClass="WLImageView">
@@ -336,7 +336,7 @@
                                                     </connections>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6CB-K2-Qsx" customClass="WLSeparatorView">
-                                                    <rect key="frame" x="0.0" y="128" width="320" height="1"/>
+                                                    <rect key="frame" x="0.0" y="140" width="320" height="1"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="Wxd-K7-JyN"/>
@@ -441,7 +441,7 @@
                                             <constraint firstItem="ilf-Mf-hAy" firstAttribute="height" secondItem="2bI-Lg-ny7" secondAttribute="height" id="uqR-Yh-h9f"/>
                                             <constraint firstItem="FBj-ps-Q2W" firstAttribute="leading" secondItem="08S-52-GIh" secondAttribute="leading" id="y7v-uA-9eB"/>
                                         </constraints>
-                                        <size key="customSize" width="320" height="129"/>
+                                        <size key="customSize" width="320" height="141"/>
                                         <connections>
                                             <outlet property="avatarImageView" destination="ilf-Mf-hAy" id="2fp-b0-rZT"/>
                                             <outlet property="composeBar" destination="Ckb-hU-igb" id="E5H-Pg-725"/>
@@ -461,7 +461,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="166"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="178"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yQ5-Zl-CQt" customClass="WLImageView">
@@ -485,6 +485,18 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
+                                                <textView clipsSubviews="YES" contentMode="left" scrollEnabled="NO" editable="NO" text="Awesome photo!" translatesAutoresizingMaskIntoConstraints="NO" id="FgB-22-MIB" customClass="WLTextView">
+                                                    <rect key="frame" x="72" y="35" width="176" height="37"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="tintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES"/>
+                                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="61" translatesAutoresizingMaskIntoConstraints="NO" id="0YA-Wt-D43" customClass="WLLabel">
                                                     <rect key="frame" x="72" y="72" width="176" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -550,18 +562,6 @@
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
-                                                                <textView hidden="YES" autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="193" placeholderIntrinsicHeight="40" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JhP-on-Pvo" customClass="WLTextView">
-                                                                    <rect key="frame" x="3" y="-2" width="196" height="40"/>
-                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                    <connections>
-                                                                        <outlet property="delegate" destination="RuV-Ws-o8X" id="N3j-ck-5uy"/>
-                                                                    </connections>
-                                                                </textView>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -636,7 +636,7 @@
                                                     </connections>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AVI-Rd-s9l" customClass="WLSeparatorView">
-                                                    <rect key="frame" x="0.0" y="165" width="320" height="1"/>
+                                                    <rect key="frame" x="0.0" y="177" width="320" height="1"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="Grg-k0-f3y"/>
@@ -674,6 +674,18 @@
                                                         <action selector="replyMessage:" destination="RuV-Ws-o8X" eventType="touchUpInside" id="REY-Hv-LEY"/>
                                                     </connections>
                                                 </button>
+                                                <textView hidden="YES" autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="193" placeholderIntrinsicHeight="40" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JhP-on-Pvo" customClass="WLTextView">
+                                                    <rect key="frame" x="124" y="126" width="196" height="40"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="RuV-Ws-o8X" id="N3j-ck-5uy"/>
+                                                    </connections>
+                                                </textView>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Au2-E3-eLk" customClass="WLImageView">
                                                     <rect key="frame" x="72" y="126" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -692,18 +704,6 @@
                                                     <rect key="frame" x="72" y="126" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <textView clipsSubviews="YES" contentMode="left" scrollEnabled="NO" editable="NO" text="Awesome photo!" translatesAutoresizingMaskIntoConstraints="NO" id="FgB-22-MIB" customClass="WLTextView">
-                                                    <rect key="frame" x="72" y="35" width="176" height="37"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <color key="tintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES"/>
-                                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -716,14 +716,17 @@
                                             <constraint firstItem="syJ-Pe-nvd" firstAttribute="top" secondItem="RuV-Ws-o8X" secondAttribute="top" constant="12" id="3NR-tR-i4b"/>
                                             <constraint firstItem="FgB-22-MIB" firstAttribute="top" secondItem="qxv-Cb-5DK" secondAttribute="bottom" id="4Pc-7l-jOB"/>
                                             <constraint firstItem="yQ5-Zl-CQt" firstAttribute="top" secondItem="qxv-Cb-5DK" secondAttribute="top" id="7Id-ym-Q24"/>
+                                            <constraint firstItem="JhP-on-Pvo" firstAttribute="top" secondItem="gs3-em-Muh" secondAttribute="bottom" constant="12" id="93C-KU-tVV"/>
                                             <constraint firstItem="Au2-E3-eLk" firstAttribute="centerX" secondItem="YWd-FQ-IWE" secondAttribute="centerX" id="AIl-nW-bgR"/>
                                             <constraint firstItem="FgB-22-MIB" firstAttribute="trailing" secondItem="0YA-Wt-D43" secondAttribute="trailing" id="DB2-8J-b3Z"/>
                                             <constraint firstItem="Au2-E3-eLk" firstAttribute="width" secondItem="YWd-FQ-IWE" secondAttribute="width" id="Dc2-El-hNo"/>
                                             <constraint firstItem="Au2-E3-eLk" firstAttribute="centerY" secondItem="YWd-FQ-IWE" secondAttribute="centerY" id="FP7-1o-aUG"/>
                                             <constraint firstAttribute="trailing" secondItem="syJ-Pe-nvd" secondAttribute="trailing" constant="12" id="Iap-Dp-CyH"/>
+                                            <constraint firstAttribute="trailing" secondItem="JhP-on-Pvo" secondAttribute="trailing" id="LXP-ij-tAH"/>
                                             <constraint firstItem="FgB-22-MIB" firstAttribute="leading" secondItem="qxv-Cb-5DK" secondAttribute="leading" id="PjL-PD-qac"/>
                                             <constraint firstItem="qxv-Cb-5DK" firstAttribute="leading" secondItem="yQ5-Zl-CQt" secondAttribute="trailing" constant="12" id="RLW-B8-IvS"/>
                                             <constraint firstItem="YYP-Rv-9UQ" firstAttribute="top" secondItem="yQ5-Zl-CQt" secondAttribute="bottom" constant="-2" id="SaQ-kQ-Nkt"/>
+                                            <constraint firstItem="JhP-on-Pvo" firstAttribute="leading" secondItem="Au2-E3-eLk" secondAttribute="trailing" constant="12" id="XkV-bk-Ma4"/>
                                             <constraint firstAttribute="trailing" secondItem="AVI-Rd-s9l" secondAttribute="trailing" id="Z6u-IO-s8O"/>
                                             <constraint firstItem="aqj-IZ-kAu" firstAttribute="leading" secondItem="RuV-Ws-o8X" secondAttribute="leading" constant="72" id="ZhL-CA-BAE"/>
                                             <constraint firstItem="FgB-22-MIB" firstAttribute="trailing" secondItem="qxv-Cb-5DK" secondAttribute="trailing" id="cMa-kq-AaS"/>
@@ -740,7 +743,7 @@
                                             <constraint firstItem="aqj-IZ-kAu" firstAttribute="centerY" secondItem="Au2-E3-eLk" secondAttribute="centerY" id="yAj-Mx-yrg"/>
                                             <constraint firstItem="yQ5-Zl-CQt" firstAttribute="leading" secondItem="RuV-Ws-o8X" secondAttribute="leading" constant="12" id="zsd-Gh-BUz"/>
                                         </constraints>
-                                        <size key="customSize" width="320" height="166"/>
+                                        <size key="customSize" width="320" height="178"/>
                                         <connections>
                                             <outlet property="avatarImageView" destination="Au2-E3-eLk" id="uV3-1V-cdB"/>
                                             <outlet property="composeBar" destination="aqj-IZ-kAu" id="bEZ-eD-96l"/>
@@ -761,7 +764,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="166"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="178"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8v6-uj-wmp" customClass="WLImageView">
@@ -936,7 +939,7 @@
                                                     </connections>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N6s-Ip-cdF" customClass="WLSeparatorView">
-                                                    <rect key="frame" x="0.0" y="165" width="320" height="1"/>
+                                                    <rect key="frame" x="0.0" y="177" width="320" height="1"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="HXS-0I-xVr"/>
@@ -967,7 +970,7 @@
                                                     </connections>
                                                 </button>
                                                 <textView hidden="YES" autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="193" placeholderIntrinsicHeight="40" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBP-8I-C4r" customClass="WLTextView">
-                                                    <rect key="frame" x="126" y="126" width="194" height="40"/>
+                                                    <rect key="frame" x="124" y="126" width="196" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
@@ -980,7 +983,7 @@
                                                     </connections>
                                                 </textView>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="afi-eT-Zmp" customClass="WLImageView">
-                                                    <rect key="frame" x="74" y="126" width="40" height="40"/>
+                                                    <rect key="frame" x="72" y="126" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="IOn-Pi-94P"/>
@@ -994,7 +997,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rky-JL-t3y" customClass="WLProgressBar">
-                                                    <rect key="frame" x="74" y="126" width="40" height="40"/>
+                                                    <rect key="frame" x="72" y="126" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
@@ -1015,7 +1018,7 @@
                                             <constraint firstItem="8v6-uj-wmp" firstAttribute="leading" secondItem="IxJ-uW-dle" secondAttribute="leading" constant="12" id="LEc-89-G3K"/>
                                             <constraint firstItem="QDZ-V4-X04" firstAttribute="trailing" secondItem="lFp-aL-Zez" secondAttribute="trailing" id="Obh-HI-8A8"/>
                                             <constraint firstItem="8v6-uj-wmp" firstAttribute="top" secondItem="lFp-aL-Zez" secondAttribute="top" id="Pu4-Xr-Gfy"/>
-                                            <constraint firstItem="afi-eT-Zmp" firstAttribute="leading" secondItem="IxJ-uW-dle" secondAttribute="leading" constant="74" id="QY8-RM-tQH"/>
+                                            <constraint firstItem="afi-eT-Zmp" firstAttribute="leading" secondItem="IxJ-uW-dle" secondAttribute="leading" constant="72" id="QY8-RM-tQH"/>
                                             <constraint firstAttribute="trailing" secondItem="vW7-cM-8Gv" secondAttribute="trailing" id="RVJ-LD-OtR"/>
                                             <constraint firstItem="2Z7-J3-deT" firstAttribute="top" secondItem="yAK-Ic-ZAE" secondAttribute="bottom" id="Sif-La-Sjj"/>
                                             <constraint firstItem="afi-eT-Zmp" firstAttribute="width" secondItem="rky-JL-t3y" secondAttribute="width" id="V47-Jd-3Fw"/>
@@ -1034,7 +1037,7 @@
                                             <constraint firstItem="QDZ-V4-X04" firstAttribute="top" secondItem="lFp-aL-Zez" secondAttribute="bottom" id="xi8-Qq-dXp"/>
                                             <constraint firstItem="QDZ-V4-X04" firstAttribute="trailing" secondItem="yAK-Ic-ZAE" secondAttribute="trailing" id="xyz-Mh-aUV"/>
                                         </constraints>
-                                        <size key="customSize" width="320" height="166"/>
+                                        <size key="customSize" width="320" height="178"/>
                                         <connections>
                                             <outlet property="avatarImageView" destination="afi-eT-Zmp" id="gYb-W0-LdO"/>
                                             <outlet property="composeBar" destination="vW7-cM-8Gv" id="089-lB-IUg"/>

@@ -75,6 +75,7 @@
 }
 
 - (IBAction)replyMessage:(UIButton *)sender {
+    [self.composeBar performSelector:@selector(setText:) withObject:@"" afterDelay:.0f];
     self.avatarImageView.hidden = self.progressBar.hidden = YES;
     if ([self.delegate respondsToSelector:@selector(notificationCell:didRetryMessageByComposeBar:)]) {
         [self.delegate notificationCell:self didRetryMessageByComposeBar:self.composeBar];

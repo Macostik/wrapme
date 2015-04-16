@@ -50,7 +50,7 @@
                                                     preset:WLFontPresetNormal];
         UIFont *fontSmall = [UIFont preferredFontWithName:WLFontOpenSansRegular
                                                    preset:WLFontPresetSmall];
-        return CGSizeMake(WLConstants.screenWidth, textHeight + 2*floorf(fontNormal.lineHeight) + floorf(fontSmall.lineHeight) + WLPaddingCell);
+        return CGSizeMake(WLConstants.screenWidth, textHeight + 2*floorf(fontNormal.lineHeight) + floorf(fontSmall.lineHeight) + 2*WLPaddingCell);
 
     }];
     
@@ -153,7 +153,7 @@
 }
 
 - (void)notificationCell:(WLNotificationCell *)cell calculateHeightTextView:(CGFloat)height {
-    [self.bufferInfoCell setObject:[NSNumber numberWithFloat:MAX(height, WLMinHeightCell)] forKey:cell.entry];
+    [self.bufferInfoCell setObject:[NSNumber numberWithFloat:MAX(height, WLMinHeightCell) + WLPaddingCell] forKey:cell.entry];
     [self.dataSource.collectionView performBatchUpdates:nil completion:nil];
 }
 

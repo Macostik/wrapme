@@ -23,8 +23,7 @@
 #import "UIView+AnimationHelper.h"
 #import "WLCandyCell.h"
 #import "NSObject+NibAdditions.h"
-#import "WLCandiesHistoryViewSection.h"
-#import "WLCollectionViewDataProvider.h"
+#import "WLBasicDataSource.h"
 #import "UIScrollView+Additions.h"
 #import "WLContributorsViewController.h"
 #import "WLBadgeLabel.h"
@@ -35,14 +34,16 @@
 #import "WLHintView.h"
 #import "WLChronologicalEntryPresenter.h"
 
+
+static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
+
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (strong, nonatomic) WLHistory *history;
 
-@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
-@property (strong, nonatomic) IBOutlet WLCandiesHistoryViewSection *historyViewSection;
+@property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet UIButton *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
@@ -65,8 +66,6 @@
 
 - (void)viewDidLoad {
     
-    self.historyViewSection.defaultHeaderSize = CGSizeZero;
-    
     [super viewDidLoad];
     
     self.nameLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -79,14 +78,14 @@
     
     // force set hostory mode to remove timeline from UI but keep it in code
     
-    self.history = [WLHistory historyWithWrap:self.wrap];
-    self.historyViewSection.entries = self.history;
-    
-    [self.dataProvider setRefreshableWithStyle:WLRefresherStyleOrange];
-    
-    [self.historyViewSection setSelection:^ (id entry) {
-        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
+    __weak typeof(self)weakSelf = self;
+    [self.dataSource setItemSizeBlock:^CGSize(id entry, NSUInteger index) {
+        return CGSizeMake(weakSelf.collectionView.width, (weakSelf.collectionView.width/2.5f + WLCandiesHistoryDateHeaderHeight));
     }];
+    self.history = [WLHistory historyWithWrap:self.wrap];
+    self.dataSource.items = self.history;
+    
+    [self.dataSource setRefreshableWithStyle:WLRefresherStyleOrange];
     
     [self firstLoadRequest];
     
@@ -122,7 +121,7 @@
         [self.wrap.candies all:^(WLCandy *candy) {
             if (candy.unread) candy.unread = NO;
         }];
-        [self.dataProvider reload];
+        [self.dataSource reload];
         [self updateNotificationCouter];
         [self updateWrapData];
     } else {
@@ -241,7 +240,7 @@
 // MARK: - WLNetwork
 
 - (void)networkDidChangeReachability:(WLNetwork *)network {
-    [self.historyViewSection reload];
+    [self.dataSource reload];
 }
 
 @end

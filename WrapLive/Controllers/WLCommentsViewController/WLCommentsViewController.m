@@ -10,17 +10,19 @@
 #import "WLCandyViewController.h"
 #import "WLComposeBar.h"
 #import "WLRefresher.h"
-#import "WLCommentsViewSection.h"
-#import "WLCollectionViewDataProvider.h"
-#import "WLCollectionViewFlowLayout.h"
+#import "WLBasicDataSource.h"
 #import "WLSoundPlayer.h"
 #import "UIView+AnimationHelper.h"
 #import "WLNavigationHelper.h"
+#import "UIFont+CustomFonts.h"
+
+static CGFloat WLNotificationCommentHorizontalSpacing = 80.0f;
+static CGFloat WLNotificationCommentVerticalSpacing = 67.0f;
+static CGFloat WLTextViewInsets = 10.0f;
 
 @interface WLCommentsViewController () <WLEntryNotifyReceiver, UIViewControllerTransitioningDelegate>
 
-@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
-@property (strong, nonatomic) IBOutlet WLCommentsViewSection *dataSection;
+@property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 @property (strong, nonatomic) WLRefresher *refresher;
@@ -41,7 +43,15 @@
                                      action:@selector(refresh:)
                                       style:WLRefresherStyleWhite_Clear];
     [self refresh:nil];
-    self.dataSection.entries = [self.candy sortedComments];
+    
+    __weak typeof(self)weakSelf = self;
+    [self.dataSource setItemSizeBlock:^CGSize(WLComment *comment, NSUInteger index) {
+        CGFloat textHeight = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall]
+                                                    width:weakSelf.collectionView.width - WLNotificationCommentHorizontalSpacing - WLTextViewInsets];
+        return CGSizeMake(weakSelf.collectionView.width, textHeight + WLNotificationCommentVerticalSpacing);
+    }];
+    
+    self.dataSource.items = [self.candy sortedComments];
     self.collectionView.layer.geometryFlipped = YES;
     [[WLComment notifier] addReceiver:self];
     [[WLCandy notifier] addReceiver:self];
@@ -170,7 +180,7 @@
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier*)notifier candyUpdated:(WLComment *)comment {
-    self.dataSection.entries = [self.candy sortedComments];
+    self.dataSource.items = [self.candy sortedComments];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
@@ -178,14 +188,14 @@
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
-    self.dataSection.entries = [self.candy sortedComments];
+    self.dataSource.items = [self.candy sortedComments];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentDeleted:(WLComment *)comment {
-    NSMutableOrderedSet* entries = self.dataSection.entries.entries;
+    NSMutableOrderedSet* entries = (id)self.dataSource.items;
     if ([entries containsObject:comment]) {
         [entries removeObject:comment];
-        [self.dataSection reload];
+        [self.dataSource reload];
     }
 }
 

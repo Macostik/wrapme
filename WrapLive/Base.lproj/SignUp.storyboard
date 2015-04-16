@@ -371,22 +371,18 @@
                     <navigationItem key="navigationItem" id="d7K-bB-fdh"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="dataProvider" destination="ENX-FT-MZw" id="oFn-2T-Gt2"/>
-                        <outlet property="dataSection" destination="RHg-xY-8ib" id="mDe-OP-77h"/>
+                        <outlet property="dataSource" destination="ENX-FT-MZw" id="lw3-ey-47I"/>
                     </connections>
                 </viewController>
-                <customObject id="RHg-xY-8ib" customClass="WLCollectionViewSection">
+                <customObject id="ENX-FT-MZw" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLCountryCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLCountryCell"/>
+                        <userDefinedRuntimeAttribute type="size" keyPath="itemSize">
+                            <size key="value" width="0.0" height="44"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="collectionView" destination="D8n-r4-fYw" id="Xfe-eK-eML"/>
-                    </connections>
-                </customObject>
-                <customObject id="ENX-FT-MZw" customClass="WLCollectionViewDataProvider">
-                    <connections>
                         <outlet property="collectionView" destination="D8n-r4-fYw" id="ryU-nQ-3tF"/>
-                        <outletCollection property="sections" destination="RHg-xY-8ib" collectionClass="NSMutableArray" id="R9t-QN-jGI"/>
                     </connections>
                 </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fA-WY-1QF" userLabel="First Responder" sceneMemberID="firstResponder"/>

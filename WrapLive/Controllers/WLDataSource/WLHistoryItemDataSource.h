@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLPaginatedViewSection.h"
+#import "WLBasicDataSource.h"
 
-@interface WLCandiesViewSection : WLPaginatedViewSection
+@interface WLHistoryItemDataSource : WLBasicDataSource
 
 @end

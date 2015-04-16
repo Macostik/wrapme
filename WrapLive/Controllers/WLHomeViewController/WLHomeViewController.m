@@ -14,10 +14,9 @@
 #import "UIView+AnimationHelper.h"
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"
-#import "WLCollectionViewDataProvider.h"
+#import "WLHomeDataSource.h"
 #import "WLCreateWrapViewController.h"
 #import "WLHomeViewController.h"
-#import "WLHomeViewSection.h"
 #import "WLLoadingView.h"
 #import "WLNavigationHelper.h"
 #import "WLNotificationCenter.h"
@@ -40,8 +39,7 @@
 
 @interface WLHomeViewController () <WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate>
 
-@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
-@property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
+@property (strong, nonatomic) IBOutlet WLHomeDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *hiddenEmailConfirmationConstraint;
@@ -84,20 +82,31 @@
 	
     [[WLNotificationCenter defaultCenter] addReceiver:self];
     
-    [self.dataProvider setRefreshable];
+    __weak WLHomeDataSource *dataSource = self.dataSource;
+    [dataSource setRefreshable];
+    __weak typeof(self)weakSelf = self;
+    [dataSource setItemSizeBlock:^CGSize(WLWrap *wrap, NSUInteger index) {
+        CGFloat height = 50;
+        if (index == 0) {
+            int size = (weakSelf.collectionView.bounds.size.width - 2.0f)/3.0f;;
+            height = 75 + ([dataSource.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size);
+        }
+        return CGSizeMake(weakSelf.collectionView.width, height);
+    }];
     
-    __weak WLHomeViewSection *section = self.section;
-    section.entries.request = [WLWrapsRequest new];
-    [section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
-    
-    [section setSelection:^(id entry) {
-        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
+    [dataSource setCellIdentifierForItemBlock:^NSString *(WLWrap *wrap, NSUInteger index) {
+        return (index == 0) ? @"WLTopWrapCell" : @"WLWrapCell";
     }];
     
     NSMutableOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
-    [section.entries resetEntries:wraps];
+    dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLWrapsRequest new]];
+    
+    [dataSource setSelectionBlock:^(id entry) {
+        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
+    }];
+    
     if (wraps.nonempty) {
-        [section refresh];
+        [dataSource refresh];
     }
     
     self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
@@ -170,7 +179,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-    [self.dataProvider reload];
+    [self.dataSource reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
     [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
@@ -224,7 +233,7 @@
 }
 
 - (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery {
-    WLWrap *wrap = self.section.wrap;
+    WLWrap *wrap = self.dataSource.wrap;
     if (wrap) {
         WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
         stillPictureViewController.wrap = wrap;
@@ -264,16 +273,19 @@
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
-    [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
+    WLPaginatedSet *wraps = [self.dataSource items];
+    [wraps resetEntries:[[WLUser currentUser] sortedWraps]];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapAdded:(WLWrap *)wrap {
-    [self.section.entries addEntry:wrap];
+    WLPaginatedSet *wraps = [self.dataSource items];
+    [wraps addEntry:wrap];
 	self.collectionView.contentOffset = CGPointZero;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-    [self.section.entries removeEntry:wrap];
+    WLPaginatedSet *wraps = [self.dataSource items];
+    [wraps removeEntry:wrap];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {

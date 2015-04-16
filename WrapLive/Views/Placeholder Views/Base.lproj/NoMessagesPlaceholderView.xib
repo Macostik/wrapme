@@ -15,43 +15,50 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8q-pM-R7B" customClass="WLIconButton">
-                    <rect key="frame" x="75" y="165" width="170" height="178"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="08c-Nu-jys">
+                    <rect key="frame" x="66" y="248" width="189" height="73"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8q-pM-R7B" customClass="WLIconButton">
+                            <rect key="frame" x="79" y="0.0" width="30" height="34"/>
+                            <state key="normal">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                    <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="inbox"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="largest"/>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No messages today." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7x-T0-suZ" customClass="WLLabel">
+                            <rect key="frame" x="0.0" y="44" width="189" height="29"/>
+                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>
+                            <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="170" id="7PC-Ho-FCT"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="178" id="CGg-wh-Hec"/>
+                        <constraint firstAttribute="trailing" secondItem="V7x-T0-suZ" secondAttribute="trailing" id="6w1-tH-SwK"/>
+                        <constraint firstAttribute="bottom" secondItem="V7x-T0-suZ" secondAttribute="bottom" id="JnM-yn-arV"/>
+                        <constraint firstItem="V7x-T0-suZ" firstAttribute="top" secondItem="c8q-pM-R7B" secondAttribute="bottom" constant="10" id="L47-VM-KIf"/>
+                        <constraint firstItem="V7x-T0-suZ" firstAttribute="leading" secondItem="08c-Nu-jys" secondAttribute="leading" id="deR-He-GEM"/>
+                        <constraint firstItem="c8q-pM-R7B" firstAttribute="top" secondItem="08c-Nu-jys" secondAttribute="top" id="q1J-yz-r7z"/>
+                        <constraint firstAttribute="centerX" secondItem="c8q-pM-R7B" secondAttribute="centerX" id="zJR-0s-ns3"/>
                     </constraints>
-                    <state key="normal">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                            <color key="value" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="inbox"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="largest"/>
-                    </userDefinedRuntimeAttributes>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No messages today." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7x-T0-suZ" customClass="WLLabel">
-                    <rect key="frame" x="20" y="344" width="280" height="29"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="280" id="XPw-cI-5ZT"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>
-                    <color key="textColor" red="0.90588235855102539" green="0.90588235855102539" blue="0.90588235855102539" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="c8q-pM-R7B" secondAttribute="centerX" id="EfA-Se-5dx"/>
-                <constraint firstAttribute="centerY" secondItem="V7x-T0-suZ" secondAttribute="centerY" constant="-74" id="har-eO-f3L"/>
-                <constraint firstAttribute="centerY" secondItem="c8q-pM-R7B" secondAttribute="centerY" constant="30" id="ngB-Mx-BsW"/>
-                <constraint firstAttribute="centerX" secondItem="V7x-T0-suZ" secondAttribute="centerX" id="wOj-Ni-7TU"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="08c-Nu-jys" secondAttribute="trailing" constant="10" id="72i-3K-qJd"/>
+                <constraint firstAttribute="centerY" secondItem="08c-Nu-jys" secondAttribute="centerY" id="FQH-Kq-3FW"/>
+                <constraint firstItem="08c-Nu-jys" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="e0i-q9-6V1" secondAttribute="leading" constant="10" id="qDv-Ty-0hJ"/>
+                <constraint firstAttribute="centerX" secondItem="08c-Nu-jys" secondAttribute="centerX" id="x5z-ku-g4g"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="344" y="416"/>

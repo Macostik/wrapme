@@ -16,43 +16,50 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0fJ-4z-4DY" customClass="WLIconButton">
-                    <rect key="frame" x="75" y="165" width="170" height="178"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBx-cs-8Mr">
+                    <rect key="frame" x="74" y="248" width="172" height="73"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0fJ-4z-4DY" customClass="WLIconButton">
+                            <rect key="frame" x="71" y="0.0" width="30" height="34"/>
+                            <state key="normal">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                    <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="quote"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="largest"/>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No comments yet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1h-W3-cED" customClass="WLLabel">
+                            <rect key="frame" x="0.0" y="44" width="172" height="29"/>
+                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>
+                            <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="170" id="KI4-xI-T7d"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="178" id="SMt-Fr-zqM"/>
+                        <constraint firstAttribute="centerX" secondItem="0fJ-4z-4DY" secondAttribute="centerX" id="7jG-mc-0Zs"/>
+                        <constraint firstAttribute="bottom" secondItem="c1h-W3-cED" secondAttribute="bottom" id="85H-hQ-JqP"/>
+                        <constraint firstItem="0fJ-4z-4DY" firstAttribute="top" secondItem="HBx-cs-8Mr" secondAttribute="top" id="8HS-CR-w4V"/>
+                        <constraint firstItem="c1h-W3-cED" firstAttribute="leading" secondItem="HBx-cs-8Mr" secondAttribute="leading" id="Ub7-xw-Wga"/>
+                        <constraint firstItem="c1h-W3-cED" firstAttribute="top" secondItem="0fJ-4z-4DY" secondAttribute="bottom" constant="10" id="cPt-rl-Wwy"/>
+                        <constraint firstAttribute="trailing" secondItem="c1h-W3-cED" secondAttribute="trailing" id="vRI-UV-FKb"/>
                     </constraints>
-                    <state key="normal">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                            <color key="value" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="quote"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="largest"/>
-                    </userDefinedRuntimeAttributes>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No comments yet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1h-W3-cED" customClass="WLLabel">
-                    <rect key="frame" x="25" y="344" width="270" height="29"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="270" id="u3c-tL-bhx"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="21"/>
-                    <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="0fJ-4z-4DY" secondAttribute="centerX" id="QIX-dQ-tQx"/>
-                <constraint firstAttribute="centerY" secondItem="0fJ-4z-4DY" secondAttribute="centerY" constant="30" id="WCS-NR-prR"/>
-                <constraint firstAttribute="centerX" secondItem="c1h-W3-cED" secondAttribute="centerX" id="d7e-di-Ipu"/>
-                <constraint firstAttribute="centerY" secondItem="c1h-W3-cED" secondAttribute="centerY" constant="-74" id="uAn-Pd-tWo"/>
+                <constraint firstItem="HBx-cs-8Mr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3bo-3G-vAw" secondAttribute="leading" constant="10" id="D70-vI-tgP"/>
+                <constraint firstAttribute="centerY" secondItem="HBx-cs-8Mr" secondAttribute="centerY" id="Jwf-RI-nBs"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HBx-cs-8Mr" secondAttribute="trailing" constant="10" id="Pxu-Vs-3FW"/>
+                <constraint firstAttribute="centerX" secondItem="HBx-cs-8Mr" secondAttribute="centerX" id="kYe-wS-hmx"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="344" y="416"/>

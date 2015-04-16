@@ -33,6 +33,11 @@
     
     WLHistoryItemDataSource* dataSource = [WLHistoryItemDataSource dataSource:self.collectionView];
     dataSource.cellIdentifier = WLCandyCellIdentifier;
+    __weak typeof(self)weakSelf = self;
+    [dataSource setItemSizeBlock:^CGSize(WLCandy *candy, NSUInteger index) {
+        CGFloat size = weakSelf.collectionView.width/2.5;
+        return CGSizeMake(size, weakSelf.collectionView.height);
+    }];
     [dataSource setSelectionBlock:^ (id entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
     }];

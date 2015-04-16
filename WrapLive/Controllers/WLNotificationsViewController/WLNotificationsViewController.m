@@ -39,11 +39,12 @@
         return _identifier;
     }];
     
+    __weak typeof(self)weakSelf = self;
     [self.dataSource setItemSizeBlock:^CGSize(id entry, NSUInteger index) {
         
         CGFloat textHeight  = [WLNotificationCell additionalHeightCell:entry];
         
-        textHeight += [[self.bufferInfoCell objectForKey:entry] floatValue];
+        textHeight += [[weakSelf.bufferInfoCell objectForKey:entry] floatValue];
         
         UIFont *fontNormal = [UIFont preferredFontWithName:WLFontOpenSansRegular
                                                     preset:WLFontPresetNormal];

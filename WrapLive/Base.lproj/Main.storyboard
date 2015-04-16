@@ -1862,7 +1862,7 @@
                                                                         <outlet property="coverView" destination="RBx-xX-iE6" id="Abt-oO-bGU"/>
                                                                     </connections>
                                                                 </collectionViewCell>
-                                                                <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CandyPlaceholderCell" id="XQb-fA-jxI">
+                                                                <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CandyPlaceholderCell" id="XQb-fA-jxI" customClass="WLEntryCell">
                                                                     <rect key="frame" x="107" y="0.0" width="106" height="106"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -2399,9 +2399,13 @@ Tap here to start.</string>
                 <customObject id="fHn-3G-fGW" customClass="WLHomeDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLWrapCell"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="minimumLineSpacing">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="QUX-wt-D3B"/>
+                        <outletCollection property="animatableConstraints" destination="EPw-hT-f3u" id="lYu-8G-vJg"/>
                     </connections>
                 </customObject>
                 <customObject id="AWA-hF-c2z" userLabel="Camera Transition" customClass="WLStoryboardTransition">
@@ -3459,9 +3463,11 @@ Tap here to start.</string>
                 <customObject id="u9r-1x-r06" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLCandiesCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLCandiesCell"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="Acb-vS-cov"/>
+                        <outletCollection property="animatableConstraints" destination="fZI-X5-yEI" id="n1W-bu-A6S"/>
                     </connections>
                 </customObject>
                 <customObject id="tj6-Hw-Hld" userLabel="Camera Transition" customClass="WLStoryboardTransition">
@@ -5111,6 +5117,7 @@ Check your internet connection and try again.</string>
                 <customObject id="zjC-7P-9tZ" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLContributorCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLContributorCell"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="DO8-0B-bff" id="I3n-J1-jFa"/>

@@ -19,11 +19,6 @@
 
 @implementation WLHomeDataSource
 
-- (void)awakeAfterInit {
-    [super awakeAfterInit];
-    self.minimumLineSpacing = self.sectionLeftInset = self.sectionRightInset = WLConstants.pixelSize;
-}
-
 - (void)setItems:(id<WLDataSourceItems>)items {
     if (items.count > 0) self.wrap = [items objectAtIndex:0];
     [super setItems:items];
@@ -46,6 +41,11 @@
             }];
         });
     }
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    self.wrap = [self.items tryObjectAtIndex:0];
+    return [super collectionView:collectionView numberOfItemsInSection:section];
 }
 
 @end

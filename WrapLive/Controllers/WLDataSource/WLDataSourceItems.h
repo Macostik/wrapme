@@ -15,6 +15,8 @@
 
 - (id)objectAtIndex:(NSUInteger)index;
 
+- (id)tryObjectAtIndex:(NSUInteger)index;
+
 @end
 
 @interface NSArray (WLDataSourceItems) <WLDataSourceItems> @end
@@ -35,6 +37,10 @@
 
 - (id)objectAtIndex:(NSUInteger)index {
     return [self.entries objectAtIndex:index];
+}
+
+- (id)tryObjectAtIndex:(NSUInteger)index {
+    return [self.entries tryObjectAtIndex:index];
 }
 
 @end

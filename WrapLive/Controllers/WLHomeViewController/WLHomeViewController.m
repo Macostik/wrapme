@@ -82,18 +82,16 @@
 	
     [[WLNotificationCenter defaultCenter] addReceiver:self];
     
-    
-    
     __weak WLHomeDataSource *dataSource = self.dataSource;
     [dataSource setRefreshable];
-    
+    __weak typeof(self)weakSelf = self;
     [dataSource setItemSizeBlock:^CGSize(WLWrap *wrap, NSUInteger index) {
         CGFloat height = 50;
         if (index == 0) {
-            int size = (self.collectionView.bounds.size.width - 2.0f)/3.0f;;
+            int size = (weakSelf.collectionView.bounds.size.width - 2.0f)/3.0f;;
             height = 75 + ([dataSource.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size);
         }
-        return CGSizeMake(self.collectionView.width, height);
+        return CGSizeMake(weakSelf.collectionView.width, height);
     }];
     
     [dataSource setCellIdentifierForItemBlock:^NSString *(WLWrap *wrap, NSUInteger index) {

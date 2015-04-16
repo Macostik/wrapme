@@ -38,24 +38,22 @@
 	[super awakeFromNib];
     
     if (self.candiesView) {
-        UICollectionViewFlowLayout* layout = (id)self.candiesView.collectionViewLayout;
-        layout.minimumLineSpacing = WLCandyCellSpacing;
-        layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
-        
-        WLBasicDataSource* section = [WLBasicDataSource dataSource:self.candiesView];
-        section.cellIdentifier = WLCandyCellIdentifier;
-        section.selectionBlock = self.selectionBlock;
-        [section setNumberOfItemsBlock:^NSUInteger {
-            return ([section.items count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
+        WLBasicDataSource* dataSource = [WLBasicDataSource dataSource:self.candiesView];
+        dataSource.cellIdentifier = WLCandyCellIdentifier;
+        dataSource.selectionBlock = self.selectionBlock;
+        dataSource.minimumLineSpacing = WLCandyCellSpacing;
+        dataSource.sectionLeftInset = dataSource.sectionRightInset = WLCandyCellSpacing;
+        [dataSource setNumberOfItemsBlock:^NSUInteger {
+            return ([dataSource.items count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
         }];
-        [section setCellIdentifierForItemBlock:^NSString *(id item, NSUInteger index) {
-            return (index < [section.items count]) ? WLCandyCellIdentifier : @"CandyPlaceholderCell";
+        [dataSource setCellIdentifierForItemBlock:^NSString *(id item, NSUInteger index) {
+            return (index < [dataSource.items count]) ? WLCandyCellIdentifier : @"CandyPlaceholderCell";
         }];
-        [section setItemSizeBlock:^CGSize(id item, NSUInteger index) {
+        [dataSource setItemSizeBlock:^CGSize(id item, NSUInteger index) {
             int size = (WLConstants.screenWidth - 2.0f)/3.0f;
             return CGSizeMake(size, size);
         }];
-        self.candiesDataSource = section;
+        self.candiesDataSource = dataSource;
     }
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];

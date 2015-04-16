@@ -47,6 +47,7 @@
     self.containerTextView.textContainer.lineFragmentPadding = self.textView.textContainer.lineFragmentPadding = 0;
     self.pictureView.layer.cornerRadius = self.pictureView.height/2;
     [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+    self.composeBar.placeholder = WLLS(@"Write your comment ...");
 }
 
 - (void)setup:(id)entry {

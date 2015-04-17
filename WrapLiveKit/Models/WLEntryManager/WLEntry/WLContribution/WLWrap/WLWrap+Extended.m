@@ -223,23 +223,12 @@
 }
 
 - (id)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
-	
-    NSError *internetConnectionError = [NSError errorWithDescription:
-                                        WLLS(@"Sorry you can't chat when internet connection is unavailable. Please try again later.")];
-	if (![WLNetwork network].reachable) {
-		failure(internetConnectionError);
-		return nil;
-	}
-	
-	__weak WLMessage* message = [WLMessage entry];
+	__weak WLMessage* message = [WLMessage contribution];
     message.contributor = [WLUser currentUser];
     message.wrap = self;
 	message.text = text;
     [message notifyOnAddition];
-	[message add:success failure:^(NSError *error) {
-		[message remove];
-        failure(error.isNetworkError ? internetConnectionError : error);
-	}];
+    [WLUploadingQueue upload:[WLUploading uploading:message] success:success failure:failure];
     return message;
 }
 

@@ -15,6 +15,8 @@
 
 @implementation WLSegmentedDataSource
 
+@dynamic items;
+
 - (void)setCollectionView:(UICollectionView *)collectionView {
     [super setCollectionView:collectionView];
     if (collectionView) {

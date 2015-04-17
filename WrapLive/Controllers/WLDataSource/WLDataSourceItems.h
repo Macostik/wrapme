@@ -21,26 +21,6 @@
 
 @interface NSArray (WLDataSourceItems) <WLDataSourceItems> @end
 
-@implementation NSArray (WLDataSourceItems) @end
-
 @interface NSOrderedSet (WLDataSourceItems) <WLDataSourceItems> @end
 
-@implementation NSOrderedSet (WLDataSourceItems) @end
-
 @interface WLPaginatedSet (WLDataSourceItems) <WLDataSourceItems> @end
-
-@implementation WLPaginatedSet (WLDataSourceItems)
-
-- (NSUInteger)count {
-    return self.entries.count;
-}
-
-- (id)objectAtIndex:(NSUInteger)index {
-    return [self.entries objectAtIndex:index];
-}
-
-- (id)tryObjectAtIndex:(NSUInteger)index {
-    return [self.entries tryObjectAtIndex:index];
-}
-
-@end

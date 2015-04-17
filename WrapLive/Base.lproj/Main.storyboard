@@ -106,6 +106,9 @@
         <mutableArray key="OpenSans-Semibold.ttf">
             <string>OpenSans-Semibold</string>
         </mutableArray>
+        <mutableArray key="wrapliveicons.ttf">
+            <string>wrapliveicons</string>
+        </mutableArray>
     </customFonts>
     <scenes>
         <!--Notifications View Controller-->
@@ -4331,8 +4334,8 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="Lc4-Kr-oEr" customClass="WLLabel">
-                                                            <rect key="frame" x="5" y="30" width="103" height="18"/>
+                                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="Lc4-Kr-oEr" customClass="WLLabel">
+                                                            <rect key="frame" x="5" y="30" width="90" height="18"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -4345,6 +4348,18 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dZ-BR-VPb" customClass="WLIconView">
+                                                            <rect key="frame" x="97" y="34" width="11" height="11"/>
+                                                            <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="11"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="xsmall"/>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                    <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -4352,12 +4367,14 @@ Check your internet connection and try again.</string>
                                                         <constraint firstAttribute="trailing" secondItem="DVA-Yz-AnY" secondAttribute="trailing" id="7Ks-xG-bFg"/>
                                                         <constraint firstItem="0OD-Cn-Lp6" firstAttribute="top" secondItem="WPa-oY-X5B" secondAttribute="top" id="B1J-90-CTw"/>
                                                         <constraint firstAttribute="bottom" secondItem="0OD-Cn-Lp6" secondAttribute="bottom" constant="18" id="GIp-R5-sib"/>
+                                                        <constraint firstItem="4dZ-BR-VPb" firstAttribute="centerY" secondItem="Lc4-Kr-oEr" secondAttribute="centerY" id="Hcg-M9-3pw"/>
                                                         <constraint firstItem="v2z-k0-EKs" firstAttribute="top" secondItem="WPa-oY-X5B" secondAttribute="top" id="K69-lz-HLa"/>
                                                         <constraint firstAttribute="trailing" secondItem="0OD-Cn-Lp6" secondAttribute="trailing" constant="5" id="OYS-Qb-7So"/>
                                                         <constraint firstItem="DVA-Yz-AnY" firstAttribute="leading" secondItem="WPa-oY-X5B" secondAttribute="leading" id="Pcf-Be-KaS"/>
                                                         <constraint firstItem="v2z-k0-EKs" firstAttribute="leading" secondItem="WPa-oY-X5B" secondAttribute="leading" constant="5" id="T4i-gl-JjD"/>
                                                         <constraint firstItem="0OD-Cn-Lp6" firstAttribute="leading" secondItem="WPa-oY-X5B" secondAttribute="leading" constant="5" id="T5k-2m-Qs6"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Lc4-Kr-oEr" secondAttribute="trailing" constant="5" id="UTg-mg-cHs"/>
+                                                        <constraint firstItem="4dZ-BR-VPb" firstAttribute="leading" secondItem="Lc4-Kr-oEr" secondAttribute="trailing" constant="2" id="Wqw-PW-RNi"/>
+                                                        <constraint firstAttribute="trailing" secondItem="4dZ-BR-VPb" secondAttribute="trailing" constant="5" id="Zgy-rE-zuj"/>
                                                         <constraint firstAttribute="bottom" secondItem="Lc4-Kr-oEr" secondAttribute="bottom" id="bAl-Ah-aED"/>
                                                         <constraint firstItem="DVA-Yz-AnY" firstAttribute="top" secondItem="WPa-oY-X5B" secondAttribute="top" id="kiC-jR-fKJ"/>
                                                         <constraint firstAttribute="trailing" secondItem="v2z-k0-EKs" secondAttribute="trailing" constant="5" id="oKZ-4i-1bQ"/>
@@ -4393,6 +4410,7 @@ Check your internet connection and try again.</string>
                                             <outlet property="bubbleImageView" destination="DVA-Yz-AnY" id="JPk-Py-aHD"/>
                                             <outlet property="dayLabel" destination="Bcm-eM-Zwh" id="Qmh-mh-ynz"/>
                                             <outlet property="nameLabel" destination="v2z-k0-EKs" id="7D2-VF-DrS"/>
+                                            <outlet property="statusView" destination="4dZ-BR-VPb" id="u39-cp-Uhj"/>
                                             <outlet property="tailView" destination="cGF-9C-FfY" id="bKB-hH-Hr2"/>
                                             <outlet property="textView" destination="0OD-Cn-Lp6" id="pjO-sM-SfQ"/>
                                             <outlet property="timeLabel" destination="Lc4-Kr-oEr" id="2g9-Gw-WTT"/>

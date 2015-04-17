@@ -14,13 +14,11 @@
 @interface WLContactCell () <UITableViewDataSource, UITableViewDelegate, WLAddressBookPhoneNumberCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
-@property (weak, nonatomic) IBOutlet UIImageView *selectionView;
-@property (weak, nonatomic) IBOutlet UIView *addedView;
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
 @property (nonatomic, weak) IBOutlet UILabel* nameLabel;
 @property (nonatomic, weak) IBOutlet WLImageView* avatarView;
-@property (weak, nonatomic) IBOutlet UIImageView *openView;
-@property (weak, nonatomic) IBOutlet UIImageView *signUpView;
+@property (weak, nonatomic) IBOutlet UIButton *openView;
+@property (weak, nonatomic) IBOutlet UIView *signUpView;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 
 @end
@@ -75,25 +73,17 @@
 - (void)setState:(WLContactCellState)state {
 	_state = state;
     if (state == WLContactCellStateAdded) {
-        self.addedView.hidden = NO;
-        self.selectionView.hidden = YES;
-        self.selectButton.userInteractionEnabled = NO;
+        self.selectButton.enabled = NO;
     } else {
-        self.addedView.hidden = YES;
-        self.selectionView.hidden = NO;
-        self.selectButton.userInteractionEnabled = YES;
-        if (state == WLContactCellStateSelected) {
-            self.selectionView.highlighted = YES;
-        } else if (state == WLContactCellStateDefault) {
-            self.selectionView.highlighted = NO;
-        }
+        self.selectButton.enabled = YES;
+        self.selectButton.selected = state == WLContactCellStateSelected;
     }
 }
 
 - (void)setOpened:(BOOL)opened {
 	_opened = opened;
 	[UIView beginAnimations:nil context:nil];
-	self.openView.highlighted = opened;
+	self.openView.selected = opened;
 	[UIView commitAnimations];
 }
 

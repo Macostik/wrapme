@@ -12,10 +12,9 @@
 
 @interface WLAddressBookPhoneNumberCell ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *selectionView;
+@property (weak, nonatomic) IBOutlet UIButton *selectionView;
 @property (nonatomic, weak) IBOutlet UILabel *typeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *phoneLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *signUpView;
 
 @end
 
@@ -24,13 +23,12 @@
 - (void)setupItemData:(WLAddressBookPhoneNumber *)person {
 	self.typeLabel.text = [NSString stringWithFormat:@"%@:", WLString(person.phone.label)];
 	self.phoneLabel.text = person.phone;
-	self.signUpView.hidden = !person.user;
 }
 
 - (void)setChecked:(BOOL)checked {
 	_checked = checked;
 	[UIView beginAnimations:nil context:nil];
-	self.selectionView.highlighted = checked;
+	self.selectionView.selected = checked;
 	[UIView commitAnimations];
 }
 

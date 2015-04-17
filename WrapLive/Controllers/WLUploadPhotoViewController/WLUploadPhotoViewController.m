@@ -83,7 +83,7 @@
 
 - (IBAction)done:(id)sender {
     [self.view endEditing:YES];
-    if (self.completionBlock) self.completionBlock(self.image, self.textView.text, self.edited);
+    if (self.completionBlock) self.completionBlock(self.image, [self.textView.text trim], self.edited);
 }
 
 // MARK: - AFPhotoEditorControllerDelegate

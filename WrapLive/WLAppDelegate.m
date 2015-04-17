@@ -42,8 +42,6 @@
     
     [self initializeCrashlyticsAndLogging];
     
-    [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
-    
     [self initializeAPIManager];
     
     [self presentInitialViewController];
@@ -78,7 +76,7 @@
 - (void)initializeAPIManager {
     WLAPIManager *manager = [WLAPIManager manager];
     [manager setUnauthorizedErrorBlock:^ (NSError *error) {
-        WLLog(@"ERROR", @"redirection to welcome screen", error);
+        WLLog(@"ERROR", @"redirection to welcome screen, sign in failed", error);
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
     }];
     
@@ -129,6 +127,7 @@
         if (user.isSignupCompleted) {
             [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
         } else {
+            WLLog(@"INITIAL SIGN IN", @"sign up is not completed, redirecting to profile step", nil);
             UINavigationController *signupNavigationController = [[UIStoryboard storyboardNamed:WLSignUpStoryboard] instantiateInitialViewController];
             WLSignupFlowViewController *signupFlowViewController = [WLSignupFlowViewController instantiate:signupNavigationController.storyboard];
             signupFlowViewController.registrationNotCompleted = YES;
@@ -143,10 +142,12 @@
             if ([error isNetworkError]) {
                 successBlock([WLUser currentUser]);
             } else {
+                WLLog(@"INITIAL SIGN IN ERROR", @"couldn't sign in, so redirecting to welcome screen", nil);
                 [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
             }
         }];
     } else {
+        WLLog(@"INITIAL SIGN IN", @"no data for signing in", nil);
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
     }
 }

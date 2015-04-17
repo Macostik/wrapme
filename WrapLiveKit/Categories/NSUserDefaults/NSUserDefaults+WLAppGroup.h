@@ -12,6 +12,15 @@ static NSString *const WLAppGroupEncryptedAuthorization = @"encrypted_authorizat
 
 static NSString *const WLAPIEnvironmentKey = @"WLAPIEnvironment";
 
+static inline NSString *WLAppGroupIdentifier(void) {
+    static NSString *identifier = nil;
+    if (!identifier) {
+        identifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WLAppGroupIdentifier"];
+        if (identifier.length == 0) identifier = @"group.com.ravenpod.wraplive";
+    }
+    return identifier;
+}
+
 @interface NSUserDefaults (WLAppGroup)
 
 + (instancetype)appGroupUserDefaults;

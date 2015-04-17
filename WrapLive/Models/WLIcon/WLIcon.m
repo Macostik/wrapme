@@ -12,20 +12,6 @@
 
 @implementation WLIcon
 
-+ (UIFont *)iconFontWithSize:(CGFloat)size {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"wrapliveicons" withExtension:@"ttf"];
-        CGDataProviderRef fontDataProvider = CGDataProviderCreateWithURL((__bridge CFURLRef)url);
-        CGFontRef newFont = CGFontCreateWithDataProvider(fontDataProvider);
-        CGDataProviderRelease(fontDataProvider);
-        CFErrorRef error;
-        CTFontManagerRegisterGraphicsFont(newFont, &error);
-        CGFontRelease(newFont);
-    });
-    return [UIFont fontWithName:@"wrapliveicons" size:size];
-}
-
 + (CGFloat)sizeWithPreset:(NSString *)preset {
     static NSDictionary *sizes = nil;
     if (!sizes) {
@@ -97,13 +83,15 @@
                   @"photos":@"C",
                   @"clock":@"D",
                   @"check":@"E",
-                  @"double-check":@"F"};
+                  @"double-check":@"F",
+                  @"unselected-item":@"G",
+                  @"selected-item":@"H"};
     }
     
     NSString *code = [icons objectForKey:name];
     if (code) {
         CGFloat size = [self sizeWithPreset:preset ? : WLIconPresetBase];
-        UIFont *font = [self iconFontWithSize:size];
+        UIFont *font = [UIFont fontWithName:@"wrapliveicons" size:size];
         if (font) {
             color = color ? : [UIColor whiteColor];
             return [[NSAttributedString alloc] initWithString:code attributes:@{NSFontAttributeName:font,NSForegroundColorAttributeName:color}];

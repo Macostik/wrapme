@@ -33,6 +33,8 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @property (readonly, nonatomic) BOOL playSound;
 
+@property (nonatomic) BOOL isSoundAllowed;
+
 @property (strong, nonatomic) NSDate* date;
 
 @property (strong, nonatomic) NSDate *publishedAt;

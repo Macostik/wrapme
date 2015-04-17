@@ -23,6 +23,7 @@
 
 - (void)setup:(NSDictionary*)data {
     [super setup:data];
+    self.isSoundAllowed = ([data objectForKey:@"pn_apns"] != nil);
     self.entryData = data;
     WLNotificationType type = self.type;
     
@@ -211,6 +212,9 @@
 }
 
 - (BOOL)playSound {
+    if (!self.isSoundAllowed) {
+        return NO;
+    }
     WLNotificationType type = self.type;
     switch (type) {
         case WLNotificationContributorAdd:

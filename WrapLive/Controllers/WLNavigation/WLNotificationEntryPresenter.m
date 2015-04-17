@@ -19,7 +19,9 @@
         [controllers addObject:rootViewController];
     }
     
-    UIViewController *entryViewController = [entry viewControllerWithNavigationController:navigationController];
+    
+    UIViewController *entryViewController = [entry recursiveViewControllerWithNavigationController:navigationController];
+    
     if (entryViewController) {
         [controllers addObject:entryViewController];
     }

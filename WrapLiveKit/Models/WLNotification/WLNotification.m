@@ -76,7 +76,7 @@
 }
 
 - (BOOL)playSound {
-    return NO;
+    return self.isSoundAllowed;
 }
 
 - (NSString *)description {

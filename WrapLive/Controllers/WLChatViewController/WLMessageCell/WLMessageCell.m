@@ -118,7 +118,6 @@
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier messageUpdated:(WLMessage *)message {
-    [self.statusView fade];
     [self updateStatusView:message];
 }
 

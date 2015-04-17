@@ -32,6 +32,8 @@
 
 - (UIViewController *)viewControllerWithNavigationController:(UINavigationController*)navigationController;
 
+- (UIViewController *)recursiveViewControllerWithNavigationController:(UINavigationController*)navigationController;
+
 - (BOOL)isValidViewController:(UIViewController*)controller;
 
 - (void)configureViewController:(UIViewController*)controller fromContainingEntry:(WLEntry*)containingEntry;

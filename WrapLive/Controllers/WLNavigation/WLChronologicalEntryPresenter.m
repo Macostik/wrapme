@@ -11,20 +11,7 @@
 @implementation WLChronologicalEntryPresenter
 
 + (void)presentEntry:(WLEntry *)entry inNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
-    UIViewController *controller = nil;
-    WLEntry *currentEntry = entry;
-    while (currentEntry.valid) {
-        controller = [currentEntry viewControllerWithNavigationController:navigationController];
-        if (controller) {
-            if (currentEntry != entry) {
-                [entry configureViewController:controller fromContainingEntry:currentEntry];
-            }
-            currentEntry = nil;
-        } else {
-            currentEntry = currentEntry.containingEntry;
-        }
-    }
-    
+    UIViewController *controller = [entry recursiveViewControllerWithNavigationController:navigationController];
     if (controller) {
         if ([navigationController.viewControllers containsObject:controller]) {
             if (navigationController.topViewController != controller) {

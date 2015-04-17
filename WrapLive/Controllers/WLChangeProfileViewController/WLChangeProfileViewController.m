@@ -51,10 +51,16 @@
     [[WLFontPresetter presetter] addReceiver:self];
 }
 
-- (void)updateEmailConfirmationView {
-    UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.emailConfirmationView convertRect:self.resendButton.frame
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.emailConfirmationView convertRect:CGRectInset(self.resendButton.frame, -5, -5)
                                                                                                    toView:self.verificationEmailTextView]];
-    self.verificationEmailTextView.textContainer.exclusionPaths = @[exlusionPath];
+    CGRect r = [self.view convertRect:self.imagePlaceholderView.frame toView:self.verificationEmailTextView];
+    UIBezierPath *avatarPath = [UIBezierPath bezierPathWithOvalInRect:r];
+    self.verificationEmailTextView.textContainer.exclusionPaths = @[exlusionPath, avatarPath];
+}
+
+- (void)updateEmailConfirmationView {
     self.verificationEmailTextView.attributedText = [WLAuthorization attributedVerificationSuggestion];
     self.emailConfirmationView.hidden = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
 }
@@ -131,6 +137,7 @@
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
+    [self updateEmailConfirmationView];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

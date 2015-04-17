@@ -34,7 +34,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>373</string>
+	<string>374</string>
 	<key>LSGetAppDiedEvents</key>
 	<true/>
 	<key>LSRequiresIPhoneOS</key>
@@ -44,6 +44,7 @@
 		<string>OpenSans-Light.ttf</string>
 		<string>OpenSans-Regular.ttf</string>
 		<string>OpenSans-Bold.ttf</string>
+		<string>wrapliveicons.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

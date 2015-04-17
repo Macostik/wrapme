@@ -147,7 +147,9 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 - (void)updateContributions {
     __weak typeof(self)weakSelf = self;
     
-    self.state = WLWKContributionsStateLoading;
+    if (!self.entries.nonempty) {
+        self.state = WLWKContributionsStateLoading;
+    }
     if ([WLAuthorizationRequest authorized]) {
         [[WLRecentContributionsRequest request] send:^(id object) {
             weakSelf.entries = [WLContribution recentContributions];

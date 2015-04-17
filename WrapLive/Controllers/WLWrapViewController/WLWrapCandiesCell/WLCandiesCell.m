@@ -27,11 +27,8 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-    layout.minimumLineSpacing = WLConstants.pixelSize;
-    layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
-    
     WLHistoryItemDataSource* dataSource = [WLHistoryItemDataSource dataSource:self.collectionView];
+    dataSource.minimumLineSpacing = dataSource.sectionLeftInset = dataSource.sectionRightInset = WLConstants.pixelSize;
     dataSource.cellIdentifier = WLCandyCellIdentifier;
     __weak typeof(self)weakSelf = self;
     [dataSource setItemSizeBlock:^CGSize(WLCandy *candy, NSUInteger index) {

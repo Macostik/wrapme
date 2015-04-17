@@ -10,6 +10,7 @@
 #import "NSString+Additions.h"
 #import <objc/runtime.h>
 #import "WLAPIRequest.h"
+#import "NSUserDefaults+WLAppGroup.h"
 
 @interface WLEntryManager ()
 
@@ -43,6 +44,7 @@
     if (_context != nil) {
         return _context;
     }
+    [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
     NSPersistentStoreCoordinator *coordinator = [self coordinator];
     if (coordinator != nil) {
         _context = [[NSManagedObjectContext alloc] init];
@@ -84,8 +86,22 @@
     NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption : @YES,
                               NSInferMappingModelAutomaticallyOption : @YES};
     
-    NSURL* url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    url = [url URLByAppendingPathComponent:@"CoreData.sqlite"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *url = nil;
+    NSURL* sharedURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:WLAppGroupIdentifier()];
+    sharedURL = [sharedURL URLByAppendingPathComponent:@"CoreData.sqlite"];
+    NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    documentsURL = [documentsURL URLByAppendingPathComponent:@"CoreData.sqlite"];
+    if (sharedURL) {
+#ifndef WRAPLIVE_EXTENSION_TERGET
+        if (![fileManager fileExistsAtPath:[sharedURL absoluteString]] && [fileManager fileExistsAtPath:[documentsURL absoluteString]]) {
+            [fileManager moveItemAtURL:documentsURL toURL:sharedURL error:NULL];
+        }
+#endif
+        url = sharedURL;
+    } else {
+        url = documentsURL;
+    }
     NSError *error = nil;
     _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self model]];
     if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]) {

@@ -42,8 +42,6 @@
     
     [self initializeCrashlyticsAndLogging];
     
-    [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
-    
     [self initializeAPIManager];
     
     [self presentInitialViewController];

@@ -7,8 +7,8 @@
 //
 
 #import "WLIconButton.h"
-#import "WLIcon.h"
 #import "NSObject+Extension.h"
+#import "WLIcon.h"
 
 @implementation WLIconButton
 

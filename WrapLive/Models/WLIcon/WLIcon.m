@@ -30,7 +30,8 @@
     static NSDictionary *sizes = nil;
     if (!sizes) {
         if (WLConstants.iPhone) {
-            sizes = @{WLIconPresetSmaller:@(14),
+            sizes = @{WLIconPresetXSmall:@(13),
+                      WLIconPresetSmaller:@(14),
                       WLIconPresetSmall:@(18),
                       WLIconPresetBase:@(24),
                       WLIconPresetNormal:@(36),
@@ -39,7 +40,8 @@
                       WLIconPresetXLarge:@(72),
                       WLIconPresetLargest:@(96)};
         } else {
-            sizes = @{WLIconPresetSmaller:@(14),
+            sizes = @{WLIconPresetXSmall:@(13),
+                      WLIconPresetSmaller:@(14),
                       WLIconPresetSmall:@(24),
                       WLIconPresetBase:@(36),
                       WLIconPresetNormal:@(46),
@@ -92,7 +94,10 @@
                   @"angle-up":@"z",
                   @"calendar":@"A",
                   @"reply":@"B",
-                  @"photos":@"C",};
+                  @"photos":@"C",
+                  @"clock":@"D",
+                  @"check":@"E",
+                  @"double-check":@"F"};
     }
     
     NSString *code = [icons objectForKey:name];

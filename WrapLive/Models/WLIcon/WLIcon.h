@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+static NSString *WLIconPresetXSmall = @"xsmall";
 static NSString *WLIconPresetSmaller = @"smaller";
 static NSString *WLIconPresetSmall = @"small";
 static NSString *WLIconPresetBase = @"base";

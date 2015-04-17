@@ -34,7 +34,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>370</string>
+	<string>373</string>
 	<key>LSGetAppDiedEvents</key>
 	<true/>
 	<key>LSRequiresIPhoneOS</key>

@@ -65,6 +65,23 @@
     return [self viewController];
 }
 
+- (UIViewController *)recursiveViewControllerWithNavigationController:(UINavigationController *)navigationController {
+    UIViewController *controller = nil;
+    WLEntry *currentEntry = self;
+    while (currentEntry.valid) {
+        controller = [currentEntry viewControllerWithNavigationController:navigationController];
+        if (controller) {
+            if (currentEntry != self) {
+                [self configureViewController:controller fromContainingEntry:currentEntry];
+            }
+            currentEntry = nil;
+        } else {
+            currentEntry = currentEntry.containingEntry;
+        }
+    }
+    return controller;
+}
+
 - (BOOL)isValidViewController:(UIViewController *)controller {
     return NO;
 }

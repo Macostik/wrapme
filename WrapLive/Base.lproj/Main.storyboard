@@ -4207,7 +4207,9 @@ Check your internet connection and try again.</string>
                         <outlet property="collectionView" destination="Cwv-Gt-Vjm" id="17d-ry-YZF"/>
                         <outlet property="composeBar" destination="aG1-FG-zzH" id="h7O-SD-YJL"/>
                         <outlet property="dataSource" destination="RbC-xy-dkj" id="2Id-hh-byg"/>
+                        <outlet property="leadingContstraint" destination="nRY-8h-Kdh" id="Uwt-M5-P8m"/>
                         <outlet property="topCommentViewContstrain" destination="rOF-bj-mRg" id="Cbz-Et-h5w"/>
+                        <outlet property="trailingConstraint" destination="p5i-i5-EaA" id="XbZ-pn-xoF"/>
                         <outlet property="view" destination="Mb1-3b-t3s" id="EJk-Dv-pYy"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="RfD-Sk-oI1" id="6zi-zr-HXV"/>
                     </connections>

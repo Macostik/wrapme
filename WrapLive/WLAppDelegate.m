@@ -61,7 +61,11 @@
     }];
 	[[WLKeyboard keyboard] configure];
 	[[WLNotificationCenter defaultCenter] configure];
-	[[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:nil failure:nil];
+    [[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:^(WLNotification *notification) {
+        if ([notification isKindOfClass:[WLEntryNotification class]]) {
+            [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+        }
+    } failure:nil];
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
@@ -169,7 +173,10 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     NSLog(@"%@", [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]);
-    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^{
+    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
+        if ([notification isKindOfClass:[WLEntryNotification class]] && application.applicationState == UIApplicationStateInactive) {
+            [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+        }
         if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
     } failure:^(NSError *error) {
         if (completionHandler) completionHandler(UIBackgroundFetchResultFailed);

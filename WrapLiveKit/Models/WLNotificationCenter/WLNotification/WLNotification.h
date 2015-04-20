@@ -22,6 +22,8 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
     WLNotificationUpdateAvailable       = 1100
 };
 
+@class PNMessage;
+
 @interface WLNotification : NSObject {
     @protected
     NSString *_identifier;
@@ -42,6 +44,8 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 + (instancetype)notificationWithData:(NSDictionary*)data;
 
 + (NSMutableOrderedSet*)notificationsWithDataArray:(NSArray*)array;
+
++ (instancetype)notificationWithMessage:(PNMessage*)message;
 
 + (BOOL)isSupportedType:(WLNotificationType)type;
 

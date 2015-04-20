@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WLEntryManager.h"
 
 @interface WLEntryPresenter : NSObject
 
@@ -26,7 +27,7 @@
 
 @end
 
-@interface WLEntry (WLNavigation)
+@interface WLEntry (WLEntryPresenter)
 
 - (UIViewController *)viewController;
 
@@ -40,10 +41,10 @@
 
 @end
 
-@interface WLCandy (WLNavigation) @end
+@interface WLCandy (WLEntryPresenter) @end
 
-@interface WLMessage (WLNavigation) @end
+@interface WLMessage (WLEntryPresenter) @end
 
-@interface WLWrap (WLNavigation) @end
+@interface WLWrap (WLEntryPresenter) @end
 
-@interface WLComment (WLNavigation) @end
+@interface WLComment (WLEntryPresenter) @end

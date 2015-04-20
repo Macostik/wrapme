@@ -8,6 +8,8 @@
 
 #import "WLSoundPlayer.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "NSString+Additions.h"
+#import "WLNotification.h"
 
 static inline NSString *WLSoundFileName(WLSound sound) {
     switch (sound) {
@@ -48,6 +50,7 @@ static inline NSString *WLSoundFileName(WLSound sound) {
 }
 
 + (void)playSound:(WLSound)sound {
+#ifndef WRAPLIVE_EXTENSION_TERGET
     NSString *soundFileName = WLSoundFileName(sound);
     if (soundFileName.nonempty) {
         NSMapTable *sounds = [self sounds];
@@ -61,6 +64,7 @@ static inline NSString *WLSoundFileName(WLSound sound) {
         }
         AudioServicesPlaySystemSound(soundID);
     }
+#endif
 }
 
 @end

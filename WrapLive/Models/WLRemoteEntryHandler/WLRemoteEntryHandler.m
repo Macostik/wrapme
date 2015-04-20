@@ -11,6 +11,7 @@
 #import "WLNavigationHelper.h"
 #import "NSString+Additions.h"
 #import "WLNotificationEntryPresenter.h"
+#import "WLEntryNotification.h"
 
 @interface WLRemoteEntryHandler ()
 

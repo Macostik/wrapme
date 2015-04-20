@@ -13,6 +13,7 @@
 #import "WLAPIManager.h"
 #import "WLEntryNotification.h"
 #import "WLUpdateNotification.h"
+#import "PNImports.h"
 
 @interface WLNotification ()
 
@@ -60,6 +61,12 @@
         }
     }
     return nil;
+}
+
++ (instancetype)notificationWithMessage:(PNMessage*)message {
+    WLNotification *notification = [self notificationWithData:message.message];
+    notification.date = [(message.receiveDate ? : message.date) date];
+    return notification;
 }
 
 + (BOOL)isSupportedType:(WLNotificationType)type {

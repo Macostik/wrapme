@@ -18,7 +18,7 @@
 
 + (void)deviceToken:(WLDataBlock)completion;
 
-- (void)handleRemoteNotification:(NSDictionary*)data success:(WLBlock)success failure:(WLFailureBlock)failure;
+- (void)handleRemoteNotification:(NSDictionary*)data success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (void)subscribe;
 

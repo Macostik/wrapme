@@ -8,6 +8,7 @@
 
 #import "WLNotificationChannel.h"
 #import "WLNotificationCenter.h"
+#import "WLUser+Extended.h"
 
 @interface WLNotificationChannel ()
 

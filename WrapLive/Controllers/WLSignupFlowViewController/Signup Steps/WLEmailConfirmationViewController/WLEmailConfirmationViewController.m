@@ -8,10 +8,7 @@
 
 #import "WLEmailConfirmationViewController.h"
 #import "WLNavigationHelper.h"
-#import "WLNotificationChannel.h"
-#import "WLSoundPlayer.h"
 #import "UIAlertView+Blocks.h"
-#import "WLNotification+PNMessage.h"
 
 @interface WLEmailConfirmationViewController () <WLEntryNotifyReceiver>
 

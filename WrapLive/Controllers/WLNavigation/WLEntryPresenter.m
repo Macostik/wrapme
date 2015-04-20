@@ -52,7 +52,7 @@
 
 @end
 
-@implementation WLEntry (WLNavigation)
+@implementation WLEntry (WLEntryPresenter)
 
 - (UIViewController *)viewController {
     return nil;
@@ -91,7 +91,7 @@
 
 @end
 
-@implementation WLCandy (WLNavigation)
+@implementation WLCandy (WLEntryPresenter)
 
 - (UIViewController *)viewController {
     WLCandyViewController* controller = [WLCandyViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
@@ -107,7 +107,7 @@
 
 @end
 
-@implementation WLMessage (WLNavigation)
+@implementation WLMessage (WLEntryPresenter)
 
 - (UIViewController *)viewController {
     WLChatViewController* controller = [WLChatViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
@@ -123,7 +123,7 @@
 
 @end
 
-@implementation WLWrap (WLNavigation)
+@implementation WLWrap (WLEntryPresenter)
 
 - (UIViewController *)viewController {
     WLWrapViewController* controller = [WLWrapViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
@@ -139,7 +139,7 @@
 
 @end
 
-@implementation WLComment (WLNavigation)
+@implementation WLComment (WLEntryPresenter)
 
 - (void)configureViewController:(UIViewController *)controller fromContainingEntry:(WLEntry *)containingEntry {
     if (containingEntry == self.candy) {

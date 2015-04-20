@@ -12,8 +12,12 @@
 #import "WLSoundPlayer.h"
 #import "WLNotificationChannel.h"
 #import "NSPropertyListSerialization+Shorthand.h"
-#import "WLRemoteEntryHandler.h"
-#import "WLNotification+PNMessage.h"
+#import "WLEntryNotifier.h"
+#import "WLSession.h"
+#import "UIDevice+SystemVersion.h"
+#import "WLAPIManager.h"
+#import "WLOperationQueue.h"
+#import "WLEntryNotification.h"
 
 @interface WLNotificationCenter () <PNDelegate, WLEntryNotifyReceiver>
 
@@ -316,7 +320,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 	[PubNub connect];
 }
 
-- (void)handleRemoteNotification:(NSDictionary *)data success:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)handleRemoteNotification:(NSDictionary *)data success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (!data)  {
         if (failure) failure(nil);
         return;
@@ -329,11 +333,8 @@ static WLDataBlock deviceTokenCompletion = nil;
             WLLog(@"PUBNUB", @"opened APNS", data);
             WLNotification* notification = [WLNotification notificationWithData:data];
             if (notification) {
-                [notification fetch:^{
-                    if ([notification isKindOfClass:[WLEntryNotification class]]) {
-                        [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
-                    }
-                    if (success) success();
+                [notification fetch:^ {
+                    if (success) success(notification);
                 } failure:failure];
             } else if (failure)  {
                 failure([NSError errorWithDescription:@"Data in remote notification is not valid (inactive)."]);
@@ -344,7 +345,9 @@ static WLDataBlock deviceTokenCompletion = nil;
             WLNotification* notification = [WLNotification notificationWithData:data];
             if (notification) {
                 if ([notification isKindOfClass:[WLEntryNotification class]]) {
-                    [notification fetch:success failure:failure];
+                    [notification fetch:^ {
+                        if (success) success(notification);
+                    } failure:failure];
                 }
             } else if (failure)  {
                 failure([NSError errorWithDescription:WLLS(@"Data in remote notification is not valid (background).")]);

@@ -191,7 +191,7 @@
                                                         <constraint firstAttribute="height" constant="48" id="hNf-jG-9I6"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin added a new photo\" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="08S-52-GIh" customClass="WLLabel">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin added a new photo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="08S-52-GIh" customClass="WLLabel">
                                                     <rect key="frame" x="72" y="12" width="176" height="23"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -3464,7 +3464,6 @@ Tap here to start.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUq-C2-qrY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="u9r-1x-r06" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLCandiesCell"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLCandiesCell"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -4208,7 +4207,9 @@ Check your internet connection and try again.</string>
                         <outlet property="collectionView" destination="Cwv-Gt-Vjm" id="17d-ry-YZF"/>
                         <outlet property="composeBar" destination="aG1-FG-zzH" id="h7O-SD-YJL"/>
                         <outlet property="dataSource" destination="RbC-xy-dkj" id="2Id-hh-byg"/>
+                        <outlet property="leadingContstraint" destination="nRY-8h-Kdh" id="Uwt-M5-P8m"/>
                         <outlet property="topCommentViewContstrain" destination="rOF-bj-mRg" id="Cbz-Et-h5w"/>
+                        <outlet property="trailingConstraint" destination="p5i-i5-EaA" id="XbZ-pn-xoF"/>
                         <outlet property="view" destination="Mb1-3b-t3s" id="EJk-Dv-pYy"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="RfD-Sk-oI1" id="6zi-zr-HXV"/>
                     </connections>
@@ -4216,7 +4217,6 @@ Check your internet connection and try again.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kjg-TD-Vmm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="RbC-xy-dkj" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLCommentCell"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLCommentCell"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -5134,7 +5134,6 @@ Check your internet connection and try again.</string>
                 </customObject>
                 <customObject id="zjC-7P-9tZ" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="reuseCellIdentifier" value="WLContributorCell"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLContributorCell"/>
                     </userDefinedRuntimeAttributes>
                     <connections>

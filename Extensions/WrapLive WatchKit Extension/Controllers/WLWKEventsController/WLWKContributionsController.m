@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     WLWKContributionsStateError
 };
 
-@interface WLWKContributionsController()
+@interface WLWKContributionsController() <WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) IBOutlet WKInterfaceTable *table;
 
@@ -35,6 +35,10 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
     self.entries = [WLContribution recentContributions];
+    [[WLComment notifier] addReceiver:self];
+    [[WLCandy notifier] addReceiver:self];
+    
+    [[WLNotificationCenter defaultCenter] configure];
 }
 
 - (void)setState:(WLWKContributionsState)state {
@@ -170,6 +174,24 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 - (void)didDeactivate {
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
+}
+
+// MARK: - WLEntryNotifyReceiver
+
+- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
+    self.entries = [WLContribution recentContributions];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
+    self.entries = [WLContribution recentContributions];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier commentAdded:(WLComment *)comment {
+    self.entries = [WLContribution recentContributions];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier commentDeleted:(WLComment *)comment {
+    self.entries = [WLContribution recentContributions];
 }
 
 @end

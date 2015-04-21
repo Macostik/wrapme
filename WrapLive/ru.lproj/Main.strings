@@ -54,7 +54,7 @@
 "Bop-dI-sMz.text" = "Добавить друзей";
 
 /* Class = "IBUILabel"; text = "Email confirmation"; ObjectID = "CSs-OC-vDg"; */
-"CSs-OC-vDg.text" = "Пожалуйста, подтвердите Вашу почту";
+"CSs-OC-vDg.text" = "Помогите обезопасить Ваш аккаунт";
 
 /* Class = "IBUITextField"; placeholder = "Your name"; ObjectID = "D1N-1e-psu"; */
 "D1N-1e-psu.placeholder" = "Ваше имя";
@@ -105,7 +105,7 @@
 "N9a-4s-fUi.text" = "By Bartholome O'Connell II";
 
 /* Class = "IBUILabel"; text = "Email confirmation"; ObjectID = "Nim-LA-uPS"; */
-"Nim-LA-uPS.text" = "Help keep your account safe";
+"Nim-LA-uPS.text" = "Помогите обезопасить Ваш аккаунт";
 
 /* Class = "IBUIButton"; normalTitle = "wrap name"; ObjectID = "PcB-Yh-hjT"; */
 "PcB-Yh-hjT.normalTitle" = "Имя врапа";

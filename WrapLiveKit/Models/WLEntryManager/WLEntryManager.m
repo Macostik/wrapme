@@ -191,13 +191,15 @@
 }
 
 - (void)save {
-    if ([self.context hasChanges] && self.coordinator.persistentStores.nonempty) {
-        NSError* error = nil;
-        [self.context save:&error];
-        if (error) {
-            WLLog(@"CoreData", @"save error", error);
+    run_after_asap(^{
+        if ([self.context hasChanges] && self.coordinator.persistentStores.nonempty) {
+            NSError* error = nil;
+            [self.context save:&error];
+            if (error) {
+                WLLog(@"CoreData", @"save error", error);
+            }
         }
-    }
+    });
 }
 
 - (void)clear {

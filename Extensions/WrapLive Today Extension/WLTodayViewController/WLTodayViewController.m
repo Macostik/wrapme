@@ -212,7 +212,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
     if (contribution.identifier != nil) {
         NSURL *url = nil;
         if ([contribution isKindOfClass:[WLComment class]]) {
-            url = [NSURL WLURLForRemoteEntryWithKey:WLCandyKey identifier:contribution.containingEntry.identifier];
+            url = [NSURL WLURLForRemoteEntryWithKey:WLCommentKey identifier:contribution.identifier];
         } else {
             url = [NSURL WLURLForRemoteEntryWithKey:WLCandyKey identifier:contribution.identifier];
         }

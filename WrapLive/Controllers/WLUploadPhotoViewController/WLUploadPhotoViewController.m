@@ -7,15 +7,16 @@
 //
 
 #import "WLUploadPhotoViewController.h"
-#import <AviarySDK/AviarySDK.h>
 #import "WLNavigationAnimator.h"
 #import "WLHintView.h"
 #import "WLNavigationHelper.h"
 #import "WLIconButton.h"
 #import "WLComposeBar.h"
 #import "WLAlertView.h"
+#import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
+#import <AdobeCreativeSDKFoundation/AdobeCreativeSDKFoundation.h>
 
-@interface WLUploadPhotoViewController () <AFPhotoEditorControllerDelegate, WLComposeBarDelegate>
+@interface WLUploadPhotoViewController () <AdobeUXImageEditorViewControllerDelegate, WLComposeBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -59,14 +60,12 @@
 // MARK: - actions
 
 - (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
-        [AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel | AFPhotoEditorPremiumAddOnHiRes];
-        [AFPhotoEditorCustomization setToolOrder:@[kAFEnhance, kAFEffects, kAFFrames, kAFStickers, kAFFocus,
-                                                   kAFOrientation, kAFCrop, kAFDraw, kAFText, kAFBlemish, kAFMeme]];
+        [[AdobeUXAuthManager sharedManager] setAuthenticationParametersWithClientID:@"a7929bf566694d579acb507eae697db1" withClientSecret:@"b6fa1e1c-4f8c-4001-88a9-0251a099f890"];
     });
-    AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:image];
+    AdobeUXImageEditorViewController* aviaryController = [[AdobeUXImageEditorViewController alloc] initWithImage:image];
     aviaryController.delegate = self;
     aviaryController.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
     return aviaryController;
@@ -88,7 +87,7 @@
 
 // MARK: - AFPhotoEditorControllerDelegate
 
-- (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
+- (void)photoEditor:(AdobeUXImageEditorViewController *)editor finishedWithImage:(UIImage *)image {
     self.edited = YES;
     self.image = self.imageView.image = image;
     [self.navigationController popViewControllerAnimated:YES];

@@ -12,7 +12,6 @@
 #import "WLAssetsGroupViewController.h"
 #import "WLNavigationHelper.h"
 #import "WLStillPictureViewController.h"
-#import <AviarySDK/AviarySDK.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLPickerViewController.h"
 #import "WLCreateWrapViewController.h"
@@ -25,10 +24,9 @@
 #import "WLHomeViewController.h"
 #import "WLSoundPlayer.h"
 
-@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
+@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
-@property (weak, nonatomic) AFPhotoEditorController* aviaryController;
 
 @property (strong, nonatomic) WLImageBlock editBlock;
 
@@ -174,25 +172,6 @@
     [self cropImage:image completion:completion];
 }
 
-- (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-        [AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
-        [AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
-		[AFPhotoEditorCustomization setLeftNavigationBarButtonTitle:@"Cancel"];
-        [AFPhotoEditorCustomization setToolOrder:@[kAFEnhance, kAFEffects, kAFFrames, kAFStickers, kAFFocus,
-                                                   kAFOrientation, kAFCrop, kAFDraw, kAFText, kAFBlemish, kAFMeme]];
-	});
-    if (self.mode == WLStillPictureModeDefault) {
-        [AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Send"];
-    } else {
-        [AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Save"];
-    }
-	AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:image];
-	aviaryController.delegate = self;
-	return aviaryController;
-}
-
 - (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata {
     __weak typeof(self)weakSelf = self;
     WLUploadPhotoCompletionBlock finishBlock = ^ (UIImage *resultImage, NSString *comment, BOOL saveToAlbum) {
@@ -302,19 +281,6 @@
         self.cameraNavigationController.viewControllers = @[self.cameraNavigationController.topViewController];
         [self handleAssets:assets];
     }
-}
-
-#pragma mark - AFPhotoEditorControllerDelegate
-
-- (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
-    if (self.editBlock) {
-        self.editBlock(image);
-        self.editBlock = nil;
-    }
-}
-
-- (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
-    [self.cameraNavigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - PickerViewController action

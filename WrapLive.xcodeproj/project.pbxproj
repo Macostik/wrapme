@@ -375,6 +375,26 @@
 		C51A521D1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
 		C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
 		C51DAE3119B09E6100F40516 /* WLTimelineEventCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C51DAE3019B09E6100F40516 /* WLTimelineEventCommentCell.m */; };
+		C5218E631AE5547D007E55D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E621AE5547D007E55D0 /* Accelerate.framework */; };
+		C5218E641AE5548B007E55D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
+		C5218E661AE554A2007E55D0 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E651AE554A2007E55D0 /* libz.1.2.5.dylib */; };
+		C5218E681AE554B7007E55D0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E671AE554B7007E55D0 /* OpenGLES.framework */; };
+		C5218E6A1AE554D4007E55D0 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E691AE554D4007E55D0 /* libc++.dylib */; };
+		C5218E701AE558B3007E55D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
+		C5218E711AE558B8007E55D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E621AE5547D007E55D0 /* Accelerate.framework */; };
+		C5218E721AE558C8007E55D0 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E691AE554D4007E55D0 /* libc++.dylib */; };
+		C5218E731AE558CF007E55D0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E671AE554B7007E55D0 /* OpenGLES.framework */; };
+		C5218E741AE558D7007E55D0 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E651AE554A2007E55D0 /* libz.1.2.5.dylib */; };
+		C5218E751AE55902007E55D0 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E651AE554A2007E55D0 /* libz.1.2.5.dylib */; };
+		C5218E761AE55907007E55D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
+		C5218E771AE5591A007E55D0 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E691AE554D4007E55D0 /* libc++.dylib */; };
+		C5218E781AE55922007E55D0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E671AE554B7007E55D0 /* OpenGLES.framework */; };
+		C5218E791AE55928007E55D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E621AE5547D007E55D0 /* Accelerate.framework */; };
+		C5218E7A1AE55936007E55D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
+		C5218E7B1AE55942007E55D0 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E651AE554A2007E55D0 /* libz.1.2.5.dylib */; };
+		C5218E7C1AE55948007E55D0 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E691AE554D4007E55D0 /* libc++.dylib */; };
+		C5218E7D1AE5594E007E55D0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E671AE554B7007E55D0 /* OpenGLES.framework */; };
+		C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E621AE5547D007E55D0 /* Accelerate.framework */; };
 		C52E1FD01A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
 		C52E1FD11A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
 		C52E1FD21A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
@@ -478,14 +498,6 @@
 		C53E709B1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */; };
 		C53E709C1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */; };
 		C53E709D1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */; };
-		C53F2CBC1A6EB5FA00D99741 /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */; };
-		C53F2CBD1A6EB5FB00D99741 /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */; };
-		C53F2CBE1A6EB5FB00D99741 /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */; };
-		C53F2CBF1A6EB5FB00D99741 /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */; };
-		C53F2CC01A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */; };
-		C53F2CC11A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */; };
-		C53F2CC21A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */; };
-		C53F2CC31A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */; };
 		C53F2CE01A6EB5FB00D99741 /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CB91A6EB5FA00D99741 /* PhoneFormats.dat */; };
 		C53F2CE11A6EB5FB00D99741 /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CB91A6EB5FA00D99741 /* PhoneFormats.dat */; };
 		C53F2CE21A6EB5FB00D99741 /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CB91A6EB5FA00D99741 /* PhoneFormats.dat */; };
@@ -1197,6 +1209,22 @@
 		C5603DD21AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5603DD01AD92B0900427DEC /* WLNotificationEntryPresenter.m */; };
 		C5603DD31AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5603DD01AD92B0900427DEC /* WLNotificationEntryPresenter.m */; };
 		C5603DD41AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5603DD01AD92B0900427DEC /* WLNotificationEntryPresenter.m */; };
+		C560B15D1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework */; };
+		C560B15E1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework */; };
+		C560B15F1AE69F7D0010B2EC /* AdobeCreativeSDKFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework */; };
+		C560B1601AE69F7D0010B2EC /* AdobeCreativeSDKFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework */; };
+		C560B1611AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15C1AE69F7C0010B2EC /* AdobeCreativeSDKImage.framework */; };
+		C560B1621AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15C1AE69F7C0010B2EC /* AdobeCreativeSDKImage.framework */; };
+		C560B1631AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15C1AE69F7C0010B2EC /* AdobeCreativeSDKImage.framework */; };
+		C560B1641AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15C1AE69F7C0010B2EC /* AdobeCreativeSDKImage.framework */; };
+		C560B16A1AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */; };
+		C560B16B1AE6A0520010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */; };
+		C560B16C1AE6A0580010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */; };
+		C560B16D1AE6A07A0010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */; };
+		C560B16F1AE6A1980010B2EC /* AdobeCreativeSDKFoundationResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKFoundationResources.bundle */; };
+		C560B1701AE6A19A0010B2EC /* AdobeCreativeSDKFoundationResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKFoundationResources.bundle */; };
+		C560B1711AE6A19A0010B2EC /* AdobeCreativeSDKFoundationResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKFoundationResources.bundle */; };
+		C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKFoundationResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKFoundationResources.bundle */; };
 		C56498D31ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app in Resources */ = {isa = PBXBuildFile; fileRef = C56498D21ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app */; };
 		C564B2B91ADE6DD5000C3DF1 /* WrapLiveWatchKitApp-Development.app in Resources */ = {isa = PBXBuildFile; fileRef = C50645931ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development.app */; };
 		C568D8D61A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
@@ -2237,6 +2265,10 @@
 		C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPasscodeValidation.m; path = WLValidation/WLPasscodeValidation.m; sourceTree = "<group>"; };
 		C51DAE2F19B09E6100F40516 /* WLTimelineEventCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTimelineEventCommentCell.h; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.h; sourceTree = "<group>"; };
 		C51DAE3019B09E6100F40516 /* WLTimelineEventCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTimelineEventCommentCell.m; path = WLWrapViewController/WLTimelineEventCell/WLTimelineEventCommentCell.m; sourceTree = "<group>"; };
+		C5218E621AE5547D007E55D0 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C5218E651AE554A2007E55D0 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		C5218E671AE554B7007E55D0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		C5218E691AE554D4007E55D0 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		C5259D661ACC2333003D3317 /* wrapLive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = wrapLive.entitlements; sourceTree = "<group>"; };
 		C5259D671ACC2333003D3317 /* wrapLiveAdhoc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = wrapLiveAdhoc.entitlements; sourceTree = "<group>"; };
 		C52E1FC81A41951300A2C370 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = WLButton/WLButton.h; sourceTree = "<group>"; };
@@ -2292,8 +2324,6 @@
 		C53E5D5B1A851F71004F61B0 /* WLFlashModeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFlashModeControl.m; sourceTree = "<group>"; };
 		C53E70981AC3173500844F9F /* WLIntroductionBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIntroductionBaseViewController.h; sourceTree = "<group>"; };
 		C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIntroductionBaseViewController.m; sourceTree = "<group>"; };
-		C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
-		C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
 		C53F2CAA1A6EB5FA00D99741 /* LEBackgroundThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEBackgroundThread.h; sourceTree = "<group>"; };
 		C53F2CAB1A6EB5FA00D99741 /* LEBackgroundThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEBackgroundThread.m; sourceTree = "<group>"; };
 		C53F2CAC1A6EB5FA00D99741 /* lecore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lecore.h; sourceTree = "<group>"; };
@@ -2672,6 +2702,10 @@
 		C5603DCA1AD9233C00427DEC /* WLChronologicalEntryPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChronologicalEntryPresenter.m; sourceTree = "<group>"; };
 		C5603DCF1AD92B0900427DEC /* WLNotificationEntryPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationEntryPresenter.h; sourceTree = "<group>"; };
 		C5603DD01AD92B0900427DEC /* WLNotificationEntryPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationEntryPresenter.m; sourceTree = "<group>"; };
+		C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKFoundation.framework; sourceTree = "<group>"; };
+		C560B15C1AE69F7C0010B2EC /* AdobeCreativeSDKImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKImage.framework; sourceTree = "<group>"; };
+		C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKImageResources.bundle; path = AdobeCreativeSDKImage.framework/Versions/A/Resources/AdobeCreativeSDKImageResources.bundle; sourceTree = "<group>"; };
+		C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKFoundationResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKFoundationResources.bundle; path = AdobeCreativeSDKFoundation.framework/Versions/A/Resources/AdobeCreativeSDKFoundationResources.bundle; sourceTree = "<group>"; };
 		C5612C791ACD968A0052578A /* NSArray+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Additions.h"; sourceTree = "<group>"; };
 		C5612C7A1ACD968A0052578A /* NSArray+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Additions.m"; sourceTree = "<group>"; };
 		C5612C7C1ACD968A0052578A /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
@@ -2976,18 +3010,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C587C8DE1AD2E8A2003E7647 /* WrapLiveKit.framework in Frameworks */,
+				C5218E6A1AE554D4007E55D0 /* libc++.dylib in Frameworks */,
 				C5A28D621ACBEF0B00F0E8BA /* StoreKit.framework in Frameworks */,
+				C5218E681AE554B7007E55D0 /* OpenGLES.framework in Frameworks */,
+				C5218E661AE554A2007E55D0 /* libz.1.2.5.dylib in Frameworks */,
+				12DE698F192E4C6B007580AD /* libsqlite3.0.dylib in Frameworks */,
+				C5218E641AE5548B007E55D0 /* CoreData.framework in Frameworks */,
+				C5218E631AE5547D007E55D0 /* Accelerate.framework in Frameworks */,
+				C560B15D1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework in Frameworks */,
+				C587C8DE1AD2E8A2003E7647 /* WrapLiveKit.framework in Frameworks */,
 				C500C9121ACBE53C0072BBA8 /* NewRelicAgent.framework in Frameworks */,
 				AC1A179D1937694B002B3737 /* MessageUI.framework in Frameworks */,
-				12DE698F192E4C6B007580AD /* libsqlite3.0.dylib in Frameworks */,
 				121FC9E7190A93EF0034486D /* libz.dylib in Frameworks */,
-				C53F2CBC1A6EB5FA00D99741 /* AviarySDK.framework in Frameworks */,
 				121FC9E5190A93E50034486D /* SystemConfiguration.framework in Frameworks */,
 				121FC9E3190A93D80034486D /* CFNetwork.framework in Frameworks */,
 				12A7A70518DA0945008FF6F0 /* CoreGraphics.framework in Frameworks */,
 				12A7A70718DA0945008FF6F0 /* UIKit.framework in Frameworks */,
 				12A7A70318DA0945008FF6F0 /* Foundation.framework in Frameworks */,
+				C560B1611AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */,
 				C5D41CF21AB1EE4600990944 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3025,18 +3065,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C587C8E91AD2E8D1003E7647 /* WrapLiveKit.framework in Frameworks */,
 				C5A28D631ACBEF1E00F0E8BA /* StoreKit.framework in Frameworks */,
+				C5218E741AE558D7007E55D0 /* libz.1.2.5.dylib in Frameworks */,
+				C5218E731AE558CF007E55D0 /* OpenGLES.framework in Frameworks */,
+				C5218E721AE558C8007E55D0 /* libc++.dylib in Frameworks */,
+				C54AF51719B8C437006F7EDB /* libsqlite3.0.dylib in Frameworks */,
+				C5218E711AE558B8007E55D0 /* Accelerate.framework in Frameworks */,
+				C5218E701AE558B3007E55D0 /* CoreData.framework in Frameworks */,
+				C560B15E1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework in Frameworks */,
+				C587C8E91AD2E8D1003E7647 /* WrapLiveKit.framework in Frameworks */,
 				C500C9131ACBE53C0072BBA8 /* NewRelicAgent.framework in Frameworks */,
 				C54AF51619B8C437006F7EDB /* MessageUI.framework in Frameworks */,
-				C54AF51719B8C437006F7EDB /* libsqlite3.0.dylib in Frameworks */,
 				C54AF51819B8C437006F7EDB /* libz.dylib in Frameworks */,
-				C53F2CBD1A6EB5FB00D99741 /* AviarySDK.framework in Frameworks */,
 				C54AF51919B8C437006F7EDB /* SystemConfiguration.framework in Frameworks */,
 				C54AF51A19B8C437006F7EDB /* CFNetwork.framework in Frameworks */,
 				C54AF51B19B8C437006F7EDB /* CoreGraphics.framework in Frameworks */,
 				C54AF51C19B8C437006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF51E19B8C437006F7EDB /* Foundation.framework in Frameworks */,
+				C560B1621AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */,
 				C5D41CF31AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3045,18 +3091,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C587C8E81AD2E8CE003E7647 /* WrapLiveKit.framework in Frameworks */,
+				C5218E791AE55928007E55D0 /* Accelerate.framework in Frameworks */,
+				C5218E781AE55922007E55D0 /* OpenGLES.framework in Frameworks */,
+				C5218E771AE5591A007E55D0 /* libc++.dylib in Frameworks */,
+				C54AF61419B8C467006F7EDB /* libsqlite3.0.dylib in Frameworks */,
 				C5A28D641ACBEF2500F0E8BA /* StoreKit.framework in Frameworks */,
+				C5218E761AE55907007E55D0 /* CoreData.framework in Frameworks */,
+				C5218E751AE55902007E55D0 /* libz.1.2.5.dylib in Frameworks */,
+				C560B15F1AE69F7D0010B2EC /* AdobeCreativeSDKFoundation.framework in Frameworks */,
+				C587C8E81AD2E8CE003E7647 /* WrapLiveKit.framework in Frameworks */,
 				C500C9141ACBE53C0072BBA8 /* NewRelicAgent.framework in Frameworks */,
 				C54AF61319B8C467006F7EDB /* MessageUI.framework in Frameworks */,
-				C54AF61419B8C467006F7EDB /* libsqlite3.0.dylib in Frameworks */,
 				C54AF61519B8C467006F7EDB /* libz.dylib in Frameworks */,
-				C53F2CBE1A6EB5FB00D99741 /* AviarySDK.framework in Frameworks */,
 				C54AF61619B8C467006F7EDB /* SystemConfiguration.framework in Frameworks */,
 				C54AF61719B8C467006F7EDB /* CFNetwork.framework in Frameworks */,
 				C54AF61819B8C467006F7EDB /* CoreGraphics.framework in Frameworks */,
 				C54AF61919B8C467006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF61B19B8C467006F7EDB /* Foundation.framework in Frameworks */,
+				C560B1631AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */,
 				C5D41CF41AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3065,18 +3117,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C587C8E71AD2E8CA003E7647 /* WrapLiveKit.framework in Frameworks */,
+				C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */,
 				C5A28D651ACBEF2B00F0E8BA /* StoreKit.framework in Frameworks */,
+				C5218E7D1AE5594E007E55D0 /* OpenGLES.framework in Frameworks */,
+				C5218E7C1AE55948007E55D0 /* libc++.dylib in Frameworks */,
+				C5218E7B1AE55942007E55D0 /* libz.1.2.5.dylib in Frameworks */,
+				C54AF71119B8C491006F7EDB /* libsqlite3.0.dylib in Frameworks */,
+				C5218E7A1AE55936007E55D0 /* CoreData.framework in Frameworks */,
+				C560B1601AE69F7D0010B2EC /* AdobeCreativeSDKFoundation.framework in Frameworks */,
+				C587C8E71AD2E8CA003E7647 /* WrapLiveKit.framework in Frameworks */,
 				C500C9151ACBE53C0072BBA8 /* NewRelicAgent.framework in Frameworks */,
 				C54AF71019B8C491006F7EDB /* MessageUI.framework in Frameworks */,
-				C54AF71119B8C491006F7EDB /* libsqlite3.0.dylib in Frameworks */,
 				C54AF71219B8C491006F7EDB /* libz.dylib in Frameworks */,
-				C53F2CBF1A6EB5FB00D99741 /* AviarySDK.framework in Frameworks */,
 				C54AF71319B8C491006F7EDB /* SystemConfiguration.framework in Frameworks */,
 				C54AF71419B8C491006F7EDB /* CFNetwork.framework in Frameworks */,
 				C54AF71519B8C491006F7EDB /* CoreGraphics.framework in Frameworks */,
 				C54AF71619B8C491006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF71819B8C491006F7EDB /* Foundation.framework in Frameworks */,
+				C560B1641AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */,
 				C5D41CF51AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3255,13 +3313,17 @@
 		12A7A70118DA0945008FF6F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C560B15A1AE69F7C0010B2EC /* AdobeCreativeSDK */,
+				C5218E691AE554D4007E55D0 /* libc++.dylib */,
+				C5218E671AE554B7007E55D0 /* OpenGLES.framework */,
+				C5218E651AE554A2007E55D0 /* libz.1.2.5.dylib */,
+				C5218E621AE5547D007E55D0 /* Accelerate.framework */,
 				C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */,
 				C500C9111ACBE53C0072BBA8 /* NewRelicAgent.framework */,
 				C500C8A61ACBE37D0072BBA8 /* AFNetworking */,
 				C500C8D01ACBE37D0072BBA8 /* OpenUDID */,
 				C50647681ABD889100CB4BE3 /* CoreData.framework */,
 				C5D41CE61AB1EE4600990944 /* GoogleAnalyticsServices */,
-				C53F2CA51A6EB5FA00D99741 /* AviarySDK */,
 				C53F2CA91A6EB5FA00D99741 /* lelib */,
 				C53F2CB81A6EB5FA00D99741 /* RMPhoneFormat */,
 				AC1A179C1937694B002B3737 /* MessageUI.framework */,
@@ -4460,16 +4522,6 @@
 			path = WLFlashSettingsControl;
 			sourceTree = "<group>";
 		};
-		C53F2CA51A6EB5FA00D99741 /* AviarySDK */ = {
-			isa = PBXGroup;
-			children = (
-				C53F2CA61A6EB5FA00D99741 /* AviarySDK.framework */,
-				C53F2CA71A6EB5FA00D99741 /* AviarySDKResources.bundle */,
-			);
-			name = AviarySDK;
-			path = Frameworks/AviarySDK;
-			sourceTree = "<group>";
-		};
 		C53F2CA91A6EB5FA00D99741 /* lelib */ = {
 			isa = PBXGroup;
 			children = (
@@ -5136,6 +5188,18 @@
 				C55D77EE1AE51BD7006FA19C /* WLSoundPlayer.m */,
 			);
 			path = WLSoundPlayer;
+			sourceTree = "<group>";
+		};
+		C560B15A1AE69F7C0010B2EC /* AdobeCreativeSDK */ = {
+			isa = PBXGroup;
+			children = (
+				C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKFoundationResources.bundle */,
+				C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */,
+				C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework */,
+				C560B15C1AE69F7C0010B2EC /* AdobeCreativeSDKImage.framework */,
+			);
+			name = AdobeCreativeSDK;
+			path = ../../AdobeCreativeSDK;
 			sourceTree = "<group>";
 		};
 		C5612C771ACD968A0052578A /* Categories */ = {
@@ -6714,9 +6778,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C560B16F1AE6A1980010B2EC /* AdobeCreativeSDKFoundationResources.bundle in Resources */,
 				C5DB9F3E1ADD6C9500A21E42 /* CoreData.xcdatamodeld in Resources */,
 				C54AF85D19B8C622006F7EDB /* WLTestUsersDevelopment.plist in Resources */,
-				C53F2CC01A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */,
 				C54AF85C19B8C622006F7EDB /* WLTestUsersBeta.plist in Resources */,
 				5BA6CAF51A10E51B004AD41C /* s04.wav in Resources */,
 				5BA4C5951A8BA61E00251B6D /* NoMessagesPlaceholderView.xib in Resources */,
@@ -6775,6 +6839,7 @@
 				12D578C719178C3400586995 /* iTunesArtwork in Resources */,
 				5BA51C9B1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */,
 				C5032EB01940C04900753D07 /* WLSplashLoadingView.xib in Resources */,
+				C560B16D1AE6A07A0010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6861,8 +6926,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C560B16A1AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */,
 				C5DB9F3F1ADD6CA700A21E42 /* CoreData.xcdatamodeld in Resources */,
-				C53F2CC11A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */,
 				C54AF87619B8C63E006F7EDB /* WLTestUsersBeta.plist in Resources */,
 				C5E4CCF91A1BA38B00B449F8 /* s04.wav in Resources */,
 				C54F4B1B1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
@@ -6921,6 +6986,7 @@
 				5BA4C5871A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
 				5BA6AA431A66779D00493582 /* Localizable.strings in Resources */,
 				C54AF54A19B8C437006F7EDB /* WLSplashLoadingView.xib in Resources */,
+				C560B1701AE6A19A0010B2EC /* AdobeCreativeSDKFoundationResources.bundle in Resources */,
 				5BA51C9C1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6929,8 +6995,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C560B16B1AE6A0520010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */,
 				C5DB9F401ADD6CB100A21E42 /* CoreData.xcdatamodeld in Resources */,
-				C53F2CC21A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */,
 				C54AF87A19B8C63E006F7EDB /* WLTestUsersBeta.plist in Resources */,
 				C5E4CCFA1A1BA38C00B449F8 /* s04.wav in Resources */,
 				C54F4B1C1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
@@ -6989,6 +7055,7 @@
 				5BA4C5881A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
 				5BA6AA441A66779E00493582 /* Localizable.strings in Resources */,
 				C54AF64719B8C467006F7EDB /* WLSplashLoadingView.xib in Resources */,
+				C560B1711AE6A19A0010B2EC /* AdobeCreativeSDKFoundationResources.bundle in Resources */,
 				5BA51C9D1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6997,8 +7064,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C560B16C1AE6A0580010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */,
 				C5DB9F411ADD6CBC00A21E42 /* CoreData.xcdatamodeld in Resources */,
-				C53F2CC31A6EB5FB00D99741 /* AviarySDKResources.bundle in Resources */,
 				C54AF87E19B8C63F006F7EDB /* WLTestUsersBeta.plist in Resources */,
 				C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */,
 				C54F4B1D1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
@@ -7057,6 +7124,7 @@
 				5BA4C5891A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
 				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,
 				C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */,
+				C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKFoundationResources.bundle in Resources */,
 				5BA51C9E1AA49F0200B9714A /* WLEditWrapHintView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8504,9 +8572,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
+					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
+					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -8547,9 +8616,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
+					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
+					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -8705,10 +8775,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				IBSC_MODULE = WrapLive_Development_WatchKit_Extension;
 				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Development-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -8873,6 +8940,8 @@
 					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
+					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
+					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -8915,6 +8984,8 @@
 					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
+					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
+					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -8956,6 +9027,8 @@
 					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
+					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
+					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -8997,6 +9070,8 @@
 					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
+					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
+					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -9037,6 +9112,8 @@
 					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
+					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
+					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -9079,6 +9156,8 @@
 					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
+					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
+					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -9194,10 +9273,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				IBSC_MODULE = WrapLive_Production_WatchKit_Extension;
 				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/WrapLiveWatchKitApp-Production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -9435,10 +9511,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -9468,9 +9541,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
+					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
+					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -9486,6 +9560,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "28abca35-e2f2-4527-9537-7eed50522eae";
@@ -9513,6 +9588,8 @@
 					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
+					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
+					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -9554,6 +9631,8 @@
 					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
+					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
+					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
@@ -9594,6 +9673,8 @@
 					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/PubNub",
+					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
+					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";

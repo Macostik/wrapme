@@ -58,13 +58,6 @@ static CGFloat WLTextViewInsets = 10.0f;
     [[WLComment notifier] addReceiver:self];
     [[WLCandy notifier] addReceiver:self];
     [[WLWrap notifier] addReceiver:self];
-    
-    if (WLConstants.iPhone) {
-        [UIView performWithoutAnimation:^{
-            self.leadingContstraint.constant = self.trailingConstraint.constant = .0;
-            [self.view layoutIfNeeded];
-        }];
-    }
 }
 
 - (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {

@@ -18,9 +18,16 @@
 
 @property (strong, nonatomic) NSString* queueName;
 
+@property (nonatomic) NSUInteger simultaneousUploadingsLimit;
+
 @end
 
 @implementation WLUploadingQueue
+
++ (void)initialize {
+    WLUploadingQueue *queue = [WLUploadingQueue queueForEntriesOfClass:[WLMessage class]];
+    queue.simultaneousUploadingsLimit = 1;
+}
 
 + (NSArray*)allQueues {
     return @[[self queueForEntriesOfClass:[WLWrap class]],
@@ -68,14 +75,17 @@
     self = [super init];
     if (self) {
         self.uploadings = [NSMutableOrderedSet orderedSet];
+        self.simultaneousUploadingsLimit = 3;
     }
     return self;
 }
 
 - (void)prepare {
-    self.uploadings = [[WLUploading entries] selectObjects:^BOOL(WLUploading* uploading) {
+    NSMutableOrderedSet *uploadings = [[[WLUploading entries] selectObjects:^BOOL(WLUploading* uploading) {
         return [uploading.contribution isKindOfClass:self.entryClass];
-    }];
+    }] mutableCopy];
+    [uploadings sortByCreatedAt:NO];
+    self.uploadings = uploadings;
 }
 
 - (void)prepareAndStart {
@@ -97,7 +107,7 @@
     } else {
         __weak typeof(self)weakSelf = self;
         for (WLUploading* uploading in self.uploadings) {
-            runQueuedOperation(self.queueName, 3, ^(WLOperation *operation) {
+            runQueuedOperation(self.queueName, self.simultaneousUploadingsLimit, ^(WLOperation *operation) {
                 [weakSelf internalUpload:uploading success:^(id object) {
                     [operation finish:completion];
                 } failure:^(NSError *error) {
@@ -148,7 +158,7 @@
 - (void)upload:(WLUploading*)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [self addUploading:uploading];
-    runQueuedOperation(self.queueName, 3, ^(WLOperation *operation) {
+    runQueuedOperation(self.queueName, self.simultaneousUploadingsLimit, ^(WLOperation *operation) {
         [weakSelf internalUpload:uploading success:^(id object) {
             [operation finish];
             if (success) success(object);

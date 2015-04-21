@@ -67,12 +67,10 @@
 @implementation WLRemoteEntryHandler (NSURL)
 
 - (void)presentEntryFromURL:(NSURL*)url {
-    if ([[url.path lastPathComponent] isEqualToString:WLCandyKey]) {
-        NSDictionary *parameters = [[url query] URLQueryParameters];
-        NSString *identifier = parameters[WLUIDKey];
-        if (identifier.nonempty) {
-            [self presentEntry:[WLCandy entry:identifier]];
-        }
+    NSDictionary *parameters = [[url query] URLQueryParameters];
+    NSString *identifier = parameters[WLUIDKey];
+    if (identifier.nonempty) {
+        [self presentEntry:[WLEntry entry:identifier]];
     }
 }
 

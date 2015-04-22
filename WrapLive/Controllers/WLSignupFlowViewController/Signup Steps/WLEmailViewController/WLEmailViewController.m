@@ -39,7 +39,7 @@
         }];
     }
     
-    self.testAccountButton.hidden = ![WLAPIManager manager].environment.useTestUsers;
+    self.testAccountButton.hidden = [WLAPIManager manager].environment.isProduction;
 }
 
 - (IBAction)next:(WLButton*)sender {

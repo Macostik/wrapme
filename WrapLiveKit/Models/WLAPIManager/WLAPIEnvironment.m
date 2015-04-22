@@ -7,29 +7,31 @@
 //
 
 #import "WLAPIEnvironment.h"
+#import "NSString+Additions.h"
 
 @implementation WLAPIEnvironment
 
-+ (NSString*)propertyListNameForEnvironment:(NSString*)environment {
-    if ([environment isEqualToString:WLAPIEnvironmentQA]) {
-        return @"WLAPIEnvironmentQA";
-    } else if ([environment isEqualToString:WLAPIEnvironmentBeta]) {
-        return @"WLAPIEnvironmentBeta";
-    } else if ([environment isEqualToString:WLAPIEnvironmentProduction]) {
-        return @"WLAPIEnvironmentProduction";
-    }
-    return @"WLAPIEnvironmentDevelopment";
++ (NSDictionary*)environments {
+    return @{WLAPIEnvironmentDevelopment:@{@"endpoint":@"https://dev-api.wraplive.com/api",
+                                           @"version":@"5"},
+             WLAPIEnvironmentQA:@{@"endpoint":@"https://qa-api.wraplive.com/api",
+                                  @"version":@"5"},
+             WLAPIEnvironmentBeta:@{@"endpoint":@"https://qa-api.wraplive.com/api",
+                                    @"version":@"5"},
+             WLAPIEnvironmentProduction:@{@"endpoint":@"https://prd-api.wraplive.com/api",
+                                          @"version":@"5"}};
 }
 
 + (instancetype)environmentNamed:(NSString *)name {
-    NSString* path = [[NSBundle mainBundle] pathForResource:[self propertyListNameForEnvironment:name] ofType:@"plist"];
-    NSDictionary* dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+    if (!name.nonempty) {
+        name = WLAPIEnvironmentProduction;
+    }
+    NSDictionary* dictionary = [[self environments] objectForKey:name];
     WLAPIEnvironment* environment = [[WLAPIEnvironment alloc] init];
     environment.endpoint = dictionary[@"endpoint"];
     environment.version = dictionary[@"version"];
     environment.testUsersPropertyListName = dictionary[@"testUsersPropertyListName"];
-    environment.useTestUsers = [dictionary[@"useTestUsers"] boolValue];
-	environment.name = dictionary[@"environment"] ? : name;
+    environment.name = name;
     return environment;
 }
 

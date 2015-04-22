@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -107,6 +107,7 @@
             <string>OpenSans-Semibold</string>
         </mutableArray>
         <mutableArray key="wrapliveicons.ttf">
+            <string>wrapliveicons</string>
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
@@ -2572,7 +2573,7 @@ Tap here to start.</string>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WLContactCell" rowHeight="50" id="kXA-uP-KGc" customClass="WLContactCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WLContactCell" rowHeight="72" id="kXA-uP-KGc" customClass="WLContactCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kXA-uP-KGc" id="nIE-uq-dVR">
@@ -2587,12 +2588,25 @@ Tap here to start.</string>
                                                         <constraint firstAttribute="width" constant="48" id="Wyt-Xe-Qwg"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="194" translatesAutoresizingMaskIntoConstraints="NO" id="ZaI-gM-W2F" customClass="WLLabel">
-                                                    <rect key="frame" x="72" y="12" width="165" height="23"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="e" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STC-13-brF" customClass="WLLabel">
+                                                    <rect key="frame" x="12" y="42" width="18" height="18"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="23" id="5kG-j7-lzN"/>
+                                                        <constraint firstAttribute="width" constant="18" id="EVe-zj-GV5"/>
+                                                        <constraint firstAttribute="height" constant="18" id="e2A-Zl-rNC"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="16"/>
+                                                    <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="9"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="John Williams Brown" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZaI-gM-W2F" customClass="WLLabel">
+                                                    <rect key="frame" x="72" y="12" width="194" height="21"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2600,21 +2614,15 @@ Tap here to start.</string>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STC-13-brF" customClass="WLLabel">
-                                                    <rect key="frame" x="237" y="10" width="29" height="29"/>
-                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="29"/>
-                                                    <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Beb-Fv-Wfr" customClass="WLButton">
-                                                    <rect key="frame" x="278" y="4" width="30" height="40"/>
+                                                <button contentMode="scaleToFill" horizontalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Beb-Fv-Wfr" customClass="WLButton">
+                                                    <rect key="frame" x="278" y="16" width="30" height="38"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="28"/>
+                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="26"/>
                                                     <state key="normal" title="G">
                                                         <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <state key="disabled" title="l">
+                                                    <state key="disabled" title="E">
                                                         <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="selected" title="H">
@@ -2629,8 +2637,8 @@ Tap here to start.</string>
                                                         <action selector="select:" destination="kXA-uP-KGc" eventType="touchUpInside" id="Jh1-Ab-mzz"/>
                                                     </connections>
                                                 </button>
-                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="194" translatesAutoresizingMaskIntoConstraints="NO" id="Kag-WO-QAb" customClass="WLLabel">
-                                                    <rect key="frame" x="72" y="35" width="165" height="18"/>
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kag-WO-QAb" customClass="WLLabel">
+                                                    <rect key="frame" x="72" y="33" width="194" height="18"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
                                                     <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2641,18 +2649,18 @@ Tap here to start.</string>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="Beb-Fv-Wfr" firstAttribute="leading" secondItem="ZaI-gM-W2F" secondAttribute="trailing" constant="12" id="5Z2-uf-Npz"/>
                                                 <constraint firstItem="mJu-5P-GF6" firstAttribute="top" secondItem="ZaI-gM-W2F" secondAttribute="top" id="CGY-24-ryA"/>
-                                                <constraint firstItem="Beb-Fv-Wfr" firstAttribute="leading" secondItem="STC-13-brF" secondAttribute="trailing" constant="12" id="Dw3-Ck-jUe"/>
-                                                <constraint firstItem="STC-13-brF" firstAttribute="leading" secondItem="ZaI-gM-W2F" secondAttribute="trailing" id="MlN-ei-eEm"/>
                                                 <constraint firstAttribute="trailing" secondItem="Beb-Fv-Wfr" secondAttribute="trailing" constant="12" id="NxM-9F-iHd"/>
+                                                <constraint firstItem="STC-13-brF" firstAttribute="leading" secondItem="mJu-5P-GF6" secondAttribute="leading" id="Qwx-B4-laO"/>
                                                 <constraint firstItem="mJu-5P-GF6" firstAttribute="leading" secondItem="nIE-uq-dVR" secondAttribute="leading" constant="12" id="RCm-5n-ofa"/>
                                                 <constraint firstItem="ZaI-gM-W2F" firstAttribute="leading" secondItem="nIE-uq-dVR" secondAttribute="leading" constant="72" id="RKv-XL-XbW"/>
-                                                <constraint firstItem="STC-13-brF" firstAttribute="leading" secondItem="Kag-WO-QAb" secondAttribute="trailing" id="RLQ-fg-bcO"/>
+                                                <constraint firstItem="Beb-Fv-Wfr" firstAttribute="leading" secondItem="Kag-WO-QAb" secondAttribute="trailing" constant="12" id="RXn-8h-nTI"/>
+                                                <constraint firstItem="STC-13-brF" firstAttribute="bottom" secondItem="mJu-5P-GF6" secondAttribute="bottom" id="Rzk-zQ-H6G"/>
                                                 <constraint firstItem="Kag-WO-QAb" firstAttribute="top" secondItem="ZaI-gM-W2F" secondAttribute="bottom" id="btP-IJ-G2l"/>
                                                 <constraint firstItem="Kag-WO-QAb" firstAttribute="leading" secondItem="nIE-uq-dVR" secondAttribute="leading" constant="72" id="cDm-SS-vNl"/>
                                                 <constraint firstItem="mJu-5P-GF6" firstAttribute="top" secondItem="nIE-uq-dVR" secondAttribute="top" constant="12" id="gdk-vF-ogM"/>
                                                 <constraint firstAttribute="centerY" secondItem="Beb-Fv-Wfr" secondAttribute="centerY" constant="0.5" id="pgr-Gq-G3G"/>
-                                                <constraint firstItem="STC-13-brF" firstAttribute="centerY" secondItem="Beb-Fv-Wfr" secondAttribute="centerY" constant="0.5" id="wzG-5X-do8"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -2731,7 +2739,7 @@ Tap here to start.</string>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </label>
-                                                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="+380951383026" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="164" translatesAutoresizingMaskIntoConstraints="NO" id="Dxm-Es-Lwk" customClass="WLLabel">
+                                                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="+380951383026" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxm-Es-Lwk" customClass="WLLabel">
                                                                         <rect key="frame" x="110" y="0.0" width="166" height="50"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
@@ -2742,9 +2750,9 @@ Tap here to start.</string>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </label>
                                                                     <button contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8kJ-w2-piV" customClass="WLButton">
-                                                                        <rect key="frame" x="278" y="5" width="30" height="40"/>
+                                                                        <rect key="frame" x="278" y="6" width="30" height="38"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="28"/>
+                                                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="26"/>
                                                                         <state key="normal" title="G">
                                                                             <color key="titleColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -4933,6 +4941,22 @@ Check your internet connection and try again.</string>
                                                                         <constraint firstAttribute="height" constant="48" id="7p1-G0-BRY"/>
                                                                     </constraints>
                                                                 </imageView>
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="e" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qjg-nF-pTh" customClass="WLLabel">
+                                                                    <rect key="frame" x="12" y="42" width="18" height="18"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="18" id="Euq-me-dtg"/>
+                                                                        <constraint firstAttribute="width" constant="18" id="meQ-qY-nYP"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="16"/>
+                                                                    <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                            <integer key="value" value="9"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </label>
                                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="4dB-kx-151" customClass="WLLabel">
                                                                     <rect key="frame" x="72" y="12" width="224" height="23"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4979,12 +5003,14 @@ Check your internet connection and try again.</string>
                                                             <constraints>
                                                                 <constraint firstItem="KyJ-lt-d5S" firstAttribute="top" secondItem="UoH-8q-1IN" secondAttribute="top" id="3pe-q1-07i"/>
                                                                 <constraint firstAttribute="trailing" secondItem="4dB-kx-151" secondAttribute="trailing" constant="24" id="8JM-w4-OfC"/>
+                                                                <constraint firstItem="0uu-KS-up8" firstAttribute="bottom" secondItem="Qjg-nF-pTh" secondAttribute="bottom" id="DnN-vE-Itj"/>
                                                                 <constraint firstItem="KyJ-lt-d5S" firstAttribute="leading" secondItem="UoH-8q-1IN" secondAttribute="leading" id="G52-TD-jFB"/>
                                                                 <constraint firstItem="0uu-KS-up8" firstAttribute="leading" secondItem="UoH-8q-1IN" secondAttribute="leading" constant="12" id="Gp0-eR-8jM"/>
                                                                 <constraint firstItem="04J-8C-m9o" firstAttribute="leading" secondItem="0uu-KS-up8" secondAttribute="trailing" constant="12" id="N5T-zd-evH"/>
                                                                 <constraint firstAttribute="trailing" secondItem="04J-8C-m9o" secondAttribute="trailing" constant="24" id="PYX-Qd-7Ry"/>
                                                                 <constraint firstItem="0uu-KS-up8" firstAttribute="top" secondItem="UoH-8q-1IN" secondAttribute="top" constant="12" id="XX2-5K-TSI"/>
                                                                 <constraint firstItem="4dB-kx-151" firstAttribute="top" secondItem="0uu-KS-up8" secondAttribute="top" id="Zmk-A3-eXo"/>
+                                                                <constraint firstItem="0uu-KS-up8" firstAttribute="leading" secondItem="Qjg-nF-pTh" secondAttribute="leading" id="b9e-k7-YGn"/>
                                                                 <constraint firstItem="4dB-kx-151" firstAttribute="leading" secondItem="0uu-KS-up8" secondAttribute="trailing" constant="12" id="lym-3m-lgg"/>
                                                                 <constraint firstAttribute="bottom" secondItem="KyJ-lt-d5S" secondAttribute="bottom" id="njD-4S-VIG"/>
                                                                 <constraint firstItem="04J-8C-m9o" firstAttribute="top" secondItem="4dB-kx-151" secondAttribute="bottom" id="twx-hO-rU2"/>
@@ -5046,6 +5072,7 @@ Check your internet connection and try again.</string>
                                             <outlet property="resendInviteButton" destination="phJ-P1-MdW" id="0sR-7l-yCZ"/>
                                             <outlet property="resendInviteDoneButton" destination="yxU-kB-7d8" id="ofG-qn-eC1"/>
                                             <outlet property="resendInviteSpinner" destination="Ea0-ZG-g7o" id="5ke-4q-gg7"/>
+                                            <outlet property="signUpView" destination="Qjg-nF-pTh" id="5XM-0E-iti"/>
                                             <outlet property="slideMenuButton" destination="KyJ-lt-d5S" id="1JA-qn-y0E"/>
                                             <outlet property="slideView" destination="UoH-8q-1IN" id="g7z-a4-aFY"/>
                                             <outlet property="slideViewConstraint" destination="4Gm-br-xfd" id="M9f-0A-xU2"/>

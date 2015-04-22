@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet WLButton *slideMenuButton;
 @property (weak, nonatomic) IBOutlet WLButton *resendInviteDoneButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *resendInviteSpinner;
+@property (weak, nonatomic) IBOutlet UILabel *signUpView;
 
 @end
 
@@ -40,6 +41,9 @@
     [self.slideMenuButton addGestureRecognizer:swipe];
     self.resendInviteButton.titleLabel.numberOfLines = 2;
     [self.resendInviteButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    self.signUpView.layer.borderWidth = 1;
+    self.signUpView.layer.borderColor = self.signUpView.textColor.CGColor;
 }
 
 - (void)setup:(WLUser*)user {
@@ -68,8 +72,10 @@
     [self.resendInviteSpinner stopAnimating];
     
     if (self.resendInviteButton.hidden) {
+        self.signUpView.hidden = NO;
         self.resendInviteDoneButton.hidden = YES;
     } else {
+        self.signUpView.hidden = YES;
         BOOL invited = [self.delegate contributorCell:self isInvitedContributor:user];
         [self setInvitedState:invited];
     }

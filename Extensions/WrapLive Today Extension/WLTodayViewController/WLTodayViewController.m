@@ -61,11 +61,6 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
     [self.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:NULL];
     
     self.tableFooterView = self.tableView.tableFooterView;
-    
-    [[WLNotificationCenter defaultCenter] configure];
-    
-    [[WLCandy notifier] addReceiver:self];
-    [[WLComment notifier] addReceiver:self];
 }
 
 - (void)setState:(WLTodayViewState)state {
@@ -218,24 +213,6 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
         }
         [self.extensionContext openURL:url completionHandler:NULL];
     }
-}
-
-// MARK: - WLEntryNotifyReceiver
-
-- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
-    [self fetchContributions];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
-    [self fetchContributions];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier commentAdded:(WLComment *)comment {
-    [self fetchContributions];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier commentDeleted:(WLComment *)comment {
-    [self fetchContributions];
 }
 
 @end

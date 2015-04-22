@@ -18,7 +18,7 @@
 @property (nonatomic, weak) IBOutlet UILabel* nameLabel;
 @property (nonatomic, weak) IBOutlet WLImageView* avatarView;
 @property (weak, nonatomic) IBOutlet UIButton *openView;
-@property (weak, nonatomic) IBOutlet UIView *signUpView;
+@property (weak, nonatomic) IBOutlet UILabel *signUpView;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 
 @end
@@ -30,6 +30,9 @@
 	self.avatarView.circled = YES;
     [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+    
+    self.signUpView.layer.borderWidth = 1;
+    self.signUpView.layer.borderColor = self.signUpView.textColor.CGColor;
 }
 
 + (instancetype)cellWithContact:(WLAddressBookRecord *)contact inTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {

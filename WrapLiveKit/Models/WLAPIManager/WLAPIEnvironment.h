@@ -21,8 +21,6 @@ static NSString* WLAPIEnvironmentProduction = @"production";
 
 @property (strong, nonatomic) NSString* version;
 
-@property (strong, nonatomic) NSString* testUsersPropertyListName;
-
 @property (readonly, nonatomic) BOOL isProduction;
 
 + (instancetype)environmentNamed:(NSString*)name;

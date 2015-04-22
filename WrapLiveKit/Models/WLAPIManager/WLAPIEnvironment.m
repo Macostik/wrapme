@@ -30,7 +30,6 @@
     WLAPIEnvironment* environment = [[WLAPIEnvironment alloc] init];
     environment.endpoint = dictionary[@"endpoint"];
     environment.version = dictionary[@"version"];
-    environment.testUsersPropertyListName = dictionary[@"testUsersPropertyListName"];
     environment.name = name;
     return environment;
 }

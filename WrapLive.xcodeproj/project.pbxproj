@@ -8573,8 +8573,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/PubNub",
-					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -8617,8 +8615,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/PubNub",
-					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -8937,10 +8933,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/PubNub",
-					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -8981,10 +8974,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/PubNub",
-					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9024,10 +9014,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/PubNub",
-					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9067,10 +9054,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/PubNub",
-					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9109,10 +9093,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/PubNub",
-					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9153,10 +9134,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/PubNub",
-					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9428,7 +9406,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 374;
+				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9452,7 +9430,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 374;
+				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9475,7 +9453,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 374;
+				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9542,8 +9520,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/PubNub",
-					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9585,10 +9561,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/PubNub",
-					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9628,10 +9601,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/PubNub",
-					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -9670,10 +9640,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks/AviarySDK",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/PubNub",
-					"$(PROJECT_DIR)/Frameworks/AdobeCreativeSDK",
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

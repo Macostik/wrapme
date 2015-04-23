@@ -10,13 +10,13 @@
 
 @class WLMenu;
 
-typedef void (^WLMenuConfiguration)(WLMenu* menu, BOOL *vibrate);
+typedef WLEntry *(^WLMenuConfiguration)(WLMenu* menu, BOOL *vibrate);
 
 @interface WLMenuItem : NSObject
 
 @property (strong, nonatomic) UIImage* image;
 
-@property (strong, nonatomic) WLBlock block;
+@property (strong, nonatomic) WLObjectBlock block;
 
 @end
 
@@ -24,26 +24,28 @@ typedef void (^WLMenuConfiguration)(WLMenu* menu, BOOL *vibrate);
 
 @property (readonly, nonatomic) BOOL visible;
 
+@property (weak, nonatomic) WLEntry* entry;
+
 + (instancetype)sharedMenu;
 
 - (void)addView:(UIView*)view configuration:(WLMenuConfiguration)configuration;
 
 - (void)hide;
 
-- (WLMenuItem*)addItem:(WLBlock)block;
+- (WLMenuItem*)addItem:(WLObjectBlock)block;
 
-- (void)addItemWithImage:(UIImage*)image block:(WLBlock)block;
+- (void)addItemWithImage:(UIImage*)image block:(WLObjectBlock)block;
 
 @end
 
 @interface WLMenu (DefinedItems)
 
-- (void)addDeleteItem:(WLBlock)block;
+- (void)addDeleteItem:(WLObjectBlock)block;
 
-- (void)addLeaveItem:(WLBlock)block;
+- (void)addLeaveItem:(WLObjectBlock)block;
 
-- (void)addReportItem:(WLBlock)block;
+- (void)addReportItem:(WLObjectBlock)block;
 
-- (void)addDownloadItem:(WLBlock)block;
+- (void)addDownloadItem:(WLObjectBlock)block;
 
 @end

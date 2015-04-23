@@ -1761,7 +1761,7 @@ Tap here to start.</string>
                 <customObject id="AWA-hF-c2z" userLabel="Camera Transition" customClass="WLStoryboardTransition">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="storyboard" value="Camera"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="section.wrap"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="dataSource.wrap"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="sourceIsDelegate" value="YES"/>
                     </userDefinedRuntimeAttributes>

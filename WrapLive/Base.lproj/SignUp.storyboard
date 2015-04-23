@@ -1631,7 +1631,7 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fV-w2-es8">
                                         <rect key="frame" x="86" y="68" width="148" height="148"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default_profile" translatesAutoresizingMaskIntoConstraints="NO" id="KoU-yi-ap4" customClass="WLImageView">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-large-avatar" translatesAutoresizingMaskIntoConstraints="NO" id="KoU-yi-ap4" customClass="WLImageView">
                                                 <rect key="frame" x="0.0" y="0.0" width="148" height="148"/>
                                             </imageView>
                                             <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNH-sn-XuA">
@@ -1769,9 +1769,9 @@
         <image name="1st_screen_btn_agree_and_continue_hightlighted" width="246" height="48"/>
         <image name="camera" width="30" height="30"/>
         <image name="camera_darkGray" width="30" height="30"/>
+        <image name="default-large-avatar" width="100" height="100"/>
         <image name="horizontal_separator_gray" width="1" height="1"/>
         <image name="ic_back_orange" width="12" height="22"/>
-        <image name="ic_default_profile" width="148" height="148"/>
         <image name="ic_next_gray" width="8" height="14"/>
         <image name="ic_next_white" width="8" height="24"/>
         <image name="img_devices" width="209" height="116"/>

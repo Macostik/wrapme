@@ -18,7 +18,7 @@
 #import "UIFont+CustomFonts.h"
 #import "TTTAttributedLabel.h"
 #import "WLTextView.h"
-
+#import "WLEntryStatusIndicator.h"
 
 @interface WLCommentCell ()
 
@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet WLTextView *commenttextView;
+@property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
 
 @end
 
@@ -40,10 +41,10 @@
     [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
     
-    [[WLMenu sharedMenu] addView:self configuration:^void (WLMenu *menu, BOOL *vibrate) {
+    [[WLMenu sharedMenu] addView:self configuration:^WLEntry *(WLMenu *menu, BOOL *vibrate) {
         WLComment* comment = weakSelf.entry;
         if (comment.deletable) {
-            [menu addDeleteItem:^{
+            [menu addDeleteItem:^(WLComment *comment) {
                 weakSelf.userInteractionEnabled = NO;
                 [weakSelf.entry remove:^(id object) {
                     weakSelf.userInteractionEnabled = YES;
@@ -56,6 +57,7 @@
             *vibrate = NO;
             [WLToast showWithMessage:WLLS(@"Cannot delete comment not posted by you.")];
         }
+        return comment;
     }];
 }
 
@@ -67,6 +69,7 @@
     [self.commenttextView determineHyperLink:entry.text];
 	self.authorImageView.url = entry.contributor.picture.small;
     self.dateLabel.text = entry.createdAt.timeAgoString;
+    [self.indicator updateStatusIndicator:entry];
 }
 
 @end

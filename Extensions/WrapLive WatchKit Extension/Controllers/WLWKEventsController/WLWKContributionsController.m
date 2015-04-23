@@ -77,6 +77,8 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
                 [weakSelf pushControllerWithName:@"candy" context:entry.containingEntry];
             } else if ([entry isKindOfClass:[WLCandy class]]) {
                 [weakSelf pushControllerWithName:@"candy" context:entry];
+            } else if ([identifier isEqualToString:@"reply"] && [entry isKindOfClass:[WLMessage class]]) {
+                [weakSelf pushControllerWithName:@"chatReply" context:entry.containingEntry];
             }
         } failure:nil];
     }

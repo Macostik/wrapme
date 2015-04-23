@@ -40,10 +40,12 @@ static WLAuthorization* _authorization = nil;
 + (WLAuthorization *)authorization {
     if (!_authorization) {
         NSData *data = [[NSUserDefaults appGroupUserDefaults] objectForKey:WLAppGroupEncryptedAuthorization];
-        if (!data) {
-            [[NSUserDefaults standardUserDefaults] objectForKey:WLAppGroupEncryptedAuthorization];
+        if (data) {
+            data = [WLCryptographer decryptData:data];
+        } else {
+            data = [[NSUserDefaults standardUserDefaults] objectForKey:WLSessionAuthorizationKey];
         }
-        _authorization = [WLAuthorization unarchive:[WLCryptographer decryptData:data]];
+        _authorization = [WLAuthorization unarchive:data];
     }
     if (!_authorization) {
         _authorization = [[WLAuthorization alloc] init];

@@ -55,6 +55,8 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 - (NSUInteger)unreadNotificationsMessageCount;
 
+- (NSUInteger)unreadNotificationsCommentCount;
+
 @end
 
 @interface WLComment (WLNotification)

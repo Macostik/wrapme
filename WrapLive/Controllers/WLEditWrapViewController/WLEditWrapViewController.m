@@ -16,7 +16,7 @@ static NSString *const WLDelete = @"Delete";
 static NSString *const WLReport = @"Report";
 static NSString *const WLLeave = @"Leave";
 
-@interface WLEditWrapViewController ()
+@interface WLEditWrapViewController () <WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameWrapTextField;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
@@ -34,6 +34,8 @@ static NSString *const WLLeave = @"Leave";
     [self.nameWrapTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
     [self.deleteButton setTitle:self.wrap.deletable ? WLLS(WLDelete) : WLLS(WLLeave) forState:UIControlStateNormal];
     self.nameWrapTextField.enabled = self.wrap.deletable;
+    
+    [[WLWrap notifier] addReceiver:self];
 }
 
 - (void)setupEditableUserInterface {
@@ -49,6 +51,12 @@ static NSString *const WLLeave = @"Leave";
 }
 
 - (IBAction)performSelectorByTitle {
+    
+    if (!self.wrap.valid) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    
     __weak __typeof(self)weakSelf = self;
     self.deleteButton.loading = YES;
     if (self.wrap.deletable) {
@@ -86,7 +94,7 @@ static NSString *const WLLeave = @"Leave";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 
 - (IBAction)textFieldEditChange:(UITextField *)sender {
     if (sender.text.length > WLWrapNameLimit) {
@@ -100,7 +108,7 @@ static NSString *const WLLeave = @"Leave";
     return YES;
 }
 
-#pragma mark - WLEditViewController override method
+// MARK: - WLEditViewController override method
 
 - (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     NSString *name = [self.nameWrapTextField.text trim];
@@ -116,17 +124,27 @@ static NSString *const WLLeave = @"Leave";
     [self.wrap update:success failure:success];
 }
 
-#pragma mark - WLBaseViewController override method
+// MARK: - WLBaseViewController override method
 
 - (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
     return keyboardHeight/2.0f;
 }
 
-#pragma mark - WLEditSessionDelegate override
+// MARK: - WLEditSessionDelegate override
 
 - (void)editSession:(WLEditSession *)session hasChanges:(BOOL)hasChanges {
     [super editSession:session hasChanges:hasChanges];
     self.closeButton.hidden = hasChanges;
+}
+
+// MARK: - WLEntryNotifyReceiver
+
+- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
+    return self.wrap;
 }
 
 @end

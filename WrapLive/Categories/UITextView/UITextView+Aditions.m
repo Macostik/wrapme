@@ -11,7 +11,8 @@
 
 - (void)determineHyperLink:(NSString *)string {
     if (string) {
-        self.attributedText = [[NSAttributedString alloc] initWithString:string attributes:@{NSFontAttributeName : self.font}];
+        self.attributedText = [[NSAttributedString alloc] initWithString:string attributes:@{NSFontAttributeName : self.font,
+                                                                                             NSForegroundColorAttributeName : self.textColor ? : [UIColor blackColor]}];
     } else {
         self.text = nil;
     }

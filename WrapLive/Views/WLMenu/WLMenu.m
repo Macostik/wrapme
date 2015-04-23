@@ -128,9 +128,10 @@
     
     WLMenuConfiguration configuration = [self configurationForView:view];
     
+    self.entry = nil;
     if (configuration) {
         BOOL vibrate = YES;
-        configuration(self, &vibrate);
+        self.entry = configuration(self, &vibrate);
         
         if (!self.items.nonempty) return;
         
@@ -218,9 +219,13 @@
             showBlock();
         }
     }
+    
+    if (hidden) {
+        self.entry = nil;
+    }
 }
 
-- (WLMenuItem *)addItem:(WLBlock)block {
+- (WLMenuItem *)addItem:(WLObjectBlock)block {
     if (!self.items) self.items = [NSMutableArray array];
     WLMenuItem* item = [[WLMenuItem alloc] init];
     item.block = block;
@@ -228,7 +233,7 @@
     return item;
 }
 
-- (void)addItemWithImage:(UIImage *)image block:(WLBlock)block {
+- (void)addItemWithImage:(UIImage *)image block:(WLObjectBlock)block {
     [self addItem:block].image = image;
 }
 
@@ -239,8 +244,10 @@
 }
 
 - (void)selectedItem:(WlMenuItemButton*)sender {
-    WLBlock block = sender.item.block;
-    if (block) block();
+    WLObjectBlock block = sender.item.block;
+    if (self.entry) {
+        if (block) block(self.entry);
+    }
     [self hide];
 }
 
@@ -266,19 +273,19 @@
 
 @implementation WLMenu (DefinedItems)
 
-- (void)addDeleteItem:(WLBlock)block {
+- (void)addDeleteItem:(WLObjectBlock)block {
     [self addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:block];
 }
 
-- (void)addLeaveItem:(WLBlock)block {
+- (void)addLeaveItem:(WLObjectBlock)block {
     [self addItemWithImage:[UIImage imageNamed:@"btn_menu_leave"] block:block];
 }
 
-- (void)addReportItem:(WLBlock)block {
+- (void)addReportItem:(WLObjectBlock)block {
     [self addItemWithImage:[UIImage imageNamed:@"btn_menu_alert"] block:block];
 }
 
-- (void)addDownloadItem:(WLBlock)block {
+- (void)addDownloadItem:(WLObjectBlock)block {
     [self addItemWithImage:[UIImage imageNamed:@"btn_menu_download"] block:block];
 }
 

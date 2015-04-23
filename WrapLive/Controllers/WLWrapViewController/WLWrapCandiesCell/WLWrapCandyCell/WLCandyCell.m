@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 
-
 @end
 
 @implementation WLCandyCell
@@ -39,7 +38,7 @@
         [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu, BOOL *vibrate) {
             WLCandy* candy = weakSelf.entry;
             if (candy.deletable) {
-                [menu addDeleteItem:^{
+                [menu addDeleteItem:^(WLCandy *candy) {
                     weakSelf.userInteractionEnabled = NO;
                     [candy remove:^(id object) {
                         weakSelf.userInteractionEnabled = YES;
@@ -49,17 +48,18 @@
                     }];
                 }];
             } else {
-                [menu addReportItem:^{
+                [menu addReportItem:^(WLCandy *candy) {
                     [MFMailComposeViewController messageWithCandy:candy];
                 }];
             }
-            [menu addDownloadItem:^{
+            [menu addDownloadItem:^(WLCandy *candy) {
                 [candy download:^{
                 } failure:^(NSError *error) {
                     [error show];
                 }];
                 [WLToast showPhotoDownloadingMessage];
             }];
+            return candy;
         }];
     }
 }

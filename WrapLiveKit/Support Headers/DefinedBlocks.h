@@ -27,6 +27,7 @@ typedef id (^WLMapObjectBlock) (id object);
 typedef void (^WLFailureBlock) (NSError *error);
 typedef id (^WLMapResponseBlock)(WLAPIResponse* response);
 typedef void (^WLAuthorizationBlock) (WLAuthorization *authorization);
+typedef void (^WLEntryBlock) (WLEntry *entry);
 typedef void (^WLUserBlock) (WLUser *user);
 typedef void (^WLWrapBlock) (WLWrap *wrap);
 typedef void (^WLCandyBlock) (WLCandy *candy);

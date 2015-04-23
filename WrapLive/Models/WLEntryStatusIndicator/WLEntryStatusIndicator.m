@@ -17,7 +17,7 @@
 @implementation WLEntryStatusIndicator
 
 - (void)updateStatusIndicator:(WLContribution *)contribution {
-    self.hidden = !contribution.valid;
+    self.hidden = !contribution.valid || ![contribution contributor].isCurrentUser;
     if (_entry != contribution) {
         _entry = contribution;
         [[[_entry class] notifier] addReceiver:self];

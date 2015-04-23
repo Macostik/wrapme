@@ -18,6 +18,7 @@
 #import "UIFont+CustomFonts.h"
 #import "TTTAttributedLabel.h"
 #import "WLTextView.h"
+#import "WLEntryStatusIndicator.h"
 
 
 @interface WLCommentCell ()
@@ -26,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet WLTextView *commenttextView;
+@property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
 
 @end
 
@@ -67,6 +69,7 @@
     [self.commenttextView determineHyperLink:entry.text];
 	self.authorImageView.url = entry.contributor.picture.small;
     self.dateLabel.text = entry.createdAt.timeAgoString;
+    [self.indicator updateStatusIndicator:entry];
 }
 
 @end

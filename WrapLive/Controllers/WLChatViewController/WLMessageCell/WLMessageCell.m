@@ -15,6 +15,7 @@
 #import "UIImage+Drawing.h"
 #import "WLIconView.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLEntryStatusIndicator.h"
 
 @interface WLMessageCell () <WLEntryNotifyReceiver>
 
@@ -27,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topAvatarConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *tailView;
 @property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
-@property (weak, nonatomic) IBOutlet WLIconView *statusView;
+@property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
 
 @end
 
@@ -60,9 +61,6 @@
     self.textView.textContainerInset = UIEdgeInsetsZero;
     self.textView.textContainer.lineFragmentPadding = .0;
     self.bubbleImageView.image = [WLMessageCell bubbleImageWithColor:self.bubbleImageView.backgroundColor];
-    if (self.statusView) {
-        [[WLMessage notifier] addReceiver:self];
-    }
 }
 
 - (void)setShowName:(BOOL)showName {
@@ -94,35 +92,7 @@
     }
     
     [self.textView determineHyperLink:message.text];
-    if (self.statusView) {
-        [self updateStatusView:message];
-    }
-}
-
-// MARK: - WLEntryNotifyReceiver
-
-- (void)updateStatusView:(WLMessage*)message {
-    switch (message.status) {
-        case WLContributionStatusReady:
-            self.statusView.iconName = @"clock";
-            break;
-        case WLContributionStatusInProgress:
-            self.statusView.iconName = @"check";
-            break;
-        case WLContributionStatusUploaded:
-            self.statusView.iconName = @"double-check";
-            break;
-        default:
-            break;
-    }
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier messageUpdated:(WLMessage *)message {
-    [self updateStatusView:message];
-}
-
-- (WLMessage *)notifierPreferredMessage:(WLEntryNotifier *)notifier {
-    return self.entry;
+    [self.indicator updateStatusIndicator:message];
 }
 
 @end

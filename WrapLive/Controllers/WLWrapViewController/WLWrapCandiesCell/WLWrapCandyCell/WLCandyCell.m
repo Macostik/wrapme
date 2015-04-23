@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 
-
 @end
 
 @implementation WLCandyCell

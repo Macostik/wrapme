@@ -26,6 +26,9 @@
 #import "WLIconButton.h"
 #import "WLDeviceOrientationBroadcaster.h"
 #import "WLProgressBar+WLContribution.h"
+#import "WLEntryStatusIndicator.h"
+#import "WLTextView.h"
+#import "UITextView+Aditions.h"
 
 @interface WLCandyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate, WLNetworkReceiver, WLDeviceOrientationBroadcastReceiver, WLBroadcastReceiver>
 
@@ -37,12 +40,13 @@
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 @property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
+@property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
 
 @property (weak, nonatomic) WLComment *lastComment;
 @property (nonatomic) BOOL scrolledToInitialItem;
 
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
-@property (weak, nonatomic) IBOutlet WLLabel *lastCommentLabel;
+@property (weak, nonatomic) IBOutlet WLTextView *lastCommentTextView;
 
 @property (weak, nonatomic) UISwipeGestureRecognizer* leftSwipeGestureRecognizer;
 @property (weak, nonatomic) UISwipeGestureRecognizer* rightSwipeGestureRecognizer;
@@ -73,6 +77,8 @@
         
     self.wrap = _candy.wrap;
     
+    self.lastCommentTextView.textContainerInset = UIEdgeInsetsZero;
+    self.lastCommentTextView.textContainer.lineFragmentPadding = .0;
     [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
     
     if (!self.history) {
@@ -159,6 +165,10 @@
     if (!self.scrolledToInitialItem && index != NSNotFound) {
         [self.collectionView setContentOffset:CGPointMake(index*self.collectionView.width, 0)];
     }
+    UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.bottomView convertRect:self.indicator.frame
+                                                                                        toView:self.lastCommentTextView]];
+    
+    self.lastCommentTextView.textContainer.exclusionPaths = @[exlusionPath];
 }
 
 - (IBAction)hideBars {
@@ -252,8 +262,9 @@
     if (lastComment != _lastComment) {
         _lastComment = lastComment;
         self.avatarImageView.url = _lastComment.contributor.picture.small;
-        self.lastCommentLabel.text = _lastComment.valid ? _lastComment.text :@"";
-        [self.progressBar setContribution:lastComment];
+        [self.lastCommentTextView determineHyperLink:_lastComment.text];
+//        [self.progressBar setContribution:lastComment];
+        [self.indicator updateStatusIndicator:_lastComment];
     }
 }
 

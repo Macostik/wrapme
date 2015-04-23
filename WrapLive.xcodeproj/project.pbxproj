@@ -233,6 +233,10 @@
 		5BBBC0061A0A504E003781C4 /* WLPickerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBBC0041A0A504E003781C4 /* WLPickerViewCell.xib */; };
 		5BBBC0071A0A504E003781C4 /* WLPickerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBBC0041A0A504E003781C4 /* WLPickerViewCell.xib */; };
 		5BBBC0081A0A504E003781C4 /* WLPickerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBBC0041A0A504E003781C4 /* WLPickerViewCell.xib */; };
+		5BD104F21AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
+		5BD104F31AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
+		5BD104F41AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
+		5BD104F51AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
 		5BD782821A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
 		5BD782831A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
 		5BD782841A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
@@ -2071,6 +2075,8 @@
 		5BBBC0041A0A504E003781C4 /* WLPickerViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPickerViewCell.xib; path = WrapLive/Controllers/WLPickerViewContoller/WLPickerViewCell.xib; sourceTree = "<group>"; };
 		5BC48BDE1A8BBBEA003E90FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NoCommentsPlaceholderView.strings; sourceTree = "<group>"; };
 		5BC48BDF1A8BBBED003E90FA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/NoCommentsPlaceholderView.strings; sourceTree = "<group>"; };
+		5BD104F01AE7C066008794F5 /* WLEntryStatusIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntryStatusIndicator.h; path = WLEntryStatusIndicator/WLEntryStatusIndicator.h; sourceTree = "<group>"; };
+		5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEntryStatusIndicator.m; path = WLEntryStatusIndicator/WLEntryStatusIndicator.m; sourceTree = "<group>"; };
 		5BD782861A4EC02B0094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLEditWrapViewController.xib; sourceTree = "<group>"; };
 		5BD782A41A4EC1E20094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLCreateWrapViewController.xib; sourceTree = "<group>"; };
 		5BD782A71A4EC1E70094BEE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLCreateWrapViewController.strings; sourceTree = "<group>"; };
@@ -3356,6 +3362,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5BD104F61AE7C071008794F5 /* WLEntryStatusIndicator */,
 				C55D77E51AE51BA0006FA19C /* WLRemoteEntryHandler */,
 				C55D75871AE50914006FA19C /* WLChatTypingChannel */,
 				C5FE0A531ACD9896007DBE95 /* WLContributorsRequest */,
@@ -3926,6 +3933,15 @@
 			);
 			name = WLTypingView;
 			path = WLChatViewController/WLTypingView;
+			sourceTree = "<group>";
+		};
+		5BD104F61AE7C071008794F5 /* WLEntryStatusIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				5BD104F01AE7C066008794F5 /* WLEntryStatusIndicator.h */,
+				5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */,
+			);
+			name = WLEntryStatusIndicator;
 			sourceTree = "<group>";
 		};
 		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
@@ -6676,7 +6692,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -7285,6 +7301,7 @@
 				C537E9F01A8BBA8100EA450D /* WLIcon.m in Sources */,
 				12F0DAF019338C9100F9D898 /* SegmentedControl.m in Sources */,
 				C56A760E1A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
+				5BD104F21AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */,
 				5BA60CA31A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */,
 				C5C20BD11A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
@@ -7499,6 +7516,7 @@
 				C537E9F11A8BBA8100EA450D /* WLIcon.m in Sources */,
 				C54AF4ED19B8C437006F7EDB /* SegmentedControl.m in Sources */,
 				C56A760F1A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
+				5BD104F31AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */,
 				5BA60CA41A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */,
 				C5C20BD21A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C54AF4F219B8C437006F7EDB /* WLAddressBook.m in Sources */,
@@ -7674,6 +7692,7 @@
 				C537E9F21A8BBA8100EA450D /* WLIcon.m in Sources */,
 				C54AF5EA19B8C467006F7EDB /* SegmentedControl.m in Sources */,
 				C56A76101A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
+				5BD104F41AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */,
 				5BA60CA51A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */,
 				C5C20BD31A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C54AF5EF19B8C467006F7EDB /* WLAddressBook.m in Sources */,
@@ -7849,6 +7868,7 @@
 				C537E9F31A8BBA8100EA450D /* WLIcon.m in Sources */,
 				C54AF6E719B8C491006F7EDB /* SegmentedControl.m in Sources */,
 				C56A76111A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
+				5BD104F51AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */,
 				5BA60CA61A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */,
 				C5C20BD41A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C54AF6EC19B8C491006F7EDB /* WLAddressBook.m in Sources */,
@@ -9628,7 +9648,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

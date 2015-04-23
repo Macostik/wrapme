@@ -349,7 +349,7 @@
 		C5111D3A1AB345D10094275C /* WLIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5111D381AB345D10094275C /* WLIntroductionViewController.m */; };
 		C5111D3B1AB345D10094275C /* WLIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5111D381AB345D10094275C /* WLIntroductionViewController.m */; };
 		C5111D3C1AB345D10094275C /* WLIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5111D381AB345D10094275C /* WLIntroductionViewController.m */; };
-		C51383D019A4AB3300D23257 /* WLNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLNotificationsViewController.m */; };
+		C51383D019A4AB3300D23257 /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
 		C514AA551A6D618700A562CE /* WLWrapPickerHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C514AA541A6D618700A562CE /* WLWrapPickerHintView.xib */; };
 		C514AA561A6D618700A562CE /* WLWrapPickerHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C514AA541A6D618700A562CE /* WLWrapPickerHintView.xib */; };
 		C514AA571A6D618700A562CE /* WLWrapPickerHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C514AA541A6D618700A562CE /* WLWrapPickerHintView.xib */; };
@@ -573,7 +573,7 @@
 		C54AF47319B8C437006F7EDB /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C54AF47819B8C437006F7EDB /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104B19067095007DB4AC /* WLCommentCell.m */; };
 		C54AF47E19B8C437006F7EDB /* WLCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293678218E33A3500527250 /* WLCandyCell.m */; };
-		C54AF48019B8C437006F7EDB /* WLNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLNotificationsViewController.m */; };
+		C54AF48019B8C437006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
 		C54AF48219B8C437006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF48A19B8C437006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
@@ -606,7 +606,7 @@
 		C54AF4FD19B8C437006F7EDB /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
 		C54AF50519B8C437006F7EDB /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
 		C54AF50919B8C437006F7EDB /* WLTimelineEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03A19AC9562006F27A7 /* WLTimelineEventCell.m */; };
-		C54AF50B19B8C437006F7EDB /* WLNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLNotificationCell.m */; };
+		C54AF50B19B8C437006F7EDB /* WLWhatsUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLWhatsUpCell.m */; };
 		C54AF50D19B8C437006F7EDB /* WLToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3EE1920F7E0007BE6CC /* WLToast.m */; };
 		C54AF51119B8C437006F7EDB /* WLTimelineEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03319AC8FA5006F27A7 /* WLTimelineEvent.m */; };
 		C54AF51619B8C437006F7EDB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A179C1937694B002B3737 /* MessageUI.framework */; };
@@ -644,7 +644,7 @@
 		C54AF57019B8C467006F7EDB /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C54AF57519B8C467006F7EDB /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104B19067095007DB4AC /* WLCommentCell.m */; };
 		C54AF57B19B8C467006F7EDB /* WLCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293678218E33A3500527250 /* WLCandyCell.m */; };
-		C54AF57D19B8C467006F7EDB /* WLNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLNotificationsViewController.m */; };
+		C54AF57D19B8C467006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
 		C54AF57F19B8C467006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF58719B8C467006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		C54AF58E19B8C467006F7EDB /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
@@ -677,7 +677,7 @@
 		C54AF5FA19B8C467006F7EDB /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
 		C54AF60219B8C467006F7EDB /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
 		C54AF60619B8C467006F7EDB /* WLTimelineEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03A19AC9562006F27A7 /* WLTimelineEventCell.m */; };
-		C54AF60819B8C467006F7EDB /* WLNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLNotificationCell.m */; };
+		C54AF60819B8C467006F7EDB /* WLWhatsUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLWhatsUpCell.m */; };
 		C54AF60A19B8C467006F7EDB /* WLToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3EE1920F7E0007BE6CC /* WLToast.m */; };
 		C54AF60E19B8C467006F7EDB /* WLTimelineEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03319AC8FA5006F27A7 /* WLTimelineEvent.m */; };
 		C54AF61319B8C467006F7EDB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A179C1937694B002B3737 /* MessageUI.framework */; };
@@ -715,7 +715,7 @@
 		C54AF66D19B8C491006F7EDB /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C54AF67219B8C491006F7EDB /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104B19067095007DB4AC /* WLCommentCell.m */; };
 		C54AF67819B8C491006F7EDB /* WLCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1293678218E33A3500527250 /* WLCandyCell.m */; };
-		C54AF67A19B8C491006F7EDB /* WLNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLNotificationsViewController.m */; };
+		C54AF67A19B8C491006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
 		C54AF67C19B8C491006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
@@ -748,7 +748,7 @@
 		C54AF6F719B8C491006F7EDB /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */; };
 		C54AF6FF19B8C491006F7EDB /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
 		C54AF70319B8C491006F7EDB /* WLTimelineEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03A19AC9562006F27A7 /* WLTimelineEventCell.m */; };
-		C54AF70519B8C491006F7EDB /* WLNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLNotificationCell.m */; };
+		C54AF70519B8C491006F7EDB /* WLWhatsUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLWhatsUpCell.m */; };
 		C54AF70719B8C491006F7EDB /* WLToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3EE1920F7E0007BE6CC /* WLToast.m */; };
 		C54AF70B19B8C491006F7EDB /* WLTimelineEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FFB03319AC8FA5006F27A7 /* WLTimelineEvent.m */; };
 		C54AF71019B8C491006F7EDB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A179C1937694B002B3737 /* MessageUI.framework */; };
@@ -1568,7 +1568,7 @@
 		C5C20BEA1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
 		C5C20BEB1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
 		C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
-		C5C6465519A6264300F8243A /* WLNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLNotificationCell.m */; };
+		C5C6465519A6264300F8243A /* WLWhatsUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLWhatsUpCell.m */; };
 		C5D051B41A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */; };
 		C5D051B51A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */; };
 		C5D051B61A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */; };
@@ -2222,8 +2222,8 @@
 		C50647681ABD889100CB4BE3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C5111D371AB345D10094275C /* WLIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIntroductionViewController.h; sourceTree = "<group>"; };
 		C5111D381AB345D10094275C /* WLIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIntroductionViewController.m; sourceTree = "<group>"; };
-		C51383CE19A4AB3300D23257 /* WLNotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLNotificationsViewController.h; path = WLNotificationsViewController/WLNotificationsViewController.h; sourceTree = "<group>"; };
-		C51383CF19A4AB3300D23257 /* WLNotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLNotificationsViewController.m; path = WLNotificationsViewController/WLNotificationsViewController.m; sourceTree = "<group>"; };
+		C51383CE19A4AB3300D23257 /* WLWhatsUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWhatsUpViewController.h; path = WLWhatsUpViewController/WLWhatsUpViewController.h; sourceTree = "<group>"; };
+		C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWhatsUpViewController.m; path = WLWhatsUpViewController/WLWhatsUpViewController.m; sourceTree = "<group>"; };
 		C514AA541A6D618700A562CE /* WLWrapPickerHintView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLWrapPickerHintView.xib; sourceTree = "<group>"; };
 		C514AA591A6D61DF00A562CE /* WLCandySwipeHintView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCandySwipeHintView.xib; sourceTree = "<group>"; };
 		C514AA5F1A6D624900A562CE /* WLGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLGradientView.h; sourceTree = "<group>"; };
@@ -2933,8 +2933,8 @@
 		C5C20BC61A239D6F008B2E2E /* WLProfileInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLProfileInformationViewController.m; sourceTree = "<group>"; };
 		C5C20BC71A239D6F008B2E2E /* WLSignupFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignupFlowViewController.h; sourceTree = "<group>"; };
 		C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignupFlowViewController.m; sourceTree = "<group>"; };
-		C5C6465319A6264300F8243A /* WLNotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLNotificationCell.h; path = WLNotificationsViewController/WLNotificationCell.h; sourceTree = "<group>"; };
-		C5C6465419A6264300F8243A /* WLNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLNotificationCell.m; path = WLNotificationsViewController/WLNotificationCell.m; sourceTree = "<group>"; };
+		C5C6465319A6264300F8243A /* WLWhatsUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWhatsUpCell.h; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.h; sourceTree = "<group>"; };
+		C5C6465419A6264300F8243A /* WLWhatsUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWhatsUpCell.m; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.m; sourceTree = "<group>"; };
 		C5D051B21A9F7D7B00855A01 /* WLAddressBookRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookRecord.h; sourceTree = "<group>"; };
 		C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookRecord.m; sourceTree = "<group>"; };
 		C5D051B81A9F7E6E00855A01 /* WLAddressBookPhoneNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookPhoneNumber.h; sourceTree = "<group>"; };
@@ -3354,7 +3354,7 @@
 				C504178E19B9EE20000E55F3 /* WLContributorsViewController */,
 				C504177919B9EE15000E55F3 /* WLAddContributorsViewController */,
 				5B11019719BF337600688C9D /* WLEditWrapViewController */,
-				C51383CD19A4AB0F00D23257 /* WLNotificationsViewController */,
+				C51383CD19A4AB0F00D23257 /* WLWhatsUpViewController */,
 				C5FCC697199A5C4B009A0DC6 /* WLNavigation */,
 				CE1FEABF196EB73000BF1B22 /* WLEditViewController */,
 				ACDE2BA4193DFE85003702D4 /* WLInviteViewController */,
@@ -3921,13 +3921,13 @@
 			name = WLChatGroupSet;
 			sourceTree = "<group>";
 		};
-		5BB04F1319D9794100B5C6EE /* WLNotificationCell */ = {
+		5BB04F1319D9794100B5C6EE /* WLWhatsUpCell */ = {
 			isa = PBXGroup;
 			children = (
-				C5C6465319A6264300F8243A /* WLNotificationCell.h */,
-				C5C6465419A6264300F8243A /* WLNotificationCell.m */,
+				C5C6465319A6264300F8243A /* WLWhatsUpCell.h */,
+				C5C6465419A6264300F8243A /* WLWhatsUpCell.m */,
 			);
-			name = WLNotificationCell;
+			name = WLWhatsUpCell;
 			sourceTree = "<group>";
 		};
 		5BB04F1419D979A600B5C6EE /* WlCandiesCell */ = {
@@ -4298,14 +4298,14 @@
 			path = WLIntroductionViewController;
 			sourceTree = "<group>";
 		};
-		C51383CD19A4AB0F00D23257 /* WLNotificationsViewController */ = {
+		C51383CD19A4AB0F00D23257 /* WLWhatsUpViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5BB04F1319D9794100B5C6EE /* WLNotificationCell */,
-				C51383CE19A4AB3300D23257 /* WLNotificationsViewController.h */,
-				C51383CF19A4AB3300D23257 /* WLNotificationsViewController.m */,
+				5BB04F1319D9794100B5C6EE /* WLWhatsUpCell */,
+				C51383CE19A4AB3300D23257 /* WLWhatsUpViewController.h */,
+				C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */,
 			);
-			name = WLNotificationsViewController;
+			name = WLWhatsUpViewController;
 			sourceTree = "<group>";
 		};
 		C514AA5E1A6D624900A562CE /* WLGradientView */ = {
@@ -7235,7 +7235,7 @@
 				C577C2631A4C427100ECC7E5 /* iVersion.m in Sources */,
 				1293678318E33A3500527250 /* WLCandyCell.m in Sources */,
 				C5C20BA11A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
-				C51383D019A4AB3300D23257 /* WLNotificationsViewController.m in Sources */,
+				C51383D019A4AB3300D23257 /* WLWhatsUpViewController.m in Sources */,
 				C535F9CA1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
 				C5D051B41A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				12A7A70F18DA0946008FF6F0 /* main.m in Sources */,
@@ -7357,7 +7357,7 @@
 				C5FFB03B19AC9562006F27A7 /* WLTimelineEventCell.m in Sources */,
 				C53F2CE41A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				5BA60CEB1A8257ED000F795C /* UIView+Extentions.m in Sources */,
-				C5C6465519A6264300F8243A /* WLNotificationCell.m in Sources */,
+				C5C6465519A6264300F8243A /* WLWhatsUpCell.m in Sources */,
 				12DEC3EF1920F7E0007BE6CC /* WLToast.m in Sources */,
 				C545312E1A24A1F20048A677 /* WLCountryCell.m in Sources */,
 				C54531351A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
@@ -7452,7 +7452,7 @@
 				C577C2641A4C427100ECC7E5 /* iVersion.m in Sources */,
 				C54AF47E19B8C437006F7EDB /* WLCandyCell.m in Sources */,
 				C5C20BA21A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
-				C54AF48019B8C437006F7EDB /* WLNotificationsViewController.m in Sources */,
+				C54AF48019B8C437006F7EDB /* WLWhatsUpViewController.m in Sources */,
 				C535F9CB1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
 				C5D051B51A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				C54AF48219B8C437006F7EDB /* main.m in Sources */,
@@ -7574,7 +7574,7 @@
 				C54AF50919B8C437006F7EDB /* WLTimelineEventCell.m in Sources */,
 				C53F2CE51A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				5BA60CEC1A8257ED000F795C /* UIView+Extentions.m in Sources */,
-				C54AF50B19B8C437006F7EDB /* WLNotificationCell.m in Sources */,
+				C54AF50B19B8C437006F7EDB /* WLWhatsUpCell.m in Sources */,
 				C54AF50D19B8C437006F7EDB /* WLToast.m in Sources */,
 				C545312F1A24A1F20048A677 /* WLCountryCell.m in Sources */,
 				C54531361A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
@@ -7628,7 +7628,7 @@
 				C577C2651A4C427100ECC7E5 /* iVersion.m in Sources */,
 				C54AF57B19B8C467006F7EDB /* WLCandyCell.m in Sources */,
 				C5C20BA31A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
-				C54AF57D19B8C467006F7EDB /* WLNotificationsViewController.m in Sources */,
+				C54AF57D19B8C467006F7EDB /* WLWhatsUpViewController.m in Sources */,
 				C535F9CC1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
 				C5D051B61A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				C54AF57F19B8C467006F7EDB /* main.m in Sources */,
@@ -7750,7 +7750,7 @@
 				C54AF60619B8C467006F7EDB /* WLTimelineEventCell.m in Sources */,
 				C53F2CE61A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				5BA60CED1A8257ED000F795C /* UIView+Extentions.m in Sources */,
-				C54AF60819B8C467006F7EDB /* WLNotificationCell.m in Sources */,
+				C54AF60819B8C467006F7EDB /* WLWhatsUpCell.m in Sources */,
 				C54AF60A19B8C467006F7EDB /* WLToast.m in Sources */,
 				C54531301A24A1F20048A677 /* WLCountryCell.m in Sources */,
 				C54531371A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
@@ -7804,7 +7804,7 @@
 				C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */,
 				C54AF67819B8C491006F7EDB /* WLCandyCell.m in Sources */,
 				C5C20BA41A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
-				C54AF67A19B8C491006F7EDB /* WLNotificationsViewController.m in Sources */,
+				C54AF67A19B8C491006F7EDB /* WLWhatsUpViewController.m in Sources */,
 				C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
 				C5D051B71A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				C54AF67C19B8C491006F7EDB /* main.m in Sources */,
@@ -7926,7 +7926,7 @@
 				C54AF70319B8C491006F7EDB /* WLTimelineEventCell.m in Sources */,
 				C53F2CE71A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				5BA60CEE1A8257ED000F795C /* UIView+Extentions.m in Sources */,
-				C54AF70519B8C491006F7EDB /* WLNotificationCell.m in Sources */,
+				C54AF70519B8C491006F7EDB /* WLWhatsUpCell.m in Sources */,
 				C54AF70719B8C491006F7EDB /* WLToast.m in Sources */,
 				C54531311A24A1F20048A677 /* WLCountryCell.m in Sources */,
 				C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,

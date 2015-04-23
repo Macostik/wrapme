@@ -57,7 +57,7 @@
 
 - (void)enableAPNS {
     __weak typeof(self)weakSelf = self;
-    [WLNotificationCenter deviceToken:^(NSData *data) {
+    [[WLNotificationCenter defaultCenter] deviceToken:^(NSData *data) {
         [PubNub requestParticipantsListWithCompletionBlock:^(PNHereNow *hereNow, NSArray *channels, PNError *error) {
             if (!error) {
                 for (PNChannel *channel in [hereNow channels]) {

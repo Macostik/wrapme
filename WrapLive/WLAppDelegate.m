@@ -66,6 +66,9 @@
             [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
         }
     } failure:nil];
+    [[WLNotificationCenter defaultCenter] setGettingDeviceTokenBlock:^ (WLDataBlock gettingDeviceTokenCompletionBlock) {
+        [self deviceToken:gettingDeviceTokenCompletionBlock];
+    }];
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
@@ -161,8 +164,40 @@
 }
 
 
+static WLDataBlock deviceTokenCompletion = nil;
+
+- (void)deviceToken:(WLDataBlock)completion {
+    NSData* deviceToken = [WLSession deviceToken];
+    if (deviceToken) {
+        completion(deviceToken);
+    } else {
+        if (SystemVersionGreaterThanOrEqualTo8()) {
+            UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc] init];
+            category.identifier = @"chat";
+            UIMutableUserNotificationAction *action = [[UIMutableUserNotificationAction alloc] init];
+            action.identifier = @"reply";
+            action.title = @"Reply";
+            action.activationMode = UIUserNotificationActivationModeForeground;
+            action.authenticationRequired = YES;
+            [category setActions:@[action] forContext:UIUserNotificationActionContextDefault];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+            UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
+            UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:types categories:[NSSet setWithObject:category]];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        } else {
+            UIRemoteNotificationType type = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:type];
+        }
+        deviceTokenCompletion = completion;
+    }
+}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-	[WLNotificationCenter setDeviceToken:deviceToken];
+    [WLSession setDeviceToken:deviceToken];
+    if (deviceTokenCompletion) {
+        deviceTokenCompletion(deviceToken);
+        deviceTokenCompletion = nil;
+    }
 }
 
 
@@ -172,7 +207,6 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    NSLog(@"%@", [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding]);
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
         if ([notification isKindOfClass:[WLEntryNotification class]] && application.applicationState == UIApplicationStateInactive) {
             [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
@@ -180,6 +214,17 @@
         if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
     } failure:^(NSError *error) {
         if (completionHandler) completionHandler(UIBackgroundFetchResultFailed);
+    }];
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
+        if ([notification isKindOfClass:[WLEntryNotification class]] && application.applicationState == UIApplicationStateInactive) {
+            [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+        }
+        if (completionHandler) completionHandler();
+    } failure:^(NSError *error) {
+        if (completionHandler) completionHandler();
     }];
 }
 

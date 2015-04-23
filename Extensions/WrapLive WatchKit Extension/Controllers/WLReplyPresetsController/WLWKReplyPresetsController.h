@@ -11,4 +11,8 @@
 
 @interface WLWKReplyPresetsController : WKInterfaceController
 
+- (NSString*)presetsPropertyListName;
+
+- (void)handlePreset:(NSString*)preset success:(WLBlock)success failure:(WLFailureBlock)failure;
+
 @end

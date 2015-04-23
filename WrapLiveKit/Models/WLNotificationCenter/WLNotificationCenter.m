@@ -72,31 +72,9 @@
     }
 }
 
-static WLDataBlock deviceTokenCompletion = nil;
-
-+ (void)deviceToken:(WLDataBlock)completion {
-    NSData* deviceToken = [WLSession deviceToken];
-    if (deviceToken) {
-        completion(deviceToken);
-    } else {
-        if (SystemVersionGreaterThanOrEqualTo8()) {
-            [[UIApplication sharedApplication] registerForRemoteNotifications];
-            UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
-            UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        } else {
-            UIRemoteNotificationType type = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
-            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:type];
-        }
-        deviceTokenCompletion = completion;
-    }
-}
-
-+ (void)setDeviceToken:(NSData *)deviceToken {
-    [WLSession setDeviceToken:deviceToken];
-    if (deviceTokenCompletion) {
-        deviceTokenCompletion(deviceToken);
-        deviceTokenCompletion = nil;
+- (void)deviceToken:(WLDataBlock)completion {
+    if (self.gettingDeviceTokenBlock) {
+        self.gettingDeviceTokenBlock(completion);
     }
 }
 

@@ -39,7 +39,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     // Do any additional setup after loading the view.
     __weak UICollectionView *collectionView = self.dataSource.collectionView;
     [self.dataSource setItemSizeBlock:^CGSize(WLUser *contributor, NSUInteger index) {
-        CGFloat height = [contributor.securePhones heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller] width:collectionView.width - WLContributorsHorizontalIndent];
+        CGFloat height = [contributor.securePhones heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall] width:collectionView.width - WLContributorsHorizontalIndent];
         return CGSizeMake(collectionView.width, MAX(height + WLContributorsVerticalIndent, WLContributorsMinHeight) + 1);
     }];
 	if (self.wrap.contributedByCurrentUser) {

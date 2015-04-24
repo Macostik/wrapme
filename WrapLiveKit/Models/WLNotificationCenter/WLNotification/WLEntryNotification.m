@@ -274,7 +274,7 @@
 }
 
 - (NSUInteger)unreadNotificationsCount {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@",
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@ AND unread == YES",
                               [NSDate dayAgo], [WLUser currentUser]];
     NSMutableOrderedSet *contribution = [WLContribution entriesWithPredicate:predicate sorterByKey:@"createdAt"];
     [contribution removeObjectsWhileEnumerating:^BOOL(WLEntry *entry) {

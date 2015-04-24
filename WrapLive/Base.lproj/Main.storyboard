@@ -3010,7 +3010,7 @@ Check your internet connection and try again.</string>
                                         </connections>
                                     </button>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="TL4-HZ-bti">
-                                        <rect key="frame" x="210" y="30" width="20" height="20"/>
+                                        <rect key="frame" x="210" y="37" width="20" height="20"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3018,7 +3018,7 @@ Check your internet connection and try again.</string>
                                     <constraint firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" constant="-10" id="0nd-cJ-KtR"/>
                                     <constraint firstItem="0rM-Ee-8of" firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" id="Mlp-zH-ksi"/>
                                     <constraint firstItem="sPd-Ai-V8F" firstAttribute="centerY" secondItem="J3S-jS-mvs" secondAttribute="centerY" id="Oe7-bB-r8N"/>
-                                    <constraint firstItem="J3S-jS-mvs" firstAttribute="centerY" secondItem="TL4-HZ-bti" secondAttribute="centerY" constant="7" id="Ydf-QF-dGl"/>
+                                    <constraint firstItem="J3S-jS-mvs" firstAttribute="centerY" secondItem="TL4-HZ-bti" secondAttribute="centerY" id="Ydf-QF-dGl"/>
                                     <constraint firstAttribute="trailing" secondItem="sPd-Ai-V8F" secondAttribute="trailing" constant="10" id="bG6-qI-I2w"/>
                                     <constraint firstItem="sPd-Ai-V8F" firstAttribute="leading" secondItem="J3S-jS-mvs" secondAttribute="trailing" constant="10" id="fyR-Xa-pQR"/>
                                     <constraint firstAttribute="height" secondItem="sPd-Ai-V8F" secondAttribute="height" constant="40" id="jJj-ki-Nzl"/>

@@ -15,7 +15,8 @@
 
 @interface WLRemoteEntryHandler ()
 
-@property (weak, nonatomic) WLEntry* entry;
+@property (strong, nonatomic) NSString *identifier;
+@property (strong, nonatomic) NSString *key;
 
 @end
 
@@ -38,17 +39,29 @@
     if (_isLoaded) {
         if (entry.valid) {
             [WLNotificationEntryPresenter presentEntryRequestingAuthorization:entry animated:animated];
+            self.key = nil;
+            self.identifier = nil;
         }
-    } else {
-        self.entry = entry;
     }
 }
 
 - (void)setIsLoaded:(BOOL)isLoaded {
     _isLoaded = isLoaded;
-    if (_isLoaded && self.entry != nil) {
-        [self presentEntry:self.entry];
-        self.entry = nil;
+    if (_isLoaded && [self.identifier nonempty]) {
+        id entry = [self entryByKey:self.key withIdentifier:self.identifier];
+        if ([entry valid]) {
+            [self presentEntry:entry];
+        }
+    }
+}
+
+- (WLEntry *)entryByKey:(NSString *)key withIdentifier:(NSString *)identifier {
+    if ([key isEqualToString:WLCandyKey]) {
+       return [WLCandy entry:identifier];
+    } else if ([key isEqualToString:WLCommentKey])  {
+        return [WLComment entry:identifier];
+    } else {
+        return nil;
     }
 }
 
@@ -70,7 +83,10 @@
     NSDictionary *parameters = [[url query] URLQueryParameters];
     NSString *identifier = parameters[WLUIDKey];
     if (identifier.nonempty) {
-        [self presentEntry:[WLEntry entry:identifier]];
+        NSString *key = [url path].lastPathComponent;
+        self.key = key;
+        self.identifier = identifier;
+        [self presentEntry:[self entryByKey:key withIdentifier:identifier]];
     }
 }
 

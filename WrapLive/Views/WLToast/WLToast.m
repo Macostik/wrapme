@@ -120,7 +120,7 @@ static WLToastWindow *sharedWindow = nil;
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UILabel* messageLabel;
-@property (weak, nonatomic) IBOutlet UIImageView* iconView;
+@property (weak, nonatomic) IBOutlet UIView* iconView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewConstraint;
 
 @end

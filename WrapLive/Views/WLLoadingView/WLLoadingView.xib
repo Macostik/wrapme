@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="wrapliveicons.ttf">
+            <string>wrapliveicons</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -15,32 +20,28 @@
                     <rect key="frame" x="23" y="23" width="20" height="20"/>
                     <color key="color" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                 </activityIndicatorView>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_alert_orange" translatesAutoresizingMaskIntoConstraints="NO" id="SzL-Cm-mNv">
-                    <rect key="frame" x="11" y="11" width="44" height="44"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="44" id="TJz-xH-Qau"/>
-                        <constraint firstAttribute="height" constant="44" id="vcY-BW-j4w"/>
-                    </constraints>
-                </imageView>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfR-0v-3bc">
+                    <rect key="frame" x="24" y="24" width="19" height="19"/>
+                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="19"/>
+                    <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerY" secondItem="SzL-Cm-mNv" secondAttribute="centerY" id="NKr-zz-9cf"/>
-                <constraint firstAttribute="centerX" secondItem="SzL-Cm-mNv" secondAttribute="centerX" id="ik2-LA-TUb"/>
+                <constraint firstAttribute="centerX" secondItem="rfR-0v-3bc" secondAttribute="centerX" id="PAL-Bq-wQj"/>
+                <constraint firstAttribute="centerY" secondItem="rfR-0v-3bc" secondAttribute="centerY" id="Q5m-Oa-NN1"/>
                 <constraint firstAttribute="centerX" secondItem="cEm-lK-iqz" secondAttribute="centerX" id="sZA-Ze-7mV"/>
                 <constraint firstAttribute="centerY" secondItem="cEm-lK-iqz" secondAttribute="centerY" id="ukP-x6-uAK"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="errorView" destination="SzL-Cm-mNv" id="JoF-uy-qla"/>
+                <outlet property="errorView" destination="rfR-0v-3bc" id="zf6-UA-myk"/>
                 <outlet property="spinner" destination="cEm-lK-iqz" id="IoE-6J-oeD"/>
             </connections>
         </view>
     </objects>
-    <resources>
-        <image name="ic_alert_orange" width="20" height="18"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

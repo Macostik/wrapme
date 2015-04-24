@@ -35,7 +35,10 @@
     button.frame = CGRectMake(0, 0, 38, 38);
     button.clipsToBounds = NO;
     [button setBackgroundImage:[UIImage imageNamed:@"bg_menu_btn"] forState:UIControlStateNormal];
-    [button setImage:item.image forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont fontWithName:@"wrapliveicons" size:21];
+    [button setTitle:item.text forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor WL_grayLight] forState:UIControlStateHighlighted];
     button.layer.cornerRadius = button.bounds.size.width/2;
     return button;
 }
@@ -96,7 +99,8 @@
     }
     [views setObject:view forKey:configuration];
     if (!contains) {
-        [view addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(present:)]];
+        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(present:)];
+        [view addGestureRecognizer:recognizer];
     }
 }
 
@@ -233,8 +237,8 @@
     return item;
 }
 
-- (void)addItemWithImage:(UIImage *)image block:(WLObjectBlock)block {
-    [self addItem:block].image = image;
+- (void)addItemWithText:(NSString*)text block:(WLObjectBlock)block; {
+    [self addItem:block].text = text;
 }
 
 - (void)present:(UILongPressGestureRecognizer*)sender {
@@ -274,19 +278,23 @@
 @implementation WLMenu (DefinedItems)
 
 - (void)addDeleteItem:(WLObjectBlock)block {
-    [self addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:block];
+    [self addItemWithText:@"n" block:block];
 }
 
 - (void)addLeaveItem:(WLObjectBlock)block {
-    [self addItemWithImage:[UIImage imageNamed:@"btn_menu_leave"] block:block];
+    [self addItemWithText:@"O" block:block];
 }
 
 - (void)addReportItem:(WLObjectBlock)block {
-    [self addItemWithImage:[UIImage imageNamed:@"btn_menu_alert"] block:block];
+    [self addItemWithText:@"s" block:block];
 }
 
 - (void)addDownloadItem:(WLObjectBlock)block {
-    [self addItemWithImage:[UIImage imageNamed:@"btn_menu_download"] block:block];
+    [self addItemWithText:@"o" block:block];
+}
+
+- (void)addCopyItem:(WLObjectBlock)block {
+    [self addItemWithText:@"P" block:block];
 }
 
 @end

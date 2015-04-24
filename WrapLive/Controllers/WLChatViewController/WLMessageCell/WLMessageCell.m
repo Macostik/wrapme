@@ -16,6 +16,7 @@
 #import "WLIconView.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLEntryStatusIndicator.h"
+#import "WLMenu.h"
 
 @interface WLMessageCell () <WLEntryNotifyReceiver>
 
@@ -61,6 +62,16 @@
     self.textView.textContainerInset = UIEdgeInsetsZero;
     self.textView.textContainer.lineFragmentPadding = .0;
     self.bubbleImageView.image = [WLMessageCell bubbleImageWithColor:self.bubbleImageView.backgroundColor];
+    
+    __weak typeof(self)weakSelf = self;
+    [[WLMenu sharedMenu] addView:self configuration:^WLEntry *(WLMenu *menu, BOOL *vibrate) {
+        [menu addCopyItem:^(WLMessage *message) {
+            if (message.text.nonempty) {
+                [[UIPasteboard generalPasteboard] setValue:message.text forPasteboardType:(id)kUTTypeText];
+            }
+        }];
+        return weakSelf.entry;
+    }];
 }
 
 - (void)setShowName:(BOOL)showName {

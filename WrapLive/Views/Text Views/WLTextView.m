@@ -25,6 +25,9 @@
                                              selector:@selector(textDidChange)
                                                  name:UITextViewTextDidChangeNotification
                                                object:self];
+    if (!self.editable) {
+        self.dataDetectorTypes = UIDataDetectorTypeAll;
+    }
 }
 
 - (void)setHidden:(BOOL)hidden {
@@ -75,6 +78,30 @@
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
     self.font = [self.font preferredFontWithPreset:self.preset];
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    if  (self.editable) return NO;
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:self.dataDetectorTypes
+                                                               error:nil];
+    NSArray* resultString = [detector matchesInString:self.text
+                                              options:NSMatchingReportProgress
+                                                range:NSMakeRange(0, [self.text length])];
+    for (NSTextCheckingResult *result in resultString) {
+        NSRange range = result.range;
+        __block BOOL insideFlag = NO;
+        [self.layoutManager enumerateEnclosingRectsForGlyphRange:range
+                                        withinSelectedGlyphRange:NSMakeRange(NSNotFound, 0)
+                                                 inTextContainer:self.textContainer
+                                                      usingBlock:^(CGRect rect, BOOL *stop) {
+                                                          insideFlag = CGRectContainsPoint(rect, point);
+                                                          if (insideFlag) {
+                                                              *stop = YES;
+                                                          }
+                                                      }];
+        return insideFlag;
+    }
+    return NO;
 }
 
 @end

@@ -41,6 +41,7 @@
 }
 
 - (void)setup:(id)entry {
+    if ([entry unread]) [entry setUnread:NO];
     self.pictureView.url = [entry contributor].picture.small;
     self.timeLabel.text = [entry createdAt].timeAgoStringAtAMPM;
     self.wrapImageView.url = [entry picture].small;

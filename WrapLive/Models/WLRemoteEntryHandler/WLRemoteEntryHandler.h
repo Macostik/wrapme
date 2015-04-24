@@ -21,6 +21,8 @@
 
 - (void)presentEntry:(WLEntry*)entry animated:(BOOL)animated;
 
+- (WLEntry *)entryByKey:(NSString *)key withIdentifier:(NSString *)identifier;
+
 @end
 
 @interface WLRemoteEntryHandler (WLNotification)

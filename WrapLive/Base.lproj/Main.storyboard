@@ -295,7 +295,7 @@
                                                 <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" scrollEnabled="NO" editable="NO" text="Awesome photo!" translatesAutoresizingMaskIntoConstraints="NO" id="FgB-22-MIB" customClass="WLTextView">
                                                     <rect key="frame" x="72" y="35" width="176" height="37"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <color key="tintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="tintColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES"/>
@@ -3056,6 +3056,7 @@ Check your internet connection and try again.</string>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8T-0M-jNN" customClass="WLTextView">
                                         <rect key="frame" x="72" y="6" width="236" height="37"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="46" id="rKU-02-UsV"/>
                                         </constraints>

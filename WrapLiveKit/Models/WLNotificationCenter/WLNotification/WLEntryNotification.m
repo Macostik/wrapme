@@ -290,34 +290,23 @@
 - (NSUInteger)unreadNotificationsCandyCount {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND wrap == %@ AND contributor != %@ AND unread == YES",
                               [NSDate dayAgo], self, [WLUser currentUser]];
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([WLCandy class])];
-    request.predicate = predicate;
-    request.resultType = NSCountResultType;
-    return [[[request execute] lastObject] integerValue];
+    return [[WLCandy entriesWithPredicate:predicate sorterByKey:@"createdAt"] count];
 }
 
 - (NSUInteger)unreadNotificationsMessageCount {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND wrap == %@ AND contributor != %@ AND unread == YES",
                               [NSDate dayAgo], self, [WLUser currentUser]];
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([WLMessage class])];
-    request.predicate = predicate;
-    request.resultType = NSCountResultType;
-    return [[[request execute] lastObject] integerValue];
+    return [[WLMessage entriesWithPredicate:predicate sorterByKey:@"createdAt"] count];
 }
 
 - (NSUInteger)unreadNotificationsCommentCount {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND candy.wrap == %@ AND contributor != %@ AND unread == YES",
                               [NSDate dayAgo], self, [WLUser currentUser]];
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([WLComment class])];
-    request.predicate = predicate;
-    request.resultType = NSCountResultType;
-    return [[[request execute] lastObject] integerValue];
+    return [[WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"] count];
 }
 
 @end
 
 @implementation WLComment (WLNotification)
-
-
 
 @end

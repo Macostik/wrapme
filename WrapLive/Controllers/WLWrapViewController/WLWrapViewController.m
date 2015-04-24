@@ -172,6 +172,12 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
+    if ([self isViewLoaded] && self.wrap.valid) {
+        if (candy.unread) candy.unread = NO;
+    }
+}
+
 - (void)notifier:(WLEntryNotifier*)notifier messageAdded:(WLMessage*)message {
     [self updateNotificationCouter];
 }

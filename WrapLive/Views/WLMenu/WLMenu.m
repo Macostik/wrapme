@@ -45,7 +45,7 @@
 
 @end
 
-@interface WLMenu () <UIGestureRecognizerDelegate>
+@interface WLMenu ()
 
 @property (strong, nonatomic) NSMutableArray* items;
 
@@ -100,17 +100,8 @@
     [views setObject:view forKey:configuration];
     if (!contains) {
         UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(present:)];
-        recognizer.delegate = self;
         [view addGestureRecognizer:recognizer];
     }
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return [otherGestureRecognizer.view isKindOfClass:[UITextView class]];
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return [otherGestureRecognizer.view isKindOfClass:[UITextView class]];
 }
 
 - (void)hide {

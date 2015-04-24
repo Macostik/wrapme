@@ -53,10 +53,12 @@
                     weakSelf.userInteractionEnabled = YES;
                 }];
             }];
-        } else {
-            *vibrate = NO;
-            [WLToast showWithMessage:WLLS(@"Cannot delete comment not posted by you.")];
         }
+        [menu addCopyItem:^(WLComment *comment) {
+            if (comment.text.nonempty) {
+                [[UIPasteboard generalPasteboard] setValue:comment.text forPasteboardType:(id)kUTTypeText];
+            }
+        }];
         return comment;
     }];
 }

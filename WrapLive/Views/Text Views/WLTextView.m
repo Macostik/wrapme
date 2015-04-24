@@ -77,4 +77,8 @@
     self.font = [self.font preferredFontWithPreset:self.preset];
 }
 
+- (BOOL)canBecomeFirstResponder {
+    return self.editable;
+}
+
 @end

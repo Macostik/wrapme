@@ -25,6 +25,12 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
         </mutableArray>
+        <mutableArray key="wrapliveicons.ttf">
+            <string>wrapliveicons</string>
+            <string>wrapliveicons</string>
+            <string>wrapliveicons</string>
+            <string>wrapliveicons</string>
+        </mutableArray>
     </customFonts>
     <scenes>
         <!--Camera View Controller-->
@@ -199,9 +205,9 @@
                                                     <constraint firstAttribute="width" secondItem="X3H-5w-amr" secondAttribute="height" multiplier="1:1" id="Yjg-se-3lR"/>
                                                     <constraint firstAttribute="width" constant="44" id="jEj-og-JEY"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
-                                                <state key="normal" image="ic_back_white">
-                                                    <color key="titleColor" red="0.27843138579999999" green="0.27450981740000002" blue="0.26666668059999998" alpha="1" colorSpace="deviceRGB"/>
+                                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
+                                                <state key="normal" title="w">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -345,8 +351,8 @@
                                             <constraint firstAttribute="width" constant="44" id="GPS-E2-PZJ"/>
                                             <constraint firstAttribute="height" constant="44" id="sf7-ue-1EW"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                        <state key="normal" image="ic_back_white">
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
+                                        <state key="normal" title="w">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -873,8 +879,8 @@
                                             <constraint firstAttribute="width" constant="44" id="S5G-TZ-xVb"/>
                                             <constraint firstAttribute="height" constant="44" id="YTh-Pp-dTG"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                        <state key="normal" image="ic_back_white">
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
+                                        <state key="normal" title="w">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -961,13 +967,12 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_next_gray" translatesAutoresizingMaskIntoConstraints="NO" id="cTx-dT-Vn4">
-                                                    <rect key="frame" x="276" y="11" width="44" height="44"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="44" id="4Ns-vD-EzL"/>
-                                                        <constraint firstAttribute="height" constant="44" id="RoI-Pa-hVu"/>
-                                                    </constraints>
-                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0y-gx-usX">
+                                                    <rect key="frame" x="292" y="26" width="15" height="15"/>
+                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="15"/>
+                                                    <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -976,14 +981,14 @@
                                             <constraint firstItem="cyk-4V-zzn" firstAttribute="leading" secondItem="IZd-EB-g2p" secondAttribute="leading" constant="10" id="0nu-d1-o51"/>
                                             <constraint firstAttribute="bottom" secondItem="joJ-BJ-qav" secondAttribute="bottom" id="4dH-xR-Ggg"/>
                                             <constraint firstItem="joJ-BJ-qav" firstAttribute="leading" secondItem="IZd-EB-g2p" secondAttribute="leading" id="5Gh-Ss-UC0"/>
-                                            <constraint firstAttribute="trailing" secondItem="cTx-dT-Vn4" secondAttribute="trailing" id="DDc-vO-lZz"/>
+                                            <constraint firstAttribute="centerY" secondItem="P0y-gx-usX" secondAttribute="centerY" id="7Sa-AY-AeB"/>
                                             <constraint firstAttribute="centerY" secondItem="cyk-4V-zzn" secondAttribute="centerY" id="ESi-Lx-mDu"/>
                                             <constraint firstAttribute="trailing" secondItem="joJ-BJ-qav" secondAttribute="trailing" id="KDR-6Q-VHx"/>
-                                            <constraint firstAttribute="centerY" secondItem="cTx-dT-Vn4" secondAttribute="centerY" id="OAX-Je-OLS"/>
                                             <constraint firstItem="DHt-ol-7Ct" firstAttribute="leading" secondItem="IZd-EB-g2p" secondAttribute="leading" constant="80" id="SaO-JR-g1F"/>
                                             <constraint firstItem="ovx-WR-Sdy" firstAttribute="leading" secondItem="IZd-EB-g2p" secondAttribute="leading" constant="80" id="Yb6-fJ-BKE"/>
                                             <constraint firstAttribute="trailing" secondItem="ovx-WR-Sdy" secondAttribute="trailing" constant="186" id="YhC-HI-Ev8"/>
                                             <constraint firstItem="joJ-BJ-qav" firstAttribute="top" secondItem="IZd-EB-g2p" secondAttribute="top" id="dcy-oW-9xO"/>
+                                            <constraint firstAttribute="trailing" secondItem="P0y-gx-usX" secondAttribute="centerX" constant="20" id="dlT-0Q-ANV"/>
                                             <constraint firstAttribute="centerY" secondItem="DHt-ol-7Ct" secondAttribute="centerY" constant="10" id="fpP-Ib-0V9"/>
                                             <constraint firstAttribute="trailing" secondItem="DHt-ol-7Ct" secondAttribute="trailing" constant="42" id="rde-Qr-Mdo"/>
                                             <constraint firstAttribute="centerY" secondItem="ovx-WR-Sdy" secondAttribute="centerY" constant="-9.5" id="wUy-nt-m28"/>
@@ -1140,11 +1145,9 @@
     <resources>
         <image name="camera_btn" width="84" height="84"/>
         <image name="ic_accepted" width="20" height="20"/>
-        <image name="ic_back_white" width="12" height="22"/>
         <image name="ic_emoji_keyboard_white" width="30" height="18"/>
         <image name="ic_emoji_smile" width="26" height="26"/>
         <image name="ic_gallery_medium" width="50" height="50"/>
-        <image name="ic_next_gray" width="8" height="14"/>
         <image name="switch_to_front_cam" width="23" height="18"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

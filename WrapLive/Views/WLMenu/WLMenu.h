@@ -14,7 +14,7 @@ typedef WLEntry *(^WLMenuConfiguration)(WLMenu* menu, BOOL *vibrate);
 
 @interface WLMenuItem : NSObject
 
-@property (strong, nonatomic) UIImage* image;
+@property (strong, nonatomic) NSString* text;
 
 @property (strong, nonatomic) WLObjectBlock block;
 
@@ -34,7 +34,7 @@ typedef WLEntry *(^WLMenuConfiguration)(WLMenu* menu, BOOL *vibrate);
 
 - (WLMenuItem*)addItem:(WLObjectBlock)block;
 
-- (void)addItemWithImage:(UIImage*)image block:(WLObjectBlock)block;
+- (void)addItemWithText:(NSString*)text block:(WLObjectBlock)block;
 
 @end
 
@@ -47,5 +47,7 @@ typedef WLEntry *(^WLMenuConfiguration)(WLMenu* menu, BOOL *vibrate);
 - (void)addReportItem:(WLObjectBlock)block;
 
 - (void)addDownloadItem:(WLObjectBlock)block;
+
+- (void)addCopyItem:(WLObjectBlock)block;
 
 @end

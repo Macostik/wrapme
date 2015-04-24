@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -94,6 +94,8 @@
             <string>OpenSans-Semibold</string>
         </mutableArray>
         <mutableArray key="wrapliveicons.ttf">
+            <string>wrapliveicons</string>
+            <string>wrapliveicons</string>
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
@@ -522,13 +524,16 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sign_up_candy_small" translatesAutoresizingMaskIntoConstraints="NO" id="1jO-TY-W2q">
-                                <rect key="frame" x="12" y="108" width="44" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ok-gy-eVo">
+                                <rect key="frame" x="8" y="108" width="50" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="FEK-mU-h9s"/>
-                                    <constraint firstAttribute="width" constant="44" id="GSA-yZ-iAA"/>
+                                    <constraint firstAttribute="height" constant="44" id="8v5-RJ-m1m"/>
+                                    <constraint firstAttribute="width" constant="50" id="EqN-OG-ji0"/>
                                 </constraints>
-                            </imageView>
+                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="38"/>
+                                <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xod-QW-gum" customClass="WLSeparatorView">
                                 <rect key="frame" x="0.0" y="152" width="320" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -625,7 +630,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="1jO-TY-W2q" secondAttribute="leading" id="0nU-fs-ktk"/>
                             <constraint firstAttribute="trailing" secondItem="hNJ-iN-ANg" secondAttribute="trailing" constant="15" id="1M1-kJ-RDv"/>
                             <constraint firstItem="xod-QW-gum" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="1db-kQ-aKh"/>
                             <constraint firstItem="qU7-Ez-lna" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="-20" id="1dk-As-dQf"/>
@@ -636,19 +640,20 @@
                             <constraint firstItem="cRK-Tr-qQy" firstAttribute="top" secondItem="7C1-yc-O8X" secondAttribute="bottom" constant="15" id="Det-Z5-xqw"/>
                             <constraint firstItem="hNJ-iN-ANg" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="DqZ-ak-FZI"/>
                             <constraint firstItem="xod-QW-gum" firstAttribute="top" secondItem="Lq0-rh-5bS" secondAttribute="bottom" id="EIk-hi-aeH"/>
+                            <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="7Ok-gy-eVo" secondAttribute="leading" constant="4" id="ENs-zQ-ALk"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="G9j-4K-lq1"/>
                             <constraint firstItem="MDJ-Nd-sbY" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="HA9-f5-7Ud"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="HdV-Pv-jgs"/>
                             <constraint firstAttribute="trailing" secondItem="fos-MI-VJD" secondAttribute="trailing" constant="15" id="J03-jl-mne"/>
                             <constraint firstAttribute="trailing" secondItem="Lq0-rh-5bS" secondAttribute="trailing" constant="12" id="NA3-Fi-lhu"/>
                             <constraint firstItem="MDJ-Nd-sbY" firstAttribute="top" secondItem="co2-D4-XAH" secondAttribute="bottom" id="OnQ-99-3BE"/>
+                            <constraint firstItem="Lq0-rh-5bS" firstAttribute="centerY" secondItem="7Ok-gy-eVo" secondAttribute="centerY" id="P3P-Gt-83L"/>
                             <constraint firstItem="R6h-Ul-Nr0" firstAttribute="leading" secondItem="co2-D4-XAH" secondAttribute="leading" id="SvJ-CX-7Vo"/>
                             <constraint firstAttribute="trailing" secondItem="co2-D4-XAH" secondAttribute="trailing" constant="12" id="TqK-kg-CWd"/>
                             <constraint firstAttribute="trailing" secondItem="7C1-yc-O8X" secondAttribute="trailing" constant="15" id="U4D-Jf-d24"/>
                             <constraint firstItem="fos-MI-VJD" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="ZKd-f9-wPp"/>
                             <constraint firstItem="fos-MI-VJD" firstAttribute="top" secondItem="hNJ-iN-ANg" secondAttribute="bottom" constant="5" id="f1e-0I-nj6"/>
                             <constraint firstItem="7C1-yc-O8X" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="gFW-mt-V7Q"/>
-                            <constraint firstItem="Lq0-rh-5bS" firstAttribute="centerY" secondItem="1jO-TY-W2q" secondAttribute="centerY" id="jYK-sT-MmS"/>
                             <constraint firstAttribute="trailing" secondItem="MDJ-Nd-sbY" secondAttribute="trailing" id="kWI-un-S07"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="88" id="nGi-ad-drO"/>
                             <constraint firstItem="7C1-yc-O8X" firstAttribute="top" secondItem="fos-MI-VJD" secondAttribute="bottom" constant="5" id="rkS-9q-D9y"/>
@@ -1549,10 +1554,13 @@
                                             <constraint firstAttribute="width" constant="44" id="Gxm-zF-qHA"/>
                                             <constraint firstAttribute="height" constant="44" id="U0s-JZ-hYs"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                        <state key="normal" image="ic_new_wrap_def">
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="33"/>
+                                        <state key="normal" title="Q">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="createWrap:" destination="L91-fZ-J9O" eventType="touchUpInside" id="PaX-MT-Mn0"/>
@@ -3645,7 +3653,6 @@ Check your internet connection and try again.</string>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="0OD-Cn-Lp6" customClass="WLTextView">
                                                             <rect key="frame" x="5" y="0.0" width="103" height="30"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <color key="tintColor" red="0.26379796862602234" green="0.26379004120826721" blue="0.26379451155662537" alpha="1" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                             <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
@@ -3787,17 +3794,6 @@ Check your internet connection and try again.</string>
                                                             <rect key="frame" x="0.0" y="0.0" width="113" height="48"/>
                                                             <color key="backgroundColor" red="1" green="0.67450980392156867" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </imageView>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="cMC-ND-b5t" customClass="WLTextView">
-                                                            <rect key="frame" x="5" y="0.0" width="103" height="30"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <color key="tintColor" red="0.26379796862602234" green="0.26379004120826721" blue="0.26379451155662537" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </textView>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="84" translatesAutoresizingMaskIntoConstraints="NO" id="HUe-Pv-h6W" customClass="WLLabel">
                                                             <rect key="frame" x="5" y="0.0" width="103" height="18"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3826,6 +3822,16 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="cMC-ND-b5t" customClass="WLTextView">
+                                                            <rect key="frame" x="5" y="0.0" width="103" height="30"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </textView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -4540,10 +4546,8 @@ Check your internet connection and try again.</string>
         <image name="ic_emoji" width="26" height="26"/>
         <image name="ic_emoji_keyboard" width="30" height="18"/>
         <image name="ic_logo_wo_candy" width="72" height="20"/>
-        <image name="ic_new_wrap_def" width="30" height="30"/>
         <image name="ic_photo_placeholder" width="60" height="48"/>
         <image name="ic_search" width="16" height="16"/>
-        <image name="sign_up_candy_small" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

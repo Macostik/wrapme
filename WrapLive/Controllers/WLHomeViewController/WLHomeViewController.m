@@ -19,7 +19,6 @@
 #import "WLHomeViewController.h"
 #import "WLLoadingView.h"
 #import "WLNavigationHelper.h"
-#import "WLNotificationCenter.h"
 #import "WLRefresher.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
@@ -36,11 +35,12 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLTouchView.h"
 #import "WLChronologicalEntryPresenter.h"
+#import "WLCollectionView.h"
 
 @interface WLHomeViewController () <WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate>
 
 @property (strong, nonatomic) IBOutlet WLHomeDataSource *dataSource;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *hiddenEmailConfirmationConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *visibleEmailConfirmationConstraint;
@@ -68,6 +68,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak typeof(self)weakSelf = self;
+    
+    __weak WLOperationQueue *queue = [WLOperationQueue queueNamed:WLOperationFetchingDataQueue];
+    [queue setStartQueueBlock:^{
+        weakSelf.collectionView.stopReloadingData = YES;
+    }];
+    [queue setFinishQueueBlock:^{
+        weakSelf.collectionView.stopReloadingData = NO;
+        queue.startQueueBlock = nil;
+        queue.finishQueueBlock = nil;
+    }];
+    
     self.createWrapTipHidden = YES;
     
     [[WLAddressBook addressBook] beginCaching];
@@ -79,12 +91,9 @@
     [[WLCandy notifier] addReceiver:self];
     [[WLComment notifier] addReceiver:self];
     [[WLMessage notifier] addReceiver:self];
-	
-    [[WLNotificationCenter defaultCenter] addReceiver:self];
     
     __weak WLHomeDataSource *dataSource = self.dataSource;
     [dataSource setRefreshable];
-    __weak typeof(self)weakSelf = self;
     [dataSource setItemSizeBlock:^CGSize(WLWrap *wrap, NSUInteger index) {
         CGFloat height = 50;
         if (index == 0) {

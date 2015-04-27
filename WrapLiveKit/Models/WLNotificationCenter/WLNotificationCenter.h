@@ -6,15 +6,13 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLBroadcaster.h"
-
-@class WLNotificationCenter;
-
-@interface WLNotificationCenter : WLBroadcaster
+@interface WLNotificationCenter : NSObject
 
 @property (strong, nonatomic) void (^gettingDeviceTokenBlock) (WLDataBlock gettingDeviceTokenCompletionBlock);
 
 + (instancetype)defaultCenter;
+
+- (void)configure;
 
 - (void)handleRemoteNotification:(NSDictionary*)data success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 

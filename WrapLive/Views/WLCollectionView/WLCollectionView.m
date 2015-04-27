@@ -34,6 +34,19 @@ static CGFloat WLDefaultType = -1;
     [self addObserver:self forKeyPath:WLContentSize options:NSKeyValueObservingOptionNew context:NULL];
 }
 
+- (void)reloadData {
+    if (!self.stopReloadingData) {
+        [super reloadData];
+    }
+}
+
+- (void)setStopReloadingData:(BOOL)stopReloadingData {
+    _stopReloadingData = stopReloadingData;
+    if (!stopReloadingData) {
+        [super reloadData];
+    }
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:WLContentSize]) {
         if (self.contentSize.width == 0 || self.contentSize.height == 0) {

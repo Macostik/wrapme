@@ -81,7 +81,7 @@
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    if  (self.editable) return NO;
+    if  (self.editable) return [super pointInside:point withEvent:event];
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:self.dataDetectorTypes
                                                                error:nil];
     NSArray* resultString = [detector matchesInString:self.text

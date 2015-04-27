@@ -23,16 +23,6 @@
 
 @implementation WLEntryNotifier
 
-+ (void)initialize {
-    WLOperationQueue *queue = [WLOperationQueue queueNamed:WLOperationFetchingDataQueue];
-    [queue setStartQueueBlock:^{
-        [self beginBatchUpdates];
-    }];
-    [queue setFinishQueueBlock:^{
-        [self commitBatchUpdates];
-    }];
-}
-
 + (instancetype)notifier {
     static id instance = nil;
 	static dispatch_once_t onceToken;

@@ -41,6 +41,10 @@
     
     self.data.operation = [self.contribution add:uploadingSuccessBlock failure:^(NSError *error) {
         if (error.isDuplicatedUploading) {
+            NSDictionary *data = [[error.userInfo dictionaryForKey:WLErrorResponseDataKey] objectForPossibleKeys:WLCandyKey, WLWrapKey, WLCommentKey, WLMessageKey, nil];
+            if ([data isKindOfClass:[NSDictionary class]]) {
+                [weakSelf.contribution API_setup:data];
+            }
             uploadingSuccessBlock(weakSelf.contribution);
         } else if ([error isError:WLErrorContentUnavaliable]) {
             [weakSelf.contribution remove];

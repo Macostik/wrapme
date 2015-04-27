@@ -46,6 +46,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        [self setup];
         __weak typeof(self)weakSelf = self;
         run_after(0.2, ^{
             [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
@@ -56,6 +57,7 @@
                 }
             }];
         });
+        
     }
     return self;
 }
@@ -101,11 +103,9 @@
 	[self connect];
     [PNLogger loggerEnabled:NO];
     [[WLUser notifier] addReceiver:self];
-    [super configure];
 }
 
 - (void)setup {
-    [super setup];
 	[PubNub setupWithConfiguration:[WLNotificationCenter configuration] andDelegate:self];
 }
 

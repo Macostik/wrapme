@@ -212,8 +212,9 @@
 }
 
 - (void)select:(NSIndexPath *)indexPath {
-    if (self.selectionBlock) {
-        self.selectionBlock([self itemAtIndex:[self indexFromIndexPath:indexPath]]);
+    id item = [self itemAtIndex:[self indexFromIndexPath:indexPath]];
+    if (self.selectionBlock && item) {
+        self.selectionBlock(item);
     }
 }
 

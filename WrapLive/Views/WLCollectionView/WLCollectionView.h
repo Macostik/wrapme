@@ -10,6 +10,8 @@
 
 @interface WLCollectionView : UICollectionView
 
+@property (nonatomic) BOOL stopReloadingData;
+
 @property (strong, nonatomic) IBInspectable NSString *nibNamePlaceholder;
 
 - (BOOL)isDefaultPlaceholder;

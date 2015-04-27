@@ -194,14 +194,18 @@
             NSDate *toDate = [NSDate now];
             NSString *logMessage = [NSString stringWithFormat:@"requesting history starting from: %@ to: %@", fromDate, toDate];
             WLLog(@"PUBNUB", logMessage, nil);
-            [PubNub requestHistoryForChannel:weakSelf.userChannel.channel from:[PNDate dateWithDate:fromDate] to:[PNDate dateWithDate:toDate] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, id channel, PNDate* from, PNDate* to, id error) {
-                if (!error) {
-                    [weakSelf handleHistoryMessages:messages from:[from date] to:toDate];
-                } else {
-                    WLLog(@"PUBNUB", @"requesting history error", error);
-                }
+            if  ([WLNetwork network].reachable) {
+                [PubNub requestHistoryForChannel:weakSelf.userChannel.channel from:[PNDate dateWithDate:fromDate] to:[PNDate dateWithDate:toDate] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, id channel, PNDate* from, PNDate* to, id error) {
+                    if (!error) {
+                        [weakSelf handleHistoryMessages:messages from:[from date] to:toDate];
+                    } else {
+                        WLLog(@"PUBNUB", @"requesting history error", error);
+                    }
+                    [operation finish];
+                }];
+            } else {
                 [operation finish];
-            }];
+            }
         } else {
             WLLog(@"PUBNUB", @"history date is empty", nil);
             weakSelf.historyDate = [NSDate now];

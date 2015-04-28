@@ -1725,13 +1725,6 @@
 			remoteGlobalIDString = C56498C61ACB00D2000F1E4B;
 			remoteInfo = "WrapLiveWatchKitExtension-Production";
 		};
-		C55BB7441AE42B3D00350081 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C56498C61ACB00D2000F1E4B;
-			remoteInfo = "WrapLiveWatchKitExtension-Production";
-		};
 		C56498D41ACB00D2000F1E4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -6518,7 +6511,6 @@
 				C559CB751AA0BB6200100B2C /* PBXTargetDependency */,
 				C587C8E21AD2E8B5003E7647 /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
-				C55BB7451AE42B3D00350081 /* PBXTargetDependency */,
 				C55477031AE4E59800188436 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-QA";
@@ -6735,7 +6727,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -8271,11 +8263,6 @@
 			target = C56498C61ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production */;
 			targetProxy = C55BB7421AE42B2B00350081 /* PBXContainerItemProxy */;
 		};
-		C55BB7451AE42B3D00350081 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C56498C61ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production */;
-			targetProxy = C55BB7441AE42B3D00350081 /* PBXContainerItemProxy */;
-		};
 		C56498D51ACB00D2000F1E4B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C56498D11ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production */;
@@ -9722,7 +9709,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

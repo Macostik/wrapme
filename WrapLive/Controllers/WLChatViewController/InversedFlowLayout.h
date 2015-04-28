@@ -23,8 +23,6 @@
 
 @interface InversedFlowLayout : UICollectionViewLayout
 
-@property (strong, nonatomic) NSMutableSet* animatingIndexPaths;
-
 - (void)invalidate;
 
 - (void)registerItemHeaderSupplementaryViewKind:(NSString*)kind;

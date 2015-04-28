@@ -209,9 +209,9 @@ CGFloat WLMaxTextViewWidth;
                 
                 [weakSelf.chat addEntry:message];
                 [collectionView performBatchUpdates:^{
-                    [collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-//                    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:message] inSection:0];
-//                    [collectionView insertItemsAtIndexPaths:@[indexPath]];
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:message] inSection:0];
+                    [collectionView insertItemsAtIndexPaths:@[indexPath]];
+//                    [collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
                 } completion:^(BOOL finished) {
                     completion();
                     [operation finish];

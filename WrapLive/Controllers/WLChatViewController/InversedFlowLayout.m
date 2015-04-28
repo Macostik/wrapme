@@ -25,6 +25,8 @@
 
 @property (strong, nonatomic) NSArray* cellHeadingSupplementaryViewKinds;
 
+@property (strong, nonatomic) NSMutableSet* insertingIndexPaths;
+
 @end
 
 @implementation InversedFlowLayout
@@ -206,30 +208,33 @@
 - (void)prepareForCollectionViewUpdates:(NSArray *)updateItems {
     [super prepareForCollectionViewUpdates:updateItems];
     
-    NSMutableSet* animatingIndexPaths = [NSMutableSet set];
+    NSMutableSet* insertingIndexPaths = [NSMutableSet set];
     for (UICollectionViewUpdateItem *item in updateItems) {
-        /*if (item.updateAction == UICollectionUpdateActionInsert)*/ {
-            [animatingIndexPaths addObject:item.indexPathAfterUpdate];
+        if (item.updateAction == UICollectionUpdateActionInsert) {
+            [insertingIndexPaths addObject:item.indexPathAfterUpdate];
         }
     }
-    self.animatingIndexPaths = animatingIndexPaths;
+    self.insertingIndexPaths = insertingIndexPaths;
 }
 
 - (void)finalizeCollectionViewUpdates {
     [super finalizeCollectionViewUpdates];
-    self.animatingIndexPaths = nil;
+    self.insertingIndexPaths = nil;
 }
 
 - (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
-    UICollectionViewLayoutAttributes *attributes = [[super layoutAttributesForItemAtIndexPath:itemIndexPath] copy];
-    attributes.transform = CGAffineTransformMakeScale(0.5, 0.5);
-    return attributes;
+    if ([self.insertingIndexPaths containsObject:itemIndexPath]) {
+        UICollectionViewLayoutAttributes *attributes = [[self layoutAttributesForItemAtIndexPath:itemIndexPath] copy];
+        attributes.transform = CGAffineTransformMakeTranslation(0, -attributes.size.height);
+        return attributes;
+    }
+    return [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
 }
 
-- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingSupplementaryElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)elementIndexPath {
-    UICollectionViewLayoutAttributes *attributes = [[super layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:elementIndexPath] copy];
-    attributes.transform = CGAffineTransformMakeScale(0.5, 0.5);
-    return attributes;
-}
+//- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingSupplementaryElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)elementIndexPath {
+//    UICollectionViewLayoutAttributes *attributes = [[self layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:elementIndexPath] copy];
+//    attributes.transform = CGAffineTransformMakeTranslation(0, -self.animatingItemSize.height);
+//    return attributes;
+//}
 
 @end

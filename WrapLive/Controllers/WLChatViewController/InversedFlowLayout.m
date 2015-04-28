@@ -171,22 +171,6 @@
     return attributes;
 }
 
-- (void)prepareContentOffset {
-    UICollectionView *collectionView = self.collectionView;
-    CGSize size = collectionView.bounds.size;
-    UIEdgeInsets insets = collectionView.contentInset;
-    CGFloat height = self.contentHeight - (size.height - insets.bottom);
-    CGFloat maxY = MAX(height, -insets.top);
-    
-    CGFloat yOffset = ABS(collectionView.contentOffset.y);
-    if (yOffset > 0 && collectionView.contentSize.height > 0) {
-        CGFloat dx = collectionView.maximumContentOffset.y - yOffset;
-        collectionView.contentOffset = CGPointMake(0, maxY - dx);
-    } else {
-        collectionView.contentOffset = CGPointMake(0, maxY);
-    }
-}
-
 - (void)invalidate {
 //    [self invalidateLayoutWithContext:self.invalidationContext];
 }
@@ -202,11 +186,21 @@
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return self.layoutKeyedAttributes[@"cell"][indexPath];
+    UICollectionViewLayoutAttributes *attributes = self.layoutKeyedAttributes[@"cell"][indexPath];
+    if (!attributes) {
+        [self calculateInitialAttributes];
+        attributes = self.layoutKeyedAttributes[@"cell"][indexPath];
+    }
+    return attributes;
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
-    return self.layoutKeyedAttributes[elementKind][indexPath];
+    UICollectionViewLayoutAttributes *attributes = self.layoutKeyedAttributes[elementKind][indexPath];
+    if (!attributes) {
+        [self calculateInitialAttributes];
+        attributes = self.layoutKeyedAttributes[elementKind][indexPath];
+    }
+    return attributes;
 }
 
 - (void)prepareForCollectionViewUpdates:(NSArray *)updateItems {

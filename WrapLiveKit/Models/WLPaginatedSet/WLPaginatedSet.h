@@ -21,6 +21,8 @@
 
 - (void)paginatedSetChanged:(WLPaginatedSet*)group;
 
+- (void)paginatedSetCompleted:(WLPaginatedSet *)group;
+
 @end
 
 @interface WLPaginatedSet : NSObject

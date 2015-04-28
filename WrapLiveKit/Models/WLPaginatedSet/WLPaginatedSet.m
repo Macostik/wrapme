@@ -125,8 +125,13 @@
 - (void)setCompleted:(BOOL)completed {
     if (completed != _completed) {
         _completed = completed;
-        [self.delegate paginatedSetChanged:self];
+        if (completed) {
+            [self.delegate paginatedSetCompleted:self];
+        } else {
+             [self.delegate paginatedSetChanged:self];
+        }
     }
+
 }
 
 - (BOOL)addEntries:(NSOrderedSet *)entries {

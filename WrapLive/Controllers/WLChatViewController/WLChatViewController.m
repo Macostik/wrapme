@@ -293,6 +293,10 @@ CGFloat WLMaxTextViewWidth;
     [self reloadData];
 }
 
+- (void)paginatedSetCompleted:(WLPaginatedSet *)group {
+    [self reloadData];
+}
+
 - (void)reloadData {
     if (!self.animating) {
         [self.collectionView reloadData];

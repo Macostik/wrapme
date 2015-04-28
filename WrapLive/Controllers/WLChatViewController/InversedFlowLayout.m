@@ -1,0 +1,233 @@
+//
+//  InversedFlowLayout.m
+//  InversedFlowLayout
+//
+//  Created by Sergey Maximenko on 1/27/15.
+//  Copyright (c) 2015 Ravenpod. All rights reserved.
+//
+
+#import "InversedFlowLayout.h"
+#import "UIScrollView+Additions.h"
+
+@interface InversedFlowLayout ()
+
+@property (strong, nonatomic) NSMutableDictionary* layoutKeyedAttributes;
+
+@property (strong, nonatomic) NSMutableSet* layoutAttributes;
+
+@property (nonatomic) CGFloat contentHeight;
+
+@property (strong, nonatomic) NSArray* sectionFootingSupplementaryViewKinds;
+
+@property (strong, nonatomic) NSArray* sectionHeadingSupplementaryViewKinds;
+
+@property (strong, nonatomic) NSArray* cellFootingSupplementaryViewKinds;
+
+@property (strong, nonatomic) NSArray* cellHeadingSupplementaryViewKinds;
+
+@end
+
+@implementation InversedFlowLayout
+
+- (void)prepareLayout {
+    
+    if (!self.sectionFootingSupplementaryViewKinds) {
+        self.sectionFootingSupplementaryViewKinds = @[UICollectionElementKindSectionFooter];
+    }
+    
+    if (!self.sectionHeadingSupplementaryViewKinds) {
+        self.sectionHeadingSupplementaryViewKinds = @[UICollectionElementKindSectionHeader];
+    }
+    
+    [self calculateInitialAttributes];
+    
+    [self prepareContentOffset];
+    
+    [super prepareLayout];
+}
+
+- (void)calculateInitialAttributes {
+    NSMutableArray *layoutAttributes = [NSMutableArray array];
+    
+    UICollectionView *collectionView = self.collectionView;
+    NSUInteger numberOfSections = [collectionView numberOfSections];
+    
+    __block CGFloat contentHeight = 0;
+    
+    NSMutableDictionary *layoutKeyedAttributes = [NSMutableDictionary dictionary];
+    
+    void (^prepareLayoutAttributes) (UICollectionViewLayoutAttributes*, NSString*);
+    prepareLayoutAttributes = ^(UICollectionViewLayoutAttributes *attributes, NSString* kind) {
+        if (attributes) {
+            contentHeight += attributes.size.height;
+            [layoutAttributes addObject:attributes];
+            NSMutableDictionary *layoutKeyedAttributesForKind = [layoutKeyedAttributes objectForKey:kind];
+            if (!layoutKeyedAttributesForKind) {
+                layoutKeyedAttributesForKind = layoutKeyedAttributes[kind] = [NSMutableDictionary dictionary];
+            }
+            [layoutKeyedAttributesForKind setObject:attributes forKey:attributes.indexPath];
+        }
+    };
+    
+    for (NSUInteger section = 0; section < numberOfSections; ++section) {
+        
+        for (NSString *kind in self.sectionFootingSupplementaryViewKinds) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+            UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+            prepareLayoutAttributes(attributes, kind);
+        }
+        
+        NSUInteger numberOfItems = [collectionView numberOfItemsInSection:section];
+        for (NSUInteger item = 0; item < numberOfItems; ++item) {
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
+            
+            for (NSString *kind in self.cellFootingSupplementaryViewKinds) {
+                UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+                prepareLayoutAttributes(attributes, kind);
+            }
+            
+            UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForItemAtIndexPath:indexPath];
+            prepareLayoutAttributes(attributes, @"cell");
+            
+            for (NSString *kind in self.cellHeadingSupplementaryViewKinds) {
+                UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+                prepareLayoutAttributes(attributes, kind);
+            }
+        }
+        
+        for (NSString *kind in self.sectionHeadingSupplementaryViewKinds) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+            UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+            prepareLayoutAttributes(attributes, kind);
+        }
+    }
+    
+    self.contentHeight = contentHeight;
+    
+    self.layoutKeyedAttributes = layoutKeyedAttributes;
+    
+    self.layoutAttributes = [NSMutableSet setWithArray:layoutAttributes];
+    
+    [self adjustFramesWithLayoutAttributes:layoutAttributes];
+}
+
+- (void)adjustFramesWithLayoutAttributes:(NSArray*)layoutAttributes {
+    CGFloat offset = 0;
+    CGFloat contentHeight = self.contentHeight;
+    for (UICollectionViewLayoutAttributes *attributes in layoutAttributes) {
+        CGSize size = attributes.size;
+        offset += size.height;
+        attributes.frame = CGRectMake(0, contentHeight - offset, size.width, size.height);
+    }
+}
+
+- (void)registerItemHeaderSupplementaryViewKind:(NSString *)kind {
+    if (!kind) return;
+    if (!self.cellHeadingSupplementaryViewKinds) {
+        self.cellHeadingSupplementaryViewKinds = @[kind];
+    } else {
+        self.cellHeadingSupplementaryViewKinds = [self.cellHeadingSupplementaryViewKinds arrayByAddingObject:kind];
+    }
+}
+
+- (UICollectionViewLayoutAttributes*)prepareLayoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionView *collectionView = self.collectionView;
+    id <InversedFlowLayoutDelegate> delegate = (id)collectionView.delegate;
+    CGSize size = CGSizeZero;
+    if ([delegate respondsToSelector:@selector(collectionView:sizeForItemAtIndexPath:)]) {
+        size = [delegate collectionView:collectionView sizeForItemAtIndexPath:indexPath];
+    } else {
+        size = CGSizeMake(collectionView.bounds.size.width, 60);
+    }
+    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+    attributes.size = size;
+    if (CGSizeEqualToSize(size, CGSizeZero)) {
+        attributes.hidden = YES;
+    }
+    return attributes;
+}
+
+- (UICollectionViewLayoutAttributes*)prepareLayoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+    CGSize size = CGSizeZero;
+    UICollectionView *collectionView = self.collectionView;
+    id <InversedFlowLayoutDelegate> delegate = (id)collectionView.delegate;
+    if ([delegate respondsToSelector:@selector(collectionView:sizeForSupplementaryViewOfKind:atIndexPath:)]) {
+        size = [delegate collectionView:collectionView sizeForSupplementaryViewOfKind:elementKind atIndexPath:indexPath];
+    }
+    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
+    attributes.size = size;
+    if (CGSizeEqualToSize(size, CGSizeZero)) {
+        attributes.hidden = YES;
+    }
+    return attributes;
+}
+
+- (void)prepareContentOffset {
+    UICollectionView *collectionView = self.collectionView;
+    CGSize size = collectionView.bounds.size;
+    UIEdgeInsets insets = collectionView.contentInset;
+    CGFloat height = self.contentHeight - (size.height - insets.bottom);
+    CGFloat maxY = MAX(height, -insets.top);
+    
+    CGFloat yOffset = ABS(collectionView.contentOffset.y);
+    if (yOffset > 0 && collectionView.contentSize.height > 0) {
+        CGFloat dx = collectionView.maximumContentOffset.y - yOffset;
+        collectionView.contentOffset = CGPointMake(0, maxY - dx);
+    } else {
+        collectionView.contentOffset = CGPointMake(0, maxY);
+    }
+}
+
+- (void)invalidate {
+//    [self invalidateLayoutWithContext:self.invalidationContext];
+}
+
+- (CGSize)collectionViewContentSize {
+    return CGSizeMake(self.collectionView.bounds.size.width, self.contentHeight);
+}
+
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
+    return [[self.layoutAttributes objectsPassingTest:^BOOL(UICollectionViewLayoutAttributes *attributes, BOOL *stop) {
+        return !attributes.hidden && CGRectIntersectsRect(rect, attributes.frame);
+    }] allObjects];
+}
+
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return self.layoutKeyedAttributes[@"cell"][indexPath];
+}
+
+- (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+    return self.layoutKeyedAttributes[elementKind][indexPath];
+}
+
+- (void)prepareForCollectionViewUpdates:(NSArray *)updateItems {
+    [super prepareForCollectionViewUpdates:updateItems];
+    
+    NSMutableSet* animatingIndexPaths = [NSMutableSet set];
+    for (UICollectionViewUpdateItem *item in updateItems) {
+        if (item.updateAction == UICollectionUpdateActionInsert) {
+            [animatingIndexPaths addObject:item.indexPathAfterUpdate];
+        }
+    }
+    self.animatingIndexPaths = animatingIndexPaths;
+}
+
+- (void)finalizeCollectionViewUpdates {
+    [super finalizeCollectionViewUpdates];
+    self.animatingIndexPaths = nil;
+}
+
+- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+    UICollectionViewLayoutAttributes *attributes = [[super layoutAttributesForItemAtIndexPath:itemIndexPath] copy];
+    attributes.transform = CGAffineTransformMakeTranslation(0, -100);
+    return attributes;
+}
+
+- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingSupplementaryElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)elementIndexPath {
+    UICollectionViewLayoutAttributes *attributes = [[super layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:elementIndexPath] copy];
+    attributes.transform = CGAffineTransformMakeTranslation(0, -100);
+    return attributes;
+}
+
+@end

@@ -12,6 +12,8 @@
 
 @property (strong, nonatomic) id <WLDataSourceItems> items;
 
+@property (nonatomic) IBInspectable BOOL headerAnimated;
+
 @property (nonatomic, readonly) BOOL appendable;
 
 @property (strong, nonatomic) void (^changeBlock) (id <WLDataSourceItems> items);

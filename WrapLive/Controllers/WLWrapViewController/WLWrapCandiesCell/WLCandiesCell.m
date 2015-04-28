@@ -39,6 +39,7 @@
         [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
     }];
     self.dataSource = dataSource;
+    self.dataSource.headerAnimated = YES;
 }
 
 - (void)setup:(WLHistoryItem*)item {

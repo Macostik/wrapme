@@ -96,4 +96,12 @@
     if (self.changeBlock) self.changeBlock(self.items);
 }
 
+- (void)paginatedSetCompleted:(WLPaginatedSet *)group {
+    if (self.headerAnimated) {
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+    } else {
+        [self reload];
+    }
+}
+
 @end

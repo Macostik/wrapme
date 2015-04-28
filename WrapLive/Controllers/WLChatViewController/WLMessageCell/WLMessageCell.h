@@ -26,10 +26,6 @@ extern CGFloat WLMaxTextViewWidth;
 
 @interface WLMessageCell : WLEntryCell
 
-@property (nonatomic) BOOL showDay;
-
 @property (nonatomic) BOOL showName;
-
-- (void)setShowName:(BOOL)showName showDay:(BOOL)showDay;
 
 @end

@@ -18,6 +18,11 @@
 
 @implementation WLMessageDateView
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.layer.geometryFlipped = YES;
+}
+
 - (void)setMessage:(WLMessage *)message {
     _message = message;
     self.dateLabel.text = [message.createdAt stringWithFormat:@"MMM d, yyyy"];

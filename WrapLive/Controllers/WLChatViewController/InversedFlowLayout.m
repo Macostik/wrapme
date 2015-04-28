@@ -41,8 +41,6 @@
     
     [self calculateInitialAttributes];
     
-    [self prepareContentOffset];
-    
     [super prepareLayout];
 }
 
@@ -50,6 +48,9 @@
     NSMutableArray *layoutAttributes = [NSMutableArray array];
     
     UICollectionView *collectionView = self.collectionView;
+    
+    id <InversedFlowLayoutDelegate> delegate = (id)collectionView.delegate;
+    
     NSUInteger numberOfSections = [collectionView numberOfSections];
     
     __block CGFloat contentHeight = 0;
@@ -59,6 +60,8 @@
     void (^prepareLayoutAttributes) (UICollectionViewLayoutAttributes*, NSString*);
     prepareLayoutAttributes = ^(UICollectionViewLayoutAttributes *attributes, NSString* kind) {
         if (attributes) {
+            CGSize size = attributes.size;
+            attributes.frame = CGRectMake(0, contentHeight, size.width, size.height);
             contentHeight += attributes.size.height;
             [layoutAttributes addObject:attributes];
             NSMutableDictionary *layoutKeyedAttributesForKind = [layoutKeyedAttributes objectForKey:kind];
@@ -71,7 +74,7 @@
     
     for (NSUInteger section = 0; section < numberOfSections; ++section) {
         
-        for (NSString *kind in self.sectionFootingSupplementaryViewKinds) {
+        for (NSString *kind in self.sectionHeadingSupplementaryViewKinds) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
             UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
             prepareLayoutAttributes(attributes, kind);
@@ -82,21 +85,29 @@
             
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             
-            for (NSString *kind in self.cellFootingSupplementaryViewKinds) {
+            for (NSString *kind in self.cellHeadingSupplementaryViewKinds) {
                 UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
                 prepareLayoutAttributes(attributes, kind);
+            }
+            
+            if ([delegate respondsToSelector:@selector(collectionView:topInteritemSpacingForItemAtIndexPath:)]) {
+                contentHeight += [delegate collectionView:collectionView topInteritemSpacingForItemAtIndexPath:indexPath];
             }
             
             UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForItemAtIndexPath:indexPath];
             prepareLayoutAttributes(attributes, @"cell");
             
-            for (NSString *kind in self.cellHeadingSupplementaryViewKinds) {
+            if ([delegate respondsToSelector:@selector(collectionView:bottomInteritemSpacingForItemAtIndexPath:)]) {
+                contentHeight += [delegate collectionView:collectionView bottomInteritemSpacingForItemAtIndexPath:indexPath];
+            }
+            
+            for (NSString *kind in self.cellFootingSupplementaryViewKinds) {
                 UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
                 prepareLayoutAttributes(attributes, kind);
             }
         }
         
-        for (NSString *kind in self.sectionHeadingSupplementaryViewKinds) {
+        for (NSString *kind in self.sectionFootingSupplementaryViewKinds) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
             UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
             prepareLayoutAttributes(attributes, kind);
@@ -108,18 +119,6 @@
     self.layoutKeyedAttributes = layoutKeyedAttributes;
     
     self.layoutAttributes = [NSMutableSet setWithArray:layoutAttributes];
-    
-    [self adjustFramesWithLayoutAttributes:layoutAttributes];
-}
-
-- (void)adjustFramesWithLayoutAttributes:(NSArray*)layoutAttributes {
-    CGFloat offset = 0;
-    CGFloat contentHeight = self.contentHeight;
-    for (UICollectionViewLayoutAttributes *attributes in layoutAttributes) {
-        CGSize size = attributes.size;
-        offset += size.height;
-        attributes.frame = CGRectMake(0, contentHeight - offset, size.width, size.height);
-    }
 }
 
 - (void)registerItemHeaderSupplementaryViewKind:(NSString *)kind {
@@ -128,6 +127,15 @@
         self.cellHeadingSupplementaryViewKinds = @[kind];
     } else {
         self.cellHeadingSupplementaryViewKinds = [self.cellHeadingSupplementaryViewKinds arrayByAddingObject:kind];
+    }
+}
+
+- (void)registerItemFooterSupplementaryViewKind:(NSString *)kind {
+    if (!kind) return;
+    if (!self.cellFootingSupplementaryViewKinds) {
+        self.cellFootingSupplementaryViewKinds = @[kind];
+    } else {
+        self.cellFootingSupplementaryViewKinds = [self.cellFootingSupplementaryViewKinds arrayByAddingObject:kind];
     }
 }
 
@@ -206,7 +214,7 @@
     
     NSMutableSet* animatingIndexPaths = [NSMutableSet set];
     for (UICollectionViewUpdateItem *item in updateItems) {
-        if (item.updateAction == UICollectionUpdateActionInsert) {
+        /*if (item.updateAction == UICollectionUpdateActionInsert)*/ {
             [animatingIndexPaths addObject:item.indexPathAfterUpdate];
         }
     }
@@ -220,13 +228,13 @@
 
 - (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
     UICollectionViewLayoutAttributes *attributes = [[super layoutAttributesForItemAtIndexPath:itemIndexPath] copy];
-    attributes.transform = CGAffineTransformMakeTranslation(0, -100);
+    attributes.transform = CGAffineTransformMakeScale(0.5, 0.5);
     return attributes;
 }
 
 - (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingSupplementaryElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)elementIndexPath {
     UICollectionViewLayoutAttributes *attributes = [[super layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:elementIndexPath] copy];
-    attributes.transform = CGAffineTransformMakeTranslation(0, -100);
+    attributes.transform = CGAffineTransformMakeScale(0.5, 0.5);
     return attributes;
 }
 

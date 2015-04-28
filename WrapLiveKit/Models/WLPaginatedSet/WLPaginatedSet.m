@@ -126,9 +126,9 @@
     if (completed != _completed) {
         _completed = completed;
         if (completed) {
-            [self.delegate paginatedSetCompleted:self];
+            [self didBecomeCompleted];
         } else {
-             [self.delegate paginatedSetChanged:self];
+            [self didChange];
         }
     }
 
@@ -148,24 +148,32 @@
         return NO;
     }
     [self.entries addObject:entry comparator:self.sortComparator descending:self.sortDescending];
-    [self.delegate paginatedSetChanged:self];
+    [self didChange];
     return YES;
 }
 
 - (void)removeEntry:(id)entry {
     if ([self.entries containsObject:entry]) {
         [self.entries removeObject:entry];
-        [self.delegate paginatedSetChanged:self];
+        [self didChange];
     }
 }
 
 - (void)sort {
     [self.entries sort:self.sortComparator descending:self.sortDescending];
-    [self.delegate paginatedSetChanged:self];
+    [self didChange];
 }
 
 - (void)sort:(id)entry {
     [self sort];
+}
+
+- (void)didChange {
+    [self.delegate paginatedSetChanged:self];
+}
+
+- (void)didBecomeCompleted {
+    [self.delegate paginatedSetCompleted:self];
 }
 
 @end

@@ -15,6 +15,10 @@
 
 - (CGSize)collectionView:(UICollectionView*)collectionView sizeForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath;
 
+- (CGFloat)collectionView:(UICollectionView*)collectionView topInteritemSpacingForItemAtIndexPath:(NSIndexPath*)indexPath;
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView bottomInteritemSpacingForItemAtIndexPath:(NSIndexPath*)indexPath;
+
 @end
 
 @interface InversedFlowLayout : UICollectionViewLayout
@@ -24,5 +28,7 @@
 - (void)invalidate;
 
 - (void)registerItemHeaderSupplementaryViewKind:(NSString*)kind;
+
+- (void)registerItemFooterSupplementaryViewKind:(NSString*)kind;
 
 @end

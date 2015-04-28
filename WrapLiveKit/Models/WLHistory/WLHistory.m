@@ -96,7 +96,7 @@
         return NO;
     }];
     if (removed) {
-        [self.delegate paginatedSetChanged:self];
+        [self didChange];
     }
 }
 
@@ -121,7 +121,7 @@
         return NO;
     }];
     [group addEntry:candy];
-    [self.delegate paginatedSetChanged:self];
+    [self didChange];
 }
 
 - (void)sort {
@@ -150,7 +150,7 @@
         item = [[WLHistoryItem alloc] init];
         item.date = date;
         [self.entries addObject:item];
-        [self.delegate paginatedSetChanged:self];
+        [self didChange];
     }
     return item;
 }

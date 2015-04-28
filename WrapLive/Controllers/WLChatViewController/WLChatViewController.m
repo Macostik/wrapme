@@ -27,10 +27,6 @@
 #import "WLMessageGroupCell.h"
 #import "InversedFlowLayout.h"
 
-static NSUInteger WLChatTypingSection = 0;
-static NSUInteger WLChatMessagesSection = 1;
-static NSUInteger WLChatLoadingSection = 2;
-
 CGFloat WLMaxTextViewWidth;
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate>
@@ -57,12 +53,6 @@ CGFloat WLMaxTextViewWidth;
 
 @property (nonatomic) BOOL animating;
 
-@property (strong, nonatomic) NSIndexSet* supplementarySections;
-
-@property (strong, nonatomic) NSMutableIndexSet* itemsWithName;
-
-@property (strong, nonatomic) NSMutableIndexSet* itemsWithDay;
-
 @end
 
 @implementation WLChatViewController
@@ -79,19 +69,12 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)viewDidLoad {
     
-    [self.collectionView registerNib:[WLLoadingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:WLLoadingViewIdentifier];
-    [self.collectionView registerNib:[WLTypingViewCell nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"WLTypingViewCell"];
+    [self.collectionView registerNib:[WLLoadingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WLLoadingViewIdentifier];
+    [self.collectionView registerNib:[WLTypingViewCell nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLTypingViewCell"];
     [self.collectionView registerNib:[WLMessageDateView nib] forSupplementaryViewOfKind:@"date" withReuseIdentifier:@"WLMessageDateView"];
-    [self.layout registerItemHeaderSupplementaryViewKind:@"date"];
+    [self.layout registerItemFooterSupplementaryViewKind:@"date"];
     
 	[super viewDidLoad];
-    
-    NSMutableIndexSet* supplementarySections = [NSMutableIndexSet indexSetWithIndex:WLChatTypingSection];
-    [supplementarySections addIndex:WLChatLoadingSection];
-    self.supplementarySections = [supplementarySections copy];
-    
-    self.itemsWithDay = [NSMutableIndexSet indexSet];
-    self.itemsWithName = [NSMutableIndexSet indexSet];
     
     UICollectionView *collectionView = self.collectionView;
     
@@ -160,7 +143,7 @@ CGFloat WLMaxTextViewWidth;
             return [message.updatedAt isEqualToDate:weakSelf.wrap.lastUnread];
         }];
         if (unreadMessage.valid) {
-            NSIndexPath *indexPathForCell = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:unreadMessage] inSection:WLChatMessagesSection];
+            NSIndexPath *indexPathForCell = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:unreadMessage] inSection:0];
             if (indexPathForCell.item != NSNotFound) {
                 [self.collectionView scrollToItemAtIndexPath:indexPathForCell atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
             }
@@ -223,11 +206,12 @@ CGFloat WLMaxTextViewWidth;
             [operation finish];
         } else {
             [weakSelf performInsertAnimation:^(WLBlock completion) {
+                
                 [weakSelf.chat addEntry:message];
                 [collectionView performBatchUpdates:^{
-                    [collectionView reloadSections:weakSelf.supplementarySections];
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:message] inSection:WLChatMessagesSection];
-                    [collectionView insertItemsAtIndexPaths:@[indexPath]];
+                    [collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+//                    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:message] inSection:0];
+//                    [collectionView insertItemsAtIndexPaths:@[indexPath]];
                 } completion:^(BOOL finished) {
                     completion();
                     [operation finish];
@@ -493,16 +477,7 @@ CGFloat WLMaxTextViewWidth;
 
 #pragma mark - UICollectionViewDataSource
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    [self.itemsWithName removeAllIndexes];
-    [self.itemsWithDay removeAllIndexes];
-    return 3;
-}
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if ([self.supplementarySections containsIndex:section]) {
-        return 0;
-    }
     return [self.chat.entries count];
 }
 
@@ -510,7 +485,7 @@ CGFloat WLMaxTextViewWidth;
     WLMessage* message = [self.chat.entries tryObjectAtIndex:indexPath.item];
     NSString *cellIdentifier = cellIdentifier = message.contributedByCurrentUser ? WLMyMessageCellIdentifier : WLMessageCellIdentifier;
     WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    [cell setShowName:[self.itemsWithName containsIndex:indexPath.item] || [self.itemsWithDay containsIndex:indexPath.item]];
+    [cell setShowName:[self.chat.messagesWithName containsObject:message]];
     cell.entry = message;
     return cell;
 }
@@ -521,11 +496,7 @@ CGFloat WLMaxTextViewWidth;
         view.message = [self.chat.entries tryObjectAtIndex:indexPath.item];
         return view;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-        WLTypingViewCell* typingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLTypingViewCell" forIndexPath:indexPath];
-        typingView.names = self.chat.typingNames;
-        return typingView;
-    } else {
-        WLLoadingView* loadingView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:WLLoadingViewIdentifier forIndexPath:indexPath];
+        WLLoadingView* loadingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:WLLoadingViewIdentifier forIndexPath:indexPath];
         if (self.chat.wrap) {
             loadingView.error = NO;
             [self appendMessages:^{
@@ -535,15 +506,17 @@ CGFloat WLMaxTextViewWidth;
             }];
         }
         return loadingView;
+    } else {
+        WLTypingViewCell* typingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLTypingViewCell" forIndexPath:indexPath];
+        typingView.names = self.chat.typingNames;
+        return typingView;
     }
 }
 
-- (CGFloat)heightOfMessageCell:(WLMessage *)message containsName:(BOOL)containsName {
-    CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth];
+- (CGFloat)heightOfMessageCell:(WLMessage *)message {
+    BOOL containsName = [self.chat.messagesWithName containsObject:message];
+    CGFloat commentHeight = WLCalculateHeightString(message.text, self.messageFont, WLMaxTextViewWidth);
     CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
-    if (containsName) {
-        topInset += WLMessageGroupSpacing;
-    }
     CGFloat bottomInset = WLMessageNameInset;
     commentHeight = topInset + commentHeight + bottomInset;
     return MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight);
@@ -551,31 +524,31 @@ CGFloat WLMaxTextViewWidth;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
-    WLMessage* previousMessage = [self.chat.entries tryObjectAtIndex:indexPath.item + 1];
-    BOOL containsName = (previousMessage == nil || previousMessage.contributor != message.contributor);
-    if (containsName) {
-        [self.itemsWithName addIndex:indexPath.item];
-    }
-    return CGSizeMake(collectionView.width, [self heightOfMessageCell:message containsName:containsName]);
+    return CGSizeMake(collectionView.width, [self heightOfMessageCell:message]);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:@"date"]) {
         WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
-        WLMessage* previousMessage = [self.chat.entries tryObjectAtIndex:indexPath.item + 1];
-        BOOL showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
-        return showDay ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
+        return [self.chat.messagesWithDay containsObject:message] ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-        if (indexPath.section != WLChatTypingSection || !self.chat.showTypingView) return CGSizeZero;
-        return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetSmall] width:WLMaxTextViewWidth]));
-    } else {
-        if (indexPath.section != WLChatLoadingSection || self.chat.completed) return CGSizeZero;
+        if (self.chat.completed) return CGSizeZero;
         return CGSizeMake(collectionView.width, WLLoadingViewDefaultSize);
+    } else {
+        if (!self.chat.showTypingView) return CGSizeZero;
+        return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetSmall] width:WLMaxTextViewWidth]));
     }
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 3;
+- (CGFloat)collectionView:(UICollectionView *)collectionView bottomInteritemSpacingForItemAtIndexPath:(NSIndexPath *)indexPath {
+    WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
+    if ([self.chat.messagesWithDay containsObject:message]) {
+        return 0;
+    } else if ([self.chat.messagesWithName containsObject:message]) {
+        return WLMessageGroupSpacing;
+    } else {
+        return 3;
+    }
 }
 
 #pragma mark - WLFontPresetterReceiver

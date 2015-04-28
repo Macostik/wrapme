@@ -166,7 +166,7 @@ static WLToastWindow *sharedWindow = nil;
 #pragma mark - WLDeviceOrientationBroadcastReceiver
 
 - (NSUInteger)supportedInterfaceOrientations {
-    return  UIInterfaceOrientationMaskAll;
+    return  [[UIWindow mainWindow].rootViewController supportedInterfaceOrientations];
 }
 
 @end

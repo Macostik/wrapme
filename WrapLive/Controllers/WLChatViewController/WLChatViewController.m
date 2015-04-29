@@ -445,7 +445,6 @@ CGFloat WLMaxTextViewWidth;
 - (CGFloat)heightOfMessageCell:(WLMessage *)message {
     BOOL containsName = [self.chat.messagesWithName containsObject:message];
     CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth];
-//    commentHeight = WLCalculateHeightString(message.text, self.messageFont, WLMaxTextViewWidth);
     CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
     CGFloat bottomInset = WLMessageNameInset;
     commentHeight = topInset + commentHeight + bottomInset;
@@ -482,9 +481,9 @@ CGFloat WLMaxTextViewWidth;
     if ([self.chat.messagesWithDay containsObject:message]) {
         return 0;
     } else if ([self.chat.messagesWithName containsObject:message]) {
-        return WLMessageGroupSpacing;
+        return [self.chat.unreadMessages lastObject] == message ? 0 : WLMessageGroupSpacing;
     } else {
-        return 3;
+        return [self.chat.unreadMessages lastObject] == message ? 0 : 3;
     }
 }
 

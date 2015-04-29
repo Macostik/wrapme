@@ -846,7 +846,6 @@
 		C55B25AC1AC9A6210072E9D2 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
 		C55B25AD1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
 		C55B25AE1AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
-		C55BB7461AE430C000350081 /* WrapLiveWatchKitExtension-Production.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C56498C71ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C55C366B1ACEB7A900C614BD /* WrapLiveKit_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */; };
 		C55D6A751AB6D55200256CF3 /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55D6A741AB6D55200256CF3 /* Introduction.storyboard */; };
 		C55D6A761AB6D55200256CF3 /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55D6A741AB6D55200256CF3 /* Introduction.storyboard */; };
@@ -1718,13 +1717,6 @@
 			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
 			remoteInfo = CopyProvisioningProfiles;
 		};
-		C55BB7421AE42B2B00350081 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C56498C61ACB00D2000F1E4B;
-			remoteInfo = "WrapLiveWatchKitExtension-Production";
-		};
 		C56498D41ACB00D2000F1E4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -1898,7 +1890,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C55BB7461AE430C000350081 /* WrapLiveWatchKitExtension-Production.appex in Embed App Extensions */,
 				C5E54B361ACBF83A00444F7B /* WrapLiveToday-Production.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -6554,7 +6545,6 @@
 				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
 				C587C8E61AD2E8C0003E7647 /* PBXTargetDependency */,
 				C5E54B381ACBF83A00444F7B /* PBXTargetDependency */,
-				C55BB7431AE42B2B00350081 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Production";
 			productName = WrapLive;
@@ -8254,11 +8244,6 @@
 			isa = PBXTargetDependency;
 			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
 			targetProxy = C559CB781AA0BB6900100B2C /* PBXContainerItemProxy */;
-		};
-		C55BB7431AE42B2B00350081 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C56498C61ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production */;
-			targetProxy = C55BB7421AE42B2B00350081 /* PBXContainerItemProxy */;
 		};
 		C56498D51ACB00D2000F1E4B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

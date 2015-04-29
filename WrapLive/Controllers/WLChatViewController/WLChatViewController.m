@@ -481,9 +481,9 @@ CGFloat WLMaxTextViewWidth;
     if ([self.chat.messagesWithDay containsObject:message]) {
         return 0;
     } else if ([self.chat.messagesWithName containsObject:message]) {
-        return WLMessageGroupSpacing;
+        return [self.chat.unreadMessages lastObject] == message ? 0 : WLMessageGroupSpacing;
     } else {
-        return 3;
+        return [self.chat.unreadMessages lastObject] == message ? 0 : 3;
     }
 }
 

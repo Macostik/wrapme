@@ -53,7 +53,7 @@ static NSString *WLCollectionElementKindItem = @"item";
     
     UICollectionView *collectionView = self.collectionView;
     
-    id <InversedFlowLayoutDelegate> delegate = (id)collectionView.delegate;
+    id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
     
     NSUInteger numberOfSections = [collectionView numberOfSections];
     
@@ -155,7 +155,7 @@ static NSString *WLCollectionElementKindItem = @"item";
 
 - (UICollectionViewLayoutAttributes*)prepareLayoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionView *collectionView = self.collectionView;
-    id <InversedFlowLayoutDelegate> delegate = (id)collectionView.delegate;
+    id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
     CGSize size = CGSizeZero;
     if ([delegate respondsToSelector:@selector(collectionView:sizeForItemAtIndexPath:)]) {
         size = [delegate collectionView:collectionView sizeForItemAtIndexPath:indexPath];
@@ -170,7 +170,7 @@ static NSString *WLCollectionElementKindItem = @"item";
 - (UICollectionViewLayoutAttributes*)prepareLayoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     CGSize size = CGSizeZero;
     UICollectionView *collectionView = self.collectionView;
-    id <InversedFlowLayoutDelegate> delegate = (id)collectionView.delegate;
+    id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
     if ([delegate respondsToSelector:@selector(collectionView:sizeForSupplementaryViewOfKind:atIndexPath:)]) {
         size = [delegate collectionView:collectionView sizeForSupplementaryViewOfKind:elementKind atIndexPath:indexPath];
     }

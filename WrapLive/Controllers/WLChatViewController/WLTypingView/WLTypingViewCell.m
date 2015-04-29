@@ -16,11 +16,6 @@
 
 @implementation WLTypingViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.layer.geometryFlipped = YES;
-}
-
 - (void)setNames:(NSString *)names {
     self.nameTextField.text = names;
     self.nameTextField.hidden = !names.nonempty;

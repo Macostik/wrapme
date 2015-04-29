@@ -36,6 +36,8 @@
 
 @property (strong, nonatomic) NSHashTable* messagesWithName;
 
+@property (strong, nonatomic) NSMutableOrderedSet* unreadMessages;
+
 @property (weak, nonatomic) WLWrap* wrap;
 
 @property (readonly, nonatomic) BOOL showTypingView;

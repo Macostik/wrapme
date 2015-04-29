@@ -54,7 +54,6 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    self.layer.geometryFlipped = YES;
     self.avatarView.hidden = self.nameLabel.hidden = YES;
     [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateEmpty];
     [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateFailed];

@@ -25,10 +25,11 @@
 #import "WLFontPresetter.h"
 #import "WLMessageDateView.h"
 #import "WLChatCollectionViewLayout.h"
+#import "WLUnreadMessagesView.h"
 
 CGFloat WLMaxTextViewWidth;
 
-@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate>
+@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate, WLChatCollectionViewLayoutDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
@@ -71,7 +72,9 @@ CGFloat WLMaxTextViewWidth;
     [self.collectionView registerNib:[WLLoadingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WLLoadingViewIdentifier];
     [self.collectionView registerNib:[WLTypingViewCell nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLTypingViewCell"];
     [self.collectionView registerNib:[WLMessageDateView nib] forSupplementaryViewOfKind:@"date" withReuseIdentifier:@"WLMessageDateView"];
+    [self.collectionView registerNib:[WLUnreadMessagesView nib] forSupplementaryViewOfKind:@"unreadMessagesView" withReuseIdentifier:@"WLUnreadMessagesView"];
     [self.layout registerItemFooterSupplementaryViewKind:@"date"];
+    [self.layout registerItemFooterSupplementaryViewKind:@"unreadMessagesView"];
     
 	[super viewDidLoad];
     
@@ -404,14 +407,20 @@ CGFloat WLMaxTextViewWidth;
     WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     [cell setShowName:[self.chat.messagesWithName containsObject:message]];
     cell.entry = message;
+    cell.layer.geometryFlipped = YES;
     return cell;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    UICollectionReusableView *supplementaryView = nil;
     if ([kind isEqualToString:@"date"]) {
         WLMessageDateView* view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLMessageDateView" forIndexPath:indexPath];
         view.message = [self.chat.entries tryObjectAtIndex:indexPath.item];
-        return view;
+        supplementaryView = view;
+    } else if ([kind isEqualToString:@"unreadMessagesView"]) {
+        WLUnreadMessagesView *unreadMessagesView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLUnreadMessagesView" forIndexPath:indexPath];
+        [unreadMessagesView setNumberOfUnreadMessages:[self.chat.unreadMessages count]];
+        supplementaryView = unreadMessagesView;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
         WLLoadingView* loadingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:WLLoadingViewIdentifier forIndexPath:indexPath];
         if (self.chat.wrap) {
@@ -423,17 +432,20 @@ CGFloat WLMaxTextViewWidth;
             }];
         }
         loadingView.layer.geometryFlipped = YES;
-        return loadingView;
+        supplementaryView = loadingView;
     } else {
         WLTypingViewCell* typingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLTypingViewCell" forIndexPath:indexPath];
         typingView.names = self.chat.typingNames;
-        return typingView;
+        supplementaryView = typingView;
     }
+    supplementaryView.layer.geometryFlipped = YES;
+    return supplementaryView;
 }
 
 - (CGFloat)heightOfMessageCell:(WLMessage *)message {
     BOOL containsName = [self.chat.messagesWithName containsObject:message];
-    CGFloat commentHeight = WLCalculateHeightString(message.text, self.messageFont, WLMaxTextViewWidth);
+    CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth];
+//    commentHeight = WLCalculateHeightString(message.text, self.messageFont, WLMaxTextViewWidth);
     CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
     CGFloat bottomInset = WLMessageNameInset;
     commentHeight = topInset + commentHeight + bottomInset;
@@ -449,6 +461,9 @@ CGFloat WLMaxTextViewWidth;
     if ([kind isEqualToString:@"date"]) {
         WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
         return [self.chat.messagesWithDay containsObject:message] ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
+    } else if ([kind isEqualToString:@"unreadMessagesView"]) {
+        WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
+        return (message == [self.chat.unreadMessages lastObject]) ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
         if (self.chat.completed) return CGSizeZero;
         if (self.chat.entries.nonempty) {

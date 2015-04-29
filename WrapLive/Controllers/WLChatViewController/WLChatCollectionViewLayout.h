@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol InversedFlowLayoutDelegate <UICollectionViewDelegate>
+@protocol WLChatCollectionViewLayoutDelegate <UICollectionViewDelegate>
 
 @optional
 - (CGSize)collectionView:(UICollectionView*)collectionView sizeForItemAtIndexPath:(NSIndexPath*)indexPath;

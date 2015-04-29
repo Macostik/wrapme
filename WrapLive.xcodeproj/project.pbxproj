@@ -422,6 +422,7 @@
 		C52E1FF01A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
 		C52E1FF11A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
 		C52E1FF21A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
+		C534D6721AF12BC900D51700 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* WrapLiveKit.framework */; };
 		C535F9CA1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9CB1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9CC1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
@@ -3106,6 +3107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C534D6721AF12BC900D51700 /* WrapLiveKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6722,7 +6724,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -9709,7 +9711,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

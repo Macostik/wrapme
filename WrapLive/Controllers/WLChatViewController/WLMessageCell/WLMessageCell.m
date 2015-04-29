@@ -85,7 +85,6 @@
     }
 	
     self.timeLabel.text = [message.createdAt stringWithFormat:@"h:mmaa"];
-    
     [self.textView determineHyperLink:message.text];
     [self.indicator updateStatusIndicator:message];
 }

@@ -51,7 +51,7 @@
     if (![entry respondsToSelector:@selector(text)]) return .0f;
     UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansRegular
                                           preset:WLFontPresetLarge];
-    return WLCalculateHeightString([entry text], font, WLConstants.screenWidth - WLWhatsUpCommentHorizontalSpacing);
+    return [[entry text] heightWithFont:font width:WLConstants.screenWidth - WLWhatsUpCommentHorizontalSpacing];
 }
 
 @end

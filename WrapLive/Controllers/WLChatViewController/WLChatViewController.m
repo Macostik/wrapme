@@ -445,7 +445,6 @@ CGFloat WLMaxTextViewWidth;
 - (CGFloat)heightOfMessageCell:(WLMessage *)message {
     BOOL containsName = [self.chat.messagesWithName containsObject:message];
     CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth];
-//    commentHeight = WLCalculateHeightString(message.text, self.messageFont, WLMaxTextViewWidth);
     CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
     CGFloat bottomInset = WLMessageNameInset;
     commentHeight = topInset + commentHeight + bottomInset;

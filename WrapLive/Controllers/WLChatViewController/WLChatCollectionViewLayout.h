@@ -21,9 +21,7 @@
 
 @end
 
-@interface InversedFlowLayout : UICollectionViewLayout
-
-- (void)invalidate;
+@interface WLChatCollectionViewLayout : UICollectionViewLayout
 
 - (void)registerItemHeaderSupplementaryViewKind:(NSString*)kind;
 

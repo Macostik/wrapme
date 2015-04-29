@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Regular.ttf">
@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username is typing..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="JgY-kG-uMD" customClass="WLLabel">
-                    <rect key="frame" x="66" y="0.0" width="188" height="44"/>
+                    <rect key="frame" x="77" y="0.0" width="166" height="44"/>
                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                     <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -28,8 +28,8 @@
             </subviews>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="JgY-kG-uMD" secondAttribute="bottom" id="2Pa-ms-lkS"/>
-                <constraint firstItem="JgY-kG-uMD" firstAttribute="leading" secondItem="97O-yH-rHO" secondAttribute="leading" constant="66" id="7qJ-KH-3St"/>
-                <constraint firstAttribute="trailing" secondItem="JgY-kG-uMD" secondAttribute="trailing" constant="66" id="UU2-bX-k9A"/>
+                <constraint firstItem="JgY-kG-uMD" firstAttribute="leading" secondItem="97O-yH-rHO" secondAttribute="leading" constant="77" id="7qJ-KH-3St"/>
+                <constraint firstAttribute="trailing" secondItem="JgY-kG-uMD" secondAttribute="trailing" constant="77" id="UU2-bX-k9A"/>
                 <constraint firstItem="JgY-kG-uMD" firstAttribute="top" secondItem="97O-yH-rHO" secondAttribute="top" id="tGb-ew-0Oe"/>
             </constraints>
             <connections>

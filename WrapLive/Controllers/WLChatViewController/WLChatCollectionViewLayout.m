@@ -6,10 +6,12 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "InversedFlowLayout.h"
+#import "WLChatCollectionViewLayout.h"
 #import "UIScrollView+Additions.h"
 
-@interface InversedFlowLayout ()
+static NSString *WLCollectionElementKindItem = @"item";
+
+@interface WLChatCollectionViewLayout ()
 
 @property (strong, nonatomic) NSMutableDictionary* layoutKeyedAttributes;
 
@@ -21,15 +23,15 @@
 
 @property (strong, nonatomic) NSArray* sectionHeadingSupplementaryViewKinds;
 
-@property (strong, nonatomic) NSArray* cellFootingSupplementaryViewKinds;
+@property (strong, nonatomic) NSArray* itemFootingSupplementaryViewKinds;
 
-@property (strong, nonatomic) NSArray* cellHeadingSupplementaryViewKinds;
+@property (strong, nonatomic) NSArray* itemHeadingSupplementaryViewKinds;
 
 @property (strong, nonatomic) NSMutableSet* insertingIndexPaths;
 
 @end
 
-@implementation InversedFlowLayout
+@implementation WLChatCollectionViewLayout
 
 - (void)prepareLayout {
     
@@ -62,6 +64,7 @@
     void (^prepareLayoutAttributes) (UICollectionViewLayoutAttributes*, NSString*);
     prepareLayoutAttributes = ^(UICollectionViewLayoutAttributes *attributes, NSString* kind) {
         if (attributes) {
+            attributes.hidden = CGSizeEqualToSize(attributes.size, CGSizeZero);
             CGSize size = attributes.size;
             attributes.frame = CGRectMake(0, contentHeight, size.width, size.height);
             contentHeight += attributes.size.height;
@@ -87,7 +90,7 @@
             
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             
-            for (NSString *kind in self.cellHeadingSupplementaryViewKinds) {
+            for (NSString *kind in self.itemHeadingSupplementaryViewKinds) {
                 UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
                 prepareLayoutAttributes(attributes, kind);
             }
@@ -97,13 +100,13 @@
             }
             
             UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForItemAtIndexPath:indexPath];
-            prepareLayoutAttributes(attributes, @"cell");
+            prepareLayoutAttributes(attributes, WLCollectionElementKindItem);
             
             if ([delegate respondsToSelector:@selector(collectionView:bottomInteritemSpacingForItemAtIndexPath:)]) {
                 contentHeight += [delegate collectionView:collectionView bottomInteritemSpacingForItemAtIndexPath:indexPath];
             }
             
-            for (NSString *kind in self.cellFootingSupplementaryViewKinds) {
+            for (NSString *kind in self.itemFootingSupplementaryViewKinds) {
                 UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
                 prepareLayoutAttributes(attributes, kind);
             }
@@ -118,6 +121,15 @@
     
     self.contentHeight = contentHeight;
     
+    CGFloat inset = (collectionView.height - collectionView.verticalContentInsets) - contentHeight;
+    if (inset > 0) {
+        for (UICollectionViewLayoutAttributes *attributes in layoutAttributes) {
+            CGRect frame = attributes.frame;
+            frame.origin.y += inset;
+            attributes.frame = frame;
+        }
+    }
+    
     self.layoutKeyedAttributes = layoutKeyedAttributes;
     
     self.layoutAttributes = [NSMutableSet setWithArray:layoutAttributes];
@@ -125,19 +137,19 @@
 
 - (void)registerItemHeaderSupplementaryViewKind:(NSString *)kind {
     if (!kind) return;
-    if (!self.cellHeadingSupplementaryViewKinds) {
-        self.cellHeadingSupplementaryViewKinds = @[kind];
+    if (!self.itemHeadingSupplementaryViewKinds) {
+        self.itemHeadingSupplementaryViewKinds = @[kind];
     } else {
-        self.cellHeadingSupplementaryViewKinds = [self.cellHeadingSupplementaryViewKinds arrayByAddingObject:kind];
+        self.itemHeadingSupplementaryViewKinds = [self.itemHeadingSupplementaryViewKinds arrayByAddingObject:kind];
     }
 }
 
 - (void)registerItemFooterSupplementaryViewKind:(NSString *)kind {
     if (!kind) return;
-    if (!self.cellFootingSupplementaryViewKinds) {
-        self.cellFootingSupplementaryViewKinds = @[kind];
+    if (!self.itemFootingSupplementaryViewKinds) {
+        self.itemFootingSupplementaryViewKinds = @[kind];
     } else {
-        self.cellFootingSupplementaryViewKinds = [self.cellFootingSupplementaryViewKinds arrayByAddingObject:kind];
+        self.itemFootingSupplementaryViewKinds = [self.itemFootingSupplementaryViewKinds arrayByAddingObject:kind];
     }
 }
 
@@ -152,9 +164,6 @@
     }
     UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     attributes.size = size;
-    if (CGSizeEqualToSize(size, CGSizeZero)) {
-        attributes.hidden = YES;
-    }
     return attributes;
 }
 
@@ -167,18 +176,11 @@
     }
     UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
     attributes.size = size;
-    if (CGSizeEqualToSize(size, CGSizeZero)) {
-        attributes.hidden = YES;
-    }
     return attributes;
 }
 
-- (void)invalidate {
-//    [self invalidateLayoutWithContext:self.invalidationContext];
-}
-
 - (CGSize)collectionViewContentSize {
-    return CGSizeMake(self.collectionView.bounds.size.width, self.contentHeight);
+    return CGSizeMake(self.collectionView.width, self.contentHeight);
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
@@ -187,16 +189,7 @@
     }] allObjects];
 }
 
-- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewLayoutAttributes *attributes = self.layoutKeyedAttributes[@"cell"][indexPath];
-    if (!attributes) {
-        [self calculateInitialAttributes];
-        attributes = self.layoutKeyedAttributes[@"cell"][indexPath];
-    }
-    return attributes;
-}
-
-- (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewLayoutAttributes *)layoutAttributesForElementKind:(NSString*)elementKind atIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewLayoutAttributes *attributes = self.layoutKeyedAttributes[elementKind][indexPath];
     if (!attributes) {
         [self calculateInitialAttributes];
@@ -205,36 +198,12 @@
     return attributes;
 }
 
-- (void)prepareForCollectionViewUpdates:(NSArray *)updateItems {
-    [super prepareForCollectionViewUpdates:updateItems];
-    
-    NSMutableSet* insertingIndexPaths = [NSMutableSet set];
-    for (UICollectionViewUpdateItem *item in updateItems) {
-        if (item.updateAction == UICollectionUpdateActionInsert) {
-            [insertingIndexPaths addObject:item.indexPathAfterUpdate];
-        }
-    }
-    self.insertingIndexPaths = insertingIndexPaths;
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return [self layoutAttributesForElementKind:WLCollectionElementKindItem atIndexPath:indexPath];
 }
 
-- (void)finalizeCollectionViewUpdates {
-    [super finalizeCollectionViewUpdates];
-    self.insertingIndexPaths = nil;
+- (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+    return [self layoutAttributesForElementKind:elementKind atIndexPath:indexPath];
 }
-
-- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
-    if ([self.insertingIndexPaths containsObject:itemIndexPath]) {
-        UICollectionViewLayoutAttributes *attributes = [[self layoutAttributesForItemAtIndexPath:itemIndexPath] copy];
-        attributes.transform = CGAffineTransformMakeTranslation(0, -attributes.size.height);
-        return attributes;
-    }
-    return [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
-}
-
-//- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingSupplementaryElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)elementIndexPath {
-//    UICollectionViewLayoutAttributes *attributes = [[self layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:elementIndexPath] copy];
-//    attributes.transform = CGAffineTransformMakeTranslation(0, -self.animatingItemSize.height);
-//    return attributes;
-//}
 
 @end

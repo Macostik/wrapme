@@ -1176,10 +1176,6 @@
 		C56758161AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */; };
 		C56758171AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */; };
 		C56758181AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */; };
-		C567581C1AEE978F00DFEC93 /* WLMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C567581B1AEE978F00DFEC93 /* WLMessageGroupCell.m */; };
-		C567581D1AEE978F00DFEC93 /* WLMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C567581B1AEE978F00DFEC93 /* WLMessageGroupCell.m */; };
-		C567581E1AEE978F00DFEC93 /* WLMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C567581B1AEE978F00DFEC93 /* WLMessageGroupCell.m */; };
-		C567581F1AEE978F00DFEC93 /* WLMessageGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C567581B1AEE978F00DFEC93 /* WLMessageGroupCell.m */; };
 		C56758231AEE979800DFEC93 /* WLMessageDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C56758211AEE979800DFEC93 /* WLMessageDateView.m */; };
 		C56758241AEE979800DFEC93 /* WLMessageDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C56758211AEE979800DFEC93 /* WLMessageDateView.m */; };
 		C56758251AEE979800DFEC93 /* WLMessageDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C56758211AEE979800DFEC93 /* WLMessageDateView.m */; };
@@ -1188,10 +1184,10 @@
 		C56758281AEE979800DFEC93 /* WLMessageDateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758221AEE979800DFEC93 /* WLMessageDateView.xib */; };
 		C56758291AEE979800DFEC93 /* WLMessageDateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758221AEE979800DFEC93 /* WLMessageDateView.xib */; };
 		C567582A1AEE979800DFEC93 /* WLMessageDateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758221AEE979800DFEC93 /* WLMessageDateView.xib */; };
-		C567582D1AEE981000DFEC93 /* InversedFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* InversedFlowLayout.m */; };
-		C567582E1AEE981000DFEC93 /* InversedFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* InversedFlowLayout.m */; };
-		C567582F1AEE981000DFEC93 /* InversedFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* InversedFlowLayout.m */; };
-		C56758301AEE981000DFEC93 /* InversedFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* InversedFlowLayout.m */; };
+		C567582D1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */; };
+		C567582E1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */; };
+		C567582F1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */; };
+		C56758301AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */; };
 		C568D8D61A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C568D8D71A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C568D8D81A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
@@ -2869,13 +2865,11 @@
 		C56498C71ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WrapLiveWatchKitExtension-Production.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C56498D21ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLiveWatchKitApp-Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLTypingViewCell.xib; sourceTree = "<group>"; };
-		C567581A1AEE978F00DFEC93 /* WLMessageGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessageGroupCell.h; sourceTree = "<group>"; };
-		C567581B1AEE978F00DFEC93 /* WLMessageGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMessageGroupCell.m; sourceTree = "<group>"; };
 		C56758201AEE979800DFEC93 /* WLMessageDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLMessageDateView.h; path = WLChatViewController/WLMessageCell/WLMessageDateView.h; sourceTree = "<group>"; };
 		C56758211AEE979800DFEC93 /* WLMessageDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLMessageDateView.m; path = WLChatViewController/WLMessageCell/WLMessageDateView.m; sourceTree = "<group>"; };
 		C56758221AEE979800DFEC93 /* WLMessageDateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLMessageDateView.xib; path = WLChatViewController/WLMessageCell/WLMessageDateView.xib; sourceTree = "<group>"; };
-		C567582B1AEE981000DFEC93 /* InversedFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InversedFlowLayout.h; path = WLChatViewController/InversedFlowLayout.h; sourceTree = "<group>"; };
-		C567582C1AEE981000DFEC93 /* InversedFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InversedFlowLayout.m; path = WLChatViewController/InversedFlowLayout.m; sourceTree = "<group>"; };
+		C567582B1AEE981000DFEC93 /* WLChatCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChatCollectionViewLayout.h; path = WLChatViewController/WLChatCollectionViewLayout.h; sourceTree = "<group>"; };
+		C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChatCollectionViewLayout.m; path = WLChatViewController/WLChatCollectionViewLayout.m; sourceTree = "<group>"; };
 		C568D8D41A6D491800C2333B /* WLHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHintView.h; sourceTree = "<group>"; };
 		C568D8D51A6D491800C2333B /* WLHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHintView.m; sourceTree = "<group>"; };
 		C56A760C1A640F1900D1FBED /* WLStoryboardTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStoryboardTransition.h; path = WLStoryboardSegue/WLStoryboardTransition.h; sourceTree = "<group>"; };
@@ -5690,16 +5684,6 @@
 			path = "Support Headers";
 			sourceTree = "<group>";
 		};
-		C56758191AEE978F00DFEC93 /* WLMessageGroupCell */ = {
-			isa = PBXGroup;
-			children = (
-				C567581A1AEE978F00DFEC93 /* WLMessageGroupCell.h */,
-				C567581B1AEE978F00DFEC93 /* WLMessageGroupCell.m */,
-			);
-			name = WLMessageGroupCell;
-			path = WLChatViewController/WLMessageGroupCell;
-			sourceTree = "<group>";
-		};
 		C568D8D31A6D490500C2333B /* WLHintView */ = {
 			isa = PBXGroup;
 			children = (
@@ -5829,15 +5813,14 @@
 		C5947E4E18F5264B00BDF038 /* WLChatViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C56758191AEE978F00DFEC93 /* WLMessageGroupCell */,
 				5BB1F46E19EE831800ECAB67 /* WLTypingView */,
 				C5947E5218F52AC300BDF038 /* WLMessageCell */,
 				C5947E4F18F5271B00BDF038 /* WLChatViewController.h */,
 				C5947E5018F5271B00BDF038 /* WLChatViewController.m */,
 				AC17ADAF18F8147900F55E17 /* WLCollectionViewFlowLayout.h */,
 				AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */,
-				C567582B1AEE981000DFEC93 /* InversedFlowLayout.h */,
-				C567582C1AEE981000DFEC93 /* InversedFlowLayout.m */,
+				C567582B1AEE981000DFEC93 /* WLChatCollectionViewLayout.h */,
+				C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */,
 			);
 			name = WLChatViewController;
 			sourceTree = "<group>";
@@ -7254,7 +7237,7 @@
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				C547A4511A026B3E005061AB /* WLKeyboard.m in Sources */,
-				C567582D1AEE981000DFEC93 /* InversedFlowLayout.m in Sources */,
+				C567582D1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
 				5BB02FF619F00BCE001E1D50 /* WLChat.m in Sources */,
 				C52E1FE81A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B8F1A238AE7008B2E2E /* WLValidation.m in Sources */,
@@ -7327,7 +7310,6 @@
 				C53E5CE81A84D876004F61B0 /* WLUserView.m in Sources */,
 				5BA60C671A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,
-				C567581C1AEE978F00DFEC93 /* WLMessageGroupCell.m in Sources */,
 				C577DA531AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
 				5BA60D021A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE21A41952400A2C370 /* WLTextView.m in Sources */,
@@ -7470,7 +7452,7 @@
 				C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */,
 				C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C547A4521A026B3E005061AB /* WLKeyboard.m in Sources */,
-				C567582E1AEE981000DFEC93 /* InversedFlowLayout.m in Sources */,
+				C567582E1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
 				5BB02FF719F00BCE001E1D50 /* WLChat.m in Sources */,
 				C52E1FE91A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B901A238AE7008B2E2E /* WLValidation.m in Sources */,
@@ -7543,7 +7525,6 @@
 				C53E5CE91A84D876004F61B0 /* WLUserView.m in Sources */,
 				5BA60C681A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54AF4E119B8C437006F7EDB /* VerticalStreamLayout.m in Sources */,
-				C567581D1AEE978F00DFEC93 /* WLMessageGroupCell.m in Sources */,
 				C577DA541AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
 				5BA60D031A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE31A41952400A2C370 /* WLTextView.m in Sources */,
@@ -7645,7 +7626,7 @@
 				C54AF58E19B8C467006F7EDB /* WLComposeBar.m in Sources */,
 				C54AF59019B8C467006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C547A4531A026B3E005061AB /* WLKeyboard.m in Sources */,
-				C567582F1AEE981000DFEC93 /* InversedFlowLayout.m in Sources */,
+				C567582F1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
 				5BB02FF819F00BCE001E1D50 /* WLChat.m in Sources */,
 				C52E1FEA1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B911A238AE7008B2E2E /* WLValidation.m in Sources */,
@@ -7718,7 +7699,6 @@
 				C53E5CEA1A84D876004F61B0 /* WLUserView.m in Sources */,
 				5BA60C691A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54AF5DE19B8C467006F7EDB /* VerticalStreamLayout.m in Sources */,
-				C567581E1AEE978F00DFEC93 /* WLMessageGroupCell.m in Sources */,
 				C577DA551AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
 				5BA60D041A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE41A41952400A2C370 /* WLTextView.m in Sources */,
@@ -7820,7 +7800,7 @@
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
 				C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */,
-				C56758301AEE981000DFEC93 /* InversedFlowLayout.m in Sources */,
+				C56758301AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
 				5BB02FF919F00BCE001E1D50 /* WLChat.m in Sources */,
 				C52E1FEB1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B921A238AE7008B2E2E /* WLValidation.m in Sources */,
@@ -7893,7 +7873,6 @@
 				C53E5CEB1A84D876004F61B0 /* WLUserView.m in Sources */,
 				5BA60C6A1A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54AF6DB19B8C491006F7EDB /* VerticalStreamLayout.m in Sources */,
-				C567581F1AEE978F00DFEC93 /* WLMessageGroupCell.m in Sources */,
 				C577DA561AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
 				5BA60D051A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */,

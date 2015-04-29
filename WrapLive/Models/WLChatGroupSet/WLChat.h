@@ -32,6 +32,10 @@
 
 @property (strong, nonatomic) WLChatTypingChannel* typingChannel;
 
+@property (strong, nonatomic) NSHashTable* messagesWithDay;
+
+@property (strong, nonatomic) NSHashTable* messagesWithName;
+
 @property (weak, nonatomic) WLWrap* wrap;
 
 @property (readonly, nonatomic) BOOL showTypingView;

@@ -71,6 +71,10 @@
 
 - (void)recursiveOlder:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
 
+- (void)didChange;
+
+- (void)didBecomeCompleted;
+
 @end
 
 @interface WLEntry (WLPaginatedSet) <WLPaginationEntry>

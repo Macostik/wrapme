@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -47,9 +47,6 @@
             <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
-            <string>OpenSans</string>
-            <string>OpenSans</string>
-            <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
@@ -3606,15 +3603,10 @@ Check your internet connection and try again.</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ez0-f9-dHG" customClass="WLCollectionView">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ez0-f9-dHG">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="glx-hX-c2q" customClass="WLCollectionViewFlowLayout">
-                                    <size key="itemSize" width="320" height="50"/>
-                                    <size key="headerReferenceSize" width="320" height="44"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
+                                <collectionViewLayout key="collectionViewLayout" id="sGF-Oh-KI6" customClass="WLChatCollectionViewLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMyMessageCell" id="blg-MX-zu0" customClass="WLMessageCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
@@ -3623,20 +3615,6 @@ Check your internet connection and try again.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nov 17, 2014" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="160" translatesAutoresizingMaskIntoConstraints="NO" id="Bcm-eM-Zwh" customClass="WLLabel">
-                                                    <rect key="frame" x="80" y="0.0" width="160" height="34"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="34" id="IU2-O2-EtC"/>
-                                                        <constraint firstAttribute="width" constant="160" id="wLi-cO-gJO"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                                    <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nCf-It-uXS" customClass="WLCircleImageView">
                                                     <rect key="frame" x="260" y="0.0" width="48" height="48"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3739,24 +3717,20 @@ Check your internet connection and try again.</string>
                                             <constraint firstItem="WPa-oY-X5B" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="blg-MX-zu0" secondAttribute="leading" constant="12" id="He6-pr-Jey"/>
                                             <constraint firstAttribute="trailing" secondItem="nCf-It-uXS" secondAttribute="trailing" constant="12" id="Vg9-TM-3jX"/>
                                             <constraint firstItem="cGF-9C-FfY" firstAttribute="bottom" secondItem="nCf-It-uXS" secondAttribute="bottom" constant="-5" id="Vww-Dt-u6n"/>
-                                            <constraint firstAttribute="centerX" secondItem="Bcm-eM-Zwh" secondAttribute="centerX" id="YOg-ai-60R"/>
                                             <constraint firstItem="WPa-oY-X5B" firstAttribute="top" secondItem="nCf-It-uXS" secondAttribute="top" id="aj9-mL-thH"/>
                                             <constraint firstItem="cGF-9C-FfY" firstAttribute="leading" secondItem="WPa-oY-X5B" secondAttribute="trailing" id="dHB-0R-xan"/>
                                             <constraint firstItem="nCf-It-uXS" firstAttribute="top" secondItem="blg-MX-zu0" secondAttribute="top" id="gak-WX-KfC"/>
                                             <constraint firstAttribute="bottom" secondItem="WPa-oY-X5B" secondAttribute="bottom" id="lnZ-1Y-3bJ"/>
-                                            <constraint firstItem="Bcm-eM-Zwh" firstAttribute="top" secondItem="blg-MX-zu0" secondAttribute="top" id="uzi-aa-lgM"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="48"/>
                                         <connections>
                                             <outlet property="avatarView" destination="nCf-It-uXS" id="slD-p4-bUf"/>
                                             <outlet property="bubbleImageView" destination="DVA-Yz-AnY" id="JPk-Py-aHD"/>
-                                            <outlet property="dayLabel" destination="Bcm-eM-Zwh" id="Qmh-mh-ynz"/>
                                             <outlet property="indicator" destination="4dZ-BR-VPb" id="xAA-Cc-75U"/>
                                             <outlet property="nameLabel" destination="v2z-k0-EKs" id="7D2-VF-DrS"/>
                                             <outlet property="tailView" destination="cGF-9C-FfY" id="bKB-hH-Hr2"/>
                                             <outlet property="textView" destination="0OD-Cn-Lp6" id="pjO-sM-SfQ"/>
                                             <outlet property="timeLabel" destination="Lc4-Kr-oEr" id="2g9-Gw-WTT"/>
-                                            <outlet property="topAvatarConstraint" destination="gak-WX-KfC" id="hd4-sX-9NL"/>
                                             <outlet property="topTextLabelConstraint" destination="B1J-90-CTw" id="ag3-hF-XVV"/>
                                         </connections>
                                     </collectionViewCell>
@@ -3767,20 +3741,6 @@ Check your internet connection and try again.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nov 17, 2014" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="160" translatesAutoresizingMaskIntoConstraints="NO" id="qox-d6-2fj" customClass="WLLabel">
-                                                    <rect key="frame" x="80" y="0.0" width="160" height="34"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="34" id="8V3-I1-hth"/>
-                                                        <constraint firstAttribute="width" constant="160" id="SWZ-Kl-2bQ"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                                    <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YII-6v-9r6" customClass="WLCircleImageView">
                                                     <rect key="frame" x="12" y="0.0" width="48" height="48"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3865,10 +3825,8 @@ Check your internet connection and try again.</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="qox-d6-2fj" firstAttribute="top" secondItem="S2A-2d-E7B" secondAttribute="top" id="8cK-IR-hUG"/>
                                             <constraint firstAttribute="bottom" secondItem="G61-oI-Ifc" secondAttribute="bottom" id="HLU-ZT-Ba9"/>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="top" secondItem="G61-oI-Ifc" secondAttribute="top" id="J0Z-DA-Dor"/>
-                                            <constraint firstAttribute="centerX" secondItem="qox-d6-2fj" secondAttribute="centerX" id="K9x-X4-v8Z"/>
                                             <constraint firstItem="pMb-Ne-nj5" firstAttribute="bottom" secondItem="YII-6v-9r6" secondAttribute="bottom" constant="-5" id="NUN-iu-DGA"/>
                                             <constraint firstItem="YII-6v-9r6" firstAttribute="leading" secondItem="S2A-2d-E7B" secondAttribute="leading" constant="12" id="XTb-o9-EII"/>
                                             <constraint firstItem="G61-oI-Ifc" firstAttribute="leading" secondItem="pMb-Ne-nj5" secondAttribute="trailing" id="ZQ9-US-Pnc"/>
@@ -3880,40 +3838,14 @@ Check your internet connection and try again.</string>
                                         <connections>
                                             <outlet property="avatarView" destination="YII-6v-9r6" id="rdb-ks-OqQ"/>
                                             <outlet property="bubbleImageView" destination="PxR-zd-fhb" id="kEo-9s-r2L"/>
-                                            <outlet property="dayLabel" destination="qox-d6-2fj" id="eGk-Sh-QpA"/>
                                             <outlet property="nameLabel" destination="HUe-Pv-h6W" id="IPI-RF-ny3"/>
                                             <outlet property="tailView" destination="pMb-Ne-nj5" id="RbX-EU-XKR"/>
                                             <outlet property="textView" destination="cMC-ND-b5t" id="chq-Qa-Ah5"/>
                                             <outlet property="timeLabel" destination="BDu-zS-cNB" id="cbS-YG-Anp"/>
-                                            <outlet property="topAvatarConstraint" destination="cox-Pp-syl" id="wof-51-rO9"/>
                                             <outlet property="topTextLabelConstraint" destination="37T-1j-DiY" id="JRt-Yr-cSQ"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLTypingViewCell" id="8g1-kn-bOM" customClass="WLTypingViewCell">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username is typing..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="eqd-he-vyj" customClass="WLLabel">
-                                            <rect key="frame" x="12" y="0.0" width="242" height="44"/>
-                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
-                                            <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                            </userDefinedRuntimeAttributes>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="eqd-he-vyj" secondAttribute="bottom" id="PNn-eL-PLU"/>
-                                        <constraint firstItem="eqd-he-vyj" firstAttribute="top" secondItem="8g1-kn-bOM" secondAttribute="top" id="TA7-Ek-t08"/>
-                                        <constraint firstItem="eqd-he-vyj" firstAttribute="leading" secondItem="8g1-kn-bOM" secondAttribute="leading" constant="12" id="VfW-Ux-eVW"/>
-                                        <constraint firstAttribute="trailing" secondItem="eqd-he-vyj" secondAttribute="trailing" constant="66" id="k0z-vA-ZXQ"/>
-                                    </constraints>
-                                    <connections>
-                                        <outlet property="nameTextField" destination="eqd-he-vyj" id="jpy-gX-V2q"/>
-                                    </connections>
-                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="ef1-h7-yay" id="Fww-Yl-a6J"/>
                                     <outlet property="delegate" destination="ef1-h7-yay" id="IvH-JL-X2t"/>

@@ -9,8 +9,11 @@
 #import "WLBasicDataSource.h"
 #import "WLLoadingView.h"
 #import "WLPaginatedSet.h"
+#import "UIScrollView+Additions.h"
 
 @interface WLBasicDataSource () <WLPaginatedSetDelegate>
+
+@property (weak, nonatomic) WLLoadingView *loadingView;
 
 @end
 
@@ -64,13 +67,13 @@
         return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:self.headerIdentifier forIndexPath:indexPath];
     } else {
         if (self.appendable) {
-            WLLoadingView* loadingView = [WLLoadingView dequeueInCollectionView:self.collectionView indexPath:indexPath];
-            loadingView.error = NO;
+            self.loadingView = [WLLoadingView dequeueInCollectionView:self.collectionView indexPath:indexPath];
+            self.loadingView.error = NO;
             [self append:nil failure:^(NSError *error) {
                 [error showIgnoringNetworkError];
-                if (error) loadingView.error = YES;
+                if (error) self.loadingView.error = YES;
             }];
-            return loadingView;
+            return self.loadingView;
         } else {
             return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:self.footerIdentifier forIndexPath:indexPath];
         }
@@ -97,10 +100,18 @@
 }
 
 - (void)paginatedSetCompleted:(WLPaginatedSet *)group {
-    if (self.headerAnimated) {
-        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+    if (self.headerAnimated && self.collectionView.scrollable) {
+        UICollectionViewFlowLayout *layout = (id)self.collectionView.collectionViewLayout;
+        CGPoint offset = layout.scrollDirection == UICollectionViewScrollDirectionHorizontal ?
+        CGPointMake(self.collectionView.contentOffset.x - WLLoadingViewDefaultSize, 0) :
+        CGPointMake(0, self.collectionView.contentOffset.y - WLLoadingViewDefaultSize);
+        [self.collectionView setContentOffset:offset animated:YES];
+        self.loadingView.animating = NO;
+        run_after(0.5, ^{
+            [self reload];
+        });
     } else {
-        [self reload];
+        [self paginatedSetChanged:group];
     }
 }
 

@@ -46,9 +46,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C55C36531ACEB61800C614BD"
-               BuildableName = "WrapLive-Development Tests.xctest"
-               BlueprintName = "WrapLive-Development Tests"
+               BlueprintIdentifier = "C55C36651ACEB7A800C614BD"
+               BuildableName = "WrapLiveKit Tests.xctest"
+               BlueprintName = "WrapLiveKit Tests"
                ReferencedContainer = "container:wrapLive.xcodeproj">
             </BuildableReference>
          </TestableReference>

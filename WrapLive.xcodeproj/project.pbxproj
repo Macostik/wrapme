@@ -54,10 +54,6 @@
 		14B134E11952FEB2004F86AC /* WLInviteeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B134E01952FEB2004F86AC /* WLInviteeCell.m */; };
 		14B2429D195C4CEB00C5D208 /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
-		5B06B6B31AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06B6B21AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m */; };
-		5B06B6B41AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06B6B21AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m */; };
-		5B06B6B51AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06B6B21AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m */; };
-		5B06B6B61AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06B6B21AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m */; };
 		5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
 		5B2199FF1A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B219A041A66C94600D131C3 /* WLWrapOptionsViewController.xib */; };
 		5B219A001A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B219A041A66C94600D131C3 /* WLWrapOptionsViewController.xib */; };
@@ -1686,6 +1682,13 @@
 			remoteGlobalIDString = 5B787D9A1A27876F004AE459;
 			remoteInfo = WLTodayExtension;
 		};
+		C534D6701AF124F900D51700 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 12A7A6FE18DA0945008FF6F0;
+			remoteInfo = "WrapLive-Development";
+		};
 		C559CB701AA0BB5D00100B2C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -1985,8 +1988,6 @@
 		14B2429C195C4CEB00C5D208 /* WLEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditSession.m; path = WLEditSession/WLEditSession.m; sourceTree = "<group>"; };
 		14B242A2195C4D9200C5D208 /* WLProfileEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileEditSession.h; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.h; sourceTree = "<group>"; };
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
-		5B06B6B11AEE719B00D489BF /* WLPaginatedCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPaginatedCollectionViewLayout.h; path = WrapLive/Controllers/WLDataSource/WLPaginatedCollectionViewLayout.h; sourceTree = "<group>"; };
-		5B06B6B21AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPaginatedCollectionViewLayout.m; path = WrapLive/Controllers/WLDataSource/WLPaginatedCollectionViewLayout.m; sourceTree = "<group>"; };
 		5B2199FE1A66C8F400D131C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLEditWrapViewController.strings; sourceTree = "<group>"; };
 		5B219A031A66C94600D131C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLWrapOptionsViewController.xib; sourceTree = "<group>"; };
 		5B219A061A66C94700D131C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLWrapOptionsViewController.strings; sourceTree = "<group>"; };
@@ -3243,8 +3244,6 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
-				5B06B6B11AEE719B00D489BF /* WLPaginatedCollectionViewLayout.h */,
-				5B06B6B21AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m */,
 				C5259D651ACC2333003D3317 /* Entitlements */,
 				C50645AA1ABD815100CB4BE3 /* Extensions */,
 				12A7A70818DA0945008FF6F0 /* WrapLive */,
@@ -6571,6 +6570,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C534D6711AF124F900D51700 /* PBXTargetDependency */,
 			);
 			name = "WrapLiveKit Tests";
 			productName = "WrapLiveKit Tests";
@@ -6707,6 +6707,7 @@
 					};
 					C55C36651ACEB7A800C614BD = {
 						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 12A7A6FE18DA0945008FF6F0;
 					};
 					C56498C61ACB00D2000F1E4B = {
 						CreatedOnToolsVersion = 6.2;
@@ -6721,7 +6722,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -7251,7 +7252,6 @@
 				C50099621ADFCC940064CC7B /* WLBasicDataSource.m in Sources */,
 				5BA60CAB1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */,
 				C500996A1ADFCC940064CC7B /* WLDataSource.m in Sources */,
-				5B06B6B31AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m in Sources */,
 				C504179819B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
@@ -7467,7 +7467,6 @@
 				C50099631ADFCC940064CC7B /* WLBasicDataSource.m in Sources */,
 				5BA60CAC1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */,
 				C500996B1ADFCC940064CC7B /* WLDataSource.m in Sources */,
-				5B06B6B41AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m in Sources */,
 				C504179919B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */,
 				C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */,
@@ -7642,7 +7641,6 @@
 				C50099641ADFCC940064CC7B /* WLBasicDataSource.m in Sources */,
 				5BA60CAD1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */,
 				C500996C1ADFCC940064CC7B /* WLDataSource.m in Sources */,
-				5B06B6B51AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m in Sources */,
 				C504179A19B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF58E19B8C467006F7EDB /* WLComposeBar.m in Sources */,
 				C54AF59019B8C467006F7EDB /* WLInputAccessoryView.m in Sources */,
@@ -7817,7 +7815,6 @@
 				C50099651ADFCC940064CC7B /* WLBasicDataSource.m in Sources */,
 				5BA60CAE1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */,
 				C500996D1ADFCC940064CC7B /* WLDataSource.m in Sources */,
-				5B06B6B61AEE719B00D489BF /* WLPaginatedCollectionViewLayout.m in Sources */,
 				C504179B19B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
 				C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */,
@@ -8231,6 +8228,11 @@
 			target = 5B787D9A1A27876F004AE459 /* WrapLiveToday-Development */;
 			targetProxy = C5111D341AB2E2880094275C /* PBXContainerItemProxy */;
 		};
+		C534D6711AF124F900D51700 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 12A7A6FE18DA0945008FF6F0 /* WrapLive-Development */;
+			targetProxy = C534D6701AF124F900D51700 /* PBXContainerItemProxy */;
+		};
 		C559CB711AA0BB5D00100B2C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C5953B6A19C8398B006DF1F3 /* CopyProvisioningProfiles */;
@@ -8643,7 +8645,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5ac09444-1592-43a6-bd8e-9527a54bdf67";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -8949,7 +8951,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5dcdac67-bb6e-4ba9-9338-d6b43ed8833d";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -9154,7 +9156,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WrapLive-Development.app/WrapLive-Development";
 			};
 			name = Debug;
 		};
@@ -9173,7 +9177,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WrapLive-Development.app/WrapLive-Development";
 			};
 			name = AdHoc;
 		};
@@ -9193,6 +9199,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WrapLive-Development.app/WrapLive-Development";
 			};
 			name = Release;
 		};
@@ -9702,7 +9709,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

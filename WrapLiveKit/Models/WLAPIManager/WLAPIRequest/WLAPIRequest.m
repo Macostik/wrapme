@@ -139,11 +139,15 @@ static NSTimeInterval _difference = 0;
         [[WLAuthorizationRequest signInRequest] send:^(id object) {
             [strongSelf send];
         } failure:^(NSError *error) {
-            WLFailureBlock unauthorizedErrorBlock = [WLAPIManager manager].unauthorizedErrorBlock;
-            if (unauthorizedErrorBlock) {
-                unauthorizedErrorBlock(error);
-            } else {
+            if ([error isNetworkError]) {
                 [strongSelf handleFailure:error];
+            } else {
+                WLFailureBlock unauthorizedErrorBlock = [WLAPIManager manager].unauthorizedErrorBlock;
+                if (unauthorizedErrorBlock) {
+                    unauthorizedErrorBlock(error);
+                } else {
+                    [strongSelf handleFailure:error];
+                }
             }
         }];
     } else {

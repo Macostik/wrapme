@@ -40,6 +40,7 @@ static CGFloat WLTextViewInsets = 10.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if  (!self.candy.valid) return;
     self.composeBar.placeholder = WLLS(@"Write your comment ...");
     self.refresher = [WLRefresher refresher:self.collectionView target:self
                                      action:@selector(refresh:)

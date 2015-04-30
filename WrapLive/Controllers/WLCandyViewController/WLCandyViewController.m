@@ -87,6 +87,7 @@
     }
 	
 	[[WLCandy notifier] addReceiver:self];
+    [[WLWrap notifier] addReceiver:self];
     [[WLNetwork network] addReceiver:self];
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToNextHistoryItem)];
@@ -348,6 +349,11 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     if (candy == self.candy) {
         [self updateOwnerData];
     }
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
+    [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."), wrap.name]];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {

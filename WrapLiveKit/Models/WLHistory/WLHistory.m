@@ -65,7 +65,9 @@
         }
         [entriesCopy minusOrderedSet:dayEntries];
         
-        group.completed = group.entries.count < WLPageSize;
+        if  (!self.notShowLoadingView) {
+            group.completed = group.entries.count < WLPageSize;
+        }
     }
     if (added) {
         [self.entries sort:self.sortComparator];

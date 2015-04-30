@@ -43,7 +43,7 @@
     _wrap = wrap;
     [self resetEntries:wrap.messages];
     if (wrap.lastUnread) {
-        self.unreadMessages = [self.entries objectsWhere:@"createdAt > %@", wrap.lastUnread];
+        self.unreadMessages = [self.entries objectsWhere:@"createdAt > %@ AND contributor != %@", wrap.lastUnread, [WLUser currentUser]];
     }
     if (wrap) {
         self.typingChannel = [WLChatTypingChannel channelWithWrap:wrap];

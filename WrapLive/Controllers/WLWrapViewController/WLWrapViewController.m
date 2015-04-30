@@ -82,7 +82,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     [self.dataSource setItemSizeBlock:^CGSize(id entry, NSUInteger index) {
         return CGSizeMake(weakSelf.collectionView.width, (weakSelf.collectionView.width/2.5f + WLCandiesHistoryDateHeaderHeight));
     }];
-    self.history = [WLHistory historyWithWrap:self.wrap];
+    self.history = [WLHistory historyWithWrap:self.wrap checkCompletion:YES];
     self.dataSource.items = self.history;
     
     [self.dataSource setRefreshableWithStyle:WLRefresherStyleOrange];

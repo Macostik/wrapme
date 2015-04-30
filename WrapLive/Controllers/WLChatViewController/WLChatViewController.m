@@ -53,6 +53,8 @@ CGFloat WLMaxTextViewWidth;
 
 @property (nonatomic) BOOL animating;
 
+@property (weak, nonatomic) WLMessage* newerVisibleMessage;
+
 @end
 
 @implementation WLChatViewController
@@ -148,19 +150,6 @@ CGFloat WLMaxTextViewWidth;
             }
         }
     });
-}
-
-- (void)storeVisitSession {
-    NSArray *arrayIndex = [self.collectionView.indexPathsForVisibleItems sortedArrayUsingSelector:@selector(compare:)];
-    if (arrayIndex.count != 0) {
-        NSIndexPath *lastVisibleIndexPath = arrayIndex.firstObject;
-        WLMessage * message = [self.chat.entries tryObjectAtIndex:lastVisibleIndexPath.item];
-        if (message.valid) {
-            if (!self.wrap.lastUnread || [self.wrap.lastUnread earlier:message.updatedAt]) {
-                self.wrap.lastUnread = message.updatedAt;
-            }
-        }
-    }
 }
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
@@ -330,7 +319,7 @@ CGFloat WLMaxTextViewWidth;
     [self.composeBar resignFirstResponder];
     self.typing = NO;
     if (self.wrap.valid) {
-        [self storeVisitSession];
+        self.wrap.lastUnread = self.newerVisibleMessage.createdAt;
         [self.navigationController popViewControllerAnimated:YES];
     } else {
         [self.navigationController popToRootViewControllerAnimated:YES];
@@ -403,6 +392,9 @@ CGFloat WLMaxTextViewWidth;
     [cell setShowName:[self.chat.messagesWithName containsObject:message]];
     cell.entry = message;
     cell.layer.geometryFlipped = YES;
+    if (self.newerVisibleMessage == nil || [self.newerVisibleMessage.createdAt earlier:message.createdAt]) {
+        self.newerVisibleMessage = message;
+    }
     return cell;
 }
 

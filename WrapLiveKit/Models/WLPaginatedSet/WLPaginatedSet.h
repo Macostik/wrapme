@@ -39,8 +39,6 @@
 
 @property (nonatomic) BOOL sortDescending;
 
-@property (nonatomic) BOOL notShowLoadingView;
-
 + (instancetype)setWithEntries:(NSOrderedSet*)entries request:(WLPaginatedRequest*)request;
 
 + (instancetype)setWithRequest:(WLPaginatedRequest*)request;

@@ -192,6 +192,7 @@
 
 - (void)fetchOlder:(WLCandy*)candy {
     WLHistoryItem *historyItem = self.historyItem;
+    historyItem.notShowLoadingView = YES;
     if (historyItem.completed || historyItem.request.loading || !candy) return;
     NSUInteger count = [historyItem.entries count];
     NSUInteger index = [historyItem.entries indexOfObject:candy];

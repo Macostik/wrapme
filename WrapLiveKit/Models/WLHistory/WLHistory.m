@@ -24,7 +24,12 @@
 @implementation WLHistory
 
 + (instancetype)historyWithWrap:(WLWrap*)wrap {
+    return [self historyWithWrap:wrap checkCompletion:NO];
+}
+
++ (instancetype)historyWithWrap:(WLWrap *)wrap checkCompletion:(BOOL)checkCompletion {
     WLHistory *history = [[self alloc] init];
+    history.checkCompletion = checkCompletion;
     [history addEntries:wrap.candies];
     WLWrapRequest* wrapRequest = [WLWrapRequest request:wrap];
     wrapRequest.contentType = WLWrapContentTypePaginated;
@@ -65,7 +70,7 @@
         }
         [entriesCopy minusOrderedSet:dayEntries];
         
-        if  (!self.notShowLoadingView) {
+        if  (self.checkCompletion) {
             group.completed = group.entries.count < WLPageSize;
         }
     }

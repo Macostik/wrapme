@@ -25,7 +25,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLTextView *textView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topTextLabelConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topAvatarConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *tailView;
 @property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
@@ -75,7 +74,11 @@
 - (void)setShowName:(BOOL)showName {
     _showName = showName;
     self.avatarView.hidden = self.nameLabel.hidden = self.tailView.hidden = !showName;
-    self.topTextLabelConstraint.constant = showName ? WLMessageNameInset : 0;
+    CGFloat constant = showName ? WLMessageNameInset : 0;
+    if (self.topTextLabelConstraint.constant != constant) {
+        self.topTextLabelConstraint.constant = constant;
+        [self setNeedsLayout];
+    }
 }
 
 - (void)setup:(WLMessage*)message {

@@ -17,7 +17,7 @@
 @implementation WLUnreadMessagesView
 
 - (void)setNumberOfUnreadMessages:(NSUInteger)numberOfUnreadMessages {
-    self.textLabel.text = [NSString stringWithFormat:@"%lu UNREAD MESSAGES", (unsigned long)numberOfUnreadMessages];
+    self.textLabel.text = [NSString stringWithFormat:@"%lu UNREAD MESSAGE%@", (unsigned long)numberOfUnreadMessages, numberOfUnreadMessages > 1 ? @"S" : @""];
 }
 
 @end

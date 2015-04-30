@@ -140,16 +140,27 @@ CGFloat WLMaxTextViewWidth;
 - (void)scrollToLastUnreadMessage {
     run_after(.05, ^{
         __weak __typeof(self)weakSelf = self;
-        WLMessage *unreadMessage = [self.wrap.messages selectObject:^BOOL(WLMessage *message) {
-            return [message.updatedAt isEqualToDate:weakSelf.wrap.lastUnread];
-        }];
+        WLMessage *unreadMessage = [self.chat.unreadMessages lastObject];
         if (unreadMessage.valid) {
             NSIndexPath *indexPathForCell = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:unreadMessage] inSection:0];
             if (indexPathForCell.item != NSNotFound) {
-                [self.collectionView scrollToItemAtIndexPath:indexPathForCell atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+                [self.collectionView scrollToItemAtIndexPath:indexPathForCell atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
             }
         }
     });
+}
+
+- (void)storeVisitSession {
+    NSArray *arrayIndex = [self.collectionView.indexPathsForVisibleItems sortedArrayUsingSelector:@selector(compare:)];
+    if (arrayIndex.count != 0) {
+        NSIndexPath *lastVisibleIndexPath = arrayIndex.firstObject;
+        WLMessage * message = [self.chat.entries tryObjectAtIndex:lastVisibleIndexPath.item];
+        if (message.valid) {
+            if (!self.wrap.lastUnread || [self.wrap.lastUnread earlier:message.updatedAt]) {
+                self.wrap.lastUnread = message.updatedAt;
+            }
+        }
+    }
 }
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
@@ -323,22 +334,6 @@ CGFloat WLMaxTextViewWidth;
         [self.navigationController popViewControllerAnimated:YES];
     } else {
         [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-}
-
-- (void)storeVisitSession {
-    NSMutableArray *arrayIndex = [[NSMutableArray alloc] initWithArray:self.collectionView.indexPathsForVisibleItems];
-    if (arrayIndex.count != 0) {
-        [arrayIndex sortUsingComparator:^NSComparisonResult(NSIndexPath *obj1, NSIndexPath *obj2) {
-            return obj1.item < obj2.item;
-        }];
-        NSIndexPath *lastVisibleIndexPath = arrayIndex.lastObject;
-        WLMessage * message = [self.chat.entries objectAtIndex:lastVisibleIndexPath.item];
-        if (lastVisibleIndexPath.item != NSNotFound && message.valid) {
-            if (!self.wrap.lastUnread || [self.wrap.lastUnread earlier:message.updatedAt]) {
-                self.wrap.lastUnread = message.updatedAt;
-            }
-        }
     }
 }
 

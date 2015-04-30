@@ -42,7 +42,9 @@
 - (void)setWrap:(WLWrap *)wrap {
     _wrap = wrap;
     [self resetEntries:wrap.messages];
-    self.unreadMessages = [self.entries objectsWhere:@"unread == YES"];
+    if (wrap.lastUnread) {
+        self.unreadMessages = [self.entries objectsWhere:@"createdAt > %@", wrap.lastUnread];
+    }
     if (wrap) {
         self.typingChannel = [WLChatTypingChannel channelWithWrap:wrap];
         self.typingChannel.delegate = self;

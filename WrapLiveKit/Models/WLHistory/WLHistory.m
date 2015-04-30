@@ -76,6 +76,7 @@
 - (BOOL)addEntry:(WLCandy*)candy {
     WLHistoryItem* group = [self itemForDate:candy.createdAt create:YES];
     if ([group addEntry:candy]) {
+        if ([candy.contributor isCurrentUser]) group.offset = CGPointZero;
         [self.entries sort:self.sortComparator];
         return YES;
     }
@@ -159,6 +160,7 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
     [self addEntry:candy];
+    if  ([candy.contributor isCurrentUser]) [self.delegate paginatedSetChanged:self];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {

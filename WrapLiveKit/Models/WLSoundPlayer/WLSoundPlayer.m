@@ -40,6 +40,12 @@ static inline NSString *WLSoundFileName(WLSound sound) {
 
 static WLBlock _completionBlock;
 
+static WLSound currentSound;
+
++ (void)initialize {
+    currentSound = WLSound_Off;
+}
+
 + (NSMapTable *)sounds {
     static NSMapTable *sounds = nil;
     static dispatch_once_t onceToken;
@@ -58,8 +64,16 @@ void WLSoundPlayerCompletion (SystemSoundID ssID, void *clientData) {
 }
 
 + (void)playSound:(WLSound)sound {
+    if (currentSound == sound) {
+        return;
+    }
+    if (currentSound == WLSound_Off) {
+        currentSound = sound;
+    }
     runUnaryQueuedOperation(@"wl_sound_player_queue", ^(WLOperation *operation) {
+        currentSound = sound;
         [self playSound:sound completion:^{
+            currentSound = WLSound_Off;
             [operation finish];
         }];
     });

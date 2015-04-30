@@ -16,9 +16,6 @@
 #import "WLTelephony.h"
 #import "UIFont+CustomFonts.h"
 
-static NSString *const WLUserDefaultsExtensionKey = @"group.com.ravenpod.wraplive";
-static NSString *const WLExtensionWrapKey = @"WLExtansionWrapKey";
-
 @implementation WLAuthorization
 
 + (NSArray *)archivableProperties {

@@ -195,6 +195,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
         self.wrap = wrap;
     }
     [wrap uploadPictures:pictures];
+    [self.collectionView setMinimumContentOffsetAnimated:NO];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

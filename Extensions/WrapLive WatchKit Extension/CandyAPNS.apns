@@ -1,0 +1,8 @@
+{
+    "aps" : {
+        "alert" : "Yura added a photo to 'Test3'. Check it out!",
+        "content-available" : 1
+    },
+    "msg_type" : 300,
+    "candy_uid" : "CD8aea7900c0f10132aca40abd3edd1a07"
+}

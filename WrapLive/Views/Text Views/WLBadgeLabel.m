@@ -8,7 +8,6 @@
 static CGFloat WLConstantPadding = 12.0f;
 
 #import "WLBadgeLabel.h"
-#import "UIView+Shorthand.h"
 #import "NSString+Additions.h"
 #import "UILabel+Additions.h"
 

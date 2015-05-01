@@ -9,9 +9,6 @@
 #import "WLMenu.h"
 #import <AudioToolbox/AudioServices.h>
 #import "UIFont+CustomFonts.h"
-#import "UIColor+CustomColors.h"
-#import "UIView+Shorthand.h"
-#import "NSArray+Additions.h"
 #import "UIView+AnimationHelper.h"
 #import "WLButton.h"
 
@@ -38,7 +35,10 @@
     button.frame = CGRectMake(0, 0, 38, 38);
     button.clipsToBounds = NO;
     [button setBackgroundImage:[UIImage imageNamed:@"bg_menu_btn"] forState:UIControlStateNormal];
-    [button setImage:item.image forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont fontWithName:@"wrapliveicons" size:21];
+    [button setTitle:item.text forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor WL_grayLight] forState:UIControlStateHighlighted];
     button.layer.cornerRadius = button.bounds.size.width/2;
     return button;
 }
@@ -99,7 +99,8 @@
     }
     [views setObject:view forKey:configuration];
     if (!contains) {
-        [view addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(present:)]];
+        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(present:)];
+        [view addGestureRecognizer:recognizer];
     }
 }
 
@@ -131,9 +132,10 @@
     
     WLMenuConfiguration configuration = [self configurationForView:view];
     
+    self.entry = nil;
     if (configuration) {
         BOOL vibrate = YES;
-        configuration(self, &vibrate);
+        self.entry = configuration(self, &vibrate);
         
         if (!self.items.nonempty) return;
         
@@ -221,9 +223,13 @@
             showBlock();
         }
     }
+    
+    if (hidden) {
+        self.entry = nil;
+    }
 }
 
-- (WLMenuItem *)addItem:(WLBlock)block {
+- (WLMenuItem *)addItem:(WLObjectBlock)block {
     if (!self.items) self.items = [NSMutableArray array];
     WLMenuItem* item = [[WLMenuItem alloc] init];
     item.block = block;
@@ -231,8 +237,8 @@
     return item;
 }
 
-- (void)addItemWithImage:(UIImage *)image block:(WLBlock)block {
-    [self addItem:block].image = image;
+- (void)addItemWithText:(NSString*)text block:(WLObjectBlock)block; {
+    [self addItem:block].text = text;
 }
 
 - (void)present:(UILongPressGestureRecognizer*)sender {
@@ -242,8 +248,10 @@
 }
 
 - (void)selectedItem:(WlMenuItemButton*)sender {
-    WLBlock block = sender.item.block;
-    if (block) block();
+    WLObjectBlock block = sender.item.block;
+    if (self.entry) {
+        if (block) block(self.entry);
+    }
     [self hide];
 }
 
@@ -269,20 +277,24 @@
 
 @implementation WLMenu (DefinedItems)
 
-- (void)addDeleteItem:(WLBlock)block {
-    [self addItemWithImage:[UIImage imageNamed:@"btn_menu_delete"] block:block];
+- (void)addDeleteItem:(WLObjectBlock)block {
+    [self addItemWithText:@"n" block:block];
 }
 
-- (void)addLeaveItem:(WLBlock)block {
-    [self addItemWithImage:[UIImage imageNamed:@"btn_menu_leave"] block:block];
+- (void)addLeaveItem:(WLObjectBlock)block {
+    [self addItemWithText:@"O" block:block];
 }
 
-- (void)addReportItem:(WLBlock)block {
-    [self addItemWithImage:[UIImage imageNamed:@"btn_menu_alert"] block:block];
+- (void)addReportItem:(WLObjectBlock)block {
+    [self addItemWithText:@"s" block:block];
 }
 
-- (void)addDownloadItem:(WLBlock)block {
-    [self addItemWithImage:[UIImage imageNamed:@"btn_menu_download"] block:block];
+- (void)addDownloadItem:(WLObjectBlock)block {
+    [self addItemWithText:@"o" block:block];
+}
+
+- (void)addCopyItem:(WLObjectBlock)block {
+    [self addItemWithText:@"I" block:block];
 }
 
 @end

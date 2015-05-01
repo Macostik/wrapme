@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="cKg-Y0-d6d">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="cKg-Y0-d6d">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <deployment version="2048" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -24,6 +24,12 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+        </mutableArray>
+        <mutableArray key="wrapliveicons.ttf">
+            <string>wrapliveicons</string>
+            <string>wrapliveicons</string>
+            <string>wrapliveicons</string>
+            <string>wrapliveicons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -199,9 +205,9 @@
                                                     <constraint firstAttribute="width" secondItem="X3H-5w-amr" secondAttribute="height" multiplier="1:1" id="Yjg-se-3lR"/>
                                                     <constraint firstAttribute="width" constant="44" id="jEj-og-JEY"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
-                                                <state key="normal" image="ic_back_white">
-                                                    <color key="titleColor" red="0.27843138579999999" green="0.27450981740000002" blue="0.26666668059999998" alpha="1" colorSpace="deviceRGB"/>
+                                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
+                                                <state key="normal" title="w">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -345,8 +351,8 @@
                                             <constraint firstAttribute="width" constant="44" id="GPS-E2-PZJ"/>
                                             <constraint firstAttribute="height" constant="44" id="sf7-ue-1EW"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                        <state key="normal" image="ic_back_white">
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
+                                        <state key="normal" title="w">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -573,7 +579,7 @@
                                     <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                         <size key="value" width="16" height="16"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="paintBrush"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="brush"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -581,13 +587,27 @@
                                 </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="296" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="1eI-Kn-Fei" customClass="WLComposeBar">
-                                <rect key="frame" x="0.0" y="297" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="298" width="320" height="44"/>
                                 <subviews>
+                                    <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0JJ-xS-AUW">
+                                        <rect key="frame" x="0.0" y="0.0" width="45" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="45" id="YON-qr-cnf"/>
+                                            <constraint firstAttribute="height" constant="44" id="YTE-ML-S08"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="15"/>
+                                        <state key="normal" image="ic_emoji_smile"/>
+                                        <state key="selected" image="ic_emoji_keyboard_white"/>
+                                        <connections>
+                                            <action selector="selectEmoji:" destination="1eI-Kn-Fei" eventType="touchUpInside" id="e22-PW-6RV"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="puy-LJ-3KJ">
-                                        <rect key="frame" x="0.0" y="4" width="260" height="36"/>
+                                        <rect key="frame" x="45" y="4" width="215" height="36"/>
                                         <subviews>
                                             <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zXf-UJ-Qz9" customClass="WLTextView">
-                                                <rect key="frame" x="4" y="8" width="256" height="20"/>
+                                                <rect key="frame" x="4" y="8" width="211" height="20"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
@@ -600,7 +620,7 @@
                                                 </connections>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a comment..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CtH-sR-dzA" customClass="WLLabel">
-                                                <rect key="frame" x="8" y="8" width="249" height="21"/>
+                                                <rect key="frame" x="8" y="8" width="204" height="21"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="7XN-bP-sq8"/>
@@ -630,7 +650,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPs-vA-Mlw" customClass="WLIconButton">
+                                    <button tag="5" contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPs-vA-Mlw" customClass="WLIconButton">
                                         <rect key="frame" x="260" y="0.0" width="60" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -649,9 +669,12 @@
                                             <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="paperPlane"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="paper-plane"/>
                                             <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
                                                 <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="touchArea">
+                                                <size key="value" width="70" height="70"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -663,10 +686,12 @@
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="puy-LJ-3KJ" secondAttribute="height" constant="8" id="5BU-gS-5WI"/>
                                     <constraint firstAttribute="centerY" secondItem="sPs-vA-Mlw" secondAttribute="centerY" id="Dax-08-Vcn"/>
-                                    <constraint firstItem="puy-LJ-3KJ" firstAttribute="leading" secondItem="1eI-Kn-Fei" secondAttribute="leading" id="VN8-UW-XPA"/>
+                                    <constraint firstItem="puy-LJ-3KJ" firstAttribute="leading" secondItem="1eI-Kn-Fei" secondAttribute="leading" constant="45" id="VN8-UW-XPA"/>
                                     <constraint firstItem="sPs-vA-Mlw" firstAttribute="leading" secondItem="1eI-Kn-Fei" secondAttribute="trailing" constant="-60" id="bKW-UB-quO"/>
                                     <constraint firstItem="sPs-vA-Mlw" firstAttribute="leading" secondItem="puy-LJ-3KJ" secondAttribute="trailing" id="bmy-uK-AKY"/>
+                                    <constraint firstItem="0JJ-xS-AUW" firstAttribute="leading" secondItem="1eI-Kn-Fei" secondAttribute="leading" id="l4w-lr-7ax"/>
                                     <constraint firstAttribute="centerY" secondItem="puy-LJ-3KJ" secondAttribute="centerY" id="lAC-Vb-b8M"/>
+                                    <constraint firstAttribute="centerY" secondItem="0JJ-xS-AUW" secondAttribute="centerY" id="mkf-uM-chL"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="maxLines">
@@ -677,6 +702,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <outlet property="delegate" destination="qIf-F1-lSO" id="vf7-mo-eJy"/>
                                     <outlet property="doneButton" destination="sPs-vA-Mlw" id="x17-yw-v4Y"/>
                                     <outlet property="heightConstraint" destination="xbk-bV-eD3" id="5xI-YN-Ab1"/>
                                     <outlet property="horizontalSpaceDoneButtonContstraint" destination="bKW-UB-quO" id="3Va-mV-3yk"/>
@@ -752,7 +778,7 @@
                                             <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                                 <size key="value" width="16" height="16"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="ios7CloseEmpty"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="close"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="large"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -776,7 +802,7 @@
                                             <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                                 <size key="value" width="16" height="16"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="ios7CheckmarkEmpty"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="tick"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="large"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -801,31 +827,31 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1eI-Kn-Fei" firstAttribute="leading" secondItem="B8q-mw-gWZ" secondAttribute="leading" id="4LZ-BM-QEj"/>
                             <constraint firstAttribute="trailing" secondItem="PoG-ED-My6" secondAttribute="trailing" id="8Uv-EH-PI3"/>
                             <constraint firstItem="rvH-xd-AOc" firstAttribute="leading" secondItem="B8q-mw-gWZ" secondAttribute="leading" id="Kxx-B1-ZOR"/>
                             <constraint firstItem="rvH-xd-AOc" firstAttribute="top" secondItem="PoG-ED-My6" secondAttribute="bottom" id="LWW-SS-UeX"/>
                             <constraint firstItem="PoG-ED-My6" firstAttribute="top" secondItem="bNq-o4-O2V" secondAttribute="bottom" id="NSm-3c-7tT"/>
-                            <constraint firstAttribute="centerX" secondItem="1eI-Kn-Fei" secondAttribute="centerX" id="QZW-Jb-0i7"/>
                             <constraint firstItem="PoG-ED-My6" firstAttribute="leading" secondItem="B8q-mw-gWZ" secondAttribute="leading" id="Rs5-iX-8j8"/>
                             <constraint firstAttribute="trailing" secondItem="1eI-Kn-Fei" secondAttribute="trailing" id="SDt-V3-WqB"/>
-                            <constraint firstItem="PoG-ED-My6" firstAttribute="bottom" secondItem="1eI-Kn-Fei" secondAttribute="bottom" multiplier="1.25" id="Trf-kx-Bgu"/>
                             <constraint firstAttribute="trailing" secondItem="rvH-xd-AOc" secondAttribute="trailing" id="c9M-IM-vaF"/>
                             <constraint firstItem="Y8K-4d-qnf" firstAttribute="top" secondItem="bNq-o4-O2V" secondAttribute="bottom" constant="16" id="kKT-hc-NeX"/>
                             <constraint firstAttribute="trailing" secondItem="Y8K-4d-qnf" secondAttribute="trailing" constant="16" id="rSA-HK-YAx"/>
                             <constraint firstItem="WFI-ef-EyH" firstAttribute="top" secondItem="rvH-xd-AOc" secondAttribute="bottom" id="s0b-SF-Brc"/>
+                            <constraint firstItem="PoG-ED-My6" firstAttribute="centerY" secondItem="1eI-Kn-Fei" secondAttribute="centerY" multiplier="2:3" id="yy6-9U-0kK"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="bottomView" destination="rvH-xd-AOc" id="uD2-bu-GkA"/>
                         <outlet property="composeBar" destination="1eI-Kn-Fei" id="s01-yU-gnO"/>
                         <outlet property="editButton" destination="Y8K-4d-qnf" id="oTP-XH-rNh"/>
                         <outlet property="imageView" destination="PoG-ED-My6" id="ZAJ-M7-0af"/>
                         <outlet property="textView" destination="zXf-UJ-Qz9" id="Jgp-Fp-GtZ"/>
                         <outlet property="wrapView" destination="J38-cV-CNx" id="LXt-PV-vZb"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="Trf-kx-Bgu" id="M1N-Ob-Ytd"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="yy6-9U-0kK" id="Yk7-sT-ag1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="son-Yx-b95" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -853,8 +879,8 @@
                                             <constraint firstAttribute="width" constant="44" id="S5G-TZ-xVb"/>
                                             <constraint firstAttribute="height" constant="44" id="YTh-Pp-dTG"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                        <state key="normal" image="ic_back_white">
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
+                                        <state key="normal" title="w">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -941,13 +967,12 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_next_gray" translatesAutoresizingMaskIntoConstraints="NO" id="cTx-dT-Vn4">
-                                                    <rect key="frame" x="276" y="11" width="44" height="44"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="44" id="4Ns-vD-EzL"/>
-                                                        <constraint firstAttribute="height" constant="44" id="RoI-Pa-hVu"/>
-                                                    </constraints>
-                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0y-gx-usX">
+                                                    <rect key="frame" x="292" y="26" width="15" height="15"/>
+                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="15"/>
+                                                    <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -956,14 +981,14 @@
                                             <constraint firstItem="cyk-4V-zzn" firstAttribute="leading" secondItem="IZd-EB-g2p" secondAttribute="leading" constant="10" id="0nu-d1-o51"/>
                                             <constraint firstAttribute="bottom" secondItem="joJ-BJ-qav" secondAttribute="bottom" id="4dH-xR-Ggg"/>
                                             <constraint firstItem="joJ-BJ-qav" firstAttribute="leading" secondItem="IZd-EB-g2p" secondAttribute="leading" id="5Gh-Ss-UC0"/>
-                                            <constraint firstAttribute="trailing" secondItem="cTx-dT-Vn4" secondAttribute="trailing" id="DDc-vO-lZz"/>
+                                            <constraint firstAttribute="centerY" secondItem="P0y-gx-usX" secondAttribute="centerY" id="7Sa-AY-AeB"/>
                                             <constraint firstAttribute="centerY" secondItem="cyk-4V-zzn" secondAttribute="centerY" id="ESi-Lx-mDu"/>
                                             <constraint firstAttribute="trailing" secondItem="joJ-BJ-qav" secondAttribute="trailing" id="KDR-6Q-VHx"/>
-                                            <constraint firstAttribute="centerY" secondItem="cTx-dT-Vn4" secondAttribute="centerY" id="OAX-Je-OLS"/>
                                             <constraint firstItem="DHt-ol-7Ct" firstAttribute="leading" secondItem="IZd-EB-g2p" secondAttribute="leading" constant="80" id="SaO-JR-g1F"/>
                                             <constraint firstItem="ovx-WR-Sdy" firstAttribute="leading" secondItem="IZd-EB-g2p" secondAttribute="leading" constant="80" id="Yb6-fJ-BKE"/>
                                             <constraint firstAttribute="trailing" secondItem="ovx-WR-Sdy" secondAttribute="trailing" constant="186" id="YhC-HI-Ev8"/>
                                             <constraint firstItem="joJ-BJ-qav" firstAttribute="top" secondItem="IZd-EB-g2p" secondAttribute="top" id="dcy-oW-9xO"/>
+                                            <constraint firstAttribute="trailing" secondItem="P0y-gx-usX" secondAttribute="centerX" constant="20" id="dlT-0Q-ANV"/>
                                             <constraint firstAttribute="centerY" secondItem="DHt-ol-7Ct" secondAttribute="centerY" constant="10" id="fpP-Ib-0V9"/>
                                             <constraint firstAttribute="trailing" secondItem="DHt-ol-7Ct" secondAttribute="trailing" constant="42" id="rde-Qr-Mdo"/>
                                             <constraint firstAttribute="centerY" secondItem="ovx-WR-Sdy" secondAttribute="centerY" constant="-9.5" id="wUy-nt-m28"/>
@@ -1120,9 +1145,9 @@
     <resources>
         <image name="camera_btn" width="84" height="84"/>
         <image name="ic_accepted" width="20" height="20"/>
-        <image name="ic_back_white" width="12" height="22"/>
+        <image name="ic_emoji_keyboard_white" width="30" height="18"/>
+        <image name="ic_emoji_smile" width="26" height="26"/>
         <image name="ic_gallery_medium" width="50" height="50"/>
-        <image name="ic_next_gray" width="8" height="14"/>
         <image name="switch_to_front_cam" width="23" height="18"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

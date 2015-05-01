@@ -7,67 +7,49 @@
 //
 
 #import "WLOperationQueue.h"
-#import "NSArray+Additions.h"
-#import "NSDate+Formatting.h"
-#import "NSString+Additions.h"
 #import "UIActionSheet+Blocks.h"
 #import "UIAlertView+Blocks.h"
-#import "UIColor+CustomColors.h"
 #import "UIFont+CustomFonts.h"
 #import "UILabel+Additions.h"
 #import "UIView+AnimationHelper.h"
-#import "UIView+Shorthand.h"
-#import "UIViewController+Additions.h"
-#import "WLAPIManager.h"
-#import "WLCameraViewController.h"
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"
-#import "WLCollectionViewDataProvider.h"
-#import "WLComment.h"
+#import "WLHomeDataSource.h"
 #import "WLCreateWrapViewController.h"
-#import "WLEntryManager.h"
-#import "WLEntryNotifier.h"
 #import "WLHomeViewController.h"
-#import "WLHomeViewSection.h"
-#import "WLImageCache.h"
-#import "WLImageFetcher.h"
 #import "WLLoadingView.h"
-#import "WLNavigation.h"
-#import "WLNotification.h"
-#import "WLNotificationCenter.h"
-#import "WLPaginatedSet.h"
+#import "WLNavigationHelper.h"
 #import "WLRefresher.h"
-#import "WLResendConfirmationRequest.h"
-#import "WLSession.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
 #import "WLUserView.h"
 #import "WLWrapCell.h"
 #import "WLWrapViewController.h"
-#import "WLWrapsRequest.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLRemoteObjectHandler.h"
+#import "WLRemoteEntryHandler.h"
 #import "WLPickerViewController.h"
 #import "WLEditWrapViewController.h"
 #import "WLUploadingView.h"
-#import "WLUploadingQueue.h"
 #import "WLAddressBook.h"
 #import "WLIntroductionViewController.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLTouchView.h"
+#import "WLChronologicalEntryPresenter.h"
+#import "WLCollectionView.h"
 
 @interface WLHomeViewController () <WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate>
 
-@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
-@property (strong, nonatomic) IBOutlet WLHomeViewSection *section;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet WLHomeDataSource *dataSource;
+@property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *hiddenEmailConfirmationConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *visibleEmailConfirmationConstraint;
 @property (weak, nonatomic) IBOutlet UIView *navigationBar;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
 @property (weak, nonatomic) IBOutlet UIView *createWrapTipView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
+@property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
 
 @property (weak, nonatomic) WLWrap* chatSegueWrap;
 
@@ -86,6 +68,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak typeof(self)weakSelf = self;
+    
+    __weak WLOperationQueue *queue = [WLOperationQueue queueNamed:WLOperationFetchingDataQueue];
+    [queue setStartQueueBlock:^{
+        weakSelf.collectionView.stopReloadingData = YES;
+    }];
+    [queue setFinishQueueBlock:^{
+        weakSelf.collectionView.stopReloadingData = NO;
+        queue.startQueueBlock = nil;
+        queue.finishQueueBlock = nil;
+    }];
+    
     self.createWrapTipHidden = YES;
     
     [[WLAddressBook addressBook] beginCaching];
@@ -94,24 +88,34 @@
     
 	[[WLUser notifier] addReceiver:self];
 	[[WLWrap notifier] addReceiver:self];
+    [[WLCandy notifier] addReceiver:self];
     [[WLComment notifier] addReceiver:self];
-	
-    [[WLNotificationCenter defaultCenter] addReceiver:self];
+    [[WLMessage notifier] addReceiver:self];
     
-    [self.dataProvider setRefreshable];
+    __weak WLHomeDataSource *dataSource = self.dataSource;
+    [dataSource setRefreshable];
+    [dataSource setItemSizeBlock:^CGSize(WLWrap *wrap, NSUInteger index) {
+        CGFloat height = 50;
+        if (index == 0) {
+            int size = (weakSelf.collectionView.bounds.size.width - 2.0f)/3.0f;;
+            height = 75 + ([dataSource.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size);
+        }
+        return CGSizeMake(weakSelf.collectionView.width, height);
+    }];
     
-    __weak WLHomeViewSection *section = self.section;
-    section.entries.request = [WLWrapsRequest new];
-    [section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
-    
-    [section setSelection:^(id entry) {
-        [entry present];
+    [dataSource setCellIdentifierForItemBlock:^NSString *(WLWrap *wrap, NSUInteger index) {
+        return (index == 0) ? @"WLTopWrapCell" : @"WLWrapCell";
     }];
     
     NSMutableOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
-    [section.entries resetEntries:wraps];
+    dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLWrapsRequest new]];
+    
+    [dataSource setSelectionBlock:^(id entry) {
+        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
+    }];
+    
     if (wraps.nonempty) {
-        [section refresh];
+        [dataSource refresh];
     }
     
     self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
@@ -184,10 +188,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-    [self.dataProvider reload];
+    [self.dataSource reload];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
-    [WLRemoteObjectHandler sharedObject].isLoaded = [self isViewLoaded];
+    [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
     [self.uploadingView update];
 }
 
@@ -198,20 +202,33 @@
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
     BOOL hidden = ([[WLSession confirmationDate] isToday] || ![[WLAuthorization currentAuthorization] unconfirmed_email].nonempty);
+    if (!hidden) {
+        self.verificationEmailLabel.attributedText = [WLAuthorization attributedVerificationSuggestion];
+        [self deadlineEmailConfirmationView];
+    }
     [self setEmailConfirmationViewHidden:hidden animated:animated];
 }
 
 - (void)setEmailConfirmationViewHidden:(BOOL)hidden animated:(BOOL)animated {
-    CGFloat constraint = hidden ? 0 : self.emailConfirmationView.height;
-    if (self.topConstraint.constant != constraint) {
-        self.topConstraint.constant = constraint;
+    
+    NSArray *constraints = [self.view.constraints copy];
+    
+    NSLayoutConstraint *visibleConstraint = self.visibleEmailConfirmationConstraint;
+    NSLayoutConstraint *hiddenConstraint = self.hiddenEmailConfirmationConstraint;
+    
+    if (hidden) {
+        if ([constraints containsObject:visibleConstraint]) [self.view removeConstraint:visibleConstraint];
+        if (![constraints containsObject:hiddenConstraint]) [self.view addConstraint:hiddenConstraint];
+    } else {
+        if ([constraints containsObject:hiddenConstraint]) [self.view removeConstraint:hiddenConstraint];
+        if (![constraints containsObject:visibleConstraint]) [self.view addConstraint:visibleConstraint];
+    }
+    
+    if (![self.view.constraints isEqualToArray:constraints]) {
         __weak typeof(self)weakSelf = self;
         [UIView performAnimated:animated animation:^{
             [weakSelf.view layoutIfNeeded];
         }];
-        if (!hidden) {
-            [self deadlineEmailConfirmationView];
-        }
     }
 }
 
@@ -225,7 +242,7 @@
 }
 
 - (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery {
-    WLWrap *wrap = self.section.wrap;
+    WLWrap *wrap = self.dataSource.wrap;
     if (wrap) {
         WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
         stillPictureViewController.wrap = wrap;
@@ -259,20 +276,25 @@
 // MARK: - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
-    [self updateEmailConfirmationView:YES];
+    if (self.isTopViewController) {
+        [self updateEmailConfirmationView:YES];
+    }
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
-    [self.section.entries resetEntries:[[WLUser currentUser] sortedWraps]];
+    WLPaginatedSet *wraps = [self.dataSource items];
+    [wraps resetEntries:[[WLUser currentUser] sortedWraps]];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapAdded:(WLWrap *)wrap {
-    [self.section.entries addEntry:wrap];
+    WLPaginatedSet *wraps = [self.dataSource items];
+    [wraps addEntry:wrap];
 	self.collectionView.contentOffset = CGPointZero;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-    [self.section.entries removeEntry:wrap];
+    WLPaginatedSet *wraps = [self.dataSource items];
+    [wraps removeEntry:wrap];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
@@ -283,6 +305,26 @@
 	run_after(.5, ^{
 		[self updateNotificationsLabel];
 	});
+}
+
+- (void)notifier:(WLEntryNotifier*)notifier candyAdded:(WLCandy*)candy {
+    [self updateNotificationsLabel];
+}
+
+- (void)notifier:(WLEntryNotifier*)broadcaster candyDeleted:(WLCandy *)candy {
+    run_after(.5, ^{
+        [self updateNotificationsLabel];
+    });
+}
+
+- (void)notifier:(WLEntryNotifier*)notifier messageAdded:(WLMessage*)message {
+    [self updateNotificationsLabel];
+}
+
+- (void)notifier:(WLEntryNotifier*)broadcaster messageDeleted:(WLMessage *)message {
+    run_after(.5, ^{
+        [self updateNotificationsLabel];
+    });
 }
 
 // MARK: - WLNotificationReceiver
@@ -311,7 +353,9 @@
     __weak __typeof(self)weakSelf = self;
     WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
     [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
-        if (wrap.isFirstCreated) [wrap present:NO];
+        if (wrap.isFirstCreated) {
+            [WLChronologicalEntryPresenter presentEntry:wrap animated:NO];
+        }
         stillPictureViewController.wrap = wrap;
         [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
     }];
@@ -357,7 +401,9 @@
 - (void)createWrapWithStillPictureViewController:(WLStillPictureViewController*)stillPictureViewController {
     WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
     [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
-        if (wrap.isFirstCreated) [wrap present:NO];
+        if (wrap.isFirstCreated) {
+            [WLChronologicalEntryPresenter presentEntry:wrap animated:NO];
+        }
         stillPictureViewController.wrap = wrap;
         [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
     }];

@@ -25,6 +25,7 @@
 @property (nonatomic) CGFloat height;
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic) NSUInteger curve;
+@property (nonatomic) BOOL isShow;
 
 + (instancetype)keyboard;
 

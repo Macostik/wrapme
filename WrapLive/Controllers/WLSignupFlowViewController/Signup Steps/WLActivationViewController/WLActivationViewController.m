@@ -7,21 +7,13 @@
 //
 
 #import "WLActivationViewController.h"
-#import "WLAPIManager.h"
 #import "WLProfileInformationViewController.h"
-#import "UIColor+CustomColors.h"
 #import "WLInputAccessoryView.h"
-#import "WLSession.h"
-#import "UIView+Shorthand.h"
 #import "WLProgressBar+WLContribution.h"
 #import "UIButton+Additions.h"
-#import "NSString+Additions.h"
-#import "WLAuthorization.h"
-#import "WLAuthorizationRequest.h"
 #import "WLHomeViewController.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLButton.h"
-#import "WLVerificationCallRequest.h"
 #import "WLSoundPlayer.h"
 #import "UIAlertView+Blocks.h"
 

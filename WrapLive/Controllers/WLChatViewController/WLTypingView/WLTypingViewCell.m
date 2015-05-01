@@ -7,10 +7,6 @@
 //
 
 #import "WLTypingViewCell.h"
-#import "UIView+Shorthand.h"
-#import "NSString+Additions.h"
-#import "NSArray+Additions.h"
-#import "NSOrderedSet+Additions.h"
 
 @interface WLTypingViewCell ()
 
@@ -19,11 +15,6 @@
 @end
 
 @implementation WLTypingViewCell
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.layer.geometryFlipped = YES;
-}
 
 - (void)setNames:(NSString *)names {
     self.nameTextField.text = names;

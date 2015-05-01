@@ -7,29 +7,19 @@
 //
 
 #import "WLCandiesCell.h"
-#import "NSDate+Formatting.h"
 #import "WLCandyCell.h"
-#import "WLCandy.h"
 #import "NSObject+NibAdditions.h"
 #import "WLRefresher.h"
-#import "NSArray+Additions.h"
-#import "WLAPIManager.h"
-#import "WLWrap.h"
-#import "NSDate+Additions.h"
-#import "WLHistory.h"
 #import "UIScrollView+Additions.h"
-#import "WLCollectionViewDataProvider.h"
-#import "WLCandiesViewSection.h"
+#import "WLHistoryItemDataSource.h"
+#import "WLChronologicalEntryPresenter.h"
 
 @interface WLCandiesCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-@property (strong, nonatomic) WLCollectionViewDataProvider* dataProvider;
-
-@property (strong, nonatomic) WLPaginatedViewSection* dataSection;
-
+@property (strong, nonatomic) WLHistoryItemDataSource* dataSource;
 
 @end
 
@@ -37,24 +27,23 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    UICollectionViewFlowLayout* layout = (id)self.collectionView.collectionViewLayout;
-    layout.minimumLineSpacing = WLConstants.pixelSize;
-    layout.sectionInset = UIEdgeInsetsMake(0, WLCandyCellSpacing, 0, WLCandyCellSpacing);
-    
-    WLCandiesViewSection* section = [[WLCandiesViewSection alloc] initWithCollectionView:self.collectionView];
-    section.reuseCellIdentifier = WLCandyCellIdentifier;
-    section.selection = self.selection;
-    self.dataSection = section;
-    self.dataProvider = [WLCollectionViewDataProvider dataProvider:self.collectionView section:section];
-}
-
-- (void)setSelection:(WLObjectBlock)selection {
-    [super setSelection:selection];
-    self.dataSection.selection = selection;
+    WLHistoryItemDataSource* dataSource = [WLHistoryItemDataSource dataSource:self.collectionView];
+    dataSource.minimumLineSpacing = dataSource.sectionLeftInset = dataSource.sectionRightInset = WLConstants.pixelSize;
+    dataSource.cellIdentifier = WLCandyCellIdentifier;
+    __weak typeof(self)weakSelf = self;
+    [dataSource setItemSizeBlock:^CGSize(WLCandy *candy, NSUInteger index) {
+        CGFloat size = weakSelf.collectionView.width/2.5;
+        return CGSizeMake(size, weakSelf.collectionView.height);
+    }];
+    [dataSource setSelectionBlock:^ (id entry) {
+        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
+    }];
+    self.dataSource = dataSource;
+    self.dataSource.headerAnimated = YES;
 }
 
 - (void)setup:(WLHistoryItem*)item {
-    self.dataSection.entries = item;
+    self.dataSource.items = item;
 	self.dateLabel.text = [item.date string];
     [self.collectionView layoutIfNeeded];
     [self.collectionView trySetContentOffset:item.offset];

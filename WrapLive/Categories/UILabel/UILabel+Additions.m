@@ -7,7 +7,6 @@
 //
 
 #import "UILabel+Additions.h"
-#import "UIView+Shorthand.h"
 
 @implementation UILabel (Additions)
 

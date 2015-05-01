@@ -7,13 +7,9 @@
 //
 
 #import "WLSettingsViewController.h"
-#import "WLAPIManager.h"
-#import "WLSession.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "UIAlertView+Blocks.h"
-#import "NSDate+Formatting.h"
 #import "ALAssetsLibrary+Additions.h"
-#import "WLAuthorizationRequest.h"
 
 @interface WLSettingsViewController ()
 
@@ -25,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.signOutButton.hidden = [WLAPIManager instance].environment.isProduction;
+    self.signOutButton.hidden = [WLAPIManager manager].environment.isProduction;
 }
 
 - (IBAction)about:(id)sender {

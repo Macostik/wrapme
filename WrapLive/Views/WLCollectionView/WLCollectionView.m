@@ -8,8 +8,6 @@
 
 #import "WLCollectionView.h"
 #import "WLLoadingView.h"
-#import "NSString+Additions.h"
-#import "UIView+Shorthand.h"
 #import "UIView+AnimationHelper.h"
 #import "NSObject+NibAdditions.h"
 
@@ -34,6 +32,19 @@ static CGFloat WLDefaultType = -1;
     [self addToCachePlaceholderWithName:self.nibNamePlaceholder byType:WLDefaultType];
     [self setPlaceholderByTupe:WLDefaultType];
     [self addObserver:self forKeyPath:WLContentSize options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+- (void)reloadData {
+    if (!self.stopReloadingData) {
+        [super reloadData];
+    }
+}
+
+- (void)setStopReloadingData:(BOOL)stopReloadingData {
+    _stopReloadingData = stopReloadingData;
+    if (!stopReloadingData) {
+        [super reloadData];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

@@ -1,0 +1,16 @@
+//
+//  PrefixHeader.pch
+//  WrapLive
+//
+//  Created by Sergey Maximenko on 3/21/15.
+//  Copyright (c) 2015 Ravenpod. All rights reserved.
+//
+
+#ifndef WrapLive_ExtensionsPrefixHeader_pch
+#define WrapLive_ExtensionsPrefixHeader_pch
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <WrapLiveKit/WrapLiveKit.h>
+
+#endif

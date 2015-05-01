@@ -8,8 +8,6 @@
 
 #import "WLShakeViewController.h"
 
-@class WLWrap;
-
 @interface WLWrapViewController : WLShakeViewController
 
 @property (weak, nonatomic) WLWrap* wrap;

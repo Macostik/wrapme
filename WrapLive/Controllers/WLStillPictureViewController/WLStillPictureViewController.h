@@ -11,7 +11,6 @@
 
 @class WLStillPictureViewController;
 @class WLCameraViewController;
-@class WLWrap;
 
 @protocol WLStillPictureViewControllerDelegate <WLStillPictureBaseViewControllerDelegate>
 
@@ -30,8 +29,6 @@
 @property (weak, nonatomic, readonly) UINavigationController* cameraNavigationController;
 
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
-
-@property (nonatomic) AVCaptureDevicePosition defaultPosition;
 
 @property (nonatomic) BOOL startFromGallery;
 

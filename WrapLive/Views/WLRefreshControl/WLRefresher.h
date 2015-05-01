@@ -22,6 +22,8 @@ typedef NS_ENUM(NSUInteger, WLRefresherStyle) {
 
 @property (nonatomic) BOOL refreshing;
 
+@property (nonatomic) CGFloat inset;
+
 + (WLRefresher*)refresher:(UIScrollView*)scrollView target:(id)target action:(SEL)action style:(WLRefresherStyle)style;
 
 + (WLRefresher*)refresher:(UIScrollView*)scrollView target:(id)target action:(SEL)action;
@@ -29,7 +31,5 @@ typedef NS_ENUM(NSUInteger, WLRefresherStyle) {
 + (WLRefresher*)refresher:(UIScrollView*)scrollView;
 
 - (void)setRefreshing:(BOOL)refreshing animated:(BOOL)animated;
-
-- (void)setOperation:(AFURLConnectionOperation *)operation;
 
 @end

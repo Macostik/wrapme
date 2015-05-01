@@ -7,10 +7,6 @@
 //
 
 #import "WLWrapView.h"
-#import "WLImageFetcher.h"
-#import "WLWrap+Extended.h"
-#import "UIView+Shorthand.h"
-#import "NSString+Additions.h"
 
 @implementation WLWrapView
 

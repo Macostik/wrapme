@@ -1,0 +1,16 @@
+{
+    "aps" : {
+        "alert" : "John Smith: 'Test chat message' in 'Test wrap'.",
+        "sound" : "s03.wav",
+        "content-available" : 1,
+        "category":"chat"
+    },
+    "WatchKit Simulator Actions": [
+                                   {
+                                   "title": "Reply",
+                                   "identifier": "reply"
+                                   }
+                                   ],
+    "msg_type" : 700,
+    "chat_uid" : "CT853b78a0cb340132d6860abd3edd1a07"
+}

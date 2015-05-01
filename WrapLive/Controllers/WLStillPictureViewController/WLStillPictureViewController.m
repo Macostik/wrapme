@@ -7,36 +7,26 @@
 //
 
 #import "ALAssetsLibrary+Additions.h"
-#import "ALAssetsLibrary+Additions.h"
-#import "WLOperationQueue.h"
 #import "NSMutableDictionary+ImageMetadata.h"
-#import "UIImage+Resize.h"
 #import "UIView+AnimationHelper.h"
-#import "UIView+Shorthand.h"
 #import "WLAssetsGroupViewController.h"
-#import "WLEntryManager.h"
-#import "WLImageFetcher.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLStillPictureViewController.h"
-#import "WLWrap.h"
-#import <AviarySDK/AviarySDK.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLPickerViewController.h"
 #import "WLCreateWrapViewController.h"
 #import "WLWrapViewController.h"
 #import "WLCameraViewController.h"
-#import "UIImage+Drawing.h"
-#import "WLEntryNotifier.h"
 #import "WLHintView.h"
 #import "WLWrapView.h"
 #import "WLUploadPhotoViewController.h"
 #import "WLNavigationAnimator.h"
 #import "WLHomeViewController.h"
+#import "WLSoundPlayer.h"
 
-@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, AFPhotoEditorControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
+@interface WLStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
-@property (weak, nonatomic) AFPhotoEditorController* aviaryController;
 
 @property (strong, nonatomic) WLImageBlock editBlock;
 
@@ -46,8 +36,11 @@
 
 @implementation WLStillPictureViewController
 
+@dynamic delegate;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
     
@@ -58,7 +51,7 @@
     
     WLCameraViewController* cameraViewController = [self.cameraNavigationController.viewControllers lastObject];
     cameraViewController.delegate = self;
-    cameraViewController.defaultPosition = self.defaultPosition;
+    cameraViewController.mode = self.mode;
     cameraViewController.wrap = self.wrap;
     self.cameraViewController = cameraViewController;
     
@@ -179,38 +172,16 @@
     [self cropImage:image completion:completion];
 }
 
-- (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-        [AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
-        [AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel];
-		[AFPhotoEditorCustomization setLeftNavigationBarButtonTitle:@"Cancel"];
-        [AFPhotoEditorCustomization setToolOrder:@[kAFEnhance, kAFEffects, kAFFrames, kAFStickers, kAFFocus,
-                                                   kAFOrientation, kAFCrop, kAFDraw, kAFText, kAFBlemish, kAFMeme]];
-	});
-    if (self.mode == WLStillPictureModeDefault) {
-        [AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Send"];
-    } else {
-        [AFPhotoEditorCustomization setRightNavigationBarButtonTitle:@"Save"];
-    }
-	AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:image];
-	aviaryController.delegate = self;
-	return aviaryController;
-}
-
 - (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata {
     __weak typeof(self)weakSelf = self;
     WLUploadPhotoCompletionBlock finishBlock = ^ (UIImage *resultImage, NSString *comment, BOOL saveToAlbum) {
         if (saveToAlbum) [resultImage save:metadata];
-        id <WLStillPictureViewControllerDelegate> delegate = [weakSelf getValidDelegate];
-        if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
-            weakSelf.view.userInteractionEnabled = NO;
-            [WLPicture picture:resultImage mode:weakSelf.mode completion:^(WLPicture *picture) {
-                picture.comment = comment;
-                [delegate stillPictureViewController:weakSelf didFinishWithPictures:@[picture]];
-                weakSelf.view.userInteractionEnabled = YES;
-            }];
-        }
+        weakSelf.view.userInteractionEnabled = NO;
+        [WLPicture picture:resultImage mode:weakSelf.mode completion:^(WLPicture *picture) {
+            picture.comment = comment;
+            [weakSelf finishWithPictures:@[picture]];
+            weakSelf.view.userInteractionEnabled = YES;
+        }];
     };
     
     [self editImage:image completion:finishBlock];
@@ -278,18 +249,26 @@
             [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
                 [WLPicture picture:croppedImage mode:weakSelf.mode completion:^(id object) {
                     [pictures addObject:object];
-                    [operation finish:^{
-                        run_in_main_queue(^{
-                            weakSelf.view.userInteractionEnabled = YES;
-                            id <WLStillPictureViewControllerDelegate> delegate = [weakSelf getValidDelegate];
-                            if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
-                                [delegate stillPictureViewController:weakSelf didFinishWithPictures:pictures];
-                            }
-                        });
-                    }];
+                    [operation finish];
+                    if (pictures.count == assets.count) {
+                        weakSelf.view.userInteractionEnabled = YES;
+                        [weakSelf finishWithPictures:pictures];
+                    }
                 }];
             }];
         });
+    }
+}
+
+- (void)finishWithPictures:(NSArray*)pictures {
+    
+    if (self.mode == WLStillPictureModeDefault) {
+        [WLSoundPlayer playSound:WLSound_s04];
+    }
+    
+    id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
+    if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
+        [delegate stillPictureViewController:self didFinishWithPictures:pictures];
     }
 }
 
@@ -302,19 +281,6 @@
         self.cameraNavigationController.viewControllers = @[self.cameraNavigationController.topViewController];
         [self handleAssets:assets];
     }
-}
-
-#pragma mark - AFPhotoEditorControllerDelegate
-
-- (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
-    if (self.editBlock) {
-        self.editBlock(image);
-        self.editBlock = nil;
-    }
-}
-
-- (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
-    [self.cameraNavigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - PickerViewController action

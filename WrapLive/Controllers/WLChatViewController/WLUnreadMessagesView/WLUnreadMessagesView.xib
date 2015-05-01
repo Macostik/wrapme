@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </mutableArray>
+        <mutableArray key="wrapliveicons.ttf">
+            <string>wrapliveicons</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLUnreadMessagesView" id="U6b-Vx-4bR" customClass="WLUnreadMessagesView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="34"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="y" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCD-g3-CUe">
+                    <rect key="frame" x="29" y="9" width="15" height="15"/>
+                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="15"/>
+                    <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9 UNREAD MESSAGES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xw3-dx-bSA" customClass="WLLabel">
+                    <rect key="frame" x="85" y="7" width="152" height="21"/>
+                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                    <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="Xw3-dx-bSA" secondAttribute="centerX" constant="-0.5" id="5Jm-AR-1Rv"/>
+                <constraint firstItem="Xw3-dx-bSA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="72" id="G5L-MV-N0T"/>
+                <constraint firstAttribute="centerY" secondItem="FCD-g3-CUe" secondAttribute="centerY" id="NKu-ss-xEb"/>
+                <constraint firstAttribute="centerY" secondItem="Xw3-dx-bSA" secondAttribute="centerY" id="PL6-0s-aq3"/>
+                <constraint firstItem="FCD-g3-CUe" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="36" id="PN9-2N-xcg"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Xw3-dx-bSA" secondAttribute="trailing" constant="40" id="aZB-uf-RzP"/>
+            </constraints>
+            <connections>
+                <outlet property="textLabel" destination="Xw3-dx-bSA" id="cP4-sA-cRV"/>
+            </connections>
+        </collectionReusableView>
+    </objects>
+</document>

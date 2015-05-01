@@ -46,7 +46,6 @@
 "No contact data." = "Нет контактной информации.";
 "You cannot add yourself." = "Вы не можете добавить самого себя.";
 "This contact is already added." = "Этот котакт уже существует.";
-"name contains[c] %@" = "имя контакта[c] %@";
 "picture" = "картинка";
 "email" = "почта";
 "phones" = "телефоны";
@@ -127,3 +126,4 @@
 "Sorry you can't chat when internet connection is unavailable. Please try again later." = "К сожалению, Вы не можете отправлять сообщения когда нету интернета. Попробуйте немного позже.";
 "Sorry, you cannot upload more than 10 pictures at a time" = "Извените, Вы не можете загрузить больше 10 фотографий сразу";
 "No internet connections available. Please try downloading it later." = "Интернет не доступен. Попытайтесь скачать позже, пожалуйста.";
+"verification email %@" = "Подтвердите Вашу почту %@ чтобы помочь обезопасить Ваш аккаунт.";

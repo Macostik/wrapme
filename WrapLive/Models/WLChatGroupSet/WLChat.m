@@ -7,15 +7,15 @@
 //
 
 #import "WLChat.h"
-#import "NSDate+Formatting.h"
 #import "NSMutableOrderedSet+Sorting.h"
-#import "WLMessage.h"
 
 @interface WLChat () <WLChatTypingChannelDelegate>
 
 @end
 
 @implementation WLChat
+
+@dynamic delegate;
 
 - (void)dealloc {
     [self.typingChannel removeObserving];
@@ -31,6 +31,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.messagesWithDay = [NSHashTable weakObjectsHashTable];
+        self.messagesWithName = [NSHashTable weakObjectsHashTable];
         self.typingUsers = [NSMutableOrderedSet orderedSet];
         self.sendMessageUsers = [NSMutableOrderedSet orderedSet];
     }
@@ -40,6 +42,9 @@
 - (void)setWrap:(WLWrap *)wrap {
     _wrap = wrap;
     [self resetEntries:wrap.messages];
+    if (wrap.lastUnread) {
+        self.unreadMessages = [self.entries objectsWhere:@"createdAt > %@ AND contributor != %@", wrap.lastUnread, [WLUser currentUser]];
+    }
     if (wrap) {
         self.typingChannel = [WLChatTypingChannel channelWithWrap:wrap];
         self.typingChannel.delegate = self;
@@ -52,7 +57,7 @@
     if (![self.typingUsers containsObject:user]) {
         [self.typingUsers addObject:user];
         self.typingNames = [self namesOfUsers:self.typingUsers];
-        [self.delegate paginatedSetChanged:self];
+        [self didChange];
     }
 }
 
@@ -60,7 +65,7 @@
     if ([self.typingUsers containsObject:user]) {
         [self.typingUsers removeObject:user];
         self.typingNames = [self namesOfUsers:self.typingUsers];
-        [self.delegate paginatedSetChanged:self];
+        [self didChange];
     }
 }
 
@@ -118,6 +123,28 @@
             [self.delegate chat:self didEndTyping:user andSendMessage:sendMessage];
         }
     }
+}
+
+- (void)didChange {
+    [self.messagesWithDay removeAllObjects];
+    [self.messagesWithName removeAllObjects];
+    NSOrderedSet *messages = self.entries;
+    for (WLMessage *message in messages) {
+        NSUInteger index = [messages indexOfObject:message];
+        WLMessage* previousMessage = [messages tryObjectAtIndex:index + 1];
+        BOOL showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
+        if (showDay) {
+            [self.messagesWithDay addObject:message];
+            [self.messagesWithName addObject:message];
+            continue;
+        }
+        
+        if (previousMessage.contributor != message.contributor) {
+            [self.messagesWithName addObject:message];
+        }
+    }
+    
+    [super didChange];
 }
 
 @end

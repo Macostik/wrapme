@@ -7,8 +7,6 @@
 //
 
 #import "WLEditSession.h"
-#import "NSDictionary+Extended.h"
-#import "WLEntry.h"
 
 @interface WLEditSessionProperty ()
 

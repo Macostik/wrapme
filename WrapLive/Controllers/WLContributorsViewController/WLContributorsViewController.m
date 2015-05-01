@@ -7,18 +7,18 @@
 //
 
 #import "WLContributorsViewController.h"
-#import "WLCollectionViewDataProvider.h"
-#import "WLContributorsViewSection.h"
+#import "WLBasicDataSource.h"
 #import "WLContributorCell.h"
-#import "WLUpdateContributorsRequest.h"
 #import "WLAddressBookPhoneNumber.h"
-#import "WLEntryNotifier.h"
-#import "WLResendInviteRequest.h"
+#import "UIFont+CustomFonts.h"
+
+const static CGFloat WLContributorsVerticalIndent = 48.0f;
+const static CGFloat WLContributorsHorizontalIndent = 96.0f;
+const static CGFloat WLContributorsMinHeight = 72.0f;
 
 @interface WLContributorsViewController () <WLContributorCellDelegate>
 
-@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
-@property (strong, nonatomic) IBOutlet WLContributorsViewSection *dataSection;
+@property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 
 @property (strong, nonatomic) NSMutableSet* invitedContributors;
 
@@ -37,26 +37,44 @@
     
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap properties:[NSSet setWithObject:[WLOrderedSetEditSessionProperty property:@"removedContributors"]]];
     // Do any additional setup after loading the view.
-    self.dataSection.wrap = self.wrap;
+    __weak UICollectionView *collectionView = self.dataSource.collectionView;
+    [self.dataSource setItemSizeBlock:^CGSize(WLUser *contributor, NSUInteger index) {
+        CGFloat height = [contributor.securePhones heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall] width:collectionView.width - WLContributorsHorizontalIndent];
+        return CGSizeMake(collectionView.width, MAX(height + WLContributorsVerticalIndent, WLContributorsMinHeight) + 1);
+    }];
 	if (self.wrap.contributedByCurrentUser) {
-		[self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
+		[self.dataSource setConfigureCellForItemBlock:^(WLContributorCell *cell, WLUser* contributor) {
 			cell.deletable = ![contributor isCurrentUser];
 		}];
     } else {
-        [self.dataSection setConfigure:^(WLContributorCell *cell, WLUser* contributor) {
+        [self.dataSource setConfigureCellForItemBlock:^(WLContributorCell *cell, WLUser* contributor) {
             cell.deletable = NO;
         }];
     }
     
     UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 44, 0);
-    self.dataProvider.collectionView.contentInset = insets;
-    self.dataProvider.collectionView.scrollIndicatorInsets = insets;
+    collectionView.contentInset = insets;
+    collectionView.scrollIndicatorInsets = insets;
     
     [[WLWrap notifier] addReceiver:self];
 }
 
 - (void)setupEditableUserInterface {
-    self.dataSection.entries = [self.wrap.contributors mutableCopy];
+    self.dataSource.items = [self sortedContributors];
+}
+
+- (NSMutableOrderedSet*)sortedContributors {
+    NSMutableOrderedSet *contributors = [self.wrap.contributors mutableCopy];
+    [contributors sortUsingComparator:^NSComparisonResult(WLUser *obj1, WLUser *obj2) {
+        if ([obj1 isCurrentUser]) {
+            return NSOrderedDescending;
+        }
+        if ([obj2 isCurrentUser]) {
+            return NSOrderedAscending;
+        }
+        return [WLString(obj1.name) compare:WLString(obj2.name)];
+    }];
+    return contributors;
 }
 
 #pragma mark - WLContributorCellDelegate
@@ -67,8 +85,9 @@
     [self.editSession changeValueForProperty:@"removedContributors" valueBlock:^id(id changedValue) {
         return [changedValue orderedSetByAddingObject:person];
     }];
-    [[self.dataSection.entries entries] removeObject:contributor];
-    [self.dataSection reload];
+    NSMutableOrderedSet *contributors = (id)self.dataSource.items;
+    [contributors removeObject:contributor];
+    [self.dataSource reload];
 }
 
 - (void)contributorCell:(WLContributorCell *)cell didInviteContributor:(WLUser *)contributor completionHandler:(void (^)(BOOL))completionHandler {
@@ -111,11 +130,11 @@
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
-    NSMutableOrderedSet* contributors = [self.wrap.contributors mutableCopy];
+    NSMutableOrderedSet* contributors = [self sortedContributors];
     for (WLAddressBookPhoneNumber* person in [self.editSession changedValueForProperty:@"removedContributors"]) {
         [contributors removeObject:person.user];
     }
-    self.dataSection.entries = contributors;
+    self.dataSource.items = contributors;
 }
 
 #pragma mark - Actions

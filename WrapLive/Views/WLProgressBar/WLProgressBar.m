@@ -7,8 +7,6 @@
 //
 
 #import "WLProgressBar.h"
-#import "UIColor+CustomColors.h"
-#import "UIView+Shorthand.h"
 
 @interface WLProgressBar ()
 

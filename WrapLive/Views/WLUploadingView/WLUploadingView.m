@@ -8,9 +8,7 @@
 
 #import "WLUploadingView.h"
 #import "WLUploadingQueue.h"
-#import "WLNetwork.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "UIColor+CustomColors.h"
 #import "WLIconButton.h"
 
 @interface WLUploadingView () <WLUploadingQueueReceiver, WLNetworkReceiver>
@@ -19,8 +17,6 @@
 @property (weak, nonatomic) IBOutlet WLIconButton* arrowIcon;
 
 @property (strong, nonatomic) CABasicAnimation* animation;
-
-@property (nonatomic) BOOL animating;
 
 @end
 
@@ -63,8 +59,7 @@
         [self stopAnimating];
         return;
     }
-    if (self.animating) return;
-    self.animating = YES;
+    if ([self.arrowIcon.layer animationForKey:@"uploading"] != nil) return;
     [self.arrowIcon.layer addAnimation:self.animation forKey:@"uploading"];
     
 }
@@ -81,7 +76,6 @@
 }
 
 - (void)stopAnimating {
-    self.animating = NO;
     [self.arrowIcon.layer removeAnimationForKey:@"uploading"];
 }
 

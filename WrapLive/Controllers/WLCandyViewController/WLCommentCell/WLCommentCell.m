@@ -7,28 +7,18 @@
 //
 
 #import "WLCommentCell.h"
-#import "WLImageFetcher.h"
-#import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
 #import "UILabel+Additions.h"
-#import "NSDate+Additions.h"
 #import "UIAlertView+Blocks.h"
-#import "WLAPIManager.h"
-#import "WLEntryNotifier.h"
 #import "UIActionSheet+Blocks.h"
 #import "UIView+GestureRecognizing.h"
 #import "WLToast.h"
-#import "WLEntryManager.h"
 #import "WLMenu.h"
-#import "NSString+Additions.h"
-#import "WLNetwork.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
-#import "UIColor+CustomColors.h"
 #import "TTTAttributedLabel.h"
-#import "UIImage+Drawing.h"
 #import "WLTextView.h"
-
+#import "WLEntryStatusIndicator.h"
 
 @interface WLCommentCell ()
 
@@ -36,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet WLTextView *commenttextView;
+@property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
 
 @end
 
@@ -50,10 +41,10 @@
     [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
     
-    [[WLMenu sharedMenu] addView:self configuration:^void (WLMenu *menu, BOOL *vibrate) {
+    [[WLMenu sharedMenu] addView:self configuration:^WLEntry *(WLMenu *menu, BOOL *vibrate) {
         WLComment* comment = weakSelf.entry;
         if (comment.deletable) {
-            [menu addDeleteItem:^{
+            [menu addDeleteItem:^(WLComment *comment) {
                 weakSelf.userInteractionEnabled = NO;
                 [weakSelf.entry remove:^(id object) {
                     weakSelf.userInteractionEnabled = YES;
@@ -62,10 +53,13 @@
                     weakSelf.userInteractionEnabled = YES;
                 }];
             }];
-        } else {
-            *vibrate = NO;
-            [WLToast showWithMessage:WLLS(@"Cannot delete comment not posted by you.")];
         }
+        [menu addCopyItem:^(WLComment *comment) {
+            if (comment.text.nonempty) {
+                [[UIPasteboard generalPasteboard] setValue:comment.text forPasteboardType:(id)kUTTypeText];
+            }
+        }];
+        return comment;
     }];
 }
 
@@ -77,6 +71,7 @@
     [self.commenttextView determineHyperLink:entry.text];
 	self.authorImageView.url = entry.contributor.picture.small;
     self.dateLabel.text = entry.createdAt.timeAgoString;
+    [self.indicator updateStatusIndicator:entry];
 }
 
 @end

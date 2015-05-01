@@ -8,7 +8,6 @@
 
 #import "WLCountryCell.h"
 #import "WLCountry.h"
-#import "UIColor+CustomColors.h"
 
 @interface WLCountryCell ()
 

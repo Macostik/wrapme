@@ -7,9 +7,7 @@
 //
 
 #import "WLShakeViewController.h"
-#import "UIViewController+Additions.h"
-#import "UIView+Shorthand.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLTelephony.h"
 
 @interface WLShakeViewController ()

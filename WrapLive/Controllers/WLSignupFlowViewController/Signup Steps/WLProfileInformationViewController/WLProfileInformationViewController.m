@@ -7,21 +7,10 @@
 //
 
 #import "WLProfileInformationViewController.h"
-#import "WLHomeViewController.h"
-#import "WLCameraViewController.h"
-#import "WLAPIManager.h"
-#import "WLNavigation.h"
-#import "UIView+Shorthand.h"
-#import "WLImageCache.h"
-#import "UIColor+CustomColors.h"
-#import "UIImage+Resize.h"
+#import "WLNavigationHelper.h"
 #import "UIButton+Additions.h"
-#import "WLImageFetcher.h"
 #import "WLKeyboard.h"
-#import "NSString+Additions.h"
 #import "WLStillPictureViewController.h"
-#import "WLEntryManager.h"
-#import "WLUpdateUserRequest.h"
 #import "WLProfileEditSession.h"
 #import "WLButton.h"
 #import "WLNavigationAnimator.h"
@@ -87,7 +76,6 @@
 - (IBAction)createImage:(id)sender {
 	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
     cameraNavigation.delegate = self;
-    cameraNavigation.defaultPosition = AVCaptureDevicePositionFront;
     cameraNavigation.mode = WLStillPictureModeSquare;
     cameraNavigation.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
     [self.navigationController pushViewController:cameraNavigation animated:YES];
@@ -128,7 +116,7 @@
 	[self verifyContinueButton];
 }
 
-- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
+- (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
     return (keyboardHeight - self.continueButton.height)/2.0f;
 }
 

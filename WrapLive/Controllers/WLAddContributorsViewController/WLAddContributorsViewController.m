@@ -7,21 +7,12 @@
 //
 
 #import "WLAddContributorsViewController.h"
-#import "WLAPIManager.h"
 #import "WLAddressBook.h"
-#import "NSArray+Additions.h"
-#import "NSString+Additions.h"
-#import "UIView+Shorthand.h"
 #import "WLContactCell.h"
-#import "UIColor+CustomColors.h"
 #import "UIFont+CustomFonts.h"
 #import "WLInviteViewController.h"
-#import "WLEntryManager.h"
 #import "WLAddressBookPhoneNumber.h"
-#import "WLContributorsRequest.h"
 #import "WLButton.h"
-#import "WLEntryNotifier.h"
-#import "WLUpdateContributorsRequest.h"
 #import "WLFontPresetter.h"
 #import "WLArrangedAddressBook.h"
 #import "WLAddressBookGroupView.h"
@@ -151,7 +142,7 @@ const static CGFloat WLDefaultHeight = 72.0f;
         }
     } else {
         NSString *phoneString = [WLContactCell collectionPersonsStringFromContact:contact];
-        CGFloat height = [phoneString heightWithFont:[UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmaller]
+        CGFloat height = [phoneString heightWithFont:[UIFont fontWithName:WLFontOpenSansLight preset:WLFontPresetSmall]
                                        width:self.tableView.width - 142.0f];
         return height + 54.0;
     }

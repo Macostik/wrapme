@@ -6,10 +6,7 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "NSDictionary+Extended.h"
-#import "WLAuthorization.h"
 #import "WLProfileEditSession.h"
-#import "WlUser.h"
 
 @interface WLProfileEditSessionEmailProperty : WLEditSessionProperty
 

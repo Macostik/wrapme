@@ -8,8 +8,6 @@
 
 #import "SegmentedControl.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIColor+CustomColors.h"
-#import "NSArray+Additions.h"
 #import "UIView+QuatzCoreAnimations.h"
 
 @interface SegmentedControl ()

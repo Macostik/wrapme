@@ -8,11 +8,6 @@
 
 #import "WLShakeViewController.h"
 
-@class WLCandy;
-@class WLWrap;
-@class WLHistoryItem;
-@class WLHistory;
-
 @interface WLCandyViewController : WLShakeViewController
 
 @property (weak, nonatomic) WLCandy *candy;

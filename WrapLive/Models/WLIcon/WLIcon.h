@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FontAwesomeKit/FontAwesomeKit.h>
 
+static NSString *WLIconPresetXSmall = @"xsmall";
 static NSString *WLIconPresetSmaller = @"smaller";
 static NSString *WLIconPresetSmall = @"small";
 static NSString *WLIconPresetBase = @"base";
@@ -18,12 +18,16 @@ static NSString *WLIconPresetLarger = @"larger";
 static NSString *WLIconPresetXLarge = @"xlarge";
 static NSString *WLIconPresetLargest = @"largest";
 
-@interface WLIcon : FAKIcon
+@interface WLIcon : NSObject
 
-+ (FAKIcon*)iconWithName:(NSString*)name;
++ (NSAttributedString*)iconWithName:(NSString*)name;
 
-+ (FAKIcon*)iconWithName:(NSString*)name preset:(NSString*)preset;
++ (NSAttributedString*)iconWithName:(NSString*)name preset:(NSString*)preset;
 
-+ (FAKIcon*)iconWithName:(NSString*)name preset:(NSString*)preset color:(UIColor*)color;
++ (NSAttributedString*)iconWithName:(NSString*)name preset:(NSString*)preset color:(UIColor*)color;
 
 @end
+
+static inline NSAttributedString *WLIconCreate(NSString *name, NSString *preset, UIColor *color) {
+    return [WLIcon iconWithName:name preset:preset color:color];
+}

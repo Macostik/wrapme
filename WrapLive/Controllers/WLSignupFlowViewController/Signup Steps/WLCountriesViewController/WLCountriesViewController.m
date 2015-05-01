@@ -10,15 +10,12 @@
 #import "WLCountry.h"
 #import "WLCountryCell.h"
 #import "NSObject+NibAdditions.h"
-#import "WLCollectionViewDataProvider.h"
-#import "WLCollectionViewSection.h"
-#import "UIColor+CustomColors.h"
+#import "WLBasicDataSource.h"
 #import "WLNavigationAnimator.h"
 
 @interface WLCountriesViewController ()
 
-@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
-@property (strong, nonatomic) IBOutlet WLCollectionViewSection *dataSection;
+@property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 
 @end
 
@@ -39,22 +36,22 @@
     run_getting_object(^id {
         return [WLCountry all];
     }, ^(NSMutableOrderedSet* countries) {
-        weakSelf.dataSection.entries = countries;
+        weakSelf.dataSource.items = countries;
 		if (selectedCountry) {
 			NSUInteger index = [countries indexOfObjectPassingTest:^BOOL(WLCountry* obj, NSUInteger idx, BOOL *stop) {
 				return [obj.code isEqualToString:selectedCountry.code];
 			}];
 			if (index != NSNotFound) {
-				[weakSelf.dataSection.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+				[weakSelf.dataSource.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
 			}
 		}
     });
 }
 
 - (WLCountry *)selectedCountry {
-    NSIndexPath* indexPath = [[self.dataSection.collectionView indexPathsForSelectedItems] lastObject];
+    NSIndexPath* indexPath = [[self.dataSource.collectionView indexPathsForSelectedItems] lastObject];
     if (indexPath) {
-        return [self.dataSection.entries.entries tryObjectAtIndex:indexPath.item];
+        return [(NSArray*)self.dataSource.items tryObjectAtIndex:indexPath.item];
     }
     return nil;
 }

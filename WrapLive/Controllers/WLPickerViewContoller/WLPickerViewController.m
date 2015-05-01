@@ -9,16 +9,11 @@
 #import "NSObject+NibAdditions.h"
 #import "UIFont+CustomFonts.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "UIView+Shorthand.h"
 #import "WLButton.h"
 #import "WLPickerViewController.h"
-#import "WLUser+Extended.h"
-#import "WLWrap+Extended.h"
 #import "WLWrapCell.h"
-#import "NSString+Additions.h"
 #import "UIView+GestureRecognizing.h"
 #import "WLStillPictureViewController.h"
-#import "WLEntryNotifier.h"
 
 static NSString *const WLPickerViewCell = @"WLPickerViewCell";
 static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
@@ -95,6 +90,14 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 - (void)setWraps:(NSOrderedSet *)wraps {
     _wraps = wraps;
     if (self.isViewLoaded) [_pickerView reloadAllComponents];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
 }
 
 #pragma mark - UIPickerViewDataSource

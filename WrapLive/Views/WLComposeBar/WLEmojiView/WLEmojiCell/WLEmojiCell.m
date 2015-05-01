@@ -7,7 +7,6 @@
 //
 
 #import "WLEmojiCell.h"
-#import "UIView+Shorthand.h"
 #import "UIFont+CustomFonts.h"
 
 @interface WLEmojiCell ()

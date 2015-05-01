@@ -7,8 +7,7 @@
 //
 
 #import "WLSignupStepViewController.h"
-#import "WLNavigation.h"
-#import "WLAuthorization.h"
+#import "WLNavigationHelper.h"
 
 @interface WLSignupStepViewController ()
 
@@ -30,6 +29,13 @@
     
     if (self.emailLabel) {
         self.emailLabel.text = [WLAuthorization currentAuthorization].email;
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    if (self.navigationController == nil) {
+        self.view = nil;
     }
 }
 

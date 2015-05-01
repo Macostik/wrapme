@@ -7,21 +7,12 @@
 //
 
 #import "WLCandyCell.h"
-#import "WLImageFetcher.h"
-#import "WLEntryNotifier.h"
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
-#import "NSString+Additions.h"
 #import "UIView+GestureRecognizing.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "UIView+Shorthand.h"
 #import "WLToast.h"
-#import "WLImageFetcher.h"
 #import "MFMailComposeViewController+Additions.h"
-#import "WLUploading.h"
-#import "WLUser.h"
-#import "WLAPIManager.h"
-#import "WLEntryManager.h"
 #import "WLMenu.h"
 #import "UIFont+CustomFonts.h"
 
@@ -29,7 +20,6 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
-
 
 @end
 
@@ -48,7 +38,7 @@
         [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu, BOOL *vibrate) {
             WLCandy* candy = weakSelf.entry;
             if (candy.deletable) {
-                [menu addDeleteItem:^{
+                [menu addDeleteItem:^(WLCandy *candy) {
                     weakSelf.userInteractionEnabled = NO;
                     [candy remove:^(id object) {
                         weakSelf.userInteractionEnabled = YES;
@@ -58,17 +48,18 @@
                     }];
                 }];
             } else {
-                [menu addReportItem:^{
+                [menu addReportItem:^(WLCandy *candy) {
                     [MFMailComposeViewController messageWithCandy:candy];
                 }];
             }
-            [menu addDownloadItem:^{
+            [menu addDownloadItem:^(WLCandy *candy) {
                 [candy download:^{
                 } failure:^(NSError *error) {
                     [error show];
                 }];
                 [WLToast showPhotoDownloadingMessage];
             }];
+            return candy;
         }];
     }
 }

@@ -1,0 +1,10 @@
+{
+    "aps" : {
+        "alert" : "Max commented 'Nice!' on a photo in 'Test3'.",
+        "sound" : "s02.wav",
+        "content-available" : 1
+    },
+    "comment_uid" : "CMf99c32a0d076013206390abd3edd1a07",
+    "msg_type" : 500
+    
+}

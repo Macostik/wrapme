@@ -7,31 +7,24 @@
 //
 
 #import "WLAppDelegate.h"
-#import "WLNetwork.h"
-#import "WLSession.h"
 #import "WLNotificationCenter.h"
 #import "WLKeyboard.h"
-#import "WLGestureBroadcaster.h"
-#import "WLUploading+Extended.h"
 #import "WLEntryManager.h"
 #import "WLMenu.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "NSPropertyListSerialization+Shorthand.h"
 #import "ALAssetsLibrary+Additions.h"
-#import "UIColor+CustomColors.h"
-#import "UIImage+Drawing.h"
 #import "NSObject+NibAdditions.h"
 #import "ALAssetsLibrary+Additions.h"
-#import "WLAuthorizationRequest.h"
-#import "WLRemoteObjectHandler.h"
+#import "WLRemoteEntryHandler.h"
 #import "WLHomeViewController.h"
 #import "iVersion.h"
 #import "WLLaunchScreenViewController.h"
-#import "WLOperationQueue.h"
 #import "WLSignupFlowViewController.h"
-#import "WLUploadingQueue.h"
 #import "GAI.h"
 #import <NewRelicAgent/NewRelic.h>
+#import "WLToast.h"
+#import "WLAddressBook.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 
@@ -49,16 +42,33 @@
     
     [self initializeCrashlyticsAndLogging];
     
-    [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
+    [self initializeAPIManager];
     
     [self presentInitialViewController];
     
     [self initializeVersionTool];
     
 	[[WLNetwork network] configure];
+    [[WLNetwork network] setChangeReachabilityBlock:^(WLNetwork *network) {
+        if (network.reachable) {
+            if ([WLAuthorizationRequest authorized]) {
+                [WLUploadingQueue start];
+                [[WLAddressBook addressBook] updateCachedRecordsAfterFailure];
+            } else {
+                [[WLAuthorizationRequest signInRequest] send];
+            }
+        }
+    }];
 	[[WLKeyboard keyboard] configure];
 	[[WLNotificationCenter defaultCenter] configure];
-	[[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:nil failure:nil];
+    [[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:^(WLNotification *notification) {
+        if ([notification isKindOfClass:[WLEntryNotification class]]) {
+            [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+        }
+    } failure:nil];
+    [[WLNotificationCenter defaultCenter] setGettingDeviceTokenBlock:^ (WLDataBlock gettingDeviceTokenCompletionBlock) {
+        [self deviceToken:gettingDeviceTokenCompletionBlock];
+    }];
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
@@ -70,10 +80,19 @@
 	return YES;
 }
 
+- (void)initializeAPIManager {
+    WLAPIManager *manager = [WLAPIManager manager];
+    [manager setUnauthorizedErrorBlock:^ (NSError *error) {
+        WLLog(@"ERROR", @"redirection to welcome screen, sign in failed", error);
+        [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+    }];
+    
+    [manager setShowErrorBlock:^ (NSError *error) {
+        [WLToast showWithMessage:[error errorMessage]?:error.localizedDescription];
+    }];
+}
+
 - (void)initializeCrashlyticsAndLogging {
-    
-    [LELog sharedInstance].token = @"e9e259b1-98e6-41b5-b530-d89d1f5af01d";
-    
     run_release(^{
         WLAPIEnvironment *environment = [WLAPIManager manager].environment;
         if ([environment.name isEqualToString:WLAPIEnvironmentProduction]) {
@@ -91,7 +110,7 @@
 
 - (void)initializeVersionTool {
     iVersion *version = [iVersion sharedInstance];
-    version.appStoreID = 879908578;
+    version.appStoreID = WLConstants.appStoreID;
     version.updateAvailableTitle = WLLS(@"New version of wrapLive is available");
     version.downloadButtonLabel = WLLS(@"Update");
     version.remindButtonLabel = WLLS(@"Not now");
@@ -115,6 +134,7 @@
         if (user.isSignupCompleted) {
             [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
         } else {
+            WLLog(@"INITIAL SIGN IN", @"sign up is not completed, redirecting to profile step", nil);
             UINavigationController *signupNavigationController = [[UIStoryboard storyboardNamed:WLSignUpStoryboard] instantiateInitialViewController];
             WLSignupFlowViewController *signupFlowViewController = [WLSignupFlowViewController instantiate:signupNavigationController.storyboard];
             signupFlowViewController.registrationNotCompleted = YES;
@@ -129,10 +149,12 @@
             if ([error isNetworkError]) {
                 successBlock([WLUser currentUser]);
             } else {
+                WLLog(@"INITIAL SIGN IN ERROR", @"couldn't sign in, so redirecting to welcome screen", nil);
                 [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
             }
         }];
     } else {
+        WLLog(@"INITIAL SIGN IN", @"no data for signing in", nil);
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
     }
 }
@@ -142,22 +164,67 @@
 }
 
 
+static WLDataBlock deviceTokenCompletion = nil;
+
+- (void)deviceToken:(WLDataBlock)completion {
+    NSData* deviceToken = [WLSession deviceToken];
+    if (deviceToken) {
+        completion(deviceToken);
+    } else {
+        if (SystemVersionGreaterThanOrEqualTo8()) {
+            UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc] init];
+            category.identifier = @"chat";
+            UIMutableUserNotificationAction *action = [[UIMutableUserNotificationAction alloc] init];
+            action.identifier = @"reply";
+            action.title = @"Reply";
+            action.activationMode = UIUserNotificationActivationModeForeground;
+            action.authenticationRequired = YES;
+            [category setActions:@[action] forContext:UIUserNotificationActionContextDefault];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+            UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
+            UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:types categories:[NSSet setWithObject:category]];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        } else {
+            UIRemoteNotificationType type = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:type];
+        }
+        deviceTokenCompletion = completion;
+    }
+}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-	[WLNotificationCenter setDeviceToken:deviceToken];
+    [WLSession setDeviceToken:deviceToken];
+    if (deviceTokenCompletion) {
+        deviceTokenCompletion(deviceToken);
+        deviceTokenCompletion = nil;
+    }
 }
 
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    [url handleRemoteObject];
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    [[WLRemoteEntryHandler sharedHandler] presentEntryFromURL:url];
     return YES;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    
-    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^{
+    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
+        if ([notification isKindOfClass:[WLEntryNotification class]] && application.applicationState == UIApplicationStateInactive) {
+            [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+        }
         if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
     } failure:^(NSError *error) {
         if (completionHandler) completionHandler(UIBackgroundFetchResultFailed);
+    }];
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
+        if ([notification isKindOfClass:[WLEntryNotification class]] && application.applicationState == UIApplicationStateInactive) {
+            [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+        }
+        if (completionHandler) completionHandler();
+    } failure:^(NSError *error) {
+        if (completionHandler) completionHandler();
     }];
 }
 
@@ -205,6 +272,24 @@
             [homeViewController openCameraAnimated:NO startFromGallery:YES];
         }
     }
+}
+
+- (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
+    NSString *action = userInfo[@"action"];
+    if (action.nonempty) {
+        if ([action isEqualToString:@"authorization"]) {
+            if ([[WLAuthorization currentAuthorization] canAuthorize]) {
+                [[WLAuthorization currentAuthorization] setCurrent];
+                [WLAPIManager saveEnvironmentName:[WLAPIManager manager].environment.name];
+                if (reply) reply(@{@"success":@YES});
+            } else {
+                if (reply) reply(@{@"message":@"Please, launch wrapLive containing app for registration",@"success":@NO});
+            }
+            return;
+        }
+    }
+    
+    if (reply) reply(@{@"success":@NO});
 }
 
 @end

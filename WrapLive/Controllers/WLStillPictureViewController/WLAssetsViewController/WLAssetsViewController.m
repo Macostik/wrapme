@@ -10,12 +10,11 @@
 #import "WLAssetCell.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "UIImage+Resize.h"
-#import "UIViewController+Additions.h"
 #import "NSObject+NibAdditions.h"
 #import "WLToast.h"
 #import "UIButton+Additions.h"
 #import "NSArray+Additions.h"
-#import "UIView+Shorthand.h"
+#import "WLWrapView.h"
 
 static NSUInteger WLAssetsSelectionLimit = 10;
 
@@ -32,6 +31,8 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 @end
 
 @implementation WLAssetsViewController
+
+@dynamic delegate;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -170,7 +171,7 @@ static NSUInteger WLAssetNumberOfColumns = 4;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(WLConstants.pixelSize, WLConstants.pixelSize, WLConstants.pixelSize, WLConstants.pixelSize);
+    return UIEdgeInsetsMake(WLConstants.pixelSize, WLConstants.pixelSize, self.wrapView.height, WLConstants.pixelSize);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {

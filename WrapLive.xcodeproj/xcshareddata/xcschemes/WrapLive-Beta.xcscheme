@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0610"
+   LastUpgradeVersion = "0630"
    version = "1.3">
    <BuildAction
-      parallelizeBuildables = "NO"
+      parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C54AF55219B8C467006F7EDB"
+               BuildableName = "WrapLive-Beta.app"
+               BlueprintName = "WrapLive-Beta"
+               ReferencedContainer = "container:wrapLive.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
    </BuildAction>
    <TestAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -19,7 +35,7 @@
             BlueprintIdentifier = "C54AF55219B8C467006F7EDB"
             BuildableName = "WrapLive-Beta.app"
             BlueprintName = "WrapLive-Beta"
-            ReferencedContainer = "container:WrapLive.xcodeproj">
+            ReferencedContainer = "container:wrapLive.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -32,13 +48,14 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C54AF55219B8C467006F7EDB"
             BuildableName = "WrapLive-Beta.app"
             BlueprintName = "WrapLive-Beta"
-            ReferencedContainer = "container:WrapLive.xcodeproj">
+            ReferencedContainer = "container:wrapLive.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -50,13 +67,14 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C54AF55219B8C467006F7EDB"
             BuildableName = "WrapLive-Beta.app"
             BlueprintName = "WrapLive-Beta"
-            ReferencedContainer = "container:WrapLive.xcodeproj">
+            ReferencedContainer = "container:wrapLive.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
@@ -64,7 +82,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "AdHoc"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

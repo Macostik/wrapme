@@ -54,7 +54,7 @@
 "Bop-dI-sMz.text" = "Add friends";
 
 /* Class = "IBUILabel"; text = "Email confirmation"; ObjectID = "CSs-OC-vDg"; */
-"CSs-OC-vDg.text" = "Email confirmation";
+"CSs-OC-vDg.text" = "Help secure your account";
 
 /* Class = "IBUITextField"; placeholder = "Your name"; ObjectID = "D1N-1e-psu"; */
 "D1N-1e-psu.placeholder" = "Your name";
@@ -105,7 +105,7 @@
 "N9a-4s-fUi.text" = "By Bartholome O'Connell II";
 
 /* Class = "IBUILabel"; text = "Email confirmation"; ObjectID = "Nim-LA-uPS"; */
-"Nim-LA-uPS.text" = "Email confirmation";
+"Nim-LA-uPS.text" = "Help secure your account";
 
 /* Class = "IBUIButton"; normalTitle = "wrap name"; ObjectID = "PcB-Yh-hjT"; */
 "PcB-Yh-hjT.normalTitle" = "wrap name";
@@ -116,8 +116,8 @@
 /* Class = "IBUIButton"; normalTitle = "Change e-mail"; ObjectID = "R9i-Mn-k3a"; */
 "R9i-Mn-k3a.normalTitle" = "Change e-mail";
 
-/* Class = "IBUILabel"; text = "Notifications"; ObjectID = "Te3-A9-g3F"; */
-"Te3-A9-g3F.text" = "Notifications";
+/* Class = "IBUILabel"; text = "What's up"; ObjectID = "Te3-A9-g3F"; */
+"Te3-A9-g3F.text" = "What's up";
 
 /* Class = "IBUILabel"; text = "Enter your friend's name and phone number"; ObjectID = "TlS-f9-yyB"; */
 "TlS-f9-yyB.text" = "Enter your friend's name and phone number";

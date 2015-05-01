@@ -7,31 +7,14 @@
 //
 
 #import "NSArray+Additions.h"
-#import "NSString+Additions.h"
 #import "UIButton+Additions.h"
-#import "UIColor+CustomColors.h"
-#import "UIImage+Resize.h"
-#import "UIView+Shorthand.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLAPIManager.h"
-#import "WLAddContributorsViewController.h"
 #import "WLAddressBook.h"
 #import "WLButton.h"
-#import "WLCameraViewController.h"
 #import "WLContributorCell.h"
 #import "WLCreateWrapViewController.h"
-#import "WLEntryNotifier.h"
-#import "WLImageCache.h"
-#import "WLImageFetcher.h"
-#import "WLInviteeCell.h"
-#import "WLNavigation.h"
-#import "WLAddressBookPhoneNumber.h"
+#import "WLNavigationHelper.h"
 #import "WLToast.h"
-#import "WLUser.h"
-#import "WLWrap.h"
-#import "WLWrapViewController.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
-#import "WLUploadingQueue.h"
 
 @interface WLCreateWrapViewController () 
 
@@ -47,7 +30,7 @@
     return YES;
 }
 
-- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
+- (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
     return keyboardHeight/2.0f;
 }
 

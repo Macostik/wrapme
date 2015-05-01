@@ -9,34 +9,26 @@
 #import "WLChangeProfileViewController.h"
 #import "WLCameraViewController.h"
 #import "WLStillPictureViewController.h"
-#import "WLNavigation.h"
-#import "UIImage+Resize.h"
-#import "UIView+Shorthand.h"
-#import "WLImageFetcher.h"
-#import "WLAPIManager.h"
+#import "WLNavigationHelper.h"
 #import "WLKeyboard.h"
 #import "WLInputAccessoryView.h"
-#import "NSDate+Formatting.h"
-#import "WLImageCache.h"
-#import "WLSession.h"
-#import "NSString+Additions.h"
 #import "WLToast.h"
 #import "WLWelcomeViewController.h"
-#import "WLEntryManager.h"
 #import "UIButton+Additions.h"
 #import "WLProfileEditSession.h"
-#import "WLUpdateUserRequest.h"
 #import "UIView+AnimationHelper.h"
-#import "WLEntryNotifier.h"
-#import "WLResendConfirmationRequest.h"
+#import "WLTextView.h"
+#import "WLFontPresetter.h"
 
-@interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
+@interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLFontPresetterReceiver, WLBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *imagePlaceholderView;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
+@property (weak, nonatomic) IBOutlet WLTextView *verificationEmailTextView;
+@property (weak, nonatomic) IBOutlet UIButton *resendButton;
 
 @property (strong, nonatomic) WLProfileEditSession *editSession;
 
@@ -44,17 +36,32 @@
 
 @implementation WLChangeProfileViewController
 
+@dynamic editSession;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.imageView setImageName:@"default-large-avatar" forState:WLImageViewStateEmpty];
     [self.imageView setImageName:@"default-large-avatar" forState:WLImageViewStateFailed];
     self.editSession = [[WLProfileEditSession alloc] initWithUser:[WLUser currentUser]];
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
+    self.verificationEmailTextView.textContainerInset = UIEdgeInsetsZero;
+    self.verificationEmailTextView.textContainer.lineFragmentPadding = 0;
     [self updateEmailConfirmationView];
     [[WLUser notifier] addReceiver:self];
+    [[WLFontPresetter presetter] addReceiver:self];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.emailConfirmationView convertRect:CGRectInset(self.resendButton.frame, -5, -5)
+                                                                                                   toView:self.verificationEmailTextView]];
+    CGRect r = [self.view convertRect:self.imagePlaceholderView.frame toView:self.verificationEmailTextView];
+    UIBezierPath *avatarPath = [UIBezierPath bezierPathWithOvalInRect:r];
+    self.verificationEmailTextView.textContainer.exclusionPaths = @[exlusionPath, avatarPath];
 }
 
 - (void)updateEmailConfirmationView {
+    self.verificationEmailTextView.attributedText = [WLAuthorization attributedVerificationSuggestion];
     self.emailConfirmationView.hidden = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
 }
 
@@ -130,6 +137,7 @@
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
+    [self updateEmailConfirmationView];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -148,6 +156,18 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
     [self updateEmailConfirmationView];
+}
+
+#pragma mark -  WLFontPresetterReceiver
+
+- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+      self.verificationEmailTextView.attributedText = [WLAuthorization attributedVerificationSuggestion];
+}
+
+#pragma mark - WLBroadcastReceiver
+
+- (NSNumber *)peferedOrderEntry:(WLBroadcaster *)broadcaster {
+    return @(2);
 }
 
 @end

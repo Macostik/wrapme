@@ -9,7 +9,7 @@
 #import "WLSignupFlowViewController.h"
 #import "WLProfileInformationViewController.h"
 #import "WLPhoneViewController.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "WLEmailViewController.h"
 #import "WLPhoneViewController.h"
 #import "WLEmailConfirmationViewController.h"
@@ -18,7 +18,6 @@
 #import "WLActivationViewController.h"
 #import "WLNavigationAnimator.h"
 #import "UIView+AnimationHelper.h"
-#import "WLAuthorizationRequest.h"
 
 @interface WLSignupFlowViewController () <UINavigationControllerDelegate>
 
@@ -176,8 +175,12 @@
     
 }
 
-- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
+- (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
     return self.headerView.bounds.size.height;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
 }
 
 #pragma mark - UINavigationControllerDelegate

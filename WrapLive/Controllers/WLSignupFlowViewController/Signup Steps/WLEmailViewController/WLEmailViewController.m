@@ -7,13 +7,11 @@
 //
 
 #import "WLEmailViewController.h"
-#import "WLAuthorization.h"
-#import "WLAuthorizationRequest.h"
 #import "WLTelephony.h"
 #import "WLButton.h"
 #import "WLTestUserPicker.h"
 #import "UIAlertView+Blocks.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 #import "NSObject+NibAdditions.h"
 #import "WLConfirmView.h"
 
@@ -41,7 +39,7 @@
         }];
     }
     
-    self.testAccountButton.hidden = ![WLAPIManager instance].environment.useTestUsers;
+    self.testAccountButton.hidden = [WLAPIManager manager].environment.isProduction;
 }
 
 - (IBAction)next:(WLButton*)sender {
@@ -82,7 +80,7 @@
     }];
 }
 
-- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
+- (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
     return keyboardHeight/2.0f;
 }
 

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLEntryNotifier.h"
 
 @interface WLEntryView : UIView <WLEntryNotifyReceiver>
 

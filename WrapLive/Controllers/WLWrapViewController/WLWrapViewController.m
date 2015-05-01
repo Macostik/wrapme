@@ -8,53 +8,34 @@
 //
 
 #import "WLWrapViewController.h"
-#import "WLWrap.h"
 #import "WLCandiesCell.h"
-#import "WLImageFetcher.h"
-#import "WLCandy.h"
-#import "NSDate+Formatting.h"
-#import "UIView+Shorthand.h"
-#import "WLNavigation.h"
-#import "WLCameraViewController.h"
+#import "WLNavigationHelper.h"
 #import "WLCandyViewController.h"
 #import "WLComposeBar.h"
-#import "WLAPIManager.h"
-#import "WLComment.h"
 #import "WLRefresher.h"
 #import "WLChatViewController.h"
 #import "WLLoadingView.h"
-#import "WLEntryNotifier.h"
 #import "WLEditWrapViewController.h"
 #import "UILabel+Additions.h"
 #import "WLToast.h"
 #import "WLStillPictureViewController.h"
 #import "WLWrapCell.h"
 #import "UIView+AnimationHelper.h"
-#import "NSDate+Additions.h"
-#import "WLHistory.h"
-#import "NSString+Additions.h"
-#import "WLWrapRequest.h"
-#import "SegmentedControl.h"
 #import "WLCandyCell.h"
 #import "NSObject+NibAdditions.h"
-#import "WLCandiesRequest.h"
-#import "UIViewController+Additions.h"
-#import "WLCandiesHistoryViewSection.h"
-#import "WLCollectionViewDataProvider.h"
-#import "WLTimelineViewDataProvider.h"
-#import "WLTimeline.h"
+#import "WLBasicDataSource.h"
 #import "UIScrollView+Additions.h"
-#import "WLSession.h"
-#import "NSString+Additions.h"
 #import "WLContributorsViewController.h"
-#import "WLNotification.h"
 #import "WLBadgeLabel.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLCreateWrapViewController.h"
 #import "WLPickerViewController.h"
 #import "UIFont+CustomFonts.h"
 #import "WLHintView.h"
-#import "WLNetwork.h"
+#import "WLChronologicalEntryPresenter.h"
+
+
+static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
 
@@ -62,8 +43,7 @@
 
 @property (strong, nonatomic) WLHistory *history;
 
-@property (strong, nonatomic) IBOutlet WLCollectionViewDataProvider *dataProvider;
-@property (strong, nonatomic) IBOutlet WLCandiesHistoryViewSection *historyViewSection;
+@property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet UIButton *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
@@ -86,8 +66,6 @@
 
 - (void)viewDidLoad {
     
-    self.historyViewSection.defaultHeaderSize = CGSizeZero;
-    
     [super viewDidLoad];
     
     self.nameLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -100,14 +78,14 @@
     
     // force set hostory mode to remove timeline from UI but keep it in code
     
-    self.history = [WLHistory historyWithWrap:self.wrap];
-    self.historyViewSection.entries = self.history;
-    
-    [self.dataProvider setRefreshableWithStyle:WLRefresherStyleOrange];
-    
-    [self.historyViewSection setSelection:^ (id entry) {
-        [entry present];
+    __weak typeof(self)weakSelf = self;
+    [self.dataSource setItemSizeBlock:^CGSize(id entry, NSUInteger index) {
+        return CGSizeMake(weakSelf.collectionView.width, (weakSelf.collectionView.width/2.5f + WLCandiesHistoryDateHeaderHeight));
     }];
+    self.history = [WLHistory historyWithWrap:self.wrap checkCompletion:YES];
+    self.dataSource.items = self.history;
+    
+    [self.dataSource setRefreshableWithStyle:WLRefresherStyleOrange];
     
     [self firstLoadRequest];
     
@@ -143,7 +121,7 @@
         [self.wrap.candies all:^(WLCandy *candy) {
             if (candy.unread) candy.unread = NO;
         }];
-        [self.dataProvider reload];
+        [self.dataSource reload];
         [self updateNotificationCouter];
         [self updateWrapData];
     } else {
@@ -194,6 +172,12 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
+    if ([self isViewLoaded] && self.wrap.valid) {
+        if (candy.unread) candy.unread = NO;
+    }
+}
+
 - (void)notifier:(WLEntryNotifier*)notifier messageAdded:(WLMessage*)message {
     [self updateNotificationCouter];
 }
@@ -211,6 +195,7 @@
         self.wrap = wrap;
     }
     [wrap uploadPictures:pictures];
+    [self.collectionView setMinimumContentOffsetAnimated:NO];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -262,7 +247,7 @@
 // MARK: - WLNetwork
 
 - (void)networkDidChangeReachability:(WLNetwork *)network {
-    [self.historyViewSection reload];
+    [self.dataSource reload];
 }
 
 @end

@@ -7,24 +7,22 @@
 //
 
 #import "WLUploadPhotoViewController.h"
-#import <AviarySDK/AviarySDK.h>
 #import "WLNavigationAnimator.h"
 #import "WLHintView.h"
-#import "WLNavigation.h"
-#import "UIView+Shorthand.h"
+#import "WLNavigationHelper.h"
 #import "WLIconButton.h"
-#import "WLUser+Extended.h"
 #import "WLComposeBar.h"
 #import "WLAlertView.h"
+#import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
+#import <AdobeCreativeSDKFoundation/AdobeCreativeSDKFoundation.h>
 
-static CGFloat WLHeightCoposeBarConstrain = 132.0;
-
-@interface WLUploadPhotoViewController () <AFPhotoEditorControllerDelegate>
+@interface WLUploadPhotoViewController () <AdobeUXImageEditorViewControllerDelegate, WLComposeBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet WLIconButton *editButton;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 
 @property (nonatomic) BOOL edited;
 
@@ -62,14 +60,12 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
 // MARK: - actions
 
 - (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [AFPhotoEditorController setAPIKey:@"a44aeda8d37b98e1" secret:@"94599065e4e4ee36"];
-        [AFPhotoEditorController setPremiumAddOns:AFPhotoEditorPremiumAddOnWhiteLabel | AFPhotoEditorPremiumAddOnHiRes];
-        [AFPhotoEditorCustomization setToolOrder:@[kAFEnhance, kAFEffects, kAFFrames, kAFStickers, kAFFocus,
-                                                   kAFOrientation, kAFCrop, kAFDraw, kAFText, kAFBlemish, kAFMeme]];
+        [[AdobeUXAuthManager sharedManager] setAuthenticationParametersWithClientID:@"a7929bf566694d579acb507eae697db1" withClientSecret:@"b6fa1e1c-4f8c-4001-88a9-0251a099f890"];
     });
-    AFPhotoEditorController* aviaryController = [[AFPhotoEditorController alloc] initWithImage:image];
+    AdobeUXImageEditorViewController* aviaryController = [[AdobeUXImageEditorViewController alloc] initWithImage:image];
     aviaryController.delegate = self;
     aviaryController.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
     return aviaryController;
@@ -86,12 +82,12 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
 
 - (IBAction)done:(id)sender {
     [self.view endEditing:YES];
-    if (self.completionBlock) self.completionBlock(self.image, self.textView.text, self.edited);
+    if (self.completionBlock) self.completionBlock(self.image, [self.textView.text trim], self.edited);
 }
 
 // MARK: - AFPhotoEditorControllerDelegate
 
-- (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
+- (void)photoEditor:(AdobeUXImageEditorViewController *)editor finishedWithImage:(UIImage *)image {
     self.edited = YES;
     self.image = self.imageView.image = image;
     [self.navigationController popViewControllerAnimated:YES];
@@ -107,8 +103,22 @@ static CGFloat WLHeightCoposeBarConstrain = 132.0;
     return UIInterfaceOrientationMaskAll;
 }
 
-- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
-    return self.view.height - WLHeightCoposeBarConstrain - CGRectGetMaxY(self.editButton.frame) - (self.view.height - keyboardHeight)/2;
+- (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
+    return ((keyboardHeight - self.bottomView.height) - (self.imageView.size.height/4 - self.composeBar.height/2)) * constraint.multiplier;
+}
+
+// MARK: - WLComposeBarDelegate
+
+- (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
+    [self keyboardWillShow:[WLKeyboard keyboard]];
+}
+
+- (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
+    [composeBar setDoneButtonHidden:!composeBar.text.nonempty animated:YES];
+}
+
+- (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
+    [composeBar setDoneButtonHidden:YES animated:YES];
 }
 
 @end

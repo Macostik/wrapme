@@ -10,7 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 
 @class WLCameraViewController;
-@class WLWrap;
 
 @protocol WLCameraViewControllerDelegate <WLStillPictureBaseViewControllerDelegate>
 
@@ -23,8 +22,6 @@
 @interface WLCameraViewController : WLStillPictureBaseViewController
 
 @property (nonatomic, weak) id <WLCameraViewControllerDelegate> delegate;
-
-@property (nonatomic) AVCaptureDevicePosition defaultPosition;
 
 @property (nonatomic) AVCaptureDevicePosition position;
 

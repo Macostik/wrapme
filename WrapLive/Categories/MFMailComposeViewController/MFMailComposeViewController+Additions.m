@@ -10,7 +10,7 @@
 #import "WLCandy.h"
 #import "WLWrap.h"
 #import "WLToast.h"
-#import "WLNavigation.h"
+#import "WLNavigationHelper.h"
 
 @interface MFMailComposeViewController () <MFMailComposeViewControllerDelegate>
 

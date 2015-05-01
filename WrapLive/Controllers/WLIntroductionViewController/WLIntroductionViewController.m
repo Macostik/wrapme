@@ -7,7 +7,6 @@
 //
 
 #import "WLIntroductionViewController.h"
-#import "NSArray+Additions.h"
 #import "WLIntroductionBaseViewController.h"
 
 @interface WLIntroductionViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate, WLIntroductionBaseViewControllerDelegate>

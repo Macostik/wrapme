@@ -7,11 +7,8 @@
 //
 
 #import "WLBaseViewController.h"
-#import "NSArray+Additions.h"
 #import "UIView+AnimationHelper.h"
-#import "UIView+Shorthand.h"
-#import "WLNavigation.h"
-#import "UIViewController+Additions.h"
+#import "WLNavigationHelper.h"
 #import "NSObject+NibAdditions.h"
 
 @interface WLBaseViewController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
@@ -83,6 +80,10 @@
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
     
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
@@ -190,7 +191,17 @@
 
 #pragma mark - WLKeyboardBroadcastReceiver
 
-- (CGFloat)keyboardAdjustmentValueWithKeyboardHeight:(CGFloat)keyboardHeight {
+- (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
+    CGFloat adjustment = [self keyboardAdjustmentForConstraint:constraint defaultConstant:defaultConstant keyboardHeight:keyboardHeight];
+    return defaultConstant + adjustment;
+}
+
+- (CGFloat)constantForKeyboardAdjustmentTopConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
+    CGFloat adjustment = [self keyboardAdjustmentForConstraint:constraint defaultConstant:defaultConstant keyboardHeight:keyboardHeight];
+    return defaultConstant - adjustment;
+}
+
+- (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
     return keyboardHeight;
 }
 
@@ -201,12 +212,14 @@
     return _keyboardAdjustmentLayoutViews;
 }
 
-- (BOOL)updateKeyboardAdjustmentConstraints:(CGFloat)adjustment {
+- (BOOL)updateKeyboardAdjustmentConstraints:(CGFloat)keyboardHeight {
     BOOL changed = NO;
     NSMapTable *constants = self.keyboardAdjustmentDefaultConstants;
     for (NSLayoutConstraint *constraint in self.keyboardAdjustmentTopConstraints) {
         CGFloat constant = [[constants objectForKey:constraint] floatValue];
-        constant -= adjustment;
+        if (keyboardHeight > 0) {
+            constant = [self constantForKeyboardAdjustmentTopConstraint:constraint defaultConstant:constant keyboardHeight:keyboardHeight];
+        }
         if (constraint.constant != constant) {
             constraint.constant = constant;
             changed = YES;
@@ -214,7 +227,9 @@
     }
     for (NSLayoutConstraint *constraint in self.keyboardAdjustmentBottomConstraints) {
         CGFloat constant = [[constants objectForKey:constraint] floatValue];
-        constant += adjustment;
+        if (keyboardHeight > 0) {
+            constant = [self constantForKeyboardAdjustmentBottomConstraint:constraint defaultConstant:constant keyboardHeight:keyboardHeight];
+        }
         if (constraint.constant != constant) {
             constraint.constant = constant;
             changed = YES;
@@ -225,8 +240,7 @@
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
     if (!self.isViewLoaded || (!self.keyboardAdjustmentTopConstraints.nonempty && !self.keyboardAdjustmentBottomConstraints.nonempty)) return;
-    CGFloat adjustment = [self keyboardAdjustmentValueWithKeyboardHeight:keyboard.height];
-    if ([self updateKeyboardAdjustmentConstraints:adjustment]) {
+    if ([self updateKeyboardAdjustmentConstraints:keyboard.height]) {
         if (self.keyboardAdjustmentAnimated && self.viewAppeared) {
             __weak typeof(self)weakSelf = self;
             [keyboard performAnimation:^{

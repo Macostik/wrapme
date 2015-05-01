@@ -1,0 +1,11 @@
+
+#ifndef WrapLive_WrapLiveKitPrefixHeader_pch
+#define WrapLive_WrapLiveKitPrefixHeader_pch
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "SupportHeaders.h"
+#import "WLLogger.h"
+#import "WLLocalization.h"
+
+#endif

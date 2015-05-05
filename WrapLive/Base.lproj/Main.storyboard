@@ -861,7 +861,7 @@
                                             <action selector="resendEmailConfirmation:" destination="7FG-gC-kPg" eventType="touchUpInside" id="GH1-aV-n6f"/>
                                         </connections>
                                     </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Confirm calvin@ravenpod.com as your email address to help secure your account." translatesAutoresizingMaskIntoConstraints="NO" id="VXa-Dq-6e9" customClass="WLTextView">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Confirm calvin@ravenpod.com as your email address to help secure your account." translatesAutoresizingMaskIntoConstraints="NO" id="VXa-Dq-6e9" customClass="WLTextView">
                                         <rect key="frame" x="10" y="31" width="300" height="46"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="11"/>

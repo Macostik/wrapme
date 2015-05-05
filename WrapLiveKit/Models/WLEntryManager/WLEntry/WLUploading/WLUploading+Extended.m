@@ -15,6 +15,7 @@
 #import "WLAuthorizationRequest.h"
 #import "WLNetwork.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLNetwork.h"
 
 @implementation WLUploading (Extended)
 
@@ -27,7 +28,7 @@
 
 - (id)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     WLContribution *contribution = self.contribution;
-    if (contribution.status != WLContributionStatusReady || ![contribution canBeUploaded]) {
+    if (contribution.status != WLContributionStatusReady || ![contribution canBeUploaded] || ![WLNetwork network].reachable) {
         if (failure) failure(nil);
         return nil;
     }

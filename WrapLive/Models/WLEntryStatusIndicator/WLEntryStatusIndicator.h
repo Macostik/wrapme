@@ -8,9 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "WLIconView.h"
+#import "WLEntry+Extended.h"
 
-inline static NSString* iconNameByStatus(WLContributionStatus status) {
-    switch (status) {
+inline static NSString* iconNameByContribution(WLContribution *contribution) {
+    if (![(id)contribution.containingEntry uploaded]) {
+        return @"clock";
+    }
+    
+    switch (contribution.status) {
         case WLContributionStatusReady:
             return @"clock";
             break;
@@ -21,13 +26,17 @@ inline static NSString* iconNameByStatus(WLContributionStatus status) {
             return @"double-check";
             break;
         default:
-             return @"";
+            return @"";
             break;
     }
 }
+
 
 @interface WLEntryStatusIndicator : WLIconView
 
 - (void)updateStatusIndicator:(WLContribution *)contribution;
 
 @end
+
+
+

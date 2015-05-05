@@ -459,7 +459,7 @@ CGFloat WLMaxTextViewWidth;
         }
     } else {
         if (!self.chat.showTypingView) return CGSizeZero;
-        return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetSmall] width:WLMaxTextViewWidth]));
+        return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetSmaller] width:WLMaxTextViewWidth]));
     }
 }
 

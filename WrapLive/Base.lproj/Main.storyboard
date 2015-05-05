@@ -861,7 +861,7 @@
                                             <action selector="resendEmailConfirmation:" destination="7FG-gC-kPg" eventType="touchUpInside" id="GH1-aV-n6f"/>
                                         </connections>
                                     </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Confirm calvin@ravenpod.com as your email address to help secure your account." translatesAutoresizingMaskIntoConstraints="NO" id="VXa-Dq-6e9" customClass="WLTextView">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Confirm calvin@ravenpod.com as your email address to help secure your account." translatesAutoresizingMaskIntoConstraints="NO" id="VXa-Dq-6e9" customClass="WLTextView">
                                         <rect key="frame" x="10" y="31" width="300" height="46"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="11"/>
@@ -3055,19 +3055,19 @@ Check your internet connection and try again.</string>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bnz-8z-kg3" customClass="WLProgressBar">
-                                        <rect key="frame" x="12" y="12" width="48" height="48"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8T-0M-jNN" customClass="WLTextView">
-                                        <rect key="frame" x="72" y="6" width="236" height="37"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G8T-0M-jNN" customClass="WLTextView">
+                                        <rect key="frame" x="72" y="12" width="236" height="36"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="46" id="rKU-02-UsV"/>
-                                        </constraints>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="last comment text">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                                         <userDefinedRuntimeAttributes>
@@ -3117,18 +3117,14 @@ Check your internet connection and try again.</string>
                                     <constraint firstItem="G8T-0M-jNN" firstAttribute="leading" secondItem="DKe-of-CwY" secondAttribute="trailing" constant="12" id="6hR-y9-Ic4"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="width" secondItem="9aV-O1-sMk" secondAttribute="width" id="8Xe-aq-vGl"/>
                                     <constraint firstItem="G8T-0M-jNN" firstAttribute="trailing" secondItem="U0A-o6-Hed" secondAttribute="trailing" id="C4K-9r-KqN"/>
-                                    <constraint firstItem="DKe-of-CwY" firstAttribute="width" secondItem="Bnz-8z-kg3" secondAttribute="width" id="C5G-mj-DFu"/>
                                     <constraint firstItem="9aV-O1-sMk" firstAttribute="top" secondItem="Dsh-mJ-NAQ" secondAttribute="bottom" id="IS4-fz-gbx"/>
                                     <constraint firstAttribute="trailing" secondItem="G8T-0M-jNN" secondAttribute="trailing" constant="12" id="IcP-wV-Vfi"/>
-                                    <constraint firstItem="DKe-of-CwY" firstAttribute="centerX" secondItem="Bnz-8z-kg3" secondAttribute="centerX" id="O9c-Id-0WG"/>
-                                    <constraint firstItem="DKe-of-CwY" firstAttribute="centerY" secondItem="Bnz-8z-kg3" secondAttribute="centerY" id="PxD-HW-fBS"/>
                                     <constraint firstAttribute="height" constant="120" id="Q7b-Sa-Mcr"/>
                                     <constraint firstItem="U0A-o6-Hed" firstAttribute="bottom" secondItem="DKe-of-CwY" secondAttribute="bottom" id="aXY-vQ-PTh"/>
-                                    <constraint firstItem="G8T-0M-jNN" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="top" constant="6" id="bXq-rR-QLW"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="leading" secondItem="9aV-O1-sMk" secondAttribute="leading" id="cSh-hh-6Zj"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="top" secondItem="DKe-of-CwY" secondAttribute="bottom" constant="10" id="erp-MP-rQw"/>
+                                    <constraint firstItem="G8T-0M-jNN" firstAttribute="top" secondItem="DKe-of-CwY" secondAttribute="top" id="mG9-4s-qs6"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="leading" secondItem="DOa-Ws-aK4" secondAttribute="leading" constant="12" id="otN-X2-WJ4"/>
-                                    <constraint firstItem="DKe-of-CwY" firstAttribute="height" secondItem="Bnz-8z-kg3" secondAttribute="height" id="uw9-1N-uNz"/>
                                     <constraint firstItem="DKe-of-CwY" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="top" constant="12" id="vs5-cV-Y5s"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -3204,7 +3200,6 @@ Check your internet connection and try again.</string>
                         <outlet property="indicator" destination="U0A-o6-Hed" id="XhQ-Ow-cQw"/>
                         <outlet property="lastCommentTextView" destination="G8T-0M-jNN" id="747-dx-mt6"/>
                         <outlet property="postLabel" destination="Dsh-mJ-NAQ" id="qz7-Tr-1Dc"/>
-                        <outlet property="progressBar" destination="Bnz-8z-kg3" id="391-Ss-HRL"/>
                         <outlet property="spinner" destination="TL4-HZ-bti" id="PiR-V6-Unb"/>
                         <outlet property="timeLabel" destination="9aV-O1-sMk" id="Q2A-nt-7Se"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="6g0-cf-4Q4"/>

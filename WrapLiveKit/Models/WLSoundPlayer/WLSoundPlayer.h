@@ -11,6 +11,7 @@
 @class WLNotification;
 
 typedef NS_ENUM(NSUInteger, WLSound) {
+    WLSound_Off,
     WLSound_s01,
     WLSound_s02,
     WLSound_s03,

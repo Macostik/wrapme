@@ -11,6 +11,7 @@
 #import "NSString+Additions.h"
 #import "NSDate+Additions.h"
 #import "WLAPIRequest.h"
+#import "WLNetwork.h"
 
 @implementation WLContribution (Extended)
 
@@ -54,7 +55,7 @@
 - (WLContributionStatus)status {
     WLUploading* uploading = self.uploading;
     if (uploading) {
-        if (uploading.data.operation) {
+        if (uploading.data.operation && [WLNetwork network].reachable) {
             return WLContributionStatusInProgress;
         } else {
             return WLContributionStatusReady;

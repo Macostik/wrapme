@@ -88,7 +88,8 @@
 "Name connot be blank." = "Name connot be blank.";
 "%@ and %@" = "%@ and %@";
 " and %@" = " and %@";
-" is typing..." = " is typing...";
+"%@ is typing..." = "%@ is typing...";
+"%@ and %@ are typing..." = "%@ and %@ are typing...";
 "Chat in %@" = "Chat in %@";
 "We are sending you an email for confirming your email address now." = "We are sending you an email for confirming your email address now.";
 "save error" = "save error";

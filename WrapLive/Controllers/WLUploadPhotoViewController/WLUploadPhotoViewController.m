@@ -24,8 +24,6 @@
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 
-@property (nonatomic) BOOL edited;
-
 @end
 
 @implementation WLUploadPhotoViewController
@@ -82,13 +80,12 @@
 
 - (IBAction)done:(id)sender {
     [self.view endEditing:YES];
-    if (self.completionBlock) self.completionBlock(self.image, [self.textView.text trim], self.edited);
+    if (self.completionBlock) self.completionBlock(self.image, [self.textView.text trim]);
 }
 
 // MARK: - AFPhotoEditorControllerDelegate
 
 - (void)photoEditor:(AdobeUXImageEditorViewController *)editor finishedWithImage:(UIImage *)image {
-    self.edited = YES;
     self.image = self.imageView.image = image;
     [self.navigationController popViewControllerAnimated:YES];
 }

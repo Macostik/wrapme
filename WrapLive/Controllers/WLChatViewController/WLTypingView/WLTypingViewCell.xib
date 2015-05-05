@@ -16,8 +16,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username is typing..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="JgY-kG-uMD" customClass="WLLabel">
-                    <rect key="frame" x="77" y="0.0" width="166" height="44"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User1, User2 and User3 are typing..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgY-kG-uMD" customClass="WLLabel">
+                    <rect key="frame" x="77" y="0.0" width="218" height="44"/>
                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                     <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -29,7 +29,7 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="JgY-kG-uMD" secondAttribute="bottom" id="2Pa-ms-lkS"/>
                 <constraint firstItem="JgY-kG-uMD" firstAttribute="leading" secondItem="97O-yH-rHO" secondAttribute="leading" constant="77" id="7qJ-KH-3St"/>
-                <constraint firstAttribute="trailing" secondItem="JgY-kG-uMD" secondAttribute="trailing" constant="77" id="UU2-bX-k9A"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JgY-kG-uMD" secondAttribute="trailing" constant="17" id="UU2-bX-k9A"/>
                 <constraint firstItem="JgY-kG-uMD" firstAttribute="top" secondItem="97O-yH-rHO" secondAttribute="top" id="tGb-ew-0Oe"/>
             </constraints>
             <connections>

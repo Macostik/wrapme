@@ -8,7 +8,7 @@
 
 #import "WLStillPictureBaseViewController.h"
 
-typedef void (^WLUploadPhotoCompletionBlock) (UIImage *image, NSString *comment, BOOL saveToAlbum);
+typedef void (^WLUploadPhotoCompletionBlock) (UIImage *image, NSString *comment);
 
 @interface WLUploadPhotoViewController : WLStillPictureBaseViewController
 

@@ -16,7 +16,7 @@
 
 - (NSString *)identifier {
     if (!_identifier.nonempty) {
-        _identifier = [NSString stringWithFormat:@"%lu_%@_%f", self.type, self.entryIdentifier, self.date.timestamp];
+        _identifier = [NSString stringWithFormat:@"%lu_%@_%f", (unsigned long)self.type, self.entryIdentifier, self.date.timestamp];
     }
     return _identifier;
 }

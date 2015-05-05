@@ -199,17 +199,14 @@
     if (shouldAppendCandies) {
         __weak typeof(self)weakSelf = self;
         runUnaryQueuedOperation(@"wl_candy_pagination_queue", ^(WLOperation *operation) {
-            WLLog(@"CANDY", @"requesting more candies in the day", nil);
             [historyItem older:^(NSOrderedSet *candies) {
                 if (candies.nonempty) [weakSelf.collectionView reloadData];
                 [operation finish];
-                WLLog(@"CANDY SUCCESS", @"requesting more candies in the day", nil);
             } failure:^(NSError *error) {
                 if (error.isNetworkError) {
                     historyItem.completed = YES;
                 }
                 [operation finish];
-                WLLog(@"CANDY ERROR", @"requesting more candies in the day", nil);
             }];
         });
     }
@@ -218,7 +215,6 @@
 - (void)swipeToNextHistoryItem {
     if (self.historyItem.completed) {
         if ([self swipeToHistoryItemAtIndex:[self.history.entries indexOfObject:self.historyItem] + 1]) {
-            WLLog(@"CANDY", @"swiping to another day", nil);
             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
                                         atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             [self.collectionView leftPush];
@@ -226,14 +222,11 @@
         } else if (!self.history.completed && !self.history.request.loading) {
             __weak typeof(self)weakSelf = self;
             runUnaryQueuedOperation(@"wl_candy_pagination_queue", ^(WLOperation *operation) {
-                WLLog(@"CANDY", @"requesting more days", nil);
                 [weakSelf.history older:^(NSOrderedSet *orderedSet) {
                     [weakSelf swipeToNextHistoryItem];
                     [operation finish];
-                    WLLog(@"CANDY SUCCESS", @"requesting more days", nil);
                 } failure:^(NSError *error) {
                     [operation finish];
-                    WLLog(@"CANDY ERROR", @"requesting more days", nil);
                 }];
             });
         }

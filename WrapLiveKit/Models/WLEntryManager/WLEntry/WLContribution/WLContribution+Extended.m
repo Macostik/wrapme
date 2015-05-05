@@ -55,7 +55,7 @@
 - (WLContributionStatus)status {
     WLUploading* uploading = self.uploading;
     if (uploading) {
-        if (uploading.data.operation && [WLNetwork network].reachable) {
+        if (uploading.data.operation) {
             return WLContributionStatusInProgress;
         } else {
             return WLContributionStatusReady;

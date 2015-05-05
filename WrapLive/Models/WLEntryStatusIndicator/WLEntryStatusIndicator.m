@@ -10,7 +10,7 @@
 
 @interface WLEntryStatusIndicator ()
 
-@property (weak, nonatomic) WLEntry *entry;
+@property (weak, nonatomic) WLContribution *contribution;
 
 @end
 
@@ -18,45 +18,41 @@
 
 - (void)updateStatusIndicator:(WLContribution *)contribution {
     self.hidden = !contribution.valid || ![contribution contributor].isCurrentUser;
-    if (_entry != contribution) {
-        _entry = contribution;
-        [[[_entry class] notifier] addReceiver:self];
+    if (_contribution != contribution) {
+        _contribution = contribution;
+        [[[_contribution class] notifier] addReceiver:self];
+        if (![(id)[contribution containingEntry] uploaded]) {
+            [[[[_contribution containingEntry] class] notifier] addReceiver:self];
+        }
     }
+    [self setIconNameByCotribution:contribution];
+}
+
+- (void)setIconNameByCotribution:(WLContribution *)contribution {
     run_in_main_queue(^{
-         self.iconName = iconNameByStatus(contribution.status);
+        self.iconName = iconNameByContribution(contribution);
     });
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier wrapUpdated:(WLWrap*)wrap {
-    [self updateStatusIndicator:wrap];
+    if (self.contribution == wrap)
+        [self setIconNameByCotribution:self.contribution];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier candyUpdated:(WLCandy*)candy {
-    [self updateStatusIndicator:candy];
+    if (self.contribution == candy || candy == self.contribution.containingEntry)
+        [self setIconNameByCotribution:self.contribution];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier commentUpdated:(WLComment*)comment {
-    [self updateStatusIndicator:comment];
+    if (self.contribution == comment || comment == self.contribution.containingEntry)
+        [self setIconNameByCotribution:self.contribution];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier messageUpdated:(WLMessage *)message {
-    [self updateStatusIndicator:message];
-}
-
-- (WLEntry *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
-    return self.entry;
-}
-
-- (WLEntry *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
-    return self.entry;
-}
-
-- (WLEntry *)notifierPreferredComment:(WLEntryNotifier *)notifier {
-    return self.entry;
-}
-
-- (WLEntry *)notifierPreferredMessage:(WLEntryNotifier *)notifier {
-    return self.entry;
+    if (self.contribution == message || message == self.contribution.containingEntry)
+        [self setIconNameByCotribution:self.contribution];
 }
 
 @end
+

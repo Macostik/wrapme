@@ -54,34 +54,25 @@
 - (id)objectInResponse:(WLAPIResponse *)response {
     NSMutableArray* contacts = [self.contacts mutableCopy];
     NSArray* users = response.data[@"users"];
-	[contacts removeObjectsWhileEnumerating:^BOOL (WLAddressBookRecord* contact) {
-        NSMutableArray *phoneNumbers = [contact.phoneNumbers mutableCopy];
-        [phoneNumbers removeObjectsWhileEnumerating:^BOOL (WLAddressBookPhoneNumber *phoneNumber) {
+    NSMutableSet *registeredUsers = [NSMutableSet set];
+    return [contacts map:^id(WLAddressBookRecord* contact) {
+        contact.phoneNumbers = [contact.phoneNumbers map:^id(WLAddressBookPhoneNumber *phoneNumber) {
             NSDictionary *userData = [[users objectsWhere:@"address_book_number == %@", phoneNumber.phone] lastObject];
             if (userData) {
                 WLUser *user = [WLUser API_entry:userData];
-                if ([user isCurrentUser]) {
-                    return YES;
-                } else {
-                    for (WLAddressBookPhoneNumber* _phoneNumber in contact.phoneNumbers) {
-                        if (_phoneNumber != phoneNumber && _phoneNumber.user == user) {
-                            return YES;
-                        }
+                if (user) {
+                    if ([user isCurrentUser] || [registeredUsers containsObject:user]) {
+                        return nil;
                     }
+                    [registeredUsers addObject:user];
                     phoneNumber.user = user;
                     phoneNumber.activated = [userData integerForKey:WLSignInCountKey] > 0;
                 }
             }
-            return NO;
+            return phoneNumber;
         }];
-        if (phoneNumbers.nonempty) {
-            contact.phoneNumbers = [phoneNumbers copy];
-            return NO;
-        } else {
-            return YES;
-        }
-	}];
-	return [contacts copy];
+        return contact.phoneNumbers.nonempty ? contact : nil;
+    }];
 }
 
 @end

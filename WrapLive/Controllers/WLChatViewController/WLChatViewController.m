@@ -463,7 +463,7 @@ CGFloat WLMaxTextViewWidth;
     }
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView bottomInteritemSpacingForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)collectionView:(UICollectionView *)collectionView bottomSpacingForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
     if ([self.chat.messagesWithDay containsObject:message]) {
         return 0;
@@ -472,6 +472,20 @@ CGFloat WLMaxTextViewWidth;
     } else {
         return [self.chat.unreadMessages lastObject] == message ? 0 : 3;
     }
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView topSpacingForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if ([kind isEqualToString:@"unreadMessagesView"]) {
+        return 12;
+    }
+    return 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView bottomSpacingForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if ([kind isEqualToString:@"unreadMessagesView"]) {
+        return 12;
+    }
+    return 0;
 }
 
 #pragma mark - WLFontPresetterReceiver

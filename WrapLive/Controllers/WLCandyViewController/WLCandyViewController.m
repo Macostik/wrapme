@@ -39,7 +39,6 @@
 @property (weak, nonatomic) IBOutlet WLIconButton *actionButton;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
-@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
 
 @property (weak, nonatomic) WLComment *lastComment;
@@ -74,9 +73,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
-    self.wrap = _candy.wrap;
     
+    self.wrap = _candy.wrap;
+    self.lastCommentTextView.textContainer.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.lastCommentTextView.textContainer.maximumNumberOfLines = 2;
     self.lastCommentTextView.textContainerInset = UIEdgeInsetsZero;
     self.lastCommentTextView.textContainer.lineFragmentPadding = .0;
     [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
@@ -262,10 +262,13 @@
 - (void)setLastComment:(WLComment *)lastComment {
     if (lastComment != _lastComment) {
         _lastComment = lastComment;
-        self.avatarImageView.url = _lastComment.contributor.picture.small;
-        [self.lastCommentTextView determineHyperLink:_lastComment.text];
-//        [self.progressBar setContribution:lastComment];
-        [self.indicator updateStatusIndicator:_lastComment];
+        UITextView *textView = self.lastCommentTextView;
+        self.avatarImageView.hidden = textView.hidden = self.indicator.hidden = lastComment.text.length == 0;
+        if (textView && !textView.hidden) {
+            self.avatarImageView.url = lastComment.contributor.picture.small;
+            [textView determineHyperLink:lastComment.text];
+            [self.indicator updateStatusIndicator:lastComment];
+        }
     }
 }
 

@@ -44,7 +44,7 @@
     [request send:^(id object) {
         [UIAlertView showWithMessage:WLLS(@"We are sending you an email for confirming your email address now.")];
     } failure:^(NSError *error) {
-        
+        [error show];
     }];
 }
 

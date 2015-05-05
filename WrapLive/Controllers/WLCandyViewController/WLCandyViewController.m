@@ -281,7 +281,7 @@
     self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), _candy.contributor.name];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
     self.timeLabel.text = timeAgoString;
-    self.lastComment = [[_candy sortedComments] firstObject];
+    self.lastComment = [_candy latestComment];
 }
 
 - (void)setCommentButtonTitle:(WLCandy *)candy {

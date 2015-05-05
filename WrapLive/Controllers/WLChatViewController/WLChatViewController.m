@@ -414,7 +414,7 @@ CGFloat WLMaxTextViewWidth;
             loadingView.error = NO;
             [self appendMessages:^{
             } failure:^(NSError *error) {
-                [error show];
+                [error showIgnoringNetworkError];
                 loadingView.error = YES;
             }];
         }

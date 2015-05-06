@@ -62,6 +62,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *galleryButton;
 
 @end
 
@@ -469,6 +471,32 @@
 
 - (void)applyDeviceOrientation:(UIDeviceOrientation)orientation {
     [self applyDeviceOrientation:orientation forConnection:self.connection];
+    [self applyDeviceOrientationToFunctionalButton:orientation];
+}
+
+- (void)applyDeviceOrientationToFunctionalButton:(UIDeviceOrientation)orientation {
+    [self.flashModeControl setSelecting:NO animated:YES];
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    CGAffineTransform backButtonTransform = CGAffineTransformIdentity;
+    switch (orientation) {
+        case UIDeviceOrientationLandscapeLeft:
+            transform = CGAffineTransformMakeRotation(M_PI_2);
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            transform = CGAffineTransformMakeRotation(-M_PI_2);
+            break;
+        case UIDeviceOrientationPortraitUpsideDown:
+            backButtonTransform = transform = CGAffineTransformMakeRotation(M_PI);
+            break;
+        default:
+            break;
+    }
+    [UIView animateWithDuration:.25 animations:^{
+        self.backButton.transform = backButtonTransform;
+        self.rotateButton.transform = transform;
+        self.flashModeControl.transform = transform;
+        self.galleryButton.transform = transform;
+    }];
 }
 
 - (void)applyDeviceOrientation:(UIDeviceOrientation)orientation forConnection:(AVCaptureConnection*)connection {

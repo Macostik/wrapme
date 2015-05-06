@@ -206,7 +206,7 @@
                                                     <constraint firstAttribute="width" constant="44" id="jEj-og-JEY"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
-                                                <state key="normal" title="w">
+                                                <state key="normal" title="y">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -305,10 +305,12 @@
                     <navigationItem key="navigationItem" id="0aA-xQ-9Uu"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="backButton" destination="X3H-5w-amr" id="pCg-3c-RTR"/>
                         <outlet property="bottomView" destination="oqD-Jp-Gr1" id="hri-Wv-Xvz"/>
                         <outlet property="cameraView" destination="QJU-xo-V0A" id="sRC-HM-yjt"/>
                         <outlet property="cropAreaView" destination="U2Z-fs-pUr" id="Dvu-VS-pUs"/>
                         <outlet property="flashModeControl" destination="Bka-bI-Ghh" id="l4L-Ch-kIK"/>
+                        <outlet property="galleryButton" destination="xgX-et-eNe" id="w2u-Jm-0aD"/>
                         <outlet property="rotateButton" destination="sV2-wR-LN3" id="t38-Si-ylZ"/>
                         <outlet property="takePhotoButton" destination="3gL-lu-fDr" id="gF4-Sa-A9c"/>
                         <outlet property="unauthorizedStatusView" destination="Jwv-dz-I8C" id="170-g2-CsF"/>

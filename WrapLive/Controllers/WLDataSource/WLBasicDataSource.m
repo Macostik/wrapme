@@ -105,7 +105,7 @@
         CGPoint offset = layout.scrollDirection == UICollectionViewScrollDirectionHorizontal ?
         CGPointMake(self.collectionView.contentOffset.x - WLLoadingViewDefaultSize, 0) :
         CGPointMake(0, self.collectionView.contentOffset.y - WLLoadingViewDefaultSize);
-        [self.collectionView setContentOffset:offset animated:YES];
+        [self.collectionView trySetContentOffset:offset animated:YES];
         self.loadingView.animating = NO;
         run_after(0.5, ^{
             [self reload];

@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    WLDefaultPlaceholderMode,
+    WLManualPlaceholderMode,
+} WLPlacehoderMode;
+
 @interface WLCollectionView : UICollectionView
 
 @property (nonatomic) BOOL stopReloadingData;

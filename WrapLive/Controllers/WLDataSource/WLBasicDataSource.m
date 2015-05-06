@@ -66,7 +66,7 @@
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:self.headerIdentifier forIndexPath:indexPath];
     } else {
-        if (self.appendable) {
+        if (self.appendable || !self.footerIdentifier) {
             self.loadingView = [WLLoadingView dequeueInCollectionView:self.collectionView indexPath:indexPath];
             self.loadingView.error = NO;
             [self append:nil failure:^(NSError *error) {

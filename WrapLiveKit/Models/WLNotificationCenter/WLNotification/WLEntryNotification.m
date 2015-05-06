@@ -171,7 +171,7 @@
     
     WLEvent event = self.event;
     
-    WLObjectBlock block = ^(id object) {
+    WLBlock block = ^ {
         if (event == WLEventAdd) {
             switch (weakSelf.type) {
                 case WLNotificationCommentAdd: {
@@ -203,11 +203,11 @@
     };
     
     if (event == WLEventAdd) {
-        [targetEntry fetchIfNeeded:block failure:failure];
+        [targetEntry recursivelyFetchIfNeeded:block failure:failure];
     } else if (event == WLEventUpdate) {
-        block(targetEntry);
+        block();
     } else if (event == WLEventDelete) {
-        block(targetEntry);
+        block();
     }
 }
 

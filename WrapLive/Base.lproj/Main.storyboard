@@ -3055,19 +3055,12 @@ Check your internet connection and try again.</string>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G8T-0M-jNN" customClass="WLTextView">
+                                    <textView hidden="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8T-0M-jNN" customClass="WLTextView">
                                         <rect key="frame" x="72" y="12" width="236" height="36"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="last comment text">
-                                                <attributes>
-                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <font key="NSFont" size="17" name="Helvetica"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                                         <userDefinedRuntimeAttributes>
@@ -3075,7 +3068,10 @@ Check your internet connection and try again.</string>
                                         </userDefinedRuntimeAttributes>
                                     </textView>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0A-o6-Hed" customClass="WLEntryStatusIndicator">
-                                        <rect key="frame" x="297" y="49" width="11" height="11"/>
+                                        <rect key="frame" x="72" y="17" width="16" height="11"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="16" id="XZo-Ke-EfN"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="11"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3116,11 +3112,11 @@ Check your internet connection and try again.</string>
                                     <constraint firstItem="DKe-of-CwY" firstAttribute="leading" secondItem="DOa-Ws-aK4" secondAttribute="leading" constant="12" id="3X9-Yi-thp"/>
                                     <constraint firstItem="G8T-0M-jNN" firstAttribute="leading" secondItem="DKe-of-CwY" secondAttribute="trailing" constant="12" id="6hR-y9-Ic4"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="width" secondItem="9aV-O1-sMk" secondAttribute="width" id="8Xe-aq-vGl"/>
-                                    <constraint firstItem="G8T-0M-jNN" firstAttribute="trailing" secondItem="U0A-o6-Hed" secondAttribute="trailing" id="C4K-9r-KqN"/>
                                     <constraint firstItem="9aV-O1-sMk" firstAttribute="top" secondItem="Dsh-mJ-NAQ" secondAttribute="bottom" id="IS4-fz-gbx"/>
                                     <constraint firstAttribute="trailing" secondItem="G8T-0M-jNN" secondAttribute="trailing" constant="12" id="IcP-wV-Vfi"/>
+                                    <constraint firstItem="G8T-0M-jNN" firstAttribute="top" secondItem="U0A-o6-Hed" secondAttribute="top" constant="-5" id="Mkb-Az-pQv"/>
+                                    <constraint firstItem="G8T-0M-jNN" firstAttribute="leading" secondItem="U0A-o6-Hed" secondAttribute="leading" id="NJz-Zs-KSf"/>
                                     <constraint firstAttribute="height" constant="120" id="Q7b-Sa-Mcr"/>
-                                    <constraint firstItem="U0A-o6-Hed" firstAttribute="bottom" secondItem="DKe-of-CwY" secondAttribute="bottom" id="aXY-vQ-PTh"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="leading" secondItem="9aV-O1-sMk" secondAttribute="leading" id="cSh-hh-6Zj"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="top" secondItem="DKe-of-CwY" secondAttribute="bottom" constant="10" id="erp-MP-rQw"/>
                                     <constraint firstItem="G8T-0M-jNN" firstAttribute="top" secondItem="DKe-of-CwY" secondAttribute="top" id="mG9-4s-qs6"/>

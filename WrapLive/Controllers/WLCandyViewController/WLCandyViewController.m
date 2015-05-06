@@ -166,10 +166,11 @@
     if (!self.scrolledToInitialItem && index != NSNotFound) {
         [self.collectionView setContentOffset:CGPointMake(index*self.collectionView.width, 0)];
     }
-    UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.bottomView convertRect:self.indicator.frame
-                                                                                        toView:self.lastCommentTextView]];
-    
-    self.lastCommentTextView.textContainer.exclusionPaths = @[exlusionPath];
+    if ([self.lastComment.contributor isCurrentUser]) {
+        UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.bottomView convertRect:self.indicator.frame
+                                                                                            toView:self.lastCommentTextView]];
+        self.lastCommentTextView.textContainer.exclusionPaths = @[exlusionPath];
+    }
 }
 
 - (IBAction)hideBars {
@@ -260,6 +261,7 @@
         if (textView && !textView.hidden) {
             self.avatarImageView.url = lastComment.contributor.picture.small;
             [textView determineHyperLink:lastComment.text];
+            textView.textContainer.exclusionPaths = @[];
             [self.indicator updateStatusIndicator:lastComment];
         }
     }

@@ -11,6 +11,7 @@
 #import "NSString+Additions.h"
 #import "NSDate+Additions.h"
 #import "WLAPIRequest.h"
+#import "WLNetwork.h"
 
 @implementation WLContribution (Extended)
 

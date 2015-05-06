@@ -10,6 +10,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "NSString+Additions.h"
 #import "WLNotification.h"
+#import "WLOperationQueue.h"
 
 static inline NSString *WLSoundFileName(WLSound sound) {
     switch (sound) {
@@ -33,11 +34,17 @@ static inline NSString *WLSoundFileName(WLSound sound) {
 
 @interface WLSoundPlayer()
 
-@property (strong, nonatomic) NSMapTable *sounds;
-
 @end
 
 @implementation WLSoundPlayer
+
+static WLBlock _completionBlock;
+
+static WLSound currentSound;
+
++ (void)initialize {
+    currentSound = WLSound_Off;
+}
 
 + (NSMapTable *)sounds {
     static NSMapTable *sounds = nil;
@@ -49,7 +56,30 @@ static inline NSString *WLSoundFileName(WLSound sound) {
     return sounds;
 }
 
+void WLSoundPlayerCompletion (SystemSoundID ssID, void *clientData) {
+    if (_completionBlock) {
+        _completionBlock();
+        _completionBlock = nil;
+    }
+}
+
 + (void)playSound:(WLSound)sound {
+    if (currentSound == sound) {
+        return;
+    }
+    if (currentSound == WLSound_Off) {
+        currentSound = sound;
+    }
+    runUnaryQueuedOperation(@"wl_sound_player_queue", ^(WLOperation *operation) {
+        currentSound = sound;
+        [self playSound:sound completion:^{
+            currentSound = WLSound_Off;
+            [operation finish];
+        }];
+    });
+}
+
++ (void)playSound:(WLSound)sound completion:(WLBlock)completion {
 #ifndef WRAPLIVE_EXTENSION_TERGET
     NSString *soundFileName = WLSoundFileName(sound);
     if (soundFileName.nonempty) {
@@ -59,10 +89,15 @@ static inline NSString *WLSoundFileName(WLSound sound) {
             NSString *soundPath = [[NSBundle mainBundle] pathForResource:soundFileName ofType:@"wav"];
             if (soundPath.nonempty) {
                 AudioServicesCreateSystemSoundID((__bridge CFURLRef)([NSURL fileURLWithPath:soundPath]), &soundID);
+                AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, WLSoundPlayerCompletion, NULL);
                 [sounds setObject:[NSNumber numberWithInteger:soundID] forKey:soundFileName];
             }
         }
+        _completionBlock = completion;
         AudioServicesPlaySystemSound(soundID);
+    } else {
+        if (completion) completion();
+        _completionBlock = nil;
     }
 #endif
 }
@@ -72,18 +107,20 @@ static inline NSString *WLSoundFileName(WLSound sound) {
 @implementation WLSoundPlayer (WLNotification)
 
 + (void)playSoundForNotification:(WLNotification*)notification {
-    switch (notification.type) {
-        case WLNotificationContributorAdd:
-            [self playSound:WLSound_s01];
-            break;
-        case WLNotificationCommentAdd:
-            [self playSound:WLSound_s02];
-            break;
-        case WLNotificationMessageAdd:
-            [self playSound:WLSound_s03];
-            break;
-        default:
-            break;
+    if (notification.playSound) {
+        switch (notification.type) {
+            case WLNotificationContributorAdd:
+                [self playSound:WLSound_s01];
+                break;
+            case WLNotificationCommentAdd:
+                [self playSound:WLSound_s02];
+                break;
+            case WLNotificationMessageAdd:
+                [self playSound:WLSound_s03];
+                break;
+            default:
+                break;
+        }
     }
 }
 

@@ -39,7 +39,6 @@
 @property (weak, nonatomic) IBOutlet WLIconButton *actionButton;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
-@property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
 
 @property (weak, nonatomic) WLComment *lastComment;
@@ -74,9 +73,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
-    self.wrap = _candy.wrap;
     
+    self.wrap = _candy.wrap;
+    self.lastCommentTextView.textContainer.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.lastCommentTextView.textContainer.maximumNumberOfLines = 2;
     self.lastCommentTextView.textContainerInset = UIEdgeInsetsZero;
     self.lastCommentTextView.textContainer.lineFragmentPadding = .0;
     [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
@@ -199,17 +199,14 @@
     if (shouldAppendCandies) {
         __weak typeof(self)weakSelf = self;
         runUnaryQueuedOperation(@"wl_candy_pagination_queue", ^(WLOperation *operation) {
-            WLLog(@"CANDY", @"requesting more candies in the day", nil);
             [historyItem older:^(NSOrderedSet *candies) {
                 if (candies.nonempty) [weakSelf.collectionView reloadData];
                 [operation finish];
-                WLLog(@"CANDY SUCCESS", @"requesting more candies in the day", nil);
             } failure:^(NSError *error) {
                 if (error.isNetworkError) {
                     historyItem.completed = YES;
                 }
                 [operation finish];
-                WLLog(@"CANDY ERROR", @"requesting more candies in the day", nil);
             }];
         });
     }
@@ -218,7 +215,6 @@
 - (void)swipeToNextHistoryItem {
     if (self.historyItem.completed) {
         if ([self swipeToHistoryItemAtIndex:[self.history.entries indexOfObject:self.historyItem] + 1]) {
-            WLLog(@"CANDY", @"swiping to another day", nil);
             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
                                         atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             [self.collectionView leftPush];
@@ -226,14 +222,11 @@
         } else if (!self.history.completed && !self.history.request.loading) {
             __weak typeof(self)weakSelf = self;
             runUnaryQueuedOperation(@"wl_candy_pagination_queue", ^(WLOperation *operation) {
-                WLLog(@"CANDY", @"requesting more days", nil);
                 [weakSelf.history older:^(NSOrderedSet *orderedSet) {
                     [weakSelf swipeToNextHistoryItem];
                     [operation finish];
-                    WLLog(@"CANDY SUCCESS", @"requesting more days", nil);
                 } failure:^(NSError *error) {
                     [operation finish];
-                    WLLog(@"CANDY ERROR", @"requesting more days", nil);
                 }];
             });
         }
@@ -262,10 +255,13 @@
 - (void)setLastComment:(WLComment *)lastComment {
     if (lastComment != _lastComment) {
         _lastComment = lastComment;
-        self.avatarImageView.url = _lastComment.contributor.picture.small;
-        [self.lastCommentTextView determineHyperLink:_lastComment.text];
-//        [self.progressBar setContribution:lastComment];
-        [self.indicator updateStatusIndicator:_lastComment];
+        UITextView *textView = self.lastCommentTextView;
+        self.avatarImageView.hidden = textView.hidden = self.indicator.hidden = lastComment.text.length == 0;
+        if (textView && !textView.hidden) {
+            self.avatarImageView.url = lastComment.contributor.picture.small;
+            [textView determineHyperLink:lastComment.text];
+            [self.indicator updateStatusIndicator:lastComment];
+        }
     }
 }
 
@@ -278,7 +274,7 @@
     self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), _candy.contributor.name];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
     self.timeLabel.text = timeAgoString;
-    self.lastComment = [[_candy sortedComments] firstObject];
+    self.lastComment = [_candy latestComment];
 }
 
 - (void)setCommentButtonTitle:(WLCandy *)candy {

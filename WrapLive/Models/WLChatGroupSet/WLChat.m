@@ -71,17 +71,15 @@
 
 - (NSString *)namesOfUsers:(NSMutableOrderedSet*)users {
     if (!users.nonempty) return nil;
-    NSString* names = nil;
     if (users.count == 1) {
-        names = [(WLUser*)[users lastObject] name];
+        return [NSString stringWithFormat:WLLS(@"%@ is typing..."), [(WLUser*)[users lastObject] name]];
     } else if (users.count == 2) {
-        names = [NSString stringWithFormat:WLLS(@"%@ and %@"), [(WLUser*)users[0] name], [(WLUser*)users[1] name]];
+        return [NSString stringWithFormat:WLLS(@"%@ and %@ are typing..."), [(WLUser*)users[0] name], [(WLUser*)users[1] name]];
     } else {
         WLUser* lastUser = [users lastObject];
-        names = [[[[users array] arrayByRemovingObject:lastUser] valueForKey:@"name"] componentsJoinedByString:@", "];
-        names = [names stringByAppendingFormat:WLLS(@" and %@"), lastUser.name];
+        NSString* names = [[[[users array] arrayByRemovingObject:lastUser] valueForKey:@"name"] componentsJoinedByString:@", "];
+        return [NSString stringWithFormat:WLLS(@"%@ and %@ are typing..."), names, lastUser.name];
     }
-    return [names stringByAppendingString:WLLS(@" is typing...")];
 }
 
 - (BOOL)addEntry:(WLMessage*)message {

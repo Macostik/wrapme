@@ -79,7 +79,8 @@
 "Name connot be blank." = "Имя не может быть пустым.";
 "%@ and %@" = "%@ и %@";
 " and %@" = " и %@";
-" is typing..." = " печатает ...";
+"%@ is typing..." = "%@ печатает ...";
+"%@ and %@ are typing..." = "%@ и %@ печатают...";
 "Chat in %@" = "В чате %@";
 "We are sending you an email for confirming your email address now." = "Мы отправили Вам письмо для проверки Вашей почты.";
 "save error" = "сохранение ошибки";

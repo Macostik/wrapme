@@ -149,9 +149,8 @@
 }
 
 - (void)handleNotification:(WLEntryNotification*)notification completion:(WLBlock)completion {
-    BOOL insertedEntry = notification.targetEntry.inserted;
     [notification fetch:^{
-        if (notification.playSound && insertedEntry) [WLSoundPlayer playSoundForNotification:notification];
+        [WLSoundPlayer playSoundForNotification:notification];
         if (completion) completion();
     } failure:^(NSError *error) {
         if (completion) completion();
@@ -219,9 +218,14 @@
     WLLog(@"PUBNUB", logMessage, nil);
     NSArray *notifications = [self notificationsFromMessages:messages];
     if (notifications.nonempty) {
+        
+        NSMutableIndexSet *playedSoundTypes = [NSMutableIndexSet indexSet];
+        
         for (WLEntryNotification *notification in notifications) {
             runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
                 [notification fetch:^{
+                    if (![playedSoundTypes containsIndex:notification.type]) [WLSoundPlayer playSoundForNotification:notification];
+                    [playedSoundTypes addIndex:notification.type];
                     [operation finish];
                 } failure:^(NSError *error) {
                     [operation finish];
@@ -230,7 +234,6 @@
             NSString *logMessage = [NSString stringWithFormat:@"history message received %@", notification];
             WLLog(@"PUBNUB", logMessage, notification.entryData);
         }
-        [self addHandledNotifications:notifications];
         WLNotification *notification = [notifications lastObject];
         NSDate *notificationDate = notification.date;
         self.historyDate = notificationDate ? [notificationDate dateByAddingTimeInterval:NSINTEGER_DEFINED] : to;
@@ -242,17 +245,15 @@
 
 - (NSArray*)notificationsFromMessages:(NSArray*)messages {
     if (!messages.nonempty) return nil;
+    __weak typeof(self)weakSelf = self;
     NSMutableArray *notifications = [[messages map:^id(PNMessage *message) {
-        return [WLEntryNotification notificationWithMessage:message];
+        WLEntryNotification *notification = [WLEntryNotification notificationWithMessage:message];
+        return [weakSelf isAlreadyHandledNotification:notification] ? nil : notification;
     }] mutableCopy];
     
-    // remove already handled notifications
-    __weak typeof(self)weakSelf = self;
-    [notifications removeObjectsWhileEnumerating:^BOOL(WLNotification* notification) {
-        return [weakSelf isAlreadyHandledNotification:notification];
-    }];
-    
     if (!notifications.nonempty) return nil;
+    
+    [self addHandledNotifications:notifications];
     
     NSArray *deleteNotifications = [notifications objectsWhere:@"event == %d", WLEventDelete];
     
@@ -318,6 +319,7 @@
                 [notification fetch:^ {
                     if (success) success(notification);
                 } failure:failure];
+                [self addHandledNotifications:@[notification]];
             } else if (failure)  {
                 failure([NSError errorWithDescription:@"Data in remote notification is not valid (inactive)."]);
             }
@@ -331,6 +333,7 @@
                         if (success) success(notification);
                     } failure:failure];
                 }
+                [self addHandledNotifications:@[notification]];
             } else if (failure)  {
                 failure([NSError errorWithDescription:WLLS(@"Data in remote notification is not valid (background).")]);
             }

@@ -15,9 +15,13 @@
 
 - (CGSize)collectionView:(UICollectionView*)collectionView sizeForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath;
 
-- (CGFloat)collectionView:(UICollectionView*)collectionView topInteritemSpacingForItemAtIndexPath:(NSIndexPath*)indexPath;
+- (CGFloat)collectionView:(UICollectionView*)collectionView topSpacingForItemAtIndexPath:(NSIndexPath*)indexPath;
 
-- (CGFloat)collectionView:(UICollectionView*)collectionView bottomInteritemSpacingForItemAtIndexPath:(NSIndexPath*)indexPath;
+- (CGFloat)collectionView:(UICollectionView*)collectionView bottomSpacingForItemAtIndexPath:(NSIndexPath*)indexPath;
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView topSpacingForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath;
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView bottomSpacingForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath;
 
 @end
 

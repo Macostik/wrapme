@@ -172,9 +172,9 @@
     [self cropImage:image completion:completion];
 }
 
-- (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata {
+- (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
     __weak typeof(self)weakSelf = self;
-    WLUploadPhotoCompletionBlock finishBlock = ^ (UIImage *resultImage, NSString *comment, BOOL saveToAlbum) {
+    [self editImage:image completion:^ (UIImage *resultImage, NSString *comment) {
         if (saveToAlbum) [resultImage save:metadata];
         weakSelf.view.userInteractionEnabled = NO;
         [WLPicture picture:resultImage mode:weakSelf.mode completion:^(WLPicture *picture) {
@@ -182,9 +182,7 @@
             [weakSelf finishWithPictures:@[picture]];
             weakSelf.view.userInteractionEnabled = YES;
         }];
-    };
-    
-    [self editImage:image completion:finishBlock];
+    }];
 }
 
 - (void)editImage:(UIImage*)image completion:(WLUploadPhotoCompletionBlock)completion {
@@ -203,7 +201,7 @@
 	self.view.userInteractionEnabled = NO;
 	__weak typeof(self)weakSelf = self;
 	[self cropImage:image completion:^(UIImage *croppedImage) {
-        [weakSelf handleImage:croppedImage metadata:metadata];
+        [weakSelf handleImage:croppedImage metadata:metadata saveToAlbum:YES];
 		weakSelf.view.userInteractionEnabled = YES;
 	}];
 }
@@ -233,7 +231,7 @@
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
     [self cropAsset:asset completion:^(UIImage *croppedImage) {
-        [weakSelf handleImage:croppedImage metadata:nil];
+        [weakSelf handleImage:croppedImage metadata:nil saveToAlbum:NO];
         weakSelf.view.userInteractionEnabled = YES;
     }];
 }

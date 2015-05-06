@@ -138,14 +138,14 @@
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
     [self updateEmailConfirmationView];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     WLPicture *picture = [pictures lastObject];
     self.imageView.url = picture.large;
     self.editSession.url = picture.large;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (WLStillPictureMode)stillPictureViewControllerMode:(WLStillPictureViewController *)controller {

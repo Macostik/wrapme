@@ -69,9 +69,9 @@
 
 - (void)didCompleteDoneAction {
     if (self.navigationController) {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:NO];
     } else {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+        [self.presentingViewController dismissViewControllerAnimated:NO completion:NULL];
     }
 }
 

@@ -32,7 +32,7 @@
     if (presentedViewController) {
         [presentedViewController requestAuthorizationForPresentingEntry:entry completion:^(BOOL flag) {
             if (flag) {
-                [navigationController dismissViewControllerAnimated:YES completion:^{
+                [navigationController dismissViewControllerAnimated:NO completion:^{
                     [self presentEntry:entry inNavigationController:navigationController animated:animated];
                 }];
             }

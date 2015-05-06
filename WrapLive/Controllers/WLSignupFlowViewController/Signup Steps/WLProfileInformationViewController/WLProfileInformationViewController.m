@@ -48,7 +48,7 @@
 - (IBAction)goToMainScreen:(id)sender {
     __weak typeof(self)weakSelf = self;
 	[self updateIfNeeded:^{
-        [weakSelf setSuccessStatusAnimated:YES];
+        [weakSelf setSuccessStatusAnimated:NO];
 	}];
 }
 
@@ -78,7 +78,7 @@
     cameraNavigation.delegate = self;
     cameraNavigation.mode = WLStillPictureModeSquare;
     cameraNavigation.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
-    [self.navigationController pushViewController:cameraNavigation animated:YES];
+    [self.navigationController pushViewController:cameraNavigation animated:NO];
 }
 
 - (void)verifyContinueButton {
@@ -88,7 +88,7 @@
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-	[self.navigationController popToViewController:self animated:YES];
+	[self.navigationController popToViewController:self animated:NO];
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
@@ -96,7 +96,7 @@
 	self.profileImageView.url = picture.medium;
     self.editSession.url = picture.large;
     [self verifyContinueButton];
-	[self.navigationController popToViewController:self animated:YES];
+	[self.navigationController popToViewController:self animated:NO];
 }
 
 #pragma mark - UITextFieldDelegate

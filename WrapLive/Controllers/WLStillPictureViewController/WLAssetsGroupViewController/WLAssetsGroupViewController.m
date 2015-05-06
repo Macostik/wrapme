@@ -91,7 +91,7 @@
 	controller.delegate = self.delegate;
     controller.mode = self.mode;
     controller.wrap = self.wrap;
-	[self pushViewController:controller animated:YES];
+	[self pushViewController:controller animated:NO];
 }
 
 @end

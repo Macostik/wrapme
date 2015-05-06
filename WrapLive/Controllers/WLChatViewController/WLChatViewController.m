@@ -320,9 +320,9 @@ CGFloat WLMaxTextViewWidth;
     self.typing = NO;
     if (self.wrap.valid) {
         self.wrap.lastUnread = self.newerVisibleMessage.createdAt;
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:NO];
     } else {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:NO];
     }
 }
 
@@ -338,7 +338,7 @@ CGFloat WLMaxTextViewWidth;
         [WLSoundPlayer playSound:WLSound_s04];
         [self.collectionView setMinimumContentOffsetAnimated:YES];
     } else {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:NO];
     }
 }
 

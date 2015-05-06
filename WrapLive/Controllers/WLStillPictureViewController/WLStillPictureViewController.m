@@ -192,7 +192,7 @@
     controller.image = image;
     controller.delegate = self;
     controller.completionBlock = completion;
-    [self.cameraNavigationController pushViewController:controller animated:YES];
+    [self.cameraNavigationController pushViewController:controller animated:NO];
 }
 
 #pragma mark - WLCameraViewControllerDelegate
@@ -210,12 +210,12 @@
     if (self.delegate) {
         [self.delegate stillPictureViewControllerDidCancel:self];
     } else {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
     }
 }
 
 - (void)cameraViewControllerDidSelectGallery:(WLCameraViewController *)controller {
-    [self openGallery:NO animated:YES];
+    [self openGallery:NO animated:NO];
 }
 
 - (void)openGallery:(BOOL)openCameraRoll animated:(BOOL)animated {

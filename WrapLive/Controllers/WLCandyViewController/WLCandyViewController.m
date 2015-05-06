@@ -339,7 +339,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     if (self.historyItem.entries.nonempty) {
         [self performSelector:@selector(scrollToCurrentCandy) withObject:nil afterDelay:0.0f];
     } else {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:NO];
     }
 }
 
@@ -351,7 +351,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
     [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."), wrap.name]];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
@@ -383,9 +383,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     if (candy.valid) {
         BOOL animate = self.interfaceOrientation == UIInterfaceOrientationPortrait ||
                        self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown;
-        [weakSelf.navigationController popViewControllerAnimated:animate];
+        [weakSelf.navigationController popViewControllerAnimated:NO];
     } else {
-        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+        [weakSelf.navigationController popToRootViewControllerAnimated:NO];
     }
 }
 

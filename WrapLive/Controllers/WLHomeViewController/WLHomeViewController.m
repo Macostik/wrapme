@@ -111,7 +111,7 @@
     dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLWrapsRequest new]];
     
     [dataSource setSelectionBlock:^(id entry) {
-        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
+        [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
     }];
     
     if (wraps.nonempty) {
@@ -178,7 +178,7 @@
             introductionShown = YES;
             WLIntroductionViewController *introduction = [[UIStoryboard storyboardNamed:WLIntroductionStoryboard] instantiateInitialViewController];
             introduction.delegate = self;
-            [self presentViewController:introduction animated:YES completion:nil];
+            [self presentViewController:introduction animated:NO completion:nil];
             return;
         }
     }
@@ -265,7 +265,7 @@
         WLEditWrapViewController *editWrapViewController = [[WLEditWrapViewController alloc] initWithNibName:@"WLWrapOptionsViewController"
                                                                                                       bundle:nil];
         editWrapViewController.wrap = wrap;
-        [self presentViewController:editWrapViewController animated:YES completion:nil];
+        [self presentViewController:editWrapViewController animated:NO completion:nil];
     }
 }
 
@@ -357,20 +357,20 @@
             [WLChronologicalEntryPresenter presentEntry:wrap animated:NO];
         }
         stillPictureViewController.wrap = wrap;
-        [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+        [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
     }];
     
     [createWrapViewController setCancelHandler:^{
-        [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+        [weakSelf dismissViewControllerAnimated:NO completion:NULL];
     }];
     
-    [self presentViewController:stillPictureViewController animated:YES completion:^{
-        [stillPictureViewController presentViewController:createWrapViewController animated:YES completion:nil];
+    [self presentViewController:stillPictureViewController animated:NO completion:^{
+        [stillPictureViewController presentViewController:createWrapViewController animated:NO completion:nil];
     }];
 }
 
 - (IBAction)addPhoto:(id)sender {
-    [self openCameraAnimated:YES startFromGallery:NO];
+    [self openCameraAnimated:NO startFromGallery:NO];
 }
 
 // MARK: - WLStillPictureViewControllerDelegate
@@ -379,18 +379,18 @@
     WLWrap* wrap = controller.wrap;
     if (wrap) {
         [wrap uploadPictures:pictures];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }
 }
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didSelectWrap:(WLWrap *)wrap {
     if (wrap) {
         WLPickerViewController *pickerViewController = [[WLPickerViewController alloc] initWithWrap:wrap delegate:self];
-        [controller presentViewController:pickerViewController animated:YES completion:nil];
+        [controller presentViewController:pickerViewController animated:NO completion:nil];
     } else {
         [self createWrapWithStillPictureViewController:controller];
     }
@@ -405,18 +405,18 @@
             [WLChronologicalEntryPresenter presentEntry:wrap animated:NO];
         }
         stillPictureViewController.wrap = wrap;
-        [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+        [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
     }];
     [createWrapViewController setCancelHandler:^{
-        [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+        [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
     }];
-    [stillPictureViewController presentViewController:createWrapViewController animated:YES completion:nil];
+    [stillPictureViewController presentViewController:createWrapViewController animated:NO completion:nil];
 }
 
 - (void)pickerViewControllerNewWrapClicked:(WLPickerViewController *)pickerViewController {
     WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
     __weak typeof(self)weakSelf = self;
-    [stillPictureViewController dismissViewControllerAnimated:YES completion:^{
+    [stillPictureViewController dismissViewControllerAnimated:NO completion:^{
         [weakSelf createWrapWithStillPictureViewController:stillPictureViewController];
     }];
 }
@@ -427,14 +427,14 @@
 }
 
 - (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
-    [pickerViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [pickerViewController.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
 // MARK: - WLIntroductionViewControllerDelegate
 
 - (void)introductionViewControllerDidFinish:(WLIntroductionViewController *)controller {
     __weak typeof(self)weakSelf = self;
-    [self dismissViewControllerAnimated:YES completion:^{
+    [self dismissViewControllerAnimated:NO completion:^{
         [weakSelf showCreateWrapTipIfNeeded];
     }];
 }

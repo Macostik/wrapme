@@ -36,7 +36,7 @@
         return CGSizeMake(size, weakSelf.collectionView.height);
     }];
     [dataSource setSelectionBlock:^ (id entry) {
-        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
+        [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
     }];
     self.dataSource = dataSource;
     self.dataSource.headerAnimated = YES;

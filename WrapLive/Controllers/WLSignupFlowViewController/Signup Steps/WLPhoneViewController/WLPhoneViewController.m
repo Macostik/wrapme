@@ -72,14 +72,14 @@
 - (void)confirmAuthorization:(WLAuthorization*)authorization success:(void (^)(WLAuthorization *authorization))success {
     __weak typeof(self)weakSelf = self;
     [WLConfirmView showInView:self.view authorization:authorization success:success cancel:^{
-        [weakSelf setStatus:WLSignupStepStatusCancel animated:YES];
+        [weakSelf setStatus:WLSignupStepStatusCancel animated:NO];
     }];
 }
 
 - (void)signUpAuthorization:(WLAuthorization*)authorization success:(WLBlock)success failure:(WLFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
 	[authorization signUp:^(WLAuthorization *authorization) {
-        [weakSelf setStatus:WLSignupStepStatusSuccess animated:YES];
+        [weakSelf setStatus:WLSignupStepStatusSuccess animated:NO];
         if (success) success();
 	} failure:^(NSError *error) {
 		[error show];

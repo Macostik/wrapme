@@ -44,7 +44,7 @@
             [self.delegate stillPictureViewController:self didSelectWrap:self.wrap];
         }
     } else if (self.presentingViewController) {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
     }
 }
 

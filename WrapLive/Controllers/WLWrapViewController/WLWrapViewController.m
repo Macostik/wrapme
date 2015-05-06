@@ -127,7 +127,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     } else {
         __weak typeof(self)weakSelf = self;
         run_after(0.5f, ^{
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popViewControllerAnimated:NO];
         });
     }
     if ([self.wrap isFirstCreated]) {
@@ -153,7 +153,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 - (IBAction)editWrapClick:(id)sender {
     WLEditWrapViewController* editWrapViewController = [WLEditWrapViewController new];
     editWrapViewController.wrap = self.wrap;
-    [self presentViewController:editWrapViewController animated:YES completion:nil];
+    [self presentViewController:editWrapViewController animated:NO completion:nil];
 }
 
 // MARK: - WLEntryNotifyReceiver
@@ -169,7 +169,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
     [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."),
                                   WLString([self.nameLabel titleForState:UIControlStateNormal])]];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
@@ -196,16 +196,16 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     }
     [wrap uploadPictures:pictures];
     [self.collectionView setMinimumContentOffsetAnimated:NO];
-	[self dismissViewControllerAnimated:YES completion:nil];
+	[self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didSelectWrap:(WLWrap *)wrap {
     WLPickerViewController *pickerViewController = [[WLPickerViewController alloc] initWithWrap:wrap delegate:self];
-    [controller presentViewController:pickerViewController animated:YES completion:nil];
+    [controller presentViewController:pickerViewController animated:NO completion:nil];
 }
 
 // MARK: - WLPickerViewDelegate
@@ -216,12 +216,12 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
         WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
         [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
             stillPictureViewController.wrap = wrap;
-            [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+            [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
         }];
         [createWrapViewController setCancelHandler:^{
-            [stillPictureViewController dismissViewControllerAnimated:YES completion:NULL];
+            [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
         }];
-        [stillPictureViewController presentViewController:createWrapViewController animated:YES completion:nil];
+        [stillPictureViewController presentViewController:createWrapViewController animated:NO completion:nil];
     }];
 }
 
@@ -231,7 +231,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 }
 
 - (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
-    [pickerViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [pickerViewController.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
 // MARK: - Custom animation

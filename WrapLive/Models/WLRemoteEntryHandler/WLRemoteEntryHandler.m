@@ -100,7 +100,7 @@
     if (identifier.nonempty && entity.nonempty) {
         WLEntry *entry = [NSClassFromString(entity) entry:identifier];
         if (entry) {
-            [self presentEntry:entry animated:YES];
+            [self presentEntry:entry animated:NO];
         }
     }
 }

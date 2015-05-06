@@ -83,7 +83,7 @@
 
 - (IBAction)done:(WLButton*)sender {
     if (self.addressBook.selectedPhoneNumbers.count == 0) {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:NO];
         return;
     }
     WLUpdateContributorsRequest *updateConributors = [WLUpdateContributorsRequest request:self.wrap];
@@ -93,7 +93,7 @@
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
     [updateConributors send:^(id object) {
-        [weakSelf.navigationController popViewControllerAnimated:YES];
+        [weakSelf.navigationController popViewControllerAnimated:NO];
     } failure:^(NSError *error) {
         sender.loading = NO;
         [error show];
@@ -236,7 +236,7 @@ const static CGFloat WLDefaultHeight = 72.0f;
                                       atScrollPosition:UITableViewScrollPositionMiddle
                                               animated:NO];
         }
-        [weakSelf.navigationController popToViewController:weakSelf animated:YES];
+        [weakSelf.navigationController popToViewController:weakSelf animated:NO];
     } failure:^(NSError *error) {
         [error show];
     }];

@@ -47,13 +47,13 @@ static NSString *const WLLeave = @"Leave";
 }
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (IBAction)performSelectorByTitle {
     
     if (!self.wrap.valid) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:NO completion:nil];
         return;
     }
     
@@ -66,7 +66,7 @@ static NSString *const WLLeave = @"Leave";
             [weakSelf dismissViewControllerAnimated:NO completion:nil];
         } failure:^(NSError *error) {
             if ([error isError:WLErrorActionCancelled]) {
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                [weakSelf dismissViewControllerAnimated:NO completion:nil];
                 weakSelf.deleteButton.loading = NO;
             } else {
                 [error show];
@@ -75,12 +75,12 @@ static NSString *const WLLeave = @"Leave";
         }];
     } else {
         [self.wrap leave:^(id object) {
-            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
             [weakSelf dismissViewControllerAnimated:NO completion:nil];
             weakSelf.deleteButton.loading = NO;
         } failure:^(NSError *error) {
             if ([error isError:WLErrorActionCancelled]) {
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                [weakSelf dismissViewControllerAnimated:NO completion:nil];
                 weakSelf.deleteButton.loading = NO;
             } else {
                 [error show];
@@ -91,7 +91,7 @@ static NSString *const WLLeave = @"Leave";
 }
 
 - (IBAction)removeFromController:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 // MARK: - UITextFieldDelegate
@@ -140,7 +140,7 @@ static NSString *const WLLeave = @"Leave";
 // MARK: - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {

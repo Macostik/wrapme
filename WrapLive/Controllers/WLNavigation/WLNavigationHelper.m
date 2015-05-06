@@ -93,7 +93,7 @@ static NSMapTable *storyboards = nil;
 }
 
 - (IBAction)back:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (IBAction)backSegue:(UIStoryboardSegue *)unwindSegue {

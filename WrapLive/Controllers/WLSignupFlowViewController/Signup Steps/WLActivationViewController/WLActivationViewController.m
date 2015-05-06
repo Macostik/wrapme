@@ -64,10 +64,10 @@
     [self activate:^{
         sender.loading = NO;
         [WLSoundPlayer playSound:WLSound_s01];
-        [weakSelf setSuccessStatusAnimated:YES];
+        [weakSelf setSuccessStatusAnimated:NO];
     } failure:^(NSError *error) {
         sender.loading = NO;
-        [weakSelf setFailureStatusAnimated:YES];
+        [weakSelf setFailureStatusAnimated:NO];
     }];
 }
 

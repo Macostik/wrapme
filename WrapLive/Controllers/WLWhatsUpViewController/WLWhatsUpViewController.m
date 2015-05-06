@@ -45,7 +45,7 @@
     }];
     
     [self.dataSource setSelectionBlock:^(WLEntry* entry) {
-        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
+        [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
     }];
  
     [[WLComment notifier] addReceiver:self];
@@ -83,7 +83,7 @@
 
 - (IBAction)back:(id)sender {
     [[WLEntryManager manager].context processPendingChanges];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 @end

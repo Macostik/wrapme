@@ -92,16 +92,16 @@
 }
 
 - (IBAction)success:(id)sender {
-    [self setSuccessStatusAnimated:YES];
+    [self setSuccessStatusAnimated:NO];
 }
 
 - (IBAction)failure:(id)sender {
-    [self setFailureStatusAnimated:YES];
+    [self setFailureStatusAnimated:NO];
 }
 
 - (IBAction)cancel:(id)sender {
     if (![self setCancelStatusAnimated:YES]) {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:NO];
     }
 }
 

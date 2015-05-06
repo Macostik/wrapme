@@ -116,7 +116,7 @@
 	if (self.delegate) {
 		[self.delegate cameraViewControllerDidCancel:self];
 	} else if (self.presentingViewController) {
-		[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+		[self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 	}
 }
 

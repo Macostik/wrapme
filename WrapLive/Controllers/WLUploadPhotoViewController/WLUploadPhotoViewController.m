@@ -71,11 +71,11 @@
 
 - (IBAction)edit:(id)sender {
     AFPhotoEditorController* aviaryController = [self editControllerWithImage:self.image];
-    [self.navigationController pushViewController:aviaryController animated:YES];
+    [self.navigationController pushViewController:aviaryController animated:NO];
 }
 
 - (IBAction)cancel:(id)sender {
-    [self.navigationController popViewControllerAnimated:UIInterfaceOrientationIsPortrait(self.interfaceOrientation)];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (IBAction)done:(id)sender {
@@ -87,11 +87,11 @@
 
 - (void)photoEditor:(AdobeUXImageEditorViewController *)editor finishedWithImage:(UIImage *)image {
     self.image = self.imageView.image = image;
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 // MARK: - rotation and keyboard

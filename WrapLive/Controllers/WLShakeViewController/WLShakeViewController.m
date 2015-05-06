@@ -46,7 +46,7 @@
 	
 	if (self.presentingViewController == rootNavigationController) {
 		__weak typeof(self)weakSelf = self;
-		[self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+		[self.presentingViewController dismissViewControllerAnimated:NO completion:^{
 			[weakSelf presentShakeViewControllerWithNavigationController:rootNavigationController];
 		}];
 		return YES;
@@ -55,7 +55,7 @@
 	WLShakeViewController* presentingViewController = (id)self.presentingViewController;
 	if (presentingViewController.navigationController == rootNavigationController) {
 		if ([presentingViewController isKindOfClass:[WLShakeViewController class]]) {
-			[presentingViewController dismissViewControllerAnimated:YES completion:^{
+			[presentingViewController dismissViewControllerAnimated:NO completion:^{
 				[presentingViewController presentShakeViewController];
 			}];
 			return YES;
@@ -87,7 +87,7 @@
 	}
 	
 	if (presentingViewController && presentedViewController) {
-		[presentingViewController.navigationController presentViewController:presentedViewController animated:YES completion:nil];
+		[presentingViewController.navigationController presentViewController:presentedViewController animated:NO completion:nil];
 		return YES;
 	}
 	return NO;

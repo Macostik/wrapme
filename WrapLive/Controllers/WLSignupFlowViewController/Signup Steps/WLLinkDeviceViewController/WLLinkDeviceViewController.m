@@ -36,7 +36,7 @@
     [request send:^(id object) {
         [WLSoundPlayer playSound:WLSound_s01];
         [[WLAuthorization currentAuthorization] signIn:^(WLUser *user) {
-            [weakSelf setSuccessStatusAnimated:YES];
+            [weakSelf setSuccessStatusAnimated:NO];
         } failure:^(NSError *error) {
             [error show];
             sender.loading = NO;

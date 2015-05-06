@@ -63,7 +63,7 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
             [self.delegate pickerViewControllerDidCancel:self];
         }
     } else {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
     }
 }
 

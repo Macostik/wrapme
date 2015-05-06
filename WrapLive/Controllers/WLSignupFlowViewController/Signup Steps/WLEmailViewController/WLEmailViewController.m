@@ -52,12 +52,12 @@
         sender.loading = NO;
         if (whoIs.found && whoIs.requiresApproving) {
             if (whoIs.confirmed) {
-                [weakSelf setStatus:WLEmailStepStatusLinkDevice animated:YES];
+                [weakSelf setStatus:WLEmailStepStatusLinkDevice animated:NO];
             } else {
-                [weakSelf setStatus:WLEmailStepStatusUnconfirmedEmail animated:YES];
+                [weakSelf setStatus:WLEmailStepStatusUnconfirmedEmail animated:NO];
             }
         } else {
-            [weakSelf setStatus:WLEmailStepStatusVerification animated:YES];
+            [weakSelf setStatus:WLEmailStepStatusVerification animated:NO];
         }
     } failure:^(NSError *error) {
         sender.loading = NO;

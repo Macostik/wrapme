@@ -112,7 +112,7 @@ static NSUInteger WLAssetsSelectionLimit = 10;
             }
         }
         
-        [selfWeak.navigationController popViewControllerAnimated:YES];
+        [selfWeak.navigationController popViewControllerAnimated:NO];
     } failure:^(NSError *error) {
     }];
 }

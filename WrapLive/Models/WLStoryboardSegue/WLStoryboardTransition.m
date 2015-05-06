@@ -40,14 +40,14 @@
     if (self.sourceViewController) {
         UIViewController *destinationViewController = [self destinationViewController];
         if (destinationViewController) {
-            [self.sourceViewController.navigationController pushViewController:destinationViewController animated:YES];
+            [self.sourceViewController.navigationController pushViewController:destinationViewController animated:NO];
         }
     }
 }
 
 - (IBAction)pop:(id)sender {
     if (self.sourceViewController) {
-        [self.sourceViewController.navigationController popViewControllerAnimated:YES];
+        [self.sourceViewController.navigationController popViewControllerAnimated:NO];
     }
 }
 
@@ -55,7 +55,7 @@
     if (self.sourceViewController) {
         UIViewController *destinationViewController = [self destinationViewController];
         if (destinationViewController) {
-            [self.sourceViewController presentViewController:destinationViewController animated:YES completion:nil];
+            [self.sourceViewController presentViewController:destinationViewController animated:NO completion:nil];
         }
     }
 }

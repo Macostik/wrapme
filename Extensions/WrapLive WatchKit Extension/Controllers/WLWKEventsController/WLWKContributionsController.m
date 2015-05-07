@@ -180,19 +180,11 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier entryAdded:(WLCandy *)candy {
     self.entries = [WLContribution recentContributions];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
-    self.entries = [WLContribution recentContributions];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier commentAdded:(WLComment *)comment {
-    self.entries = [WLContribution recentContributions];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier commentDeleted:(WLComment *)comment {
+- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLCandy *)candy {
     self.entries = [WLContribution recentContributions];
 }
 

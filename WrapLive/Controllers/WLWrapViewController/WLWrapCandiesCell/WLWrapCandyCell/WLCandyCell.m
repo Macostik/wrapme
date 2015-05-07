@@ -85,12 +85,12 @@
 
 #pragma mark - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLEntry *)entry {
 	[self resetup];
 }
 
-- (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
-    return self.entry;
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return self.entry == entry;
 }
 
 @end

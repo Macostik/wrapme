@@ -29,12 +29,12 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
+- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLUser *)user {
     [self update:user];
 }
 
-- (WLUser *)notifierPreferredUser:(WLEntryNotifier *)notifier {
-    return self.entry;
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return self.entry == entry;
 }
 
 @end

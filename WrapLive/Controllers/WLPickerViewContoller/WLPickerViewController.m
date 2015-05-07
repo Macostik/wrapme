@@ -159,15 +159,15 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier wrapAdded:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier entryAdded:(WLWrap *)wrap {
     self.wraps = [[WLUser currentUser] sortedWraps];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLWrap *)wrap {
     [_pickerView reloadAllComponents];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLWrap *)wrap {
     self.wraps = [[WLUser currentUser] sortedWraps];
 }
 

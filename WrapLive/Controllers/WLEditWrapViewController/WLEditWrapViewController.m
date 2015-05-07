@@ -139,12 +139,12 @@ static NSString *const WLLeave = @"Leave";
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLWrap *)wrap {
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
-- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
-    return self.wrap;
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return self.wrap == entry;
 }
 
 @end

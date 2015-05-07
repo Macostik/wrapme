@@ -16,7 +16,7 @@ const static CGFloat WLContributorsVerticalIndent = 48.0f;
 const static CGFloat WLContributorsHorizontalIndent = 96.0f;
 const static CGFloat WLContributorsMinHeight = 72.0f;
 
-@interface WLContributorsViewController () <WLContributorCellDelegate>
+@interface WLContributorsViewController () <WLContributorCellDelegate, WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 
@@ -125,11 +125,11 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 
 #pragma mark - WLEntryNotifyReceiver
 
-- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
-    return self.wrap;
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return self.wrap == entry;
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLWrap *)wrap {
     NSMutableOrderedSet* contributors = [self sortedContributors];
     for (WLAddressBookPhoneNumber* person in [self.editSession changedValueForProperty:@"removedContributors"]) {
         [contributors removeObject:person.user];

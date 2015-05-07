@@ -37,7 +37,7 @@
 #import "WLChronologicalEntryPresenter.h"
 #import "WLCollectionView.h"
 
-@interface WLHomeViewController () <WLEntryNotifyReceiver, WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate>
+@interface WLHomeViewController () <WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate>
 
 @property (strong, nonatomic) IBOutlet WLHomeDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
@@ -86,11 +86,7 @@
     
     self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
     
-	[[WLUser notifier] addReceiver:self];
-	[[WLWrap notifier] addReceiver:self];
-    [[WLCandy notifier] addReceiver:self];
-    [[WLComment notifier] addReceiver:self];
-    [[WLMessage notifier] addReceiver:self];
+    [self addNotifyReceivers];
     
     __weak WLHomeDataSource *dataSource = self.dataSource;
     [dataSource setRefreshable];
@@ -275,56 +271,49 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
-    if (self.isTopViewController) {
-        [self updateEmailConfirmationView:YES];
-    }
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
-    WLPaginatedSet *wraps = [self.dataSource items];
-    [wraps resetEntries:[[WLUser currentUser] sortedWraps]];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier wrapAdded:(WLWrap *)wrap {
-    WLPaginatedSet *wraps = [self.dataSource items];
-    [wraps addEntry:wrap];
-	self.collectionView.contentOffset = CGPointZero;
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-    WLPaginatedSet *wraps = [self.dataSource items];
-    [wraps removeEntry:wrap];
-}
-
-- (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
-	[self updateNotificationsLabel];
-}
-
-- (void)notifier:(WLEntryNotifier*)broadcaster commentDeleted:(WLComment *)comment {
-	run_after(.5, ^{
-		[self updateNotificationsLabel];
-	});
-}
-
-- (void)notifier:(WLEntryNotifier*)notifier candyAdded:(WLCandy*)candy {
-    [self updateNotificationsLabel];
-}
-
-- (void)notifier:(WLEntryNotifier*)broadcaster candyDeleted:(WLCandy *)candy {
-    run_after(.5, ^{
-        [self updateNotificationsLabel];
-    });
-}
-
-- (void)notifier:(WLEntryNotifier*)notifier messageAdded:(WLMessage*)message {
-    [self updateNotificationsLabel];
-}
-
-- (void)notifier:(WLEntryNotifier*)broadcaster messageDeleted:(WLMessage *)message {
-    run_after(.5, ^{
-        [self updateNotificationsLabel];
-    });
+- (void)addNotifyReceivers {
+    
+    __weak typeof(self)weakSelf = self;
+    
+    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        [receiver setAddedBlock:^(WLWrap *wrap) {
+            WLPaginatedSet *wraps = [weakSelf.dataSource items];
+            [wraps addEntry:wrap];
+            weakSelf.collectionView.contentOffset = CGPointZero;
+        }];
+        [receiver setUpdatedBlock:^(WLWrap *wrap) {
+            WLPaginatedSet *wraps = [weakSelf.dataSource items];
+            [wraps resetEntries:[[WLUser currentUser] sortedWraps]];
+        }];
+        [receiver setDeletedBlock:^(WLWrap *wrap) {
+            WLPaginatedSet *wraps = [weakSelf.dataSource items];
+            [wraps removeEntry:wrap];
+        }];
+    }];
+    
+    WLEntryNotifyReceiver *candyNotifyReceiver = [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        [receiver setAddedBlock:^(id object) {
+            [weakSelf updateNotificationsLabel];
+        }];
+        [receiver setDeletedBlock:^(id object) {
+            run_after(.5, ^{
+                [weakSelf updateNotificationsLabel];
+            });
+        }];
+    }];
+    
+    [WLComment notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        receiver.addedBlock = candyNotifyReceiver.addedBlock;
+        receiver.deletedBlock = candyNotifyReceiver.deletedBlock;
+    }];
+    
+    [WLUser notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        [receiver setUpdatedBlock:^(WLUser *user) {
+            if (weakSelf.isTopViewController) {
+                [weakSelf updateEmailConfirmationView:YES];
+            }
+        }];
+    }];
 }
 
 // MARK: - WLNotificationReceiver

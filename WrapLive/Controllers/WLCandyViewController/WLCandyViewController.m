@@ -87,8 +87,8 @@
         _historyItem = [self.history itemWithCandy:_candy];
     }
 	
-	[[WLCandy notifier] addReceiver:self];
-    [[WLWrap notifier] addReceiver:self];
+    [self addNotifyReceivers];
+    
     [[WLNetwork network] addReceiver:self];
     
     UISwipeGestureRecognizer* leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToNextHistoryItem)];
@@ -327,42 +327,50 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 #pragma mark - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
-    if ([self.historyItem.entries containsObject:candy]) {
-        [self performSelector:@selector(scrollToCurrentCandy) withObject:nil afterDelay:0.0f];
-    }
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
-    if (candy == self.candy) {
-        [WLToast showWithMessage:WLLS(@"This candy is no longer avaliable.")];
-        self.candy = nil;
-    }
+- (void)addNotifyReceivers {
+    __weak typeof(self)weakSelf = self;
     
-    if (self.historyItem.entries.nonempty) {
-        [self performSelector:@selector(scrollToCurrentCandy) withObject:nil afterDelay:0.0f];
-    } else {
-        [self.navigationController popViewControllerAnimated:NO];
-    }
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
-    if (candy == self.candy) {
-        [self updateOwnerData];
-    }
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-    [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."), wrap.name]];
-    [self.navigationController popToRootViewControllerAnimated:NO];
-}
-
-- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
-    return self.wrap;
-}
-
-- (NSNumber *)peferedOrderEntry:(WLBroadcaster *)broadcaster {
-    return @(2);
+    [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        
+        [receiver setContainingEntryBlock:^WLEntry *{
+            return weakSelf.wrap;
+        }];
+        
+        [receiver setAddedBlock:^(WLCandy *candy) {
+            if ([weakSelf.historyItem.entries containsObject:candy]) {
+                [weakSelf performSelector:@selector(scrollToCurrentCandy) withObject:nil afterDelay:0.0f];
+            }
+        }];
+        
+        [receiver setUpdatedBlock:^(WLCandy *candy) {
+            if (candy == weakSelf.candy) {
+                [weakSelf updateOwnerData];
+            }
+        }];
+        
+        [receiver setDeletedBlock:^(WLCandy *candy) {
+            if (candy == weakSelf.candy) {
+                [WLToast showWithMessage:WLLS(@"This candy is no longer avaliable.")];
+                weakSelf.candy = nil;
+            }
+            
+            if (weakSelf.historyItem.entries.nonempty) {
+                [weakSelf performSelector:@selector(scrollToCurrentCandy) withObject:nil afterDelay:0.0f];
+            } else {
+                [weakSelf.navigationController popViewControllerAnimated:NO];
+            }
+        }];
+    }];
+    
+    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        [receiver setEntryBlock:^WLEntry *{
+            return weakSelf.wrap;
+        }];
+        [receiver setDeletedBlock:^(WLWrap *wrap) {
+            [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."), [wrap name]]];
+            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+        }];
+    }];
 }
 
 - (void)scrollToCurrentCandy {

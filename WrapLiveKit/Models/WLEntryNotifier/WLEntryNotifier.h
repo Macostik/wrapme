@@ -10,50 +10,21 @@
 #import "WLEntryManager.h"
 
 @class WLEntryNotifier;
+@class WLEntryNotifyReceiver;
+
+typedef void (^WLEntryNotifyReceiverSetupBlock) (WLEntryNotifyReceiver *receiver);
 
 @protocol WLEntryNotifyReceiver <WLBroadcastReceiver>
 
 @optional
 
-- (WLUser*)notifierPreferredUser:(WLEntryNotifier*)notifier;
+- (BOOL)notifier:(WLEntryNotifier*)notifier shouldNotifyOnEntry:(WLEntry*)entry;
 
-- (WLWrap*)notifierPreferredWrap:(WLEntryNotifier*)notifier;
+- (void)notifier:(WLEntryNotifier*)notifier entryAdded:(WLEntry*)entry;
 
-- (WLCandy*)notifierPreferredCandy:(WLEntryNotifier*)notifier;
+- (void)notifier:(WLEntryNotifier*)notifier entryUpdated:(WLEntry*)entry;
 
-- (WLMessage*)notifierPreferredMessage:(WLEntryNotifier*)notifier;
-
-- (WLComment*)notifierPreferredComment:(WLEntryNotifier*)notifier;
-
-- (void)notifier:(WLEntryNotifier*)notifier userAdded:(WLUser*)user;
-
-- (void)notifier:(WLEntryNotifier*)notifier userUpdated:(WLUser*)user;
-
-- (void)notifier:(WLEntryNotifier*)notifier userDeleted:(WLUser*)user;
-
-- (void)notifier:(WLEntryNotifier*)notifier wrapAdded:(WLWrap*)wrap;
-
-- (void)notifier:(WLEntryNotifier*)notifier wrapUpdated:(WLWrap*)wrap;
-
-- (void)notifier:(WLEntryNotifier*)notifier wrapDeleted:(WLWrap*)wrap;
-
-- (void)notifier:(WLEntryNotifier*)notifier candyAdded:(WLCandy*)candy;
-
-- (void)notifier:(WLEntryNotifier*)notifier candyUpdated:(WLCandy*)candy;
-
-- (void)notifier:(WLEntryNotifier*)notifier candyDeleted:(WLCandy*)candy;
-
-- (void)notifier:(WLEntryNotifier*)notifier messageAdded:(WLMessage*)message;
-
-- (void)notifier:(WLEntryNotifier*)notifier messageUpdated:(WLMessage*)message;
-
-- (void)notifier:(WLEntryNotifier*)notifier messageDeleted:(WLMessage*)message;
-
-- (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment;
-
-- (void)notifier:(WLEntryNotifier*)notifier commentUpdated:(WLComment*)comment;
-
-- (void)notifier:(WLEntryNotifier*)notifier commentDeleted:(WLComment*)comment;
+- (void)notifier:(WLEntryNotifier*)notifier entryDeleted:(WLEntry*)entry;
 
 @end
 
@@ -63,33 +34,23 @@
 
 + (instancetype)notifier:(Class)entryClass;
 
-+ (void)beginBatchUpdates;
-
-+ (void)commitBatchUpdates;
-
-- (void)beginBatchUpdates;
-
-- (void)commitBatchUpdates;
-
 - (void)notifyOnAddition:(WLEntry*)entry;
 
 - (void)notifyOnUpdate:(WLEntry*)entry;
 
 - (void)notifyOnDeleting:(WLEntry*)entry;
 
+- (void)setReceiver:(id)receiver ownedBy:(id)owner;
+
 @end
 
 @interface WLEntry (WLEntryNotifier)
 
-@property (readonly, nonatomic) SEL notifyPreferredSelector;
-
-@property (readonly, nonatomic) SEL notifyOnAdditionSelector;
-
-@property (readonly, nonatomic) SEL notifyOnUpdateSelector;
-
-@property (readonly, nonatomic) SEL notifyOnDeletingSelector;
-
 + (WLEntryNotifier*)notifier;
+
++ (WLEntryNotifyReceiver*)notifyReceiverOwnedBy:(id)owner;
+
++ (WLEntryNotifyReceiver*)notifyReceiverOwnedBy:(id)owner setupBlock:(WLEntryNotifyReceiverSetupBlock)setupBlock;
 
 - (void)notifyOnAddition;
 
@@ -100,13 +61,3 @@
 - (instancetype)update:(NSDictionary*)dictionary;
 
 @end
-
-@interface WLUser (WLEntryNotifier) @end
-
-@interface WLWrap (WLEntryNotifier) @end
-
-@interface WLCandy (WLEntryNotifier) @end
-
-@interface WLMessage (WLEntryNotifier) @end
-
-@interface WLComment (WLEntryNotifier) @end

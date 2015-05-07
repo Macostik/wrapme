@@ -20,7 +20,7 @@ static CGFloat WLNotificationCommentHorizontalSpacing = 80.0f;
 static CGFloat WLNotificationCommentVerticalSpacing = 67.0f;
 static CGFloat WLTextViewInsets = 10.0f;
 
-@interface WLCommentsViewController () <WLEntryNotifyReceiver, UIViewControllerTransitioningDelegate>
+@interface WLCommentsViewController () <UIViewControllerTransitioningDelegate>
 
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -56,9 +56,7 @@ static CGFloat WLTextViewInsets = 10.0f;
     
     self.dataSource.items = [self.candy sortedComments];
     self.collectionView.layer.geometryFlipped = YES;
-    [[WLComment notifier] addReceiver:self];
-    [[WLCandy notifier] addReceiver:self];
-    [[WLWrap notifier] addReceiver:self];
+    [self addNotifyReceivers];
 }
 
 - (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
@@ -182,36 +180,43 @@ static CGFloat WLTextViewInsets = 10.0f;
 
 #pragma mark - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier*)notifier candyUpdated:(WLComment *)comment {
-    self.dataSource.items = [self.candy sortedComments];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
-    [self onClose:nil];
-}
-
-- (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
-    self.dataSource.items = [self.candy sortedComments];
-}
-
-- (void)notifier:(WLEntryNotifier*)notifier commentDeleted:(WLComment *)comment {
-    NSMutableOrderedSet* entries = (id)self.dataSource.items;
-    if ([entries containsObject:comment]) {
-        [entries removeObject:comment];
-        [self.dataSource reload];
-    }
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-    [self onClose:nil];
-}
-
-- (WLCandy *)notifierPreferredCandy:(WLEntryNotifier *)notifier {
-    return self.candy;
-}
-
-- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
-    return self.candy.wrap;
+- (void)addNotifyReceivers {
+    __weak typeof(self)weakSelf = self;
+    
+    [WLComment notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        [receiver setContainingEntryBlock:^WLEntry *{
+            return weakSelf.candy;
+        }];
+        [receiver setAddedBlock:^(WLComment *comment) {
+            weakSelf.dataSource.items = [weakSelf.candy sortedComments];
+        }];
+        receiver.updatedBlock = receiver.addedBlock;
+        [receiver setDeletedBlock:^(WLComment *comment) {
+            NSMutableOrderedSet* entries = (id)weakSelf.dataSource.items;
+            if ([entries containsObject:comment]) {
+                [entries removeObject:comment];
+                [weakSelf.dataSource reload];
+            }
+        }];
+    }];
+    
+    [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        [receiver setEntryBlock:^WLEntry *{
+            return weakSelf.candy;
+        }];
+        [receiver setDeletedBlock:^(WLCandy *candy) {
+            [weakSelf onClose:nil];
+        }];
+    }];
+    
+    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        [receiver setEntryBlock:^WLEntry *{
+            return weakSelf.candy.wrap;
+        }];
+        [receiver setDeletedBlock:^(WLWrap *wrap) {
+            [weakSelf onClose:nil];
+        }];
+    }];
 }
 
 #pragma mark - WLComposeBarDelegate

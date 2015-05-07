@@ -165,25 +165,25 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier entryAdded:(WLCandy *)candy {
     [self addEntry:candy];
     if  ([candy.contributor isCurrentUser]) [self.delegate paginatedSetChanged:self];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLCandy *)candy {
     [self removeEntry:candy];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier candyUpdated:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLCandy *)candy {
     [self sort:candy];
 }
 
-- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
-    return self.wrap;
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return self.wrap == entry.containingEntry;
 }
 
 - (NSNumber *)peferedOrderEntry:(WLBroadcaster *)broadcaster {
-    return @(1);
+    return @(-1);
 }
 
 @end

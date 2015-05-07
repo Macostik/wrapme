@@ -154,7 +154,7 @@
 
 #pragma mark - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier userUpdated:(WLUser *)user {
+- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLUser *)user {
     [self updateEmailConfirmationView];
 }
 

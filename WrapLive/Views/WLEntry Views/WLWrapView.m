@@ -28,12 +28,12 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLWrap *)wrap {
     [self update:wrap];
 }
 
-- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
-    return self.entry;
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return self.entry == entry;
 }
 
 @end

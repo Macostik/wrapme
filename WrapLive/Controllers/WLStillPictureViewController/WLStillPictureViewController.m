@@ -285,11 +285,11 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLWrap *)wrap {
     [self setupWrapView:wrap];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLWrap *)wrap {
     self.wrap = [[[WLUser currentUser] sortedWraps] firstObject];
     id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
     if (!self.presentedViewController && [delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
@@ -297,8 +297,8 @@
     }
 }
 
-- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
-    return self.wrap;
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return self.wrap == entry;
 }
 
 #pragma mark - UINavigationControllerDelegate

@@ -8,7 +8,7 @@
 
 #import "WLEntryStatusIndicator.h"
 
-@interface WLEntryStatusIndicator ()
+@interface WLEntryStatusIndicator () <WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) WLContribution *contribution;
 
@@ -34,24 +34,13 @@
     });
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier wrapUpdated:(WLWrap*)wrap {
-    if (self.contribution == wrap)
-        [self setIconNameByCotribution:self.contribution];
+- (void)notifier:(WLEntryNotifier*)notifier entryUpdated:(WLEntry *)entry {
+    [self setIconNameByCotribution:self.contribution];
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier candyUpdated:(WLCandy*)candy {
-    if (self.contribution == candy || candy == self.contribution.containingEntry)
-        [self setIconNameByCotribution:self.contribution];
-}
-
-- (void)notifier:(WLEntryNotifier*)notifier commentUpdated:(WLComment*)comment {
-    if (self.contribution == comment || comment == self.contribution.containingEntry)
-        [self setIconNameByCotribution:self.contribution];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier messageUpdated:(WLMessage *)message {
-    if (self.contribution == message || message == self.contribution.containingEntry)
-        [self setIconNameByCotribution:self.contribution];
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    WLContribution *contribution = self.contribution;
+    return contribution == entry || (contribution.containingEntry && entry == contribution.containingEntry);
 }
 
 @end

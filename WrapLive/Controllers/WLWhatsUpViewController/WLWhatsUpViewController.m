@@ -65,20 +65,12 @@
     self.dataSource.items = [[WLUser currentUser] notifications];
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier commentAdded:(WLComment*)comment {
+- (void)notifier:(WLEntryNotifier*)notifier entryAdded:(WLComment*)comment {
     [self updateNotificaton];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
-    [self updateNotificaton];
-}
-
-- (void)notifier:(WLEntryNotifier*)notifier commentDeleted:(WLComment *)comment {
+- (void)notifier:(WLEntryNotifier*)notifier entryDeleted:(WLComment *)comment {
     [self removeNotificationEntry:comment];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier candyDeleted:(WLCandy *)candy {
-    [self removeNotificationEntry:candy];
 }
 
 - (IBAction)back:(id)sender {

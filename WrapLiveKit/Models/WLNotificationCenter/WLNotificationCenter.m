@@ -386,12 +386,12 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier userAdded:(WLUser *)user {
+- (void)notifier:(WLEntryNotifier *)notifier entryAdded:(WLEntry *)entry {
     [self subscribe];
 }
 
-- (WLUser *)notifierPreferredUser:(WLEntryNotifier *)notifier {
-    return [WLUser currentUser];
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return [WLUser currentUser] == entry;
 }
 
 @end

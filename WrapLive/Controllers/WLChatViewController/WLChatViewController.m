@@ -294,17 +294,17 @@ CGFloat WLMaxTextViewWidth;
 
 #pragma mark - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier messageAdded:(WLMessage *)message {
+- (void)notifier:(WLEntryNotifier *)notifier entryAdded:(WLMessage *)message {
     if (message.unread) message.unread = NO;
     [self insertMessage:message];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier messageDeleted:(WLMessage *)message {
+- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLMessage *)message {
     [self.chat resetEntries:[self.wrap messages]];
 }
 
-- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
-    return self.wrap;
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return self.wrap == entry.containingEntry;
 }
 
 #pragma mark - WlSignificantTimeBroadcasterReceiver

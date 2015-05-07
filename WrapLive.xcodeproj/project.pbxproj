@@ -846,6 +846,8 @@
 		C55B25AD1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
 		C55B25AE1AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
 		C55B92031AFA6677006A3A55 /* WrapLiveToday-Production.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* WrapLiveToday-Production.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C55B92011AFA39FE006A3A55 /* WLEntryNotifyReceiver.h in Headers */ = {isa = PBXBuildFile; fileRef = C55B91FF1AFA39FE006A3A55 /* WLEntryNotifyReceiver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C55B92021AFA39FE006A3A55 /* WLEntryNotifyReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B92001AFA39FE006A3A55 /* WLEntryNotifyReceiver.m */; };
 		C55C366B1ACEB7A900C614BD /* WrapLiveKit_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */; };
 		C55D6A751AB6D55200256CF3 /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55D6A741AB6D55200256CF3 /* Introduction.storyboard */; };
 		C55D6A761AB6D55200256CF3 /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55D6A741AB6D55200256CF3 /* Introduction.storyboard */; };
@@ -2352,6 +2354,8 @@
 		C55A8DF61ADD035C0069E5C7 /* chat_bubble_tail_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bubble_tail_gray@2x.png"; sourceTree = "<group>"; };
 		C55A8DF71ADD035C0069E5C7 /* chat_bubble_tail_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_bubble_tail_red.png; sourceTree = "<group>"; };
 		C55A8DF81ADD035C0069E5C7 /* chat_bubble_tail_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bubble_tail_red@2x.png"; sourceTree = "<group>"; };
+		C55B91FF1AFA39FE006A3A55 /* WLEntryNotifyReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryNotifyReceiver.h; sourceTree = "<group>"; };
+		C55B92001AFA39FE006A3A55 /* WLEntryNotifyReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryNotifyReceiver.m; sourceTree = "<group>"; };
 		C55C36661ACEB7A800C614BD /* WrapLiveKit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WrapLiveKit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C55C36691ACEB7A900C614BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WrapLiveKit_Tests.m; sourceTree = "<group>"; };
@@ -5598,6 +5602,8 @@
 			children = (
 				C5612D411ACD968B0052578A /* WLEntryNotifier.h */,
 				C5612D421ACD968B0052578A /* WLEntryNotifier.m */,
+				C55B91FF1AFA39FE006A3A55 /* WLEntryNotifyReceiver.h */,
+				C55B92001AFA39FE006A3A55 /* WLEntryNotifyReceiver.m */,
 			);
 			path = WLEntryNotifier;
 			sourceTree = "<group>";
@@ -6137,6 +6143,7 @@
 				C587C7A31AD2E6A0003E7647 /* WLLeaveWrapRequest.h in Headers */,
 				C55D77711AE50D1A006FA19C /* NSObject+PNAdditions.h in Headers */,
 				C55D77871AE50D1A006FA19C /* PNStructures.h in Headers */,
+				C55B92011AFA39FE006A3A55 /* WLEntryNotifyReceiver.h in Headers */,
 				C587C7881AD2E6A0003E7647 /* NSObject+Extension.h in Headers */,
 				C55D77C61AE50D1A006FA19C /* PNTimeTokenRequest.h in Headers */,
 				C587C7E81AD2E6A0003E7647 /* WLConstants.h in Headers */,
@@ -8064,6 +8071,7 @@
 				C587C8BB1AD2E708003E7647 /* AFURLSessionManager.m in Sources */,
 				C587C87E1AD2E6DB003E7647 /* WLAPIResponse.m in Sources */,
 				C587C8C11AD2E708003E7647 /* UIAlertView+AFNetworking.m in Sources */,
+				C55B92021AFA39FE006A3A55 /* WLEntryNotifyReceiver.m in Sources */,
 				C55D773C1AE50D1A006FA19C /* PNClient.m in Sources */,
 				C55D76E21AE50D1A006FA19C /* PubNub+Time.m in Sources */,
 				C55D77A61AE50D1A006FA19C /* PNChannelsListUpdateForChannelGroupRequest.m in Sources */,

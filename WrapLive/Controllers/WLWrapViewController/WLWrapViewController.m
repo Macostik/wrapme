@@ -37,7 +37,7 @@
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
@@ -56,9 +56,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        [[WLWrap notifier] addReceiver:self];
-        [[WLCandy notifier] addReceiver:self];
-        [[WLMessage notifier] addReceiver:self];
+        [self addNotifyReceivers];
         [[WLNetwork network] addReceiver:self];
     }
     return self;
@@ -158,32 +156,42 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 // MARK: - WLEntryNotifyReceiver
 
-- (WLWrap *)notifierPreferredWrap:(WLEntryNotifier *)notifier {
-	return self.wrap;
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier wrapUpdated:(WLWrap *)wrap {
-    [self updateWrapData];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier wrapDeleted:(WLWrap *)wrap {
-    [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."),
-                                  WLString([self.nameLabel titleForState:UIControlStateNormal])]];
-    [self.navigationController popToRootViewControllerAnimated:NO];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier candyAdded:(WLCandy *)candy {
-    if ([self isViewLoaded] && self.wrap.valid) {
-        if (candy.unread) candy.unread = NO;
-    }
-}
-
-- (void)notifier:(WLEntryNotifier*)notifier messageAdded:(WLMessage*)message {
-    [self updateNotificationCouter];
-}
-
-- (void)notifier:(WLEntryNotifier*)notifier messageDeleted:(WLMessage *)message {
-    [self updateNotificationCouter];
+- (void)addNotifyReceivers {
+    __weak typeof(self)weakSelf = self;
+    
+    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        [receiver setEntryBlock:^WLEntry *{
+            return weakSelf.wrap;
+        }];
+        receiver.addedBlock = receiver.updatedBlock = ^(WLWrap *wrap) {
+            [weakSelf updateWrapData];
+        };
+        receiver.deletedBlock = ^(WLWrap *wrap) {
+            [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."),
+                                      WLString([weakSelf.nameLabel titleForState:UIControlStateNormal])]];
+            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+        };
+    }];
+    
+    [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        [receiver setContainingEntryBlock:^WLEntry *{
+            return weakSelf.wrap;
+        }];
+        [receiver setAddedBlock:^(WLCandy *candy) {
+            if ([weakSelf isViewLoaded] && weakSelf.wrap.valid) {
+                if (candy.unread) candy.unread = NO;
+            }
+        }];
+    }];
+    
+    [WLMessage notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        [receiver setContainingEntryBlock:^WLEntry *{
+            return weakSelf.wrap;
+        }];
+        receiver.addedBlock = receiver.deletedBlock = ^(WLMessage *message) {
+            [weakSelf updateNotificationCouter];
+        };
+    }];
 }
 
 // MARK: - WLStillPictureViewControllerDelegate

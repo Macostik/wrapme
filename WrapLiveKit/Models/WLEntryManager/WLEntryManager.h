@@ -54,17 +54,19 @@
 
 @property (readonly, nonatomic) BOOL invalid;
 
-+ (NSEntityDescription*)entity;
++ (NSEntityDescription *)entity;
 
 + (instancetype)entry:(NSString*)identifier;
 
-+ (NSMutableOrderedSet*)entries;
++ (NSMutableOrderedSet *)entries;
 
-+ (NSMutableOrderedSet*)entries:(void (^)(NSFetchRequest* request))configure;
++ (NSMutableOrderedSet *)entries:(void (^)(NSFetchRequest* request))configure;
 
-+ (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key ascending:(BOOL)flag;
++ (NSMutableOrderedSet *)entriesWhere:(NSString *)predicateFormat, ...;
 
-+ (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key;
++ (NSMutableOrderedSet *)entriesSortedBy:(NSString*)key where:(NSString *)predicateFormat, ...;
+
++ (NSMutableOrderedSet *)entriesSortedBy:(NSString*)key ascending:(BOOL)ascending where:(NSString *)predicateFormat, ...;
 
 - (void)save;
 

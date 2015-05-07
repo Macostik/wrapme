@@ -261,26 +261,20 @@
 
 - (NSMutableOrderedSet *)notifications {
     NSMutableOrderedSet *contributions = [NSMutableOrderedSet orderedSet];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@",
-                              [NSDate dayAgo], [WLUser currentUser]];
-    [contributions unionOrderedSet:[WLComment entries:^(NSFetchRequest *request) {
-        request.predicate = predicate;
-    }]];
-    [contributions unionOrderedSet:[WLCandy entries:^(NSFetchRequest *request) {
-        request.predicate = predicate;
-    }]];
+    NSDate *dayAgo = [NSDate dayAgo];
+    WLUser *currentUser = [WLUser currentUser];
+    [contributions unionOrderedSet:[WLComment entriesWhere:@"createdAt >= %@ AND contributor != %@", dayAgo, currentUser]];
+    [contributions unionOrderedSet:[WLCandy entriesWhere:@"createdAt >= %@ AND contributor != %@", dayAgo, currentUser]];
     [contributions sortByCreatedAt];
     return contributions;
 }
 
 - (NSUInteger)unreadNotificationsCount {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND contributor != %@ AND unread == YES",
-                              [NSDate dayAgo], [WLUser currentUser]];
-    NSMutableOrderedSet *contribution = [WLContribution entriesWithPredicate:predicate sorterByKey:@"createdAt"];
-    [contribution removeObjectsWhileEnumerating:^BOOL(WLEntry *entry) {
+    NSMutableOrderedSet *contributions = [WLContribution entriesWhere:@"createdAt >= %@ AND contributor != %@ AND unread == YES", [NSDate dayAgo], [WLUser currentUser]];
+    [contributions removeObjectsWhileEnumerating:^BOOL(WLEntry *entry) {
         return [entry isKindOfClass:[WLMessage class]];
     }];
-    return contribution.count;
+    return contributions.count;
 }
 
 @end
@@ -288,21 +282,18 @@
 @implementation WLWrap (WLNotification)
 
 - (NSUInteger)unreadNotificationsCandyCount {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND wrap == %@ AND contributor != %@ AND unread == YES",
-                              [NSDate dayAgo], self, [WLUser currentUser]];
-    return [[WLCandy entriesWithPredicate:predicate sorterByKey:@"createdAt"] count];
+    return [[WLCandy entriesWhere:@"createdAt >= %@ AND wrap == %@ AND contributor != %@ AND unread == YES",
+             [NSDate dayAgo], self, [WLUser currentUser]] count];
 }
 
 - (NSUInteger)unreadNotificationsMessageCount {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND wrap == %@ AND contributor != %@ AND unread == YES",
-                              [NSDate dayAgo], self, [WLUser currentUser]];
-    return [[WLMessage entriesWithPredicate:predicate sorterByKey:@"createdAt"] count];
+    return [[WLMessage entriesWhere:@"createdAt >= %@ AND wrap == %@ AND contributor != %@ AND unread == YES",
+             [NSDate dayAgo], self, [WLUser currentUser]] count];
 }
 
 - (NSUInteger)unreadNotificationsCommentCount {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createdAt >= %@ AND candy.wrap == %@ AND contributor != %@ AND unread == YES",
-                              [NSDate dayAgo], self, [WLUser currentUser]];
-    return [[WLComment entriesWithPredicate:predicate sorterByKey:@"createdAt"] count];
+    return [[WLComment entriesWhere:@"createdAt >= %@ AND candy.wrap == %@ AND contributor != %@ AND unread == YES",
+             [NSDate dayAgo], self, [WLUser currentUser]] count];
 }
 
 @end

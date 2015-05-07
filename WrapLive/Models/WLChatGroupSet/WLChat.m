@@ -42,15 +42,36 @@
 - (void)setWrap:(WLWrap *)wrap {
     _wrap = wrap;
     [self resetEntries:wrap.messages];
-    if (wrap.lastUnread) {
-        self.unreadMessages = [self.entries objectsWhere:@"createdAt > %@ AND contributor != %@", wrap.lastUnread, [WLUser currentUser]];
-    }
+    [self setUnreadMessages];
     if (wrap) {
         self.typingChannel = [WLChatTypingChannel channelWithWrap:wrap];
         self.typingChannel.delegate = self;
     } else {
         self.typingChannel = nil;
     }
+}
+
+- (void)setUnreadMessages {
+    NSDate *lastUnread = _wrap.lastUnread;
+    NSMutableOrderedSet *unreadMessages = nil;
+    if (lastUnread) {
+        unreadMessages = [self.entries objectsWhere:@"createdAt > %@", lastUnread];
+    } else {
+        unreadMessages = [self.entries objectsWhere:@"unread == YES"];
+    }
+    if (unreadMessages.nonempty) {
+        unreadMessages = [unreadMessages mutableCopy];
+        __block BOOL isMessagesFromCurrentUser = NO;
+        [unreadMessages removeObjectsWhileEnumerating:^BOOL(WLMessage *message) {
+            if ([message.contributor isCurrentUser]) {
+                isMessagesFromCurrentUser = YES;
+                return YES;
+            } else {
+                return isMessagesFromCurrentUser;
+            }
+        }];
+    }
+    self.unreadMessages = unreadMessages;
 }
 
 - (void)addTypingUser:(WLUser *)user {

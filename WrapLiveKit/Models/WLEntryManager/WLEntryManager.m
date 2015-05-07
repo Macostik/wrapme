@@ -244,15 +244,32 @@
 	return [[WLEntryManager manager] entriesOfClass:self configure:configure];
 }
 
-+ (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key ascending:(BOOL)flag {
-    return [self entries:^(NSFetchRequest *request) {
-        request.predicate = predicate;
-        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:key ascending:flag]];
-    }];
+#define WL_PREDICATE_ARGUMENTS \
+va_list args;\
+va_start(args, predicateFormat);\
+va_end(args);
+
++ (NSMutableOrderedSet *)entriesWhere:(NSString *)predicateFormat, ... {
+    WL_PREDICATE_ARGUMENTS
+    return [self entriesSortedBy:nil ascending:NO where:predicateFormat arguments:args];
 }
 
-+ (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate sorterByKey:(NSString *)key {
-    return [self entriesWithPredicate:predicate sorterByKey:key ascending:NO];
++ (NSMutableOrderedSet *)entriesSortedBy:(NSString *)key where:(NSString *)predicateFormat, ... {
+    WL_PREDICATE_ARGUMENTS
+    return [self entriesSortedBy:key ascending:NO where:predicateFormat arguments:args];
+}
+
++ (NSMutableOrderedSet *)entriesSortedBy:(NSString *)key ascending:(BOOL)ascending where:(NSString *)predicateFormat, ... {
+    WL_PREDICATE_ARGUMENTS
+    return [self entriesSortedBy:key ascending:ascending where:predicateFormat arguments:args];
+}
+
++ (NSMutableOrderedSet *)entriesSortedBy:(NSString *)key ascending:(BOOL)ascending where:(NSString *)predicateFormat arguments:(va_list)args {
+    if (![predicateFormat isKindOfClass:[NSString class]]) return nil;
+    return [self entries:^(NSFetchRequest *request) {
+        request.predicate = [NSPredicate predicateWithFormat:predicateFormat arguments:args];
+        if (key) request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:key ascending:ascending]];
+    }];
 }
 
 - (void)save {

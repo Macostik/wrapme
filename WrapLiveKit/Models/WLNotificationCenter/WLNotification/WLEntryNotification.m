@@ -176,12 +176,7 @@
             switch (weakSelf.type) {
                 case WLNotificationCommentAdd: {
                     WLCandy *candy = [(WLComment*)targetEntry candy];
-                    if (candy.valid &&
-                        !targetEntry.unread &&
-                        targetEntry.inserted &&
-                        [[candy updatedAt] earlier:[targetEntry updatedAt]]) {
-                        candy.commentCount++;
-                    }
+                    if (candy.valid) candy.commentCount = candy.comments.count;
                     if (targetEntry.notifiable && !targetEntry.unread) targetEntry.unread = YES;
                     break;
                 }

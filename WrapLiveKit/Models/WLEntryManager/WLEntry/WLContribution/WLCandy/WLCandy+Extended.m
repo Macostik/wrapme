@@ -59,7 +59,7 @@
                     small:[dictionary stringForKey:WLCandySmallURLKey]];
     }
     NSInteger commentCount = [dictionary integerForKey:WLCommentCountKey];
-    if (self.commentCount != commentCount) self.commentCount = commentCount;
+    if (self.commentCount < commentCount) self.commentCount = commentCount;
     WLWrap* currentWrap = self.wrap;
     WLWrap* wrap = relatedEntry ? : (currentWrap ? : [WLWrap entry:[dictionary stringForKey:WLWrapUIDKey]]);
     if (wrap != currentWrap) self.wrap = wrap;

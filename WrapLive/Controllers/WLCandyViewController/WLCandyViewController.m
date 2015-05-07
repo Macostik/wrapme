@@ -39,7 +39,8 @@
 @property (weak, nonatomic) IBOutlet WLIconButton *actionButton;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
-@property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
+@property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *commentIndicator;
+@property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *candyIndicator;
 
 @property (weak, nonatomic) WLComment *lastComment;
 @property (nonatomic) BOOL scrolledToInitialItem;
@@ -167,7 +168,7 @@
         [self.collectionView setContentOffset:CGPointMake(index*self.collectionView.width, 0)];
     }
     if ([self.lastComment.contributor isCurrentUser]) {
-        UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.bottomView convertRect:self.indicator.frame
+        UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.bottomView convertRect:self.commentIndicator.frame
                                                                                             toView:self.lastCommentTextView]];
         self.lastCommentTextView.textContainer.exclusionPaths = @[exlusionPath];
     }
@@ -257,12 +258,12 @@
     if (lastComment != _lastComment) {
         _lastComment = lastComment;
         UITextView *textView = self.lastCommentTextView;
-        self.avatarImageView.hidden = textView.hidden = self.indicator.hidden = lastComment.text.length == 0;
+        self.avatarImageView.hidden = textView.hidden = self.self.commentIndicator.hidden = lastComment.text.length == 0;
         if (textView && !textView.hidden) {
             self.avatarImageView.url = lastComment.contributor.picture.small;
             [textView determineHyperLink:lastComment.text];
             textView.textContainer.exclusionPaths = @[];
-            [self.indicator updateStatusIndicator:lastComment];
+            [self.commentIndicator updateStatusIndicator:lastComment];
         }
     }
 }
@@ -271,6 +272,8 @@
     if (_candy.unread) {
         _candy.unread = NO;
     }
+    [self.candyIndicator updateStatusIndicator:_candy];
+    self.candyIndicator.hidden = NO;
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"warning";
     [self setCommentButtonTitle:_candy];
     self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), _candy.contributor.name];

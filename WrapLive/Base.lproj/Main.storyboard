@@ -101,6 +101,7 @@
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
+            <string>wrapliveicons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -3082,8 +3083,23 @@ Check your internet connection and try again.</string>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Vc-K0-B5T" customClass="WLEntryStatusIndicator">
+                                        <rect key="frame" x="12" y="76" width="16" height="11"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="16" id="Yse-lc-fb3"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="11"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="xsmall"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Post" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsh-mJ-NAQ" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="70" width="32" height="21"/>
+                                        <rect key="frame" x="28" y="70" width="32" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="HN9-VO-uom"/>
                                         </constraints>
@@ -3117,10 +3133,12 @@ Check your internet connection and try again.</string>
                                     <constraint firstItem="G8T-0M-jNN" firstAttribute="top" secondItem="U0A-o6-Hed" secondAttribute="top" constant="-5" id="Mkb-Az-pQv"/>
                                     <constraint firstItem="G8T-0M-jNN" firstAttribute="leading" secondItem="U0A-o6-Hed" secondAttribute="leading" id="NJz-Zs-KSf"/>
                                     <constraint firstAttribute="height" constant="120" id="Q7b-Sa-Mcr"/>
-                                    <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="leading" secondItem="9aV-O1-sMk" secondAttribute="leading" id="cSh-hh-6Zj"/>
+                                    <constraint firstItem="0Vc-K0-B5T" firstAttribute="leading" secondItem="DOa-Ws-aK4" secondAttribute="leading" constant="12" id="Wi2-WZ-2HA"/>
+                                    <constraint firstItem="9aV-O1-sMk" firstAttribute="leading" secondItem="0Vc-K0-B5T" secondAttribute="leading" id="ZXt-jF-iJq"/>
                                     <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="top" secondItem="DKe-of-CwY" secondAttribute="bottom" constant="10" id="erp-MP-rQw"/>
                                     <constraint firstItem="G8T-0M-jNN" firstAttribute="top" secondItem="DKe-of-CwY" secondAttribute="top" id="mG9-4s-qs6"/>
-                                    <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="leading" secondItem="DOa-Ws-aK4" secondAttribute="leading" constant="12" id="otN-X2-WJ4"/>
+                                    <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="centerY" secondItem="0Vc-K0-B5T" secondAttribute="centerY" constant="-1" id="n5u-OR-hXe"/>
+                                    <constraint firstItem="Dsh-mJ-NAQ" firstAttribute="leading" secondItem="0Vc-K0-B5T" secondAttribute="trailing" id="tno-T8-YW2"/>
                                     <constraint firstItem="DKe-of-CwY" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="top" constant="12" id="vs5-cV-Y5s"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -3191,9 +3209,10 @@ Check your internet connection and try again.</string>
                         <outlet property="avatarImageView" destination="DKe-of-CwY" id="pwy-xB-Q7n"/>
                         <outlet property="bottomView" destination="DOa-Ws-aK4" id="oO2-CG-2mp"/>
                         <outlet property="bottomViewContstraint" destination="3Zf-0D-3vD" id="QiP-TV-Uzp"/>
+                        <outlet property="candyIndicator" destination="0Vc-K0-B5T" id="Q6n-7L-Zoo"/>
                         <outlet property="collectionView" destination="jyK-17-cAD" id="BfX-xF-M1l"/>
                         <outlet property="commentButton" destination="2ai-CO-qH0" id="gaJ-nC-R6A"/>
-                        <outlet property="indicator" destination="U0A-o6-Hed" id="XhQ-Ow-cQw"/>
+                        <outlet property="commentIndicator" destination="U0A-o6-Hed" id="fn6-LQ-ijP"/>
                         <outlet property="lastCommentTextView" destination="G8T-0M-jNN" id="747-dx-mt6"/>
                         <outlet property="postLabel" destination="Dsh-mJ-NAQ" id="qz7-Tr-1Dc"/>
                         <outlet property="spinner" destination="TL4-HZ-bti" id="PiR-V6-Unb"/>

@@ -477,7 +477,6 @@
 - (void)applyDeviceOrientationToFunctionalButton:(UIDeviceOrientation)orientation {
     [self.flashModeControl setSelecting:NO animated:YES];
     CGAffineTransform transform = CGAffineTransformIdentity;
-    CGAffineTransform backButtonTransform = CGAffineTransformIdentity;
     switch (orientation) {
         case UIDeviceOrientationLandscapeLeft:
             transform = CGAffineTransformMakeRotation(M_PI_2);
@@ -486,13 +485,13 @@
             transform = CGAffineTransformMakeRotation(-M_PI_2);
             break;
         case UIDeviceOrientationPortraitUpsideDown:
-            backButtonTransform = transform = CGAffineTransformMakeRotation(M_PI);
+            transform = CGAffineTransformMakeRotation(M_PI);
             break;
         default:
             break;
     }
     [UIView animateWithDuration:.25 animations:^{
-        self.backButton.transform = backButtonTransform;
+        self.backButton.transform = transform;
         self.rotateButton.transform = transform;
         self.flashModeControl.transform = transform;
         self.galleryButton.transform = transform;

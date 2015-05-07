@@ -78,6 +78,6 @@
 	<key>WLAPIEnvironment</key>
 	<string>production</string>
 	<key>WLAppGroupIdentifier</key>
-	<string>group.com.ravenpod.wrapliveadhoc</string>
+	<string>group.com.ravenpod.wraplive</string>
 </dict>
 </plist>

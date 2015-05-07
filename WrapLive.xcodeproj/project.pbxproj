@@ -845,9 +845,9 @@
 		C55B25AC1AC9A6210072E9D2 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
 		C55B25AD1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
 		C55B25AE1AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
-		C55B92031AFA6677006A3A55 /* WrapLiveToday-Production.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* WrapLiveToday-Production.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C55B92011AFA39FE006A3A55 /* WLEntryNotifyReceiver.h in Headers */ = {isa = PBXBuildFile; fileRef = C55B91FF1AFA39FE006A3A55 /* WLEntryNotifyReceiver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C55B92021AFA39FE006A3A55 /* WLEntryNotifyReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B92001AFA39FE006A3A55 /* WLEntryNotifyReceiver.m */; };
+		C55B92031AFA6677006A3A55 /* WrapLiveToday-Production.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* WrapLiveToday-Production.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C55C366B1ACEB7A900C614BD /* WrapLiveKit_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */; };
 		C55D6A751AB6D55200256CF3 /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55D6A741AB6D55200256CF3 /* Introduction.storyboard */; };
 		C55D6A761AB6D55200256CF3 /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55D6A741AB6D55200256CF3 /* Introduction.storyboard */; };

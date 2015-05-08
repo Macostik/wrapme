@@ -207,8 +207,9 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    BOOL inactive = application.applicationState == UIApplicationStateInactive;
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
-        if ([notification isKindOfClass:[WLEntryNotification class]] && application.applicationState == UIApplicationStateInactive) {
+        if ([notification isKindOfClass:[WLEntryNotification class]] && inactive) {
             [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
         }
         if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
@@ -218,8 +219,9 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    BOOL inactive = application.applicationState == UIApplicationStateInactive;
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
-        if ([notification isKindOfClass:[WLEntryNotification class]] && application.applicationState == UIApplicationStateInactive) {
+        if ([notification isKindOfClass:[WLEntryNotification class]] && inactive) {
             [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
         }
         if (completionHandler) completionHandler();

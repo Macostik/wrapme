@@ -288,6 +288,9 @@
         [receiver setDeletedBlock:^(WLWrap *wrap) {
             WLPaginatedSet *wraps = [weakSelf.dataSource items];
             [wraps removeEntry:wrap];
+            run_after(.5, ^{
+                [weakSelf updateNotificationsLabel];
+            });
         }];
     }];
     

@@ -50,27 +50,24 @@
  
     [[WLComment notifier] addReceiver:self];
     [[WLCandy notifier] addReceiver:self];
+    [[WLWrap notifier] addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.dataSource.items = [[WLUser currentUser] notifications];
+    [self performSelector:@selector(updateNotificaton) withObject:nil afterDelay:0.0];
 }
 
 - (void)updateNotificaton {
     self.dataSource.items = [[WLUser currentUser] notifications];
 }
 
-- (void)removeNotificationEntry:(WLEntry *)entry {
-    self.dataSource.items = [[WLUser currentUser] notifications];
-}
-
 - (void)notifier:(WLEntryNotifier*)notifier entryAdded:(WLComment*)comment {
-    [self updateNotificaton];
+    [self performSelector:@selector(updateNotificaton) withObject:nil afterDelay:0.0];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier entryDeleted:(WLComment *)comment {
-    [self removeNotificationEntry:comment];
+    [self performSelector:@selector(updateNotificaton) withObject:nil afterDelay:0.0];
 }
 
 - (IBAction)back:(id)sender {

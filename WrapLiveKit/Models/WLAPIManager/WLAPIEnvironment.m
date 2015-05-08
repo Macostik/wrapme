@@ -13,13 +13,17 @@
 
 + (NSDictionary*)environments {
     return @{WLAPIEnvironmentDevelopment:@{@"endpoint":@"https://dev-api.wraplive.com/api",
-                                           @"version":@"5"},
+                                           @"version":@"5",
+                                           @"url_scheme":@"wrapliveadhoc"},
              WLAPIEnvironmentQA:@{@"endpoint":@"https://qa-api.wraplive.com/api",
-                                  @"version":@"5"},
+                                  @"version":@"5",
+                                  @"url_scheme":@"wrapliveadhoc"},
              WLAPIEnvironmentBeta:@{@"endpoint":@"https://qa-api.wraplive.com/api",
-                                    @"version":@"5"},
+                                    @"version":@"5",
+                                    @"url_scheme":@"wraplive"},
              WLAPIEnvironmentProduction:@{@"endpoint":@"https://prd-api.wraplive.com/api",
-                                          @"version":@"5"}};
+                                          @"version":@"5",
+                                          @"url_scheme":@"wraplive"}};
 }
 
 + (instancetype)environmentNamed:(NSString *)name {
@@ -30,6 +34,7 @@
     WLAPIEnvironment* environment = [[WLAPIEnvironment alloc] init];
     environment.endpoint = dictionary[@"endpoint"];
     environment.version = dictionary[@"version"];
+    environment.urlScheme = dictionary[@"url_scheme"];
     environment.name = name;
     return environment;
 }

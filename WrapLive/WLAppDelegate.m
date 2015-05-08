@@ -202,7 +202,9 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    [[WLRemoteEntryHandler sharedHandler] presentEntryFromURL:url];
+    [[WLRemoteEntryHandler sharedHandler] presentEntryFromURL:url failure:^(NSError *error) {
+        [error show];
+    }];
     return YES;
 }
 

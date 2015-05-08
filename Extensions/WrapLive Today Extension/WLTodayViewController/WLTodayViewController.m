@@ -51,12 +51,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
     self.tableView.estimatedRowHeight = 50.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self fetchContributions];
-    __weak typeof(self)weakSelf = self;
-    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-        [weakSelf updateExtensionWithResult:^(NCUpdateResult result) {
-            [operation finish];
-        }];
-    });
+    [self updateExtensionWithResult:nil];
     
     [self.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:NULL];
     
@@ -127,13 +122,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 #pragma mark - NCWidgetProviding
 
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
-    __weak typeof(self)weakSelf = self;
-    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-        [weakSelf updateExtensionWithResult:^(NCUpdateResult result) {
-            if (completionHandler) completionHandler(result);
-            [operation finish];
-        }];
-    });
+    [self updateExtensionWithResult:completionHandler];
 }
 
 - (UIEdgeInsets)widgetMarginInsetsForProposedMarginInsets:(UIEdgeInsets)defaultMarginInsets {
@@ -141,37 +130,13 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (void)updateExtensionWithResult:(void(^)(NCUpdateResult))result {
-    __weak __typeof(self)weakSelf = self;
-    
-    BOOL (^unauthorized) (void) = ^BOOL {
-        if ([[WLAuthorization currentAuthorization] canAuthorize]) {
-            return NO;
-        }
-        self.tableView.hidden = YES;
-        self.signUpButton.hidden = NO;
-        return YES;
-    };
-    
-    if (unauthorized()) {
+    if (![[WLAuthorization currentAuthorization] canAuthorize]) {
+        self.state = WLTodayViewStateUnauthorized;
         if (result) result(NCUpdateResultNoData);
-    } else {
-        if (![[WLAuthorization currentAuthorization] canAuthorize]) {
-            weakSelf.state = WLTodayViewStateUnauthorized;
-            if (result) result(NCUpdateResultNoData);
-            return;
-        }
-        self.state = WLTodayViewStateLoading;
-        [[WLRecentContributionsRequest request] send:^(NSOrderedSet *contributions) {
-            [[WLEntryManager manager] save];
-            if (result) result([weakSelf fetchContributions]);
-        } failure:^(NSError *error) {
-            if (unauthorized()) {
-                if (result) result(NCUpdateResultNoData);
-            } else {
-                if (result) result(NCUpdateResultFailed);
-            }
-        }];
+        return;
     }
+    NCUpdateResult status = [self fetchContributions];
+    if (result) result(status);
 }
 
 - (IBAction)moreStories:(UIButton *)sender {

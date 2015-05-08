@@ -56,13 +56,21 @@
 }
 
 - (WLEntry *)entryByKey:(NSString *)key withIdentifier:(NSString *)identifier {
+    
+    Class entryClass = nil;
+    
     if ([key isEqualToString:WLCandyKey]) {
-       return [WLCandy entry:identifier];
+       entryClass = [WLCandy class];
     } else if ([key isEqualToString:WLCommentKey])  {
-        return [WLComment entry:identifier];
+    entryClass = [WLComment class];
     } else {
         return nil;
     }
+    
+    if (entryClass && [[WLEntryManager manager] entryExists:entryClass identifier:identifier]) {
+        return [entryClass entry:identifier];
+    }
+    return nil;
 }
 
 @end
@@ -79,14 +87,21 @@
 
 @implementation WLRemoteEntryHandler (NSURL)
 
-- (void)presentEntryFromURL:(NSURL*)url {
+- (void)presentEntryFromURL:(NSURL*)url failure:(WLFailureBlock)failure {
     NSDictionary *parameters = [[url query] URLQueryParameters];
     NSString *identifier = parameters[WLUIDKey];
     if (identifier.nonempty) {
         NSString *key = [url path].lastPathComponent;
         self.key = key;
         self.identifier = identifier;
-        [self presentEntry:[self entryByKey:key withIdentifier:identifier]];
+        WLEntry *entry = [self entryByKey:key withIdentifier:identifier];
+        if (entry) {
+            [self presentEntry:entry];
+        } else {
+            if (failure) failure(WLError(@"This item isn't available"));
+        }
+    } else {
+        if (failure) failure(WLError(@"Invalid data"));
     }
 }
 

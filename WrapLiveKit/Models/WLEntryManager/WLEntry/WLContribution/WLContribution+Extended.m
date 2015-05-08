@@ -38,12 +38,9 @@
 
 + (NSMutableOrderedSet *)recentContributions {
     NSMutableOrderedSet *contributions = [NSMutableOrderedSet orderedSet];
-    [contributions unionOrderedSet:[WLComment entries:^(NSFetchRequest *request) {
-        request.predicate = [NSPredicate predicateWithFormat:@"createdAt > %@", [[NSDate now] beginOfDay]];
-    }]];
-    [contributions unionOrderedSet:[WLCandy entries:^(NSFetchRequest *request) {
-        request.predicate = [NSPredicate predicateWithFormat:@"createdAt > %@", [[NSDate now] beginOfDay]];
-    }]];
+    NSDate *date = [[NSDate now] beginOfDay];
+    [contributions unionOrderedSet:[WLComment entriesWhere:@"createdAt > %@ AND contributor != nil", date]];
+    [contributions unionOrderedSet:[WLCandy entriesWhere:@"createdAt > %@ AND contributor != nil", date]];
     [contributions sortByCreatedAt];
     return contributions;
 }

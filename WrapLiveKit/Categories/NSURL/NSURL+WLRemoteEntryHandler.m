@@ -8,11 +8,13 @@
 
 #import "NSURL+WLRemoteEntryHandler.h"
 #import "WLEntryKeys.h"
+#import "WLAPIManager.h"
 
 @implementation NSURL (WLRemoteEntryHandler)
 
 + (instancetype)WLURLWithPath:(NSString *)path {
-    return [[self alloc] initWithScheme:WLURLScheme host:nil path:path];
+    NSString *urlScheme = [WLAPIManager manager].environment.urlScheme ? : WLURLScheme;
+    return [[self alloc] initWithScheme:urlScheme host:nil path:path];
 }
 
 + (instancetype)WLURLForRemoteEntryWithKey:(NSString *)key identifier:(NSString *)identifier{

@@ -33,7 +33,7 @@
 
 @interface WLRemoteEntryHandler (NSURL)
 
-- (void)presentEntryFromURL:(NSURL*)url;
+- (void)presentEntryFromURL:(NSURL*)url failure:(WLFailureBlock)failure;
 
 @end
 

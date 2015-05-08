@@ -55,7 +55,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self performSelector:@selector(updateNotificaton) withObject:nil afterDelay:0.0];
+    [[WLEntryManager manager].context processPendingChanges];
+    [self updateNotificaton];
 }
 
 - (void)updateNotificaton {

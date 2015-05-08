@@ -120,6 +120,10 @@
     [self.cachedEntries setObject:entry forKey:entry.identifier];
 }
 
+- (void)uncacheEntry:(WLEntry *)entry {
+    [self.cachedEntries removeObjectForKey:entry.identifier];
+}
+
 - (NSFetchRequest*)fetchRequestForClass:(Class)entryClass {
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     [request setFetchLimit:1];
@@ -292,6 +296,11 @@ va_end(args);
 - (void)awakeFromFetch {
     [super awakeFromFetch];
     [[WLEntryManager manager] cacheEntry:self];
+}
+
+- (void)prepareForDeletion {
+    [super prepareForDeletion];
+    [[WLEntryManager manager] uncacheEntry:self];
 }
 
 - (BOOL)valid {

@@ -28,6 +28,8 @@
 
 - (void)cacheEntry:(WLEntry*)entry;
 
+- (void)uncacheEntry:(WLEntry*)entry;
+
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier;
 
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier uploadIdentifier:(NSString*)uploadIdentifier;

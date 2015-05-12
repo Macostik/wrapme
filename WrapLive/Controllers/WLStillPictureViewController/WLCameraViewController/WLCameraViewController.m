@@ -493,8 +493,10 @@
     [UIView animateWithDuration:.25 animations:^{
         self.backButton.transform = transform;
         self.rotateButton.transform = transform;
-        self.flashModeControl.transform = transform;
         self.galleryButton.transform = transform;
+        for (UIView *subView in self.flashModeControl.subviews) {
+            subView.transform = transform;
+        }
     }];
 }
 

@@ -2881,6 +2881,24 @@ Tap here to start.</string>
                                             <action selector="back:" destination="eto-O4-OHy" eventType="touchUpInside" id="aMp-QI-Uwl"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="TL4-HZ-bti">
+                                        <rect key="frame" x="170" y="37" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4L-uu-XEd" userLabel="EditButton" customClass="WLIconButton">
+                                        <rect key="frame" x="200" y="30" width="30" height="34"/>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.91664922240000002" green="0.91662174460000001" blue="0.91663730139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="edit-write"/>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                                <size key="value" width="10" height="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="editPhoto:" destination="eto-O4-OHy" eventType="touchUpInside" id="SqM-wh-8w4"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3S-jS-mvs" userLabel="ActionButton" customClass="WLIconButton">
                                         <rect key="frame" x="240" y="30" width="30" height="34"/>
                                         <state key="highlighted">
@@ -2912,20 +2930,19 @@ Tap here to start.</string>
                                             <action selector="downloadCandy:" destination="eto-O4-OHy" eventType="touchUpInside" id="aDG-lZ-NnF"/>
                                         </connections>
                                     </button>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="TL4-HZ-bti">
-                                        <rect key="frame" x="210" y="37" width="20" height="20"/>
-                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" constant="-10" id="0nd-cJ-KtR"/>
                                     <constraint firstItem="0rM-Ee-8of" firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" id="Mlp-zH-ksi"/>
                                     <constraint firstItem="sPd-Ai-V8F" firstAttribute="centerY" secondItem="J3S-jS-mvs" secondAttribute="centerY" id="Oe7-bB-r8N"/>
+                                    <constraint firstItem="J3S-jS-mvs" firstAttribute="leading" secondItem="P4L-uu-XEd" secondAttribute="trailing" constant="10" id="RIx-HK-geC"/>
                                     <constraint firstItem="J3S-jS-mvs" firstAttribute="centerY" secondItem="TL4-HZ-bti" secondAttribute="centerY" id="Ydf-QF-dGl"/>
                                     <constraint firstAttribute="trailing" secondItem="sPd-Ai-V8F" secondAttribute="trailing" constant="10" id="bG6-qI-I2w"/>
                                     <constraint firstItem="sPd-Ai-V8F" firstAttribute="leading" secondItem="J3S-jS-mvs" secondAttribute="trailing" constant="10" id="fyR-Xa-pQR"/>
+                                    <constraint firstItem="P4L-uu-XEd" firstAttribute="centerY" secondItem="J3S-jS-mvs" secondAttribute="centerY" id="hMk-bQ-Wwk"/>
                                     <constraint firstAttribute="height" secondItem="sPd-Ai-V8F" secondAttribute="height" constant="40" id="jJj-ki-Nzl"/>
-                                    <constraint firstItem="J3S-jS-mvs" firstAttribute="leading" secondItem="TL4-HZ-bti" secondAttribute="trailing" constant="10" id="m29-dL-OUo"/>
+                                    <constraint firstItem="P4L-uu-XEd" firstAttribute="leading" secondItem="TL4-HZ-bti" secondAttribute="trailing" constant="10" id="jPY-mK-icI"/>
                                     <constraint firstItem="0rM-Ee-8of" firstAttribute="leading" secondItem="Wbg-W9-8Ie" secondAttribute="leading" constant="12" id="rw6-ky-DHO"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -3118,6 +3135,7 @@ Tap here to start.</string>
                         <outlet property="candyIndicator" destination="0Vc-K0-B5T" id="Q6n-7L-Zoo"/>
                         <outlet property="commentButton" destination="2ai-CO-qH0" id="gaJ-nC-R6A"/>
                         <outlet property="commentIndicator" destination="U0A-o6-Hed" id="fn6-LQ-ijP"/>
+                        <outlet property="editButton" destination="P4L-uu-XEd" id="ZyM-nD-E5G"/>
                         <outlet property="lastCommentTextView" destination="G8T-0M-jNN" id="747-dx-mt6"/>
                         <outlet property="postLabel" destination="Dsh-mJ-NAQ" id="qz7-Tr-1Dc"/>
                         <outlet property="scrollView" destination="wdj-eZ-S3g" id="lT5-G5-juv"/>

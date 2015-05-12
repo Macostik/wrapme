@@ -19,6 +19,7 @@
 #import "MFMailComposeViewController+Additions.h"
 #import "WLCandyViewController.h"
 #import "WLNavigationHelper.h"
+#import "WLDownloadingView.h"
 
 @interface WLHistoryViewController ()
 
@@ -26,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLButton *commentButton;
 @property (weak, nonatomic) IBOutlet WLIconButton *actionButton;
+@property (weak, nonatomic) IBOutlet WLIconButton *editButton;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *commentIndicator;
@@ -212,6 +214,7 @@
     [self.candyIndicator updateStatusIndicator:_candy];
     self.candyIndicator.hidden = NO;
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"warning";
+    self.editButton.hidden = !_candy.contributor.isCurrentUser;
     [self setCommentButtonTitle:_candy];
     self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), _candy.contributor.name];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
@@ -335,6 +338,15 @@
     } else {
         [MFMailComposeViewController messageWithCandy:self.candy];
     }
+}
+
+- (IBAction)editPhoto:(id)sender {
+    [WLDownloadingView showDownloadingView:[UIWindow mainWindow] forEntry:self.candy];
+//    [self.candy download:^{
+//        
+//    } failure:^(NSError *error) {
+//        [error show];
+//    }];
 }
 
 #pragma mark - WLSwipeViewController Methods

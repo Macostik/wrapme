@@ -231,6 +231,14 @@
 		5BD104F31AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
 		5BD104F41AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
 		5BD104F51AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
+		5BD1214D1B023BF000FF5FBF /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */; };
+		5BD1214E1B023BF000FF5FBF /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */; };
+		5BD1214F1B023BF000FF5FBF /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */; };
+		5BD121501B023BF000FF5FBF /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */; };
+		5BD121531B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
+		5BD121541B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
+		5BD121551B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
+		5BD121561B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD782821A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
 		5BD782831A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
 		5BD782841A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
@@ -2075,6 +2083,9 @@
 		5BC48BDF1A8BBBED003E90FA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/NoCommentsPlaceholderView.strings; sourceTree = "<group>"; };
 		5BD104F01AE7C066008794F5 /* WLEntryStatusIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntryStatusIndicator.h; path = WLEntryStatusIndicator/WLEntryStatusIndicator.h; sourceTree = "<group>"; };
 		5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEntryStatusIndicator.m; path = WLEntryStatusIndicator/WLEntryStatusIndicator.m; sourceTree = "<group>"; };
+		5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLDownloadingView.xib; path = WLDownloadingView/WLDownloadingView.xib; sourceTree = "<group>"; };
+		5BD121511B0250B400FF5FBF /* WLDownloadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDownloadingView.h; path = WLDownloadingView/WLDownloadingView.h; sourceTree = "<group>"; };
+		5BD121521B0250B500FF5FBF /* WLDownloadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDownloadingView.m; path = WLDownloadingView/WLDownloadingView.m; sourceTree = "<group>"; };
 		5BD782861A4EC02B0094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLEditWrapViewController.xib; sourceTree = "<group>"; };
 		5BD782A41A4EC1E20094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLCreateWrapViewController.xib; sourceTree = "<group>"; };
 		5BD782A71A4EC1E70094BEE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLCreateWrapViewController.strings; sourceTree = "<group>"; };
@@ -3402,6 +3413,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5BD121571B0250E000FF5FBF /* WLDownloadingView */,
 				C5FE0A5A1ACD98F3007DBE95 /* WLCircleImageView */,
 				C573FB8A1AB84ADD00F1098C /* WLTouchView */,
 				C53DC2261AA7632600D2E4C0 /* WLUploadingView */,
@@ -3935,6 +3947,16 @@
 				5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */,
 			);
 			name = WLEntryStatusIndicator;
+			sourceTree = "<group>";
+		};
+		5BD121571B0250E000FF5FBF /* WLDownloadingView */ = {
+			isa = PBXGroup;
+			children = (
+				5BD121511B0250B400FF5FBF /* WLDownloadingView.h */,
+				5BD121521B0250B500FF5FBF /* WLDownloadingView.m */,
+				5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */,
+			);
+			name = WLDownloadingView;
 			sourceTree = "<group>";
 		};
 		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
@@ -6738,7 +6760,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -6820,6 +6842,7 @@
 				5BD782A01A4EC1E20094BEE5 /* WLCreateWrapViewController.xib in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
 				5BD782821A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */,
+				5BD1214D1B023BF000FF5FBF /* WLDownloadingView.xib in Resources */,
 				5BA6CAF21A10E51B004AD41C /* s01.wav in Resources */,
 				5BD782C81A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C56758151AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
@@ -6954,6 +6977,7 @@
 				C54AF54219B8C437006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C518D79419E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				5BD782A11A4EC1E20094BEE5 /* WLCreateWrapViewController.xib in Resources */,
+				5BD1214E1B023BF000FF5FBF /* WLDownloadingView.xib in Resources */,
 				5BD782831A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */,
 				5BD782C91A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C56758161AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
@@ -7019,6 +7043,7 @@
 				C54AF63F19B8C467006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C518D79519E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				5BD782A21A4EC1E20094BEE5 /* WLCreateWrapViewController.xib in Resources */,
+				5BD1214F1B023BF000FF5FBF /* WLDownloadingView.xib in Resources */,
 				5BD782841A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */,
 				5BD782CA1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C56758171AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
@@ -7084,6 +7109,7 @@
 				C54AF73C19B8C491006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C518D79619E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				5BD782A31A4EC1E20094BEE5 /* WLCreateWrapViewController.xib in Resources */,
+				5BD121501B023BF000FF5FBF /* WLDownloadingView.xib in Resources */,
 				5BD782851A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */,
 				5BD782CB1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C56758181AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
@@ -7224,6 +7250,7 @@
 				5BA60CDF1A8257ED000F795C /* UIScrollView+Additions.m in Sources */,
 				C53E5CEE1A84D886004F61B0 /* WLWrapView.m in Sources */,
 				12A6BFAC18F2AE7700AE3B62 /* WLRefresher.m in Sources */,
+				5BD121531B0250B500FF5FBF /* WLDownloadingView.m in Sources */,
 				C5603DD11AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C53E5D741A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C5603DCB1AD9233C00427DEC /* WLChronologicalEntryPresenter.m in Sources */,
@@ -7440,6 +7467,7 @@
 				5BA60CE01A8257ED000F795C /* UIScrollView+Additions.m in Sources */,
 				C53E5CEF1A84D886004F61B0 /* WLWrapView.m in Sources */,
 				C54AF45C19B8C437006F7EDB /* WLRefresher.m in Sources */,
+				5BD121541B0250B500FF5FBF /* WLDownloadingView.m in Sources */,
 				C5603DD21AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C53E5D751A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C5603DCC1AD9233C00427DEC /* WLChronologicalEntryPresenter.m in Sources */,
@@ -7615,6 +7643,7 @@
 				5BA60CE11A8257ED000F795C /* UIScrollView+Additions.m in Sources */,
 				C53E5CF01A84D886004F61B0 /* WLWrapView.m in Sources */,
 				C54AF55919B8C467006F7EDB /* WLRefresher.m in Sources */,
+				5BD121551B0250B500FF5FBF /* WLDownloadingView.m in Sources */,
 				C5603DD31AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C53E5D761A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C5603DCD1AD9233C00427DEC /* WLChronologicalEntryPresenter.m in Sources */,
@@ -7790,6 +7819,7 @@
 				5BA60CE21A8257ED000F795C /* UIScrollView+Additions.m in Sources */,
 				C53E5CF11A84D886004F61B0 /* WLWrapView.m in Sources */,
 				C54AF65619B8C491006F7EDB /* WLRefresher.m in Sources */,
+				5BD121561B0250B500FF5FBF /* WLDownloadingView.m in Sources */,
 				C5603DD41AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C5603DCE1AD9233C00427DEC /* WLChronologicalEntryPresenter.m in Sources */,
@@ -9725,7 +9755,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

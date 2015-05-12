@@ -86,6 +86,7 @@
                   @"double-check":@"F",
                   @"unselected-item":@"G",
                   @"selected-item":@"H",
+				  @"edit-write":@"R",
                   @"comment-quotes":@"S"};
     }
     

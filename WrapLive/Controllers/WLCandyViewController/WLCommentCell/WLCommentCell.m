@@ -37,6 +37,7 @@
     __weak typeof(self)weakSelf = self;
     self.layer.geometryFlipped = YES;
     self.commenttextView.textContainerInset = UIEdgeInsetsZero;
+    self.commenttextView.textContainer.lineFragmentPadding = .0f;
     
     [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
@@ -61,6 +62,12 @@
         }];
         return comment;
     }];
+}
+
+- (void)layoutSubviews {
+    UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self convertRect:self.indicator.frame
+                                                                             toView:self.commenttextView]];
+    self.commenttextView.textContainer.exclusionPaths = [[self.entry contributor] isCurrentUser] ?  @[exlusionPath] : nil;
 }
 
 - (void)setup:(WLComment *)entry {

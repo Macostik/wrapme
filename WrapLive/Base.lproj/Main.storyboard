@@ -3456,7 +3456,7 @@ Check your internet connection and try again.</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <textView clipsSubviews="YES" contentMode="left" placeholderIntrinsicWidth="221" placeholderIntrinsicHeight="34" scrollEnabled="NO" editable="NO" text="Text" translatesAutoresizingMaskIntoConstraints="NO" id="H8X-L5-O9h" customClass="WLTextView">
-                                                            <rect key="frame" x="68" y="33" width="216" height="34"/>
+                                                            <rect key="frame" x="72" y="33" width="212" height="34"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <inset key="scrollIndicatorInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -3471,20 +3471,11 @@ Check your internet connection and try again.</string>
                                                                 <outlet property="delegate" destination="Qr8-ly-WYg" id="2uk-rv-leU"/>
                                                             </connections>
                                                         </textView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="641-7R-EdV" customClass="WLLabel">
-                                                            <rect key="frame" x="72" y="67" width="201" height="21"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="21" id="cNP-bz-0aG"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                                            <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i2e-Xd-doh" customClass="WLEntryStatusIndicator">
-                                                            <rect key="frame" x="273" y="72" width="11" height="11"/>
+                                                            <rect key="frame" x="72" y="38" width="16" height="11"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="16" id="q2d-Bj-QYn"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="11"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -3493,6 +3484,21 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
                                                                     <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <outlet property="widthConstraint" destination="q2d-Bj-QYn" id="5Le-tr-Hco"/>
+                                                            </connections>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="641-7R-EdV" customClass="WLLabel">
+                                                            <rect key="frame" x="72" y="67" width="212" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="cNP-bz-0aG"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                            <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray" translatesAutoresizingMaskIntoConstraints="NO" id="4K2-SA-FYq">
@@ -3506,20 +3512,20 @@ Check your internet connection and try again.</string>
                                                 </view>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstItem="i2e-Xd-doh" firstAttribute="centerY" secondItem="641-7R-EdV" secondAttribute="centerY" id="3XO-1a-dAX"/>
                                                     <constraint firstItem="4K2-SA-FYq" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="12" id="5Gh-XL-j2K"/>
-                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="H8X-L5-O9h" secondAttribute="trailing" constant="12" id="CNV-oI-Sfh"/>
-                                                    <constraint firstAttribute="trailing" secondItem="i2e-Xd-doh" secondAttribute="trailing" constant="12" id="EgH-wa-Y4i"/>
+                                                    <constraint firstAttribute="trailing" secondItem="H8X-L5-O9h" secondAttribute="trailing" constant="12" id="CNV-oI-Sfh"/>
                                                     <constraint firstItem="B1Y-FB-4KE" firstAttribute="top" secondItem="Qr8-ly-WYg" secondAttribute="top" constant="12" id="EgV-ho-Zxa"/>
-                                                    <constraint firstItem="i2e-Xd-doh" firstAttribute="leading" secondItem="641-7R-EdV" secondAttribute="trailing" id="Iee-1k-fPq"/>
                                                     <constraint firstItem="70w-oo-mtg" firstAttribute="top" secondItem="Qr8-ly-WYg" secondAttribute="top" constant="12" id="Img-6Q-XwW"/>
-                                                    <constraint firstItem="H8X-L5-O9h" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="68" id="K45-U1-frf"/>
+                                                    <constraint firstItem="H8X-L5-O9h" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="72" id="K45-U1-frf"/>
                                                     <constraint firstItem="641-7R-EdV" firstAttribute="top" secondItem="H8X-L5-O9h" secondAttribute="bottom" id="NPc-wH-8EA"/>
+                                                    <constraint firstAttribute="trailing" secondItem="641-7R-EdV" secondAttribute="trailing" constant="12" id="UYB-jE-VJx"/>
                                                     <constraint firstAttribute="trailing" secondItem="4K2-SA-FYq" secondAttribute="trailing" constant="12" id="WaU-1f-lXv"/>
+                                                    <constraint firstItem="i2e-Xd-doh" firstAttribute="leading" secondItem="B1Y-FB-4KE" secondAttribute="trailing" constant="12" id="Z22-zx-Uxq"/>
                                                     <constraint firstAttribute="bottom" secondItem="4K2-SA-FYq" secondAttribute="bottom" id="Zo1-1J-4ds"/>
                                                     <constraint firstItem="H8X-L5-O9h" firstAttribute="top" secondItem="70w-oo-mtg" secondAttribute="bottom" id="Zsw-c0-xVS"/>
                                                     <constraint firstAttribute="trailing" secondItem="70w-oo-mtg" secondAttribute="trailing" constant="12" id="e3g-Ha-fD3"/>
                                                     <constraint firstItem="B1Y-FB-4KE" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="12" id="iPj-za-Rp2"/>
+                                                    <constraint firstItem="H8X-L5-O9h" firstAttribute="top" secondItem="i2e-Xd-doh" secondAttribute="top" constant="-5" id="oUU-T4-ZqE"/>
                                                     <constraint firstItem="70w-oo-mtg" firstAttribute="leading" secondItem="B1Y-FB-4KE" secondAttribute="trailing" constant="12" id="rZv-rQ-i2q"/>
                                                     <constraint firstAttribute="bottom" secondItem="641-7R-EdV" secondAttribute="bottom" constant="12" id="rlL-fj-Z6w"/>
                                                     <constraint firstItem="641-7R-EdV" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="72" id="rqn-ad-t4E"/>

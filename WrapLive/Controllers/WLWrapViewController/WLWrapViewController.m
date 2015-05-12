@@ -129,6 +129,10 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     }
 }
 
+- (IBAction)back:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)updateNotificationCouter {
     self.messageCountLabel.intValue = [self.wrap unreadNotificationsMessageCount];
 }

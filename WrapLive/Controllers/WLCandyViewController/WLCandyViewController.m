@@ -393,9 +393,9 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     if (candy.valid) {
         BOOL animate = self.interfaceOrientation == UIInterfaceOrientationPortrait ||
                        self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown;
-        [weakSelf.navigationController popViewControllerAnimated:NO];
+        [weakSelf.navigationController popViewControllerAnimated:animate];
     } else {
-        [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 

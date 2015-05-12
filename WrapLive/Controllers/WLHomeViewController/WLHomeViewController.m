@@ -107,7 +107,7 @@
     dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLWrapsRequest new]];
     
     [dataSource setSelectionBlock:^(id entry) {
-        [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
+        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
     }];
     
     if (wraps.nonempty) {

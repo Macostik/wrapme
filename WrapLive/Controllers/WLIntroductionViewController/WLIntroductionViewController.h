@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLBaseViewController.h"
+#import "WLSwipeViewController.h"
 
 @class WLIntroductionViewController;
 
@@ -16,7 +16,7 @@
 
 @end
 
-@interface WLIntroductionViewController : WLBaseViewController
+@interface WLIntroductionViewController : WLSwipeViewController
 
 @property (nonatomic, weak) id <WLIntroductionViewControllerDelegate> delegate;
 

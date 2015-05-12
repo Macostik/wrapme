@@ -156,6 +156,7 @@
     }];
     if (!item && create) {
         item = [[WLHistoryItem alloc] init];
+        item.history = self;
         item.date = date;
         [self.entries addObject:item];
         [self didChange];

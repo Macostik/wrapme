@@ -55,7 +55,7 @@
         operation.queue = self;
         [operations addObject:operation];
         if (self.capacity == 0 || self.executingOperations.count < self.capacity) {
-            [self performSelector:@selector(startOperation:) withObject:operation afterDelay:0.0f];
+            [self performSelector:@selector(startOperation:) withObject:operation afterDelay:0.0f inModes:@[NSRunLoopCommonModes]];
         }
     }
 }
@@ -78,7 +78,7 @@
         [operations removeObject:operation];
         for (WLOperation* _operation in operations) {
             if (!_operation.executing) {
-                [self performSelector:@selector(startOperation:) withObject:_operation afterDelay:0.0f];
+                [self performSelector:@selector(startOperation:) withObject:_operation afterDelay:0.0f inModes:@[NSRunLoopCommonModes]];
                 break;
             }
         }

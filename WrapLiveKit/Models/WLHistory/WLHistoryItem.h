@@ -9,7 +9,11 @@
 #import "WLPaginatedSet.h"
 #import "WLCandiesRequest.h"
 
+@class WLHistory;
+
 @interface WLHistoryItem : WLPaginatedSet <WLPaginationEntry>
+
+@property (weak, nonatomic) WLHistory *history;
 
 @property (strong, nonatomic) NSDate* date;
 

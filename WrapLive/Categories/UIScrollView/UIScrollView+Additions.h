@@ -30,4 +30,8 @@
 
 - (void)trySetContentOffset:(CGPoint)contentOffset animated:(BOOL)animated;
 
+- (CGRect)visibleRectOfRect:(CGRect)rect;
+
+- (CGRect)visibleRectOfRect:(CGRect)rect withContentOffset:(CGPoint)contentOffset;
+
 @end

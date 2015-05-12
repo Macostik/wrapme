@@ -72,4 +72,14 @@
     return insets.left + insets.right;
 }
 
+- (CGRect)visibleRectOfRect:(CGRect)rect {
+    return [self visibleRectOfRect:rect withContentOffset:self.contentOffset];
+}
+
+- (CGRect)visibleRectOfRect:(CGRect)rect withContentOffset:(CGPoint)contentOffset {
+    CGRect visibleRect = self.bounds;
+    visibleRect.origin = contentOffset;
+    return CGRectIntersection(visibleRect, rect);
+}
+
 @end

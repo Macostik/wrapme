@@ -13,4 +13,6 @@
 
 - (void)logSubviewsHierarchy;
 
+- (void)makeResizibleSubview:(UIView *)view;
+
 @end

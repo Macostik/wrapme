@@ -12,6 +12,7 @@
 #import "WLWrapViewController.h"
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"
+#import "WLHistoryViewController.h"
 
 @implementation WLEntryPresenter
 
@@ -94,14 +95,14 @@
 @implementation WLCandy (WLEntryPresenter)
 
 - (UIViewController *)viewController {
-    WLCandyViewController* controller = [WLCandyViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
+    WLHistoryViewController* controller = [WLHistoryViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
     controller.candy = self;
     return controller;
 }
 
 - (BOOL)isValidViewController:(UIViewController *)controller {
-    if (![controller isKindOfClass:[WLCandyViewController class]]) return NO;
-    if ([(WLCandyViewController*)controller candy] != self) return NO;
+    if (![controller isKindOfClass:[WLHistoryViewController class]]) return NO;
+    if ([(WLHistoryViewController*)controller candy] != self) return NO;
     return YES;
 }
 
@@ -143,7 +144,7 @@
 
 - (void)configureViewController:(UIViewController *)controller fromContainingEntry:(WLEntry *)containingEntry {
     if (containingEntry == self.candy) {
-        WLCandyViewController *candyViewController = (WLCandyViewController *)controller;
+        WLHistoryViewController *candyViewController = (WLHistoryViewController *)controller;
         if (candyViewController.isViewLoaded) {
             [candyViewController showCommentView];
         } else {

@@ -12,14 +12,4 @@
 
 @property (weak, nonatomic) WLCandy *candy;
 
-@property (nonatomic) BOOL showCommentInputKeyboard;
-
-@property (nonatomic) BOOL showCommentViewController;
-
-- (IBAction)hideBars;
-
-- (IBAction)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
-
-- (void)showCommentView;
-
 @end

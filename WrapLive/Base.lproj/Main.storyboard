@@ -2848,10 +2848,10 @@ Tap here to start.</string>
             </objects>
             <point key="canvasLocation" x="1274" y="118"/>
         </scene>
-        <!--Candy View Controller-->
+        <!--History View Controller-->
         <scene sceneID="IUe-2p-n08">
             <objects>
-                <viewController storyboardIdentifier="WLCandyViewController" automaticallyAdjustsScrollViewInsets="NO" id="eto-O4-OHy" customClass="WLCandyViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLHistoryViewController" automaticallyAdjustsScrollViewInsets="NO" id="eto-O4-OHy" customClass="WLHistoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nXs-Hk-HCH"/>
                         <viewControllerLayoutGuide type="bottom" id="kcj-4A-oFo"/>
@@ -2860,105 +2860,9 @@ Tap here to start.</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jyK-17-cAD">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdj-eZ-S3g">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="vSE-NU-zD9">
-                                    <size key="itemSize" width="320" height="568"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLImageViewCell" id="YzT-ge-Jjl" customClass="WLImageViewCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJR-KD-aWN">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                                    <subviews>
-                                                        <scrollView multipleTouchEnabled="YES" contentMode="center" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pry-wp-qRG">
-                                                            <rect key="frame" x="0.0" y="71" width="320" height="426"/>
-                                                            <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cn8-Rl-m4g" customClass="WLImageView">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
-                                                                </imageView>
-                                                            </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="Cn8-Rl-m4g" secondAttribute="trailing" id="44m-d7-9z0"/>
-                                                                <constraint firstAttribute="bottom" secondItem="Cn8-Rl-m4g" secondAttribute="bottom" id="5dm-uE-l8h"/>
-                                                                <constraint firstItem="Cn8-Rl-m4g" firstAttribute="top" secondItem="pry-wp-qRG" secondAttribute="top" id="CLB-5R-ia5"/>
-                                                                <constraint firstAttribute="width" secondItem="pry-wp-qRG" secondAttribute="height" multiplier="3:4" id="Yhx-2Q-feM"/>
-                                                                <constraint firstItem="Cn8-Rl-m4g" firstAttribute="leading" secondItem="pry-wp-qRG" secondAttribute="leading" id="dO6-ha-JFB"/>
-                                                                <constraint firstItem="Cn8-Rl-m4g" firstAttribute="height" secondItem="pry-wp-qRG" secondAttribute="height" id="eVs-z7-xoc"/>
-                                                                <constraint firstItem="Cn8-Rl-m4g" firstAttribute="width" secondItem="pry-wp-qRG" secondAttribute="width" id="td5-wg-83q"/>
-                                                            </constraints>
-                                                            <connections>
-                                                                <outlet property="delegate" destination="YzT-ge-Jjl" id="nu3-13-oF5"/>
-                                                            </connections>
-                                                        </scrollView>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstItem="pry-wp-qRG" firstAttribute="width" secondItem="mJR-KD-aWN" secondAttribute="width" priority="750" id="ES4-L4-yYn"/>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="pry-wp-qRG" secondAttribute="width" id="FeC-rr-afl"/>
-                                                        <constraint firstAttribute="centerX" secondItem="pry-wp-qRG" secondAttribute="centerX" id="QT0-GG-Hbd"/>
-                                                        <constraint firstAttribute="centerY" secondItem="pry-wp-qRG" secondAttribute="centerY" id="R33-jE-aXf"/>
-                                                        <constraint firstItem="pry-wp-qRG" firstAttribute="height" secondItem="mJR-KD-aWN" secondAttribute="height" priority="750" id="jaX-P2-Uas"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" secondItem="pry-wp-qRG" secondAttribute="height" id="pBD-R3-n9X"/>
-                                                    </constraints>
-                                                </view>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="bf0-24-ZKl">
-                                                    <rect key="frame" x="150" y="252" width="20" height="20"/>
-                                                    <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </activityIndicatorView>
-                                                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="TvM-gd-tcr" customClass="WLLabel">
-                                                    <rect key="frame" x="32" y="80" width="256" height="82"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="256" id="0ZQ-Sa-W7T"/>
-                                                    </constraints>
-                                                    <string key="text">There was a problem connecting with wrapLive.
-Check your internet connection and try again.</string>
-                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                                    <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <gestureRecognizers/>
-                                        <constraints>
-                                            <constraint firstItem="mJR-KD-aWN" firstAttribute="leading" secondItem="YzT-ge-Jjl" secondAttribute="leading" id="5vC-Vh-CKI"/>
-                                            <constraint firstAttribute="trailing" secondItem="mJR-KD-aWN" secondAttribute="trailing" id="ZIA-Hg-nkA"/>
-                                            <constraint firstAttribute="centerX" secondItem="TvM-gd-tcr" secondAttribute="centerX" id="bzF-ni-C8p"/>
-                                            <constraint firstAttribute="centerX" secondItem="bf0-24-ZKl" secondAttribute="centerX" id="iIY-MV-jIi"/>
-                                            <constraint firstAttribute="bottom" secondItem="mJR-KD-aWN" secondAttribute="bottom" id="kaU-sS-TL9"/>
-                                            <constraint firstItem="TvM-gd-tcr" firstAttribute="top" secondItem="YzT-ge-Jjl" secondAttribute="top" constant="80" id="khs-Cw-nlX"/>
-                                            <constraint firstAttribute="centerY" secondItem="bf0-24-ZKl" secondAttribute="centerY" constant="22" id="odz-Ui-H0l"/>
-                                            <constraint firstItem="mJR-KD-aWN" firstAttribute="top" secondItem="YzT-ge-Jjl" secondAttribute="top" id="rfD-Zz-jtZ"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="aspectRatioConstraint" destination="Yhx-2Q-feM" id="jT2-mm-CNR"/>
-                                            <outlet property="errorLabel" destination="TvM-gd-tcr" id="o88-ZC-dbw"/>
-                                            <outlet property="imageView" destination="Cn8-Rl-m4g" id="1g9-nO-lLo"/>
-                                            <outlet property="scrollView" destination="pry-wp-qRG" id="ogZ-4H-qOK"/>
-                                            <outlet property="spinner" destination="bf0-24-ZKl" id="Chs-OZ-iJA"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="eto-O4-OHy" id="9Ma-Cu-VGB"/>
-                                    <outlet property="delegate" destination="eto-O4-OHy" id="Sry-Xj-CY6"/>
-                                </connections>
-                            </collectionView>
+                            </scrollView>
                             <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="Wbg-W9-8Ie" customClass="WLGradientView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
                                 <subviews>
@@ -3194,17 +3098,16 @@ Check your internet connection and try again.</string>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="bottom" id="3Zf-0D-3vD"/>
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="top" secondItem="FUv-v8-MyM" secondAttribute="top" id="9OU-iu-BTw"/>
                             <constraint firstItem="2ai-CO-qH0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Dsh-mJ-NAQ" secondAttribute="trailing" id="B1X-LI-aHq"/>
-                            <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="jyK-17-cAD" secondAttribute="bottom" id="NgB-RI-d7R"/>
-                            <constraint firstItem="2ai-CO-qH0" firstAttribute="width" relation="lessThanOrEqual" secondItem="jyK-17-cAD" secondAttribute="width" multiplier="0.4" id="PG3-Xd-fDc"/>
+                            <constraint firstAttribute="trailing" secondItem="wdj-eZ-S3g" secondAttribute="trailing" id="Bro-hF-oDw"/>
+                            <constraint firstItem="wdj-eZ-S3g" firstAttribute="top" secondItem="FUv-v8-MyM" secondAttribute="top" id="Oo7-M6-a6c"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="2ai-CO-qH0" secondAttribute="bottom" constant="12" id="R09-AS-8Qc"/>
                             <constraint firstAttribute="trailing" secondItem="DOa-Ws-aK4" secondAttribute="trailing" id="WMM-NN-L4t"/>
-                            <constraint firstItem="jyK-17-cAD" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="bPW-BY-6Fp"/>
-                            <constraint firstAttribute="trailing" secondItem="jyK-17-cAD" secondAttribute="trailing" id="h8k-it-8fu"/>
+                            <constraint firstItem="wdj-eZ-S3g" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="XjL-5U-3St"/>
                             <constraint firstItem="DOa-Ws-aK4" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="iM1-Ax-Ka6"/>
                             <constraint firstItem="2ai-CO-qH0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9aV-O1-sMk" secondAttribute="trailing" id="nW9-UK-iN0"/>
                             <constraint firstAttribute="trailing" secondItem="Wbg-W9-8Ie" secondAttribute="trailing" id="vU4-de-bcZ"/>
-                            <constraint firstItem="jyK-17-cAD" firstAttribute="top" secondItem="FUv-v8-MyM" secondAttribute="top" id="woh-yj-EXO"/>
                             <constraint firstAttribute="trailing" secondItem="2ai-CO-qH0" secondAttribute="trailing" constant="12" id="wvE-6N-KVl"/>
+                            <constraint firstAttribute="bottom" secondItem="wdj-eZ-S3g" secondAttribute="bottom" id="yMM-3Z-tmj"/>
                         </constraints>
                     </view>
                     <connections>
@@ -3213,16 +3116,15 @@ Check your internet connection and try again.</string>
                         <outlet property="bottomView" destination="DOa-Ws-aK4" id="oO2-CG-2mp"/>
                         <outlet property="bottomViewContstraint" destination="3Zf-0D-3vD" id="QiP-TV-Uzp"/>
                         <outlet property="candyIndicator" destination="0Vc-K0-B5T" id="Q6n-7L-Zoo"/>
-                        <outlet property="collectionView" destination="jyK-17-cAD" id="BfX-xF-M1l"/>
                         <outlet property="commentButton" destination="2ai-CO-qH0" id="gaJ-nC-R6A"/>
                         <outlet property="commentIndicator" destination="U0A-o6-Hed" id="fn6-LQ-ijP"/>
                         <outlet property="lastCommentTextView" destination="G8T-0M-jNN" id="747-dx-mt6"/>
                         <outlet property="postLabel" destination="Dsh-mJ-NAQ" id="qz7-Tr-1Dc"/>
+                        <outlet property="scrollView" destination="wdj-eZ-S3g" id="lT5-G5-juv"/>
                         <outlet property="spinner" destination="TL4-HZ-bti" id="PiR-V6-Unb"/>
                         <outlet property="timeLabel" destination="9aV-O1-sMk" id="Q2A-nt-7Se"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="6g0-cf-4Q4"/>
                         <outlet property="topViewConstraint" destination="9OU-iu-BTw" id="suW-20-Wjy"/>
-                        <outletCollection property="keyboardAdjustmentLayoutViews" destination="jyK-17-cAD" id="lnf-D1-hsN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLM-ad-e36" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3248,6 +3150,96 @@ Check your internet connection and try again.</string>
                 </customObject>
             </objects>
             <point key="canvasLocation" x="1629" y="118"/>
+        </scene>
+        <!--Candy View Controller-->
+        <scene sceneID="wTf-7H-gTO">
+            <objects>
+                <viewController storyboardIdentifier="WLCandyViewController" id="nz6-sC-pRK" customClass="WLCandyViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="o3R-CS-f0u"/>
+                        <viewControllerLayoutGuide type="bottom" id="pBs-sO-txr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jS6-zb-1Jg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJR-KD-aWN">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <scrollView multipleTouchEnabled="YES" contentMode="center" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pry-wp-qRG">
+                                        <rect key="frame" x="0.0" y="71" width="320" height="426"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cn8-Rl-m4g" customClass="WLImageView">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Cn8-Rl-m4g" secondAttribute="trailing" id="44m-d7-9z0"/>
+                                            <constraint firstAttribute="bottom" secondItem="Cn8-Rl-m4g" secondAttribute="bottom" id="5dm-uE-l8h"/>
+                                            <constraint firstItem="Cn8-Rl-m4g" firstAttribute="top" secondItem="pry-wp-qRG" secondAttribute="top" id="CLB-5R-ia5"/>
+                                            <constraint firstAttribute="width" secondItem="pry-wp-qRG" secondAttribute="height" multiplier="3:4" id="Yhx-2Q-feM"/>
+                                            <constraint firstItem="Cn8-Rl-m4g" firstAttribute="leading" secondItem="pry-wp-qRG" secondAttribute="leading" id="dO6-ha-JFB"/>
+                                            <constraint firstItem="Cn8-Rl-m4g" firstAttribute="height" secondItem="pry-wp-qRG" secondAttribute="height" id="eVs-z7-xoc"/>
+                                            <constraint firstItem="Cn8-Rl-m4g" firstAttribute="width" secondItem="pry-wp-qRG" secondAttribute="width" id="td5-wg-83q"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="delegate" destination="nz6-sC-pRK" id="8L2-qv-f1Y"/>
+                                        </connections>
+                                    </scrollView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="pry-wp-qRG" firstAttribute="width" secondItem="mJR-KD-aWN" secondAttribute="width" priority="750" id="ES4-L4-yYn"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="pry-wp-qRG" secondAttribute="width" id="FeC-rr-afl"/>
+                                    <constraint firstAttribute="centerX" secondItem="pry-wp-qRG" secondAttribute="centerX" id="QT0-GG-Hbd"/>
+                                    <constraint firstAttribute="centerY" secondItem="pry-wp-qRG" secondAttribute="centerY" id="R33-jE-aXf"/>
+                                    <constraint firstItem="pry-wp-qRG" firstAttribute="height" secondItem="mJR-KD-aWN" secondAttribute="height" priority="750" id="jaX-P2-Uas"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" secondItem="pry-wp-qRG" secondAttribute="height" id="pBD-R3-n9X"/>
+                                </constraints>
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="bf0-24-ZKl">
+                                <rect key="frame" x="150" y="274" width="20" height="20"/>
+                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="TvM-gd-tcr" customClass="WLLabel">
+                                <rect key="frame" x="32" y="143" width="256" height="82"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="256" id="0ZQ-Sa-W7T"/>
+                                </constraints>
+                                <string key="text">There was a problem connecting with wrapLive.
+Check your internet connection and try again.</string>
+                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bf0-24-ZKl" firstAttribute="centerX" secondItem="mJR-KD-aWN" secondAttribute="centerX" id="1ZP-S9-ETd"/>
+                            <constraint firstAttribute="trailing" secondItem="mJR-KD-aWN" secondAttribute="trailing" id="2Rt-A2-4gh"/>
+                            <constraint firstItem="mJR-KD-aWN" firstAttribute="leading" secondItem="jS6-zb-1Jg" secondAttribute="leading" id="JrQ-O2-PDU"/>
+                            <constraint firstItem="TvM-gd-tcr" firstAttribute="centerY" secondItem="bf0-24-ZKl" secondAttribute="centerY" constant="-100" id="PWe-gT-0Rx"/>
+                            <constraint firstItem="mJR-KD-aWN" firstAttribute="top" secondItem="jS6-zb-1Jg" secondAttribute="top" id="f5w-bt-O46"/>
+                            <constraint firstItem="bf0-24-ZKl" firstAttribute="centerY" secondItem="mJR-KD-aWN" secondAttribute="centerY" id="gsq-O5-3gO"/>
+                            <constraint firstItem="TvM-gd-tcr" firstAttribute="centerX" secondItem="bf0-24-ZKl" secondAttribute="centerX" id="oHv-Sf-egE"/>
+                            <constraint firstAttribute="bottom" secondItem="mJR-KD-aWN" secondAttribute="bottom" id="ut6-R5-Obo"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="aspectRatioConstraint" destination="Yhx-2Q-feM" id="J9o-dK-O0H"/>
+                        <outlet property="errorLabel" destination="TvM-gd-tcr" id="opu-Ro-OI6"/>
+                        <outlet property="imageView" destination="Cn8-Rl-m4g" id="f99-6S-6sL"/>
+                        <outlet property="scrollView" destination="pry-wp-qRG" id="qU7-uM-DxO"/>
+                        <outlet property="spinner" destination="bf0-24-ZKl" id="9Hf-UG-yem"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VdT-1l-Hg8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2006" y="118"/>
         </scene>
         <!--Comments View Controller-->
         <scene sceneID="iUx-SN-sz9">
@@ -3608,7 +3600,7 @@ Check your internet connection and try again.</string>
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="1976" y="119"/>
+            <point key="canvasLocation" x="2390" y="118"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="JRm-Kq-Yqc">

@@ -10,6 +10,8 @@
 #import "WLIconView.h"
 #import "WLEntry+Extended.h"
 
+static NSInteger WLIndicatorWidth = 16.0;
+
 inline static NSString* iconNameByContribution(WLContribution *contribution) {
     if (![(id)contribution.containingEntry uploaded]) {
         return @"clock";

@@ -11,6 +11,7 @@
 @interface WLEntryStatusIndicator () <WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) WLContribution *contribution;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
 
 @end
 
@@ -18,6 +19,10 @@
 
 - (void)updateStatusIndicator:(WLContribution *)contribution {
     self.hidden = !contribution.valid || ![contribution contributor].isCurrentUser;
+    [UIView performWithoutAnimation:^{
+        self.widthConstraint.constant = contribution.valid && [contribution contributor].isCurrentUser ? WLIndicatorWidth: .0;
+        [self layoutIfNeeded];
+    }];
     if (_contribution != contribution) {
         _contribution = contribution;
         [[[_contribution class] notifier] addReceiver:self];

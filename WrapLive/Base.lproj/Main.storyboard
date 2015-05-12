@@ -3097,6 +3097,9 @@ Check your internet connection and try again.</string>
                                                 <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="widthConstraint" destination="Yse-lc-fb3" id="GdR-5X-cT1"/>
+                                        </connections>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Post" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsh-mJ-NAQ" customClass="WLLabel">
                                         <rect key="frame" x="28" y="70" width="32" height="21"/>

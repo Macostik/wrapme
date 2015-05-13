@@ -429,9 +429,23 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
         case WLContributionStatusInProgress:
             if (failure) failure([NSError errorWithDescription:WLLS(@"Comment is uploading, wait a moment...")]);
             break;
-        case WLContributionStatusUploaded:
-            return [[WLDeleteCommentRequest request:self] send:success failure:failure];
-            break;
+        case WLContributionStatusUploaded: {
+            switch (self.candy.status) {
+                case WLContributionStatusReady:
+                    [self remove];
+                    if (success) success(nil);
+                    break;
+                case WLContributionStatusInProgress:
+                    if (failure) failure([NSError errorWithDescription:WLLS(@"Candy is uploading, wait a moment...")]);
+                    break;
+                case WLContributionStatusUploaded:
+                    return [[WLDeleteCommentRequest request:self] send:success failure:failure];
+                    break;
+                default:
+                    break;
+            }
+            return nil;
+        }   break;
         default:
             break;
     }

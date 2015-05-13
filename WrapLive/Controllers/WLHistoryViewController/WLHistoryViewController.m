@@ -278,7 +278,7 @@
         self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown;
         [weakSelf.navigationController popViewControllerAnimated:animate];
     } else {
-        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+        [weakSelf.navigationController popToRootViewControllerAnimated:NO];
     }
 }
 

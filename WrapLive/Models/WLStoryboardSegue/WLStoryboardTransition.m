@@ -8,6 +8,7 @@
 
 #import "WLStoryboardTransition.h"
 #import "WLNavigationHelper.h"
+#import "WLWhatsUpViewController.h"
 
 @implementation WLStoryboardTransition
 
@@ -40,7 +41,8 @@
     if (self.sourceViewController) {
         UIViewController *destinationViewController = [self destinationViewController];
         if (destinationViewController) {
-            [self.sourceViewController.navigationController pushViewController:destinationViewController animated:NO];
+            BOOL animated = [destinationViewController isKindOfClass:[WLWhatsUpViewController class]];
+            [self.sourceViewController.navigationController pushViewController:destinationViewController animated:animated];
         }
     }
 }

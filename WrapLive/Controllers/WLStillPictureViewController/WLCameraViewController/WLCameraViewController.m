@@ -160,9 +160,10 @@
 		self.position = AVCaptureDevicePositionBack;
 	}
 	self.flashMode = self.flashModeControl.mode;
-	self.zoomScale = 1;
+    self.zoomScale = 1;
     if (self.mode == WLStillPictureModeDefault) {
-        [WLSession setObject:@(self.position) key:@"WLCameraDefaultPosition"];
+        if (self.position != AVCaptureDevicePositionUnspecified)
+            [WLSession setObject:@(self.position) key:@"WLCameraDefaultPosition"];
     }
 }
 
@@ -321,6 +322,7 @@
 		completion(image, metadata);
 	};
     AVCaptureConnection *connection = self.connection;
+    self.takePhotoButton.active = connection == nil;
     [self applyDeviceOrientation:[UIDevice currentDevice].orientation forConnection:connection];
 	connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
     [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];

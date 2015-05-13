@@ -15,6 +15,7 @@
 #import "MFMailComposeViewController+Additions.h"
 #import "WLMenu.h"
 #import "UIFont+CustomFonts.h"
+#import "WLChronologicalEntryPresenter.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 
@@ -79,7 +80,7 @@
 
 - (void)select:(WLCandy*)candy {
     if (candy.valid) {
-        [super select:candy];
+        [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
     }
 }
 

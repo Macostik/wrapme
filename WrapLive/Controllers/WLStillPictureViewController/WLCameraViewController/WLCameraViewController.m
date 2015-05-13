@@ -127,6 +127,13 @@
 	self.view.userInteractionEnabled = NO;
 	sender.active = NO;
 	[self captureImage:^(UIImage *image, NSMutableDictionary* metadata) {
+        [UIView animateWithDuration:0.05 animations:^{
+            weakSelf.cameraView.alpha = 0.0f;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.05 animations:^{
+                weakSelf.cameraView.alpha = 1.0f;
+            }];
+        }];
 		[weakSelf finishWithImage:image metadata:metadata];
 		weakSelf.view.userInteractionEnabled = YES;
         run_after(0.5f, ^{

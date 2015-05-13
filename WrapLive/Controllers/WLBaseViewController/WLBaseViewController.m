@@ -24,6 +24,10 @@
 
 @implementation WLBaseViewController
 
+- (void)dealloc {
+    NSLog(@"%@ dealloc", NSStringFromClass(self.class));
+}
+
 + (BOOL)isEmbeddedDefaultValue {
     return NO;
 }

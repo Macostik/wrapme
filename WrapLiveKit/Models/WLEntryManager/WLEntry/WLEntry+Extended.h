@@ -49,4 +49,8 @@
 
 - (void)editPicture:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
 
+- (void)markAsRead;
+
+- (void)markAsUnread;
+
 @end

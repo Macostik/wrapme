@@ -135,7 +135,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.wrap.messages all:^(WLMessage *message) {
-        if(message.unread) message.unread = NO;
+        [message markAsRead];
     }];
 }
 
@@ -295,7 +295,7 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier entryAdded:(WLMessage *)message {
-    if (message.unread) message.unread = NO;
+    [message markAsRead];
     [self insertMessage:message];
 }
 

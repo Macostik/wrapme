@@ -71,11 +71,11 @@
             _candy = [_historyItem.entries firstObject];
         }
     }
-    
+
     [self addNotifyReceivers];
     
     self.commentButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    
+
     __weak typeof(self)weakSelf = self;
     WLOperationQueue *paginationQueue = [WLOperationQueue queueNamed:@"wl_candy_pagination_queue"];
     [paginationQueue setStartQueueBlock:^{
@@ -84,7 +84,7 @@
     [paginationQueue setFinishQueueBlock:^{
         [weakSelf.spinner stopAnimating];
     }];
-    
+
     [self setCandy:_candy direction:0 animated:NO];
 }
 
@@ -205,9 +205,7 @@
 }
 
 - (void)updateOwnerData {
-    if (_candy.unread) {
-        _candy.unread = NO;
-    }
+    [_candy markAsRead];
     [self.candyIndicator updateStatusIndicator:_candy];
     self.candyIndicator.hidden = NO;
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"warning";
@@ -252,7 +250,7 @@
             if (!weakSelf.historyItem.entries.nonempty) {
                 [weakSelf.navigationController popViewControllerAnimated:NO];
             } else {
-                [self setCandy:[weakSelf.historyItem.entries firstObject] direction:0 animated:NO];
+                [weakSelf setCandy:[weakSelf.historyItem.entries firstObject] direction:0 animated:NO];
             }
         }];
     }];
@@ -272,13 +270,12 @@
 
 - (IBAction)back:(id)sender {
     WLCandy* candy = self.candy;
-    __weak __typeof(self)weakSelf = self;
     if (candy.valid) {
         BOOL animate = self.interfaceOrientation == UIInterfaceOrientationPortrait ||
         self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown;
-        [weakSelf.navigationController popViewControllerAnimated:animate];
+        [self.navigationController popViewControllerAnimated:animate];
     } else {
-        [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+        [self.navigationController popToRootViewControllerAnimated:NO];
     }
 }
 

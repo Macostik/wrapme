@@ -11,12 +11,11 @@
 #import "NSDate+Additions.h"
 #import "WLOperationQueue.h"
 #import "WLEntryNotifyReceiver.h"
+#import "NSObject+AssociatedObjects.h"
 
 @interface WLEntryNotifier ()
 
 @property (strong, nonatomic) WLBroadcastSelectReceiver selectBlock;
-
-@property (strong, nonatomic) NSMapTable* ownedReceivers;
 
 @end
 
@@ -69,11 +68,6 @@ static NSMapTable* notifiers = nil;
     [self broadcast:@selector(notifier:entryDeleted:) object:entry select:self.selectBlock];
 }
 
-- (void)setReceiver:(id)receiver ownedBy:(id)owner {
-    if (!self.ownedReceivers) self.ownedReceivers = [NSMapTable strongToWeakObjectsMapTable];
-    [self.ownedReceivers setObject:owner forKey:receiver];
-}
-
 @end
 
 @implementation WLEntry (WLEntryNotifier)
@@ -90,7 +84,7 @@ static NSMapTable* notifiers = nil;
     WLEntryNotifyReceiver *receiver = [[WLEntryNotifyReceiver alloc] init];
     WLEntryNotifier *notifier = [self notifier];
     if (owner) {
-        [notifier setReceiver:receiver ownedBy:owner];
+        [owner setAssociatedObject:receiver forKey:[[NSString stringWithFormat:@"%@_notify_receiver", NSStringFromClass(self)] UTF8String]];
     }
     [notifier addReceiver:receiver];
     if (setupBlock) setupBlock(receiver);

@@ -177,12 +177,12 @@
                 case WLNotificationCommentAdd: {
                     WLCandy *candy = [(WLComment*)targetEntry candy];
                     if (candy.valid) candy.commentCount = candy.comments.count;
-                    if (targetEntry.notifiable && !targetEntry.unread) targetEntry.unread = YES;
+                    if (targetEntry.notifiable) [targetEntry markAsUnread];
                     break;
                 }
                 case WLNotificationCandyAdd:
                 case WLNotificationMessageAdd:
-                    if (!targetEntry.unread && targetEntry.valid) targetEntry.unread = YES;
+                    [targetEntry markAsUnread];
                     break;
                 default:
                     break;
@@ -193,7 +193,7 @@
         } else if (event == WLEventDelete) {
             [targetEntry remove];
         }
-        [[WLEntryManager manager].context processPendingChanges];
+        [[WLEntryManager manager] instantSave];
         if (success) success();
     };
     

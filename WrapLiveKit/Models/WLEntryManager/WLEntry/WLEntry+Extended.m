@@ -126,4 +126,12 @@
     
 }
 
+- (void)markAsRead {
+    if (self.valid && self.unread) self.unread = NO;
+}
+
+- (void)markAsUnread {
+    if (self.valid && !self.unread) self.unread = YES;
+}
+
 @end

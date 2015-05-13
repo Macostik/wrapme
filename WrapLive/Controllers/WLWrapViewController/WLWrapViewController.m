@@ -113,7 +113,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     
     if (self.wrap.valid) {
         [self.wrap.candies all:^(WLCandy *candy) {
-            if (candy.unread) candy.unread = NO;
+            [candy markAsRead];
         }];
         [self.dataSource reload];
         [self updateNotificationCouter];
@@ -174,8 +174,8 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
             return weakSelf.wrap;
         }];
         [receiver setAddedBlock:^(WLCandy *candy) {
-            if ([weakSelf isViewLoaded] && weakSelf.wrap.valid) {
-                if (candy.unread) candy.unread = NO;
+            if ([weakSelf isViewLoaded]) {
+                [candy markAsRead];
             }
         }];
     }];

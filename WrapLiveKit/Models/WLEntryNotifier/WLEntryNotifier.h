@@ -40,8 +40,6 @@ typedef void (^WLEntryNotifyReceiverSetupBlock) (WLEntryNotifyReceiver *receiver
 
 - (void)notifyOnDeleting:(WLEntry*)entry;
 
-- (void)setReceiver:(id)receiver ownedBy:(id)owner;
-
 @end
 
 @interface WLEntry (WLEntryNotifier)

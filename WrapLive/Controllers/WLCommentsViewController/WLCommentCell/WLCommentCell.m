@@ -72,8 +72,7 @@
 
 - (void)setup:(WLComment *)entry {
 	self.userInteractionEnabled = YES;
-    [[WLEntryManager manager].context processPendingChanges];
-    if (entry.unread) entry.unread = NO;
+    [entry markAsRead];
 	self.authorNameLabel.text = entry.contributor.name;
     [self.commenttextView determineHyperLink:entry.text];
 	self.authorImageView.url = entry.contributor.picture.small;

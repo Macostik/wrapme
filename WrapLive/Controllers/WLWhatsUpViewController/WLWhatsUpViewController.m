@@ -55,7 +55,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[WLEntryManager manager].context processPendingChanges];
+    [[WLEntryManager manager] instantSave];
     [self updateNotificaton];
 }
 
@@ -72,7 +72,7 @@
 }
 
 - (IBAction)back:(id)sender {
-    [[WLEntryManager manager].context processPendingChanges];
+    [[WLEntryManager manager] instantSave];
     [self.navigationController popViewControllerAnimated:NO];
 }
 

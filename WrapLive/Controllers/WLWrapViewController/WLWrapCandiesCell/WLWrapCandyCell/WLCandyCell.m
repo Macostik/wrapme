@@ -54,11 +54,13 @@
                 }];
             }
             [menu addDownloadItem:^(WLCandy *candy) {
-                [candy download:^{
+                BOOL isSuccess = [candy download:^{
                 } failure:^(NSError *error) {
                     [error show];
                 }];
-                [WLToast showPhotoDownloadingMessage];
+                if (isSuccess) {
+                    [WLToast showPhotoDownloadingMessage];
+                }
             }];
             return candy;
         }];

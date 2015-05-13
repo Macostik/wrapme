@@ -15,6 +15,7 @@
 #import "WLImageFetcher.h"
 #import "WLUploadingQueue.h"
 #import "NSError+WLAPIManager.h"
+#import "ALAssetsLibrary+Additions.h"
 
 @implementation WLCandy (Extended)
 
@@ -139,7 +140,13 @@
     }
 }
 
-- (void)download:(WLBlock)success failure:(WLFailureBlock)failure {
+- (BOOL)download:(WLBlock)success failure:(WLFailureBlock)failure {
+    
+    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
+    if (status == ALAuthorizationStatusDenied) {
+        if (failure) failure(WLError(@"To allow access to the Photos go to the Privacy settings of the app."));
+        return NO;
+    }
     
     [self setDownloadSuccessBlock:^(UIImage *image) {
         [image save:nil completion:success failure:failure];
@@ -157,6 +164,8 @@
     
     [[WLImageFetcher fetcher] addReceiver:self];
     [[WLImageFetcher fetcher] enqueueImageWithUrl:self.picture.original];
+    
+    return YES;
 }
 
 // MARK: - WLImageFetching

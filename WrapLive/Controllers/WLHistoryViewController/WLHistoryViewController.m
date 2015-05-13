@@ -312,11 +312,13 @@
 }
 
 - (IBAction)downloadCandy:(id)sender {
-    [self.candy download:^{
+    BOOL isSuccess = [self.candy download:^{
     } failure:^(NSError *error) {
         [error show];
     }];
-    [WLToast showPhotoDownloadingMessage];
+    if (isSuccess) {
+        [WLToast showPhotoDownloadingMessage];
+    }
 }
 
 - (IBAction)navigationButtonClick:(WLIconButton *)sender {

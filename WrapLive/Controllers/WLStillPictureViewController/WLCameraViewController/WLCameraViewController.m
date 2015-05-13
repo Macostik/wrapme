@@ -226,10 +226,7 @@
             deviceInput.focusMode = AVCaptureFocusModeAutoFocus;
         [deviceInput unlockForConfiguration];
         NSError *error = nil;
-        id input =  [AVCaptureDeviceInput deviceInputWithDevice:deviceInput error:&error];
-        if (error) {
-            [WLToast showWithMessage:error.localizedFailureReason];
-        }
+        id input = [AVCaptureDeviceInput deviceInputWithDevice:deviceInput error:&error];
         return input;
     }
     return nil;

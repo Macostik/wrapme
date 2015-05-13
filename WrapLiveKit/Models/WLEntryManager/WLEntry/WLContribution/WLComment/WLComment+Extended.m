@@ -31,8 +31,8 @@
 }
 
 - (void)remove {
-    [self.candy removeComment:self];
     [self notifyOnDeleting];
+    [self.candy removeComment:self];
     [super remove];
 }
 

@@ -40,8 +40,8 @@
 }
 
 - (void)remove {
-    [[WLUser currentUser] removeWrap:self];
     [self notifyOnDeleting];
+    [[WLUser currentUser] removeWrap:self];
     [super remove];
 }
 

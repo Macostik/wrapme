@@ -41,8 +41,8 @@
 }
 
 - (void)remove {
-    [self.wrap removeMessage:self];
     [self notifyOnDeleting];
+    [self.wrap removeMessage:self];
     [super remove];
 }
 

@@ -140,7 +140,7 @@
     }
 }
 
-- (BOOL)download:(WLBlock)success failure:(WLFailureBlock)failure {
+- (id)download:(WLBlock)success failure:(WLFailureBlock)failure {
     
     ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
     if (status == ALAuthorizationStatusDenied) {
@@ -163,9 +163,8 @@
     }];
     
     [[WLImageFetcher fetcher] addReceiver:self];
-    [[WLImageFetcher fetcher] enqueueImageWithUrl:self.picture.original];
-    
-    return YES;
+    id operation = [[WLImageFetcher fetcher] enqueueImageWithUrl:self.picture.original];
+    return operation;
 }
 
 // MARK: - WLImageFetching

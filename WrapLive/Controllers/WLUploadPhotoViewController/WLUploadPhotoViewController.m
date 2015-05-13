@@ -13,8 +13,6 @@
 #import "WLIconButton.h"
 #import "WLComposeBar.h"
 #import "WLAlertView.h"
-#import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
-#import <AdobeCreativeSDKFoundation/AdobeCreativeSDKFoundation.h>
 
 @interface WLUploadPhotoViewController () <AdobeUXImageEditorViewControllerDelegate, WLComposeBarDelegate>
 
@@ -56,18 +54,6 @@
 }
 
 // MARK: - actions
-
-- (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [[AdobeUXAuthManager sharedManager] setAuthenticationParametersWithClientID:@"a7929bf566694d579acb507eae697db1" withClientSecret:@"b6fa1e1c-4f8c-4001-88a9-0251a099f890"];
-    });
-    AdobeUXImageEditorViewController* aviaryController = [[AdobeUXImageEditorViewController alloc] initWithImage:image];
-    aviaryController.delegate = self;
-    aviaryController.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
-    return aviaryController;
-}
 
 - (IBAction)edit:(id)sender {
     AFPhotoEditorController* aviaryController = [self editControllerWithImage:self.image];
@@ -116,6 +102,24 @@
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
     [composeBar setDoneButtonHidden:YES animated:YES];
+}
+
+@end
+
+
+
+@implementation UIViewController (AviaryController)
+
+- (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [[AdobeUXAuthManager sharedManager] setAuthenticationParametersWithClientID:@"a7929bf566694d579acb507eae697db1" withClientSecret:@"b6fa1e1c-4f8c-4001-88a9-0251a099f890"];
+    });
+    AdobeUXImageEditorViewController* aviaryController = [[AdobeUXImageEditorViewController alloc] initWithImage:image];
+    aviaryController.delegate = self;
+    aviaryController.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
+    return aviaryController;
 }
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "WLStillPictureBaseViewController.h"
+#import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
+#import <AdobeCreativeSDKFoundation/AdobeCreativeSDKFoundation.h>
 
 typedef void (^WLUploadPhotoCompletionBlock) (UIImage *image, NSString *comment);
 
@@ -15,5 +17,11 @@ typedef void (^WLUploadPhotoCompletionBlock) (UIImage *image, NSString *comment)
 @property (strong, nonatomic) UIImage* image;
 
 @property (strong, nonatomic) WLUploadPhotoCompletionBlock completionBlock;
+
+@end
+
+@interface UIViewController (AviaryController)
+
+- (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image;
 
 @end

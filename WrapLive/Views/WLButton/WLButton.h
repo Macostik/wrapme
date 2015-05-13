@@ -45,3 +45,11 @@
 @interface WLSegmentButton : WLButton @end
 
 @interface WLPressButton : WLButton @end
+
+@interface WLRoundButton : WLButton 
+
+@property (strong, nonatomic) IBInspectable UIColor  *borderColor;
+@property (assign, nonatomic) IBInspectable CGFloat cornerRadius;
+@property (assign, nonatomic) IBInspectable CGFloat borderWidth;
+
+@end

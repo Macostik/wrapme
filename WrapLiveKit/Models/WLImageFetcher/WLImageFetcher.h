@@ -26,9 +26,9 @@
 
 + (instancetype)fetcher;
 
-- (void)enqueueImageWithUrl:(NSString*)url;
+- (id)enqueueImageWithUrl:(NSString *)url;
 
-- (void)enqueueImageWithUrl:(NSString*)url completion:(WLImageBlock)completion;
+- (id)enqueueImageWithUrl:(NSString *)url completion:(WLImageBlock)completion;
 
 - (void)enqueueImageWithUrl:(NSString*)url receiver:(id <WLImageFetching>)receiver;
 

@@ -200,3 +200,26 @@ static CGFloat minTouchSize = 44;
 }
 
 @end
+
+@implementation WLRoundButton
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.layer.borderColor = self.borderColor.CGColor;
+    self.layer.cornerRadius = self.cornerRadius;
+    self.layer.borderWidth = self.borderWidth;
+}
+
+- (UIColor *)borderColor {
+    return _borderColor != nil ? _borderColor : [UIColor clearColor];
+}
+
+- (CGFloat)borderRadius {
+    return _cornerRadius > .0 ? _cornerRadius : .0;
+}
+
+- (CGFloat)borderWidth {
+    return  _borderWidth > .0 ? _borderWidth : .0;
+}
+
+@end

@@ -50,8 +50,8 @@
     [self enqueueImageWithUrl:url];
 }
 
-- (void)enqueueImageWithUrl:(NSString *)url {
-    [self enqueueImageWithUrl:url completion:nil];
+- (id)enqueueImageWithUrl:(NSString *)url {
+    return [self enqueueImageWithUrl:url completion:nil];
 }
 
 - (void)handleResultForUrl:(NSString*)url block:(void (^)(NSObject <WLImageFetching> *receiver))block {
@@ -74,10 +74,10 @@
     }
 }
 
-- (void)enqueueImageWithUrl:(NSString *)url completion:(WLImageBlock)completion {
+- (id)enqueueImageWithUrl:(NSString *)url completion:(WLImageBlock)completion {
 	if (!url.nonempty || [self.urls containsObject:url]) {
         if (completion) completion(nil);
-		return;
+		return nil;
 	}
 	
 	[self.urls addObject:url];
@@ -94,16 +94,18 @@
     } else if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
         [self setFileSystemUrl:url completion:success];
     } else {
-        [self setNetworkUrl:url success:success failure:^(NSError *error) {
+        id operation = [self setNetworkUrl:url success:success failure:^(NSError *error) {
             [weakSelf handleResultForUrl:url block:^(NSObject<WLImageFetching> *receiver) {
                 [receiver fetcher:weakSelf didFailWithError:error];
             }];
             if (completion) completion(nil);
         }];
+        return operation;
     }
+    return nil;
 }
 
-- (void)setNetworkUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure {
+- (id)setNetworkUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure {
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
 	AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -115,6 +117,7 @@
 		if (error.code != NSURLErrorCancelled && failure) failure(error);
 	}];
 	[[self fetchingQueue] addOperation:operation];
+    return operation;
 }
 
 - (void)setFileSystemUrl:(NSString *)url completion:(WLImageFetcherBlock)completion {

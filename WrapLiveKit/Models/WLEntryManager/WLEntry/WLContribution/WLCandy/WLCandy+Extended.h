@@ -24,7 +24,7 @@ static NSInteger WLCandyTypeImage = 10;
 
 - (id)uploadComment:(NSString *)text success:(WLCommentBlock)success failure:(WLFailureBlock)failure;
 
-- (BOOL)download:(WLBlock)success failure:(WLFailureBlock)failure;
+- (id)download:(WLBlock)success failure:(WLFailureBlock)failure;
 
 - (NSMutableOrderedSet *)sortedComments;
 

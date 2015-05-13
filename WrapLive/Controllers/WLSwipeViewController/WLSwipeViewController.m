@@ -86,10 +86,11 @@
             });
         }
     } else {
-        UIView *view = viewController.view;
-        view.frame = CGRectMake(0, 0, self.scrollView.size.width, self.scrollView.size.height);
-        self.scrollView.contentSize = self.scrollView.size;
+        viewController.view.frame = CGRectMake(0, 0, self.scrollView.size.width, self.scrollView.size.height);
         self.viewController = viewController;
+        [self scrollViewDidEndDecelerating:self.scrollView];
+        CGFloat width1 = [self visibleWidthOfViewController:self.viewController];
+        [self didChangeOffsetForViewController:self.viewController offset:width1 / self.scrollView.width];
         if (completion) completion();
     }
 }

@@ -47,13 +47,13 @@ static NSString *const WLLeave = @"Leave";
 }
 
 - (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (IBAction)performSelectorByTitle {
     
     if (!self.wrap.valid) {
-        [self dismissViewControllerAnimated:NO completion:nil];
+        [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
         return;
     }
     
@@ -63,10 +63,10 @@ static NSString *const WLLeave = @"Leave";
         [self.wrap remove:^(id object) {
             weakSelf.deleteButton.loading = NO;
             [WLToast showWithMessage:WLLS(@"Wrap was deleted successfully.")];
-            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+            [weakSelf.presentingViewController dismissViewControllerAnimated:NO completion:nil];
         } failure:^(NSError *error) {
             if ([error isError:WLErrorActionCancelled]) {
-                [weakSelf dismissViewControllerAnimated:NO completion:nil];
+                [weakSelf.presentingViewController dismissViewControllerAnimated:NO completion:nil];
                 weakSelf.deleteButton.loading = NO;
             } else {
                 [error show];
@@ -76,11 +76,11 @@ static NSString *const WLLeave = @"Leave";
     } else {
         [self.wrap leave:^(id object) {
             [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+            [weakSelf.presentingViewController dismissViewControllerAnimated:NO completion:nil];
             weakSelf.deleteButton.loading = NO;
         } failure:^(NSError *error) {
             if ([error isError:WLErrorActionCancelled]) {
-                [weakSelf dismissViewControllerAnimated:NO completion:nil];
+                [weakSelf.presentingViewController dismissViewControllerAnimated:NO completion:nil];
                 weakSelf.deleteButton.loading = NO;
             } else {
                 [error show];
@@ -91,7 +91,7 @@ static NSString *const WLLeave = @"Leave";
 }
 
 - (IBAction)removeFromController:(id)sender {
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
 // MARK: - UITextFieldDelegate
@@ -140,7 +140,7 @@ static NSString *const WLLeave = @"Leave";
 // MARK: - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLWrap *)wrap {
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {

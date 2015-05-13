@@ -42,6 +42,8 @@
 
 @property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;
 
+@property (nonatomic) NSUInteger currentCandyIndex;
+
 @end
 
 @implementation WLHistoryViewController
@@ -228,6 +230,31 @@
 
 #pragma mark - WLEntryNotifyReceiver
 
+- (WLCandy*)candyAfterDeletingCandy:(WLCandy*)candy {
+    
+    if (!self.wrap.candies.nonempty) {
+        return nil;
+    }
+    
+    candy = [self.historyItem.entries tryObjectAtIndex:self.currentCandyIndex];
+    if (candy) {
+        return candy;
+    }
+    
+    WLHistoryItem *nextItem = [self.history.entries tryObjectAtIndex:[self.history.entries indexOfObject:self.historyItem] + 1];
+    if (nextItem) {
+        self.historyItem = nextItem;
+        return [nextItem.entries firstObject];
+    }
+    
+    candy = [self.historyItem.entries tryObjectAtIndex:self.currentCandyIndex - 1];
+    if (candy) {
+        return candy;
+    }
+    
+    return [self.historyItem.entries firstObject];
+}
+
 - (void)addNotifyReceivers {
     __weak typeof(self)weakSelf = self;
     
@@ -235,6 +262,10 @@
         
         [receiver setContainingEntryBlock:^WLEntry *{
             return weakSelf.wrap;
+        }];
+        
+        [receiver setAddedBlock:^(WLCandy *candy) {
+            weakSelf.currentCandyIndex = [weakSelf.historyItem.entries indexOfObject:weakSelf.candy];
         }];
         
         [receiver setUpdatedBlock:^(WLCandy *candy) {
@@ -246,11 +277,12 @@
         [receiver setDeletedBlock:^(WLCandy *candy) {
             if (candy == weakSelf.candy) {
                 [WLToast showWithMessage:WLLS(@"This candy is no longer avaliable.")];
-            }
-            if (!weakSelf.historyItem.entries.nonempty) {
-                [weakSelf.navigationController popViewControllerAnimated:NO];
-            } else {
-                [weakSelf setCandy:[weakSelf.historyItem.entries firstObject] direction:0 animated:NO];
+                WLCandy *nextCandy = [weakSelf candyAfterDeletingCandy:candy];
+                if (nextCandy) {
+                    [weakSelf setCandy:nextCandy direction:0 animated:NO];
+                } else {
+                    [weakSelf.navigationController popViewControllerAnimated:NO];
+                }
             }
         }];
     }];
@@ -330,20 +362,20 @@
     if (candy) {
         WLCandyViewController *candyViewController = [self candyViewController:candy];
         return candyViewController;
-    } else {
-        if (item.completed) {
-            item = [self.history.entries tryObjectAtIndex:[self.history.entries indexOfObject:item] + 1];
-            if (item) {
-                self.historyItem = item;
-                WLCandyViewController *candyViewController = [self candyViewController:[item.entries firstObject]];
-                return candyViewController;
-            } else {
-                [self fetchHistoryItemsOlderThen:self.historyItem];
-            }
-        } else {
-            [self fetchCandiesOlderThen:self.candy];
-        }
     }
+    
+    if (item.completed) {
+        item = [self.history.entries tryObjectAtIndex:[self.history.entries indexOfObject:item] + 1];
+        if (item) {
+            self.historyItem = item;
+            WLCandyViewController *candyViewController = [self candyViewController:[item.entries firstObject]];
+            return candyViewController;
+        }
+        [self fetchHistoryItemsOlderThen:self.historyItem];
+    } else {
+        [self fetchCandiesOlderThen:self.candy];
+    }
+    
     return nil;
 }
 
@@ -367,6 +399,7 @@
 
 - (void)didChangeViewController:(WLCandyViewController *)viewController {
     self.candy = [viewController candy];
+    self.currentCandyIndex = [self.historyItem.entries indexOfObject:self.candy];
     [self fetchCandiesOlderThen:self.candy];
     [self fetchHistoryItemsOlderThen:self.historyItem];
 }

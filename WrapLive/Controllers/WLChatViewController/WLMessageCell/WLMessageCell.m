@@ -77,7 +77,7 @@
     CGFloat constant = showName ? WLMessageNameInset : 0;
     if (self.topTextLabelConstraint.constant != constant) {
         self.topTextLabelConstraint.constant = constant;
-        [self setNeedsLayout];
+        [self layoutIfNeeded];
     }
 }
 

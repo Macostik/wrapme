@@ -67,6 +67,10 @@
     }];
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (IBAction)textFieldDidChange:(UITextField *)sender {

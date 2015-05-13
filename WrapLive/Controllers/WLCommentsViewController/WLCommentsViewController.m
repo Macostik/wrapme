@@ -190,14 +190,7 @@ static CGFloat WLTextViewInsets = 10.0f;
         [receiver setAddedBlock:^(WLComment *comment) {
             weakSelf.dataSource.items = [weakSelf.candy sortedComments];
         }];
-        receiver.updatedBlock = receiver.addedBlock;
-        [receiver setDeletedBlock:^(WLComment *comment) {
-            NSMutableOrderedSet* entries = (id)weakSelf.dataSource.items;
-            if ([entries containsObject:comment]) {
-                [entries removeObject:comment];
-                [weakSelf.dataSource reload];
-            }
-        }];
+        receiver.deletedBlock = receiver.updatedBlock = receiver.addedBlock;
     }];
     
     [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {

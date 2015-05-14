@@ -83,8 +83,8 @@
 }
 
 - (void)remove {
-    [self notifyOnDeleting];
     [self.wrap removeCandy:self];
+    [self notifyOnDeleting];
     [super remove];
 }
 

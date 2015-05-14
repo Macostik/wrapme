@@ -42,6 +42,7 @@
             break;
         case WLNotificationUserUpdate:
         case WLNotificationWrapUpdate:
+        case WLNotificationCandyUpdate:
             self.event = WLEventUpdate;
             break;
         default:
@@ -59,7 +60,8 @@
             dataKey = WLWrapKey;
         } break;
         case WLNotificationCandyAdd:
-        case WLNotificationCandyDelete: {
+        case WLNotificationCandyDelete:
+        case WLNotificationCandyUpdate:{
             self.entryClass = [WLCandy class];
             dataKey = WLCandyKey;
         } break;
@@ -112,7 +114,8 @@
                 targetEntry = dictionary ? [WLWrap API_entry:dictionary] : [WLWrap entry:self.entryIdentifier];
             } break;
             case WLNotificationCandyAdd:
-            case WLNotificationCandyDelete: {
+            case WLNotificationCandyDelete:
+            case WLNotificationCandyUpdate: {
                 targetEntry = dictionary ? [WLCandy API_entry:dictionary] : [WLCandy entry:self.entryIdentifier];
             } break;
             case WLNotificationMessageAdd: {
@@ -189,6 +192,13 @@
             }
             [targetEntry notifyOnAddition];
         } else if (event == WLEventUpdate) {
+            switch (weakSelf.type) {
+                case WLNotificationCandyUpdate:
+                    if (targetEntry.notifiable && !targetEntry.unread) targetEntry.unread = YES;
+                    break;
+                default:
+                    break;
+            }
             [targetEntry notifyOnUpdate];
         } else if (event == WLEventDelete) {
             [targetEntry remove];

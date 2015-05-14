@@ -19,7 +19,8 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 	WLNotificationWrapDelete            = 800,
     WLNotificationUserUpdate            = 900,
     WLNotificationWrapUpdate            = 1000,
-    WLNotificationUpdateAvailable       = 1100
+    WLNotificationUpdateAvailable       = 1100,
+    WLNotificationCandyUpdate           = 1200
 };
 
 @class PNMessage;

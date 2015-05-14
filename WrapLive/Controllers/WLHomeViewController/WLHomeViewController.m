@@ -303,6 +303,11 @@
                 [weakSelf updateNotificationsLabel];
             });
         }];
+        [receiver setUpdatedBlock:^(id object) {
+            run_after(.5, ^{
+                [weakSelf updateNotificationsLabel];
+            });
+        }];
     }];
     
     [WLComment notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {

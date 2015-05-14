@@ -71,6 +71,10 @@
     [self performSelector:@selector(updateNotificaton) withObject:nil afterDelay:0.0];
 }
 
+- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLEntry *)entry {
+    [self performSelector:@selector(updateNotificaton) withObject:nil afterDelay:0.0];
+}
+
 - (IBAction)back:(id)sender {
     [[WLEntryManager manager] instantSave];
     [self.navigationController popViewControllerAnimated:NO];

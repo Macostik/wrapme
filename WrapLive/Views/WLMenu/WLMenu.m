@@ -294,7 +294,7 @@
 }
 
 - (void)addCopyItem:(WLObjectBlock)block {
-    [self addItemWithText:@"I" block:block];
+    [self addItemWithText:@"Q" block:block];
 }
 
 @end

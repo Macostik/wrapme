@@ -144,6 +144,13 @@
     [self requestHistory];
 }
 
+- (void)clear {
+    self.userChannel = nil;
+    self.handledNotifications = nil;
+    self.historyDate = nil;
+    [PubNub setClientIdentifier:nil];
+}
+
 - (BOOL)isAlreadyHandledNotification:(WLNotification*)notification {
     return [self.handledNotifications containsObject:notification.identifier];
 }

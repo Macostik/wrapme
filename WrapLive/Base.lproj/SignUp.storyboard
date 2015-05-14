@@ -549,7 +549,7 @@
                                     <action selector="next:" destination="vAS-6Z-GhZ" eventType="touchUpInside" id="sCh-eV-jIh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Km1-Wj-3a4" customClass="WLPressButton">
+                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Km1-Wj-3a4" customClass="WLDebugButton">
                                 <rect key="frame" x="70" y="434" width="180" height="46"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>

@@ -12,6 +12,8 @@
 
 + (instancetype)defaultCenter;
 
+- (void)clear;
+
 - (void)configure;
 
 - (void)handleRemoteNotification:(NSDictionary*)data success:(WLObjectBlock)success failure:(WLFailureBlock)failure;

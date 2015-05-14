@@ -12,11 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-#ifndef DEBUG
-    self.hidden = YES;
-#else
-    self.hidden = NO;
-#endif
+    self.hidden = [WLAPIManager manager].environment.isProduction;
 }
 
 @end

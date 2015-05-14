@@ -350,17 +350,25 @@
 
 - (IBAction)editPhoto:(id)sender {
     __weak __typeof(self)weakSelf = self;
-    [WLDownloadingView downloadingView:[UIWindow mainWindow]
-                              forCandy:self.candy
-                               success:^{
-                                   run_in_main_queue(^{
-                                       UIImage *image = [[WLImageCache uploadingCache]imageWithUrl:weakSelf.candy.picture.original];
-                                       AFPhotoEditorController* aviaryController = [weakSelf editControllerWithImage:image];
-                                       [weakSelf.navigationController pushViewController:aviaryController animated:NO];
-                                   });
-                               } failure:^(NSError *error) {
-                                   [error show];
-                               }];
+    if ([[WLImageCache uploadingCache] containsImageWithUrl:self.candy.picture.original]) {
+        [self showPhotoEditor];
+    } else {
+        [WLDownloadingView downloadingView:[UIWindow mainWindow]
+                                  forCandy:self.candy
+                                   success:^{
+                                       [weakSelf showPhotoEditor];
+                                   } failure:^(NSError *error) {
+                                       [error show];
+                                   }];
+    }
+}
+
+- (void)showPhotoEditor {
+    run_in_main_queue(^{
+        UIImage *image = [[WLImageCache uploadingCache]imageWithUrl:self.candy.picture.original];
+        AFPhotoEditorController* aviaryController = [AdobeUXImageEditorViewController editControllerWithImage:image delegate:self];
+        [self.navigationController pushViewController:aviaryController animated:NO];
+    });
 }
 
 

@@ -10,7 +10,6 @@
 #import "NSObject+NibAdditions.h"
 #import "WLProgressBar+WLContribution.h"
 #import "WLCandy+Extended.h"
-#import "WLToast.h"
 
 @interface WLDownloadingView ()
 

@@ -20,8 +20,8 @@ typedef void (^WLUploadPhotoCompletionBlock) (UIImage *image, NSString *comment)
 
 @end
 
-@interface UIViewController (AviaryController)
+@interface AdobeUXImageEditorViewController (AviaryController)
 
-- (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image;
++ (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image delegate:(id)delegate;
 
 @end

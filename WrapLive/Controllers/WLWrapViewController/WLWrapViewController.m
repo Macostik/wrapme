@@ -86,6 +86,10 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     [self.dataSource setRefreshableWithStyle:WLRefresherStyleOrange];
     
     [self firstLoadRequest];
+    
+    if (self.wrap.candies.nonempty) {
+        [self dropDownCollectionView];
+    }
 }
 
 - (void)viewDidLayoutSubviews {
@@ -236,6 +240,16 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 - (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
     [pickerViewController.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+}
+
+// MARK: - Custom animation
+
+- (void)dropDownCollectionView {
+    self.collectionView.transform = CGAffineTransformMakeTranslation(0, -self.view.height);
+    [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
+        self.collectionView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+    }];
 }
 
 // MARK: - WLNetwork

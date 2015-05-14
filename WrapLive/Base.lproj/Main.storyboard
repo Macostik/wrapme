@@ -1553,7 +1553,7 @@
                                             <constraint firstAttribute="height" constant="44" id="U0s-JZ-hYs"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="33"/>
-                                        <state key="normal" title="Q">
+                                        <state key="normal" title="P">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>

@@ -85,7 +85,8 @@
                   @"check":@"E",
                   @"double-check":@"F",
                   @"unselected-item":@"G",
-                  @"selected-item":@"H"};
+                  @"selected-item":@"H",
+                  @"comment-quotes":@"S"};
     }
     
     NSString *code = [icons objectForKey:name];

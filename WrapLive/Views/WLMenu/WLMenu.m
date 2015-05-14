@@ -11,6 +11,7 @@
 #import "UIFont+CustomFonts.h"
 #import "UIView+AnimationHelper.h"
 #import "WLButton.h"
+#import "WLDeviceOrientationBroadcaster.h"
 
 @implementation WLMenuItem @end
 
@@ -78,6 +79,7 @@
         self.items = [NSMutableArray array];
         self.backgroundColor = [UIColor clearColor];
         self.alpha = 0.0f;
+        [self setFullFlexible];
     }
     return self;
 }
@@ -107,6 +109,7 @@
 - (void)hide {
     if (self.visible) {
         [self setHidden:YES animated:YES];
+        [[WLDeviceOrientationBroadcaster broadcaster] removeReceiver:self];
     }
 }
 
@@ -126,6 +129,7 @@
     if (!superview) {
         return;
     }
+    [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
     self.currentView = view;
     [self.items removeAllObjects];
     [self.buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -270,6 +274,10 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self hide];
+}
+
+- (void)broadcaster:(WLDeviceOrientationBroadcaster*)broadcaster didChangeOrientation:(NSNumber*)orientation {
     [self hide];
 }
 

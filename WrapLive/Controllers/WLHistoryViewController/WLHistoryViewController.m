@@ -143,6 +143,7 @@
 
 - (void)setCandy:(WLCandy *)candy direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated {
     _candy = candy;
+    [self updateOwnerData];
     [self setViewController:[self candyViewController:candy] direction:direction animated:animated];
 }
 

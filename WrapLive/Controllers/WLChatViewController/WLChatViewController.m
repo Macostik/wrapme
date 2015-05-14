@@ -63,10 +63,26 @@ CGFloat WLMaxTextViewWidth;
     self.collectionView.delegate = nil;
     self.collectionView.dataSource = nil;
     self.collectionView = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (WLCollectionViewFlowLayout *)layout {
 	return (WLCollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChatAfterApplicationBecameActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+    }
+    return self;
+}
+
+- (void)reloadChatAfterApplicationBecameActive {
+    self.chat = [WLChat chatWithWrap:self.wrap];
+    self.chat.delegate = self;
+    [self reloadData];
+    [self scrollToLastUnreadMessage];
 }
 
 - (void)viewDidLoad {
@@ -129,7 +145,6 @@ CGFloat WLMaxTextViewWidth;
     [super viewWillAppear:animated];
     [self reloadData];
     [self scrollToLastUnreadMessage];
-   
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -187,6 +202,11 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)insertMessage:(WLMessage*)message {
+    UIApplicationState applicationState = [UIApplication sharedApplication].applicationState;
+    if (applicationState == UIApplicationStateBackground) {
+        return;
+    }
+    BOOL applicationActive = applicationState == UIApplicationStateActive;
     __weak typeof(self)weakSelf = self;
     runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
         if ([weakSelf.chat.entries containsObject:message]) {
@@ -194,7 +214,6 @@ CGFloat WLMaxTextViewWidth;
             return;
         }
 
-        BOOL applicationActive = [UIApplication sharedApplication].applicationState == UIApplicationStateActive;
         UICollectionView *collectionView = weakSelf.collectionView;
         if (!weakSelf.animating && (collectionView.contentOffset.y > collectionView.minimumContentOffset.y || !applicationActive)) {
             CGFloat offset = collectionView.contentOffset.y;
@@ -382,6 +401,9 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+        return 0;
+    }
     return [self.chat.entries count];
 }
 

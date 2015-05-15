@@ -19,4 +19,10 @@
 
 @interface WLDeviceOrientationBroadcaster : WLBroadcaster
 
+@property (readonly, nonatomic) UIDeviceOrientation orientation;
+
+- (void)beginUsingAccelerometer;
+
+- (void)endUsingAccelerometer;
+
 @end

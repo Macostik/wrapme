@@ -71,12 +71,17 @@
 
 @dynamic delegate;
 
+- (void)dealloc {
+    [[WLDeviceOrientationBroadcaster broadcaster] endUsingAccelerometer];
+}
+
 #pragma mark - View controller lifecycle
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
+    [[WLDeviceOrientationBroadcaster broadcaster] beginUsingAccelerometer];
     
 	if (self.presentingViewController) {
 		self.view.frame = self.presentingViewController.view.bounds;
@@ -244,7 +249,7 @@
 	[session commitConfiguration];
 	self.flashModeControl.hidden = !self.input.device.hasFlash;
     self.connection = nil;
-	[self applyDeviceOrientation:[UIDevice currentDevice].orientation];
+	[self applyDeviceOrientation:[WLDeviceOrientationBroadcaster broadcaster].orientation];
 }
 
 - (AVCaptureDeviceInput *)input {
@@ -327,7 +332,6 @@
 	};
     AVCaptureConnection *connection = self.connection;
     self.takePhotoButton.active = connection == nil;
-    [self applyDeviceOrientation:[UIDevice currentDevice].orientation forConnection:connection];
 	connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
     [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
 }
@@ -476,8 +480,10 @@
 }
 
 - (void)applyDeviceOrientation:(UIDeviceOrientation)orientation {
-    [self applyDeviceOrientation:orientation forConnection:self.connection];
-    [self applyDeviceOrientationToFunctionalButton:orientation];
+    if (orientation != UIDeviceOrientationUnknown) {
+        [self applyDeviceOrientation:orientation forConnection:self.connection];
+        [self applyDeviceOrientationToFunctionalButton:orientation];
+    }
 }
 
 - (void)applyDeviceOrientationToFunctionalButton:(UIDeviceOrientation)orientation {

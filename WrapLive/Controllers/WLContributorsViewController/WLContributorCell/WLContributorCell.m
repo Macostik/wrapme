@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet WLButton *resendInviteDoneButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *resendInviteSpinner;
 @property (weak, nonatomic) IBOutlet UILabel *signUpView;
+@property (weak, nonatomic) IBOutlet UILabel *inviteLabel;
 
 @end
 
@@ -48,10 +49,7 @@
 
 - (void)setup:(WLUser*)user {
 	NSString * userNameText = [user isCurrentUser] ? WLLS(@"You") : user.name;
-	BOOL isCreator = NO;
-	if ([self.delegate respondsToSelector:@selector(contributorCell:isCreator:)]) {
-		isCreator = [self.delegate contributorCell:self isCreator:user];
-	}
+	BOOL isCreator = [self.delegate contributorCell:self isCreator:user];
 	self.nameLabel.text = isCreator ? [NSString stringWithFormat:WLLS(@"%@ (Owner)"), userNameText] : userNameText;
     
     self.phoneLabel.text = user.securePhones;
@@ -61,13 +59,20 @@
         self.slideViewConstraint.constant = 0;
         [self.slideView setNeedsLayout];
     }
+    
+    BOOL wrapContributedByCurrentUser = [self.delegate contributorCell:self isCreator:[WLUser currentUser]];
+    if (wrapContributedByCurrentUser) {
+        self.deletable = ![user isCurrentUser];
+    } else {
+        self.deletable = NO;
+    }
 }
 
 - (void)setDeletable:(BOOL)deletable {
 	_deletable = deletable;
     self.removeButton.hidden = !deletable;
     WLUser *user = self.entry;
-    self.resendInviteButton.hidden = !user.isInvited;
+    self.inviteLabel.hidden = self.resendInviteButton.hidden = !user.isInvited;
     self.removeButtonLeadingConstraint.constant = deletable ? 0 : -self.removeButton.width;
     [self.resendInviteSpinner stopAnimating];
     
@@ -75,6 +80,7 @@
         self.signUpView.hidden = NO;
         self.resendInviteDoneButton.hidden = YES;
     } else {
+        self.inviteLabel.text = [NSString stringWithFormat:@"Invite sent %@. Swipe to resend invite", [[NSDate now] timeAgoString]];
         self.signUpView.hidden = YES;
         BOOL invited = [self.delegate contributorCell:self isInvitedContributor:user];
         [self setInvitedState:invited];

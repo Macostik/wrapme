@@ -39,18 +39,15 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     // Do any additional setup after loading the view.
     __weak UICollectionView *collectionView = self.dataSource.collectionView;
     [self.dataSource setItemSizeBlock:^CGSize(WLUser *contributor, NSUInteger index) {
-        CGFloat height = [contributor.securePhones heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall] width:collectionView.width - WLContributorsHorizontalIndent];
+        UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
+        CGFloat textWidth = collectionView.width - WLContributorsHorizontalIndent;
+        CGFloat height = [contributor.securePhones heightWithFont:font width:textWidth];
+        if (contributor.isInvited) {
+            NSString *invitationText = [NSString stringWithFormat:@"Invite sent %@. Swipe to resend invite", [[NSDate now] timeAgoString]];
+            height += [invitationText heightWithFont:font width:textWidth];
+        }
         return CGSizeMake(collectionView.width, MAX(height + WLContributorsVerticalIndent, WLContributorsMinHeight) + 1);
     }];
-	if (self.wrap.contributedByCurrentUser) {
-		[self.dataSource setConfigureCellForItemBlock:^(WLContributorCell *cell, WLUser* contributor) {
-			cell.deletable = ![contributor isCurrentUser];
-		}];
-    } else {
-        [self.dataSource setConfigureCellForItemBlock:^(WLContributorCell *cell, WLUser* contributor) {
-            cell.deletable = NO;
-        }];
-    }
     
     UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 44, 0);
     collectionView.contentInset = insets;

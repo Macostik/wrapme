@@ -95,6 +95,10 @@
     }];
 
     [self setCandy:_candy direction:0 animated:NO];
+    
+    [UIView performWithoutAnimation:^{
+        [UIViewController attemptRotationToDeviceOrientation];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -321,13 +325,11 @@
 }
 
 - (IBAction)downloadCandy:(id)sender {
-    BOOL isSuccess = [self.candy download:^{
+    [self.candy download:^{
+        [WLToast showPhotoDownloadingMessage];
     } failure:^(NSError *error) {
         [error show];
     }];
-    if (isSuccess) {
-        [WLToast showPhotoDownloadingMessage];
-    }
 }
 
 - (IBAction)navigationButtonClick:(WLIconButton *)sender {
@@ -350,22 +352,17 @@
 
 - (IBAction)editPhoto:(id)sender {
     __weak __typeof(self)weakSelf = self;
-    if ([[WLImageCache uploadingCache] containsImageWithUrl:self.candy.picture.original]) {
-        [self showPhotoEditor];
-    } else {
-        [WLDownloadingView downloadingView:[UIWindow mainWindow]
-                                  forCandy:self.candy
-                                   success:^{
-                                       [weakSelf showPhotoEditor];
-                                   } failure:^(NSError *error) {
-                                       [error show];
-                                   }];
-    }
+    [WLDownloadingView downloadingView:[UIWindow mainWindow]
+                              forCandy:self.candy
+                               success:^ (UIImage* image){
+                                   [weakSelf showPhotoEditorWithImage:image];
+                               } failure:^(NSError *error) {
+                                   [error show];
+                               }];
 }
 
-- (void)showPhotoEditor {
+- (void)showPhotoEditorWithImage:(UIImage*)image {
     run_in_main_queue(^{
-        UIImage *image = [[WLImageCache uploadingCache]imageWithUrl:self.candy.picture.original];
         AFPhotoEditorController* aviaryController = [AdobeUXImageEditorViewController editControllerWithImage:image delegate:self];
         [self.navigationController pushViewController:aviaryController animated:NO];
     });
@@ -386,6 +383,7 @@
 - (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
     [self.navigationController popViewControllerAnimated:NO];
 }
+
 #pragma mark - WLSwipeViewController Methods
 
 - (void)didReceiveMemoryWarning {

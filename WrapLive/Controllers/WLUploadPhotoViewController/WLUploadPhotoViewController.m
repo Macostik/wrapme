@@ -34,6 +34,10 @@
     if (self.mode == WLStillPictureModeSquare) {
         [self.composeBar removeFromSuperview];
     }
+    
+    [UIView performWithoutAnimation:^{
+        [UIViewController attemptRotationToDeviceOrientation];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

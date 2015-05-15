@@ -1057,8 +1057,8 @@
                                     <outlet property="nameLabel" destination="dM8-hb-sBn" id="cdt-dz-GVj"/>
                                 </connections>
                             </view>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To allow access to the photos go to the Settings → Privacy → Photos" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvQ-XE-Vmc" customClass="WLLabel">
-                                <rect key="frame" x="20" y="84" width="280" height="176"/>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To allow access to the photos go to the Settings → Privacy → Photos" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvQ-XE-Vmc" customClass="WLLabel">
+                                <rect key="frame" x="28" y="76" width="265" height="41"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                 <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1073,10 +1073,14 @@
                             <constraint firstItem="pl9-HA-2c4" firstAttribute="leading" secondItem="174-2f-1Vl" secondAttribute="leading" id="0yO-YB-Dlz"/>
                             <constraint firstItem="sqA-kh-dcq" firstAttribute="top" secondItem="JYV-wd-ddQ" secondAttribute="bottom" constant="-20" id="3le-A9-m1m"/>
                             <constraint firstItem="Iba-IN-EHm" firstAttribute="top" secondItem="pl9-HA-2c4" secondAttribute="bottom" id="Cz4-BM-I9B"/>
+                            <constraint firstAttribute="centerX" secondItem="bvQ-XE-Vmc" secondAttribute="centerX" id="MHf-sa-exL"/>
+                            <constraint firstItem="bvQ-XE-Vmc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="174-2f-1Vl" secondAttribute="leading" constant="12" id="Me5-U3-gXi"/>
                             <constraint firstItem="Iba-IN-EHm" firstAttribute="top" secondItem="1BQ-X6-myD" secondAttribute="bottom" id="ZX8-Vk-Lr3"/>
                             <constraint firstAttribute="trailing" secondItem="pl9-HA-2c4" secondAttribute="trailing" id="Zjt-X0-UtQ"/>
                             <constraint firstItem="sqA-kh-dcq" firstAttribute="leading" secondItem="174-2f-1Vl" secondAttribute="leading" id="alZ-Gd-CEG"/>
                             <constraint firstItem="1BQ-X6-myD" firstAttribute="leading" secondItem="174-2f-1Vl" secondAttribute="leading" id="hqU-qo-aGl"/>
+                            <constraint firstItem="bvQ-XE-Vmc" firstAttribute="top" secondItem="sqA-kh-dcq" secondAttribute="bottom" constant="12" id="iRW-4W-roM"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bvQ-XE-Vmc" secondAttribute="trailing" constant="12" id="imO-sY-iF4"/>
                             <constraint firstItem="1BQ-X6-myD" firstAttribute="top" secondItem="JYV-wd-ddQ" secondAttribute="bottom" constant="44" id="pdD-Dl-jF5"/>
                             <constraint firstAttribute="trailing" secondItem="1BQ-X6-myD" secondAttribute="trailing" id="rk0-e7-iak"/>
                             <constraint firstAttribute="trailing" secondItem="sqA-kh-dcq" secondAttribute="trailing" id="sP2-FF-Rz9"/>

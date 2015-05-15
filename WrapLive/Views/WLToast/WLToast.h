@@ -75,4 +75,6 @@ static NSTimeInterval WLToastDismissalDelay = 8.0f;
 
 + (void)showPhotoDownloadingMessage;
 
++ (void)showMessageForUnavailableWrap:(WLWrap*)wrap;
+
 @end

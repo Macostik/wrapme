@@ -184,7 +184,11 @@ static WLToastWindow *sharedWindow = nil;
 + (void)showPhotoDownloadingMessage {
     WLToastAppearance *appearance = [[WLToastAppearance alloc] init];
     appearance.shouldShowIcon = NO;
-    [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Downloading the photo now. It will be in \"%@\" album momentarily."), WLAlbumName] appearance:appearance];
+    [self showWithMessage:[NSString stringWithFormat:WLLS(@"Downloading the photo now. It will be in \"%@\" album momentarily."), WLAlbumName] appearance:appearance];
+}
+
++ (void)showMessageForUnavailableWrap:(WLWrap *)wrap {
+    [self showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."), WLString(wrap.name)]];
 }
 
 @end

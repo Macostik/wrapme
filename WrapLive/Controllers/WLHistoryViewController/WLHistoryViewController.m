@@ -305,7 +305,7 @@
             return weakSelf.wrap;
         }];
         [receiver setDeletedBlock:^(WLWrap *wrap) {
-            [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."), [wrap name]]];
+            [WLToast showMessageForUnavailableWrap:wrap];
             [weakSelf.navigationController popToRootViewControllerAnimated:NO];
         }];
     }];

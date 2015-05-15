@@ -14,6 +14,7 @@
 #import "WLWhatsUpCell.h"
 #import "UIFont+CustomFonts.h"
 #import "WLComposeBar.h"
+#import "WLToast.h"
 
 @interface WLWhatsUpViewController () <WLEntryNotifyReceiver>
 
@@ -63,12 +64,15 @@
     self.dataSource.items = [[WLUser currentUser] notifications];
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier entryAdded:(WLComment*)comment {
+- (void)notifier:(WLEntryNotifier*)notifier entryAdded:(WLEntry*)entry {
     [self performSelector:@selector(updateNotificaton) withObject:nil afterDelay:0.0];
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier entryDeleted:(WLComment *)comment {
+- (void)notifier:(WLEntryNotifier*)notifier entryDeleted:(WLEntry *)entry {
     [self performSelector:@selector(updateNotificaton) withObject:nil afterDelay:0.0];
+    if ([entry isKindOfClass:[WLWrap class]]) {
+        [WLToast showMessageForUnavailableWrap:(WLWrap*)entry];
+    }
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLEntry *)entry {

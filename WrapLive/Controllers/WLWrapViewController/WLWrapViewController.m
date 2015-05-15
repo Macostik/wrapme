@@ -167,8 +167,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
             [weakSelf updateWrapData];
         };
         receiver.deletedBlock = ^(WLWrap *wrap) {
-            [WLToast showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."),
-                                      WLString([weakSelf.nameLabel titleForState:UIControlStateNormal])]];
+            [WLToast showMessageForUnavailableWrap:wrap];
             [weakSelf.navigationController popToRootViewControllerAnimated:NO];
         };
     }];

@@ -10,7 +10,7 @@
 
 @interface WLDownloadingView : UIView
 
-+ (instancetype)downloadingView:(UIView *)view forCandy:(WLCandy *)candy success:(WLBlock)success failure:(WLFailureBlock)failure;
-- (instancetype)downloadingView:(UIView *)view forEntry:(WLCandy *)candy success:(WLBlock)success failure:(WLFailureBlock)failure;
++ (instancetype)downloadingView:(UIView *)view forCandy:(WLCandy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure;
+- (instancetype)downloadingView:(UIView *)view forCandy:(WLCandy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure;
 
 @end

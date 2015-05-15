@@ -145,21 +145,19 @@
     ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
     if (status == ALAuthorizationStatusDenied) {
         if (failure) failure(WLError(@"To allow access to the Photos go to the Privacy settings of the app."));
-        return NO;
+        return nil;
     }
     
     [self setDownloadSuccessBlock:^(UIImage *image) {
-        [image save:nil completion:success failure:failure];
+        [image save:nil];
+        if (success) success();
     }];
    
     [self setDownloadFailureBlock:^(NSError *error) {
         if (error.isNetworkError) {
-            error = [NSError errorWithDescription:
-                     WLLS(@"No internet connections available. Please try downloading it later.")];
+            error = WLError(WLLS(@"No internet connections available. Please try downloading it later."));
         }
-        if (failure) {
-            failure(error);
-        }
+        if (failure) failure(error);
     }];
     
     [[WLImageFetcher fetcher] addReceiver:self];

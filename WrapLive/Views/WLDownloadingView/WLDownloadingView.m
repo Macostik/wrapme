@@ -11,10 +11,15 @@
 #import "WLProgressBar+WLContribution.h"
 #import "WLCandy+Extended.h"
 
-@interface WLDownloadingView ()
+@interface WLDownloadingView () <WLImageFetching>
 
 @property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
+
 @property (weak, nonatomic) WLCandy *candy;
+
+@property (strong, nonatomic) WLImageBlock successBlock;
+
+@property (strong, nonatomic) WLFailureBlock failureBlock;
 
 @end
 
@@ -22,44 +27,41 @@
 
 + (instancetype)downloadingView:(UIView *)view
                        forCandy:(WLCandy *)candy
-                        success:(WLBlock)success
+                        success:(WLImageBlock)success
                         failure:(WLFailureBlock)failure {
     return  [[WLDownloadingView loadFromNib] downloadingView:view
-                                                    forEntry:candy
+                                                    forCandy:candy
                                                      success:success
                                                      failure:failure];
 }
 
 - (instancetype)downloadingView:(UIView *)view
-                       forEntry:(WLCandy *)candy
-                        success:(WLBlock)success
+                       forCandy:(WLCandy *)candy
+                        success:(WLImageBlock)success
                         failure:(WLFailureBlock)failure {
     self.frame = view.frame;
     self.candy = candy;
     [view addSubview:self];
     [self setFullFlexible];
     
-    __weak __typeof(self)weakSelf = self;
-    self.alpha = 0.0f;
-    [UIView animateWithDuration:0.5f
-                          delay:0.0f
-         usingSpringWithDamping:1
-          initialSpringVelocity:1
-                        options:UIViewAnimationOptionCurveEaseIn
-                     animations:^{
-        self.alpha = 1.0f;
-    } completion:^(BOOL finished) {
-        [weakSelf downloadEntry:success failureBlock:failure];
-    }];
+    self.backgroundColor = [UIColor colorWithWhite:0 alpha:.8];
     
+    self.alpha = 0.0f;
+    
+    id operation = [self downloadEntry:success failureBlock:failure];
+    if (operation) {
+        [self.progressBar setOperation:operation];
+        [UIView animateWithDuration:0.5f
+                              delay:0.0f
+             usingSpringWithDamping:1
+              initialSpringVelocity:1
+                            options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             self.alpha = 1.0f;
+                         } completion:^(BOOL finished) {
+                         }];
+    }
     return self;
-}
-
-- (void)drawRect:(CGRect)rect {
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    UIColor *color = [UIColor colorWithWhite:0 alpha:.8];
-    CGContextSetFillColorWithColor(ctx, color.CGColor);
-    CGContextFillRect (ctx, rect);
 }
 
 - (IBAction)calcel:(id)sender {
@@ -68,34 +70,43 @@
 
 - (void)dissmis {
     __weak typeof(self)weakSelf = self;
-    run_in_main_queue(^{
+    if (self.alpha == 0) {
+        [weakSelf removeFromSuperview];
+    } else {
         [UIView animateWithDuration:0.5f
                               delay:0.0f
              usingSpringWithDamping:1
               initialSpringVelocity:1
                             options:UIViewAnimationOptionCurveEaseIn
                          animations:^{
-            weakSelf.alpha = 0.0f;
-        } completion:^(BOOL finished) {
-            [self removeFromSuperview];
-        }];
-    });
+                             weakSelf.alpha = 0.0f;
+                         } completion:^(BOOL finished) {
+                             [weakSelf removeFromSuperview];
+                         }];
+    }
 }
 
-- (void)downloadEntry:(WLBlock)success failureBlock:(WLFailureBlock)failure {
-    __weak __typeof(self)weakSelf = self;
-    id operation = [self.candy download:^{
-        [weakSelf dissmis];
-        if (success) {
-            success();
-        }
-    } failure:^(NSError *error) {
-        [weakSelf dissmis];
-        if (failure) {
-            failure(error);
-        }
-    }];
-    [weakSelf.progressBar setOperation:operation];
+- (id)downloadEntry:(WLImageBlock)success failureBlock:(WLFailureBlock)failure {
+    self.successBlock = success;
+    self.failureBlock = failure;
+    [[WLImageFetcher fetcher] addReceiver:self];
+    return [[WLImageFetcher fetcher] enqueueImageWithUrl:self.candy.picture.original];
+}
+
+// MARK: - WLImageFetching
+
+- (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
+    if (self.failureBlock) self.failureBlock(error);
+    [self dissmis];
+}
+
+- (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
+    if (self.successBlock) self.successBlock(image);
+    [self dissmis];
+}
+
+- (NSString *)fetcherTargetUrl:(WLImageFetcher *)fetcher {
+    return self.candy.picture.original;
 }
 
 @end

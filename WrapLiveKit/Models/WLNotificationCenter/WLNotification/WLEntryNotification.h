@@ -29,6 +29,8 @@ typedef NS_ENUM(NSUInteger, WLEvent) {
 
 @property (strong, nonatomic) NSString* containingEntryIdentifier;
 
+@property (nonatomic) BOOL inserted;
+
 @end
 
 @interface WLEntry (WLNotification)

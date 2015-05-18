@@ -137,6 +137,8 @@
                 break;
         }
         
+        self.inserted = targetEntry.inserted;
+        
         if (targetEntry.containingEntry == nil) {
             switch (type) {
                 case WLNotificationCandyAdd:
@@ -180,12 +182,12 @@
                 case WLNotificationCommentAdd: {
                     WLCandy *candy = [(WLComment*)targetEntry candy];
                     if (candy.valid) candy.commentCount = candy.comments.count;
-                    if (targetEntry.notifiable) [targetEntry markAsUnread];
+                    if (targetEntry.notifiable && weakSelf.inserted) [targetEntry markAsUnread];
                     break;
                 }
                 case WLNotificationCandyAdd:
                 case WLNotificationMessageAdd:
-                    [targetEntry markAsUnread];
+                    if (targetEntry.notifiable && weakSelf.inserted) [targetEntry markAsUnread];
                     break;
                 default:
                     break;
@@ -194,7 +196,7 @@
         } else if (event == WLEventUpdate) {
             switch (weakSelf.type) {
                 case WLNotificationCandyUpdate:
-                    if (targetEntry.notifiable && !targetEntry.unread) targetEntry.unread = YES;
+                    if (targetEntry.notifiable && weakSelf.inserted) [targetEntry markAsUnread];
                     break;
                 default:
                     break;

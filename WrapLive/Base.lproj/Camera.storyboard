@@ -126,11 +126,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Bka-bI-Ghh" firstAttribute="leading" secondItem="Wih-RU-1lv" secondAttribute="leading" constant="10" id="7EK-s1-A8X"/>
                                     <constraint firstAttribute="height" secondItem="QJU-xo-V0A" secondAttribute="height" priority="750" id="8G4-0q-Cuh"/>
                                     <constraint firstItem="sV2-wR-LN3" firstAttribute="top" secondItem="QJU-xo-V0A" secondAttribute="top" constant="10" id="8LK-4l-Z5g"/>
+                                    <constraint firstItem="Bka-bI-Ghh" firstAttribute="leading" secondItem="QJU-xo-V0A" secondAttribute="leading" constant="10" id="Cot-F3-G2B"/>
                                     <constraint firstAttribute="width" secondItem="QJU-xo-V0A" secondAttribute="width" priority="750" id="EUt-Mo-tdw"/>
-                                    <constraint firstItem="sV2-wR-LN3" firstAttribute="trailing" secondItem="QJU-xo-V0A" secondAttribute="trailing" constant="-10" id="TcB-rQ-QW4"/>
+                                    <constraint firstItem="QJU-xo-V0A" firstAttribute="trailing" secondItem="sV2-wR-LN3" secondAttribute="trailing" constant="10" id="TcB-rQ-QW4"/>
                                     <constraint firstAttribute="centerY" secondItem="QJU-xo-V0A" secondAttribute="centerY" id="WaE-ab-1ze"/>
                                     <constraint firstItem="QJU-xo-V0A" firstAttribute="trailing" secondItem="Jwv-dz-I8C" secondAttribute="trailing" constant="10" id="YpW-YB-mWf"/>
                                     <constraint firstAttribute="centerX" secondItem="QJU-xo-V0A" secondAttribute="centerX" id="aTv-7x-LSa"/>

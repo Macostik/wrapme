@@ -28,8 +28,6 @@
 
 @property (weak, nonatomic) UINavigationController* cameraNavigationController;
 
-@property (strong, nonatomic) WLImageBlock editBlock;
-
 @property (weak, nonatomic) WLCameraViewController *cameraViewController;
 
 @end

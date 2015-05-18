@@ -59,7 +59,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="5"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="hide" destination="WN1-Kk-qr7" eventType="touchUpInside" id="nJD-Wu-WLo"/>

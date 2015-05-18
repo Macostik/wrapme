@@ -53,8 +53,6 @@ CGFloat WLMaxTextViewWidth;
 
 @property (nonatomic) BOOL animating;
 
-@property (weak, nonatomic) WLMessage* newerVisibleMessage;
-
 @end
 
 @implementation WLChatViewController
@@ -338,7 +336,6 @@ CGFloat WLMaxTextViewWidth;
     [self.composeBar resignFirstResponder];
     self.typing = NO;
     if (self.wrap.valid) {
-        self.wrap.lastUnread = self.newerVisibleMessage.createdAt;
         [self.navigationController popViewControllerAnimated:NO];
     } else {
         [self.navigationController popToRootViewControllerAnimated:NO];
@@ -414,8 +411,8 @@ CGFloat WLMaxTextViewWidth;
     [cell setShowName:[self.chat.messagesWithName containsObject:message]];
     cell.entry = message;
     cell.layer.geometryFlipped = YES;
-    if (self.newerVisibleMessage == nil || [self.newerVisibleMessage.createdAt earlier:message.createdAt]) {
-        self.newerVisibleMessage = message;
+    if (self.wrap.lastUnread == nil || [self.wrap.lastUnread earlier:message.createdAt]) {
+        self.wrap.lastUnread = message.createdAt;
     }
     return cell;
 }

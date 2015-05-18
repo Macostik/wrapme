@@ -12,6 +12,7 @@
 #import "WLAddressBookPhoneNumber.h"
 #import "WLButton.h"
 #import "WLContributorsRequest.h"
+#import "WLToast.h"
 
 @interface WLInviteViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
@@ -46,7 +47,9 @@
         sender.loading = NO;
 		if ([object count]) {
 			[weakSelf.delegate inviteViewController:weakSelf didInviteContact:contact];
-		}
+        } else {
+            [WLToast showWithMessage:@"This user cannot be invited."];
+        }
         weakSelf.view.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
         sender.loading = NO;

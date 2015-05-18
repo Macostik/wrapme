@@ -20,11 +20,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="32" text="Choose a wrap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="1zI-Zd-PEP" customClass="WLLabel">
-                    <rect key="frame" x="28" y="186" width="229" height="32"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="32" id="esM-Gn-c23"/>
-                    </constraints>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="32" text="Tap the wrap name to choose a different wrap." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="1zI-Zd-PEP" customClass="WLLabel">
+                    <rect key="frame" x="28" y="181" width="229" height="32"/>
                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -33,10 +30,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="40" text="To choose a different wrap for this upload, tap the wrap name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="INP-a4-pR4" customClass="WLLabel">
-                    <rect key="frame" x="28" y="227" width="229" height="46"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="46" id="jvM-FG-eEm"/>
-                    </constraints>
+                    <rect key="frame" x="28" y="233" width="229" height="40"/>
                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -69,12 +63,12 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="INP-a4-pR4" secondAttribute="bottom" constant="295" id="CA3-lw-61R"/>
                 <constraint firstAttribute="bottom" secondItem="ite-5o-2Vr" secondAttribute="bottom" constant="245" id="LWF-vV-Vm3"/>
-                <constraint firstAttribute="bottom" secondItem="1zI-Zd-PEP" secondAttribute="bottom" constant="350" id="crH-rL-75h"/>
                 <constraint firstItem="INP-a4-pR4" firstAttribute="leading" secondItem="i6P-xe-Lyn" secondAttribute="leading" constant="28" id="ecz-a5-12I"/>
                 <constraint firstItem="ite-5o-2Vr" firstAttribute="leading" secondItem="i6P-xe-Lyn" secondAttribute="leading" constant="213" id="g2c-t8-iG4"/>
+                <constraint firstItem="INP-a4-pR4" firstAttribute="top" secondItem="1zI-Zd-PEP" secondAttribute="bottom" constant="20" id="i3s-S2-BCK"/>
                 <constraint firstItem="1zI-Zd-PEP" firstAttribute="leading" secondItem="i6P-xe-Lyn" secondAttribute="leading" constant="28" id="qBy-TW-Oga"/>
+                <constraint firstItem="ite-5o-2Vr" firstAttribute="top" secondItem="INP-a4-pR4" secondAttribute="bottom" constant="20" id="xrD-mP-Pdx"/>
             </constraints>
             <point key="canvasLocation" x="561" y="345"/>
         </view>

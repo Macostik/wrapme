@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="1.1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1510" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="1.1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="WLCandy" representedClassName="WLCandy" parentEntity="WLContribution" syncable="YES">
         <attribute name="commentCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
@@ -18,6 +18,8 @@
     </entity>
     <entity name="WLDevice" representedClassName="WLDevice" parentEntity="WLEntry" syncable="YES">
         <attribute name="activated" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="invitedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="invitedBy" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLUser" inverseName="devices" inverseEntity="WLUser" syncable="YES"/>
@@ -59,7 +61,7 @@
         <element name="WLCandy" positionX="0" positionY="0" width="128" height="105"/>
         <element name="WLComment" positionX="0" positionY="0" width="128" height="75"/>
         <element name="WLContribution" positionX="0" positionY="0" width="128" height="88"/>
-        <element name="WLDevice" positionX="9" positionY="63" width="128" height="103"/>
+        <element name="WLDevice" positionX="9" positionY="63" width="128" height="135"/>
         <element name="WLEntry" positionX="0" positionY="0" width="128" height="118"/>
         <element name="WLMessage" positionX="18" positionY="72" width="128" height="73"/>
         <element name="WLUploading" positionX="0" positionY="0" width="128" height="60"/>

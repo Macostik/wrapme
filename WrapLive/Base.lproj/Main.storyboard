@@ -4302,10 +4302,10 @@ Check your internet connection and try again.</string>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite sent [friendly timestamp]. Swipe to resend invite" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hiz-xa-3C6" customClass="WLLabel">
-                                                                    <rect key="frame" x="72" y="71" width="224" height="36"/>
+                                                                    <rect key="frame" x="72" y="74" width="224" height="36"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
-                                                                    <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
@@ -4331,7 +4331,7 @@ Check your internet connection and try again.</string>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstItem="KyJ-lt-d5S" firstAttribute="top" secondItem="UoH-8q-1IN" secondAttribute="top" id="3pe-q1-07i"/>
-                                                                <constraint firstItem="hiz-xa-3C6" firstAttribute="top" secondItem="04J-8C-m9o" secondAttribute="bottom" id="4Rc-Xl-EEQ"/>
+                                                                <constraint firstItem="hiz-xa-3C6" firstAttribute="top" secondItem="04J-8C-m9o" secondAttribute="bottom" constant="3" id="4Rc-Xl-EEQ"/>
                                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hiz-xa-3C6" secondAttribute="trailing" constant="24" id="4XN-vN-vz3"/>
                                                                 <constraint firstAttribute="trailing" secondItem="4dB-kx-151" secondAttribute="trailing" constant="24" id="8JM-w4-OfC"/>
                                                                 <constraint firstItem="0uu-KS-up8" firstAttribute="bottom" secondItem="Qjg-nF-pTh" secondAttribute="bottom" id="DnN-vE-Itj"/>

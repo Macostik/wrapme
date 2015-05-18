@@ -14,6 +14,8 @@
 
 @interface WLDevice : WLEntry
 
+@property (nonatomic, retain) NSDate * invitedAt;
+@property (nonatomic, retain) NSString * invitedBy;
 @property (nonatomic, retain) NSString * phone;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic) BOOL activated;

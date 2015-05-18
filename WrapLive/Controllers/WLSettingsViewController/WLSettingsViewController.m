@@ -44,15 +44,15 @@
 }
 
 - (IBAction)cleanCache:(WLButton*)sender {
-    sender.loading = YES;
-    [WLUser setCurrentUser:nil];
-    [[WLEntryManager manager] clear];
-    [[WLAuthorization currentAuthorization] signIn:^(WLUser *user) {
-        [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
-    } failure:^(NSError *error) {
-        [error show];
-        sender.loading = NO;
+    WLUser *currentUser = [WLUser currentUser];
+    [[WLEntry entries] all:^(WLEntry *entry) {
+        if (entry != currentUser) {
+            [[WLEntryManager manager] deleteEntry:entry];
+        }
     }];
+    [[WLEntryManager manager] instantSave];
+    currentUser.wraps = [NSMutableOrderedSet orderedSet];
+    [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
 }
 
 @end

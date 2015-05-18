@@ -85,6 +85,10 @@
     }
 }
 
+- (NSDate *)invitedAt {
+    return [(WLDevice*)[self.devices lastObject] invitedAt];
+}
+
 @end
 
 @implementation WLUser (CurrentUser)

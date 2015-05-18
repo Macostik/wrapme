@@ -17,6 +17,8 @@ static NSUInteger WLPhoneNumberLimit = 20;
 
 @property (nonatomic, readonly) BOOL isInvited;
 
+@property (readonly, nonatomic) NSDate* invitedAt;
+
 - (void)addWrap:(WLWrap*)wrap;
 - (void)addWraps:(NSOrderedSet*)wraps;
 - (void)removeWrap:(WLWrap*)wrap;

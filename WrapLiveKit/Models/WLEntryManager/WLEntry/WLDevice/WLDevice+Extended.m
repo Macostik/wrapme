@@ -23,6 +23,10 @@
     BOOL activated = [dictionary boolForKey:@"activated"];
     if (self.activated != activated) self.activated = activated;
     if (relatedEntry && self.owner != relatedEntry) self.owner = relatedEntry;
+    NSDate* invitedAt = [dictionary timestampDateForKey:@"invited_at_in_epoch"];
+    if (!NSDateEqual(self.invitedAt, invitedAt)) self.invitedAt = invitedAt;
+    NSString* invitedBy = [dictionary stringForKey:@"invited_by_user_uid"];
+    if (!NSStringEqual(self.invitedBy, invitedBy)) self.invitedBy = invitedBy;
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }
 

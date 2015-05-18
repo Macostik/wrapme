@@ -12,6 +12,8 @@
 
 @implementation WLDevice
 
+@dynamic invitedAt;
+@dynamic invitedBy;
 @dynamic phone;
 @dynamic name;
 @dynamic activated;

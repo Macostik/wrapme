@@ -20,11 +20,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="280" placeholderIntrinsicHeight="32" text="Great! Your wrap is live." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="H0z-j3-IR4" customClass="WLLabel">
-                    <rect key="frame" x="28" y="64" width="280" height="32"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="32" id="tkq-pW-WD9"/>
-                    </constraints>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="280" placeholderIntrinsicHeight="32" text="Wrap is better with friends." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="H0z-j3-IR4" customClass="WLLabel">
+                    <rect key="frame" x="12" y="64" width="280" height="32"/>
                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -32,11 +29,11 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="40" text="Invite your friends to see this wrap now!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="alp-kS-BQe" customClass="WLLabel">
-                    <rect key="frame" x="28" y="96" width="229" height="56"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="56" id="byV-1N-eXt"/>
-                    </constraints>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="40" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="alp-kS-BQe" customClass="WLLabel">
+                    <rect key="frame" x="12" y="116" width="229" height="40"/>
+                    <string key="text">Add friends.
+Chip in photos.
+Stay connected.</string>
                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="19"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -45,7 +42,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wy3-57-sV0" customClass="WLButton">
-                    <rect key="frame" x="213" y="160" width="95" height="30"/>
+                    <rect key="frame" x="213" y="176" width="95" height="30"/>
                     <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="95" id="b33-h0-AXs"/>
@@ -70,11 +67,11 @@
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="H0z-j3-IR4" firstAttribute="top" secondItem="WN1-Kk-qr7" secondAttribute="top" constant="64" id="4do-LF-Cfn"/>
-                <constraint firstItem="wy3-57-sV0" firstAttribute="top" secondItem="WN1-Kk-qr7" secondAttribute="top" constant="160" id="BS5-EY-uKo"/>
                 <constraint firstItem="wy3-57-sV0" firstAttribute="leading" secondItem="WN1-Kk-qr7" secondAttribute="leading" constant="213" id="aRZ-BD-zZn"/>
-                <constraint firstItem="H0z-j3-IR4" firstAttribute="leading" secondItem="WN1-Kk-qr7" secondAttribute="leading" constant="28" id="eLu-qF-JKE"/>
-                <constraint firstItem="alp-kS-BQe" firstAttribute="leading" secondItem="WN1-Kk-qr7" secondAttribute="leading" constant="28" id="vRZ-8f-AID"/>
-                <constraint firstItem="alp-kS-BQe" firstAttribute="top" secondItem="WN1-Kk-qr7" secondAttribute="top" constant="96" id="yMU-5u-E3h"/>
+                <constraint firstItem="wy3-57-sV0" firstAttribute="top" secondItem="alp-kS-BQe" secondAttribute="bottom" constant="20" id="bzA-23-6GA"/>
+                <constraint firstItem="alp-kS-BQe" firstAttribute="top" secondItem="H0z-j3-IR4" secondAttribute="bottom" constant="20" id="dat-y6-fvp"/>
+                <constraint firstItem="H0z-j3-IR4" firstAttribute="leading" secondItem="WN1-Kk-qr7" secondAttribute="leading" constant="12" id="eLu-qF-JKE"/>
+                <constraint firstItem="alp-kS-BQe" firstAttribute="leading" secondItem="WN1-Kk-qr7" secondAttribute="leading" constant="12" id="vRZ-8f-AID"/>
             </constraints>
             <point key="canvasLocation" x="561" y="345"/>
         </view>

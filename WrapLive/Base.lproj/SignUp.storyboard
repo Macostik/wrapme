@@ -52,8 +52,6 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
-            <string>OpenSans</string>
-            <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="wrapliveicons.ttf">
             <string>wrapliveicons</string>
@@ -428,23 +426,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJg-XG-GUq">
+                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJg-XG-GUq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCC-0D-s50">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCC-0D-s50">
                                         <rect key="frame" x="12" y="27" width="30" height="30"/>
                                         <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="30"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="wrap" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="GbQ-pR-DxP">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wrap" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="GbQ-pR-DxP">
                                         <rect key="frame" x="54" y="29" width="43" height="26"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="19"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Live" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="WAj-iY-zKl">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="WAj-iY-zKl">
                                         <rect key="frame" x="97" y="29" width="35" height="26"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
@@ -471,7 +469,7 @@
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="woM-5Y-5WA" firstAttribute="leading" secondItem="3LK-yD-MEC" secondAttribute="leading" id="HgR-DY-0ub"/>
                             <constraint firstAttribute="trailing" secondItem="woM-5Y-5WA" secondAttribute="trailing" id="LIX-o4-DXl"/>
@@ -487,7 +485,6 @@
                     <connections>
                         <outlet property="headerView" destination="mJg-XG-GUq" id="ZAr-c3-Ck7"/>
                         <outlet property="topHeaderConstraint" destination="zkc-gH-NLm" id="WSa-tP-nW6"/>
-                        <outletCollection property="keyboardAdjustmentTopConstraints" destination="zkc-gH-NLm" id="q0J-wN-b0R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dSP-Vd-Pvb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -512,42 +509,14 @@
             <objects>
                 <viewController storyboardIdentifier="WLEmailViewController" id="vAS-6Z-GhZ" customClass="WLEmailViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="uYd-Oq-3Te"/>
-                        <viewControllerLayoutGuide type="bottom" id="4N7-6L-ApW"/>
+                        <viewControllerLayoutGuide type="top" id="Tdn-DO-lOv"/>
+                        <viewControllerLayoutGuide type="bottom" id="N6Z-Q2-AaT"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8RI-n5-PIX">
+                    <view key="view" contentMode="scaleToFill" id="KJX-LR-59b">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whO-ln-BZo">
-                                <rect key="frame" x="110" y="96" width="100" height="100"/>
-                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="100"/>
-                                <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="What is your email?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="zgM-iC-MDR" customClass="WLLabel">
-                                <rect key="frame" x="74" y="196" width="173" height="26"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="john@example.com" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xPt-wX-3Db" customClass="WLTextField">
-                                <rect key="frame" x="60" y="244" width="200" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="g6e-os-WA5"/>
-                                    <constraint firstAttribute="height" constant="32" id="nhQ-MV-Tje"/>
-                                </constraints>
-                                <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                </userDefinedRuntimeAttributes>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pv-aD-dP3" customClass="WLPressButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="59A-fh-MwM" customClass="WLPressButton">
                                 <rect key="frame" x="266" y="23" width="42" height="38"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
@@ -567,49 +536,88 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="next:" destination="vAS-6Z-GhZ" eventType="touchUpInside" id="sCh-eV-jIh"/>
+                                    <action selector="next:" destination="vAS-6Z-GhZ" eventType="touchUpInside" id="Qdg-7f-WWy"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Km1-Wj-3a4" customClass="WLDebugButton">
-                                <rect key="frame" x="70" y="434" width="180" height="46"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bL1-1y-QMy">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQW-qG-eeb">
+                                        <rect key="frame" x="110" y="83" width="100" height="100"/>
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="100"/>
+                                        <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your email?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="fKc-pu-juY" customClass="WLLabel">
+                                        <rect key="frame" x="74" y="183" width="173" height="26"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                                        <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="john@example.com" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HvP-Ka-9z4" customClass="WLTextField">
+                                        <rect key="frame" x="60" y="231" width="200" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="91W-md-3DG"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="ud4-IB-XPf"/>
+                                        </constraints>
+                                        <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlM-wc-LL0" customClass="WLDebugButton">
+                                        <rect key="frame" x="70" y="370" width="180" height="46"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="17m-Pm-LIr"/>
+                                            <constraint firstAttribute="width" constant="180" id="h6h-zT-FQq"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Use test account">
+                                            <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="useTestAccount:" destination="vAS-6Z-GhZ" eventType="touchUpInside" id="rAQ-NX-7pt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="Qwu-3h-bxt"/>
-                                    <constraint firstAttribute="height" constant="46" id="ymB-k0-DUc"/>
+                                    <constraint firstItem="fKc-pu-juY" firstAttribute="centerX" secondItem="HvP-Ka-9z4" secondAttribute="centerX" id="5et-4Y-z5p"/>
+                                    <constraint firstAttribute="centerXWithinMargins" secondItem="xlM-wc-LL0" secondAttribute="centerXWithinMargins" id="9VJ-hQ-4eD"/>
+                                    <constraint firstAttribute="centerY" secondItem="KQW-qG-eeb" secondAttribute="top" multiplier="2.5" id="AQm-Ey-Kay"/>
+                                    <constraint firstAttribute="bottom" secondItem="xlM-wc-LL0" secondAttribute="bottom" id="OiO-e6-I0f"/>
+                                    <constraint firstItem="HvP-Ka-9z4" firstAttribute="top" secondItem="fKc-pu-juY" secondAttribute="bottom" constant="22" id="f1O-Bh-a64"/>
+                                    <constraint firstItem="fKc-pu-juY" firstAttribute="top" secondItem="KQW-qG-eeb" secondAttribute="bottom" id="gRi-Qy-4VR"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HvP-Ka-9z4" secondAttribute="trailing" constant="12" id="h1q-bb-0Ba"/>
+                                    <constraint firstItem="HvP-Ka-9z4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bL1-1y-QMy" secondAttribute="leading" constant="12" id="sUg-f5-RXS"/>
+                                    <constraint firstAttribute="centerX" secondItem="fKc-pu-juY" secondAttribute="centerX" constant="-0.5" id="slN-Ya-M7s"/>
+                                    <constraint firstAttribute="centerX" secondItem="KQW-qG-eeb" secondAttribute="centerX" id="tYN-XP-YLf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Use test account">
-                                    <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="useTestAccount:" destination="vAS-6Z-GhZ" eventType="touchUpInside" id="var-Jl-yyQ"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="whO-ln-BZo" secondAttribute="top" multiplier="2.5" id="5Wc-et-gm5"/>
-                            <constraint firstAttribute="top" secondItem="9Pv-aD-dP3" secondAttribute="centerY" constant="-42" id="6Wp-KS-wwE"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xPt-wX-3Db" secondAttribute="trailing" constant="12" id="7mO-hb-wBe"/>
-                            <constraint firstAttribute="centerX" secondItem="whO-ln-BZo" secondAttribute="centerX" id="C4l-EP-SNe"/>
-                            <constraint firstAttribute="centerXWithinMargins" secondItem="Km1-Wj-3a4" secondAttribute="centerXWithinMargins" id="PZa-Yy-0z1"/>
-                            <constraint firstItem="xPt-wX-3Db" firstAttribute="top" secondItem="zgM-iC-MDR" secondAttribute="bottom" constant="22" id="QPU-zI-rbx"/>
-                            <constraint firstItem="zgM-iC-MDR" firstAttribute="centerX" secondItem="xPt-wX-3Db" secondAttribute="centerX" id="WGS-4X-OTx"/>
-                            <constraint firstAttribute="centerX" secondItem="zgM-iC-MDR" secondAttribute="centerX" constant="-0.5" id="ZbZ-gi-kB2"/>
-                            <constraint firstItem="4N7-6L-ApW" firstAttribute="top" secondItem="Km1-Wj-3a4" secondAttribute="bottom" id="cDl-A8-ov1"/>
-                            <constraint firstAttribute="trailing" secondItem="9Pv-aD-dP3" secondAttribute="trailing" constant="12" id="qDz-Zp-K6u"/>
-                            <constraint firstItem="zgM-iC-MDR" firstAttribute="top" secondItem="whO-ln-BZo" secondAttribute="bottom" id="vWA-2q-vMF"/>
-                            <constraint firstItem="xPt-wX-3Db" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8RI-n5-PIX" secondAttribute="leading" constant="12" id="yrz-hh-tCa"/>
+                            <constraint firstItem="bL1-1y-QMy" firstAttribute="top" secondItem="Tdn-DO-lOv" secondAttribute="bottom" constant="44" id="5DH-Qh-QG1"/>
+                            <constraint firstAttribute="trailing" secondItem="bL1-1y-QMy" secondAttribute="trailing" id="CXq-hB-Yyj"/>
+                            <constraint firstItem="bL1-1y-QMy" firstAttribute="leading" secondItem="KJX-LR-59b" secondAttribute="leading" id="Fcr-NZ-pIh"/>
+                            <constraint firstItem="59A-fh-MwM" firstAttribute="centerY" secondItem="Tdn-DO-lOv" secondAttribute="bottom" constant="22" id="KcJ-Zf-kN5"/>
+                            <constraint firstAttribute="trailing" secondItem="59A-fh-MwM" secondAttribute="trailing" constant="12" id="fRC-qT-5Q8"/>
+                            <constraint firstItem="N6Z-Q2-AaT" firstAttribute="top" secondItem="bL1-1y-QMy" secondAttribute="bottom" id="nLf-jS-TXH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="aqq-oo-f1T"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="emailField" destination="xPt-wX-3Db" id="3Wh-KH-LpR"/>
-                        <outlet property="nextButton" destination="9Pv-aD-dP3" id="iQZ-FF-Y1e"/>
-                        <outlet property="testAccountButton" destination="Km1-Wj-3a4" id="Ykd-Q3-o9h"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="6Wp-KS-wwE" id="g8C-wb-hpH"/>
+                        <outlet property="emailField" destination="HvP-Ka-9z4" id="URT-lL-iQK"/>
+                        <outlet property="testAccountButton" destination="xlM-wc-LL0" id="6lD-KB-hRn"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="AQm-Ey-Kay" id="Lug-LV-ujK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vE7-3A-mp8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -620,87 +628,26 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="inputView" destination="xPt-wX-3Db" id="c0Q-bc-Myv"/>
-                        <outlet property="statusView" destination="9Pv-aD-dP3" id="S4z-1K-85e"/>
+                        <outlet property="inputView" destination="HvP-Ka-9z4" id="8uG-c5-F55"/>
+                        <outlet property="statusView" destination="59A-fh-MwM" id="T0j-TP-qKs"/>
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="1843" y="149"/>
+            <point key="canvasLocation" x="1844" y="130"/>
         </scene>
         <!--Phone View Controller-->
         <scene sceneID="6Mj-Ca-yv9">
             <objects>
                 <viewController storyboardIdentifier="WLPhoneViewController" automaticallyAdjustsScrollViewInsets="NO" id="Jh0-1l-1TK" customClass="WLPhoneViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="klX-af-wwj"/>
-                        <viewControllerLayoutGuide type="bottom" id="wJE-80-W0E"/>
+                        <viewControllerLayoutGuide type="top" id="mzE-aK-5Kc"/>
+                        <viewControllerLayoutGuide type="bottom" id="K1q-bO-uyh"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="hw9-I4-Tm9">
+                    <view key="view" contentMode="scaleToFill" id="yNh-OR-83F">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9w-Zh-Nik" customClass="WLCircleLabel">
-                                <rect key="frame" x="121" y="96" width="78" height="78"/>
-                                <color key="backgroundColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="78" id="Seu-in-NIB"/>
-                                    <constraint firstAttribute="height" constant="78" id="sJi-qU-BuQ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="56"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="39"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="What is your phone number?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="pmp-Nw-u2O" customClass="WLLabel">
-                                <rect key="frame" x="31" y="186" width="257" height="26"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="+1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="rdD-gx-2di" customClass="WLLabel">
-                                <rect key="frame" x="13" y="260" width="45" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="TzH-xe-BLc"/>
-                                    <constraint firstAttribute="height" constant="32" id="ho8-AQ-pXM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="555-555-5555" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bu4-Pb-hw9" customClass="WLTextField">
-                                <rect key="frame" x="58" y="260" width="201" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="201" id="B0p-NF-NHl"/>
-                                    <constraint firstAttribute="height" constant="32" id="Cdf-0X-VaO"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="phoneChanged:" destination="Jh0-1l-1TK" eventType="editingChanged" id="lvB-Jt-anJ"/>
-                                </connections>
-                            </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="wrapLive will send one time SMS message to verify your phone number. Carrier SMS charges may apply." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="RcF-WP-Qlr" customClass="WLLabel">
-                                <rect key="frame" x="13" y="304" width="291" height="54"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
-                                <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HI0-ff-mXa" customClass="WLPressButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sze-nv-qGE" customClass="WLPressButton">
                                 <rect key="frame" x="266" y="23" width="42" height="38"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
@@ -714,62 +661,134 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="next:" destination="Jh0-1l-1TK" eventType="touchUpInside" id="KUr-Gx-N9c"/>
+                                    <action selector="next:" destination="Jh0-1l-1TK" eventType="touchUpInside" id="sca-jn-eVl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="101" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pla-to-4nx" customClass="WLButton">
-                                <rect key="frame" x="36" y="224" width="246" height="36"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5uM-C1-HJg">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asn-aM-8Aq" customClass="WLCircleLabel">
+                                        <rect key="frame" x="121" y="83" width="78" height="78"/>
+                                        <color key="backgroundColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="78" id="Src-Y3-90m"/>
+                                            <constraint firstAttribute="width" constant="78" id="tJg-Rl-Bea"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="56"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="39"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your phone number?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="b75-OF-Awx" customClass="WLLabel">
+                                        <rect key="frame" x="31" y="173" width="257" height="26"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                                        <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="py0-IZ-HZq" customClass="WLLabel">
+                                        <rect key="frame" x="13" y="247" width="45" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="45" id="P0T-wm-xfQ"/>
+                                            <constraint firstAttribute="height" constant="32" id="iYy-Gn-QLS"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="555-555-5555" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Sj-7d-nda" customClass="WLTextField">
+                                        <rect key="frame" x="58" y="247" width="201" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="201" id="5UB-07-1v5"/>
+                                            <constraint firstAttribute="height" constant="32" id="Uak-28-wfM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="phoneChanged:" destination="Jh0-1l-1TK" eventType="editingChanged" id="VVX-oK-BaH"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wrapLive will send one time SMS message to verify your phone number. Carrier SMS charges may apply." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="jGq-WB-mde" customClass="WLLabel">
+                                        <rect key="frame" x="13" y="291" width="291" height="54"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                                        <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tHE-KW-9HQ" customClass="WLButton">
+                                        <rect key="frame" x="36" y="211" width="246" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="246" id="nLq-gT-wkj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                        <inset key="imageEdgeInsets" minX="238" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Select Country">
+                                            <color key="titleColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.39101129769999998" green="0.39099958540000002" blue="0.39100623130000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="Raz-QX-I3L" kind="custom" identifier="country-&gt;selectedCountry" customClass="WLSetValueSegue" id="fZy-mH-djC"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="246" id="f9f-ST-dnM"/>
+                                    <constraint firstItem="jGq-WB-mde" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5uM-C1-HJg" secondAttribute="leading" constant="12" id="1HK-a0-z0S"/>
+                                    <constraint firstAttribute="centerX" secondItem="jGq-WB-mde" secondAttribute="centerX" constant="1.5" id="2GX-pc-W7X"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="b75-OF-Awx" secondAttribute="trailing" constant="12" id="3ZG-sE-nun"/>
+                                    <constraint firstItem="2Sj-7d-nda" firstAttribute="leading" secondItem="py0-IZ-HZq" secondAttribute="trailing" id="930-bx-MC1"/>
+                                    <constraint firstItem="jGq-WB-mde" firstAttribute="centerX" secondItem="tHE-KW-9HQ" secondAttribute="centerX" id="CQD-wX-Xgh"/>
+                                    <constraint firstItem="py0-IZ-HZq" firstAttribute="centerY" secondItem="2Sj-7d-nda" secondAttribute="centerY" id="CVT-3u-tl6"/>
+                                    <constraint firstItem="tHE-KW-9HQ" firstAttribute="top" secondItem="b75-OF-Awx" secondAttribute="bottom" constant="12" id="Flu-50-7Id"/>
+                                    <constraint firstItem="b75-OF-Awx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5uM-C1-HJg" secondAttribute="leading" constant="12" id="HOO-dM-vnc"/>
+                                    <constraint firstItem="jGq-WB-mde" firstAttribute="top" secondItem="2Sj-7d-nda" secondAttribute="bottom" constant="12" id="J8d-6o-EPc"/>
+                                    <constraint firstItem="tHE-KW-9HQ" firstAttribute="centerX" secondItem="2Sj-7d-nda" secondAttribute="centerX" id="Mwm-aT-qPg"/>
+                                    <constraint firstItem="b75-OF-Awx" firstAttribute="top" secondItem="asn-aM-8Aq" secondAttribute="bottom" constant="12" id="OsM-9K-hOk"/>
+                                    <constraint firstAttribute="centerY" secondItem="asn-aM-8Aq" secondAttribute="top" multiplier="2.5" id="SdC-7K-j6g"/>
+                                    <constraint firstAttribute="centerX" secondItem="b75-OF-Awx" secondAttribute="centerX" id="apO-rY-9bD"/>
+                                    <constraint firstAttribute="centerX" secondItem="asn-aM-8Aq" secondAttribute="centerX" id="dEP-im-0jP"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jGq-WB-mde" secondAttribute="trailing" constant="12" id="pTI-Mw-Wpx"/>
+                                    <constraint firstItem="2Sj-7d-nda" firstAttribute="top" secondItem="tHE-KW-9HQ" secondAttribute="bottom" id="qQk-9d-JBZ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
-                                <inset key="imageEdgeInsets" minX="238" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Select Country">
-                                    <color key="titleColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="Raz-QX-I3L" kind="custom" identifier="country-&gt;selectedCountry" customClass="WLSetValueSegue" id="akf-w0-8JG"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="pmp-Nw-u2O" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hw9-I4-Tm9" secondAttribute="leading" constant="12" id="3A8-Fw-nIg"/>
-                            <constraint firstItem="Pla-to-4nx" firstAttribute="top" secondItem="pmp-Nw-u2O" secondAttribute="bottom" constant="12" id="6TZ-XJ-WrS"/>
-                            <constraint firstItem="bu4-Pb-hw9" firstAttribute="leading" secondItem="rdD-gx-2di" secondAttribute="trailing" id="7P3-rX-0Ce"/>
-                            <constraint firstItem="pmp-Nw-u2O" firstAttribute="top" secondItem="E9w-Zh-Nik" secondAttribute="bottom" constant="12" id="7ls-lV-eB8"/>
-                            <constraint firstAttribute="centerX" secondItem="RcF-WP-Qlr" secondAttribute="centerX" constant="1.5" id="A6v-Gs-vr3"/>
-                            <constraint firstItem="Pla-to-4nx" firstAttribute="centerX" secondItem="bu4-Pb-hw9" secondAttribute="centerX" id="AVq-3i-oRW"/>
-                            <constraint firstItem="RcF-WP-Qlr" firstAttribute="centerX" secondItem="Pla-to-4nx" secondAttribute="centerX" id="JkP-Sg-oOL"/>
-                            <constraint firstAttribute="centerX" secondItem="pmp-Nw-u2O" secondAttribute="centerX" id="ONo-4y-CRL"/>
-                            <constraint firstAttribute="top" secondItem="HI0-ff-mXa" secondAttribute="centerY" constant="-42" id="XDb-75-CjB"/>
-                            <constraint firstAttribute="centerX" secondItem="E9w-Zh-Nik" secondAttribute="centerX" id="YOU-om-sZS"/>
-                            <constraint firstItem="rdD-gx-2di" firstAttribute="centerY" secondItem="bu4-Pb-hw9" secondAttribute="centerY" id="byB-HM-Igx"/>
-                            <constraint firstAttribute="trailing" secondItem="HI0-ff-mXa" secondAttribute="trailing" constant="12" id="lIz-xU-PGY"/>
-                            <constraint firstItem="RcF-WP-Qlr" firstAttribute="top" secondItem="bu4-Pb-hw9" secondAttribute="bottom" constant="12" id="nrD-I8-NAc"/>
-                            <constraint firstItem="RcF-WP-Qlr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hw9-I4-Tm9" secondAttribute="leading" constant="12" id="o3o-zj-hfs"/>
-                            <constraint firstAttribute="centerY" secondItem="E9w-Zh-Nik" secondAttribute="top" multiplier="2.5" id="scc-UO-fBp"/>
-                            <constraint firstItem="bu4-Pb-hw9" firstAttribute="top" secondItem="Pla-to-4nx" secondAttribute="bottom" id="xPi-VJ-Cuq"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pmp-Nw-u2O" secondAttribute="trailing" constant="12" id="xo8-dA-UcP"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="RcF-WP-Qlr" secondAttribute="trailing" constant="12" id="yfp-Lr-NK0"/>
+                            <constraint firstAttribute="trailing" secondItem="sze-nv-qGE" secondAttribute="trailing" constant="12" id="94t-2D-u73"/>
+                            <constraint firstItem="sze-nv-qGE" firstAttribute="centerY" secondItem="mzE-aK-5Kc" secondAttribute="bottom" constant="22" id="DFG-6b-8i1"/>
+                            <constraint firstItem="K1q-bO-uyh" firstAttribute="top" secondItem="5uM-C1-HJg" secondAttribute="bottom" id="HC7-UN-Ry3"/>
+                            <constraint firstAttribute="trailing" secondItem="5uM-C1-HJg" secondAttribute="trailing" id="QzL-Gl-jeB"/>
+                            <constraint firstItem="5uM-C1-HJg" firstAttribute="top" secondItem="mzE-aK-5Kc" secondAttribute="bottom" constant="44" id="X8h-yj-8U8"/>
+                            <constraint firstItem="5uM-C1-HJg" firstAttribute="leading" secondItem="yNh-OR-83F" secondAttribute="leading" id="YJp-8w-xuI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="esM-yQ-4wb"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="countryCodeLabel" destination="rdD-gx-2di" id="oXW-vw-WMR"/>
-                        <outlet property="nextButton" destination="HI0-ff-mXa" id="qzN-ME-xv0"/>
-                        <outlet property="phoneNumberTextField" destination="bu4-Pb-hw9" id="qXQ-JE-rOZ"/>
-                        <outlet property="selectCountryButton" destination="Pla-to-4nx" id="gmz-qa-0u5"/>
+                        <outlet property="countryCodeLabel" destination="py0-IZ-HZq" id="yrK-Qu-hRG"/>
+                        <outlet property="phoneNumberTextField" destination="2Sj-7d-nda" id="Nhj-cn-haC"/>
+                        <outlet property="selectCountryButton" destination="tHE-KW-9HQ" id="qNm-XP-axU"/>
                         <outlet property="validation" destination="o7l-KU-NBa" id="WM2-GA-pqB"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="XDb-75-CjB" id="OL8-SO-3VJ"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="SdC-7K-j6g" id="sdn-ad-wS8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sT3-pE-ROT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -780,8 +799,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="inputView" destination="bu4-Pb-hw9" id="c8G-kq-378"/>
-                        <outlet property="statusView" destination="HI0-ff-mXa" id="aag-e3-mZb"/>
+                        <outlet property="inputView" destination="2Sj-7d-nda" id="7qZ-H6-H5U"/>
+                        <outlet property="statusView" destination="sze-nv-qGE" id="HdU-6P-504"/>
                     </connections>
                 </customObject>
             </objects>
@@ -792,121 +811,14 @@
             <objects>
                 <viewController storyboardIdentifier="WLActivationViewController" automaticallyAdjustsScrollViewInsets="NO" id="eE2-rt-SMr" customClass="WLActivationViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="38Z-am-wJg"/>
-                        <viewControllerLayoutGuide type="bottom" id="nLq-n1-HdY"/>
+                        <viewControllerLayoutGuide type="top" id="8e3-cE-tfJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="BnE-Xf-kE8"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Mo2-7K-jPH">
+                    <view key="view" contentMode="scaleToFill" id="bUN-Fw-Y1p">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="W" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jVI-Mi-sCq">
-                                <rect key="frame" x="123" y="96" width="75" height="75"/>
-                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="75"/>
-                                <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="+1 925-682-1888" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="eMe-eq-OIH" customClass="WLLabel">
-                                <rect key="frame" x="86" y="183" width="148" height="26"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mpo-NF-SZ1" customClass="WLProgressBar">
-                                <rect key="frame" x="53" y="209" width="216" height="5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="5" id="u6f-90-DLB"/>
-                                    <constraint firstAttribute="width" constant="216" id="wqe-mL-K8i"/>
-                                </constraints>
-                            </view>
-                            <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Verification code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B2D-li-Al0" customClass="WLTextField">
-                                <rect key="frame" x="70" y="221" width="180" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="hVJ-1v-pXJ"/>
-                                    <constraint firstAttribute="width" constant="180" id="nEc-4P-1yx"/>
-                                </constraints>
-                                <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                            </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="We are sending you a 4-digit code. Enter it above to verify your phone number." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="cP5-dA-Wip" customClass="WLLabel">
-                                <rect key="frame" x="12" y="265" width="296" height="36"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
-                                <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Haven't received the SMS?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="6x3-Il-k4e" customClass="WLLabel">
-                                <rect key="frame" x="81" y="372" width="159" height="18"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
-                                <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3e-r8-TjK" customClass="WLPressButton">
-                                <rect key="frame" x="12" y="396" width="296" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
-                                <state key="normal" title="Try the voice call option">
-                                    <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="titleLabel.numberOfLines">
-                                        <integer key="value" value="0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="insets">
-                                        <size key="value" width="0.0" height="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="call:" destination="eE2-rt-SMr" eventType="touchUpInside" id="s6W-Uh-ml9"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T4H-t0-WgJ" customClass="WLButton">
-                                <rect key="frame" x="12" y="438" width="296" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
-                                <state key="normal" title="Use another phone number">
-                                    <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="insets">
-                                        <size key="value" width="0.0" height="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="cancel:" destination="eE2-rt-SMr" eventType="touchUpInside" id="gDY-zu-jS6"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1E-PN-xcp" customClass="WLPressButton">
+                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Rx-X7-5Up" customClass="WLPressButton">
                                 <rect key="frame" x="266" y="24" width="42" height="36"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -919,49 +831,167 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="next:" destination="eE2-rt-SMr" eventType="touchUpInside" id="Rx3-9g-KUf"/>
+                                    <action selector="next:" destination="eE2-rt-SMr" eventType="touchUpInside" id="8tj-Ro-9jn"/>
                                 </connections>
                             </button>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ec-rf-ucJ">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cd4-1E-QcP">
+                                        <rect key="frame" x="123" y="83" width="75" height="75"/>
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="75"/>
+                                        <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1 925-682-1888" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="s7C-hv-ivf" customClass="WLLabel">
+                                        <rect key="frame" x="86" y="170" width="148" height="26"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                                        <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CpJ-kC-doC" customClass="WLProgressBar">
+                                        <rect key="frame" x="53" y="196" width="216" height="5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="5" id="Zqb-0P-HLI"/>
+                                            <constraint firstAttribute="width" constant="216" id="le3-9n-Lc4"/>
+                                        </constraints>
+                                    </view>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Verification code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lc0-Sk-CJb" customClass="WLTextField">
+                                        <rect key="frame" x="70" y="208" width="180" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="KQZ-Q7-7Tv"/>
+                                            <constraint firstAttribute="width" constant="180" id="vfH-BF-Ucu"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are sending you a 4-digit code. Enter it above to verify your phone number." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="a1z-Vo-fE0" customClass="WLLabel">
+                                        <rect key="frame" x="13" y="252" width="295" height="36"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                                        <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Haven't received the SMS?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="r04-q5-jeO" customClass="WLLabel">
+                                        <rect key="frame" x="81" y="308" width="159" height="18"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                                        <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rvs-HT-UrH" customClass="WLPressButton">
+                                        <rect key="frame" x="12" y="332" width="296" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                                        <state key="normal" title="Try the voice call option">
+                                            <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleLabel.numberOfLines">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                                <size key="value" width="0.0" height="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="call:" destination="eE2-rt-SMr" eventType="touchUpInside" id="1TZ-gd-wru"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bx6-G7-X4j" customClass="WLButton">
+                                        <rect key="frame" x="12" y="374" width="296" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                                        <state key="normal" title="Use another phone number">
+                                            <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                                <size key="value" width="0.0" height="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="cancel:" destination="eE2-rt-SMr" eventType="touchUpInside" id="Mif-pD-jvY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="r04-q5-jeO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8Ec-rf-ucJ" secondAttribute="leading" constant="12" id="02W-g3-RXn"/>
+                                    <constraint firstAttribute="centerX" secondItem="CpJ-kC-doC" secondAttribute="centerX" constant="-1" id="3ne-eK-Gx0"/>
+                                    <constraint firstItem="a1z-Vo-fE0" firstAttribute="top" secondItem="lc0-Sk-CJb" secondAttribute="bottom" constant="12" id="3xU-A2-Shy"/>
+                                    <constraint firstAttribute="centerX" secondItem="lc0-Sk-CJb" secondAttribute="centerX" id="5yI-WL-7Oi"/>
+                                    <constraint firstAttribute="centerX" secondItem="r04-q5-jeO" secondAttribute="centerX" id="BOA-jQ-5F0"/>
+                                    <constraint firstItem="CpJ-kC-doC" firstAttribute="top" secondItem="s7C-hv-ivf" secondAttribute="bottom" id="EdD-Ug-REs"/>
+                                    <constraint firstAttribute="centerX" secondItem="s7C-hv-ivf" secondAttribute="centerX" id="Ens-ay-6cJ"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="r04-q5-jeO" secondAttribute="trailing" constant="12" id="G2h-VZ-Ybx"/>
+                                    <constraint firstAttribute="centerX" secondItem="cd4-1E-QcP" secondAttribute="centerX" id="Gmm-wg-cMU"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bx6-G7-X4j" secondAttribute="trailing" constant="12" id="H43-yj-Z2B"/>
+                                    <constraint firstAttribute="trailing" secondItem="Rvs-HT-UrH" secondAttribute="trailing" constant="12" id="K4E-1h-pfT"/>
+                                    <constraint firstItem="s7C-hv-ivf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8Ec-rf-ucJ" secondAttribute="leading" constant="12" id="N8H-ir-0Q8"/>
+                                    <constraint firstItem="s7C-hv-ivf" firstAttribute="top" secondItem="cd4-1E-QcP" secondAttribute="bottom" constant="12" id="Sc7-Gj-emQ"/>
+                                    <constraint firstItem="Bx6-G7-X4j" firstAttribute="top" secondItem="Rvs-HT-UrH" secondAttribute="bottom" constant="12" id="VK2-7X-VGy"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="s7C-hv-ivf" secondAttribute="trailing" constant="12" id="VPg-B1-7Pc"/>
+                                    <constraint firstItem="Rvs-HT-UrH" firstAttribute="leading" secondItem="8Ec-rf-ucJ" secondAttribute="leading" constant="12" id="Zdz-pN-lHC"/>
+                                    <constraint firstAttribute="centerY" secondItem="cd4-1E-QcP" secondAttribute="top" multiplier="2.5" id="c1x-QX-obM"/>
+                                    <constraint firstAttribute="centerX" secondItem="a1z-Vo-fE0" secondAttribute="centerX" id="daF-aA-UT3"/>
+                                    <constraint firstItem="lc0-Sk-CJb" firstAttribute="top" secondItem="s7C-hv-ivf" secondAttribute="bottom" constant="12" id="fiC-6x-MXW"/>
+                                    <constraint firstAttribute="bottom" secondItem="Bx6-G7-X4j" secondAttribute="bottom" constant="12" id="g9m-XY-G0J"/>
+                                    <constraint firstItem="a1z-Vo-fE0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8Ec-rf-ucJ" secondAttribute="leading" constant="12" id="hFK-Jf-hPj"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="a1z-Vo-fE0" secondAttribute="trailing" constant="12" id="nZs-8A-bY7"/>
+                                    <constraint firstAttribute="centerX" secondItem="Bx6-G7-X4j" secondAttribute="centerX" id="oKa-6g-uIR"/>
+                                    <constraint firstItem="Rvs-HT-UrH" firstAttribute="top" secondItem="r04-q5-jeO" secondAttribute="bottom" constant="6" id="ofG-K5-LwU"/>
+                                    <constraint firstAttribute="centerX" secondItem="Rvs-HT-UrH" secondAttribute="centerX" id="vZZ-no-W8f"/>
+                                    <constraint firstItem="Bx6-G7-X4j" firstAttribute="leading" secondItem="8Ec-rf-ucJ" secondAttribute="leading" constant="12" id="zET-wr-Jpo"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eMe-eq-OIH" secondAttribute="trailing" constant="12" id="0Tf-QM-2UA"/>
-                            <constraint firstAttribute="centerX" secondItem="B2D-li-Al0" secondAttribute="centerX" id="28F-vb-ann"/>
-                            <constraint firstAttribute="trailing" secondItem="k1E-PN-xcp" secondAttribute="trailing" constant="12" id="4FA-Jk-lQM"/>
-                            <constraint firstItem="T4H-t0-WgJ" firstAttribute="leading" secondItem="Mo2-7K-jPH" secondAttribute="leading" constant="12" id="9wh-2a-xTE"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cP5-dA-Wip" secondAttribute="trailing" constant="12" id="AU6-Zo-ZK7"/>
-                            <constraint firstItem="6x3-Il-k4e" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Mo2-7K-jPH" secondAttribute="leading" constant="12" id="Eal-wx-t3u"/>
-                            <constraint firstItem="cP5-dA-Wip" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Mo2-7K-jPH" secondAttribute="leading" constant="12" id="I3G-sn-gOH"/>
-                            <constraint firstItem="eMe-eq-OIH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Mo2-7K-jPH" secondAttribute="leading" constant="12" id="IU2-oM-diJ"/>
-                            <constraint firstAttribute="centerX" secondItem="eMe-eq-OIH" secondAttribute="centerX" id="M0u-DH-CDF"/>
-                            <constraint firstAttribute="centerX" secondItem="a3e-r8-TjK" secondAttribute="centerX" id="Olv-7G-zmO"/>
-                            <constraint firstItem="nLq-n1-HdY" firstAttribute="top" secondItem="T4H-t0-WgJ" secondAttribute="bottom" constant="12" id="PIw-V3-Mh8"/>
-                            <constraint firstAttribute="trailing" secondItem="T4H-t0-WgJ" secondAttribute="trailing" constant="12" id="SWv-Vw-OSe"/>
-                            <constraint firstItem="a3e-r8-TjK" firstAttribute="top" secondItem="6x3-Il-k4e" secondAttribute="bottom" constant="6" id="UCY-t7-aqy"/>
-                            <constraint firstAttribute="trailing" secondItem="a3e-r8-TjK" secondAttribute="trailing" constant="12" id="Xxx-ns-cc4"/>
-                            <constraint firstItem="T4H-t0-WgJ" firstAttribute="top" secondItem="a3e-r8-TjK" secondAttribute="bottom" constant="12" id="Z9i-3B-Z3S"/>
-                            <constraint firstItem="a3e-r8-TjK" firstAttribute="leading" secondItem="Mo2-7K-jPH" secondAttribute="leading" constant="12" id="ZL3-g1-2jU"/>
-                            <constraint firstAttribute="centerX" secondItem="jVI-Mi-sCq" secondAttribute="centerX" id="c4r-6K-2vc"/>
-                            <constraint firstAttribute="centerX" secondItem="cP5-dA-Wip" secondAttribute="centerX" id="dbY-Vr-Cos"/>
-                            <constraint firstItem="B2D-li-Al0" firstAttribute="top" secondItem="eMe-eq-OIH" secondAttribute="bottom" constant="12" id="fTm-kl-N6w"/>
-                            <constraint firstAttribute="centerX" secondItem="mpo-NF-SZ1" secondAttribute="centerX" constant="-1" id="hFe-DX-FZm"/>
-                            <constraint firstAttribute="centerX" secondItem="6x3-Il-k4e" secondAttribute="centerX" id="jPB-6k-6Ww"/>
-                            <constraint firstAttribute="centerY" secondItem="jVI-Mi-sCq" secondAttribute="top" multiplier="2.5" id="ks9-kD-IPq"/>
-                            <constraint firstItem="mpo-NF-SZ1" firstAttribute="top" secondItem="eMe-eq-OIH" secondAttribute="bottom" id="m5m-Rj-W19"/>
-                            <constraint firstAttribute="centerX" secondItem="T4H-t0-WgJ" secondAttribute="centerX" id="q0s-Wu-igQ"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6x3-Il-k4e" secondAttribute="trailing" constant="12" id="qqt-uV-C4O"/>
-                            <constraint firstAttribute="top" secondItem="k1E-PN-xcp" secondAttribute="centerY" constant="-42" id="tKd-pu-seD"/>
-                            <constraint firstItem="eMe-eq-OIH" firstAttribute="top" secondItem="jVI-Mi-sCq" secondAttribute="bottom" constant="12" id="to1-AW-hjo"/>
-                            <constraint firstItem="cP5-dA-Wip" firstAttribute="top" secondItem="B2D-li-Al0" secondAttribute="bottom" constant="12" id="uM5-HH-1op"/>
+                            <constraint firstAttribute="trailing" secondItem="8Ec-rf-ucJ" secondAttribute="trailing" id="9I0-Ep-poo"/>
+                            <constraint firstItem="8Ec-rf-ucJ" firstAttribute="leading" secondItem="bUN-Fw-Y1p" secondAttribute="leading" id="EmF-qw-ybh"/>
+                            <constraint firstItem="8Ec-rf-ucJ" firstAttribute="top" secondItem="8e3-cE-tfJ" secondAttribute="bottom" constant="44" id="Hzh-dN-fms"/>
+                            <constraint firstItem="BnE-Xf-kE8" firstAttribute="top" secondItem="8Ec-rf-ucJ" secondAttribute="bottom" id="MBp-SF-5TJ"/>
+                            <constraint firstAttribute="trailing" secondItem="0Rx-X7-5Up" secondAttribute="trailing" constant="12" id="TXY-7f-fmg"/>
+                            <constraint firstItem="0Rx-X7-5Up" firstAttribute="centerY" secondItem="8e3-cE-tfJ" secondAttribute="bottom" constant="22" id="VRQ-s8-60U"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="activationTextField" destination="B2D-li-Al0" id="Hxo-u3-3eb"/>
-                        <outlet property="nextButton" destination="k1E-PN-xcp" id="2LN-VS-8c3"/>
-                        <outlet property="phoneNumberLabel" destination="eMe-eq-OIH" id="nBk-zH-0CB"/>
-                        <outlet property="progressBar" destination="mpo-NF-SZ1" id="1r7-XR-bs9"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="tKd-pu-seD" id="yjU-RQ-osX"/>
+                        <outlet property="activationTextField" destination="lc0-Sk-CJb" id="XYK-pN-Dbv"/>
+                        <outlet property="phoneNumberLabel" destination="s7C-hv-ivf" id="Tjp-Pa-M3N"/>
+                        <outlet property="progressBar" destination="CpJ-kC-doC" id="aMA-Go-SNJ"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="c1x-QX-obM" id="zRI-aK-F0f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u1T-QI-tAn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -972,8 +1002,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="inputView" destination="B2D-li-Al0" id="a7g-ZE-kf7"/>
-                        <outlet property="statusView" destination="k1E-PN-xcp" id="gt7-Bb-zRm"/>
+                        <outlet property="inputView" destination="lc0-Sk-CJb" id="6Sf-aL-g0j"/>
+                        <outlet property="statusView" destination="0Rx-X7-5Up" id="bz0-3G-sLv"/>
                     </connections>
                 </customObject>
             </objects>
@@ -984,70 +1014,14 @@
             <objects>
                 <viewController storyboardIdentifier="WLLinkDeviceViewController" automaticallyAdjustsScrollViewInsets="NO" id="NDJ-L2-4IJ" customClass="WLLinkDeviceViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Zca-rd-c7y"/>
-                        <viewControllerLayoutGuide type="bottom" id="hKS-0a-Xf1"/>
+                        <viewControllerLayoutGuide type="top" id="xwL-po-hkw"/>
+                        <viewControllerLayoutGuide type="bottom" id="jGo-CV-5BT"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="eE5-MV-bkG">
+                    <view key="view" contentMode="scaleToFill" id="Cnf-YA-6NX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="U" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3wl-xa-U2p">
-                                <rect key="frame" x="110" y="96" width="100" height="100"/>
-                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="100"/>
-                                <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="e" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdp-v5-0nr" customClass="WLCircleLabel">
-                                <rect key="frame" x="100" y="101" width="20" height="20"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="pFS-jj-Lph"/>
-                                    <constraint firstAttribute="height" constant="20" id="sCk-M5-bDh"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="14"/>
-                                <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="We are sending you a passcode through e-mail and phone..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="otQ-7a-PwI" customClass="WLLabel">
-                                <rect key="frame" x="19" y="208" width="283" height="52"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Passcode" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="9tR-2B-Ymo" customClass="WLTextField">
-                                <rect key="frame" x="70" y="272" width="180" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="B3h-OA-7uz"/>
-                                    <constraint firstAttribute="width" constant="180" id="jhr-Ck-v7A"/>
-                                </constraints>
-                                <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                </userDefinedRuntimeAttributes>
-                            </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The passcode is required to link this device to your wrapLive account. Enter it below when you receive it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="q2s-IS-vfL" customClass="WLLabel">
-                                <rect key="frame" x="14" y="316" width="293" height="54"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
-                                <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OCh-KP-hoQ" customClass="WLPressButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Lq-nT-Bu5" customClass="WLPressButton">
                                 <rect key="frame" x="266" y="23" width="42" height="38"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
@@ -1061,35 +1035,102 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="next:" destination="NDJ-L2-4IJ" eventType="touchUpInside" id="thI-xB-bNE"/>
+                                    <action selector="next:" destination="NDJ-L2-4IJ" eventType="touchUpInside" id="Ko8-Nt-HaG"/>
                                 </connections>
                             </button>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jzM-0K-Eik">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="U" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WcF-UP-za8">
+                                        <rect key="frame" x="110" y="83" width="100" height="100"/>
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="100"/>
+                                        <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="e" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Evd-kM-q8a" customClass="WLCircleLabel">
+                                        <rect key="frame" x="100" y="88" width="20" height="20"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="qgR-d2-w9b"/>
+                                            <constraint firstAttribute="height" constant="20" id="vYl-X1-dPy"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="14"/>
+                                        <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are sending you a passcode through e-mail and phone..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3SS-8p-5Y2" customClass="WLLabel">
+                                        <rect key="frame" x="19" y="195" width="283" height="52"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                                        <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Passcode" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="YRq-AS-iKU" customClass="WLTextField">
+                                        <rect key="frame" x="70" y="259" width="180" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="180" id="NBN-aq-z6c"/>
+                                            <constraint firstAttribute="height" constant="32" id="aLM-kv-FDH"/>
+                                        </constraints>
+                                        <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The passcode is required to link this device to your wrapLive account. Enter it below when you receive it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="HrT-ph-Lnj" customClass="WLLabel">
+                                        <rect key="frame" x="14" y="303" width="293" height="54"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                                        <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="WcF-UP-za8" secondAttribute="centerX" id="AnY-ef-J91"/>
+                                    <constraint firstItem="3SS-8p-5Y2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jzM-0K-Eik" secondAttribute="leading" constant="12" id="E9Q-d0-Ghu"/>
+                                    <constraint firstItem="Evd-kM-q8a" firstAttribute="centerX" secondItem="WcF-UP-za8" secondAttribute="leading" id="J60-w3-iGh"/>
+                                    <constraint firstItem="3SS-8p-5Y2" firstAttribute="top" secondItem="WcF-UP-za8" secondAttribute="bottom" constant="12" id="JPw-bS-EB1"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HrT-ph-Lnj" secondAttribute="trailing" constant="12" id="Lpr-1v-L4P"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3SS-8p-5Y2" secondAttribute="trailing" constant="12" id="OfF-rQ-Lt3"/>
+                                    <constraint firstItem="HrT-ph-Lnj" firstAttribute="top" secondItem="YRq-AS-iKU" secondAttribute="bottom" constant="12" id="PLV-wN-olf"/>
+                                    <constraint firstAttribute="centerX" secondItem="HrT-ph-Lnj" secondAttribute="centerX" id="VqP-S6-2Va"/>
+                                    <constraint firstItem="Evd-kM-q8a" firstAttribute="centerY" secondItem="WcF-UP-za8" secondAttribute="top" constant="15" id="Wwc-9t-pOF"/>
+                                    <constraint firstAttribute="centerY" secondItem="WcF-UP-za8" secondAttribute="top" multiplier="2.5" id="WxW-B4-8dN"/>
+                                    <constraint firstItem="YRq-AS-iKU" firstAttribute="top" secondItem="3SS-8p-5Y2" secondAttribute="bottom" constant="12" id="YfK-cL-qIu"/>
+                                    <constraint firstItem="HrT-ph-Lnj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jzM-0K-Eik" secondAttribute="leading" constant="12" id="bGj-3g-5wY"/>
+                                    <constraint firstAttribute="centerX" secondItem="3SS-8p-5Y2" secondAttribute="centerX" id="cgt-jd-fqf"/>
+                                    <constraint firstAttribute="centerX" secondItem="YRq-AS-iKU" secondAttribute="centerX" id="haw-Dj-iic"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="top" secondItem="OCh-KP-hoQ" secondAttribute="centerY" constant="-42" id="9gP-yY-ZNX"/>
-                            <constraint firstAttribute="trailing" secondItem="OCh-KP-hoQ" secondAttribute="trailing" constant="12" id="DEa-d9-S2M"/>
-                            <constraint firstAttribute="centerX" secondItem="3wl-xa-U2p" secondAttribute="centerX" id="G7k-sb-2EX"/>
-                            <constraint firstItem="q2s-IS-vfL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eE5-MV-bkG" secondAttribute="leading" constant="12" id="Pqh-j3-xhm"/>
-                            <constraint firstItem="otQ-7a-PwI" firstAttribute="top" secondItem="3wl-xa-U2p" secondAttribute="bottom" constant="12" id="XFj-DT-p3f"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="q2s-IS-vfL" secondAttribute="trailing" constant="12" id="Xbr-ID-h3E"/>
-                            <constraint firstItem="jdp-v5-0nr" firstAttribute="centerY" secondItem="3wl-xa-U2p" secondAttribute="top" constant="15" id="ZI5-Cs-1at"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="otQ-7a-PwI" secondAttribute="trailing" constant="12" id="a05-AQ-Yqs"/>
-                            <constraint firstAttribute="centerX" secondItem="9tR-2B-Ymo" secondAttribute="centerX" id="cw8-Q7-Jaa"/>
-                            <constraint firstItem="jdp-v5-0nr" firstAttribute="centerX" secondItem="3wl-xa-U2p" secondAttribute="leading" id="eWs-ki-gMe"/>
-                            <constraint firstAttribute="centerX" secondItem="q2s-IS-vfL" secondAttribute="centerX" id="iaF-rS-SDc"/>
-                            <constraint firstAttribute="centerX" secondItem="otQ-7a-PwI" secondAttribute="centerX" id="lNY-ft-KAr"/>
-                            <constraint firstItem="q2s-IS-vfL" firstAttribute="top" secondItem="9tR-2B-Ymo" secondAttribute="bottom" constant="12" id="llq-Fk-RBc"/>
-                            <constraint firstAttribute="centerY" secondItem="3wl-xa-U2p" secondAttribute="top" multiplier="2.5" id="mfo-rc-1rE"/>
-                            <constraint firstItem="9tR-2B-Ymo" firstAttribute="top" secondItem="otQ-7a-PwI" secondAttribute="bottom" constant="12" id="pqV-44-3a6"/>
-                            <constraint firstItem="otQ-7a-PwI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eE5-MV-bkG" secondAttribute="leading" constant="12" id="yLJ-aT-hhG"/>
+                            <constraint firstAttribute="trailing" secondItem="2Lq-nT-Bu5" secondAttribute="trailing" constant="12" id="3Z3-d0-43R"/>
+                            <constraint firstItem="2Lq-nT-Bu5" firstAttribute="centerY" secondItem="xwL-po-hkw" secondAttribute="bottom" constant="22" id="OE9-Nf-zhe"/>
+                            <constraint firstItem="jzM-0K-Eik" firstAttribute="leading" secondItem="Cnf-YA-6NX" secondAttribute="leading" id="WFz-DG-m4W"/>
+                            <constraint firstItem="jzM-0K-Eik" firstAttribute="top" secondItem="xwL-po-hkw" secondAttribute="bottom" constant="44" id="act-YD-q2u"/>
+                            <constraint firstAttribute="trailing" secondItem="jzM-0K-Eik" secondAttribute="trailing" id="gl5-kN-1FA"/>
+                            <constraint firstItem="jGo-CV-5BT" firstAttribute="top" secondItem="jzM-0K-Eik" secondAttribute="bottom" id="izD-B9-qnE"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="nextButton" destination="OCh-KP-hoQ" id="5bg-Nw-mE1"/>
-                        <outlet property="passcodeField" destination="9tR-2B-Ymo" id="k0s-2H-dpK"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="9gP-yY-ZNX" id="zIN-DS-kUz"/>
+                        <outlet property="passcodeField" destination="YRq-AS-iKU" id="xEk-u6-TDQ"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="WxW-B4-8dN" id="lYG-jZ-yTG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R5a-k7-OpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1100,8 +1141,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="inputView" destination="9tR-2B-Ymo" id="Udm-Tx-uza"/>
-                        <outlet property="statusView" destination="OCh-KP-hoQ" id="kVA-2L-x4R"/>
+                        <outlet property="inputView" destination="YRq-AS-iKU" id="doX-gc-Mew"/>
+                        <outlet property="statusView" destination="2Lq-nT-Bu5" id="Afp-Zc-CUm"/>
                     </connections>
                 </customObject>
             </objects>
@@ -1119,7 +1160,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dic-nj-hNr">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dic-nj-hNr">
                                 <rect key="frame" x="110" y="96" width="100" height="112"/>
                                 <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="100"/>
                                 <state key="normal" title="N">
@@ -1130,7 +1171,7 @@
                                     <action selector="success:" destination="TZ4-9w-lte" eventType="touchUpInside" id="nwj-GE-cxX"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="+1 925-682-1888" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="4lQ-Tq-xhb" customClass="WLLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1 925-682-1888" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="4lQ-Tq-xhb" customClass="WLLabel">
                                 <rect key="frame" x="-1" y="220" width="320" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="YMw-bj-1WY"/>
@@ -1143,7 +1184,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The phone number is verified successfully!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="8j1-H5-7Co" customClass="WLLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The phone number is verified successfully!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="8j1-H5-7Co" customClass="WLLabel">
                                 <rect key="frame" x="29" y="276" width="260" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="260" id="4sD-4A-obT"/>
@@ -1156,39 +1197,19 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfv-V8-vOc" customClass="WLPressButton">
-                                <rect key="frame" x="266" y="23" width="42" height="38"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                <state key="normal" title="Next">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="success:" destination="TZ4-9w-lte" eventType="touchUpInside" id="OXe-iR-Q5j"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="rfv-V8-vOc" secondAttribute="trailing" constant="12" id="2rW-Ot-U9c"/>
                             <constraint firstAttribute="centerX" secondItem="dic-nj-hNr" secondAttribute="centerX" id="BRV-wu-wf8"/>
                             <constraint firstItem="8j1-H5-7Co" firstAttribute="top" secondItem="4lQ-Tq-xhb" secondAttribute="bottom" constant="36" id="WOv-dO-uXl"/>
                             <constraint firstItem="4lQ-Tq-xhb" firstAttribute="centerX" secondItem="8j1-H5-7Co" secondAttribute="centerX" id="bGU-HR-blE"/>
                             <constraint firstItem="4lQ-Tq-xhb" firstAttribute="centerX" secondItem="dic-nj-hNr" secondAttribute="centerX" constant="-0.5" id="fGg-rR-mPv"/>
                             <constraint firstItem="4lQ-Tq-xhb" firstAttribute="top" secondItem="dic-nj-hNr" secondAttribute="bottom" constant="12" id="q4H-92-6Gv"/>
-                            <constraint firstAttribute="top" secondItem="rfv-V8-vOc" secondAttribute="centerY" constant="-42" id="sjT-vm-63H"/>
                             <constraint firstAttribute="centerY" secondItem="dic-nj-hNr" secondAttribute="top" multiplier="2.5" id="xKI-40-X1q"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="nextButton" destination="rfv-V8-vOc" id="A2o-Ku-2Nf"/>
                         <outlet property="phoneLabel" destination="4lQ-Tq-xhb" id="FPc-qp-4Ca"/>
                     </connections>
                 </viewController>
@@ -1208,13 +1229,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AxY-pq-P6Z">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AxY-pq-P6Z">
                                 <rect key="frame" x="95" y="96" width="130" height="130"/>
                                 <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="130"/>
                                 <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="+1 925-682-1888" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="f59-g6-xEE" customClass="WLLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1 925-682-1888" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="f59-g6-xEE" customClass="WLLabel">
                                 <rect key="frame" x="0.0" y="252" width="320" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="3l7-gi-tGE"/>
@@ -1227,7 +1248,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The verification code is not valid." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="sFh-WJ-4GR" customClass="WLLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The verification code is not valid." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="sFh-WJ-4GR" customClass="WLLabel">
                                 <rect key="frame" x="30" y="282" width="260" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="260" id="Tbc-ID-6rl"/>
@@ -1240,7 +1261,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xte-7W-F0S" customClass="WLPressButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xte-7W-F0S" customClass="WLPressButton">
                                 <rect key="frame" x="12" y="384" width="296" height="36"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
@@ -1264,7 +1285,7 @@
                                     <segue destination="tja-qe-Vt1" kind="unwind" unwindAction="backSegue:" id="mim-2W-NNv"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uIo-Dt-OO6" customClass="WLPressButton">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uIo-Dt-OO6" customClass="WLPressButton">
                                 <rect key="frame" x="12" y="432" width="296" height="36"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
@@ -1333,13 +1354,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="U" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeU-cQ-5LR">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="U" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeU-cQ-5LR">
                                 <rect key="frame" x="110" y="96" width="100" height="100"/>
                                 <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="100"/>
                                 <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aLz-rT-osv" customClass="WLCircleLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aLz-rT-osv" customClass="WLCircleLabel">
                                 <rect key="frame" x="190" y="161" width="40" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1358,7 +1379,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="e" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ii-ci-OaB" customClass="WLCircleLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="e" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ii-ci-OaB" customClass="WLCircleLabel">
                                 <rect key="frame" x="100" y="101" width="20" height="20"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1377,7 +1398,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Successful!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCY-vc-S18" customClass="WLLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Successful!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCY-vc-S18" customClass="WLLabel">
                                 <rect key="frame" x="112" y="208" width="97" height="26"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
@@ -1386,7 +1407,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You have linked this device to your wrapLive account. Enjoy!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Itw-PI-Mz8" customClass="WLLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have linked this device to your wrapLive account. Enjoy!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Itw-PI-Mz8" customClass="WLLabel">
                                 <rect key="frame" x="27" y="242" width="266" height="52"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
@@ -1395,7 +1416,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zwb-OE-87q" customClass="WLPressButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zwb-OE-87q" customClass="WLPressButton">
                                 <rect key="frame" x="266" y="23" width="42" height="38"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
@@ -1449,13 +1470,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7GI-ju-dg4">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7GI-ju-dg4">
                                 <rect key="frame" x="110" y="96" width="100" height="100"/>
                                 <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="100"/>
                                 <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEV-9f-WM8" customClass="WLCircleLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEV-9f-WM8" customClass="WLCircleLabel">
                                 <rect key="frame" x="185" y="156" width="40" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1474,7 +1495,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="calvin@ravenpod.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="CYI-Om-Lg8" customClass="WLLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="calvin@ravenpod.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="CYI-Om-Lg8" customClass="WLLabel">
                                 <rect key="frame" x="62" y="208" width="196" height="26"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
@@ -1483,7 +1504,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="is confirmed successfully!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="Vxz-ag-TOf" customClass="WLLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="is confirmed successfully!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="Vxz-ag-TOf" customClass="WLLabel">
                                 <rect key="frame" x="48" y="234" width="225" height="26"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
@@ -1492,35 +1513,16 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="erk-mO-XXr" customClass="WLPressButton">
-                                <rect key="frame" x="266" y="23" width="42" height="38"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                <state key="normal" title="Next">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="success:" destination="cxC-vG-j0j" eventType="touchUpInside" id="wsn-Dp-YY7"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="7GI-ju-dg4" firstAttribute="bottom" secondItem="QEV-9f-WM8" secondAttribute="centerY" constant="20" id="868-bx-j5M"/>
-                            <constraint firstAttribute="top" secondItem="erk-mO-XXr" secondAttribute="centerY" constant="-42" id="9bV-ML-ypi"/>
                             <constraint firstItem="Vxz-ag-TOf" firstAttribute="top" secondItem="CYI-Om-Lg8" secondAttribute="bottom" id="LEB-ak-mBO"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Vxz-ag-TOf" secondAttribute="trailing" constant="12" id="M0h-Un-gMn"/>
                             <constraint firstAttribute="centerX" secondItem="Vxz-ag-TOf" secondAttribute="centerX" id="Mhq-bz-cdF"/>
                             <constraint firstItem="7GI-ju-dg4" firstAttribute="trailing" secondItem="QEV-9f-WM8" secondAttribute="centerX" constant="5" id="Oc8-Lb-TR6"/>
                             <constraint firstAttribute="centerY" secondItem="7GI-ju-dg4" secondAttribute="top" multiplier="2.5" id="Puw-mQ-gAW"/>
                             <constraint firstItem="Vxz-ag-TOf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ANT-x2-N9w" secondAttribute="leading" constant="12" id="Y4S-ul-htf"/>
-                            <constraint firstAttribute="trailing" secondItem="erk-mO-XXr" secondAttribute="trailing" constant="12" id="dtR-wH-NzN"/>
                             <constraint firstAttribute="centerX" secondItem="7GI-ju-dg4" secondAttribute="centerX" id="jXH-Ao-LJD"/>
                             <constraint firstAttribute="centerX" secondItem="CYI-Om-Lg8" secondAttribute="centerX" id="nIr-Ry-j7o"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CYI-Om-Lg8" secondAttribute="trailing" constant="12" id="uzX-x8-w8j"/>
@@ -1531,7 +1533,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="emailLabel" destination="CYI-Om-Lg8" id="ey8-Fz-owy"/>
-                        <outlet property="nextButton" destination="erk-mO-XXr" id="KVx-1f-TXt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OhW-L6-8Fr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1550,13 +1551,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f96-U3-yuT">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f96-U3-yuT">
                                 <rect key="frame" x="110" y="96" width="100" height="100"/>
                                 <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="100"/>
                                 <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="calvin@ravenpod.com" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fab-q9-FLD" customClass="WLLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="calvin@ravenpod.com" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fab-q9-FLD" customClass="WLLabel">
                                 <rect key="frame" x="62" y="196" width="196" height="26"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
@@ -1565,7 +1566,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="dRx-kr-5xI" customClass="WLLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="dRx-kr-5xI" customClass="WLLabel">
                                 <rect key="frame" x="12" y="234" width="296" height="54"/>
                                 <string key="text">We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue</string>
                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13"/>
@@ -1575,7 +1576,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oIH-Zc-2Z8" customClass="WLPressButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oIH-Zc-2Z8" customClass="WLPressButton">
                                 <rect key="frame" x="12" y="300" width="296" height="36"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
@@ -1595,7 +1596,7 @@
                                     <action selector="resend:" destination="vZf-ZB-Nuz" eventType="touchUpInside" id="swH-3u-DcI"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dM9-5p-U8h" customClass="WLButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dM9-5p-U8h" customClass="WLButton">
                                 <rect key="frame" x="12" y="348" width="296" height="36"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
@@ -1653,99 +1654,14 @@
             <objects>
                 <viewController storyboardIdentifier="WLProfileInformationViewController" automaticallyAdjustsScrollViewInsets="NO" id="d1e-rR-MvT" customClass="WLProfileInformationViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PJg-xY-Kbf"/>
-                        <viewControllerLayoutGuide type="bottom" id="0Io-lc-vPJ"/>
+                        <viewControllerLayoutGuide type="top" id="bnk-1q-dk7"/>
+                        <viewControllerLayoutGuide type="bottom" id="xMa-Vx-xXv"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="1dn-qN-171">
+                    <view key="view" contentMode="scaleToFill" id="13W-n3-6MP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Edit your profile" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="239" translatesAutoresizingMaskIntoConstraints="NO" id="LYr-tm-LJf" customClass="WLLabel">
-                                <rect key="frame" x="89" y="96" width="142" height="26"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fV-w2-es8">
-                                <rect key="frame" x="86" y="142" width="148" height="148"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-large-avatar" translatesAutoresizingMaskIntoConstraints="NO" id="KoU-yi-ap4" customClass="WLImageView">
-                                        <rect key="frame" x="0.0" y="0.0" width="148" height="148"/>
-                                    </imageView>
-                                    <view alpha="0.5" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="DNH-sn-XuA" customClass="WLGradientView">
-                                        <rect key="frame" x="0.0" y="110" width="148" height="38"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="38" id="JRy-6Q-j7V"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                                <color key="value" white="0.10100000351667404" alpha="0.5" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="endLocation">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="teN-0U-7gh">
-                                        <rect key="frame" x="0.0" y="0.0" width="148" height="148"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="4"/>
-                                        <state key="normal" image="camera">
-                                            <color key="titleShadowColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <state key="highlighted" image="camera_darkGray"/>
-                                        <connections>
-                                            <action selector="createImage:" destination="d1e-rR-MvT" eventType="touchUpInside" id="PRS-gn-moa"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="teN-0U-7gh" secondAttribute="bottom" id="0L6-a4-RwS"/>
-                                    <constraint firstAttribute="trailing" secondItem="DNH-sn-XuA" secondAttribute="trailing" id="0lM-V0-2kH"/>
-                                    <constraint firstItem="teN-0U-7gh" firstAttribute="top" secondItem="2fV-w2-es8" secondAttribute="top" id="6xT-WB-NO0"/>
-                                    <constraint firstAttribute="bottom" secondItem="DNH-sn-XuA" secondAttribute="bottom" id="8h5-1o-3gI"/>
-                                    <constraint firstItem="teN-0U-7gh" firstAttribute="leading" secondItem="2fV-w2-es8" secondAttribute="leading" id="BMW-dK-iBf"/>
-                                    <constraint firstAttribute="bottom" secondItem="KoU-yi-ap4" secondAttribute="bottom" id="Cxf-kR-G5o"/>
-                                    <constraint firstAttribute="height" constant="148" id="Jmz-VP-rkI"/>
-                                    <constraint firstItem="KoU-yi-ap4" firstAttribute="leading" secondItem="2fV-w2-es8" secondAttribute="leading" id="Png-hP-ncM"/>
-                                    <constraint firstAttribute="trailing" secondItem="KoU-yi-ap4" secondAttribute="trailing" id="S7Y-nS-tPL"/>
-                                    <constraint firstItem="DNH-sn-XuA" firstAttribute="leading" secondItem="2fV-w2-es8" secondAttribute="leading" id="V4P-nA-aAK"/>
-                                    <constraint firstItem="KoU-yi-ap4" firstAttribute="top" secondItem="2fV-w2-es8" secondAttribute="top" id="a6L-H9-Kkx"/>
-                                    <constraint firstAttribute="trailing" secondItem="teN-0U-7gh" secondAttribute="trailing" id="faZ-Wq-uU1"/>
-                                    <constraint firstAttribute="width" constant="148" id="uXj-Xt-6uV"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="74"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="HcW-vf-tjk" customClass="WLTextField">
-                                <rect key="frame" x="86" y="310" width="148" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="LCG-uK-ZxP"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="148" id="sRS-LA-NWI"/>
-                                </constraints>
-                                <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="delegate" destination="d1e-rR-MvT" id="0cB-H9-qbe"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rzT-No-Yli" customClass="WLPressButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cr9-5f-gle" customClass="WLPressButton">
                                 <rect key="frame" x="256" y="23" width="52" height="38"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
@@ -1761,33 +1677,130 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="goToMainScreen:" destination="d1e-rR-MvT" eventType="touchUpInside" id="iVV-iD-x31"/>
+                                    <action selector="goToMainScreen:" destination="d1e-rR-MvT" eventType="touchUpInside" id="VNv-WH-Upb"/>
                                 </connections>
                             </button>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yju-eX-q2q">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit your profile" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="239" translatesAutoresizingMaskIntoConstraints="NO" id="JDb-jD-Zkt" customClass="WLLabel">
+                                        <rect key="frame" x="89" y="83" width="142" height="26"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
+                                        <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhc-3f-yxE">
+                                        <rect key="frame" x="86" y="129" width="148" height="148"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-large-avatar" translatesAutoresizingMaskIntoConstraints="NO" id="GBt-Gv-Nj2" customClass="WLImageView">
+                                                <rect key="frame" x="0.0" y="0.0" width="148" height="148"/>
+                                            </imageView>
+                                            <view alpha="0.5" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="01M-Fs-Ao7" customClass="WLGradientView">
+                                                <rect key="frame" x="0.0" y="110" width="148" height="38"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="38" id="N7P-L2-n4h"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                        <color key="value" white="0.1010000035" alpha="0.5" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="endLocation">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="trg-qA-KZr">
+                                                <rect key="frame" x="0.0" y="0.0" width="148" height="148"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="4"/>
+                                                <state key="normal" image="camera">
+                                                    <color key="titleShadowColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <state key="highlighted" image="camera_darkGray"/>
+                                                <connections>
+                                                    <action selector="createImage:" destination="d1e-rR-MvT" eventType="touchUpInside" id="Tzy-FX-gUW"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="GBt-Gv-Nj2" secondAttribute="trailing" id="0mb-Ig-ewC"/>
+                                            <constraint firstItem="trg-qA-KZr" firstAttribute="top" secondItem="bhc-3f-yxE" secondAttribute="top" id="Dbe-ec-UBs"/>
+                                            <constraint firstAttribute="bottom" secondItem="GBt-Gv-Nj2" secondAttribute="bottom" id="HQj-OU-pNC"/>
+                                            <constraint firstAttribute="trailing" secondItem="trg-qA-KZr" secondAttribute="trailing" id="Oiz-d8-xQn"/>
+                                            <constraint firstAttribute="bottom" secondItem="trg-qA-KZr" secondAttribute="bottom" id="PUC-1W-5D4"/>
+                                            <constraint firstItem="01M-Fs-Ao7" firstAttribute="leading" secondItem="bhc-3f-yxE" secondAttribute="leading" id="Y5E-dq-toF"/>
+                                            <constraint firstItem="GBt-Gv-Nj2" firstAttribute="leading" secondItem="bhc-3f-yxE" secondAttribute="leading" id="aZ4-Qg-rxd"/>
+                                            <constraint firstAttribute="trailing" secondItem="01M-Fs-Ao7" secondAttribute="trailing" id="g8T-Zc-b2j"/>
+                                            <constraint firstAttribute="width" constant="148" id="gNU-gO-DRQ"/>
+                                            <constraint firstItem="GBt-Gv-Nj2" firstAttribute="top" secondItem="bhc-3f-yxE" secondAttribute="top" id="kHT-Cw-YWd"/>
+                                            <constraint firstAttribute="bottom" secondItem="01M-Fs-Ao7" secondAttribute="bottom" id="n5J-er-EbW"/>
+                                            <constraint firstAttribute="height" constant="148" id="tXF-uz-rVg"/>
+                                            <constraint firstItem="trg-qA-KZr" firstAttribute="leading" secondItem="bhc-3f-yxE" secondAttribute="leading" id="zGD-Kl-n8q"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="74"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7e9-qT-sff" customClass="WLTextField">
+                                        <rect key="frame" x="86" y="297" width="148" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="148" id="jrl-rz-i2O"/>
+                                            <constraint firstAttribute="height" constant="32" id="tOL-4p-ihP"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="nameChanged:" destination="d1e-rR-MvT" eventType="editingChanged" id="3ng-au-cOg"/>
+                                            <outlet property="delegate" destination="d1e-rR-MvT" id="pAG-MP-djW"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="7e9-qT-sff" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yju-eX-q2q" secondAttribute="leading" constant="12" id="0pP-NM-py3"/>
+                                    <constraint firstAttribute="centerY" secondItem="JDb-jD-Zkt" secondAttribute="top" multiplier="2.5" id="C6J-kD-Q81"/>
+                                    <constraint firstAttribute="centerX" secondItem="JDb-jD-Zkt" secondAttribute="centerX" id="Rgz-r4-jq3"/>
+                                    <constraint firstItem="bhc-3f-yxE" firstAttribute="top" secondItem="JDb-jD-Zkt" secondAttribute="bottom" constant="20" id="Z1u-wN-Egn"/>
+                                    <constraint firstItem="7e9-qT-sff" firstAttribute="top" secondItem="bhc-3f-yxE" secondAttribute="bottom" constant="20" id="eyS-tf-z2T"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7e9-qT-sff" secondAttribute="trailing" constant="12" id="hHn-RY-vCY"/>
+                                    <constraint firstAttribute="centerX" secondItem="7e9-qT-sff" secondAttribute="centerX" id="s0x-WM-75p"/>
+                                    <constraint firstAttribute="centerX" secondItem="bhc-3f-yxE" secondAttribute="centerX" id="tjf-WR-wRc"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="rzT-No-Yli" secondAttribute="trailing" constant="12" id="EqO-rI-qgt"/>
-                            <constraint firstAttribute="centerX" secondItem="2fV-w2-es8" secondAttribute="centerX" id="LZw-es-4bf"/>
-                            <constraint firstItem="HcW-vf-tjk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1dn-qN-171" secondAttribute="leading" constant="12" id="U6b-52-Y2F"/>
-                            <constraint firstAttribute="centerX" secondItem="LYr-tm-LJf" secondAttribute="centerX" id="bNz-Kk-GEW"/>
-                            <constraint firstAttribute="top" secondItem="rzT-No-Yli" secondAttribute="centerY" constant="-42" id="bgQ-ji-euJ"/>
-                            <constraint firstAttribute="centerX" secondItem="HcW-vf-tjk" secondAttribute="centerX" id="cLX-4t-zVS"/>
-                            <constraint firstAttribute="centerY" secondItem="LYr-tm-LJf" secondAttribute="top" multiplier="2.5" id="cbs-Mk-rgP"/>
-                            <constraint firstItem="HcW-vf-tjk" firstAttribute="top" secondItem="2fV-w2-es8" secondAttribute="bottom" constant="20" id="jEa-yb-49D"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HcW-vf-tjk" secondAttribute="trailing" constant="12" id="v7V-b3-xrh"/>
-                            <constraint firstItem="2fV-w2-es8" firstAttribute="top" secondItem="LYr-tm-LJf" secondAttribute="bottom" constant="20" id="vOX-SJ-RXf"/>
+                            <constraint firstItem="yju-eX-q2q" firstAttribute="top" secondItem="bnk-1q-dk7" secondAttribute="bottom" constant="44" id="FfH-is-t3Q"/>
+                            <constraint firstItem="yju-eX-q2q" firstAttribute="leading" secondItem="13W-n3-6MP" secondAttribute="leading" id="FqQ-ZL-Jhr"/>
+                            <constraint firstItem="cr9-5f-gle" firstAttribute="centerY" secondItem="bnk-1q-dk7" secondAttribute="bottom" constant="22" id="JXT-0I-eti"/>
+                            <constraint firstAttribute="trailing" secondItem="cr9-5f-gle" secondAttribute="trailing" constant="12" id="f8r-th-HW1"/>
+                            <constraint firstItem="xMa-Vx-xXv" firstAttribute="top" secondItem="yju-eX-q2q" secondAttribute="bottom" id="tiD-rd-vIl"/>
+                            <constraint firstAttribute="trailing" secondItem="yju-eX-q2q" secondAttribute="trailing" id="weP-XB-0mO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="uiW-q5-c5G"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="continueButton" destination="rzT-No-Yli" id="kxf-sb-pAj"/>
-                        <outlet property="createImageButton" destination="teN-0U-7gh" id="7Ak-qR-kxl"/>
-                        <outlet property="nameTextField" destination="HcW-vf-tjk" id="RzA-nx-BSC"/>
-                        <outlet property="nextButton" destination="rzT-No-Yli" id="DEJ-rb-Ywm"/>
-                        <outlet property="profileImageView" destination="KoU-yi-ap4" id="KLr-mf-Tic"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="bgQ-ji-euJ" id="oM4-gr-BQR"/>
+                        <outlet property="continueButton" destination="cr9-5f-gle" id="dEd-hf-Fq3"/>
+                        <outlet property="createImageButton" destination="trg-qA-KZr" id="1OX-V4-y4S"/>
+                        <outlet property="nameTextField" destination="7e9-qT-sff" id="vSb-fC-lIo"/>
+                        <outlet property="profileImageView" destination="GBt-Gv-Nj2" id="5fb-4g-0G7"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="C6J-kD-Q81" id="2ve-yZ-JTs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Udc-2D-xji" userLabel="First Responder" sceneMemberID="firstResponder"/>

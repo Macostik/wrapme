@@ -116,8 +116,9 @@
 	[self verifyContinueButton];
 }
 
-- (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
-    return WLConstants.iPhone ? (keyboardHeight - self.continueButton.height)/2.0f : 0;
+- (IBAction)nameChanged:(id)sender {
+    self.editSession.name = self.nameTextField.text;
+    [self verifyContinueButton];
 }
 
 @end

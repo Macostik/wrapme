@@ -179,10 +179,6 @@
     
 }
 
-- (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
-    return WLConstants.iPhone ? self.headerView.bounds.size.height : 0;
-}
-
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return [[[self.childViewControllers lastObject] topViewController] preferredStatusBarStyle];
 }

@@ -15,4 +15,6 @@
 
 - (void)makeResizibleSubview:(UIView *)view;
 
+- (id)findFirstResponder;
+
 @end

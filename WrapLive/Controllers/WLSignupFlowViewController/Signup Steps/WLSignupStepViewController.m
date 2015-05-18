@@ -9,6 +9,7 @@
 #import "WLSignupStepViewController.h"
 #import "WLNavigationHelper.h"
 #import "WLKeyboard.h"
+#import "UIView+Extentions.h"
 
 @interface WLSignupStepViewController ()
 
@@ -33,6 +34,13 @@
 }
 
 - (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
+    UIView *firstResponder = [self.view findFirstResponder];
+    if (firstResponder) {
+        CGFloat responderCenterY = firstResponder.center.y + 64;
+        CGFloat centerYOfVisibleSpace = (self.view.height - keyboardHeight - 64)/2 + 64;
+        return MAX(0, (responderCenterY - centerYOfVisibleSpace) * constraint.multiplier);
+        
+    }
     return WLConstants.iPhone ? keyboardHeight / 2 : 0;
 }
 
@@ -109,24 +117,7 @@
     }
 }
 
-- (void)keyboardDidHide:(WLKeyboard *)keyboard {
-    [super keyboardDidHide:keyboard];
-    if (WLConstants.iPhone) {
-        [self setNeedsStatusBarAppearanceUpdate];
-    }
-}
-
-- (void)keyboardDidShow:(WLKeyboard *)keyboard {
-    [super keyboardDidShow:keyboard];
-    if (WLConstants.iPhone) {
-        [self setNeedsStatusBarAppearanceUpdate];
-    }
-}
-
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if (WLConstants.iPhone) {
-        return [WLKeyboard keyboard].isShow ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent;
-    }
     return UIStatusBarStyleLightContent;
 }
 

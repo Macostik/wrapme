@@ -33,4 +33,17 @@
     [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
 }
 
+- (id)findFirstResponder {
+    if (self.isFirstResponder) {
+        return self;
+    }
+    for (UIView *subView in self.subviews) {
+        UIView *firstResponder = [subView findFirstResponder];
+        if (firstResponder) {
+            return firstResponder;
+        }
+    }
+    return nil;
+}
+
 @end

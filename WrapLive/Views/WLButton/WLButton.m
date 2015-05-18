@@ -123,26 +123,37 @@
         UIView *accessoryView = self.accessoryView;
         if (loading) {
             accessoryView.hidden = YES;
-            CGPoint center;
-            if (accessoryView) {
-                center = [self convertPoint:accessoryView.center fromView:accessoryView.superview];
-            } else {
-                CGSize size = self.bounds.size;
-                center = CGPointMake(size.width - size.height/2, size.height/2);
-            }
             UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-            spinner.center = center;
             if (self.spinnerColor) {
                 spinner.color = self.spinnerColor;
             } else {
                 spinner.color = [self titleColorForState:UIControlStateNormal];
             }
-            [self addSubview:spinner];
+            CGPoint center;
+            UIView *spinnerSuperview = self;
+            if (accessoryView) {
+                center = [self convertPoint:accessoryView.center fromView:accessoryView.superview];
+            } else {
+                CGFloat contentWidth = [self sizeThatFits:self.size].width;
+                if ((self.width - contentWidth) < spinner.width) {
+                    spinnerSuperview = self.superview;
+                    center = self.center;
+                    self.hidden = YES;
+                } else {
+                    CGSize size = self.bounds.size;
+                    center = CGPointMake(size.width - size.height/2, size.height/2);
+                }
+            }
+            spinner.center = center;
+            [spinnerSuperview addSubview:spinner];
             [spinner startAnimating];
             self.spinner = spinner;
             self.userInteractionEnabled = NO;
         } else {
             accessoryView.hidden = NO;
+            if (self.spinner.superview != self) {
+                self.hidden = NO;
+            }
             [self.spinner removeFromSuperview];
             self.userInteractionEnabled = YES;
         }
@@ -201,25 +212,30 @@ static CGFloat minTouchSize = 44;
 
 @end
 
-@implementation WLRoundButton
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.layer.borderColor = self.borderColor.CGColor;
-    self.layer.cornerRadius = self.cornerRadius;
-    self.layer.borderWidth = self.borderWidth;
-}
+@implementation UIView (Borders)
 
 - (UIColor *)borderColor {
-    return _borderColor != nil ? _borderColor : [UIColor clearColor];
+    return [UIColor colorWithCGColor:self.layer.borderColor];
 }
 
-- (CGFloat)borderRadius {
-    return _cornerRadius > .0 ? _cornerRadius : .0;
+- (void)setBorderColor:(UIColor *)borderColor {
+    self.layer.borderColor = borderColor.CGColor;
+}
+
+- (CGFloat)cornerRadius {
+    return self.layer.cornerRadius;
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius {
+    self.layer.cornerRadius = cornerRadius;
 }
 
 - (CGFloat)borderWidth {
-    return  _borderWidth > .0 ? _borderWidth : .0;
+    return  self.layer.borderWidth;
+}
+
+- (void)setBorderWidth:(CGFloat)borderWidth {
+    self.layer.borderWidth = borderWidth;
 }
 
 @end

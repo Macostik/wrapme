@@ -31,3 +31,29 @@
 }
 
 @end
+
+@implementation WLCircleLabel
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.layer.cornerRadius = self.height/2.0f;
+    self.layer.masksToBounds = YES;
+}
+
+- (void)setBorderWidth:(CGFloat)borderWidth {
+    self.layer.borderWidth = borderWidth;
+}
+
+- (CGFloat)borderWidth {
+    return self.layer.borderWidth;
+}
+
+- (void)setBorderColor:(UIColor *)borderColor {
+    self.layer.borderColor = borderColor.CGColor;
+}
+
+- (UIColor *)borderColor {
+    return [UIColor colorWithCGColor:self.layer.borderColor];
+}
+
+@end

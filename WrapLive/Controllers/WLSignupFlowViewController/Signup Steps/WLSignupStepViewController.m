@@ -8,13 +8,13 @@
 
 #import "WLSignupStepViewController.h"
 #import "WLNavigationHelper.h"
+#import "WLKeyboard.h"
 
 @interface WLSignupStepViewController ()
 
 @property (strong, nonatomic) NSMutableDictionary* completionBlocks;
 
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
-@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 
 @end
 
@@ -30,6 +30,10 @@
     if (self.emailLabel) {
         self.emailLabel.text = [WLAuthorization currentAuthorization].email;
     }
+}
+
+- (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
+    return WLConstants.iPhone ? keyboardHeight / 2 : 0;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -103,6 +107,27 @@
     if (![self setCancelStatusAnimated:YES]) {
         [self.navigationController popViewControllerAnimated:NO];
     }
+}
+
+- (void)keyboardDidHide:(WLKeyboard *)keyboard {
+    [super keyboardDidHide:keyboard];
+    if (WLConstants.iPhone) {
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
+}
+
+- (void)keyboardDidShow:(WLKeyboard *)keyboard {
+    [super keyboardDidShow:keyboard];
+    if (WLConstants.iPhone) {
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    if (WLConstants.iPhone) {
+        return [WLKeyboard keyboard].isShow ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent;
+    }
+    return UIStatusBarStyleLightContent;
 }
 
 @end

@@ -46,10 +46,12 @@
 
 @interface WLPressButton : WLButton @end
 
-@interface WLRoundButton : WLButton 
+@interface UIView (Borders)
 
 @property (strong, nonatomic) IBInspectable UIColor  *borderColor;
-@property (assign, nonatomic) IBInspectable CGFloat cornerRadius;
-@property (assign, nonatomic) IBInspectable CGFloat borderWidth;
+
+@property (nonatomic) IBInspectable CGFloat cornerRadius;
+
+@property (nonatomic) IBInspectable CGFloat borderWidth;
 
 @end

@@ -28,16 +28,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.emailField.text = [WLAuthorization currentAuthorization].email;
-    
-    for (UIView* subview in self.view.subviews) {
-        NSUInteger index = [self.view.subviews indexOfObject:subview];
-        subview.transform = CGAffineTransformMakeTranslation(-self.view.bounds.size.width, 0);
-        [UIView animateWithDuration:0.5 delay:index/20.0f usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            subview.transform = CGAffineTransformIdentity;
-        } completion:^(BOOL finished) {
-            
-        }];
-    }
 }
 
 - (IBAction)next:(WLButton*)sender {
@@ -76,10 +66,6 @@
             }
         } cancel:nil];
     }];
-}
-
-- (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
-    return keyboardHeight/2.0f;
 }
 
 @end

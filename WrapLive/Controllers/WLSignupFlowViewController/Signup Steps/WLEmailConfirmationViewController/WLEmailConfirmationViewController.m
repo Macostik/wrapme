@@ -13,6 +13,8 @@
 @interface WLEmailConfirmationViewController () <WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) WLNotificationChannel* userChannel;
+@property (weak, nonatomic) IBOutlet UIButton *resendEmailButton;
+@property (weak, nonatomic) IBOutlet UIButton *useAnotherEmailButton;
 
 @end
 
@@ -25,6 +27,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.emailLabel.text = [NSString stringWithFormat:@"%@ is not confirmed yet", [WLAuthorization currentAuthorization].email];
+    
+    self.useAnotherEmailButton.layer.borderWidth = 1;
+    self.useAnotherEmailButton.layer.borderColor = [self.useAnotherEmailButton titleColorForState:UIControlStateNormal].CGColor;
+    
     NSString *userUID = [WLUser currentUser].identifier;
     if (userUID.nonempty) {
         [[WLUser notifier] addReceiver:self];

@@ -18,12 +18,16 @@
 #import "WLActivationViewController.h"
 #import "WLNavigationAnimator.h"
 #import "UIView+AnimationHelper.h"
+#import "UIView+QuatzCoreAnimations.h"
 
 @interface WLSignupFlowViewController () <UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeaderConstraint;
 
 @property (strong, nonatomic) NSMutableSet* stepViewControllers;
+
+@property (weak, nonatomic) UIButton *nextButton;
 
 @end
 
@@ -61,7 +65,6 @@
 - (void)configureSignupFlow:(UINavigationController*)navigationController {
     
     __weak WLEmailViewController* emailStep = [self stepViewController:@"WLEmailViewController"];
-    navigationController.viewControllers = @[emailStep];
     __weak WLPhoneViewController* phoneStep = [self stepViewController:@"WLPhoneViewController"];
     __weak WLActivationViewController* verificationStep = [self stepViewController:@"WLActivationViewController"];
     __weak WLLinkDeviceViewController* linkDeviceStep = [self stepViewController:@"WLLinkDeviceViewController"];
@@ -72,6 +75,7 @@
     __weak WLSignupStepViewController* emailConfirmationSuccessStep = [self stepViewController:@"WLEmailConfirmationSuccessViewController"];
     __weak WLProfileInformationViewController* profileStep = [self stepViewController:@"WLProfileInformationViewController"];
     
+    navigationController.viewControllers = @[emailStep];
     // final completion block
     
     WLSignupStepCompletionBlock completeSignUp = ^WLSignupStepViewController *{
@@ -176,11 +180,11 @@
 }
 
 - (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
-    return self.headerView.bounds.size.height;
+    return WLConstants.iPhone ? self.headerView.bounds.size.height : 0;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
+    return [[[self.childViewControllers lastObject] topViewController] preferredStatusBarStyle];
 }
 
 #pragma mark - UINavigationControllerDelegate
@@ -194,7 +198,11 @@
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     __weak typeof(self)weakSelf = self;
     [UIView performAnimated:animated animation:^{
-        weakSelf.headerView.alpha = [viewController isKindOfClass:[WLSignupStepViewController class]] ? 1.0f : 0.0f;
+        if ([viewController isKindOfClass:[WLSignupStepViewController class]]) {
+            weakSelf.headerView.alpha = 1.0f;
+        } else {
+            weakSelf.headerView.alpha = 0.0f;
+        }
     }];
 }
 

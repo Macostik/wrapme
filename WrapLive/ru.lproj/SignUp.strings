@@ -1,129 +1,108 @@
 
-/* Class = "IBUILabel"; text = "+1 925-682-1888"; ObjectID = "4lQ-Tq-xhb"; */
-"4lQ-Tq-xhb.text" = "+1 925-682-1888";
+/* Class = "UILabel"; text = "Select your country"; ObjectID = "5MV-3s-wuD"; */
+"5MV-3s-wuD.text" = "Выберите свою страну";
 
-/* Class = "IBUILabel"; text = "Select your country"; ObjectID = "5MV-3s-wuD"; */
-"5MV-3s-wuD.text" = "Выберите Вашу страну";
+/* Class = "UILabel"; text = "Haven't received the SMS?"; ObjectID = "6x3-Il-k4e"; */
+"6x3-Il-k4e.text" = "Не приходит SMS?";
 
-/* Class = "IBUILabel"; text = "The phone number is verified successfully!"; ObjectID = "8j1-H5-7Co"; */
-"8j1-H5-7Co.text" = "Номер телефона действительный!";
+/* Class = "UILabel"; text = "The phone number is verified successfully!"; ObjectID = "8j1-H5-7Co"; */
+"8j1-H5-7Co.text" = "Номер телефона подтвержден успешно!";
 
-/* Class = "IBUIButton"; normalTitle = "Next"; ObjectID = "9Pv-aD-dP3"; */
-"9Pv-aD-dP3.normalTitle" = "Дальше";
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "9Pv-aD-dP3"; */
+"9Pv-aD-dP3.normalTitle" = "Далее";
 
-/* Class = "IBUITextField"; placeholder = "Passcode"; ObjectID = "9tR-2B-Ymo"; */
-"9tR-2B-Ymo.placeholder" = "Пасскод";
+/* Class = "UITextField"; placeholder = "Passcode"; ObjectID = "9tR-2B-Ymo"; */
+"9tR-2B-Ymo.placeholder" = "Пароль";
 
-/* Class = "IBUITextField"; placeholder = "Verification code"; ObjectID = "B2D-li-Al0"; */
-"B2D-li-Al0.placeholder" = "Код проверки";
+/* Class = "UITextField"; placeholder = "Verification code"; ObjectID = "B2D-li-Al0"; */
+"B2D-li-Al0.placeholder" = "Код подтверждения";
 
-/* Class = "IBUILabel"; text = "calvin@ravenpod.com"; ObjectID = "CYI-Om-Lg8"; */
-"CYI-Om-Lg8.text" = "calvin@ravenpod.com";
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "HI0-ff-mXa"; */
+"HI0-ff-mXa.normalTitle" = "Далее";
 
-/* Class = "IBUILabel"; text = "calvin@ravenpod.com"; ObjectID = "Fab-q9-FLD"; */
-"Fab-q9-FLD.text" = "calvin@ravenpod.com";
-
-/* Class = "IBUIButton"; normalTitle = "Next"; ObjectID = "HI0-ff-mXa"; */
-"HI0-ff-mXa.normalTitle" = "Дальше";
-
-/* Class = "IBUITextField"; placeholder = "Your name"; ObjectID = "HcW-vf-tjk"; */
+/* Class = "UITextField"; placeholder = "Your name"; ObjectID = "HcW-vf-tjk"; */
 "HcW-vf-tjk.placeholder" = "Ваше имя";
 
-/* Class = "IBUILabel"; text = "You have linked this device to your wrapLive account. Enjoy!"; ObjectID = "Itw-PI-Mz8"; */
-"Itw-PI-Mz8.text" = "Вы добавили это устройство к wrapLive аккаунту. Наслаждайтесь!";
+/* Class = "UILabel"; text = "You have linked this device to your wrapLive account. Enjoy!"; ObjectID = "Itw-PI-Mz8"; */
+"Itw-PI-Mz8.text" = "Вы присоединили это устройство к Вашему wrapLive аккаунту. Наслаждайтесь!";
 
-/* Class = "IBUIButton"; normalTitle = "Use test account"; ObjectID = "Km1-Wj-3a4"; */
-"Km1-Wj-3a4.normalTitle" = "Тестовые аккаунты";
+/* Class = "UIButton"; normalTitle = "Use test account"; ObjectID = "Km1-Wj-3a4"; */
+"Km1-Wj-3a4.normalTitle" = "Use test account";
 
-/* Class = "IBUILabel"; text = "Add your photo and name to complete your profile"; ObjectID = "LYr-tm-LJf"; */
-"LYr-tm-LJf.text" = "Добавьте имя и фото для Вашего профайла";
+/* Class = "UILabel"; text = "Edit your profile"; ObjectID = "LYr-tm-LJf"; */
+"LYr-tm-LJf.text" = "Отредактируйте свой профиль";
 
-/* Class = "IBUIButton"; normalTitle = "Next"; ObjectID = "OCh-KP-hoQ"; */
-"OCh-KP-hoQ.normalTitle" = "Дальше";
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "OCh-KP-hoQ"; */
+"OCh-KP-hoQ.normalTitle" = "Далее";
 
-/* Class = "IBUILabel"; text = "is not confirmed yet"; ObjectID = "Ozz-Wr-kgY"; */
-"Ozz-Wr-kgY.text" = "не подтверждено еще";
+/* Class = "UIButton"; normalTitle = "Select Country"; ObjectID = "Pla-to-4nx"; */
+"Pla-to-4nx.normalTitle" = "Выберите страну";
 
-/* Class = "IBUIButton"; normalTitle = "Select Country"; ObjectID = "Pla-to-4nx"; */
-"Pla-to-4nx.normalTitle" = "Выбор страны";
+/* Class = "UILabel"; text = "wrapLive will send one time SMS message to verify your phone number. Carrier SMS charges may apply."; ObjectID = "RcF-WP-Qlr"; */
+"RcF-WP-Qlr.text" = "wrapLive отправит одноразовое SMS-сообщение, чтобы подтвердить Ваш номер. Могут потребоватся расходы, установленные SMS-провайдером.";
 
-/* Class = "IBUILabel"; text = "wrapLive will send one time SMS message to verify your phone number. Carrier SMS charges may apply."; ObjectID = "RcF-WP-Qlr"; */
-"RcF-WP-Qlr.text" = "wrapLive будет отправлено SMS сообщение для проверки Вашего номера. SMS сообщение может быть платным.";
+/* Class = "UIButton"; normalTitle = "Use another phone number"; ObjectID = "T4H-t0-WgJ"; */
+"T4H-t0-WgJ.normalTitle" = "Использовать другой номер телефона";
 
-/* Class = "IBUIButton"; normalTitle = "Use another phone number"; ObjectID = "T4H-t0-WgJ"; */
-"T4H-t0-WgJ.normalTitle" = "Используйте другой номер";
+/* Class = "UILabel"; text = "is confirmed successfully!"; ObjectID = "Vxz-ag-TOf"; */
+"Vxz-ag-TOf.text" = "успешно подтвержден!";
 
-/* Class = "IBUILabel"; text = "is confirmed successfully!"; ObjectID = "Vxz-ag-TOf"; */
-"Vxz-ag-TOf.text" = "проверка успешна!";
-
-/* Class = "IBUIButton"; normalTitle = "Terms and Conditions"; ObjectID = "YBa-zu-GaJ"; */
+/* Class = "UIButton"; normalTitle = "Terms and Conditions"; ObjectID = "YBa-zu-GaJ"; */
 "YBa-zu-GaJ.normalTitle" = "Сроки и условия";
 
-/* Class = "IBUIButton"; normalTitle = "Start wrapLive"; ObjectID = "Zwb-OE-87q"; */
-"Zwb-OE-87q.normalTitle" = "Начало wrapLive";
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "Zwb-OE-87q"; */
+"Zwb-OE-87q.normalTitle" = "Далее";
 
-/* Class = "IBUITextField"; placeholder = "555-555-5555"; ObjectID = "bu4-Pb-hw9"; */
-"bu4-Pb-hw9.placeholder" = "555-555-5555";
+/* Class = "UIButton"; normalTitle = "Try the voice call option"; ObjectID = "a3e-r8-TjK"; */
+"a3e-r8-TjK.normalTitle" = "Использовать голосовой звонок";
 
-/* Class = "IBUILabel"; text = "Country"; ObjectID = "cKx-Py-m2B"; */
+/* Class = "UILabel"; text = "Country"; ObjectID = "cKx-Py-m2B"; */
 "cKx-Py-m2B.text" = "Страна";
 
-/* Class = "IBUILabel"; text = "We are sending you a 4-digit code. Enter it below to verify your phone number."; ObjectID = "cP5-dA-Wip"; */
-"cP5-dA-Wip.text" = "Мы отправили Вам 4 значный код. Введите его ниже для проверки Вашего номера.";
+/* Class = "UILabel"; text = "We are sending you a 4-digit code. Enter it above to verify your phone number."; ObjectID = "cP5-dA-Wip"; */
+"cP5-dA-Wip.text" = "Мы отправляем Вам 4-х значный код. Введите его ниже для подтверждения Вашего номера";
 
-/* Class = "IBUIButton"; normalTitle = "Use another e-mail"; ObjectID = "dM9-5p-U8h"; */
-"dM9-5p-U8h.normalTitle" = "Используйте другую почту";
+/* Class = "UIButton"; normalTitle = "Use another e-mail"; ObjectID = "dM9-5p-U8h"; */
+"dM9-5p-U8h.normalTitle" = "Использовать другой почтовый адрес";
 
-/* Class = "IBUILabel"; text = "We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue"; ObjectID = "dRx-kr-5xI"; */
+/* Class = "UILabel"; text = "We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue"; ObjectID = "dRx-kr-5xI"; */
 "dRx-kr-5xI.text" = "Нам необходимо проверить Вашу почту, прежде чем будет добывлено устройство к аккаунту. Пожалуйста, перейдите по ссылке для продолжения";
 
-/* Class = "IBUILabel"; text = "+1 925-682-1888"; ObjectID = "eMe-eq-OIH"; */
-"eMe-eq-OIH.text" = "+1 925-682-1888";
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "erk-mO-XXr"; */
+"erk-mO-XXr.normalTitle" = "Далее";
 
-/* Class = "IBUIButton"; normalTitle = "Next"; ObjectID = "erk-mO-XXr"; */
-"erk-mO-XXr.normalTitle" = "Дальше";
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "k1E-PN-xcp"; */
+"k1E-PN-xcp.normalTitle" = "Далее";
 
-/* Class = "IBUILabel"; text = "+1 925-682-1888"; ObjectID = "f59-g6-xEE"; */
-"f59-g6-xEE.text" = "+1 925-682-1888";
+/* Class = "UIButton"; normalTitle = "Resend the e-mail"; ObjectID = "oIH-Zc-2Z8"; */
+"oIH-Zc-2Z8.normalTitle" = "Переотправить письмо";
 
-/* Class = "IBUIButton"; normalTitle = "Next"; ObjectID = "k1E-PN-xcp"; */
-"k1E-PN-xcp.normalTitle" = "Дальше";
-
-/* Class = "IBUIButton"; normalTitle = "Resend the e-mail"; ObjectID = "oIH-Zc-2Z8"; */
-"oIH-Zc-2Z8.normalTitle" = "Отпр. на почту";
-
-/* Class = "IBUILabel"; text = "We are sending you a passcode through e-mail and phone..."; ObjectID = "otQ-7a-PwI"; */
+/* Class = "UILabel"; text = "We are sending you a passcode through e-mail and phone..."; ObjectID = "otQ-7a-PwI"; */
 "otQ-7a-PwI.text" = "Мы отравили Вам код на почту и телефон...";
 
-/* Class = "IBUILabel"; text = "What is your phone number?"; ObjectID = "pmp-Nw-u2O"; */
-"pmp-Nw-u2O.text" = "Какой у Вас номер телефона?";
+/* Class = "UILabel"; text = "What is your phone number?"; ObjectID = "pmp-Nw-u2O"; */
+"pmp-Nw-u2O.text" = "Кокой у Вас номер телефона?";
 
-/* Class = "IBUILabel"; text = "The passcode is required to link this device to your wrapLive account. Enter it below when you receive it."; ObjectID = "q2s-IS-vfL"; */
-"q2s-IS-vfL.text" = "Код необходим, чтобы подвязать это устройство к wrapLive аккаунту. Введите его ниже, когда получите.";
+/* Class = "UILabel"; text = "The passcode is required to link this device to your wrapLive account. Enter it below when you receive it."; ObjectID = "q2s-IS-vfL"; */
+"q2s-IS-vfL.text" = "Пароль необходим, чтобы присоединить это устройство к wrapLive аккаунту. Введите его ниже, когда получите.";
 
-/* Class = "IBUILabel"; text = "Successful!"; ObjectID = "qCY-vc-S18"; */
+/* Class = "UILabel"; text = "Successful!"; ObjectID = "qCY-vc-S18"; */
 "qCY-vc-S18.text" = "Успешно!";
 
-/* Class = "IBUILabel"; text = "+1"; ObjectID = "rdD-gx-2di"; */
-"rdD-gx-2di.text" = "+1";
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "rfv-V8-vOc"; */
+"rfv-V8-vOc.normalTitle" = "Далее";
 
-/* Class = "IBUIButton"; normalTitle = "Next"; ObjectID = "rfv-V8-vOc"; */
-"rfv-V8-vOc.normalTitle" = "Дальше";
+/* Class = "UIButton"; normalTitle = "Finish"; ObjectID = "rzT-No-Yli"; */
+"rzT-No-Yli.normalTitle" = "Завершить";
 
-/* Class = "IBUIButton"; normalTitle = "Continue"; ObjectID = "rzT-No-Yli"; */
-"rzT-No-Yli.normalTitle" = "Продолжить";
+/* Class = "UILabel"; text = "The verification code is not valid."; ObjectID = "sFh-WJ-4GR"; */
+"sFh-WJ-4GR.text" = "Код подтверждения неверный.";
 
-/* Class = "IBUILabel"; text = "The verification code is not valid."; ObjectID = "sFh-WJ-4GR"; */
-"sFh-WJ-4GR.text" = "Код проверки не правильный.";
+/* Class = "UIButton"; normalTitle = "Edit phone number"; ObjectID = "uIo-Dt-OO6"; */
+"uIo-Dt-OO6.normalTitle" = "Изменить номер телефона";
 
-/* Class = "IBUIButton"; normalTitle = "Edit phone number"; ObjectID = "uIo-Dt-OO6"; */
-"uIo-Dt-OO6.normalTitle" = "Редактирование номера";
+/* Class = "UIButton"; normalTitle = "Try again"; ObjectID = "xte-7W-F0S"; */
+"xte-7W-F0S.normalTitle" = "Попробовать еще раз";
 
-/* Class = "IBUITextField"; placeholder = "john@example.com"; ObjectID = "xPt-wX-3Db"; */
-"xPt-wX-3Db.placeholder" = "john@example.com";
-
-/* Class = "IBUIButton"; normalTitle = "Try again"; ObjectID = "xte-7W-F0S"; */
-"xte-7W-F0S.normalTitle" = "Попытатайтесь снова";
-
-/* Class = "IBUILabel"; text = "What is your email?"; ObjectID = "zgM-iC-MDR"; */
-"zgM-iC-MDR.text" = "Какая Ваша почта?";
+/* Class = "UILabel"; text = "What is your email?"; ObjectID = "zgM-iC-MDR"; */
+"zgM-iC-MDR.text" = "Какой Ваш почтовый адрес?";

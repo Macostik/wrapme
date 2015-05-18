@@ -22,6 +22,10 @@ typedef WLSignupStepViewController *(^WLSignupLinkDeviceStepBlock) (BOOL shouldS
 
 @interface WLSignupStepViewController : WLBaseViewController
 
+@property (strong, nonatomic) IBOutlet UIButton *nextButton;
+
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
+
 - (void)setCompletionBlock:(WLSignupStepCompletionBlock)block forStatus:(NSUInteger)status;
 
 - (void)setSuccessStatusBlock:(WLSignupStepCompletionBlock)block;

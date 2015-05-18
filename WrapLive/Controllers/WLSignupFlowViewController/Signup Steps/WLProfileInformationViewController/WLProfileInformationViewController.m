@@ -117,7 +117,7 @@
 }
 
 - (CGFloat)keyboardAdjustmentForConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
-    return (keyboardHeight - self.continueButton.height)/2.0f;
+    return WLConstants.iPhone ? (keyboardHeight - self.continueButton.height)/2.0f : 0;
 }
 
 @end

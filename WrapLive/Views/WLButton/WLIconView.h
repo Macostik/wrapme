@@ -17,3 +17,11 @@
 @property (strong, nonatomic) IBInspectable NSString *iconPreset;
 
 @end
+
+@interface WLCircleLabel : UILabel
+
+@property (nonatomic) IBInspectable CGFloat borderWidth;
+
+@property (strong, nonatomic) IBInspectable UIColor *borderColor;
+
+@end

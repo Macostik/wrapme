@@ -417,7 +417,6 @@
     if (item.completed) {
         item = [self.history.entries tryObjectAtIndex:[self.history.entries indexOfObject:item] + 1];
         if (item) {
-            self.historyItem = item;
             WLCandyViewController *candyViewController = [self candyViewController:[item.entries firstObject]];
             return candyViewController;
         }
@@ -439,7 +438,6 @@
     } else {
         item = [self.history.entries tryObjectAtIndex:[self.history.entries indexOfObject:item] - 1];
         if (item) {
-            self.historyItem = item;
             WLCandyViewController *candyViewController = [self candyViewController:[item.entries lastObject]];
             return candyViewController;
         }
@@ -449,6 +447,7 @@
 
 - (void)didChangeViewController:(WLCandyViewController *)viewController {
     self.candy = [viewController candy];
+    self.historyItem = [self.history itemWithCandy:self.candy];
     self.currentCandyIndex = [self.historyItem.entries indexOfObject:self.candy];
     [self fetchCandiesOlderThen:self.candy];
     [self fetchHistoryItemsOlderThen:self.historyItem];

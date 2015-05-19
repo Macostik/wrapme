@@ -22,6 +22,7 @@
 #import "WLDownloadingView.h"
 #import "WLImageCache.h"
 #import "WLUploadPhotoViewController.h"
+#import "WLPostEditingUploadCandyRequest.h"
 #import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
 #import <AdobeCreativeSDKFoundation/AdobeCreativeSDKFoundation.h>
 
@@ -223,7 +224,7 @@
     [self.candyIndicator updateStatusIndicator:_candy];
     self.candyIndicator.hidden = NO;
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"warning";
-    self.editButton.hidden = !_candy.contributor.isCurrentUser || ![_candy uploaded];
+    self.editButton.hidden = ![_candy uploaded];
     [self setCommentButtonTitle:_candy];
     self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), _candy.contributor.name];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
@@ -375,7 +376,10 @@
         weakSelf.candy.picture = picture;
         [weakSelf.candy notifyOnUpdate];
         
-        // request
+        [[WLPostEditingUploadCandyRequest request:weakSelf.candy] send:^(WLCandy *candy) {
+        } failure:^(NSError *error) {
+            [error show];
+        }];
     }];
     [self.navigationController popViewControllerAnimated:NO];
 }

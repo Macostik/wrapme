@@ -3675,7 +3675,7 @@ Check your internet connection and try again.</string>
                                                             </connections>
                                                         </textView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i2e-Xd-doh" customClass="WLEntryStatusIndicator">
-                                                            <rect key="frame" x="72" y="40" width="16" height="11"/>
+                                                            <rect key="frame" x="72" y="42" width="16" height="11"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="16" id="q2d-Bj-QYn"/>
                                                             </constraints>
@@ -3728,7 +3728,7 @@ Check your internet connection and try again.</string>
                                                     <constraint firstItem="H8X-L5-O9h" firstAttribute="top" secondItem="70w-oo-mtg" secondAttribute="bottom" id="Zsw-c0-xVS"/>
                                                     <constraint firstAttribute="trailing" secondItem="70w-oo-mtg" secondAttribute="trailing" constant="12" id="e3g-Ha-fD3"/>
                                                     <constraint firstItem="B1Y-FB-4KE" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="12" id="iPj-za-Rp2"/>
-                                                    <constraint firstItem="H8X-L5-O9h" firstAttribute="top" secondItem="i2e-Xd-doh" secondAttribute="top" constant="-5" id="oUU-T4-ZqE"/>
+                                                    <constraint firstItem="H8X-L5-O9h" firstAttribute="top" secondItem="i2e-Xd-doh" secondAttribute="top" constant="-7" id="oUU-T4-ZqE"/>
                                                     <constraint firstItem="70w-oo-mtg" firstAttribute="leading" secondItem="B1Y-FB-4KE" secondAttribute="trailing" constant="12" id="rZv-rQ-i2q"/>
                                                     <constraint firstAttribute="bottom" secondItem="641-7R-EdV" secondAttribute="bottom" constant="12" id="rlL-fj-Z6w"/>
                                                     <constraint firstItem="641-7R-EdV" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="72" id="rqn-ad-t4E"/>

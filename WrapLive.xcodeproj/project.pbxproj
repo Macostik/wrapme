@@ -239,6 +239,10 @@
 		5BD121541B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD121551B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD121561B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
+		5BD1D5C11B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */; };
+		5BD1D5C21B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */; };
+		5BD1D5C31B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */; };
+		5BD1D5C41B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */; };
 		5BD782821A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
 		5BD782831A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
 		5BD782841A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
@@ -2084,6 +2088,8 @@
 		5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLDownloadingView.xib; path = WLDownloadingView/WLDownloadingView.xib; sourceTree = "<group>"; };
 		5BD121511B0250B400FF5FBF /* WLDownloadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDownloadingView.h; path = WLDownloadingView/WLDownloadingView.h; sourceTree = "<group>"; };
 		5BD121521B0250B500FF5FBF /* WLDownloadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDownloadingView.m; path = WLDownloadingView/WLDownloadingView.m; sourceTree = "<group>"; };
+		5BD1D5BF1B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPostEditingUploadCandyRequest.h; sourceTree = "<group>"; };
+		5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPostEditingUploadCandyRequest.m; sourceTree = "<group>"; };
 		5BD782861A4EC02B0094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLEditWrapViewController.xib; sourceTree = "<group>"; };
 		5BD782A41A4EC1E20094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLCreateWrapViewController.xib; sourceTree = "<group>"; };
 		5BD782A71A4EC1E70094BEE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLCreateWrapViewController.strings; sourceTree = "<group>"; };
@@ -5430,6 +5436,8 @@
 				C5612CD61ACD968B0052578A /* WLPaginatedRequest.m */,
 				C5612CD71ACD968B0052578A /* WLPostCommentRequest.h */,
 				C5612CD81ACD968B0052578A /* WLPostCommentRequest.m */,
+				5BD1D5BF1B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.h */,
+				5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */,
 				C5612CD91ACD968B0052578A /* WLRecentContributionsRequest.h */,
 				C5612CDA1ACD968B0052578A /* WLRecentContributionsRequest.m */,
 				C5612CDB1ACD968B0052578A /* WLResendConfirmationRequest.h */,
@@ -7297,6 +7305,7 @@
 				C500996A1ADFCC940064CC7B /* WLDataSource.m in Sources */,
 				C504179819B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
+				5BD1D5C11B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				C547A4511A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C567582D1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
@@ -7514,6 +7523,7 @@
 				C500996B1ADFCC940064CC7B /* WLDataSource.m in Sources */,
 				C504179919B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */,
+				5BD1D5C21B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */,
 				C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C547A4521A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C567582E1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
@@ -7690,6 +7700,7 @@
 				C500996C1ADFCC940064CC7B /* WLDataSource.m in Sources */,
 				C504179A19B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF58E19B8C467006F7EDB /* WLComposeBar.m in Sources */,
+				5BD1D5C31B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */,
 				C54AF59019B8C467006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C547A4531A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C567582F1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
@@ -7866,6 +7877,7 @@
 				C500996D1ADFCC940064CC7B /* WLDataSource.m in Sources */,
 				C504179B19B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
+				5BD1D5C41B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */,
 				C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C56758301AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,

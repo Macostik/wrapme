@@ -120,6 +120,7 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        [AdobeImageEditorCustomization setSupportedIpadOrientations:@[@(UIInterfaceOrientationPortrait),@(UIInterfaceOrientationPortraitUpsideDown),@(UIInterfaceOrientationLandscapeLeft),@(UIInterfaceOrientationLandscapeRight)]];
         [[AdobeUXAuthManager sharedManager] setAuthenticationParametersWithClientID:@"a7929bf566694d579acb507eae697db1"
                                                                    withClientSecret:@"b6fa1e1c-4f8c-4001-88a9-0251a099f890"];
     });

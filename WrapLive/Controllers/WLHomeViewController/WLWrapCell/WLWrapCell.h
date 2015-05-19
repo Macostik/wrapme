@@ -18,6 +18,8 @@ static NSUInteger WLCandyCellHight = 212;
 
 - (void)wrapCell:(WLWrapCell *)wrapCell didDeleteWrap:(WLWrap *)wrap;
 - (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap notifyChatButtonClicked:(id)sender;
+- (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap presentChatViewController:(id)sender;
+- (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap presentCameraViewController:(id)sender;
 
 @end
 

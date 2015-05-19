@@ -36,6 +36,7 @@
 #import "WLTouchView.h"
 #import "WLChronologicalEntryPresenter.h"
 #import "WLCollectionView.h"
+#import "WLGradientView.h"
 
 @interface WLHomeViewController () <WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate>
 
@@ -237,7 +238,7 @@
     [self setEmailConfirmationViewHidden:YES animated:YES];
 }
 
-- (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery {
+- (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
     WLWrap *wrap = self.dataSource.wrap;
     if (wrap) {
         WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
@@ -247,7 +248,9 @@
         stillPictureViewController.startFromGallery = startFromGallery;
         __weak typeof(self)weakSelf = self;
         [self presentViewController:stillPictureViewController animated:animated completion:^{
-            [weakSelf stillPictureViewController:stillPictureViewController didSelectWrap:wrap];
+            if (showPicker) {
+                 [weakSelf stillPictureViewController:stillPictureViewController didSelectWrap:wrap];
+            }
         }];
     } else {
         [self createWrap:nil];
@@ -267,6 +270,20 @@
 
 - (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap notifyChatButtonClicked:(id)sender {
     self.chatSegueWrap = wrap;
+}
+
+- (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap presentChatViewController:(id)sender {
+    WLChatViewController *chatViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"WLChatViewController"];
+    if (chatViewController && wrap.valid) {
+        chatViewController.wrap = wrap;
+        [self.navigationController pushViewController:chatViewController animated:NO];
+    }
+}
+- (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap presentCameraViewController:(id)sender {
+    if (wrap.valid) {
+        self.dataSource.wrap = wrap;
+        [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:NO];
+    }
 }
 
 // MARK: - WLEntryNotifyReceiver
@@ -367,7 +384,7 @@
 }
 
 - (IBAction)addPhoto:(id)sender {
-    [self openCameraAnimated:NO startFromGallery:NO];
+    [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:YES];
 }
 
 // MARK: - WLStillPictureViewControllerDelegate

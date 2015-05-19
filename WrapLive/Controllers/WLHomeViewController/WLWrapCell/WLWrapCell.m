@@ -17,6 +17,7 @@
 #import "WLBadgeLabel.h"
 #import "WLWrapCell.h"
 #import "UIFont+CustomFonts.h"
+#import "WLGradientView.h"
 
 @interface WLWrapCell ()
 
@@ -26,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *wrapNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
+@property (weak, nonatomic) IBOutlet WLGradientView *handlerSwipeView;
+
 @property (assign, nonatomic) BOOL embeddedLongPress;
 
 @property (strong, nonatomic) WLBasicDataSource* candiesDataSource;
@@ -88,6 +91,18 @@
 - (IBAction)notifyChatClick:(id)sender {
     if ([self.delegate respondsToSelector:@selector(wrapCell:forWrap:notifyChatButtonClicked:)])
         [self.delegate wrapCell:self forWrap:self.entry notifyChatButtonClicked:sender];
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if (ABS(scrollView.contentOffset.x) > self.handlerSwipeView.width/2) {
+        if (scrollView.contentOffset.x > 0.0f) {
+            if ([self.delegate respondsToSelector:@selector(wrapCell:forWrap:presentChatViewController:)])
+                [self.delegate wrapCell:self forWrap:self.entry presentChatViewController:scrollView];
+        } else {
+            if ([self.delegate respondsToSelector:@selector(wrapCell:forWrap:presentCameraViewController:)])
+                [self.delegate wrapCell:self forWrap:self.entry presentCameraViewController:scrollView];
+        }
+    }
 }
 
 @end

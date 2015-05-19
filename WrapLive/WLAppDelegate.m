@@ -274,7 +274,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             if (navigationController.presentedViewController) {
                 [navigationController dismissViewControllerAnimated:NO completion:nil];
             }
-            [homeViewController openCameraAnimated:NO startFromGallery:YES];
+            [homeViewController openCameraAnimated:NO startFromGallery:YES showWrapPicker:YES];
         }
     }
 }

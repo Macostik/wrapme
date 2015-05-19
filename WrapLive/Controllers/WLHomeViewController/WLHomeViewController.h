@@ -11,6 +11,6 @@
 
 @interface WLHomeViewController : WLShakeViewController <WLStillPictureViewControllerDelegate>
 
-- (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery;
+- (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker;
 
 @end

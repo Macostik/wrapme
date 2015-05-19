@@ -137,6 +137,7 @@ CGFloat WLMaxTextViewWidth;
     collectionView.contentInset = insets;
     insets.right = collectionView.width - 6;
     collectionView.scrollIndicatorInsets = insets;
+    [self.layout invalidateLayout];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

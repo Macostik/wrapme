@@ -103,7 +103,7 @@ CGFloat WLMaxTextViewWidth;
     
     collectionView.layer.geometryFlipped = YES;
     
-    self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansBold preset:WLFontPresetNormal];
+    self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal];
     
     WLMaxTextViewWidth = WLConstants.screenWidth - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
     

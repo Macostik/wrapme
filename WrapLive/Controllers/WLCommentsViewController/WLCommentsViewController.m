@@ -17,7 +17,7 @@
 #import "UIFont+CustomFonts.h"
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;
-static CGFloat WLNotificationCommentVerticalSpacing = 68.0f;
+static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
 
 @interface WLCommentsViewController () <UIViewControllerTransitioningDelegate>
 
@@ -48,7 +48,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 68.0f;
     
     __weak typeof(self)weakSelf = self;
     [self.dataSource setItemSizeBlock:^CGSize(WLComment *comment, NSUInteger index) {
-        CGFloat textHeight = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansBold preset:WLFontPresetNormal]
+        CGFloat textHeight = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal]
                                                     width:weakSelf.collectionView.width - WLNotificationCommentHorizontalSpacing];
         return CGSizeMake(weakSelf.collectionView.width, textHeight + WLNotificationCommentVerticalSpacing);
     }];

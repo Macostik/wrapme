@@ -49,7 +49,7 @@
 
 + (CGFloat)additionalHeightCell:(id)entry {
     if (![entry respondsToSelector:@selector(text)]) return .0f;
-    UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansBold
+    UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansRegular
                                           preset:WLFontPresetNormal];
     return [[entry text] heightWithFont:font width:WLConstants.screenWidth - WLWhatsUpCommentHorizontalSpacing];
 }

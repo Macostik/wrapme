@@ -266,6 +266,7 @@
 }
 
 - (BOOL)isFirstCreated {
+    return YES;
     NSOrderedSet *wraps = [self.contributor.wraps objectsWhere:@"isDefault != YES AND contributor == %@", [WLUser currentUser]];
     return [wraps containsObject:self] && wraps.count == 1;
 }

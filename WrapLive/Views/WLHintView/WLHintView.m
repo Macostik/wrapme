@@ -28,7 +28,7 @@
 
 + (BOOL)showHintViewFromNibNamed:(NSString *)nibName inView:(UIView*)view drawing:(WLHintViewDrawing)drawing {
     NSMutableDictionary *shownHints = [WLSession object:@"WLHintView_shownHints"];
-    if ([shownHints objectForKey:nibName]) return NO;
+//    if ([shownHints objectForKey:nibName]) return NO;
     
     if (!shownHints) {
         shownHints = [NSMutableDictionary dictionary];
@@ -96,6 +96,7 @@
 }
 
 - (void)setNeedsLayout {
+    [super setNeedsLayout];
     [self setNeedsDisplay];
 }
 

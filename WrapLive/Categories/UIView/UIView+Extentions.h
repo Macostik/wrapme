@@ -17,4 +17,8 @@
 
 - (id)findFirstResponder;
 
+- (NSLayoutConstraint *)constraintToItem:(id)item equal:(NSLayoutAttribute)attribute;
+
+- (NSLayoutConstraint *)constraintForAttrbute:(NSLayoutAttribute)attribute1 toItem:(id)item equalToAttribute:(NSLayoutAttribute)attribute2;
+
 @end

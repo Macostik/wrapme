@@ -8,28 +8,29 @@
 
 #import <UIKit/UIKit.h>
 
-static NSTimeInterval WLToastDismissalDelay = 8.0f;
+static NSTimeInterval WLToastDismissalDelay = 4.0f;
 
 @class WLToast;
-@class WLToastViewController;
 
 @protocol WLToastAppearance <NSObject>
 
 @optional
 
-- (BOOL)toastAppearanceShouldShowIcon:(WLToastViewController*)controller;
+- (BOOL)toastAppearanceShouldShowIcon:(WLToast*)toast;
 
-- (UIColor*)toastAppearanceBackgroundColor:(WLToastViewController*)controller;
+- (UIColor*)toastAppearanceBackgroundColor:(WLToast*)toast;
 
-- (UIColor*)toastAppearanceTextColor:(WLToastViewController*)controller;
-
-- (UIViewContentMode)toastAppearanceContentMode:(WLToastViewController*)controller;
+- (UIColor*)toastAppearanceTextColor:(WLToast*)toast;
 
 @end
 
 @interface WLToastAppearance : NSObject <WLToastAppearance>
 
-+ (instancetype)appearance;
++ (instancetype)defaultAppearance;
+
++ (instancetype)errorAppearance;
+
++ (instancetype)infoAppearance;
 
 @property (nonatomic) BOOL shouldShowIcon;
 
@@ -37,37 +38,25 @@ static NSTimeInterval WLToastDismissalDelay = 8.0f;
 
 @property (strong, nonatomic) UIColor* textColor;
 
-@property (nonatomic) UIViewContentMode contentMode;
-
 @end
 
-@interface WLToast : NSObject
+@interface WLToast : UIView
 
 + (void)showWithMessage:(NSString *)message;
+
 + (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance;
 
-@end
++ (void)showWithMessage:(NSString *)message inViewController:(UIViewController*)viewController;
 
-@interface WLToastWindow : UIWindow
-
-+ (WLToastWindow *)sharedWindow;
-- (void)setViewControllerAsRoot;
-- (id)toastAsRootViewController;
-- (void)dismissAfterDelay;
-- (void)dismiss;
-
-@end
-
-@interface WLToastViewController : UIViewController
-
-@property (weak, nonatomic, readonly) UIView *contentView;
-
-- (void)setMessage:(NSString *)message withAppearance:(id<WLToastAppearance>)appearance;
-- (void)dismissWithComplition:(void (^)(BOOL finished))completion;
++ (void)showWithMessage:(NSString *)message inViewController:(UIViewController*)viewController appearance:(id<WLToastAppearance>)appearance;
 
 @end
 
 @interface UIViewController (WLToast) <WLToastAppearance>
+
++ (UIViewController*)toastAppearanceViewController;
+
+- (UIView*)toastAppearanceReferenceView:(WLToast*)toast;
 
 @end
 

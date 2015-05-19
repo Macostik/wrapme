@@ -16,8 +16,6 @@
 
 + (UIColor*)gray:(CGFloat)value;
 
-+ (UIColor*)WL_orangeColor;
-
 + (UIColor*)WL_grayDarker;
 
 + (UIColor*)WL_grayDark;
@@ -29,6 +27,16 @@
 + (UIColor*)WL_grayLighter;
 
 + (UIColor*)WL_grayLightest;
+
++ (UIColor*)WL_orangeDarker;
+
++ (UIColor*)WL_orangeDark;
+
++ (UIColor*)WL_orange;
+
++ (UIColor*)WL_orangeLight;
+
++ (UIColor*)WL_orangeLighter;
 
 + (UIColor *)colorWithHexString:(NSString *)str;
 

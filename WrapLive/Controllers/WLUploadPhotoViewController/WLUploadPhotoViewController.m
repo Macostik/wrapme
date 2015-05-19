@@ -13,6 +13,7 @@
 #import "WLIconButton.h"
 #import "WLComposeBar.h"
 #import "WLAlertView.h"
+#import "WLToast.h"
 
 @interface WLUploadPhotoViewController () <AdobeUXImageEditorViewControllerDelegate, WLComposeBarDelegate>
 

@@ -44,7 +44,7 @@
     if (!self.hidden) {
         self.countLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)queue.count];
         BOOL networkReachable = [WLNetwork network].reachable;
-        self.backgroundColor = [(networkReachable ? [UIColor WL_orangeColor] : [UIColor WL_grayLight]) colorWithAlphaComponent:0.8f];
+        self.backgroundColor = [(networkReachable ? [UIColor WL_orange] : [UIColor WL_grayLight]) colorWithAlphaComponent:0.8f];
         self.arrowIcon.iconColor = self.backgroundColor;
         [self startAnimating];
     } else {

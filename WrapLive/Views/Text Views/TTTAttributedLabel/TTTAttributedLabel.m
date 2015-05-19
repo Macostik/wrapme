@@ -382,7 +382,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     [mutableInactiveLinkAttributes setObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
 
     if ([NSMutableParagraphStyle class]) {
-        [mutableLinkAttributes setObject:[UIColor WL_orangeColor] forKey:(NSString *)kCTForegroundColorAttributeName];
+        [mutableLinkAttributes setObject:[UIColor WL_orange] forKey:(NSString *)kCTForegroundColorAttributeName];
         [mutableActiveLinkAttributes setObject:[UIColor WL_grayLight] forKey:(NSString *)kCTForegroundColorAttributeName];
         [mutableInactiveLinkAttributes setObject:[UIColor WL_grayLight] forKey:(NSString *)kCTForegroundColorAttributeName];
 
@@ -393,7 +393,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
         [mutableActiveLinkAttributes setObject:paragraphStyle forKey:(NSString *)kCTParagraphStyleAttributeName];
         [mutableInactiveLinkAttributes setObject:paragraphStyle forKey:(NSString *)kCTParagraphStyleAttributeName];
     } else {
-        [mutableLinkAttributes setObject:(__bridge id)[[UIColor WL_orangeColor] CGColor] forKey:(NSString *)kCTForegroundColorAttributeName];
+        [mutableLinkAttributes setObject:(__bridge id)[[UIColor WL_orange] CGColor] forKey:(NSString *)kCTForegroundColorAttributeName];
         [mutableActiveLinkAttributes setObject:(__bridge id)[[UIColor WL_grayLight] CGColor] forKey:(NSString *)kCTForegroundColorAttributeName];
         [mutableInactiveLinkAttributes setObject:(__bridge id)[[UIColor WL_grayLight] CGColor] forKey:(NSString *)kCTForegroundColorAttributeName];
 

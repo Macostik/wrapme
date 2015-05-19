@@ -14,167 +14,240 @@
 #import "NSObject+NibAdditions.h"
 #import "UIView+AnimationHelper.h"
 #import "WLNavigationHelper.h"
+#import "UIView+Extentions.h"
 
 @implementation WLToastAppearance
 
-+ (instancetype)appearance {
-	return [[self alloc] init];
++ (instancetype)defaultAppearance {
+	return [self errorAppearance];
+}
+
++ (instancetype)errorAppearance {
+    static id instance = nil;
+    if (instance == nil) {
+        instance = [[self alloc] init];
+    }
+    return instance;
+}
+
++ (instancetype)infoAppearance {
+    static WLToastAppearance *instance = nil;
+    if (instance == nil) {
+        instance = [[self alloc] init];
+        instance.backgroundColor = [UIColor blueColor];
+    }
+    return instance;
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
 		self.shouldShowIcon = YES;
-        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
+        self.backgroundColor = [UIColor colorWithHexString:@"#CB5309"];
         self.textColor = [UIColor whiteColor];
-        self.contentMode = UIViewContentModeBottom;
     }
     return self;
 }
 
 #pragma mark - WLToastAppearance
 
-- (BOOL)toastAppearanceShouldShowIcon:(WLToastViewController *)controller {
+- (BOOL)toastAppearanceShouldShowIcon:(WLToast *)toast {
 	return self.shouldShowIcon;
 }
 
-- (UIColor*)toastAppearanceBackgroundColor:(WLToastViewController *)controller {
+- (UIColor*)toastAppearanceBackgroundColor:(WLToast *)toast {
     return self.backgroundColor;
 }
 
-- (UIColor*)toastAppearanceTextColor:(WLToastViewController *)controller {
+- (UIColor*)toastAppearanceTextColor:(WLToast *)toast {
     return self.textColor;
 }
 
-- (UIViewContentMode)toastAppearanceContentMode:(WLToastViewController *)controller {
-    return self.contentMode;
-}
+@end
+
+@interface WLToast ()
+
+@property (weak, nonatomic) IBOutlet UILabel* messageLabel;
+
+@property (weak, nonatomic) IBOutlet UIView* iconView;
+
+@property (weak, nonatomic) NSLayoutConstraint *topViewConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topMessageInset;
+
+@property (strong, nonatomic) WLBlock dismissBlock;
+
+@property (strong, nonatomic) NSMutableSet* queuedMessages;
 
 @end
 
 @implementation WLToast
 
++ (instancetype)toast {
+    static id instance = nil;
+    if (instance == nil) {
+        instance = [self loadFromNib];
+    }
+    return instance;
+}
+
 + (void)showWithMessage:(NSString *)message {
-    [WLToast showWithMessage:message appearance:[WLToastAppearance appearance]];
+    [self showWithMessage:message appearance:nil];
 }
 
 + (void)showWithMessage:(NSString *)message appearance:(id<WLToastAppearance>)appearance {
-    WLToastWindow *window = [WLToastWindow sharedWindow];
-    [window setViewControllerAsRoot];
-    [window makeKeyAndVisible];
-    [window dismissAfterDelay];
-    [[[WLToastWindow sharedWindow] toastAsRootViewController] setMessage:message withAppearance:appearance];
+    [self showWithMessage:message inViewController:nil appearance:appearance];
 }
 
-@end
-
-@implementation WLToastWindow
-
-static WLToastWindow *sharedWindow = nil;
-
-+ (WLToastWindow *)sharedWindow {
-    if (!sharedWindow) {
-        sharedWindow = [[WLToastWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        sharedWindow.windowLevel = UIWindowLevelAlert;
-        sharedWindow.hidden = NO;
-        didReceiveMemoryWarning(^{
-            sharedWindow = nil;
-        });
-    }
-    return sharedWindow;
++ (void)showWithMessage:(NSString *)message inViewController:(UIViewController *)viewController {
+    [self showWithMessage:message inViewController:viewController appearance:nil];
 }
 
-- (void)setViewControllerAsRoot {
-    sharedWindow.rootViewController = [[WLToastViewController alloc] initWithNibName:@"WLToast" bundle:nil];
++ (void)showWithMessage:(NSString *)message inViewController:(UIViewController *)viewController appearance:(id<WLToastAppearance>)appearance {
+    [[self toast] showWithMessage:message inViewController:viewController appearance:appearance];
+}
+
+- (void)showWithMessage:(NSString *)message inViewController:(UIViewController *)viewController appearance:(id<WLToastAppearance>)appearance {
     
-}
-
-- (void)dismissAfterDelay {
-    [WLToastWindow cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
-    [self performSelector:@selector(dismiss) withObject:nil afterDelay:WLToastDismissalDelay];
-}
-
-- (id)toastAsRootViewController {
-    return sharedWindow.rootViewController;
-}
-
-- (void)dismiss {
-    [[self toastAsRootViewController] dismissWithComplition:^(BOOL finished) {
-        sharedWindow = nil;
-        [[UIWindow mainWindow] makeKeyAndVisible];
-    }];
-}
-
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    if (CGRectContainsPoint([[self toastAsRootViewController] contentView].bounds, point)) {
-        [WLToastWindow cancelPreviousPerformRequestsWithTarget:self];
-        [sharedWindow dismiss];
-        return YES;
+    if (!message.nonempty || (self.superview != nil && [self.messageLabel.text isEqualToString:message])) {
+        return;
     }
-    return NO;
+    
+    if (!self.queuedMessages) {
+        self.queuedMessages = [NSMutableSet setWithObject:message];
+    } else {
+        [self.queuedMessages addObject:message];
+    }
+    
+    if (!viewController) {
+        viewController = [UIViewController toastAppearanceViewController];
+    }
+    __weak UIViewController *weakViewController = viewController;
+    if (!appearance) {
+        appearance = [WLToastAppearance defaultAppearance];
+    }
+    __weak typeof(self)weakSelf = self;
+    runUnaryQueuedOperation(@"wl_toast_queue", ^(WLOperation *operation) {
+        if (!weakViewController) {
+            [weakSelf.queuedMessages removeObject:message];
+            [operation finish];
+            return;
+        }
+        UIView *view = weakViewController.view;
+        UIView *referenceView = [weakViewController toastAppearanceReferenceView:weakSelf];
+        
+        if (!referenceView) {
+            [weakSelf.queuedMessages removeObject:message];
+            [operation finish];
+            return;
+        }
+        
+        [weakSelf applyAppearance:appearance];
+        
+        weakSelf.messageLabel.text = message;
+        
+        if (weakSelf.superview != view) {
+            [weakSelf removeFromSuperview];
+            weakSelf.translatesAutoresizingMaskIntoConstraints = NO;
+            
+            if (referenceView == view) {
+                [view addSubview:weakSelf];
+                [view addConstraint:[weakSelf constraintToItem:referenceView equal:NSLayoutAttributeWidth]];
+                [view addConstraint:[weakSelf constraintToItem:referenceView equal:NSLayoutAttributeCenterX]];
+                NSLayoutConstraint *topViewConstraint = [weakSelf constraintToItem:referenceView equal:NSLayoutAttributeTop];
+                [view addConstraint:topViewConstraint];
+                weakSelf.topViewConstraint = topViewConstraint;
+                weakSelf.topMessageInset.constant = [UIApplication sharedApplication].statusBarHidden ? 6 : 26;
+            } else {
+                [view insertSubview:weakSelf belowSubview:referenceView];
+                [view addConstraint:[weakSelf constraintToItem:referenceView equal:NSLayoutAttributeWidth]];
+                [view addConstraint:[weakSelf constraintToItem:referenceView equal:NSLayoutAttributeCenterX]];
+                NSLayoutConstraint *topViewConstraint = [weakSelf constraintForAttrbute:NSLayoutAttributeTop toItem:referenceView equalToAttribute:NSLayoutAttributeBottom];
+                [view addConstraint:topViewConstraint];
+                weakSelf.topViewConstraint = topViewConstraint;
+                weakSelf.topMessageInset.constant = 6;
+            }
+            
+            [weakSelf layoutIfNeeded];
+            weakSelf.topViewConstraint.constant = -weakSelf.height;
+            [weakSelf layoutIfNeeded];
+            [UIView performAnimated:YES animation:^{
+                weakSelf.topViewConstraint.constant = .0;
+                [weakSelf layoutIfNeeded];
+            }];
+        }
+        
+        weakSelf.dismissBlock = ^{
+            [weakSelf.queuedMessages removeObject:message];
+            [operation finish];
+        };
+        
+        [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(dismiss) object:nil];
+        [weakSelf performSelector:@selector(dismiss) withObject:nil afterDelay:WLToastDismissalDelay];
+    });
 }
 
-@end
-
-@interface WLToastViewController ()
-
-@property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet UILabel* messageLabel;
-@property (weak, nonatomic) IBOutlet UIView* iconView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewConstraint;
-
-@end
-
-@implementation WLToastViewController
-
-- (void)setMessage:(NSString *)message withAppearance:(id<WLToastAppearance>)appearance {
-    
-    self.iconView.hidden = [appearance respondsToSelector:@selector(toastAppearanceShouldShowIcon:)] ? ![appearance toastAppearanceShouldShowIcon:self] : YES;
+- (void)applyAppearance:(id<WLToastAppearance>)appearance {
+    if ([appearance respondsToSelector:@selector(toastAppearanceShouldShowIcon:)]) {
+        self.iconView.hidden = ![appearance toastAppearanceShouldShowIcon:self];
+    }
     
     if ([appearance respondsToSelector:@selector(toastAppearanceBackgroundColor:)]) {
-        self.contentView.backgroundColor = [appearance toastAppearanceBackgroundColor:self];
+        self.backgroundColor = [appearance toastAppearanceBackgroundColor:self];
     }
     
     if ([appearance respondsToSelector:@selector(toastAppearanceTextColor:)]) {
         self.messageLabel.textColor = [appearance toastAppearanceTextColor:self];
     }
-    
-    self.messageLabel.text = message;
-    
-    UIViewContentMode contentMode = UIViewContentModeBottom;
-    if ([appearance respondsToSelector:@selector(toastAppearanceContentMode:)]) {
-        contentMode = [appearance toastAppearanceContentMode:self];
-    }
-    
-    if (self.topViewConstraint.constant != .0) {
-        [UIView performAnimated:YES animation:^{
-            self.topViewConstraint.constant = .0;
-            [self.contentView layoutIfNeeded];
-        }];
-    }
 }
 
-- (void)dismissWithComplition:(void (^)(BOOL finished))completion {
+- (void)dismiss {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
+    __weak typeof(self)weakSelf = self;
     if (self.topViewConstraint.constant == 0) {
         [UIView animateWithDuration:.25 animations:^{
-            self.topViewConstraint.constant = -self.contentView.height;
-            [self.contentView layoutIfNeeded];
-        } completion:completion];
+            weakSelf.topViewConstraint.constant = -self.height;
+            [weakSelf layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            [weakSelf removeFromSuperview];
+            if (weakSelf.dismissBlock) weakSelf.dismissBlock();
+        }];
+    } else {
+        [weakSelf removeFromSuperview];
+        if (weakSelf.dismissBlock) weakSelf.dismissBlock();
     }
 }
 
-#pragma mark - WLDeviceOrientationBroadcastReceiver
-
-- (NSUInteger)supportedInterfaceOrientations {
-    return  [[UIWindow mainWindow].rootViewController supportedInterfaceOrientations];
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    [self dismiss];
 }
 
 @end
 
 @implementation UIViewController (WLToast)
 
-- (BOOL)toastAppearanceShouldShowIcon:(WLToast *)toast {
-	return YES;
++ (UIViewController *)toastAppearanceViewController {
+    UIViewController *visibleViewController = [UIWindow mainWindow].rootViewController;
+    UIViewController *presentedViewController = visibleViewController.presentedViewController;
+    while (presentedViewController) {
+        visibleViewController = presentedViewController;
+        presentedViewController = visibleViewController.presentedViewController;
+    }
+    if ([visibleViewController isKindOfClass:[UINavigationController class]]) {
+        visibleViewController = [(UINavigationController*)visibleViewController topViewController];
+    }
+    return visibleViewController;
+}
+
+- (UIView*)toastAppearanceReferenceView:(WLToast*)toast {
+    UIView *referenceView = nil;
+    if ([self respondsToSelector:@selector(navigationBar)]) {
+        referenceView = [(id)self navigationBar];
+    }
+    if (!referenceView) {
+        referenceView = self.view;
+    }
+    return referenceView;
 }
 
 @end

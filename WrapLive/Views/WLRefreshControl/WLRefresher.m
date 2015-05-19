@@ -59,7 +59,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
     if (self) {
         self.autoresizingMask = autoresizing;
         self.translatesAutoresizingMaskIntoConstraints = YES;
-        self.backgroundColor = [UIColor WL_orangeColor];
+        self.backgroundColor = [UIColor WL_orange];
         [scrollView addSubview:self];
         self.inset = scrollView.contentInset.top;
         self.contentMode = UIViewContentModeCenter;
@@ -209,12 +209,12 @@ static CGFloat WLRefresherContentSize = 44.0f;
 	if (style == WLRefresherStyleOrange) {
 		self.arrowView.image = [UIImage imageNamed:@"ic_middle_candy"];
 		self.backgroundColor = [UIColor whiteColor];;
-		self.spinner.color = [UIColor WL_orangeColor];
-        self.strokeLayer.strokeColor = [UIColor WL_orangeColor].CGColor;
-        self.arrowView.layer.borderColor = [UIColor WL_orangeColor].CGColor;
+		self.spinner.color = [UIColor WL_orange];
+        self.strokeLayer.strokeColor = [UIColor WL_orange].CGColor;
+        self.arrowView.layer.borderColor = [UIColor WL_orange].CGColor;
 	} else {
         self.arrowView.image = [UIImage imageNamed:@"ic_refresh_candy_white"];
-        self.backgroundColor = style == WLRefresherStyleWhite ? [UIColor WL_orangeColor] : [UIColor clearColor];
+        self.backgroundColor = style == WLRefresherStyleWhite ? [UIColor WL_orange] : [UIColor clearColor];
         self.spinner.color = [UIColor whiteColor];
         self.strokeLayer.strokeColor = [UIColor whiteColor].CGColor;
         self.arrowView.layer.borderColor = [UIColor whiteColor].CGColor;

@@ -33,6 +33,14 @@
     [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
 }
 
+- (NSLayoutConstraint *)constraintToItem:(id)item equal:(NSLayoutAttribute)attribute {
+    return [self constraintForAttrbute:attribute toItem:item equalToAttribute:attribute];
+}
+
+- (NSLayoutConstraint *)constraintForAttrbute:(NSLayoutAttribute)attribute1 toItem:(id)item equalToAttribute:(NSLayoutAttribute)attribute2 {
+    return [NSLayoutConstraint constraintWithItem:self attribute:attribute1 relatedBy:NSLayoutRelationEqual toItem:item attribute:attribute2 multiplier:1 constant:0];
+}
+
 - (id)findFirstResponder {
     if (self.isFirstResponder) {
         return self;

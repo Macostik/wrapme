@@ -41,7 +41,7 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
 	if (result == MFMailComposeResultSent) {
-		WLToastAppearance* appearance = [WLToastAppearance appearance];
+		WLToastAppearance* appearance = [[WLToastAppearance alloc] init];
 		appearance.shouldShowIcon = NO;
 		[WLToast showWithMessage:@"Mail sent.\nThank you for your help!" appearance:appearance];
 	}

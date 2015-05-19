@@ -23,10 +23,6 @@
     return [self r:value g:value b:value];
 }
 
-+ (UIColor *)WL_orangeColor {
-    return [self r:243 g:117 b:38];
-}
-
 + (UIColor*)WL_grayDarker {
     return [UIColor colorWithHex:0x222222];
 }
@@ -49,6 +45,26 @@
 
 + (UIColor*)WL_grayLightest {
     return [UIColor colorWithHex:0xeeeeee];
+}
+
++ (UIColor*)WL_orangeDarker {
+    return [UIColor colorWithHex:0xa13e00];
+}
+
++ (UIColor*)WL_orangeDark {
+    return [UIColor colorWithHex:0xcb5309];
+}
+
++ (UIColor *)WL_orange {
+    return [UIColor colorWithHex:0xf37526];
+}
+
++ (UIColor*)WL_orangeLight {
+    return [UIColor colorWithHex:0xff9350];
+}
+
++ (UIColor*)WL_orangeLighter {
+    return [UIColor colorWithHex:0xffac79];
 }
 
 + (UIColor *)colorWithHexString:(NSString *)str {

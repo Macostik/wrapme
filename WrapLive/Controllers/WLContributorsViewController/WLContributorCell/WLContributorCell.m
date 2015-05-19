@@ -31,8 +31,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
-    [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
     
     UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(toggleSideMenu:)];
     swipe.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -53,7 +51,6 @@
 	self.nameLabel.text = isCreator ? [NSString stringWithFormat:WLLS(@"%@ (Owner)"), userNameText] : userNameText;
     
     self.phoneLabel.text = user.securePhones;
-    self.avatarView.url = user.picture.small;
     
     if (self.slideViewConstraint.constant != 0) {
         self.slideViewConstraint.constant = 0;
@@ -66,6 +63,15 @@
     } else {
         self.deletable = NO;
     }
+    
+    if (self.inviteLabel.hidden && !user.picture.small.nonempty) {
+        [self.avatarView setImageName:@"default-medium-avatar-orange" forState:WLImageViewStateEmpty];
+        [self.avatarView setImageName:@"default-medium-avatar-orange" forState:WLImageViewStateFailed];
+    } else {
+        [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
+        [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+    }
+    self.avatarView.url = user.picture.small;
 }
 
 - (void)setDeletable:(BOOL)deletable {

@@ -1161,7 +1161,7 @@
                                                                 <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="4qZ-7z-AsM" customClass="WLGradientView">
                                                                     <rect key="frame" x="320" y="10" width="160" height="50"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QM4-q0-ku1" customClass="WLLabel">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QM4-q0-ku1" customClass="WLLabel">
                                                                             <rect key="frame" x="55" y="0.0" width="11" height="50"/>
                                                                             <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1510,7 +1510,7 @@
                                                         <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="2RY-S5-bjM" customClass="WLGradientView">
                                                             <rect key="frame" x="320" y="0.0" width="160" height="50"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIL-os-qUh" customClass="WLLabel">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIL-os-qUh" customClass="WLLabel">
                                                                     <rect key="frame" x="55" y="0.0" width="11" height="50"/>
                                                                     <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4459,7 +4459,7 @@ Check your internet connection and try again.</string>
                                                                         <constraint firstAttribute="height" constant="18" id="Euq-me-dtg"/>
                                                                         <constraint firstAttribute="width" constant="18" id="meQ-qY-nYP"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="16"/>
+                                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="14"/>
                                                                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <userDefinedRuntimeAttributes>

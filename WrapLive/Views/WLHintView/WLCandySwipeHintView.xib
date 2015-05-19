@@ -27,11 +27,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVZ-f0-I5Z" customClass="WLButton">
-<<<<<<< HEAD
-                    <rect key="frame" x="192" y="106" width="95" height="30"/>
-=======
                     <rect key="frame" x="213" y="141" width="95" height="33"/>
->>>>>>> [#94794704 #94793356] fixed issue with hint views layout
                     <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="95" id="TVr-nG-VQh"/>
@@ -58,21 +54,12 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <constraints>
-<<<<<<< HEAD
-                <constraint firstItem="LpS-0e-hFu" firstAttribute="leading" secondItem="kzF-Xz-cLA" secondAttribute="leading" constant="28" id="355-Uj-xzF"/>
-                <constraint firstAttribute="trailing" secondItem="gHY-2V-Myp" secondAttribute="trailing" constant="45" id="L8e-89-Z7W"/>
-                <constraint firstItem="LpS-0e-hFu" firstAttribute="top" secondItem="kzF-Xz-cLA" secondAttribute="top" constant="64" id="Rzp-lg-76L"/>
-                <constraint firstItem="nVZ-f0-I5Z" firstAttribute="top" secondItem="LpS-0e-hFu" secondAttribute="bottom" constant="10" id="Vy3-vg-vxa"/>
-                <constraint firstAttribute="centerY" secondItem="gHY-2V-Myp" secondAttribute="centerY" id="flK-2t-Yn5"/>
-                <constraint firstItem="nVZ-f0-I5Z" firstAttribute="trailing" secondItem="LpS-0e-hFu" secondAttribute="trailing" constant="30" id="mGE-Px-qdJ"/>
-=======
                 <constraint firstItem="nVZ-f0-I5Z" firstAttribute="top" secondItem="LpS-0e-hFu" secondAttribute="bottom" constant="20" id="4Fa-rU-Eu7"/>
                 <constraint firstItem="nVZ-f0-I5Z" firstAttribute="leading" secondItem="gHY-2V-Myp" secondAttribute="trailing" constant="-33" id="7bw-Sp-xt6"/>
                 <constraint firstItem="nVZ-f0-I5Z" firstAttribute="leading" secondItem="LpS-0e-hFu" secondAttribute="trailing" constant="-44" id="Lxa-Je-Xj4"/>
                 <constraint firstItem="gHY-2V-Myp" firstAttribute="top" secondItem="nVZ-f0-I5Z" secondAttribute="bottom" constant="20" id="Z4c-G6-HXE"/>
                 <constraint firstAttribute="centerX" secondItem="gHY-2V-Myp" secondAttribute="centerX" constant="-26" id="alH-3N-7zP"/>
                 <constraint firstAttribute="centerY" secondItem="gHY-2V-Myp" secondAttribute="centerY" constant="-50" id="flK-2t-Yn5"/>
->>>>>>> [#94794704 #94793356] fixed issue with hint views layout
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>

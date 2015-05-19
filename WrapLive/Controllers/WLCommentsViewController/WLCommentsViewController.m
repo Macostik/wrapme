@@ -16,9 +16,8 @@
 #import "WLNavigationHelper.h"
 #import "UIFont+CustomFonts.h"
 
-static CGFloat WLNotificationCommentHorizontalSpacing = 80.0f;
-static CGFloat WLNotificationCommentVerticalSpacing = 67.0f;
-static CGFloat WLTextViewInsets = 10.0f;
+static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;
+static CGFloat WLNotificationCommentVerticalSpacing = 68.0f;
 
 @interface WLCommentsViewController () <UIViewControllerTransitioningDelegate>
 
@@ -49,8 +48,8 @@ static CGFloat WLTextViewInsets = 10.0f;
     
     __weak typeof(self)weakSelf = self;
     [self.dataSource setItemSizeBlock:^CGSize(WLComment *comment, NSUInteger index) {
-        CGFloat textHeight = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall]
-                                                    width:weakSelf.collectionView.width - WLNotificationCommentHorizontalSpacing - WLTextViewInsets];
+        CGFloat textHeight = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansBold preset:WLFontPresetNormal]
+                                                    width:weakSelf.collectionView.width - WLNotificationCommentHorizontalSpacing];
         return CGSizeMake(weakSelf.collectionView.width, textHeight + WLNotificationCommentVerticalSpacing);
     }];
     

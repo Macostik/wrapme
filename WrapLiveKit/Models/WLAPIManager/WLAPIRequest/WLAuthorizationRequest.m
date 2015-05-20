@@ -134,11 +134,20 @@ static BOOL authorized = NO;
     NSMutableDictionary *testUsers = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:currentTestUsersPath]];
     
     NSMutableArray *environmentTestUsers = [NSMutableArray arrayWithArray:[testUsers objectForKey:[WLAPIManager manager].environment.name]];
+    
+    NSMutableArray *removedUsers = [NSMutableArray array];
+    
     for (NSDictionary *testUser in environmentTestUsers) {
         if ([testUser[@"email"] isEqualToString:authorizationData[@"email"]] && [testUser[@"deviceUID"] isEqualToString:authorizationData[@"deviceUID"]]) {
-            return;
+            if ([testUser[@"password"] isEqualToString:authorizationData[@"password"]]) {
+                return;
+            } else {
+                [removedUsers addObject:testUser];
+            }
         }
     }
+    
+    [environmentTestUsers removeObjectsInArray:removedUsers];
     
     [environmentTestUsers addObject:authorizationData];
     

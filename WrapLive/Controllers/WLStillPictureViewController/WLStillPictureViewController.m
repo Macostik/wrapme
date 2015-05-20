@@ -185,6 +185,7 @@
         if (saveToAlbum) [resultImage save:metadata];
         weakSelf.view.userInteractionEnabled = NO;
         [WLPicture picture:resultImage mode:weakSelf.mode completion:^(WLPicture *picture) {
+            picture.animation = [WLAnimation animationWithDuration:0.5f];
             picture.comment = comment;
             [weakSelf finishWithPictures:@[picture]];
             weakSelf.view.userInteractionEnabled = YES;
@@ -252,8 +253,9 @@
     for (ALAsset* asset in assets) {
         runQueuedOperation(@"wl_still_picture_queue",3,^(WLOperation *operation) {
             [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
-                [WLPicture picture:croppedImage mode:weakSelf.mode completion:^(id object) {
-                    [pictures addObject:object];
+                [WLPicture picture:croppedImage mode:weakSelf.mode completion:^(WLPicture *picture) {
+                    picture.animation = [WLAnimation animationWithDuration:0.5f];
+                    [pictures addObject:picture];
                     [operation finish];
                     if (pictures.count == assets.count) {
                         weakSelf.view.userInteractionEnabled = YES;

@@ -127,3 +127,4 @@ FOUNDATION_EXPORT const unsigned char WrapLiveKitVersionString[];
 #import <WrapLiveKit/WLNotificationChannel.h>
 #import <WrapLiveKit/WLSoundPlayer.h>
 #import <WrapLiveKit/WLEntryNotifyReceiver.h>
+#import <WrapLiveKit/WLAnimation.h>

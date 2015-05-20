@@ -123,6 +123,14 @@
     }
 }
 
+- (void)setAnimation:(WLAnimation *)animation {
+    _animation = animation;
+    __weak typeof(self)weakSelf = self;
+    [animation setCompletionBlock:^{
+        weakSelf.animation = nil;
+    }];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@:\noriginal: %@\nlarge: %@\nmedium: %@\nsmall: %@",[self class],self.original,self.large, self.medium, self.small];
 }
@@ -133,6 +141,7 @@
     picture.small = self.small;
     picture.medium = self.medium;
     picture.large = self.large;
+    picture.animation = self.animation;
     return picture;
 }
 

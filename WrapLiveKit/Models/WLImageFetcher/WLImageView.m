@@ -11,6 +11,7 @@
 #import "NSString+Additions.h"
 #import "NSError+WLAPIManager.h"
 #import "WLPicture.h"
+#import "UIView+QuatzCoreAnimations.h"
 
 @interface WLImageView () <WLImageFetching>
 
@@ -45,17 +46,25 @@
 }
 
 - (void)setImage:(UIImage *)image animated:(BOOL)animated {
-	if (self.animatingPicture.animate || animated) {
-        CGFloat alpha = self.alpha;
-		self.alpha = 0.0f;
+    WLAnimation *animation = self.animatingPicture.animation;
+	if (animation) {
+        self.alpha = 0.0f;
         __weak typeof(self)weakSelf = self;
-        NSTimeInterval duration = self.animatingPicture.animate ? 0.5f : 0.33f;
-        self.animatingPicture.animate = NO;
-        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            weakSelf.alpha = alpha;
-        } completion:^(BOOL finished) {
+        [animation setAnimationBlock:^ (WLAnimation *animation, UIView *view) {
+            if (view == weakSelf) {
+                view.alpha = animation.progressRatio;
+            }
         }];
-	}
+        animation.view = self;
+        [animation start];
+    } else if (animated) {
+        self.hidden = YES;
+        self.alpha = 1.0f;
+        [self fade];
+        self.hidden = NO;
+    } else {
+        self.alpha = 1.0f;
+    }
 	self.image = image;
 }
 
@@ -63,8 +72,10 @@
     if (_state != state) {
         _state = state;
         if (state == WLImageViewStateDefault) {
+            self.alpha = 0.0f;
             self.contentMode = UIViewContentModeScaleAspectFill;
         } else {
+            self.alpha = 1.0f;
             NSMutableDictionary *stateInfo = self.states[@(state)];
             if (stateInfo[@"contentMode"] != nil) {
                 self.contentMode = [stateInfo[@"contentMode"] integerValue];

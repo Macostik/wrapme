@@ -8,6 +8,7 @@
 
 #import "WLArchivingObject.h"
 #import "WLStillPictureMode.h"
+#import "WLAnimation.h"
 
 @class WLImageCache;
 
@@ -20,7 +21,7 @@
 
 @property (strong, nonatomic) NSString *comment;
 
-@property (nonatomic) BOOL animate;
+@property (nonatomic, strong) WLAnimation *animation;
 
 + (void)picture:(UIImage *)image completion:(WLObjectBlock)completion;
 

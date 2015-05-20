@@ -857,6 +857,8 @@
 		C55B92021AFA39FE006A3A55 /* WLEntryNotifyReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B92001AFA39FE006A3A55 /* WLEntryNotifyReceiver.m */; };
 		C55B92031AFA6677006A3A55 /* WrapLiveToday-Production.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* WrapLiveToday-Production.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C55C366B1ACEB7A900C614BD /* WrapLiveKit_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */; };
+		C55C8DC01B0CDB5E0085DB60 /* WLAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = C55C8DBE1B0CDB5E0085DB60 /* WLAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C55C8DC11B0CDB5E0085DB60 /* WLAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8DBF1B0CDB5E0085DB60 /* WLAnimation.m */; };
 		C55D6A751AB6D55200256CF3 /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55D6A741AB6D55200256CF3 /* Introduction.storyboard */; };
 		C55D6A761AB6D55200256CF3 /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55D6A741AB6D55200256CF3 /* Introduction.storyboard */; };
 		C55D6A771AB6D55200256CF3 /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55D6A741AB6D55200256CF3 /* Introduction.storyboard */; };
@@ -2378,6 +2380,8 @@
 		C55C36661ACEB7A800C614BD /* WrapLiveKit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WrapLiveKit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C55C36691ACEB7A900C614BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WrapLiveKit_Tests.m; sourceTree = "<group>"; };
+		C55C8DBE1B0CDB5E0085DB60 /* WLAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAnimation.h; sourceTree = "<group>"; };
+		C55C8DBF1B0CDB5E0085DB60 /* WLAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAnimation.m; sourceTree = "<group>"; };
 		C55D6A741AB6D55200256CF3 /* Introduction.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Introduction.storyboard; sourceTree = "<group>"; };
 		C55D75881AE50914006FA19C /* WLChatTypingChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChatTypingChannel.h; sourceTree = "<group>"; };
 		C55D75891AE50914006FA19C /* WLChatTypingChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChatTypingChannel.m; sourceTree = "<group>"; };
@@ -4741,6 +4745,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C55C8DBD1B0CDB5E0085DB60 /* WLAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				C55C8DBE1B0CDB5E0085DB60 /* WLAnimation.h */,
+				C55C8DBF1B0CDB5E0085DB60 /* WLAnimation.m */,
+			);
+			path = WLAnimation;
+			sourceTree = "<group>";
+		};
 		C55D75871AE50914006FA19C /* WLChatTypingChannel */ = {
 			isa = PBXGroup;
 			children = (
@@ -5361,6 +5374,7 @@
 		C5612CB01ACD968A0052578A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C55C8DBD1B0CDB5E0085DB60 /* WLAnimation */,
 				C55D77EC1AE51BD7006FA19C /* WLSoundPlayer */,
 				C55D758E1AE50953006FA19C /* WLNotificationCenter */,
 				C5FE0A611ACD9FA9007DBE95 /* WLStillPictureMode.h */,
@@ -6282,6 +6296,7 @@
 				C55D778A1AE50D1A006FA19C /* PNConnectionDelegate.h in Headers */,
 				C587C78F1AD2E6A0003E7647 /* NSString+MD5.h in Headers */,
 				C587C7E61AD2E6A0003E7647 /* SupportHeaders.h in Headers */,
+				C55C8DC01B0CDB5E0085DB60 /* WLAnimation.h in Headers */,
 				C587C7971AD2E6A0003E7647 /* UIImage+RoundedCorner.h in Headers */,
 				C55D779A1AE50D1A006FA19C /* PNChannelGroupNamespacesRequest.h in Headers */,
 				C587C7E11AD2E6A0003E7647 /* WLSession.h in Headers */,
@@ -6768,7 +6783,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -8128,6 +8143,7 @@
 				C55D77911AE50D1A006FA19C /* PNAccessRightsAuditRequest.m in Sources */,
 				C55D76FE1AE50D1A006FA19C /* PNChannelGroupNamespacesResponseParser.m in Sources */,
 				C55D77BE1AE50D1A006FA19C /* PNPushNotificationsEnabledChannelsRequest.m in Sources */,
+				C55C8DC11B0CDB5E0085DB60 /* WLAnimation.m in Sources */,
 				C587C8921AD2E6DB003E7647 /* WLDevice.m in Sources */,
 				C55D772E1AE50D1A006FA19C /* PNCache.m in Sources */,
 				C587C8811AD2E6DB003E7647 /* WLAuthorization.m in Sources */,
@@ -9767,7 +9783,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

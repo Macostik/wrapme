@@ -127,6 +127,15 @@
     return [NSString stringWithFormat:@"%@:\noriginal: %@\nlarge: %@\nmedium: %@\nsmall: %@",[self class],self.original,self.large, self.medium, self.small];
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    WLPicture *picture = [[WLPicture allocWithZone:zone] init];
+    picture.original = self.original;
+    picture.small = self.small;
+    picture.medium = self.medium;
+    picture.large = self.large;
+    return picture;
+}
+
 @end
 
 @implementation WLPicture (JSONValue)

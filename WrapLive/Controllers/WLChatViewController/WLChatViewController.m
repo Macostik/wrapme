@@ -195,17 +195,20 @@ CGFloat WLMaxTextViewWidth;
     BOOL applicationActive = applicationState == UIApplicationStateActive;
     __weak typeof(self)weakSelf = self;
     runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
-        if ([weakSelf.chat.entries containsObject:message]) {
-            [operation finish];
-            return;
-        }
-
+        
         UICollectionView *collectionView = weakSelf.collectionView;
         
-        if (!collectionView.scrollable) {
+        if ([weakSelf.chat.entries containsObject:message]) {
+            
+            [operation finish];
+            
+        } else if (!collectionView.scrollable) {
+            
             [weakSelf.chat addEntry:message];
             [operation finish];
+            
         } else if (collectionView.contentOffset.y > collectionView.minimumContentOffset.y || !applicationActive) {
+            
             CGFloat offset = collectionView.contentOffset.y;
             CGFloat contentHeight = collectionView.contentSize.height;
             [weakSelf.chat addEntry:message];
@@ -213,7 +216,9 @@ CGFloat WLMaxTextViewWidth;
             offset += collectionView.contentSize.height - contentHeight;
             [collectionView trySetContentOffset:CGPointMake(0, offset) animated:NO];
             [operation finish];
+            
         } else {
+            
             [weakSelf.chat addEntry:message];
             [collectionView layoutIfNeeded];
             CGPoint minimumContentOffset = collectionView.minimumContentOffset;
@@ -222,6 +227,7 @@ CGFloat WLMaxTextViewWidth;
             run_after(0.5, ^{
                 [operation finish];
             });
+            
         }
     });
 }

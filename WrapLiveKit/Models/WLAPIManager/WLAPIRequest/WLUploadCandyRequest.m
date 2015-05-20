@@ -49,7 +49,6 @@
         [[WLImageCache cache] setImageAtPath:oldPicture.medium withUrl:newPicture.medium];
         [[WLImageCache cache] setImageAtPath:oldPicture.small withUrl:newPicture.small];
         [[WLImageCache cache] setImageAtPath:oldPicture.large withUrl:newPicture.large];
-        candy.wrap.updatedAt = candy.updatedAt;
         if ([candy.comments match:^BOOL(WLComment *comment) {
             return comment.status == WLContributionStatusReady;
         }]) {

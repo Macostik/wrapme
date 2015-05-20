@@ -102,15 +102,19 @@ static NSUInteger WLImageCacheSize = 524288000;
 - (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
 	if (identifier.nonempty && path.nonempty && [[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSString *toPath = [self pathWithIdentifier:identifier];
-        [[NSFileManager defaultManager] moveItemAtPath:path toPath:toPath error:NULL];
-        UIImage* image = [WLSystemImageCache imageWithIdentifier:path];
-        if (image == nil) {
-            image = [UIImage imageWithData:[[NSFileManager defaultManager] contentsAtPath:toPath]];
+        NSError *error = nil;
+        if ([[NSFileManager defaultManager] moveItemAtPath:path toPath:toPath error:&error]) {
+            UIImage* image = [WLSystemImageCache imageWithIdentifier:path];
+            if (image == nil) {
+                image = [UIImage imageWithData:[[NSFileManager defaultManager] contentsAtPath:toPath]];
+            } else {
+                [WLSystemImageCache removeImageWithIdentifier:path];
+            }
+            [WLSystemImageCache setImage:image withIdentifier:identifier];
+            [self.identifiers addObject:identifier];
         } else {
-            [WLSystemImageCache removeImageWithIdentifier:path];
+            WLLog(@"Image Cache", @"Reusing local image", error);
         }
-        [WLSystemImageCache setImage:image withIdentifier:identifier];
-        [self.identifiers addObject:identifier];
 	}
 }
 

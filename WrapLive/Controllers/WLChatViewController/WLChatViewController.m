@@ -51,7 +51,7 @@ CGFloat WLMaxTextViewWidth;
 
 @property (weak, nonatomic) WLRefresher* refresher;
 
-@property (nonatomic) BOOL animating;
+@property (strong, nonatomic) NSMapTable* cachedMessageHeights;
 
 @end
 
@@ -79,11 +79,15 @@ CGFloat WLMaxTextViewWidth;
 - (void)reloadChatAfterApplicationBecameActive {
     self.chat = [WLChat chatWithWrap:self.wrap];
     self.chat.delegate = self;
-    [self reloadData];
+    [self.collectionView reloadData];
     [self scrollToLastUnreadMessage];
 }
 
 - (void)viewDidLoad {
+    
+    self.cachedMessageHeights = [NSMapTable strongToStrongObjectsMapTable];
+    
+    self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal];
     
     [self.collectionView registerNib:[WLLoadingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WLLoadingViewIdentifier];
     [self.collectionView registerNib:[WLTypingViewCell nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLTypingViewCell"];
@@ -102,8 +106,6 @@ CGFloat WLMaxTextViewWidth;
     collectionView.contentOffset = CGPointMake(0, -self.composeBar.height);
     
     collectionView.layer.geometryFlipped = YES;
-    
-    self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal];
     
     WLMaxTextViewWidth = WLConstants.screenWidth - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
     
@@ -142,7 +144,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self reloadData];
+    [self.collectionView reloadData];
     [self scrollToLastUnreadMessage];
 }
 
@@ -157,7 +159,7 @@ CGFloat WLMaxTextViewWidth;
     run_after(.05, ^{
         __weak __typeof(self)weakSelf = self;
         WLMessage *unreadMessage = [self.chat.unreadMessages lastObject];
-        if (unreadMessage.valid) {
+        if (unreadMessage.valid && unreadMessage != [self.chat.entries firstObject]) {
             NSIndexPath *indexPathForCell = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:unreadMessage] inSection:0];
             if (indexPathForCell.item != NSNotFound) {
                 [self.collectionView scrollToItemAtIndexPath:indexPathForCell atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
@@ -185,21 +187,6 @@ CGFloat WLMaxTextViewWidth;
     self.refresher.enabled = YES;
 }
 
-- (void)performInsertAnimation:(void (^)(WLBlock completion))animation failure:(WLFailureBlock)failure {
-    if (!self.animating) {
-        self.animating = YES;
-        __weak typeof(self)weakSelf = self;
-        [self.collectionView reloadData];
-        [self.collectionView layoutIfNeeded];
-        animation(^{
-            weakSelf.animating = NO;
-            [weakSelf.collectionView reloadData];
-        });
-    } else {
-        if (failure) failure(nil);
-    }
-}
-
 - (void)insertMessage:(WLMessage*)message {
     UIApplicationState applicationState = [UIApplication sharedApplication].applicationState;
     if (applicationState == UIApplicationStateBackground) {
@@ -214,7 +201,11 @@ CGFloat WLMaxTextViewWidth;
         }
 
         UICollectionView *collectionView = weakSelf.collectionView;
-        if (!weakSelf.animating && (collectionView.contentOffset.y > collectionView.minimumContentOffset.y || !applicationActive)) {
+        
+        if (!collectionView.scrollable) {
+            [weakSelf.chat addEntry:message];
+            [operation finish];
+        } else if (collectionView.contentOffset.y > collectionView.minimumContentOffset.y || !applicationActive) {
             CGFloat offset = collectionView.contentOffset.y;
             CGFloat contentHeight = collectionView.contentSize.height;
             [weakSelf.chat addEntry:message];
@@ -223,25 +214,14 @@ CGFloat WLMaxTextViewWidth;
             [collectionView trySetContentOffset:CGPointMake(0, offset) animated:NO];
             [operation finish];
         } else {
-            if (!collectionView.scrollable) {
-                [weakSelf.chat addEntry:message];
+            [weakSelf.chat addEntry:message];
+            [collectionView layoutIfNeeded];
+            CGPoint minimumContentOffset = collectionView.minimumContentOffset;
+            collectionView.contentOffset = CGPointMake(minimumContentOffset.x, minimumContentOffset.y + [weakSelf heightOfMessageCell:message]);
+            [collectionView setMinimumContentOffsetAnimated:YES];
+            run_after(0.5, ^{
                 [operation finish];
-                return;
-            }
-            [weakSelf performInsertAnimation:^(WLBlock completion) {
-                [weakSelf.chat addEntry:message];
-                [collectionView reloadData];
-                [collectionView layoutIfNeeded];
-                CGPoint minimumContentOffset = collectionView.minimumContentOffset;
-                collectionView.contentOffset = CGPointMake(minimumContentOffset.x, minimumContentOffset.y + [weakSelf heightOfMessageCell:message]);
-                [collectionView setMinimumContentOffsetAnimated:YES];
-                run_after(0.5, ^{
-                    completion();
-                    [operation finish];
-                });
-            } failure:^(NSError *error) {
-                [operation finish];
-            }];
+            });
         }
     });
 }
@@ -297,17 +277,11 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - WLChatDelegate
 
 - (void)paginatedSetChanged:(WLPaginatedSet *)group {
-    [self reloadData];
+    [self.collectionView reloadData];
 }
 
 - (void)paginatedSetCompleted:(WLPaginatedSet *)group {
-    [self reloadData];
-}
-
-- (void)reloadData {
-    if (!self.animating) {
-        [self.collectionView reloadData];
-    }
+    [self.collectionView reloadData];
 }
 
 #pragma mark - WLEntryNotifyReceiver
@@ -450,12 +424,21 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGFloat)heightOfMessageCell:(WLMessage *)message {
+    NSNumber *cachedHeight = [self.cachedMessageHeights objectForKey:message];
+    if (cachedHeight) {
+        return [cachedHeight floatValue];
+    }
+    if (!self.messageFont) {
+        return 0;
+    }
     BOOL containsName = [self.chat.messagesWithName containsObject:message];
     CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth];
     CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
     CGFloat bottomInset = WLMessageNameInset;
     commentHeight = topInset + commentHeight + bottomInset;
-    return MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight);
+    CGFloat resultHeight = MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight);
+    [self.cachedMessageHeights setObject:@(resultHeight) forKey:message];
+    return resultHeight;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -511,6 +494,7 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - WLFontPresetterReceiver
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+    [self.cachedMessageHeights removeAllObjects];
     self.messageFont = [self.messageFont preferredFontWithPreset:WLFontPresetNormal];
     [self.collectionView reloadData];
 }

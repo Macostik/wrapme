@@ -145,21 +145,21 @@
 }
 
 - (void)didChange {
-    [self.messagesWithDay removeAllObjects];
-    [self.messagesWithName removeAllObjects];
+    [_messagesWithDay removeAllObjects];
+    [_messagesWithName removeAllObjects];
     NSOrderedSet *messages = self.entries;
     for (WLMessage *message in messages) {
         NSUInteger index = [messages indexOfObject:message];
         WLMessage* previousMessage = [messages tryObjectAtIndex:index + 1];
         BOOL showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
         if (showDay) {
-            [self.messagesWithDay addObject:message];
-            [self.messagesWithName addObject:message];
+            [_messagesWithDay addObject:message];
+            [_messagesWithName addObject:message];
             continue;
         }
         
         if (previousMessage.contributor != message.contributor) {
-            [self.messagesWithName addObject:message];
+            [_messagesWithName addObject:message];
         }
     }
     

@@ -18,11 +18,13 @@
 @implementation WLEntryStatusIndicator
 
 - (void)updateStatusIndicator:(WLContribution *)contribution {
-    self.hidden = !contribution.valid || ![contribution contributor].isCurrentUser;
-    [UIView performWithoutAnimation:^{
-        self.widthConstraint.constant = contribution.valid && [contribution contributor].isCurrentUser ? WLIndicatorWidth: .0;
-        [self layoutIfNeeded];
-    }];
+    self.hidden = contribution.invalid || !contribution.contributedByCurrentUser;
+    if (self.widthConstraint) {
+        [UIView performWithoutAnimation:^{
+            self.widthConstraint.constant = self.hidden ? 0 : WLIndicatorWidth;
+            [self layoutIfNeeded];
+        }];
+    }
     if (_contribution != contribution) {
         _contribution = contribution;
         [[[_contribution class] notifier] addReceiver:self];

@@ -222,7 +222,6 @@
 - (void)updateOwnerData {
     [_candy markAsRead];
     [self.candyIndicator updateStatusIndicator:_candy];
-    self.candyIndicator.hidden = NO;
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"warning";
     self.editButton.hidden = ![_candy uploaded];
     [self setCommentButtonTitle:_candy];

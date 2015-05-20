@@ -82,7 +82,7 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 
-- (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
+- (void)photoEditorCanceled:(AdobeUXImageEditorViewController *)editor {
     [self.navigationController popViewControllerAnimated:NO];
 }
 

@@ -247,6 +247,7 @@ static CGFloat WLContstraintOffset = 44.0;
 #pragma mark - InterfaceOrientations
 
 - (NSUInteger)supportedInterfaceOrientations {
+    self.view.center = self.view.superview.center;
     [self.collectionView.collectionViewLayout invalidateLayout];
     return UIInterfaceOrientationMaskAll;
 }

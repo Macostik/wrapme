@@ -543,6 +543,7 @@
                         <outlet property="collectionView" destination="Btf-EE-fNS" id="Vw6-6v-mBB"/>
                         <outlet property="doneButton" destination="N3t-xp-O3A" id="3ws-JO-qTt"/>
                         <outlet property="doneButtonTrailingConstraint" destination="8Ak-lJ-fYp" id="oOF-h0-KZr"/>
+                        <outlet property="navigationBar" destination="n5y-dc-znI" id="YUI-q0-LVf"/>
                         <outlet property="spinner" destination="gTt-qD-Qqp" id="0xI-x9-qYu"/>
                         <outlet property="titleLabel" destination="dGM-vI-GSH" id="B2G-Mj-o7e"/>
                         <outlet property="wrapView" destination="Dyh-Aa-5qq" id="Lgd-IQ-IiL"/>
@@ -1090,6 +1091,7 @@
                     <connections>
                         <outlet property="accessLabel" destination="bvQ-XE-Vmc" id="o9I-JK-qUc"/>
                         <outlet property="collectionView" destination="1BQ-X6-myD" id="Tqf-bh-zO9"/>
+                        <outlet property="navigationBar" destination="sqA-kh-dcq" id="8q6-eI-Wy0"/>
                         <outlet property="wrapView" destination="pl9-HA-2c4" id="WZP-DO-O5B"/>
                     </connections>
                 </viewController>

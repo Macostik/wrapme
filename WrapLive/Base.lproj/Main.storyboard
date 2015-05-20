@@ -407,6 +407,7 @@
                     <navigationItem key="navigationItem" id="D4X-S5-GBc"/>
                     <connections>
                         <outlet property="dataSource" destination="Sb9-ms-INl" id="IUo-5V-S9X"/>
+                        <outlet property="navigationBar" destination="DTt-7g-SnC" id="gAn-U2-agD"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="XyY-4e-Wfg" id="TIc-cZ-AzT"/>
                     </connections>
                 </viewController>
@@ -665,6 +666,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="6wo-X8-9p5"/>
                     <connections>
+                        <outlet property="navigationBar" destination="qU7-Ez-lna" id="6fp-ZP-V0i"/>
                         <outlet property="signOutButton" destination="7C1-yc-O8X" id="EVt-mE-E2m"/>
                     </connections>
                 </viewController>
@@ -966,6 +968,7 @@
                         <outlet property="imagePlaceholderView" destination="SJq-9P-McW" id="amY-pq-Miv"/>
                         <outlet property="imageView" destination="AYn-Zt-xUG" id="RLi-hY-DCv"/>
                         <outlet property="nameTextField" destination="D1N-1e-psu" id="aFX-at-9U5"/>
+                        <outlet property="navigationBar" destination="ant-6l-Vag" id="7N9-H3-ABr"/>
                         <outlet property="resendButton" destination="gpG-be-cvC" id="fQ9-oJ-SwG"/>
                         <outlet property="verificationEmailTextView" destination="VXa-Dq-6e9" id="hUh-Z4-Apx"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="dqa-OK-Z7G" id="slP-9b-HaW"/>
@@ -2475,6 +2478,7 @@ Tap here to start.</string>
                     </view>
                     <navigationItem key="navigationItem" id="pYh-Kq-wM8"/>
                     <connections>
+                        <outlet property="navigationBar" destination="Bvm-fO-3Iz" id="AU6-vM-XHp"/>
                         <outlet property="searchField" destination="KDf-WU-v2H" id="eMH-vk-lNZ"/>
                         <outlet property="spinner" destination="eU0-nK-XkS" id="3qg-cQ-HkS"/>
                         <outlet property="tableView" destination="VJP-b5-s4a" id="B7M-Zh-gQ9"/>
@@ -2623,6 +2627,7 @@ Tap here to start.</string>
                     <navigationItem key="navigationItem" id="LVb-lT-0Jh"/>
                     <connections>
                         <outlet property="addUserButton" destination="kdg-Ph-jY5" id="7zR-iq-XqN"/>
+                        <outlet property="navigationBar" destination="ntu-B6-9gu" id="1pH-fQ-A2D"/>
                         <outlet property="phoneNumberTextField" destination="KIX-5W-ASY" id="l2d-Wt-sKj"/>
                         <outlet property="userNameTextField" destination="Xmt-yf-g7R" id="Jpl-Yb-dg4"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="bWp-Rk-jx2" id="L4A-CZ-RPw"/>
@@ -2983,6 +2988,7 @@ Tap here to start.</string>
                         <outlet property="inviteButton" destination="ppT-EU-1XX" id="cVV-qJ-qHZ"/>
                         <outlet property="messageCountLabel" destination="O8y-Vm-wNu" id="VWt-m0-xX0"/>
                         <outlet property="nameLabel" destination="PcB-Yh-hjT" id="Wm5-Y3-if8"/>
+                        <outlet property="navigationBar" destination="b0w-IA-ZYu" id="iww-eD-owf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUq-C2-qrY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4249,6 +4255,7 @@ Check your internet connection and try again.</string>
                     <connections>
                         <outlet property="collectionView" destination="ez0-f9-dHG" id="cd9-Q9-vcX"/>
                         <outlet property="composeBar" destination="dQp-Lx-kpC" id="cly-mG-GSx"/>
+                        <outlet property="navigationBar" destination="L7B-3N-jdg" id="Dxp-BV-kzo"/>
                         <outlet property="titleLabel" destination="AvF-XJ-7eQ" id="VjQ-zZ-1TG"/>
                         <outlet property="topView" destination="L7B-3N-jdg" id="gR3-Tx-BoI"/>
                         <outletCollection property="keyboardAdjustmentLayoutViews" destination="ez0-f9-dHG" id="nkh-TB-hbr"/>
@@ -4669,6 +4676,7 @@ Check your internet connection and try again.</string>
                         <outlet property="cancelButton" destination="dYf-Sg-pHd" id="bud-PD-3U6"/>
                         <outlet property="dataSource" destination="zjC-7P-9tZ" id="72Y-Da-JLc"/>
                         <outlet property="doneButton" destination="oMu-AF-YMH" id="lIa-zm-9E9"/>
+                        <outlet property="navigationBar" destination="2R6-MR-eF4" id="kOB-uz-PqL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RN9-r6-64a" userLabel="First Responder" sceneMemberID="firstResponder"/>

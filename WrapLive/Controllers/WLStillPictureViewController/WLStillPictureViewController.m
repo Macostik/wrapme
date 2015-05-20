@@ -23,6 +23,7 @@
 #import "WLNavigationAnimator.h"
 #import "WLHomeViewController.h"
 #import "WLSoundPlayer.h"
+#import "WLToast.h"
 
 @interface WLStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
 
@@ -60,6 +61,14 @@
     if (self.mode == WLStillPictureModeDefault) {
         [[WLWrap notifier] addReceiver:self];
     }
+}
+
+- (UIViewController *)toastAppearanceViewController:(WLToast *)toast {
+    return [self.cameraNavigationController.topViewController toastAppearanceViewController:toast];
+}
+
+- (UIView *)toastAppearanceReferenceView:(WLToast *)toast {
+    return [self.cameraNavigationController toastAppearanceReferenceView:toast];
 }
 
 - (id<WLStillPictureViewControllerDelegate>)getValidDelegate {

@@ -13,6 +13,8 @@
 
 @interface WLBaseViewController : GAITrackedViewController <WLKeyboardBroadcastReceiver>
 
+@property (weak, nonatomic) IBOutlet UIView* navigationBar;
+
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *keyboardAdjustmentLayoutViews;
 
 @property (nonatomic) BOOL keyboardAdjustmentAnimated;

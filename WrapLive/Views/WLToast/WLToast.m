@@ -119,7 +119,7 @@
     }
     
     if (!viewController) {
-        viewController = [UIViewController toastAppearanceViewController];
+        viewController = [UIViewController toastAppearanceViewController:self];
     }
     __weak UIViewController *weakViewController = viewController;
     if (!appearance) {
@@ -149,18 +149,15 @@
             [weakSelf removeFromSuperview];
             weakSelf.translatesAutoresizingMaskIntoConstraints = NO;
             
+            [view addSubview:weakSelf];
+            [view addConstraint:[weakSelf constraintToItem:referenceView equal:NSLayoutAttributeWidth]];
+            [view addConstraint:[weakSelf constraintToItem:referenceView equal:NSLayoutAttributeCenterX]];
             if (referenceView == view) {
-                [view addSubview:weakSelf];
-                [view addConstraint:[weakSelf constraintToItem:referenceView equal:NSLayoutAttributeWidth]];
-                [view addConstraint:[weakSelf constraintToItem:referenceView equal:NSLayoutAttributeCenterX]];
                 NSLayoutConstraint *topViewConstraint = [weakSelf constraintToItem:referenceView equal:NSLayoutAttributeTop];
                 [view addConstraint:topViewConstraint];
                 weakSelf.topViewConstraint = topViewConstraint;
                 weakSelf.topMessageInset.constant = [UIApplication sharedApplication].statusBarHidden ? 6 : 26;
             } else {
-                [view insertSubview:weakSelf belowSubview:referenceView];
-                [view addConstraint:[weakSelf constraintToItem:referenceView equal:NSLayoutAttributeWidth]];
-                [view addConstraint:[weakSelf constraintToItem:referenceView equal:NSLayoutAttributeCenterX]];
                 NSLayoutConstraint *topViewConstraint = [weakSelf constraintForAttrbute:NSLayoutAttributeTop toItem:referenceView equalToAttribute:NSLayoutAttributeBottom];
                 [view addConstraint:topViewConstraint];
                 weakSelf.topViewConstraint = topViewConstraint;
@@ -168,11 +165,10 @@
             }
             
             [weakSelf layoutIfNeeded];
-            weakSelf.topViewConstraint.constant = -weakSelf.height;
+            weakSelf.alpha = 0.0f;
             [weakSelf layoutIfNeeded];
             [UIView performAnimated:YES animation:^{
-                weakSelf.topViewConstraint.constant = .0;
-                [weakSelf layoutIfNeeded];
+                weakSelf.alpha = 1.0f;
             }];
         }
         
@@ -203,10 +199,9 @@
 - (void)dismiss {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
     __weak typeof(self)weakSelf = self;
-    if (self.topViewConstraint.constant == 0) {
+    if (self.alpha > 0) {
         [UIView animateWithDuration:.25 animations:^{
-            weakSelf.topViewConstraint.constant = -self.height;
-            [weakSelf layoutIfNeeded];
+            weakSelf.alpha = 0.0f;
         } completion:^(BOOL finished) {
             [weakSelf removeFromSuperview];
             if (weakSelf.dismissBlock) weakSelf.dismissBlock();
@@ -226,7 +221,7 @@
 
 @implementation UIViewController (WLToast)
 
-+ (UIViewController *)toastAppearanceViewController {
++ (UIViewController *)toastAppearanceViewController:(WLToast*)toast {
     UIViewController *visibleViewController = [UIWindow mainWindow].rootViewController;
     UIViewController *presentedViewController = visibleViewController.presentedViewController;
     while (presentedViewController) {
@@ -236,7 +231,11 @@
     if ([visibleViewController isKindOfClass:[UINavigationController class]]) {
         visibleViewController = [(UINavigationController*)visibleViewController topViewController];
     }
-    return visibleViewController;
+    return [visibleViewController toastAppearanceViewController:toast];
+}
+
+- (UIViewController*)toastAppearanceViewController:(WLToast*)toast {
+    return self;
 }
 
 - (UIView*)toastAppearanceReferenceView:(WLToast*)toast {

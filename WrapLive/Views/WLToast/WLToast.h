@@ -54,7 +54,9 @@ static NSTimeInterval WLToastDismissalDelay = 4.0f;
 
 @interface UIViewController (WLToast) <WLToastAppearance>
 
-+ (UIViewController*)toastAppearanceViewController;
++ (UIViewController*)toastAppearanceViewController:(WLToast*)toast;
+
+- (UIViewController*)toastAppearanceViewController:(WLToast*)toast;
 
 - (UIView*)toastAppearanceReferenceView:(WLToast*)toast;
 

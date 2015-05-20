@@ -5,109 +5,117 @@
 	<key>development</key>
 	<array>
 		<dict>
+			<key>deviceUID</key>
+			<string>9c5530466301f7a41577cc2bd16ac2a15ea64fe5</string>
 			<key>email</key>
 			<string>s.maximenko@mobidev.biz</string>
 			<key>password</key>
 			<string>d092f2c4b4</string>
-			<key>deviceUID</key>
-			<string>9c5530466301f7a41577cc2bd16ac2a15ea64fe5</string>
 		</dict>
 		<dict>
-			<key>phone</key>
-			<string>951383026</string>
 			<key>countryCode</key>
 			<string>380</string>
+			<key>deviceUID</key>
+			<string>f38941ece2b91cc369984fb78e98e1e5d8cda2c4</string>
 			<key>email</key>
 			<string>s.maximenko@mobidev.biz</string>
 			<key>password</key>
 			<string>d2d0421f5b</string>
-			<key>deviceUID</key>
-			<string>f38941ece2b91cc369984fb78e98e1e5d8cda2c4</string>
+			<key>phone</key>
+			<string>951383026</string>
 		</dict>
 		<dict>
 			<key>countryCode</key>
 			<string>380</string>
-			<key>phone</key>
-			<string>636467228</string>
+			<key>deviceUID</key>
+			<string>90a5c168cfdefccedbe024ee6b28383b662cb792</string>
 			<key>email</key>
 			<string>s.maximenko.mobidev@gmail.com</string>
 			<key>password</key>
 			<string>2766fcc4fa</string>
-			<key>deviceUID</key>
-			<string>90a5c168cfdefccedbe024ee6b28383b662cb792</string>
+			<key>phone</key>
+			<string>636467228</string>
 		</dict>
 		<dict>
 			<key>countryCode</key>
 			<string>380</string>
-			<key>phone</key>
-			<string>957115540</string>
+			<key>deviceUID</key>
+			<string>29efce61133449984a009adfc89c8c0db73ffb75</string>
 			<key>email</key>
 			<string>y.granchenko@mobidev.biz</string>
 			<key>password</key>
 			<string>99d1cb8f8a</string>
-			<key>deviceUID</key>
-			<string>29efce61133449984a009adfc89c8c0db73ffb75</string>
+			<key>phone</key>
+			<string>957115540</string>
 		</dict>
 		<dict>
 			<key>countryCode</key>
 			<string>380</string>
-			<key>phone</key>
-			<string>632124353</string>
 			<key>email</key>
 			<string>e.ustimenko@mobidev.ru</string>
 			<key>password</key>
 			<string>edf8ee8cc8</string>
+			<key>phone</key>
+			<string>632124353</string>
 		</dict>
 		<dict>
 			<key>countryCode</key>
 			<string>380</string>
-			<key>phone</key>
-			<string>956213431</string>
+			<key>deviceUID</key>
+			<string>2843f812d83e161e98f5497509bb64252536fbc6</string>
 			<key>email</key>
 			<string>y.granchenko@gmail.com</string>
 			<key>password</key>
 			<string>f7cfe35dc1</string>
-			<key>deviceUID</key>
-			<string>2843f812d83e161e98f5497509bb64252536fbc6</string>
+			<key>phone</key>
+			<string>956213431</string>
 		</dict>
 		<dict>
 			<key>countryCode</key>
 			<string>380</string>
-			<key>phone</key>
-			<string>666680745</string>
+			<key>deviceUID</key>
+			<string>20de4a0a1f05b8420a2c5857a79dd508a7eb5c8f</string>
 			<key>email</key>
 			<string>yura-granchenko@yandex.ru</string>
 			<key>password</key>
 			<string>90c458f99f</string>
-			<key>deviceUID</key>
-			<string>20de4a0a1f05b8420a2c5857a79dd508a7eb5c8f</string>
+			<key>phone</key>
+			<string>666680745</string>
 		</dict>
 	</array>
 	<key>qa</key>
 	<array>
 		<dict>
-			<key>phone</key>
-			<string>918013610</string>
 			<key>countryCode</key>
 			<string>380</string>
+			<key>deviceUID</key>
+			<string>d6aa020a32d515a5580a876edd550ea883c1ca84</string>
 			<key>email</key>
 			<string>s.zakharov@mobidev.biz</string>
 			<key>password</key>
 			<string>f7c6287469</string>
-			<key>deviceUID</key>
-			<string>d6aa020a32d515a5580a876edd550ea883c1ca84</string>
+			<key>phone</key>
+			<string>918013610</string>
 		</dict>
 		<dict>
-			<key>phone</key>
-			<string>918013611</string>
 			<key>countryCode</key>
 			<string>380</string>
+			<key>deviceUID</key>
+			<string>6e1d94d450da08697858f5eae57443624720aa0b</string>
 			<key>email</key>
 			<string>sergey.zakharov.md@gmail.com</string>
 			<key>password</key>
 			<string>db503c87a6</string>
+			<key>phone</key>
+			<string>918013611</string>
+		</dict>
+		<dict>
 			<key>deviceUID</key>
-			<string>6e1d94d450da08697858f5eae57443624720aa0b</string>
+			<string>9c5530466301f7a41577cc2bd16ac2a15ea64fe5</string>
+			<key>email</key>
+			<string>s.maximenko@mobidev.biz</string>
+			<key>password</key>
+			<string>66be4e9ed6</string>
 		</dict>
 	</array>
 </dict>

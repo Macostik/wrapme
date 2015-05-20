@@ -109,10 +109,42 @@ static BOOL authorized = NO;
         if (user.firstTimeUse) {
             [self preloadFirstWrapsWithUser:user];
         }
+
+        // code for easily saving test user data
+#if TARGET_IPHONE_SIMULATOR
+        [self saveTestUserData];
+#endif
         
 		return user;
     }
     return self.authorization;
+}
+
+- (void)saveTestUserData {
+    NSDictionary *authorizationData = nil;
+    if (self.authorization.phone.nonempty && self.authorization.countryCode.nonempty) {
+        authorizationData = @{@"phone":self.authorization.phone,@"countryCode":self.authorization.countryCode,@"email":self.authorization.email,@"password":self.authorization.password,@"deviceUID":self.authorization.deviceUID};
+    } else {
+        authorizationData = @{@"email":self.authorization.email,@"password":self.authorization.password,@"deviceUID":self.authorization.deviceUID};
+    }
+    
+    // replace path to test users plist
+    NSString *currentTestUsersPath = @"/Users/sergeymaximenko/projects/wraplive-ios/WrapLive/Resources/Property Lists/Test Users/WLTestUsers.plist";
+    
+    NSMutableDictionary *testUsers = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:currentTestUsersPath]];
+    
+    NSMutableArray *environmentTestUsers = [NSMutableArray arrayWithArray:[testUsers objectForKey:[WLAPIManager manager].environment.name]];
+    for (NSDictionary *testUser in environmentTestUsers) {
+        if ([testUser[@"email"] isEqualToString:authorizationData[@"email"]] && [testUser[@"deviceUID"] isEqualToString:authorizationData[@"deviceUID"]]) {
+            return;
+        }
+    }
+    
+    [environmentTestUsers addObject:authorizationData];
+    
+    testUsers[[WLAPIManager manager].environment.name] = environmentTestUsers;
+    
+    [testUsers writeToFile:currentTestUsersPath atomically:YES];
 }
 
 - (void)preloadFirstWrapsWithUser:(WLUser*)user {

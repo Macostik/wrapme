@@ -11,8 +11,9 @@
 #import "WLUploading+Extended.h"
 #import "WLAuthorizationRequest.h"
 #import "WLOperationQueue.h"
+#import "WLEntryNotifier.h"
 
-@interface WLUploadingQueue ()
+@interface WLUploadingQueue () <WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) NSMutableOrderedSet* uploadings;
 
@@ -69,6 +70,11 @@
             }];
         });
     }
+}
+
+- (void)setEntryClass:(Class)entryClass {
+    _entryClass = entryClass;
+    [[entryClass notifier] addReceiver:self];
 }
 
 - (instancetype)init {
@@ -175,6 +181,18 @@
 
 - (NSUInteger)count {
     return self.uploadings.count;
+}
+
+// MARK: - WLEntryNotifyReceiver
+
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return entry.valid && [self.uploadings containsObject:[(WLContribution*)entry uploading]];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLEntry *)entry {
+    [self.uploadings removeObject:[(WLContribution*)entry uploading]];
+    [self broadcast:@selector(uploadingQueueDidChange:)];
+    self.isUploading = !self.isEmpty;
 }
 
 @end

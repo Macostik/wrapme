@@ -145,8 +145,10 @@
 }
 
 - (void)didChange {
+    
+    NSHashTable *messagesWithName = [NSHashTable weakObjectsHashTable];
+    
     [_messagesWithDay removeAllObjects];
-    [_messagesWithName removeAllObjects];
     NSOrderedSet *messages = self.entries;
     for (WLMessage *message in messages) {
         NSUInteger index = [messages indexOfObject:message];
@@ -154,13 +156,22 @@
         BOOL showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
         if (showDay) {
             [_messagesWithDay addObject:message];
-            [_messagesWithName addObject:message];
+            [messagesWithName addObject:message];
             continue;
         }
         
         if (previousMessage.contributor != message.contributor) {
-            [_messagesWithName addObject:message];
+            [messagesWithName addObject:message];
         }
+    }
+    
+    if (_messagesWithName && ![_messagesWithName isEqualToHashTable:messagesWithName]) {
+        _messagesWithName = messagesWithName;
+        if ([self.delegate respondsToSelector:@selector(chatDidChangeMessagesWithName:)]) {
+            [self.delegate chatDidChangeMessagesWithName:self];
+        }
+    } else {
+        _messagesWithName = messagesWithName;
     }
     
     [super didChange];

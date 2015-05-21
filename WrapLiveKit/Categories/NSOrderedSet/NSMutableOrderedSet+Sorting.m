@@ -23,6 +23,10 @@ NSComparator comparatorByCreatedAt = ^NSComparisonResult(id obj1, id obj2) {
     return [[obj1 createdAt] compare:[obj2 createdAt]];
 };
 
+NSComparator comparatorByCreatedAtTimestamp = ^NSComparisonResult(id obj1, id obj2) {
+    return [[obj1 createdAt] timestampCompare:[obj2 createdAt]];
+};
+
 NSComparator comparatorByDate = ^NSComparisonResult(id obj1, id obj2) {
     return [[obj1 date] compare:[obj2 date]];
 };

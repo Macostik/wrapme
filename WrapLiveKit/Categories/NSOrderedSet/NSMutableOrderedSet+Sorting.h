@@ -14,6 +14,8 @@ extern NSComparator comparatorByUpdatedAt;
 
 extern NSComparator comparatorByCreatedAt;
 
+extern NSComparator comparatorByCreatedAtTimestamp;
+
 extern NSComparator comparatorByDate;
 
 extern NSComparator comparatorByName;

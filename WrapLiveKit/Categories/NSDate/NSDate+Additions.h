@@ -49,4 +49,6 @@ static const NSTimeInterval WLTimeIntervalWeek = 604800;
 
 - (BOOL)match:(NSDate*)date;
 
+- (NSComparisonResult)timestampCompare:(NSDate*)date;
+
 @end

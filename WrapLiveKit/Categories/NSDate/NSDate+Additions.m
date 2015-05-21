@@ -194,4 +194,16 @@ static inline NSCalendar* NSCurrentCalendar() {
     return [self timeIntervalSinceDate:date] == 0;
 }
 
+- (NSComparisonResult)timestampCompare:(NSDate *)date {
+    NSTimeInterval t1 = self.timestamp;
+    NSTimeInterval t2 = date.timestamp;
+    if (t1 < t2) {
+        return NSOrderedAscending;
+    } else if (t1 > t2) {
+        return NSOrderedDescending;
+    } else {
+        return NSOrderedSame;
+    }
+}
+
 @end

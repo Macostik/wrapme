@@ -286,6 +286,10 @@ CGFloat WLMaxTextViewWidth;
 
 #pragma mark - WLChatDelegate
 
+- (void)chatDidChangeMessagesWithName:(WLChat *)chat {
+    [self.cachedMessageHeights removeAllObjects];
+}
+
 - (void)paginatedSetChanged:(WLPaginatedSet *)group {
     [self.collectionView reloadData];
 }

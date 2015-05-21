@@ -18,6 +18,8 @@
 
 - (void)chat:(WLChat*)chat didEndTyping:(WLUser *)user andSendMessage:(BOOL)sendMessage;
 
+- (void)chatDidChangeMessagesWithName:(WLChat*)chat;
+
 @end
 
 @interface WLChat : WLPaginatedSet

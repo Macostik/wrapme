@@ -110,7 +110,7 @@
 "%@ uploaded new photo%@" = "%@ Загружно новые фото%@";
 "comments" = "комментарии";
 "a comment" = "комментарий";
-"Downloading the photo now. It will be in \"%@\" album momentarily." = "Идет загрузка фото. Они будут в \"%@\" альбоме сразу же.";
+"Downloading the photo now. It will be in \"%@\" album momentarily." = "Идет загрузка фото. Она появится в альбоме \"%@\".";
 "This item is already uploaded." = "Это обновлено уже.";
 "No registered devices" = "Зарегестрированных устройств нету";
 "Terms and Conditions" = "Сроки и условия";

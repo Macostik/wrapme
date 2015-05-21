@@ -103,7 +103,7 @@ static NSUInteger WLImageCacheSize = 524288000;
 	if (identifier.nonempty && path.nonempty && [[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSString *toPath = [self pathWithIdentifier:identifier];
         NSError *error = nil;
-        if ([[NSFileManager defaultManager] moveItemAtPath:path toPath:toPath error:&error]) {
+        if ([[NSFileManager defaultManager] copyItemAtPath:path toPath:toPath error:&error]) {
             UIImage* image = [WLSystemImageCache imageWithIdentifier:path];
             if (image == nil) {
                 image = [UIImage imageWithData:[[NSFileManager defaultManager] contentsAtPath:toPath]];
@@ -112,10 +112,15 @@ static NSUInteger WLImageCacheSize = 524288000;
             }
             [WLSystemImageCache setImage:image withIdentifier:identifier];
             [self.identifiers addObject:identifier];
+            run_after_asap(^{
+                [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
+            });
         } else {
             WLLog(@"Image Cache", @"Reusing local image", error);
         }
-	}
+    } else {
+        WLLog(@"Image Cache", @"No local image", nil);
+    }
 }
 
 - (void)setImageData:(NSData*)data withIdentifier:(NSString*)identifier completion:(void (^)(NSString* identifier))completion {

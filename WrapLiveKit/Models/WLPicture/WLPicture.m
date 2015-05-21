@@ -131,6 +131,14 @@
     }];
 }
 
+- (void)cacheForPicture:(WLPicture *)picture {
+    WLImageCache *cache = [WLImageCache cache];
+    [cache setImageAtPath:self.original withUrl:picture.original];
+    [cache setImageAtPath:self.medium withUrl:picture.medium];
+    [cache setImageAtPath:self.small withUrl:picture.small];
+    [cache setImageAtPath:self.large withUrl:picture.large];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@:\noriginal: %@\nlarge: %@\nmedium: %@\nsmall: %@",[self class],self.original,self.large, self.medium, self.small];
 }

@@ -37,6 +37,8 @@
 
 - (void)fetch:(WLBlock)completion;
 
+- (void)cacheForPicture:(WLPicture*)picture;
+
 @end
 
 @interface WLPicture (JSONValue)

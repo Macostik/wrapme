@@ -28,8 +28,8 @@
 }
 
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
-    self.filePath = self.candy.picture.large;
     WLCandy* candy = self.candy;
+    self.filePath = candy.picture.original;
     [parameters trySetObject:candy.uploadIdentifier forKey:WLUploadUIDKey];
 	[parameters trySetObject:@([candy.updatedAt timestamp]) forKey:WLContributedAtKey];
     WLComment *firstComment = [[candy.comments objectsWhere:@"uploading == nil"] lastObject];
@@ -45,10 +45,7 @@
         WLCandy* candy = self.candy;
         WLPicture* oldPicture = [candy.picture copy];
         [candy API_setup:[response.data dictionaryForKey:WLCandyKey]];
-        WLPicture* newPicture = candy.picture;
-        [[WLImageCache cache] setImageAtPath:oldPicture.medium withUrl:newPicture.medium];
-        [[WLImageCache cache] setImageAtPath:oldPicture.small withUrl:newPicture.small];
-        [[WLImageCache cache] setImageAtPath:oldPicture.large withUrl:newPicture.large];
+        [oldPicture cacheForPicture:candy.picture];
         if ([candy.comments match:^BOOL(WLComment *comment) {
             return comment.status == WLContributionStatusReady;
         }]) {

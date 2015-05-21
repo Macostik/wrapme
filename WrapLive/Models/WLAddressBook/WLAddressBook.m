@@ -164,10 +164,6 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
 }
 
 - (void)addressBook:(void (^)(ABAddressBookRef addressBook))success failure:(WLFailureBlock)failure {
-//    static ABAddressBookRef addressBook = NULL;
-//    if (addressBook == NULL) {
-//        addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
-//    }
     runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
         ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
         ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {

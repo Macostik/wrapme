@@ -41,12 +41,10 @@
     // Do any additional setup after loading the view.
     self.invitedRecords = [NSMutableSet set];
     self.openedRows = [NSMutableArray array];
-    self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
     [self.spinner startAnimating];
 	__weak typeof(self)weakSelf = self;
     BOOL cached = [[WLAddressBook addressBook] cachedRecords:^(NSArray *array) {
-        [weakSelf.addressBook addRecords:array];
-        [weakSelf filterContacts];
+        [weakSelf addressBook:[WLAddressBook addressBook] didUpdateCachedRecords:array];
         [weakSelf.spinner stopAnimating];
     } failure:^(NSError *error) {
         [weakSelf.spinner stopAnimating];

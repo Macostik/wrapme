@@ -121,6 +121,7 @@ static BOOL authorized = NO;
 }
 
 - (void)saveTestUserData {
+#ifdef WRAPLIVE_PROJECT_DIR
     NSDictionary *authorizationData = nil;
     if (self.authorization.phone.nonempty && self.authorization.countryCode.nonempty) {
         authorizationData = @{@"phone":self.authorization.phone,@"countryCode":self.authorization.countryCode,@"email":self.authorization.email,@"password":self.authorization.password,@"deviceUID":self.authorization.deviceUID};
@@ -129,7 +130,8 @@ static BOOL authorized = NO;
     }
     
     // replace path to test users plist
-    NSString *currentTestUsersPath = @"/Users/sergeymaximenko/projects/wraplive-ios/WrapLive/Resources/Property Lists/Test Users/WLTestUsers.plist";
+    NSString *projectDirectoryPath = WRAPLIVE_PROJECT_DIR;
+    NSString *currentTestUsersPath = [projectDirectoryPath stringByAppendingPathComponent:@"WrapLive/Resources/Property Lists/Test Users/WLTestUsers.plist"];
     
     NSMutableDictionary *testUsers = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:currentTestUsersPath]];
     
@@ -154,6 +156,7 @@ static BOOL authorized = NO;
     testUsers[[WLAPIManager manager].environment.name] = environmentTestUsers;
     
     [testUsers writeToFile:currentTestUsersPath atomically:YES];
+#endif
 }
 
 - (void)preloadFirstWrapsWithUser:(WLUser*)user {

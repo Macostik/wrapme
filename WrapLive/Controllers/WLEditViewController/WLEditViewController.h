@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLShakeViewController.h"
+#import "WLBaseViewController.h"
 #import "WLEditSession.h"
 
-@interface WLEditViewController : WLShakeViewController <WLEditSessionDelegate>
+@interface WLEditViewController : WLBaseViewController <WLEditSessionDelegate>
 
 @property (strong, nonatomic) WLEditSession *editSession;
 

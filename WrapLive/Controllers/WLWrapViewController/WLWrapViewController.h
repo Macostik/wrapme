@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLShakeViewController.h"
+#import "WLBaseViewController.h"
 
-@interface WLWrapViewController : WLShakeViewController
+@interface WLWrapViewController : WLBaseViewController
 
 @property (weak, nonatomic) WLWrap* wrap;
 

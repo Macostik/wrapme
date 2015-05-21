@@ -110,7 +110,7 @@ static NSString *WLCollectionElementKindItem = @"item";
         if (!attributes.hidden) {
             CGSize size = attributes.size;
             attributes.frame = CGRectMake(0, contentHeight, size.width, size.height);
-            contentHeight += attributes.size.height;
+            contentHeight += size.height;
         }
         [layoutAttributes addObject:attributes];
         NSMutableDictionary *layoutKeyedAttributesForKind = [layoutKeyedAttributes objectForKey:kind];

@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLShakeViewController.h"
+#import "WLBaseViewController.h"
 #import "WLStillPictureViewController.h"
 
-@interface WLHomeViewController : WLShakeViewController <WLStillPictureViewControllerDelegate>
+@interface WLHomeViewController : WLBaseViewController <WLStillPictureViewControllerDelegate>
 
 - (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker;
 

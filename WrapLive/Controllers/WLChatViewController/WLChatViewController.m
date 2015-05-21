@@ -83,6 +83,10 @@ CGFloat WLMaxTextViewWidth;
     [self scrollToLastUnreadMessage];
 }
 
+- (BOOL)geometryFlipped {
+    return YES;
+}
+
 - (void)viewDidLoad {
     
     self.cachedMessageHeights = [NSMapTable strongToStrongObjectsMapTable];
@@ -105,7 +109,7 @@ CGFloat WLMaxTextViewWidth;
     
     collectionView.contentOffset = CGPointMake(0, -self.composeBar.height);
     
-    collectionView.layer.geometryFlipped = YES;
+    collectionView.layer.geometryFlipped = [self geometryFlipped];
     
     WLMaxTextViewWidth = WLConstants.screenWidth - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
     
@@ -391,7 +395,7 @@ CGFloat WLMaxTextViewWidth;
     WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     [cell setShowName:[self.chat.messagesWithName containsObject:message]];
     cell.entry = message;
-    cell.layer.geometryFlipped = YES;
+    cell.layer.geometryFlipped = [self geometryFlipped];
     if (self.wrap.lastUnread == nil || [self.wrap.lastUnread earlier:message.createdAt]) {
         self.wrap.lastUnread = message.createdAt;
     }
@@ -418,14 +422,13 @@ CGFloat WLMaxTextViewWidth;
                 loadingView.error = YES;
             }];
         }
-        loadingView.layer.geometryFlipped = YES;
         supplementaryView = loadingView;
     } else {
         WLTypingViewCell* typingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLTypingViewCell" forIndexPath:indexPath];
         typingView.names = self.chat.typingNames;
         supplementaryView = typingView;
     }
-    supplementaryView.layer.geometryFlipped = YES;
+    supplementaryView.layer.geometryFlipped = [self geometryFlipped];
     return supplementaryView;
 }
 

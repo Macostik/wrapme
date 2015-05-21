@@ -51,6 +51,10 @@
     _isEmbedded = isEmbedded;
     self.modalPresentationStyle = isEmbedded ? UIModalPresentationCustom : UIModalPresentationFullScreen;
     self.transitioningDelegate = isEmbedded ? self : nil;
+    
+    if (!SystemVersionGreaterThanOrEqualTo8()) {
+        [UIWindow mainWindow].rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    }
 }
 
 - (void)loadView {

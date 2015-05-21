@@ -82,6 +82,30 @@
 			<key>phone</key>
 			<string>666680745</string>
 		</dict>
+		<dict>
+			<key>countryCode</key>
+			<string>380</string>
+			<key>deviceUID</key>
+			<string>2065c763eb41c39680173449de58bffbe252c779</string>
+			<key>email</key>
+			<string>s.zakharov@mobidev.biz</string>
+			<key>password</key>
+			<string>1732c0cec7</string>
+			<key>phone</key>
+			<string>918013610</string>
+		</dict>
+		<dict>
+			<key>countryCode</key>
+			<string>380</string>
+			<key>deviceUID</key>
+			<string>708fc4c439ffb15627a95c325ea6950e12ce1697</string>
+			<key>email</key>
+			<string>sergey.zakharov.md@gmail.com</string>
+			<key>password</key>
+			<string>5767a308a0</string>
+			<key>phone</key>
+			<string>983742044</string>
+		</dict>
 	</array>
 	<key>qa</key>
 	<array>

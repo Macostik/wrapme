@@ -52,6 +52,8 @@
 
 @property (nonatomic) NSUInteger currentCandyIndex;
 
+@property (weak, nonatomic) WLCandy* removedCandy;
+
 @end
 
 @implementation WLHistoryViewController
@@ -289,7 +291,12 @@
         
         [receiver setDeletedBlock:^(WLCandy *candy) {
             if (candy == weakSelf.candy) {
-                [WLToast showWithMessage:WLLS(@"This candy is no longer avaliable.")];
+                if (weakSelf.removedCandy == candy) {
+                    [WLToast showWithMessage:WLLS(@"Candy was deleted successfully.")];
+                    weakSelf.removedCandy = nil;
+                } else {
+                    [WLToast showWithMessage:WLLS(@"This candy is no longer avaliable.")];
+                }
                 WLCandy *nextCandy = [weakSelf candyAfterDeletingCandy:candy];
                 if (nextCandy) {
                     [weakSelf setCandy:nextCandy direction:0 animated:NO];
@@ -334,11 +341,14 @@
 
 - (IBAction)navigationButtonClick:(WLIconButton *)sender {
     sender.userInteractionEnabled = NO;
-    if (self.candy.deletable) {
-        [self.candy remove:^(id object) {
-            [WLToast showWithMessage:WLLS(@"Candy was deleted successfully.")];
+    WLCandy *candy = self.candy;
+    self.removedCandy = candy;
+    if (candy.deletable) {
+        __weak typeof(self)weakSelf = self;
+        [candy remove:^(id object) {
             sender.userInteractionEnabled = YES;
         } failure:^(NSError *error) {
+            weakSelf.removedCandy = nil;
             [error show];
             sender.userInteractionEnabled = YES;
         }];

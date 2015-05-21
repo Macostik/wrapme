@@ -19,7 +19,9 @@
 #import "UIFont+CustomFonts.h"
 #import "WLGradientView.h"
 
-@interface WLWrapCell ()
+static CGFloat WLWrapCellSwipeWidth = 52.0f;
+
+@interface WLWrapCell () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -27,7 +29,9 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *wrapNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
-@property (weak, nonatomic) IBOutlet WLGradientView *handlerSwipeView;
+
+@property (weak, nonatomic) IBOutlet UIView *leftSwipeView;
+@property (weak, nonatomic) IBOutlet UIView *rightSwipeView;
 
 @property (assign, nonatomic) BOOL embeddedLongPress;
 
@@ -94,7 +98,7 @@
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    if (ABS(scrollView.contentOffset.x) > self.handlerSwipeView.width/2) {
+    if (ABS(scrollView.contentOffset.x) > WLWrapCellSwipeWidth) {
         if (scrollView.contentOffset.x > 0.0f) {
             if ([self.delegate respondsToSelector:@selector(wrapCell:forWrap:presentChatViewController:)])
                 [self.delegate wrapCell:self forWrap:self.entry presentChatViewController:scrollView];
@@ -103,6 +107,12 @@
                 [self.delegate wrapCell:self forWrap:self.entry presentCameraViewController:scrollView];
         }
     }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offset = ABS(scrollView.contentOffset.x);
+    self.leftSwipeView.alpha = offset > WLWrapCellSwipeWidth ? 1.0f : 0.5f;
+    self.rightSwipeView.alpha = offset > WLWrapCellSwipeWidth ? 1.0f : 0.5f;
 }
 
 @end

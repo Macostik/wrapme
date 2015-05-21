@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -1138,11 +1139,11 @@
                                                                         <constraint firstItem="1y3-CJ-RVW" firstAttribute="top" secondItem="Twb-Mn-vNw" secondAttribute="bottom" constant="-3" id="zfk-Dp-GnS"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="NeC-5A-CAB" customClass="WLGradientView">
+                                                                <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="NeC-5A-CAB">
                                                                     <rect key="frame" x="-160" y="0.0" width="160" height="70"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="u" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vk4-f0-Wr1" customClass="WLLabel">
-                                                                            <rect key="frame" x="101" y="0.0" width="17" height="70"/>
+                                                                            <rect key="frame" x="125" y="0.0" width="17" height="70"/>
                                                                             <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <nil key="highlightedColor"/>
@@ -1151,32 +1152,18 @@
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="bottom" secondItem="vk4-f0-Wr1" secondAttribute="bottom" id="CmH-hE-iKh"/>
-                                                                        <constraint firstAttribute="centerX" secondItem="vk4-f0-Wr1" secondAttribute="centerX" constant="-30" id="ITN-oQ-JBO"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="vk4-f0-Wr1" secondAttribute="centerX" constant="26" id="ITN-oQ-JBO"/>
                                                                         <constraint firstItem="vk4-f0-Wr1" firstAttribute="top" secondItem="NeC-5A-CAB" secondAttribute="top" id="jgj-YU-lBm"/>
                                                                     </constraints>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                                                            <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
-                                                                            <real key="value" value="0.69999999999999996"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="endLocation">
-                                                                            <real key="value" value="1"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
                                                                 </view>
-                                                                <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="4qZ-7z-AsM" customClass="WLGradientView">
+                                                                <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="4qZ-7z-AsM">
                                                                     <rect key="frame" x="320" y="0.0" width="160" height="70"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QM4-q0-ku1" customClass="WLLabel">
-                                                                            <rect key="frame" x="42" y="0.0" width="17" height="70"/>
+                                                                            <rect key="frame" x="18" y="0.0" width="17" height="70"/>
                                                                             <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <nil key="highlightedColor"/>
@@ -1185,26 +1172,12 @@
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="bottom" secondItem="QM4-q0-ku1" secondAttribute="bottom" id="JQP-lR-qiP"/>
-                                                                        <constraint firstAttribute="centerX" secondItem="QM4-q0-ku1" secondAttribute="centerX" constant="30" id="Ocb-jS-9aE"/>
+                                                                        <constraint firstAttribute="leading" secondItem="QM4-q0-ku1" secondAttribute="centerX" constant="-26" id="Ocb-jS-9aE"/>
                                                                         <constraint firstItem="QM4-q0-ku1" firstAttribute="top" secondItem="4qZ-7z-AsM" secondAttribute="top" id="p7W-l6-I8b"/>
                                                                     </constraints>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                                                            <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
-                                                                            <real key="value" value="0.69999999999999996"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="endLocation">
-                                                                            <real key="value" value="1"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
                                                                 </view>
                                                             </subviews>
                                                             <constraints>
@@ -1378,8 +1351,9 @@
                                             <outlet property="coverView" destination="iT4-0e-Bul" id="rxx-lb-38x"/>
                                             <outlet property="dateLabel" destination="1y3-CJ-RVW" id="MbX-LU-Dcj"/>
                                             <outlet property="delegate" destination="L91-fZ-J9O" id="kgF-b1-xuO"/>
-                                            <outlet property="handlerSwipeView" destination="NeC-5A-CAB" id="Cmr-de-Mdy"/>
+                                            <outlet property="leftSwipeView" destination="vk4-f0-Wr1" id="sBj-TH-xL4"/>
                                             <outlet property="nameLabel" destination="Twb-Mn-vNw" id="B8P-cH-kAv"/>
+                                            <outlet property="rightSwipeView" destination="QM4-q0-ku1" id="xSK-UF-vst"/>
                                             <outlet property="wrapNotificationLabel" destination="T99-mA-uFU" id="ZPh-xM-a0p"/>
                                         </connections>
                                     </collectionViewCell>
@@ -1472,11 +1446,11 @@
                                                                 <action selector="push:" destination="1N8-fd-Qyt" eventType="touchUpInside" id="3tX-hc-Af6"/>
                                                             </connections>
                                                         </button>
-                                                        <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="Dj8-bT-ouZ" customClass="WLGradientView">
+                                                        <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="Dj8-bT-ouZ">
                                                             <rect key="frame" x="-160" y="0.0" width="160" height="50"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="u" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdU-Ps-nCK" customClass="WLLabel">
-                                                                    <rect key="frame" x="101" y="0.0" width="17" height="50"/>
+                                                                    <rect key="frame" x="125" y="0.0" width="17" height="50"/>
                                                                     <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
@@ -1485,32 +1459,18 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstItem="kdU-Ps-nCK" firstAttribute="top" secondItem="Dj8-bT-ouZ" secondAttribute="top" id="ShO-mB-0ft"/>
-                                                                <constraint firstAttribute="centerX" secondItem="kdU-Ps-nCK" secondAttribute="centerX" constant="-30" id="UiV-sc-D8g"/>
+                                                                <constraint firstAttribute="trailing" secondItem="kdU-Ps-nCK" secondAttribute="centerX" constant="26" id="UiV-sc-D8g"/>
                                                                 <constraint firstAttribute="bottom" secondItem="kdU-Ps-nCK" secondAttribute="bottom" id="d0v-No-Aon"/>
                                                             </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                                                    <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
-                                                                    <real key="value" value="0.69999999999999996"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="endLocation">
-                                                                    <real key="value" value="1"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="2RY-S5-bjM" customClass="WLGradientView">
+                                                        <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="2RY-S5-bjM">
                                                             <rect key="frame" x="320" y="0.0" width="160" height="50"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIL-os-qUh" customClass="WLLabel">
-                                                                    <rect key="frame" x="42" y="0.0" width="17" height="50"/>
+                                                                    <rect key="frame" x="18" y="0.0" width="17" height="50"/>
                                                                     <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
@@ -1519,26 +1479,12 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="bottom" secondItem="RIL-os-qUh" secondAttribute="bottom" id="32h-Ax-FIZ"/>
-                                                                <constraint firstAttribute="centerX" secondItem="RIL-os-qUh" secondAttribute="centerX" constant="30" id="XdN-Bs-xPV"/>
+                                                                <constraint firstAttribute="leading" secondItem="RIL-os-qUh" secondAttribute="centerX" constant="-26" id="XdN-Bs-xPV"/>
                                                                 <constraint firstItem="RIL-os-qUh" firstAttribute="top" secondItem="2RY-S5-bjM" secondAttribute="top" id="jAa-P7-sC1"/>
                                                             </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                                                    <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
-                                                                    <real key="value" value="0.69999999999999996"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="endLocation">
-                                                                    <real key="value" value="1"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
                                                         </view>
                                                     </subviews>
                                                     <constraints>
@@ -1589,8 +1535,9 @@
                                             <outlet property="coverView" destination="HLY-EW-9Wa" id="0pY-YZ-6FD"/>
                                             <outlet property="dateLabel" destination="71z-7i-OMc" id="lKc-Dh-Mcv"/>
                                             <outlet property="delegate" destination="L91-fZ-J9O" id="Psn-OF-Mcx"/>
-                                            <outlet property="handlerSwipeView" destination="Dj8-bT-ouZ" id="hgL-Fy-Pfj"/>
+                                            <outlet property="leftSwipeView" destination="kdU-Ps-nCK" id="DcI-IA-4AB"/>
                                             <outlet property="nameLabel" destination="N8I-t6-aKU" id="Kft-d5-zzj"/>
+                                            <outlet property="rightSwipeView" destination="RIL-os-qUh" id="kY5-c2-Kkk"/>
                                             <outlet property="wrapNotificationLabel" destination="1g0-Jo-BE2" id="QqL-Wa-ms3"/>
                                         </connections>
                                     </collectionViewCell>

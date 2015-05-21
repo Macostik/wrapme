@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Regular.ttf">
@@ -21,13 +21,13 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Z" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC1-xk-GUJ">
-                    <rect key="frame" x="12" y="12" width="21" height="21"/>
+                    <rect key="frame" x="12" y="22" width="21" height="21"/>
                     <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="21"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="3" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ze-pi-KDI" customClass="WLLabel">
-                    <rect key="frame" x="45" y="6" width="310" height="33"/>
+                    <rect key="frame" x="45" y="26" width="310" height="13"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -37,7 +37,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xC6-zn-QY9">
-                    <rect key="frame" x="355" y="-3" width="45" height="50"/>
+                    <rect key="frame" x="355" y="7" width="45" height="50"/>
                     <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="38"/>
                     <state key="normal" title="i">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,20 +51,18 @@
                 <constraint firstItem="fC1-xk-GUJ" firstAttribute="leading" secondItem="5Fo-ku-fTz" secondAttribute="leading" constant="12" id="Bw5-Ei-Icf"/>
                 <constraint firstItem="0Ze-pi-KDI" firstAttribute="centerY" secondItem="fC1-xk-GUJ" secondAttribute="centerY" id="DE5-JT-Jmc"/>
                 <constraint firstAttribute="centerX" secondItem="0Ze-pi-KDI" secondAttribute="centerX" id="EMB-xi-gWw"/>
-                <constraint firstAttribute="centerY" secondItem="0Ze-pi-KDI" secondAttribute="centerY" id="NIK-Vk-whJ"/>
                 <constraint firstAttribute="bottom" secondItem="0Ze-pi-KDI" secondAttribute="bottom" constant="6" id="T5V-fx-2hP"/>
-                <constraint firstItem="0Ze-pi-KDI" firstAttribute="top" secondItem="5Fo-ku-fTz" secondAttribute="top" constant="6" id="ZJ2-el-NwA"/>
+                <constraint firstItem="0Ze-pi-KDI" firstAttribute="top" secondItem="5Fo-ku-fTz" secondAttribute="top" constant="26" id="ZJ2-el-NwA"/>
                 <constraint firstItem="xC6-zn-QY9" firstAttribute="leading" secondItem="0Ze-pi-KDI" secondAttribute="trailing" id="d5l-re-HIr"/>
                 <constraint firstAttribute="trailing" secondItem="xC6-zn-QY9" secondAttribute="trailing" id="jb5-lG-SX5"/>
             </constraints>
-            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="iconView" destination="fC1-xk-GUJ" id="og5-le-30M"/>
                 <outlet property="messageLabel" destination="0Ze-pi-KDI" id="Mth-Sd-zsm"/>
                 <outlet property="topMessageInset" destination="ZJ2-el-NwA" id="Y86-Ot-1LR"/>
             </connections>
-            <point key="canvasLocation" x="391" y="77.5"/>
+            <point key="canvasLocation" x="350" y="83.5"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

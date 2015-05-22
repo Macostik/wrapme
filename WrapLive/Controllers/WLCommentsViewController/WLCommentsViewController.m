@@ -54,8 +54,8 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
     }];
     
     self.dataSource.items = [self.candy sortedComments];
-    [self.collectionView layoutIfNeeded];
     self.collectionView.layer.geometryFlipped = YES;
+    [self.collectionView layoutIfNeeded];
     [self addNotifyReceivers];
 }
 

@@ -63,6 +63,8 @@
        entryClass = [WLCandy class];
     } else if ([key isEqualToString:WLCommentKey])  {
     entryClass = [WLComment class];
+    } else  if ([key isEqualToString:WLMessageKey])  {
+        entryClass = [WLMessage class];
     } else {
         return nil;
     }
@@ -79,6 +81,23 @@
 
 - (void)presentEntryFromNotification:(WLEntryNotification*)notification {
     if (notification.event != WLEventDelete) {
+        switch (notification.type) {
+            case WLNotificationMessageAdd: {
+                self.key = WLMessageKey;
+                self.identifier = notification.targetEntry.identifier;
+            }
+                break;
+            case WLNotificationCandyAdd: {
+                self.key = WLCandyKey;
+                self.identifier = notification.targetEntry.identifier;
+            }
+                break;
+            default:
+                break;
+        }
+        if (notification.type == WLNotificationMessageAdd) {
+           
+        }
         [self presentEntry:notification.targetEntry];
     }
 }

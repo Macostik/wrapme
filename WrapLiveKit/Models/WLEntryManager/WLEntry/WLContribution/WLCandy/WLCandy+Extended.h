@@ -30,4 +30,6 @@ static NSInteger WLCandyTypeImage = 10;
 
 - (WLComment*)latestComment;
 
+- (void)setEditedPictureIfNeeded:(WLPicture *)editedPicture;
+
 @end

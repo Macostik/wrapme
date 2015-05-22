@@ -15,7 +15,7 @@
 #import "WLAlertView.h"
 #import "WLToast.h"
 
-@interface WLUploadPhotoViewController () <AdobeUXImageEditorViewControllerDelegate, WLComposeBarDelegate>
+@interface WLUploadPhotoViewController () <WLComposeBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -61,7 +61,13 @@
 // MARK: - actions
 
 - (IBAction)edit:(id)sender {
-    AFPhotoEditorController* aviaryController = [AdobeUXImageEditorViewController editControllerWithImage:self.image delegate:self];
+    __weak typeof(self)weakSelf = self;
+    AFPhotoEditorController* aviaryController = [AdobeUXImageEditorViewController editControllerWithImage:self.image completion:^(UIImage *image, AdobeUXImageEditorViewController *controller) {
+        weakSelf.image = weakSelf.imageView.image = image;
+        [weakSelf.navigationController popViewControllerAnimated:NO];
+    } cancel:^(AdobeUXImageEditorViewController *controller) {
+        [weakSelf.navigationController popViewControllerAnimated:NO];
+    }];
     aviaryController.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
     [self.navigationController pushViewController:aviaryController animated:NO];
 }
@@ -73,17 +79,6 @@
 - (IBAction)done:(id)sender {
     [self.view endEditing:YES];
     if (self.completionBlock) self.completionBlock(self.image, [self.textView.text trim]);
-}
-
-// MARK: - AFPhotoEditorControllerDelegate
-
-- (void)photoEditor:(AdobeUXImageEditorViewController *)editor finishedWithImage:(UIImage *)image {
-    self.image = self.imageView.image = image;
-    [self.navigationController popViewControllerAnimated:NO];
-}
-
-- (void)photoEditorCanceled:(AdobeUXImageEditorViewController *)editor {
-    [self.navigationController popViewControllerAnimated:NO];
 }
 
 // MARK: - rotation and keyboard
@@ -112,11 +107,23 @@
 
 @end
 
-
-
 @implementation AdobeUXImageEditorViewController (AviaryController)
 
-+ (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image delegate:(id)delegate {
++ (void)editImage:(UIImage *)image completion:(WLImageBlock)completion cancel:(WLBlock)cancel {
+    AFPhotoEditorController* aviaryController = [AdobeUXImageEditorViewController editControllerWithImage:image completion:^(UIImage *image, AdobeUXImageEditorViewController *controller) {
+        if (completion) completion(image);
+        [controller.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+    } cancel:^(AdobeUXImageEditorViewController *controller) {
+        if (cancel) cancel();
+        [controller.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+    }];
+    [[UIWindow mainWindow].rootViewController presentViewController:aviaryController animated:NO completion:nil];
+}
+
+static WLImageEditingCompletionBlock _completionBlock = nil;
+static WLImageEditingCancelBlock _cancelBlock = nil;
+
++ (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image completion:(WLImageEditingCompletionBlock)completion cancel:(WLImageEditingCancelBlock)cancel {
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -125,8 +132,24 @@
                                                                    withClientSecret:@"b6fa1e1c-4f8c-4001-88a9-0251a099f890"];
     });
     AdobeUXImageEditorViewController* aviaryController = [[self alloc] initWithImage:image];
-    aviaryController.delegate = delegate;
+    aviaryController.delegate = (id)[AdobeUXImageEditorViewController class];
+    _completionBlock = completion;
+    _cancelBlock = cancel;
     return aviaryController;
+}
+
+// MARK: - AdobeUXImageEditorViewControllerDelegate
+
++ (void)photoEditor:(AdobeUXImageEditorViewController *)editor finishedWithImage:(UIImage *)image {
+    if (_completionBlock) _completionBlock(image, editor);
+    _completionBlock = nil;
+    _cancelBlock = nil;
+}
+
++ (void)photoEditorCanceled:(AdobeUXImageEditorViewController *)editor {
+    if (_cancelBlock) _cancelBlock(editor);
+    _completionBlock = nil;
+    _cancelBlock = nil;
 }
 
 @end

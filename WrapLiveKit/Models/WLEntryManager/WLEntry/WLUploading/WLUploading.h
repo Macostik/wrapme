@@ -15,6 +15,8 @@
 
 @interface WLUploading : WLEntry
 
+@property (nonatomic) int16_t type;
+
 @property (nonatomic, retain) WLContribution *contribution;
 
 @property (strong, nonatomic) WLUploadingData* data;

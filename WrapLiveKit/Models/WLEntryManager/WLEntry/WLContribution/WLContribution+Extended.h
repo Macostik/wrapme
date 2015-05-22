@@ -7,11 +7,12 @@
 //
 
 #import "WLContribution.h"
+#import "WLUploading+Extended.h"
 
 typedef NS_ENUM (NSUInteger, WLContributionStatus) {
     WLContributionStatusReady,
     WLContributionStatusInProgress,
-    WLContributionStatusUploaded
+    WLContributionStatusFinished
 };
 
 @interface WLContribution (Extended)
@@ -29,6 +30,10 @@ typedef NS_ENUM (NSUInteger, WLContributionStatus) {
 + (NSMutableOrderedSet*)recentContributions;
 
 + (NSNumber*)uploadingOrder;
+
+- (WLContributionStatus)statusOfUploadingType:(WLUploadingType)type;
+
+- (WLContributionStatus)statusOfAnyUploadingType;
 
 - (BOOL)canBeUploaded;
 

@@ -33,7 +33,7 @@
 
 - (NSString*)anyUrl;
 
-- (BOOL)edit:(NSString*)original large:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
+- (WLPicture *)edit:(NSString*)original large:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
 
 - (void)fetch:(WLBlock)completion;
 

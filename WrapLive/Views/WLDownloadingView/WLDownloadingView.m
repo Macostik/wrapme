@@ -10,6 +10,8 @@
 #import "NSObject+NibAdditions.h"
 #import "WLProgressBar+WLContribution.h"
 #import "WLCandy+Extended.h"
+#import "WLNavigationHelper.h"
+#import "WLUploadPhotoViewController.h"
 
 @interface WLDownloadingView () <WLImageFetching>
 
@@ -24,6 +26,22 @@
 @end
 
 @implementation WLDownloadingView
+
++ (void)downloadAndEditCandy:(WLCandy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
+    WLImageBlock downloadBlock = ^(UIImage *image) {
+        [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
+            [WLPicture picture:image completion:^(WLPicture *picture) {
+                [candy setEditedPictureIfNeeded:picture];
+                [candy enqueueUpdate:failure];
+            }];
+        } cancel:nil];
+    };
+    [WLDownloadingView downloadingViewForCandy:candy success:downloadBlock failure:failure];
+}
+
++ (instancetype)downloadingViewForCandy:(WLCandy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
+    return [self downloadingView:[UIWindow mainWindow] forCandy:candy success:success failure:failure];
+}
 
 + (instancetype)downloadingView:(UIView *)view
                        forCandy:(WLCandy *)candy

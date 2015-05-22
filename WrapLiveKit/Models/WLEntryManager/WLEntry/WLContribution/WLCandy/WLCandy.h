@@ -18,6 +18,7 @@
 @property (nonatomic) int16_t commentCount;
 @property (nonatomic, retain) WLWrap *wrap;
 @property (nonatomic, retain) NSMutableOrderedSet *comments;
+@property (nonatomic, retain) WLPicture * editedPicture;
 
 @property (nonatomic, strong) WLImageBlock downloadSuccessBlock;
 @property (nonatomic, strong) WLFailureBlock downloadFailureBlock;

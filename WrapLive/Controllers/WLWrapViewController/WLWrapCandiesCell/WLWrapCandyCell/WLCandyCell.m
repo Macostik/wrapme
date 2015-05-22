@@ -16,6 +16,8 @@
 #import "WLMenu.h"
 #import "UIFont+CustomFonts.h"
 #import "WLChronologicalEntryPresenter.h"
+#import "WLDownloadingView.h"
+#import "WLUploadPhotoViewController.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 
@@ -38,6 +40,24 @@
     if (!self.disableMenu) {
         [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu, BOOL *vibrate) {
             WLCandy* candy = weakSelf.entry;
+            
+            if (candy.status != WLContributionStatusInProgress) {
+                [menu addEditPhotoItem:^(WLCandy *candy) {
+                    [WLDownloadingView downloadAndEditCandy:candy success:^(UIImage *image) {
+                    } failure:^(NSError *error) {
+                        [error show];
+                    }];
+                }];
+            }
+            
+            [menu addDownloadItem:^(WLCandy *candy) {
+                [candy download:^{
+                    [WLToast showPhotoDownloadingMessage];
+                } failure:^(NSError *error) {
+                    [error show];
+                }];
+            }];
+            
             if (candy.deletable) {
                 [menu addDeleteItem:^(WLCandy *candy) {
                     weakSelf.userInteractionEnabled = NO;
@@ -53,13 +73,7 @@
                     [MFMailComposeViewController messageWithCandy:candy];
                 }];
             }
-            [menu addDownloadItem:^(WLCandy *candy) {
-                [candy download:^{
-                    [WLToast showPhotoDownloadingMessage];
-                } failure:^(NSError *error) {
-                    [error show];
-                }];
-            }];
+            
             return candy;
         }];
     }

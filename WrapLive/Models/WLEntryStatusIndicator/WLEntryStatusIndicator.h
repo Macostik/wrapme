@@ -17,14 +17,14 @@ inline static NSString* iconNameByContribution(WLContribution *contribution) {
         return @"clock";
     }
     
-    switch (contribution.status) {
+    switch ([contribution statusOfAnyUploadingType]) {
         case WLContributionStatusReady:
             return @"clock";
             break;
         case WLContributionStatusInProgress:
             return @"check";
             break;
-        case WLContributionStatusUploaded:
+        case WLContributionStatusFinished:
             return @"double-check";
             break;
         default:

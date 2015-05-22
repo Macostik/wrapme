@@ -13,6 +13,8 @@
 
 @dynamic contribution;
 
+@dynamic type;
+
 @synthesize data = _data;
 
 - (WLUploadingData *)data {

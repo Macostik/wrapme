@@ -37,6 +37,7 @@
 #import "WLHistory.h"
 #import "NSUserDefaults+WLAppGroup.h"
 #import "WLAlertView.h"
+#import "WLPostEditingUploadCandyRequest.h"
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 
@@ -191,6 +192,46 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 @end
 
+@implementation WLContribution (WLAPIManager)
+
+- (BOOL)enqueueUpdate:(WLFailureBlock)failure {
+    [self notifyOnUpdate];
+    return [self prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
+        switch (status) {
+            case WLContributionStatusReady:
+            case WLContributionStatusInProgress: break;
+            case WLContributionStatusFinished: {
+                [WLUploadingQueue upload:[WLUploading uploading:self type:WLUploadingTypeUpdate] success:nil failure:nil];
+            } break;
+            default:
+                break;
+        }
+    } failure:failure];
+}
+
+- (BOOL)prepareForUpdate:(WLContributionUpdatePreparingBlock)success failure:(WLFailureBlock)failure {
+    WLContributionStatus status = self.status;
+    switch (status) {
+        case WLContributionStatusReady:
+            if (success) success(self, status);
+            return YES;
+            break;
+        case WLContributionStatusInProgress: {
+            if (failure) failure(WLError(WLLS(@"Upload in progress. Please edit the photo after upload is complete.")));
+            return NO;
+        } break;
+        case WLContributionStatusFinished: {
+            if (success) success(self, status);
+            return YES;
+        } break;
+        default:
+            return NO;
+            break;
+    }
+}
+
+@end
+
 static NSString *const WLDeleteAlertTitle = @"Delete wrap";
 static NSString *const WLLeaveAlertTitle = @"Leave wrap?";
 static NSString *const WLDeleteAlertMessage = @"Are you sure you want to delete the wrap \"%@\"?";
@@ -217,7 +258,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
             case WLContributionStatusInProgress:
                 if (failure) failure([NSError errorWithDescription:WLLS(@"Wrap is uploading, wait a moment...")]);
                 break;
-            case WLContributionStatusUploaded: {
+            case WLContributionStatusFinished: {
                 [[WLDeleteWrapRequest request:weakSelf] send:^(id object) {
                     if (success) success(object);
                 } failure:failure];
@@ -337,6 +378,10 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
     return [[WLUploadCandyRequest request:self] send:success failure:failure];
 }
 
+- (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    return [[WLPostEditingUploadCandyRequest request:self] send:success failure:failure];
+}
+
 - (id)remove:(BOOL)confirm success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     void (^removeBlock) (void) = ^ {
@@ -348,7 +393,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
             case WLContributionStatusInProgress: {
                 if (failure) failure([NSError errorWithDescription:WLLS(@"Photo is uploading, wait a moment...")]);
             } break;
-            case WLContributionStatusUploaded: {
+            case WLContributionStatusFinished: {
                 [[WLDeleteCandyRequest request:weakSelf] send:success failure:failure];
             } break;
             default:
@@ -436,7 +481,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
         case WLContributionStatusInProgress:
             if (failure) failure([NSError errorWithDescription:WLLS(@"Comment is uploading, wait a moment...")]);
             break;
-        case WLContributionStatusUploaded: {
+        case WLContributionStatusFinished: {
             switch (self.candy.status) {
                 case WLContributionStatusReady:
                     [self remove];
@@ -445,7 +490,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
                 case WLContributionStatusInProgress:
                     if (failure) failure([NSError errorWithDescription:WLLS(@"Candy is uploading, wait a moment...")]);
                     break;
-                case WLContributionStatusUploaded:
+                case WLContributionStatusFinished:
                     return [[WLDeleteCommentRequest request:self] send:success failure:failure];
                     break;
                 default:

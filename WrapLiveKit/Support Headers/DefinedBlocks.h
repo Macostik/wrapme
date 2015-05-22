@@ -19,6 +19,7 @@
 @class WLAuthorization;
 @class WLEntry;
 @class WLMessage;
+@class WLPicture;
 
 typedef void (^WLBlock) (void);
 typedef void (^WLObjectBlock) (id object);
@@ -51,3 +52,4 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 typedef void (^WLImageFetcherBlock)(UIImage* image, BOOL cached);
 typedef NSDate* (^WLDateFromEntryBlock)(WLEntry* entry);
 typedef void (^WLGestureBlock)(UIGestureRecognizer *recognizer);
+typedef void (^WLPictureBlock) (WLPicture *picture);

@@ -320,7 +320,7 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Yestarday at 2:34pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="gs3-em-Muh" customClass="WLLabel">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" misplaced="YES" text="Yestarday at 2:34pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="gs3-em-Muh" customClass="WLLabel">
                                                     <rect key="frame" x="72" y="99" width="176" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
@@ -695,13 +695,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJq-9P-McW">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJq-9P-McW">
                                 <rect key="frame" x="46" y="155" width="228" height="228"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-large-avatar" translatesAutoresizingMaskIntoConstraints="NO" id="AYn-Zt-xUG" customClass="WLImageView">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="default-large-avatar" translatesAutoresizingMaskIntoConstraints="NO" id="AYn-Zt-xUG" customClass="WLImageView">
                                         <rect key="frame" x="0.0" y="0.0" width="228" height="228"/>
                                     </imageView>
-                                    <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="aDm-0w-Vn8" customClass="WLGradientView">
+                                    <view contentMode="bottom" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aDm-0w-Vn8" customClass="WLGradientView">
                                         <rect key="frame" x="0.0" y="167" width="228" height="61"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -722,7 +722,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zT6-pp-ssq">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zT6-pp-ssq">
                                         <rect key="frame" x="0.0" y="0.0" width="228" height="228"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -3043,23 +3043,8 @@ Tap here to start.</string>
                                             <action selector="editPhoto:" destination="eto-O4-OHy" eventType="touchUpInside" id="SqM-wh-8w4"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3S-jS-mvs" userLabel="ActionButton" customClass="WLIconButton">
-                                        <rect key="frame" x="240" y="30" width="30" height="34"/>
-                                        <state key="highlighted">
-                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="trash"/>
-                                            <userDefinedRuntimeAttribute type="size" keyPath="insets">
-                                                <size key="value" width="10" height="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="navigationButtonClick:" destination="eto-O4-OHy" eventType="touchUpInside" id="Vc1-n0-Gl0"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPd-Ai-V8F" userLabel="DownloadButton" customClass="WLIconButton">
-                                        <rect key="frame" x="280" y="30" width="30" height="34"/>
+                                        <rect key="frame" x="240" y="30" width="30" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="highlighted">
                                             <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
@@ -3074,20 +3059,35 @@ Tap here to start.</string>
                                             <action selector="downloadCandy:" destination="eto-O4-OHy" eventType="touchUpInside" id="aDG-lZ-NnF"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3S-jS-mvs" userLabel="ActionButton" customClass="WLIconButton">
+                                        <rect key="frame" x="280" y="30" width="30" height="34"/>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="trash"/>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                                <size key="value" width="10" height="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="navigationButtonClick:" destination="eto-O4-OHy" eventType="touchUpInside" id="Vc1-n0-Gl0"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" constant="-10" id="0nd-cJ-KtR"/>
+                                    <constraint firstItem="sPd-Ai-V8F" firstAttribute="leading" secondItem="P4L-uu-XEd" secondAttribute="trailing" constant="10" id="43c-hF-BQ1"/>
                                     <constraint firstItem="0rM-Ee-8of" firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" id="Mlp-zH-ksi"/>
                                     <constraint firstItem="sPd-Ai-V8F" firstAttribute="centerY" secondItem="J3S-jS-mvs" secondAttribute="centerY" id="Oe7-bB-r8N"/>
-                                    <constraint firstItem="J3S-jS-mvs" firstAttribute="leading" secondItem="P4L-uu-XEd" secondAttribute="trailing" constant="10" id="RIx-HK-geC"/>
+                                    <constraint firstAttribute="trailing" secondItem="J3S-jS-mvs" secondAttribute="trailing" constant="10" id="REl-9b-Ndz"/>
                                     <constraint firstItem="J3S-jS-mvs" firstAttribute="centerY" secondItem="TL4-HZ-bti" secondAttribute="centerY" id="Ydf-QF-dGl"/>
-                                    <constraint firstAttribute="trailing" secondItem="sPd-Ai-V8F" secondAttribute="trailing" constant="10" id="bG6-qI-I2w"/>
-                                    <constraint firstItem="sPd-Ai-V8F" firstAttribute="leading" secondItem="J3S-jS-mvs" secondAttribute="trailing" constant="10" id="fyR-Xa-pQR"/>
                                     <constraint firstItem="P4L-uu-XEd" firstAttribute="centerY" secondItem="J3S-jS-mvs" secondAttribute="centerY" id="hMk-bQ-Wwk"/>
                                     <constraint firstAttribute="height" secondItem="sPd-Ai-V8F" secondAttribute="height" constant="40" id="jJj-ki-Nzl"/>
                                     <constraint firstItem="P4L-uu-XEd" firstAttribute="leading" secondItem="TL4-HZ-bti" secondAttribute="trailing" constant="10" id="jPY-mK-icI"/>
                                     <constraint firstItem="0rM-Ee-8of" firstAttribute="leading" secondItem="Wbg-W9-8Ie" secondAttribute="leading" constant="12" id="rw6-ky-DHO"/>
+                                    <constraint firstItem="J3S-jS-mvs" firstAttribute="leading" secondItem="sPd-Ai-V8F" secondAttribute="trailing" constant="10" id="wc4-UG-eZv"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
@@ -3167,7 +3167,7 @@ Tap here to start.</string>
                                         </connections>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Post" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsh-mJ-NAQ" customClass="WLLabel">
-                                        <rect key="frame" x="28" y="70" width="32" height="21"/>
+                                        <rect key="frame" x="28" y="70" width="31.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="HN9-VO-uom"/>
                                         </constraints>
@@ -3179,7 +3179,7 @@ Tap here to start.</string>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aV-O1-sMk" userLabel="Time" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="91" width="32" height="21"/>
+                                        <rect key="frame" x="12" y="91" width="31.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="dDc-ZF-In2"/>
                                         </constraints>

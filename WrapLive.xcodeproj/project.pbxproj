@@ -238,10 +238,6 @@
 		5BD121541B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD121551B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD121561B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
-		5BD1D5C11B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */; };
-		5BD1D5C21B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */; };
-		5BD1D5C31B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */; };
-		5BD1D5C41B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */; };
 		5BD782821A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
 		5BD782831A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
 		5BD782841A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
@@ -1207,6 +1203,7 @@
 		C567582E1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */; };
 		C567582F1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */; };
 		C56758301AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */; };
+		C56787F81B0F291A007E4A2B /* WLPostEditingUploadCandyRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BD1D5BF1B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C568D8D61A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C568D8D71A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
 		C568D8D81A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
@@ -1642,6 +1639,7 @@
 		C5E54B501ACBF9CE00444F7B /* WLWKCommentEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DC1ABD815200CB4BE3 /* WLWKCommentEventRow.m */; };
 		C5E54B511ACBF9CE00444F7B /* WLWKEntryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */; };
 		C5E54B531ACBF9CE00444F7B /* WLWKContributionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */; };
+		C5E673841B0E384B00A48CDF /* WLPostEditingUploadCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */; };
 		C5F3E1E21ABB05DC005CFD99 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5F3E1E11ABB05DC005CFD99 /* wrapliveicons.ttf */; };
 		C5F3E1E31ABB05DC005CFD99 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5F3E1E11ABB05DC005CFD99 /* wrapliveicons.ttf */; };
 		C5F3E1E41ABB05DC005CFD99 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5F3E1E11ABB05DC005CFD99 /* wrapliveicons.ttf */; };
@@ -6293,6 +6291,7 @@
 				C587C7A51AD2E6A0003E7647 /* WLPaginatedRequest.h in Headers */,
 				C587C7D61AD2E6A0003E7647 /* WLEntryNotifier.h in Headers */,
 				C55D77811AE50D1A006FA19C /* PNMacro.h in Headers */,
+				C56787F81B0F291A007E4A2B /* WLPostEditingUploadCandyRequest.h in Headers */,
 				C587C8C41AD2E708003E7647 /* UIImageView+AFNetworking.h in Headers */,
 				C55D76D11AE50D1A006FA19C /* PubNub+History.h in Headers */,
 				C587C8C91AD2E708003E7647 /* UIRefreshControl+AFNetworking.h in Headers */,
@@ -7288,7 +7287,6 @@
 				C500996A1ADFCC940064CC7B /* WLDataSource.m in Sources */,
 				C504179819B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
-				5BD1D5C11B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */,
 				129654F318E1CAF900FF43F6 /* WLInputAccessoryView.m in Sources */,
 				C547A4511A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C567582D1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
@@ -7504,7 +7502,6 @@
 				C500996B1ADFCC940064CC7B /* WLDataSource.m in Sources */,
 				C504179919B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */,
-				5BD1D5C21B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */,
 				C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C547A4521A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C567582E1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
@@ -7679,7 +7676,6 @@
 				C500996C1ADFCC940064CC7B /* WLDataSource.m in Sources */,
 				C504179A19B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF58E19B8C467006F7EDB /* WLComposeBar.m in Sources */,
-				5BD1D5C31B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */,
 				C54AF59019B8C467006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C547A4531A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C567582F1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
@@ -7854,7 +7850,6 @@
 				C500996D1ADFCC940064CC7B /* WLDataSource.m in Sources */,
 				C504179B19B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
-				5BD1D5C41B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m in Sources */,
 				C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C56758301AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
@@ -8205,6 +8200,7 @@
 				C55D77AC1AE50D1A006FA19C /* PNClientStateUpdateRequest.m in Sources */,
 				C55D77031AE50D1A006FA19C /* PNChannelGroupsResponseParser.m in Sources */,
 				C587C86B1AD2E6DB003E7647 /* WLMessagesRequest.m in Sources */,
+				C5E673841B0E384B00A48CDF /* WLPostEditingUploadCandyRequest.m in Sources */,
 				C587C8881AD2E6DB003E7647 /* WLCandy.m in Sources */,
 				C55D77061AE50D1A006FA19C /* PNChannelHistoryParser.m in Sources */,
 				C587C88B1AD2E6DB003E7647 /* WLContribution+Extended.m in Sources */,

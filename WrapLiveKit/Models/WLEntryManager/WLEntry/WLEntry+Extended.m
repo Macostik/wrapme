@@ -108,9 +108,10 @@
 }
 
 - (void)editPicture:(NSString*)original large:(NSString*)large medium:(NSString*)medium small:(NSString*)small {
-    WLPicture* picture = self.picture;
-    if ([picture edit:original large:large medium:medium small:small]) {
-        self.picture = [picture copy];
+    WLPicture *picture = self.picture;
+    WLPicture *editedPicture = [picture edit:original large:large medium:medium small:small];
+    if (picture != editedPicture) {
+        self.picture = editedPicture;
     }
 }
 

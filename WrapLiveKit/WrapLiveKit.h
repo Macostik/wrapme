@@ -105,6 +105,7 @@ FOUNDATION_EXPORT const unsigned char WrapLiveKitVersionString[];
 #import <WrapLiveKit/WLLeaveWrapRequest.h>
 #import <WrapLiveKit/WLVerificationCallRequest.h>
 #import <WrapLiveKit/WLRecentContributionsRequest.h>
+#import <WrapLiveKit/WLPostEditingUploadCandyRequest.h>
 #import <WrapLiveKit/WLAPIManager.h>
 #import <WrapLiveKit/WLAPIResponse.h>
 #import <WrapLiveKit/NSError+WLAPIManager.h>

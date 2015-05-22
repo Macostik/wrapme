@@ -58,6 +58,16 @@ static NSUInteger WLPageSize = 10;
 
 @end
 
+typedef void (^WLContributionUpdatePreparingBlock)(WLContribution *contribution, WLContributionStatus status);
+
+@interface WLContribution (WLAPIManager)
+
+- (BOOL)enqueueUpdate:(WLFailureBlock)failure;
+
+- (BOOL)prepareForUpdate:(WLContributionUpdatePreparingBlock)success failure:(WLFailureBlock)failure;
+
+@end
+
 @interface WLWrap (WLAPIManager)
 
 - (id)fetch:(NSString*)contentType success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;

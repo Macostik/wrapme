@@ -44,6 +44,7 @@
     if (self.candy.wrap.valid) {
         WLCandy* candy = self.candy;
         WLPicture* oldPicture = [candy.picture copy];
+        candy.editedPicture = nil;
         [candy API_setup:[response.data dictionaryForKey:WLCandyKey]];
         [oldPicture cacheForPicture:candy.picture];
         if ([candy.comments match:^BOOL(WLComment *comment) {

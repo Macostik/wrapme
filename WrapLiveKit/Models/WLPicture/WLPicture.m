@@ -65,25 +65,30 @@
     return self.small ? : (self.medium ? : self.large);
 }
 
-- (BOOL)edit:(NSString *)original large:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
-    BOOL changed = NO;
+- (WLPicture *)edit:(NSString *)original large:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
+    
+    WLPicture *(^changeBlock)(void) = ^WLPicture *{
+        WLPicture *picture = [self copy];
+        picture.small = small;
+        picture.original = original;
+        picture.medium = medium;
+        picture.large = large;
+        return picture;
+    };
+    
     if (original.nonempty && !NSStringEqual(self.original, original)) {
-        changed = YES;
-        self.original = original;
+        return changeBlock();
     }
     if (large.nonempty && !NSStringEqual(self.large, large)) {
-        changed = YES;
-        self.large = large;
+        return changeBlock();
     }
     if (medium.nonempty && !NSStringEqual(self.medium, medium)) {
-        changed = YES;
-        self.medium = medium;
+        return changeBlock();
     }
     if (small.nonempty && !NSStringEqual(self.small, small)) {
-        changed = YES;
-        self.small = small;
+        return changeBlock();
     }
-    return changed;
+    return self;
 }
 
 - (NSString *)original {

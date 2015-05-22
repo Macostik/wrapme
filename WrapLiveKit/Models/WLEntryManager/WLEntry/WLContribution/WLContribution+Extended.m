@@ -50,20 +50,33 @@
 }
 
 - (WLContributionStatus)status {
+    return [self statusOfUploadingType:WLUploadingTypeAdd];
+}
+
+- (WLContributionStatus)statusOfUploadingType:(WLUploadingType)type {
     WLUploading* uploading = self.uploading;
-    if (uploading) {
-        if (uploading.data.operation) {
-            return WLContributionStatusInProgress;
-        } else {
-            return WLContributionStatusReady;
-        }
+    if (!uploading || uploading.type != type) {
+        return WLContributionStatusFinished;
+    } else if (uploading.data.operation) {
+        return WLContributionStatusInProgress;
     } else {
-        return WLContributionStatusUploaded;
+        return WLContributionStatusReady;
+    }
+}
+
+- (WLContributionStatus)statusOfAnyUploadingType {
+    WLUploading* uploading = self.uploading;
+    if (!uploading) {
+        return WLContributionStatusFinished;
+    } else if (uploading.data.operation) {
+        return WLContributionStatusInProgress;
+    } else {
+        return WLContributionStatusReady;
     }
 }
 
 - (BOOL)uploaded {
-    return self.status == WLContributionStatusUploaded;
+    return self.status == WLContributionStatusFinished;
 }
 
 - (BOOL)contributedByCurrentUser {

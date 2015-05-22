@@ -26,7 +26,7 @@
 
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
     WLCandy* candy = self.candy;
-    self.filePath = candy.picture.original;
+    self.filePath = candy.editedPicture.original;
     [parameters trySetObject:@([candy.updatedAt timestamp]) forKey:WLContributedAtKey];
     candy.uploadIdentifier = GUID();
     [parameters trySetObject:candy.uploadIdentifier forKey:WLUploadUIDKey];
@@ -34,9 +34,10 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    if (self.candy.wrap.valid) {
-        WLCandy* candy = self.candy;
-        WLPicture* oldPicture = [candy.picture copy];
+    WLCandy* candy = self.candy;
+    if (candy.wrap.valid) {
+        WLPicture* oldPicture = [candy.editedPicture copy];
+        candy.editedPicture = nil;
         [candy API_setup:[response.data dictionaryForKey:WLCandyKey]];
         [oldPicture cacheForPicture:candy.picture];
         return candy;

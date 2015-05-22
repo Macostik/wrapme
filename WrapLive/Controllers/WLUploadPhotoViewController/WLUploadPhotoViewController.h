@@ -20,8 +20,13 @@ typedef void (^WLUploadPhotoCompletionBlock) (UIImage *image, NSString *comment)
 
 @end
 
+typedef void(^WLImageEditingCompletionBlock) (UIImage *image, AdobeUXImageEditorViewController *controller);
+typedef void(^WLImageEditingCancelBlock) (AdobeUXImageEditorViewController *controller);
+
 @interface AdobeUXImageEditorViewController (AviaryController)
 
-+ (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image delegate:(id)delegate;
++ (void)editImage:(UIImage*)image completion:(WLImageBlock)completion cancel:(WLBlock)cancel;
+
++ (AFPhotoEditorController*)editControllerWithImage:(UIImage*)image completion:(WLImageEditingCompletionBlock)completion cancel:(WLImageEditingCancelBlock)cancel;
 
 @end

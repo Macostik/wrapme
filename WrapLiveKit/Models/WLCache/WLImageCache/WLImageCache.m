@@ -105,11 +105,10 @@ static NSUInteger WLImageCacheSize = 524288000;
         NSError *error = nil;
         if ([[NSFileManager defaultManager] copyItemAtPath:path toPath:toPath error:&error]) {
             UIImage* image = [WLSystemImageCache imageWithIdentifier:path];
-            if (image == nil) {
-                image = [UIImage imageWithData:[[NSFileManager defaultManager] contentsAtPath:toPath]];
-            } else {
+            if (image != nil) {
                 [WLSystemImageCache removeImageWithIdentifier:path];
             }
+            image = [UIImage imageWithData:[[NSFileManager defaultManager] contentsAtPath:toPath]];
             [WLSystemImageCache setImage:image withIdentifier:identifier];
             [self.identifiers addObject:identifier];
             run_after_asap(^{

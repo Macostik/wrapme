@@ -17,6 +17,7 @@
 @dynamic commentCount;
 @dynamic wrap;
 @dynamic comments;
+@dynamic editedPicture;
 
 @synthesize downloadSuccessBlock = _downloadSuccessBlock;
 @synthesize downloadFailureBlock = _downloadFailureBlock;

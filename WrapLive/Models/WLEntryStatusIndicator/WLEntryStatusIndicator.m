@@ -27,9 +27,10 @@
     }
     if (_contribution != contribution) {
         _contribution = contribution;
-        [[[_contribution class] notifier] addReceiver:self];
-        if (![(id)[contribution containingEntry] uploaded]) {
-            [[[[_contribution containingEntry] class] notifier] addReceiver:self];
+        [[[contribution class] notifier] addReceiver:self];
+        WLContribution *containingEntry = (id)[contribution containingEntry];
+        if (![containingEntry uploaded]) {
+            [[[containingEntry class] notifier] addReceiver:self];
         }
     }
     [self setIconNameByCotribution:contribution];

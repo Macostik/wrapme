@@ -26,7 +26,7 @@
 #import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
 #import <AdobeCreativeSDKFoundation/AdobeCreativeSDKFoundation.h>
 
-@interface WLHistoryViewController () <AdobeUXImageEditorViewControllerDelegate>
+@interface WLHistoryViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -225,7 +225,6 @@
     [_candy markAsRead];
     [self.candyIndicator updateStatusIndicator:_candy];
     self.actionButton.iconName = _candy.deletable ? @"trash" : @"warning";
-    self.editButton.hidden = ![_candy uploaded];
     [self setCommentButtonTitle:_candy];
     self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), _candy.contributor.name];
     NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
@@ -357,44 +356,17 @@
     }
 }
 
-
-// MARK: - AFPhotoEditorControllerDelegate
-
 - (IBAction)editPhoto:(id)sender {
     __weak __typeof(self)weakSelf = self;
-    [WLDownloadingView downloadingView:[UIWindow mainWindow]
-                              forCandy:self.candy
-                               success:^ (UIImage* image){
-                                   [weakSelf showPhotoEditorWithImage:image];
-                               } failure:^(NSError *error) {
-                                   [error show];
-                               }];
-}
-
-- (void)showPhotoEditorWithImage:(UIImage*)image {
-    run_in_main_queue(^{
-        AFPhotoEditorController* aviaryController = [AdobeUXImageEditorViewController editControllerWithImage:image delegate:self];
-        [self.navigationController pushViewController:aviaryController animated:NO];
-    });
-}
-
-
-- (void)photoEditor:(AdobeUXImageEditorViewController *)editor finishedWithImage:(UIImage *)image {
-    __weak __typeof(self)weakSelf = self;
-    [WLPicture picture:image mode:WLStillPictureModeDefault completion:^(WLPicture *picture) {
-        weakSelf.candy.picture = picture;
-        [weakSelf.candy notifyOnUpdate];
-        
-        [[WLPostEditingUploadCandyRequest request:weakSelf.candy] send:^(WLCandy *candy) {
+    [self.candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
+        [WLDownloadingView downloadAndEditCandy:weakSelf.candy success:^(UIImage *image) {
+            
         } failure:^(NSError *error) {
             [error show];
         }];
+    } failure:^(NSError *error) {
+        [error show];
     }];
-    [self.navigationController popViewControllerAnimated:NO];
-}
-
-- (void)photoEditorCanceled:(AdobeUXImageEditorViewController *)editor {
-    [self.navigationController popViewControllerAnimated:NO];
 }
 
 #pragma mark - WLSwipeViewController Methods

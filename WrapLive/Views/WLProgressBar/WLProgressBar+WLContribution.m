@@ -39,7 +39,7 @@ static inline float progressValue(float progress) {
                 progressBlock(progress, YES);
             }];
         } break;
-        case WLContributionStatusUploaded:
+        case WLContributionStatusFinished:
             self.hidden = YES;
             break;
         default:

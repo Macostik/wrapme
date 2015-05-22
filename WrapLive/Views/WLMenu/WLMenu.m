@@ -305,4 +305,8 @@
     [self addItemWithText:@"Q" block:block];
 }
 
+- (void)addEditPhotoItem:(WLObjectBlock)block {
+    [self addItemWithText:@"R" block:block];
+}
+
 @end

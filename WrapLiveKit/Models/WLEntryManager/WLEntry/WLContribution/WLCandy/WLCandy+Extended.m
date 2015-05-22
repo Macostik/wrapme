@@ -67,6 +67,31 @@
     return self;
 }
 
+- (WLPicture *)picture {
+    if (self.editedPicture) {
+        return self.editedPicture;
+    }
+    [self willAccessValueForKey:@"picture"];
+    WLPicture *picture = [self primitiveValueForKey:@"picture"];
+    [self didAccessValueForKey:@"picture"];
+    return picture;
+}
+
+- (void)setEditedPictureIfNeeded:(WLPicture *)editedPicture {
+    switch (self.status) {
+        case WLContributionStatusReady:
+            self.picture = editedPicture;
+            break;
+        case WLContributionStatusInProgress:
+            break;
+        case WLContributionStatusFinished:
+            self.editedPicture = editedPicture;
+            break;
+        default:
+            break;
+    }
+}
+
 - (void)touch:(NSDate *)date {
     [super touch:date];
     WLWrap* wrap = self.wrap;

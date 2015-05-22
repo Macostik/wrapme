@@ -71,9 +71,12 @@
     for (WLAddressBookRecord *record in self.invitedRecords) {
         [self.addressBook addUniqueRecord:record success:nil failure:nil];
     }
-    self.addressBook.selectedPhoneNumbers = [oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
-        return [self.addressBook phoneNumberIdenticalTo:phoneNumber];
-    }];
+    if (oldAddressBook != nil) {
+        self.addressBook.selectedPhoneNumbers = [oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
+            return [self.addressBook phoneNumberIdenticalTo:phoneNumber];
+        }];
+    }
+    
     [self filterContacts];
 }
 

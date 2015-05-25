@@ -96,7 +96,8 @@ static CGFloat WLDefaultType = -1;
 
 - (void)setBackgroundPlaceholderByType:(NSInteger)type {
     UIView* placeholderView = [self placeholderViewByType:type];
-    placeholderView.frame = self.bounds;
+    CGPoint offset = self.contentOffset;
+    placeholderView.frame = CGRectMake(self.bounds.origin.x - offset.x, self.bounds.origin.y - offset.y, self.bounds.size.width, self.bounds.size.height);
     [self addSubview:placeholderView];
     if (self.layer.geometryFlipped != placeholderView.layer.geometryFlipped) {
         placeholderView.layer.geometryFlipped = self.layer.geometryFlipped;

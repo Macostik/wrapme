@@ -147,8 +147,9 @@
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
     if ([authorization canAuthorize]) {
         [authorization signIn:successBlock failure:^(NSError *error) {
-            if ([error isNetworkError]) {
-                successBlock([WLUser currentUser]);
+            WLUser *currentUser = [WLUser currentUser];
+            if ([error isNetworkError] && currentUser) {
+                successBlock(currentUser);
             } else {
                 WLLog(@"INITIAL SIGN IN ERROR", @"couldn't sign in, so redirecting to welcome screen", nil);
                 [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];

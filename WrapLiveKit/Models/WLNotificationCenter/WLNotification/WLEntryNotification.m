@@ -205,7 +205,6 @@
         } else if (event == WLEventDelete) {
             [targetEntry remove];
         }
-        [[WLEntryManager manager] instantSave];
         if (success) success();
     };
     

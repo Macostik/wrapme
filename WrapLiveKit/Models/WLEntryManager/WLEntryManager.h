@@ -44,8 +44,6 @@
 
 - (void)save;
 
-- (void)instantSave;
-
 - (NSArray*)executeFetchRequest:(NSFetchRequest*)request;
 
 - (void)clear;

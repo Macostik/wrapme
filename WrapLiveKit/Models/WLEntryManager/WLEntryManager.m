@@ -195,20 +195,15 @@
 }
 
 - (void)save {
-    __weak typeof(self)weakSelf = self;
     run_after_asap(^{
-        [weakSelf instantSave];
-    });
-}
-
-- (void)instantSave {
-    if ([self.context hasChanges] && self.coordinator.persistentStores.nonempty) {
-        NSError* error = nil;
-        [self.context save:&error];
-        if (error) {
-            WLLog(@"CoreData", @"save error", error);
+        if ([self.context hasChanges] && self.coordinator.persistentStores.nonempty) {
+            NSError* error = nil;
+            [self.context save:&error];
+            if (error) {
+                WLLog(@"CoreData", @"save error", error);
+            }
         }
-    }
+    });
 }
 
 - (void)clear {

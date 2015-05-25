@@ -56,7 +56,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[WLEntryManager manager] instantSave];
     [self updateNotificaton];
 }
 
@@ -80,7 +79,6 @@
 }
 
 - (IBAction)back:(id)sender {
-    [[WLEntryManager manager] instantSave];
     [self.navigationController popViewControllerAnimated:NO];
 }
 

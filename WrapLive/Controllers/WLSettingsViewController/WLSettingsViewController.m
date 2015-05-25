@@ -50,7 +50,6 @@
             [[WLEntryManager manager] deleteEntry:entry];
         }
     }];
-    [[WLEntryManager manager] instantSave];
     currentUser.wraps = [NSMutableOrderedSet orderedSet];
     [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
 }

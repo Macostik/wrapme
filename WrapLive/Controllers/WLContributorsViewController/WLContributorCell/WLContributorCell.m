@@ -64,14 +64,15 @@
         self.deletable = NO;
     }
     
-    if (self.inviteLabel.hidden && !user.picture.small.nonempty) {
+    NSString *url = user.picture.small;
+    if (!self.signUpView.hidden && !url.nonempty) {
         [self.avatarView setImageName:@"default-medium-avatar-orange" forState:WLImageViewStateEmpty];
         [self.avatarView setImageName:@"default-medium-avatar-orange" forState:WLImageViewStateFailed];
     } else {
         [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
         [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
     }
-    self.avatarView.url = user.picture.small;
+    self.avatarView.url = url;
 }
 
 - (void)setDeletable:(BOOL)deletable {

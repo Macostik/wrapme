@@ -28,8 +28,6 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.avatarView.circled = YES;
-    [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
-    [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
     
     self.signUpView.layer.borderWidth = 1;
     self.signUpView.layer.borderColor = self.signUpView.textColor.CGColor;
@@ -48,9 +46,18 @@
 
 - (void)setupItemData:(WLAddressBookRecord*)contact {
 	WLAddressBookPhoneNumber* phoneNumber = [contact.phoneNumbers lastObject];
-     self.avatarView.url = phoneNumber.priorityPicture.small;
+    
     self.signUpView.hidden = (phoneNumber.user && phoneNumber.activated) ? NO : YES;
 	self.nameLabel.text = [phoneNumber priorityName];
+    NSString *url = phoneNumber.priorityPicture.small;
+    if (self.signUpView && !self.signUpView.hidden && !url.nonempty) {
+        [self.avatarView setImageName:@"default-medium-avatar-orange" forState:WLImageViewStateEmpty];
+        [self.avatarView setImageName:@"default-medium-avatar-orange" forState:WLImageViewStateFailed];
+    } else {
+        [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
+        [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+    }
+    self.avatarView.url = url;
 	
 	if (self.tableView) {
 		[self.tableView reloadData];

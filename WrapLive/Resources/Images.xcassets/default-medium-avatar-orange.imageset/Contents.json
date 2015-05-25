@@ -2,6 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "scale" : "1x",
+      "filename" : "default-medium-avatar-orange.png"
+    },
+    {
+      "idiom" : "universal",
       "scale" : "2x",
       "filename" : "default-medium-avatar-orange@2x.png"
     },

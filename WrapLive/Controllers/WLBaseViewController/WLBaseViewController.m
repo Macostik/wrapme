@@ -53,7 +53,12 @@
     self.transitioningDelegate = isEmbedded ? self : nil;
     
     if (!SystemVersionGreaterThanOrEqualTo8()) {
-        [UIWindow mainWindow].rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        UINavigationController *navigationController = (id)[UIWindow mainWindow].rootViewController;
+        UIViewController *presentedViewController = navigationController.presentedViewController != nil ?
+        navigationController.presentedViewController : navigationController;
+        presentedViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        presentedViewController.modalPresentationCapturesStatusBarAppearance = YES;
+        [presentedViewController setNeedsStatusBarAppearanceUpdate];
     }
 }
 

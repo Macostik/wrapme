@@ -114,7 +114,7 @@
 // MARK: - WLImageFetching
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
-    if (self.failureBlock) self.failureBlock(error);
+    if (self.failureBlock) self.failureBlock([WLNetwork network].reachable ? error : WLError(@"No internet connection. Can't download the photo for editing."));
     [self dissmis];
 }
 

@@ -65,6 +65,7 @@
 // MARK: - WLAddressBookReceiver
 
 - (void)addressBook:(WLAddressBook *)addressBook didUpdateCachedRecords:(NSArray *)cachedRecords {
+    [self.spinner stopAnimating];
     WLArrangedAddressBook *oldAddressBook = self.addressBook;
     self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
     [self.addressBook addRecords:cachedRecords];

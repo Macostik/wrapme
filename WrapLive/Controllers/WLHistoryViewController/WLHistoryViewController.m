@@ -406,7 +406,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     __weak __typeof(self)weakSelf = self;
     [self.candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
         [WLDownloadingView downloadAndEditCandy:weakSelf.candy success:^(UIImage *image) {
-            
         } failure:^(NSError *error) {
             [error show];
         }];

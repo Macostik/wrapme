@@ -46,7 +46,7 @@
     }];
     
     [self.dataSource setSelectionBlock:^(WLEntry* entry) {
-        [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
+        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
     }];
  
     [[WLComment notifier] addReceiver:self];

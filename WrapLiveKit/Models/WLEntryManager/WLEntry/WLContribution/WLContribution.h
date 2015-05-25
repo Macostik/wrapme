@@ -21,4 +21,8 @@
 
 @property (nonatomic, retain) NSString * uploadIdentifier;
 
+@property (nonatomic, retain) WLUser *editor;
+
+@property (nonatomic, retain) NSDate *editedAt;
+
 @end

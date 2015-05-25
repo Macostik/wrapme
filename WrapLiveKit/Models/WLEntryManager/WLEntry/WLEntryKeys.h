@@ -62,3 +62,5 @@ static NSString* WLPhoneKey = @"phone_number";
 static NSString* WLPasswordKey = @"password";
 static NSString* WLCommentCountKey = @"comment_count";
 static NSString* WLUIDKey = @"uid";
+static NSString* WLEditorUIDKey = @"editor_uid";
+static NSString* WLEditedAtKey = @"edited_at_in_epoch";

@@ -88,9 +88,14 @@
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
-    [self parseContributor:dictionary];
+    
     NSString* uploadIdentifier = [dictionary stringForKey:WLUploadUIDKey];
     if (!NSStringEqual(self.uploadIdentifier, uploadIdentifier)) self.uploadIdentifier = uploadIdentifier;
+    
+    [self parseContributor:dictionary];
+    
+    [self parseEditor:dictionary];
+    
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }
 
@@ -107,6 +112,18 @@
     [contributor editPicture:[dictionary stringForKey:WLContributorLargeAvatarKey]
                       medium:[dictionary stringForKey:WLContributorMediumAvatarKey]
                        small:[dictionary stringForKey:WLContributorSmallAvatarKey]];
+}
+
+- (void)parseEditor:(NSDictionary*)dictionary {
+    NSString* identifier = [dictionary stringForKey:WLEditorUIDKey];
+    if (!identifier.nonempty) return;
+    WLUser* editor = self.editor;
+    if (!NSStringEqual(editor.identifier, identifier)) {
+        editor = [WLUser entry:identifier];
+        self.editor = editor;
+    }
+    NSDate* editedAt = [dictionary timestampDateForKey:WLEditedAtKey];
+    if (!NSDateEqual(self.editedAt, editedAt)) self.editedAt = editedAt;
 }
 
 - (BOOL)canBeUploaded {

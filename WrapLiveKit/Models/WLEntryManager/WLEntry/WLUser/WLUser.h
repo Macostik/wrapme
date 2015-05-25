@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSMutableOrderedSet *contributions;
 @property (nonatomic, retain) NSMutableOrderedSet *wraps;
 @property (nonatomic, retain) NSMutableOrderedSet *devices;
+@property (nonatomic, retain) NSMutableOrderedSet *editings;
 @property (strong, nonatomic) NSString *phones;
 @property (strong, nonatomic) NSString *securePhones;
 

@@ -15,5 +15,7 @@
 @dynamic contributor;
 @dynamic uploading;
 @dynamic uploadIdentifier;
+@dynamic editor;
+@dynamic editedAt;
 
 @end

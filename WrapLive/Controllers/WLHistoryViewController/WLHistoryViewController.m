@@ -26,6 +26,13 @@
 #import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
 #import <AdobeCreativeSDKFoundation/AdobeCreativeSDKFoundation.h>
 
+static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
+
+typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
+    WLHistoryBottomViewModeCreating,
+    WLHistoryBottomViewModeEditing
+};
+
 @interface WLHistoryViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -53,6 +60,8 @@
 @property (nonatomic) NSUInteger currentCandyIndex;
 
 @property (weak, nonatomic) WLCandy* removedCandy;
+
+@property (nonatomic) WLHistoryBottomViewMode bottomViewMode;
 
 @end
 
@@ -102,6 +111,44 @@
     [UIView performWithoutAnimation:^{
         [UIViewController attemptRotationToDeviceOrientation];
     }];
+    
+    [self performSelector:@selector(toggleBottomViewMode) withObject:nil afterDelay:WLHistoryBottomViewModeTogglingInterval inModes:@[NSRunLoopCommonModes]];
+}
+
+- (void)toggleBottomViewMode {
+    if (self.bottomViewMode == WLHistoryBottomViewModeCreating) {
+        self.bottomViewMode = WLHistoryBottomViewModeEditing;
+    } else {
+        self.bottomViewMode = WLHistoryBottomViewModeCreating;
+    }
+    [self performSelector:@selector(toggleBottomViewMode) withObject:nil afterDelay:WLHistoryBottomViewModeTogglingInterval inModes:@[NSRunLoopCommonModes]];
+}
+
+- (void)setBottomViewMode:(WLHistoryBottomViewMode)bottomViewMode {
+    WLCandy *candy = _candy;
+    if (_bottomViewMode != bottomViewMode && !(bottomViewMode == WLHistoryBottomViewModeEditing && candy.editor == nil)) {
+        _bottomViewMode = bottomViewMode;
+        [self.postLabel.layer removeAllAnimations];
+        [self.timeLabel.layer removeAllAnimations];
+        __weak typeof(self)weakSelf = self;
+        [UIView transitionWithView:self.postLabel duration:0.25 options:UIViewAnimationOptionTransitionFlipFromBottom animations:nil completion:nil];
+        [UIView transitionWithView:self.timeLabel duration:0.25 options:UIViewAnimationOptionTransitionFlipFromBottom animations:nil completion:nil];
+        run_after(0.125, ^{
+            [weakSelf setupBottomViewModeRelatedData:bottomViewMode candy:candy];
+        });
+    } else {
+        [self setupBottomViewModeRelatedData:_bottomViewMode candy:candy];
+    }
+}
+
+- (void)setupBottomViewModeRelatedData:(WLHistoryBottomViewMode)bottomViewMode candy:(WLCandy*)candy {
+    if (bottomViewMode == WLHistoryBottomViewModeEditing && candy.editor != nil) {
+        self.postLabel.text = [NSString stringWithFormat:WLLS(@"Edited by %@"), candy.editor.name];
+        self.timeLabel.text = [candy.editedAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
+    } else {
+        self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), candy.contributor.name];
+        self.timeLabel.text = [candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -222,14 +269,13 @@
 }
 
 - (void)updateOwnerData {
-    [_candy markAsRead];
-    [self.candyIndicator updateStatusIndicator:_candy];
-    self.actionButton.iconName = _candy.deletable ? @"trash" : @"warning";
-    [self setCommentButtonTitle:_candy];
-    self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), _candy.contributor.name];
-    NSString *timeAgoString = [_candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
-    self.timeLabel.text = timeAgoString;
-    self.lastComment = [_candy latestComment];
+    WLCandy *candy = _candy;
+    [candy markAsRead];
+    [self.candyIndicator updateStatusIndicator:candy];
+    self.actionButton.iconName = candy.deletable ? @"trash" : @"warning";
+    [self setCommentButtonTitle:candy];
+    [self setupBottomViewModeRelatedData:self.bottomViewMode candy:candy];
+    self.lastComment = [candy latestComment];
 }
 
 - (void)setCommentButtonTitle:(WLCandy *)candy {
@@ -367,6 +413,11 @@
     } failure:^(NSError *error) {
         [error show];
     }];
+}
+
+- (IBAction)toggleBottomViewMode:(id)sender {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(toggleBottomViewMode) object:nil];
+    [self toggleBottomViewMode];
 }
 
 #pragma mark - WLSwipeViewController Methods

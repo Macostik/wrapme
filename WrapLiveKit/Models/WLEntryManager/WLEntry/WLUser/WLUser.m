@@ -20,6 +20,7 @@
 @dynamic contributions;
 @dynamic wraps;
 @dynamic devices;
+@dynamic editings;
 
 @synthesize phones = _phones;
 @synthesize securePhones = _securePhones;

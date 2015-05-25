@@ -64,6 +64,7 @@
     WLWrap* currentWrap = self.wrap;
     WLWrap* wrap = relatedEntry ? : (currentWrap ? : [WLWrap entry:[dictionary stringForKey:WLWrapUIDKey]]);
     if (wrap != currentWrap) self.wrap = wrap;
+    
     return self;
 }
 

@@ -2908,6 +2908,7 @@
 		C587C8F01AD2E980003E7647 /* NSUserDefaults+WLAppGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+WLAppGroup.m"; sourceTree = "<group>"; };
 		C587C8F51AD2E9BF003E7647 /* WLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAlertView.h; sourceTree = "<group>"; };
 		C587C8F61AD2E9BF003E7647 /* WLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAlertView.m; sourceTree = "<group>"; };
+		C58AB9921B13422500932272 /* CoreData 1. 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 2.xcdatamodel"; sourceTree = "<group>"; };
 		C5947E4F18F5271B00BDF038 /* WLChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChatViewController.h; path = WLChatViewController/WLChatViewController.h; sourceTree = "<group>"; };
 		C5947E5018F5271B00BDF038 /* WLChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChatViewController.m; path = WLChatViewController/WLChatViewController.m; sourceTree = "<group>"; };
 		C5947E5318F52AE000BDF038 /* WLMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLMessageCell.h; path = WLChatViewController/WLMessageCell/WLMessageCell.h; sourceTree = "<group>"; };
@@ -9892,10 +9893,11 @@
 		C5612D0B1ACD968B0052578A /* CoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C58AB9921B13422500932272 /* CoreData 1. 2.xcdatamodel */,
 				C5612D0C1ACD968B0052578A /* CoreData 1.1.xcdatamodel */,
 				C5612D0D1ACD968B0052578A /* CoreData.xcdatamodel */,
 			);
-			currentVersion = C5612D0C1ACD968B0052578A /* CoreData 1.1.xcdatamodel */;
+			currentVersion = C58AB9921B13422500932272 /* CoreData 1. 2.xcdatamodel */;
 			path = CoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

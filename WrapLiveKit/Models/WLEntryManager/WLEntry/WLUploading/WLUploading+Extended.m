@@ -33,7 +33,7 @@
 
 - (id)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (![WLNetwork network].reachable) {
-        if (failure) failure(nil);
+        if (failure) failure([NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorNetworkConnectionLost userInfo:@{NSLocalizedDescriptionKey:@"Network connection lost."}]);
         return nil;
     }
     WLContribution *contribution = self.contribution;

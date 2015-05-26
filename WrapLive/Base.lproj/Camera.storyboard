@@ -570,11 +570,12 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8K-4d-qnf" customClass="WLIconButton">
-                                <rect key="frame" x="270" y="16" width="34" height="34"/>
+                                <rect key="frame" x="282" y="16" width="22" height="22"/>
                                 <color key="backgroundColor" white="0.10100000351667404" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Y8K-4d-qnf" secondAttribute="height" id="Kbi-Lq-1SC"/>
                                 </constraints>
+                                <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -582,7 +583,7 @@
                                     <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                         <size key="value" width="16" height="16"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="brush"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="edit-write"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>

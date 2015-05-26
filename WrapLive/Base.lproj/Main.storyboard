@@ -1930,6 +1930,7 @@ Tap here to start.</string>
                 <customObject id="Qns-CC-AwC" userLabel="Notifications Transition" customClass="WLStoryboardTransition">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLWhatsUpViewController"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="L91-fZ-J9O" id="fTC-aN-kwc"/>
@@ -2995,7 +2996,7 @@ Tap here to start.</string>
         <!--History View Controller-->
         <scene sceneID="IUe-2p-n08">
             <objects>
-                <viewController storyboardIdentifier="WLHistoryViewController" automaticallyAdjustsScrollViewInsets="NO" id="eto-O4-OHy" customClass="WLHistoryViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLHistoryViewController" automaticallyAdjustsScrollViewInsets="NO" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" id="eto-O4-OHy" customClass="WLHistoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nXs-Hk-HCH"/>
                         <viewControllerLayoutGuide type="bottom" id="kcj-4A-oFo"/>
@@ -3178,20 +3179,6 @@ Tap here to start.</string>
                                             <constraint firstAttribute="bottom" secondItem="OBg-6r-k4s" secondAttribute="bottom" id="oRN-O7-aum"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="OBg-6r-k4s" secondAttribute="trailing" id="qKo-dR-oQd"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                                <color key="value" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="endLocation">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
-                                                <real key="value" value="0.5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DKe-of-CwY" customClass="WLImageView">
                                         <rect key="frame" x="12" y="12" width="48" height="48"/>
@@ -3327,21 +3314,12 @@ Tap here to start.</string>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLM-ad-e36" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="AYb-qD-DT7" userLabel="Full Size Transition" customClass="WLStoryboardTransition">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLImageViewController"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="candy"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="image"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="sourceViewController" destination="eto-O4-OHy" id="6eo-J0-dzX"/>
-                    </connections>
-                </customObject>
-                <customObject id="vup-MX-RNo" customClass="WLStoryboardTransition">
+                <customObject id="vup-MX-RNo" userLabel="Comments Transition" customClass="WLStoryboardTransition">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLCommentsViewController"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="candy"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="candy"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="NO"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="eto-O4-OHy" id="dMT-6T-eNW"/>
@@ -3443,7 +3421,7 @@ Check your internet connection and try again.</string>
         <!--Comments View Controller-->
         <scene sceneID="iUx-SN-sz9">
             <objects>
-                <viewController storyboardIdentifier="WLCommentsViewController" id="M8n-42-KAe" customClass="WLCommentsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WLCommentsViewController" modalPresentationStyle="currentContext" id="M8n-42-KAe" customClass="WLCommentsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hf9-7F-Ofz"/>
                         <viewControllerLayoutGuide type="bottom" id="BUs-K2-ZTN"/>

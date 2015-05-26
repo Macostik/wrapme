@@ -41,15 +41,14 @@
     if (self.sourceViewController) {
         UIViewController *destinationViewController = [self destinationViewController];
         if (destinationViewController) {
-            BOOL animated = [destinationViewController isKindOfClass:[WLWhatsUpViewController class]];
-            [self.sourceViewController.navigationController pushViewController:destinationViewController animated:animated];
+            [self.sourceViewController.navigationController pushViewController:destinationViewController animated:self.animated];
         }
     }
 }
 
 - (IBAction)pop:(id)sender {
     if (self.sourceViewController) {
-        [self.sourceViewController.navigationController popViewControllerAnimated:NO];
+        [self.sourceViewController.navigationController popViewControllerAnimated:self.animated];
     }
 }
 
@@ -57,7 +56,7 @@
     if (self.sourceViewController) {
         UIViewController *destinationViewController = [self destinationViewController];
         if (destinationViewController) {
-            [self.sourceViewController presentViewController:destinationViewController animated:NO completion:nil];
+            [self.sourceViewController presentViewController:destinationViewController animated:self.animated completion:nil];
         }
     }
 }

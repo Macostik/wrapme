@@ -22,6 +22,8 @@
 
 @property (nonatomic) IBInspectable BOOL sourceIsDelegate;
 
+@property (nonatomic) IBInspectable BOOL animated;
+
 - (IBAction)push:(id)sender;
 
 - (IBAction)pop:(id)sender;

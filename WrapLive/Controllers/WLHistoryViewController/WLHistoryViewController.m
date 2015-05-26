@@ -22,9 +22,7 @@
 #import "WLDownloadingView.h"
 #import "WLImageCache.h"
 #import "WLUploadPhotoViewController.h"
-#import "WLPostEditingUploadCandyRequest.h"
-#import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
-#import <AdobeCreativeSDKFoundation/AdobeCreativeSDKFoundation.h>
+#import "WLStoryboardTransition.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -128,20 +126,13 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLCandy *candy = _candy;
     if (_bottomViewMode != bottomViewMode && !(bottomViewMode == WLHistoryBottomViewModeEditing && candy.editor == nil)) {
         _bottomViewMode = bottomViewMode;
-        [self.postLabel.layer removeAllAnimations];
-        [self.timeLabel.layer removeAllAnimations];
-        __weak typeof(self)weakSelf = self;
-//        [UIView transitionWithView:self.postLabel duration:0.25 options:UIViewAnimationOptionTransitionFlipFromBottom animations:nil completion:nil];
-//        [UIView transitionWithView:self.timeLabel duration:0.25 options:UIViewAnimationOptionTransitionFlipFromBottom animations:nil completion:nil];
         CATransition *transition = [CATransition animation];
         transition.duration = 0.25f;
         transition.type = kCATransitionPush;
         transition.subtype = kCATransitionFromTop;
-        [self.postLabel.superview.layer addAnimation:transition forKey:nil];
-        [weakSelf setupBottomViewModeRelatedData:bottomViewMode candy:candy];
-    } else {
-        [self setupBottomViewModeRelatedData:_bottomViewMode candy:candy];
+        [self.postLabel.superview.layer addAnimation:transition forKey:@"toggling"];
     }
+    [self setupBottomViewModeRelatedData:_bottomViewMode candy:candy];
 }
 
 - (void)setupBottomViewModeRelatedData:(WLHistoryBottomViewMode)bottomViewMode candy:(WLCandy*)candy {
@@ -158,9 +149,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [super viewWillAppear:animated];
     self.lastComment = nil;
     [self updateOwnerData];
-    if (self.showCommentViewController) {
-        [self showCommentView];
-    } else {
+    if (!self.showCommentViewController) {
         [self setBarsHidden:NO animated:animated];
     }
 }
@@ -168,6 +157,9 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [WLHintView showCandySwipeHintView];
+    if (self.showCommentViewController) {
+        [self showCommentView];
+    }
 }
 
 - (void)showCommentView {
@@ -418,8 +410,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (IBAction)toggleBottomViewMode:(id)sender {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(toggleBottomViewMode) object:nil];
-    [self toggleBottomViewMode];
+    if ([self.postLabel.superview.layer animationKeys].count == 0) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(toggleBottomViewMode) object:nil];
+        [self toggleBottomViewMode];
+    }
 }
 
 #pragma mark - WLSwipeViewController Methods

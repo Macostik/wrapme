@@ -57,6 +57,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 @property (nonatomic) NSUInteger currentCandyIndex;
 
+@property (nonatomic) NSUInteger currentHistoryItemIndex;
+
 @property (weak, nonatomic) WLCandy* removedCandy;
 
 @property (nonatomic) WLHistoryBottomViewMode bottomViewMode;
@@ -296,7 +298,12 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         return candy;
     }
     
-    WLHistoryItem *nextItem = [self.history.entries tryObjectAtIndex:[self.history.entries indexOfObject:self.historyItem] + 1];
+    WLHistoryItem *nextItem = nil;
+    if ([self.history.entries containsObject:self.historyItem]) {
+        nextItem = [self.history.entries tryObjectAtIndex:[self.history.entries indexOfObject:self.historyItem] + 1];
+    } else {
+        nextItem = [self.history.entries tryObjectAtIndex:self.currentHistoryItemIndex];
+    }
     if (nextItem) {
         self.historyItem = nextItem;
         return [nextItem.entries firstObject];
@@ -305,6 +312,17 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     candy = [self.historyItem.entries tryObjectAtIndex:self.currentCandyIndex - 1];
     if (candy) {
         return candy;
+    }
+    
+    WLHistoryItem *previousItem = nil;
+    if ([self.history.entries containsObject:self.historyItem]) {
+        previousItem = [self.history.entries tryObjectAtIndex:[self.history.entries indexOfObject:self.historyItem] - 1];
+    } else {
+        previousItem = [self.history.entries tryObjectAtIndex:self.currentHistoryItemIndex - 1];
+    }
+    if (previousItem) {
+        self.historyItem = previousItem;
+        return [previousItem.entries lastObject];
     }
     
     return [self.historyItem.entries firstObject];
@@ -321,6 +339,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         
         [receiver setAddedBlock:^(WLCandy *candy) {
             weakSelf.currentCandyIndex = [weakSelf.historyItem.entries indexOfObject:weakSelf.candy];
+            weakSelf.currentHistoryItemIndex = [weakSelf.history.entries indexOfObject:weakSelf.historyItem];
         }];
         
         [receiver setUpdatedBlock:^(WLCandy *candy) {
@@ -481,6 +500,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.candy = [viewController candy];
     self.historyItem = [self.history itemWithCandy:self.candy];
     self.currentCandyIndex = [self.historyItem.entries indexOfObject:self.candy];
+    self.currentHistoryItemIndex = [self.history.entries indexOfObject:self.historyItem];
     [self fetchCandiesOlderThen:self.candy];
     [self fetchHistoryItemsOlderThen:self.historyItem];
 }

@@ -195,10 +195,11 @@
 }
 
 - (void)save {
+    __weak typeof(self)weakSelf = self;
     run_after_asap(^{
-        if ([self.context hasChanges] && self.coordinator.persistentStores.nonempty) {
+        if ([weakSelf.context hasChanges] && weakSelf.coordinator.persistentStores.nonempty) {
             NSError* error = nil;
-            [self.context save:&error];
+            [weakSelf.context save:&error];
             if (error) {
                 WLLog(@"CoreData", @"save error", error);
             }
@@ -281,6 +282,7 @@ va_end(args);
 }
 
 - (void)remove {
+    WLLog(@"WRAPLIVE", @"LOCAL DELETING", self);
     [[WLEntryManager manager] deleteEntry:self];
 }
 

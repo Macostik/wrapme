@@ -32,15 +32,11 @@
 
 @property (strong, nonatomic) Class entryClass;
 
-+ (NSArray*)allQueues;
-
 + (instancetype)queueForEntriesOfClass:(Class)entryClass;
 
 + (void)upload:(WLUploading*)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 + (void)start;
-
-+ (void)start:(WLBlock)completion;
 
 - (void)prepareAndStart;
 
@@ -48,8 +44,8 @@
 
 - (void)start;
 
-- (void)start:(WLBlock)completion;
-
 - (void)upload:(WLUploading*)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+
+- (void)addDependentQueue:(WLUploadingQueue*)queue;
 
 @end

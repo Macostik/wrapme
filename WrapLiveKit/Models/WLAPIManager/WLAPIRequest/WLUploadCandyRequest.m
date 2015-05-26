@@ -47,11 +47,6 @@
         candy.editedPicture = nil;
         [candy API_setup:[response.data dictionaryForKey:WLCandyKey]];
         [oldPicture cacheForPicture:candy.picture];
-        if ([candy.comments match:^BOOL(WLComment *comment) {
-            return comment.status == WLContributionStatusReady;
-        }]) {
-            [[WLUploadingQueue queueForEntriesOfClass:[WLComment class]] prepareAndStart];
-        }
         return candy;
     }
     return nil;

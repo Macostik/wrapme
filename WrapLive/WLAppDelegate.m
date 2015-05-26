@@ -256,11 +256,12 @@ static WLDataBlock deviceTokenCompletion = nil;
             }];
         }];
     }, ^(WLOperation *operation) {
-        [WLUploadingQueue start:^{
+        [WLUploadingQueue start];
+        run_after(20, ^{
             [operation finish:^{
                 completionHandler(UIBackgroundFetchResultNoData);
             }];
-        }];
+        });
     }, nil);
 }
 

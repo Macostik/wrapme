@@ -83,6 +83,7 @@
 }
 
 - (IBAction)calcel:(id)sender {
+    [[WLImageFetcher fetcher] removeReceiver:self];
     [self dissmis];
 }
 

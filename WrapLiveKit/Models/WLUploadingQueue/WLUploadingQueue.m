@@ -21,24 +21,28 @@
 
 @property (nonatomic) NSUInteger simultaneousUploadingsLimit;
 
+@property (strong, nonatomic) NSMutableSet* dependentQueues;
+
+@property (weak, nonatomic) WLUploadingQueue *parentQueue;
+
 @end
 
 @implementation WLUploadingQueue
 
 + (void)initialize {
-    WLUploadingQueue *queue = [WLUploadingQueue queueForEntriesOfClass:[WLMessage class]];
-    queue.simultaneousUploadingsLimit = 1;
+    WLUploadingQueue *wrapQueue = [WLUploadingQueue queueForEntriesOfClass:[WLWrap class]];
+    WLUploadingQueue *candyQueue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
+    [wrapQueue addDependentQueue:candyQueue];
+    WLUploadingQueue *messageQueue = [WLUploadingQueue queueForEntriesOfClass:[WLMessage class]];
+    messageQueue.simultaneousUploadingsLimit = 1;
+    [wrapQueue addDependentQueue:messageQueue];
+    WLUploadingQueue *commentQueue = [WLUploadingQueue queueForEntriesOfClass:[WLComment class]];
+    [candyQueue addDependentQueue:commentQueue];
 }
 
-+ (NSArray*)allQueues {
-    return @[[self queueForEntriesOfClass:[WLWrap class]],
-             [self queueForEntriesOfClass:[WLMessage class]],
-             [self queueForEntriesOfClass:[WLCandy class]],
-             [self queueForEntriesOfClass:[WLComment class]]];
-}
+static NSMapTable *queues = nil;
 
 + (instancetype)queueForEntriesOfClass:(Class)entryClass {
-    static NSMapTable *queues = nil;
     if (!queues) {
         queues = [NSMapTable strongToStrongObjectsMapTable];
     }
@@ -57,19 +61,11 @@
 }
 
 + (void)start {
-    [self start:nil];
-}
-
-+ (void)start:(WLBlock)completion {
-    NSArray *queues = [self allQueues];
-    for (WLUploadingQueue *queue in queues) {
-        [queue prepare];
-        runUnaryQueuedOperation(@"wl_main_uploading_queue", ^(WLOperation *operation) {
-            [queue start:^{
-                [operation finish:completion];
-            }];
-        });
+    if (![WLNetwork network].reachable || ![WLAuthorizationRequest authorized]) {
+        return;
     }
+    WLUploadingQueue *queue = [WLUploadingQueue queueForEntriesOfClass:[WLWrap class]];
+    [queue prepareAndStart];
 }
 
 - (void)setEntryClass:(Class)entryClass {
@@ -100,26 +96,23 @@
 }
 
 - (void)start {
-    [self start:nil];
-}
-
-- (void)start:(WLBlock)completion {
-    if (![WLNetwork network].reachable || ![WLAuthorizationRequest authorized]) {
-        if (completion) completion();
+    if (![WLNetwork network].reachable || ![WLAuthorizationRequest authorized] || self.isUploading) {
         return;
     }
     if (self.isEmpty) {
-        if (completion) completion();
+        [self finish];
     } else {
-        __weak typeof(self)weakSelf = self;
+        WLOperationQueue *queue = [WLOperationQueue queueNamed:self.queueName capacity:self.simultaneousUploadingsLimit];
         for (WLUploading* uploading in self.uploadings) {
-            runQueuedOperation(self.queueName, self.simultaneousUploadingsLimit, ^(WLOperation *operation) {
-                [weakSelf internalUpload:uploading success:^(id object) {
-                    [operation finish:completion];
-                } failure:^(NSError *error) {
-                    [operation finish:completion];
-                }];
-            });
+            [self enqueueInternalUpload:uploading queue:queue success:nil failure:nil];
+        }
+    }
+}
+
+- (void)finish {
+    if (self.isEmpty && [WLNetwork network].reachable) {
+        for (WLUploadingQueue *queue in self.dependentQueues) {
+            [queue prepareAndStart];
         }
     }
 }
@@ -154,6 +147,31 @@
     }];
 }
 
+- (void)enqueueInternalUpload:(WLUploading*)uploading queue:(WLOperationQueue*)queue success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    if (self.parentQueue && !self.parentQueue.isEmpty) {
+        if (!self.parentQueue.isUploading) {
+            [self.parentQueue prepareAndStart];
+        }
+        if (failure) failure(WLError(@"Parent items are uploading..."));
+        return;
+    }
+    __weak typeof(self)weakSelf = self;
+    
+    queue.finishQueueBlock = ^ {
+        [weakSelf finish];
+    };
+    
+    [queue addOperationWithBlock:^(WLOperation *operation) {
+        [weakSelf internalUpload:uploading success:^(id object) {
+            [operation finish];
+            if (success) success(object);
+        } failure:^(NSError *error) {
+            [operation finish];
+            if (failure) failure(error);
+        }];
+    }];
+}
+
 - (void)addUploading:(WLUploading*)uploading {
     if (![self.uploadings containsObject:uploading]) {
         [self.uploadings addObject:uploading];
@@ -162,17 +180,8 @@
 }
 
 - (void)upload:(WLUploading*)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    __weak typeof(self)weakSelf = self;
     [self addUploading:uploading];
-    runQueuedOperation(self.queueName, self.simultaneousUploadingsLimit, ^(WLOperation *operation) {
-        [weakSelf internalUpload:uploading success:^(id object) {
-            [operation finish];
-            if (success) success(object);
-        } failure:^(NSError *error) {
-            [operation finish];
-            if (failure) failure(error);
-        }];
-    });
+    [self enqueueInternalUpload:uploading queue:[WLOperationQueue queueNamed:self.queueName capacity:self.simultaneousUploadingsLimit] success:success failure:failure];
 }
 
 - (BOOL)isEmpty {
@@ -183,16 +192,56 @@
     return self.uploadings.count;
 }
 
+- (void)addDependentQueue:(WLUploadingQueue *)queue {
+    if (queue) {
+        if (!self.dependentQueues) {
+            self.dependentQueues = [NSMutableSet setWithObject:queue];
+        } else {
+            [self.dependentQueues addObject:queue];
+        }
+        queue.parentQueue = self;
+    }
+}
+
+- (void)didRemoveParentQueueContribution:(WLContribution*)contribution {
+    NSMutableSet *removedUploadins = [NSMutableSet set];
+    for (WLUploading *_uploading in self.uploadings) {
+        if (_uploading.contribution.containingEntry == contribution) {
+            if (_uploading.data.operation) {
+                [_uploading.data.operation cancel];
+            }
+            [removedUploadins addObject:_uploading];
+        }
+    }
+    if (removedUploadins.count > 0) {
+        [self.uploadings minusSet:removedUploadins];
+        [self broadcast:@selector(uploadingQueueDidChange:)];
+        self.isUploading = !self.isEmpty;
+        
+        for (WLUploading *uploading in removedUploadins) {
+            for (WLUploadingQueue *queue in self.dependentQueues) {
+                [queue didRemoveParentQueueContribution:uploading.contribution];
+            }
+        }
+    }
+}
+
 // MARK: - WLEntryNotifyReceiver
 
 - (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
-    return entry.valid && [self.uploadings containsObject:[(WLContribution*)entry uploading]];
+    return entry.valid;
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLEntry *)entry {
-    [self.uploadings removeObject:[(WLContribution*)entry uploading]];
-    [self broadcast:@selector(uploadingQueueDidChange:)];
-    self.isUploading = !self.isEmpty;
+- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLContribution *)entry {
+    WLUploading *uploading = [(WLContribution*)entry uploading];
+    if ([self.uploadings containsObject:uploading]) {
+        [self.uploadings removeObject:uploading];
+        [self broadcast:@selector(uploadingQueueDidChange:)];
+        self.isUploading = !self.isEmpty;
+    }
+    for (WLUploadingQueue *queue in self.dependentQueues) {
+        [queue didRemoveParentQueueContribution:entry];
+    }
 }
 
 @end

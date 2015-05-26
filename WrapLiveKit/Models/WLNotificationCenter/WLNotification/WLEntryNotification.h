@@ -8,12 +8,7 @@
 
 #import <WrapLiveKit/WrapLiveKit.h>
 #import "WLEntryManager.h"
-
-typedef NS_ENUM(NSUInteger, WLEvent) {
-    WLEventAdd,
-    WLEventUpdate,
-    WLEventDelete
-};
+#import "WLCommonEnums.h"
 
 @interface WLEntryNotification : WLNotification
 

@@ -15,6 +15,8 @@
 #import "UIFont+CustomFonts.h"
 #import "WLComposeBar.h"
 #import "WLToast.h"
+#import "WLWhatsUpSet.h"
+#import "WLWhatsUpEvent.h"
 
 @interface WLWhatsUpViewController () <WLEntryNotifyReceiver>
 
@@ -27,15 +29,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.dataSource setCellIdentifierForItemBlock:^NSString *(id entry, NSUInteger index) {
-        NSString *_identifier = [entry isKindOfClass:[WLComment class]] ? @"WLCommentWhatsUpCell" :
-                                                                          @"WLCandyWhatsUpCell";
-        return _identifier;
+    [self.dataSource setCellIdentifierForItemBlock:^NSString *(WLWhatsUpEvent *event, NSUInteger index) {
+        return [event.contribution isKindOfClass:[WLComment class]] ? @"WLCommentWhatsUpCell" : @"WLCandyWhatsUpCell";
     }];
     
-    [self.dataSource setItemSizeBlock:^CGSize(id entry, NSUInteger index) {
+    [self.dataSource setItemSizeBlock:^CGSize(WLWhatsUpEvent *event, NSUInteger index) {
         
-        CGFloat textHeight  = [WLWhatsUpCell additionalHeightCell:entry];
+        CGFloat textHeight  = [WLWhatsUpCell additionalHeightCell:event];
         
         UIFont *fontNormal = [UIFont preferredFontWithName:WLFontOpenSansLight
                                                     preset:WLFontPresetNormal];
@@ -45,37 +45,22 @@
 
     }];
     
-    [self.dataSource setSelectionBlock:^(WLEntry* entry) {
-        [WLChronologicalEntryPresenter presentEntry:entry animated:YES];
+    [self.dataSource setSelectionBlock:^(WLWhatsUpEvent *event) {
+        [WLChronologicalEntryPresenter presentEntry:event.contribution animated:YES];
     }];
  
-    [[WLComment notifier] addReceiver:self];
-    [[WLCandy notifier] addReceiver:self];
     [[WLWrap notifier] addReceiver:self];
+    
+    self.dataSource.items = [[WLWhatsUpSet alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self updateNotificaton];
-}
-
-- (void)updateNotificaton {
-    self.dataSource.items = [[WLUser currentUser] notifications];
-}
-
-- (void)notifier:(WLEntryNotifier*)notifier entryAdded:(WLEntry*)entry {
-    [self performSelector:@selector(updateNotificaton) withObject:nil afterDelay:0.0];
+    [(WLWhatsUpSet*)self.dataSource.items update];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier entryDeleted:(WLEntry *)entry {
-    [self performSelector:@selector(updateNotificaton) withObject:nil afterDelay:0.0];
-    if ([entry isKindOfClass:[WLWrap class]]) {
-        [WLToast showMessageForUnavailableWrap:(WLWrap*)entry];
-    }
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLEntry *)entry {
-    [self performSelector:@selector(updateNotificaton) withObject:nil afterDelay:0.0];
+    [WLToast showMessageForUnavailableWrap:(WLWrap*)entry];
 }
 
 - (IBAction)back:(id)sender {

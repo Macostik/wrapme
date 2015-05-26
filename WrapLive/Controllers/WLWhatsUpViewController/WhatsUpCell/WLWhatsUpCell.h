@@ -11,9 +11,11 @@
 const static CGFloat WLWhatsUpCommentHorizontalSpacing = 144.0f;
 const static CGFloat WLPaddingCell = 24.0;
 
+@class WLWhatsUpEvent;
+
 @interface WLWhatsUpCell : WLEntryCell
 
-+ (CGFloat)additionalHeightCell:(id)entry;
++ (CGFloat)additionalHeightCell:(WLWhatsUpEvent*)event;
 
 @end
 

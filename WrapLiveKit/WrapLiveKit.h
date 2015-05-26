@@ -121,7 +121,7 @@ FOUNDATION_EXPORT const unsigned char WrapLiveKitVersionString[];
 #import <WrapLiveKit/WLNotification.h>
 #import <WrapLiveKit/NSObject+Extension.h>
 #import <WrapLiveKit/NSMutableDictionary+ImageMetadata.h>
-#import <WrapLiveKit/WLStillPictureMode.h>
+#import <WrapLiveKit/WLCommonEnums.h>
 #import <WrapLiveKit/WLEntryNotification.h>
 #import <WrapLiveKit/WLUpdateNotification.h>
 #import <WrapLiveKit/WLNotificationCenter.h>

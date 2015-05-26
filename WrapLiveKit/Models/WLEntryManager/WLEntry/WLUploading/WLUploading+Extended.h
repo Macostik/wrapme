@@ -7,19 +7,13 @@
 //
 
 #import "WLUploading.h"
-
-
-typedef NS_ENUM(int16_t, WLUploadingType) {
-    WLUploadingTypeAdd,
-    WLUploadingTypeUpdate,
-    WLUploadingTypeDelete
-};
+#import "WLCommonEnums.h"
 
 @interface WLUploading (Extended)
 
 + (instancetype)uploading:(WLContribution*)contribution;
 
-+ (instancetype)uploading:(WLContribution*)contribution type:(WLUploadingType)type;
++ (instancetype)uploading:(WLContribution*)contribution type:(WLEvent)type;
 
 - (id)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 

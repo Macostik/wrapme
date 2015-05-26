@@ -20,10 +20,10 @@
 @implementation WLUploading (Extended)
 
 + (instancetype)uploading:(WLContribution *)contribution {
-    return [self uploading:contribution type:WLUploadingTypeAdd];
+    return [self uploading:contribution type:WLEventAdd];
 }
 
-+ (instancetype)uploading:(WLContribution *)contribution type:(WLUploadingType)type {
++ (instancetype)uploading:(WLContribution *)contribution type:(WLEvent)type {
     WLUploading* uploading = [WLUploading entry:contribution.uploadIdentifier];
     uploading.type = type;
     uploading.contribution = contribution;
@@ -63,11 +63,11 @@
 
 - (id)sendTypedRequest:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     int16_t type = self.type;
-    if (type == WLUploadingTypeAdd) {
+    if (type == WLEventAdd) {
         return [self add:success failure:failure];
-    } else if (type == WLUploadingTypeUpdate) {
+    } else if (type == WLEventUpdate) {
         return [self update:success failure:failure];
-    } else if (type == WLUploadingTypeDelete) {
+    } else if (type == WLEventDelete) {
         return [self delete:success failure:failure];
     }
     if (failure) failure(WLError(@"Invalid uploading type"));

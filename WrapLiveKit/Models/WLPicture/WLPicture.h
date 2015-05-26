@@ -7,7 +7,7 @@
 //
 
 #import "WLArchivingObject.h"
-#import "WLStillPictureMode.h"
+#import "WLCommonEnums.h"
 #import "WLAnimation.h"
 
 @class WLImageCache;

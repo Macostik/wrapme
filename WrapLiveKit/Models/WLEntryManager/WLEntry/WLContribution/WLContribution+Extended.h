@@ -31,7 +31,7 @@ typedef NS_ENUM (NSUInteger, WLContributionStatus) {
 
 + (NSNumber*)uploadingOrder;
 
-- (WLContributionStatus)statusOfUploadingType:(WLUploadingType)type;
+- (WLContributionStatus)statusOfUploadingEvent:(WLEvent)event;
 
 - (WLContributionStatus)statusOfAnyUploadingType;
 

@@ -50,12 +50,12 @@
 }
 
 - (WLContributionStatus)status {
-    return [self statusOfUploadingType:WLUploadingTypeAdd];
+    return [self statusOfUploadingEvent:WLEventAdd];
 }
 
-- (WLContributionStatus)statusOfUploadingType:(WLUploadingType)type {
+- (WLContributionStatus)statusOfUploadingEvent:(WLEvent)event {
     WLUploading* uploading = self.uploading;
-    if (!uploading || uploading.type != type) {
+    if (!uploading || uploading.type != event) {
         return WLContributionStatusFinished;
     } else if (uploading.data.operation) {
         return WLContributionStatusInProgress;

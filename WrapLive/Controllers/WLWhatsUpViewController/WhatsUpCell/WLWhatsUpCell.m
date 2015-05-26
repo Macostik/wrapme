@@ -20,6 +20,7 @@
 #import "WLIconButton.h"
 #import "WLTextView.h"
 #import "WLFontPresetter.h"
+#import "WLWhatsUpEvent.h"
 
 @interface WLWhatsUpCell ()
 
@@ -40,26 +41,27 @@
     self.textView.textContainer.lineFragmentPadding = .0;
 }
 
-- (void)setup:(id)entry {
-    if ([entry unread]) [entry setUnread:NO];
-    self.pictureView.url = [entry contributor].picture.small;
-    self.timeLabel.text = [entry createdAt].timeAgoStringAtAMPM;
-    self.wrapImageView.url = [entry picture].small;
+- (void)setup:(WLWhatsUpEvent*)event {
+    WLContribution *contribution = event.contribution;
+    [contribution markAsRead];
+    self.pictureView.url = contribution.contributor.picture.small;
+    self.timeLabel.text = event.date.timeAgoStringAtAMPM;
+    self.wrapImageView.url = contribution.picture.small;
 }
 
-+ (CGFloat)additionalHeightCell:(id)entry {
-    if (![entry respondsToSelector:@selector(text)]) return .0f;
-    UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansRegular
-                                          preset:WLFontPresetNormal];
-    return [[entry text] heightWithFont:font width:WLConstants.screenWidth - WLWhatsUpCommentHorizontalSpacing];
++ (CGFloat)additionalHeightCell:(WLWhatsUpEvent *)event {
+    if (![event.contribution respondsToSelector:@selector(text)]) return .0f;
+    UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal];
+    return [[event.contribution text] heightWithFont:font width:WLConstants.screenWidth - WLWhatsUpCommentHorizontalSpacing];
 }
 
 @end
 
 @implementation WLCommentWhatsUpCell
 
-- (void)setup:(WLComment *)comment {
-    [super setup:comment];
+- (void)setup:(WLWhatsUpEvent*)event {
+    [super setup:event];
+    WLComment *comment = event.contribution;
     self.userNameLabel.text = [NSString stringWithFormat:@"%@:", comment.contributor.name];
     self.inWrapLabel.text = comment.candy.wrap.name;
     [self.textView determineHyperLink:comment.text];
@@ -69,9 +71,14 @@
 
 @implementation WLCandyWhatsUpCell
 
-- (void)setup:(WLCandy *)candy {
-    [super setup:candy];
-    self.userNameLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), candy.contributor.name];
+- (void)setup:(WLWhatsUpEvent*)event {
+    [super setup:event];
+    WLCandy *candy = event.contribution;
+    if (event.event == WLEventUpdate) {
+        self.userNameLabel.text = [NSString stringWithFormat:WLLS(@"Edited by %@"), candy.editor.name];
+    } else {
+        self.userNameLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), candy.contributor.name];
+    }
     self.inWrapLabel.text = candy.wrap.name;
     self.textView.text = nil;
 }

@@ -201,7 +201,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
             case WLContributionStatusReady:
             case WLContributionStatusInProgress: break;
             case WLContributionStatusFinished: {
-                [WLUploadingQueue upload:[WLUploading uploading:self type:WLUploadingTypeUpdate] success:nil failure:nil];
+                [WLUploadingQueue upload:[WLUploading uploading:self type:WLEventUpdate] success:nil failure:nil];
             } break;
             default:
                 break;

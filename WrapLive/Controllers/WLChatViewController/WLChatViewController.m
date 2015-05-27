@@ -467,11 +467,7 @@ CGFloat WLMaxTextViewWidth;
         return (message == [self.chat.unreadMessages lastObject]) ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
         if (self.chat.completed) return CGSizeZero;
-        if (self.chat.entries.nonempty) {
-            return CGSizeMake(collectionView.width, WLLoadingViewDefaultSize);
-        } else {
-            return CGSizeMake(collectionView.width, collectionView.height - collectionView.verticalContentInsets);
-        }
+        return CGSizeMake(collectionView.width, WLLoadingViewDefaultSize);
     } else {
         if (!self.chat.showTypingView) return CGSizeZero;
         return CGSizeMake(collectionView.width, MAX(WLTypingViewMinHeight, [self.chat.typingNames heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetSmaller] width:WLMaxTextViewWidth]));

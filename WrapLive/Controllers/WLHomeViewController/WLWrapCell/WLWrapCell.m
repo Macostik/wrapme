@@ -37,6 +37,8 @@
 
 @property (weak, nonatomic) NSLayoutConstraint *swipeActionConstraint;
 
+@property (weak, nonatomic) UIPanGestureRecognizer *swipeActionGestureRecognizer;
+
 @end
 
 @implementation WLWrapCell
@@ -75,6 +77,7 @@
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panning:)];
     panGestureRecognizer.delegate = self;
     [self.nameLabel.superview addGestureRecognizer:panGestureRecognizer];
+    self.swipeActionGestureRecognizer = panGestureRecognizer;
 }
 
 - (void)prepareForReuse {
@@ -108,8 +111,11 @@
 // MARK: - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer {
-    CGPoint velocity = [panGestureRecognizer velocityInView:panGestureRecognizer.view];
-    return fabs(velocity.x) > fabs(velocity.y);
+    if (self.swipeActionGestureRecognizer == panGestureRecognizer) {
+        CGPoint velocity = [panGestureRecognizer velocityInView:panGestureRecognizer.view];
+        return fabs(velocity.x) > fabs(velocity.y);
+    }
+    return YES;
 }
 
 - (void)panning:(UIPanGestureRecognizer*)sender {

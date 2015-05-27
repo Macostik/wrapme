@@ -21,6 +21,10 @@ static CGFloat WLDefaultType = -1;
 @property (strong, nonatomic) NSMapTable *placeholderMap;
 @property (assign, nonatomic) NSInteger currentType;
 
+@property (nonatomic) BOOL requestedReloadingData;
+
+@property (nonatomic) NSUInteger reloadingDataLocksCount;
+
 @end
 
 @implementation WLCollectionView
@@ -35,14 +39,23 @@ static CGFloat WLDefaultType = -1;
 }
 
 - (void)reloadData {
-    if (!self.stopReloadingData) {
+    if (self.reloadingDataLocksCount > 0) {
+        self.requestedReloadingData = YES;
+    } else {
         [super reloadData];
     }
 }
 
-- (void)setStopReloadingData:(BOOL)stopReloadingData {
-    _stopReloadingData = stopReloadingData;
-    if (!stopReloadingData) {
+- (void)lockReloadingData {
+    self.reloadingDataLocksCount = MAX(0, self.reloadingDataLocksCount + 1);
+}
+
+- (void)unlockReloadingData {
+    if (self.reloadingDataLocksCount > 0) {
+        self.reloadingDataLocksCount = self.reloadingDataLocksCount - 1;
+    }
+    if (self.reloadingDataLocksCount == 0 && self.requestedReloadingData) {
+        self.requestedReloadingData = NO;
         [super reloadData];
     }
 }

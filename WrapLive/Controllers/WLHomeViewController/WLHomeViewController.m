@@ -51,8 +51,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
 
-@property (weak, nonatomic) WLWrap* chatSegueWrap;
-
 @property (nonatomic) BOOL createWrapTipHidden;
 
 @end
@@ -72,10 +70,10 @@
     
     __weak WLOperationQueue *queue = [WLOperationQueue queueNamed:WLOperationFetchingDataQueue];
     [queue setStartQueueBlock:^{
-        weakSelf.collectionView.stopReloadingData = YES;
+        [weakSelf.collectionView lockReloadingData];
     }];
     [queue setFinishQueueBlock:^{
-        weakSelf.collectionView.stopReloadingData = NO;
+        [weakSelf.collectionView unlockReloadingData];
         queue.startQueueBlock = nil;
         queue.finishQueueBlock = nil;
     }];
@@ -238,7 +236,10 @@
 }
 
 - (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
-    WLWrap *wrap = self.dataSource.wrap;
+    [self openCameraForWrap:self.dataSource.wrap animated:animated startFromGallery:startFromGallery showWrapPicker:showPicker];
+}
+
+- (void)openCameraForWrap:(WLWrap*)wrap animated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
     if (wrap) {
         WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
         stillPictureViewController.wrap = wrap;
@@ -267,21 +268,24 @@
     }
 }
 
-- (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap notifyChatButtonClicked:(id)sender {
-    self.chatSegueWrap = wrap;
+- (void)wrapCellDidBeginPanning:(WLWrapCell *)wrapCell {
+    [self.collectionView lockReloadingData];
 }
 
-- (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap presentChatViewController:(id)sender {
-    WLChatViewController *chatViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"WLChatViewController"];
+- (void)wrapCellDidEndPanning:(WLWrapCell *)wrapCell {
+    [self.collectionView unlockReloadingData];
+}
+
+- (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(WLWrap *)wrap {
+    WLChatViewController *chatViewController = [WLChatViewController instantiate:self.storyboard];
     if (chatViewController && wrap.valid) {
         chatViewController.wrap = wrap;
-        [self.navigationController pushViewController:chatViewController animated:NO];
+        [self.navigationController pushViewController:chatViewController animated:YES];
     }
 }
-- (void)wrapCell:(WLWrapCell *)wrapCell forWrap:(WLWrap *)wrap presentCameraViewController:(id)sender {
+- (void)wrapCell:(WLWrapCell *)wrapCell presentCameraViewControllerForWrap:(WLWrap *)wrap {
     if (wrap.valid) {
-        self.dataSource.wrap = wrap;
-        [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:NO];
+        [self openCameraForWrap:wrap animated:YES startFromGallery:NO showWrapPicker:NO];
     }
 }
 
@@ -309,16 +313,9 @@
     }];
     
     WLEntryNotifyReceiver *candyNotifyReceiver = [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setAddedBlock:^(id object) {
+        receiver.addedBlock = receiver.updatedBlock = receiver.deletedBlock = ^(id object) {
             [weakSelf updateNotificationsLabel];
-        }];
-        [receiver setDeletedBlock:^(id object) {
-            [weakSelf updateNotificationsLabel];
-     
-        }];
-        [receiver setUpdatedBlock:^(id object) {
-            [weakSelf updateNotificationsLabel];
-        }];
+        };
     }];
     
     [WLComment notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {

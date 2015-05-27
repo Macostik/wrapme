@@ -15,13 +15,15 @@ typedef enum : NSUInteger {
 
 @interface WLCollectionView : UICollectionView
 
-@property (nonatomic) BOOL stopReloadingData;
-
 @property (strong, nonatomic) IBInspectable NSString *nibNamePlaceholder;
 
 - (BOOL)isDefaultPlaceholder;
 - (void)setDefaulPlaceholder;
 - (void)addToCachePlaceholderWithName:(NSString *)placeholderName byType:(NSInteger)type;
 - (void)setPlaceholderByTupe:(NSInteger)type;
+
+- (void)lockReloadingData;
+
+- (void)unlockReloadingData;
 
 @end

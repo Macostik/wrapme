@@ -111,8 +111,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [UIView performWithoutAnimation:^{
         [UIViewController attemptRotationToDeviceOrientation];
     }];
-    
-    [self performSelector:@selector(toggleBottomViewMode) withObject:nil afterDelay:WLHistoryBottomViewModeTogglingInterval inModes:@[NSRunLoopCommonModes]];
 }
 
 - (void)toggleBottomViewMode {
@@ -162,6 +160,12 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     if (self.showCommentViewController) {
         [self showCommentView];
     }
+    [self performSelector:@selector(toggleBottomViewMode) withObject:nil afterDelay:WLHistoryBottomViewModeTogglingInterval inModes:@[NSRunLoopCommonModes]];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(toggleBottomViewMode) object:nil];
 }
 
 - (void)showCommentView {
@@ -363,6 +367,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
                     [weakSelf.navigationController popViewControllerAnimated:NO];
                 }
             }
+            [weakSelf removedCachedViewControllerForCandy:candy];
         }];
     }];
     
@@ -454,6 +459,13 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         [self.cachedCandyViewControllers setObject:candyViewController forKey:candy];
     }
     return candyViewController;
+}
+
+- (void)removedCachedViewControllerForCandy:(WLCandy*)candy {
+    WLCandyViewController *candyViewController = [self.cachedCandyViewControllers objectForKey:candy];
+    if (candyViewController) {
+        [self.cachedCandyViewControllers removeObjectForKey:candy];
+    }
 }
 
 - (UIViewController *)viewControllerAfterViewController:(WLCandyViewController *)viewController {

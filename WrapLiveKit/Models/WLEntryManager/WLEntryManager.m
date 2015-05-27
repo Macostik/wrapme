@@ -12,6 +12,19 @@
 #import "WLAPIRequest.h"
 #import "NSUserDefaults+WLAppGroup.h"
 
+@interface WLMergePolicy : NSMergePolicy
+
+@end
+
+@implementation WLMergePolicy
+
+- (BOOL)resolveConflicts:(NSArray *)list error:(NSError *__autoreleasing *)error {
+    [super resolveConflicts:list error:error];
+    return YES;
+}
+
+@end
+
 @interface WLEntryManager ()
 
 @property (strong, nonatomic) NSMapTable* cachedEntries;
@@ -49,7 +62,7 @@
     if (coordinator != nil) {
         _context = [[NSManagedObjectContext alloc] init];
         [_context setPersistentStoreCoordinator:coordinator];
-        _context.mergePolicy = NSOverwriteMergePolicy;
+        _context.mergePolicy = [[WLMergePolicy alloc] initWithMergeType:NSOverwriteMergePolicyType];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:NSManagedObjectContextObjectsDidChangeNotification object:_context];
     }
     return _context;

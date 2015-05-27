@@ -75,6 +75,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.lastCommentTextView.textContainerInset = UIEdgeInsetsZero;
     self.lastCommentTextView.textContainer.lineFragmentPadding = .0;
     [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+    [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     
     if (!_wrap) {
         _wrap = _candy.wrap;

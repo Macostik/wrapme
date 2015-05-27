@@ -96,7 +96,7 @@ static NSMapTable *queues = nil;
 }
 
 - (void)start {
-    if (![WLNetwork network].reachable || ![WLAuthorizationRequest authorized] || self.isUploading) {
+    if (![WLNetwork network].reachable || ![WLAuthorizationRequest authorized]) {
         return;
     }
     if (self.isEmpty) {

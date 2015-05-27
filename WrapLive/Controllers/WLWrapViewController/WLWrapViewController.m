@@ -80,6 +80,10 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     [self.dataSource setItemSizeBlock:^CGSize(id entry, NSUInteger index) {
         return CGSizeMake(weakSelf.collectionView.width, (weakSelf.collectionView.width/2.5f + WLCandiesHistoryDateHeaderHeight));
     }];
+    
+    [self.dataSource setAppendableBlock:^BOOL(id<WLDataSourceItems> items) {
+        return weakSelf.wrap.uploaded;
+    }];
     self.history = [WLHistory historyWithWrap:self.wrap checkCompletion:YES];
     self.dataSource.items = self.history;
     

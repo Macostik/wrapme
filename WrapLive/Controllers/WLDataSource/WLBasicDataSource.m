@@ -20,6 +20,9 @@
 @implementation WLBasicDataSource
 
 - (BOOL)appendable {
+    if (self.appendableBlock && !self.appendableBlock(self.items)) {
+        return NO;
+    }
     if ([self.items isKindOfClass:[WLPaginatedSet class]]) {
         WLPaginatedSet *items = (id)self.items;
         return !items.completed;

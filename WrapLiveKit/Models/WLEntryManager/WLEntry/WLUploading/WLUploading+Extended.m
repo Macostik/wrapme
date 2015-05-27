@@ -85,7 +85,7 @@
 
 - (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     WLContribution *contribution = self.contribution;
-    if (!contribution.uploaded) {
+    if (!contribution.uploaded || [contribution statusOfUploadingEvent:WLEventUpdate] != WLContributionStatusReady) {
         if (failure) failure(nil);
         return nil;
     }

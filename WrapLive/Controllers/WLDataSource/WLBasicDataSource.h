@@ -16,6 +16,8 @@
 
 @property (nonatomic, readonly) BOOL appendable;
 
+@property (strong, nonatomic) BOOL (^appendableBlock) (id <WLDataSourceItems> items);
+
 @property (strong, nonatomic) void (^changeBlock) (id <WLDataSourceItems> items);
 
 - (void)append:(WLObjectBlock)success failure:(WLFailureBlock)failure;

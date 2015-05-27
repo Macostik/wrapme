@@ -141,7 +141,6 @@ CGFloat WLMaxTextViewWidth;
     UICollectionView *collectionView = self.collectionView;
     UIEdgeInsets insets = UIEdgeInsetsMake(self.composeBar.height + keyboardHeight, 0, 0, 0);
     collectionView.contentInset = insets;
-    insets.right = collectionView.width - 6;
     collectionView.scrollIndicatorInsets = insets;
     [self.layout invalidateLayout];
 }

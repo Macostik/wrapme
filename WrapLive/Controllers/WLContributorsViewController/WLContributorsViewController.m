@@ -43,7 +43,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
         CGFloat textWidth = collectionView.width - WLContributorsHorizontalIndent;
         CGFloat height = [contributor.securePhones heightWithFont:font width:textWidth];
         if (contributor.isInvited) {
-            NSString *invitationText = [NSString stringWithFormat:@"Invite sent %@. Swipe to resend invite", contributor.invitedAt.timeAgoString];
+            NSString *invitationText = contributor.invitationHintText;
             height += [invitationText heightWithFont:font width:textWidth] + 3;
         }
         return CGSizeMake(collectionView.width, MAX(height + WLContributorsVerticalIndent, WLContributorsMinHeight) + 1);

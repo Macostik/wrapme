@@ -87,7 +87,7 @@
         self.signUpView.hidden = NO;
         self.resendInviteDoneButton.hidden = YES;
     } else {
-        self.inviteLabel.text = [NSString stringWithFormat:@"Invite sent %@. Swipe to resend invite", user.invitedAt.timeAgoString];
+        self.inviteLabel.text = user.invitationHintText;
         self.signUpView.hidden = YES;
         BOOL invited = [self.delegate contributorCell:self isInvitedContributor:user];
         [self setInvitedState:invited];

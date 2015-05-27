@@ -94,7 +94,10 @@
 
 - (void)select:(WLCandy*)candy {
     if (candy.valid) {
-        [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
+        if ([self.delegate respondsToSelector:@selector(candyCell:didSelectCandy:)]) {
+            [self.delegate candyCell:self didSelectCandy:candy];
+        }
+//        [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
     }
 }
 

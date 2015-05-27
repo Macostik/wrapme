@@ -22,7 +22,7 @@
 #import "WLDownloadingView.h"
 #import "WLImageCache.h"
 #import "WLUploadPhotoViewController.h"
-#import "WLStoryboardTransition.h"
+#import "WLPresentingImageView.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -253,6 +253,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (void)setCandy:(WLCandy *)candy {
     if (candy != _candy) {
         _candy = candy.valid ? candy : nil;
+        [self.presentingImageView setImageUrl:_candy.picture.large];
         if (self.isViewLoaded) [self updateOwnerData];
     }
 }
@@ -388,9 +389,14 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (IBAction)back:(id)sender {
     WLCandy* candy = self.candy;
     if (candy.valid) {
-        BOOL animate = self.interfaceOrientation == UIInterfaceOrientationPortrait ||
-        self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown;
-        [self.navigationController popViewControllerAnimated:animate];
+        if (self.presentingViewController) {
+            [self dismissViewControllerAnimated:NO completion:nil];
+            [self.presentingImageView dismissCandy:candy];
+        } else {
+            BOOL animate = self.interfaceOrientation == UIInterfaceOrientationPortrait ||
+            self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown;
+            [self.navigationController popViewControllerAnimated:animate];
+        }
     } else {
         [self.navigationController popToRootViewControllerAnimated:NO];
     }

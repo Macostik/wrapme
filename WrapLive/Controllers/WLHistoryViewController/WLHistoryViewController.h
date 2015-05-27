@@ -7,6 +7,7 @@
 //
 
 #import "WLSwipeViewController.h"
+#import "WLPresentingImageView.h"
 
 @interface WLHistoryViewController : WLSwipeViewController
 
@@ -19,6 +20,8 @@
 @property (weak, nonatomic) WLCandy* candy;
 
 @property (nonatomic) BOOL showCommentViewController;
+
+@property (weak, nonatomic) WLPresentingImageView *presentingImageView;
 
 - (IBAction)hideBars;
 

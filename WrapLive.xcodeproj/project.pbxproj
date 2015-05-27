@@ -75,6 +75,14 @@
 		5B5A8C6E1A4EB62F00F84529 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A8C701A4EB62F00F84529 /* SignUp.storyboard */; };
 		5B787D9D1A27876F004AE459 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		5B787DA81A27876F004AE459 /* WrapLiveToday-Development.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WrapLiveToday-Development.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5BA1307B1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
+		5BA1307C1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
+		5BA1307D1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
+		5BA1307E1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
+		5BA1307F1B15A92600385C2C /* WLPresentingImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */; };
+		5BA130801B15A92600385C2C /* WLPresentingImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */; };
+		5BA130811B15A92600385C2C /* WLPresentingImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */; };
+		5BA130821B15A92600385C2C /* WLPresentingImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */; };
 		5BA406841A8CC52B00C1749F /* WLToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA406831A8CC52B00C1749F /* WLToast.xib */; };
 		5BA406851A8CC52B00C1749F /* WLToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA406831A8CC52B00C1749F /* WLToast.xib */; };
 		5BA406861A8CC52B00C1749F /* WLToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA406831A8CC52B00C1749F /* WLToast.xib */; };
@@ -2006,6 +2014,9 @@
 		5B5A8C6F1A4EB62F00F84529 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SignUp.storyboard; sourceTree = "<group>"; };
 		5B787D9B1A27876F004AE459 /* WrapLiveToday-Development.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WrapLiveToday-Development.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		5BA130781B15A92600385C2C /* WLPresentingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPresentingImageView.h; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.h; sourceTree = SOURCE_ROOT; };
+		5BA130791B15A92600385C2C /* WLPresentingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPresentingImageView.m; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.m; sourceTree = SOURCE_ROOT; };
+		5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPresentingImageView.xib; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.xib; sourceTree = SOURCE_ROOT; };
 		5BA406831A8CC52B00C1749F /* WLToast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLToast.xib; sourceTree = "<group>"; };
 		5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLConfirmView.h; path = WLConfirmView/WLConfirmView.h; sourceTree = "<group>"; };
 		5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLConfirmView.m; path = WLConfirmView/WLConfirmView.m; sourceTree = "<group>"; };
@@ -3422,6 +3433,7 @@
 				C514AA5E1A6D624900A562CE /* WLGradientView */,
 				C568D8D31A6D490500C2333B /* WLHintView */,
 				C52E1FC71A41947D00A2C370 /* Text Views */,
+				5BD58FBE1B145A4C00B67A3F /* WLPresentingImageView */,
 				C54FC76E1A16549700623FC1 /* Placeholder Views */,
 				C54FC7601A160C0200623FC1 /* WLCollectionView */,
 				C515055419F0195400BF4D82 /* WLBlurredView */,
@@ -3956,6 +3968,17 @@
 				5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */,
 			);
 			name = WLDownloadingView;
+			sourceTree = "<group>";
+		};
+		5BD58FBE1B145A4C00B67A3F /* WLPresentingImageView */ = {
+			isa = PBXGroup;
+			children = (
+				5BA130781B15A92600385C2C /* WLPresentingImageView.h */,
+				5BA130791B15A92600385C2C /* WLPresentingImageView.m */,
+				5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */,
+			);
+			name = WLPresentingImageView;
+			path = WLPresentingAnimationView.xib;
 			sourceTree = "<group>";
 		};
 		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
@@ -6775,7 +6798,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -6853,6 +6876,7 @@
 				ACF8D9121934B4400001E570 /* numbers.plist in Resources */,
 				121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */,
 				C518D79319E7E480001A3F08 /* LaunchScreen.xib in Resources */,
+				5BA1307F1B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
 				C53C405A1AF0F2EC0001685D /* WLUnreadMessagesView.xib in Resources */,
 				5BD782A01A4EC1E20094BEE5 /* WLCreateWrapViewController.xib in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
@@ -6988,6 +7012,7 @@
 				5BA51C971AA495C200B9714A /* WLInviteHintView.xib in Resources */,
 				C514AA5B1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
 				C54AF54119B8C437006F7EDB /* CountryCodes.json in Resources */,
+				5BA130801B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
 				C53C405B1AF0F2EC0001685D /* WLUnreadMessagesView.xib in Resources */,
 				C54AF54219B8C437006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C518D79419E7E480001A3F08 /* LaunchScreen.xib in Resources */,
@@ -7054,6 +7079,7 @@
 				5BA51C981AA495C200B9714A /* WLInviteHintView.xib in Resources */,
 				C514AA5C1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
 				C54AF63E19B8C467006F7EDB /* CountryCodes.json in Resources */,
+				5BA130811B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
 				C53C405C1AF0F2EC0001685D /* WLUnreadMessagesView.xib in Resources */,
 				C54AF63F19B8C467006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C518D79519E7E480001A3F08 /* LaunchScreen.xib in Resources */,
@@ -7120,6 +7146,7 @@
 				5BA51C991AA495C200B9714A /* WLInviteHintView.xib in Resources */,
 				C514AA5D1A6D61DF00A562CE /* WLCandySwipeHintView.xib in Resources */,
 				C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */,
+				5BA130821B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
 				C53C405D1AF0F2EC0001685D /* WLUnreadMessagesView.xib in Resources */,
 				C54AF73C19B8C491006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C518D79619E7E480001A3F08 /* LaunchScreen.xib in Resources */,
@@ -7350,6 +7377,7 @@
 				C54974581ABC1C34000E3F54 /* WLDebugButton.m in Sources */,
 				5BA755F51A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178219B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
+				5BA1307B1B15A92600385C2C /* WLPresentingImageView.m in Sources */,
 				C5A82CD61ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */,
 				5BA60CAF1A8257ED000F795C /* UIButton+Additions.m in Sources */,
 				C58AB9961B1384F300932272 /* WLWhatsUpSet.m in Sources */,
@@ -7567,6 +7595,7 @@
 				C54974591ABC1C34000E3F54 /* WLDebugButton.m in Sources */,
 				5BA755F61A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178319B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
+				5BA1307C1B15A92600385C2C /* WLPresentingImageView.m in Sources */,
 				C5A82CD71ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */,
 				5BA60CB01A8257ED000F795C /* UIButton+Additions.m in Sources */,
 				C58AB9971B1384F300932272 /* WLWhatsUpSet.m in Sources */,
@@ -7743,6 +7772,7 @@
 				C549745A1ABC1C34000E3F54 /* WLDebugButton.m in Sources */,
 				5BA755F71A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178419B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
+				5BA1307D1B15A92600385C2C /* WLPresentingImageView.m in Sources */,
 				C5A82CD81ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */,
 				5BA60CB11A8257ED000F795C /* UIButton+Additions.m in Sources */,
 				C58AB9981B1384F300932272 /* WLWhatsUpSet.m in Sources */,
@@ -7919,6 +7949,7 @@
 				C549745B1ABC1C34000E3F54 /* WLDebugButton.m in Sources */,
 				5BA755F81A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
+				5BA1307E1B15A92600385C2C /* WLPresentingImageView.m in Sources */,
 				C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */,
 				5BA60CB21A8257ED000F795C /* UIButton+Additions.m in Sources */,
 				C58AB9991B1384F300932272 /* WLWhatsUpSet.m in Sources */,
@@ -9779,7 +9810,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

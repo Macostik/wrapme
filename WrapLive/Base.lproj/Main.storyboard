@@ -1316,6 +1316,7 @@
                                                                     <connections>
                                                                         <outlet property="commentLabel" destination="jAi-R7-bNq" id="YFa-sv-GXs"/>
                                                                         <outlet property="coverView" destination="RBx-xX-iE6" id="Abt-oO-bGU"/>
+                                                                        <outlet property="delegate" destination="L91-fZ-J9O" id="Adv-YO-rOU"/>
                                                                     </connections>
                                                                 </collectionViewCell>
                                                                 <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CandyPlaceholderCell" id="XQb-fA-jxI" customClass="WLEntryCell">
@@ -2781,6 +2782,7 @@ Tap here to start.</string>
                                                             <connections>
                                                                 <outlet property="commentLabel" destination="eIp-Tc-hkV" id="cnz-5b-IK9"/>
                                                                 <outlet property="coverView" destination="fT9-Qs-qqx" id="1eK-Lv-z6z"/>
+                                                                <outlet property="delegate" destination="hUj-RK-zkg" id="6yj-Kc-4V9"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>

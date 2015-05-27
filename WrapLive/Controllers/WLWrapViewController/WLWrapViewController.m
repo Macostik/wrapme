@@ -33,11 +33,13 @@
 #import "UIFont+CustomFonts.h"
 #import "WLHintView.h"
 #import "WLChronologicalEntryPresenter.h"
+#import "WLPresentingImageView.h"
+#import "WLHistoryViewController.h"
 
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPresentingImageViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
@@ -48,6 +50,8 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 @property (weak, nonatomic) IBOutlet UILabel *contributorsLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet UIButton *inviteButton;
+
+@property (strong, nonatomic) WLPresentingImageView *presentingImageView;
 
 @end
 
@@ -94,6 +98,8 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     if (self.wrap.candies.nonempty) {
         [self dropDownCollectionView];
     }
+    self.presentingImageView = [WLPresentingImageView sharedPresenting];
+    self.presentingImageView.delegate = self;
 }
 
 - (void)viewDidLayoutSubviews {
@@ -259,6 +265,46 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 - (void)networkDidChangeReachability:(WLNetwork *)network {
     [self.dataSource reload];
+}
+
+// MARK: - WLCandyCellDelegate
+
+- (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
+    WLHistoryViewController *historyViewController = (id)[candy viewController];
+    if (historyViewController) {
+        [self.presentingImageView presentingCandy:candy completion:^(BOOL flag) {
+            [self presentViewController:historyViewController animated:NO completion:nil];
+        }];
+        historyViewController.presentingImageView = self.presentingImageView;
+    }
+}
+
+// MARK: - WLPresentingImageViewDelegate
+
+- (CGRect)presentingImageView:(WLPresentingImageView *)presentingImageView frameForCandy:(WLCandy *)candy {
+    WLHistoryItem *historyItem = [self.history itemWithCandy:candy];
+    if (historyItem) {
+        NSUInteger index = [[self.history entries] indexOfObject:historyItem];
+        if (index != NSNotFound) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            WLCandiesCell *candiesCell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
+            if (candiesCell) {
+                [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+                NSUInteger index = [historyItem.entries indexOfObject:candy];
+                if (index != NSNotFound) {
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+                    [candiesCell.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+                    [candiesCell.collectionView layoutIfNeeded];
+                    [self.collectionView layoutIfNeeded];
+                    WLCandyCell *candyCell = (id)[candiesCell.collectionView cellForItemAtIndexPath:indexPath];
+                    if (candyCell) {
+                        return [self.view convertRect:candyCell.frame fromView:candiesCell.collectionView];
+                    }
+                }
+            }
+        }
+    }
+    return CGRectZero;
 }
 
 @end

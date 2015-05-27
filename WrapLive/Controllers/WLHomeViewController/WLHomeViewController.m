@@ -37,8 +37,11 @@
 #import "WLChronologicalEntryPresenter.h"
 #import "WLCollectionView.h"
 #import "WLGradientView.h"
+#import "WLCandyCell.h"
+#import "WLPresentingImageView.h"
+#import "WLHistoryViewController.h"
 
-@interface WLHomeViewController () <WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate>
+@interface WLHomeViewController () <WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate>
 
 @property (strong, nonatomic) IBOutlet WLHomeDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
@@ -52,6 +55,7 @@
 @property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
 
 @property (nonatomic) BOOL createWrapTipHidden;
+@property (strong, nonatomic) WLPresentingImageView *presentingImageView;
 
 @end
 
@@ -119,6 +123,8 @@
     [self performSelector:@selector(showIntroductionIfNeeded) withObject:nil afterDelay:0.0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCreateWrapTipIfNeeded) name:UIApplicationWillEnterForegroundNotification object:nil];
+    self.presentingImageView = [WLPresentingImageView sharedPresenting];
+    self.presentingImageView.delegate = self;
 }
 
 - (void)setCreateWrapTipHidden:(BOOL)createWrapTipHidden {
@@ -452,6 +458,37 @@
 
 - (NSSet *)touchViewExclusionRects:(WLTouchView *)touchView {
     return [NSSet setWithObject:[NSValue valueWithCGRect:[touchView convertRect:self.createWrapButton.bounds fromView:self.createWrapButton]]];
+}
+
+// MARK: - WLCandyCellDelegate
+
+- (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
+     WLHistoryViewController *historyViewController = (id)[candy viewController];
+    if (historyViewController) {
+        [self.presentingImageView presentingCandy:candy completion:^(BOOL flag) {
+            [self presentViewController:historyViewController animated:NO completion:nil];
+        }];
+        historyViewController.presentingImageView = self.presentingImageView;
+    }
+}
+
+// MARK: - WLPresentingImageViewDelegate
+
+- (CGRect)presentingImageView:(WLPresentingImageView *)presentingImageView frameForCandy:(WLCandy *)candy {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.collectionView layoutIfNeeded];
+    WLWrapCell *wrapCell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
+    NSUInteger index = [(id)wrapCell.candiesDataSource.items indexOfObject:candy];
+    if (index != NSNotFound) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        WLCandyCell *candyCell = (id)[wrapCell.candiesView cellForItemAtIndexPath:indexPath];
+        if (candyCell) {
+            return [self.view convertRect:candyCell.frame fromView:wrapCell.candiesView];
+        }
+    } else {
+        [self.presentingImageView removeFromSuperview];
+    }
+    return CGRectZero;
 }
 
 @end

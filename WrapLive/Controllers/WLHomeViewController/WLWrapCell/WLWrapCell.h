@@ -12,7 +12,7 @@ static NSUInteger WLHomeTopWrapCandiesLimit = 6;
 static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 static NSUInteger WLCandyCellHight = 212;
 
-@class WLWrapCell;
+@class WLWrapCell, WLBasicDataSource;
 
 @protocol WLWrapCellDelegate <NSObject>
 
@@ -27,5 +27,7 @@ static NSUInteger WLCandyCellHight = 212;
 @interface WLWrapCell : WLEntryCell
 
 @property (strong, nonatomic) IBOutlet id <WLWrapCellDelegate> delegate;
+@property (nonatomic, readonly) WLBasicDataSource* candiesDataSource;
+@property (nonatomic, readonly) UICollectionView *candiesView;
 
 @end

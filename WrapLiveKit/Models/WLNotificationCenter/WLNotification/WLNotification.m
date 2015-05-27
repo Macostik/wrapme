@@ -90,4 +90,12 @@
     return [NSString stringWithFormat:@"%i : %@", (int)self.type, self.identifier];
 }
 
+- (BOOL)supportsApplicationState:(UIApplicationState)state {
+    return state == UIApplicationStateInactive || state == UIApplicationStateBackground;
+}
+
+- (BOOL)presentable {
+    return NO;
+}
+
 @end

@@ -86,6 +86,7 @@
         case WLContributionStatusInProgress:
             break;
         case WLContributionStatusFinished:
+            [self touch];
             self.editedPicture = editedPicture;
             break;
         default:

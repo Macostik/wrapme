@@ -418,22 +418,6 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
     return nil;
 }
 
-- (id)fetchIfNeeded:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    __weak typeof(self)weakSelf = self;
-    return [super fetchIfNeeded:^(id object){
-        [weakSelf.picture fetch:^{
-            if (success) success(object);
-        }];
-    } failure:failure];
-}
-
-- (void)recursivelyFetchIfNeeded:(WLBlock)success failure:(WLFailureBlock)failure {
-    __weak typeof(self)weakSelf = self;
-    [super recursivelyFetchIfNeeded:^ {
-        [weakSelf.picture fetch:success];
-    } failure:failure];
-}
-
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (self.uploaded) {
         return [[WLCandyRequest request:self] send:success failure:failure];

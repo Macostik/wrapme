@@ -19,4 +19,8 @@
     if (success) success();
 }
 
+- (BOOL)supportsApplicationState:(UIApplicationState)state {
+    return state == UIApplicationStateInactive;
+}
+
 @end

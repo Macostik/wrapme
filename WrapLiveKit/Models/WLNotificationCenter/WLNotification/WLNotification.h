@@ -42,6 +42,8 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @property (strong, nonatomic) NSDate *publishedAt;
 
+@property (readonly, nonatomic) BOOL presentable;
+
 + (instancetype)notificationWithData:(NSDictionary*)data;
 
 + (NSMutableOrderedSet*)notificationsWithDataArray:(NSArray*)array;
@@ -53,6 +55,8 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 - (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure;
 
 - (void)setup:(NSDictionary*)data;
+
+- (BOOL)supportsApplicationState:(UIApplicationState)state;
 
 @end
 

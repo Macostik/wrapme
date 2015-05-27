@@ -209,9 +209,21 @@
     };
     
     if (event == WLEventAdd) {
-        [targetEntry recursivelyFetchIfNeeded:block failure:failure];
+        [targetEntry recursivelyFetchIfNeeded:^{
+            if (weakSelf.type == WLNotificationCandyAdd) {
+                [targetEntry.picture fetch:block];
+            } else {
+                block();
+            }
+        } failure:failure];
     } else if (event == WLEventUpdate) {
-        block();
+        [targetEntry fetch:^(id object) {
+            if (weakSelf.type == WLNotificationCandyUpdate) {
+                [targetEntry.picture fetch:block];
+            } else {
+                block();
+            }
+        } failure:failure];
     } else if (event == WLEventDelete) {
         block();
     }
@@ -233,6 +245,11 @@
             break;
     }
 }
+
+- (BOOL)presentable {
+    return self.event != WLEventDelete;
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"%i : %@", (int)self.type, self.entryIdentifier];
 }

@@ -28,6 +28,8 @@
 
 @interface WLAppDelegate () <iVersionDelegate>
 
+@property (strong, nonatomic) WLBlock didBecomeActiveBlock;
+
 @end
 
 @implementation WLAppDelegate
@@ -163,6 +165,10 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [WLUploadingQueue start];
+    if (self.didBecomeActiveBlock) {
+        self.didBecomeActiveBlock();
+        self.didBecomeActiveBlock = nil;
+    }
 }
 
 
@@ -210,26 +216,39 @@ static WLDataBlock deviceTokenCompletion = nil;
     return YES;
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    BOOL inactive = application.applicationState == UIApplicationStateInactive;
+- (void)handleRemoteNotification:(NSDictionary*)userInfo completionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    __weak typeof(self)weakSelf = self;
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
-        if ([notification isKindOfClass:[WLEntryNotification class]] && inactive) {
-            [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+        if (notification.presentable) {
+            UIApplicationState state = [UIApplication sharedApplication].applicationState;
+            if (state == UIApplicationStateActive) {
+                [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+                if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+            } else if (state == UIApplicationStateInactive) {
+                [weakSelf setDidBecomeActiveBlock:^{
+                    [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+                }];
+                run_after(0.5f, ^{
+                    weakSelf.didBecomeActiveBlock = nil;
+                    if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+                });
+            } else {
+                if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+            }
+        } else {
+            if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
         }
-        if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
     } failure:^(NSError *error) {
         if (completionHandler) completionHandler(UIBackgroundFetchResultFailed);
     }];
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    [self handleRemoteNotification:userInfo completionHandler:completionHandler];
+}
+
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
-    BOOL inactive = application.applicationState == UIApplicationStateInactive;
-    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
-        if ([notification isKindOfClass:[WLEntryNotification class]] && inactive) {
-            [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
-        }
-        if (completionHandler) completionHandler();
-    } failure:^(NSError *error) {
+    [self handleRemoteNotification:userInfo completionHandler:^(UIBackgroundFetchResult result) {
         if (completionHandler) completionHandler();
     }];
 }

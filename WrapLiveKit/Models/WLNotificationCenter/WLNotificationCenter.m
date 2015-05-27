@@ -315,38 +315,31 @@
         if (failure) failure(nil);
         return;
     }
-    switch ([UIApplication sharedApplication].applicationState) {
-        case UIApplicationStateActive:
-            if (failure) failure([NSError errorWithDescription:WLLS(@"Cannot handle remote notification when app is active.")]);
-            break;
-        case UIApplicationStateInactive: {
-            WLLog(@"PUBNUB", @"opened APNS", data);
-            WLNotification* notification = [WLNotification notificationWithData:data];
-            if (notification) {
-                [notification fetch:^ {
+    __weak typeof(self)weakSelf = self;
+    
+    UIApplicationState state = [UIApplication sharedApplication].applicationState;
+    
+    if (state == UIApplicationStateActive) {
+        if (failure) failure([NSError errorWithDescription:WLLS(@"Cannot handle remote notification when app is active.")]);
+    } else {
+        WLNotification* notification = [WLNotification notificationWithData:data];
+        WLLog(@"PUBNUB", @"received APNS", data);
+        if (notification) {
+            if ([notification supportsApplicationState:state]) {
+                if ([self isAlreadyHandledNotification:notification]) {
                     if (success) success(notification);
-                } failure:failure];
-                [self addHandledNotifications:@[notification]];
-            } else if (failure)  {
-                failure([NSError errorWithDescription:@"Data in remote notification is not valid (inactive)."]);
-            }
-        } break;
-        case UIApplicationStateBackground: {
-            WLLog(@"PUBNUB", @"received background APNS (content-available)", data);
-            WLNotification* notification = [WLNotification notificationWithData:data];
-            if (notification) {
-                if ([notification isKindOfClass:[WLEntryNotification class]]) {
+                } else {
                     [notification fetch:^ {
+                        [weakSelf addHandledNotifications:@[notification]];
                         if (success) success(notification);
                     } failure:failure];
                 }
-                [self addHandledNotifications:@[notification]];
-            } else if (failure)  {
-                failure([NSError errorWithDescription:WLLS(@"Data in remote notification is not valid (background).")]);
+            } else {
+                if (failure) failure([NSError errorWithDescription:@"Cannot handle remote notification."]);
             }
-        } break;
-        default:
-            break;
+        } else {
+            if (failure) failure([NSError errorWithDescription:@"Data in remote notification is not valid."]);
+        }
     }
 }
 

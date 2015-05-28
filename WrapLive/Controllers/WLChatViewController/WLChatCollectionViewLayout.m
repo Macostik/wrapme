@@ -11,6 +11,25 @@
 
 static NSString *WLCollectionElementKindItem = @"item";
 
+@interface WLChatCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes
+
+@property (nonatomic) CGFloat topSpacing;
+
+@property (nonatomic) CGFloat bottomSpacing;
+
+@end
+
+@implementation WLChatCollectionViewLayoutAttributes
+
+- (id)copyWithZone:(NSZone *)zone {
+    WLChatCollectionViewLayoutAttributes *copy = [super copyWithZone:zone];
+    copy.topSpacing = self.topSpacing;
+    copy.bottomSpacing = self.bottomSpacing;
+    return copy;
+}
+
+@end
+
 @interface WLChatCollectionViewLayout ()
 
 @property (strong, nonatomic) NSArray* sectionFootingSupplementaryViewKinds;
@@ -27,8 +46,13 @@ static NSString *WLCollectionElementKindItem = @"item";
 
 @implementation WLChatCollectionViewLayout {
     CGFloat contentHeight;
+    CGFloat contentOffset;
     NSMutableDictionary* layoutKeyedAttributes;
-    NSMutableSet* layoutAttributes;
+    NSMutableArray* layoutAttributesArray;
+}
+
++ (Class)layoutAttributesClass {
+    return [WLChatCollectionViewLayoutAttributes class];
 }
 
 - (void)prepareLayout {
@@ -48,10 +72,10 @@ static NSString *WLCollectionElementKindItem = @"item";
 
 - (void)calculateInitialAttributes {
     
-    if (layoutAttributes) {
-        [layoutAttributes removeAllObjects];
+    if (layoutAttributesArray) {
+        [layoutAttributesArray removeAllObjects];
     } else {
-        layoutAttributes = [NSMutableSet set];
+        layoutAttributesArray = [NSMutableArray array];
     }
     
     if (layoutKeyedAttributes) {
@@ -61,6 +85,7 @@ static NSString *WLCollectionElementKindItem = @"item";
     }
     
     contentHeight = 0;
+    contentOffset = 0;
     
     UICollectionView *collectionView = self.collectionView;
     
@@ -95,24 +120,25 @@ static NSString *WLCollectionElementKindItem = @"item";
         }
     }
     
-    CGFloat inset = (collectionView.height - collectionView.verticalContentInsets) - contentHeight;
-    if (inset > 0) {
-        for (UICollectionViewLayoutAttributes *attributes in layoutAttributes) {
-            CGRect frame = attributes.frame;
-            frame.origin.y += inset;
-            attributes.frame = frame;
+    CGFloat inset = MAX(0, (collectionView.height - collectionView.verticalContentInsets) - contentHeight);
+    for (WLChatCollectionViewLayoutAttributes *attributes in layoutAttributesArray) {
+        if (!attributes.hidden) {
+            contentOffset += attributes.topSpacing;
+            CGSize size = attributes.size;
+            attributes.frame = CGRectMake(0, contentOffset + inset, size.width, size.height);
+            contentOffset += size.height;
+            contentOffset += attributes.bottomSpacing;
         }
     }
+    contentHeight = contentOffset + inset;
 }
 
-- (void)prepareAttributes:(UICollectionViewLayoutAttributes*)attributes ofKind:(NSString*)kind {
+- (void)prepareAttributes:(WLChatCollectionViewLayoutAttributes*)attributes ofKind:(NSString*)kind {
     if (attributes) {
         if (!attributes.hidden) {
-            CGSize size = attributes.size;
-            attributes.frame = CGRectMake(0, contentHeight, size.width, size.height);
-            contentHeight += size.height;
+            contentHeight += attributes.size.height;
         }
-        [layoutAttributes addObject:attributes];
+        [layoutAttributesArray addObject:attributes];
         NSMutableDictionary *layoutKeyedAttributesForKind = [layoutKeyedAttributes objectForKey:kind];
         if (!layoutKeyedAttributesForKind) {
             layoutKeyedAttributesForKind = layoutKeyedAttributes[kind] = [NSMutableDictionary dictionary];
@@ -127,18 +153,20 @@ static NSString *WLCollectionElementKindItem = @"item";
     
     id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
     
-    UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+    WLChatCollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
     
     attributes.hidden = CGSizeEqualToSize(attributes.size, CGSizeZero);
     
     if (!attributes.hidden && [delegate respondsToSelector:@selector(collectionView:topSpacingForSupplementaryViewOfKind:atIndexPath:)]) {
-        contentHeight += [delegate collectionView:collectionView topSpacingForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+        attributes.topSpacing = [delegate collectionView:collectionView topSpacingForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+        contentHeight += attributes.topSpacing;
     }
     
     [self prepareAttributes:attributes ofKind:kind];
     
     if (!attributes.hidden && [delegate respondsToSelector:@selector(collectionView:bottomSpacingForSupplementaryViewOfKind:atIndexPath:)]) {
-        contentHeight += [delegate collectionView:collectionView bottomSpacingForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+        attributes.bottomSpacing = [delegate collectionView:collectionView bottomSpacingForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+        contentHeight += attributes.bottomSpacing;
     }
 }
 
@@ -148,18 +176,20 @@ static NSString *WLCollectionElementKindItem = @"item";
     
     id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
     
-    UICollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForItemAtIndexPath:indexPath];
+    WLChatCollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForItemAtIndexPath:indexPath];
     
     attributes.hidden = CGSizeEqualToSize(attributes.size, CGSizeZero);
     
     if (!attributes.hidden && [delegate respondsToSelector:@selector(collectionView:topSpacingForItemAtIndexPath:)]) {
-        contentHeight += [delegate collectionView:collectionView topSpacingForItemAtIndexPath:indexPath];
+        attributes.topSpacing = [delegate collectionView:collectionView topSpacingForItemAtIndexPath:indexPath];
+        contentHeight += attributes.topSpacing;
     }
     
     [self prepareAttributes:attributes ofKind:WLCollectionElementKindItem];
     
     if (!attributes.hidden && [delegate respondsToSelector:@selector(collectionView:bottomSpacingForItemAtIndexPath:)]) {
-        contentHeight += [delegate collectionView:collectionView bottomSpacingForItemAtIndexPath:indexPath];
+        attributes.bottomSpacing = [delegate collectionView:collectionView bottomSpacingForItemAtIndexPath:indexPath];
+        contentHeight += attributes.bottomSpacing;
     }
 }
 
@@ -181,7 +211,7 @@ static NSString *WLCollectionElementKindItem = @"item";
     }
 }
 
-- (UICollectionViewLayoutAttributes*)prepareLayoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (WLChatCollectionViewLayoutAttributes*)prepareLayoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionView *collectionView = self.collectionView;
     id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
     CGSize size = CGSizeZero;
@@ -190,19 +220,19 @@ static NSString *WLCollectionElementKindItem = @"item";
     } else {
         size = CGSizeMake(collectionView.bounds.size.width, 60);
     }
-    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+    WLChatCollectionViewLayoutAttributes *attributes = [WLChatCollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     attributes.size = size;
     return attributes;
 }
 
-- (UICollectionViewLayoutAttributes*)prepareLayoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+- (WLChatCollectionViewLayoutAttributes*)prepareLayoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     CGSize size = CGSizeZero;
     UICollectionView *collectionView = self.collectionView;
     id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
     if ([delegate respondsToSelector:@selector(collectionView:sizeForSupplementaryViewOfKind:atIndexPath:)]) {
         size = [delegate collectionView:collectionView sizeForSupplementaryViewOfKind:elementKind atIndexPath:indexPath];
     }
-    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
+    WLChatCollectionViewLayoutAttributes *attributes = [WLChatCollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
     attributes.size = size;
     return attributes;
 }
@@ -212,9 +242,19 @@ static NSString *WLCollectionElementKindItem = @"item";
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
-    return [[layoutAttributes objectsPassingTest:^BOOL(UICollectionViewLayoutAttributes *attributes, BOOL *stop) {
-        return !attributes.hidden && CGRectIntersectsRect(rect, attributes.frame);
-    }] allObjects];
+    NSMutableArray *_attr = [NSMutableArray array];
+    BOOL added = NO;
+    for (UICollectionViewLayoutAttributes *attributes in layoutAttributesArray) {
+        if (!attributes.hidden) {
+            if (CGRectIntersectsRect(rect, attributes.frame)) {
+                added = YES;
+                [_attr addObject:attributes];
+            } else if (added) {
+                break;
+            }
+        }
+    }
+    return [_attr copy];
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForElementKind:(NSString*)elementKind atIndexPath:(NSIndexPath *)indexPath {

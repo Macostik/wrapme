@@ -139,9 +139,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)updateEdgeInsets:(CGFloat)keyboardHeight {
     UICollectionView *collectionView = self.collectionView;
-    UIEdgeInsets insets = UIEdgeInsetsMake(self.composeBar.height + keyboardHeight, 0, 0, 0);
-    collectionView.contentInset = insets;
-    collectionView.scrollIndicatorInsets = insets;
+    collectionView.contentInset = collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(self.composeBar.height + keyboardHeight, 0, 0, 0);
     [self.layout invalidateLayout];
 }
 

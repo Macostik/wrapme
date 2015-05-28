@@ -95,9 +95,7 @@
 - (IBAction)resendEmailConfirmation:(UIButton*)sender {
     sender.userInteractionEnabled = NO;
     [[WLResendConfirmationRequest request] send:^(id object) {
-        WLToastAppearance* appearance = [[WLToastAppearance alloc] init];
-        appearance.shouldShowIcon = NO;
-        [WLToast showWithMessage:WLLS(@"Confirmation resend. Please, check you e-mail.") appearance:appearance];
+        [WLToast showWithMessage:WLLS(@"Confirmation resend. Please, check you e-mail.")];
         sender.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;

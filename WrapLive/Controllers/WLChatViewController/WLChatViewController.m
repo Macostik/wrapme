@@ -171,13 +171,14 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
     [super keyboardWillShow:keyboard];
-    
-    [UIView performWithoutAnimation:^{
-        [self updateEdgeInsets:keyboard.height];
-        [self.collectionView setMinimumContentOffsetAnimated:self.viewAppeared];
-    }];
-    
     self.refresher.enabled = NO;
+    run_after_asap(^{
+        [self updateEdgeInsets:keyboard.height];
+        [self.collectionView layoutIfNeeded];
+        if (self.collectionView.scrollable) {
+            [self.collectionView setMinimumContentOffsetAnimated:self.viewAppeared];
+        }
+    });
 }
 
 - (void)keyboardWillHide:(WLKeyboard *)keyboard {
@@ -378,6 +379,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
     self.refresher.inset = composeBar.height;
     [self updateEdgeInsets:[WLKeyboard keyboard].height];
+    [self.collectionView layoutIfNeeded];
     [self.collectionView setMinimumContentOffsetAnimated:YES];
 }
 

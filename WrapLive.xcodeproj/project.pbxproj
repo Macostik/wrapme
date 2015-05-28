@@ -177,10 +177,6 @@
 		5BA60CF01A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C571A8257ED000F795C /* UIView+GestureRecognizing.m */; };
 		5BA60CF11A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C571A8257ED000F795C /* UIView+GestureRecognizing.m */; };
 		5BA60CF21A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C571A8257ED000F795C /* UIView+GestureRecognizing.m */; };
-		5BA60CF31A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C591A8257ED000F795C /* UIView+QuatzCoreAnimations.m */; };
-		5BA60CF41A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C591A8257ED000F795C /* UIView+QuatzCoreAnimations.m */; };
-		5BA60CF51A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C591A8257ED000F795C /* UIView+QuatzCoreAnimations.m */; };
-		5BA60CF61A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C591A8257ED000F795C /* UIView+QuatzCoreAnimations.m */; };
 		5BA60D021A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
 		5BA60D031A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
 		5BA60D041A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
@@ -1533,6 +1529,8 @@
 		C58AB99D1B13856700932272 /* WLWhatsUpEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB99B1B13856700932272 /* WLWhatsUpEvent.m */; };
 		C58AB99E1B13856700932272 /* WLWhatsUpEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB99B1B13856700932272 /* WLWhatsUpEvent.m */; };
 		C58AB99F1B13856700932272 /* WLWhatsUpEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB99B1B13856700932272 /* WLWhatsUpEvent.m */; };
+		C58D14221B170E2A005E30C6 /* UIView+QuatzCoreAnimations.h in Headers */ = {isa = PBXBuildFile; fileRef = C58D14201B170E2A005E30C6 /* UIView+QuatzCoreAnimations.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C58D14231B170E2A005E30C6 /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = C58D14211B170E2A005E30C6 /* UIView+QuatzCoreAnimations.m */; };
 		C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5018F5271B00BDF038 /* WLChatViewController.m */; };
 		C5947E5518F52AE000BDF038 /* WLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5947E5418F52AE000BDF038 /* WLMessageCell.m */; };
 		C5A28D621ACBEF0B00F0E8BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */; };
@@ -2057,8 +2055,6 @@
 		5BA60C551A8257ED000F795C /* UIView+Extentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extentions.m"; sourceTree = "<group>"; };
 		5BA60C561A8257ED000F795C /* UIView+GestureRecognizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GestureRecognizing.h"; sourceTree = "<group>"; };
 		5BA60C571A8257ED000F795C /* UIView+GestureRecognizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GestureRecognizing.m"; sourceTree = "<group>"; };
-		5BA60C581A8257ED000F795C /* UIView+QuatzCoreAnimations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+QuatzCoreAnimations.h"; sourceTree = "<group>"; };
-		5BA60C591A8257ED000F795C /* UIView+QuatzCoreAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+QuatzCoreAnimations.m"; sourceTree = "<group>"; };
 		5BA60D001A82613F000F795C /* UIAlertController+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertController+Blocks.h"; path = "UIAlertController/UIAlertController+Blocks.h"; sourceTree = "<group>"; };
 		5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertController+Blocks.m"; path = "UIAlertController/UIAlertController+Blocks.m"; sourceTree = "<group>"; };
 		5BA6AA541A66805E00493582 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLWrapPlaceholderViewHistory.xib; sourceTree = "<group>"; };
@@ -2932,6 +2928,8 @@
 		C58AB9951B1384F300932272 /* WLWhatsUpSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWhatsUpSet.m; sourceTree = "<group>"; };
 		C58AB99A1B13856700932272 /* WLWhatsUpEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWhatsUpEvent.h; sourceTree = "<group>"; };
 		C58AB99B1B13856700932272 /* WLWhatsUpEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWhatsUpEvent.m; sourceTree = "<group>"; };
+		C58D14201B170E2A005E30C6 /* UIView+QuatzCoreAnimations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+QuatzCoreAnimations.h"; sourceTree = "<group>"; };
+		C58D14211B170E2A005E30C6 /* UIView+QuatzCoreAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+QuatzCoreAnimations.m"; sourceTree = "<group>"; };
 		C5947E4F18F5271B00BDF038 /* WLChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChatViewController.h; path = WLChatViewController/WLChatViewController.h; sourceTree = "<group>"; };
 		C5947E5018F5271B00BDF038 /* WLChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChatViewController.m; path = WLChatViewController/WLChatViewController.m; sourceTree = "<group>"; };
 		C5947E5318F52AE000BDF038 /* WLMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLMessageCell.h; path = WLChatViewController/WLMessageCell/WLMessageCell.h; sourceTree = "<group>"; };
@@ -3861,8 +3859,6 @@
 				5BA60C551A8257ED000F795C /* UIView+Extentions.m */,
 				5BA60C561A8257ED000F795C /* UIView+GestureRecognizing.h */,
 				5BA60C571A8257ED000F795C /* UIView+GestureRecognizing.m */,
-				5BA60C581A8257ED000F795C /* UIView+QuatzCoreAnimations.h */,
-				5BA60C591A8257ED000F795C /* UIView+QuatzCoreAnimations.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -6096,6 +6092,8 @@
 		C5FE0A4E1ACD97F6007DBE95 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				C58D14201B170E2A005E30C6 /* UIView+QuatzCoreAnimations.h */,
+				C58D14211B170E2A005E30C6 /* UIView+QuatzCoreAnimations.m */,
 				C5FE0A4F1ACD97F6007DBE95 /* UIView+Shorthand.h */,
 				C5FE0A501ACD97F6007DBE95 /* UIView+Shorthand.m */,
 			);
@@ -6145,6 +6143,7 @@
 				C587C7D81AD2E6A0003E7647 /* WLHistoryItem.h in Headers */,
 				C587C7A81AD2E6A0003E7647 /* WLResendConfirmationRequest.h in Headers */,
 				C55D76DE1AE50D1A006FA19C /* PubNub+Subscription.h in Headers */,
+				C58D14221B170E2A005E30C6 /* UIView+QuatzCoreAnimations.h in Headers */,
 				C55D77531AE50D1A006FA19C /* PNOperationStatus.h in Headers */,
 				C55D75971AE50953006FA19C /* WLNotificationCenter.h in Headers */,
 				C587C7CB1AD2E6A0003E7647 /* WLDevice+Extended.h in Headers */,
@@ -6798,7 +6797,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -7345,7 +7344,6 @@
 				5BB02FF619F00BCE001E1D50 /* WLChat.m in Sources */,
 				C52E1FE81A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B8F1A238AE7008B2E2E /* WLValidation.m in Sources */,
-				5BA60CF31A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */,
 				5BA7AC211A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD41A41951300A2C370 /* WLLabel.m in Sources */,
 				C5A82CD21ACD979B00336027 /* WLSignificantTimeBroadcaster.m in Sources */,
@@ -7563,7 +7561,6 @@
 				5BB02FF719F00BCE001E1D50 /* WLChat.m in Sources */,
 				C52E1FE91A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B901A238AE7008B2E2E /* WLValidation.m in Sources */,
-				5BA60CF41A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */,
 				5BA7AC221A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD51A41951300A2C370 /* WLLabel.m in Sources */,
 				C5A82CD31ACD979B00336027 /* WLSignificantTimeBroadcaster.m in Sources */,
@@ -7740,7 +7737,6 @@
 				5BB02FF819F00BCE001E1D50 /* WLChat.m in Sources */,
 				C52E1FEA1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B911A238AE7008B2E2E /* WLValidation.m in Sources */,
-				5BA60CF51A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */,
 				5BA7AC231A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD61A41951300A2C370 /* WLLabel.m in Sources */,
 				C5A82CD41ACD979B00336027 /* WLSignificantTimeBroadcaster.m in Sources */,
@@ -7917,7 +7913,6 @@
 				5BB02FF919F00BCE001E1D50 /* WLChat.m in Sources */,
 				C52E1FEB1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B921A238AE7008B2E2E /* WLValidation.m in Sources */,
-				5BA60CF61A8257ED000F795C /* UIView+QuatzCoreAnimations.m in Sources */,
 				5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */,
 				C5A82CD51ACD979B00336027 /* WLSignificantTimeBroadcaster.m in Sources */,
@@ -8267,6 +8262,7 @@
 				C5E673841B0E384B00A48CDF /* WLPostEditingUploadCandyRequest.m in Sources */,
 				C587C8881AD2E6DB003E7647 /* WLCandy.m in Sources */,
 				C55D77061AE50D1A006FA19C /* PNChannelHistoryParser.m in Sources */,
+				C58D14231B170E2A005E30C6 /* UIView+QuatzCoreAnimations.m in Sources */,
 				C587C88B1AD2E6DB003E7647 /* WLContribution+Extended.m in Sources */,
 				C55D77231AE50D1A006FA19C /* PNWhereNowResponseParser.m in Sources */,
 				C587C85E1AD2E6DB003E7647 /* UIImage+Resize.m in Sources */,
@@ -9810,7 +9806,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

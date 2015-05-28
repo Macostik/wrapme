@@ -27,7 +27,7 @@ static NSUInteger WLCandyCellHight = 212;
 @interface WLWrapCell : WLEntryCell
 
 @property (strong, nonatomic) IBOutlet id <WLWrapCellDelegate> delegate;
-@property (nonatomic, readonly) WLBasicDataSource* candiesDataSource;
-@property (nonatomic, readonly) UICollectionView *candiesView;
+@property (strong, nonatomic, readonly) WLBasicDataSource* candiesDataSource;
+@property (weak, nonatomic, readonly) UICollectionView *candiesView;
 
 @end

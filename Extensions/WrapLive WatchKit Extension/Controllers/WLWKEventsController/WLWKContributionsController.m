@@ -151,31 +151,14 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 }
 
 - (void)updateContributions {
-    __weak typeof(self)weakSelf = self;
-    
     if (!self.entries.nonempty) {
         self.state = WLWKContributionsStateLoading;
     }
-    if ([WLAuthorizationRequest authorized]) {
-        [[WLRecentContributionsRequest request] send:^(id object) {
-            weakSelf.entries = [WLContribution recentContributions];
-        } failure:^(NSError *error) {
-            [weakSelf showError:error];
-        }];
-    } else if ([[WLAuthorization currentAuthorization] canAuthorize]) {
-        [[WLAuthorization currentAuthorization] signIn:^(WLUser *user) {
-            [weakSelf updateContributions];
-        } failure:^(NSError *error) {
-            [weakSelf showError:error];
-        }];
+    if ([[WLAuthorization currentAuthorization] canAuthorize]) {
+        self.entries = [WLContribution recentContributions];
     } else {
-        [weakSelf showError:WLError(@"No data for authorization. Please, check wrapLive app on you iPhone.")];
+        [self showError:WLError(@"No data for authorization. Please, check wrapLive app on you iPhone.")];
     }
-}
-
-- (void)didDeactivate {
-    // This method is called when watch view controller is no longer visible
-    [super didDeactivate];
 }
 
 // MARK: - WLEntryNotifyReceiver

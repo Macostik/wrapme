@@ -121,7 +121,7 @@
 - (void)panning:(UIPanGestureRecognizer*)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         [self.delegate wrapCellDidBeginPanning:self];
-        self.swipeActionConstraint = [sender locationInView:sender.view].x < self.width/2.0f ? self.leftSwipeActionConstraint : self.rightSwipeActionConstraint;
+        self.swipeActionConstraint = [sender velocityInView:sender.view].x > 0 ? self.leftSwipeActionConstraint : self.rightSwipeActionConstraint;
     } else if (sender.state == UIGestureRecognizerStateChanged) {
         CGFloat constant = self.swipeActionConstraint.constant +  [sender translationInView:sender.view].x;
         if (self.swipeActionConstraint == self.rightSwipeActionConstraint) {
@@ -133,7 +133,7 @@
         [sender setTranslation:CGPointZero inView:sender.view];
     } else if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
         [self.delegate wrapCellDidEndPanning:self];
-        if (ABS(self.swipeActionConstraint.constant) >= 2.0f * self.width / 3.0f) {
+        if (ABS(self.swipeActionConstraint.constant) >= 125) {
             [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 if (self.swipeActionConstraint == self.rightSwipeActionConstraint) {
                     self.swipeActionConstraint.constant = -self.width;
@@ -147,7 +147,7 @@
                 } else {
                     [self.delegate wrapCell:self presentCameraViewControllerForWrap:self.entry];
                 }
-                run_after_asap(^{
+                run_after(0.5f, ^{
                     self.swipeActionConstraint.constant = 0;
                     [self setNeedsLayout];
                 });

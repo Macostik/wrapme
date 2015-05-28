@@ -1149,7 +1149,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="u" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vk4-f0-Wr1" customClass="WLLabel">
-                                                                    <rect key="frame" x="59" y="27" width="17" height="17"/>
+                                                                    <rect key="frame" x="268" y="27" width="17" height="17"/>
                                                                     <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
@@ -1158,7 +1158,7 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to open camera" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="88Q-sD-VfR" customClass="WLLabel">
-                                                                    <rect key="frame" x="86" y="25" width="148" height="21"/>
+                                                                    <rect key="frame" x="110" y="25" width="148" height="21"/>
                                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
@@ -1174,10 +1174,10 @@
                                                                 <constraint firstAttribute="trailing" secondItem="8HD-io-W2e" secondAttribute="trailing" id="Bnc-RW-vdb"/>
                                                                 <constraint firstItem="8HD-io-W2e" firstAttribute="leading" secondItem="luE-Kd-SDs" secondAttribute="trailing" id="IJf-fc-hC7"/>
                                                                 <constraint firstAttribute="centerY" secondItem="88Q-sD-VfR" secondAttribute="centerY" id="NaG-xH-bfH"/>
-                                                                <constraint firstItem="88Q-sD-VfR" firstAttribute="leading" secondItem="vk4-f0-Wr1" secondAttribute="trailing" constant="10" id="Pe8-4v-xOH"/>
+                                                                <constraint firstItem="vk4-f0-Wr1" firstAttribute="trailing" secondItem="8HD-io-W2e" secondAttribute="leading" id="bZX-Et-an0"/>
                                                                 <constraint firstAttribute="centerY" secondItem="8HD-io-W2e" secondAttribute="centerY" id="dl0-RP-mli"/>
                                                                 <constraint firstAttribute="height" secondItem="8HD-io-W2e" secondAttribute="height" id="do8-H3-Cb2"/>
-                                                                <constraint firstAttribute="centerX" secondItem="88Q-sD-VfR" secondAttribute="centerX" id="efU-xf-PzZ"/>
+                                                                <constraint firstItem="vk4-f0-Wr1" firstAttribute="leading" secondItem="88Q-sD-VfR" secondAttribute="trailing" constant="10" id="jhS-pZ-ypC"/>
                                                                 <constraint firstAttribute="bottom" secondItem="luE-Kd-SDs" secondAttribute="bottom" id="p8p-8A-MRF"/>
                                                                 <constraint firstItem="88Q-sD-VfR" firstAttribute="centerY" secondItem="vk4-f0-Wr1" secondAttribute="centerY" id="scg-JX-D8R"/>
                                                             </constraints>
@@ -1197,7 +1197,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QM4-q0-ku1" customClass="WLLabel">
-                                                                    <rect key="frame" x="90" y="27" width="17" height="17"/>
+                                                                    <rect key="frame" x="35" y="27" width="17" height="17"/>
                                                                     <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
@@ -1206,7 +1206,7 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kh9-Vi-feI" customClass="WLLabel">
-                                                                    <rect key="frame" x="117" y="25" width="86" height="21"/>
+                                                                    <rect key="frame" x="62" y="25" width="86" height="21"/>
                                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
@@ -1220,7 +1220,7 @@
                                                                 <constraint firstItem="xcS-cm-2hY" firstAttribute="trailing" secondItem="bgt-58-RsY" secondAttribute="leading" id="9ho-zo-GgE"/>
                                                                 <constraint firstItem="Kh9-Vi-feI" firstAttribute="leading" secondItem="QM4-q0-ku1" secondAttribute="trailing" constant="10" id="CGQ-l8-14A"/>
                                                                 <constraint firstAttribute="bottom" secondItem="bgt-58-RsY" secondAttribute="bottom" id="DTQ-gC-Or6"/>
-                                                                <constraint firstAttribute="centerX" secondItem="Kh9-Vi-feI" secondAttribute="centerX" id="Wsu-hP-L0g"/>
+                                                                <constraint firstItem="QM4-q0-ku1" firstAttribute="leading" secondItem="xcS-cm-2hY" secondAttribute="trailing" id="PdX-cc-IkK"/>
                                                                 <constraint firstItem="QM4-q0-ku1" firstAttribute="centerY" secondItem="Kh9-Vi-feI" secondAttribute="centerY" id="eDE-Md-s0b"/>
                                                                 <constraint firstItem="xcS-cm-2hY" firstAttribute="leading" secondItem="4qZ-7z-AsM" secondAttribute="leading" id="gkf-ue-xyP"/>
                                                                 <constraint firstAttribute="trailing" secondItem="bgt-58-RsY" secondAttribute="trailing" id="k62-ct-Nbo"/>
@@ -1513,7 +1513,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="u" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdU-Ps-nCK" customClass="WLLabel">
-                                                            <rect key="frame" x="59" y="17" width="17" height="17"/>
+                                                            <rect key="frame" x="278" y="17" width="17" height="17"/>
                                                             <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -1522,7 +1522,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to open camera" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0rs-Jv-qhC" customClass="WLLabel">
-                                                            <rect key="frame" x="86" y="15" width="148" height="21"/>
+                                                            <rect key="frame" x="120" y="15" width="148" height="21"/>
                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -1533,13 +1533,13 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="0rs-Jv-qhC" firstAttribute="leading" secondItem="kdU-Ps-nCK" secondAttribute="trailing" constant="10" id="9hl-7d-wXJ"/>
                                                         <constraint firstItem="nBw-xe-Xdo" firstAttribute="leading" secondItem="vDz-qJ-pkb" secondAttribute="trailing" id="EYy-xQ-xDu"/>
-                                                        <constraint firstAttribute="centerX" secondItem="0rs-Jv-qhC" secondAttribute="centerX" id="Elf-4c-AvT"/>
                                                         <constraint firstAttribute="centerY" secondItem="nBw-xe-Xdo" secondAttribute="centerY" id="FBE-rd-kW6"/>
+                                                        <constraint firstItem="nBw-xe-Xdo" firstAttribute="leading" secondItem="kdU-Ps-nCK" secondAttribute="trailing" id="Pkp-AB-4qV"/>
                                                         <constraint firstItem="vDz-qJ-pkb" firstAttribute="top" secondItem="Dj8-bT-ouZ" secondAttribute="top" id="UbB-ai-bjT"/>
                                                         <constraint firstAttribute="centerY" secondItem="0rs-Jv-qhC" secondAttribute="centerY" id="Zad-y7-46A"/>
                                                         <constraint firstAttribute="trailing" secondItem="nBw-xe-Xdo" secondAttribute="trailing" id="bnT-nA-wU0"/>
+                                                        <constraint firstItem="kdU-Ps-nCK" firstAttribute="leading" secondItem="0rs-Jv-qhC" secondAttribute="trailing" constant="10" id="fbN-aB-01n"/>
                                                         <constraint firstItem="vDz-qJ-pkb" firstAttribute="leading" secondItem="Dj8-bT-ouZ" secondAttribute="leading" id="pmK-qa-d1l"/>
                                                         <constraint firstItem="0rs-Jv-qhC" firstAttribute="centerY" secondItem="kdU-Ps-nCK" secondAttribute="centerY" id="qnZ-iH-Ooi"/>
                                                         <constraint firstAttribute="bottom" secondItem="vDz-qJ-pkb" secondAttribute="bottom" id="vgX-Do-onY"/>
@@ -1561,7 +1561,7 @@
                                                             <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIL-os-qUh" customClass="WLLabel">
-                                                            <rect key="frame" x="90" y="17" width="17" height="17"/>
+                                                            <rect key="frame" x="25" y="17" width="17" height="17"/>
                                                             <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -1570,7 +1570,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgx-nY-B3d" customClass="WLLabel">
-                                                            <rect key="frame" x="117" y="15" width="86" height="21"/>
+                                                            <rect key="frame" x="52" y="15" width="86" height="21"/>
                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -1585,9 +1585,9 @@
                                                         <constraint firstItem="3g8-rb-bIz" firstAttribute="height" secondItem="2RY-S5-bjM" secondAttribute="height" id="5qT-Yp-Kj2"/>
                                                         <constraint firstItem="3g8-rb-bIz" firstAttribute="trailing" secondItem="07G-rQ-pPg" secondAttribute="leading" id="BIi-R0-T1M"/>
                                                         <constraint firstItem="3g8-rb-bIz" firstAttribute="leading" secondItem="2RY-S5-bjM" secondAttribute="leading" id="BNs-u3-I9I"/>
-                                                        <constraint firstAttribute="centerX" secondItem="cgx-nY-B3d" secondAttribute="centerX" id="BRg-2F-17Z"/>
                                                         <constraint firstItem="07G-rQ-pPg" firstAttribute="top" secondItem="2RY-S5-bjM" secondAttribute="top" id="CRE-ee-xpe"/>
                                                         <constraint firstAttribute="centerY" secondItem="3g8-rb-bIz" secondAttribute="centerY" id="Mch-bp-9Pb"/>
+                                                        <constraint firstItem="RIL-os-qUh" firstAttribute="leading" secondItem="3g8-rb-bIz" secondAttribute="trailing" id="OJU-ak-Nmz"/>
                                                         <constraint firstAttribute="trailing" secondItem="07G-rQ-pPg" secondAttribute="trailing" id="OnJ-r2-XcY"/>
                                                         <constraint firstAttribute="centerY" secondItem="cgx-nY-B3d" secondAttribute="centerY" id="P4v-2U-l1m"/>
                                                         <constraint firstItem="cgx-nY-B3d" firstAttribute="leading" secondItem="RIL-os-qUh" secondAttribute="trailing" constant="10" id="dzQ-Bv-Oz9"/>

@@ -218,11 +218,14 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)handleRemoteNotification:(NSDictionary*)userInfo completionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     __weak typeof(self)weakSelf = self;
+    BOOL probablyUserInteraction = [UIApplication sharedApplication].applicationState == UIApplicationStateInactive;
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
         if (notification.presentable) {
             UIApplicationState state = [UIApplication sharedApplication].applicationState;
             if (state == UIApplicationStateActive) {
-                [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+                if (probablyUserInteraction) {
+                    [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+                }
                 if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
             } else if (state == UIApplicationStateInactive) {
                 [weakSelf setDidBecomeActiveBlock:^{

@@ -148,7 +148,9 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
     CGPoint touchPoint = [gesture locationInView:createWrapCell];
     if (CGRectContainsPoint(createWrapCell.frame, touchPoint)) {
         if([self.delegate respondsToSelector:@selector(pickerViewControllerNewWrapClicked:)]) {
-            [self.delegate pickerViewControllerNewWrapClicked:self];
+            run_after_asap(^{
+                [self.delegate pickerViewControllerNewWrapClicked:self];
+            });
         }
     }
 }

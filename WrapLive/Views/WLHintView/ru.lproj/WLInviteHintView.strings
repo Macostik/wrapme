@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "Wrap is better with friends."; ObjectID = "H0z-j3-IR4"; */
+"H0z-j3-IR4.text" = "Врап лучше с друзьями.";
+
+/* Class = "UILabel"; text = "Add friends.\nChip in photos.\nStay connected."; ObjectID = "alp-kS-BQe"; */
+"alp-kS-BQe.text" = "Добавить друзей.\nСоздавай фотографии.\nОставайся на связи.";
+
+/* Class = "UIButton"; normalTitle = "Got it"; ObjectID = "wy3-57-sV0"; */
+"wy3-57-sV0.normalTitle" = "Понял";

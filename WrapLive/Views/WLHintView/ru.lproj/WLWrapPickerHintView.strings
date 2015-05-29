@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "Tap the wrap name to choose a different wrap."; ObjectID = "1zI-Zd-PEP"; */
+"1zI-Zd-PEP.text" = "Нажмите на имя врапа, чтобы выбрать другой врап.";
+
+/* Class = "UILabel"; text = "To choose a different wrap for this upload, tap the wrap name"; ObjectID = "INP-a4-pR4"; */
+"INP-a4-pR4.text" = "Чтобы выбрать другой врап для этой загрузки, нажмите на имя врапа";
+
+/* Class = "UIButton"; normalTitle = "Got it"; ObjectID = "ite-5o-2Vr"; */
+"ite-5o-2Vr.normalTitle" = "Понял";

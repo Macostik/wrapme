@@ -71,7 +71,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitle:WLLS(@"сancel") forState:UIControlStateNormal];
+    [button setTitle:WLLS(@"cancel") forState:UIControlStateNormal];
     button.backgroundColor = [UIColor WL_orange];
     [button addTarget:self action:@selector(removeFromSuperview) forControlEvents:UIControlEventTouchUpInside];
     return button;

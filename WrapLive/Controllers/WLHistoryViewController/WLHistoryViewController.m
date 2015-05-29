@@ -161,6 +161,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     if (self.showCommentViewController) {
         [self showCommentView];
     }
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(toggleBottomViewMode) object:nil];
     [self performSelector:@selector(toggleBottomViewMode) withObject:nil afterDelay:WLHistoryBottomViewModeTogglingInterval inModes:@[NSRunLoopCommonModes]];
 }
 

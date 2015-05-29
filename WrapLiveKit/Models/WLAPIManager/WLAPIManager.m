@@ -270,7 +270,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
     }
     [WLAlertView showWithTitle:WLLS(@"delete_wrap")
                        message:[NSString stringWithFormat:WLLS(@"formatted_delete_wrap_confirmation"), self.name]
-                       buttons:@[WLLS(@"сancel"),WLLS(@"delete")]
+                       buttons:@[WLLS(@"cancel"),WLLS(@"delete")]
                     completion:^(NSUInteger index) {
                         if (index == 1) {
                             removeBlock();
@@ -404,7 +404,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
     }
     [WLAlertView showWithTitle:WLLS(@"delete_photo")
                        message:WLLS(@"delete_photo_confirmation")
-                       buttons:@[WLLS(@"сancel"),WLLS(@"ok")]
+                       buttons:@[WLLS(@"cancel"),WLLS(@"ok")]
                     completion:^(NSUInteger index) {
                         if (index == 1) {
                             removeBlock();

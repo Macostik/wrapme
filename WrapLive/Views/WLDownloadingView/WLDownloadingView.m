@@ -13,7 +13,7 @@
 #import "WLNavigationHelper.h"
 #import "WLUploadPhotoViewController.h"
 
-@interface WLDownloadingView () <WLImageFetching>
+@interface WLDownloadingView () <WLImageFetching, WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 
@@ -82,6 +82,11 @@
     return self;
 }
 
+- (void)setCandy:(WLCandy *)candy {
+    _candy = candy;
+    [[WLCandy notifier] addReceiver:self];
+}
+
 - (IBAction)calcel:(id)sender {
     [[WLImageFetcher fetcher] removeReceiver:self];
     [self dissmis];
@@ -115,7 +120,7 @@
 // MARK: - WLImageFetching
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
-    if (self.failureBlock) self.failureBlock([WLNetwork network].reachable ? error : WLError(@"No internet connection. Can't download the photo for editing."));
+    if (self.failureBlock) self.failureBlock([WLNetwork network].reachable ? error : WLError(WLLS(@"editing_internet_connection_error")));
     [self dissmis];
 }
 
@@ -126,6 +131,17 @@
 
 - (NSString *)fetcherTargetUrl:(WLImageFetcher *)fetcher {
     return self.candy.picture.original;
+}
+
+// MARK: - WLEntryNotifyReceiver
+
+- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLEntry *)entry {
+    if (self.failureBlock) self.failureBlock(nil);
+    [self dissmis];
+}
+
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return self.candy == entry;
 }
 
 @end

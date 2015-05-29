@@ -233,10 +233,6 @@
 		5BD104F31AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
 		5BD104F41AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
 		5BD104F51AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
-		5BD1214D1B023BF000FF5FBF /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */; };
-		5BD1214E1B023BF000FF5FBF /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */; };
-		5BD1214F1B023BF000FF5FBF /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */; };
-		5BD121501B023BF000FF5FBF /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */; };
 		5BD121531B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD121541B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD121551B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
@@ -807,6 +803,10 @@
 		C55908761B185F9D001CB99F /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55908791B185F9D001CB99F /* Introduction.storyboard */; };
 		C55908771B185F9D001CB99F /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55908791B185F9D001CB99F /* Introduction.storyboard */; };
 		C55908821B186293001CB99F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
+		C55908D01B18995D001CB99F /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908D51B18995D001CB99F /* WLDownloadingView.xib */; };
+		C55908D11B18995D001CB99F /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908D51B18995D001CB99F /* WLDownloadingView.xib */; };
+		C55908D21B18995D001CB99F /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908D51B18995D001CB99F /* WLDownloadingView.xib */; };
+		C55908D31B18995D001CB99F /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908D51B18995D001CB99F /* WLDownloadingView.xib */; };
 		C55997491A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C559974A1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C559974B1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
@@ -2086,7 +2086,6 @@
 		5BC48BDF1A8BBBED003E90FA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/NoCommentsPlaceholderView.strings; sourceTree = "<group>"; };
 		5BD104F01AE7C066008794F5 /* WLEntryStatusIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntryStatusIndicator.h; path = WLEntryStatusIndicator/WLEntryStatusIndicator.h; sourceTree = "<group>"; };
 		5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEntryStatusIndicator.m; path = WLEntryStatusIndicator/WLEntryStatusIndicator.m; sourceTree = "<group>"; };
-		5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLDownloadingView.xib; path = WLDownloadingView/WLDownloadingView.xib; sourceTree = "<group>"; };
 		5BD121511B0250B400FF5FBF /* WLDownloadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDownloadingView.h; path = WLDownloadingView/WLDownloadingView.h; sourceTree = "<group>"; };
 		5BD121521B0250B500FF5FBF /* WLDownloadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDownloadingView.m; path = WLDownloadingView/WLDownloadingView.m; sourceTree = "<group>"; };
 		5BD1D5BF1B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPostEditingUploadCandyRequest.h; sourceTree = "<group>"; };
@@ -2373,6 +2372,9 @@
 		C55908811B18626E001CB99F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SignUp.strings; sourceTree = "<group>"; };
 		C55908861B1865A2001CB99F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C55908881B1865A9001CB99F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		C55908D41B18995D001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLDownloadingView.xib; sourceTree = "<group>"; };
+		C55908D71B189962001CB99F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLDownloadingView.strings; sourceTree = "<group>"; };
+		C55908D91B189967001CB99F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLDownloadingView.strings; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
 		C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		C559974E1A262BD8003D4B29 /* WLTelephony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTelephony.h; sourceTree = "<group>"; };
@@ -3963,7 +3965,7 @@
 			children = (
 				5BD121511B0250B400FF5FBF /* WLDownloadingView.h */,
 				5BD121521B0250B500FF5FBF /* WLDownloadingView.m */,
-				5BD1214C1B023BF000FF5FBF /* WLDownloadingView.xib */,
+				C55908D51B18995D001CB99F /* WLDownloadingView.xib */,
 			);
 			name = WLDownloadingView;
 			sourceTree = "<group>";
@@ -6881,7 +6883,7 @@
 				5BD782A01A4EC1E20094BEE5 /* WLCreateWrapViewController.xib in Resources */,
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
 				5BD782821A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */,
-				5BD1214D1B023BF000FF5FBF /* WLDownloadingView.xib in Resources */,
+				C55908D01B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BA6CAF21A10E51B004AD41C /* s01.wav in Resources */,
 				5BD782C81A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C56758151AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
@@ -7018,7 +7020,7 @@
 				C54AF54219B8C437006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C518D79419E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				5BD782A11A4EC1E20094BEE5 /* WLCreateWrapViewController.xib in Resources */,
-				5BD1214E1B023BF000FF5FBF /* WLDownloadingView.xib in Resources */,
+				C55908D11B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BD782831A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */,
 				5BD782C91A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C56758161AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
@@ -7085,7 +7087,7 @@
 				C54AF63F19B8C467006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C518D79519E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				5BD782A21A4EC1E20094BEE5 /* WLCreateWrapViewController.xib in Resources */,
-				5BD1214F1B023BF000FF5FBF /* WLDownloadingView.xib in Resources */,
+				C55908D21B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BD782841A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */,
 				5BD782CA1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C56758171AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
@@ -7152,7 +7154,7 @@
 				C54AF73C19B8C491006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C518D79619E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				5BD782A31A4EC1E20094BEE5 /* WLCreateWrapViewController.xib in Resources */,
-				5BD121501B023BF000FF5FBF /* WLDownloadingView.xib in Resources */,
+				C55908D31B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BD782851A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */,
 				5BD782CB1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C56758181AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
@@ -8528,6 +8530,17 @@
 				C559087D1B185FAC001CB99F /* ru */,
 			);
 			name = Introduction.storyboard;
+			sourceTree = "<group>";
+		};
+		C55908D51B18995D001CB99F /* WLDownloadingView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C55908D41B18995D001CB99F /* Base */,
+				C55908D71B189962001CB99F /* en */,
+				C55908D91B189967001CB99F /* ru */,
+			);
+			name = WLDownloadingView.xib;
+			path = WLDownloadingView;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

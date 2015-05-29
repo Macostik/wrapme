@@ -55,6 +55,8 @@
 /* (No Commment) */
 "downloading_internet_connection_error" = "Интернет не доступен. Попытайтесь скачать позже, пожалуйста.";
 
+"editing_internet_connection_error" = "Нет соединения с Интернетом. Невозможно скачать фотографию для редактирования.";
+
 /* (No Commment) */
 "downloading_photo" = "Идет загрузка фото. Она появится в альбоме ";
 

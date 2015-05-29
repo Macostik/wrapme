@@ -30,7 +30,7 @@
 }
 
 + (void)showWithTitle:(NSString *)title destructive:(NSString*)destructive completion:(WLActionSheetCompletion)completion {
-	[self showWithTitle:title cancel:WLLS(@"сancel") destructive:destructive completion:completion];
+	[self showWithTitle:title cancel:WLLS(@"cancel") destructive:destructive completion:completion];
 }
 
 + (void)showWithTitle:(NSString *)title cancel:(NSString*)cancel destructive:(NSString*)destructive completion:(WLActionSheetCompletion)completion {

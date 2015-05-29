@@ -132,6 +132,8 @@
 
 "downloading_internet_connection_error" = "No internet connections available. Please try downloading it later.";
 
+"editing_internet_connection_error" = "No internet connection. Can't download the photo for editing.";
+
 "downloading_privacy_settings" = "To allow access to the Photos go to the Privacy settings of the app.";
 
 "formatted_verification_email_text" = "Confirm %@ as your email address to help secure your account.";

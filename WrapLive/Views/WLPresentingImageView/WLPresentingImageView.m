@@ -53,17 +53,23 @@
     if ([self.delegate respondsToSelector:@selector(dismissImageView:getFrameCandyCell:)]) {
         convertRect = [self.delegate dismissImageView:self getFrameCandyCell:candy];
     }
-    run_after(.1, ^{
-        [UIView animateWithDuration:0.25
-                              delay:.0
-                            options:UIViewAnimationOptionCurveEaseIn
-                         animations:^{
-                             self.imageView.frame = convertRect;
-                         } completion:^(BOOL finished) {
-                             if  (completion) completion(finished);
-                             [self removeFromSuperview];
-                         }];
-    });
+    if(CGRectEqualToRect(convertRect, CGRectZero)) {
+        self.hidden = YES;
+        [self removeFromSuperview];
+    } else {
+        run_after(.1, ^{
+            [UIView animateWithDuration:0.25
+                                  delay:.0
+                                options:UIViewAnimationOptionCurveEaseIn
+                             animations:^{
+                                 self.imageView.frame = convertRect;
+                             } completion:^(BOOL finished) {
+                                 if  (completion) completion(finished);
+                                 [self removeFromSuperview];
+                             }];
+        });
+    }
+    
 }
 
 - (void)performAnimationCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion {

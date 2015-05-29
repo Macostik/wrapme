@@ -291,7 +291,7 @@ va_end(args);
 }
 
 - (void)save {
-    return [[WLEntryManager manager] save];
+    [[WLEntryManager manager] save];
 }
 
 - (void)remove {

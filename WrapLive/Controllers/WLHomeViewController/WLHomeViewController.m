@@ -467,7 +467,6 @@
         [presentingImageView presentingCandy:candy completion:^(BOOL flag) {
             [weakSelf.navigationController pushViewController:historyViewController animated:NO];
         }];
-       
     }
 }
 
@@ -481,10 +480,6 @@
 
 - (CGRect)dismissImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy {
     WLCandyCell *candyCell = [self presentedCandyCell:candy];
-    if (!candyCell) {
-        [presentingImageView rightPush];
-        presentingImageView.hidden = YES;
-    }
     return [self.view convertRect:candyCell.frame fromView:candyCell.superview];
 }
 

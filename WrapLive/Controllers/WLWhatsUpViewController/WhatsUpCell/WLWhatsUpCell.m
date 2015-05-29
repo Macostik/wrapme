@@ -75,9 +75,9 @@
     [super setup:event];
     WLCandy *candy = event.contribution;
     if (event.event == WLEventUpdate) {
-        self.userNameLabel.text = [NSString stringWithFormat:WLLS(@"Edited by %@"), candy.editor.name];
+        self.userNameLabel.text = [NSString stringWithFormat:WLLS(@"formatted_edited_by"), candy.editor.name];
     } else {
-        self.userNameLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), candy.contributor.name];
+        self.userNameLabel.text = [NSString stringWithFormat:WLLS(@"formatted_photo_by"), candy.contributor.name];
     }
     self.inWrapLabel.text = candy.wrap.name;
     self.textView.text = nil;

@@ -47,7 +47,7 @@
 - (NSString *)phones {
     if (!_phones) {
         NSString* phones = [self phones:NO];
-        _phones = (phones.length > 0) ? phones : WLLS(@"No registered devices");
+        _phones = (phones.length > 0) ? phones : WLLS(@"no_devices");
     }
     return _phones;
 }
@@ -55,7 +55,7 @@
 - (NSString *)securePhones {
     if (!_securePhones) {
         NSString* phones = [self phones:YES];
-        _securePhones = (phones.length > 0) ? phones : @"No registered devices";
+        _securePhones = (phones.length > 0) ? phones : @"no_devices";
     }
     return _securePhones;
 }

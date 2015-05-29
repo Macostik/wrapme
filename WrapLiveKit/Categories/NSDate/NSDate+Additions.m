@@ -12,15 +12,15 @@
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
 
-static NSString *WLTimeIntervalNameMinute = @"minute";
-static NSString *WLTimeIntervalNameHour = @"hour";
-static NSString *WLTimeIntervalNameDay = @"day";
-static NSString *WLTimeIntervalNameWeek = @"week";
-static NSString *WLTimeIntervalNameMonth = @"month";
-static NSString *WLTimeIntervalNameYear = @"year";
-static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
-static NSString *WLTimeIntervalNameYesterday = @"yesterday";
-static NSString *WLTimeIntervalNameToday = @"today";
+//static NSString *WLTimeIntervalNameMinute = @"minute";
+//static NSString *WLTimeIntervalNameHour = @"hour";
+//static NSString *WLTimeIntervalNameDay = @"day";
+//static NSString *WLTimeIntervalNameWeek = @"week";
+//static NSString *WLTimeIntervalNameMonth = @"month";
+//static NSString *WLTimeIntervalNameYear = @"year";
+//static NSString *WLTimeIntervalLessThanMinute = @"less than 1 minute ago";
+//static NSString *WLTimeIntervalNameYesterday = @"yesterday";
+//static NSString *WLTimeIntervalNameToday = @"today";
 static NSInteger WLDaySeconds = 24*60*60;
 
 @implementation NSDate (Additions)
@@ -148,36 +148,36 @@ static inline NSCalendar* NSCurrentCalendar() {
 - (NSString *)timeAgoString {
 	NSTimeInterval interval = ABS([self timeIntervalSinceDate:[NSDate now]]);
 	if (interval >= WLTimeIntervalWeek) {
-		return [self stringWithFormat:@"MMMM d, yyyy 'at' h:mma"];
+		return [self stringWithFormat:[NSString stringWithFormat:@"MMMM d, yyyy '%@' h:mma", WLLS(@"at")]];
 	} else {
 		NSTimeInterval value = 0;
 		NSString* name = nil;
 		if ((value = interval / WLTimeIntervalDay) >= 1) {
-			name = WLTimeIntervalNameDay;
+			name = WLLS(@"day");
 		} else if ((value = interval / WLTimeIntervalHour) >= 1) {
-			name = WLTimeIntervalNameHour;
+			name = WLLS(@"hour");
 		} else if ((value = interval / WLTimeIntervalMinute) >= 1) {
-			name = WLTimeIntervalNameMinute;
+			name = WLLS(@"minute");
 		} else {
-			return WLTimeIntervalLessThanMinute;
+			return WLLS(@"less_than_minute_ago");
 		}
         value = floor(value);
-		return [NSString stringWithFormat:@"%.f %@%@ ago", value, name, (value == 1 ? @"":@"s")];
+		return [NSString stringWithFormat:WLLS(@"formatted_calendar_units_ago"), value, name, (value == 1 ? @"":WLLS(@"plural_ending"))];
 	}
 }
 
 - (NSString *)timeAgoStringAtAMPM {
     NSTimeInterval interval = ABS([self timeIntervalSinceDate:[NSDate now]]);
     if (interval >= WLTimeIntervalWeek) {
-        return [self stringWithFormat:@"MMM d, yyyy 'at' h:mma"];
+        return [self stringWithFormat:[NSString stringWithFormat:@"MMMM d, yyyy '%@' h:mma", WLLS(@"at")]];
     } else {
         NSTimeInterval value = 0;
         NSString* name = nil;
         if ((value = interval / WLTimeIntervalDay) >= 2) {
-            return [NSString stringWithFormat:@"%.f %@s ago at %@", value, WLTimeIntervalNameDay, [self stringWithFormat:@"h:mma"]];
+            return [NSString stringWithFormat:WLLS(@"formatted_calendar_units_ago_at_time"), value, WLLS(@"day"), [self stringWithFormat:@"h:mma"]];
         } else {
-            name = [self isToday] ? WLTimeIntervalNameToday : WLTimeIntervalNameYesterday;
-            return [NSString stringWithFormat:@"%@ at %@", name, [self stringWithFormat:@"h:mma"]];
+            name = [self isToday] ? WLLS(@"today") : WLLS(@"yesterday");
+            return [NSString stringWithFormat:WLLS(@"formatted_day_at_time"), name, [self stringWithFormat:@"h:mma"]];
         }
     }
 }

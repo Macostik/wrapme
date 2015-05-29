@@ -37,14 +37,9 @@ typedef NS_ENUM(NSInteger, WLErrorCode) {
 + (NSError*)errorWithDescription:(NSString*)description code:(NSInteger)code;
 + (NSError*)errorWithDescription:(NSString*)description;
 - (void)show;
-- (void)showWithTitle:(NSString*)title;
-- (void)showWithTitle:(NSString*)title callback:(void (^)(void))callback;
 - (void)showIgnoringNetworkError;
 
 - (NSString *)errorMessage;
-
-- (void)log;
-- (void)log:(NSString*)label;
 
 - (BOOL)isError:(WLErrorCode)code;
 

@@ -182,7 +182,7 @@
    
     [self setDownloadFailureBlock:^(NSError *error) {
         if (error.isNetworkError) {
-            error = WLError(WLLS(@"No internet connections available. Please try downloading it later."));
+            error = WLError(WLLS(@"downloading_internet_connection_error"));
         }
         if (failure) failure(error);
     }];

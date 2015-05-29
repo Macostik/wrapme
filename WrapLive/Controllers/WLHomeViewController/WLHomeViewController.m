@@ -345,7 +345,7 @@
 
 - (IBAction)resendConfirmation:(id)sender {
     [[WLResendConfirmationRequest request] send:^(id object) {
-        [WLToast showWithMessage:WLLS(@"Confirmation resend. Please, check you e-mail.")];
+        [WLToast showWithMessage:WLLS(@"confirmation_resend")];
     } failure:^(NSError *error) {
     }];
 }

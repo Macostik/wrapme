@@ -93,13 +93,13 @@
 - (NSString *)namesOfUsers:(NSMutableOrderedSet*)users {
     if (!users.nonempty) return nil;
     if (users.count == 1) {
-        return [NSString stringWithFormat:WLLS(@"%@ is typing..."), [(WLUser*)[users lastObject] name]];
+        return [NSString stringWithFormat:WLLS(@"formatted_is_typing"), [(WLUser*)[users lastObject] name]];
     } else if (users.count == 2) {
-        return [NSString stringWithFormat:WLLS(@"%@ and %@ are typing..."), [(WLUser*)users[0] name], [(WLUser*)users[1] name]];
+        return [NSString stringWithFormat:WLLS(@"formatted_and_are_typing"), [(WLUser*)users[0] name], [(WLUser*)users[1] name]];
     } else {
         WLUser* lastUser = [users lastObject];
         NSString* names = [[[[users array] arrayByRemovingObject:lastUser] valueForKey:@"name"] componentsJoinedByString:@", "];
-        return [NSString stringWithFormat:WLLS(@"%@ and %@ are typing..."), names, lastUser.name];
+        return [NSString stringWithFormat:WLLS(@"formatted_and_are_typing"), names, lastUser.name];
     }
 }
 

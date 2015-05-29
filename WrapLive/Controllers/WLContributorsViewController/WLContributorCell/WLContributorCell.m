@@ -46,9 +46,9 @@
 }
 
 - (void)setup:(WLUser*)user {
-	NSString * userNameText = [user isCurrentUser] ? WLLS(@"You") : user.name;
+	NSString * userNameText = [user isCurrentUser] ? WLLS(@"you") : user.name;
 	BOOL isCreator = [self.delegate contributorCell:self isCreator:user];
-	self.nameLabel.text = isCreator ? [NSString stringWithFormat:WLLS(@"%@ (Owner)"), userNameText] : userNameText;
+	self.nameLabel.text = isCreator ? [NSString stringWithFormat:WLLS(@"formatted_owner"), userNameText] : userNameText;
     
     self.phoneLabel.text = user.securePhones;
     

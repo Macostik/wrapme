@@ -43,7 +43,7 @@
 }
 
 + (void)showWithMessage:(NSString *)message {
-    [[[self alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+    [[[self alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:WLLS(@"ok"), nil] show];
 }
 
 - (WLAlertViewCompletion)completion {

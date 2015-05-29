@@ -48,7 +48,7 @@
 		if ([object count]) {
 			[weakSelf.delegate inviteViewController:weakSelf didInviteContact:contact];
         } else {
-            [WLToast showWithMessage:@"This user cannot be invited."];
+            [WLToast showWithMessage:WLLS(@"user_cannot_be_invited")];
         }
         weakSelf.view.userInteractionEnabled = YES;
     } failure:^(NSError *error) {

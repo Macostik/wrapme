@@ -44,7 +44,7 @@
 - (IBAction)done:(WLButton*)sender {
     NSString* name = [self.nameField.text trim];
     if (!name.nonempty) {
-        [WLToast showWithMessage:WLLS(@"Wrap name cannot be blank.")];
+        [WLToast showWithMessage:WLLS(@"wrap_name_cannot_be_blank")];
         return;
     }
     [self.nameField resignFirstResponder];

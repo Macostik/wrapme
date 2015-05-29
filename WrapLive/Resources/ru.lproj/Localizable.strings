@@ -1,130 +1,281 @@
-/* 
-  Localizable.strings
-  WrapLive
+/* (No Commment) */
+"cancel" = "Отмена";
 
-  Created by Oleg Vyshnivetsky on 5/21/14.
-  Copyright (c) 2014 Mobidev. All rights reserved.
-*/
+/* (No Commment) */
+"candy_deleted" = "Фото было успешно удалено.";
 
-"Cannot delete photo not posted by you." = "Нельзя удалить фото размещенное не вами.";
-"Cannot delete chat message already posted." = "Отправленное сообщение нельзя удалить.";
-"You" = "Вы";
-"Edit wrap" = "Редактирование врапа";
-"Write your comment ..." = "Оставьте свой комментарий ...";
-"Delete" = "Удалить";
-"Write your message ..." = "Напишите свое сообщение ...";
-"Chat in %@" = "Чат в %@";
-"Exposure" = "Экспозиция";
-"Focus" = "Сфокусироваться";
-"Leave" = "Покинуть";
-"Confirm your details" = "Подтвердить детали";
-"Edit" = "Редактирование";
-"Yes" = "Да";
-"YES" = "Да";
-"NO" = "Нет";
-"By %@" = "По %@";
-"Posted %@" = "Размещен %@";
-"%d %@%@ ago" = "%d %@%@ назад";
-"Something went wrong..." = "Что-то пошло не так ...";
-"Connection was lost." = "Соединение было потеряно.";
-"International roaming is off." = "Интернаионалльный роуминг выключен.";
-"You don't have contacts with phone numbers on this device." = "Вы не имеете контактов с этим номером на этом устройстве.";
-"You don't have contacts on this device." = "Вы не имеете контактов на этом устройстве.";
-"Access to your Address Book is not granted." = "Доступ к вашей адрессной книги не предоставлен.";
-"On" = "Включено";
-"Auto" = "Автоматически";
-"Off" = "Выключено";
-"Internet connection unavailable" = "Интернет соединение не доступно";
-"View notification" = "Нотификация";
-"Incompleted data can be lost. Do you want to continue?" = "Незавершенные данные могут быть утеряны. Хотите продолжить?";
-"You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?" = "Фото в режиме редактирования и еще не сохранено. Вы уверены, что хотите покинуть данный скрин?";
-"Unsaved photo" ="Не сохраненная фотография";
-"Continue" = "Продолжение";
-"Cancel" = "Отмена";
-"Confirmation resend. Please, check you e-mail." = "Подтверждение повторной отправки. Пожалуйста, проверьте ствою почту";
-"Calling %@ now. Please wait." = "Вызов %@ сейчас. Пожалуйста подождите.";
-"No contact data." = "Нет контактной информации.";
-"You cannot add yourself." = "Вы не можете добавить самого себя.";
-"This contact is already added." = "Этот котакт уже существует.";
-"picture" = "картинка";
-"email" = "почта";
-"phones" = "телефоны";
-"POST" = "ОТПРАВКА";
-"wraps" = "врапы";
-"API environment initialized" = "API установлено";
-"Wrap name cannot be blank." = "Имя врапа не может быть пустым.";
-"users" = "пользователи";
-"Delete wrap" = "Удалить врап";
-"Leave wrap?" = "Покинуть врап?";
-"Are you sure you want to delete the wrap \"%@\"?" = "Вы уверены, что хотитие удалить врап \"%@\"?";
-"Are you sure you want to leave this wrap" = "Вы уверены, что хотите покинуть этот врап?";
-"Wrap is uploading, wait a moment..." = "Врап обновляется, подождите немного ...";
-"Photo is uploading, wait a moment..." = "Фото обновляется, подождите немного ...";
-"Comment is uploading, wait a moment..." = "Комментарий обновляется, подождите немного ...";
-"Delete photo" = "Удалить фотографию";
-"Are you sure you want to delete this photo?" = "Вы уверены, что хотите удалить это фото?";
-"ERROR" = "ОШИБКА";
-"PHOTOS" = "ФОТОГРАФИИ";
-"New version of wrapLive is available" = "Доступна новая версия wrapLive";
-"Update" = "Обновление";
-"Not now" = "Не сейчас";
-"Got new photos? Upload them to your wraps now!" = "Получены новые фотографии? Обновить их в Вашем врапе сейчас!";
-"Upload" = "Загрузка";
-"Your image is invalid. Please, choose another one." = "Ваше фотография не доступна. Пожалуйста, выберите другую.";
-"Your image is too small. Please, choose another one." = "Ваше фотография слишком маленькая. Пожалуйста, выберите другую.";
-"Report" = "Отчет";
-"Candy was deleted successfully." = "Фото было успешно удалено.";
-"This candy is no longer avaliable." = "Это фото больше не доступно.";
-"Your email isn't correct." = "Ваша почта не корректна.";
-"Name connot be blank." = "Имя не может быть пустым.";
-"%@ and %@" = "%@ и %@";
-" and %@" = " и %@";
-"%@ is typing..." = "%@ печатает ...";
-"%@ and %@ are typing..." = "%@ и %@ печатают...";
-"Chat in %@" = "В чате %@";
-"We are sending you an email for confirming your email address now." = "Мы отправили Вам письмо для проверки Вашей почты.";
-"save error" = "сохранение ошибки";
-"in Wrap: \"%@\"" = "в врапе: \"%@\"";
-"Cannot handle remote notification when app is active." = "Нельзя управлять удаленными уведомдениями когда приложение активно.";
-"Data in remote notification is not valid (inactive)." = "Не правильные данные в удаленном уведомлении (неактивные).";
-"Data in remote notification is not valid (background)." = "Не правильные данные в удаленном уведомлении (в фоне).";
-"message received" = "получено сообщение";
-"messages history" = "сообщение истории";
-"connected" = "соединение успешно";
-"connection failed" = "ошибка соединения";
-"subscribed" = "пописался";
-"unsubscribed" = "отписался";
-"disconnected" = "разъединен";
-"enabled APNS" = "APNS включен";
-"removed APNS" = "APNS удален";
-"presence event" = "событие";
-"fresh" = "свежий";
-"newer" = "новее";
-"older" = "старее";
-"You are using %@ v%@" = "Вы используете %@ v%@";
-"\nJenkins build number %d" = "\nJenkins сборка номер %d";
-"Sign Out" = "Выход";
-"Are you sure you want to sign out?" = "Вы уверены, что хотите выйти?";
-"Save" = "Сохранить";
-"%@ made %@" = "%@ сделано %@";
-"%@ uploaded new photo%@" = "%@ Загружно новые фото%@";
-"comments" = "комментарии";
-"a comment" = "комментарий";
-"Downloading the photo now. It will be in \"%@\" album momentarily." = "Идет загрузка фото. Она появится в альбоме \"%@\".";
-"This item is already uploaded." = "Это обновлено уже.";
-"No registered devices" = "Зарегестрированных устройств нету";
-"Terms and Conditions" = "Сроки и условия";
-"You ..." = "Вы ...";
-"Internet connection is not reachable." = "Соединение интернета не дроступно.";
-"last updated %@" = "последнее обновление %@";
-"Wrap %@ is no longer available." = "Врап %@ больше не доступен.";
-"Posted by %@" = "Разместил %@";
-"Photo by %@" = "Разместил %@";
-"Comment" = "Комментарий";
-"1 comment" = "1 комментарий";
-"%i comments" = "%i комментариев";
-"Data is not valid." = "Данные не валидны.";
-"Sorry you can't chat when internet connection is unavailable. Please try again later." = "К сожалению, Вы не можете отправлять сообщения когда нету интернета. Попробуйте немного позже.";
-"Sorry, you cannot upload more than 10 pictures at a time" = "Извените, Вы не можете загрузить больше 10 фотографий сразу";
-"No internet connections available. Please try downloading it later." = "Интернет не доступен. Попытайтесь скачать позже, пожалуйста.";
-"verification email %@" = "Подтвердите Вашу почту %@ чтобы помочь обезопасить Ваш аккаунт.";
+/* (No Commment) */
+"candy_unavailable" = "Это фото больше не доступно.";
+
+/* (No Commment) */
+"cannot_add_yourself" = "Вы не можете добавить самого себя.";
+
+/* (No Commment) */
+"capitalized_no" = "Нет";
+
+/* (No Commment) */
+"capitalized_yes" = "Да";
+
+/* (No Commment) */
+"comment" = "Комментарий";
+
+/* (No Commment) */
+"comment_is_uploading" = "Комментарий обновляется, подождите немного ...";
+
+/* (No Commment) */
+"comment_placeholder" = "Оставьте свой комментарий ...";
+
+/* (No Commment) */
+"confirmation_resend" = "Подтверждение повторной отправки. Пожалуйста, проверьте ствою почту";
+
+/* (No Commment) */
+"connection_was_lost" = "Соединение было потеряно.";
+
+/* (No Commment) */
+"continue" = "Продолжить";
+
+/* (No Commment) */
+"data_invalid" = "Данные не валидны.";
+
+/* (No Commment) */
+"delete" = "Удалить";
+
+/* (No Commment) */
+"delete_photo" = "Удалить фотографию";
+
+/* (No Commment) */
+"delete_photo_confirmation" = "Вы уверены, что хотите удалить это фото?";
+
+/* (No Commment) */
+"delete_wrap" = "Удалить врап";
+
+/* (No Commment) */
+"delete_wrap_success" = "Врап был успешно удален.";
+
+/* (No Commment) */
+"downloading_internet_connection_error" = "Интернет не доступен. Попытайтесь скачать позже, пожалуйста.";
+
+/* (No Commment) */
+"downloading_photo" = "Идет загрузка фото. Она появится в альбоме ";
+
+/* (No Commment) */
+"downloading_privacy_settings" = "Чтобы разрешить доступ к фотографиям проверьте настройки конфиденциальности приложения.";
+
+/* (No Commment) */
+"email_account_setup" = "Пожайлуйста, настройте почтовый клиент на этом устройстве.";
+
+/* (No Commment) */
+"engagement_notification_alert" = "Получены новые фотографии? Обновить их в Вашем врапе сейчас!";
+
+/* (No Commment) */
+"formatted_about_message" = "Вы используете %@v%@Сборка %@";
+
+/* (No Commment) */
+"formatted_and_are_typing" = "%@ и %@ печатают...";
+
+/* (No Commment) */
+"formatted_calling_now" = "Вызов %@ сейчас. Пожалуйста подождите.";
+
+/* (No Commment) */
+"formatted_chat_in" = "Чат в %@";
+
+/* (No Commment) */
+"formatted_comments" = "%i комментариев";
+
+/* (No Commment) */
+"formatted_delete_wrap_confirmation" = "Вы уверены, что хотитие удалить врап ";
+
+/* (No Commment) */
+"formatted_edited_by" = "Отредактировал %@";
+
+/* (No Commment) */
+"formatted_is_typing" = "%@ печатает ...";
+
+/* (No Commment) */
+"formatted_owner" = "%@ (Владелец)";
+
+/* (No Commment) */
+"formatted_photo_by" = "Разместил %@";
+
+/* (No Commment) */
+"formatted_verification_email_text" = "Подтвердите Вашу почту %@ чтобы помочь обезопасить Ваш аккаунт.";
+
+/* (No Commment) */
+"formatted_wrap_unavailable" = "Врап %@ больше не доступен.";
+
+/* (No Commment) */
+"incorrect_email" = "Ваша почта не корректна.";
+
+/* (No Commment) */
+"invalid_image_error" = "Ваше фотография не доступна. Пожалуйста, выберите другую.";
+
+/* (No Commment) */
+"leave" = "Покинуть";
+
+/* (No Commment) */
+"leave_screen_on_editing" = "Фото в режиме редактирования и еще не сохранено. Вы уверены, что хотите покинуть данный скрин?";
+
+/* (No Commment) */
+"leave_wrap" = "Покинуть врап?";
+
+/* (No Commment) */
+"leave_wrap_confirmation" = "Вы уверены, что хотите покинуть этот врап?";
+
+/* (No Commment) */
+"mail_sent" = "Письмо отправлено.Спасибо Вам за помощь!";
+
+/* (No Commment) */
+"message_placeholder" = "Напишите свое сообщение ...";
+
+/* (No Commment) */
+"name_cannot_be_blank" = "Имя не может быть пустым.";
+
+/* (No Commment) */
+"new_version_is_available" = "Доступна новая версия wrapLive";
+
+/* (No Commment) */
+"no_access_to_contacts" = "Доступ к вашей адрессной книги не предоставлен.";
+
+/* (No Commment) */
+"no_contacts" = "Вы не имеете контактов на этом устройстве.";
+
+/* (No Commment) */
+"no_contacts_with_phone_number" = "У Вас нет контактов с номером телефона на этом устройстве.";
+
+/* (No Commment) */
+"no_devices" = "Зарегестрированных устройств нету";
+
+/* (No Commment) */
+"not_now" = "Не сейчас";
+
+/* (No Commment) */
+"ok" = "OK";
+
+/* (No Commment) */
+"one_comment" = "1 комментарий";
+
+/* (No Commment) */
+"photo_is_uploading" = "Фото обновляется, подождите немного ...";
+
+/* (No Commment) */
+"remote_notification_when_app_is_active_error" = "Нельзя управлять удаленными уведомдениями когда приложение активно.";
+
+/* (No Commment) */
+"report" = "Отчет";
+
+/* (No Commment) */
+"roaming_is_off" = "Международный роуминг выключен.";
+
+/* (No Commment) */
+"sending_confirming_email" = "Мы отправили Вам письмо для проверки Вашей почты.";
+
+/* (No Commment) */
+"sign_out" = "Выход";
+
+/* (No Commment) */
+"sign_out_confirmation" = "Вы уверены, что хотите выйти?";
+
+/* (No Commment) */
+"terms_and_conditions" = "Сроки и условия";
+
+/* (No Commment) */
+"too_small_image_error" = "Ваше фотография слишком маленькая. Пожалуйста, выберите другую.";
+
+/* (No Commment) */
+"unsaved_photo" = "Не сохраненная фотография";
+
+/* (No Commment) */
+"update" = "Обновление";
+
+/* (No Commment) */
+"upload" = "Загрузка";
+
+/* (No Commment) */
+"upload_photos_limit_error" = "Извините, Вы не можете загрузить больше 10 фотографий сразу";
+
+/* (No Commment) */
+"uppercase_no" = "Нет";
+
+/* (No Commment) */
+"uppercase_yes" = "Да";
+
+/* (No Commment) */
+"user_cannot_be_invited" = "Этот пользователь не может быть приглашен.";
+
+/* (No Commment) */
+"wrap_is_uploading" = "Врап обновляется, подождите немного ...";
+
+/* (No Commment) */
+"wrap_name_cannot_be_blank" = "Имя врапа не может быть пустым.";
+
+/* (No Commment) */
+"you" = "Вы";
+
+/* (No Commment) */
+"minute" = "минута";
+
+/* (No Commment) */
+"hour" = "час";
+
+/* (No Commment) */
+"day" = "день";
+
+/* (No Commment) */
+"week" = "неделя";
+
+/* (No Commment) */
+"month" = "месяц";
+
+/* (No Commment) */
+"year" = "год";
+
+/* (No Commment) */
+"less_than_minute_ago" = "меньше минуты назад";
+
+/* (No Commment) */
+"yesterday" = "вчера";
+
+/* (No Commment) */
+"today" = "сегодня";
+
+/* (No Commment) */
+"formatted_day_at_time" = "%@ в %@";
+
+/* (No Commment) */
+"formatted_calendar_units_ago_at_time" = "%.f %@ назад в %@";
+
+/* (No Commment) */
+"formatted_calendar_units_ago" = "%.f %@%@ назад";
+
+/* (No Commment) */
+"at" = "в";
+
+"plural_ending" = "";
+
+"FRIENDS_ON_WRAPLIVE" = "ДРУЗЬЯ В WRAPLIVE";
+
+"INVITE_TO_WRAPLIVE" = "ПРИГЛАСИТЬ В WRAPLIVE";
+
+"APNS_TT01" = "Вы приглашены!";
+
+"APNS_MSG01" = "%@ пригласил Вас в '%@'. Добавляйте свои фото и веселитесь!";
+
+"APNS_TT02" = "%@";
+
+"APNS_MSG02" = "%@ добавил новое фото. Посмотрите!";
+
+"APNS_TT03" = "%@ написал:";
+
+"APNS_MSG03" = "%@";
+
+"APNS_TT04" = "%@:";
+
+"APNS_MSG04" = "'%@' в '%@'";
+
+"APNS_TT05" = "%@";
+
+"APNS_MSG05" = "%@ отредактировал фото. Посмотрите!";
+
+"APNS_TT06" = "wrapLive обновил версию";
+
+"APNS_MSG06" = "Скачайте ее сейчас!";

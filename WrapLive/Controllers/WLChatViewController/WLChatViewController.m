@@ -115,11 +115,11 @@ CGFloat WLMaxTextViewWidth;
     
 	__weak typeof(self)weakSelf = self;
     [self.wrap fetchIfNeeded:^(id object) {
-        weakSelf.titleLabel.text = [NSString stringWithFormat:WLLS(@"Chat in %@"), WLString(weakSelf.wrap.name)];
+        weakSelf.titleLabel.text = [NSString stringWithFormat:WLLS(@"formatted_chat_in"), WLString(weakSelf.wrap.name)];
     } failure:^(NSError *error) {
     }];
 	
-	self.composeBar.placeholder = WLLS(@"Write your message ...");
+	self.composeBar.placeholder = WLLS(@"message_placeholder");
     self.chat = [WLChat chatWithWrap:self.wrap];
     self.chat.delegate = self;
 

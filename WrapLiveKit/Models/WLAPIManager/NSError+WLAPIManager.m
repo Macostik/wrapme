@@ -41,14 +41,6 @@ static NSDictionary *errorsToIgnore = nil;
 }
 
 - (void)show {
-	[self showWithTitle:WLLS(@"Something went wrong...")];
-}
-
-- (void)showWithTitle:(NSString *)title {
-	[self showWithTitle:title callback:nil];
-}
-
-- (void)showWithTitle:(NSString *)title callback:(void (^)(void))callback {
 	if (![self ignore]) {
         WLFailureBlock showErrorBlock = [WLAPIManager manager].showErrorBlock;
         if (showErrorBlock) {
@@ -90,8 +82,8 @@ static NSDictionary *customErrorMessages = nil;
 
 + (NSDictionary*)customErrorMessages {
 	if (!customErrorMessages) {
-		customErrorMessages = @{NSURLErrorDomain:@{@(NSURLErrorTimedOut):WLLS(@"Connection was lost."),
-												   @(NSURLErrorInternationalRoamingOff):WLLS(@"International roaming is off.")}};
+		customErrorMessages = @{NSURLErrorDomain:@{@(NSURLErrorTimedOut):WLLS(@"connection_was_lost"),
+												   @(NSURLErrorInternationalRoamingOff):WLLS(@"roaming_is_off")}};
 	}
 	return customErrorMessages;
 }
@@ -105,18 +97,6 @@ static NSDictionary *customErrorMessages = nil;
 	} else {
 		return nil;
 	}
-}
-
-- (void)log {
-	[self log:WLLS(@"Something went wrong...")];
-}
-
-- (void)log:(NSString *)label {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if (![self ignore]) {
-            WLLog(@"ERROR",label, self);
-        }
-	});
 }
 
 - (BOOL)isError:(WLErrorCode)code {

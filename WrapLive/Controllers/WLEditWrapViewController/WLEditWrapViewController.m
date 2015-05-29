@@ -12,10 +12,6 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLToast.h"
 
-static NSString *const WLDelete = @"Delete";
-static NSString *const WLReport = @"Report";
-static NSString *const WLLeave = @"Leave";
-
 @interface WLEditWrapViewController () <WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameWrapTextField;
@@ -32,7 +28,7 @@ static NSString *const WLLeave = @"Leave";
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
     
     [self.nameWrapTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
-    [self.deleteButton setTitle:self.wrap.deletable ? WLLS(WLDelete) : WLLS(WLLeave) forState:UIControlStateNormal];
+    [self.deleteButton setTitle:self.wrap.deletable ? WLLS(@"delete") : WLLS(@"leave") forState:UIControlStateNormal];
     self.nameWrapTextField.enabled = self.wrap.deletable;
     
     [[WLWrap notifier] addReceiver:self];
@@ -62,7 +58,7 @@ static NSString *const WLLeave = @"Leave";
     if (self.wrap.deletable) {
         [self.wrap remove:^(id object) {
             weakSelf.deleteButton.loading = NO;
-            [WLToast showWithMessage:WLLS(@"Wrap was deleted successfully.")];
+            [WLToast showWithMessage:WLLS(@"delete_wrap_success")];
             [weakSelf.presentingViewController dismissViewControllerAnimated:NO completion:nil];
         } failure:^(NSError *error) {
             if ([error isError:WLErrorActionCancelled]) {
@@ -113,7 +109,7 @@ static NSString *const WLLeave = @"Leave";
 - (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     NSString *name = [self.nameWrapTextField.text trim];
     if (!name.nonempty) {
-        if (failure) failure([NSError errorWithDescription:WLLS(@"Wrap name cannot be blank.")]);
+        if (failure) failure([NSError errorWithDescription:WLLS(@"wrap_name_cannot_be_blank")]);
     } else {
         if (success) success(nil);
     }

@@ -26,12 +26,12 @@
     NSString* appName = [info objectForKey:@"CFBundleDisplayName"]?:@"wrapLive";
     NSString* version = [info objectForKey:@"CFBundleShortVersionString"];
     NSString* build = [info objectForKey:(id)kCFBundleVersionKey];
-    NSString *message = [NSString stringWithFormat:WLLS(@"You are using %@\nv%@\nBuild %@"), appName, version, build];
+    NSString *message = [NSString stringWithFormat:WLLS(@"formatted_about_message"), appName, version, build];
     [UIAlertView showWithMessage:message];
 }
 
 - (IBAction)signOut:(id)sender {
-    [UIAlertView showWithTitle:WLLS(@"Sign Out") message:WLLS(@"Are you sure you want to sign out?") action:WLLS(@"YES") cancel:WLLS(@"NO") completion:^{
+    [UIAlertView showWithTitle:WLLS(@"sign_out") message:WLLS(@"sign_out_confirmation") action:WLLS(@"uppercase_yes") cancel:WLLS(@"uppercase_no") completion:^{
         [[WLNotificationCenter defaultCenter] clear];
         [WLSession clear];
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];

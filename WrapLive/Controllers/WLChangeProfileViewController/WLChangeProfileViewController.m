@@ -95,7 +95,7 @@
 - (IBAction)resendEmailConfirmation:(UIButton*)sender {
     sender.userInteractionEnabled = NO;
     [[WLResendConfirmationRequest request] send:^(id object) {
-        [WLToast showWithMessage:WLLS(@"Confirmation resend. Please, check you e-mail.")];
+        [WLToast showWithMessage:WLLS(@"confirmation_resend")];
         sender.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;
@@ -107,9 +107,9 @@
 - (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     NSString* email = self.editSession.email;
     if (![email isValidEmail]) {
-        if (failure) failure([NSError errorWithDescription:WLLS(@"Your email isn't correct.")]);
+        if (failure) failure([NSError errorWithDescription:WLLS(@"incorrect_email")]);
     } else if (!self.editSession.name.nonempty) {
-        if (failure) failure([NSError errorWithDescription:WLLS(@"Name connot be blank.")]);
+        if (failure) failure([NSError errorWithDescription:WLLS(@"name_cannot_be_blank")]);
     } else {
         if (success) success(nil);
     }

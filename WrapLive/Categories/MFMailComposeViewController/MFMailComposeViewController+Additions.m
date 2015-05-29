@@ -33,7 +33,7 @@
         [mc setToRecipients:toRecipents];
         [[UINavigationController topViewController] presentViewController:mc animated:YES completion:NULL];
     } else {
-        [WLToast showWithMessage:@"Please set up Email account on your device."];
+        [WLToast showWithMessage:WLLS(@"email_account_setup")];
     }
 }
 
@@ -41,7 +41,7 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
 	if (result == MFMailComposeResultSent) {
-		[WLToast showWithMessage:@"Mail sent.\nThank you for your help!"];
+		[WLToast showWithMessage:WLLS(@"mail_sent")];
 	}
 	[self dismissViewControllerAnimated:YES completion:NULL];
 }

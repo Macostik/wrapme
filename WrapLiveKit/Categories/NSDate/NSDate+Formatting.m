@@ -36,7 +36,6 @@ static NSMutableDictionary* formatters = nil;
     if (!formatter) {
         formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = format;
-		formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
         [formatter setAMSymbol:@"am"];
         [formatter setPMSymbol:@"pm"];
         [formatters setObject:formatter forKey:format];

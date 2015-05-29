@@ -32,7 +32,7 @@
     }
     
     if (![viewControllers count]) {
-        [WLToast showWithMessage:WLLS(@"Data is not valid.")];
+        [WLToast showWithMessage:WLLS(@"data_invalid")];
     }
     
     return [[[viewControllers reverseObjectEnumerator] allObjects] mutableCopy];

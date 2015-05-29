@@ -138,10 +138,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (void)setupBottomViewModeRelatedData:(WLHistoryBottomViewMode)bottomViewMode candy:(WLCandy*)candy {
     if (bottomViewMode == WLHistoryBottomViewModeEditing && candy.editor != nil) {
-        self.postLabel.text = [NSString stringWithFormat:WLLS(@"Edited by %@"), candy.editor.name];
+        self.postLabel.text = [NSString stringWithFormat:WLLS(@"formatted_edited_by"), candy.editor.name];
         self.timeLabel.text = [candy.editedAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
     } else {
-        self.postLabel.text = [NSString stringWithFormat:WLLS(@"Photo by %@"), candy.contributor.name];
+        self.postLabel.text = [NSString stringWithFormat:WLLS(@"formatted_photo_by"), candy.contributor.name];
         self.timeLabel.text = [candy.createdAt.timeAgoStringAtAMPM stringByCapitalizingFirstCharacter];
     }
 }
@@ -282,11 +282,11 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)setCommentButtonTitle:(WLCandy *)candy {
-    NSString *title = WLLS(@"Comment");
+    NSString *title = WLLS(@"comment");
     if (candy.commentCount == 1) {
-        title = WLLS(@"1 comment");
+        title = WLLS(@"one_comment");
     } else if (candy.commentCount > 1){
-        title = [NSString stringWithFormat:WLLS(@"%i comments"), (int)candy.commentCount];
+        title = [NSString stringWithFormat:WLLS(@"formatted_comments"), (int)candy.commentCount];
     }
     [self.commentButton setTitle:title forState:UIControlStateNormal];
 }
@@ -357,10 +357,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         [receiver setDeletedBlock:^(WLCandy *candy) {
             if (candy == weakSelf.candy) {
                 if (weakSelf.removedCandy == candy) {
-                    [WLToast showWithMessage:WLLS(@"Candy was deleted successfully.")];
+                    [WLToast showWithMessage:WLLS(@"candy_deleted")];
                     weakSelf.removedCandy = nil;
                 } else {
-                    [WLToast showWithMessage:WLLS(@"This candy is no longer avaliable.")];
+                    [WLToast showWithMessage:WLLS(@"candy_unavailable")];
                 }
                 WLCandy *nextCandy = [weakSelf candyAfterDeletingCandy:candy];
                 if (nextCandy) {

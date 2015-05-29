@@ -188,9 +188,9 @@ static NSUInteger WLAssetNumberOfColumns = 4;
 - (void)selectAsset:(ALAsset *)asset {
     CGSize size = asset.defaultRepresentation.dimensions;
     if (size.width == 0 && size.height == 0) {
-        [WLToast showWithMessage:WLLS(@"Your image is invalid. Please, choose another one.")];
+        [WLToast showWithMessage:WLLS(@"invalid_image_error")];
     } else if (size.width < 100 || size.height < 100) {
-        [WLToast showWithMessage:WLLS(@"Your image is too small. Please, choose another one.")];
+        [WLToast showWithMessage:WLLS(@"too_small_image_error")];
     } else {
         if (self.mode == WLStillPictureModeDefault) {
             if ([self.selectedAssets containsObject:asset]) {
@@ -198,7 +198,7 @@ static NSUInteger WLAssetNumberOfColumns = 4;
             } else if (self.selectedAssets.count < WLAssetsSelectionLimit) {
                 [self.selectedAssets addObject:asset];
             } else {
-                [WLToast showWithMessage:WLLS(@"Sorry, you cannot upload more than 10 pictures at a time")];
+                [WLToast showWithMessage:WLLS(@"upload_photos_limit_error")];
             }
             [UIView beginAnimations:nil context:nil];
             [UIView setAnimationBeginsFromCurrentState:YES];

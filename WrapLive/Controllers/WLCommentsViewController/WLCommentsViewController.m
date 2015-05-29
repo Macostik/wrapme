@@ -40,7 +40,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     if  (!self.candy.valid) return;
-    self.composeBar.placeholder = WLLS(@"Write your comment ...");
+    self.composeBar.placeholder = WLLS(@"comment_placeholder");
     self.refresher = [WLRefresher refresher:self.collectionView target:self
                                      action:@selector(refresh:)
                                       style:WLRefresherStyleWhite_Clear];

@@ -115,7 +115,7 @@
 
 - (NSString *)contributorNamesWithYouAndAmount:(NSInteger)numberOfUsers {
     NSMutableOrderedSet *contributors = self.contributors;
-    if (contributors.count <= 1 || numberOfUsers == 0) return WLLS(@"You");
+    if (contributors.count <= 1 || numberOfUsers == 0) return WLLS(@"you");
     NSMutableString* names = [NSMutableString string];
     NSUInteger i = 0;
     for (WLUser *contributor in contributors) {
@@ -125,11 +125,11 @@
                 ++i;
             }
         } else {
-            [names appendString:WLLS(@"You ...")];
+            [names appendFormat:@"%@ ...", WLLS(@"you")];
             return names;
         }
     }
-    [names appendString:WLLS(@"You")];
+    [names appendString:WLLS(@"you")];
     return names;
 }
 

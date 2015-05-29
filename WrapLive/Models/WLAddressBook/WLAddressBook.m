@@ -139,7 +139,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                                 if (contacts.nonempty) {
                                     if (success) success([contacts copy]);
                                 } else {
-                                    if (failure) failure([NSError errorWithDescription:WLLS(@"You don't have contacts with phone numbers on this device.")]);
+                                    if (failure) failure([NSError errorWithDescription:WLLS(@"no_contacts_with_phone_number")]);
                                 }
                                 [operation finish];
                             });
@@ -151,7 +151,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
             if (records != NULL) {
                 CFRelease(records);
             }
-            if (failure) failure([NSError errorWithDescription:WLLS(@"You don't have contacts on this device.")]);
+            if (failure) failure([NSError errorWithDescription:WLLS(@"no_contacts")]);
             [operation finish];
         }
     });
@@ -173,7 +173,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                 } else if (granted) {
                     if (success) success(addressBook);
                 } else {
-                    if (failure) failure([NSError errorWithDescription:WLLS(@"Access to your Address Book is not granted.")]);
+                    if (failure) failure([NSError errorWithDescription:WLLS(@"no_access_to_contacts")]);
                 }
                 [operation finish];
             });

@@ -80,7 +80,7 @@
 + (NSAttributedString *)attributedVerificationSuggestion {
     NSString *email = [[self currentAuthorization] unconfirmed_email];
     NSMutableAttributedString *emailVerificationString = [[NSMutableAttributedString alloc] initWithString:
-                                                          [[NSString alloc] initWithFormat:WLLS(@"verification email %@"), email]];
+                                                          [[NSString alloc] initWithFormat:WLLS(@"formatted_verification_email_text"), email]];
     NSRange fullRange = NSMakeRange(0, emailVerificationString.length);
     NSRange bitRange = [emailVerificationString.string rangeOfString:email];
     [emailVerificationString setAttributes:@{NSFontAttributeName:[UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetXSmall]}

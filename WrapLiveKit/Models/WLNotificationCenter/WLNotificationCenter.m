@@ -320,7 +320,7 @@
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
     
     if (state == UIApplicationStateActive) {
-        if (failure) failure([NSError errorWithDescription:WLLS(@"Cannot handle remote notification when app is active.")]);
+        if (failure) failure([NSError errorWithDescription:WLLS(@"remote_notification_when_app_is_active_error")]);
     } else {
         WLNotification* notification = [WLNotification notificationWithData:data];
         WLLog(@"PUBNUB", @"received APNS", data);

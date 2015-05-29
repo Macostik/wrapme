@@ -254,11 +254,11 @@
 @implementation WLToast (DefinedToasts)
 
 + (void)showPhotoDownloadingMessage {
-    [self showWithMessage:[NSString stringWithFormat:WLLS(@"Downloading the photo now. It will be in \"%@\" album momentarily."), WLAlbumName]];
+    [self showWithMessage:[NSString stringWithFormat:WLLS(@"downloading_photo"), WLAlbumName]];
 }
 
 + (void)showMessageForUnavailableWrap:(WLWrap *)wrap {
-    [self showWithMessage:[NSString stringWithFormat:WLLS(@"Wrap %@ is no longer available."), WLString(wrap.name)]];
+    [self showWithMessage:[NSString stringWithFormat:WLLS(@"formatted_wrap_unavailable"), WLString(wrap.name)]];
 }
 
 @end

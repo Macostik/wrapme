@@ -50,9 +50,9 @@
 
 - (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
     if (!completion) return;
-    [WLAlertView showWithTitle:WLLS(@"Unsaved photo")
-                       message:WLLS(@"You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?")
-                       buttons:@[WLLS(@"Cancel"),WLLS(@"Continue")]
+    [WLAlertView showWithTitle:WLLS(@"unsaved_photo")
+                       message:WLLS(@"leave_screen_on_editing")
+                       buttons:@[WLLS(@"cancel"),WLLS(@"continue")]
                     completion:^(NSUInteger index) {
                         completion(index == 1);
                     }];

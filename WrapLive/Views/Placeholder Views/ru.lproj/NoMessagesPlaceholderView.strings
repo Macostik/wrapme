@@ -1,3 +1,3 @@
-
-/* Class = "IBUILabel"; text = "No messages today."; ObjectID = "V7x-T0-suZ"; */
+/* Class = "UILabel"; text = "No messages today."; ObjectID = "V7x-T0-suZ"; */
 "V7x-T0-suZ.text" = "Сегодня уведомлений нет";
+

@@ -1,66 +1,104 @@
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "0Rx-X7-5Up"; */
+"0Rx-X7-5Up.normalTitle" = "Далее";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "2Lq-nT-Bu5"; */
+"2Lq-nT-Bu5.normalTitle" = "Далее";
+
+/* Class = "UILabel"; text = "We are sending you a passcode through e-mail and phone..."; ObjectID = "3SS-8p-5Y2"; */
+"3SS-8p-5Y2.text" = "Мы отравили Вам код на почту и телефон...";
 
 /* Class = "UILabel"; text = "Select your country"; ObjectID = "5MV-3s-wuD"; */
 "5MV-3s-wuD.text" = "Выберите свою страну";
 
-/* Class = "UILabel"; text = "Haven't received the SMS?"; ObjectID = "6x3-Il-k4e"; */
+/* (No Commment) */
 "6x3-Il-k4e.text" = "Не приходит SMS?";
+
+/* Class = "UITextField"; placeholder = "Your name"; ObjectID = "7e9-qT-sff"; */
+"7e9-qT-sff.placeholder" = "Ваше имя";
 
 /* Class = "UILabel"; text = "The phone number is verified successfully!"; ObjectID = "8j1-H5-7Co"; */
 "8j1-H5-7Co.text" = "Номер телефона подтвержден успешно!";
 
-/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "9Pv-aD-dP3"; */
+/* (No Commment) */
 "9Pv-aD-dP3.normalTitle" = "Далее";
 
-/* Class = "UITextField"; placeholder = "Passcode"; ObjectID = "9tR-2B-Ymo"; */
+/* (No Commment) */
 "9tR-2B-Ymo.placeholder" = "Пароль";
 
-/* Class = "UITextField"; placeholder = "Verification code"; ObjectID = "B2D-li-Al0"; */
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "59A-fh-MwM"; */
+"59A-fh-MwM.normalTitle" = "Далее";
+
+/* (No Commment) */
 "B2D-li-Al0.placeholder" = "Код подтверждения";
 
-/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "HI0-ff-mXa"; */
+/* Class = "UIButton"; normalTitle = "Use another phone number"; ObjectID = "Bx6-G7-X4j"; */
+"Bx6-G7-X4j.normalTitle" = "Использовать другой номер телефона";
+
+/* (No Commment) */
 "HI0-ff-mXa.normalTitle" = "Далее";
 
-/* Class = "UITextField"; placeholder = "Your name"; ObjectID = "HcW-vf-tjk"; */
+/* (No Commment) */
 "HcW-vf-tjk.placeholder" = "Ваше имя";
 
 /* Class = "UILabel"; text = "You have linked this device to your wrapLive account. Enjoy!"; ObjectID = "Itw-PI-Mz8"; */
 "Itw-PI-Mz8.text" = "Вы присоединили это устройство к Вашему wrapLive аккаунту. Наслаждайтесь!";
 
-/* Class = "UIButton"; normalTitle = "Use test account"; ObjectID = "Km1-Wj-3a4"; */
+/* Class = "UILabel"; text = "Edit your profile"; ObjectID = "JDb-jD-Zkt"; */
+"JDb-jD-Zkt.text" = "Редактировать профиль";
+
+/* (No Commment) */
 "Km1-Wj-3a4.normalTitle" = "Use test account";
 
-/* Class = "UILabel"; text = "Edit your profile"; ObjectID = "LYr-tm-LJf"; */
+/* (No Commment) */
 "LYr-tm-LJf.text" = "Отредактируйте свой профиль";
 
-/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "OCh-KP-hoQ"; */
+/* (No Commment) */
 "OCh-KP-hoQ.normalTitle" = "Далее";
 
-/* Class = "UIButton"; normalTitle = "Select Country"; ObjectID = "Pla-to-4nx"; */
+/* (No Commment) */
 "Pla-to-4nx.normalTitle" = "Выберите страну";
 
-/* Class = "UILabel"; text = "wrapLive will send one time SMS message to verify your phone number. Carrier SMS charges may apply."; ObjectID = "RcF-WP-Qlr"; */
+/* (No Commment) */
 "RcF-WP-Qlr.text" = "wrapLive отправит одноразовое SMS-сообщение, чтобы подтвердить Ваш номер. Могут потребоватся расходы, установленные SMS-провайдером.";
 
-/* Class = "UIButton"; normalTitle = "Use another phone number"; ObjectID = "T4H-t0-WgJ"; */
+/* Class = "UIButton"; normalTitle = "Try the voice call option"; ObjectID = "Rvs-HT-UrH"; */
+"Rvs-HT-UrH.normalTitle" = "Использовать голосовой звонок";
+
+/* (No Commment) */
 "T4H-t0-WgJ.normalTitle" = "Использовать другой номер телефона";
 
 /* Class = "UILabel"; text = "is confirmed successfully!"; ObjectID = "Vxz-ag-TOf"; */
 "Vxz-ag-TOf.text" = "успешно подтвержден!";
 
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "X8h-Le-1RA"; */
+"X8h-Le-1RA.normalTitle" = "Далее";
+
 /* Class = "UIButton"; normalTitle = "Terms and Conditions"; ObjectID = "YBa-zu-GaJ"; */
 "YBa-zu-GaJ.normalTitle" = "Сроки и условия";
+
+/* Class = "UITextField"; placeholder = "Passcode"; ObjectID = "YRq-AS-iKU"; */
+"YRq-AS-iKU.placeholder" = "Пароль";
 
 /* Class = "UIButton"; normalTitle = "Next"; ObjectID = "Zwb-OE-87q"; */
 "Zwb-OE-87q.normalTitle" = "Далее";
 
-/* Class = "UIButton"; normalTitle = "Try the voice call option"; ObjectID = "a3e-r8-TjK"; */
+/* Class = "UILabel"; text = "We are sending you a 4-digit code. Enter it above to verify your phone number."; ObjectID = "a1z-Vo-fE0"; */
+"a1z-Vo-fE0.text" = "Мы отправляем Вам 4-х значный код. Введите его ниже для подтверждения Вашего номера";
+
+/* (No Commment) */
 "a3e-r8-TjK.normalTitle" = "Использовать голосовой звонок";
+
+/* Class = "UILabel"; text = "What is your phone number?"; ObjectID = "b75-OF-Awx"; */
+"b75-OF-Awx.text" = "Кокой у Вас номер телефона?";
 
 /* Class = "UILabel"; text = "Country"; ObjectID = "cKx-Py-m2B"; */
 "cKx-Py-m2B.text" = "Страна";
 
-/* Class = "UILabel"; text = "We are sending you a 4-digit code. Enter it above to verify your phone number."; ObjectID = "cP5-dA-Wip"; */
+/* (No Commment) */
 "cP5-dA-Wip.text" = "Мы отправляем Вам 4-х значный код. Введите его ниже для подтверждения Вашего номера";
+
+/* Class = "UIButton"; normalTitle = "Finish"; ObjectID = "cr9-5f-gle"; */
+"cr9-5f-gle.normalTitle" = "Завершить";
 
 /* Class = "UIButton"; normalTitle = "Use another e-mail"; ObjectID = "dM9-5p-U8h"; */
 "dM9-5p-U8h.normalTitle" = "Использовать другой почтовый адрес";
@@ -68,41 +106,66 @@
 /* Class = "UILabel"; text = "We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue"; ObjectID = "dRx-kr-5xI"; */
 "dRx-kr-5xI.text" = "Нам необходимо проверить Вашу почту, прежде чем будет добывлено устройство к аккаунту. Пожалуйста, перейдите по ссылке для продолжения";
 
-/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "erk-mO-XXr"; */
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "e0l-0g-x0j"; */
+"e0l-0g-x0j.normalTitle" = "Далее";
+
+/* (No Commment) */
 "erk-mO-XXr.normalTitle" = "Далее";
 
-/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "k1E-PN-xcp"; */
+/* Class = "UILabel"; text = "What is your email?"; ObjectID = "fKc-pu-juY"; */
+"fKc-pu-juY.text" = "Какая у Вас почта?";
+
+/* Class = "UILabel"; text = "wrapLive will send one time SMS message to verify your phone number. Carrier SMS charges may apply."; ObjectID = "jGq-WB-mde"; */
+"jGq-WB-mde.text" = "wrapLive отправит одноразовое SMS-сообщение, чтобы подтвердить Ваш номер. Могут потребоватся расходы, установленные SMS-провайдером.";
+
+/* (No Commment) */
 "k1E-PN-xcp.normalTitle" = "Далее";
+
+/* Class = "UITextField"; placeholder = "Verification code"; ObjectID = "lc0-Sk-CJb"; */
+"lc0-Sk-CJb.placeholder" = "Код подтверждения";
 
 /* Class = "UIButton"; normalTitle = "Resend the e-mail"; ObjectID = "oIH-Zc-2Z8"; */
 "oIH-Zc-2Z8.normalTitle" = "Переотправить письмо";
 
-/* Class = "UILabel"; text = "We are sending you a passcode through e-mail and phone..."; ObjectID = "otQ-7a-PwI"; */
+/* (No Commment) */
 "otQ-7a-PwI.text" = "Мы отравили Вам код на почту и телефон...";
 
-/* Class = "UILabel"; text = "What is your phone number?"; ObjectID = "pmp-Nw-u2O"; */
+/* (No Commment) */
 "pmp-Nw-u2O.text" = "Кокой у Вас номер телефона?";
 
-/* Class = "UILabel"; text = "The passcode is required to link this device to your wrapLive account. Enter it below when you receive it."; ObjectID = "q2s-IS-vfL"; */
+/* (No Commment) */
 "q2s-IS-vfL.text" = "Пароль необходим, чтобы присоединить это устройство к wrapLive аккаунту. Введите его ниже, когда получите.";
 
 /* Class = "UILabel"; text = "Successful!"; ObjectID = "qCY-vc-S18"; */
 "qCY-vc-S18.text" = "Успешно!";
 
-/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "rfv-V8-vOc"; */
+/* Class = "UILabel"; text = "Haven't received the SMS?"; ObjectID = "r04-q5-jeO"; */
+"r04-q5-jeO.text" = "Не приходит SMS?";
+
+/* (No Commment) */
 "rfv-V8-vOc.normalTitle" = "Далее";
 
-/* Class = "UIButton"; normalTitle = "Finish"; ObjectID = "rzT-No-Yli"; */
+/* (No Commment) */
 "rzT-No-Yli.normalTitle" = "Завершить";
 
 /* Class = "UILabel"; text = "The verification code is not valid."; ObjectID = "sFh-WJ-4GR"; */
 "sFh-WJ-4GR.text" = "Код подтверждения неверный.";
 
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "sze-nv-qGE"; */
+"sze-nv-qGE.normalTitle" = "Далее";
+
+/* Class = "UIButton"; normalTitle = "Select Country"; ObjectID = "tHE-KW-9HQ"; */
+"tHE-KW-9HQ.normalTitle" = "Выберите страну";
+
 /* Class = "UIButton"; normalTitle = "Edit phone number"; ObjectID = "uIo-Dt-OO6"; */
 "uIo-Dt-OO6.normalTitle" = "Изменить номер телефона";
+
+/* Class = "UIButton"; normalTitle = "Use test account"; ObjectID = "xlM-wc-LL0"; */
+"xlM-wc-LL0.normalTitle" = "Использовать тестовый аккаунт";
 
 /* Class = "UIButton"; normalTitle = "Try again"; ObjectID = "xte-7W-F0S"; */
 "xte-7W-F0S.normalTitle" = "Попробовать еще раз";
 
-/* Class = "UILabel"; text = "What is your email?"; ObjectID = "zgM-iC-MDR"; */
+/* (No Commment) */
 "zgM-iC-MDR.text" = "Какой Ваш почтовый адрес?";
+

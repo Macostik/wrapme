@@ -12,21 +12,20 @@
 
 @protocol WLPresentingImageViewDelegate <NSObject>
 
-- (CGRect)presentingImageView:(WLPresentingImageView *)presentingImageView frameForCandy:(WLCandy *)candy;
+- (CGRect)presentImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy;
+- (CGRect)dismissImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy;
 
 @end
 
 @interface WLPresentingImageView : UIView
 
+@property (weak, nonatomic, readonly) WLImageView *imageView;
 @property (weak, nonatomic) id <WLPresentingImageViewDelegate> delegate;
 
 + (instancetype)sharedPresenting;
-
 + (instancetype)presentingCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion;
 - (instancetype)presentingCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion;
-
-- (void)dismissCandy:(WLCandy *)candy;
-
+- (void)dismissViewByCandy:(WLCandy *)candy completion:(WLBooleanBlock)competion;
 - (void)setImageUrl:(NSString *)url;
 
 @end

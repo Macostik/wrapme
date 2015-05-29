@@ -93,11 +93,13 @@
 }
 
 - (void)select:(WLCandy*)candy {
-    if (candy.valid) {
+    UIImage *largeImage = [[WLImageCache uploadingCache] imageWithUrl:candy.picture.large];
+    if (candy.valid && largeImage != nil) {
         if ([self.delegate respondsToSelector:@selector(candyCell:didSelectCandy:)]) {
             [self.delegate candyCell:self didSelectCandy:candy];
         }
-//        [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
+    } else {
+        [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
     }
 }
 

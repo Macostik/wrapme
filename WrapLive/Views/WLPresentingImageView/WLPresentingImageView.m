@@ -28,29 +28,30 @@
 }
 
 - (instancetype)presentingCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion {
-    UIView *parentView = [[UINavigationController topViewController] view];
+    UIView *parentView = [UIWindow mainWindow].rootViewController.view;
     self.backgroundColor = [UIColor clearColor];
     self.frame = parentView.frame;
-
+    [parentView addSubview:self];
     CGRect convertRect = CGRectZero;
-    if ([self.delegate respondsToSelector:@selector(presentingImageView:frameForCandy:)]) {
-        convertRect = [self.delegate presentingImageView:self frameForCandy:candy];
+    if ([self.delegate respondsToSelector:@selector(presentImageView:getFrameCandyCell:)]) {
+        convertRect = [self.delegate presentImageView:self getFrameCandyCell:candy];
     }
     
     run_after(.1,  ^{
       self.imageView.frame = convertRect;
-         [parentView addSubview:self];
     });
     
     [self performAnimationCandy:candy completion:completion];
+    
     return self;
 }
 
-- (void)dismissCandy:(WLCandy *)candy {
+- (void)dismissViewByCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion {
+    self.hidden = NO;
     self.backgroundColor = [UIColor clearColor];
     CGRect convertRect = CGRectZero;
-    if ([self.delegate respondsToSelector:@selector(presentingImageView:frameForCandy:)]) {
-        convertRect = [self.delegate presentingImageView:self frameForCandy:candy];
+    if ([self.delegate respondsToSelector:@selector(dismissImageView:getFrameCandyCell:)]) {
+        convertRect = [self.delegate dismissImageView:self getFrameCandyCell:candy];
     }
     run_after(.1, ^{
         [UIView animateWithDuration:0.25
@@ -59,6 +60,7 @@
                          animations:^{
                              self.imageView.frame = convertRect;
                          } completion:^(BOOL finished) {
+                             if  (completion) completion(finished);
                              [self removeFromSuperview];
                          }];
     });
@@ -75,7 +77,12 @@
                              [self calculateScaleValues];
                              [self.imageView layoutIfNeeded];
                              self.backgroundColor = [UIColor blackColor];
-                         } completion:completion];
+                         } completion:^(BOOL finished) {
+                             if (completion) {
+                                 completion(finished);
+                                 self.hidden = YES;
+                             }
+                         }];
     });
 }
 

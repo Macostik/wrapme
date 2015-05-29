@@ -51,8 +51,6 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet UIButton *inviteButton;
 
-@property (strong, nonatomic) WLPresentingImageView *presentingImageView;
-
 @end
 
 @implementation WLWrapViewController
@@ -98,8 +96,6 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     if (self.wrap.candies.nonempty) {
         [self dropDownCollectionView];
     }
-    self.presentingImageView = [WLPresentingImageView sharedPresenting];
-    self.presentingImageView.delegate = self;
 }
 
 - (void)viewDidLayoutSubviews {
@@ -272,39 +268,54 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 - (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
     WLHistoryViewController *historyViewController = (id)[candy viewController];
     if (historyViewController) {
-        [self.presentingImageView presentingCandy:candy completion:^(BOOL flag) {
-            [self presentViewController:historyViewController animated:NO completion:nil];
+        WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
+        presentingImageView.delegate = self;
+        __weak __typeof(self)weakSelf = self;
+        [presentingImageView presentingCandy:candy completion:^(BOOL flag) {
+             [weakSelf.navigationController pushViewController:historyViewController animated:NO];
         }];
-        historyViewController.presentingImageView = self.presentingImageView;
+        historyViewController.presentingImageView = presentingImageView;
     }
 }
 
 // MARK: - WLPresentingImageViewDelegate
 
-- (CGRect)presentingImageView:(WLPresentingImageView *)presentingImageView frameForCandy:(WLCandy *)candy {
+- (CGRect)presentImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy {
+    WLCandyCell *candyCell = [self presentedCandyCell:candy scrollToObject:NO];
+    return [self.view convertRect:candyCell.frame fromView:candyCell.superview];
+}
+
+- (CGRect)dismissImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy {
+    WLCandyCell *candyCell = [self presentedCandyCell:candy scrollToObject:YES];
+    return [self.view convertRect:candyCell.frame fromView:candyCell.superview];
+}
+
+- (WLCandyCell *)presentedCandyCell:(WLCandy *)candy scrollToObject:(BOOL)scroll {
     WLHistoryItem *historyItem = [self.history itemWithCandy:candy];
     if (historyItem) {
         NSUInteger index = [[self.history entries] indexOfObject:historyItem];
         if (index != NSNotFound) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            if (scroll) {
+                  [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+            }
+            [self.collectionView layoutIfNeeded];
             WLCandiesCell *candiesCell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
             if (candiesCell) {
-                [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
                 NSUInteger index = [historyItem.entries indexOfObject:candy];
                 if (index != NSNotFound) {
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
                     [candiesCell.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
                     [candiesCell.collectionView layoutIfNeeded];
-                    [self.collectionView layoutIfNeeded];
                     WLCandyCell *candyCell = (id)[candiesCell.collectionView cellForItemAtIndexPath:indexPath];
                     if (candyCell) {
-                        return [self.view convertRect:candyCell.frame fromView:candiesCell.collectionView];
+                        return candyCell;
                     }
                 }
             }
         }
     }
-    return CGRectZero;
+    return nil;
 }
 
 @end

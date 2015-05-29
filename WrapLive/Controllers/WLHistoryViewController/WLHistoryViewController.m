@@ -387,19 +387,20 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
+    BOOL animate = self.interfaceOrientation == UIInterfaceOrientationPortrait ||
+    self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown;
     WLCandy* candy = self.candy;
     if (candy.valid) {
-        if (self.presentingViewController) {
-            [self dismissViewControllerAnimated:NO completion:nil];
-            [self.presentingImageView dismissCandy:candy];
+        if (self.presentingImageView != nil && animate) {
+            [self.navigationController popViewControllerAnimated:NO];
+            [self.presentingImageView dismissViewByCandy:candy completion:nil];
         } else {
-            BOOL animate = self.interfaceOrientation == UIInterfaceOrientationPortrait ||
-            self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown;
             [self.navigationController popViewControllerAnimated:animate];
         }
     } else {
         [self.navigationController popToRootViewControllerAnimated:NO];
     }
+    
 }
 
 - (IBAction)downloadCandy:(id)sender {

@@ -254,7 +254,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (void)setCandy:(WLCandy *)candy {
     if (candy != _candy) {
         _candy = candy.valid ? candy : nil;
-        [self.presentingImageView setImageUrl:_candy.picture.large];
         if (self.isViewLoaded) [self updateOwnerData];
     }
 }
@@ -396,6 +395,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLCandy* candy = self.candy;
     if (candy.valid) {
         if (self.presentingImageView != nil && animate) {
+            [self.presentingImageView setImageUrl:_candy.picture.large];
             [self.navigationController popViewControllerAnimated:NO];
             [self.presentingImageView dismissViewByCandy:candy completion:nil];
         } else {

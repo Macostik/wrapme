@@ -94,7 +94,7 @@
 
 - (void)select:(WLCandy*)candy {
     UIImage *largeImage = [[WLImageCache uploadingCache] imageWithUrl:candy.picture.large];
-    if (candy.valid && largeImage != nil) {
+    if (candy.valid && candy.picture.medium.nonempty && largeImage != nil) {
         if ([self.delegate respondsToSelector:@selector(candyCell:didSelectCandy:)]) {
             [self.delegate candyCell:self didSelectCandy:candy];
         }

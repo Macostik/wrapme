@@ -357,6 +357,9 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         
         [receiver setDeletedBlock:^(WLCandy *candy) {
             if (candy == weakSelf.candy) {
+                if (weakSelf.navigationController.presentedViewController) {
+                    [weakSelf.navigationController dismissViewControllerAnimated:NO completion:nil];
+                }
                 if (weakSelf.removedCandy == candy) {
                     [WLToast showWithMessage:WLLS(@"candy_deleted")];
                     weakSelf.removedCandy = nil;

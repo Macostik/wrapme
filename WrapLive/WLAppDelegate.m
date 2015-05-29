@@ -184,7 +184,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             category.identifier = @"chat";
             UIMutableUserNotificationAction *action = [[UIMutableUserNotificationAction alloc] init];
             action.identifier = @"reply";
-            action.title = @"Reply";
+            action.title = WLLS(@"reply");
             action.activationMode = UIUserNotificationActivationModeForeground;
             action.authenticationRequired = YES;
             [category setActions:@[action] forContext:UIUserNotificationActionContextDefault];

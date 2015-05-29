@@ -30,10 +30,14 @@
 + (void)downloadAndEditCandy:(WLCandy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
     WLImageBlock downloadBlock = ^(UIImage *image) {
         [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
-            [WLPicture picture:image completion:^(WLPicture *picture) {
-                [candy setEditedPictureIfNeeded:picture];
-                [candy enqueueUpdate:failure];
-            }];
+            if (candy.valid) {
+                [WLPicture picture:image completion:^(WLPicture *picture) {
+                    [candy setEditedPictureIfNeeded:picture];
+                    [candy enqueueUpdate:failure];
+                }];
+            } else {
+                if (failure) failure(nil);
+            }
         } cancel:nil];
     };
     [WLDownloadingView downloadingViewForCandy:candy success:downloadBlock failure:failure];

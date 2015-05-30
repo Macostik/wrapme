@@ -22,17 +22,17 @@
 
 "uppercase_no" = "NO";
 
-"connection_was_lost" = "Connection was lost.";
+"connection_was_lost" = "Connection lost.";
 
-"roaming_is_off" = "International roaming is off.";
+"roaming_is_off" = "International roaming is currently off.";
 
-"no_contacts_with_phone_number" = "You don't have contacts with phone numbers on this device.";
+"no_contacts_with_phone_number" = "No contacts with phone numbers found on this device.";
 
-"no_contacts" = "You don't have contacts on this device.";
+"no_contacts" = "No contacts found on this device.";
 
-"no_access_to_contacts" = "Access to your Address Book is not granted.";
+"no_access_to_contacts" = "No permission to access your address book.";
 
-"leave_screen_on_editing" = "You are editing a photo and it is not saved yet. Are you sure you want to leave this screen?";
+"leave_screen_on_editing" = "Your photo is not saved yet. Are you sure you want to leave this screen?";
 
 "unsaved_photo" = "Unsaved photo";
 
@@ -42,35 +42,35 @@
 
 "ok" = "OK";
 
-"confirmation_resend" = "Confirmation resend. Please, check you e-mail.";
+"confirmation_resend" = "Confirmation email re-sent successfully.";
 
 "formatted_calling_now" = "Calling %@ now. Please wait.";
 
-"cannot_add_yourself" = "You cannot add yourself.";
+"cannot_add_yourself" = "You can't add yourself to the wrap.";
 
-"wrap_name_cannot_be_blank" = "Wrap name cannot be blank.";
+"wrap_name_cannot_be_blank" = "Name of the wrap can't be blank.";
 
 "delete_wrap" = "Delete wrap";
 
 "leave_wrap" = "Leave wrap?";
 
-"formatted_delete_wrap_confirmation" = "Are you sure you want to delete the wrap \"%@\"?";
+"formatted_delete_wrap_confirmation" = "Are you sure you want to delete this wrap \"%@\"?";
 
 "leave_wrap_confirmation" = "Are you sure you want to leave this wrap?";
 
-"delete_wrap_success" = "Wrap was deleted successfully.";
+"delete_wrap_success" = "Wrap has been deleted successfully.";
 
-"wrap_is_uploading" = "Wrap is uploading, wait a moment...";
+"wrap_is_uploading" = "Uploading the wrap now. Please wait.";
 
-"photo_is_uploading" = "Photo is uploading, wait a moment...";
+"photo_is_uploading" = "Uploading the photo now. Please wait.";
 
-"comment_is_uploading" = "Comment is uploading, wait a moment...";
+"comment_is_uploading" = "Uploading the comment now. Please wait.";
 
 "delete_photo" = "Delete photo";
 
 "delete_photo_confirmation" = "Are you sure you want to delete this photo?";
 
-"new_version_is_available" = "New version of wrapLive is available";
+"new_version_is_available" = "A new version of wrapLive is available";
 
 "update" = "Update";
 
@@ -80,41 +80,41 @@
 
 "upload" = "Upload";
 
-"invalid_image_error" = "Your image is invalid. Please, choose another one.";
+"invalid_image_error" = "Invalid image. Please choose another one.";
 
-"too_small_image_error" = "Your image is too small. Please, choose another one.";
+"too_small_image_error" = "The image is too small. Please choose another one.";
 
 "report" = "Report";
 
-"candy_deleted" = "Candy was deleted successfully.";
+"candy_deleted" = "The photo has been deleted successfully.";
 
-"candy_unavailable" = "This candy is no longer avaliable.";
+"candy_unavailable" = "The photo is no longer avaliable.";
 
-"incorrect_email" = "Your email isn't correct.";
+"incorrect_email" = "Incorrect e-mail.";
 
-"name_cannot_be_blank" = "Name connot be blank.";
+"name_cannot_be_blank" = "Name can't be blank.";
 
 "formatted_is_typing" = "%@ is typing...";
 
 "formatted_and_are_typing" = "%@ and %@ are typing...";
 
-"sending_confirming_email" = "We are sending you an email for confirming your email address now.";
+"sending_confirming_email" = "Sending confirmation e-mail now.";
 
-"remote_notification_when_app_is_active_error" = "Cannot handle remote notification when app is active.";
+"remote_notification_when_app_is_active_error" = "Can't handle remote notification when app is active.";
 
 "formatted_about_message" = "You are using %@\nv%@\nBuild %@";
 
-"sign_out" = "Sign Out";
+"sign_out" = "Sign out";
 
 "sign_out_confirmation" = "Are you sure you want to sign out?";
 
-"downloading_photo" = "Downloading the photo now. It will be in \"%@\" album momentarily.";
+"downloading_photo" = "Downloading the photo now. It'll be saved in \"%@\" album momentarily.";
 
 "no_devices" = "No registered devices";
 
 "terms_and_conditions" = "Terms and Conditions";
 
-"formatted_wrap_unavailable" = "Wrap %@ is no longer available.";
+"formatted_wrap_unavailable" = "\"%@\" is no longer available.";
 
 "formatted_photo_by" = "Photo by %@";
 
@@ -126,23 +126,23 @@
 
 "formatted_comments" = "%i comments";
 
-"data_invalid" = "Data is not valid.";
+"data_invalid" = "Invalid data.";
 
-"upload_photos_limit_error" = "Sorry, you cannot upload more than 10 pictures at a time";
+"upload_photos_limit_error" = "You can upload up to 10 pictures at a time.";
 
-"downloading_internet_connection_error" = "No internet connections available. Please try downloading it later.";
+"downloading_internet_connection_error" = "No internet connection. Please try downloading it later.";
 
 "editing_internet_connection_error" = "No internet connection. Can't download the photo for editing.";
 
-"downloading_privacy_settings" = "To allow access to the Photos go to the Privacy settings of the app.";
+"downloading_privacy_settings" = "Please go to Settings > wrapLive to allow wrapLive access the photos on this device.";
 
-"formatted_verification_email_text" = "Confirm %@ as your email address to help secure your account.";
+"formatted_verification_email_text" = "Confirm %@ as your e-mail address to help secure your account.";
 
-"email_account_setup" = "Please set up Email account on your device.";
+"email_account_setup" = "Please set up e-mail account on your device.";
 
-"mail_sent" = "Mail sent.\nThank you for your help!";
+"mail_sent" = "E-mail sent successfully.\nThank you for your help!";
 
-"user_cannot_be_invited" = "This user cannot be invited.";
+"user_cannot_be_invited" = "This user can't be invited.";
 
 "minute" = "minute";
 
@@ -196,7 +196,7 @@
 
 "APNS_MSG05" = "%@ just edited a photo. Check it out!";
 
-"APNS_TT06" = "wrapLive has a new update";
+"APNS_TT06" = "A new version of wrapLive is available";
 
 "APNS_MSG06" = "Download it now!";
 

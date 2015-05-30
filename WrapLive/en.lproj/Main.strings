@@ -4,10 +4,10 @@
 "7Bf-ro-UFC.normalTitle" = "Continue";
 
 /* Class = "IBUIButton"; normalTitle = "Sign Out"; ObjectID = "7C1-yc-O8X"; */
-"7C1-yc-O8X.normalTitle" = "Sign Out";
+"7C1-yc-O8X.normalTitle" = "Sign out";
 
 /* Class = "IBUITextField"; placeholder = "Email address"; ObjectID = "82E-k4-0WJ"; */
-"82E-k4-0WJ.placeholder" = "Email address";
+"82E-k4-0WJ.placeholder" = "E-mail address";
 
 /* Class = "IBUILabel"; text = "Invite your friends!"; ObjectID = "BgE-ku-qap"; */
 "BgE-ku-qap.text" = "Invite your friends!";
@@ -56,9 +56,10 @@
 
 /* Class = "IBUILabel"; text = "There was a problem connecting with wrapLive.\nCheck your internet connection and try again."; ObjectID = "TvM-gd-tcr"; */
 "TvM-gd-tcr.text" = "There was a problem connecting with wrapLive.\nCheck your internet connection and try again.";
+"TvM-gd-tcr.text" = "No internet connection. Please try again later.";
 
 /* Class = "IBUILabel"; text = "You haven't confirmed your e-mail address yet. Please check your e-mail."; ObjectID = "UL6-dF-3Kj"; */
-"UL6-dF-3Kj.text" = "You haven't confirmed your e-mail address yet. Please check your e-mail.";
+"UL6-dF-3Kj.text" = "You haven't confirmed your e-mail address yet. Please check your e-mail and confirm it.";
 
 /* Class = "IBUITextField"; placeholder = "Name"; ObjectID = "Xmt-yf-g7R"; */
 "Xmt-yf-g7R.placeholder" = "Name";
@@ -73,7 +74,7 @@
 "dYf-Sg-pHd.normalTitle" = "Cancel";
 
 /* Class = "IBUILabel"; text = "You haven't confirmed your e-mail address yet. Please check your e-mail."; ObjectID = "eHd-9o-24J"; */
-"eHd-9o-24J.text" = "You haven't confirmed your e-mail address yet. Please check your e-mail.";
+"eHd-9o-24J.text" = "You haven't confirmed your e-mail address yet. Please check your e-mail and confirm it.";
 
 /* Class = "IBUIButton"; normalTitle = "Resend"; ObjectID = "gpG-be-cvC"; */
 "gpG-be-cvC.normalTitle" = "Resend";

@@ -6,13 +6,13 @@
 "CtH-sR-dzA.text" = "Add a comment...";
 
 /* Class = "IBUILabel"; text = "To allow access to the camera go to the Settings > Privacy > Camera"; ObjectID = "Jwv-dz-I8C"; */
-"Jwv-dz-I8C.text" = "To allow access to the camera go to the Settings > Privacy > Camera";
+"Jwv-dz-I8C.text" = "Please go to Settings > wrapLive to allow wrapLive access the camera on this device.";
 
 /* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "N3t-xp-O3A"; */
 "N3t-xp-O3A.normalTitle" = "Done";
 
 /* Class = "IBUILabel"; text = "To allow access to the photos go to the Settings > Privacy > Photos"; ObjectID = "bvQ-XE-Vmc"; */
-"bvQ-XE-Vmc.text" = "To allow access to the photos go to the Settings > Privacy > Photos";
+"bvQ-XE-Vmc.text" = "Please go to Settings > wrapLive to allow wrapLive access the photos on this device.";
 
 /* Class = "IBUILabel"; text = "Photos"; ObjectID = "dGM-vI-GSH"; */
 "dGM-vI-GSH.text" = "Photos";

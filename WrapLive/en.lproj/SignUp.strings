@@ -48,7 +48,7 @@
 "Vxz-ag-TOf.text" = "is confirmed successfully!";
 
 /* Class = "UIButton"; normalTitle = "Terms and Conditions"; ObjectID = "YBa-zu-GaJ"; */
-"YBa-zu-GaJ.normalTitle" = "Terms and Conditions";
+"YBa-zu-GaJ.normalTitle" = "Terms and conditions";
 
 /* Class = "UIButton"; normalTitle = "Next"; ObjectID = "Zwb-OE-87q"; */
 "Zwb-OE-87q.normalTitle" = "Next";
@@ -81,7 +81,7 @@
 "otQ-7a-PwI.text" = "We are sending you a passcode through e-mail and phone...";
 
 /* Class = "UILabel"; text = "What is your phone number?"; ObjectID = "pmp-Nw-u2O"; */
-"pmp-Nw-u2O.text" = "What is your phone number?";
+"pmp-Nw-u2O.text" = "What's your phone number?";
 
 /* Class = "UILabel"; text = "The passcode is required to link this device to your wrapLive account. Enter it below when you receive it."; ObjectID = "q2s-IS-vfL"; */
 "q2s-IS-vfL.text" = "The passcode is required to link this device to your wrapLive account. Enter it below when you receive it.";
@@ -105,4 +105,4 @@
 "xte-7W-F0S.normalTitle" = "Try again";
 
 /* Class = "UILabel"; text = "What is your email?"; ObjectID = "zgM-iC-MDR"; */
-"zgM-iC-MDR.text" = "What is your email?";
+"zgM-iC-MDR.text" = "What's your e-mail?";

@@ -46,7 +46,6 @@
 
 /* Class = "UILabel"; text = "is confirmed successfully!"; ObjectID = "Vxz-ag-TOf"; */
 "Vxz-ag-TOf.text" = "is confirmed successfully!";
-
 /* Class = "UIButton"; normalTitle = "Terms and Conditions"; ObjectID = "YBa-zu-GaJ"; */
 "YBa-zu-GaJ.normalTitle" = "Terms and conditions";
 
@@ -66,7 +65,7 @@
 "dM9-5p-U8h.normalTitle" = "Use another e-mail";
 
 /* Class = "UILabel"; text = "We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue"; ObjectID = "dRx-kr-5xI"; */
-"dRx-kr-5xI.text" = "We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue";
+"dRx-kr-5xI.text" = "You need to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue";
 
 /* Class = "UIButton"; normalTitle = "Next"; ObjectID = "erk-mO-XXr"; */
 "erk-mO-XXr.normalTitle" = "Next";

@@ -268,7 +268,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 - (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
     WLHistoryViewController *historyViewController = (id)[candy viewController];
     if (historyViewController) {
-        WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
+       __weak WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
         presentingImageView.delegate = self;
         __weak __typeof(self)weakSelf = self;
         [presentingImageView presentingCandy:candy completion:^(BOOL flag) {

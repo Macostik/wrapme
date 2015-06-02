@@ -755,6 +755,14 @@
 		C54AF73C19B8C491006F7EDB /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
 		C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 12D578C619178C3400586995 /* iTunesArtwork */; };
 		C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */; };
+		C54C56731B1DBF5F00CA4B12 /* WLShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56721B1DBF5F00CA4B12 /* WLShapeView.m */; };
+		C54C56741B1DBF5F00CA4B12 /* WLShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56721B1DBF5F00CA4B12 /* WLShapeView.m */; };
+		C54C56751B1DBF5F00CA4B12 /* WLShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56721B1DBF5F00CA4B12 /* WLShapeView.m */; };
+		C54C56761B1DBF5F00CA4B12 /* WLShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56721B1DBF5F00CA4B12 /* WLShapeView.m */; };
+		C54C56791B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */; };
+		C54C567A1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */; };
+		C54C567B1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */; };
+		C54C567C1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */; };
 		C54E4ADE1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */; };
 		C54E4ADF1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */; };
 		C54E4AE01A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */; };
@@ -2344,6 +2352,10 @@
 		C54AF84819B8C5F0006F7EDB /* WrapLive-Development-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLive-Development-Info.plist"; sourceTree = "<group>"; };
 		C54AF84919B8C5F0006F7EDB /* WrapLive-Production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLive-Production-Info.plist"; sourceTree = "<group>"; };
 		C54AF84A19B8C5F0006F7EDB /* WrapLive-QA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLive-QA-Info.plist"; sourceTree = "<group>"; };
+		C54C56711B1DBF5F00CA4B12 /* WLShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLShapeView.h; path = WLTriangleView/WLShapeView.h; sourceTree = "<group>"; };
+		C54C56721B1DBF5F00CA4B12 /* WLShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLShapeView.m; path = WLTriangleView/WLShapeView.m; sourceTree = "<group>"; };
+		C54C56771B1DC81100CA4B12 /* WLSwipeActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSwipeActionView.h; path = WLTriangleView/WLSwipeActionView.h; sourceTree = "<group>"; };
+		C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSwipeActionView.m; path = WLTriangleView/WLSwipeActionView.m; sourceTree = "<group>"; };
 		C54E4ADC1A4C52C900C6B990 /* WLLaunchScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLaunchScreenViewController.h; sourceTree = "<group>"; };
 		C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLLaunchScreenViewController.m; sourceTree = "<group>"; };
 		C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -3915,8 +3927,12 @@
 		5BA7AC301A793A0B00BB922E /* WLTriangleView */ = {
 			isa = PBXGroup;
 			children = (
+				C54C56711B1DBF5F00CA4B12 /* WLShapeView.h */,
+				C54C56721B1DBF5F00CA4B12 /* WLShapeView.m */,
 				5BA7AC2A1A7939FA00BB922E /* WLTriangleView.h */,
 				5BA7AC2B1A7939FA00BB922E /* WLTriangleView.m */,
+				C54C56771B1DC81100CA4B12 /* WLSwipeActionView.h */,
+				C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */,
 			);
 			name = WLTriangleView;
 			sourceTree = "<group>";
@@ -7319,6 +7335,7 @@
 				C55D77E81AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
 				12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */,
 				C5C20BC91A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
+				C54C56731B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
 				5BB04F2819D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE11A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				5BA60CDB1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
@@ -7458,6 +7475,7 @@
 				AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
 				C53F2CE41A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
+				C54C56791B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
 				5BA60CEB1A8257ED000F795C /* UIView+Extentions.m in Sources */,
 				C5C6465519A6264300F8243A /* WLWhatsUpCell.m in Sources */,
 				12DEC3EF1920F7E0007BE6CC /* WLToast.m in Sources */,
@@ -7536,6 +7554,7 @@
 				C55D77E91AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
 				C54AF46919B8C437006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCA1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
+				C54C56741B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
 				5BB04F2919D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE21A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				5BA60CDC1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
@@ -7675,6 +7694,7 @@
 				C54AF4FD19B8C437006F7EDB /* WLCollectionViewFlowLayout.m in Sources */,
 				C54AF50519B8C437006F7EDB /* WLItemCell.m in Sources */,
 				C53F2CE51A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
+				C54C567A1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
 				5BA60CEC1A8257ED000F795C /* UIView+Extentions.m in Sources */,
 				C54AF50B19B8C437006F7EDB /* WLWhatsUpCell.m in Sources */,
 				C54AF50D19B8C437006F7EDB /* WLToast.m in Sources */,
@@ -7712,6 +7732,7 @@
 				C55D77EA1AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
 				C54AF56619B8C467006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCB1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
+				C54C56751B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
 				5BB04F2A19D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE31A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				5BA60CDD1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
@@ -7851,6 +7872,7 @@
 				C54AF5FA19B8C467006F7EDB /* WLCollectionViewFlowLayout.m in Sources */,
 				C54AF60219B8C467006F7EDB /* WLItemCell.m in Sources */,
 				C53F2CE61A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
+				C54C567B1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
 				5BA60CED1A8257ED000F795C /* UIView+Extentions.m in Sources */,
 				C54AF60819B8C467006F7EDB /* WLWhatsUpCell.m in Sources */,
 				C54AF60A19B8C467006F7EDB /* WLToast.m in Sources */,
@@ -7888,6 +7910,7 @@
 				C55D77EB1AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
 				C54AF66319B8C491006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCC1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
+				C54C56761B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
 				5BB04F2B19D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE41A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				5BA60CDE1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
@@ -8027,6 +8050,7 @@
 				C54AF6F719B8C491006F7EDB /* WLCollectionViewFlowLayout.m in Sources */,
 				C54AF6FF19B8C491006F7EDB /* WLItemCell.m in Sources */,
 				C53F2CE71A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
+				C54C567C1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
 				5BA60CEE1A8257ED000F795C /* UIView+Extentions.m in Sources */,
 				C54AF70519B8C491006F7EDB /* WLWhatsUpCell.m in Sources */,
 				C54AF70719B8C491006F7EDB /* WLToast.m in Sources */,

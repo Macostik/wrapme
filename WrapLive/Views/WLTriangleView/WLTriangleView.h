@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLShapeView.h"
 
-@interface WLTriangleView : UIView
+@interface WLTriangleView : WLShapeView
 
 @end

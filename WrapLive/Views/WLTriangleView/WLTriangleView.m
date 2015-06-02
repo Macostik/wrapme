@@ -10,22 +10,19 @@
 
 @implementation WLTriangleView
 
-- (void)layoutSubviews {
+- (void)defineShapePath:(UIBezierPath *)path contentMode:(UIViewContentMode)contentMode {
     CGRect rect = self.bounds;
-    
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    
-    if (self.contentMode == UIViewContentModeTop) {
+    if (contentMode == UIViewContentModeTop) {
         [path moveToPoint:CGPointMake(CGRectGetMinX(rect), CGRectGetMaxY(rect))];
         [path addLineToPoint:CGPointMake(CGRectGetMaxX(rect), CGRectGetMaxY(rect))];
         [path addLineToPoint:CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect))];
         [path addLineToPoint:CGPointMake(CGRectGetMinX(rect), CGRectGetMaxY(rect))];
-    } else if (self.contentMode == UIViewContentModeLeft) {
+    } else if (contentMode == UIViewContentModeLeft) {
         [path moveToPoint:CGPointMake(CGRectGetMinX(rect), CGRectGetMinY(rect))];
         [path addLineToPoint:CGPointMake(CGRectGetMinX(rect), CGRectGetMaxY(rect))];
         [path addLineToPoint:CGPointMake(CGRectGetMaxX(rect), CGRectGetMidY(rect))];
         [path addLineToPoint:CGPointMake(CGRectGetMinX(rect), CGRectGetMinY(rect))];
-    } else if (self.contentMode == UIViewContentModeRight) {
+    } else if (contentMode == UIViewContentModeRight) {
         [path moveToPoint:CGPointMake(CGRectGetMaxX(rect), CGRectGetMinY(rect))];
         [path addLineToPoint:CGPointMake(CGRectGetMinX(rect), CGRectGetMidY(rect))];
         [path addLineToPoint:CGPointMake(CGRectGetMaxX(rect), CGRectGetMaxY(rect))];
@@ -36,11 +33,6 @@
         [path addLineToPoint:CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect))];
         [path addLineToPoint:CGPointMake(CGRectGetMinX(rect), CGRectGetMinY(rect))];
     }
-    
-    CAShapeLayer* shape = [[CAShapeLayer alloc] init];
-    [shape setPath:path.CGPath];
-    shape.frame = self.bounds;
-    self.layer.mask = shape;
 }
 
 @end

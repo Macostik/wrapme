@@ -19,6 +19,8 @@
 #import "UIFont+CustomFonts.h"
 #import "WLGradientView.h"
 
+static CGFloat WLWrapCellSwipeActionWidth = 125;
+
 @interface WLWrapCell () <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
@@ -34,6 +36,8 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftSwipeActionConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightSwipeActionConstraint;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *leftSwipeIndicationViews;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rightSwipeIndicationViews;
 
 @property (weak, nonatomic) NSLayoutConstraint *swipeActionConstraint;
 
@@ -126,14 +130,21 @@
         CGFloat constant = self.swipeActionConstraint.constant +  [sender translationInView:sender.view].x;
         if (self.swipeActionConstraint == self.rightSwipeActionConstraint) {
             self.swipeActionConstraint.constant = Smoothstep(-self.width, 0, constant);
+            for (UIView *indicationView in self.rightSwipeIndicationViews) {
+                indicationView.alpha = NSmoothstep(ABS(self.swipeActionConstraint.constant)/WLWrapCellSwipeActionWidth);
+            }
         } else {
             self.swipeActionConstraint.constant = Smoothstep(0, self.width, constant);
+            for (UIView *indicationView in self.leftSwipeIndicationViews) {
+                indicationView.alpha = NSmoothstep(ABS(self.swipeActionConstraint.constant)/WLWrapCellSwipeActionWidth);
+            }
         }
         [self layoutIfNeeded];
         [sender setTranslation:CGPointZero inView:sender.view];
+        
     } else if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
         [self.delegate wrapCellDidEndPanning:self];
-        if (ABS(self.swipeActionConstraint.constant) >= 125) {
+        if (ABS(self.swipeActionConstraint.constant) >= WLWrapCellSwipeActionWidth) {
             [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 if (self.swipeActionConstraint == self.rightSwipeActionConstraint) {
                     self.swipeActionConstraint.constant = -self.width;

@@ -12,6 +12,7 @@
 #import "UIView+AnimationHelper.h"
 #import "WLButton.h"
 #import "WLDeviceOrientationBroadcaster.h"
+#import "WLNavigationHelper.h"
 
 @implementation WLMenuItem @end
 
@@ -129,6 +130,13 @@
     if (!superview) {
         return;
     }
+    
+    self.centerPoint = [view convertPoint:point toView:superview];
+    CGRect _rect = [superview convertRect:view.bounds fromView:view];
+    if (!CGRectContainsPoint(_rect, self.centerPoint)) {
+        return;
+    }
+    
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
     self.currentView = view;
     [self.items removeAllObjects];
@@ -144,8 +152,6 @@
         if (!self.items.nonempty) return;
         
         if (vibrate) AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        
-        self.centerPoint = [view convertPoint:point toView:superview];
         
         __weak typeof(self)weakSelf = self;
         self.buttons = [self.items map:^id(WLMenuItem* item) {

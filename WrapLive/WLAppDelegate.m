@@ -231,7 +231,7 @@ static WLDataBlock deviceTokenCompletion = nil;
                 [weakSelf setDidBecomeActiveBlock:^{
                     [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
                 }];
-                run_after(0.5f, ^{
+                run_after(1.0f, ^{
                     weakSelf.didBecomeActiveBlock = nil;
                     if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
                 });

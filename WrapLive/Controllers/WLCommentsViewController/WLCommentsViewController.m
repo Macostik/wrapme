@@ -64,8 +64,10 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
 }
 
 - (void)refresh:(WLRefresher*)sender {
+    __weak typeof(self)weakSelf = self;
     if (self.candy.uploaded) {
         [self.candy fetch:^(id object) {
+            weakSelf.dataSource.items = [weakSelf.candy sortedComments];
             [sender setRefreshing:NO animated:YES];
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];

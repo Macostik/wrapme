@@ -763,6 +763,10 @@
 		C54C567A1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */; };
 		C54C567B1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */; };
 		C54C567C1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */; };
+		C54C56811B1E0B1400CA4B12 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
+		C54C56821B1E0B1400CA4B12 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
+		C54C56831B1E0B1500CA4B12 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
+		C54C56841B1E0B1500CA4B12 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		C54E4ADE1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */; };
 		C54E4ADF1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */; };
 		C54E4AE01A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */; };
@@ -6932,6 +6936,7 @@
 				C506460F1ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */,
 				C55B25A41AC9A6200072E9D2 /* OpenSans-Regular.ttf in Resources */,
 				C55ADD6C1AE8EDD600983F91 /* wrapliveicons.ttf in Resources */,
+				C54C56811B1E0B1400CA4B12 /* Localizable.strings in Resources */,
 				C55B25A51AC9A6200072E9D2 /* OpenSans-Bold.ttf in Resources */,
 				C55B259C1AC9A6180072E9D2 /* OpenSans-Semibold.ttf in Resources */,
 				5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */,
@@ -6947,6 +6952,7 @@
 				C50646101ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */,
 				C55B25A71AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */,
 				C55ADD6B1AE8EDD500983F91 /* wrapliveicons.ttf in Resources */,
+				C54C56821B1E0B1400CA4B12 /* Localizable.strings in Resources */,
 				C55B25A81AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */,
 				C55B259D1AC9A6190072E9D2 /* OpenSans-Semibold.ttf in Resources */,
 				5BF1B2431A49A683000BB2C1 /* Images.xcassets in Resources */,
@@ -6968,6 +6974,7 @@
 				C54086991AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C54086971AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
 				C55B259E1AC9A6190072E9D2 /* OpenSans-Semibold.ttf in Resources */,
+				C54C56831B1E0B1500CA4B12 /* Localizable.strings in Resources */,
 				C55B25AA1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */,
 				C55B25AB1AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */,
 				C54086981AD29C77007E0D12 /* CandyAPNS.apns in Resources */,
@@ -7215,6 +7222,7 @@
 				C5E54B471ACBF9B100444F7B /* Images.xcassets in Resources */,
 				C5E54B3F1ACBF98D00444F7B /* OpenSans-Regular.ttf in Resources */,
 				C540869F1AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
+				C54C56841B1E0B1500CA4B12 /* Localizable.strings in Resources */,
 				C5E54B401ACBF98D00444F7B /* OpenSans-Bold.ttf in Resources */,
 				C56498D31ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app in Resources */,
 				C54086A01AD29C77007E0D12 /* CandyAPNS.apns in Resources */,

@@ -30,10 +30,6 @@
 
 @interface WLEntry (WLNotification)
 
-- (NSMutableOrderedSet*)notifications;
-
-- (NSUInteger)unreadNotificationsCount;
-
 - (BOOL)notifiableForEvent:(WLEvent)event;
 
 - (void)markAsUnreadIfNeededForEvent:(WLEvent)event;
@@ -50,11 +46,9 @@
 
 @interface WLWrap (WLNotification)
 
-- (NSUInteger)unreadNotificationsCandyCount;
+- (BOOL)containsUnreadMessage;
 
 - (NSUInteger)unreadNotificationsMessageCount;
-
-- (NSUInteger)unreadNotificationsCommentCount;
 
 @end
 

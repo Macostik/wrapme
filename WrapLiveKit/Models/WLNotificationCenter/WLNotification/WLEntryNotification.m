@@ -255,14 +255,6 @@
 
 @implementation WLEntry (WLNotification)
 
-- (NSMutableOrderedSet *)notifications {
-    return nil;
-}
-
-- (NSUInteger)unreadNotificationsCount {
-    return 0;
-}
-
 - (BOOL)notifiableForEvent:(WLEvent)event {
     return NO;
 }
@@ -288,41 +280,24 @@
 
 @implementation WLUser (WLNotification)
 
-- (NSMutableOrderedSet *)notifications {
-    NSMutableOrderedSet *contributions = [NSMutableOrderedSet orderedSet];
-    NSDate *dayAgo = [NSDate dayAgo];
-    WLUser *currentUser = [WLUser currentUser];
-    [contributions unionOrderedSet:[WLComment entriesWhere:@"createdAt >= %@ AND contributor != %@", dayAgo, currentUser]];
-    [contributions unionOrderedSet:[WLCandy entriesWhere:@"createdAt >= %@ AND contributor != %@", dayAgo, currentUser]];
-    [contributions sortByCreatedAt];
-    return contributions;
-}
-
-- (NSUInteger)unreadNotificationsCount {
-    NSMutableOrderedSet *contributions = [WLContribution entriesWhere:@"createdAt >= %@ AND contributor != %@ AND unread == YES", [NSDate dayAgo], [WLUser currentUser]];
-    [contributions removeObjectsWhileEnumerating:^BOOL(WLEntry *entry) {
-        return [entry isKindOfClass:[WLMessage class]];
-    }];
-    return contributions.count;
-}
-
 @end
 
 @implementation WLWrap (WLNotification)
 
-- (NSUInteger)unreadNotificationsCandyCount {
-    return [[WLCandy entriesWhere:@"createdAt >= %@ AND wrap == %@ AND contributor != %@ AND unread == YES",
-             [NSDate dayAgo], self, [WLUser currentUser]] count];
+- (BOOL)containsUnreadMessage {
+    for (WLMessage *message in self.messages) {
+        if (message.unread) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (NSUInteger)unreadNotificationsMessageCount {
-    return [[WLMessage entriesWhere:@"createdAt >= %@ AND wrap == %@ AND contributor != %@ AND unread == YES",
-             [NSDate dayAgo], self, [WLUser currentUser]] count];
-}
-
-- (NSUInteger)unreadNotificationsCommentCount {
-    return [[WLComment entriesWhere:@"createdAt >= %@ AND candy.wrap == %@ AND contributor != %@ AND unread == YES",
-             [NSDate dayAgo], self, [WLUser currentUser]] count];
+    NSDate *date = [NSDate dayAgo];
+    return [self.messages selectObjects:^BOOL(WLMessage *message) {
+        return message.contributor && !message.contributedByCurrentUser && [message.createdAt later:date];
+    }].count;
 }
 
 @end

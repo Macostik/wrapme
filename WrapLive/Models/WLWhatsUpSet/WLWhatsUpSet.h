@@ -16,4 +16,6 @@
 
 - (void)update;
 
+- (NSUInteger)unreadCandiesCountForWrap:(WLWrap*)wrap;
+
 @end

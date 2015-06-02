@@ -83,7 +83,7 @@
             event.event = WLEventUpdate;
             event.contribution = contribution;
             [events addObject:event];
-            if (contribution.unread) {
+            if (contribution.unread && ![contributions containsObject:contribution]) {
                 unreadEntriesCount++;
             }
         }
@@ -91,6 +91,17 @@
     
     self.unreadEntriesCount = unreadEntriesCount;
     [self resetEntries:events];
+}
+
+- (NSUInteger)unreadCandiesCountForWrap:(WLWrap *)wrap {
+    NSMutableSet *unreadCandies = [NSMutableSet set];
+    for (WLWhatsUpEvent *event in self.entries) {
+        WLCandy *candy = event.contribution;
+        if ([candy isKindOfClass:[WLCandy class]] && candy.wrap == wrap && [candy unread]) {
+            [unreadCandies addObject:candy];
+        }
+    }
+    return unreadCandies.count;
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier entryAdded:(WLEntry*)entry {

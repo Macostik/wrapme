@@ -18,6 +18,8 @@
 #import "WLWrapCell.h"
 #import "UIFont+CustomFonts.h"
 #import "WLGradientView.h"
+#import "WLWhatsUpSet.h"
+#import "WLWhatsUpEvent.h"
 
 static CGFloat WLWrapCellSwipeActionWidth = 125;
 
@@ -104,8 +106,8 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     }
     
     self.coverView.url = [wrap.picture anyUrl];
-    self.wrapNotificationLabel.intValue = [wrap unreadNotificationsCandyCount];
-    self.chatButton.hidden = [wrap unreadNotificationsMessageCount] == 0;
+    self.wrapNotificationLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:wrap];
+    self.chatButton.hidden = ![wrap containsUnreadMessage];
 }
 
 - (IBAction)notifyChatClick:(id)sender {

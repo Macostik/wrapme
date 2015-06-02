@@ -10,6 +10,10 @@
 
 @interface WLWhatsUpSet : WLPaginatedSet
 
+@property (nonatomic) NSUInteger unreadEntriesCount;
+
++ (instancetype)sharedSet;
+
 - (void)update;
 
 @end

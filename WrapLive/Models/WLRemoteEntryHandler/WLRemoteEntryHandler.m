@@ -69,7 +69,7 @@
         return nil;
     }
     
-    if (entryClass && [[WLEntryManager manager] entryExists:entryClass identifier:identifier]) {
+    if (entryClass && [entryClass entryExists:identifier]) {
         return [entryClass entry:identifier];
     }
     return nil;

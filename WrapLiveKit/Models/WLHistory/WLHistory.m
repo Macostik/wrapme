@@ -183,8 +183,8 @@
     return self.wrap == entry.containingEntry;
 }
 
-- (NSNumber *)peferedOrderEntry:(WLBroadcaster *)broadcaster {
-    return @(-1);
+- (NSInteger)broadcasterOrderPriority:(WLBroadcaster *)broadcaster {
+    return WLBroadcastReceiverOrderPriorityPrimary;
 }
 
 @end

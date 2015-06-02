@@ -9,7 +9,23 @@
 #import "WLWhatsUpSet.h"
 #import "WLWhatsUpEvent.h"
 
+@interface WLWhatsUpSet () <WLEntryNotifyReceiver>
+
+@property (strong, nonatomic) NSPredicate* contributionsPredicate;
+
+@property (strong, nonatomic) NSPredicate* updatesPredicate;
+
+@end
+
 @implementation WLWhatsUpSet
+
++ (instancetype)sharedSet {
+    static id instance = nil;
+    if (instance == nil) {
+        instance = [[self alloc] init];
+    }
+    return instance;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -19,47 +35,78 @@
         [[WLComment notifier] addReceiver:self];
         [[WLCandy notifier] addReceiver:self];
         [[WLWrap notifier] addReceiver:self];
+        self.contributionsPredicate = [NSPredicate predicateWithFormat:@"createdAt >= $DATE AND contributor != nil AND contributor != $CURRENT_USER"];
+        self.updatesPredicate = [NSPredicate predicateWithFormat:@"editedAt >= $DATE AND editor != nil AND editor != $CURRENT_USER"];
+        [self update];
     }
     return self;
 }
 
-- (void)update {
-    NSMutableOrderedSet *contributions = [NSMutableOrderedSet orderedSet];
+- (NSPredicate *)predicateByAddingVariables:(NSPredicate*)predicate {
     NSDate *dayAgo = [NSDate dayAgo];
     WLUser *currentUser = [WLUser currentUser];
-    [contributions unionOrderedSet:[WLComment entriesWhere:@"createdAt >= %@ AND contributor != nil AND contributor != %@", dayAgo, currentUser]];
-    [contributions unionOrderedSet:[WLCandy entriesWhere:@"createdAt >= %@ AND contributor != nil AND contributor != %@", dayAgo, currentUser]];
-    NSMutableOrderedSet *updates = [WLCandy entriesWhere:@"editedAt >= %@ AND editor != nil AND editor != %@", dayAgo, currentUser];
+    if (dayAgo && currentUser) {
+        NSDictionary *variables = @{@"DATE":dayAgo, @"CURRENT_USER":currentUser};
+        return [predicate predicateWithSubstitutionVariables:variables];
+    }
+    return nil;
+}
+
+- (void)update {
+    
+    NSUInteger unreadEntriesCount = 0;
     
     NSMutableOrderedSet *events = [NSMutableOrderedSet orderedSet];
     
-    for (WLContribution *contribution in contributions) {
-        WLWhatsUpEvent *event = [[WLWhatsUpEvent alloc] init];
-        event.event = WLEventAdd;
-        event.contribution = contribution;
-        [events addObject:event];
+    NSPredicate *contributionsPredicate = [self predicateByAddingVariables:self.contributionsPredicate];
+    
+    NSPredicate *updatesPredicate = [self predicateByAddingVariables:self.updatesPredicate];
+    
+    if (updatesPredicate && contributionsPredicate) {
+        NSMutableOrderedSet *contributions = [NSMutableOrderedSet orderedSet];
+        [contributions unionOrderedSet:[WLComment entriesWithPredicate:contributionsPredicate]];
+        [contributions unionOrderedSet:[WLCandy entriesWithPredicate:contributionsPredicate]];
+        NSMutableOrderedSet *updates = [WLCandy entriesWithPredicate:updatesPredicate];
+        
+        for (WLContribution *contribution in contributions) {
+            WLWhatsUpEvent *event = [[WLWhatsUpEvent alloc] init];
+            event.event = WLEventAdd;
+            event.contribution = contribution;
+            [events addObject:event];
+            if (contribution.unread) {
+                unreadEntriesCount++;
+            }
+        }
+        
+        for (WLContribution *contribution in updates) {
+            WLWhatsUpEvent *event = [[WLWhatsUpEvent alloc] init];
+            event.event = WLEventUpdate;
+            event.contribution = contribution;
+            [events addObject:event];
+            if (contribution.unread) {
+                unreadEntriesCount++;
+            }
+        }
     }
     
-    for (WLContribution *contribution in updates) {
-        WLWhatsUpEvent *event = [[WLWhatsUpEvent alloc] init];
-        event.event = WLEventUpdate;
-        event.contribution = contribution;
-        [events addObject:event];
-    }
-    
+    self.unreadEntriesCount = unreadEntriesCount;
     [self resetEntries:events];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier entryAdded:(WLEntry*)entry {
-    [self performSelector:@selector(update) withObject:nil afterDelay:0.0];
+    [self update];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier entryDeleted:(WLEntry *)entry {
-    [self performSelector:@selector(update) withObject:nil afterDelay:0.0];
+    [self update];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLEntry *)entry {
-    [self performSelector:@selector(update) withObject:nil afterDelay:0.0];
+    [self update];
+}
+
+- (NSInteger)broadcasterOrderPriority:(WLBroadcaster *)broadcaster {
+    return WLBroadcastReceiverOrderPriorityPrimary;
 }
 
 @end

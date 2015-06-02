@@ -30,11 +30,13 @@
 
 @interface WLEntry (WLNotification)
 
-@property (nonatomic, readonly) BOOL notifiable;
-
 - (NSMutableOrderedSet*)notifications;
 
 - (NSUInteger)unreadNotificationsCount;
+
+- (BOOL)notifiableForEvent:(WLEvent)event;
+
+- (void)markAsUnreadIfNeededForEvent:(WLEvent)event;
 
 @end
 

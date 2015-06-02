@@ -293,7 +293,7 @@
         if (entryIdentifier.nonempty) {
             NSArray *discardedNotifications = [notifications objectsWhere:@"SELF != %@ AND (entryIdentifier == %@ OR containingEntryIdentifier == %@)",deleteNotification, entryIdentifier, entryIdentifier];
             [notifications removeObjectsInArray:discardedNotifications];
-            if (![[WLEntryManager manager] entryExists:deleteNotification.entryClass identifier:entryIdentifier]) {
+            if (![deleteNotification.entryClass entryExists:entryIdentifier]) {
                 [notifications removeObject:deleteNotification];
             }
         } else {

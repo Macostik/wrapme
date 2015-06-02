@@ -40,6 +40,7 @@
 #import "WLCandyCell.h"
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
+#import "WLWhatsUpSet.h"
 
 @interface WLHomeViewController () <WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate>
 
@@ -186,6 +187,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     [self.dataSource reload];
+    [[WLWhatsUpSet sharedSet] update];
     [self updateNotificationsLabel];
     [self updateEmailConfirmationView:NO];
     [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
@@ -338,7 +340,7 @@
 // MARK: - WLNotificationReceiver
 
 - (void)updateNotificationsLabel {
-    self.notificationsLabel.intValue = [[WLUser currentUser] unreadNotificationsCount];
+    self.notificationsLabel.intValue = [WLWhatsUpSet sharedSet].unreadEntriesCount;
 }
 
 // MARK: - Actions

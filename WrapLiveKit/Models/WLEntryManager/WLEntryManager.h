@@ -64,11 +64,15 @@
 
 + (NSMutableOrderedSet *)entries:(void (^)(NSFetchRequest* request))configure;
 
++ (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate*)predicate;
+
 + (NSMutableOrderedSet *)entriesWhere:(NSString *)predicateFormat, ...;
 
 + (NSMutableOrderedSet *)entriesSortedBy:(NSString*)key where:(NSString *)predicateFormat, ...;
 
 + (NSMutableOrderedSet *)entriesSortedBy:(NSString*)key ascending:(BOOL)ascending where:(NSString *)predicateFormat, ...;
+
++ (BOOL)entryExists:(NSString*)identifier;
 
 - (void)save;
 

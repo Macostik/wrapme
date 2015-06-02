@@ -60,15 +60,21 @@
 - (NSArray *)sortedReceivers {
     
     NSComparator comparator = ^NSComparisonResult(id <WLBroadcastReceiver> obj1, id <WLBroadcastReceiver> obj2) {
-        NSNumber *first = @(0);
-        NSNumber *second = first;
-        if ([obj1 respondsToSelector:@selector(peferedOrderEntry:)]) {
-            first = [obj1 peferedOrderEntry:self];
+        NSInteger first = WLBroadcastReceiverOrderPriorityDefault;
+        NSInteger second = first;
+        if ([obj1 respondsToSelector:@selector(broadcasterOrderPriority:)]) {
+            first = [obj1 broadcasterOrderPriority:self];
         }
-        if ([obj2 respondsToSelector:@selector(peferedOrderEntry:)]) {
-            second = [obj2 peferedOrderEntry:self];
+        if ([obj2 respondsToSelector:@selector(broadcasterOrderPriority:)]) {
+            second = [obj2 broadcasterOrderPriority:self];
         }
-        return [first compare:second];
+        if (first < second) {
+            return NSOrderedAscending;
+        } else if (first > second) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
     };
     
     return [[self.receivers allObjects] sortedArrayUsingComparator:comparator];

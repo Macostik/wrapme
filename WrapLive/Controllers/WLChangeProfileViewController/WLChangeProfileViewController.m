@@ -163,8 +163,8 @@
 
 #pragma mark - WLBroadcastReceiver
 
-- (NSNumber *)peferedOrderEntry:(WLBroadcaster *)broadcaster {
-    return @(2);
+- (NSInteger)broadcasterOrderPriority:(WLBroadcaster *)broadcaster {
+    return WLBroadcastReceiverOrderPrioritySecondary;
 }
 
 @end

@@ -10,9 +10,13 @@
 
 @class WLBroadcaster;
 
+static const NSInteger WLBroadcastReceiverOrderPriorityDefault = 0;
+static const NSInteger WLBroadcastReceiverOrderPriorityPrimary = -1;
+static const NSInteger WLBroadcastReceiverOrderPrioritySecondary = 1;
+
 @protocol WLBroadcastReceiver <NSObject>
 @optional
-- (NSNumber *)peferedOrderEntry:(WLBroadcaster *)broadcaster;
+- (NSInteger)broadcasterOrderPriority:(WLBroadcaster *)broadcaster;
 
 @end
 

@@ -51,7 +51,7 @@
  
     [[WLWrap notifier] addReceiver:self];
     
-    self.dataSource.items = [[WLWhatsUpSet alloc] init];
+    self.dataSource.items = [WLWhatsUpSet sharedSet];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

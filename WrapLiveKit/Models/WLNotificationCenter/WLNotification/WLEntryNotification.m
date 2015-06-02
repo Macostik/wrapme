@@ -162,6 +162,14 @@
 
 - (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure {
     __weak __typeof(self)weakSelf = self;
+    
+    WLEvent event = self.event;
+    
+    if (event == WLEventDelete && ![self.entryClass entryExists:self.entryIdentifier]) {
+        if (success) success();
+        return;
+    }
+    
     WLEntry* targetEntry = [weakSelf targetEntry];
     
     if (!targetEntry.valid) {
@@ -169,46 +177,27 @@
         return;
     }
     
-    if (!targetEntry.valid) {
-        if (success) success();
-        return;
-    }
-    
-    WLEvent event = self.event;
-    
-    WLBlock block = ^ {
-        if (event == WLEventAdd) {
+    if (event == WLEventAdd) {
+        
+        WLBlock block = ^ {
             switch (weakSelf.type) {
                 case WLNotificationCommentAdd: {
                     WLCandy *candy = [(WLComment*)targetEntry candy];
                     if (candy.valid) candy.commentCount = candy.comments.count;
-                    if (targetEntry.notifiable && weakSelf.inserted) [targetEntry markAsUnread];
+                    if (weakSelf.inserted) [targetEntry markAsUnreadIfNeededForEvent:weakSelf.event];
                     break;
                 }
                 case WLNotificationCandyAdd:
                 case WLNotificationMessageAdd:
-                    if (targetEntry.notifiable && weakSelf.inserted) [targetEntry markAsUnread];
+                    if (weakSelf.inserted) [targetEntry markAsUnreadIfNeededForEvent:weakSelf.event];
                     break;
                 default:
                     break;
             }
             [targetEntry notifyOnAddition];
-        } else if (event == WLEventUpdate) {
-            switch (weakSelf.type) {
-                case WLNotificationCandyUpdate:
-                    if (targetEntry.notifiable && weakSelf.inserted) [targetEntry markAsUnread];
-                    break;
-                default:
-                    break;
-            }
-            [targetEntry notifyOnUpdate];
-        } else if (event == WLEventDelete) {
-            [targetEntry remove];
-        }
-        if (success) success();
-    };
-    
-    if (event == WLEventAdd) {
+            if (success) success();
+        };
+        
         [targetEntry recursivelyFetchIfNeeded:^{
             if (weakSelf.type == WLNotificationCandyAdd) {
                 [targetEntry.picture fetch:block];
@@ -217,6 +206,13 @@
             }
         } failure:failure];
     } else if (event == WLEventUpdate) {
+        
+        WLBlock block = ^ {
+            if (weakSelf.type == WLNotificationCandyUpdate) [targetEntry markAsUnreadIfNeededForEvent:weakSelf.event];
+            [targetEntry notifyOnUpdate];
+            if (success) success();
+        };
+        
         [targetEntry fetch:^(id object) {
             if (weakSelf.type == WLNotificationCandyUpdate) {
                 [targetEntry.picture fetch:block];
@@ -225,7 +221,8 @@
             }
         } failure:failure];
     } else if (event == WLEventDelete) {
-        block();
+        [targetEntry remove];
+        if (success) success();
     }
 }
 
@@ -238,7 +235,7 @@
         case WLNotificationContributorAdd:
         case WLNotificationMessageAdd:
         case WLNotificationCommentAdd:
-            return self.targetEntry.notifiable;
+            return [self.targetEntry notifiableForEvent:self.event];
             break;
         default:
             return NO;
@@ -266,16 +263,25 @@
     return 0;
 }
 
-- (BOOL)notifiable {
+- (BOOL)notifiableForEvent:(WLEvent)event {
     return NO;
+}
+
+- (void)markAsUnreadIfNeededForEvent:(WLEvent)event {
+    if ([self notifiableForEvent:event]) [self markAsUnread];
 }
 
 @end
 
 @implementation WLContribution (WLNotification)
 
-- (BOOL)notifiable {
-    return !self.contributedByCurrentUser;
+- (BOOL)notifiableForEvent:(WLEvent)event {
+    if (event == WLEventAdd) {
+        return !self.contributedByCurrentUser;
+    } else if (event == WLEventUpdate) {
+        return ![self.editor isCurrentUser];
+    }
+    return NO;
 }
 
 @end

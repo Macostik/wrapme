@@ -24,10 +24,12 @@
 // MARK: - WLImageFetching
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
+    WLLog(@"WATCHKIT", @"image loaded", self.url);
     [self setImage:image];
 }
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
+    WLLog(@"WATCHKIT", @"image loading failed", error);
     [self setImage:nil];
 }
 
@@ -53,10 +55,12 @@
 // MARK: - WLImageFetching
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
+    WLLog(@"WATCHKIT", @"image loaded", self.url);
     [self setBackgroundImage:image];
 }
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
+    WLLog(@"WATCHKIT", @"image loading failed", error);
     [self setBackgroundImage:nil];
 }
 

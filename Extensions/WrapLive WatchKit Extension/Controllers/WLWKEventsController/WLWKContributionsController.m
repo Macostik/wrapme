@@ -148,6 +148,12 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
     [self updateContributions];
+    WLLog(@"WATCHKIT", @"controller will activate", nil);
+}
+
+- (void)didDeactivate {
+    [super didDeactivate];
+    WLLog(@"WATCHKIT", @"controller did deactivate", nil);
 }
 
 - (void)updateContributions {

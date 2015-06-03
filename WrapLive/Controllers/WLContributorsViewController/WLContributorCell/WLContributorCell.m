@@ -73,6 +73,11 @@
         [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
     }
     self.avatarView.url = url;
+    if  (self.slideViewConstraint.constant != 0) {
+        self.slideViewConstraint.constant = (self.resendInviteButton.hidden ? 0 : self.resendInviteButton.width) +
+                                            (self.removeButton.hidden ? 0 : self.removeButton.width);
+        self.removeButtonLeadingConstraint.constant = self.deletable ? 0 : -self.removeButton.width;
+    }
 }
 
 - (void)setDeletable:(BOOL)deletable {
@@ -80,7 +85,7 @@
     self.removeButton.hidden = !deletable;
     WLUser *user = self.entry;
     self.inviteLabel.hidden = self.resendInviteButton.hidden = !user.isInvited;
-    self.removeButtonLeadingConstraint.constant = deletable ? 0 : -self.removeButton.width;
+
     [self.resendInviteSpinner stopAnimating];
     
     if (self.resendInviteButton.hidden) {
@@ -120,10 +125,9 @@
     if (animated) {
         __weak typeof(self)weakSelf = self;
         [UIView animateWithDuration:0.5 delay:0.0f usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            weakSelf.removeButtonLeadingConstraint.constant = weakSelf.deletable ? 0 : -self.removeButton.width;
+            self.removeButtonLeadingConstraint.constant = weakSelf.deletable ? 0 : -self.removeButton.width;
             [weakSelf layoutIfNeeded];
-        } completion:^(BOOL finished) {
-        }];
+        } completion:nil];
     } else {
         [self layoutIfNeeded];
     }

@@ -47,7 +47,11 @@ CGFloat WLMaxTextViewWidth;
 
 @property (strong, nonatomic) WLChat *chat;
 
+@property (strong, nonatomic) UIFont* nameFont;
+
 @property (strong, nonatomic) UIFont* messageFont;
+
+@property (strong, nonatomic) UIFont* timeFont;
 
 @property (weak, nonatomic) WLRefresher* refresher;
 
@@ -92,6 +96,8 @@ CGFloat WLMaxTextViewWidth;
     self.cachedMessageHeights = [NSMapTable strongToStrongObjectsMapTable];
     
     self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal];
+    self.nameFont = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetNormal];
+    self.timeFont = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
     
     [self.collectionView registerNib:[WLLoadingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WLLoadingViewIdentifier];
     [self.collectionView registerNib:[WLTypingViewCell nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLTypingViewCell"];
@@ -445,8 +451,8 @@ CGFloat WLMaxTextViewWidth;
     }
     BOOL containsName = [self.chat.messagesWithName containsObject:message];
     CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth];
-    CGFloat topInset = (containsName ? WLMessageNameInset : WLMessageVerticalInset);
-    CGFloat bottomInset = WLMessageNameInset;
+    CGFloat topInset = (containsName ? self.nameFont.lineHeight : 0);
+    CGFloat bottomInset = self.timeFont.lineHeight;
     commentHeight = topInset + commentHeight + bottomInset;
     CGFloat resultHeight = MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight);
     [self.cachedMessageHeights setObject:@(resultHeight) forKey:message];
@@ -508,6 +514,8 @@ CGFloat WLMaxTextViewWidth;
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
     [self.cachedMessageHeights removeAllObjects];
     self.messageFont = [self.messageFont preferredFontWithPreset:WLFontPresetNormal];
+    self.nameFont = [self.nameFont preferredFontWithPreset:WLFontPresetNormal];
+    self.timeFont = [self.timeFont preferredFontWithPreset:WLFontPresetSmall];
     [self.collectionView reloadData];
 }
 

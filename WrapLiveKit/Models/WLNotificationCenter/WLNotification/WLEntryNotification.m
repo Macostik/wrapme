@@ -290,7 +290,7 @@
 - (NSUInteger)unreadNotificationsMessageCount {
     NSDate *date = [NSDate dayAgo];
     return [self.messages selectObjects:^BOOL(WLMessage *message) {
-        return message.contributor && !message.contributedByCurrentUser && [message.createdAt later:date];
+        return message.unread && message.contributor && !message.contributedByCurrentUser && [message.createdAt later:date];
     }].count;
 }
 

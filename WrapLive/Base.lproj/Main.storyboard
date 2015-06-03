@@ -92,6 +92,7 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="OpenSans-Semibold.ttf">
             <string>OpenSans-Semibold</string>
@@ -3500,6 +3501,7 @@ Check your internet connection and try again.</string>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="s8a-O0-T6V"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                 <state key="normal" title="Close">
                                                     <color key="titleColor" red="0.95294117647058818" green="0.45882352941176469" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>

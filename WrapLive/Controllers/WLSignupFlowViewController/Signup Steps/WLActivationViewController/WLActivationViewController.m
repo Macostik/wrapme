@@ -15,7 +15,7 @@
 #import "WLNavigationHelper.h"
 #import "WLButton.h"
 #import "WLSoundPlayer.h"
-#import "UIAlertView+Blocks.h"
+#import "WLAlertView.h"
 
 @interface WLActivationViewController () <UITextFieldDelegate>
 
@@ -76,7 +76,7 @@
     sender.userInteractionEnabled = NO;
     [[WLVerificationCallRequest request] send:^(id object) {
         sender.userInteractionEnabled = YES;
-        [UIAlertView showWithMessage:[NSString stringWithFormat:WLLS(@"formatted_calling_now"), weakSelf.phoneNumberLabel.text]];
+        [WLAlertView showWithMessage:[NSString stringWithFormat:WLLS(@"formatted_calling_now"), weakSelf.phoneNumberLabel.text]];
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;
         [error show];

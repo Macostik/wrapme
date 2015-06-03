@@ -8,10 +8,10 @@
 
 #import "WLSettingsViewController.h"
 #import "WLNavigationHelper.h"
-#import "UIAlertView+Blocks.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "WLToast.h"
 #import "WLButton.h"
+#import "WLAlertView.h"
 
 @interface WLSettingsViewController ()
 
@@ -27,11 +27,11 @@
     NSString* version = [info objectForKey:@"CFBundleShortVersionString"];
     NSString* build = [info objectForKey:(id)kCFBundleVersionKey];
     NSString *message = [NSString stringWithFormat:WLLS(@"formatted_about_message"), appName, version, build];
-    [UIAlertView showWithMessage:message];
+    [WLAlertView showWithMessage:message];
 }
 
 - (IBAction)signOut:(id)sender {
-    [UIAlertView showWithTitle:WLLS(@"sign_out") message:WLLS(@"sign_out_confirmation") action:WLLS(@"uppercase_yes") cancel:WLLS(@"uppercase_no") completion:^{
+    [WLAlertView showWithTitle:WLLS(@"sign_out") message:WLLS(@"sign_out_confirmation") action:WLLS(@"uppercase_yes") cancel:WLLS(@"uppercase_no") completion:^{
         [[WLNotificationCenter defaultCenter] clear];
         [WLSession clear];
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];

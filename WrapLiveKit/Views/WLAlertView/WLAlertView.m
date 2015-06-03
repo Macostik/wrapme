@@ -24,5 +24,17 @@
 #endif
 }
 
++ (void)showWithMessage:(NSString *)message {
+    [self showWithTitle:nil message:message buttons:@[WLLS(@"ok")] completion:nil];
+}
+
++ (void)showWithTitle:(NSString *)title message:(NSString *)message action:(NSString *)action cancel:(NSString *)cancel completion:(void (^)(void))completion {
+    [self showWithTitle:title message:message buttons:@[action, cancel] completion:^(NSUInteger index) {
+        if (index == 0 && completion) {
+            completion();
+        }
+    }];
+}
+
 @end
 

@@ -8,7 +8,7 @@
 
 #import "WLEmailConfirmationViewController.h"
 #import "WLNavigationHelper.h"
-#import "UIAlertView+Blocks.h"
+#import "WLAlertView.h"
 
 @interface WLEmailConfirmationViewController () <WLEntryNotifyReceiver>
 
@@ -50,7 +50,7 @@
     WLResendConfirmationRequest* request = [WLResendConfirmationRequest request];
     request.email = [WLAuthorization currentAuthorization].email;
     [request send:^(id object) {
-        [UIAlertView showWithMessage:WLLS(@"sending_confirming_email")];
+        [WLAlertView showWithMessage:WLLS(@"sending_confirming_email")];
     } failure:^(NSError *error) {
         [error show];
     }];

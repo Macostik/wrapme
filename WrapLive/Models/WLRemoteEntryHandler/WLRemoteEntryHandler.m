@@ -15,8 +15,11 @@
 
 @interface WLRemoteEntryHandler ()
 
-@property (strong, nonatomic) NSString *identifier;
-@property (strong, nonatomic) NSString *key;
+@property (strong, nonatomic) NSString *entryIdentifier;
+
+@property (strong, nonatomic) Class entryClass;
+
+@property (strong, nonatomic) WLFailureBlock failureBlock;
 
 @end
 
@@ -31,47 +34,40 @@
     return _sharedHandler;
 }
 
-- (void)presentEntry:(WLEntry *)entry {
-    [self presentEntry:entry animated:NO];
+- (BOOL)presentEntry:(WLEntry *)entry {
+    return [self presentEntry:entry animated:NO];
 }
 
-- (void)presentEntry:(WLEntry *)entry animated:(BOOL)animated {
+- (BOOL)presentEntry:(WLEntry *)entry animated:(BOOL)animated {
     if (_isLoaded) {
         if (entry.valid) {
             [WLNotificationEntryPresenter presentEntryRequestingAuthorization:entry animated:animated];
-            self.key = nil;
-            self.identifier = nil;
+            self.entryIdentifier = nil;
+            self.entryClass = nil;
         }
     }
+    return _isLoaded;
 }
 
 - (void)setIsLoaded:(BOOL)isLoaded {
     _isLoaded = isLoaded;
-    if (_isLoaded && [self.identifier nonempty]) {
-        id entry = [self entryByKey:self.key withIdentifier:self.identifier];
+    if (_isLoaded) {
+        id entry = [self entryByClass];
         if ([entry valid]) {
             [self presentEntry:entry];
+        } else {
+            if (self.failureBlock) self.failureBlock(WLError(WLLS(@"no_presenting_data")));
         }
+        self.failureBlock = nil;
     }
 }
 
-- (WLEntry *)entryByKey:(NSString *)key withIdentifier:(NSString *)identifier {
-    
-    Class entryClass = nil;
-    
-    if ([key isEqualToString:WLCandyKey]) {
-       entryClass = [WLCandy class];
-    } else if ([key isEqualToString:WLCommentKey])  {
-    entryClass = [WLComment class];
-    } else  if ([key isEqualToString:WLMessageKey])  {
-        entryClass = [WLMessage class];
-    } else {
-        return nil;
+- (WLEntry *)entryByClass {
+
+    if (self.entryClass && [self.entryClass entryExists:self.entryIdentifier]) {
+        return [self.entryClass entry:self.entryIdentifier];
     }
     
-    if (entryClass && [entryClass entryExists:identifier]) {
-        return [entryClass entry:identifier];
-    }
     return nil;
 }
 
@@ -79,26 +75,19 @@
 
 @implementation WLRemoteEntryHandler (WLNotification)
 
-- (void)presentEntryFromNotification:(WLEntryNotification*)notification {
+- (void)presentEntryFromNotification:(WLEntryNotification*)notification failure:(WLFailureBlock)failure {
     if (notification.event != WLEventDelete) {
-        switch (notification.type) {
-            case WLNotificationMessageAdd: {
-                self.key = WLMessageKey;
-                self.identifier = notification.targetEntry.identifier;
+        if ([notification.entryClass entryExists:notification.entryIdentifier]) {
+            if (![self presentEntry:notification.targetEntry]) {
+                self.entryClass = notification.entryClass;
+                self.entryIdentifier = notification.entryIdentifier;
+                self.failureBlock = failure;
             }
-                break;
-            case WLNotificationCandyAdd: {
-                self.key = WLCandyKey;
-                self.identifier = notification.targetEntry.identifier;
-            }
-                break;
-            default:
-                break;
+        } else {
+            if (failure) failure(WLError(WLLS(@"no_presenting_data")));
         }
-        if (notification.type == WLNotificationMessageAdd) {
-           
-        }
-        [self presentEntry:notification.targetEntry];
+    } else {
+        if (failure) failure(WLError(@"Cannot handle delete event"));
     }
 }
 
@@ -111,13 +100,13 @@
     NSString *identifier = parameters[WLUIDKey];
     if (identifier.nonempty) {
         NSString *key = [url path].lastPathComponent;
-        self.key = key;
-        self.identifier = identifier;
-        WLEntry *entry = [self entryByKey:key withIdentifier:identifier];
+        self.entryClass = [WLEntry entryClassByName:key];
+        self.entryIdentifier = identifier;
+        WLEntry *entry = [self entryByClass];
         if (entry) {
             [self presentEntry:entry];
         } else {
-            if (failure) failure(WLError(@"This item isn't available"));
+            if (failure) failure(WLError(WLLS(@"no_presenting_data")));
         }
     } else {
         if (failure) failure(WLError(@"Invalid data"));

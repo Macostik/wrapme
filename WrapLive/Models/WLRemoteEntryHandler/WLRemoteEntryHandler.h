@@ -17,17 +17,15 @@
 
 + (instancetype)sharedHandler;
 
-- (void)presentEntry:(WLEntry*)entry;
+- (BOOL)presentEntry:(WLEntry*)entry;
 
-- (void)presentEntry:(WLEntry*)entry animated:(BOOL)animated;
-
-- (WLEntry *)entryByKey:(NSString *)key withIdentifier:(NSString *)identifier;
+- (BOOL)presentEntry:(WLEntry*)entry animated:(BOOL)animated;
 
 @end
 
 @interface WLRemoteEntryHandler (WLNotification)
 
-- (void)presentEntryFromNotification:(WLEntryNotification*)notification;
+- (void)presentEntryFromNotification:(WLEntryNotification*)notification failure:(WLFailureBlock)failure;
 
 @end
 

@@ -74,6 +74,8 @@
 
 + (BOOL)entryExists:(NSString*)identifier;
 
++ (Class)entryClassByName:(NSString*)entryName;
+
 - (void)save;
 
 - (void)remove;

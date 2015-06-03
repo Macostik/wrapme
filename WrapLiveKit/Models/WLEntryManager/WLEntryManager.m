@@ -300,6 +300,20 @@ va_end(args);
     return [[WLEntryManager manager] entryExists:self identifier:identifier];
 }
 
++ (Class)entryClassByName:(NSString*)entryName {
+    if ([entryName isEqualToString:WLCandyKey]) {
+        return [WLCandy class];
+    } else if ([entryName isEqualToString:WLWrapKey])  {
+        return [WLWrap class];
+    } else if ([entryName isEqualToString:WLCommentKey])  {
+        return [WLComment class];
+    } else  if ([entryName isEqualToString:WLMessageKey])  {
+        return [WLMessage class];
+    } else {
+        return nil;
+    }
+}
+
 - (void)save {
     [[WLEntryManager manager] save];
 }

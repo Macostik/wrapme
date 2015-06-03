@@ -65,7 +65,9 @@
 	[[WLNotificationCenter defaultCenter] configure];
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:^(WLNotification *notification) {
         if ([notification isKindOfClass:[WLEntryNotification class]]) {
-            [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+            [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification failure:^(NSError *error) {
+                [error show];
+            }];
         }
     } failure:nil];
     [[WLNotificationCenter defaultCenter] setGettingDeviceTokenBlock:^ (WLDataBlock gettingDeviceTokenCompletionBlock) {
@@ -216,6 +218,12 @@ static WLDataBlock deviceTokenCompletion = nil;
     return YES;
 }
 
+- (void)presentRemoteNotification:(WLEntryNotification *)notification {
+    [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification failure:^(NSError *error) {
+        [error show];
+    }];
+}
+
 - (void)handleRemoteNotification:(NSDictionary*)userInfo completionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     __weak typeof(self)weakSelf = self;
     BOOL probablyUserInteraction = [UIApplication sharedApplication].applicationState == UIApplicationStateInactive;
@@ -223,13 +231,11 @@ static WLDataBlock deviceTokenCompletion = nil;
         if (notification.presentable) {
             UIApplicationState state = [UIApplication sharedApplication].applicationState;
             if (state == UIApplicationStateActive) {
-                if (probablyUserInteraction) {
-                    [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
-                }
+                if (probablyUserInteraction) [weakSelf presentRemoteNotification:(id)notification];
                 if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
             } else if (state == UIApplicationStateInactive) {
                 [weakSelf setDidBecomeActiveBlock:^{
-                    [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification];
+                    if (probablyUserInteraction) [weakSelf presentRemoteNotification:(id)notification];
                 }];
                 run_after(1.0f, ^{
                     weakSelf.didBecomeActiveBlock = nil;

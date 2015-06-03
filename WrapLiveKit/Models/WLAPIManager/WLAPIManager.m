@@ -111,21 +111,16 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     
     if (self.recursivelyFetched) {
         if (success) success();
-        return;
-    }
-    
-    WLEntry *entry = self;
-    while (entry) {
-        runUnaryQueuedOperation(@"recursive_entry_fetching", ^(WLOperation *operation) {
-            [entry fetchIfNeeded:^ (WLEntry *entry) {
-                [operation finish:success];
-            } failure:^ (NSError *error) {
-                [operation.queue cancelAllOperations];
-                [operation finish];
-                if (failure) failure(error);
-            }];
-        });
-        entry = entry.containingEntry;
+    } else {
+        __weak typeof(self)weakSelf = self;
+        [self fetchIfNeeded:^ (WLEntry *entry) {
+            WLEntry *containingEntry = weakSelf.containingEntry;
+            if (containingEntry) {
+                [containingEntry recursivelyFetchIfNeeded:success failure:failure];
+            } else {
+                if (success) success();
+            }
+        } failure:failure];
     }
 }
 
@@ -368,7 +363,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
 @implementation WLCandy (WLAPIManager)
 
 - (BOOL)fetched {
-    return self.picture.medium.nonempty;
+    return self.wrap && self.picture.medium.nonempty;
 }
 
 - (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {

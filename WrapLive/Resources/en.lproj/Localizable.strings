@@ -128,6 +128,8 @@
 
 "data_invalid" = "Invalid data.";
 
+"no_presenting_data" = "No actual data for presenting.";
+
 "upload_photos_limit_error" = "You can upload up to 10 pictures at a time.";
 
 "downloading_internet_connection_error" = "No internet connection. Please try downloading it later.";

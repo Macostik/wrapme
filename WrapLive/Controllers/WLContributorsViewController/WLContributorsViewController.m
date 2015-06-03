@@ -88,6 +88,9 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     __weak typeof(self)weakSelf = self;
     [updateContributot send:^(id object) {
         [weakSelf.removedContributors removeObject:contributor];
+        if (weakSelf.contributiorWithOpenedMenu == contributor) {
+            weakSelf.contributiorWithOpenedMenu = nil;
+        }
     } failure:^(NSError *error) {
         [error show];
         [weakSelf.removedContributors removeObject:contributor];

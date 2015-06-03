@@ -38,6 +38,9 @@
 "data_invalid" = "Данные не валидны.";
 
 /* (No Commment) */
+"no_presenting_data" = "Нет данных для отображения.";
+
+/* (No Commment) */
 "delete" = "Удалить";
 
 /* (No Commment) */

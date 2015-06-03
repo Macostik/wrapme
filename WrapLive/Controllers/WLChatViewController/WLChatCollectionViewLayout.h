@@ -23,6 +23,8 @@
 
 - (CGFloat)collectionView:(UICollectionView*)collectionView bottomSpacingForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath;
 
+- (BOOL)collectionView:(UICollectionView*)collectionView applyContentSizeInsetForAttributes:(UICollectionViewLayoutAttributes*)attributes;
+
 @end
 
 @interface WLChatCollectionViewLayout : UICollectionViewLayout

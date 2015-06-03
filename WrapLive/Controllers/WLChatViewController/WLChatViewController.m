@@ -499,6 +499,10 @@ CGFloat WLMaxTextViewWidth;
     return 0;
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView applyContentSizeInsetForAttributes:(UICollectionViewLayoutAttributes *)attributes {
+    return ![attributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader];
+}
+
 #pragma mark - WLFontPresetterReceiver
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {

@@ -89,6 +89,8 @@ static NSString *WLCollectionElementKindItem = @"item";
     
     UICollectionView *collectionView = self.collectionView;
     
+    id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
+    
     NSUInteger numberOfSections = [collectionView numberOfSections];
     
     for (NSUInteger section = 0; section < numberOfSections; ++section) {
@@ -125,7 +127,15 @@ static NSString *WLCollectionElementKindItem = @"item";
         if (!attributes.hidden) {
             contentOffset += attributes.topSpacing;
             CGSize size = attributes.size;
-            attributes.frame = CGRectMake(0, contentOffset + inset, size.width, size.height);
+            BOOL applyContentSizeInset = YES;
+            if ([delegate respondsToSelector:@selector(collectionView:applyContentSizeInsetForAttributes:)]) {
+                applyContentSizeInset = [delegate collectionView:collectionView applyContentSizeInsetForAttributes:attributes];
+            }
+            if (applyContentSizeInset) {
+                attributes.frame = CGRectMake(0, contentOffset + inset, size.width, size.height);
+            } else {
+                attributes.frame = CGRectMake(0, contentOffset, size.width, size.height);
+            }
             contentOffset += size.height;
             contentOffset += attributes.bottomSpacing;
         }

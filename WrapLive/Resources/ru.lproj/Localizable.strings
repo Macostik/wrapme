@@ -73,7 +73,7 @@
 "engagement_notification_alert" = "Получены новые фотографии? Обновить их в Вашем врапе сейчас!";
 
 /* (No Commment) */
-"formatted_about_message" = "Вы используете %@v%@Сборка %@";
+"formatted_about_message" = "Вы используете %@\nv%@\nСборка %@";
 
 /* (No Commment) */
 "formatted_and_are_typing" = "%@ и %@ печатают...";

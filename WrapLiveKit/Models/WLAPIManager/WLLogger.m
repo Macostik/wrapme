@@ -31,6 +31,8 @@
 #ifndef WRAPLIVE_EXTENSION_TERGET
     int state = (int)[UIApplication sharedApplication].applicationState;
     [WLLogger LE_log:[NSString stringWithFormat:@"%@ >> (app state: %d) >> %@: %@", [WLUser combinedIdentifier], state, str, object]];
+#else
+    [WLLogger LE_log:[NSString stringWithFormat:@"%@ >> extension >> %@: %@", [WLUser combinedIdentifier], str, object]];
 #endif
 }
 

@@ -178,51 +178,18 @@
     }
     
     if (event == WLEventAdd) {
-        
-        WLBlock block = ^ {
-            switch (weakSelf.type) {
-                case WLNotificationCommentAdd: {
-                    WLCandy *candy = [(WLComment*)targetEntry candy];
-                    if (candy.valid) candy.commentCount = candy.comments.count;
-                    if (weakSelf.inserted) [targetEntry markAsUnreadIfNeededForEvent:weakSelf.event];
-                    break;
-                }
-                case WLNotificationCandyAdd:
-                case WLNotificationMessageAdd:
-                    if (weakSelf.inserted) [targetEntry markAsUnreadIfNeededForEvent:weakSelf.event];
-                    break;
-                default:
-                    break;
-            }
-            [targetEntry notifyOnAddition];
-            if (success) success();
-        };
-        
+        [targetEntry prepareForAddNotification:weakSelf];
         [targetEntry recursivelyFetchIfNeeded:^{
-            if (weakSelf.type == WLNotificationCandyAdd) {
-                [targetEntry.picture fetch:block];
-            } else {
-                block();
-            }
+            [targetEntry finalizeAddNotification:weakSelf completionHandler:success];
         } failure:failure];
     } else if (event == WLEventUpdate) {
-        
-        WLBlock block = ^ {
-            if (weakSelf.type == WLNotificationCandyUpdate) [targetEntry markAsUnreadIfNeededForEvent:weakSelf.event];
-            [targetEntry notifyOnUpdate];
-            if (success) success();
-        };
-        
+        [targetEntry prepareForUpdateNotification:weakSelf];
         [targetEntry fetch:^(id object) {
-            if (weakSelf.type == WLNotificationCandyUpdate) {
-                [targetEntry.picture fetch:block];
-            } else {
-                block();
-            }
+            [targetEntry finalizeUpdateNotification:weakSelf completionHandler:success];
         } failure:failure];
     } else if (event == WLEventDelete) {
-        [targetEntry remove];
-        if (success) success();
+        [targetEntry prepareForDeleteNotification:weakSelf];
+        [targetEntry finalizeDeleteNotification:weakSelf completionHandler:success];
     }
 }
 
@@ -261,6 +228,33 @@
 
 - (void)markAsUnreadIfNeededForEvent:(WLEvent)event {
     if ([self notifiableForEvent:event]) [self markAsUnread];
+}
+
+- (void)prepareForAddNotification:(WLEntryNotification *)notification {
+    
+}
+
+- (void)prepareForUpdateNotification:(WLEntryNotification *)notification {
+    
+}
+
+- (void)prepareForDeleteNotification:(WLEntryNotification *)notification {
+    
+}
+
+- (void)finalizeAddNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+    [self notifyOnAddition];
+    if (completionHandler) completionHandler();
+}
+
+- (void)finalizeUpdateNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+    [self notifyOnUpdate];
+    if (completionHandler) completionHandler();
+}
+
+- (void)finalizeDeleteNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+    [self remove];
+    if (completionHandler) completionHandler();
 }
 
 @end
@@ -302,6 +296,48 @@
 
 @end
 
+@implementation WLCandy (WLNotification)
+
+- (void)finalizeAddNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+    if (notification.inserted) [self markAsUnreadIfNeededForEvent:notification.event];
+    [self.picture fetch:^{
+        [super finalizeAddNotification:notification completionHandler:completionHandler];
+    }];
+}
+
+- (void)finalizeUpdateNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+    [self markAsUnreadIfNeededForEvent:notification.event];
+    [self.picture fetch:^{
+        [super finalizeUpdateNotification:notification completionHandler:completionHandler];
+    }];
+}
+
+- (void)finalizeDeleteNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+    WLWrap *wrap = self.wrap;
+    [super finalizeDeleteNotification:notification completionHandler:completionHandler];
+    if (wrap.valid && !wrap.candies.nonempty) {
+        [wrap fetch:nil success:nil failure:nil];
+    }
+}
+
+@end
+
+@implementation WLMessage (WLNotification)
+
+- (void)finalizeAddNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+    if (notification.inserted) [self markAsUnreadIfNeededForEvent:notification.event];
+    [super finalizeAddNotification:notification completionHandler:completionHandler];
+}
+
+@end
+
 @implementation WLComment (WLNotification)
+
+- (void)finalizeAddNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+    WLCandy *candy = self.candy;
+    if (candy.valid) candy.commentCount = candy.comments.count;
+    if (notification.inserted) [self markAsUnreadIfNeededForEvent:notification.event];
+    [super finalizeAddNotification:notification completionHandler:completionHandler];
+}
 
 @end

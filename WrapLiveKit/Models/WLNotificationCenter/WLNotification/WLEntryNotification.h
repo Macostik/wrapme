@@ -34,6 +34,18 @@
 
 - (void)markAsUnreadIfNeededForEvent:(WLEvent)event;
 
+- (void)prepareForAddNotification:(WLEntryNotification *)notification;
+
+- (void)prepareForUpdateNotification:(WLEntryNotification *)notification;
+
+- (void)prepareForDeleteNotification:(WLEntryNotification *)notification;
+
+- (void)finalizeAddNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler;
+
+- (void)finalizeUpdateNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler;
+
+- (void)finalizeDeleteNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler;
+
 @end
 
 @interface WLContribution (WLNotification)
@@ -49,6 +61,14 @@
 - (BOOL)containsUnreadMessage;
 
 - (NSUInteger)unreadNotificationsMessageCount;
+
+@end
+
+@interface WLCandy (WLNotification)
+
+@end
+
+@interface WLMessage (WLNotification)
 
 @end
 

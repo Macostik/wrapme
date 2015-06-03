@@ -98,6 +98,18 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     }];
 }
 
+- (void)hideMenuForContributor:(WLUser*)contributor {
+    if (self.contributiorWithOpenedMenu == contributor) {
+        self.contributiorWithOpenedMenu = nil;
+        for (WLContributorCell *cell in [self.dataSource.collectionView visibleCells]) {
+            if (cell.entry == contributor) {
+                [cell setMenuHidden:YES animated:YES];
+                break;
+            }
+        }
+    }
+}
+
 - (void)contributorCell:(WLContributorCell *)cell didInviteContributor:(WLUser *)contributor completionHandler:(void (^)(BOOL))completionHandler {
     WLResendInviteRequest *request = [WLResendInviteRequest request:self.wrap];
     request.user = contributor;
@@ -105,6 +117,8 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     [request send:^(id object) {
         if (completionHandler) completionHandler(YES);
         [weakSelf.invitedContributors addObject:contributor];
+        [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(hideMenuForContributor:) object:contributor];
+        [weakSelf performSelector:@selector(hideMenuForContributor:) withObject:contributor afterDelay:3];
     } failure:^(NSError *error) {
         [error show];
         if (completionHandler) completionHandler(NO);
@@ -120,6 +134,10 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 }
 
 - (void)contributorCell:(WLContributorCell *)cell didToggleMenu:(WLUser *)contributor {
+    if (self.contributiorWithOpenedMenu) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideMenuForContributor:) object:self.contributiorWithOpenedMenu];
+    }
+    
     if (self.contributiorWithOpenedMenu == contributor) {
         self.contributiorWithOpenedMenu = nil;
     } else {

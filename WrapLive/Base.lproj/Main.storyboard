@@ -91,8 +91,6 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
-            <string>OpenSans</string>
-            <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="OpenSans-Semibold.ttf">
             <string>OpenSans-Semibold</string>
@@ -4635,69 +4633,21 @@ Check your internet connection and try again.</string>
                                     <outlet property="delegate" destination="zjC-7P-9tZ" id="LX9-hM-1b7"/>
                                 </connections>
                             </collectionView>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYf-Sg-pHd" customClass="WLPressButton">
-                                <rect key="frame" x="0.0" y="524" width="160" height="44"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="1j2-Y3-cMk"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="cancel:" destination="qRW-aK-Lk5" eventType="touchUpInside" id="NyC-9h-jYu"/>
-                                </connections>
-                            </button>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oMu-AF-YMH" customClass="WLPressButton">
-                                <rect key="frame" x="161" y="524" width="159" height="44"/>
-                                <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="S6g-fs-hHU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" red="0.57647061349999995" green="0.57647061349999995" blue="0.57254904510000004" alpha="1" colorSpace="deviceRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="done:" destination="qRW-aK-Lk5" eventType="touchUpInside" id="fTd-Cq-CoZ"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Xt0-mU-aTu" firstAttribute="top" secondItem="oMu-AF-YMH" secondAttribute="bottom" id="02y-oc-TQs"/>
-                            <constraint firstItem="oMu-AF-YMH" firstAttribute="leading" secondItem="dYf-Sg-pHd" secondAttribute="trailing" constant="1" id="0QT-Fo-tZi"/>
-                            <constraint firstItem="Xt0-mU-aTu" firstAttribute="top" secondItem="dYf-Sg-pHd" secondAttribute="bottom" id="0Vc-0P-xs8"/>
                             <constraint firstItem="DO8-0B-bff" firstAttribute="leading" secondItem="3Jb-s5-DCT" secondAttribute="leading" id="11t-5e-LdX"/>
-                            <constraint firstItem="dYf-Sg-pHd" firstAttribute="width" secondItem="oMu-AF-YMH" secondAttribute="width" id="2py-KP-u6H"/>
                             <constraint firstItem="Xt0-mU-aTu" firstAttribute="top" secondItem="DO8-0B-bff" secondAttribute="bottom" id="7NH-BM-Isx"/>
                             <constraint firstItem="DO8-0B-bff" firstAttribute="top" secondItem="hQR-1L-vX5" secondAttribute="bottom" constant="44" id="8cE-IV-3mr"/>
                             <constraint firstAttribute="trailing" secondItem="2R6-MR-eF4" secondAttribute="trailing" id="EYw-7G-8NI"/>
-                            <constraint firstAttribute="trailing" secondItem="oMu-AF-YMH" secondAttribute="trailing" id="FLa-Jc-FaL"/>
                             <constraint firstItem="2R6-MR-eF4" firstAttribute="leading" secondItem="3Jb-s5-DCT" secondAttribute="leading" id="RJS-Qy-Lna"/>
                             <constraint firstAttribute="trailing" secondItem="DO8-0B-bff" secondAttribute="trailing" id="dEa-Hu-lxt"/>
                             <constraint firstItem="2R6-MR-eF4" firstAttribute="top" secondItem="hQR-1L-vX5" secondAttribute="bottom" constant="-20" id="f4z-CN-xGO"/>
-                            <constraint firstItem="dYf-Sg-pHd" firstAttribute="leading" secondItem="3Jb-s5-DCT" secondAttribute="leading" id="rVW-iB-rvQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eIg-JY-jsf"/>
                     <connections>
-                        <outlet property="cancelButton" destination="dYf-Sg-pHd" id="bud-PD-3U6"/>
                         <outlet property="dataSource" destination="zjC-7P-9tZ" id="72Y-Da-JLc"/>
-                        <outlet property="doneButton" destination="oMu-AF-YMH" id="lIa-zm-9E9"/>
                         <outlet property="navigationBar" destination="2R6-MR-eF4" id="kOB-uz-PqL"/>
                     </connections>
                 </viewController>

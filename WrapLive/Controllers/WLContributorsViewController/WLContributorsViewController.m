@@ -22,7 +22,9 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 
 @property (strong, nonatomic) NSMutableSet* invitedContributors;
 
-@property (strong, nonatomic) NSHashTable* usersWithOpenedMenu;
+@property (strong, nonatomic) NSMutableSet* removedContributors;
+
+@property (weak, nonatomic) WLUser* contributiorWithOpenedMenu;
 
 @end
 
@@ -31,11 +33,10 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.usersWithOpenedMenu = [NSHashTable weakObjectsHashTable];
-    
     self.invitedContributors = [NSMutableSet set];
     
-    self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap properties:[NSSet setWithObject:[WLOrderedSetEditSessionProperty property:@"removedContributors"]]];
+    self.removedContributors = [NSMutableSet set];
+    
     // Do any additional setup after loading the view.
     __weak UICollectionView *collectionView = self.dataSource.collectionView;
     [self.dataSource setItemSizeBlock:^CGSize(WLUser *contributor, NSUInteger index) {
@@ -54,9 +55,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     collectionView.scrollIndicatorInsets = insets;
     
     [[WLWrap notifier] addReceiver:self];
-}
-
-- (void)setupEditableUserInterface {
+    
     self.dataSource.items = [self sortedContributors];
 }
 
@@ -71,6 +70,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
         }
         return [WLString(obj1.name) compare:WLString(obj2.name)];
     }];
+    [contributors removeObjectsInArray:self.removedContributors.allObjects];
     return contributors;
 }
 
@@ -79,12 +79,20 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 - (void)contributorCell:(WLContributorCell *)cell didRemoveContributor:(WLUser *)contributor {
     WLAddressBookPhoneNumber *person = [WLAddressBookPhoneNumber new];
     person.user = contributor;
-    [self.editSession changeValueForProperty:@"removedContributors" valueBlock:^id(id changedValue) {
-        return [changedValue orderedSetByAddingObject:person];
-    }];
     NSMutableOrderedSet *contributors = (id)self.dataSource.items;
     [contributors removeObject:contributor];
     [self.dataSource reload];
+    [self.removedContributors addObject:contributor];
+    WLUpdateContributorsRequest *updateContributot = [WLUpdateContributorsRequest request:self.wrap];
+    updateContributot.contributors = @[person];
+    __weak typeof(self)weakSelf = self;
+    [updateContributot send:^(id object) {
+        [weakSelf.removedContributors removeObject:contributor];
+    } failure:^(NSError *error) {
+        [error show];
+        [weakSelf.removedContributors removeObject:contributor];
+        weakSelf.dataSource.items = [weakSelf sortedContributors];
+    }];
 }
 
 - (void)contributorCell:(WLContributorCell *)cell didInviteContributor:(WLUser *)contributor completionHandler:(void (^)(BOOL))completionHandler {
@@ -109,15 +117,20 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 }
 
 - (void)contributorCell:(WLContributorCell *)cell didToggleMenu:(WLUser *)contributor {
-    if ([self.usersWithOpenedMenu containsObject:contributor]) {
-        [self.usersWithOpenedMenu removeObject:contributor];
+    if (self.contributiorWithOpenedMenu == contributor) {
+        self.contributiorWithOpenedMenu = nil;
     } else {
-        [self.usersWithOpenedMenu addObject:contributor];
+        self.contributiorWithOpenedMenu = contributor;
+        for (WLContributorCell *cell in [self.dataSource.collectionView visibleCells]) {
+            if (cell.entry != contributor) {
+                [cell setMenuHidden:YES animated:YES];
+            }
+        }
     }
 }
 
 - (BOOL)contributorCell:(WLContributorCell *)cell showMenu:(WLUser *)contributor {
-    return [self.usersWithOpenedMenu containsObject:contributor];
+    return self.contributiorWithOpenedMenu == contributor;
 }
 
 #pragma mark - WLEntryNotifyReceiver
@@ -127,19 +140,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLWrap *)wrap {
-    NSMutableOrderedSet* contributors = [self sortedContributors];
-    for (WLAddressBookPhoneNumber* person in [self.editSession changedValueForProperty:@"removedContributors"]) {
-        [contributors removeObject:person.user];
-    }
-    self.dataSource.items = contributors;
-}
-
-#pragma mark - Actions
-
-- (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    WLUpdateContributorsRequest *updateContributot = [WLUpdateContributorsRequest request:self.wrap];
-    updateContributot.contributors = [[self.editSession changedValueForProperty:@"removedContributors"] array];
-    [updateContributot send:success failure:failure];
+    self.dataSource.items = [self sortedContributors];
 }
 
 @end

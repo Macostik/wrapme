@@ -28,4 +28,6 @@
 
 @property (nonatomic) BOOL deletable;
 
+- (void)setMenuHidden:(BOOL)hidden animated:(BOOL)animated;
+
 @end

@@ -17,8 +17,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="32" text="Swipe to see next photo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="LpS-0e-hFu" customClass="WLLabel">
-                    <rect key="frame" x="28" y="89" width="229" height="32"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to see next photo" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LpS-0e-hFu" customClass="WLLabel">
+                    <rect key="frame" x="44" y="95" width="213" height="26"/>
                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                     <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -49,6 +49,10 @@
                 </button>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="candy_screen_pic_hand_swipe" translatesAutoresizingMaskIntoConstraints="NO" id="gHY-2V-Myp">
                     <rect key="frame" x="127" y="194" width="119" height="192"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="192" id="8du-9V-EVQ"/>
+                        <constraint firstAttribute="width" constant="119" id="8pJ-QG-QcH"/>
+                    </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -60,6 +64,7 @@
                 <constraint firstItem="gHY-2V-Myp" firstAttribute="top" secondItem="nVZ-f0-I5Z" secondAttribute="bottom" constant="20" id="Z4c-G6-HXE"/>
                 <constraint firstAttribute="centerX" secondItem="gHY-2V-Myp" secondAttribute="centerX" constant="-26" id="alH-3N-7zP"/>
                 <constraint firstAttribute="centerY" secondItem="gHY-2V-Myp" secondAttribute="centerY" constant="-50" id="flK-2t-Yn5"/>
+                <constraint firstItem="LpS-0e-hFu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kzF-Xz-cLA" secondAttribute="leading" constant="12" id="vlC-fZ-dO1"/>
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -71,7 +76,7 @@
                     <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="468" y="281"/>
+            <point key="canvasLocation" x="419" y="288"/>
         </view>
     </objects>
     <resources>

@@ -130,7 +130,7 @@
 "mail_sent" = "Письмо отправлено.Спасибо Вам за помощь!";
 
 /* (No Commment) */
-"message_placeholder" = "Напишите свое сообщение ...";
+"message_placeholder" = "Введите сообщение...";
 
 /* (No Commment) */
 "name_cannot_be_blank" = "Имя не может быть пустым.";
@@ -287,4 +287,14 @@
 
 "reply" = "Ответить";
 
-"unread_message" = "%lu НЕПРОЧИТАННЫЕ СООБЩЕНИЯ";
+"unread_message" = "%lu НОВ%@ СООБЩЕН%@";
+
+"oe_Ending" = "ОЕ";
+
+"ue_Ending" = "ИЕ";
+
+"sORix_Ending" = "ЫХ";
+
+"iya_Ending" = "ИЯ";
+
+"ii_Ending" = "ИЙ";

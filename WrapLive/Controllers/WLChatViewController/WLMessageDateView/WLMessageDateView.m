@@ -20,7 +20,7 @@
 
 - (void)setMessage:(WLMessage *)message {
     _message = message;
-    self.dateLabel.text = [message.createdAt stringWithFormat:@"MMM d, yyyy"];
+    self.dateLabel.text = [message.createdAt stringWithDateStyle:NSDateFormatterMediumStyle];
 }
 
 @end

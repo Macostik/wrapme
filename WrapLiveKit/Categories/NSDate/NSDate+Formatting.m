@@ -44,6 +44,29 @@ static NSMutableDictionary* formatters = nil;
     return formatter;
 }
 
++ (NSDateFormatter *)formatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle {
+    return [self formatterWithDateStyle:dateStyle timeStyle:timeStyle relative:NO];
+}
+
++ (NSDateFormatter *)formatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle relative:(BOOL)relative {
+    if (!formatters) {
+        formatters = [NSMutableDictionary dictionary];
+    }
+    
+    NSString *formatterKey = [NSString stringWithFormat:@"%lu-%lu-%d", (unsigned long)dateStyle, (unsigned long)timeStyle, relative];
+    NSDateFormatter* formatter = [formatters objectForKey:formatterKey];
+    
+    if (!formatter) {
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.dateStyle = dateStyle;
+        formatter.timeStyle = timeStyle;
+        formatter.doesRelativeDateFormatting = relative;
+        [formatters setObject:formatter forKey:formatterKey];
+    }
+    
+    return formatter;
+}
+
 - (NSString *)stringWithFormat:(NSString *)format {
     return [[NSDate formatterWithDateFormat:format] stringFromDate:self withFormat:format];
 }
@@ -66,6 +89,22 @@ static NSMutableDictionary* formatters = nil;
 
 - (NSString *)GMTString {
 	return [self stringWithTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+}
+
+- (NSString *)stringWithTimeStyle:(NSDateFormatterStyle)timeStyle {
+    return [self stringWithDateStyle:NSDateFormatterNoStyle timeStyle:timeStyle];
+}
+
+- (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle {
+    return [self stringWithDateStyle:dateStyle timeStyle:NSDateFormatterNoStyle];
+}
+
+- (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle {
+    return [self stringWithDateStyle:dateStyle timeStyle:timeStyle relative:NO];
+}
+
+- (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle relative:(BOOL)relative {
+    return [[NSDate formatterWithDateStyle:dateStyle timeStyle:timeStyle relative:relative] stringFromDate:self];
 }
 
 @end

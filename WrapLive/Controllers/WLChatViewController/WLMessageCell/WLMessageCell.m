@@ -86,7 +86,7 @@
         self.avatarView.url = message.contributor.picture.small;
         self.nameLabel.text = message.contributedByCurrentUser ? WLLS(@"you") : message.contributor.name;
     }
-    self.timeLabel.text = [message.createdAt stringWithFormat:@"h:mmaa"];
+    self.timeLabel.text = [message.createdAt stringWithTimeStyle:NSDateFormatterShortStyle];
     [self.textView determineHyperLink:message.text];
     if (self.indicator) {
         [self.indicator updateStatusIndicator:message];

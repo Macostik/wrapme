@@ -44,7 +44,7 @@
 
 - (void)setup:(WLHistoryItem*)item {
     self.dataSource.items = item;
-	self.dateLabel.text = [item.date string];
+	self.dateLabel.text = [item.date stringWithDateStyle:NSDateFormatterMediumStyle];
     [self.collectionView layoutIfNeeded];
     [self.collectionView trySetContentOffset:item.offset];
 }

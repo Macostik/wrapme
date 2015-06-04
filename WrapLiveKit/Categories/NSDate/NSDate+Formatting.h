@@ -18,6 +18,10 @@
 
 + (NSDateFormatter *)formatterWithDateFormat:(NSString*)dateFormat;
 
++ (NSDateFormatter *)formatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle;
+
++ (NSDateFormatter *)formatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle relative:(BOOL)relative;
+
 - (NSString*)stringWithFormat:(NSString*)dateFormat;
 
 - (NSString*)stringWithFormat:(NSString*)dateFormat timeZone:(NSTimeZone*)timeZone;
@@ -29,6 +33,14 @@
 - (NSString*)stringWithTimeZone:(NSTimeZone*)timeZone;
 
 - (NSString*)GMTString;
+
+- (NSString *)stringWithTimeStyle:(NSDateFormatterStyle)timeStyle;
+
+- (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle;
+
+- (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle;
+
+- (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle relative:(BOOL)relative;
 
 @end
 

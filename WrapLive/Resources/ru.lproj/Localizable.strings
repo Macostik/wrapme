@@ -217,22 +217,22 @@
 "you" = "Вы";
 
 /* (No Commment) */
-"minute" = "минута";
+"minute" = "мин.";
 
 /* (No Commment) */
-"hour" = "час";
+"hour" = "ч.";
 
 /* (No Commment) */
-"day" = "день";
+"day" = "д.";
 
 /* (No Commment) */
-"week" = "неделя";
+"week" = "нед.";
 
 /* (No Commment) */
-"month" = "месяц";
+"month" = "мес.";
 
 /* (No Commment) */
-"year" = "год";
+"year" = "г.";
 
 /* (No Commment) */
 "less_than_minute_ago" = "меньше минуты назад";

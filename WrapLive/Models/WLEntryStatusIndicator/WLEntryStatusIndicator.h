@@ -7,34 +7,33 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLIconView.h"
+#import "WLLabel.h"
 #import "WLEntry+Extended.h"
 
 static NSInteger WLIndicatorWidth = 16.0;
 
 inline static NSString* iconNameByContribution(WLContribution *contribution) {
     if (![(id)contribution.containingEntry uploaded]) {
-        return @"clock";
+        return @"D";
     }
-    
     switch ([contribution statusOfAnyUploadingType]) {
         case WLContributionStatusReady:
-            return @"clock";
+            return @"D";
             break;
         case WLContributionStatusInProgress:
-            return @"check";
+            return @"E";
             break;
         case WLContributionStatusFinished:
-            return @"double-check";
+            return @"F";
             break;
         default:
-            return @"";
+            return @"D";
             break;
     }
 }
 
 
-@interface WLEntryStatusIndicator : WLIconView
+@interface WLEntryStatusIndicator : WLLabel
 
 - (void)updateStatusIndicator:(WLContribution *)contribution;
 

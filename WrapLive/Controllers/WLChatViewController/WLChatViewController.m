@@ -454,9 +454,9 @@ CGFloat WLMaxTextViewWidth;
     CGFloat topInset = (containsName ? self.nameFont.lineHeight : 0);
     CGFloat bottomInset = self.timeFont.lineHeight;
     commentHeight = topInset + commentHeight + bottomInset;
-    CGFloat resultHeight = MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight);
-    [self.cachedMessageHeights setObject:@(resultHeight) forKey:message];
-    return resultHeight;
+    commentHeight = MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight);
+    [self.cachedMessageHeights setObject:@(commentHeight) forKey:message];
+    return commentHeight;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {

@@ -37,9 +37,7 @@
 }
 
 - (void)setIconNameByCotribution:(WLContribution *)contribution {
-    run_in_main_queue(^{
-        self.iconName = iconNameByContribution(contribution);
-    });
+    self.text = iconNameByContribution(contribution);
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier entryUpdated:(WLEntry *)entry {

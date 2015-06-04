@@ -19,6 +19,10 @@
 
 @implementation WLTextView
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -33,10 +37,6 @@
 - (void)setHidden:(BOOL)hidden {
     [super setHidden:hidden];
     self.placeholderLabel.hidden = hidden;
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setText:(NSString *)text {

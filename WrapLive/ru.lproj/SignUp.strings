@@ -5,7 +5,7 @@
 "2Lq-nT-Bu5.normalTitle" = "Далее";
 
 /* Class = "UILabel"; text = "We are sending you a passcode through e-mail and phone..."; ObjectID = "3SS-8p-5Y2"; */
-"3SS-8p-5Y2.text" = "Мы отравили Вам код на почту и телефон...";
+"3SS-8p-5Y2.text" = "Мы отравили Вам код на e-mail и телефон...";
 
 /* Class = "UILabel"; text = "Select your country"; ObjectID = "5MV-3s-wuD"; */
 "5MV-3s-wuD.text" = "Выберите свою страну";
@@ -83,7 +83,7 @@
 "Zwb-OE-87q.normalTitle" = "Далее";
 
 /* Class = "UILabel"; text = "We are sending you a 4-digit code. Enter it above to verify your phone number."; ObjectID = "a1z-Vo-fE0"; */
-"a1z-Vo-fE0.text" = "Мы отправляем Вам 4-х значный код. Введите его ниже для подтверждения Вашего номера";
+"a1z-Vo-fE0.text" = "Мы отправляем Вам 4-х значный код. Введите его выше для подтверждения Вашего номера";
 
 /* (No Commment) */
 "a3e-r8-TjK.normalTitle" = "Использовать голосовой звонок";
@@ -101,10 +101,10 @@
 "cr9-5f-gle.normalTitle" = "Завершить";
 
 /* Class = "UIButton"; normalTitle = "Use another e-mail"; ObjectID = "dM9-5p-U8h"; */
-"dM9-5p-U8h.normalTitle" = "Использовать другой почтовый адрес";
+"dM9-5p-U8h.normalTitle" = "Использовать другой e-mail";
 
 /* Class = "UILabel"; text = "We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue"; ObjectID = "dRx-kr-5xI"; */
-"dRx-kr-5xI.text" = "Нам необходимо проверить Вашу почту, прежде чем будет добывлено устройство к аккаунту. Пожалуйста, перейдите по ссылке для продолжения";
+"dRx-kr-5xI.text" = "Нам необходимо проверить Ваш e-mail, прежде чем будет добывлено устройство к аккаунту. Пожалуйста, перейдите по ссылке для продолжения";
 
 /* Class = "UIButton"; normalTitle = "Next"; ObjectID = "e0l-0g-x0j"; */
 "e0l-0g-x0j.normalTitle" = "Далее";
@@ -128,7 +128,7 @@
 "oIH-Zc-2Z8.normalTitle" = "Переотправить письмо";
 
 /* (No Commment) */
-"otQ-7a-PwI.text" = "Мы отравили Вам код на почту и телефон...";
+"otQ-7a-PwI.text" = "Мы отравили Вам код на e-mail и телефон...";
 
 /* (No Commment) */
 "pmp-Nw-u2O.text" = "Кокой у Вас номер телефона?";
@@ -167,5 +167,5 @@
 "xte-7W-F0S.normalTitle" = "Попробовать еще раз";
 
 /* (No Commment) */
-"zgM-iC-MDR.text" = "Какой Ваш почтовый адрес?";
+"zgM-iC-MDR.text" = "Укажите Ваш e-mail";
 

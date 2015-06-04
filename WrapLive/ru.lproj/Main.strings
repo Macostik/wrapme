@@ -18,7 +18,7 @@
 "7dN-Y5-4Ue.normalTitle" = "Удалить";
 
 /* Class = "UITextField"; placeholder = "Email address"; ObjectID = "82E-k4-0WJ"; */
-"82E-k4-0WJ.placeholder" = "Адрес почты";
+"82E-k4-0WJ.placeholder" = "Адрес e-mail";
 
 /* Class = "UILabel"; text = "Slide to open camera"; ObjectID = "88Q-sD-VfR"; */
 "88Q-sD-VfR.text" = "Открыть камеру";
@@ -66,7 +66,7 @@
 "QO2-SC-TvX.text" = "Изменение данных";
 
 /* Class = "UIButton"; normalTitle = "Change e-mail"; ObjectID = "R9i-Mn-k3a"; */
-"R9i-Mn-k3a.normalTitle" = "Измен. почту";
+"R9i-Mn-k3a.normalTitle" = "Измен. e-mail";
 
 /* Class = "UILabel"; text = "What's up"; ObjectID = "Te3-A9-g3F"; */
 "Te3-A9-g3F.text" = "Что нового";
@@ -78,7 +78,7 @@
 "TvM-gd-tcr.text" = "Проблемы соединения с wrapLive. Проверте интернет соединение и попытайтесь снова.";
 
 /* Class = "UILabel"; text = "Confirm calvin@ravenpod.com as your email address to help secure your account."; ObjectID = "UL6-dF-3Kj"; */
-"UL6-dF-3Kj.text" = "Вы еще не подтвердили Вашу почту. Пожалуйста, проверте ее.";
+"UL6-dF-3Kj.text" = "Вы еще не подтвердили Ваш e-mail. Пожалуйста, проверте ее.";
 
 /* Class = "UITextField"; placeholder = "Name"; ObjectID = "Xmt-yf-g7R"; */
 "Xmt-yf-g7R.placeholder" = "Имя";
@@ -96,7 +96,7 @@
 "dYf-Sg-pHd.normalTitle" = "Отмена";
 
 /* (No Commment) */
-"eHd-9o-24J.text" = "Вы еще не подтвердили Вашу почту. Пожалуйста, проверьте ее.";
+"eHd-9o-24J.text" = "Вы еще не подтвердили Ваш e-mail. Пожалуйста, проверьте ее.";
 
 /* Class = "UIButton"; normalTitle = "Resend"; ObjectID = "gpG-be-cvC"; */
 "gpG-be-cvC.normalTitle" = "Пов. отправка";

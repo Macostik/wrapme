@@ -26,7 +26,7 @@
 "comment_placeholder" = "Оставьте свой комментарий ...";
 
 /* (No Commment) */
-"confirmation_resend" = "Подтверждение повторной отправки. Пожалуйста, проверьте ствою почту";
+"confirmation_resend" = "Подтверждение повторной отправки. Пожалуйста, проверьте Ваш e-mail";
 
 /* (No Commment) */
 "connection_was_lost" = "Соединение было потеряно.";
@@ -53,7 +53,7 @@
 "delete_wrap" = "Удалить wrap";
 
 /* (No Commment) */
-"delete_wrap_success" = "Врап был успешно удален.";
+"delete_wrap_success" = "Wrap был успешно удален.";
 
 /* (No Commment) */
 "downloading_internet_connection_error" = "Интернет не доступен. Попытайтесь скачать позже, пожалуйста.";
@@ -103,13 +103,13 @@
 "formatted_photo_by" = "Разместил %@";
 
 /* (No Commment) */
-"formatted_verification_email_text" = "Подтвердите Вашу почту %@ чтобы помочь обезопасить Ваш аккаунт.";
+"formatted_verification_email_text" = "Подтвердите Ваш e-mail %@ чтобы помочь обезопасить Ваш аккаунт.";
 
 /* (No Commment) */
-"formatted_wrap_unavailable" = "Врап %@ больше не доступен.";
+"formatted_wrap_unavailable" = "Wrap %@ больше не доступен.";
 
 /* (No Commment) */
-"incorrect_email" = "Ваша почта не корректна.";
+"incorrect_email" = "Ваш e-mail не корректна.";
 
 /* (No Commment) */
 "invalid_image_error" = "Ваше фотография не доступна. Пожалуйста, выберите другую.";
@@ -172,7 +172,7 @@
 "roaming_is_off" = "Международный роуминг выключен.";
 
 /* (No Commment) */
-"sending_confirming_email" = "Мы отправили Вам письмо для проверки Вашей почты.";
+"sending_confirming_email" = "Мы отправили Вам письмо для проверки Вашего e-mail.";
 
 /* (No Commment) */
 "sign_out" = "Выход";
@@ -208,7 +208,7 @@
 "user_cannot_be_invited" = "Этот пользователь не может быть приглашен.";
 
 /* (No Commment) */
-"wrap_is_uploading" = "Врап обновляется, подождите немного ...";
+"wrap_is_uploading" = "Wrap обновляется, подождите немного ...";
 
 /* (No Commment) */
 "wrap_name_cannot_be_blank" = "Имя wrap не может быть пустым.";

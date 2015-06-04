@@ -171,7 +171,10 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
                     self.swipeActionConstraint.constant = 0;
                     [self layoutIfNeeded];
                 } completion:^(BOOL finished) {
+                    self.superview.userInteractionEnabled = YES;
                 }];
+            } else {
+                self.superview.userInteractionEnabled = YES;
             }
         }
     }

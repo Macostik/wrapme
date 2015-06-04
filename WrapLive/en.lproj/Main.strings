@@ -1,4 +1,5 @@
-
+/* Class = "UILabel"; text = "Create wrap is easy!\nTap here to start."; ObjectID = "0ka-0F-dc5"; */
+"0ka-0F-dc5.text" = "Create wrap is easy!\nTap here to start.";
 
 /* Class = "IBUIButton"; normalTitle = "Continue"; ObjectID = "7Bf-ro-UFC"; */
 "7Bf-ro-UFC.normalTitle" = "Continue";

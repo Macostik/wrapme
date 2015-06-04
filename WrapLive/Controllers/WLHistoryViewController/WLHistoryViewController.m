@@ -153,6 +153,14 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     if (!self.showCommentViewController) {
         [self setBarsHidden:NO animated:animated];
     }
+    if (_candy.invalid) {
+        WLCandy *nextCandy = [self candyAfterDeletingCandy:_candy];
+        if (nextCandy) {
+            [self setCandy:nextCandy direction:0 animated:NO];
+        } else {
+            [self.navigationController popViewControllerAnimated:NO];
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

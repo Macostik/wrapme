@@ -50,7 +50,7 @@
 "delete_photo_confirmation" = "Вы уверены, что хотите удалить это фото?";
 
 /* (No Commment) */
-"delete_wrap" = "Удалить врап";
+"delete_wrap" = "Удалить wrap";
 
 /* (No Commment) */
 "delete_wrap_success" = "Врап был успешно удален.";
@@ -70,7 +70,7 @@
 "email_account_setup" = "Пожайлуйста, настройте почтовый клиент на этом устройстве.";
 
 /* (No Commment) */
-"engagement_notification_alert" = "Получены новые фотографии? Обновить их в Вашем врапе сейчас!";
+"engagement_notification_alert" = "Получены новые фотографии? Обновить их в Вашем wrap сейчас!";
 
 /* (No Commment) */
 "formatted_about_message" = "Вы используете %@\nv%@\nСборка %@";
@@ -88,7 +88,7 @@
 "formatted_comments" = "%i комментариев";
 
 /* (No Commment) */
-"formatted_delete_wrap_confirmation" = "Вы уверены, что хотитие удалить врап ";
+"formatted_delete_wrap_confirmation" = "Вы уверены, что хотитие удалить wrap";
 
 /* (No Commment) */
 "formatted_edited_by" = "Отредактировал %@";
@@ -121,10 +121,10 @@
 "leave_screen_on_editing" = "Фото в режиме редактирования и еще не сохранено. Вы уверены, что хотите покинуть данный скрин?";
 
 /* (No Commment) */
-"leave_wrap" = "Покинуть врап?";
+"leave_wrap" = "Покинуть wrap?";
 
 /* (No Commment) */
-"leave_wrap_confirmation" = "Вы уверены, что хотите покинуть этот врап?";
+"leave_wrap_confirmation" = "Вы уверены, что хотите покинуть этот wrap?";
 
 /* (No Commment) */
 "mail_sent" = "Письмо отправлено.Спасибо Вам за помощь!";
@@ -211,7 +211,7 @@
 "wrap_is_uploading" = "Врап обновляется, подождите немного ...";
 
 /* (No Commment) */
-"wrap_name_cannot_be_blank" = "Имя врапа не может быть пустым.";
+"wrap_name_cannot_be_blank" = "Имя wrap не может быть пустым.";
 
 /* (No Commment) */
 "you" = "Вы";

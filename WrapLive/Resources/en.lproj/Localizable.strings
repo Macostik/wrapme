@@ -203,3 +203,5 @@
 "APNS_MSG06" = "Download it now!";
 
 "reply" = "Reply";
+
+"unread_message" = "%lu UNREAD MESSAGE%@";

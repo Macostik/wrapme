@@ -11,7 +11,6 @@
 static NSString* WLMessageCellIdentifier = @"WLMessageCell";
 static NSString* WLMyMessageCellIdentifier = @"WLMyMessageCell";
 
-static CGFloat WLMessageNameInset = 18.0f;
 static CGFloat WLMessageVerticalInset = 5.0f;
 static CGFloat WLMessageHorizontalInset = 5.0f;
 static CGFloat WLMessageCellBottomConstraint = 14.0f;

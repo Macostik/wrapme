@@ -450,7 +450,7 @@ CGFloat WLMaxTextViewWidth;
         return 0;
     }
     BOOL containsName = [self.chat.messagesWithName containsObject:message];
-    CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth];
+    CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth] + WLMessageVerticalInset;
     CGFloat topInset = (containsName ? self.nameFont.lineHeight : 0);
     CGFloat bottomInset = self.timeFont.lineHeight;
     commentHeight = topInset + commentHeight + bottomInset;

@@ -66,8 +66,8 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 }
 
 - (void)setText:(NSString *)text {
-	self.textView.text = text;
-    self.placeholderLabel.hidden = text.nonempty;
+    self.textView.text = text;
+    self.placeholderLabel.hidden = text.nonempty || self.textView.selectedRange.location != 0;
     [self updateHeight];
     [self updateStateAnimated:YES];
 }
@@ -98,7 +98,9 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
             [self.delegate composeBar:self didFinishWithText:text];
         }
 	}
-	self.text = nil;
+    run_after_asap(^{
+        self.text = nil;
+    });
 }
 
 - (void)setDoneButtonHidden:(BOOL)doneButtonHidden {

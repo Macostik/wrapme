@@ -129,7 +129,7 @@ static WLImageEditingCancelBlock _cancelBlock = nil;
     dispatch_once(&onceToken, ^{
         [AdobeImageEditorCustomization setSupportedIpadOrientations:@[@(UIInterfaceOrientationPortrait),@(UIInterfaceOrientationPortraitUpsideDown),@(UIInterfaceOrientationLandscapeLeft),@(UIInterfaceOrientationLandscapeRight)]];
         [[AdobeUXAuthManager sharedManager] setAuthenticationParametersWithClientID:@"a7929bf566694d579acb507eae697db1"
-                                                                   withClientSecret:@"b6fa1e1c-4f8c-4001-88a9-0251a099f890"];
+                                                                   clientSecret:@"b6fa1e1c-4f8c-4001-88a9-0251a099f890" enableSignUp:NO];
     });
     AdobeUXImageEditorViewController* aviaryController = [[self alloc] initWithImage:image];
     aviaryController.delegate = (id)[AdobeUXImageEditorViewController class];

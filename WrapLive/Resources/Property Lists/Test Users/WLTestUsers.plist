@@ -107,6 +107,17 @@
 			<string>983742044</string>
 		</dict>
 	</array>
+	<key>production</key>
+	<array>
+		<dict>
+			<key>deviceUID</key>
+			<string>9c5530466301f7a41577cc2bd16ac2a15ea64fe5</string>
+			<key>email</key>
+			<string>s.maximenko@mobidev.biz</string>
+			<key>password</key>
+			<string>52b6bd17ef</string>
+		</dict>
+	</array>
 	<key>qa</key>
 	<array>
 		<dict>

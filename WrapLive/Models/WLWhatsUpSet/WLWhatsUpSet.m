@@ -106,14 +106,19 @@
 
 - (void)notifier:(WLEntryNotifier*)notifier entryAdded:(WLEntry*)entry {
     [self update];
+    [self.counterDelegate whatsUpSet:self figureOutUnreadEntryCounter:self.unreadEntriesCount];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier entryDeleted:(WLEntry *)entry {
-    [self update];
+    run_after_asap(^{
+        [self update];
+        [self.counterDelegate whatsUpSet:self figureOutUnreadEntryCounter:self.unreadEntriesCount];
+    });
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLEntry *)entry {
     [self update];
+    [self.counterDelegate whatsUpSet:self figureOutUnreadEntryCounter:self.unreadEntriesCount];
 }
 
 - (NSInteger)broadcasterOrderPriority:(WLBroadcaster *)broadcaster {

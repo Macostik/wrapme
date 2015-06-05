@@ -42,7 +42,8 @@
 #import "WLHistoryViewController.h"
 #import "WLWhatsUpSet.h"
 
-@interface WLHomeViewController () <WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate>
+@interface WLHomeViewController () <WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate,
+                                    WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpDelegate>
 
 @property (strong, nonatomic) IBOutlet WLHomeDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
@@ -188,7 +189,8 @@
 	[super viewWillAppear:animated];
     [self.dataSource reload];
     [[WLWhatsUpSet sharedSet] update];
-    [self updateNotificationsLabel];
+    [WLWhatsUpSet sharedSet].counterDelegate = self;
+    [self updateNotificationsLabelCounter:[WLWhatsUpSet sharedSet].unreadEntriesCount];
     [self updateEmailConfirmationView:NO];
     [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
     [self.uploadingView update];
@@ -316,19 +318,7 @@
         [receiver setDeletedBlock:^(WLWrap *wrap) {
             WLPaginatedSet *wraps = [weakSelf.dataSource items];
             [wraps removeEntry:wrap];
-            [weakSelf updateNotificationsLabel];
         }];
-    }];
-    
-    WLEntryNotifyReceiver *candyNotifyReceiver = [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        receiver.addedBlock = receiver.updatedBlock = receiver.deletedBlock = ^(id object) {
-            [weakSelf updateNotificationsLabel];
-        };
-    }];
-    
-    [WLComment notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        receiver.addedBlock = candyNotifyReceiver.addedBlock;
-        receiver.deletedBlock = candyNotifyReceiver.deletedBlock;
     }];
     
     [WLUser notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
@@ -342,8 +332,8 @@
 
 // MARK: - WLNotificationReceiver
 
-- (void)updateNotificationsLabel {
-    self.notificationsLabel.intValue = [WLWhatsUpSet sharedSet].unreadEntriesCount;
+- (void)updateNotificationsLabelCounter:(NSUInteger)counter {
+    self.notificationsLabel.intValue = counter;
 }
 
 // MARK: - Actions
@@ -502,4 +492,11 @@
     }
     return nil;
 }
+
+// MARK: - WLWhatsUpDelegate
+
+- (void)whatsUpSet:(WLWhatsUpSet *)set figureOutUnreadEntryCounter:(NSUInteger)counter {
+    [self updateNotificationsLabelCounter:counter];
+}
+
 @end

@@ -8,9 +8,19 @@
 
 #import <WrapLiveKit/WrapLiveKit.h>
 
+@class WLWhatsUpSet;
+
+@protocol WLWhatsUpDelegate <NSObject>
+
+- (void)whatsUpSet:(WLWhatsUpSet *)set figureOutUnreadEntryCounter:(NSUInteger)counter;
+
+@end
+
 @interface WLWhatsUpSet : WLPaginatedSet
 
 @property (nonatomic) NSUInteger unreadEntriesCount;
+
+@property (weak, nonatomic) id <WLWhatsUpDelegate> counterDelegate;
 
 + (instancetype)sharedSet;
 

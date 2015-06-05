@@ -20,9 +20,9 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="229" placeholderIntrinsicHeight="40" text="Downloading the photo for editing..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="gb2-6e-1xw" customClass="WLLabel">
-                    <rect key="frame" x="46" y="200" width="229" height="40"/>
-                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="19"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading the photo for editing..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gb2-6e-1xw" customClass="WLLabel">
+                    <rect key="frame" x="39" y="210" width="242" height="21"/>
+                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -30,7 +30,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNj-NX-YYf" customClass="WLProgressBar">
-                    <rect key="frame" x="70" y="260" width="180" height="1"/>
+                    <rect key="frame" x="70" y="251" width="180" height="1"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="180" id="4DW-6Q-vVT"/>
@@ -38,7 +38,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mgr-yy-6vm">
-                    <rect key="frame" x="130" y="281" width="60" height="60"/>
+                    <rect key="frame" x="130" y="272" width="60" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="2GH-W6-owX"/>
                         <constraint firstAttribute="height" constant="60" id="Xqo-qP-XaQ"/>
@@ -75,15 +75,17 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="UNj-NX-YYf" firstAttribute="top" secondItem="gb2-6e-1xw" secondAttribute="bottom" constant="20" id="435-Hx-dS3"/>
                 <constraint firstItem="Mgr-yy-6vm" firstAttribute="top" secondItem="UNj-NX-YYf" secondAttribute="bottom" constant="20" id="A1P-B8-q24"/>
                 <constraint firstItem="UNj-NX-YYf" firstAttribute="centerX" secondItem="Mgr-yy-6vm" secondAttribute="centerX" id="Car-Cl-4ml"/>
                 <constraint firstItem="UNj-NX-YYf" firstAttribute="centerX" secondItem="gb2-6e-1xw" secondAttribute="centerX" id="EM6-zB-PXc"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gb2-6e-1xw" secondAttribute="trailing" constant="12" id="IZM-3E-eoq"/>
                 <constraint firstAttribute="trailing" secondItem="f26-nL-Pe9" secondAttribute="trailing" constant="12" id="Yb3-Y5-eZ4"/>
                 <constraint firstAttribute="centerY" secondItem="gb2-6e-1xw" secondAttribute="centerY" constant="64" id="cbE-vV-QaE"/>
+                <constraint firstItem="gb2-6e-1xw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kyD-LE-aDY" secondAttribute="leading" constant="12" id="cd1-Tv-wC3"/>
                 <constraint firstItem="f26-nL-Pe9" firstAttribute="top" secondItem="kyD-LE-aDY" secondAttribute="top" constant="30" id="fmg-qu-2uo"/>
                 <constraint firstAttribute="centerX" secondItem="gb2-6e-1xw" secondAttribute="centerX" id="hIF-UO-XTb"/>
             </constraints>

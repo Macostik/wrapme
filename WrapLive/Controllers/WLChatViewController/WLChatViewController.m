@@ -141,7 +141,7 @@ CGFloat WLMaxTextViewWidth;
 	
 	self.backSwipeGestureEnabled = YES;
 	
-    [self addNotifyReceivers];
+    [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLFontPresetter presetter] addReceiver:self];
 }
@@ -307,38 +307,31 @@ CGFloat WLMaxTextViewWidth;
 
 #pragma mark - WLEntryNotifyReceiver
 
-- (void)addNotifyReceivers {
-    __weak typeof(self)weakSelf = self;
-    [WLMessage notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setContainingEntryBlock:^WLEntry *{
-            return weakSelf.wrap;
-        }];
-        receiver.addedBlock = ^ (WLMessage *message) {
-            [message markAsRead];
-            [weakSelf insertMessage:message];
-        };
-        receiver.deletedBlock = ^ (WLMessage *message) {
-            [weakSelf.chat resetEntries:[weakSelf.wrap messages]];
-        };
-    }];
-    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setEntryBlock:^WLEntry *{
-            return weakSelf.wrap;
-        }];
-        receiver.deletedBlock = ^ (WLWrap *wrap) {
-            BOOL popToRootViewController = YES;
-            for (UIViewController *controller in weakSelf.navigationController.viewControllers) {
-                if ([weakSelf.wrap isValidViewController:controller]) {
-                    popToRootViewController = NO;
-                    break;
-                }
-            }
-            if (popToRootViewController) {
-                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-                [WLToast showMessageForUnavailableWrap:weakSelf.wrap];
-            }
-        };
-    }];
+- (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLMessage *)message {
+    [message markAsRead];
+    [self insertMessage:message];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLEntry *)entry {
+    [self.chat resetEntries:[self.wrap messages]];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteContainingEntry:(WLEntry *)entry {
+    for (UIViewController *controller in self.navigationController.viewControllers) {
+        if ([self.wrap isValidViewController:controller]) {
+            return;
+        }
+    }
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [WLToast showMessageForUnavailableWrap:self.wrap];
+}
+
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return self.wrap == entry.containingEntry;
+}
+
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnContainingEntry:(WLEntry *)entry {
+    return self.wrap == entry;
 }
 
 #pragma mark - WlSignificantTimeBroadcasterReceiver

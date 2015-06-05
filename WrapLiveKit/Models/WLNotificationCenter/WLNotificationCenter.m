@@ -386,7 +386,7 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier entryAdded:(WLEntry *)entry {
+- (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLEntry *)entry {
     [self subscribe];
 }
 

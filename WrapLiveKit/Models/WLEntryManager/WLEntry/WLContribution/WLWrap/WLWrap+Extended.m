@@ -39,10 +39,9 @@
 	return [dictionary stringForKey:WLWrapUIDKey];
 }
 
-- (void)remove {
+- (void)prepareForDeletion {
     [[WLUser currentUser] removeWrap:self];
-    [self notifyOnDeleting];
-    [super remove];
+    [super prepareForDeletion];
 }
 
 - (void)touch:(NSDate *)date {
@@ -150,9 +149,12 @@
         candies = [NSMutableOrderedSet orderedSet];
         self.candies = candies;
     }
-    [candies addObject:candy comparator:comparatorByCreatedAt descending:YES];
-	[self touch];
-	[candy notifyOnAddition];
+    
+    __weak typeof(self)weakSelf = self;
+	[candy notifyOnAddition:^(id object) {
+        [candies addObject:candy comparator:comparatorByCreatedAt descending:YES];
+        [weakSelf touch];
+    }];
 }
 
 - (BOOL)containsCandy:(WLCandy *)candy {
@@ -224,10 +226,12 @@
 
 - (id)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
 	__weak WLMessage* message = [WLMessage contribution];
-    message.contributor = [WLUser currentUser];
-    message.wrap = self;
-	message.text = text;
-    [message notifyOnAddition];
+    __weak typeof(self)weakSelf = self;
+    [message notifyOnAddition:^(id object) {
+        message.contributor = [WLUser currentUser];
+        message.wrap = weakSelf;
+        message.text = text;
+    }];
     [WLUploadingQueue upload:[WLUploading uploading:message] success:success failure:failure];
     return message;
 }

@@ -294,11 +294,11 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLWrap *)wrap {
     [self setupWrapView:wrap];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLWrap *)wrap {
     self.wrap = [[[WLUser currentUser] sortedWraps] firstObject];
     id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
     if (!self.presentedViewController && [delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {

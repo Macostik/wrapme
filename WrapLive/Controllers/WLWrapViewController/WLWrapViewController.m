@@ -169,10 +169,10 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
         [receiver setEntryBlock:^WLEntry *{
             return weakSelf.wrap;
         }];
-        receiver.addedBlock = receiver.updatedBlock = ^(WLWrap *wrap) {
+        receiver.didAddBlock = receiver.didUpdateBlock = ^(WLWrap *wrap) {
             [weakSelf updateWrapData];
         };
-        receiver.deletedBlock = ^(WLWrap *wrap) {
+        receiver.willDeleteBlock = ^(WLWrap *wrap) {
             [weakSelf.navigationController popToRootViewControllerAnimated:NO];
             [WLToast showMessageForUnavailableWrap:wrap];
         };
@@ -182,7 +182,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
         [receiver setContainingEntryBlock:^WLEntry *{
             return weakSelf.wrap;
         }];
-        [receiver setAddedBlock:^(WLCandy *candy) {
+        [receiver setDidAddBlock:^(WLCandy *candy) {
             if ([weakSelf isViewLoaded]) {
                 [candy markAsRead];
             }
@@ -193,7 +193,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
         [receiver setContainingEntryBlock:^WLEntry *{
             return weakSelf.wrap;
         }];
-        receiver.addedBlock = receiver.deletedBlock = ^(WLMessage *message) {
+        receiver.didAddBlock = receiver.didDeleteBlock = ^(WLMessage *message) {
             [weakSelf updateNotificationCouter];
         };
     }];

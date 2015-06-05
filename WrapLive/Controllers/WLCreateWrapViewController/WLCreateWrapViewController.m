@@ -52,7 +52,7 @@
     __weak typeof(self)weakSelf = self;
     self.wrap = [WLWrap wrap];
     self.wrap.name = name;
-    [self.wrap notifyOnAddition];
+    [self.wrap notifyOnAddition:nil];
     [WLUploadingQueue upload:[WLUploading uploading:self.wrap] success:^(id object) {
         sender.loading = NO;
         if (weakSelf.createHandler) weakSelf.createHandler(weakSelf.wrap);

@@ -190,7 +190,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 @implementation WLContribution (WLAPIManager)
 
 - (BOOL)enqueueUpdate:(WLFailureBlock)failure {
-    [self notifyOnUpdate];
+    [self notifyOnUpdate:nil];
     return [self prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
         switch (status) {
             case WLContributionStatusReady:

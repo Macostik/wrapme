@@ -130,3 +130,4 @@ FOUNDATION_EXPORT const unsigned char WrapLiveKitVersionString[];
 #import <WrapLiveKit/WLEntryNotifyReceiver.h>
 #import <WrapLiveKit/WLAnimation.h>
 #import <WrapLiveKit/UIView+QuatzCoreAnimations.h>
+#import <WrapLiveKit/WLEntry+Containment.h>

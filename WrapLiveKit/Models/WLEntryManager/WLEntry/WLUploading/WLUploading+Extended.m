@@ -41,7 +41,7 @@
     self.data.operation = [self sendTypedRequest:^(id object) {
         [weakSelf remove];
         if (success) success(object);
-        [contribution notifyOnUpdate];
+        [contribution notifyOnUpdate:nil];
     } failure:^(NSError *error) {
         if (error.isDuplicatedUploading) {
             NSDictionary *data = [[error.userInfo dictionaryForKey:WLErrorResponseDataKey] objectForPossibleKeys:WLCandyKey, WLWrapKey, WLCommentKey, WLMessageKey, nil];
@@ -53,11 +53,11 @@
             [weakSelf.contribution remove];
             if (failure) failure(error);
         } else {
-            [weakSelf.contribution notifyOnUpdate];
+            [weakSelf.contribution notifyOnUpdate:nil];
             if (failure) failure(error);
         }
     }];
-    [contribution notifyOnUpdate];
+    [contribution notifyOnUpdate:nil];
     return self.data.operation;
 }
 
@@ -97,9 +97,9 @@
     return nil;
 }
 
-- (void)remove {
+- (void)prepareForDeletion {
     self.contribution.uploading = nil;
-    [super remove];
+    [super prepareForDeletion];
 }
 
 @end

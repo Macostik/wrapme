@@ -11,6 +11,7 @@
 #import <objc/runtime.h>
 #import "WLAPIRequest.h"
 #import "NSUserDefaults+WLAppGroup.h"
+#import "WLEntryNotifier.h"
 
 @interface WLMergePolicy : NSMergePolicy
 
@@ -319,8 +320,11 @@ va_end(args);
 }
 
 - (void)remove {
-    WLLog(@"WRAPLIVE", @"LOCAL DELETING", self);
-    [[WLEntryManager manager] deleteEntry:self];
+    __weak typeof(self)weakSelf = self;
+    [self notifyOnDeleting:^(id object) {
+        WLLog(@"WRAPLIVE", @"LOCAL DELETING", weakSelf);
+        [[WLEntryManager manager] deleteEntry:weakSelf];
+    }];
 }
 
 - (void)awakeFromInsert {

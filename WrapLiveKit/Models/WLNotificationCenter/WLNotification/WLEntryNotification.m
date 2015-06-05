@@ -243,12 +243,12 @@
 }
 
 - (void)finalizeAddNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
-    [self notifyOnAddition];
+    [self notifyOnAddition:nil];
     if (completionHandler) completionHandler();
 }
 
 - (void)finalizeUpdateNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
-    [self notifyOnUpdate];
+    [self notifyOnUpdate:nil];
     if (completionHandler) completionHandler();
 }
 

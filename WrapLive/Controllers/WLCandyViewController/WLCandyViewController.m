@@ -100,7 +100,7 @@
 
 #pragma mark - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLCandy *)candy {
     [self setup:candy];
 }
 

@@ -14,8 +14,6 @@
 
 @implementation WLEntry (Extended)
 
-@dynamic containingEntry;
-
 + (instancetype)entry {
     WLEntry* entry = [self entry:GUID()];
     entry.createdAt = [NSDate now];
@@ -117,14 +115,6 @@
 
 - (void)editPicture:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
     [self editPicture:large large:large medium:medium small:small];
-}
-
-- (WLEntry*)containingEntry {
-    return nil;
-}
-
-- (void)setContainingEntry:(WLEntry *)containingEntry {
-    
 }
 
 - (void)markAsRead {

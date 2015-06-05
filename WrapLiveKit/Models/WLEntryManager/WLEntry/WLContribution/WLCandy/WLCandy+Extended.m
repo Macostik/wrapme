@@ -109,10 +109,9 @@
     return self.wrap == wrap;
 }
 
-- (void)remove {
+- (void)prepareForDeletion {
     [self.wrap removeCandy:self];
-    [self notifyOnDeleting];
-    [super remove];
+    [super prepareForDeletion];
 }
 
 - (void)addComment:(WLComment *)comment {
@@ -127,7 +126,9 @@
     comment.candy = self;
     [comments addObject:comment comparator:comparatorByCreatedAt descending:NO];
     [self touch];
-    [comment notifyOnAddition];
+    [comment notifyOnAddition:^(id object) {
+        
+    }];
 }
 
 - (void)removeComment:(WLComment *)comment {
@@ -155,16 +156,6 @@
 
 - (BOOL)deletable {
     return self.contributedByCurrentUser || self.wrap.contributedByCurrentUser;
-}
-
-- (WLEntry *)containingEntry {
-    return self.wrap;
-}
-
-- (void)setContainingEntry:(WLEntry *)containingEntry {
-    if (containingEntry && self.wrap != containingEntry) {
-        self.wrap = (id)containingEntry;
-    }
 }
 
 - (id)download:(WLBlock)success failure:(WLFailureBlock)failure {

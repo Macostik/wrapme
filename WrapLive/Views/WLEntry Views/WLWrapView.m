@@ -28,7 +28,7 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLWrap *)wrap {
     [self update:wrap];
 }
 

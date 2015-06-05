@@ -306,23 +306,23 @@
     __weak typeof(self)weakSelf = self;
     
     [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setAddedBlock:^(WLWrap *wrap) {
+        [receiver setDidAddBlock:^(WLWrap *wrap) {
             WLPaginatedSet *wraps = [weakSelf.dataSource items];
             [wraps addEntry:wrap];
             weakSelf.collectionView.contentOffset = CGPointZero;
         }];
-        [receiver setUpdatedBlock:^(WLWrap *wrap) {
+        [receiver setDidUpdateBlock:^(WLWrap *wrap) {
             WLPaginatedSet *wraps = [weakSelf.dataSource items];
             [wraps resetEntries:[[WLUser currentUser] sortedWraps]];
         }];
-        [receiver setDeletedBlock:^(WLWrap *wrap) {
+        [receiver setWillDeleteBlock:^(WLWrap *wrap) {
             WLPaginatedSet *wraps = [weakSelf.dataSource items];
             [wraps removeEntry:wrap];
         }];
     }];
     
     [WLUser notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setUpdatedBlock:^(WLUser *user) {
+        [receiver setDidUpdateBlock:^(WLUser *user) {
             if (weakSelf.isTopViewController) {
                 [weakSelf updateEmailConfirmationView:YES];
             }

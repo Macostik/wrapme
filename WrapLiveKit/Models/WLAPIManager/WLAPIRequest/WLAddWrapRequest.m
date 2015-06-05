@@ -21,8 +21,7 @@
 
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLWrap *wrap = [super objectInResponse:response];
-    [wrap notifyOnAddition];
-    return wrap;
+    return [wrap notifyOnAddition:nil];
 }
 
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {

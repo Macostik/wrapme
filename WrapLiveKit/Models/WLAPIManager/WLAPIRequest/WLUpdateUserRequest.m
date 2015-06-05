@@ -38,9 +38,10 @@
     NSDictionary* userData = response.data[@"user"];
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
     [authorization updateWithUserData:userData];
-    [user API_setup:userData];
-    [user setCurrent];
-    [user notifyOnUpdate];
+    [user notifyOnUpdate:^(id object) {
+        [user API_setup:userData];
+        [user setCurrent];
+    }];
     return user;
 }
 

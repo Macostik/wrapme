@@ -105,7 +105,7 @@
 
 #pragma mark - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLEntry *)entry {
+- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
 	[self resetup];
 }
 

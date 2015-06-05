@@ -22,8 +22,9 @@
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLWrap* wrap = self.wrap;
     if (wrap.valid) {
-        wrap = [wrap API_setup:response.data[WLWrapKey]];
-        [wrap notifyOnUpdate];
+        wrap = [wrap notifyOnUpdate:^(id object) {
+            [wrap API_setup:response.data[WLWrapKey]];
+        }];
         return wrap;
     } else {
         return nil;

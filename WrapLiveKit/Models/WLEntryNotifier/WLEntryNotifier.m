@@ -15,7 +15,11 @@
 
 @interface WLEntryNotifier ()
 
-@property (strong, nonatomic) WLBroadcastSelectReceiver selectBlock;
+@property (strong, nonatomic) Class entryClass;
+
+@property (strong, nonatomic) WLBroadcastSelectReceiver selectEntryBlock;
+
+@property (strong, nonatomic) WLBroadcastSelectReceiver selectContainingEntryBlock;
 
 @end
 
@@ -37,6 +41,7 @@ static NSMapTable* notifiers = nil;
 	WLEntryNotifier *notifier = [notifiers objectForKey:entryClass];
 	if (!notifier) {
 		notifier = [[self alloc] init];
+        notifier.entryClass = entryClass;
 		[notifiers setObject:notifier forKey:entryClass];
 	}
 	return notifier;
@@ -46,9 +51,15 @@ static NSMapTable* notifiers = nil;
     self = [super init];
     if (self) {
         __weak typeof(self)weakSelf = self;
-        self.selectBlock = ^BOOL (NSObject <WLEntryNotifyReceiver> *receiver, WLEntry *entry) {
+        self.selectEntryBlock = ^BOOL (NSObject <WLEntryNotifyReceiver> *receiver, WLEntry *entry) {
             if ([receiver respondsToSelector:@selector(notifier:shouldNotifyOnEntry:)]) {
                 return [receiver notifier:weakSelf shouldNotifyOnEntry:entry];
+            }
+            return YES;
+        };
+        self.selectContainingEntryBlock = ^BOOL(NSObject <WLEntryNotifyReceiver> *receiver, WLEntry *entry) {
+            if ([receiver respondsToSelector:@selector(notifier:shouldNotifyOnContainingEntry:)]) {
+                return [receiver notifier:weakSelf shouldNotifyOnContainingEntry:entry];
             }
             return YES;
         };
@@ -56,16 +67,33 @@ static NSMapTable* notifiers = nil;
     return self;
 }
 
-- (void)notifyOnAddition:(WLEntry *)entry {
-    [self broadcast:@selector(notifier:entryAdded:) object:entry select:self.selectBlock];
+- (void)notifyOnAddition:(WLEntry *)entry block:(WLObjectBlock)block {
+    [self broadcast:@selector(notifier:willAddEntry:) object:entry select:self.selectEntryBlock];
+    if (block) block(entry);
+    [self broadcast:@selector(notifier:didAddEntry:) object:entry select:self.selectEntryBlock];
 }
 
-- (void)notifyOnUpdate:(WLEntry *)entry {
-    [self broadcast:@selector(notifier:entryUpdated:) object:entry select:self.selectBlock];
+- (void)notifyOnUpdate:(WLEntry *)entry block:(WLObjectBlock)block {
+    [self broadcast:@selector(notifier:willUpdateEntry:) object:entry select:self.selectEntryBlock];
+    if (block) block(entry);
+    [self broadcast:@selector(notifier:didUpdateEntry:) object:entry select:self.selectEntryBlock];
 }
 
-- (void)notifyOnDeleting:(WLEntry *)entry {
-    [self broadcast:@selector(notifier:entryDeleted:) object:entry select:self.selectBlock];
+- (void)notifyOnDeleting:(WLEntry *)entry block:(WLObjectBlock)block {
+    
+    NSSet *containedEntryClasses = [self.entryClass containedEntryClasses];
+    
+    for (Class containedEntryClass in containedEntryClasses) {
+        [[containedEntryClass notifier] broadcast:@selector(notifier:willDeleteContainingEntry:) object:entry select:self.selectContainingEntryBlock];
+    }
+    
+    [self broadcast:@selector(notifier:willDeleteEntry:) object:entry select:self.selectEntryBlock];
+    if (block) block(entry);
+    [self broadcast:@selector(notifier:didDeleteEntry:) object:entry select:self.selectEntryBlock];
+    
+    for (Class containedEntryClass in containedEntryClasses) {
+        [[containedEntryClass notifier] broadcast:@selector(notifier:didDeleteContainingEntry:) object:entry select:self.selectContainingEntryBlock];
+    }
 }
 
 @end
@@ -92,31 +120,37 @@ static NSMapTable* notifiers = nil;
 }
 
 - (instancetype)update:(NSDictionary *)dictionary {
-	[self API_setup:dictionary];
-    [self notifyOnUpdate];
+	__weak typeof(self)weakSelf = self;
+    [self notifyOnUpdate:^(id object) {
+        [weakSelf API_setup:dictionary];
+    }];
 	return self;
 }
 
-- (void)notifyOnAddition {
-	[[WLEntryNotifier notifier:[self class]] notifyOnAddition:self];
+- (instancetype)notifyOnAddition:(WLObjectBlock)block {
+	[[WLEntryNotifier notifier:[self class]] notifyOnAddition:self block:block];
 	[self touchContainingEntry];
+    return self;
 }
 
-- (void)notifyOnUpdate {
-	[[WLEntryNotifier notifier:[self class]] notifyOnUpdate:self];
+- (instancetype)notifyOnUpdate:(WLObjectBlock)block {
+	[[WLEntryNotifier notifier:[self class]] notifyOnUpdate:self block:block];
 	[self touchContainingEntry];
+    return self;
 }
 
-- (void)notifyOnDeleting {
-	[[WLEntryNotifier notifier:[self class]] notifyOnDeleting:self];
-	[self.containingEntry notifyOnUpdate];
+- (instancetype)notifyOnDeleting:(WLObjectBlock)block {
+    WLEntry *containingEntry = self.containingEntry;
+    [[WLEntryNotifier notifier:[self class]] notifyOnDeleting:self block:block];
+	[containingEntry notifyOnUpdate:nil];
+    return self;
 }
 
 - (void)touchContainingEntry {
 	WLEntry* entry = self.containingEntry;
 	if (entry) {
 		if ([entry.updatedAt earlier:self.updatedAt]) entry.updatedAt = self.updatedAt;
-		[entry notifyOnUpdate];
+		[entry notifyOnUpdate:nil];
 	}
 }
 

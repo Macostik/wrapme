@@ -137,7 +137,7 @@ static NSString *_combinedIdentifier = nil;
     if (user) {
         WLAuthorization *authorization = [WLAuthorization currentAuthorization];
         _combinedIdentifier = [NSString stringWithFormat:@"%@-%@", user.identifier, authorization.deviceUID];
-        [user notifyOnAddition];
+        [user notifyOnAddition:nil];
     }
 }
 

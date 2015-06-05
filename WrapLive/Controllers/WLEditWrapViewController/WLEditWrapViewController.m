@@ -135,7 +135,7 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLWrap *)wrap {
     [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 

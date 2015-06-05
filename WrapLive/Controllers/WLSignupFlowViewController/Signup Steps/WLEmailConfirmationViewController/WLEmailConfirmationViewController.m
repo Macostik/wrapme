@@ -58,7 +58,7 @@
 
 #pragma mark - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLEntry *)entry {
+- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
     if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
         [WLSoundPlayer playSound:WLSound_s01];
         [self setSuccessStatusAnimated:NO];

@@ -104,19 +104,17 @@
     return unreadCandies.count;
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier entryAdded:(WLEntry*)entry {
+- (void)notifier:(WLEntryNotifier*)notifier didAddEntry:(WLEntry*)entry {
     [self update];
     [self.counterDelegate whatsUpSet:self figureOutUnreadEntryCounter:self.unreadEntriesCount];
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier entryDeleted:(WLEntry *)entry {
-    run_after_asap(^{
-        [self update];
-        [self.counterDelegate whatsUpSet:self figureOutUnreadEntryCounter:self.unreadEntriesCount];
-    });
+- (void)notifier:(WLEntryNotifier*)notifier didDeleteEntry:(WLEntry *)entry {
+    [self update];
+    [self.counterDelegate whatsUpSet:self figureOutUnreadEntryCounter:self.unreadEntriesCount];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLEntry *)entry {
+- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
     [self update];
     [self.counterDelegate whatsUpSet:self figureOutUnreadEntryCounter:self.unreadEntriesCount];
 }

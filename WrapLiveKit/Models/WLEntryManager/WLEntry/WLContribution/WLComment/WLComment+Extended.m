@@ -30,10 +30,9 @@
     [super awakeFromInsert];
 }
 
-- (void)remove {
+- (void)prepareForDeletion {
     [self.candy removeComment:self];
-    [self notifyOnDeleting];
-    [super remove];
+    [super prepareForDeletion];
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
@@ -56,16 +55,6 @@
 
 - (WLPicture *)picture {
     return self.candy.picture;
-}
-
-- (WLEntry *)containingEntry {
-    return self.candy;
-}
-
-- (void)setContainingEntry:(WLEntry *)containingEntry {
-    if (containingEntry && self.candy != containingEntry) {
-        self.candy = (id)containingEntry;
-    }
 }
 
 @end

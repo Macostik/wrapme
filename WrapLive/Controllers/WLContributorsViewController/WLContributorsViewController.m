@@ -160,7 +160,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     return self.wrap == entry;
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLWrap *)wrap {
     self.dataSource.items = [self sortedContributors];
 }
 

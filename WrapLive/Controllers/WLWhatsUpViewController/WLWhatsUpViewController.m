@@ -59,7 +59,7 @@
     [(WLWhatsUpSet*)self.dataSource.items update];
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier entryDeleted:(WLEntry *)entry {
+- (void)notifier:(WLEntryNotifier*)notifier willDeleteEntry:(WLEntry *)entry {
     [WLToast showMessageForUnavailableWrap:(WLWrap*)entry];
 }
 

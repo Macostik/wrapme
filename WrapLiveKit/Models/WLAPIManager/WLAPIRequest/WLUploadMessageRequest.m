@@ -35,9 +35,9 @@
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLMessage* message = self.message;
     if (message.wrap.valid) {
-        [message API_setup:[response.data dictionaryForKey:WLMessageKey]];
-        [message notifyOnUpdate];
-        return message;
+        return [message notifyOnUpdate:^(id object) {
+            [message API_setup:[response.data dictionaryForKey:WLMessageKey]];
+        }];
     }
     return nil;
 }

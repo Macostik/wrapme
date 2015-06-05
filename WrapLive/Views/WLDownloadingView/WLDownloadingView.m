@@ -139,7 +139,7 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLEntry *)entry {
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLEntry *)entry {
     if (self.failureBlock) self.failureBlock(nil);
     [self dissmis];
 }

@@ -30,20 +30,9 @@
     return self.contributor.picture;
 }
 
-- (WLEntry *)containingEntry {
-    return self.wrap;
-}
-
-- (void)setContainingEntry:(WLEntry *)containingEntry {
-    if (containingEntry && self.wrap != containingEntry) {
-        self.wrap = (id)containingEntry;
-    }
-}
-
-- (void)remove {
+- (void)prepareForDeletion {
     [self.wrap removeMessage:self];
-    [self notifyOnDeleting];
-    [super remove];
+    [super prepareForDeletion];
 }
 
 @end

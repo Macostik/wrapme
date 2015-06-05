@@ -29,7 +29,7 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLUser *)user {
+- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLUser *)user {
     [self update:user];
 }
 

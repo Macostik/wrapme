@@ -189,28 +189,22 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
         [receiver setContainingEntryBlock:^WLEntry *{
             return weakSelf.candy;
         }];
-        [receiver setAddedBlock:^(WLComment *comment) {
+        [receiver setDidAddBlock:^(WLComment *comment) {
             weakSelf.dataSource.items = [weakSelf.candy sortedComments];
         }];
-        receiver.deletedBlock = receiver.updatedBlock = receiver.addedBlock;
+        receiver.didDeleteBlock = receiver.didUpdateBlock = receiver.didAddBlock;
     }];
     
     [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
         [receiver setEntryBlock:^WLEntry *{
             return weakSelf.candy;
         }];
-        [receiver setDeletedBlock:^(WLCandy *candy) {
-            [weakSelf onClose:nil];
-        }];
-    }];
-    
-    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setEntryBlock:^WLEntry *{
+        [receiver setContainingEntryBlock:^WLEntry *{
             return weakSelf.candy.wrap;
         }];
-        [receiver setDeletedBlock:^(WLWrap *wrap) {
+        receiver.willDeleteContainingBlock = receiver.willDeleteBlock = ^(WLCandy *candy) {
             [weakSelf onClose:nil];
-        }];
+        };
     }];
 }
 

@@ -31,7 +31,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLHistoryBottomViewModeEditing
 };
 
-@interface WLHistoryViewController ()
+@interface WLHistoryViewController () <WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -94,7 +94,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         }
     }
 
-    [self addNotifyReceivers];
+    [[WLCandy notifier] addReceiver:self];
     
     self.commentButton.layer.borderColor = [UIColor whiteColor].CGColor;
 
@@ -342,57 +342,49 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     return [self.historyItem.entries firstObject];
 }
 
-- (void)addNotifyReceivers {
-    __weak typeof(self)weakSelf = self;
-    
-    [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        
-        [receiver setContainingEntryBlock:^WLEntry *{
-            return weakSelf.wrap;
-        }];
-        
-        [receiver setAddedBlock:^(WLCandy *candy) {
-            weakSelf.currentCandyIndex = [weakSelf.historyItem.entries indexOfObject:weakSelf.candy];
-            weakSelf.currentHistoryItemIndex = [weakSelf.history.entries indexOfObject:weakSelf.historyItem];
-        }];
-        
-        [receiver setUpdatedBlock:^(WLCandy *candy) {
-            if (candy == weakSelf.candy) {
-                [weakSelf updateOwnerData];
-            }
-        }];
-        
-        [receiver setDeletedBlock:^(WLCandy *candy) {
-            if (candy == weakSelf.candy) {
-                if (weakSelf.navigationController.presentedViewController) {
-                    [weakSelf.navigationController dismissViewControllerAnimated:NO completion:nil];
-                }
-                if (weakSelf.removedCandy == candy) {
-                    [WLToast showWithMessage:WLLS(@"candy_deleted")];
-                    weakSelf.removedCandy = nil;
-                } else {
-                    [WLToast showWithMessage:WLLS(@"candy_unavailable")];
-                }
-                WLCandy *nextCandy = [weakSelf candyAfterDeletingCandy:candy];
-                if (nextCandy) {
-                    [weakSelf setCandy:nextCandy direction:0 animated:NO];
-                } else {
-                    [weakSelf.navigationController popViewControllerAnimated:NO];
-                }
-            }
-            [weakSelf removedCachedViewControllerForCandy:candy];
-        }];
-    }];
-    
-    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setEntryBlock:^WLEntry *{
-            return weakSelf.wrap;
-        }];
-        [receiver setDeletedBlock:^(WLWrap *wrap) {
-            [WLToast showMessageForUnavailableWrap:wrap];
-            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-        }];
-    }];
+- (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLCandy *)candy {
+    self.currentCandyIndex = [self.historyItem.entries indexOfObject:self.candy];
+    self.currentHistoryItemIndex = [self.history.entries indexOfObject:self.historyItem];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLCandy *)candy {
+    if (candy == self.candy) {
+        [self updateOwnerData];
+    }
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLCandy *)candy {
+    if (candy == self.candy) {
+        if (self.navigationController.presentedViewController) {
+            [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+        }
+        if (self.removedCandy == candy) {
+            [WLToast showWithMessage:WLLS(@"candy_deleted")];
+            self.removedCandy = nil;
+        } else {
+            [WLToast showWithMessage:WLLS(@"candy_unavailable")];
+        }
+        WLCandy *nextCandy = [self candyAfterDeletingCandy:candy];
+        if (nextCandy) {
+            [self setCandy:nextCandy direction:0 animated:NO];
+        } else {
+            [self.navigationController popViewControllerAnimated:NO];
+        }
+    }
+    [self removedCachedViewControllerForCandy:candy];
+}
+
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteContainingEntry:(WLWrap *)wrap {
+    [WLToast showMessageForUnavailableWrap:wrap];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+}
+
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return entry.containingEntry == self.wrap;
+}
+
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnContainingEntry:(WLEntry *)entry {
+    return self.wrap == entry;
 }
 
 #pragma mark - Actions

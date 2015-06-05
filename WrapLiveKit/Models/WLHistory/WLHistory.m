@@ -166,16 +166,16 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier entryAdded:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLCandy *)candy {
     [self addEntry:candy];
     if  ([candy.contributor isCurrentUser]) [self.delegate paginatedSetChanged:self];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLCandy *)candy {
     [self removeEntry:candy];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier entryUpdated:(WLCandy *)candy {
+- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLCandy *)candy {
     [self sort:candy];
 }
 

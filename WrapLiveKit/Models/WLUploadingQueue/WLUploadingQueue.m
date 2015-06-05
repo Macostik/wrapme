@@ -232,7 +232,7 @@ static NSMapTable *queues = nil;
     return entry.valid;
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier entryDeleted:(WLContribution *)entry {
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLContribution *)entry {
     WLUploading *uploading = [(WLContribution*)entry uploading];
     if ([self.uploadings containsObject:uploading]) {
         [self.uploadings removeObject:uploading];

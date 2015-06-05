@@ -33,7 +33,7 @@
     if (wrap.valid) {
         NSOrderedSet* messages = [WLMessage API_entries:response.data[@"chats"] relatedEntry:wrap];
         if (messages.nonempty) {
-            [wrap notifyOnUpdate];
+            [wrap notifyOnUpdate:nil];
         }
         return messages;
     }

@@ -20,11 +20,23 @@ typedef void (^WLEntryNotifyReceiverSetupBlock) (WLEntryNotifyReceiver *receiver
 
 - (BOOL)notifier:(WLEntryNotifier*)notifier shouldNotifyOnEntry:(WLEntry*)entry;
 
-- (void)notifier:(WLEntryNotifier*)notifier entryAdded:(WLEntry*)entry;
+- (BOOL)notifier:(WLEntryNotifier*)notifier shouldNotifyOnContainingEntry:(WLEntry*)entry;
 
-- (void)notifier:(WLEntryNotifier*)notifier entryUpdated:(WLEntry*)entry;
+- (void)notifier:(WLEntryNotifier*)notifier willAddEntry:(WLEntry*)entry;
 
-- (void)notifier:(WLEntryNotifier*)notifier entryDeleted:(WLEntry*)entry;
+- (void)notifier:(WLEntryNotifier*)notifier didAddEntry:(WLEntry*)entry;
+
+- (void)notifier:(WLEntryNotifier*)notifier willUpdateEntry:(WLEntry*)entry;
+
+- (void)notifier:(WLEntryNotifier*)notifier didUpdateEntry:(WLEntry*)entry;
+
+- (void)notifier:(WLEntryNotifier*)notifier willDeleteEntry:(WLEntry*)entry;
+
+- (void)notifier:(WLEntryNotifier*)notifier didDeleteEntry:(WLEntry*)entry;
+
+- (void)notifier:(WLEntryNotifier*)notifier willDeleteContainingEntry:(WLEntry*)entry;
+
+- (void)notifier:(WLEntryNotifier*)notifier didDeleteContainingEntry:(WLEntry*)entry;
 
 @end
 
@@ -34,11 +46,11 @@ typedef void (^WLEntryNotifyReceiverSetupBlock) (WLEntryNotifyReceiver *receiver
 
 + (instancetype)notifier:(Class)entryClass;
 
-- (void)notifyOnAddition:(WLEntry*)entry;
+- (void)notifyOnAddition:(WLEntry*)entry block:(WLObjectBlock)block;
 
-- (void)notifyOnUpdate:(WLEntry*)entry;
+- (void)notifyOnUpdate:(WLEntry*)entry block:(WLObjectBlock)block;
 
-- (void)notifyOnDeleting:(WLEntry*)entry;
+- (void)notifyOnDeleting:(WLEntry*)entry block:(WLObjectBlock)block;
 
 @end
 
@@ -50,11 +62,11 @@ typedef void (^WLEntryNotifyReceiverSetupBlock) (WLEntryNotifyReceiver *receiver
 
 + (WLEntryNotifyReceiver*)notifyReceiverOwnedBy:(id)owner setupBlock:(WLEntryNotifyReceiverSetupBlock)setupBlock;
 
-- (void)notifyOnAddition;
+- (instancetype)notifyOnAddition:(WLObjectBlock)block;
 
-- (void)notifyOnUpdate;
+- (instancetype)notifyOnUpdate:(WLObjectBlock)block;
 
-- (void)notifyOnDeleting;
+- (instancetype)notifyOnDeleting:(WLObjectBlock)block;
 
 - (instancetype)update:(NSDictionary*)dictionary;
 

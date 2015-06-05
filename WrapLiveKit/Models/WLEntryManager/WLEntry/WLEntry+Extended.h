@@ -12,10 +12,9 @@
 #import "NSString+Additions.h"
 #import "NSMutableOrderedSet+Sorting.h"
 #import "WLEntryKeys.h"
+#import "WLEntry+Containment.h"
 
 @interface WLEntry (Extended)
-
-@property (nonatomic) WLEntry* containingEntry;
 
 + (instancetype)entry;
 

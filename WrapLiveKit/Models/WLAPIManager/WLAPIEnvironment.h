@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+static NSString* WLAPIEnvironmentLocal = @"local";
 static NSString* WLAPIEnvironmentDevelopment = @"development";
 static NSString* WLAPIEnvironmentQA = @"qa";
 static NSString* WLAPIEnvironmentBeta = @"beta";

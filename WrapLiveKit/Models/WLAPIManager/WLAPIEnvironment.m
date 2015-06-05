@@ -12,7 +12,10 @@
 @implementation WLAPIEnvironment
 
 + (NSDictionary*)environments {
-    return @{WLAPIEnvironmentDevelopment:@{@"endpoint":@"https://dev-api.wraplive.com/api",
+    return @{WLAPIEnvironmentLocal:@{@"endpoint":@"http://0.0.0.0:3000/api",
+                                           @"version":@"5",
+                                           @"url_scheme":@"wrapliveadhoc"},
+             WLAPIEnvironmentDevelopment:@{@"endpoint":@"https://dev-api.wraplive.com/api",
                                            @"version":@"5",
                                            @"url_scheme":@"wrapliveadhoc"},
              WLAPIEnvironmentQA:@{@"endpoint":@"https://qa-api.wraplive.com/api",

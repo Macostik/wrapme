@@ -2234,7 +2234,6 @@
 		C50645E61ABD815200CB4BE3 /* CommentAPNS.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CommentAPNS.apns; sourceTree = "<group>"; };
 		C50646A71ABD82D400CB4BE3 /* WrapLiveWatchKitExtension-Production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLiveWatchKitExtension-Production-Info.plist"; sourceTree = "<group>"; };
 		C50646A91ABD830C00CB4BE3 /* WrapLiveWatchKitApp-Production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLiveWatchKitApp-Production-Info.plist"; sourceTree = "<group>"; };
-		C50646EC1ABD844700CB4BE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C50646ED1ABD844700CB4BE3 /* WrapLiveKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WrapLiveKit.h; sourceTree = "<group>"; };
 		C50647601ABD868800CB4BE3 /* ExtensionsPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsPrefixHeader.pch; sourceTree = "<group>"; };
 		C50647681ABD889100CB4BE3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -4339,17 +4338,8 @@
 				C50646ED1ABD844700CB4BE3 /* WrapLiveKit.h */,
 				C587C7791AD2E619003E7647 /* WrapLiveKit-Info.plist */,
 				C587C77B1AD2E619003E7647 /* WrapLiveKit-Prefix.pch */,
-				C50646EB1ABD844700CB4BE3 /* Supporting Files */,
 			);
 			path = WrapLiveKit;
-			sourceTree = "<group>";
-		};
-		C50646EB1ABD844700CB4BE3 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				C50646EC1ABD844700CB4BE3 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		C5111D361AB345C10094275C /* WLIntroductionViewController */ = {

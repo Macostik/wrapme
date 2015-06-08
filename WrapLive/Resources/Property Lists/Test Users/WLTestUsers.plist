@@ -227,6 +227,21 @@
 			<string>9255551010</string>
 		</dict>
 	</array>
+	<key>local</key>
+	<array>
+		<dict>
+			<key>countryCode</key>
+			<string>380</string>
+			<key>deviceUID</key>
+			<string>9c5530466301f7a41577cc2bd16ac2a15ea64fe5</string>
+			<key>email</key>
+			<string>s.maximenko@mobidev.biz</string>
+			<key>password</key>
+			<string>f92d004555</string>
+			<key>phone</key>
+			<string>951383026</string>
+		</dict>
+	</array>
 	<key>production</key>
 	<array>
 		<dict>

@@ -317,6 +317,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier willDeleteContainingEntry:(WLEntry *)entry {
+    [self.operation cancel];
     for (UIViewController *controller in self.navigationController.viewControllers) {
         if ([self.wrap isValidViewController:controller]) {
             return;

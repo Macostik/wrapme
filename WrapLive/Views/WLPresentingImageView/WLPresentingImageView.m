@@ -23,15 +23,8 @@
     return [WLPresentingImageView loadFromNib];
 }
 
-+ (instancetype)presentingCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion {
-    return [[WLPresentingImageView sharedPresenting] presentingCandy:candy completion:completion];
-}
-
 - (instancetype)presentingCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion {
-    UIView *parentView = [UIWindow mainWindow].rootViewController.view;
-    self.backgroundColor = [UIColor clearColor];
-    self.frame = parentView.frame;
-    [parentView addSubview:self];
+    [self presentingAsMainWindowSubview];
     CGRect convertRect = CGRectZero;
     if ([self.delegate respondsToSelector:@selector(presentImageView:getFrameCandyCell:)]) {
         convertRect = [self.delegate presentImageView:self getFrameCandyCell:candy];
@@ -47,7 +40,7 @@
 }
 
 - (void)dismissViewByCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion {
-    self.hidden = NO;
+    [self presentingAsMainWindowSubview];
     self.backgroundColor = [UIColor clearColor];
     CGRect convertRect = CGRectZero;
     if ([self.delegate respondsToSelector:@selector(dismissImageView:getFrameCandyCell:)]) {
@@ -69,7 +62,13 @@
                              }];
         });
     }
-    
+}
+
+- (void)presentingAsMainWindowSubview {
+    UIView *parentView = [UIWindow mainWindow].rootViewController.view;
+    self.backgroundColor = [UIColor clearColor];
+    self.frame = parentView.frame;
+    [parentView addSubview:self];
 }
 
 - (void)performAnimationCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion {
@@ -86,7 +85,7 @@
                          } completion:^(BOOL finished) {
                              if (completion) {
                                  completion(finished);
-                                 self.hidden = YES;
+                                 [self removeFromSuperview];
                              }
                          }];
     });

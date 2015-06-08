@@ -455,7 +455,7 @@
 - (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
      WLHistoryViewController *historyViewController = (id)[candy viewController];
     if (historyViewController) {
-       __weak WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
+        WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
         presentingImageView.delegate = self;
          historyViewController.presentingImageView = presentingImageView;
         __weak __typeof(self)weakSelf = self;

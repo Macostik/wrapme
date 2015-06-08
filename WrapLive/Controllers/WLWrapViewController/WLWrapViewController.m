@@ -268,7 +268,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 - (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
     WLHistoryViewController *historyViewController = (id)[candy viewController];
     if (historyViewController) {
-       __weak WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
+        WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
         presentingImageView.delegate = self;
         __weak __typeof(self)weakSelf = self;
         [presentingImageView presentingCandy:candy completion:^(BOOL flag) {
@@ -297,10 +297,13 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
         if (index != NSNotFound) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             if (scroll) {
-                  [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+                [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             }
             [self.collectionView layoutIfNeeded];
             WLCandiesCell *candiesCell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
+            if (scroll) {
+                [self.collectionView scrollRectToVisible:candiesCell.frame animated:NO];
+            }
             if (candiesCell) {
                 NSUInteger index = [historyItem.entries indexOfObject:candy];
                 if (index != NSNotFound) {

@@ -93,8 +93,8 @@
 }
 
 - (void)select:(WLCandy*)candy {
-    UIImage *largeImage = [[WLImageCache uploadingCache] imageWithUrl:candy.picture.large];
-    if (candy.valid && candy.picture.medium.nonempty && largeImage != nil) {
+    UIImage *largeImage = [[WLImageCache cache] imageWithUrl:candy.picture.large];
+    if (candy.valid && self.coverView.state == WLImageViewStateDefault && self.coverView.image != nil && largeImage != nil) {
         if ([self.delegate respondsToSelector:@selector(candyCell:didSelectCandy:)]) {
             [self.delegate candyCell:self didSelectCandy:candy];
         }

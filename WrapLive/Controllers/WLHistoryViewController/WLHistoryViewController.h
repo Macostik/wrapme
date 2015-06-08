@@ -21,7 +21,7 @@
 
 @property (nonatomic) BOOL showCommentViewController;
 
-@property (weak, nonatomic) WLPresentingImageView *presentingImageView;
+@property (strong, nonatomic) WLPresentingImageView *presentingImageView;
 
 - (IBAction)hideBars;
 

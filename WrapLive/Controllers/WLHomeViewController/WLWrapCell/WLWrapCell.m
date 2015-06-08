@@ -55,7 +55,6 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     if (self.candiesView) {
         WLBasicDataSource* dataSource = [WLBasicDataSource dataSource:self.candiesView];
         dataSource.cellIdentifier = WLCandyCellIdentifier;
-        dataSource.selectionBlock = self.selectionBlock;
         dataSource.minimumLineSpacing = WLCandyCellSpacing;
         dataSource.sectionLeftInset = dataSource.sectionRightInset = WLCandyCellSpacing;
         [dataSource setNumberOfItemsBlock:^NSUInteger {
@@ -90,11 +89,6 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     [super prepareForReuse];
     self.leftSwipeActionConstraint.constant = 0;
     self.rightSwipeActionConstraint.constant = 0;
-}
-
-- (void)setSelectionBlock:(WLObjectBlock)selectionBlock {
-    [super setSelectionBlock:selectionBlock];
-    self.candiesDataSource.selectionBlock = selectionBlock;
 }
 
 - (void)setup:(WLWrap*)wrap {

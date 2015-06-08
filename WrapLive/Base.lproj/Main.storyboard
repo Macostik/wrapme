@@ -1244,7 +1244,7 @@
                                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <gestureRecognizers/>
                                                                             </imageView>
-                                                                            <view contentMode="bottom" placeholderIntrinsicWidth="106" placeholderIntrinsicHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="76t-8g-J7R" customClass="WLGradientView">
+                                                                            <view userInteractionEnabled="NO" contentMode="bottom" placeholderIntrinsicWidth="106" placeholderIntrinsicHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="76t-8g-J7R" customClass="WLGradientView">
                                                                                 <rect key="frame" x="0.0" y="61" width="106" height="45"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="98" placeholderIntrinsicHeight="35" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="106" translatesAutoresizingMaskIntoConstraints="NO" id="jAi-R7-bNq" customClass="WLLabel">
@@ -2719,7 +2719,7 @@ Tap here to start.</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     </imageView>
-                                                                    <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="cqB-Ml-49g" customClass="WLGradientView">
+                                                                    <view userInteractionEnabled="NO" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="cqB-Ml-49g" customClass="WLGradientView">
                                                                         <rect key="frame" x="0.0" y="61" width="106" height="45"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="98" placeholderIntrinsicHeight="35" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="106" translatesAutoresizingMaskIntoConstraints="NO" id="eIp-Tc-hkV" customClass="WLLabel">
@@ -3662,6 +3662,9 @@ Check your internet connection and try again.</string>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="749" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70w-oo-mtg" customClass="WLLabel">
                                                             <rect key="frame" x="72" y="12" width="212" height="23"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="23" id="zAp-b7-zic"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                                             <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>

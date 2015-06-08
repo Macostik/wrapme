@@ -48,7 +48,9 @@
             if ([data isKindOfClass:[NSDictionary class]]) {
                 [weakSelf.contribution API_setup:data];
             }
-            if (success) success(weakSelf.contribution);
+            [weakSelf remove];
+            if (success) success(contribution);
+            [contribution notifyOnUpdate:nil];
         } else if ([error isError:WLErrorContentUnavaliable]) {
             [weakSelf.contribution remove];
             if (failure) failure(error);

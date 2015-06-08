@@ -53,10 +53,14 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
         return CGSizeMake(weakSelf.collectionView.width, textHeight + WLNotificationCommentVerticalSpacing);
     }];
     
-    self.dataSource.items = [self.candy sortedComments];
+    self.dataSource.items = [self sortedComments];
     self.collectionView.layer.geometryFlipped = YES;
     [self.collectionView layoutIfNeeded];
     [self addNotifyReceivers];
+}
+
+- (NSMutableOrderedSet *)sortedComments {
+    return [[self.candy sortedComments] mutableCopy];
 }
 
 - (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
@@ -67,7 +71,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
     __weak typeof(self)weakSelf = self;
     if (self.candy.uploaded) {
         [self.candy fetch:^(id object) {
-            weakSelf.dataSource.items = [weakSelf.candy sortedComments];
+            weakSelf.dataSource.items = [weakSelf sortedComments];
             [sender setRefreshing:NO animated:YES];
         } failure:^(NSError *error) {
             [error showIgnoringNetworkError];
@@ -186,13 +190,13 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
     __weak typeof(self)weakSelf = self;
     
     [WLComment notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setContainingEntryBlock:^WLEntry *{
-            return weakSelf.candy;
+        [receiver setShouldNotifyBlock:^BOOL(WLComment *comment) {
+            NSMutableOrderedSet *comments = (NSMutableOrderedSet*)weakSelf.dataSource.items;
+            return comment.candy == weakSelf.candy || [comments containsObject:comment];
         }];
-        [receiver setDidAddBlock:^(WLComment *comment) {
-            weakSelf.dataSource.items = [weakSelf.candy sortedComments];
-        }];
-        receiver.didDeleteBlock = receiver.didUpdateBlock = receiver.didAddBlock;
+        receiver.didDeleteBlock = receiver.didUpdateBlock = receiver.didAddBlock = ^(WLComment *comment) {
+            weakSelf.dataSource.items = [weakSelf sortedComments];
+        };
     }];
     
     [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {

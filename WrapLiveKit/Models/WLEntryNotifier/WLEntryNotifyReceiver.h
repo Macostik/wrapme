@@ -19,7 +19,7 @@
 
 @property (strong, nonatomic) WLEntry *(^entryBlock) (void);
 
-@property (strong, nonatomic) BOOL (^shouldNotifyBlock) (WLEntry *entry);
+@property (strong, nonatomic) BOOL (^shouldNotifyBlock) (id entry);
 
 @property (strong, nonatomic) WLObjectBlock willAddBlock;
 

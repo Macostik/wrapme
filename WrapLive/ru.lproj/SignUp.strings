@@ -41,7 +41,7 @@
 "HcW-vf-tjk.placeholder" = "Ваше имя";
 
 /* Class = "UILabel"; text = "You have linked this device to your wrapLive account. Enjoy!"; ObjectID = "Itw-PI-Mz8"; */
-"Itw-PI-Mz8.text" = "Вы присоединили это устройство к Вашему wrapLive аккаунту. Наслаждайтесь!";
+"Itw-PI-Mz8.text" = "Вы связали это устройство с Вашей учетной записью wrapLive. Наслаждайтесь!";
 
 /* Class = "UILabel"; text = "Edit your profile"; ObjectID = "JDb-jD-Zkt"; */
 "JDb-jD-Zkt.text" = "Редактировать профиль";
@@ -104,7 +104,7 @@
 "dM9-5p-U8h.normalTitle" = "Использовать другой e-mail";
 
 /* Class = "UILabel"; text = "We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue"; ObjectID = "dRx-kr-5xI"; */
-"dRx-kr-5xI.text" = "Нам необходимо проверить Ваш e-mail, прежде чем будет добывлено устройство к аккаунту. Пожалуйста, перейдите по ссылке для продолжения";
+"dRx-kr-5xI.text" = "Нам необходимо проверить Ваш e-mail, прежде чем будет добавлено устройство к аккаунту. Пожалуйста, перейдите по ссылке для продолжения";
 
 /* Class = "UIButton"; normalTitle = "Next"; ObjectID = "e0l-0g-x0j"; */
 "e0l-0g-x0j.normalTitle" = "Далее";

@@ -37,6 +37,10 @@
 
 @implementation WLCache
 
++ (void)initialize {
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:NSHomeDirectory()];
+}
+
 + (instancetype)cache {
 	return nil;
 }
@@ -68,15 +72,16 @@
         } else {
             _directory = [@"Documents" stringByAppendingPathComponent:identifier];
         }
-        if (![[NSFileManager defaultManager] fileExistsAtPath:_directory]) {
-            [[NSFileManager defaultManager] createDirectoryAtPath:_directory withIntermediateDirectories:YES attributes:nil error:NULL];
-        }
+        NSError *error = nil;
+        self.permitted = [[NSFileManager defaultManager] createDirectoryAtPath:_directory withIntermediateDirectories:YES attributes:nil error:&error];
         [self fetchIdentifiers];
     }
 }
 
 - (void)fetchIdentifiers {
-    _identifiers = [NSMutableSet setWithArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:_directory error:NULL]];
+    if (_permitted) {
+        _identifiers = [NSMutableSet setWithArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:_directory error:NULL]];
+    }
 }
 
 - (void)setSize:(NSUInteger)size {
@@ -87,10 +92,16 @@
 }
 
 - (id)read:(NSString *)identifier {
+    if (!_permitted) {
+        return nil;
+    }
     return [NSKeyedUnarchiver unarchiveObjectWithData:[[NSFileManager defaultManager] contentsAtPath:[self pathWithIdentifier:identifier]]];
 }
 
 - (void)write:(NSString *)identifier object:(id)object {
+    if (!_permitted) {
+        return;
+    }
     NSData* data = [NSKeyedArchiver archivedDataWithRootObject:object];
     if (data) {
         [data writeToFile:[self pathWithIdentifier:identifier] atomically:NO];
@@ -138,6 +149,9 @@
 }
 
 - (void)enqueueCheckSizePerforming {
+    if (!_permitted) {
+        return;
+    }
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(checkSizeAndClearIfNeededInBackground) object:nil];
 	[self performSelector:@selector(checkSizeAndClearIfNeededInBackground) withObject:nil afterDelay:0.5f];
 }
@@ -145,7 +159,7 @@
 - (void)checkSizeAndClearIfNeededInBackground {
     static BOOL checking = NO;
     NSUInteger limitSize = self.size;
-    if (!checking && limitSize > 0) {
+    if (!checking && limitSize > 0 && _permitted) {
         checking = YES;
         __weak typeof(self)weakSelf = self;
         run_in_background_queue(^{
@@ -191,8 +205,10 @@
 
 - (void)clear {
     NSMutableSet* identifiers = self.identifiers;
-    for (NSString* identifier in identifiers) {
-        [[NSFileManager defaultManager] removeItemAtPath:[self pathWithIdentifier:identifier] error:NULL];
+    if (_permitted) {
+        for (NSString* identifier in identifiers) {
+            [[NSFileManager defaultManager] removeItemAtPath:[self pathWithIdentifier:identifier] error:NULL];
+        }
     }
     [identifiers removeAllObjects];
 }

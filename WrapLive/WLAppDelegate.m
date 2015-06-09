@@ -40,8 +40,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [[NSFileManager defaultManager] changeCurrentDirectoryPath:NSHomeDirectory()];
-    
     [self initializeCrashlyticsAndLogging];
     
     [self initializeAPIManager];

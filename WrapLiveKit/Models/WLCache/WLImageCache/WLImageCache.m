@@ -49,6 +49,9 @@ static NSUInteger WLImageCacheSize = 524288000;
 }
 
 - (id)read:(NSString *)identifier {
+    if (!self.permitted) {
+        return [WLSystemImageCache imageWithIdentifier:identifier];
+    }
     UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
     if (image == nil) {
         image = [UIImage imageWithContentsOfFile:[self pathWithIdentifier:identifier]];
@@ -59,11 +62,13 @@ static NSUInteger WLImageCacheSize = 524288000;
 
 - (void)write:(NSString *)identifier object:(id)image {
     if (image && identifier.nonempty) {
-        NSData *imageData = UIImageJPEGRepresentation(image, self.compressionQuality);
-        if ([imageData length] > 0) {
-            [imageData writeToFile:[self pathWithIdentifier:identifier] atomically:NO];
-            [WLSystemImageCache setImage:image withIdentifier:identifier];
+        if (self.permitted) {
+            NSData *imageData = UIImageJPEGRepresentation(image, self.compressionQuality);
+            if ([imageData length] > 0) {
+                [imageData writeToFile:[self pathWithIdentifier:identifier] atomically:NO];
+            }
         }
+        [WLSystemImageCache setImage:image withIdentifier:identifier];
     }
 }
 
@@ -71,7 +76,11 @@ static NSUInteger WLImageCacheSize = 524288000;
 	if ([WLSystemImageCache imageWithIdentifier:identifier] != nil) {
 		return YES;
 	}
-	return [super containsObjectWithIdentifier:identifier];
+    if (self.permitted) {
+        return [super containsObjectWithIdentifier:identifier];
+    } else {
+        return NO;
+    }
 }
 
 - (UIImage*)imageWithIdentifier:(NSString*)identifier {
@@ -80,7 +89,7 @@ static NSUInteger WLImageCacheSize = 524288000;
 
 - (void)imageWithIdentifier:(NSString *)identifier completion:(void (^)(UIImage *image, BOOL cached))completion {
 	UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
-	if (image != nil) {
+	if (image != nil || !self.permitted) {
 		completion(image, YES);
 		return;
 	}
@@ -100,7 +109,7 @@ static NSUInteger WLImageCacheSize = 524288000;
 }
 
 - (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
-	if (identifier.nonempty && path.nonempty && [[NSFileManager defaultManager] fileExistsAtPath:path]) {
+	if (self.permitted && identifier.nonempty && path.nonempty && [[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSString *toPath = [self pathWithIdentifier:identifier];
         NSError *error = nil;
         if ([[NSFileManager defaultManager] copyItemAtPath:path toPath:toPath error:&error]) {
@@ -123,7 +132,7 @@ static NSUInteger WLImageCacheSize = 524288000;
 }
 
 - (void)setImageData:(NSData*)data withIdentifier:(NSString*)identifier completion:(void (^)(NSString* identifier))completion {
-	if (!data) {
+	if (!data || !self.permitted) {
 		return;
 	}
 	dispatch_async(self.queue, ^{

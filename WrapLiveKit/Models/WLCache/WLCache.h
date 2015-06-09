@@ -13,6 +13,8 @@ typedef void (^WLCacheWriteCompletionBlock)(NSString* identifier);
 
 @interface WLCache : NSObject
 
+@property (nonatomic) BOOL permitted;
+
 @property (strong, nonatomic, readonly) NSString* identifier;
 
 @property (nonatomic, strong) NSString* directory;

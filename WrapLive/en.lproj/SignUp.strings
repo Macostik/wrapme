@@ -82,8 +82,8 @@
 /* Class = "UILabel"; text = "What is your phone number?"; ObjectID = "pmp-Nw-u2O"; */
 "pmp-Nw-u2O.text" = "What's your phone number?";
 
-/* Class = "UILabel"; text = "The passcode is required to link this device to your wrapLive account. Enter it below when you receive it."; ObjectID = "q2s-IS-vfL"; */
-"q2s-IS-vfL.text" = "The passcode is required to link this device to your wrapLive account. Enter it below when you receive it.";
+/* Class = "UILabel"; text = "The passcode is required to link this device to your wrapLive account. Enter it above when you receive it."; ObjectID = "q2s-IS-vfL"; */
+"q2s-IS-vfL.text" = "The passcode is required to link this device to your wrapLive account. Enter it above when you receive it.";
 
 /* Class = "UILabel"; text = "Successful!"; ObjectID = "qCY-vc-S18"; */
 "qCY-vc-S18.text" = "Successful!";

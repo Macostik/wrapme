@@ -19,6 +19,6 @@
 
 @interface WLAssetsGroupCell : WLCollectionItemCell
 
-@property (nonatomic, weak) id <WLAssetsGroupCellDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id <WLAssetsGroupCellDelegate> delegate;
 
 @end

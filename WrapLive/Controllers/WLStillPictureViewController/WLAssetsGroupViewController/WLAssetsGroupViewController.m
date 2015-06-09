@@ -12,6 +12,7 @@
 #import "NSObject+NibAdditions.h"
 #import "SegmentedControl.h"
 #import "WLNavigationHelper.h"
+#import "WLWrapView.h"
 
 @interface WLAssetsGroupViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLAssetsGroupCellDelegate>
 
@@ -47,6 +48,12 @@
         controller.wrap = self.wrap;
         [self.navigationController pushViewController:controller animated:NO];
     }
+    
+    if (self.wrapView.y == 0) {
+        self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(self.wrapView.height, 0, 0, 0);
+    } else {
+        self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.wrapView.height, 0);
+    }
 }
 
 - (void)loadGroups {
@@ -75,7 +82,6 @@
     static NSString *WLAssetsGroupCellID = @"WLAssetsGroupCell";
 	WLAssetsGroupCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLAssetsGroupCellID forIndexPath:indexPath];
 	cell.item = self.groups[indexPath.item];
-	cell.delegate = self;
 	return cell;
 }
 
@@ -92,6 +98,14 @@
     controller.mode = self.mode;
     controller.wrap = self.wrap;
 	[self pushViewController:controller animated:NO];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(WLAssetsGroupCell*)sender {
+    WLAssetsViewController* controller = segue.destinationViewController;
+    controller.group = sender.item;
+    controller.delegate = self.delegate;
+    controller.mode = self.mode;
+    controller.wrap = self.wrap;
 }
 
 @end

@@ -70,6 +70,12 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     } else {
         self.doneButtonTrailingConstraint.constant = -self.doneButton.width;
     }
+    
+    if (self.wrapView.y == 0) {
+        self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(self.wrapView.height, 0, 0, 0);
+    } else {
+        self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.wrapView.height, 0);
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

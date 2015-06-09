@@ -1490,6 +1490,16 @@
 		C57479FE1B26FA45001AB8C0 /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */; };
 		C5747A001B26FA45001AB8C0 /* WrapLiveToday-Development.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WrapLiveToday-Development.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5747A011B26FA45001AB8C0 /* WrapLiveWatchKitExtension-Development.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C50645841ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C5747A0D1B273C91001AB8C0 /* WLOldStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5747A0C1B273C91001AB8C0 /* WLOldStillPictureViewController.m */; };
+		C5747A0E1B273C91001AB8C0 /* WLOldStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5747A0C1B273C91001AB8C0 /* WLOldStillPictureViewController.m */; };
+		C5747A0F1B273C91001AB8C0 /* WLOldStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5747A0C1B273C91001AB8C0 /* WLOldStillPictureViewController.m */; };
+		C5747A101B273C91001AB8C0 /* WLOldStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5747A0C1B273C91001AB8C0 /* WLOldStillPictureViewController.m */; };
+		C5747A111B273C91001AB8C0 /* WLOldStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5747A0C1B273C91001AB8C0 /* WLOldStillPictureViewController.m */; };
+		C5747A141B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5747A131B273DC7001AB8C0 /* WLNewStillPictureViewController.m */; };
+		C5747A151B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5747A131B273DC7001AB8C0 /* WLNewStillPictureViewController.m */; };
+		C5747A161B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5747A131B273DC7001AB8C0 /* WLNewStillPictureViewController.m */; };
+		C5747A171B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5747A131B273DC7001AB8C0 /* WLNewStillPictureViewController.m */; };
+		C5747A181B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5747A131B273DC7001AB8C0 /* WLNewStillPictureViewController.m */; };
 		C577C2631A4C427100ECC7E5 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C2621A4C427100ECC7E5 /* iVersion.m */; };
 		C577C2641A4C427100ECC7E5 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C2621A4C427100ECC7E5 /* iVersion.m */; };
 		C577C2651A4C427100ECC7E5 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C2621A4C427100ECC7E5 /* iVersion.m */; };
@@ -3235,6 +3245,10 @@
 		C573FB8C1AB84AF400F1098C /* WLTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTouchView.m; sourceTree = "<group>"; };
 		C5747A071B26FA45001AB8C0 /* WrapLive-Development copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-Development copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5747A091B26FB29001AB8C0 /* WrapLive-Local-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLive-Local-Info.plist"; sourceTree = "<group>"; };
+		C5747A0B1B273C91001AB8C0 /* WLOldStillPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLOldStillPictureViewController.h; path = WLStillPictureViewController/WLOldStillPictureViewController.h; sourceTree = "<group>"; };
+		C5747A0C1B273C91001AB8C0 /* WLOldStillPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLOldStillPictureViewController.m; path = WLStillPictureViewController/WLOldStillPictureViewController.m; sourceTree = "<group>"; };
+		C5747A121B273DC7001AB8C0 /* WLNewStillPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLNewStillPictureViewController.h; path = WLStillPictureViewController/WLNewStillPictureViewController.h; sourceTree = "<group>"; };
+		C5747A131B273DC7001AB8C0 /* WLNewStillPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLNewStillPictureViewController.m; path = WLStillPictureViewController/WLNewStillPictureViewController.m; sourceTree = "<group>"; };
 		C577C2611A4C427100ECC7E5 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
 		C577C2621A4C427100ECC7E5 /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
 		C577DA511AE0F7FB00DBC3D4 /* WLIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIconView.h; path = WLButton/WLIconView.h; sourceTree = "<group>"; };
@@ -3559,6 +3573,10 @@
 				C53E5CF91A84FBDB004F61B0 /* WLStillPictureBaseViewController.m */,
 				128156A91938A1DA00035F89 /* WLStillPictureViewController.h */,
 				128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */,
+				C5747A0B1B273C91001AB8C0 /* WLOldStillPictureViewController.h */,
+				C5747A0C1B273C91001AB8C0 /* WLOldStillPictureViewController.m */,
+				C5747A121B273DC7001AB8C0 /* WLNewStillPictureViewController.h */,
+				C5747A131B273DC7001AB8C0 /* WLNewStillPictureViewController.m */,
 			);
 			name = WLStillPictureViewController;
 			sourceTree = "<group>";
@@ -7857,6 +7875,7 @@
 				C53E5D5C1A851F71004F61B0 /* WLAssetsGroupCell.m in Sources */,
 				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
 				5BA7AC2C1A7939FB00BB922E /* WLTriangleView.m in Sources */,
+				C5747A0E1B273C91001AB8C0 /* WLOldStillPictureViewController.m in Sources */,
 				AC79ED381934791600D7031F /* WLEmojiCell.m in Sources */,
 				C54531201A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				5BA432AA1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */,
@@ -7867,6 +7886,7 @@
 				C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */,
 				C55997501A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C53E5CE81A84D876004F61B0 /* WLUserView.m in Sources */,
+				C5747A151B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */,
 				5BA60C671A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,
 				C577DA531AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
@@ -8076,6 +8096,7 @@
 				C53E5D5D1A851F71004F61B0 /* WLAssetsGroupCell.m in Sources */,
 				C54AF4D419B8C437006F7EDB /* WLCreateWrapViewController.m in Sources */,
 				5BA7AC2D1A7939FB00BB922E /* WLTriangleView.m in Sources */,
+				C5747A0F1B273C91001AB8C0 /* WLOldStillPictureViewController.m in Sources */,
 				C54AF4D519B8C437006F7EDB /* WLEmojiCell.m in Sources */,
 				C54531211A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				5BA432AB1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */,
@@ -8086,6 +8107,7 @@
 				C54AF4DF19B8C437006F7EDB /* WLChatViewController.m in Sources */,
 				C55997511A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C53E5CE91A84D876004F61B0 /* WLUserView.m in Sources */,
+				C5747A161B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */,
 				5BA60C681A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54AF4E119B8C437006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C577DA541AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
@@ -8254,6 +8276,7 @@
 				C53E5D5E1A851F71004F61B0 /* WLAssetsGroupCell.m in Sources */,
 				C54AF5D119B8C467006F7EDB /* WLCreateWrapViewController.m in Sources */,
 				5BA7AC2E1A7939FB00BB922E /* WLTriangleView.m in Sources */,
+				C5747A101B273C91001AB8C0 /* WLOldStillPictureViewController.m in Sources */,
 				C54AF5D219B8C467006F7EDB /* WLEmojiCell.m in Sources */,
 				C54531221A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				5BA432AC1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */,
@@ -8264,6 +8287,7 @@
 				C54AF5DC19B8C467006F7EDB /* WLChatViewController.m in Sources */,
 				C55997521A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C53E5CEA1A84D876004F61B0 /* WLUserView.m in Sources */,
+				C5747A171B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */,
 				5BA60C691A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54AF5DE19B8C467006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C577DA551AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
@@ -8432,6 +8456,7 @@
 				C53E5D5F1A851F71004F61B0 /* WLAssetsGroupCell.m in Sources */,
 				C54AF6CE19B8C491006F7EDB /* WLCreateWrapViewController.m in Sources */,
 				5BA7AC2F1A7939FB00BB922E /* WLTriangleView.m in Sources */,
+				C5747A111B273C91001AB8C0 /* WLOldStillPictureViewController.m in Sources */,
 				C54AF6CF19B8C491006F7EDB /* WLEmojiCell.m in Sources */,
 				C54531231A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				5BA432AD1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */,
@@ -8442,6 +8467,7 @@
 				C54AF6D919B8C491006F7EDB /* WLChatViewController.m in Sources */,
 				C55997531A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C53E5CEB1A84D876004F61B0 /* WLUserView.m in Sources */,
+				C5747A181B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */,
 				5BA60C6A1A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54AF6DB19B8C491006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C577DA561AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
@@ -8637,6 +8663,7 @@
 				C57479731B26FA45001AB8C0 /* WLAssetsGroupCell.m in Sources */,
 				C57479741B26FA45001AB8C0 /* WLCreateWrapViewController.m in Sources */,
 				C57479751B26FA45001AB8C0 /* WLTriangleView.m in Sources */,
+				C5747A0D1B273C91001AB8C0 /* WLOldStillPictureViewController.m in Sources */,
 				C57479761B26FA45001AB8C0 /* WLEmojiCell.m in Sources */,
 				C57479771B26FA45001AB8C0 /* WLPhoneValidation.m in Sources */,
 				C57479781B26FA45001AB8C0 /* WLConfirmView.m in Sources */,
@@ -8647,6 +8674,7 @@
 				C574797D1B26FA45001AB8C0 /* WLChatViewController.m in Sources */,
 				C574797E1B26FA45001AB8C0 /* WLTelephony.m in Sources */,
 				C574797F1B26FA45001AB8C0 /* WLUserView.m in Sources */,
+				C5747A141B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */,
 				C57479801B26FA45001AB8C0 /* MFMailComposeViewController+Additions.m in Sources */,
 				C57479811B26FA45001AB8C0 /* VerticalStreamLayout.m in Sources */,
 				C57479821B26FA45001AB8C0 /* WLIconView.m in Sources */,

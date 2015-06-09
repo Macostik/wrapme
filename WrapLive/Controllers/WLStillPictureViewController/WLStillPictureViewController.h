@@ -26,10 +26,12 @@
 
 @interface WLStillPictureViewController : WLStillPictureBaseViewController
 
-@property (weak, nonatomic, readonly) UINavigationController* cameraNavigationController;
+@property (weak, nonatomic) UINavigationController* cameraNavigationController;
 
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
 
 @property (nonatomic) BOOL startFromGallery;
+
++ (instancetype)stillPictureViewController;
 
 @end

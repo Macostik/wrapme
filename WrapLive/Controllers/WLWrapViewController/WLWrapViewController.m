@@ -143,21 +143,21 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     self.messageCountLabel.intValue = [self.wrap unreadNotificationsMessageCount];
 }
 
-- (UIViewController *)shakePresentedViewController {
-    WLStillPictureViewController *controller = [WLStillPictureViewController instantiate:
-                                                [UIStoryboard storyboardNamed:WLCameraStoryboard]];
-    controller.wrap = self.wrap;
-    controller.delegate = self;
-    controller.mode = WLStillPictureModeDefault;
-	return controller;
-}
-
 // MARK: - User Actions
 
 - (IBAction)editWrapClick:(id)sender {
     WLEditWrapViewController* editWrapViewController = [WLEditWrapViewController new];
     editWrapViewController.wrap = self.wrap;
     [self presentViewController:editWrapViewController animated:NO completion:nil];
+}
+
+- (IBAction)addPhoto:(id)sender {
+    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPictureViewController];
+    stillPictureViewController.wrap = self.wrap;
+    stillPictureViewController.mode = WLStillPictureModeDefault;
+    stillPictureViewController.delegate = self;
+    stillPictureViewController.startFromGallery = NO;
+    [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }
 
 // MARK: - WLEntryNotifyReceiver

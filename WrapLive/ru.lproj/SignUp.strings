@@ -133,8 +133,8 @@
 /* (No Commment) */
 "pmp-Nw-u2O.text" = "Кокой у Вас номер телефона?";
 
-/* Class = "UILabel"; text = "The passcode is required to link this device to your wrapLive account. Enter it above when you receive it."; ObjectID = "q2s-IS-vfL"; */
-"q2s-IS-vfL.text" = "Пароль необходим, чтобы связать это устройство с Вашей учетной записью wrapLive. Когда получите пароль, введите его выше.";
+/* Class = "UILabel"; text = "The passcode is required to link this device to your wrapLive account. Enter it above when you receive it."; ObjectID = "HrT-ph-Lnj"; */
+"HrT-ph-Lnj.text" = "Пароль необходим, чтобы связать это устройство с Вашей учетной записью wrapLive. Когда получите пароль, введите его выше.";
 
 /* Class = "UILabel"; text = "Successful!"; ObjectID = "qCY-vc-S18"; */
 "qCY-vc-S18.text" = "Успешно!";

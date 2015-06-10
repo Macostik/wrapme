@@ -233,6 +233,10 @@
 		5BD275511B2829B00060D951 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD2754F1B2829B00060D951 /* wrapliveicons.ttf */; };
 		5BD275521B2829B00060D951 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD2754F1B2829B00060D951 /* wrapliveicons.ttf */; };
 		5BD275531B2829B00060D951 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD2754F1B2829B00060D951 /* wrapliveicons.ttf */; };
+		5BD2755D1B2853630060D951 /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
+		5BD2755E1B2853630060D951 /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
+		5BD2755F1B2853630060D951 /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
+		5BD275601B2853630060D951 /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
 		5BD782821A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
 		5BD782831A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
 		5BD782841A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
@@ -2398,6 +2402,8 @@
 		5BD1D5BF1B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPostEditingUploadCandyRequest.h; sourceTree = "<group>"; };
 		5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPostEditingUploadCandyRequest.m; sourceTree = "<group>"; };
 		5BD2754F1B2829B00060D951 /* wrapliveicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = wrapliveicons.ttf; sourceTree = "<group>"; };
+		5BD2755B1B2853630060D951 /* WLLightSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLightSegmentControl.h; path = WLLIgthSegmentControl/WLLightSegmentControl.h; sourceTree = "<group>"; };
+		5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLightSegmentControl.m; path = WLLIgthSegmentControl/WLLightSegmentControl.m; sourceTree = "<group>"; };
 		5BD782861A4EC02B0094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLEditWrapViewController.xib; sourceTree = "<group>"; };
 		5BD782A41A4EC1E20094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLCreateWrapViewController.xib; sourceTree = "<group>"; };
 		5BD782A71A4EC1E70094BEE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLCreateWrapViewController.strings; sourceTree = "<group>"; };
@@ -3777,6 +3783,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5BD275541B2853110060D951 /* WLLightSegmentControl */,
 				5BD121571B0250E000FF5FBF /* WLDownloadingView */,
 				C5FE0A5A1ACD98F3007DBE95 /* WLCircleImageView */,
 				C573FB8A1AB84ADD00F1098C /* WLTouchView */,
@@ -4324,6 +4331,15 @@
 				C55908D51B18995D001CB99F /* WLDownloadingView.xib */,
 			);
 			name = WLDownloadingView;
+			sourceTree = "<group>";
+		};
+		5BD275541B2853110060D951 /* WLLightSegmentControl */ = {
+			isa = PBXGroup;
+			children = (
+				5BD2755B1B2853630060D951 /* WLLightSegmentControl.h */,
+				5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */,
+			);
+			name = WLLightSegmentControl;
 			sourceTree = "<group>";
 		};
 		5BD58FBE1B145A4C00B67A3F /* WLPresentingImageView */ = {
@@ -7866,6 +7882,7 @@
 				C53C40561AF0F2EC0001685D /* WLUnreadMessagesView.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
 				C568D8D61A6D491800C2333B /* WLHintView.m in Sources */,
+				5BD2755E1B2853630060D951 /* WLLightSegmentControl.m in Sources */,
 				C53E5D641A851F71004F61B0 /* WLAssetCell.m in Sources */,
 				C544E4FC1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */,
 				C53E5D701A851F71004F61B0 /* WLCameraInteractionView.m in Sources */,
@@ -8085,6 +8102,7 @@
 				C53C40571AF0F2EC0001685D /* WLUnreadMessagesView.m in Sources */,
 				C54AF4E619B8C437006F7EDB /* WLAppDelegate.m in Sources */,
 				C568D8D71A6D491800C2333B /* WLHintView.m in Sources */,
+				5BD2755F1B2853630060D951 /* WLLightSegmentControl.m in Sources */,
 				C53E5D651A851F71004F61B0 /* WLAssetCell.m in Sources */,
 				C544E4FD1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */,
 				C53E5D711A851F71004F61B0 /* WLCameraInteractionView.m in Sources */,
@@ -8263,6 +8281,7 @@
 				C53C40581AF0F2EC0001685D /* WLUnreadMessagesView.m in Sources */,
 				C54AF5E319B8C467006F7EDB /* WLAppDelegate.m in Sources */,
 				C568D8D81A6D491800C2333B /* WLHintView.m in Sources */,
+				5BD275601B2853630060D951 /* WLLightSegmentControl.m in Sources */,
 				C53E5D661A851F71004F61B0 /* WLAssetCell.m in Sources */,
 				C544E4FE1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */,
 				C53E5D721A851F71004F61B0 /* WLCameraInteractionView.m in Sources */,
@@ -8646,6 +8665,7 @@
 				C574798A1B26FA45001AB8C0 /* WLUnreadMessagesView.m in Sources */,
 				C574798B1B26FA45001AB8C0 /* WLAppDelegate.m in Sources */,
 				C574798C1B26FA45001AB8C0 /* WLHintView.m in Sources */,
+				5BD2755D1B2853630060D951 /* WLLightSegmentControl.m in Sources */,
 				C574798D1B26FA45001AB8C0 /* WLAssetCell.m in Sources */,
 				C574798E1B26FA45001AB8C0 /* WLArrangedAddressBookGroup.m in Sources */,
 				C574798F1B26FA45001AB8C0 /* WLCameraInteractionView.m in Sources */,

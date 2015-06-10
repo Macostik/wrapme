@@ -100,12 +100,4 @@
 	[self pushViewController:controller animated:NO];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(WLAssetsGroupCell*)sender {
-    WLAssetsViewController* controller = segue.destinationViewController;
-    controller.group = sender.item;
-    controller.delegate = self.delegate;
-    controller.mode = self.mode;
-    controller.wrap = self.wrap;
-}
-
 @end

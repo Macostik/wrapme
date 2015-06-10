@@ -59,7 +59,6 @@
 @property (weak, nonatomic) IBOutlet WLCameraView *cameraView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLFlashModeControl *flashModeControl;
-@property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
@@ -149,6 +148,12 @@
 
 - (IBAction)gallery:(id)sender {
 	[self.delegate cameraViewControllerDidSelectGallery:self];
+}
+
+- (IBAction)finish:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
+        [self.delegate cameraViewControllerDidFinish:self];
+    }
 }
 
 - (void)finishWithImage:(UIImage*)image metadata:(NSMutableDictionary*)metadata {

@@ -24,10 +24,13 @@
 #import "UIView+AnimationHelper.h"
 #import "WLAssetsGroupViewController.h"
 #import "WLNavigationHelper.h"
+#import "UIButton+Additions.h"
 
 @interface WLNewStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
 
 @property (weak, nonatomic) WLCameraViewController *cameraViewController;
+
+@property (strong, nonatomic) NSMutableArray* pictures;
 
 @end
 
@@ -35,6 +38,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.pictures = [NSMutableArray array];
     
     self.cameraNavigationController = [self.childViewControllers lastObject];
     self.cameraNavigationController.delegate = self;
@@ -49,6 +54,7 @@
     cameraViewController.mode = self.mode;
     cameraViewController.wrap = self.wrap;
     self.cameraViewController = cameraViewController;
+    [self updatePicturesCountLabel];
     
     if (self.startFromGallery) {
         [self openGallery:YES animated:NO];
@@ -177,15 +183,12 @@
 
 - (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
     __weak typeof(self)weakSelf = self;
-    [self editImage:image completion:^ (UIImage *resultImage, NSString *comment) {
-        if (saveToAlbum) [resultImage save:metadata];
-        weakSelf.view.userInteractionEnabled = NO;
-        [WLPicture picture:resultImage mode:weakSelf.mode completion:^(WLPicture *picture) {
-            picture.animation = [WLAnimation animationWithDuration:0.5f];
-            picture.comment = comment;
-            [weakSelf finishWithPictures:@[picture]];
-            weakSelf.view.userInteractionEnabled = YES;
-        }];
+    self.view.userInteractionEnabled = NO;
+    [WLPicture picture:image mode:self.mode completion:^(WLPicture *picture) {
+        picture.animation = [WLAnimation animationWithDuration:0.5f];
+        [weakSelf.pictures addObject:picture];
+        [weakSelf updatePicturesCountLabel];
+        weakSelf.view.userInteractionEnabled = YES;
     }];
 }
 
@@ -222,8 +225,12 @@
     [self openGallery:NO animated:NO];
 }
 
+- (void)cameraViewControllerDidFinish:(WLCameraViewController *)controller {
+    [self finishWithPictures:self.pictures];
+}
+
 - (void)openGallery:(BOOL)openCameraRoll animated:(BOOL)animated {
-    WLAssetsGroupViewController* gallery = [self.storyboard instantiateViewControllerWithIdentifier:@"WLNewAssetsGroupViewController"];
+    WLAssetsGroupViewController* gallery = [WLAssetsGroupViewController instantiate:self.storyboard];
     gallery.mode = self.mode;
     gallery.openCameraRoll = openCameraRoll;
     gallery.wrap = self.wrap;
@@ -255,12 +262,18 @@
                     [operation finish];
                     if (pictures.count == assets.count) {
                         weakSelf.view.userInteractionEnabled = YES;
-                        [weakSelf finishWithPictures:pictures];
+                        [weakSelf.pictures addObjectsFromArray:pictures];
+                        [weakSelf updatePicturesCountLabel];
                     }
                 }];
             }];
         });
     }
+}
+
+- (void)updatePicturesCountLabel {
+    [self.cameraViewController.takePhotoButton setTitle:[NSString stringWithFormat:@"%lu", (unsigned long)self.pictures.count] forState:UIControlStateNormal];
+    self.cameraViewController.finishButton.active = self.pictures.count > 0;
 }
 
 - (void)finishWithPictures:(NSArray*)pictures {
@@ -278,12 +291,8 @@
 #pragma mark - WLAssetsViewControllerDelegate
 
 - (void)assetsViewController:(id)controller didSelectAssets:(NSArray *)assets {
-    if ([assets count] == 1) {
-        [self handleAsset:[assets firstObject]];
-    } else {
-        self.cameraNavigationController.viewControllers = @[self.cameraNavigationController.topViewController];
-        [self handleAssets:assets];
-    }
+    [self.cameraNavigationController popToRootViewControllerAnimated:YES];
+    [self handleAssets:assets];
 }
 
 #pragma mark - PickerViewController action

@@ -17,9 +17,16 @@
 - (void)cameraViewControllerDidCancel:(WLCameraViewController*)controller;
 - (void)cameraViewControllerDidSelectGallery:(WLCameraViewController*)controller;
 
+@optional
+- (void)cameraViewControllerDidFinish:(WLCameraViewController*)controller;
+
 @end
 
 @interface WLCameraViewController : WLStillPictureBaseViewController
+
+@property (weak, nonatomic) IBOutlet UIButton *finishButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 
 @property (nonatomic, weak) id <WLCameraViewControllerDelegate> delegate;
 

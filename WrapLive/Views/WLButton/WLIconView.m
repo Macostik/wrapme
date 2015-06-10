@@ -34,14 +34,10 @@
 
 @implementation WLCircleLabel
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
+- (void)awakeFromNib {
+    [super awakeFromNib];
     self.layer.cornerRadius = self.height/2.0f;
     self.layer.masksToBounds = YES;
-}
-
-- (void)setBorderWidth:(CGFloat)borderWidth {
-    self.layer.borderWidth = borderWidth;
 }
 
 - (CGFloat)borderWidth {

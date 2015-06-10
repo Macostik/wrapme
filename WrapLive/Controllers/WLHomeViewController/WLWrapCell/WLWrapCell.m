@@ -30,7 +30,9 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *wrapNotificationLabel;
+@property (weak, nonatomic) IBOutlet WLBadgeLabel *chatNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *wrapNameWidthConstraint;
 
 @property (assign, nonatomic) BOOL embeddedLongPress;
 
@@ -101,7 +103,12 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     
     self.coverView.url = [wrap.picture anyUrl];
     self.wrapNotificationLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:wrap];
+    NSUInteger messageConter = [self.entry unreadNotificationsMessageCount];
+    self.chatNotificationLabel.intValue = messageConter;
     self.chatButton.hidden = ![wrap containsUnreadMessage];
+    self.wrapNameWidthConstraint.constant = WLConstants.screenWidth - (messageConter > 0 ?
+                                                                       WLWrapCellAvatarWidth + WLChatIndicatorWidth  :
+                                                                       WLWrapCellAvatarWidth);
 }
 
 - (IBAction)notifyChatClick:(id)sender {

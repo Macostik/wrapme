@@ -255,7 +255,6 @@
         stillPictureViewController.startFromGallery = startFromGallery;
         __weak typeof(self)weakSelf = self;
         [self presentViewController:stillPictureViewController animated:animated completion:^{
-            weakSelf.collectionView.userInteractionEnabled = YES;
             if (showPicker) {
                  [weakSelf stillPictureViewController:stillPictureViewController didSelectWrap:wrap];
             }
@@ -278,22 +277,23 @@
 
 - (void)wrapCellDidBeginPanning:(WLWrapCell *)wrapCell {
     [self.collectionView lockReloadingData];
-    self.collectionView.userInteractionEnabled = NO;
 }
 
-- (void)wrapCellDidEndPanning:(WLWrapCell *)wrapCell {
+- (void)wrapCellDidEndPanning:(WLWrapCell *)wrapCell performedAction:(BOOL)performedAction {
     [self.collectionView unlockReloadingData];
+    self.collectionView.userInteractionEnabled = !performedAction;
 }
 
 - (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(WLWrap *)wrap {
+    self.collectionView.userInteractionEnabled = YES;
     WLChatViewController *chatViewController = [WLChatViewController instantiate:self.storyboard];
     if (chatViewController && wrap.valid) {
         chatViewController.wrap = wrap;
         [self.navigationController pushViewController:chatViewController animated:YES];
-        self.collectionView.userInteractionEnabled = YES;
     }
 }
 - (void)wrapCell:(WLWrapCell *)wrapCell presentCameraViewControllerForWrap:(WLWrap *)wrap {
+    self.collectionView.userInteractionEnabled = YES;
     if (wrap.valid) {
         [self openCameraForWrap:wrap animated:YES startFromGallery:NO showWrapPicker:NO];
     }

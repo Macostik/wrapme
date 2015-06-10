@@ -18,7 +18,7 @@ static NSUInteger WLCandyCellHight = 212;
 
 - (void)wrapCell:(WLWrapCell *)wrapCell didDeleteWrap:(WLWrap *)wrap;
 - (void)wrapCellDidBeginPanning:(WLWrapCell *)wrapCell;
-- (void)wrapCellDidEndPanning:(WLWrapCell *)wrapCell;
+- (void)wrapCellDidEndPanning:(WLWrapCell *)wrapCell performedAction:(BOOL)performedAction;
 - (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(WLWrap *)wrap;
 - (void)wrapCell:(WLWrapCell *)wrapCell presentCameraViewControllerForWrap:(WLWrap *)wrap;
 

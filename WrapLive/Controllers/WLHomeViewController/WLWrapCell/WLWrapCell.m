@@ -139,8 +139,9 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         [sender setTranslation:CGPointZero inView:sender.view];
         
     } else if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
-        [self.delegate wrapCellDidEndPanning:self];
-        if (ABS(self.swipeActionConstraint.constant) >= WLWrapCellSwipeActionWidth) {
+        BOOL performedAction = ABS(self.swipeActionConstraint.constant) >= WLWrapCellSwipeActionWidth;
+        [self.delegate wrapCellDidEndPanning:self performedAction:performedAction];
+        if (performedAction) {
             [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 if (self.swipeActionConstraint == self.rightSwipeActionConstraint) {
                     self.swipeActionConstraint.constant = -self.width;
@@ -165,10 +166,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
                     self.swipeActionConstraint.constant = 0;
                     [self layoutIfNeeded];
                 } completion:^(BOOL finished) {
-                    self.superview.userInteractionEnabled = YES;
                 }];
-            } else {
-                self.superview.userInteractionEnabled = YES;
             }
         }
     }

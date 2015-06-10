@@ -58,6 +58,8 @@
 
 @property (nonatomic) BOOL createWrapTipHidden;
 
+@property (nonatomic) BOOL canReloadCollectionView;
+
 @end
 
 @implementation WLHomeViewController
@@ -72,16 +74,6 @@
     [super viewDidLoad];
     
     __weak typeof(self)weakSelf = self;
-    
-    __weak WLOperationQueue *queue = [WLOperationQueue queueNamed:WLOperationFetchingDataQueue];
-    [queue setStartQueueBlock:^{
-        [weakSelf.collectionView lockReloadingData];
-    }];
-    [queue setFinishQueueBlock:^{
-        [weakSelf.collectionView unlockReloadingData];
-        queue.startQueueBlock = nil;
-        queue.finishQueueBlock = nil;
-    }];
     
     self.createWrapTipHidden = YES;
     
@@ -108,6 +100,19 @@
     
     NSMutableOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
     dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLWrapsRequest new]];
+    
+    __weak WLOperationQueue *queue = [WLOperationQueue queueNamed:WLOperationFetchingDataQueue];
+    [self.collectionView lockReloadingData];
+    [queue setFinishQueueBlock:^{
+        [weakSelf.collectionView unlockReloadingData];
+        if (weakSelf.canReloadCollectionView) {
+            queue.finishQueueBlock = nil;
+        }
+    }];
+    
+    run_after(3, ^{
+        weakSelf.canReloadCollectionView = YES;
+    });
     
     [dataSource setSelectionBlock:^(id entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:NO];

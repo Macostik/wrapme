@@ -3194,8 +3194,8 @@ Tap here to start.</string>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="yesterday at" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBg-6r-k4s" customClass="WLLabel">
-                                                <rect key="frame" x="0.0" y="21" width="84" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Yesterday at" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBg-6r-k4s" customClass="WLLabel">
+                                                <rect key="frame" x="0.0" y="21" width="85" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="A47-sl-hkO"/>
                                                 </constraints>

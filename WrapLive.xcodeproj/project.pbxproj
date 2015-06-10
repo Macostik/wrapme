@@ -51,6 +51,12 @@
 		14B134E11952FEB2004F86AC /* WLInviteeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B134E01952FEB2004F86AC /* WLInviteeCell.m */; };
 		14B2429D195C4CEB00C5D208 /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		14B242A4195C4D9200C5D208 /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
+		5B0BE6401B2886CD0083763C /* WLPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0BE63F1B2886CD0083763C /* WLPhotosViewController.m */; };
+		5B0BE6411B2886CD0083763C /* WLPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0BE63F1B2886CD0083763C /* WLPhotosViewController.m */; };
+		5B0BE6421B2886CD0083763C /* WLPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0BE63F1B2886CD0083763C /* WLPhotosViewController.m */; };
+		5B0BE6431B2886CD0083763C /* WLPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0BE63F1B2886CD0083763C /* WLPhotosViewController.m */; };
+		5B0BE6441B2886CD0083763C /* WLPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0BE63F1B2886CD0083763C /* WLPhotosViewController.m */; };
+		5B0BE6451B2886DC0083763C /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
 		5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
 		5B2199FF1A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B219A041A66C94600D131C3 /* WLWrapOptionsViewController.xib */; };
 		5B219A001A66C94600D131C3 /* WLWrapOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B219A041A66C94600D131C3 /* WLWrapOptionsViewController.xib */; };
@@ -2313,6 +2319,8 @@
 		14B2429C195C4CEB00C5D208 /* WLEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditSession.m; path = WLEditSession/WLEditSession.m; sourceTree = "<group>"; };
 		14B242A2195C4D9200C5D208 /* WLProfileEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileEditSession.h; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.h; sourceTree = "<group>"; };
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
+		5B0BE63E1B2886CD0083763C /* WLPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPhotosViewController.h; path = WLPhotosViewController/WLPhotosViewController.h; sourceTree = "<group>"; };
+		5B0BE63F1B2886CD0083763C /* WLPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPhotosViewController.m; path = WLPhotosViewController/WLPhotosViewController.m; sourceTree = "<group>"; };
 		5B2199FE1A66C8F400D131C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLEditWrapViewController.strings; sourceTree = "<group>"; };
 		5B219A031A66C94600D131C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLWrapOptionsViewController.xib; sourceTree = "<group>"; };
 		5B219A061A66C94700D131C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLWrapOptionsViewController.strings; sourceTree = "<group>"; };
@@ -3724,6 +3732,7 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5B0BE63D1B28869F0083763C /* WLPhotosViewController */,
 				C560D2311AFBB53C006B906E /* WLHistoryViewController */,
 				C560D2251AFB76ED006B906E /* WLSwipeViewController */,
 				C50099421ADFCC250064CC7B /* WLDataSource */,
@@ -4035,6 +4044,15 @@
 				14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */,
 			);
 			name = WLProfileEditSession;
+			sourceTree = "<group>";
+		};
+		5B0BE63D1B28869F0083763C /* WLPhotosViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5B0BE63E1B2886CD0083763C /* WLPhotosViewController.h */,
+				5B0BE63F1B2886CD0083763C /* WLPhotosViewController.m */,
+			);
+			name = WLPhotosViewController;
 			sourceTree = "<group>";
 		};
 		5B11019719BF337600688C9D /* WLEditWrapViewController */ = {
@@ -7838,6 +7856,7 @@
 				C5A82CD61ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */,
 				5BA60CAF1A8257ED000F795C /* UIButton+Additions.m in Sources */,
 				C58AB9961B1384F300932272 /* WLWhatsUpSet.m in Sources */,
+				5B0BE6411B2886CD0083763C /* WLPhotosViewController.m in Sources */,
 				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
 				C55D758A1AE50914006FA19C /* WLChatTypingChannel.m in Sources */,
 				C50099721ADFCC940064CC7B /* WLEntryReusableView.m in Sources */,
@@ -8058,6 +8077,7 @@
 				C5A82CD71ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */,
 				5BA60CB01A8257ED000F795C /* UIButton+Additions.m in Sources */,
 				C58AB9971B1384F300932272 /* WLWhatsUpSet.m in Sources */,
+				5B0BE6421B2886CD0083763C /* WLPhotosViewController.m in Sources */,
 				C54AF4C119B8C437006F7EDB /* WLWelcomeViewController.m in Sources */,
 				C55D758B1AE50914006FA19C /* WLChatTypingChannel.m in Sources */,
 				C50099731ADFCC940064CC7B /* WLEntryReusableView.m in Sources */,
@@ -8237,6 +8257,7 @@
 				C5A82CD81ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */,
 				5BA60CB11A8257ED000F795C /* UIButton+Additions.m in Sources */,
 				C58AB9981B1384F300932272 /* WLWhatsUpSet.m in Sources */,
+				5B0BE6431B2886CD0083763C /* WLPhotosViewController.m in Sources */,
 				C54AF5BE19B8C467006F7EDB /* WLWelcomeViewController.m in Sources */,
 				C55D758C1AE50914006FA19C /* WLChatTypingChannel.m in Sources */,
 				C50099741ADFCC940064CC7B /* WLEntryReusableView.m in Sources */,
@@ -8324,6 +8345,7 @@
 			files = (
 				C54AF65419B8C491006F7EDB /* WLNavigationHelper.m in Sources */,
 				C54AF65519B8C491006F7EDB /* WLChangeProfileViewController.m in Sources */,
+				5B0BE6441B2886CD0083763C /* WLPhotosViewController.m in Sources */,
 				5BA60CE21A8257ED000F795C /* UIScrollView+Additions.m in Sources */,
 				C53E5CF11A84D886004F61B0 /* WLWrapView.m in Sources */,
 				C54AF65619B8C491006F7EDB /* WLRefresher.m in Sources */,
@@ -8455,6 +8477,7 @@
 				C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C504179419B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C57BDDBA19FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
+				5B0BE6451B2886DC0083763C /* WLLightSegmentControl.m in Sources */,
 				C500997D1ADFCC940064CC7B /* WLSectionedDataSource.m in Sources */,
 				C5C20B9E1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
 				C53C40591AF0F2EC0001685D /* WLUnreadMessagesView.m in Sources */,
@@ -8621,6 +8644,7 @@
 				C574795E1B26FA45001AB8C0 /* WLDeviceOrientationBroadcaster.m in Sources */,
 				C574795F1B26FA45001AB8C0 /* UIButton+Additions.m in Sources */,
 				C57479601B26FA45001AB8C0 /* WLWhatsUpSet.m in Sources */,
+				5B0BE6401B2886CD0083763C /* WLPhotosViewController.m in Sources */,
 				C57479611B26FA45001AB8C0 /* WLWelcomeViewController.m in Sources */,
 				C57479621B26FA45001AB8C0 /* WLChatTypingChannel.m in Sources */,
 				C57479631B26FA45001AB8C0 /* WLEntryReusableView.m in Sources */,

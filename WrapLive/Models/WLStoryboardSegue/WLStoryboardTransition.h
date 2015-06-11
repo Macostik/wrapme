@@ -12,6 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UIViewController* sourceViewController;
 
+@property (strong, nonatomic, readonly) UIViewController *destinationViewController;
+
 @property (strong, nonatomic) IBInspectable NSString* destinationID;
 
 @property (strong, nonatomic) IBInspectable NSString* storyboard;

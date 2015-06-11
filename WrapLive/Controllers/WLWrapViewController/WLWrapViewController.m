@@ -16,11 +16,14 @@
 #import "WLPhotosViewController.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
+#import "SegmentedControl.h"
 
 @interface WLWrapViewController ()  <WLStillPictureViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
+@property (weak, nonatomic) IBOutlet UIButton *cameraButton;
+@property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
 
 @end
 
@@ -40,16 +43,15 @@
     if (!self.wrap.valid) {
         return;
     }
-     self.nameLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    
-    WLPhotosViewController *photosViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"WLPhotosViewController"];
-    photosViewController.wrap = self.wrap;
-//    [self presentViewController: photosViewController animated:NO completion:nil];
+    self.nameLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    id segment = [self.segmentedControl controlForSegment:self.segmentedControl.selectedSegment];
+    [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self updateWrapData];
     [self updateNotificationCouter];
+     self.cameraButton.hidden = NO;
 }
 
 - (void)updateWrapData {
@@ -163,7 +165,12 @@
 - (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
     [pickerViewController.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
+// MARK: - SegmentedControlDelegate
 
+- (BOOL)segmentedControl:(SegmentedControl*)control shouldSelectSegment:(NSInteger)segment {
+    self.cameraButton.hidden = segment != 0;
+    return YES;
+}
 
 
 @end

@@ -72,15 +72,6 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     }
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    UIEdgeInsets inset = self.collectionView.contentInset;
-    inset.top = 44;
-    self.collectionView.contentInset = inset;
-}
-
-
-
 - (void)firstLoadRequest {
     if (self.history.entries.count > WLPageSize) {
         [self.history newer:nil failure:nil];
@@ -100,7 +91,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     } else {
         __weak typeof(self)weakSelf = self;
         run_after(0.5f, ^{
-//            [weakSelf.navigationController popViewControllerAnimated:NO];
+            [weakSelf.navigationController popViewControllerAnimated:NO];
         });
     }
     //    if ([self.wrap isFirstCreated]) {
@@ -181,8 +172,5 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     }
     return nil;
 }
-
-
-
 
 @end

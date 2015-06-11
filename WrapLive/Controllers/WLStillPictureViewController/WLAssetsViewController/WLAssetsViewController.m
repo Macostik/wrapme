@@ -85,20 +85,6 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     return _selectedAssets;
 }
 
-- (void)setAssets:(NSArray *)assets {
-    _assets = assets;
-    if (self.selectedAssets.nonempty) {
-        [self.selectedAssets setArray:[self.assets map:^id(ALAsset* asset) {
-            for (ALAsset* selectedAsset in self.selectedAssets) {
-                if ([selectedAsset isEqualToAsset:asset]) {
-                    return asset;
-                }
-            }
-            return nil;
-        }]];
-    }
-}
-
 - (void)assetsLibraryChanged:(NSNotification*)notifiection {
     __weak WLAssetsViewController* selfWeak = self;
     
@@ -146,16 +132,22 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 - (IBAction)done:(id)sender {
     self.doneButton.hidden = YES;
     [self.spinner startAnimating];
-    [self.delegate assetsViewController:self didSelectAssets:self.selectedAssets];
+    __weak typeof(self)weakSelf = self;
+    [self.delegate assetsViewController:self didSelectAssets:[self.selectedAssets map:^id(NSString* assetID) {
+        return [weakSelf.assets selectObject:^BOOL(ALAsset* asset) {
+            return [asset.ID isEqualToString:assetID];
+        }];
+    }]];
 }
 
 #pragma mark - PSTCollectionViewDelegate
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLAssetCell *cell = [cv dequeueReusableCellWithReuseIdentifier:[WLAssetCell reuseIdentifier] forIndexPath:indexPath];
-    cell.item = self.assets[indexPath.row];
+    ALAsset *asset = self.assets[indexPath.row];
+    cell.item = asset;
 	cell.delegate = self;
-    cell.checked = [self.selectedAssets containsObject:cell.item];
+    cell.checked = [self.selectedAssets containsObject:asset.ID];
     return cell;
 }
 
@@ -193,10 +185,10 @@ static NSUInteger WLAssetNumberOfColumns = 4;
         [WLToast showWithMessage:WLLS(@"too_small_image_error")];
     } else {
         if (self.mode == WLStillPictureModeDefault) {
-            if ([self.selectedAssets containsObject:asset]) {
-                [self.selectedAssets removeObject:asset];
+            if ([self.selectedAssets containsObject:asset.ID]) {
+                [self.selectedAssets removeObject:asset.ID];
             } else if (self.selectedAssets.count < WLAssetsSelectionLimit) {
-                [self.selectedAssets addObject:asset];
+                [self.selectedAssets addObject:asset.ID];
             } else {
                 [WLToast showWithMessage:WLLS(@"upload_photos_limit_error")];
             }

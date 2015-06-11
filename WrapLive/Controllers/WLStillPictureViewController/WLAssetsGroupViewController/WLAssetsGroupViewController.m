@@ -13,12 +13,15 @@
 #import "SegmentedControl.h"
 #import "WLNavigationHelper.h"
 #import "WLWrapView.h"
+#import "WLBasicDataSource.h"
 
-@interface WLAssetsGroupViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLAssetsGroupCellDelegate>
+@interface WLAssetsGroupViewController () <WLAssetsGroupCellDelegate>
 
 @property (strong, nonatomic) NSArray *groups;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
 @property (weak, nonatomic) IBOutlet UILabel *accessLabel;
+
+@property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 
 @end
 
@@ -48,21 +51,18 @@
         controller.wrap = self.wrap;
         [self.navigationController pushViewController:controller animated:NO];
     }
-    
-    if (self.wrapView.y == 0) {
-        self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(self.wrapView.height, 0, 0, 0);
-    } else {
-        self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.wrapView.height, 0);
-    }
+}
+
+- (void)setGroups:(NSArray *)groups {
+    _groups = groups;
+    self.dataSource.items = groups;
 }
 
 - (void)loadGroups {
     __weak typeof(self)weakSelf = self;
 	dispatch_async(dispatch_get_main_queue(), ^{
-		[weakSelf.collectionView reloadData];
 		[[ALAssetsLibrary library] groups:^(NSArray *groups) {
 			weakSelf.groups = groups;
-			[weakSelf.collectionView reloadData];
 		} failure:^(NSError *error) {
 			if (error.code == ALAssetsLibraryAccessUserDeniedError ||
 				error.code == ALAssetsLibraryAccessGloballyDeniedError) {
@@ -70,23 +70,6 @@
 			}
 		}];
 	});
-}
-
-#pragma mark - Table View
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.groups.count;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *WLAssetsGroupCellID = @"WLAssetsGroupCell";
-	WLAssetsGroupCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:WLAssetsGroupCellID forIndexPath:indexPath];
-	cell.item = self.groups[indexPath.item];
-	return cell;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(collectionView.bounds.size.width, 60);
 }
 
 #pragma mark - PGAssetsGroupCellDelegate

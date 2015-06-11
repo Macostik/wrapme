@@ -1821,6 +1821,16 @@
 		C5A82CD71ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
 		C5A82CD81ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
 		C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
+		C5B233411B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
+		C5B233421B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
+		C5B233431B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
+		C5B233441B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
+		C5B233451B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
+		C5B233481B298B60008A14D1 /* WLEditPicturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233471B298B60008A14D1 /* WLEditPicturesViewController.m */; };
+		C5B233491B298B60008A14D1 /* WLEditPicturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233471B298B60008A14D1 /* WLEditPicturesViewController.m */; };
+		C5B2334A1B298B60008A14D1 /* WLEditPicturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233471B298B60008A14D1 /* WLEditPicturesViewController.m */; };
+		C5B2334B1B298B60008A14D1 /* WLEditPicturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233471B298B60008A14D1 /* WLEditPicturesViewController.m */; };
+		C5B2334C1B298B60008A14D1 /* WLEditPicturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233471B298B60008A14D1 /* WLEditPicturesViewController.m */; };
 		C5C20B8F1A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
 		C5C20B901A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
 		C5C20B911A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
@@ -3288,6 +3298,10 @@
 		C5A82CCB1ACD979B00336027 /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
 		C5A82CCD1ACD979B00336027 /* WLDeviceOrientationBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDeviceOrientationBroadcaster.h; sourceTree = "<group>"; };
 		C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
+		C5B2333F1B298B3F008A14D1 /* WLQuickAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLQuickAssetsViewController.h; sourceTree = "<group>"; };
+		C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLQuickAssetsViewController.m; sourceTree = "<group>"; };
+		C5B233461B298B60008A14D1 /* WLEditPicturesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditPicturesViewController.h; sourceTree = "<group>"; };
+		C5B233471B298B60008A14D1 /* WLEditPicturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPicturesViewController.m; sourceTree = "<group>"; };
 		C5C20B8D1A238AE7008B2E2E /* WLValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLValidation.h; path = WLValidation/WLValidation.h; sourceTree = "<group>"; };
 		C5C20B8E1A238AE7008B2E2E /* WLValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLValidation.m; path = WLValidation/WLValidation.m; sourceTree = "<group>"; };
 		C5C20B931A238B3D008B2E2E /* WLValidationGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLValidationGroup.h; path = WLValidation/WLValidationGroup.h; sourceTree = "<group>"; };
@@ -3565,6 +3579,8 @@
 		128156A81938A0BF00035F89 /* WLStillPictureViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C5B2333D1B298B15008A14D1 /* WLEditPicturesViewController */,
+				C5B2333E1B298B15008A14D1 /* WLQuickAssetsViewController */,
 				C53CA3C11A97411900E9234F /* WLUploadPhotoViewController */,
 				C53E5D501A851F71004F61B0 /* WLCameraViewController */,
 				C53E5D441A851F71004F61B0 /* WLAssetsGroupViewController */,
@@ -6327,6 +6343,26 @@
 			path = WLDeviceOrientationBroadcaster;
 			sourceTree = "<group>";
 		};
+		C5B2333D1B298B15008A14D1 /* WLEditPicturesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5B233461B298B60008A14D1 /* WLEditPicturesViewController.h */,
+				C5B233471B298B60008A14D1 /* WLEditPicturesViewController.m */,
+			);
+			name = WLEditPicturesViewController;
+			path = WLStillPictureViewController/WLEditPicturesViewController;
+			sourceTree = "<group>";
+		};
+		C5B2333E1B298B15008A14D1 /* WLQuickAssetsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5B2333F1B298B3F008A14D1 /* WLQuickAssetsViewController.h */,
+				C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */,
+			);
+			name = WLQuickAssetsViewController;
+			path = WLStillPictureViewController/WLQuickAssetsViewController;
+			sourceTree = "<group>";
+		};
 		C5C20B8C1A238ACC008B2E2E /* WLValidation */ = {
 			isa = PBXGroup;
 			children = (
@@ -7782,6 +7818,7 @@
 				12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */,
 				C5C20BC91A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
 				C54C56731B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
+				C5B233491B298B60008A14D1 /* WLEditPicturesViewController.m in Sources */,
 				5BB04F2819D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE11A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				5BA60CDB1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
@@ -7836,6 +7873,7 @@
 				C53E5CFA1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */,
 				C50099471ADFCC250064CC7B /* WLHistoryItemDataSource.m in Sources */,
 				C5D051C71A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
+				C5B233421B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */,
 				C560D2281AFB7703006B906E /* WLSwipeViewController.m in Sources */,
 				14A04F8B1940CB5E005DA4CE /* WLEmoji.m in Sources */,
 				12A7A74518DA180C008FF6F0 /* WLHomeViewController.m in Sources */,
@@ -8003,6 +8041,7 @@
 				C54AF46919B8C437006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCA1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
 				C54C56741B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
+				C5B2334A1B298B60008A14D1 /* WLEditPicturesViewController.m in Sources */,
 				5BB04F2919D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE21A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				5BA60CDC1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
@@ -8057,6 +8096,7 @@
 				C53E5CFB1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */,
 				C50099481ADFCC250064CC7B /* WLHistoryItemDataSource.m in Sources */,
 				C5D051C81A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
+				C5B233431B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */,
 				C560D2291AFB7703006B906E /* WLSwipeViewController.m in Sources */,
 				C54AF4AD19B8C437006F7EDB /* WLEmoji.m in Sources */,
 				C54AF4B119B8C437006F7EDB /* WLHomeViewController.m in Sources */,
@@ -8183,6 +8223,7 @@
 				C54AF56619B8C467006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCB1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
 				C54C56751B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
+				C5B2334B1B298B60008A14D1 /* WLEditPicturesViewController.m in Sources */,
 				5BB04F2A19D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE31A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				5BA60CDD1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
@@ -8237,6 +8278,7 @@
 				C53E5CFC1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */,
 				C50099491ADFCC250064CC7B /* WLHistoryItemDataSource.m in Sources */,
 				C5D051C91A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
+				C5B233441B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */,
 				C560D22A1AFB7703006B906E /* WLSwipeViewController.m in Sources */,
 				C54AF5AA19B8C467006F7EDB /* WLEmoji.m in Sources */,
 				C54AF5AE19B8C467006F7EDB /* WLHomeViewController.m in Sources */,
@@ -8363,6 +8405,7 @@
 				C54AF66319B8C491006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCC1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
 				C54C56761B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
+				C5B2334C1B298B60008A14D1 /* WLEditPicturesViewController.m in Sources */,
 				5BB04F2B19D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE41A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				5BA60CDE1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
@@ -8417,6 +8460,7 @@
 				C53E5CFD1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */,
 				C500994A1ADFCC250064CC7B /* WLHistoryItemDataSource.m in Sources */,
 				C5D051CA1A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
+				C5B233451B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */,
 				C560D22B1AFB7703006B906E /* WLSwipeViewController.m in Sources */,
 				C54AF6A719B8C491006F7EDB /* WLEmoji.m in Sources */,
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
@@ -8570,6 +8614,7 @@
 				C57479161B26FA45001AB8C0 /* StreamLayout.m in Sources */,
 				C57479171B26FA45001AB8C0 /* WLActivationViewController.m in Sources */,
 				C57479181B26FA45001AB8C0 /* WLShapeView.m in Sources */,
+				C5B233481B298B60008A14D1 /* WLEditPicturesViewController.m in Sources */,
 				C57479191B26FA45001AB8C0 /* WLEditViewController.m in Sources */,
 				C574791A1B26FA45001AB8C0 /* WLTestUserPicker.m in Sources */,
 				C574791B1B26FA45001AB8C0 /* UIScreen+Diagonal.m in Sources */,
@@ -8624,6 +8669,7 @@
 				C574794C1B26FA45001AB8C0 /* WLStillPictureBaseViewController.m in Sources */,
 				C574794D1B26FA45001AB8C0 /* WLHistoryItemDataSource.m in Sources */,
 				C574794E1B26FA45001AB8C0 /* WLArrangedAddressBook.m in Sources */,
+				C5B233411B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */,
 				C574794F1B26FA45001AB8C0 /* WLSwipeViewController.m in Sources */,
 				C57479501B26FA45001AB8C0 /* WLEmoji.m in Sources */,
 				C57479511B26FA45001AB8C0 /* WLHomeViewController.m in Sources */,

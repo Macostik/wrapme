@@ -15,20 +15,20 @@
 #import "UIButton+Additions.h"
 #import "NSArray+Additions.h"
 #import "WLWrapView.h"
+#import "WLBasicDataSource.h"
 
 static NSUInteger WLAssetsSelectionLimit = 10;
 
-@interface WLAssetsViewController () <WLAssetCellDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface WLAssetsViewController () <WLAssetCellDelegate>
 
 @property (strong, nonatomic) NSArray *assets;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) NSMutableArray *selectedAssets;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *doneButtonTrailingConstraint;
 
-@property (readonly, nonatomic) BOOL horizontal;
+@property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 
 @end
 
@@ -50,13 +50,19 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 
 - (void)setGroup:(ALAssetsGroup *)group {
     _group = group;
-    if (self.isViewLoaded && !self.horizontal) {
+    if (self.isViewLoaded) {
         self.titleLabel.text = group.name;
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    static NSUInteger WLAssetNumberOfColumns = 4;
+    self.dataSource.minimumInteritemSpacing = self.dataSource.minimumLineSpacing = WLConstants.pixelSize;
+    CGFloat size = (self.view.width - WLConstants.pixelSize * (WLAssetNumberOfColumns + 1))/WLAssetNumberOfColumns;
+    self.dataSource.itemSize = CGSizeMake(size, size);
+    self.dataSource.sectionTopInset = self.dataSource.sectionLeftInset = self.dataSource.sectionBottomInset = self.dataSource.sectionRightInset = WLConstants.pixelSize;
 	 
     [self loadAssets];
     
@@ -65,32 +71,18 @@ static NSUInteger WLAssetsSelectionLimit = 10;
                                              selector:@selector(assetsLibraryChanged:)
                                                  name:ALAssetsLibraryChangedNotification
                                                object:nil];
-    if (!self.horizontal) {
-        self.titleLabel.text = self.group.name;
-        if (self.mode != WLStillPictureModeDefault) {
-            self.doneButton.hidden = YES;
-        } else {
-            self.doneButtonTrailingConstraint.constant = -self.doneButton.width;
-        }
-        
-        if (self.wrapView.y == 0) {
-            self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(self.wrapView.height, 0, 0, 0);
-        } else {
-            self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, self.wrapView.height, 0);
-        }
+    self.titleLabel.text = self.group.name;
+    if (self.mode != WLStillPictureModeDefault) {
+        self.doneButton.hidden = YES;
+    } else {
+        self.doneButtonTrailingConstraint.constant = -self.doneButton.width;
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (!self.horizontal) {
-        [self.spinner stopAnimating];
-        self.doneButton.hidden = (self.mode != WLStillPictureModeDefault);
-    }
-}
-
-- (BOOL)horizontal {
-    return [(UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout scrollDirection] == UICollectionViewScrollDirectionHorizontal;
+    [self.spinner stopAnimating];
+    self.doneButton.hidden = (self.mode != WLStillPictureModeDefault);
 }
 
 - (NSMutableArray *)selectedAssets {
@@ -115,23 +107,19 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 }
 
 - (void)assetsLibraryChanged:(NSNotification*)notifiection {
-    __weak WLAssetsViewController* selfWeak = self;
+    __weak WLAssetsViewController* weakSelf = self;
     
     [[ALAssetsLibrary library] groups:^(NSArray *groups) {
         for (ALAssetsGroup* group in groups) {
-            if ([group isEqualToGroup:selfWeak.group])
+            if ([group isEqualToGroup:weakSelf.group])
             {
-                selfWeak.group = group;
-                [selfWeak loadAssets];
+                weakSelf.group = group;
+                [weakSelf loadAssets];
                 return;
             }
         }
         
-        if (selfWeak.horizontal) {
-            selfWeak.assets = nil;
-        } else {
-            [selfWeak.navigationController popViewControllerAnimated:NO];
-        }
+        [weakSelf.navigationController popViewControllerAnimated:NO];
     } failure:^(NSError *error) {
     }];
 }
@@ -168,59 +156,9 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     [self.delegate assetsViewController:self didSelectAssets:self.selectedAssets];
 }
 
-#pragma mark - PSTCollectionViewDelegate
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLAssetCell *cell = [cv dequeueReusableCellWithReuseIdentifier:[WLAssetCell reuseIdentifier] forIndexPath:indexPath];
-    cell.item = self.assets[indexPath.row];
-	cell.delegate = self;
-    cell.checked = [self.selectedAssets containsObject:cell.item];
-    return cell;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    return self.assets.count;
-}
-
-static NSUInteger WLAssetNumberOfColumns = 4;
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewFlowLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.horizontal) {
-        return collectionViewLayout.itemSize;
-    }
-    CGFloat size = (collectionView.width - WLConstants.pixelSize * (WLAssetNumberOfColumns + 1))/WLAssetNumberOfColumns;
-    return CGSizeMake(size, size);
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewFlowLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    if (self.horizontal) {
-        return collectionViewLayout.sectionInset;
-    }
-    return UIEdgeInsetsMake(WLConstants.pixelSize, WLConstants.pixelSize, self.wrapView.height, WLConstants.pixelSize);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewFlowLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    if (self.horizontal) {
-        return collectionViewLayout.minimumLineSpacing;
-    }
-    return WLConstants.pixelSize;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewFlowLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    if (self.horizontal) {
-        return collectionViewLayout.minimumInteritemSpacing;
-    }
-    return WLConstants.pixelSize;
-}
-
-
 #pragma mark - PGAssetCellDelegate
 
 - (void)selectAsset:(ALAsset *)asset {
-    if (self.horizontal) {
-        [self.delegate assetsViewController:self didSelectAssets:@[asset]];
-        return;
-    }
     CGSize size = asset.defaultRepresentation.dimensions;
     if (size.width == 0 && size.height == 0) {
         [WLToast showWithMessage:WLLS(@"invalid_image_error")];

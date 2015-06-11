@@ -55,8 +55,12 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
     
     self.dataSource.items = [self sortedComments];
     self.collectionView.layer.geometryFlipped = YES;
-    [self.collectionView layoutIfNeeded];
     [self addNotifyReceivers];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.collectionView layoutIfNeeded];
 }
 
 - (NSMutableOrderedSet *)sortedComments {

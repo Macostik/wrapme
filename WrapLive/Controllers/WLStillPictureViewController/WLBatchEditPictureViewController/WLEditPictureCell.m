@@ -7,19 +7,20 @@
 //
 
 #import "WLEditPictureCell.h"
-#import "WLPicture.h"
 #import "WLImageView.h"
 
 @interface WLEditPictureCell ()
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
 @end
 
 @implementation WLEditPictureCell
 
-- (void)setup:(WLPicture*)picture {
+- (void)setup:(WLEditPicture*)picture {
     self.imageView.url = picture.small;
+    self.statusLabel.text = [NSString stringWithFormat:@"%@ %@",picture.comment.nonempty ? @"Y":@"",picture.edited ? @"R":@""];
 }
 
 @end

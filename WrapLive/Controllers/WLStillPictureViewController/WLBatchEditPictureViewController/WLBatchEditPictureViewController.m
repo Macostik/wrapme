@@ -12,12 +12,13 @@
 #import "WLNavigationHelper.h"
 #import "WLBasicDataSource.h"
 #import "WLComposeBar.h"
+#import "AdobeUXImageEditorViewController+SharedEditing.h"
 
 @interface WLBatchEditPictureViewController () <WLComposeBarDelegate>
 
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 
-@property (weak, nonatomic) WLPicture *picture;
+@property (weak, nonatomic) WLEditPicture *picture;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 
@@ -41,12 +42,12 @@
     self.dataSource.items = self.pictures;
     
     __weak typeof(self)weakSelf = self;
-    [self.dataSource setSelectionBlock:^(WLPicture *picture) {
+    [self.dataSource setSelectionBlock:^(WLEditPicture *picture) {
         [weakSelf setViewController:[weakSelf editPictureViewControllerForPicture:picture] direction:0 animated:NO];
     }];
 }
 
-- (void)setPicture:(WLPicture *)picture {
+- (void)setPicture:(WLEditPicture *)picture {
     _picture = picture;
     self.composeBar.text = picture.comment;
     if (!self.composeBar.isFirstResponder) {
@@ -88,7 +89,7 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (WLEditPictureViewController *)editPictureViewControllerForPicture:(WLPicture*)picture {
+- (WLEditPictureViewController *)editPictureViewControllerForPicture:(WLEditPicture*)picture {
     WLEditPictureViewController *editPictureViewController = [WLEditPictureViewController instantiate:self.storyboard];
     editPictureViewController.picture = picture;
     return editPictureViewController;
@@ -97,7 +98,7 @@
 // MARK: - WLSwipeViewController
 
 - (UIViewController *)viewControllerAfterViewController:(WLEditPictureViewController *)viewController {
-    WLPicture *picture = [self.pictures tryObjectAtIndex:[self.pictures indexOfObject:viewController.picture] + 1];
+    WLEditPicture *picture = [self.pictures tryObjectAtIndex:[self.pictures indexOfObject:viewController.picture] + 1];
     if (picture) {
         return [self editPictureViewControllerForPicture:picture];
     }
@@ -105,7 +106,7 @@
 }
 
 - (UIViewController *)viewControllerBeforeViewController:(WLEditPictureViewController *)viewController {
-    WLPicture *picture = [self.pictures tryObjectAtIndex:[self.pictures indexOfObject:viewController.picture] - 1];
+    WLEditPicture *picture = [self.pictures tryObjectAtIndex:[self.pictures indexOfObject:viewController.picture] - 1];
     if (picture) {
         return [self editPictureViewControllerForPicture:picture];
     }
@@ -122,6 +123,26 @@
     [self.delegate batchEditPictureViewController:self didFinishWithPictures:self.pictures];
 }
 
+- (IBAction)edit:(id)sender {
+    __weak typeof(self)weakSelf = self;
+    UIImage *image = [(WLEditPictureViewController*)self.viewController imageView].image;
+    AdobeUXImageEditorViewController* aviaryController = [AdobeUXImageEditorViewController editControllerWithImage:image completion:^(UIImage *image, AdobeUXImageEditorViewController *controller) {
+        [weakSelf.picture setImage:image completion:^(id object) {
+            weakSelf.picture.edited = YES;
+            [weakSelf.dataSource reload];
+        }];
+        [(WLEditPictureViewController*)weakSelf.viewController imageView].image = image;
+        [weakSelf.navigationController popViewControllerAnimated:NO];
+    } cancel:^(AdobeUXImageEditorViewController *controller) {
+        [weakSelf.navigationController popViewControllerAnimated:NO];
+    }];
+    [self.navigationController pushViewController:aviaryController animated:NO];
+}
+
+- (IBAction)deletePicture:(id)sender {
+    
+}
+
 // MARK: - WLComposeBarDelegate
 
 - (IBAction)composeBarDidFinish:(id)sender {
@@ -131,6 +152,7 @@
 
 - (void)composeBarDidChangeText:(WLComposeBar *)composeBar {
     self.picture.comment = composeBar.text;
+    [self.dataSource reload];
 }
 
 - (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {

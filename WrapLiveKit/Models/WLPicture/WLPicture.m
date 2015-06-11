@@ -15,52 +15,6 @@
 
 @implementation WLPicture
 
-+ (void)picture:(UIImage *)image completion:(WLObjectBlock)completion {
-    [self picture:image cache:[WLImageCache uploadingCache] completion:completion];
-}
-
-+ (void)picture:(UIImage *)image cache:(WLImageCache *)cache completion:(WLObjectBlock)completion {
-    [self picture:image mode:WLStillPictureModeDefault cache:cache completion:completion];
-}
-
-+ (void)picture:(UIImage *)image mode:(WLStillPictureMode)mode completion:(WLObjectBlock)completion {
-    [self picture:image mode:mode cache:[WLImageCache uploadingCache] completion:completion];
-}
-
-+ (void)picture:(UIImage *)image mode:(WLStillPictureMode)mode cache:(WLImageCache *)cache completion:(WLObjectBlock)completion {
-    if (!completion) {
-        return;
-    }
-    if (!cache) {
-        cache = [WLImageCache cache];
-    }
-    
-    BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
-    BOOL isCandy = mode == WLStillPictureModeDefault;
-    
-    __weak WLImageCache *imageCache = cache;
-    run_in_default_queue(^{
-        __block NSData *metadataImage = UIImageJPEGRepresentation(image, .5f);
-        [imageCache setImageData:metadataImage completion:^(NSString *path) {
-            WLPicture* picture = [[self alloc] init];
-            picture.original = picture.large = [imageCache pathWithIdentifier:path];
-            CGFloat size = isPad ? (isCandy ? 720 : 320) : (isCandy ? 480 : 320);
-            metadataImage =  UIImageJPEGRepresentation([image thumbnailImage:size], 1.0f);
-            [imageCache setImageData:metadataImage completion:^(NSString *path) {
-                picture.medium = [imageCache pathWithIdentifier:path];
-                CGFloat size = isPad ? (isCandy ? 480 : 160) : (isCandy ? 240 : 160);
-                metadataImage = UIImageJPEGRepresentation([image thumbnailImage:size], 1.0f);
-                [imageCache setImageData:metadataImage completion:^(NSString *path) {
-                    picture.small = [imageCache pathWithIdentifier:path];
-                    run_in_main_queue(^ {
-                        if (completion) completion(picture);
-                    });
-                }];
-            }];
-        }];
-    });
-}
-
 - (NSString *)anyUrl {
     return self.small ? : (self.medium ? : self.large);
 }
@@ -149,7 +103,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    WLPicture *picture = [[WLPicture allocWithZone:zone] init];
+    WLPicture *picture = [[[self class] allocWithZone:zone] init];
     picture.original = self.original;
     picture.small = self.small;
     picture.medium = self.medium;

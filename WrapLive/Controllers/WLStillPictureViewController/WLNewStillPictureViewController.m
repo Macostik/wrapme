@@ -185,12 +185,11 @@
 - (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
     __weak typeof(self)weakSelf = self;
     self.view.userInteractionEnabled = NO;
-    [WLPicture picture:image mode:self.mode completion:^(WLPicture *picture) {
-        picture.animation = [WLAnimation animationWithDuration:0.5f];
-        [weakSelf.pictures addObject:picture];
-        [weakSelf updatePicturesCountLabel];
+    WLEditPicture *picture = [WLEditPicture picture:image mode:self.mode completion:^(WLEditPicture *picture) {
         weakSelf.view.userInteractionEnabled = YES;
     }];
+    [weakSelf.pictures addObject:picture];
+    [weakSelf updatePicturesCountLabel];
 }
 
 - (void)editImage:(UIImage*)image completion:(WLUploadPhotoCompletionBlock)completion {
@@ -230,7 +229,8 @@
     WLBatchEditPictureViewController *editController = [WLBatchEditPictureViewController instantiate:self.storyboard];
     editController.pictures = self.pictures;
     editController.delegate = self;
-    [self.cameraNavigationController pushViewController:editController animated:YES];
+    editController.wrap = self.wrap;
+    [self.cameraNavigationController pushViewController:editController animated:NO];
 }
 
 - (void)cameraViewController:(WLCameraViewController *)controller didSelectAssets:(NSArray *)assets {
@@ -260,12 +260,11 @@
     for (ALAsset* asset in assets) {
         runQueuedOperation(@"wl_still_picture_queue",3,^(WLOperation *operation) {
             [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
-                [WLPicture picture:croppedImage mode:weakSelf.mode completion:^(WLPicture *picture) {
-                    picture.animation = [WLAnimation animationWithDuration:0.5f];
-                    [weakSelf.pictures addObject:picture];
-                    [weakSelf updatePicturesCountLabel];
+                WLEditPicture *picture = [WLEditPicture picture:croppedImage mode:weakSelf.mode completion:^(WLEditPicture *picture) {
                     [operation finish];
                 }];
+                [weakSelf.pictures addObject:picture];
+                [weakSelf updatePicturesCountLabel];
             }];
         });
     }

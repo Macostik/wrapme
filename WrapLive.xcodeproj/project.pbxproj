@@ -1838,6 +1838,13 @@
 		C5B233681B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
 		C5B233691B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
 		C5B2336A1B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
+		C5B233751B29E0C4008A14D1 /* WLEditPicture.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B233731B29E0C4008A14D1 /* WLEditPicture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B233761B29E0C4008A14D1 /* WLEditPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233741B29E0C4008A14D1 /* WLEditPicture.m */; };
+		C5B2337A1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
+		C5B2337B1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
+		C5B2337C1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
+		C5B2337D1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
+		C5B2337E1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
 		C5C20B8F1A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
 		C5C20B901A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
 		C5C20B911A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
@@ -3310,6 +3317,10 @@
 		C5B233581B29C087008A14D1 /* WLEditPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPictureCell.m; sourceTree = "<group>"; };
 		C5B233641B29C0BB008A14D1 /* WLEditPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditPictureViewController.h; sourceTree = "<group>"; };
 		C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPictureViewController.m; sourceTree = "<group>"; };
+		C5B233731B29E0C4008A14D1 /* WLEditPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditPicture.h; sourceTree = "<group>"; };
+		C5B233741B29E0C4008A14D1 /* WLEditPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPicture.m; sourceTree = "<group>"; };
+		C5B233781B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AdobeUXImageEditorViewController+SharedEditing.h"; sourceTree = "<group>"; };
+		C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AdobeUXImageEditorViewController+SharedEditing.m"; sourceTree = "<group>"; };
 		C5C20B8D1A238AE7008B2E2E /* WLValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLValidation.h; path = WLValidation/WLValidation.h; sourceTree = "<group>"; };
 		C5C20B8E1A238AE7008B2E2E /* WLValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLValidation.m; path = WLValidation/WLValidation.m; sourceTree = "<group>"; };
 		C5C20B931A238B3D008B2E2E /* WLValidationGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLValidationGroup.h; path = WLValidation/WLValidationGroup.h; sourceTree = "<group>"; };
@@ -4138,6 +4149,7 @@
 		5BA60BF71A8257ED000F795C /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C5B233771B29E692008A14D1 /* AdobeUXImageEditorViewController */,
 				5BA60BF81A8257ED000F795C /* ALAssetsLibrary */,
 				5BA60BFC1A8257ED000F795C /* MFMailComposeViewController */,
 				5BA60C221A8257ED000F795C /* UIActionSheet */,
@@ -6134,6 +6146,8 @@
 			children = (
 				C5612D5C1ACD968B0052578A /* WLPicture.h */,
 				C5612D5D1ACD968B0052578A /* WLPicture.m */,
+				C5B233731B29E0C4008A14D1 /* WLEditPicture.h */,
+				C5B233741B29E0C4008A14D1 /* WLEditPicture.m */,
 			);
 			path = WLPicture;
 			sourceTree = "<group>";
@@ -6382,6 +6396,15 @@
 			path = WLEditPictureViewController;
 			sourceTree = "<group>";
 		};
+		C5B233771B29E692008A14D1 /* AdobeUXImageEditorViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5B233781B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.h */,
+				C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */,
+			);
+			path = AdobeUXImageEditorViewController;
+			sourceTree = "<group>";
+		};
 		C5C20B8C1A238ACC008B2E2E /* WLValidation */ = {
 			isa = PBXGroup;
 			children = (
@@ -6625,6 +6648,7 @@
 				C55D77AB1AE50D1A006FA19C /* PNClientStateUpdateRequest.h in Headers */,
 				C587C7941AD2E6A0003E7647 /* UIImage+Alpha.h in Headers */,
 				C55D77481AE50D1A006FA19C /* PNHereNow.h in Headers */,
+				C5B233751B29E0C4008A14D1 /* WLEditPicture.h in Headers */,
 				C587C7E01AD2E6A0003E7647 /* WLPicture.h in Headers */,
 				C55D76FF1AE50D1A006FA19C /* PNChannelGroupRemoveResponseParser.h in Headers */,
 				C587C7CE1AD2E6A0003E7647 /* WLEntry.h in Headers */,
@@ -7974,6 +7998,7 @@
 				C53DC2291AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
 				AC17ADB118F8147900F55E17 /* WLCollectionViewFlowLayout.m in Sources */,
 				12DCBA8518DB18F400A4BC44 /* WLItemCell.m in Sources */,
+				C5B2337B1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */,
 				C53F2CE41A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				C54C56791B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
 				5BA60CEB1A8257ED000F795C /* UIView+Extentions.m in Sources */,
@@ -8199,6 +8224,7 @@
 				C53DC22A1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
 				C54AF4FD19B8C437006F7EDB /* WLCollectionViewFlowLayout.m in Sources */,
 				C54AF50519B8C437006F7EDB /* WLItemCell.m in Sources */,
+				C5B2337C1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */,
 				C53F2CE51A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				C54C567A1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
 				5BA60CEC1A8257ED000F795C /* UIView+Extentions.m in Sources */,
@@ -8383,6 +8409,7 @@
 				C53DC22B1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
 				C54AF5FA19B8C467006F7EDB /* WLCollectionViewFlowLayout.m in Sources */,
 				C54AF60219B8C467006F7EDB /* WLItemCell.m in Sources */,
+				C5B2337D1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */,
 				C53F2CE61A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				C54C567B1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
 				5BA60CED1A8257ED000F795C /* UIView+Extentions.m in Sources */,
@@ -8567,6 +8594,7 @@
 				C53DC22C1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
 				C54AF6F719B8C491006F7EDB /* WLCollectionViewFlowLayout.m in Sources */,
 				C54AF6FF19B8C491006F7EDB /* WLItemCell.m in Sources */,
+				C5B2337E1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */,
 				C53F2CE71A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				C54C567C1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
 				5BA60CEE1A8257ED000F795C /* UIView+Extentions.m in Sources */,
@@ -8778,6 +8806,7 @@
 				C57479A01B26FA45001AB8C0 /* WLUploadingView.m in Sources */,
 				C57479A11B26FA45001AB8C0 /* WLCollectionViewFlowLayout.m in Sources */,
 				C57479A21B26FA45001AB8C0 /* WLItemCell.m in Sources */,
+				C5B2337A1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */,
 				C57479A31B26FA45001AB8C0 /* RMPhoneFormat.m in Sources */,
 				C57479A41B26FA45001AB8C0 /* WLSwipeActionView.m in Sources */,
 				C57479A51B26FA45001AB8C0 /* UIView+Extentions.m in Sources */,
@@ -8819,6 +8848,7 @@
 				C55D77341AE50D1A006FA19C /* PNChannelGroup.m in Sources */,
 				C587C8A21AD2E6DB003E7647 /* WLOperation.m in Sources */,
 				C587C8871AD2E6DB003E7647 /* WLCandy+Extended.m in Sources */,
+				C5B233761B29E0C4008A14D1 /* WLEditPicture.m in Sources */,
 				C55D76FB1AE50D1A006FA19C /* PNChannelGroupNamespaceRemoveResponseParser.m in Sources */,
 				C587C8741AD2E6DB003E7647 /* WLUploadCandyRequest.m in Sources */,
 				C55D76E41AE50D1A006FA19C /* PubNub.m in Sources */,

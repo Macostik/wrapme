@@ -19,17 +19,7 @@
 @property (strong, nonatomic) NSString* medium;
 @property (strong, nonatomic) NSString* small;
 
-@property (strong, nonatomic) NSString *comment;
-
 @property (nonatomic, strong) WLAnimation *animation;
-
-+ (void)picture:(UIImage *)image completion:(WLObjectBlock)completion;
-
-+ (void)picture:(UIImage *)image cache:(WLImageCache*)cache completion:(WLObjectBlock)completion;
-
-+ (void)picture:(UIImage *)image mode:(WLStillPictureMode)mode completion:(WLObjectBlock)completion;
-
-+ (void)picture:(UIImage *)image mode:(WLStillPictureMode)mode cache:(WLImageCache*)cache completion:(WLObjectBlock)completion;
 
 - (NSString*)anyUrl;
 

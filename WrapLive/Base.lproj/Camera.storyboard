@@ -42,6 +42,7 @@
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
+            <string>wrapliveicons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1982,6 +1983,48 @@
                                     <outlet property="textView" destination="HH9-aQ-kkJ" id="6WM-0j-fmc"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yq-a6-Fsm" customClass="WLIconButton">
+                                <rect key="frame" x="288" y="325" width="22" height="22"/>
+                                <color key="backgroundColor" white="0.1010000035" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="3yq-a6-Fsm" secondAttribute="height" id="IIa-UA-Kug"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                        <size key="value" width="16" height="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="edit-write"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="edit:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="2Tc-Q6-IzI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oyu-cu-lw1" customClass="WLIconButton">
+                                <rect key="frame" x="10" y="325" width="22" height="22"/>
+                                <color key="backgroundColor" white="0.1010000035" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="oyu-cu-lw1" secondAttribute="height" id="lCY-9N-4nX"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                        <size key="value" width="16" height="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="trash"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="deletePicture:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="h2S-XD-ScY"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mxa-eX-hMc">
                                 <rect key="frame" x="0.0" y="401" width="320" height="167"/>
                                 <subviews>
@@ -1996,9 +2039,9 @@
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rFg-Ju-UbB">
-                                        <rect key="frame" x="50" y="37" width="220" height="94"/>
+                                        <rect key="frame" x="50" y="22" width="220" height="124"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="94" id="Lcj-eg-wGk"/>
+                                            <constraint firstAttribute="height" constant="124" id="Lcj-eg-wGk"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="3" minimumInteritemSpacing="0.0" id="HA2-Ek-8Gl">
                                             <size key="itemSize" width="50" height="50"/>
@@ -2011,24 +2054,33 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="88" height="88"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="88" height="118"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JZO-5e-69u" customClass="WLImageView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="88" height="88"/>
+                                                            <rect key="frame" x="0.0" y="15" width="88" height="88"/>
                                                         </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjU-uH-nDN">
+                                                            <rect key="frame" x="64" y="106" width="24" height="12"/>
+                                                            <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="12"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="JZO-5e-69u" secondAttribute="bottom" id="BNj-A1-bwj"/>
+                                                    <constraint firstAttribute="bottom" secondItem="JZO-5e-69u" secondAttribute="bottom" constant="15" id="BNj-A1-bwj"/>
                                                     <constraint firstAttribute="trailing" secondItem="JZO-5e-69u" secondAttribute="trailing" id="CLw-LG-IfY"/>
-                                                    <constraint firstItem="JZO-5e-69u" firstAttribute="top" secondItem="qe0-ZM-Mt4" secondAttribute="top" id="QPg-x1-3Us"/>
+                                                    <constraint firstItem="JZO-5e-69u" firstAttribute="top" secondItem="qe0-ZM-Mt4" secondAttribute="top" constant="15" id="QPg-x1-3Us"/>
+                                                    <constraint firstAttribute="bottom" secondItem="sjU-uH-nDN" secondAttribute="bottom" id="kll-WD-cUz"/>
                                                     <constraint firstItem="JZO-5e-69u" firstAttribute="leading" secondItem="qe0-ZM-Mt4" secondAttribute="leading" id="nFP-3X-lgz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="sjU-uH-nDN" secondAttribute="trailing" id="oTj-vW-MFK"/>
                                                 </constraints>
-                                                <size key="customSize" width="88" height="88"/>
+                                                <size key="customSize" width="88" height="118"/>
                                                 <connections>
                                                     <outlet property="imageView" destination="JZO-5e-69u" id="1kA-3Y-T2z"/>
+                                                    <outlet property="statusLabel" destination="sjU-uH-nDN" id="KK9-2u-juP"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -2065,16 +2117,23 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ao0-lV-pbN" secondAttribute="trailing" id="29e-8y-iNm"/>
+                            <constraint firstItem="3yq-a6-Fsm" firstAttribute="width" secondItem="3yq-a6-Fsm" secondAttribute="height" id="5hb-YA-Tlh"/>
+                            <constraint firstItem="oyu-cu-lw1" firstAttribute="leading" secondItem="fOQ-kN-b10" secondAttribute="leading" constant="10" id="7jQ-wh-hGF"/>
+                            <constraint firstItem="ao0-lV-pbN" firstAttribute="top" secondItem="oyu-cu-lw1" secondAttribute="bottom" constant="10" id="EnK-3f-YuW"/>
                             <constraint firstItem="x4C-3O-a96" firstAttribute="top" secondItem="J8F-Df-FmE" secondAttribute="bottom" id="KNe-Ow-O4e"/>
                             <constraint firstItem="mxa-eX-hMc" firstAttribute="top" secondItem="x4C-3O-a96" secondAttribute="bottom" id="Wpo-Mb-D43"/>
                             <constraint firstItem="x4C-3O-a96" firstAttribute="leading" secondItem="fOQ-kN-b10" secondAttribute="leading" id="Xsc-OU-2ZG"/>
                             <constraint firstItem="JfN-vq-FkG" firstAttribute="top" secondItem="J8F-Df-FmE" secondAttribute="bottom" id="adE-nk-wDd"/>
+                            <constraint firstItem="oyu-cu-lw1" firstAttribute="width" secondItem="oyu-cu-lw1" secondAttribute="height" id="cBL-Yd-MwK"/>
                             <constraint firstAttribute="trailing" secondItem="mxa-eX-hMc" secondAttribute="trailing" id="gxK-qo-Goi"/>
                             <constraint firstItem="mxa-eX-hMc" firstAttribute="top" secondItem="ao0-lV-pbN" secondAttribute="bottom" id="kJD-sK-cdk"/>
+                            <constraint firstItem="ao0-lV-pbN" firstAttribute="top" secondItem="3yq-a6-Fsm" secondAttribute="bottom" constant="10" id="pf0-CB-pNk"/>
                             <constraint firstItem="JfN-vq-FkG" firstAttribute="leading" secondItem="fOQ-kN-b10" secondAttribute="leading" id="qdi-Ft-QgG"/>
+                            <constraint firstItem="oyu-cu-lw1" firstAttribute="width" secondItem="oyu-cu-lw1" secondAttribute="height" id="rvA-Pd-YFG"/>
                             <constraint firstAttribute="trailing" secondItem="JfN-vq-FkG" secondAttribute="trailing" id="vix-7k-4sD"/>
                             <constraint firstItem="mxa-eX-hMc" firstAttribute="leading" secondItem="fOQ-kN-b10" secondAttribute="leading" id="wBU-pZ-zhh"/>
                             <constraint firstItem="l8v-Ox-qTy" firstAttribute="top" secondItem="mxa-eX-hMc" secondAttribute="bottom" id="wvB-LY-Sed"/>
+                            <constraint firstAttribute="trailing" secondItem="3yq-a6-Fsm" secondAttribute="trailing" constant="10" id="yMb-Fy-rdg"/>
                             <constraint firstItem="ao0-lV-pbN" firstAttribute="leading" secondItem="fOQ-kN-b10" secondAttribute="leading" id="yv9-Jg-F6q"/>
                             <constraint firstAttribute="trailing" secondItem="x4C-3O-a96" secondAttribute="trailing" id="z1g-1G-Z3S"/>
                         </constraints>
@@ -2094,7 +2153,7 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLEditPictureCell"/>
                         <userDefinedRuntimeAttribute type="size" keyPath="itemSize">
-                            <size key="value" width="88" height="88"/>
+                            <size key="value" width="88" height="118"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="sectionTopInset">
                             <real key="value" value="3"/>

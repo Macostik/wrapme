@@ -74,6 +74,7 @@ FOUNDATION_EXPORT const unsigned char WrapLiveKitVersionString[];
 #import <WrapLiveKit/WLCache.h>
 #import <WrapLiveKit/WLBroadcaster.h>
 #import <WrapLiveKit/WLPicture.h>
+#import <WrapLiveKit/WLEditPicture.h>
 #import <WrapLiveKit/WLArchivingObject.h>
 #import <WrapLiveKit/WLAuthorization.h>
 #import <WrapLiveKit/WLAddWrapRequest.h>

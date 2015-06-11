@@ -25,8 +25,9 @@
 #import "WLAssetsGroupViewController.h"
 #import "WLNavigationHelper.h"
 #import "UIButton+Additions.h"
+#import "WLBatchEditPictureViewController.h"
 
-@interface WLNewStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
+@interface WLNewStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate, WLBatchEditPictureViewControllerDelegate>
 
 @property (weak, nonatomic) WLCameraViewController *cameraViewController;
 
@@ -226,7 +227,10 @@
 }
 
 - (void)cameraViewControllerDidFinish:(WLCameraViewController *)controller {
-    [self finishWithPictures:self.pictures];
+    WLBatchEditPictureViewController *editController = [WLBatchEditPictureViewController instantiate:self.storyboard];
+    editController.pictures = self.pictures;
+    editController.delegate = self;
+    [self.cameraNavigationController pushViewController:editController animated:YES];
 }
 
 - (void)cameraViewController:(WLCameraViewController *)controller didSelectAssets:(NSArray *)assets {
@@ -282,6 +286,12 @@
     if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {
         [delegate stillPictureViewController:self didFinishWithPictures:pictures];
     }
+}
+
+#pragma mark - WLBatchEditPictureViewControllerDelegate
+
+- (void)batchEditPictureViewController:(WLBatchEditPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+    [self finishWithPictures:pictures];
 }
 
 #pragma mark - WLAssetsViewControllerDelegate

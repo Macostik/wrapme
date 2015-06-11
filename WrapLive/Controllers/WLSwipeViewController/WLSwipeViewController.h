@@ -17,6 +17,8 @@ typedef NS_ENUM(NSInteger, WLSwipeViewControllerDirection) {
 
 @property (weak, nonatomic) UIViewController *viewController;
 
+@property (weak, nonatomic, readonly) UIScrollView* scrollView;
+
 - (UIViewController*)viewControllerAfterViewController:(UIViewController*)viewController;
 
 - (UIViewController*)viewControllerBeforeViewController:(UIViewController*)viewController;

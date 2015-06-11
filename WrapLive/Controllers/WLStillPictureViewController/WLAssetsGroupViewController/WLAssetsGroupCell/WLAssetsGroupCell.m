@@ -19,14 +19,14 @@
 
 @implementation WLAssetsGroupCell
 
-- (void)setupItemData:(ALAssetsGroup*)group {
+- (void)setup:(ALAssetsGroup*)group {
     self.libraryNameLabel.text = group.name;
     self.countLabel.text = [NSString stringWithFormat:@"%ld", (long)group.numberOfAssets];
     self.thumbnailImageView.image = [UIImage imageWithCGImage:group.posterImage];
 }
 
 - (IBAction)select:(id)sender {
-	[self.delegate assetsGroupCell:self didSelectGroup:self.item];
+	[self.delegate assetsGroupCell:self didSelectGroup:self.entry];
 }
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Nickolay Rybalko. All rights reserved.
 //
 
-#import "WLCollectionItemCell.h"
+#import "WLEntryCell.h"
 
 @class WLAssetsGroupCell;
 @class ALAssetsGroup;
@@ -17,7 +17,7 @@
 
 @end
 
-@interface WLAssetsGroupCell : WLCollectionItemCell
+@interface WLAssetsGroupCell : WLEntryCell
 
 @property (nonatomic, weak) IBOutlet id <WLAssetsGroupCellDelegate> delegate;
 

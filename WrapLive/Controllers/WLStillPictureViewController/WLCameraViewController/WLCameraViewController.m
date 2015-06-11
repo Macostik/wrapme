@@ -19,6 +19,7 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "WLToast.h"
 #import "WLWrapView.h"
+#import "WLQuickAssetsViewController.h"
 
 @interface WLCameraView : UIView
 
@@ -41,7 +42,7 @@
 
 @end
 
-@interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver>
+@interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver, WLAssetsViewControllerDelegate>
 
 #pragma mark - AVCaptureSession interface
 
@@ -63,6 +64,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *galleryButton;
+
+@property (weak, nonatomic) WLQuickAssetsViewController* assetsViewController;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *assetsBottomConstraint;
 
 @end
 
@@ -114,6 +118,22 @@
             }
         });
     }];
+    
+    for (WLQuickAssetsViewController *assetsViewController in self.childViewControllers) {
+        if ([assetsViewController isKindOfClass:[WLQuickAssetsViewController class]]) {
+            self.assetsViewController = assetsViewController;
+            self.assetsViewController.delegate = self;
+            break;
+        }
+    }
+}
+
+#pragma mark - WLAssetsViewControllerDelegate
+
+- (void)assetsViewController:(id)controller didSelectAssets:(NSArray *)assets {
+    if ([self.delegate respondsToSelector:@selector(cameraViewController:didSelectAssets:)]) {
+        [self.delegate cameraViewController:self didSelectAssets:assets];
+    }
 }
 
 #pragma mark - User Actions
@@ -127,6 +147,7 @@
 }
 
 - (IBAction)shot:(UIButton*)sender {
+    [self setAssetsViewControllerHidden:YES animated:YES];
 	__weak typeof(self)weakSelf = self;
 	self.view.userInteractionEnabled = NO;
 	sender.active = NO;
@@ -154,6 +175,31 @@
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
         [self.delegate cameraViewControllerDidFinish:self];
     }
+}
+
+- (IBAction)panning:(UIPanGestureRecognizer*)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        
+    } else if (sender.state == UIGestureRecognizerStateChanged) {
+        CGPoint translation = [sender translationInView:sender.view];
+        self.assetsBottomConstraint.constant = Smoothstep(-self.assetsViewController.view.height, 0, self.assetsBottomConstraint.constant - translation.y);
+        [self.view layoutIfNeeded];
+        [sender setTranslation:CGPointZero inView:sender.view];
+    } else if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
+        [self setAssetsViewControllerHidden:ABS(self.assetsBottomConstraint.constant) > self.assetsViewController.view.height/2 animated:YES];
+    }
+}
+
+- (void)setAssetsViewControllerHidden:(BOOL)hidden animated:(BOOL)animated {
+    if (hidden) {
+        self.assetsBottomConstraint.constant = -self.assetsViewController.view.height;
+    } else {
+        self.assetsBottomConstraint.constant = 0;
+    }
+    [UIView animateWithDuration:animated ? 0.2 : 0 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+    }];
 }
 
 - (void)finishWithImage:(UIImage*)image metadata:(NSMutableDictionary*)metadata {

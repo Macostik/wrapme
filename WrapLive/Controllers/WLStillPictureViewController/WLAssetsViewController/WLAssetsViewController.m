@@ -94,16 +94,7 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 
 - (void)setAssets:(NSArray *)assets {
     _assets = assets;
-    if (self.selectedAssets.nonempty) {
-        [self.selectedAssets setArray:[self.assets map:^id(ALAsset* asset) {
-            for (ALAsset* selectedAsset in self.selectedAssets) {
-                if ([selectedAsset isEqualToAsset:asset]) {
-                    return asset;
-                }
-            }
-            return nil;
-        }]];
-    }
+    self.dataSource.items = assets;
 }
 
 - (void)assetsLibraryChanged:(NSNotification*)notifiection {
@@ -127,17 +118,16 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 - (void)loadAssets {
     __weak typeof(self)weakSelf = self;
     if (self.group) {
-        self.title = [self.group.name uppercaseString];
+        self.titleLabel.text = self.group.name;
         [self.group assets:^(NSArray *assets) {
             weakSelf.assets = assets;
             if (weakSelf.preselectFirstAsset && assets.count > 0) {
                 [weakSelf selectAsset:[assets firstObject]];
                 weakSelf.preselectFirstAsset = NO;
             }
-            [weakSelf.collectionView reloadData];
         }];
     } else {
-        self.title = [self.group.name uppercaseString];
+        self.titleLabel.text = self.group.name;
         [[ALAssetsLibrary library] enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
             if (group) {
                 weakSelf.group = group;
@@ -153,10 +143,13 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 - (IBAction)done:(id)sender {
     self.doneButton.hidden = YES;
     [self.spinner startAnimating];
-    [self.delegate assetsViewController:self didSelectAssets:self.selectedAssets];
+    __weak typeof(self)weakSelf = self;
+    [self.delegate assetsViewController:self didSelectAssets:[self.assets selectObjects:^BOOL(ALAsset* asset) {
+        return [weakSelf.selectedAssets containsObject:asset.ID];
+    }]];
 }
 
-#pragma mark - PGAssetCellDelegate
+#pragma mark - WLAssetCellDelegate
 
 - (void)selectAsset:(ALAsset *)asset {
     CGSize size = asset.defaultRepresentation.dimensions;
@@ -166,10 +159,10 @@ static NSUInteger WLAssetsSelectionLimit = 10;
         [WLToast showWithMessage:WLLS(@"too_small_image_error")];
     } else {
         if (self.mode == WLStillPictureModeDefault) {
-            if ([self.selectedAssets containsObject:asset]) {
-                [self.selectedAssets removeObject:asset];
+            if ([self.selectedAssets containsObject:asset.ID]) {
+                [self.selectedAssets removeObject:asset.ID];
             } else if (self.selectedAssets.count < WLAssetsSelectionLimit) {
-                [self.selectedAssets addObject:asset];
+                [self.selectedAssets addObject:asset.ID];
             } else {
                 [WLToast showWithMessage:WLLS(@"upload_photos_limit_error")];
             }
@@ -186,13 +179,11 @@ static NSUInteger WLAssetsSelectionLimit = 10;
 
 - (void)assetCell:(WLAssetCell *)cell didSelectAsset:(ALAsset *)asset {
     [self selectAsset:asset];
-    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    if (indexPath) {
-        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-    } else {
-        [self.collectionView reloadData];
-    }
-    
+    [self.dataSource reload];
+}
+
+- (BOOL)assetCell:(WLAssetCell *)cell isSelectedAsset:(ALAsset *)asset {
+    return [self.selectedAssets containsObject:asset.ID];
 }
 
 @end

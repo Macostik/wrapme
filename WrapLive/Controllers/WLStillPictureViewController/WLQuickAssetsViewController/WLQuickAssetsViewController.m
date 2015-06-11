@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSMutableArray *selectedAssets;
 
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
+@property (weak, nonatomic) IBOutlet UILabel *accessErrorLabel;
 
 @end
 
@@ -52,9 +53,9 @@
 
 - (void)setAssets:(NSArray *)assets {
     _assets = [assets selectObjects:^BOOL(ALAsset* asset) {
-        return [self.selectedAssets containsObject:asset.ID];
+        return ![self.selectedAssets containsObject:asset.ID];
     }];
-    self.dataSource.items = self.assets;
+    self.dataSource.items = _assets;
 }
 
 - (void)assetsLibraryChanged:(NSNotification*)notifiection {
@@ -71,86 +72,19 @@
             *stop = YES;
         }
     } failureBlock:^(NSError *error) {
-        
+        if (error.code == ALAssetsLibraryAccessUserDeniedError ||
+            error.code == ALAssetsLibraryAccessGloballyDeniedError) {
+            weakSelf.accessErrorLabel.hidden = NO;
+        }
     }];
 }
-
-#pragma mark - PSTCollectionViewDelegate
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLAssetCell *cell = [cv dequeueReusableCellWithReuseIdentifier:[WLAssetCell reuseIdentifier] forIndexPath:indexPath];
-    cell.item = self.assets[indexPath.row];
-    cell.delegate = self;
-    cell.checked = [self.selectedAssets containsObject:cell.item];
-    return cell;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    return self.assets.count;
-}
-
-static NSUInteger WLAssetNumberOfColumns = 4;
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewFlowLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.horizontal) {
-        return collectionViewLayout.itemSize;
-    }
-    CGFloat size = (collectionView.width - WLConstants.pixelSize * (WLAssetNumberOfColumns + 1))/WLAssetNumberOfColumns;
-    return CGSizeMake(size, size);
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewFlowLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    if (self.horizontal) {
-        return collectionViewLayout.sectionInset;
-    }
-    return UIEdgeInsetsMake(WLConstants.pixelSize, WLConstants.pixelSize, self.wrapView.height, WLConstants.pixelSize);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewFlowLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    if (self.horizontal) {
-        return collectionViewLayout.minimumLineSpacing;
-    }
-    return WLConstants.pixelSize;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewFlowLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    if (self.horizontal) {
-        return collectionViewLayout.minimumInteritemSpacing;
-    }
-    return WLConstants.pixelSize;
-}
-
 
 #pragma mark - PGAssetCellDelegate
 
 - (void)selectAsset:(ALAsset *)asset {
-    if (self.horizontal) {
-        [self.delegate assetsViewController:self didSelectAssets:@[asset]];
-        return;
-    }
-    CGSize size = asset.defaultRepresentation.dimensions;
-    if (size.width == 0 && size.height == 0) {
-        [WLToast showWithMessage:WLLS(@"invalid_image_error")];
-    } else if (size.width < 100 || size.height < 100) {
-        [WLToast showWithMessage:WLLS(@"too_small_image_error")];
-    } else {
-        if (self.mode == WLStillPictureModeDefault) {
-            if ([self.selectedAssets containsObject:asset]) {
-                [self.selectedAssets removeObject:asset];
-            } else if (self.selectedAssets.count < WLAssetsSelectionLimit) {
-                [self.selectedAssets addObject:asset];
-            } else {
-                [WLToast showWithMessage:WLLS(@"upload_photos_limit_error")];
-            }
-            [UIView beginAnimations:nil context:nil];
-            [UIView setAnimationBeginsFromCurrentState:YES];
-            self.doneButtonTrailingConstraint.constant = self.selectedAssets.nonempty ? 0 : -self.doneButton.width;
-            [self.doneButton layoutIfNeeded];
-            [UIView commitAnimations];
-        } else {
-            [self.delegate assetsViewController:self didSelectAssets:@[asset]];
-        }
-    }
+    [self.selectedAssets addObject:asset.ID];
+    self.assets = [self.assets arrayByRemovingObject:asset];
+    [self.delegate assetsViewController:self didSelectAssets:@[asset]];
 }
 
 - (void)assetCell:(WLAssetCell *)cell didSelectAsset:(ALAsset *)asset {
@@ -161,7 +95,6 @@ static NSUInteger WLAssetNumberOfColumns = 4;
     } else {
         [self.collectionView reloadData];
     }
-    
 }
 
 @end

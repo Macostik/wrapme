@@ -229,6 +229,10 @@
     [self finishWithPictures:self.pictures];
 }
 
+- (void)cameraViewController:(WLCameraViewController *)controller didSelectAssets:(NSArray *)assets {
+    [self handleAssets:assets];
+}
+
 - (void)openGallery:(BOOL)openCameraRoll animated:(BOOL)animated {
     WLAssetsGroupViewController* gallery = [WLAssetsGroupViewController instantiate:self.storyboard];
     gallery.mode = self.mode;

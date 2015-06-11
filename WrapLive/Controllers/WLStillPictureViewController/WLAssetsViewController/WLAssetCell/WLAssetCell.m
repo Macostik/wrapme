@@ -18,17 +18,17 @@
 
 @implementation WLAssetCell
 
-- (void)setupItemData:(ALAsset *)asset {
+- (void)setup:(ALAsset *)asset {
     self.imageView.image = [UIImage imageWithCGImage:asset.aspectRatioThumbnail];
+    if ([self.delegate respondsToSelector:@selector(assetCell:isSelectedAsset:)]) {
+        BOOL selected = [self.delegate assetCell:self isSelectedAsset:asset];
+        self.acceptView.hidden = !selected;
+        self.imageView.alpha = selected ? 0.5f : 1.0f;
+    }
 }
 
 - (IBAction)select:(id)sender {
-	[self.delegate assetCell:self didSelectAsset:self.item];
-}
-
-- (void)setChecked:(BOOL)checked {
-    self.acceptView.hidden = !checked;
-    self.imageView.alpha = checked ? 0.5f : 1.0f;
+	[self.delegate assetCell:self didSelectAsset:self.entry];
 }
 
 @end

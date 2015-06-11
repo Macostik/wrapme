@@ -144,8 +144,10 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     self.doneButton.hidden = YES;
     [self.spinner startAnimating];
     __weak typeof(self)weakSelf = self;
-    [self.delegate assetsViewController:self didSelectAssets:[self.assets selectObjects:^BOOL(ALAsset* asset) {
-        return [weakSelf.selectedAssets containsObject:asset.ID];
+    [self.delegate assetsViewController:self didSelectAssets:[self.selectedAssets map:^id(NSString* assetID) {
+        return [weakSelf.assets selectObject:^BOOL(ALAsset* asset) {
+            return [asset.ID isEqualToString:assetID];
+        }];
     }]];
 }
 

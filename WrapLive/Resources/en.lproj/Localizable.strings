@@ -160,9 +160,9 @@
 
 "less_than_minute_ago" = "less than 1 minute ago";
 
-"yesterday" = "yesterday";
+"yesterday" = "Yesterday";
 
-"today" = "today";
+"today" = "Today";
 
 "formatted_day_at_time" = "%@ at %@";
 

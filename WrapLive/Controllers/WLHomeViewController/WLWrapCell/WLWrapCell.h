@@ -11,6 +11,8 @@
 static NSUInteger WLHomeTopWrapCandiesLimit = 6;
 static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 static NSUInteger WLCandyCellHight = 212;
+static NSUInteger WLWrapCellAvatarWidth = 67;
+static NSUInteger WLChatIndicatorWidth = 57;
 
 @class WLWrapCell, WLBasicDataSource;
 
@@ -18,7 +20,7 @@ static NSUInteger WLCandyCellHight = 212;
 
 - (void)wrapCell:(WLWrapCell *)wrapCell didDeleteWrap:(WLWrap *)wrap;
 - (void)wrapCellDidBeginPanning:(WLWrapCell *)wrapCell;
-- (void)wrapCellDidEndPanning:(WLWrapCell *)wrapCell;
+- (void)wrapCellDidEndPanning:(WLWrapCell *)wrapCell performedAction:(BOOL)performedAction;
 - (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(WLWrap *)wrap;
 - (void)wrapCell:(WLWrapCell *)wrapCell presentCameraViewControllerForWrap:(WLWrap *)wrap;
 

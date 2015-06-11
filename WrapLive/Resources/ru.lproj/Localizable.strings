@@ -238,10 +238,10 @@
 "less_than_minute_ago" = "меньше минуты назад";
 
 /* (No Commment) */
-"yesterday" = "вчера";
+"yesterday" = "Вчера";
 
 /* (No Commment) */
-"today" = "сегодня";
+"today" = "Сегодня";
 
 /* (No Commment) */
 "formatted_day_at_time" = "%@ в %@";

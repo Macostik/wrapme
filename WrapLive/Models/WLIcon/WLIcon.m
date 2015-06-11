@@ -87,7 +87,12 @@
                   @"unselected-item":@"G",
                   @"selected-item":@"H",
 				  @"edit-write":@"R",
-                  @"comment-quotes":@"S"};
+                  @"comment-quotes":@"S",
+                  @"settings":@"0",
+                  @"friends":@"1",
+                  @"addFriends":@"2",
+                  @"pencil":@"3",
+                  @"chat":@"4"};
     }
     
     NSString *code = [icons objectForKey:name];

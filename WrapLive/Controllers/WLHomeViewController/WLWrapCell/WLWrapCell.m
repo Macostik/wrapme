@@ -30,9 +30,9 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *wrapNotificationLabel;
+@property (weak, nonatomic) IBOutlet WLBadgeLabel *chatNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
-
-@property (assign, nonatomic) BOOL embeddedLongPress;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *wrapNameWidthConstraint;
 
 @property (strong, nonatomic) WLBasicDataSource* candiesDataSource;
 
@@ -40,6 +40,8 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightSwipeActionConstraint;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *leftSwipeIndicationViews;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rightSwipeIndicationViews;
+
+@property (nonatomic) BOOL isRightSwipeAction;
 
 @property (weak, nonatomic) NSLayoutConstraint *swipeActionConstraint;
 
@@ -101,7 +103,12 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     
     self.coverView.url = [wrap.picture anyUrl];
     self.wrapNotificationLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:wrap];
+    NSUInteger messageConter = [self.entry unreadNotificationsMessageCount];
+    self.chatNotificationLabel.intValue = messageConter;
     self.chatButton.hidden = ![wrap containsUnreadMessage];
+    self.wrapNameWidthConstraint.constant = WLConstants.screenWidth - (messageConter > 0 ?
+                                                                       WLWrapCellAvatarWidth + WLChatIndicatorWidth  :
+                                                                       WLWrapCellAvatarWidth);
 }
 
 - (IBAction)notifyChatClick:(id)sender {
@@ -118,13 +125,18 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     return YES;
 }
 
+- (void)setIsRightSwipeAction:(BOOL)isRightSwipeAction {
+    _isRightSwipeAction = isRightSwipeAction;
+    self.swipeActionConstraint = isRightSwipeAction ? self.rightSwipeActionConstraint : self.leftSwipeActionConstraint;
+}
+
 - (void)panning:(UIPanGestureRecognizer*)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         [self.delegate wrapCellDidBeginPanning:self];
-        self.swipeActionConstraint = [sender velocityInView:sender.view].x > 0 ? self.leftSwipeActionConstraint : self.rightSwipeActionConstraint;
+        self.isRightSwipeAction = [sender velocityInView:sender.view].x < 0;
     } else if (sender.state == UIGestureRecognizerStateChanged) {
         CGFloat constant = self.swipeActionConstraint.constant +  [sender translationInView:sender.view].x;
-        if (self.swipeActionConstraint == self.rightSwipeActionConstraint) {
+        if (self.isRightSwipeAction) {
             self.swipeActionConstraint.constant = Smoothstep(-self.width, 0, constant);
             for (UIView *indicationView in self.rightSwipeIndicationViews) {
                 indicationView.alpha = NSmoothstep(ABS(self.swipeActionConstraint.constant)/WLWrapCellSwipeActionWidth);
@@ -139,17 +151,14 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         [sender setTranslation:CGPointZero inView:sender.view];
         
     } else if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
-        [self.delegate wrapCellDidEndPanning:self];
-        if (ABS(self.swipeActionConstraint.constant) >= WLWrapCellSwipeActionWidth) {
+        BOOL performedAction = ABS(self.swipeActionConstraint.constant) >= WLWrapCellSwipeActionWidth;
+        [self.delegate wrapCellDidEndPanning:self performedAction:performedAction];
+        if (performedAction) {
             [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                if (self.swipeActionConstraint == self.rightSwipeActionConstraint) {
-                    self.swipeActionConstraint.constant = -self.width;
-                } else {
-                    self.swipeActionConstraint.constant = self.width;
-                }
+                self.swipeActionConstraint.constant = self.isRightSwipeAction ? -self.width : self.width;
                 [self layoutIfNeeded];
             } completion:^(BOOL finished) {
-                if (self.swipeActionConstraint == self.rightSwipeActionConstraint) {
+                if (self.isRightSwipeAction) {
                     [self.delegate wrapCell:self presentChatViewControllerForWrap:self.entry];
                 } else {
                     [self.delegate wrapCell:self presentCameraViewControllerForWrap:self.entry];
@@ -165,10 +174,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
                     self.swipeActionConstraint.constant = 0;
                     [self layoutIfNeeded];
                 } completion:^(BOOL finished) {
-                    self.superview.userInteractionEnabled = YES;
                 }];
-            } else {
-                self.superview.userInteractionEnabled = YES;
             }
         }
     }

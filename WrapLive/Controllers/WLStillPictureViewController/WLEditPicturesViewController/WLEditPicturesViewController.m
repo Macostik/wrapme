@@ -7,6 +7,7 @@
 //
 
 #import "WLEditPicturesViewController.h"
+#import "WLWrapView.h"
 
 @interface WLEditPicturesViewController ()
 
@@ -14,24 +15,49 @@
 
 @implementation WLEditPicturesViewController
 
+@synthesize wrap = _wrap;
+
+@synthesize delegate = _delegate;
+
+@synthesize wrapView = _wrapView;
+
+@synthesize mode = _mode;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setupWrapView:self.wrap];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setWrap:(WLWrap *)wrap {
+    _wrap = wrap;
+    if (self.isViewLoaded) {
+        [self setupWrapView:wrap];
+    }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)setupWrapView:(WLWrap *)wrap {
+    if (self.wrapView) {
+        self.wrapView.entry = wrap;
+        self.wrapView.hidden = wrap == nil;
+    }
 }
-*/
+
+- (void)stillPictureViewController:(WLStillPictureBaseViewController *)controller didSelectWrap:(WLWrap *)wrap {
+    [self selectWrap:nil];
+}
+
+- (IBAction)selectWrap:(UIButton *)sender {
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
+            [self.delegate stillPictureViewController:self didSelectWrap:self.wrap];
+        }
+    } else if (self.presentingViewController) {
+        [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+    }
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
 
 @end

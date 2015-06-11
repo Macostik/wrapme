@@ -7,7 +7,8 @@
 //
 
 #import "WLStillPictureBaseViewController.h"
+#import "WLSwipeViewController.h"
 
-@interface WLEditPicturesViewController : WLStillPictureBaseViewController
+@interface WLEditPicturesViewController : WLSwipeViewController <WLStillPictureBaseViewController>
 
 @end

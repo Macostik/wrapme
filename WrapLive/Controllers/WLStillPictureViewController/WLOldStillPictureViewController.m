@@ -103,8 +103,8 @@
 
 - (void)setWrap:(WLWrap *)wrap {
     [super setWrap:wrap];
-    for (WLStillPictureBaseViewController *controller in self.cameraNavigationController.viewControllers) {
-        if ([controller respondsToSelector:@selector(setWrap:)]) {
+    for (id <WLStillPictureBaseViewController> controller in self.cameraNavigationController.viewControllers) {
+        if ([controller conformsToProtocol:@protocol(WLStillPictureBaseViewController)]) {
             controller.wrap = wrap;
         }
     }
@@ -112,8 +112,8 @@
 
 - (void)showHintView {
     if (!self.wrap || [WLUser currentUser].wraps.count <= 1) return;
-    WLStillPictureBaseViewController *controller = (id)self.cameraNavigationController.topViewController;
-    if ([controller isKindOfClass:[WLStillPictureBaseViewController class]] && controller.wrapView) {
+    id <WLStillPictureBaseViewController> controller = (id)self.cameraNavigationController.topViewController;
+    if ([controller conformsToProtocol:@protocol(WLStillPictureBaseViewController)] && controller.wrapView) {
         CGPoint wrapNameCenter = [self.view convertPoint:controller.wrapView.nameLabel.center fromView:controller.wrapView];
         [WLHintView showWrapPickerHintViewInView:[UIWindow mainWindow] withFocusPoint:CGPointMake(74, wrapNameCenter.y)];
     }

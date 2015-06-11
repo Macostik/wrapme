@@ -253,22 +253,14 @@
 
 - (void)handleAssets:(NSArray*)assets {
     __weak typeof(self)weakSelf = self;
-    self.view.userInteractionEnabled = NO;
-    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
-    queue.maxConcurrentOperationCount = 3;
-    NSMutableArray* pictures = [NSMutableArray array];
     for (ALAsset* asset in assets) {
         runQueuedOperation(@"wl_still_picture_queue",3,^(WLOperation *operation) {
             [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
                 [WLPicture picture:croppedImage mode:weakSelf.mode completion:^(WLPicture *picture) {
                     picture.animation = [WLAnimation animationWithDuration:0.5f];
-                    [pictures addObject:picture];
+                    [weakSelf.pictures addObject:picture];
+                    [weakSelf updatePicturesCountLabel];
                     [operation finish];
-                    if (pictures.count == assets.count) {
-                        weakSelf.view.userInteractionEnabled = YES;
-                        [weakSelf.pictures addObjectsFromArray:pictures];
-                        [weakSelf updatePicturesCountLabel];
-                    }
                 }];
             }];
         });

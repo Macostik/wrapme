@@ -416,10 +416,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (IBAction)navigationButtonClick:(WLIconButton *)sender {
-    sender.userInteractionEnabled = NO;
     WLCandy *candy = self.candy;
     self.removedCandy = candy;
     if (candy.deletable) {
+        sender.userInteractionEnabled = NO;
         __weak typeof(self)weakSelf = self;
         [candy remove:^(id object) {
             sender.userInteractionEnabled = YES;

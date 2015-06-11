@@ -44,7 +44,7 @@
     
     WLPhotosViewController *photosViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"WLPhotosViewController"];
     photosViewController.wrap = self.wrap;
-    [self presentViewController: photosViewController animated:NO completion:nil];
+//    [self presentViewController: photosViewController animated:NO completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

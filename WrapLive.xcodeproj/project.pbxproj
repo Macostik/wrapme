@@ -243,6 +243,11 @@
 		5BD2755E1B2853630060D951 /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
 		5BD2755F1B2853630060D951 /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
 		5BD275601B2853630060D951 /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
+		5BD303411B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
+		5BD303421B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
+		5BD303431B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
+		5BD303441B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
+		5BD303451B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
 		5BD782821A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
 		5BD782831A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
 		5BD782841A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782871A4EC02B0094BEE5 /* WLEditWrapViewController.xib */; };
@@ -2412,6 +2417,8 @@
 		5BD2754F1B2829B00060D951 /* wrapliveicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = wrapliveicons.ttf; sourceTree = "<group>"; };
 		5BD2755B1B2853630060D951 /* WLLightSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLightSegmentControl.h; path = WLLIgthSegmentControl/WLLightSegmentControl.h; sourceTree = "<group>"; };
 		5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLightSegmentControl.m; path = WLLIgthSegmentControl/WLLightSegmentControl.m; sourceTree = "<group>"; };
+		5BD3033F1B2971D2002EA8D7 /* WLWrapSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapSettingsViewController.h; path = WrapLive/Controllers/WLWrapSettingsViewController/WLWrapSettingsViewController.h; sourceTree = "<group>"; };
+		5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapSettingsViewController.m; path = WrapLive/Controllers/WLWrapSettingsViewController/WLWrapSettingsViewController.m; sourceTree = "<group>"; };
 		5BD782861A4EC02B0094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLEditWrapViewController.xib; sourceTree = "<group>"; };
 		5BD782A41A4EC1E20094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLCreateWrapViewController.xib; sourceTree = "<group>"; };
 		5BD782A71A4EC1E70094BEE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLCreateWrapViewController.strings; sourceTree = "<group>"; };
@@ -3635,6 +3642,8 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
+				5BD3033F1B2971D2002EA8D7 /* WLWrapSettingsViewController.h */,
+				5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */,
 				C5259D651ACC2333003D3317 /* Entitlements */,
 				C50645AA1ABD815100CB4BE3 /* Extensions */,
 				12A7A70818DA0945008FF6F0 /* WrapLive */,
@@ -7874,6 +7883,7 @@
 				C55037851A2C828A007F2C2C /* WLNavigationAnimator.m in Sources */,
 				12D653DE18E4329F009CE64C /* WLSeparatorView.m in Sources */,
 				5BA60C5F1A8257ED000F795C /* ALAssetsLibrary+Additions.m in Sources */,
+				5BD303421B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */,
 				1293677F18E337D900527250 /* WLCandiesCell.m in Sources */,
 				C53E5D5C1A851F71004F61B0 /* WLAssetsGroupCell.m in Sources */,
 				129654E718E1A17300FF43F6 /* WLCreateWrapViewController.m in Sources */,
@@ -8095,6 +8105,7 @@
 				C55037861A2C828A007F2C2C /* WLNavigationAnimator.m in Sources */,
 				C54AF4D119B8C437006F7EDB /* WLSeparatorView.m in Sources */,
 				5BA60C601A8257ED000F795C /* ALAssetsLibrary+Additions.m in Sources */,
+				5BD303431B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */,
 				C54AF4D219B8C437006F7EDB /* WLCandiesCell.m in Sources */,
 				C53E5D5D1A851F71004F61B0 /* WLAssetsGroupCell.m in Sources */,
 				C54AF4D419B8C437006F7EDB /* WLCreateWrapViewController.m in Sources */,
@@ -8275,6 +8286,7 @@
 				C55037871A2C828A007F2C2C /* WLNavigationAnimator.m in Sources */,
 				C54AF5CE19B8C467006F7EDB /* WLSeparatorView.m in Sources */,
 				5BA60C611A8257ED000F795C /* ALAssetsLibrary+Additions.m in Sources */,
+				5BD303441B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */,
 				C54AF5CF19B8C467006F7EDB /* WLCandiesCell.m in Sources */,
 				C53E5D5E1A851F71004F61B0 /* WLAssetsGroupCell.m in Sources */,
 				C54AF5D119B8C467006F7EDB /* WLCreateWrapViewController.m in Sources */,
@@ -8455,6 +8467,7 @@
 				C55037881A2C828A007F2C2C /* WLNavigationAnimator.m in Sources */,
 				C54AF6CB19B8C491006F7EDB /* WLSeparatorView.m in Sources */,
 				5BA60C621A8257ED000F795C /* ALAssetsLibrary+Additions.m in Sources */,
+				5BD303451B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */,
 				C54AF6CC19B8C491006F7EDB /* WLCandiesCell.m in Sources */,
 				C53E5D5F1A851F71004F61B0 /* WLAssetsGroupCell.m in Sources */,
 				C54AF6CE19B8C491006F7EDB /* WLCreateWrapViewController.m in Sources */,
@@ -8662,6 +8675,7 @@
 				C574796F1B26FA45001AB8C0 /* WLNavigationAnimator.m in Sources */,
 				C57479701B26FA45001AB8C0 /* WLSeparatorView.m in Sources */,
 				C57479711B26FA45001AB8C0 /* ALAssetsLibrary+Additions.m in Sources */,
+				5BD303411B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */,
 				C57479721B26FA45001AB8C0 /* WLCandiesCell.m in Sources */,
 				C57479731B26FA45001AB8C0 /* WLAssetsGroupCell.m in Sources */,
 				C57479741B26FA45001AB8C0 /* WLCreateWrapViewController.m in Sources */,

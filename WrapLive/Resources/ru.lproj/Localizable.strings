@@ -50,7 +50,7 @@
 "delete_photo_confirmation" = "Вы уверены, что хотите удалить это фото?";
 
 /* (No Commment) */
-"delete_wrap" = "Удалить wrap";
+"delete_wrap" = "Удалить wrap?";
 
 /* (No Commment) */
 "delete_wrap_success" = "Wrap был успешно удален.";

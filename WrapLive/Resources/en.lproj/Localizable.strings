@@ -50,7 +50,7 @@
 
 "wrap_name_cannot_be_blank" = "Name of the wrap can't be blank.";
 
-"delete_wrap" = "Delete wrap";
+"delete_wrap" = "Delete wrap?";
 
 "leave_wrap" = "Leave wrap?";
 

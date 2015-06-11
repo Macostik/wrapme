@@ -100,7 +100,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     } else {
         __weak typeof(self)weakSelf = self;
         run_after(0.5f, ^{
-            [weakSelf.navigationController popViewControllerAnimated:NO];
+//            [weakSelf.navigationController popViewControllerAnimated:NO];
         });
     }
     //    if ([self.wrap isFirstCreated]) {

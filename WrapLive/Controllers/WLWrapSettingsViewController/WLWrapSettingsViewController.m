@@ -12,7 +12,7 @@
 
 @interface WLWrapSettingsViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *wrapName;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *wrapName;
 @property (weak, nonatomic) IBOutlet WLButton *actionButton;
 @property (weak, nonatomic) IBOutlet UISwitch *photoNotifyTrigger;
 @property (weak, nonatomic) IBOutlet UISwitch *chatNotifyTrigger;
@@ -24,8 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.wrapName.text = self.wrap.name;
     [self.actionButton setTitle:self.wrap.deletable ? WLLS(@"delete_wrap") : WLLS(@"leave_wrap")  forState:UIControlStateNormal];
+    [self.wrapName setValue:self.wrap.name forKey:@"text"];
 }
 
 - (IBAction)handleAction:(WLButton *)sender {

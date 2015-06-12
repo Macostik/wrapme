@@ -229,6 +229,7 @@
 		5BD121541B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD121551B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD121561B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
+		5BD172F51B2ABCA3007DA411 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD2754F1B2829B00060D951 /* wrapliveicons.ttf */; };
 		5BD275501B2829B00060D951 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD2754F1B2829B00060D951 /* wrapliveicons.ttf */; };
 		5BD275511B2829B00060D951 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD2754F1B2829B00060D951 /* wrapliveicons.ttf */; };
 		5BD275521B2829B00060D951 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD2754F1B2829B00060D951 /* wrapliveicons.ttf */; };
@@ -7511,6 +7512,7 @@
 				C55908771B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
+				5BD172F51B2ABCA3007DA411 /* wrapliveicons.ttf in Resources */,
 				C54AF73019B8C491006F7EDB /* WLEmojiView.xib in Resources */,
 				5BA4CC1B1A08FB4300D7F31C /* WLPickerViewController.xib in Resources */,
 				5BBAB3A91AAA002400CE6252 /* Camera.storyboard in Resources */,

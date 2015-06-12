@@ -12,6 +12,7 @@
 #import "WLToast.h"
 #import "WLButton.h"
 #import "WLAlertView.h"
+#import "WLNotificationCenter.h"
 
 @interface WLSettingsViewController ()
 

@@ -9,6 +9,7 @@
 #import "WLEmailConfirmationViewController.h"
 #import "WLNavigationHelper.h"
 #import "WLAlertView.h"
+#import "WLNotificationCenter.h"
 
 @interface WLEmailConfirmationViewController () <WLEntryNotifyReceiver>
 

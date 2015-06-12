@@ -2528,7 +2528,7 @@
                                     <outlet property="delegate" destination="0yt-I4-bE6" id="LTT-Cq-Uvv"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="6LD-Vq-stn" customClass="WLGradientView">
+                            <view userInteractionEnabled="NO" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="6LD-Vq-stn" customClass="WLGradientView">
                                 <rect key="frame" x="0.0" y="245" width="320" height="55"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>

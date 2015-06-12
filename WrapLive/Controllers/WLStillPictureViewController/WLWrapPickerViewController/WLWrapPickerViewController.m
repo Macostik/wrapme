@@ -43,6 +43,8 @@
     } else {
         [self.wrapNameTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
     }
+    
+    [self.view addGestureRecognizer:self.dataSource.collectionView.panGestureRecognizer];
 }
 
 - (void)animatePresenting {

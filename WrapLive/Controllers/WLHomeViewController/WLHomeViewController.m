@@ -260,11 +260,10 @@
         stillPictureViewController.mode = WLStillPictureModeDefault;
         stillPictureViewController.delegate = self;
         stillPictureViewController.startFromGallery = startFromGallery;
-        [self presentViewController:stillPictureViewController animated:animated completion:^{
-            if (showPicker) {
-                 [stillPictureViewController showWrapPickerWithController:NO];
-            }
-        }];
+        [self presentViewController:stillPictureViewController animated:animated completion:nil];
+        if (showPicker) {
+            [stillPictureViewController showWrapPickerWithController:NO];
+        }
     } else {
         [self createWrap:nil];
     }

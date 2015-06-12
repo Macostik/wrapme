@@ -41,6 +41,8 @@
             [self.dataSource.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
         }
     } else {
+        self.leadingTextFieldConstraint.constant = 8;
+        [self.wrapNameTextField.superview setNeedsLayout];
         [self.wrapNameTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
     }
     
@@ -91,6 +93,14 @@
         return;
     }
     [self.delegate wrapPickerViewControllerDidCancel:self];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
 }
 
 // MARK: - UITextFieldDelegate

@@ -17,6 +17,12 @@
 
 @dynamic delegate;
 
+@synthesize wrap = _wrap;
+
+@synthesize wrapView = _wrapView;
+
+@synthesize mode = _mode;
+
 + (instancetype)stillPictureViewController {
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     if (screenSize.width == 320 && screenSize.height == 480) {
@@ -29,6 +35,33 @@
 - (void)showWrapPickerWithController:(BOOL)animated {
     if ([self.delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
         [self.delegate stillPictureViewController:self didSelectWrap:self.wrap];
+    }
+}
+
+- (void)setWrap:(WLWrap *)wrap {
+    _wrap = wrap;
+    for (id <WLStillPictureBaseViewController> controller in self.viewControllers) {
+        if ([controller conformsToProtocol:@protocol(WLStillPictureBaseViewController)]) {
+            controller.wrap = wrap;
+        }
+    }
+}
+
+- (void)setupWrapView:(WLWrap *)wrap {
+    
+}
+
+- (void)stillPictureViewController:(WLStillPictureBaseViewController *)controller didSelectWrap:(WLWrap *)wrap {
+    [self selectWrap:nil];
+}
+
+- (IBAction)selectWrap:(UIButton *)sender {
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
+            [self.delegate stillPictureViewController:self didSelectWrap:self.wrap];
+        }
+    } else if (self.presentingViewController) {
+        [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
     }
 }
 

@@ -44,15 +44,12 @@
     
     self.pictures = [NSMutableArray array];
     
-    self.cameraNavigationController = [self.childViewControllers lastObject];
-    self.cameraNavigationController.delegate = self;
-    
     id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
     if ([delegate respondsToSelector:@selector(stillPictureViewControllerMode:)]) {
         self.mode = [delegate stillPictureViewControllerMode:self];
     }
     
-    WLCameraViewController* cameraViewController = [self.cameraNavigationController.viewControllers lastObject];
+    WLCameraViewController* cameraViewController = [self.viewControllers lastObject];
     cameraViewController.delegate = self;
     cameraViewController.mode = self.mode;
     cameraViewController.wrap = self.wrap;
@@ -74,11 +71,11 @@
             return controller;
         }
     }
-    return [self.cameraNavigationController.topViewController toastAppearanceViewController:toast];
+    return [self.topViewController toastAppearanceViewController:toast];
 }
 
 - (UIView *)toastAppearanceReferenceView:(WLToast *)toast {
-    return [self.cameraNavigationController toastAppearanceReferenceView:toast];
+    return [self toastAppearanceReferenceView:toast];
 }
 
 - (id<WLStillPictureViewControllerDelegate>)getValidDelegate {
@@ -101,10 +98,6 @@
     return UIStatusBarAnimationSlide;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
-    return [self.cameraNavigationController.topViewController supportedInterfaceOrientations];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     __weak typeof(self)weakSelf = self;
@@ -117,7 +110,7 @@
 
 - (void)setWrap:(WLWrap *)wrap {
     [super setWrap:wrap];
-    for (WLStillPictureBaseViewController *controller in self.cameraNavigationController.viewControllers) {
+    for (WLStillPictureBaseViewController *controller in self.viewControllers) {
         if ([controller respondsToSelector:@selector(setWrap:)]) {
             controller.wrap = wrap;
         }
@@ -126,7 +119,7 @@
 
 - (void)showHintView {
     if (!self.wrap || [WLUser currentUser].wraps.count <= 1) return;
-    WLStillPictureBaseViewController *controller = (id)self.cameraNavigationController.topViewController;
+    WLStillPictureBaseViewController *controller = (id)self.topViewController;
     if ([controller isKindOfClass:[WLStillPictureBaseViewController class]] && controller.wrapView) {
         CGPoint wrapNameCenter = [self.view convertPoint:controller.wrapView.nameLabel.center fromView:controller.wrapView];
         [WLHintView showWrapPickerHintViewInView:[UIWindow mainWindow] withFocusPoint:CGPointMake(74, wrapNameCenter.y)];
@@ -139,7 +132,7 @@
 }
 
 - (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
-    [self.cameraNavigationController.topViewController requestAuthorizationForPresentingEntry:entry completion:completion];
+    [self.topViewController requestAuthorizationForPresentingEntry:entry completion:completion];
 }
 
 - (CGSize)imageSizeForCurrentMode {
@@ -206,7 +199,7 @@
     controller.image = image;
     controller.delegate = self;
     controller.completionBlock = completion;
-    [self.cameraNavigationController pushViewController:controller animated:NO];
+    [self pushViewController:controller animated:NO];
 }
 
 - (void)stillPictureViewController:(id<WLStillPictureBaseViewController>)controller didSelectWrap:(WLWrap *)wrap {
@@ -214,6 +207,7 @@
 }
 
 - (void)showWrapPickerWithController:(BOOL)animated {
+    [self.view layoutIfNeeded];
     WLWrapPickerViewController *pickerController = [WLWrapPickerViewController instantiate:self.storyboard];
     pickerController.delegate = self;
     pickerController.wrap = self.wrap;
@@ -269,7 +263,7 @@
     editController.pictures = self.pictures;
     editController.delegate = self;
     editController.wrap = self.wrap;
-    [self.cameraNavigationController pushViewController:editController animated:NO];
+    [self pushViewController:editController animated:NO];
 }
 
 - (void)cameraViewController:(WLCameraViewController *)controller didSelectAssets:(NSArray *)assets {
@@ -282,7 +276,7 @@
     gallery.openCameraRoll = openCameraRoll;
     gallery.wrap = self.wrap;
     gallery.delegate = self;
-    [self.cameraNavigationController pushViewController:gallery animated:animated];
+    [self pushViewController:gallery animated:animated];
 }
 
 - (void)handleAsset:(ALAsset*)asset {
@@ -335,7 +329,7 @@
 #pragma mark - WLAssetsViewControllerDelegate
 
 - (void)assetsViewController:(id)controller didSelectAssets:(NSArray *)assets {
-    [self.cameraNavigationController popToRootViewControllerAnimated:YES];
+    [self popToRootViewControllerAnimated:YES];
     [self handleAssets:assets];
 }
 
@@ -357,14 +351,6 @@
 
 - (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
     return self.wrap == entry;
-}
-
-#pragma mark - UINavigationControllerDelegate
-
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
-    WLNavigationAnimator *animator = [WLNavigationAnimator new];
-    animator.presenting = operation == UINavigationControllerOperationPush;
-    return animator;
 }
 
 @end

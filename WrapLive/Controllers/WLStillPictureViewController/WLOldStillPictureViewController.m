@@ -36,15 +36,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.cameraNavigationController = [self.childViewControllers lastObject];
-    self.cameraNavigationController.delegate = self;
-    
     id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
     if ([delegate respondsToSelector:@selector(stillPictureViewControllerMode:)]) {
         self.mode = [delegate stillPictureViewControllerMode:self];
     }
     
-    WLCameraViewController* cameraViewController = [self.cameraNavigationController.viewControllers lastObject];
+    WLCameraViewController* cameraViewController = [self.viewControllers lastObject];
     cameraViewController.delegate = self;
     cameraViewController.mode = self.mode;
     cameraViewController.wrap = self.wrap;
@@ -60,11 +57,7 @@
 }
 
 - (UIViewController *)toastAppearanceViewController:(WLToast *)toast {
-    return [self.cameraNavigationController.topViewController toastAppearanceViewController:toast];
-}
-
-- (UIView *)toastAppearanceReferenceView:(WLToast *)toast {
-    return [self.cameraNavigationController toastAppearanceReferenceView:toast];
+    return [self.topViewController toastAppearanceViewController:toast];
 }
 
 - (id<WLStillPictureViewControllerDelegate>)getValidDelegate {
@@ -87,10 +80,6 @@
     return UIStatusBarAnimationSlide;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
-    return [self.cameraNavigationController.topViewController supportedInterfaceOrientations];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     __weak typeof(self)weakSelf = self;
@@ -101,18 +90,9 @@
     });
 }
 
-- (void)setWrap:(WLWrap *)wrap {
-    [super setWrap:wrap];
-    for (id <WLStillPictureBaseViewController> controller in self.cameraNavigationController.viewControllers) {
-        if ([controller conformsToProtocol:@protocol(WLStillPictureBaseViewController)]) {
-            controller.wrap = wrap;
-        }
-    }
-}
-
 - (void)showHintView {
     if (!self.wrap || [WLUser currentUser].wraps.count <= 1) return;
-    id <WLStillPictureBaseViewController> controller = (id)self.cameraNavigationController.topViewController;
+    id <WLStillPictureBaseViewController> controller = (id)self.topViewController;
     if ([controller conformsToProtocol:@protocol(WLStillPictureBaseViewController)] && controller.wrapView) {
         CGPoint wrapNameCenter = [self.view convertPoint:controller.wrapView.nameLabel.center fromView:controller.wrapView];
         [WLHintView showWrapPickerHintViewInView:[UIWindow mainWindow] withFocusPoint:CGPointMake(74, wrapNameCenter.y)];
@@ -125,7 +105,7 @@
 }
 
 - (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
-    [self.cameraNavigationController.topViewController requestAuthorizationForPresentingEntry:entry completion:completion];
+    [self.topViewController requestAuthorizationForPresentingEntry:entry completion:completion];
 }
 
 - (CGSize)imageSizeForCurrentMode {
@@ -195,7 +175,7 @@
     controller.image = image;
     controller.delegate = self;
     controller.completionBlock = completion;
-    [self.cameraNavigationController pushViewController:controller animated:NO];
+    [self pushViewController:controller animated:NO];
 }
 
 #pragma mark - WLCameraViewControllerDelegate
@@ -227,7 +207,7 @@
     gallery.openCameraRoll = openCameraRoll;
     gallery.wrap = self.wrap;
     gallery.delegate = self;
-    [self.cameraNavigationController pushViewController:gallery animated:animated];
+    [self pushViewController:gallery animated:animated];
 }
 
 - (void)handleAsset:(ALAsset*)asset {
@@ -280,7 +260,7 @@
     if ([assets count] == 1) {
         [self handleAsset:[assets firstObject]];
     } else {
-        self.cameraNavigationController.viewControllers = @[self.cameraNavigationController.topViewController];
+        self.viewControllers = @[self.topViewController];
         [self handleAssets:assets];
     }
 }
@@ -303,14 +283,6 @@
 
 - (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
     return self.wrap == entry;
-}
-
-#pragma mark - UINavigationControllerDelegate
-
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
-    WLNavigationAnimator *animator = [WLNavigationAnimator new];
-    animator.presenting = operation == UINavigationControllerOperationPush;
-    return animator;
 }
 
 @end

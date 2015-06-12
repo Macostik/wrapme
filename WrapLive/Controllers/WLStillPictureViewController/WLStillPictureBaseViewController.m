@@ -60,4 +60,12 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
+}
+
 @end

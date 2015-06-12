@@ -12,7 +12,7 @@
 @class WLStillPictureViewController;
 @class WLCameraViewController;
 
-@protocol WLStillPictureViewControllerDelegate <WLStillPictureBaseViewControllerDelegate>
+@protocol WLStillPictureViewControllerDelegate <WLStillPictureBaseViewControllerDelegate, UINavigationControllerDelegate>
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController*)controller;
 
@@ -24,9 +24,7 @@
 
 @end
 
-@interface WLStillPictureViewController : WLStillPictureBaseViewController
-
-@property (weak, nonatomic) UINavigationController* cameraNavigationController;
+@interface WLStillPictureViewController : UINavigationController <WLStillPictureBaseViewController>
 
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
 

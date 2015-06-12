@@ -47,7 +47,7 @@ static NSString *const WLCreateWrapCell = @"WLCreateWrapCell";
     [view addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:contentView attribute:NSLayoutAttributeTrailing multiplier:1 constant:0]];
     WLStillPictureViewController *controller = (id)self.presentingViewController;
     CGFloat bottomInset;
-    if ([controller isKindOfClass:[WLStillPictureViewController class]] && controller.cameraNavigationController.viewControllers.count == 1) {
+    if ([controller isKindOfClass:[WLStillPictureViewController class]] && controller.viewControllers.count == 1) {
         CGSize screenSize = [UIScreen mainScreen].bounds.size;
         bottomInset = screenSize.height - screenSize.width / WLStillPictureCameraViewAspectRatio;
     } else {

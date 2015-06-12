@@ -2066,18 +2066,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mxa-eX-hMc">
                                 <rect key="frame" x="0.0" y="401" width="320" height="167"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8l4-7n-9vU" customClass="WLButton">
-                                        <rect key="frame" x="10" y="66" width="30" height="36"/>
-                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
-                                        <state key="normal" title="w">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="back:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="J68-oh-W0x"/>
-                                        </connections>
-                                    </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rFg-Ju-UbB">
-                                        <rect key="frame" x="50" y="22" width="220" height="124"/>
+                                        <rect key="frame" x="0.0" y="22" width="320" height="124"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="124" id="Lcj-eg-wGk"/>
                                         </constraints>
@@ -2085,7 +2075,7 @@
                                             <size key="itemSize" width="50" height="50"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="3" minY="3" maxX="3" maxY="3"/>
+                                            <inset key="sectionInset" minX="53" minY="3" maxX="53" maxY="3"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLEditPictureCell" id="qe0-ZM-Mt4" customClass="WLEditPictureCell">
@@ -2165,6 +2155,30 @@
                                             <outlet property="delegate" destination="y7X-Pb-ZcE" id="mGP-P6-2Ir"/>
                                         </connections>
                                     </collectionView>
+                                    <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="XmM-Ha-agh" customClass="WLGradientView">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="167"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="eTJ-c1-CKt"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="v3i-cu-o1j" customClass="WLGradientView">
+                                        <rect key="frame" x="270" y="0.0" width="50" height="167"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="W5p-p8-ixs"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="WLButton">
                                         <rect key="frame" x="280" y="66" width="30" height="36"/>
                                         <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
@@ -2172,21 +2186,36 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="back:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="5dp-NP-JUy"/>
                                             <action selector="upload:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="VWF-1E-M64"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8l4-7n-9vU" customClass="WLButton">
+                                        <rect key="frame" x="10" y="66" width="30" height="36"/>
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
+                                        <state key="normal" title="w">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="back:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="J68-oh-W0x"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="v3i-cu-o1j" secondAttribute="trailing" id="0g4-n0-xJu"/>
+                                    <constraint firstAttribute="trailing" secondItem="rFg-Ju-UbB" secondAttribute="trailing" id="6YI-Wy-p4F"/>
                                     <constraint firstItem="8l4-7n-9vU" firstAttribute="leading" secondItem="mxa-eX-hMc" secondAttribute="leading" constant="10" id="Iev-qu-BrJ"/>
+                                    <constraint firstItem="XmM-Ha-agh" firstAttribute="leading" secondItem="mxa-eX-hMc" secondAttribute="leading" id="Pyh-eL-Tw9"/>
                                     <constraint firstAttribute="trailing" secondItem="taU-aO-Oxc" secondAttribute="trailing" constant="10" id="QaS-H1-TVR"/>
+                                    <constraint firstItem="v3i-cu-o1j" firstAttribute="top" secondItem="mxa-eX-hMc" secondAttribute="top" id="WUT-Bz-UPh"/>
                                     <constraint firstAttribute="centerY" secondItem="taU-aO-Oxc" secondAttribute="centerY" id="XRN-0B-d5e"/>
                                     <constraint firstAttribute="centerY" secondItem="rFg-Ju-UbB" secondAttribute="centerY" id="eFV-uL-cpX"/>
                                     <constraint firstAttribute="height" constant="167" id="f6e-bm-aeR"/>
-                                    <constraint firstItem="taU-aO-Oxc" firstAttribute="leading" secondItem="rFg-Ju-UbB" secondAttribute="trailing" constant="10" id="h48-Af-wDP"/>
-                                    <constraint firstItem="rFg-Ju-UbB" firstAttribute="leading" secondItem="8l4-7n-9vU" secondAttribute="trailing" constant="10" id="w9c-mT-nky"/>
+                                    <constraint firstItem="rFg-Ju-UbB" firstAttribute="leading" secondItem="mxa-eX-hMc" secondAttribute="leading" id="ijU-ei-DfA"/>
+                                    <constraint firstAttribute="bottom" secondItem="XmM-Ha-agh" secondAttribute="bottom" id="ugk-ew-qFx"/>
                                     <constraint firstAttribute="centerY" secondItem="8l4-7n-9vU" secondAttribute="centerY" id="ySb-oa-2g1"/>
+                                    <constraint firstItem="XmM-Ha-agh" firstAttribute="top" secondItem="mxa-eX-hMc" secondAttribute="top" id="yzA-td-ChC"/>
+                                    <constraint firstAttribute="bottom" secondItem="v3i-cu-o1j" secondAttribute="bottom" id="zhK-tl-rb8"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2240,10 +2269,10 @@
                             <real key="value" value="3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="sectionLeftInset">
-                            <real key="value" value="3"/>
+                            <real key="value" value="53"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="sectionRightInset">
-                            <real key="value" value="3"/>
+                            <real key="value" value="53"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="minimumLineSpacing">
                             <real key="value" value="3"/>

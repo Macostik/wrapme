@@ -14,6 +14,7 @@
 #import "WLComposeBar.h"
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLEditPictureCell.h"
+#import "WLToast.h"
 
 @interface WLBatchEditPictureViewController () <WLComposeBarDelegate>
 
@@ -41,6 +42,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.dataSource.collectionView.superview addGestureRecognizer:self.dataSource.collectionView.panGestureRecognizer];
     
     [self setupWrapView:self.wrap];
     [self setViewController:[self editPictureViewControllerForPicture:self.pictures.firstObject] direction:0 animated:NO];
@@ -151,9 +154,14 @@
 // MARK: - Actions
 
 - (IBAction)upload:(id)sender {
-    [self.delegate batchEditPictureViewController:self didFinishWithPictures:[self.pictures selectObjects:^BOOL(WLEditPicture *picture) {
+    NSArray *pictures = [self.pictures selectObjects:^BOOL(WLEditPicture *picture) {
         return ![picture deleted];
-    }]];
+    }];
+    if (pictures.nonempty) {
+        [self.delegate batchEditPictureViewController:self didFinishWithPictures:pictures];
+    } else {
+        [WLToast showWithMessage:WLLS(@"no_photos_to_upload")];
+    }
 }
 
 - (IBAction)edit:(id)sender {

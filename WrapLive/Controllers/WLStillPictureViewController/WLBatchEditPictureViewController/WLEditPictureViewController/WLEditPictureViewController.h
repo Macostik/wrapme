@@ -16,4 +16,6 @@
 
 @property (strong, nonatomic) WLEditPicture* picture;
 
+- (void)updateDeletionState;
+
 @end

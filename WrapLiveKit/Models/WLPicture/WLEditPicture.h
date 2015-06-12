@@ -20,6 +20,10 @@
 
 @property (nonatomic) BOOL edited;
 
+@property (nonatomic) BOOL selected;
+
+@property (nonatomic) BOOL deleted;
+
 + (instancetype)picture:(UIImage *)image completion:(WLObjectBlock)completion;
 
 + (instancetype)picture:(UIImage *)image cache:(WLImageCache*)cache completion:(WLObjectBlock)completion;

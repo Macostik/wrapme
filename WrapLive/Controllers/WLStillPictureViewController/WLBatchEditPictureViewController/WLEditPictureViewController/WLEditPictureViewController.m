@@ -12,6 +12,7 @@
 @interface WLEditPictureViewController ()
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIView *deletionView;
 
 @end
 
@@ -21,6 +22,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.imageView.url = self.picture.large;
+    [self updateDeletionState];
+}
+
+- (void)updateDeletionState {
+    self.deletionView.hidden = !self.picture.deleted;
 }
 
 @end

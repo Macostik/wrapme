@@ -13,14 +13,19 @@
 #import "WLBasicDataSource.h"
 #import "WLComposeBar.h"
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
+#import "WLEditPictureCell.h"
 
 @interface WLBatchEditPictureViewController () <WLComposeBarDelegate>
 
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 
 @property (weak, nonatomic) WLEditPicture *picture;
+
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (weak, nonatomic) IBOutlet UIButton *restoreButton;
 
 @end
 
@@ -36,6 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self setupWrapView:self.wrap];
     [self setViewController:[self editPictureViewControllerForPicture:self.pictures.firstObject] direction:0 animated:NO];
     
@@ -49,9 +55,34 @@
 
 - (void)setPicture:(WLEditPicture *)picture {
     _picture = picture;
-    self.composeBar.text = picture.comment;
-    if (!self.composeBar.isFirstResponder) {
-        [self.composeBar setDoneButtonHidden:!self.composeBar.text.nonempty animated:NO];
+    [self updatePictureData:picture];
+}
+
+- (void)updatePictureData:(WLEditPicture*)picture {
+    if (picture.deleted) {
+        self.deleteButton.hidden = self.editButton.hidden = self.composeBar.hidden = YES;
+        self.restoreButton.hidden = NO;
+        if (self.composeBar.isFirstResponder) {
+            [self.composeBar resignFirstResponder];
+        }
+    } else {
+        self.deleteButton.hidden = self.editButton.hidden = self.composeBar.hidden = NO;
+        self.restoreButton.hidden = YES;
+        self.composeBar.text = picture.comment;
+        if (!self.composeBar.isFirstResponder) {
+            [self.composeBar setDoneButtonHidden:!self.composeBar.text.nonempty animated:NO];
+        }
+    }
+    for (WLEditPicture *picture in self.pictures) {
+        picture.selected = picture == self.picture;
+    }
+    [self.dataSource reload];
+    NSUInteger index = [self.pictures indexOfObject:self.picture];
+    if (index != NSNotFound) {
+        __weak typeof(self)weakSelf = self;
+        run_after_asap(^{
+            [weakSelf.dataSource.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        });
     }
 }
 
@@ -120,7 +151,9 @@
 // MARK: - Actions
 
 - (IBAction)upload:(id)sender {
-    [self.delegate batchEditPictureViewController:self didFinishWithPictures:self.pictures];
+    [self.delegate batchEditPictureViewController:self didFinishWithPictures:[self.pictures selectObjects:^BOOL(WLEditPicture *picture) {
+        return ![picture deleted];
+    }]];
 }
 
 - (IBAction)edit:(id)sender {
@@ -140,7 +173,15 @@
 }
 
 - (IBAction)deletePicture:(id)sender {
-    
+    self.picture.deleted = YES;
+    [(WLEditPictureViewController*)self.viewController updateDeletionState];
+    [self updatePictureData:self.picture];
+}
+
+- (IBAction)restoreDeletedPicture:(id)sender {
+    self.picture.deleted = NO;
+    [(WLEditPictureViewController*)self.viewController updateDeletionState];
+    [self updatePictureData:self.picture];
 }
 
 // MARK: - WLComposeBarDelegate

@@ -34,4 +34,6 @@
 
 + (instancetype)stillPictureViewController;
 
+- (void)showWrapPickerWithController:(BOOL)animated;
+
 @end

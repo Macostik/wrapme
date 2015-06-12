@@ -26,8 +26,10 @@
 #import "WLNavigationHelper.h"
 #import "UIButton+Additions.h"
 #import "WLBatchEditPictureViewController.h"
+#import "WLWrapPickerViewController.h"
+#import "WLNavigationHelper.h"
 
-@interface WLNewStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate, WLBatchEditPictureViewControllerDelegate>
+@interface WLNewStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate, WLBatchEditPictureViewControllerDelegate, WLWrapPickerViewControllerDelegate>
 
 @property (weak, nonatomic) WLCameraViewController *cameraViewController;
 
@@ -67,6 +69,11 @@
 }
 
 - (UIViewController *)toastAppearanceViewController:(WLToast *)toast {
+    for (UIViewController *controller in self.childViewControllers) {
+        if ([controller isKindOfClass:[WLWrapPickerViewController class]]) {
+            return controller;
+        }
+    }
     return [self.cameraNavigationController.topViewController toastAppearanceViewController:toast];
 }
 
@@ -200,6 +207,38 @@
     controller.delegate = self;
     controller.completionBlock = completion;
     [self.cameraNavigationController pushViewController:controller animated:NO];
+}
+
+- (void)stillPictureViewController:(id<WLStillPictureBaseViewController>)controller didSelectWrap:(WLWrap *)wrap {
+    [self showWrapPickerWithController:YES];
+}
+
+- (void)showWrapPickerWithController:(BOOL)animated {
+    WLWrapPickerViewController *pickerController = [WLWrapPickerViewController instantiate:self.storyboard];
+    pickerController.delegate = self;
+    pickerController.wrap = self.wrap;
+    pickerController.view.frame = self.view.bounds;
+    [self addChildViewController:pickerController];
+    [self.view addSubview:pickerController.view];
+    if (animated) {
+        [pickerController animatePresenting];
+    }
+}
+
+// MARK: - WLWrapPickerViewControllerDelegate
+
+- (void)wrapPickerViewController:(WLWrapPickerViewController *)controller didSelectWrap:(WLWrap *)wrap {
+    WLStillPictureViewController* stillPictureViewController = (id)controller.parentViewController;
+    stillPictureViewController.wrap = wrap;
+    [controller hide];
+}
+
+- (void)wrapPickerViewControllerDidCancel:(WLWrapPickerViewController *)controller {
+    if (self.wrap) {
+        [controller hide];
+    } else {
+        [self.delegate stillPictureViewControllerDidCancel:self];
+    }
 }
 
 #pragma mark - WLCameraViewControllerDelegate

@@ -41,6 +41,8 @@
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
 #import "WLWhatsUpSet.h"
+#import "WLWrapPickerViewController.h"
+#import "WLNavigationHelper.h"
 
 @interface WLHomeViewController () <WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate,
                                     WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpDelegate>
@@ -258,10 +260,9 @@
         stillPictureViewController.mode = WLStillPictureModeDefault;
         stillPictureViewController.delegate = self;
         stillPictureViewController.startFromGallery = startFromGallery;
-        __weak typeof(self)weakSelf = self;
         [self presentViewController:stillPictureViewController animated:animated completion:^{
             if (showPicker) {
-                 [weakSelf stillPictureViewController:stillPictureViewController didSelectWrap:wrap];
+                 [stillPictureViewController showWrapPickerWithController:NO];
             }
         }];
     } else {
@@ -355,23 +356,10 @@
     stillPictureViewController.mode = WLStillPictureModeDefault;
     stillPictureViewController.delegate = self;
     
-    __weak __typeof(self)weakSelf = self;
-    WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
-    [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
-        if (wrap.isFirstCreated) {
-            [WLChronologicalEntryPresenter presentEntry:wrap animated:NO];
-        }
-        stillPictureViewController.wrap = wrap;
-        [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
-    }];
+#warning show first created wrap
     
-    [createWrapViewController setCancelHandler:^{
-        [weakSelf dismissViewControllerAnimated:NO completion:NULL];
-    }];
-    
-    [self presentViewController:stillPictureViewController animated:NO completion:^{
-        [stillPictureViewController presentViewController:createWrapViewController animated:NO completion:nil];
-    }];
+    [self presentViewController:stillPictureViewController animated:NO completion:nil];
+    [stillPictureViewController showWrapPickerWithController:NO];
 }
 
 - (IBAction)addPhoto:(id)sender {

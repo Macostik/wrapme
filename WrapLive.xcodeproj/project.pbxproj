@@ -386,6 +386,11 @@
 		C5218E7C1AE55948007E55D0 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E691AE554D4007E55D0 /* libc++.dylib */; };
 		C5218E7D1AE5594E007E55D0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E671AE554B7007E55D0 /* OpenGLES.framework */; };
 		C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E621AE5547D007E55D0 /* Accelerate.framework */; };
+		C525687C1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C525687B1B2B0CD90009300A /* WLWrapPickerViewController.m */; };
+		C525687D1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C525687B1B2B0CD90009300A /* WLWrapPickerViewController.m */; };
+		C525687E1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C525687B1B2B0CD90009300A /* WLWrapPickerViewController.m */; };
+		C525687F1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C525687B1B2B0CD90009300A /* WLWrapPickerViewController.m */; };
+		C52568801B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C525687B1B2B0CD90009300A /* WLWrapPickerViewController.m */; };
 		C52E1FD01A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
 		C52E1FD11A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
 		C52E1FD21A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
@@ -1536,6 +1541,33 @@
 		C5A82CD71ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
 		C5A82CD81ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
 		C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
+		C5B233411B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
+		C5B233421B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
+		C5B233431B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
+		C5B233441B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
+		C5B233451B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
+		C5B233591B29C087008A14D1 /* WLBatchEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */; };
+		C5B2335A1B29C087008A14D1 /* WLBatchEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */; };
+		C5B2335B1B29C087008A14D1 /* WLBatchEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */; };
+		C5B2335C1B29C087008A14D1 /* WLBatchEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */; };
+		C5B2335D1B29C087008A14D1 /* WLBatchEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */; };
+		C5B2335E1B29C087008A14D1 /* WLEditPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233581B29C087008A14D1 /* WLEditPictureCell.m */; };
+		C5B2335F1B29C087008A14D1 /* WLEditPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233581B29C087008A14D1 /* WLEditPictureCell.m */; };
+		C5B233601B29C087008A14D1 /* WLEditPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233581B29C087008A14D1 /* WLEditPictureCell.m */; };
+		C5B233611B29C087008A14D1 /* WLEditPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233581B29C087008A14D1 /* WLEditPictureCell.m */; };
+		C5B233621B29C087008A14D1 /* WLEditPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233581B29C087008A14D1 /* WLEditPictureCell.m */; };
+		C5B233661B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
+		C5B233671B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
+		C5B233681B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
+		C5B233691B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
+		C5B2336A1B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
+		C5B233751B29E0C4008A14D1 /* WLEditPicture.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B233731B29E0C4008A14D1 /* WLEditPicture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B233761B29E0C4008A14D1 /* WLEditPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233741B29E0C4008A14D1 /* WLEditPicture.m */; };
+		C5B2337A1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
+		C5B2337B1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
+		C5B2337C1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
+		C5B2337D1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
+		C5B2337E1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
 		C5BEDECC1B2AC7A800D3CF70 /* PNObservationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEDDB01B2AC7A700D3CF70 /* PNObservationCenter.m */; };
 		C5BEDECD1B2AC7A800D3CF70 /* PNObservationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEDDB01B2AC7A700D3CF70 /* PNObservationCenter.m */; };
 		C5BEDECE1B2AC7A800D3CF70 /* PNObservationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEDDB01B2AC7A700D3CF70 /* PNObservationCenter.m */; };
@@ -2077,33 +2109,6 @@
 		C5BEE0F41B2AC8DB00D3CF70 /* WLNotification+PNMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */; };
 		C5BEE0F51B2AC8DB00D3CF70 /* WLNotification+PNMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */; };
 		C5BEE0F61B2AC8DB00D3CF70 /* WLNotification+PNMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */; };
-		C5B233411B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
-		C5B233421B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
-		C5B233431B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
-		C5B233441B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
-		C5B233451B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
-		C5B233591B29C087008A14D1 /* WLBatchEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */; };
-		C5B2335A1B29C087008A14D1 /* WLBatchEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */; };
-		C5B2335B1B29C087008A14D1 /* WLBatchEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */; };
-		C5B2335C1B29C087008A14D1 /* WLBatchEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */; };
-		C5B2335D1B29C087008A14D1 /* WLBatchEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */; };
-		C5B2335E1B29C087008A14D1 /* WLEditPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233581B29C087008A14D1 /* WLEditPictureCell.m */; };
-		C5B2335F1B29C087008A14D1 /* WLEditPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233581B29C087008A14D1 /* WLEditPictureCell.m */; };
-		C5B233601B29C087008A14D1 /* WLEditPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233581B29C087008A14D1 /* WLEditPictureCell.m */; };
-		C5B233611B29C087008A14D1 /* WLEditPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233581B29C087008A14D1 /* WLEditPictureCell.m */; };
-		C5B233621B29C087008A14D1 /* WLEditPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233581B29C087008A14D1 /* WLEditPictureCell.m */; };
-		C5B233661B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
-		C5B233671B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
-		C5B233681B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
-		C5B233691B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
-		C5B2336A1B29C0BB008A14D1 /* WLEditPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */; };
-		C5B233751B29E0C4008A14D1 /* WLEditPicture.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B233731B29E0C4008A14D1 /* WLEditPicture.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C5B233761B29E0C4008A14D1 /* WLEditPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233741B29E0C4008A14D1 /* WLEditPicture.m */; };
-		C5B2337A1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
-		C5B2337B1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
-		C5B2337C1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
-		C5B2337D1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
-		C5B2337E1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
 		C5C20B8F1A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
 		C5C20B901A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
 		C5C20B911A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
@@ -2844,6 +2849,8 @@
 		C5218E651AE554A2007E55D0 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		C5218E671AE554B7007E55D0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		C5218E691AE554D4007E55D0 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		C525687A1B2B0CD90009300A /* WLWrapPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapPickerViewController.h; sourceTree = "<group>"; };
+		C525687B1B2B0CD90009300A /* WLWrapPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapPickerViewController.m; sourceTree = "<group>"; };
 		C5259D661ACC2333003D3317 /* wrapLive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = wrapLive.entitlements; sourceTree = "<group>"; };
 		C5259D671ACC2333003D3317 /* wrapLiveAdhoc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = wrapLiveAdhoc.entitlements; sourceTree = "<group>"; };
 		C52E1FC81A41951300A2C370 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = WLButton/WLButton.h; sourceTree = "<group>"; };
@@ -3285,6 +3292,18 @@
 		C5A82CCB1ACD979B00336027 /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
 		C5A82CCD1ACD979B00336027 /* WLDeviceOrientationBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDeviceOrientationBroadcaster.h; sourceTree = "<group>"; };
 		C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
+		C5B2333F1B298B3F008A14D1 /* WLQuickAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLQuickAssetsViewController.h; sourceTree = "<group>"; };
+		C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLQuickAssetsViewController.m; sourceTree = "<group>"; };
+		C5B233551B29C087008A14D1 /* WLBatchEditPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBatchEditPictureViewController.h; sourceTree = "<group>"; };
+		C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLBatchEditPictureViewController.m; sourceTree = "<group>"; };
+		C5B233571B29C087008A14D1 /* WLEditPictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditPictureCell.h; sourceTree = "<group>"; };
+		C5B233581B29C087008A14D1 /* WLEditPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPictureCell.m; sourceTree = "<group>"; };
+		C5B233641B29C0BB008A14D1 /* WLEditPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditPictureViewController.h; sourceTree = "<group>"; };
+		C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPictureViewController.m; sourceTree = "<group>"; };
+		C5B233731B29E0C4008A14D1 /* WLEditPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditPicture.h; sourceTree = "<group>"; };
+		C5B233741B29E0C4008A14D1 /* WLEditPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPicture.m; sourceTree = "<group>"; };
+		C5B233781B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AdobeUXImageEditorViewController+SharedEditing.h"; sourceTree = "<group>"; };
+		C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AdobeUXImageEditorViewController+SharedEditing.m"; sourceTree = "<group>"; };
 		C5BEDDAE1B2AC7A700D3CF70 /* PNObservationCenter+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PNObservationCenter+Protected.h"; sourceTree = "<group>"; };
 		C5BEDDAF1B2AC7A700D3CF70 /* PNObservationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNObservationCenter.h; sourceTree = "<group>"; };
 		C5BEDDB01B2AC7A700D3CF70 /* PNObservationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNObservationCenter.m; sourceTree = "<group>"; };
@@ -3570,18 +3589,6 @@
 		C5BEE0E51B2AC8C300D3CF70 /* WLNotificationChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationChannel.m; sourceTree = "<group>"; };
 		C5BEE0F01B2AC8DB00D3CF70 /* WLNotification+PNMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLNotification+PNMessage.h"; sourceTree = "<group>"; };
 		C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLNotification+PNMessage.m"; sourceTree = "<group>"; };
-		C5B2333F1B298B3F008A14D1 /* WLQuickAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLQuickAssetsViewController.h; sourceTree = "<group>"; };
-		C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLQuickAssetsViewController.m; sourceTree = "<group>"; };
-		C5B233551B29C087008A14D1 /* WLBatchEditPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBatchEditPictureViewController.h; sourceTree = "<group>"; };
-		C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLBatchEditPictureViewController.m; sourceTree = "<group>"; };
-		C5B233571B29C087008A14D1 /* WLEditPictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditPictureCell.h; sourceTree = "<group>"; };
-		C5B233581B29C087008A14D1 /* WLEditPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPictureCell.m; sourceTree = "<group>"; };
-		C5B233641B29C0BB008A14D1 /* WLEditPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditPictureViewController.h; sourceTree = "<group>"; };
-		C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPictureViewController.m; sourceTree = "<group>"; };
-		C5B233731B29E0C4008A14D1 /* WLEditPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEditPicture.h; sourceTree = "<group>"; };
-		C5B233741B29E0C4008A14D1 /* WLEditPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPicture.m; sourceTree = "<group>"; };
-		C5B233781B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AdobeUXImageEditorViewController+SharedEditing.h"; sourceTree = "<group>"; };
-		C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AdobeUXImageEditorViewController+SharedEditing.m"; sourceTree = "<group>"; };
 		C5C20B8D1A238AE7008B2E2E /* WLValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLValidation.h; path = WLValidation/WLValidation.h; sourceTree = "<group>"; };
 		C5C20B8E1A238AE7008B2E2E /* WLValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLValidation.m; path = WLValidation/WLValidation.m; sourceTree = "<group>"; };
 		C5C20B931A238B3D008B2E2E /* WLValidationGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLValidationGroup.h; path = WLValidation/WLValidationGroup.h; sourceTree = "<group>"; };
@@ -3858,6 +3865,7 @@
 		128156A81938A0BF00035F89 /* WLStillPictureViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C52568791B2B0CC50009300A /* WLWrapPickerViewController */,
 				C5B233541B29C087008A14D1 /* WLBatchEditPictureViewController */,
 				C5B2333E1B298B15008A14D1 /* WLQuickAssetsViewController */,
 				C53CA3C11A97411900E9234F /* WLUploadPhotoViewController */,
@@ -5026,6 +5034,16 @@
 				C515055619F0195400BF4D82 /* WLBlurredView.m */,
 			);
 			path = WLBlurredView;
+			sourceTree = "<group>";
+		};
+		C52568791B2B0CC50009300A /* WLWrapPickerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C525687A1B2B0CD90009300A /* WLWrapPickerViewController.h */,
+				C525687B1B2B0CD90009300A /* WLWrapPickerViewController.m */,
+			);
+			name = WLWrapPickerViewController;
+			path = WLStillPictureViewController/WLWrapPickerViewController;
 			sourceTree = "<group>";
 		};
 		C5259D651ACC2333003D3317 /* Entitlements */ = {
@@ -6208,6 +6226,47 @@
 			path = WLDeviceOrientationBroadcaster;
 			sourceTree = "<group>";
 		};
+		C5B2333E1B298B15008A14D1 /* WLQuickAssetsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5B2333F1B298B3F008A14D1 /* WLQuickAssetsViewController.h */,
+				C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */,
+			);
+			name = WLQuickAssetsViewController;
+			path = WLStillPictureViewController/WLQuickAssetsViewController;
+			sourceTree = "<group>";
+		};
+		C5B233541B29C087008A14D1 /* WLBatchEditPictureViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5B233631B29C0A4008A14D1 /* WLEditPictureViewController */,
+				C5B233551B29C087008A14D1 /* WLBatchEditPictureViewController.h */,
+				C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */,
+				C5B233571B29C087008A14D1 /* WLEditPictureCell.h */,
+				C5B233581B29C087008A14D1 /* WLEditPictureCell.m */,
+			);
+			name = WLBatchEditPictureViewController;
+			path = WLStillPictureViewController/WLBatchEditPictureViewController;
+			sourceTree = "<group>";
+		};
+		C5B233631B29C0A4008A14D1 /* WLEditPictureViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5B233641B29C0BB008A14D1 /* WLEditPictureViewController.h */,
+				C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */,
+			);
+			path = WLEditPictureViewController;
+			sourceTree = "<group>";
+		};
+		C5B233771B29E692008A14D1 /* AdobeUXImageEditorViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5B233781B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.h */,
+				C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */,
+			);
+			path = AdobeUXImageEditorViewController;
+			sourceTree = "<group>";
+		};
 		C5BEDDAC1B2AC7A700D3CF70 /* PubNub */ = {
 			isa = PBXGroup;
 			children = (
@@ -6624,47 +6683,6 @@
 				C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */,
 			);
 			path = WLNotificationCenter;
-			sourceTree = "<group>";
-		};
-		C5B2333E1B298B15008A14D1 /* WLQuickAssetsViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C5B2333F1B298B3F008A14D1 /* WLQuickAssetsViewController.h */,
-				C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */,
-			);
-			name = WLQuickAssetsViewController;
-			path = WLStillPictureViewController/WLQuickAssetsViewController;
-			sourceTree = "<group>";
-		};
-		C5B233541B29C087008A14D1 /* WLBatchEditPictureViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C5B233631B29C0A4008A14D1 /* WLEditPictureViewController */,
-				C5B233551B29C087008A14D1 /* WLBatchEditPictureViewController.h */,
-				C5B233561B29C087008A14D1 /* WLBatchEditPictureViewController.m */,
-				C5B233571B29C087008A14D1 /* WLEditPictureCell.h */,
-				C5B233581B29C087008A14D1 /* WLEditPictureCell.m */,
-			);
-			name = WLBatchEditPictureViewController;
-			path = WLStillPictureViewController/WLBatchEditPictureViewController;
-			sourceTree = "<group>";
-		};
-		C5B233631B29C0A4008A14D1 /* WLEditPictureViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C5B233641B29C0BB008A14D1 /* WLEditPictureViewController.h */,
-				C5B233651B29C0BB008A14D1 /* WLEditPictureViewController.m */,
-			);
-			path = WLEditPictureViewController;
-			sourceTree = "<group>";
-		};
-		C5B233771B29E692008A14D1 /* AdobeUXImageEditorViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C5B233781B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.h */,
-				C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */,
-			);
-			path = AdobeUXImageEditorViewController;
 			sourceTree = "<group>";
 		};
 		C5C20B8C1A238ACC008B2E2E /* WLValidation */ = {
@@ -8145,6 +8163,7 @@
 				5BA60D021A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE21A41952400A2C370 /* WLTextView.m in Sources */,
 				C5BEDFD11B2AC7A800D3CF70 /* PNJSONSerialization.m in Sources */,
+				C525687D1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
 				128156AB1938A1DA00035F89 /* WLStillPictureViewController.m in Sources */,
 				C504179119B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C57BDDB719FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
@@ -8477,6 +8496,7 @@
 				5BA60D031A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE31A41952400A2C370 /* WLTextView.m in Sources */,
 				C5BEDFD21B2AC7A800D3CF70 /* PNJSONSerialization.m in Sources */,
+				C525687E1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
 				C54AF4E319B8C437006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C504179219B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C57BDDB819FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
@@ -8768,6 +8788,7 @@
 				5BA60D041A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE41A41952400A2C370 /* WLTextView.m in Sources */,
 				C5BEDFD31B2AC7A800D3CF70 /* PNJSONSerialization.m in Sources */,
+				C525687F1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
 				C54AF5E019B8C467006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C504179319B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C57BDDB919FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
@@ -9059,6 +9080,7 @@
 				5BA60D051A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */,
 				C5BEDFD41B2AC7A800D3CF70 /* PNJSONSerialization.m in Sources */,
+				C52568801B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
 				C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C504179419B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C57BDDBA19FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
@@ -9377,6 +9399,7 @@
 				C57479831B26FA45001AB8C0 /* UIAlertController+Blocks.m in Sources */,
 				C57479841B26FA45001AB8C0 /* WLTextView.m in Sources */,
 				C5BEDFD01B2AC7A800D3CF70 /* PNJSONSerialization.m in Sources */,
+				C525687C1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
 				C57479851B26FA45001AB8C0 /* WLStillPictureViewController.m in Sources */,
 				C57479861B26FA45001AB8C0 /* WLContributorsViewController.m in Sources */,
 				C57479871B26FA45001AB8C0 /* WLStoryboardSegue.m in Sources */,

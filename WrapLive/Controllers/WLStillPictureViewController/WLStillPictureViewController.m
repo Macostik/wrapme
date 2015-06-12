@@ -26,4 +26,8 @@
     }
 }
 
+- (void)showWrapPickerWithController:(BOOL)animated {
+    
+}
+
 @end

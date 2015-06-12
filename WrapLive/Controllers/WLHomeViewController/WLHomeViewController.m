@@ -352,14 +352,11 @@
 }
 
 - (IBAction)createWrap:(id)sender {
-    __weak WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPictureViewController];
-    stillPictureViewController.mode = WLStillPictureModeDefault;
-    stillPictureViewController.delegate = self;
-    
-#warning show first created wrap
-    
-    [self presentViewController:stillPictureViewController animated:NO completion:nil];
-    [stillPictureViewController showWrapPickerWithController:NO];
+    WLStillPictureViewController *controller = [WLStillPictureViewController stillPictureViewController];
+    controller.mode = WLStillPictureModeDefault;
+    controller.delegate = self;
+    [self presentViewController:controller animated:NO completion:nil];
+    [controller showWrapPickerWithController:NO];
 }
 
 - (IBAction)addPhoto:(id)sender {
@@ -404,8 +401,13 @@
         stillPictureViewController.wrap = wrap;
         [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
     }];
+    __weak typeof(self)weakSelf = self;
     [createWrapViewController setCancelHandler:^{
-        [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
+        if (stillPictureViewController.wrap) {
+            [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
+        } else {
+            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+        }
     }];
     [stillPictureViewController presentViewController:createWrapViewController animated:NO completion:nil];
 }

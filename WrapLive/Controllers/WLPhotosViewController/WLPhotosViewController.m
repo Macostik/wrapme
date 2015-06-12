@@ -26,8 +26,8 @@
 #import "WLChronologicalEntryPresenter.h"
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
-
 #import "WLPhotosViewController.h"
+#import "WLNavigationHelper.h"
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
@@ -94,9 +94,9 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
             [weakSelf.navigationController popViewControllerAnimated:NO];
         });
     }
-    //    if ([self.wrap isFirstCreated]) {
-    //        [WLHintView showInviteHintViewInView:[UIWindow mainWindow] withFocusToView:self.inviteButton];
-    //    }
+//        if ([self.wrap isFirstCreated]) {
+//            [WLHintView showInviteHintViewInView:[UIWindow mainWindow] withFocusToView:self.inviteButton];
+//        }
 }
 
 // MARK: - Custom animation
@@ -134,12 +134,12 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 - (CGRect)presentImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy {
     WLCandyCell *candyCell = [self presentedCandyCell:candy scrollToObject:NO];
-    return [self.view convertRect:candyCell.frame fromView:candyCell.superview];
+    return [[self parentViewController].view convertRect:candyCell.frame fromView:candyCell.superview];
 }
 
 - (CGRect)dismissImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy {
     WLCandyCell *candyCell = [self presentedCandyCell:candy scrollToObject:YES];
-    return [self.view convertRect:candyCell.frame fromView:candyCell.superview];
+    return [[self parentViewController].view convertRect:candyCell.frame fromView:candyCell.superview];
 }
 
 - (WLCandyCell *)presentedCandyCell:(WLCandy *)candy scrollToObject:(BOOL)scroll {

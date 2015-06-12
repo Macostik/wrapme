@@ -21,7 +21,12 @@
     CGFloat y = self.bounds.size.height - path.lineWidth/2.0f;
     [path moveToPoint:CGPointMake(0, y)];
     [path addLineToPoint:CGPointMake(self.bounds.size.width, y)];
-    UIColor *placeholderColor = [self.attributedPlaceholder attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL];
+    UIColor *placeholderColor = nil;
+    if (self.strokeColor == nil) {
+        placeholderColor = [self.attributedPlaceholder attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL];
+    } else {
+        placeholderColor = self.strokeColor;
+    }
     [placeholderColor setStroke];
     [path stroke];
 }

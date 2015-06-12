@@ -183,14 +183,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.showCommentViewController = NO;
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.bottomView convertRect:self.commentIndicator.frame
-                                                                                        toView:self.lastCommentTextView]];
-    
-    self.lastCommentTextView.textContainer.exclusionPaths = [self.lastComment.contributor isCurrentUser] ? @[exlusionPath] : nil;
-}
-
 - (IBAction)hideBars {
     [self setBarsHidden:YES animated:YES];
 }
@@ -275,6 +267,9 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
             self.avatarImageView.url = lastComment.contributor.picture.small;
             [textView determineHyperLink:lastComment.text];
             [self.commentIndicator updateStatusIndicator:lastComment];
+            UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.bottomView convertRect:self.commentIndicator.frame
+                                                                                                toView:textView]];
+            textView.textContainer.exclusionPaths = [self.lastComment.contributor isCurrentUser] ? @[exlusionPath] : nil;
         }
     }
 }
@@ -416,10 +411,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (IBAction)navigationButtonClick:(WLIconButton *)sender {
-    sender.userInteractionEnabled = NO;
     WLCandy *candy = self.candy;
     self.removedCandy = candy;
     if (candy.deletable) {
+        sender.userInteractionEnabled = NO;
         __weak typeof(self)weakSelf = self;
         [candy remove:^(id object) {
             sender.userInteractionEnabled = YES;

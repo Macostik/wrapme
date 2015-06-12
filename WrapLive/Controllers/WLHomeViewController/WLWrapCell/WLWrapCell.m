@@ -34,14 +34,14 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *wrapNameWidthConstraint;
 
-@property (assign, nonatomic) BOOL embeddedLongPress;
-
 @property (strong, nonatomic) WLBasicDataSource* candiesDataSource;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftSwipeActionConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightSwipeActionConstraint;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *leftSwipeIndicationViews;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rightSwipeIndicationViews;
+
+@property (nonatomic) BOOL isRightSwipeAction;
 
 @property (weak, nonatomic) NSLayoutConstraint *swipeActionConstraint;
 
@@ -125,13 +125,18 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     return YES;
 }
 
+- (void)setIsRightSwipeAction:(BOOL)isRightSwipeAction {
+    _isRightSwipeAction = isRightSwipeAction;
+    self.swipeActionConstraint = isRightSwipeAction ? self.rightSwipeActionConstraint : self.leftSwipeActionConstraint;
+}
+
 - (void)panning:(UIPanGestureRecognizer*)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         [self.delegate wrapCellDidBeginPanning:self];
-        self.swipeActionConstraint = [sender velocityInView:sender.view].x > 0 ? self.leftSwipeActionConstraint : self.rightSwipeActionConstraint;
+        self.isRightSwipeAction = [sender velocityInView:sender.view].x < 0;
     } else if (sender.state == UIGestureRecognizerStateChanged) {
         CGFloat constant = self.swipeActionConstraint.constant +  [sender translationInView:sender.view].x;
-        if (self.swipeActionConstraint == self.rightSwipeActionConstraint) {
+        if (self.isRightSwipeAction) {
             self.swipeActionConstraint.constant = Smoothstep(-self.width, 0, constant);
             for (UIView *indicationView in self.rightSwipeIndicationViews) {
                 indicationView.alpha = NSmoothstep(ABS(self.swipeActionConstraint.constant)/WLWrapCellSwipeActionWidth);
@@ -150,14 +155,10 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         [self.delegate wrapCellDidEndPanning:self performedAction:performedAction];
         if (performedAction) {
             [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                if (self.swipeActionConstraint == self.rightSwipeActionConstraint) {
-                    self.swipeActionConstraint.constant = -self.width;
-                } else {
-                    self.swipeActionConstraint.constant = self.width;
-                }
+                self.swipeActionConstraint.constant = self.isRightSwipeAction ? -self.width : self.width;
                 [self layoutIfNeeded];
             } completion:^(BOOL finished) {
-                if (self.swipeActionConstraint == self.rightSwipeActionConstraint) {
+                if (self.isRightSwipeAction) {
                     [self.delegate wrapCell:self presentChatViewControllerForWrap:self.entry];
                 } else {
                     [self.delegate wrapCell:self presentCameraViewControllerForWrap:self.entry];

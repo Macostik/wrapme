@@ -11,5 +11,6 @@
 @interface WLTextField : UITextField
 
 @property (nonatomic) IBInspectable NSString *preset;
+@property (nonatomic) IBInspectable UIColor *strokeColor;
 
 @end

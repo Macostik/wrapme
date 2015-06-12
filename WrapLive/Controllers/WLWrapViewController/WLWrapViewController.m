@@ -20,7 +20,7 @@
 
 @interface WLWrapViewController ()  <WLStillPictureViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIButton *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 @property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
@@ -43,7 +43,7 @@
     if (!self.wrap.valid) {
         return;
     }
-    self.nameLabel.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.nameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     id segment = [self.segmentedControl controlForSegment:self.segmentedControl.selectedSegment];
     [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
@@ -55,7 +55,7 @@
 }
 
 - (void)updateWrapData {
-    [self.nameLabel setTitle:WLString(self.wrap.name) forState:UIControlStateNormal];
+    self.nameLabel.text = self.wrap.name;
 }
 
 - (void)updateNotificationCouter {
@@ -69,14 +69,6 @@
     controller.delegate = self;
     controller.mode = WLStillPictureModeDefault;
     return controller;
-}
-
-// MARK: - User Actions
-
-- (IBAction)editWrapClick:(id)sender {
-    WLEditWrapViewController* editWrapViewController = [WLEditWrapViewController new];
-    editWrapViewController.wrap = self.wrap;
-    [self presentViewController:editWrapViewController animated:NO completion:nil];
 }
 
 // MARK: - WLEntryNotifyReceiver
@@ -165,6 +157,7 @@
 - (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
     [pickerViewController.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
+
 // MARK: - SegmentedControlDelegate
 
 - (BOOL)segmentedControl:(SegmentedControl*)control shouldSelectSegment:(NSInteger)segment {

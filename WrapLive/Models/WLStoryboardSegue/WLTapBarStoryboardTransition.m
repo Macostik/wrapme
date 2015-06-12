@@ -22,8 +22,7 @@
     UIViewController *fromViewController = self.sourceViewController;
     toViewController.view.frame = self.containerView.bounds;
     
-    UIViewController *childViewController = [fromViewController childViewControllers].lastObject;
-    if (childViewController) {
+    for (UIViewController *childViewController in [fromViewController childViewControllers]) {
         [childViewController.view removeFromSuperview];
         [childViewController removeFromParentViewController];
     }

@@ -7,15 +7,21 @@
 //
 
 #import "WLWrapSettingsViewController.h"
-#import "WLButton.h"
+#import "WLAPIManager.h"
+#import "WLIconButton.h"
 #import "WLToast.h"
+#import "WLEditSession.h"
 
 @interface WLWrapSettingsViewController ()
 
-@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *wrapName;
+@property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
+@property (weak, nonatomic) IBOutlet UITextField *wrapNameTextField;
+@property (weak, nonatomic) IBOutlet WLIconButton *editButton;
 @property (weak, nonatomic) IBOutlet WLButton *actionButton;
 @property (weak, nonatomic) IBOutlet UISwitch *photoNotifyTrigger;
 @property (weak, nonatomic) IBOutlet UISwitch *chatNotifyTrigger;
+
+@property (strong, nonatomic) WLEditSession *editSession;
 
 @end
 
@@ -25,7 +31,10 @@
     [super viewDidLoad];
     
     [self.actionButton setTitle:self.wrap.deletable ? WLLS(@"delete_wrap") : WLLS(@"leave_wrap")  forState:UIControlStateNormal];
-    [self.wrapName setValue:self.wrap.name forKey:@"text"];
+    self.wrapNameTextField.text = self.wrapNameLabel.text = self.wrap.name;
+    self.editButton.hidden = !self.wrap.deletable;
+    self.wrapNameTextField.enabled = self.wrap.deletable;
+    self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
 }
 
 - (IBAction)handleAction:(WLButton *)sender {
@@ -63,6 +72,41 @@
             }
         }];
     }
+}
+
+- (IBAction)editButtonClick:(UIButton *)sender {
+    if  (sender.selected) {
+        [self.editSession reset];
+        [self.wrapNameTextField resignFirstResponder];
+        self.wrapNameTextField.text = [self.editSession originalValueForProperty:@"name"];
+    } else {
+        [self.wrapNameTextField becomeFirstResponder];
+    }
+}
+
+// MARK: - UITextFieldHandler
+
+- (IBAction)textFieldEditChange:(UITextField *)sender {
+    if (sender.text.length > WLWrapNameLimit) {
+        sender.text = [sender.text substringToIndex:WLWrapNameLimit];
+    }
+    [self.editSession changeValue:[sender.text trim] forProperty:@"name"];
+    self.editButton.selected = self.editSession.hasChanges;
+    
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSString *name = [textField.text trim];
+    if (name.nonempty && self.editSession.hasChanges) {
+        self.wrap.name = name;
+        self.wrapNameLabel.text = name;
+        [self.wrap update:^(id object) {
+        } failure:^(NSError *error) {
+        }];
+    }
+    self.editButton.selected = NO;
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

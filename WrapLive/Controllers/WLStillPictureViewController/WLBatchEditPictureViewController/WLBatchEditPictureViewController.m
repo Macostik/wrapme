@@ -123,6 +123,14 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
+}
+
 - (WLEditPictureViewController *)editPictureViewControllerForPicture:(WLEditPicture*)picture {
     WLEditPictureViewController *editPictureViewController = [WLEditPictureViewController instantiate:self.storyboard];
     editPictureViewController.picture = picture;

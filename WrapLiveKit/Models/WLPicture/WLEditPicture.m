@@ -25,10 +25,19 @@
 }
 
 + (instancetype)picture:(UIImage *)image mode:(WLStillPictureMode)mode cache:(WLImageCache *)cache completion:(WLObjectBlock)completion {
+    WLEditPicture* picture = [self picture:mode cache:cache];
+    [picture setImage:image completion:completion];
+    return picture;
+}
+
++ (instancetype)picture:(WLStillPictureMode)mode {
+    return [self picture:mode cache:[WLImageCache uploadingCache]];
+}
+
++ (instancetype)picture:(WLStillPictureMode)mode cache:(WLImageCache*)cache {
     WLEditPicture* picture = [[self alloc] init];
     picture.mode = mode;
     picture.cache = cache;
-    [picture setImage:image completion:completion];
     return picture;
 }
 
@@ -46,7 +55,7 @@
     BOOL isCandy = self.mode == WLStillPictureModeDefault;
     
     __weak WLImageCache *imageCache = cache;
-    __weak typeof(self)weakSelf = self;
+    __strong typeof(self)weakSelf = self;
     run_in_default_queue(^{
         __block NSData *metadataImage = UIImageJPEGRepresentation(image, .5f);
         [imageCache setImageData:metadataImage completion:^(NSString *path) {

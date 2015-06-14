@@ -32,6 +32,10 @@
 
 + (instancetype)picture:(UIImage *)image mode:(WLStillPictureMode)mode cache:(WLImageCache*)cache completion:(WLObjectBlock)completion;
 
++ (instancetype)picture:(WLStillPictureMode)mode cache:(WLImageCache*)cache;
+
++ (instancetype)picture:(WLStillPictureMode)mode;
+
 - (void)setImage:(UIImage *)image completion:(WLObjectBlock)completion;
 
 - (WLPicture*)uploadablePictureWithAnimation:(BOOL)withAnimation;

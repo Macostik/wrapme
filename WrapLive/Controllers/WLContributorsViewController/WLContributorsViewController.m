@@ -11,6 +11,8 @@
 #import "WLContributorCell.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "UIFont+CustomFonts.h"
+#import "WLHintView.h"
+#import "WLNavigationHelper.h"
 
 const static CGFloat WLContributorsVerticalIndent = 48.0f;
 const static CGFloat WLContributorsHorizontalIndent = 96.0f;
@@ -19,6 +21,8 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 @interface WLContributorsViewController () <WLContributorCellDelegate, WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
+
+@property (weak, nonatomic) IBOutlet UIView *addFriendView;
 
 @property (strong, nonatomic) NSMutableSet* invitedContributors;
 
@@ -37,7 +41,6 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     
     self.removedContributors = [NSMutableSet set];
     
-    // Do any additional setup after loading the view.
     __weak UICollectionView *collectionView = self.dataSource.collectionView;
     [self.dataSource setItemSizeBlock:^CGSize(WLUser *contributor, NSUInteger index) {
         UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
@@ -57,6 +60,13 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     [[WLWrap notifier] addReceiver:self];
     
     self.dataSource.items = [self sortedContributors];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ([self.wrap isFirstCreated]) {
+        [WLHintView showInviteHintViewInView:[UIWindow mainWindow] withFocusToView:self.addFriendView];
+    }
 }
 
 - (NSMutableOrderedSet*)sortedContributors {

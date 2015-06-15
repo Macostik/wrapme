@@ -17,7 +17,7 @@
 
 @implementation WLTapBarStoryboardTransition
 
-- (IBAction)present:(id)sender {
+- (IBAction)addChild:(id)sender {
     UIViewController *toViewController = self.destinationViewController;
     UIViewController *fromViewController = self.sourceViewController;
     toViewController.view.frame = self.containerView.bounds;

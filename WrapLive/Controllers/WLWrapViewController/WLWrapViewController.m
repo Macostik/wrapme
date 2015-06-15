@@ -17,6 +17,7 @@
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
 #import "SegmentedControl.h"
+#import "WLTapBarStoryboardTransition.h"
 
 @interface WLWrapViewController ()  <WLStillPictureViewControllerDelegate>
 
@@ -118,7 +119,6 @@
         self.wrap = wrap;
     }
     [wrap uploadPictures:pictures];
-//    [self.collectionView setMinimumContentOffsetAnimated:NO];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
@@ -160,7 +160,12 @@
 // MARK: - SegmentedControlDelegate
 
 - (BOOL)segmentedControl:(SegmentedControl*)control shouldSelectSegment:(NSInteger)segment {
-    self.cameraButton.hidden = segment != 0;
+    if (segment == WLSegmentControlStateChat) {
+        run_after(1.0, ^{
+            [self updateNotificationCouter];
+        });
+    }
+    self.cameraButton.hidden = !(segment == WLSegmentControlStatePhotos);
     return YES;
 }
 

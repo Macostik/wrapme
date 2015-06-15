@@ -118,7 +118,7 @@
 + (BOOL)showInviteHintViewInView:(UIView *)view withFocusToView:(UIView *)target {
     return [self showHintViewFromNibNamed:@"WLInviteHintView" inView:view drawing:^(CGContextRef ctx, CGRect rect) {
         CGFloat size = MAX(target.width, target.height);
-        [self toDrawOvalInRect:CGRectMake(target.center.x - size/2.0f, 86 - size/2.0f, size, size)];
+        [self toDrawOvalInRect:CGRectMake(target.center.x - size/2.0f, target.center.y + size/2.0f, size, size)];
     }];
 }
 

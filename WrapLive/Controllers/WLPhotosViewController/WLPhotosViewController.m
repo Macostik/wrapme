@@ -22,7 +22,6 @@
 #import "WLContributorsViewController.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "UIFont+CustomFonts.h"
-#import "WLHintView.h"
 #import "WLChronologicalEntryPresenter.h"
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
@@ -61,10 +60,6 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     
     [self firstLoadRequest];
     
-    if (self.wrap.candies.nonempty) {
-        [self dropDownCollectionView];
-    }
-    
     [[WLNetwork network] addReceiver:self];
 }
 
@@ -79,6 +74,10 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    if (self.wrap.candies.nonempty) {
+        [self dropDownCollectionView];
+    }
+    
     if (self.wrap.valid) {
         [self.wrap.candies all:^(WLCandy *candy) {
             [candy markAsRead];
@@ -90,9 +89,6 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
             [weakSelf.navigationController popViewControllerAnimated:NO];
         });
     }
-//        if ([self.wrap isFirstCreated]) {
-//            [WLHintView showInviteHintViewInView:[UIWindow mainWindow] withFocusToView:self.inviteButton];
-//        }
 }
 
 // MARK: - Custom animation
@@ -100,6 +96,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 - (void)dropDownCollectionView {
     self.collectionView.transform = CGAffineTransformMakeTranslation(0, -self.view.height);
     [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
+        [self.collectionView setMinimumContentOffsetAnimated:NO];
         self.collectionView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
     }];

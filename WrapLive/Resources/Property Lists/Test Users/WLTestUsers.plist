@@ -407,6 +407,18 @@
 			<key>phone</key>
 			<string>9255551010</string>
 		</dict>
+		<dict>
+			<key>countryCode</key>
+			<string>380</string>
+			<key>deviceUID</key>
+			<string>75d46b948270982b6d2495d2a4731e288f893892</string>
+			<key>email</key>
+			<string>adsfadsf@rambler.ru</string>
+			<key>password</key>
+			<string>f9196a7e43</string>
+			<key>phone</key>
+			<string>957115540</string>
+		</dict>
 	</array>
 </dict>
 </plist>

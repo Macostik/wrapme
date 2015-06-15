@@ -9,15 +9,13 @@
 #import "WLWrapPickerViewController.h"
 #import "WLBasicDataSource.h"
 #import "WLToast.h"
+#import "WLButton.h"
+#import "WLKeyboard.h"
+#import "UIScrollView+Additions.h"
 
-@interface WLWrapPickerViewController () <UITextFieldDelegate>
+@interface WLWrapPickerViewController () <WLAddWrapPickerViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *wrapNameTextField;
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
-@property (weak, nonatomic) IBOutlet UIButton *createButton;
-@property (weak, nonatomic) IBOutlet UIButton *saveButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leadingTextFieldConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *trailingTextFieldConstraint;
 
 @end
 
@@ -26,73 +24,53 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    CGFloat itemHeight = self.dataSource.itemSize.height;
+    
+    self.dataSource.collectionView.contentInset = self.dataSource.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(itemHeight, 0, itemHeight, 0);
+    
     __weak typeof(self)weakSelf = self;
     [self.dataSource setSelectionBlock:^(WLWrap* wrap) {
-        [weakSelf.delegate wrapPickerViewController:weakSelf didSelectWrap:wrap];
+        NSUInteger index = [(NSOrderedSet*)weakSelf.dataSource.items indexOfObject:wrap];
+        if (index != NSNotFound && weakSelf.dataSource.collectionView.contentOffset.y != index * itemHeight) {
+            [weakSelf.dataSource.collectionView setContentOffset:CGPointMake(0, index * itemHeight) animated:YES];
+        } else {
+            [weakSelf.delegate wrapPickerViewController:weakSelf didSelectWrap:wrap];
+        }
     }];
     
-    self.wrapNameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.wrapNameTextField.placeholder attributes:@{NSForegroundColorAttributeName:[UIColor WL_grayLighter]}];
+    [self.dataSource setItemSizeBlock:^CGSize(id item, NSUInteger index) {
+        return CGSizeMake(weakSelf.dataSource.collectionView.width, itemHeight);
+    }];
+    
     self.dataSource.items = [[WLUser currentUser] sortedWraps];
     
     if (self.wrap) {
         NSUInteger index = [(NSOrderedSet*)self.dataSource.items indexOfObject:self.wrap];
         if (index != NSNotFound) {
             [self.dataSource.collectionView layoutIfNeeded];
-            [self.dataSource.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+            [self.dataSource.collectionView setContentOffset:CGPointMake(0, index * itemHeight) animated:NO];
         }
-    } else {
-        self.leadingTextFieldConstraint.constant = 8;
-        [self.wrapNameTextField.superview setNeedsLayout];
-        [self.wrapNameTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
     }
     
     [self.view addGestureRecognizer:self.dataSource.collectionView.panGestureRecognizer];
 }
 
-- (void)animatePresenting {
-    self.view.backgroundColor = [UIColor clearColor];
-    for (UIView *view in self.view.subviews) {
-        view.transform = CGAffineTransformMakeTranslation(0, -355);
-    }
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        for (UIView *view in self.view.subviews) {
-            view.transform = CGAffineTransformIdentity;
-        }
-        self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
-    } completion:^(BOOL finished) {
-        
-    }];
-}
-
-- (IBAction)createNewWrap:(id)sender {
-    [self.wrapNameTextField becomeFirstResponder];
-}
-
-- (IBAction)saveNewWrap:(id)sender {
-    [WLToast showWithMessage:@"It is not implemented yet."];
+- (BOOL)shouldResizeUsingScreenBounds {
+    return NO;
 }
 
 - (void)hide {
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        for (UIView *view in self.view.subviews) {
-            view.transform = CGAffineTransformMakeTranslation(0, -355);
-        }
-        self.view.backgroundColor = [UIColor clearColor];
-    } completion:^(BOOL finished) {
-        for (UIView *view in self.view.subviews) {
-            view.transform = CGAffineTransformIdentity;
-        }
-        [self.view removeFromSuperview];
-        [self removeFromParentViewController];
-    }];
+    [self.view endEditing:YES];
+    [self.view removeFromSuperview];
+    [self removeFromParentViewController];
 }
 
 - (IBAction)hide:(id)sender {
-    if (self.wrapNameTextField.isFirstResponder) {
-        [self.wrapNameTextField resignFirstResponder];
-        return;
+    if ([WLKeyboard keyboard].isShow) {
+        [self.view endEditing:NO];
+    } else {
+        [self.delegate wrapPickerViewControllerDidCancel:self];
     }
-    [self.delegate wrapPickerViewControllerDidCancel:self];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -103,24 +81,82 @@
     return UIStatusBarAnimationSlide;
 }
 
-// MARK: - UITextFieldDelegate
+- (void)addWrapPickerView:(WLAddWrapPickerView *)view didAddWrap:(WLWrap *)wrap {
+    [self.delegate wrapPickerViewController:self didSelectWrap:wrap];
+}
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    self.leadingTextFieldConstraint.constant = 8;
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.wrapNameTextField.superview layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        
+- (void)addWrapPickerViewDidBeginEditing:(WLAddWrapPickerView *)view {
+    [self.dataSource.collectionView setContentOffset:CGPointMake(0, -self.dataSource.itemSize.height) animated:YES];
+}
+
+- (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
+    CGFloat adjustment = keyboardHeight - (self.view.height - CGRectGetMaxY(self.dataSource.collectionView.frame) - 10);
+    return MAX(0, adjustment);
+}
+
+@end
+
+@implementation WLWrapPickerCollectionViewLayout : UICollectionViewFlowLayout
+
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
+    return [[super layoutAttributesForElementsInRect:rect] map:^id(UICollectionViewLayoutAttributes *attributes) {
+        return [self adjustAttributes:attributes];
     }];
 }
 
+- (UICollectionViewLayoutAttributes*)adjustAttributes:(UICollectionViewLayoutAttributes*)attributes {
+    CGFloat centerY = attributes.frame.origin.y - self.collectionView.contentOffset.y + attributes.frame.size.height/2;
+    CGFloat size = self.collectionView.height/2;
+    CGFloat offset = (centerY - size)/size;
+    attributes.transform3D = CATransform3DMakeRotation((M_PI / 2.7) * offset, 1, 0, 0);
+    attributes.transform3D = CATransform3DTranslate(attributes.transform3D, 0, 0, 10 * ABS(offset));
+    attributes.alpha = 1 - ABS(offset);
+    return attributes;
+}
+
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return [self adjustAttributes:[super layoutAttributesForItemAtIndexPath:indexPath]];
+}
+
+- (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+    return [self adjustAttributes:[super layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:indexPath]];
+}
+
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    return YES;
+}
+
+@end
+
+@interface WLAddWrapPickerView ()
+
+@property (weak, nonatomic) IBOutlet UITextField *wrapNameTextField;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *trailingTextFieldConstraint;
+
+@end
+
+@implementation WLAddWrapPickerView
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.wrapNameTextField.placeholder = WLLS(@"new_wrap");
+}
+
+- (void)setup:(id)entry {
+    if (!entry) {
+        [self.wrapNameTextField becomeFirstResponder];
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self.delegate addWrapPickerViewDidBeginEditing:self];
+    self.wrapNameTextField.placeholder = WLLS(@"what_is_new_wrap_about");
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    self.leadingTextFieldConstraint.constant = 52;
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.wrapNameTextField.superview layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        
-    }];
+    self.wrapNameTextField.placeholder = WLLS(@"new_wrap");
 }
 
 - (IBAction)textFieldDidChange:(UITextField *)textField {
@@ -129,6 +165,32 @@
         [self.wrapNameTextField.superview layoutIfNeeded];
     } completion:^(BOOL finished) {
         
+    }];
+}
+
+- (IBAction)createNewWrap:(id)sender {
+    [self.wrapNameTextField becomeFirstResponder];
+}
+
+- (IBAction)saveNewWrap:(WLButton*)sender {
+    
+    NSString *name = self.wrapNameTextField.text;
+    if (!name.nonempty) {
+        [WLToast showWithMessage:WLLS(@"wrap_name_cannot_be_blank")];
+        return;
+    }
+    
+    [self.wrapNameTextField resignFirstResponder];
+    WLWrap *wrap = [WLWrap wrap];
+    wrap.name = name;
+    [wrap notifyOnAddition:nil];
+    [self.delegate addWrapPickerView:self didAddWrap:wrap];
+    [WLUploadingQueue upload:[WLUploading uploading:wrap] success:^(id object) {
+    } failure:^(NSError *error) {
+        if (![error isNetworkError]) {
+            [error show];
+            [wrap remove];
+        }
     }];
 }
 

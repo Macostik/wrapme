@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WLBaseViewController.h"
+#import "WLEntryReusableView.h"
 
 @class WLWrapPickerViewController;
 @class WLWrap;
@@ -19,14 +20,32 @@
 
 @end
 
-@interface WLWrapPickerViewController : UIViewController
+@interface WLWrapPickerViewController : WLBaseViewController
 
 @property (nonatomic, weak) id <WLWrapPickerViewControllerDelegate> delegate;
 
 @property (weak, nonatomic) WLWrap* wrap;
 
-- (void)animatePresenting;
-
 - (void)hide;
+
+@end
+
+@interface WLWrapPickerCollectionViewLayout : UICollectionViewFlowLayout
+
+@end
+
+@class WLAddWrapPickerView;
+
+@protocol WLAddWrapPickerViewDelegate <NSObject>
+
+- (void)addWrapPickerViewDidBeginEditing:(WLAddWrapPickerView*)view;
+
+- (void)addWrapPickerView:(WLAddWrapPickerView*)view didAddWrap:(WLWrap*)wrap;
+
+@end
+
+@interface WLAddWrapPickerView : WLEntryReusableView
+
+@property (weak, nonatomic) IBOutlet id <WLAddWrapPickerViewDelegate> delegate;
 
 @end

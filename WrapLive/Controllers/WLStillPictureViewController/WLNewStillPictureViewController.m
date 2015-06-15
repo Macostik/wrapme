@@ -214,9 +214,6 @@
     pickerController.view.frame = self.view.bounds;
     [self addChildViewController:pickerController];
     [self.view addSubview:pickerController.view];
-    if (animated) {
-        [pickerController animatePresenting];
-    }
 }
 
 // MARK: - WLWrapPickerViewControllerDelegate

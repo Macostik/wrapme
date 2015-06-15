@@ -147,11 +147,15 @@
     [super viewDidLoad];
     self.screenName = NSStringFromClass([self class]);
     self.keyboardAdjustmentAnimated = YES;
-    if (!self.isEmbedded) {
+    if (!self.isEmbedded && [self shouldResizeUsingScreenBounds]) {
         self.view.frame = [UIWindow mainWindow].bounds;
         [self.view layoutIfNeeded];
     }
     [[WLKeyboard keyboard] addReceiver:self];
+}
+
+- (BOOL)shouldResizeUsingScreenBounds {
+    return YES;
 }
 
 - (NSMapTable *)keyboardAdjustmentDefaultConstants {

@@ -33,7 +33,6 @@
     self = [super initWithCoder:coder];
     if (self) {
         [self addNotifyReceivers];
-        [[WLNetwork network] addReceiver:self];
     }
     return self;
 }
@@ -43,7 +42,7 @@
     if (!self.wrap.valid) {
         return;
     }
-    self.nameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    
     id segment = [self.segmentedControl controlForSegment:self.segmentedControl.selectedSegment];
     [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
 }

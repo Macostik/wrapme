@@ -42,15 +42,9 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 @implementation WLPhotosViewController
 
-
-
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-    self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
-
-    // force set hostory mode to remove timeline from UI but keep it in code
     
     __weak typeof(self)weakSelf = self;
     [self.dataSource setItemSizeBlock:^CGSize(id entry, NSUInteger index) {
@@ -70,6 +64,8 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     if (self.wrap.candies.nonempty) {
         [self dropDownCollectionView];
     }
+    
+    [[WLNetwork network] addReceiver:self];
 }
 
 - (void)firstLoadRequest {

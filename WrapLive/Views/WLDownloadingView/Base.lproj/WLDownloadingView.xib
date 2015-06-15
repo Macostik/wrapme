@@ -71,7 +71,7 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="calcel:" destination="kyD-LE-aDY" eventType="touchUpInside" id="hTg-m6-dWV"/>
+                        <action selector="cancel:" destination="kyD-LE-aDY" eventType="touchUpInside" id="hTg-m6-dWV"/>
                     </connections>
                 </button>
             </subviews>

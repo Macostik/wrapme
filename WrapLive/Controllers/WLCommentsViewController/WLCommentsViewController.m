@@ -15,6 +15,8 @@
 #import "UIView+AnimationHelper.h"
 #import "WLNavigationHelper.h"
 #import "UIFont+CustomFonts.h"
+#import "UIView+Extentions.h"
+#import "WLDeviceOrientationBroadcaster.h"
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;
 static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
@@ -32,10 +34,6 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
 @end
 
 @implementation WLCommentsViewController
-
-+ (BOOL)isEmbeddedDefaultValue {
-    return YES;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,6 +54,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
     self.dataSource.items = [self sortedComments];
     self.collectionView.layer.geometryFlipped = YES;
     [self addNotifyReceivers];
+    [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
 }
 
 - (NSMutableOrderedSet *)sortedComments {
@@ -81,6 +80,13 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
     }
 }
 
+- (void)presentAsChildForParentViewController:(UIViewController *)parentViewContrller {
+    self.view.frame = parentViewContrller.view.bounds;
+    [parentViewContrller.view addSubview:self.view];
+    [parentViewContrller addChildViewController:self];
+    [self didMoveToParentViewController:parentViewContrller];
+}
+
 - (void)sendMessageWithText:(NSString*)text {
     if (self.candy.valid) {
         [WLSoundPlayer playSound:WLSound_s04];
@@ -93,87 +99,14 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
     });
 }
 
-#pragma mark - Base method override
-
-- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
-    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    [fromViewController viewWillDisappear:YES];
-    [toViewController viewWillAppear:YES];
-    __weak typeof(self)weakSelf = self;
-    if (self.isBeingPresented) {
-        toViewController.view.frame = fromViewController.view.frame;
-        [transitionContext.containerView addSubview:toViewController.view];
-        self.contentView.transform = CGAffineTransformMakeScale(0.5, 0.5);
-        self.view.backgroundColor = [UIColor clearColor];
-        [UIView animateWithDuration:1.f
-                              delay:0
-             usingSpringWithDamping:0.5
-              initialSpringVelocity:0.5
-                            options:UIViewAnimationOptionCurveEaseIn
-                         animations:^{
-                             weakSelf.contentView.transform = CGAffineTransformIdentity;
-                             weakSelf.view.backgroundColor = [UIColor colorWithWhite:.0 alpha:0.5];
-                         } completion:^(BOOL finished) {
-                             [transitionContext completeTransition:YES];
-                             [fromViewController viewDidDisappear:YES];
-                             [toViewController viewDidAppear:YES];
-                         }];
-    } else {
-        [UIView animateWithDuration:0.5f
-                              delay:0
-             usingSpringWithDamping:1.0
-              initialSpringVelocity:0.5
-                            options:UIViewAnimationOptionCurveEaseIn
-                         animations:^{
-                             weakSelf.contentView.alpha = .0f;
-                             weakSelf.view.backgroundColor = [UIColor clearColor];
-                         } completion:^(BOOL finished) {
-                             weakSelf.contentView.transform = CGAffineTransformIdentity;
-                             [transitionContext completeTransition:YES];
-                             [fromViewController viewDidDisappear:YES];
-                             [toViewController viewDidAppear:YES];
-                         }];
-    }
-}
-
-- (void)addEmbeddingConstraintsToContentView:(UIView *)contentView inView:(UIView *)view {
-    [view addConstraint:[NSLayoutConstraint constraintWithItem:contentView
-                                                     attribute:NSLayoutAttributeTop
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:view
-                                                     attribute:NSLayoutAttributeTop
-                                                    multiplier:1
-                                                      constant:0]];
-    [view addConstraint:[NSLayoutConstraint constraintWithItem:contentView
-                                                     attribute:NSLayoutAttributeLeading
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:view
-                                                     attribute:NSLayoutAttributeLeading
-                                                    multiplier:1
-                                                      constant:0]];
-    [view addConstraint:[NSLayoutConstraint constraintWithItem:contentView
-                                                     attribute:NSLayoutAttributeTrailing
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:view
-                                                     attribute:NSLayoutAttributeTrailing
-                                                    multiplier:1
-                                                      constant:0]];
-    [view addConstraint:[NSLayoutConstraint constraintWithItem:contentView
-                                                     attribute:NSLayoutAttributeBottom
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:view
-                                                     attribute:NSLayoutAttributeBottom
-                                                    multiplier:1
-                                                      constant:0]];
-}
-
 - (IBAction)onClose:(id)sender {
     [self.view endEditing:YES];
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    [self.view removeFromSuperview];
+    [self.parentViewController viewWillAppear:YES];
+    [self removeFromParentViewController];
 }
 
-- (void)embeddingViewTapped:(UITapGestureRecognizer *)sender {
+- (IBAction)hide:(UITapGestureRecognizer *)sender {
     UIView *contentView = self.collectionView.superview;
     CGPoint touchPoint = [sender locationInView:contentView];
     if (CGRectContainsPoint(contentView.bounds, touchPoint)) {
@@ -244,12 +177,10 @@ static CGFloat WLContstraintOffset = 44.0;
     return keyboardHeight - WLContstraintOffset;
 }
 
-#pragma mark - InterfaceOrientations
+#pragma mark - WLDeviceOrientationBroadcaster
 
-- (NSUInteger)supportedInterfaceOrientations {
-    self.view.center = self.view.superview.center;
+- (void)broadcaster:(WLDeviceOrientationBroadcaster*)broadcaster didChangeOrientation:(NSNumber*)orientation {
     [self.collectionView.collectionViewLayout invalidateLayout];
-    return UIInterfaceOrientationMaskAll;
 }
 
 @end

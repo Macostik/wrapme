@@ -23,6 +23,7 @@
 #import "WLImageCache.h"
 #import "WLUploadPhotoViewController.h"
 #import "WLPresentingImageView.h"
+#import "WLCommentsViewController.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -112,6 +113,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [UIView performWithoutAnimation:^{
         [UIViewController attemptRotationToDeviceOrientation];
     }];
+    
+    if (self.showCommentViewController) {
+        [self showCommentView];
+    }
 }
 
 - (void)toggleBottomViewMode {
@@ -166,9 +171,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [WLHintView showCandySwipeHintView];
-    if (self.showCommentViewController) {
-        [self showCommentView];
-    }
+   
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(toggleBottomViewMode) object:nil];
     [self performSelector:@selector(toggleBottomViewMode) withObject:nil afterDelay:WLHistoryBottomViewModeTogglingInterval inModes:@[NSRunLoopCommonModes]];
 }
@@ -185,6 +188,12 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (IBAction)hideBars {
     [self setBarsHidden:YES animated:YES];
+}
+
+- (IBAction)embedAsChild:(id)sender {
+    WLCommentsViewController *commentViewController = [WLCommentsViewController instantiate:self.storyboard];
+    commentViewController.candy = self.candy;
+    [commentViewController presentAsChildForParentViewController:self];
 }
 
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated {

@@ -58,11 +58,6 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
     [self addNotifyReceivers];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.collectionView layoutIfNeeded];
-}
-
 - (NSMutableOrderedSet *)sortedComments {
     return [[self.candy sortedComments] mutableCopy];
 }

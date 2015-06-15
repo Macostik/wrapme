@@ -71,19 +71,22 @@
     
     self.alpha = 0.0f;
     
-    id operation = [self downloadEntry:success failureBlock:failure];
-    if (operation) {
-        [self.progressBar setOperation:operation];
-        [UIView animateWithDuration:0.5f
-                              delay:0.0f
-             usingSpringWithDamping:1
-              initialSpringVelocity:1
-                            options:UIViewAnimationOptionCurveEaseIn
-                         animations:^{
-                             self.alpha = 1.0f;
-                         } completion:^(BOOL finished) {
-                         }];
-    }
+    __weak typeof(self)weakSelf = self;
+    [self downloadEntry:success operationBlock:^(id operation) {
+        if (operation) {
+            [weakSelf.progressBar setOperation:operation];
+            [UIView animateWithDuration:0.5f
+                                  delay:0.0f
+                 usingSpringWithDamping:1
+                  initialSpringVelocity:1
+                                options:UIViewAnimationOptionCurveEaseIn
+                             animations:^{
+                                 weakSelf.alpha = 1.0f;
+                             } completion:^(BOOL finished) {
+                             }];
+        }
+    } failureBlock:failure];
+    
     return self;
 }
 
@@ -92,7 +95,7 @@
     [[WLCandy notifier] addReceiver:self];
 }
 
-- (IBAction)calcel:(id)sender {
+- (IBAction)cancel:(id)sender {
     [[WLImageFetcher fetcher] removeReceiver:self];
     [self dissmis];
 }
@@ -115,11 +118,11 @@
     }
 }
 
-- (id)downloadEntry:(WLImageBlock)success failureBlock:(WLFailureBlock)failure {
+- (void)downloadEntry:(WLImageBlock)success operationBlock:(void (^)(id operation))operationBlock failureBlock:(WLFailureBlock)failure {
     self.successBlock = success;
     self.failureBlock = failure;
     [[WLImageFetcher fetcher] addReceiver:self];
-    return [[WLImageFetcher fetcher] enqueueImageWithUrl:self.candy.picture.original];
+    [[WLImageFetcher fetcher] enqueueImageWithUrl:self.candy.picture.original operationBlock:operationBlock];
 }
 
 // MARK: - WLImageFetching

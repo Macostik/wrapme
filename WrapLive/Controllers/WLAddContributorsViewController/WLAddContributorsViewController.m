@@ -66,19 +66,19 @@
 
 - (void)addressBook:(WLAddressBook *)addressBook didUpdateCachedRecords:(NSArray *)cachedRecords {
     [self.spinner stopAnimating];
-//    WLArrangedAddressBook *oldAddressBook = self.addressBook;
-//    self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
-//    [self.addressBook addRecords:cachedRecords];
-//    for (WLAddressBookRecord *record in self.invitedRecords) {
-//        [self.addressBook addUniqueRecord:record success:nil failure:nil];
-//    }
-//    if (oldAddressBook != nil) {
-//        self.addressBook.selectedPhoneNumbers = [oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
-//            return [self.addressBook phoneNumberIdenticalTo:phoneNumber];
-//        }];
-//    }
-//    
-//    [self filterContacts];
+    WLArrangedAddressBook *oldAddressBook = self.addressBook;
+    self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
+    [self.addressBook addRecords:cachedRecords];
+    for (WLAddressBookRecord *record in self.invitedRecords) {
+        [self.addressBook addUniqueRecord:record success:nil failure:nil];
+    }
+    if (oldAddressBook != nil) {
+        self.addressBook.selectedPhoneNumbers = [oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
+            return [self.addressBook phoneNumberIdenticalTo:phoneNumber];
+        }];
+    }
+    
+    [self filterContacts];
 }
 
 #pragma mark - Actions

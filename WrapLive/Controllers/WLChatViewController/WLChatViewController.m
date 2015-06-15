@@ -75,14 +75,6 @@ CGFloat WLMaxTextViewWidth;
 	return (WLCollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder {
-    self = [super initWithCoder:coder];
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChatAfterApplicationBecameActive) name:UIApplicationDidBecomeActiveNotification object:nil];
-    }
-    return self;
-}
-
 - (void)reloadChatAfterApplicationBecameActive {
     self.chat = [WLChat chatWithWrap:self.wrap];
     self.chat.delegate = self;
@@ -143,6 +135,8 @@ CGFloat WLMaxTextViewWidth;
     [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLFontPresetter presetter] addReceiver:self];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChatAfterApplicationBecameActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)updateEdgeInsets:(CGFloat)keyboardHeight {

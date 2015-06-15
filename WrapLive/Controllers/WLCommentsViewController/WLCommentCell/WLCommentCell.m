@@ -64,12 +64,6 @@
     }];
 }
 
-- (void)layoutSubviews {
-    UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self convertRect:self.indicator.frame
-                                                                             toView:self.commenttextView]];
-    self.commenttextView.textContainer.exclusionPaths = [[self.entry contributor] isCurrentUser] ?  @[exlusionPath] : nil;
-}
-
 - (void)setup:(WLComment *)entry {
 	self.userInteractionEnabled = YES;
     [entry markAsRead];
@@ -78,6 +72,10 @@
 	self.authorImageView.url = entry.contributor.picture.small;
     self.dateLabel.text = entry.createdAt.timeAgoString;
     [self.indicator updateStatusIndicator:entry];
+    
+    UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self convertRect:self.indicator.frame
+                                                                             toView:self.commenttextView]];
+    self.commenttextView.textContainer.exclusionPaths = [[self.entry contributor] isCurrentUser] ?  @[exlusionPath] : nil;
 }
 
 @end

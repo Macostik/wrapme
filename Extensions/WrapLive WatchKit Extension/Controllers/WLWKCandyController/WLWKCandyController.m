@@ -57,6 +57,24 @@
     return self.candy;
 }
 
+- (IBAction)writeComment {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"WLWKCommentReplyPresets" ofType:@"plist"];
+    NSArray *presets = [NSArray arrayWithContentsOfFile:path];
+    __weak typeof(self)weakSelf = self;
+    [self presentTextInputControllerWithSuggestions:presets allowedInputMode:WKTextInputModeAllowEmoji completion:^(NSArray *results) {
+        for (NSString *result in results) {
+            if ([result isKindOfClass:[NSString class]]) {
+                [weakSelf.candy uploadComment:result success:^(WLComment *comment) {
+                    [weakSelf update];
+                } failure:^(NSError *error) {
+                    [weakSelf pushControllerWithName:@"error" context:WLError(@"error text")];
+                }];
+                break;
+            }
+        }
+    }];
+}
+
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];

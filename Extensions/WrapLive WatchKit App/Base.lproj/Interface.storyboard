@@ -24,16 +24,11 @@
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="wrapliveicons.ttf">
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
         </mutableArray>
@@ -215,7 +210,7 @@
                                     <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                     <connections>
-                                        <segue destination="MCS-JV-aaM" kind="push" id="gQF-mh-zU4"/>
+                                        <action selector="writeComment" destination="5u8-yz-26Q" id="vWw-kn-yWg"/>
                                     </connections>
                                 </button>
                                 <table alignment="left" id="l82-W0-vgm">
@@ -295,20 +290,6 @@
                                     <variation key="device=watch38mm" height="136"/>
                                     <variation key="device=watch42mm" height="156"/>
                                 </group>
-                                <group width="1" height="136" alignment="left" hidden="YES" id="RIX-cw-HDi">
-                                    <items>
-                                        <label alignment="center" verticalAlignment="center" text="s" id="uj9-sV-oCE">
-                                            <color key="textColor" red="0.93058806660000004" green="0.372343272" blue="0.1172502711" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
-                                        </label>
-                                        <label alignment="center" verticalAlignment="center" text="Error" textAlignment="center" id="1Bo-si-bQl">
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                        </label>
-                                    </items>
-                                    <variation key="device=watch38mm" height="136"/>
-                                    <variation key="device=watch42mm" height="156"/>
-                                </group>
                                 <table alignment="left" id="yKL-qJ-vsL">
                                     <items>
                                         <tableRow identifier="preset" id="Emn-fH-DGB" customClass="WLWKReplyPresetRow">
@@ -335,8 +316,6 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
-                        <outlet property="errorGroup" destination="RIX-cw-HDi" id="b0W-aP-iik"/>
-                        <outlet property="errorLabel" destination="1Bo-si-bQl" id="j3M-aP-AEX"/>
                         <outlet property="successGroup" destination="FYT-pK-bHq" id="9dV-dV-v93"/>
                         <outlet property="table" destination="yKL-qJ-vsL" id="Uw5-No-OAj"/>
                     </connections>
@@ -344,60 +323,21 @@
             </objects>
             <point key="canvasLocation" x="770" y="348"/>
         </scene>
-        <!--chatReply-->
-        <scene sceneID="UQ3-rm-EfY">
+        <!--error-->
+        <scene sceneID="Frx-pZ-zBZ">
             <objects>
-                <controller identifier="chatReply" spacing="0.0" id="l3P-lZ-LZs" customClass="WLWKChatReplyController">
+                <controller identifier="error" spacing="0.0" id="4xF-fK-64S" customClass="WLWKErrorController">
                     <items>
-                        <group width="1" alignment="left" layout="vertical" radius="0.0" id="HYq-Z0-w73">
+                        <group width="1" height="136" alignment="left" layout="vertical" radius="0.0" id="chw-KB-Mb2">
                             <items>
-                                <group width="1" height="136" alignment="left" hidden="YES" id="PXv-nH-Hgt">
-                                    <items>
-                                        <label alignment="center" verticalAlignment="center" text="l" id="gGE-5K-hTL">
-                                            <color key="textColor" red="0.93058806657791138" green="0.3723432719707489" blue="0.11725027114152908" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
-                                        </label>
-                                        <label alignment="center" verticalAlignment="center" text="Message sent" textAlignment="center" id="Ok0-w5-8xU">
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                        </label>
-                                    </items>
-                                    <variation key="device=watch38mm" height="136"/>
-                                    <variation key="device=watch42mm" height="156"/>
-                                </group>
-                                <group width="1" height="136" alignment="left" hidden="YES" id="8bH-cG-HrK">
-                                    <items>
-                                        <label alignment="center" verticalAlignment="center" text="s" id="viu-h4-jyE">
-                                            <color key="textColor" red="0.93058806660000004" green="0.372343272" blue="0.1172502711" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
-                                        </label>
-                                        <label alignment="center" verticalAlignment="center" text="Error" textAlignment="center" id="eSw-Br-rK4">
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                        </label>
-                                    </items>
-                                    <variation key="device=watch38mm" height="136"/>
-                                    <variation key="device=watch42mm" height="156"/>
-                                </group>
-                                <table alignment="left" id="AEB-yr-pQk">
-                                    <items>
-                                        <tableRow identifier="preset" id="U6h-PA-O7l" customClass="WLWKReplyPresetRow">
-                                            <group key="rootItem" width="1" alignment="left" radius="0.0" id="AWB-CI-Mug">
-                                                <items>
-                                                    <label alignment="left" text="Preset" numberOfLines="0" id="1CI-CL-siC">
-                                                        <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                                    </label>
-                                                </items>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </group>
-                                            <connections>
-                                                <outlet property="text" destination="1CI-CL-siC" id="yl7-6d-B0z"/>
-                                            </connections>
-                                        </tableRow>
-                                    </items>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </table>
+                                <label alignment="center" verticalAlignment="center" text="s" id="Gy3-Ci-tUp">
+                                    <color key="textColor" red="0.93058806660000004" green="0.372343272" blue="0.1172502711" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
+                                </label>
+                                <label alignment="center" verticalAlignment="center" text="Error" textAlignment="center" id="SFC-eh-ZGN">
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                </label>
                             </items>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </group>
@@ -405,10 +345,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
-                        <outlet property="errorGroup" destination="8bH-cG-HrK" id="MO6-V2-Kqx"/>
-                        <outlet property="errorLabel" destination="eSw-Br-rK4" id="cz6-cr-j4i"/>
-                        <outlet property="successGroup" destination="PXv-nH-Hgt" id="INC-OL-Gut"/>
-                        <outlet property="table" destination="AEB-yr-pQk" id="rS4-HM-GOL"/>
+                        <outlet property="errorLabel" destination="SFC-eh-ZGN" id="0PW-Te-Gkt"/>
                     </connections>
                 </controller>
             </objects>

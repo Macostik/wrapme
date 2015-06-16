@@ -11,9 +11,9 @@
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="candy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLCandy" inverseName="comments" inverseEntity="WLCandy" syncable="YES"/>
     </entity>
-    <entity name="WLContribution" representedClassName="WLContribution" parentEntity="WLEntry">
+    <entity name="WLContribution" representedClassName="WLContribution" parentEntity="WLEntry" versionHashModifier="1">
         <attribute name="editedAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="uploadIdentifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uploadIdentifier" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="contributor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLUser" inverseName="contributions" inverseEntity="WLUser" syncable="YES"/>
         <relationship name="editor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLUser" inverseName="editings" inverseEntity="WLUser" syncable="YES"/>
         <relationship name="uploading" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WLUploading" inverseName="contribution" inverseEntity="WLUploading" syncable="YES"/>
@@ -27,12 +27,17 @@
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLUser" inverseName="devices" inverseEntity="WLUser" syncable="YES"/>
     </entity>
-    <entity name="WLEntry" representedClassName="WLEntry" isAbstract="YES">
+    <entity name="WLEntry" representedClassName="WLEntry" isAbstract="YES" versionHashModifier="1">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="picture" optional="YES" attributeType="Transformable" valueTransformerName="pictureTransformer" syncable="YES"/>
         <attribute name="unread" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="identifier"/>
+            </compoundIndex>
+        </compoundIndexes>
         <userInfo/>
     </entity>
     <entity name="WLMessage" representedClassName="WLMessage" parentEntity="WLContribution" syncable="YES">
@@ -67,7 +72,7 @@
         <element name="WLComment" positionX="0" positionY="0" width="128" height="75"/>
         <element name="WLContribution" positionX="0" positionY="0" width="128" height="120"/>
         <element name="WLDevice" positionX="9" positionY="63" width="128" height="135"/>
-        <element name="WLEntry" positionX="0" positionY="0" width="128" height="118"/>
+        <element name="WLEntry" positionX="0" positionY="0" width="128" height="120"/>
         <element name="WLMessage" positionX="18" positionY="72" width="128" height="73"/>
         <element name="WLUploading" positionX="0" positionY="0" width="128" height="75"/>
         <element name="WLUser" positionX="0" positionY="0" width="128" height="150"/>

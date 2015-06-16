@@ -11,6 +11,7 @@
 #import "WLAuthorization.h"
 #import "WLEntryNotifier.h"
 #import "NSDate+Additions.h"
+#import "NSDate+Formatting.h"
 
 @implementation WLUser (Extended)
 
@@ -93,7 +94,7 @@
 - (NSString *)invitationHintText {
     NSDate *invitedAt = self.invitedAt;
     if (invitedAt) {
-        return [NSString stringWithFormat:@"Invite sent %@. Swipe to resend invite", invitedAt.timeAgoString];
+        return [NSString stringWithFormat:@"Invite sent %@. Swipe to resend invite", [invitedAt stringWithDateStyle:NSDateFormatterLongStyle]];
     } else {
         return @"Invite sent. Swipe to resend invite";
     }

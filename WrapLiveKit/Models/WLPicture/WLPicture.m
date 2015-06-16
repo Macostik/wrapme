@@ -115,7 +115,7 @@
     if (urls.count > 0) {
         for (NSString *url in urls) {
             run_after_asap(^{
-                [[WLImageFetcher fetcher] enqueueImageWithUrl:url completion:^(UIImage *image){
+                [[WLImageFetcher fetcher] enqueueImageWithUrl:url completionBlock:^(UIImage *image){
                     [urls removeObject:url];
                     if (urls.count == 0) {
                         if (completion) completion();

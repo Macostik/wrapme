@@ -37,8 +37,6 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     self.entries = [WLContribution recentContributions];
     [[WLComment notifier] addReceiver:self];
     [[WLCandy notifier] addReceiver:self];
-    
-    [[WLNotificationCenter defaultCenter] configure];
 }
 
 - (void)setState:(WLWKContributionsState)state {

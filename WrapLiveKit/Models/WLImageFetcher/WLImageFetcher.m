@@ -45,13 +45,13 @@
     return self;
 }
 
-- (void)enqueueImageWithUrl:(NSString *)url receiver:(id<WLImageFetching>)receiver {
+- (void)enqueueImageWithUrl:(NSString *)url receiver:(id)receiver {
     [self.receivers addObject:receiver];
     [self enqueueImageWithUrl:url];
 }
 
-- (id)enqueueImageWithUrl:(NSString *)url {
-    return [self enqueueImageWithUrl:url completion:nil];
+- (void)enqueueImageWithUrl:(NSString *)url {
+    return [self enqueueImageWithUrl:url completionBlock:nil];
 }
 
 - (void)handleResultForUrl:(NSString*)url block:(void (^)(NSObject <WLImageFetching> *receiver))block {
@@ -74,35 +74,55 @@
     }
 }
 
-- (id)enqueueImageWithUrl:(NSString *)url completion:(WLImageBlock)completion {
-	if (!url.nonempty || [self.urls containsObject:url]) {
-        if (completion) completion(nil);
-		return nil;
-	}
-	
-	[self.urls addObject:url];
-    __weak typeof(self)weakSelf = self;
-    WLImageFetcherBlock success = ^(UIImage *image, BOOL cached) {
-        [weakSelf handleResultForUrl:url block:^(NSObject<WLImageFetching> *receiver) {
-            [receiver fetcher:weakSelf didFinishWithImage:image cached:cached];
-        }];
-        if (completion) completion(image);
-    };
+- (void)enqueueImageWithUrl:(NSString *)url operationBlock:(void (^)(id operation))operationBlock {
+    [self enqueueImageWithUrl:url operationBlock:operationBlock completionBlock:nil];
+}
+
+- (void)enqueueImageWithUrl:(NSString *)url completionBlock:(WLImageBlock)completionBlock {
+    [self enqueueImageWithUrl:url operationBlock:nil completionBlock:completionBlock];
+}
+
+- (void)enqueueImageWithUrl:(NSString *)url operationBlock:(void (^)(id operation))operationBlock completionBlock:(WLImageBlock)completionBlock {
     
-    if ([[WLImageCache cache] containsImageWithUrl:url]) {
-        [[WLImageCache cache] imageWithUrl:url completion:success];
-    } else if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
-        [self setFileSystemUrl:url completion:success];
+    id operation = nil;
+    
+	if (!url.nonempty || [self.urls containsObject:url]) {
+        if (operationBlock) {
+            for (AFHTTPRequestOperation *_operation in self.fetchingQueue.operations) {
+                if ([[_operation.request.URL absoluteString] isEqualToString:url]) {
+                    operation = _operation;
+                    break;
+                }
+            }
+        }
+        if (completionBlock) completionBlock(nil);
     } else {
-        id operation = [self setNetworkUrl:url success:success failure:^(NSError *error) {
+        [self.urls addObject:url];
+        __weak typeof(self)weakSelf = self;
+        WLImageFetcherBlock success = ^(UIImage *image, BOOL cached) {
             [weakSelf handleResultForUrl:url block:^(NSObject<WLImageFetching> *receiver) {
-                [receiver fetcher:weakSelf didFailWithError:error];
+                [receiver fetcher:weakSelf didFinishWithImage:image cached:cached];
             }];
-            if (completion) completion(nil);
-        }];
-        return operation;
+            if (completionBlock) completionBlock(image);
+        };
+        
+        if ([[WLImageCache cache] containsImageWithUrl:url]) {
+            [[WLImageCache cache] imageWithUrl:url completion:success];
+        } else if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+            [self setFileSystemUrl:url completion:success];
+        } else {
+            operation = [self setNetworkUrl:url success:success failure:^(NSError *error) {
+                [weakSelf handleResultForUrl:url block:^(NSObject<WLImageFetching> *receiver) {
+                    [receiver fetcher:weakSelf didFailWithError:error];
+                }];
+                if (completionBlock) completionBlock(nil);
+            }];
+        }
     }
-    return nil;
+	
+    if (operationBlock) {
+        operationBlock(operation);
+    }
 }
 
 - (id)setNetworkUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure {

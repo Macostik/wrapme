@@ -11,7 +11,6 @@
 
 @interface WLWKNotificationController()
 
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel *label;
 @property (weak, nonatomic) IBOutlet WKInterfaceImage *image;
 
 @end
@@ -27,11 +26,9 @@
     WLEntry *entry = notification.targetEntry;
     if (entry) {
         __weak typeof(self)weakSelf = self;
-        [self.label setText:nil];
         [self.image setImage:nil];
         [entry recursivelyFetchIfNeeded:^ {
             weakSelf.image.url = entry.picture.small;
-            [weakSelf.label setText:remoteNotification[@"aps"][@"alert"]];
             completionHandler(WKUserNotificationInterfaceTypeCustom);
         } failure:^(NSError *error) {
             completionHandler(WKUserNotificationInterfaceTypeDefault);

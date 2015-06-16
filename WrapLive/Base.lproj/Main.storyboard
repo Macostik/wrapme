@@ -3436,8 +3436,8 @@ Tap here to start.</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="embedAsChild:" destination="eto-O4-OHy" eventType="touchUpInside" id="ihc-sW-bcz"/>
                                     <action selector="hideBars" destination="eto-O4-OHy" eventType="touchUpInside" id="gQm-Nb-Phs"/>
-                                    <action selector="present:" destination="vup-MX-RNo" eventType="touchUpInside" id="Pf8-8e-RRh"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -3904,7 +3904,8 @@ Check your internet connection and try again.</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="OVW-mQ-dry" firstAttribute="top" secondItem="flS-sD-RYF" secondAttribute="bottom" id="8Nr-iU-Qi8"/>
                             <constraint firstAttribute="bottom" secondItem="flS-sD-RYF" secondAttribute="bottom" constant="56" id="RfD-Sk-oI1"/>
@@ -3913,6 +3914,9 @@ Check your internet connection and try again.</string>
                             <constraint firstAttribute="trailing" secondItem="flS-sD-RYF" secondAttribute="trailing" id="p5i-i5-EaA"/>
                             <constraint firstItem="flS-sD-RYF" firstAttribute="top" secondItem="Mb1-3b-t3s" secondAttribute="top" constant="54" id="rOF-bj-mRg"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="tQ4-cQ-JX6" appends="YES" id="5dW-fi-ELL"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="Cwv-Gt-Vjm" id="17d-ry-YZF"/>
@@ -3934,6 +3938,11 @@ Check your internet connection and try again.</string>
                         <outlet property="collectionView" destination="Cwv-Gt-Vjm" id="Wa0-u1-TJN"/>
                     </connections>
                 </customObject>
+                <tapGestureRecognizer id="tQ4-cQ-JX6">
+                    <connections>
+                        <action selector="hide:" destination="M8n-42-KAe" id="bg9-Io-F1d"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2335" y="118"/>
         </scene>

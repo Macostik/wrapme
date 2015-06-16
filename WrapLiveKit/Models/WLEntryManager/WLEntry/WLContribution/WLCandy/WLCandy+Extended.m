@@ -158,12 +158,12 @@
     return self.contributedByCurrentUser || self.wrap.contributedByCurrentUser;
 }
 
-- (id)download:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)download:(WLBlock)success failure:(WLFailureBlock)failure {
     
     ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
     if (status == ALAuthorizationStatusDenied) {
         if (failure) failure(WLError(@"To allow access to the Photos go to the Privacy settings of the app."));
-        return nil;
+        return;
     }
     
     [self setDownloadSuccessBlock:^(UIImage *image) {
@@ -178,9 +178,7 @@
         if (failure) failure(error);
     }];
     
-    [[WLImageFetcher fetcher] addReceiver:self];
-    id operation = [[WLImageFetcher fetcher] enqueueImageWithUrl:self.picture.original];
-    return operation;
+    [[WLImageFetcher fetcher] enqueueImageWithUrl:self.picture.original receiver:self];
 }
 
 // MARK: - WLImageFetching

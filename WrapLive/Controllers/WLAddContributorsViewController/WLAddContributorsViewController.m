@@ -222,6 +222,13 @@ const static CGFloat WLDefaultHeight = 72.0f;
 #pragma mark - WLInviteViewControllerDelegate
 
 - (void)inviteViewController:(WLInviteViewController *)controller didInviteContact:(WLAddressBookRecord *)contact {
+    if (!self.addressBook) {
+        self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
+        [self.addressBook addRecord:contact];
+        [self filterContacts];
+        [self.navigationController popToViewController:self animated:NO];
+        return;
+    }
     __weak typeof(self)weakSelf = self;
     [self.addressBook addUniqueRecord:contact success:^(BOOL exists, NSArray *records, NSArray *groups) {
         WLAddressBookRecord *record = [records lastObject];

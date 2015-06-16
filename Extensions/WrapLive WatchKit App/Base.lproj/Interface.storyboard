@@ -454,19 +454,6 @@
                                         </label>
                                     </items>
                                 </group>
-                                <table alignment="left" id="mf3-li-Udf">
-                                    <items>
-                                        <tableRow identifier="row" id="DUi-u8-5jw">
-                                            <group key="rootItem" width="1" alignment="left" id="xyf-Sn-3Ug">
-                                                <items>
-                                                    <label alignment="left" text="Label" id="ebs-y5-bLt">
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </label>
-                                                </items>
-                                            </group>
-                                        </tableRow>
-                                    </items>
-                                </table>
                             </items>
                         </group>
                     </items>
@@ -474,7 +461,7 @@
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="image" destination="uee-BH-wcj" id="Nil-TI-7T4"/>
-                        <outlet property="label" destination="7l1-25-HMV" id="oNM-Xn-bXz"/>
+                        <outlet property="notificationAlertLabel" destination="7l1-25-HMV" id="AvT-Av-BUd"/>
                     </connections>
                 </controller>
             </objects>

@@ -75,18 +75,9 @@ CGFloat WLMaxTextViewWidth;
 	return (WLCollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder {
-    self = [super initWithCoder:coder];
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChatAfterApplicationBecameActive) name:UIApplicationDidBecomeActiveNotification object:nil];
-    }
-    return self;
-}
-
 - (void)reloadChatAfterApplicationBecameActive {
     self.chat = [WLChat chatWithWrap:self.wrap];
     self.chat.delegate = self;
-    [self.collectionView reloadData];
     [self scrollToLastUnreadMessage];
 }
 
@@ -144,6 +135,8 @@ CGFloat WLMaxTextViewWidth;
     [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLFontPresetter presetter] addReceiver:self];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChatAfterApplicationBecameActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)updateEdgeInsets:(CGFloat)keyboardHeight {
@@ -154,7 +147,6 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.collectionView reloadData];
     [self scrollToLastUnreadMessage];
 }
 
@@ -166,16 +158,16 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)scrollToLastUnreadMessage {
-    run_after(.05, ^{
-        __weak __typeof(self)weakSelf = self;
-        WLMessage *unreadMessage = [self.chat.unreadMessages lastObject];
-        if (unreadMessage.valid && unreadMessage != [self.chat.entries firstObject]) {
-            NSIndexPath *indexPathForCell = [NSIndexPath indexPathForItem:[weakSelf.chat.entries indexOfObject:unreadMessage] inSection:0];
-            if (indexPathForCell.item != NSNotFound) {
-                [self.collectionView scrollToItemAtIndexPath:indexPathForCell atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
-            }
+    [self.collectionView reloadData];
+    WLMessage *unreadMessage = [self.chat.unreadMessages lastObject];
+    if (unreadMessage.valid && unreadMessage != [self.chat.entries firstObject]) {
+        NSUInteger index = [self.chat.entries indexOfObject:unreadMessage];
+        if (index != NSNotFound) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+            [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+            [self.collectionView layoutIfNeeded];
         }
-    });
+    }
 }
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {

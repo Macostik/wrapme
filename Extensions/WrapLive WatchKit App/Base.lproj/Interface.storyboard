@@ -323,10 +323,10 @@
             </objects>
             <point key="canvasLocation" x="770" y="348"/>
         </scene>
-        <!--error-->
+        <!--alert-->
         <scene sceneID="Frx-pZ-zBZ">
             <objects>
-                <controller identifier="error" spacing="0.0" id="4xF-fK-64S" customClass="WLWKErrorController">
+                <controller identifier="alert" spacing="0.0" id="4xF-fK-64S" customClass="WLWKAlertController">
                     <items>
                         <group width="1" height="136" alignment="left" layout="vertical" radius="0.0" id="chw-KB-Mb2">
                             <items>
@@ -334,7 +334,7 @@
                                     <color key="textColor" red="0.93058806660000004" green="0.372343272" blue="0.1172502711" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="font" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                 </label>
-                                <label alignment="center" verticalAlignment="center" text="Error" textAlignment="center" id="SFC-eh-ZGN">
+                                <label alignment="center" verticalAlignment="center" text="Network connection error" textAlignment="center" numberOfLines="0" id="SFC-eh-ZGN">
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                 </label>
@@ -346,6 +346,7 @@
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="errorLabel" destination="SFC-eh-ZGN" id="0PW-Te-Gkt"/>
+                        <outlet property="iconView" destination="Gy3-Ci-tUp" id="Sih-ZY-Oqq"/>
                     </connections>
                 </controller>
             </objects>
@@ -398,11 +399,11 @@
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="image" destination="uee-BH-wcj" id="Nil-TI-7T4"/>
-                        <outlet property="notificationAlertLabel" destination="7l1-25-HMV" id="AvT-Av-BUd"/>
+                        <outlet property="label" destination="7l1-25-HMV" id="sxJ-Mb-22I"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="520" y="712"/>
+            <point key="canvasLocation" x="549" y="712"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

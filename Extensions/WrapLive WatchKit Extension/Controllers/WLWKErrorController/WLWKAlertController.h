@@ -9,6 +9,6 @@
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
 
-@interface WLWKErrorController : WKInterfaceController
+@interface WLWKAlertController : WKInterfaceController
 
 @end

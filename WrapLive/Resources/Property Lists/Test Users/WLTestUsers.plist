@@ -252,6 +252,18 @@
 			<key>password</key>
 			<string>31bbe83cdf</string>
 		</dict>
+		<dict>
+			<key>countryCode</key>
+			<string>380</string>
+			<key>deviceUID</key>
+			<string>9c5530466301f7a41577cc2bd16ac2a15ea64fe5</string>
+			<key>email</key>
+			<string>y.granchenko@mobidev.biz</string>
+			<key>password</key>
+			<string>ab6d120242</string>
+			<key>phone</key>
+			<string>957115540</string>
+		</dict>
 	</array>
 	<key>qa</key>
 	<array>

@@ -8,6 +8,7 @@
 
 #import "WLWKContributionsController.h"
 #import "WLWKCommentEventRow.h"
+#import "WKInterfaceController+SimplifiedTextInput.h"
 
 typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     WLWKContributionsStateDefault,
@@ -76,7 +77,18 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
             } else if ([entry isKindOfClass:[WLCandy class]]) {
                 [weakSelf pushControllerWithName:@"candy" context:entry];
             } else if ([identifier isEqualToString:@"reply"] && [entry isKindOfClass:[WLMessage class]]) {
-                [weakSelf pushControllerWithName:@"chatReply" context:entry.containingEntry];
+                run_after(0.2f,^{
+                    [weakSelf presentTextInputControllerWithSuggestionsFromFileNamed:@"WLWKChatReplyPresets" completion:^(NSString *result) {
+                        WLWrap *wrap = [(WLMessage*)entry wrap];
+                        [WKInterfaceController openParentApplication:@{@"action":@"post_chat_message",WLWrapUIDKey:wrap.identifier,@"text":result} reply:^(NSDictionary *replyInfo, NSError *error) {
+                            if ([replyInfo[@"success"] boolValue] == NO) {
+                                [weakSelf pushControllerWithName:@"alert" context:WLError(replyInfo[@"message"])];
+                            } else {
+                                [weakSelf pushControllerWithName:@"alert" context:@"Message sent!"];
+                            }
+                        }];
+                    }];
+                });
             }
         } failure:nil];
     }

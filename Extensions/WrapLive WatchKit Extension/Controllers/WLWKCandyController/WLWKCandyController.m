@@ -11,6 +11,7 @@
 #import "WLAPIManager.h"
 #import "WLWKCommentRow.h"
 #import "WKInterfaceImage+WLImageFetcher.h"
+#import "WKInterfaceController+SimplifiedTextInput.h"
 
 @interface WLWKCandyController ()
 
@@ -30,12 +31,6 @@
 - (void)awakeWithContext:(WLCandy*)candy {
     [super awakeWithContext:candy];
     self.candy = candy;
-    // Configure interface objects here.
-    __weak typeof(self)weakSelf = self;
-    [candy fetch:^(id object) {
-        [weakSelf update];
-    } failure:^(NSError *error) {
-    }];
 }
 
 - (void)update {
@@ -58,20 +53,15 @@
 }
 
 - (IBAction)writeComment {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"WLWKCommentReplyPresets" ofType:@"plist"];
-    NSArray *presets = [NSArray arrayWithContentsOfFile:path];
     __weak typeof(self)weakSelf = self;
-    [self presentTextInputControllerWithSuggestions:presets allowedInputMode:WKTextInputModeAllowEmoji completion:^(NSArray *results) {
-        for (NSString *result in results) {
-            if ([result isKindOfClass:[NSString class]]) {
-                [weakSelf.candy uploadComment:result success:^(WLComment *comment) {
-                    [weakSelf update];
-                } failure:^(NSError *error) {
-                    [weakSelf pushControllerWithName:@"error" context:WLError(@"error text")];
-                }];
-                break;
+    [self presentTextInputControllerWithSuggestionsFromFileNamed:@"WLWKCommentReplyPresets" completion:^(NSString *result) {
+        [WKInterfaceController openParentApplication:@{@"action":@"post_comment",WLCandyUIDKey:weakSelf.candy.identifier,@"text":result} reply:^(NSDictionary *replyInfo, NSError *error) {
+            if ([replyInfo[@"success"] boolValue] == NO) {
+                [weakSelf pushControllerWithName:@"alert" context:WLError(replyInfo[@"message"])];
+            } else {
+                [weakSelf pushControllerWithName:@"alert" context:@"Comment sent!"];
             }
-        }
+        }];
     }];
 }
 

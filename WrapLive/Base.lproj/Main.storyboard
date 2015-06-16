@@ -2740,12 +2740,18 @@ Tap here to start.</string>
                                                         <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exo-Pi-XRe">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exo-Pi-XRe" customClass="WLLabel">
                                                         <rect key="frame" x="22" y="0.0" width="49" height="21"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2809,12 +2815,18 @@ Tap here to start.</string>
                                                         <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwc-oQ-LVZ" userLabel="Chat">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwc-oQ-LVZ" userLabel="Chat" customClass="WLLabel">
                                                         <rect key="frame" x="22" y="0.0" width="33" height="21"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2836,7 +2848,7 @@ Tap here to start.</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="22" translatesAutoresizingMaskIntoConstraints="NO" id="FWf-5b-mAh" customClass="WLBadgeLabel">
-                                                <rect key="frame" x="15" y="1" width="22" height="22"/>
+                                                <rect key="frame" x="18" y="4" width="22" height="22"/>
                                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="22" id="gzH-Vf-hk5"/>
@@ -2858,9 +2870,9 @@ Tap here to start.</string>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="FWf-5b-mAh" firstAttribute="leading" secondItem="e5n-YY-oV2" secondAttribute="leading" constant="-11" id="0vD-jW-GZV"/>
+                                            <constraint firstItem="FWf-5b-mAh" firstAttribute="leading" secondItem="e5n-YY-oV2" secondAttribute="leading" constant="-8" id="0vD-jW-GZV"/>
                                             <constraint firstAttribute="centerY" secondItem="e5n-YY-oV2" secondAttribute="centerY" id="5x1-Az-met"/>
-                                            <constraint firstItem="FWf-5b-mAh" firstAttribute="top" secondItem="e5n-YY-oV2" secondAttribute="top" constant="-11" id="Bgi-LX-mk3"/>
+                                            <constraint firstItem="FWf-5b-mAh" firstAttribute="top" secondItem="e5n-YY-oV2" secondAttribute="top" constant="-8" id="Bgi-LX-mk3"/>
                                             <constraint firstAttribute="trailing" secondItem="pOE-uq-b8h" secondAttribute="trailing" id="K2f-Ku-lAJ"/>
                                             <constraint firstAttribute="bottom" secondItem="pOE-uq-b8h" secondAttribute="bottom" id="Rzr-Dt-ZV6"/>
                                             <constraint firstAttribute="centerX" secondItem="e5n-YY-oV2" secondAttribute="centerX" id="ZXa-Kw-wBc"/>
@@ -2875,7 +2887,7 @@ Tap here to start.</string>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="activeColor">
-                                                <color key="value" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="inActiveColor">
                                                 <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -2900,12 +2912,18 @@ Tap here to start.</string>
                                                         <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
                                                         <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friend" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qq-sb-7FD" userLabel="Friend">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friend" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qq-sb-7FD" userLabel="Friend" customClass="WLLabel">
                                                         <rect key="frame" x="22" y="0.0" width="45" height="21"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                         <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2944,7 +2962,7 @@ Tap here to start.</string>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="activeColor">
-                                                <color key="value" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="inActiveColor">
                                                 <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -3030,6 +3048,9 @@ Tap here to start.</string>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
@@ -3080,6 +3101,7 @@ Tap here to start.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="animatableConstraint" destination="fZI-X5-yEI" id="XhV-eE-gpr"/>
                         <outlet property="cameraButton" destination="OPi-5r-EKQ" id="P4I-eG-hc7"/>
                         <outlet property="messageCountLabel" destination="FWf-5b-mAh" id="z2o-sl-Gvb"/>
                         <outlet property="nameLabel" destination="ek2-Bn-UN6" id="85h-Ef-Vvk"/>
@@ -3111,10 +3133,10 @@ Tap here to start.</string>
                 </customObject>
                 <customObject id="bCh-Zb-Y2B" userLabel="Photos Transition" customClass="WLTapBarStoryboardTransition">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="" value="WLWrapSettingsViewContoller"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLPhotosViewController"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="sourceIsDelegate" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="containerView" destination="rEr-of-cGm" id="zKJ-6U-ZQR"/>
@@ -4340,12 +4362,18 @@ Check your internet connection and try again.</string>
                                                 <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="19"/>
                                                 <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
+                                                </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add friend..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgl-Nc-aZ0" customClass="WLLabel">
                                                 <rect key="frame" x="24" y="0.0" width="80" height="44"/>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                 <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4902,6 +4930,9 @@ QWRkEEZyaWVuZFZpZXc
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -4919,10 +4950,10 @@ QWRkEEZyaWVuZFZpZXc
                                 <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dOb-uE-FSR" customClass="WLTextField">
-                                        <rect key="frame" x="12" y="0.0" width="254" height="44"/>
+                                        <rect key="frame" x="12" y="0.0" width="296" height="44"/>
                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
                                                 <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -4941,12 +4972,6 @@ QWRkEEZyaWVuZFZpZXc
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" title="i"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="pencil"/>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                                                <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="editButtonClick:" destination="TKE-mx-bkQ" eventType="touchUpInside" id="nEb-Ko-c4w"/>
                                         </connections>
@@ -4955,8 +4980,8 @@ QWRkEEZyaWVuZFZpZXc
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="3nl-vL-zzR"/>
+                                    <constraint firstAttribute="trailing" secondItem="dOb-uE-FSR" secondAttribute="trailing" constant="12" id="8TJ-4a-Zkh"/>
                                     <constraint firstItem="EbT-vV-AiD" firstAttribute="top" secondItem="NbD-y4-9Ou" secondAttribute="top" id="COo-oL-HIt"/>
-                                    <constraint firstItem="EbT-vV-AiD" firstAttribute="leading" secondItem="dOb-uE-FSR" secondAttribute="trailing" constant="12" id="MdU-HG-iVB"/>
                                     <constraint firstAttribute="bottom" secondItem="EbT-vV-AiD" secondAttribute="bottom" id="MjV-cJ-TwO"/>
                                     <constraint firstAttribute="trailing" secondItem="EbT-vV-AiD" secondAttribute="trailing" constant="12" id="S9F-BW-bDw"/>
                                     <constraint firstItem="dOb-uE-FSR" firstAttribute="top" secondItem="NbD-y4-9Ou" secondAttribute="top" id="VQZ-hK-ojf"/>
@@ -4965,48 +4990,63 @@ QWRkEEZyaWVuZFZpZXc
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-Oj-q4N">
-                                <rect key="frame" x="0.0" y="108" width="320" height="220"/>
+                                <rect key="frame" x="0.0" y="108" width="320" height="235"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtf-da-c8a" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="12" width="85" height="21"/>
-                                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                        <rect key="frame" x="12" y="12" width="101" height="24"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                         <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Photo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsu-Ad-ILe" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="33" width="48" height="24"/>
+                                        <rect key="frame" x="12" y="48" width="48" height="24"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Notify me when new photo is added to the wrap." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHL-LP-6Kt" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="57" width="235" height="41"/>
+                                        <rect key="frame" x="12" y="72" width="235" height="41"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R1I-Cl-5SX">
-                                        <rect key="frame" x="259" y="48" width="51" height="31"/>
+                                        <rect key="frame" x="259" y="63" width="51" height="31"/>
                                         <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zet-Ls-5CH" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="98" width="37" height="24"/>
+                                        <rect key="frame" x="12" y="113" width="37" height="24"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Notify me when new chat is posted to the wrap." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUR-VV-aaK" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="122" width="235" height="41"/>
+                                        <rect key="frame" x="12" y="137" width="235" height="41"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7VE-Kd-SiX">
-                                        <rect key="frame" x="259" y="113" width="51" height="31"/>
+                                        <rect key="frame" x="259" y="128" width="51" height="31"/>
                                         <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                     </switch>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="WLButton">
-                                        <rect key="frame" x="12" y="175" width="296" height="33"/>
+                                        <rect key="frame" x="12" y="190" width="296" height="33"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                         <state key="normal" title="LEAVE WRAP">
                                             <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -5032,7 +5072,7 @@ QWRkEEZyaWVuZFZpZXc
                                 <constraints>
                                     <constraint firstItem="zet-Ls-5CH" firstAttribute="top" secondItem="bHL-LP-6Kt" secondAttribute="bottom" id="85L-TB-2oX"/>
                                     <constraint firstItem="zBK-OX-573" firstAttribute="top" secondItem="cUR-VV-aaK" secondAttribute="bottom" constant="12" id="ALV-1E-I22"/>
-                                    <constraint firstItem="bsu-Ad-ILe" firstAttribute="top" secondItem="Vtf-da-c8a" secondAttribute="bottom" id="QcC-UM-DoK"/>
+                                    <constraint firstItem="bsu-Ad-ILe" firstAttribute="top" secondItem="Vtf-da-c8a" secondAttribute="bottom" constant="12" id="QcC-UM-DoK"/>
                                     <constraint firstItem="Vtf-da-c8a" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="Y1Y-Ub-xYv"/>
                                     <constraint firstItem="bHL-LP-6Kt" firstAttribute="top" secondItem="bsu-Ad-ILe" secondAttribute="bottom" id="alO-fn-qxf"/>
                                     <constraint firstItem="zBK-OX-573" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="dbc-XE-ugP"/>
@@ -5072,6 +5112,7 @@ QWRkEEZyaWVuZFZpZXc
                         <outlet property="editButton" destination="EbT-vV-AiD" id="HS8-7x-q20"/>
                         <outlet property="navigationBar" destination="GMA-8i-bdS" id="99Z-Cx-GMM"/>
                         <outlet property="photoNotifyTrigger" destination="R1I-Cl-5SX" id="E0q-rs-fDh"/>
+                        <outlet property="widthTextFieldConstraint" destination="8TJ-4a-Zkh" id="S98-px-cIy"/>
                         <outlet property="wrapNameLabel" destination="ZL1-Bm-SmI" id="Dat-3X-YfU"/>
                         <outlet property="wrapNameTextField" destination="dOb-uE-FSR" id="aVm-EK-wPl"/>
                     </connections>

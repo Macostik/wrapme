@@ -116,3 +116,17 @@
 /* Class = "UILabel"; text = "Settings"; ObjectID = "ueu-Q3-dgA"; */
 "ueu-Q3-dgA.text" = "Настройки";
 
+/* Class = "IBUILabel"; text = "Notifications"; ObjectID = "Vtf-da-c8a"; */
+"Vtf-da-c8a.text" = "Уведомления";
+
+/* Class = "IBUILabel"; text = "Photo"; ObjectID = "bsu-Ad-ILe"; */
+"bsu-Ad-ILe.text" = "Фото";
+
+/* Class = "IBUILabel"; text = "Notify me when new photo is added to the wrap."; ObjectID = "bHL-LP-6Kt"; */
+"bHL-LP-6Kt.text" = "Напомнить когда будет добавлено новое фото.";
+
+/* Class = "IBUILabel"; text = "Chat"; ObjectID = "zet-Ls-5CH"; */
+"zet-Ls-5CH.text" = "Чат";
+
+/* Class = "IBUILabel"; text = "Notify me when new chat is posted to the wrap."; ObjectID = "cUR-VV-aaK"; */
+"cUR-VV-aaK.text" = "Напомнить когда будет добавлено новое сообщение.";

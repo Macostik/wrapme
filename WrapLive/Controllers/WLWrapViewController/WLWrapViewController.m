@@ -18,6 +18,7 @@
 #import "WLToast.h"
 #import "SegmentedControl.h"
 #import "WLTapBarStoryboardTransition.h"
+#import "WLBasicDataSource.h"
 
 @interface WLWrapViewController ()  <WLStillPictureViewControllerDelegate>
 
@@ -25,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 @property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *animatableConstraint;
 
 @end
 
@@ -105,7 +107,9 @@
             return weakSelf.wrap;
         }];
         receiver.didAddBlock = receiver.didDeleteBlock = ^(WLMessage *message) {
-            [weakSelf updateNotificationCouter];
+            if (self.segmentedControl.selectedSegment != WLSegmentControlStateChat) {
+                [weakSelf updateNotificationCouter];
+            }
         };
     }];
 }
@@ -169,5 +173,8 @@
     return YES;
 }
 
+- (void)photosViewController:(WLPhotosViewController *)controller usedDataSource:(WLBasicDataSource *)dataSource {
+    dataSource.animatableConstraints = [NSArray arrayWithObject:self.animatableConstraint];
+}
 
 @end

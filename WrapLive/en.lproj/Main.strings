@@ -95,3 +95,17 @@
 /* Class = "IBUIButton"; normalTitle = "Close"; ObjectID = "2nE-rT-l31"; */
 "2nE-rT-l31.normalTitle" = "Close";
 
+/* Class = "IBUILabel"; text = "Notifications"; ObjectID = "Vtf-da-c8a"; */
+"Vtf-da-c8a.text" = "Notifications";
+
+/* Class = "IBUILabel"; text = "Photo"; ObjectID = "bsu-Ad-ILe"; */
+"bsu-Ad-ILe.text" = "Photo";
+
+/* Class = "IBUILabel"; text = "Notify me when new photo is added to the wrap."; ObjectID = "bHL-LP-6Kt"; */
+"bHL-LP-6Kt.text" = "Notify me when new photo is added to the wrap.";
+
+/* Class = "IBUILabel"; text = "Chat"; ObjectID = "zet-Ls-5CH"; */
+"zet-Ls-5CH.text" = "Chat";
+
+/* Class = "IBUILabel"; text = "Notify me when new chat is posted to the wrap."; ObjectID = "cUR-VV-aaK"; */
+"cUR-VV-aaK.text" = "Notify me when new chat is posted to the wrap.";

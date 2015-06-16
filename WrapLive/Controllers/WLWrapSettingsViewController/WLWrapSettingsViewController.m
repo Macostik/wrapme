@@ -12,6 +12,8 @@
 #import "WLToast.h"
 #import "WLEditSession.h"
 
+static NSInteger WLIndent = 12.0;
+
 @interface WLWrapSettingsViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
@@ -20,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet WLButton *actionButton;
 @property (weak, nonatomic) IBOutlet UISwitch *photoNotifyTrigger;
 @property (weak, nonatomic) IBOutlet UISwitch *chatNotifyTrigger;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthTextFieldConstraint;
 
 @property (strong, nonatomic) WLEditSession *editSession;
 
@@ -35,6 +38,7 @@
     self.editButton.hidden = !self.wrap.deletable;
     self.wrapNameTextField.enabled = self.wrap.deletable;
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
+    self.widthTextFieldConstraint.constant += !self.wrap.deletable ? : self.editButton.width + WLIndent;
 }
 
 - (IBAction)handleAction:(WLButton *)sender {

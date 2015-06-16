@@ -61,6 +61,13 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     [self firstLoadRequest];
     
     [[WLNetwork network] addReceiver:self];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(photosViewController:usedDataSource:)]) {
+        [self.delegate photosViewController:self usedDataSource:self.dataSource];
+    }
+    if (self.wrap.candies.nonempty) {
+        [self dropDownCollectionView];
+    }
 }
 
 - (void)firstLoadRequest {
@@ -73,10 +80,6 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if (self.wrap.candies.nonempty) {
-        [self dropDownCollectionView];
-    }
     
     if (self.wrap.valid) {
         [self.wrap.candies all:^(WLCandy *candy) {

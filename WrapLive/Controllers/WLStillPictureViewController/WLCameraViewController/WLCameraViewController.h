@@ -18,7 +18,7 @@
 - (void)cameraViewControllerDidSelectGallery:(WLCameraViewController*)controller;
 
 @optional
-- (void)cameraViewControllerDidFinish:(WLCameraViewController*)controller;
+- (void)cameraViewControllerDidFinish:(WLCameraViewController*)controller sender:(id)sender;
 - (void)cameraViewController:(WLCameraViewController*)controller didSelectAssets:(NSArray*)assets;
 
 @end

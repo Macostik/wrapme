@@ -172,8 +172,8 @@
 }
 
 - (IBAction)finish:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
-        [self.delegate cameraViewControllerDidFinish:self];
+    if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:sender:)]) {
+        [self.delegate cameraViewControllerDidFinish:self sender:sender];
     }
 }
 

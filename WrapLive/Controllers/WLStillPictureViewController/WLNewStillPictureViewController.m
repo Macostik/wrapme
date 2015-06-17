@@ -255,12 +255,28 @@
     [self openGallery:NO animated:NO];
 }
 
-- (void)cameraViewControllerDidFinish:(WLCameraViewController *)controller {
-    WLBatchEditPictureViewController *editController = [WLBatchEditPictureViewController instantiate:self.storyboard];
-    editController.pictures = self.pictures;
-    editController.delegate = self;
-    editController.wrap = self.wrap;
-    [self pushViewController:editController animated:NO];
+- (void)cameraViewControllerDidFinish:(WLCameraViewController *)controller sender:(WLButton*)sender {
+    WLOperationQueue *queue = [WLOperationQueue queueNamed:@"wl_still_picture_queue" capacity:3];
+    
+    __weak typeof(self)weakSelf = self;
+    WLBlock completionBlock = ^ {
+        queue.finishQueueBlock = nil;
+        WLBatchEditPictureViewController *editController = [WLBatchEditPictureViewController instantiate:self.storyboard];
+        editController.pictures = weakSelf.pictures;
+        editController.delegate = weakSelf;
+        editController.wrap = weakSelf.wrap;
+        [weakSelf pushViewController:editController animated:NO];
+    };
+    
+    if (queue.operations.count == 0) {
+        completionBlock();
+    } else {
+        sender.loading = YES;
+        [queue setFinishQueueBlock:^{
+            sender.loading = NO;
+            completionBlock();
+        }];
+    }
 }
 
 - (void)cameraViewController:(WLCameraViewController *)controller didSelectAssets:(NSArray *)assets {
@@ -279,14 +295,15 @@
 - (void)handleAssets:(NSArray*)assets {
     __weak typeof(self)weakSelf = self;
     for (ALAsset* asset in assets) {
+        WLEditPicture *picture = [WLEditPicture picture:weakSelf.mode];
+        picture.isAsset = YES;
+        [self.pictures addObject:picture];
+        [self updatePicturesCountLabel];
         runQueuedOperation(@"wl_still_picture_queue",3,^(WLOperation *operation) {
             [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
-                WLEditPicture *picture = [WLEditPicture picture:croppedImage mode:weakSelf.mode completion:^(WLEditPicture *picture) {
+                [picture setImage:croppedImage completion:^(id object) {
                     [operation finish];
                 }];
-                picture.isAsset = YES;
-                [weakSelf.pictures addObject:picture];
-                [weakSelf updatePicturesCountLabel];
             }];
         });
     }

@@ -575,7 +575,7 @@
                                                     <action selector="shot:" destination="gkl-Du-487" eventType="touchUpInside" id="Sla-iD-pTZ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agr-RC-KiU">
+                                            <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agr-RC-KiU" customClass="WLButton">
                                                 <rect key="frame" x="329" y="66" width="36" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="36" id="g11-qa-xqz"/>
@@ -1828,10 +1828,10 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6p-H5-Fb8">
-                                        <rect key="frame" x="45" y="4" width="215" height="36"/>
+                                        <rect key="frame" x="45" y="4" width="231" height="36"/>
                                         <subviews>
                                             <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HH9-aQ-kkJ" customClass="WLTextView">
-                                                <rect key="frame" x="4" y="8" width="211" height="20"/>
+                                                <rect key="frame" x="4" y="8" width="227" height="20"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
@@ -1844,7 +1844,7 @@
                                                 </connections>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a comment..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ag-My-O3m" customClass="WLLabel">
-                                                <rect key="frame" x="8" y="8" width="204" height="21"/>
+                                                <rect key="frame" x="8" y="8" width="220" height="21"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="gWi-ol-sjE"/>
@@ -1874,11 +1874,18 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQe-F3-dTa">
+                                        <rect key="frame" x="45" y="38" width="221" height="1"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="0ID-nR-c2M"/>
+                                        </constraints>
+                                    </view>
                                     <button tag="5" contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Nk-uxq" customClass="WLIconButton">
-                                        <rect key="frame" x="260" y="0.0" width="60" height="44"/>
+                                        <rect key="frame" x="276" y="0.0" width="45" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="8tF-V7-AC5"/>
+                                            <constraint firstAttribute="width" constant="45" id="8tF-V7-AC5"/>
                                             <constraint firstAttribute="height" constant="44" id="Z3Q-ft-DVA"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -1907,16 +1914,19 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.1005158946" green="0.1005128846" blue="0.1005145907" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Q6p-H5-Fb8" firstAttribute="leading" secondItem="ao0-lV-pbN" secondAttribute="leading" constant="45" id="1j2-me-eBo"/>
                                     <constraint firstItem="XHr-LD-08v" firstAttribute="leading" secondItem="ao0-lV-pbN" secondAttribute="leading" id="8ht-xh-Vsk"/>
                                     <constraint firstAttribute="centerY" secondItem="XHr-LD-08v" secondAttribute="centerY" id="IIV-XY-Rph"/>
-                                    <constraint firstItem="Ovp-Nk-uxq" firstAttribute="leading" secondItem="ao0-lV-pbN" secondAttribute="trailing" constant="-60" id="WRL-nH-baO"/>
+                                    <constraint firstAttribute="bottom" secondItem="kQe-F3-dTa" secondAttribute="bottom" constant="5" id="KOv-zt-6np"/>
+                                    <constraint firstItem="Ovp-Nk-uxq" firstAttribute="leading" secondItem="ao0-lV-pbN" secondAttribute="trailing" constant="-44" id="WRL-nH-baO"/>
                                     <constraint firstAttribute="centerY" secondItem="Ovp-Nk-uxq" secondAttribute="centerY" id="aSk-zf-Wq8"/>
                                     <constraint firstItem="Ovp-Nk-uxq" firstAttribute="leading" secondItem="Q6p-H5-Fb8" secondAttribute="trailing" id="iMn-KO-LB7"/>
+                                    <constraint firstItem="kQe-F3-dTa" firstAttribute="trailing" secondItem="Q6p-H5-Fb8" secondAttribute="trailing" constant="-10" id="qCp-2N-DKu"/>
                                     <constraint firstAttribute="centerY" secondItem="Q6p-H5-Fb8" secondAttribute="centerY" id="xfC-kX-mOz"/>
                                     <constraint firstAttribute="height" secondItem="Q6p-H5-Fb8" secondAttribute="height" constant="8" id="zYN-OV-msa"/>
+                                    <constraint firstItem="kQe-F3-dTa" firstAttribute="leading" secondItem="Q6p-H5-Fb8" secondAttribute="leading" id="zip-BE-WAZ"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="maxLines">
@@ -1937,7 +1947,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yq-a6-Fsm" customClass="WLIconButton">
                                 <rect key="frame" x="276" y="313" width="34" height="34"/>
-                                <color key="backgroundColor" white="0.1010000035" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="3yq-a6-Fsm" secondAttribute="height" id="IIa-UA-Kug"/>
                                 </constraints>
@@ -1964,7 +1974,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oyu-cu-lw1" customClass="WLIconButton">
                                 <rect key="frame" x="10" y="313" width="34" height="34"/>
-                                <color key="backgroundColor" white="0.1010000035" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="oyu-cu-lw1" secondAttribute="height" id="lCY-9N-4nX"/>
                                 </constraints>
@@ -1990,7 +2000,7 @@
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzZ-19-wUA" customClass="WLIconButton">
                                 <rect key="frame" x="143" y="357" width="34" height="34"/>
-                                <color key="backgroundColor" white="0.1010000035" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="HzZ-19-wUA" secondAttribute="height" id="3xS-XR-0yb"/>
                                 </constraints>
@@ -2231,6 +2241,7 @@
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="bottomView" destination="mxa-eX-hMc" id="dYr-Td-HR0"/>
                         <outlet property="composeBar" destination="ao0-lV-pbN" id="QXo-Sk-wDV"/>

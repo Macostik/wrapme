@@ -10,6 +10,14 @@
 #import "WLImageCache.h"
 #import "UIImage+Resize.h"
 #import "ALAssetsLibrary+Additions.h"
+#import "WLImageFetcher.h"
+#import "UIImage+Drawing.h"
+
+@interface WLEditPicture () <WLImageFetching>
+
+@property (nonatomic) BOOL fetching;
+
+@end
 
 @implementation WLEditPicture
 
@@ -91,13 +99,31 @@
 }
 
 - (void)saveToAssets {
-    [[ALAssetsLibrary library] ]
+    if (!self.fetching) {
+        self.fetching = YES;
+        [[WLImageFetcher fetcher] enqueueImageWithUrl:self.original receiver:self];
+    }
 }
 
 - (void)saveToAssetsIfNeeded {
     if (!self.isAsset) {
         [self saveToAssets];
     }
+}
+
+// MARK: - WLImageFetching
+
+- (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
+    [image save:nil];
+    self.fetching = NO;
+}
+
+- (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
+    self.fetching = NO;
+}
+
+- (NSString *)fetcherTargetUrl:(WLImageFetcher *)fetcher {
+    return self.fetching ? self.original : nil;
 }
 
 @end

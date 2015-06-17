@@ -36,6 +36,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
 @implementation WLCommentsViewController
 
 - (void)viewDidLoad {
+    self.collectionView.layer.geometryFlipped = YES;
     [super viewDidLoad];
     if  (!self.candy.valid) return;
     self.composeBar.placeholder = WLLS(@"comment_placeholder");
@@ -50,9 +51,8 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
                                                     width:weakSelf.collectionView.width - WLNotificationCommentHorizontalSpacing];
         return CGSizeMake(weakSelf.collectionView.width, textHeight + WLNotificationCommentVerticalSpacing);
     }];
-    
+ 
     self.dataSource.items = [self sortedComments];
-    self.collectionView.layer.geometryFlipped = YES;
     [self addNotifyReceivers];
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
 }

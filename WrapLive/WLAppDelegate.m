@@ -311,15 +311,25 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
+    
+    UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithExpirationHandler:^{
+        if (reply) reply(@{@"success":@NO,@"message":@"Background task expired."});
+    }];
+    
+    void (^completion) (NSDictionary*) = ^ (NSDictionary *replyInfo) {
+        if (reply) reply(replyInfo);
+        [application endBackgroundTask:task];
+    };
+    
     NSString *action = userInfo[@"action"];
     if (action.nonempty) {
         if ([action isEqualToString:@"authorization"]) {
             if ([[WLAuthorization currentAuthorization] canAuthorize]) {
                 [[WLAuthorization currentAuthorization] setCurrent];
                 [WLAPIManager saveEnvironmentName:[WLAPIManager manager].environment.name];
-                if (reply) reply(@{@"success":@YES});
+                completion(@{@"success":@YES});
             } else {
-                if (reply) reply(@{@"message":@"Please, launch wrapLive containing app for registration",@"success":@NO});
+                completion(@{@"message":@"Please, launch wrapLive containing app for registration",@"success":@NO});
             }
         } else if ([action isEqualToString:@"post_chat_message"]) {
             NSString *wrapIdentifier = userInfo[WLWrapUIDKey];
@@ -327,12 +337,12 @@ static WLDataBlock deviceTokenCompletion = nil;
             if ([WLWrap entryExists:wrapIdentifier]) {
                 WLWrap *wrap = [WLWrap entry:wrapIdentifier];
                 [wrap uploadMessage:text success:^(WLMessage *message) {
-                    if (reply) reply(@{@"success":@YES});
+                    completion(@{@"success":@YES});
                 } failure:^(NSError *error) {
-                    if (reply) reply(@{@"success":@NO,@"message":error.localizedDescription});
+                    completion(@{@"success":@NO,@"message":error.localizedDescription?:@""});
                 }];
             } else {
-                if (reply) reply(@{@"success":@NO,@"message":@"Wrap isn't available."});
+                completion(@{@"success":@NO,@"message":@"Wrap isn't available."});
             }
         } else if ([action isEqualToString:@"post_comment"]) {
             NSString *candyIdentifier = userInfo[WLCandyUIDKey];
@@ -340,16 +350,34 @@ static WLDataBlock deviceTokenCompletion = nil;
             if ([WLCandy entryExists:candyIdentifier]) {
                 WLCandy *candy = [WLCandy entry:candyIdentifier];
                 [candy uploadComment:text success:^(WLComment *comment) {
-                    if (reply) reply(@{@"success":@YES});
+                    completion(@{@"success":@YES});
                 } failure:^(NSError *error) {
-                    if (reply) reply(@{@"success":@NO,@"message":error.localizedDescription});
+                    completion(@{@"success":@NO,@"message":error.localizedDescription?:@""});
                 }];
             } else {
-                if (reply) reply(@{@"success":@NO,@"message":@"Photo isn't available."});
+                completion(@{@"success":@NO,@"message":@"Photo isn't available."});
             }
+        } else if ([action isEqualToString:@"fetch_notification"]) {
+            
+            [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo[@"notification"] success:^(WLNotification *notification) {
+                if ([notification isKindOfClass:[WLEntryNotification class]]) {
+                    NSDictionary *entry = [[(WLEntryNotification*)notification targetEntry] dictionaryRepresentation];
+                    if (entry) {
+                        run_after(0.5, ^{
+                            completion(@{@"success":@YES,@"entry":entry});
+                        });
+                    } else {
+                        completion(@{@"success":@NO,@"message":@"No data."});
+                    }
+                } else {
+                    completion(@{@"success":@NO,@"message":@"This notification type isn't supperted."});
+                }
+            } failure:^(NSError *error) {
+                completion(@{@"success":@NO,@"message":error.localizedDescription?:@""});
+            }];
         }
     } else {
-        if (reply) reply(@{@"success":@NO,@"message":@"No action specified."});
+        completion(@{@"success":@NO,@"message":@"No action specified."});
     }
 }
 

@@ -15,6 +15,8 @@ typedef NS_ENUM (NSUInteger, WLContributionStatus) {
     WLContributionStatusFinished
 };
 
+static NSUInteger WLRecentContributionsDefaultLimit = 6;
+
 @interface WLContribution (Extended)
 
 @property (readonly, nonatomic) WLContributionStatus status;
@@ -28,6 +30,8 @@ typedef NS_ENUM (NSUInteger, WLContributionStatus) {
 + (instancetype)contribution;
 
 + (NSMutableOrderedSet*)recentContributions;
+
++ (NSMutableOrderedSet *)recentContributions:(NSUInteger)limit;
 
 + (NSNumber*)uploadingOrder;
 

@@ -103,9 +103,6 @@
                                                 <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                 <variation key="device=watch38mm" height="136"/>
                                                 <variation key="device=watch42mm" height="156"/>
-                                                <connections>
-                                                    <segue destination="5u8-yz-26Q" kind="push" id="Clu-VY-jc3"/>
-                                                </connections>
                                             </group>
                                             <connections>
                                                 <outlet property="avatar" destination="8q4-xK-lPJ" id="uEm-aj-SuN"/>
@@ -142,9 +139,6 @@
                                                 <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                 <variation key="device=watch38mm" height="136"/>
                                                 <variation key="device=watch42mm" height="156"/>
-                                                <connections>
-                                                    <segue destination="5u8-yz-26Q" kind="push" id="uNY-jj-NYk"/>
-                                                </connections>
                                             </group>
                                             <connections>
                                                 <outlet property="dataGroup" destination="xLU-2A-pMR" id="Ixg-fc-cZi"/>
@@ -406,7 +400,4 @@
             <point key="canvasLocation" x="549" y="712"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="uNY-jj-NYk"/>
-    </inferredMetricsTieBreakers>
 </document>

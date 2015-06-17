@@ -2261,8 +2261,9 @@
                         <outlet property="dataSource" destination="y7X-Pb-ZcE" id="sTZ-vw-b7l"/>
                         <outlet property="deleteButton" destination="oyu-cu-lw1" id="L5Q-Qr-zRM"/>
                         <outlet property="editButton" destination="3yq-a6-Fsm" id="dCV-6Q-CsV"/>
-                        <outlet property="restoreButton" destination="HzZ-19-wUA" id="Hg0-JL-w6Y"/>
+                        <outlet property="restoreButton" destination="HzZ-19-wUA" id="uY9-qV-Q1x"/>
                         <outlet property="scrollView" destination="x4C-3O-a96" id="ptX-z4-MSm"/>
+                        <outlet property="uploadButton" destination="taU-aO-Oxc" id="chH-x2-3I9"/>
                         <outlet property="wrapView" destination="JfN-vq-FkG" id="CCE-sT-AcV"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="kJD-sK-cdk" id="hSw-7b-6xa"/>
                     </connections>

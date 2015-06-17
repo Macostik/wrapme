@@ -16,6 +16,7 @@
 #import "WLEditPictureCell.h"
 #import "WLToast.h"
 #import "WLHintView.h"
+#import "UIButton+Additions.h"
 
 @interface WLBatchEditPictureViewController () <WLComposeBarDelegate>
 
@@ -28,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UIButton *restoreButton;
+@property (weak, nonatomic) IBOutlet UIButton *uploadButton;
 
 @end
 
@@ -183,9 +185,11 @@
     __weak typeof(self)weakSelf = self;
     UIImage *image = [(WLEditPictureViewController*)self.viewController imageView].image;
     AdobeUXImageEditorViewController* aviaryController = [AdobeUXImageEditorViewController editControllerWithImage:image completion:^(UIImage *image, AdobeUXImageEditorViewController *controller) {
+        weakSelf.uploadButton.active = NO;
         [weakSelf.picture setImage:image completion:^(id object) {
             weakSelf.picture.edited = YES;
             [weakSelf.dataSource reload];
+            weakSelf.uploadButton.active = YES;
         }];
         [(WLEditPictureViewController*)weakSelf.viewController imageView].image = image;
         [weakSelf.navigationController popViewControllerAnimated:NO];

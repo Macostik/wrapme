@@ -100,12 +100,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    __weak typeof(self)weakSelf = self;
-    run_after(0.0f, ^{
-        if (!weakSelf.presentedViewController) {
-            [weakSelf showHintView];
-        }
-    });
+    [self showHintView];
 }
 
 - (void)setWrap:(WLWrap *)wrap {
@@ -119,16 +114,18 @@
 
 - (void)showHintView {
     if (!self.wrap || [WLUser currentUser].wraps.count <= 1) return;
-    WLStillPictureBaseViewController *controller = (id)self.topViewController;
+    
+    for (id controller in self.childViewControllers) {
+        if ([controller isKindOfClass:[WLWrapPickerViewController class]]) {
+            return;
+        }
+    }
+    
+    WLStillPictureBaseViewController *controller = [(id)self.viewControllers lastObject];
     if ([controller isKindOfClass:[WLStillPictureBaseViewController class]] && controller.wrapView) {
         CGPoint wrapNameCenter = [self.view convertPoint:controller.wrapView.nameLabel.center fromView:controller.wrapView];
         [WLHintView showWrapPickerHintViewInView:[UIWindow mainWindow] withFocusPoint:CGPointMake(74, wrapNameCenter.y)];
     }
-}
-
-- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    [super dismissViewControllerAnimated:flag completion:completion];
-    [self showHintView];
 }
 
 - (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
@@ -222,6 +219,7 @@
     WLStillPictureViewController* stillPictureViewController = (id)controller.parentViewController;
     stillPictureViewController.wrap = wrap;
     [controller hide];
+    [self showHintView];
 }
 
 - (void)wrapPickerViewControllerDidCancel:(WLWrapPickerViewController *)controller {
@@ -230,6 +228,7 @@
     } else {
         [self.delegate stillPictureViewControllerDidCancel:self];
     }
+    [self showHintView];
 }
 
 #pragma mark - WLCameraViewControllerDelegate

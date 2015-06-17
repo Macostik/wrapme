@@ -2246,8 +2246,8 @@
                         <outlet property="bottomView" destination="mxa-eX-hMc" id="dYr-Td-HR0"/>
                         <outlet property="composeBar" destination="ao0-lV-pbN" id="QXo-Sk-wDV"/>
                         <outlet property="dataSource" destination="y7X-Pb-ZcE" id="sTZ-vw-b7l"/>
-                        <outlet property="deleteButton" destination="3yq-a6-Fsm" id="lpd-4P-O6F"/>
-                        <outlet property="editButton" destination="oyu-cu-lw1" id="z0j-vy-lcJ"/>
+                        <outlet property="deleteButton" destination="oyu-cu-lw1" id="L5Q-Qr-zRM"/>
+                        <outlet property="editButton" destination="3yq-a6-Fsm" id="dCV-6Q-CsV"/>
                         <outlet property="restoreButton" destination="HzZ-19-wUA" id="Hg0-JL-w6Y"/>
                         <outlet property="scrollView" destination="x4C-3O-a96" id="ptX-z4-MSm"/>
                         <outlet property="wrapView" destination="JfN-vq-FkG" id="CCE-sT-AcV"/>

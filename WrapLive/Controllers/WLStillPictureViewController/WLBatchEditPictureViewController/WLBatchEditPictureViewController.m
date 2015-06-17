@@ -15,6 +15,7 @@
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLEditPictureCell.h"
 #import "WLToast.h"
+#import "WLHintView.h"
 
 @interface WLBatchEditPictureViewController () <WLComposeBarDelegate>
 
@@ -56,6 +57,13 @@
     }];
     
     self.composeBar.showsDoneButtonOnEditing = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if ([self.wrap isFirstCreated]) {
+        [WLHintView showEditWrapHintViewInView:[UIWindow mainWindow] withFocusToView:self.editButton];
+    }
 }
 
 - (void)setPicture:(WLEditPicture *)picture {

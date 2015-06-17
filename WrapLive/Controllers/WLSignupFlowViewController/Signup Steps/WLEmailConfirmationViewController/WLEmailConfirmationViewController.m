@@ -36,12 +36,15 @@
     
     NSString *userUID = [WLUser currentUser].identifier;
     if (userUID.nonempty) {
-        [[WLUser notifier] addReceiver:self];
         self.userChannel = [WLNotificationChannel channelWithName:userUID];
         [self.userChannel observeMessages:^(PNMessage *message) {
-            WLNotification *notification = [WLNotification notificationWithMessage:message];
+            WLEntryNotification *notification = [WLEntryNotification notificationWithMessage:message];
             if (notification.type == WLNotificationUserUpdate) {
-                [notification fetch:nil failure:nil];
+                [notification createTargetEntry];
+                if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
+                    [WLSoundPlayer playSound:WLSound_s01];
+                    [self setSuccessStatusAnimated:NO];
+                }
             }
         }];
     }
@@ -55,15 +58,6 @@
     } failure:^(NSError *error) {
         [error show];
     }];
-}
-
-#pragma mark - WLEntryNotifyReceiver
-
-- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
-    if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
-        [WLSoundPlayer playSound:WLSound_s01];
-        [self setSuccessStatusAnimated:NO];
-    }
 }
 
 @end

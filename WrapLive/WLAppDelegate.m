@@ -86,7 +86,10 @@
     WLAPIManager *manager = [WLAPIManager manager];
     [manager setUnauthorizedErrorBlock:^ (NSError *error) {
         WLLog(@"ERROR", @"redirection to welcome screen, sign in failed", error);
-        [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+        UIStoryboard *storyboard = [UIStoryboard storyboardNamed:WLSignUpStoryboard];
+        if ([UIWindow mainWindow].rootViewController.storyboard != storyboard) {
+            [storyboard present:YES];
+        }
     }];
     
     [manager setShowErrorBlock:^ (NSError *error) {
@@ -318,11 +321,36 @@ static WLDataBlock deviceTokenCompletion = nil;
             } else {
                 if (reply) reply(@{@"message":@"Please, launch wrapLive containing app for registration",@"success":@NO});
             }
-            return;
+        } else if ([action isEqualToString:@"post_chat_message"]) {
+            NSString *wrapIdentifier = userInfo[WLWrapUIDKey];
+            NSString *text = userInfo[@"text"];
+            if ([WLWrap entryExists:wrapIdentifier]) {
+                WLWrap *wrap = [WLWrap entry:wrapIdentifier];
+                [wrap uploadMessage:text success:^(WLMessage *message) {
+                    if (reply) reply(@{@"success":@YES});
+                } failure:^(NSError *error) {
+                    if (reply) reply(@{@"success":@NO,@"message":error.localizedDescription});
+                }];
+            } else {
+                if (reply) reply(@{@"success":@NO,@"message":@"Wrap isn't available."});
+            }
+        } else if ([action isEqualToString:@"post_comment"]) {
+            NSString *candyIdentifier = userInfo[WLCandyUIDKey];
+            NSString *text = userInfo[@"text"];
+            if ([WLCandy entryExists:candyIdentifier]) {
+                WLCandy *candy = [WLCandy entry:candyIdentifier];
+                [candy uploadComment:text success:^(WLComment *comment) {
+                    if (reply) reply(@{@"success":@YES});
+                } failure:^(NSError *error) {
+                    if (reply) reply(@{@"success":@NO,@"message":error.localizedDescription});
+                }];
+            } else {
+                if (reply) reply(@{@"success":@NO,@"message":@"Photo isn't available."});
+            }
         }
+    } else {
+        if (reply) reply(@{@"success":@NO,@"message":@"No action specified."});
     }
-    
-    if (reply) reply(@{@"success":@NO});
 }
 
 @end

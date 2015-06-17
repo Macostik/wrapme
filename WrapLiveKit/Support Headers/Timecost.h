@@ -57,3 +57,12 @@ NS_INLINE void logIteratedTimecost(NSUInteger i, timecost_block block) {
 #define logTimecosts(block, ...) NSLog(@"\n\ntimecost = %@\n", timecosts(block, __VA_ARGS__, nil))
 
 #define logIteratedTimecosts(i, block, ...) NSLog(@"\n\ntimecost = %@\n", iteratedTimecosts(i, block, __VA_ARGS__, nil))
+
+#define logAverageTimecost(block) \
+static NSTimeInterval averageTimecost = 0; \
+static NSUInteger timecostGettingCount = 0; \
+NSTimeInterval timecostValue = timecost(block); \
+NSLog(@"\n\ntimecost %f\n", timecostValue); \
+timecostGettingCount++; \
+averageTimecost += timecostValue; \
+NSLog(@"\n\naverage timecost %f\n", averageTimecost / timecostGettingCount);

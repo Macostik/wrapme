@@ -12,6 +12,7 @@
 @interface WLWKNotificationController()
 
 @property (weak, nonatomic) IBOutlet WKInterfaceImage *image;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *label;
 
 @end
 
@@ -28,6 +29,7 @@
         __weak typeof(self)weakSelf = self;
         [self.image setImage:nil];
         [entry recursivelyFetchIfNeeded:^ {
+            [weakSelf.label setText:[weakSelf alertMessageFromNotification:remoteNotification]];
             weakSelf.image.url = entry.picture.small;
             completionHandler(WKUserNotificationInterfaceTypeCustom);
         } failure:^(NSError *error) {
@@ -36,6 +38,21 @@
     } else {
         completionHandler(WKUserNotificationInterfaceTypeDefault);
     }
+}
+
+- (NSString*)alertMessageFromNotification:(NSDictionary*)notification {
+    id alert = notification[@"aps"][@"alert"];
+    if ([alert isKindOfClass:[NSString class]]) {
+        return alert;
+    }
+    NSString *localizedAlert = WLLS(alert[@"loc-key"]);
+    NSArray *arguments = alert[@"loc-args"];
+    if (arguments.count == 0) {
+        return localizedAlert;
+    }
+
+    NSString *result = [NSString stringWithFormat:localizedAlert, [arguments tryObjectAtIndex:0], [arguments tryObjectAtIndex:1],[arguments tryObjectAtIndex:2], nil];
+    return result;
 }
 
 @end

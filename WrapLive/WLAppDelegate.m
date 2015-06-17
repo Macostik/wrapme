@@ -357,6 +357,24 @@ static WLDataBlock deviceTokenCompletion = nil;
             } else {
                 completion(@{@"success":@NO,@"message":@"Photo isn't available."});
             }
+        } else if ([action isEqualToString:@"fetch_notification"]) {
+            
+            [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo[@"notification"] success:^(WLNotification *notification) {
+                if ([notification isKindOfClass:[WLEntryNotification class]]) {
+                    NSDictionary *entry = [[(WLEntryNotification*)notification targetEntry] dictionaryRepresentation];
+                    if (entry) {
+                        run_after(0.5, ^{
+                            completion(@{@"success":@YES,@"entry":entry});
+                        });
+                    } else {
+                        completion(@{@"success":@NO,@"message":@"No data."});
+                    }
+                } else {
+                    completion(@{@"success":@NO,@"message":@"This notification type isn't supperted."});
+                }
+            } failure:^(NSError *error) {
+                completion(@{@"success":@NO,@"message":error.localizedDescription?:@""});
+            }];
         }
     } else {
         completion(@{@"success":@NO,@"message":@"No action specified."});

@@ -12,6 +12,7 @@
 #import "WLWKCommentRow.h"
 #import "WKInterfaceImage+WLImageFetcher.h"
 #import "WKInterfaceController+SimplifiedTextInput.h"
+#import "WLWKParentApplicationContext.h"
 
 @interface WLWKCandyController ()
 
@@ -55,12 +56,10 @@
 - (IBAction)writeComment {
     __weak typeof(self)weakSelf = self;
     [self presentTextInputControllerWithSuggestionsFromFileNamed:@"WLWKCommentReplyPresets" completion:^(NSString *result) {
-        [WKInterfaceController openParentApplication:@{@"action":@"post_comment",WLCandyUIDKey:weakSelf.candy.identifier,@"text":result} reply:^(NSDictionary *replyInfo, NSError *error) {
-            if ([replyInfo[@"success"] boolValue] == NO) {
-                [weakSelf pushControllerWithName:@"alert" context:WLError(replyInfo[@"message"])];
-            } else {
-                [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Comment \"%@\" sent!", result]];
-            }
+        [WLWKParentApplicationContext postComment:result candy:weakSelf.candy.identifier success:^(NSDictionary *replyInfo) {
+            [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Comment \"%@\" sent!", result]];
+        } failure:^(NSError *error) {
+            [weakSelf pushControllerWithName:@"alert" context:error];
         }];
     }];
 }

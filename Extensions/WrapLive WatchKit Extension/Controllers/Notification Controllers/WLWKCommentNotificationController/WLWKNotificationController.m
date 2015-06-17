@@ -8,6 +8,7 @@
 
 #import "WLWKNotificationController.h"
 #import "WKInterfaceImage+WLImageFetcher.h"
+#import "WLWKParentApplicationContext.h"
 
 @interface WLWKNotificationController()
 
@@ -19,21 +20,20 @@
 @implementation WLWKNotificationController
 
 - (void)didReceiveRemoteNotification:(NSDictionary *)remoteNotification withCompletion:(void (^)(WKUserNotificationInterfaceType))completionHandler {
-    WLEntryNotification *notification = [WLEntryNotification notificationWithData:remoteNotification];
-    WLEntry *entry = notification.targetEntry;
-    if (entry) {
-        __weak typeof(self)weakSelf = self;
-        [self.image setImage:nil];
-        [entry recursivelyFetchIfNeeded:^ {
+    __weak typeof(self)weakSelf = self;
+    [self.image setImage:nil];
+    [WLWKParentApplicationContext fetchNotification:remoteNotification success:^(NSDictionary *replyInfo) {
+        WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:replyInfo[@"entry"]];
+        if (entry) {
             [weakSelf.label setText:[weakSelf alertMessageFromNotification:remoteNotification]];
             weakSelf.image.url = entry.picture.small;
             completionHandler(WKUserNotificationInterfaceTypeCustom);
-        } failure:^(NSError *error) {
+        } else {
             completionHandler(WKUserNotificationInterfaceTypeDefault);
-        }];
-    } else {
+        }
+    } failure:^(NSError *error) {
         completionHandler(WKUserNotificationInterfaceTypeDefault);
-    }
+    }];
 }
 
 - (NSString*)alertMessageFromNotification:(NSDictionary*)notification {

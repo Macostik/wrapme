@@ -9,6 +9,7 @@
 #import "WLWKContributionsController.h"
 #import "WLWKCommentEventRow.h"
 #import "WKInterfaceController+SimplifiedTextInput.h"
+#import "WLWKParentApplicationContext.h"
 
 typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     WLWKContributionsStateDefault,
@@ -80,12 +81,10 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
                 run_after(0.2f,^{
                     [weakSelf presentTextInputControllerWithSuggestionsFromFileNamed:@"WLWKChatReplyPresets" completion:^(NSString *result) {
                         WLWrap *wrap = [(WLMessage*)entry wrap];
-                        [WKInterfaceController openParentApplication:@{@"action":@"post_chat_message",WLWrapUIDKey:wrap.identifier,@"text":result} reply:^(NSDictionary *replyInfo, NSError *error) {
-                            if ([replyInfo[@"success"] boolValue] == NO) {
-                                [weakSelf pushControllerWithName:@"alert" context:WLError(replyInfo[@"message"])];
-                            } else {
-                                [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Message \"%@\" sent!", result]];
-                            }
+                        [WLWKParentApplicationContext postMessage:result wrap:wrap.identifier success:^(NSDictionary *replyInfo) {
+                            [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Message \"%@\" sent!", result]];
+                        } failure:^(NSError *error) {
+                            [weakSelf pushControllerWithName:@"alert" context:error];
                         }];
                     }];
                 });
@@ -124,18 +123,10 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
     if (self.entries.count == 0) {
         __weak typeof(self)weakSelf = self;
-        [WKInterfaceController openParentApplication:@{@"action":@"authorization"} reply:^(NSDictionary *replyInfo, NSError *error) {
-            if (error) {
-                [weakSelf showError:error];
-            } else {
-                BOOL success = [replyInfo boolForKey:@"success"];
-                NSString *message = [replyInfo stringForKey:@"message"];
-                if (!success && message) {
-                    [weakSelf showError:WLError(message)];
-                } else {
-                    [weakSelf updateContributions];
-                }
-            }
+        [WLWKParentApplicationContext requestAuthorization:^(NSDictionary *replyInfo) {
+            [weakSelf updateContributions];
+        } failure:^(NSError *error) {
+            [weakSelf showError:error];
         }];
     } else {
         WLEntry *entry = self.entries[rowIndex];

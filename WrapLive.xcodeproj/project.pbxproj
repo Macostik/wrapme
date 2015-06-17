@@ -1516,6 +1516,8 @@
 		C5A82CD71ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
 		C5A82CD81ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
 		C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
+		C5AB7D741B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */; };
+		C5AB7D751B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */; };
 		C5B993C51B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */; };
 		C5B993C61B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */; };
 		C5B993C71B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */; };
@@ -3230,6 +3232,8 @@
 		C5A82CCB1ACD979B00336027 /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
 		C5A82CCD1ACD979B00336027 /* WLDeviceOrientationBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDeviceOrientationBroadcaster.h; sourceTree = "<group>"; };
 		C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
+		C5AB7D721B318FDD0077F9F1 /* WLWKParentApplicationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKParentApplicationContext.h; sourceTree = "<group>"; };
+		C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKParentApplicationContext.m; sourceTree = "<group>"; };
 		C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLWKChatReplyPresets.plist; sourceTree = "<group>"; };
 		C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLWKCommentReplyPresets.plist; sourceTree = "<group>"; };
 		C5B993CA1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceController+SimplifiedTextInput.h"; sourceTree = "<group>"; };
@@ -4827,6 +4831,7 @@
 		C50645C71ABD815100CB4BE3 /* WrapLive WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C5AB7D701B318F8B0077F9F1 /* Models */,
 				C552329A1ACD475A00886437 /* Categories */,
 				C55232941ACD44DE00886437 /* Views */,
 				C50645C81ABD815100CB4BE3 /* Controllers */,
@@ -6106,6 +6111,23 @@
 				C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */,
 			);
 			path = WLDeviceOrientationBroadcaster;
+			sourceTree = "<group>";
+		};
+		C5AB7D701B318F8B0077F9F1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C5AB7D711B318FCE0077F9F1 /* WLWKContainingApplicationContext */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C5AB7D711B318FCE0077F9F1 /* WLWKContainingApplicationContext */ = {
+			isa = PBXGroup;
+			children = (
+				C5AB7D721B318FDD0077F9F1 /* WLWKParentApplicationContext.h */,
+				C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */,
+			);
+			path = WLWKContainingApplicationContext;
 			sourceTree = "<group>";
 		};
 		C5B993C91B303687002BCC8C /* WKInterfaceController */ = {
@@ -8118,6 +8140,7 @@
 				C50646871ABD815200CB4BE3 /* WLWKContributionsController.m in Sources */,
 				C5B993CC1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m in Sources */,
 				C549B73E1AC0179B003623A7 /* WLWKCandyEventRow.m in Sources */,
+				C5AB7D741B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */,
 				C506466B1ABD815200CB4BE3 /* WLWKCommentRow.m in Sources */,
 				C50646471ABD815200CB4BE3 /* WLWKNotificationController.m in Sources */,
 			);
@@ -8995,6 +9018,7 @@
 				C5E54B4D1ACBF9CE00444F7B /* WLWKCandyController.m in Sources */,
 				C5E54B491ACBF9CE00444F7B /* WLWKNotificationController.m in Sources */,
 				C5B993CD1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m in Sources */,
+				C5AB7D751B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */,
 				C5E54B4E1ACBF9CE00444F7B /* WLWKCommentRow.m in Sources */,
 				C5E54B501ACBF9CE00444F7B /* WLWKCommentEventRow.m in Sources */,
 			);

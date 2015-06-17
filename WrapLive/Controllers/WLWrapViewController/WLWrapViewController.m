@@ -19,6 +19,8 @@
 #import "SegmentedControl.h"
 #import "WLTapBarStoryboardTransition.h"
 #import "WLBasicDataSource.h"
+#import "WLEntryPresenter.h"
+#import "WLChatViewController.h"
 
 @interface WLWrapViewController ()  <WLStillPictureViewControllerDelegate>
 
@@ -45,15 +47,26 @@
     if (!self.wrap.valid) {
         return;
     }
-    
-    id segment = [self.segmentedControl controlForSegment:self.segmentedControl.selectedSegment];
-    [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
+    if (!self.selectedSegment) {
+        id segment = [self.segmentedControl controlForSegment:self.segmentedControl.selectedSegment];
+        [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self updateWrapData];
     [self updateNotificationCouter];
      self.cameraButton.hidden = NO;
+    [self viewShowed];
+}
+
+- (void)viewShowed {
+    if (self.selectedSegment != self.segmentedControl.selectedSegment) {
+        [self.segmentedControl setSelectedSegment:self.selectedSegment];
+        self.cameraButton.hidden = !(self.selectedSegment == WLSegmentControlStatePhotos);
+        id segment = [self.segmentedControl controlForSegment:self.selectedSegment];
+        [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 - (void)updateWrapData {
@@ -164,17 +177,20 @@
 // MARK: - SegmentedControlDelegate
 
 - (BOOL)segmentedControl:(SegmentedControl*)control shouldSelectSegment:(NSInteger)segment {
-    if (segment == WLSegmentControlStateChat) {
-        run_after(1.0, ^{
-            [self updateNotificationCouter];
-        });
-    }
     self.cameraButton.hidden = !(segment == WLSegmentControlStatePhotos);
     return YES;
 }
 
+// MARK: - WLPhotoViewControllerDelegate
+
 - (void)photosViewController:(WLPhotosViewController *)controller usedDataSource:(WLBasicDataSource *)dataSource {
     dataSource.animatableConstraints = [NSArray arrayWithObject:self.animatableConstraint];
+}
+
+// MARK: - WLChatViewControllerDelegate
+
+- (void)chatViewController:(WLChatViewController *)controller resetUnreageMessageCounter:(BOOL)reset {
+    self.messageCountLabel.intValue = reset ? 0 : [self.wrap unreadNotificationsMessageCount] ;
 }
 
 @end

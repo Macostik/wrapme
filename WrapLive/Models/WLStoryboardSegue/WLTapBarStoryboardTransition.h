@@ -12,8 +12,7 @@
 typedef NS_OPTIONS(NSUInteger, WLSegmentControlState) {
     WLSegmentControlStatePhotos,
     WLSegmentControlStateChat,
-    WLSegmentControlStateFriend 
- 
+    WLSegmentControlStateFriend  
 };
 
 @interface WLTapBarStoryboardTransition : WLStoryboardTransition

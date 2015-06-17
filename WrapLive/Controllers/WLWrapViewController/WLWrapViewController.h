@@ -11,5 +11,6 @@
 @interface WLWrapViewController : WLBaseViewController
 
 @property (weak, nonatomic) WLWrap* wrap;
+@property (assign, nonatomic) NSUInteger selectedSegment;
 
 @end

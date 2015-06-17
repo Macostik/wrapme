@@ -63,7 +63,6 @@
 }
 
 - (WLEntry *)entryByClass {
-
     if (self.entryClass && [self.entryClass entryExists:self.entryIdentifier]) {
         return [self.entryClass entry:self.entryIdentifier];
     }

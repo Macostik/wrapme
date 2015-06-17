@@ -28,7 +28,6 @@
     }
     
     [self.containerView addSubview:toViewController.view];
-    [self.containerView makeResizibleSubview:toViewController.view];
     [fromViewController addChildViewController:toViewController];
     [toViewController didMoveToParentViewController:fromViewController];
 }

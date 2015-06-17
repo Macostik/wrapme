@@ -13,6 +13,7 @@
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"
 #import "WLHistoryViewController.h"
+#import "WLTapBarStoryboardTransition.h"
 
 @implementation WLEntryPresenter
 
@@ -111,8 +112,9 @@
 @implementation WLMessage (WLEntryPresenter)
 
 - (UIViewController *)viewController {
-    WLChatViewController* controller = [WLChatViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
+    WLWrapViewController* controller = [WLWrapViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
     controller.wrap = self.wrap;
+    controller.selectedSegment = WLSegmentControlStateChat;
     return controller;
 }
 

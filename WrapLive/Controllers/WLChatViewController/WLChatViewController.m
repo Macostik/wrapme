@@ -137,6 +137,7 @@ CGFloat WLMaxTextViewWidth;
     [[WLFontPresetter presetter] addReceiver:self];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChatAfterApplicationBecameActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+    self.modalPresentationStyle = UIModalPresentationCurrentContext;
 }
 
 - (void)updateEdgeInsets:(CGFloat)keyboardHeight {
@@ -148,6 +149,9 @@ CGFloat WLMaxTextViewWidth;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self scrollToLastUnreadMessage];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(chatViewController:resetUnreageMessageCounter:)]) {
+        [self.delegate chatViewController:self resetUnreageMessageCounter:YES];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

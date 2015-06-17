@@ -41,6 +41,7 @@
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
 #import "WLWhatsUpSet.h"
+#import "WLTapBarStoryboardTransition.h"
 
 @interface WLHomeViewController () <WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate,
                                     WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpDelegate>
@@ -286,10 +287,11 @@
 
 - (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(WLWrap *)wrap {
     self.collectionView.userInteractionEnabled = YES;
-    WLChatViewController *chatViewController = [WLChatViewController instantiate:self.storyboard];
-    if (chatViewController && wrap.valid) {
-        chatViewController.wrap = wrap;
-        [self.navigationController pushViewController:chatViewController animated:YES];
+    WLWrapViewController *wrapViewController = [WLWrapViewController instantiate:self.storyboard];
+    if (wrapViewController && wrap.valid) {
+        wrapViewController.wrap = wrap;
+        wrapViewController.selectedSegment = WLSegmentControlStateChat;
+        [self.navigationController pushViewController:wrapViewController animated:YES];
     }
 }
 - (void)wrapCell:(WLWrapCell *)wrapCell presentCameraViewControllerForWrap:(WLWrap *)wrap {

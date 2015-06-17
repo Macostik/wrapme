@@ -311,15 +311,25 @@ static WLDataBlock deviceTokenCompletion = nil;
 }
 
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
+    
+    UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithExpirationHandler:^{
+        if (reply) reply(@{@"success":@NO,@"message":@"Background task expired."});
+    }];
+    
+    void (^completion) (NSDictionary*) = ^ (NSDictionary *replyInfo) {
+        if (reply) reply(replyInfo);
+        [application endBackgroundTask:task];
+    };
+    
     NSString *action = userInfo[@"action"];
     if (action.nonempty) {
         if ([action isEqualToString:@"authorization"]) {
             if ([[WLAuthorization currentAuthorization] canAuthorize]) {
                 [[WLAuthorization currentAuthorization] setCurrent];
                 [WLAPIManager saveEnvironmentName:[WLAPIManager manager].environment.name];
-                if (reply) reply(@{@"success":@YES});
+                completion(@{@"success":@YES});
             } else {
-                if (reply) reply(@{@"message":@"Please, launch wrapLive containing app for registration",@"success":@NO});
+                completion(@{@"message":@"Please, launch wrapLive containing app for registration",@"success":@NO});
             }
         } else if ([action isEqualToString:@"post_chat_message"]) {
             NSString *wrapIdentifier = userInfo[WLWrapUIDKey];
@@ -327,12 +337,12 @@ static WLDataBlock deviceTokenCompletion = nil;
             if ([WLWrap entryExists:wrapIdentifier]) {
                 WLWrap *wrap = [WLWrap entry:wrapIdentifier];
                 [wrap uploadMessage:text success:^(WLMessage *message) {
-                    if (reply) reply(@{@"success":@YES});
+                    completion(@{@"success":@YES});
                 } failure:^(NSError *error) {
-                    if (reply) reply(@{@"success":@NO,@"message":error.localizedDescription});
+                    completion(@{@"success":@NO,@"message":error.localizedDescription?:@""});
                 }];
             } else {
-                if (reply) reply(@{@"success":@NO,@"message":@"Wrap isn't available."});
+                completion(@{@"success":@NO,@"message":@"Wrap isn't available."});
             }
         } else if ([action isEqualToString:@"post_comment"]) {
             NSString *candyIdentifier = userInfo[WLCandyUIDKey];
@@ -340,16 +350,16 @@ static WLDataBlock deviceTokenCompletion = nil;
             if ([WLCandy entryExists:candyIdentifier]) {
                 WLCandy *candy = [WLCandy entry:candyIdentifier];
                 [candy uploadComment:text success:^(WLComment *comment) {
-                    if (reply) reply(@{@"success":@YES});
+                    completion(@{@"success":@YES});
                 } failure:^(NSError *error) {
-                    if (reply) reply(@{@"success":@NO,@"message":error.localizedDescription});
+                    completion(@{@"success":@NO,@"message":error.localizedDescription?:@""});
                 }];
             } else {
-                if (reply) reply(@{@"success":@NO,@"message":@"Photo isn't available."});
+                completion(@{@"success":@NO,@"message":@"Photo isn't available."});
             }
         }
     } else {
-        if (reply) reply(@{@"success":@NO,@"message":@"No action specified."});
+        completion(@{@"success":@NO,@"message":@"No action specified."});
     }
 }
 

@@ -32,7 +32,7 @@
 - (void)start {
     if (self.block) {
         self.executing = YES;
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(finish) userInfo:nil repeats:NO];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(finish) userInfo:@{@"schedulingDate":[NSDate date]} repeats:NO];
         self.block(self);
         self.block = nil;
     } else {
@@ -51,6 +51,11 @@
         [_timer invalidate];
     }
     _timer = timer;
+}
+
+- (void)timeout:(NSTimer*)timer {
+    WLLog(@"WRAPLIVEKIT", @"WLOperation timeout", timer.userInfo);
+    [self finish];
 }
 
 - (void)finish {

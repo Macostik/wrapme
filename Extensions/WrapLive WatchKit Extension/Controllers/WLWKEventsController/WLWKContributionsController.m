@@ -35,7 +35,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-    self.entries = [WLContribution recentContributions];
+    self.entries = [WLContribution recentContributions:WLRecentContributionsDefaultLimit];
     [[WLComment notifier] addReceiver:self];
     [[WLCandy notifier] addReceiver:self];
 }
@@ -84,7 +84,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
                             if ([replyInfo[@"success"] boolValue] == NO) {
                                 [weakSelf pushControllerWithName:@"alert" context:WLError(replyInfo[@"message"])];
                             } else {
-                                [weakSelf pushControllerWithName:@"alert" context:@"Message sent!"];
+                                [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Message \"%@\" sent!", result]];
                             }
                         }];
                     }];
@@ -137,6 +137,15 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
                 }
             }
         }];
+    } else {
+        WLEntry *entry = self.entries[rowIndex];
+        if (entry.valid) {
+            if ([entry isKindOfClass:[WLComment class]]) {
+                [self pushControllerWithName:@"candy" context:[(id)entry candy]];
+            } else if ([entry isKindOfClass:[WLCandy class]]) {
+                [self pushControllerWithName:@"candy" context:entry];
+            }
+        }
     }
 }
 
@@ -146,13 +155,6 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     [self.table setRowTypes:@[]];
 }
 
-- (id)contextForSegueWithIdentifier:(NSString *)segueIdentifier inTable:(WKInterfaceTable *)table rowIndex:(NSInteger)rowIndex {
-    WLEntry *entry = self.entries[rowIndex];
-    if ([entry isKindOfClass:[WLComment class]]) {
-        return [(id)entry candy];
-    }
-    return entry;
-}
 
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
@@ -171,7 +173,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
         self.state = WLWKContributionsStateLoading;
     }
     if ([[WLAuthorization currentAuthorization] canAuthorize]) {
-        self.entries = [WLContribution recentContributions];
+        self.entries = [WLContribution recentContributions:WLRecentContributionsDefaultLimit];
     } else {
         [self showError:WLError(@"No data for authorization. Please, check wrapLive app on you iPhone.")];
     }
@@ -180,11 +182,11 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 // MARK: - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLCandy *)candy {
-    self.entries = [WLContribution recentContributions];
+    self.entries = [WLContribution recentContributions:WLRecentContributionsDefaultLimit];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLCandy *)candy {
-    self.entries = [WLContribution recentContributions];
+    self.entries = [WLContribution recentContributions:WLRecentContributionsDefaultLimit];
 }
 
 @end

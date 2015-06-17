@@ -59,7 +59,7 @@
             if ([replyInfo[@"success"] boolValue] == NO) {
                 [weakSelf pushControllerWithName:@"alert" context:WLError(replyInfo[@"message"])];
             } else {
-                [weakSelf pushControllerWithName:@"alert" context:@"Comment sent!"];
+                [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Comment \"%@\" sent!", result]];
             }
         }];
     }];

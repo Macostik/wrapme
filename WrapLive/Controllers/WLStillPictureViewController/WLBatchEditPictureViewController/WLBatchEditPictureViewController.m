@@ -54,6 +54,8 @@
     [self.dataSource setSelectionBlock:^(WLEditPicture *picture) {
         [weakSelf setViewController:[weakSelf editPictureViewControllerForPicture:picture] direction:0 animated:NO];
     }];
+    
+    self.composeBar.showsDoneButtonOnEditing = YES;
 }
 
 - (void)setPicture:(WLEditPicture *)picture {
@@ -72,9 +74,6 @@
         self.deleteButton.hidden = self.editButton.hidden = self.composeBar.hidden = NO;
         self.restoreButton.hidden = YES;
         self.composeBar.text = picture.comment;
-        if (!self.composeBar.isFirstResponder) {
-            [self.composeBar setDoneButtonHidden:!self.composeBar.text.nonempty animated:NO];
-        }
     }
     for (WLEditPicture *picture in self.pictures) {
         picture.selected = picture == self.picture;
@@ -204,20 +203,11 @@
 
 - (IBAction)composeBarDidFinish:(id)sender {
     [self.composeBar resignFirstResponder];
-    [self.composeBar setDoneButtonHidden:YES animated:YES];
 }
 
 - (void)composeBarDidChangeText:(WLComposeBar *)composeBar {
     self.picture.comment = composeBar.text;
     [self.dataSource reload];
-}
-
-- (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
-    [composeBar setDoneButtonHidden:!composeBar.text.nonempty animated:YES];
-}
-
-- (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
-    [composeBar setDoneButtonHidden:YES animated:YES];
 }
 
 - (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {

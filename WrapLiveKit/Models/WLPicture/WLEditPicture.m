@@ -9,6 +9,7 @@
 #import "WLEditPicture.h"
 #import "WLImageCache.h"
 #import "UIImage+Resize.h"
+#import "ALAssetsLibrary+Additions.h"
 
 @implementation WLEditPicture
 
@@ -87,6 +88,16 @@
         picture.animation = [WLAnimation animationWithDuration:0.5f];
     }
     return picture;
+}
+
+- (void)saveToAssets {
+    [[ALAssetsLibrary library] ]
+}
+
+- (void)saveToAssetsIfNeeded {
+    if (!self.isAsset) {
+        [self saveToAssets];
+    }
 }
 
 @end

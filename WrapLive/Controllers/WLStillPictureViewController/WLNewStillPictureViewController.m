@@ -182,7 +182,7 @@
     [self cropImage:image completion:completion];
 }
 
-- (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
+- (void)handleImage:(UIImage*)image {
     __weak typeof(self)weakSelf = self;
     self.view.userInteractionEnabled = NO;
     WLEditPicture *picture = [WLEditPicture picture:image mode:self.mode completion:^(WLEditPicture *picture) {
@@ -238,7 +238,7 @@
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
     [self cropImage:image completion:^(UIImage *croppedImage) {
-        [weakSelf handleImage:croppedImage metadata:metadata saveToAlbum:YES];
+        [weakSelf handleImage:croppedImage];
         weakSelf.view.userInteractionEnabled = YES;
     }];
 }
@@ -276,15 +276,6 @@
     [self pushViewController:gallery animated:animated];
 }
 
-- (void)handleAsset:(ALAsset*)asset {
-    self.view.userInteractionEnabled = NO;
-    __weak typeof(self)weakSelf = self;
-    [self cropAsset:asset completion:^(UIImage *croppedImage) {
-        [weakSelf handleImage:croppedImage metadata:nil saveToAlbum:NO];
-        weakSelf.view.userInteractionEnabled = YES;
-    }];
-}
-
 - (void)handleAssets:(NSArray*)assets {
     __weak typeof(self)weakSelf = self;
     for (ALAsset* asset in assets) {
@@ -293,6 +284,7 @@
                 WLEditPicture *picture = [WLEditPicture picture:croppedImage mode:weakSelf.mode completion:^(WLEditPicture *picture) {
                     [operation finish];
                 }];
+                picture.isAsset = YES;
                 [weakSelf.pictures addObject:picture];
                 [weakSelf updatePicturesCountLabel];
             }];
@@ -320,6 +312,11 @@
 #pragma mark - WLBatchEditPictureViewControllerDelegate
 
 - (void)batchEditPictureViewController:(WLBatchEditPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+    
+    for (WLEditPicture *picture in pictures) {
+        [picture saveToAssetsIfNeeded];
+    }
+    
     [self finishWithPictures:pictures];
 }
 

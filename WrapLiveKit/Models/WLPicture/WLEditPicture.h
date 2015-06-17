@@ -40,4 +40,8 @@
 
 - (WLPicture*)uploadablePictureWithAnimation:(BOOL)withAnimation;
 
+- (void)saveToAssets;
+
+- (void)saveToAssetsIfNeeded;
+
 @end

@@ -229,7 +229,6 @@
         runQueuedOperation(@"wl_still_picture_queue",3,^(WLOperation *operation) {
             [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
                 [WLEditPicture picture:croppedImage mode:weakSelf.mode completion:^(WLEditPicture *picture) {
-                    picture.isAsset = YES;
                     [pictures addObject:picture];
                     [operation finish];
                     if (pictures.count == assets.count) {

@@ -86,7 +86,10 @@
     WLAPIManager *manager = [WLAPIManager manager];
     [manager setUnauthorizedErrorBlock:^ (NSError *error) {
         WLLog(@"ERROR", @"redirection to welcome screen, sign in failed", error);
-        [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+        UIStoryboard *storyboard = [UIStoryboard storyboardNamed:WLSignUpStoryboard];
+        if ([UIWindow mainWindow].rootViewController.storyboard != storyboard) {
+            [storyboard present:YES];
+        }
     }];
     
     [manager setShowErrorBlock:^ (NSError *error) {

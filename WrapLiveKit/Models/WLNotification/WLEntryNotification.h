@@ -26,6 +26,8 @@
 
 @property (nonatomic) BOOL inserted;
 
+- (void)createTargetEntry;
+
 @end
 
 @interface WLEntry (WLNotification)

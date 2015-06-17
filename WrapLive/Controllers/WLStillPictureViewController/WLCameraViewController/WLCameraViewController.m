@@ -186,7 +186,12 @@
         [self.view layoutIfNeeded];
         [sender setTranslation:CGPointZero inView:sender.view];
     } else if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
-        [self setAssetsViewControllerHidden:ABS(self.assetsBottomConstraint.constant) > self.assetsViewController.view.height/2 animated:YES];
+        CGFloat velocity = [sender velocityInView:sender.view].y;
+        if (ABS(velocity) > 500) {
+            [self setAssetsViewControllerHidden:velocity > 0 animated:YES];
+        } else {
+            [self setAssetsViewControllerHidden:ABS(self.assetsBottomConstraint.constant) > self.assetsViewController.view.height/2 animated:YES];
+        }
     }
 }
 

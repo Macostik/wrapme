@@ -13,9 +13,22 @@
 #import "WLKeyboard.h"
 #import "UIScrollView+Additions.h"
 
+@interface WLWrapPickerDataSource : WLBasicDataSource
+
+@end
+
+@implementation WLWrapPickerDataSource
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    targetContentOffset->y = roundf(targetContentOffset->y / self.itemSize.height) * self.itemSize.height;
+    [super scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+}
+
+@end
+
 @interface WLWrapPickerViewController () <WLAddWrapPickerViewDelegate>
 
-@property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
+@property (strong, nonatomic) IBOutlet WLWrapPickerDataSource *dataSource;
 
 @end
 

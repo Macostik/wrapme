@@ -97,6 +97,12 @@
         return _coordinator;
     }
     
+    NSManagedObjectModel *model = [self model];
+    
+    if (!model) {
+        return nil;
+    }
+    
     NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption : @YES,
                               NSInferMappingModelAutomaticallyOption : @YES};
     
@@ -117,7 +123,8 @@
         url = documentsURL;
     }
     NSError *error = nil;
-    _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self model]];
+    
+    _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
     if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]) {
         WLLog(@"WRAPLIVEKIT", @"Couldn't create persistent store so clearing the database.", error);
         [[NSFileManager defaultManager] removeItemAtURL:url error:NULL];

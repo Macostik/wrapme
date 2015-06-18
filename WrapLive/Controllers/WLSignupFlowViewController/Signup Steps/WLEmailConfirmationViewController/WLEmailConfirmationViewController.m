@@ -51,12 +51,18 @@
 }
 
 - (IBAction)resend:(id)sender {
+    __weak typeof(self)weakSelf = self;
     WLResendConfirmationRequest* request = [WLResendConfirmationRequest request];
     request.email = [WLAuthorization currentAuthorization].email;
     [request send:^(id object) {
         [WLAlertView showWithMessage:WLLS(@"sending_confirming_email")];
     } failure:^(NSError *error) {
-        [error show];
+        if ([error isError:WLErrorEmailAlreadyConfirmed]) {
+            [weakSelf setSuccessStatusAnimated:NO];
+            WLError(@"Your email is already confirmed.");
+        } else {
+            [error show];
+        }
     }];
 }
 

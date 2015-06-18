@@ -38,7 +38,7 @@
     WLCandy *candy = self.candy;
     [self.photoByLabel setText:[NSString stringWithFormat:WLLS(@"formatted_photo_by"), candy.contributor.name]];
     [self.wrapNameLabel setText:candy.wrap.name];
-    [self.dateLabel setText:candy.createdAt.timeAgoStringAtAMPM.stringByCapitalizingFirstCharacter];
+    [self.dateLabel setText:candy.createdAt.timeAgoStringAtAMPM];
     self.image.url = candy.picture.small;
     NSOrderedSet *comments = [self.candy.comments reversedOrderedSet];
     [self.table setNumberOfRows:[comments count] withRowType:@"comment"];

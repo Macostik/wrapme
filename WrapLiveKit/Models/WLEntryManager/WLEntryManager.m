@@ -119,6 +119,7 @@
     NSError *error = nil;
     _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self model]];
     if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]) {
+        WLLog(@"WRAPLIVEKIT", @"Couldn't create persistent store so clearing the database.", error);
         [[NSFileManager defaultManager] removeItemAtURL:url error:NULL];
         [_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error];
     }
@@ -161,19 +162,18 @@
 }
 
 - (WLEntry*)entryOfClass:(Class)entryClass identifier:(NSString*)identifier uploadIdentifier:(NSString*)uploadIdentifier {
-    WLEntry *entry = nil;
     if (!uploadIdentifier.nonempty) {
-        entry = [self entryOfClass:entryClass identifier:identifier];
-    } else {
-        entry = [self cachedEntry:identifier];
-        if (!entry && identifier.nonempty) {
-            NSFetchRequest* request = [self fetchRequestForClass:entryClass];
-            request.predicate = [NSPredicate predicateWithFormat:@"identifier == %@ OR uploadIdentifier == %@", identifier, uploadIdentifier];
-            entry = [[request execute] lastObject];
-            if (!entry) {
-                entry = [[entryClass alloc] initWithEntity:request.entity insertIntoManagedObjectContext:self.context];
-                entry.identifier = identifier;
-            }
+        return [self entryOfClass:entryClass identifier:identifier];
+    }
+    WLEntry* entry = [self cachedEntry:identifier];
+    if (!entry) {
+        if (!identifier.nonempty) return nil;
+        NSFetchRequest* request = [self fetchRequestForClass:entryClass];
+        request.predicate = [NSPredicate predicateWithFormat:@"identifier == %@ OR uploadIdentifier == %@", identifier, uploadIdentifier];
+        entry = [[request execute] lastObject];
+        if (!entry) {
+            entry = [[entryClass alloc] initWithEntity:request.entity insertIntoManagedObjectContext:self.context];
+            entry.identifier = identifier;
         }
     }
     return entry;

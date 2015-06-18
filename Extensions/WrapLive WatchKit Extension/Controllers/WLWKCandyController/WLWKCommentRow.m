@@ -27,7 +27,7 @@
     self.avatar.url = comment.contributor.picture.small;
     [self.contributorNameLabel setText:comment.contributor.name];
     [self.text setText:comment.text];
-    [self.dateLabel setText:[comment.createdAt timeAgoStringAtAMPM].stringByCapitalizingFirstCharacter];
+    [self.dateLabel setText:[comment.createdAt timeAgoStringAtAMPM]];
 }
 
 @end

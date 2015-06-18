@@ -22,14 +22,11 @@
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="wrapliveicons.ttf">
-            <string>wrapliveicons</string>
             <string>wrapliveicons</string>
         </mutableArray>
     </customFonts>
@@ -164,7 +161,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="286" y="348"/>
+            <point key="canvasLocation" x="286" y="362.5"/>
         </scene>
         <!--candy-->
         <scene sceneID="cLL-hq-3cp">
@@ -263,60 +260,6 @@
             </objects>
             <point key="canvasLocation" x="541" y="348"/>
         </scene>
-        <!--commentReply-->
-        <scene sceneID="DIS-fr-IpB">
-            <objects>
-                <controller identifier="commentReply" spacing="0.0" id="MCS-JV-aaM" customClass="WLWKCommentReplyController">
-                    <items>
-                        <group width="1" alignment="left" layout="vertical" radius="0.0" id="gOe-8F-ZMY">
-                            <items>
-                                <group width="1" height="136" alignment="left" hidden="YES" id="FYT-pK-bHq">
-                                    <items>
-                                        <label alignment="center" verticalAlignment="center" text="l" id="Noc-Fk-d2t">
-                                            <color key="textColor" red="0.93058806660000004" green="0.372343272" blue="0.1172502711" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
-                                        </label>
-                                        <label alignment="center" verticalAlignment="center" text="Comment sent" textAlignment="center" id="GUl-PQ-Mln">
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                        </label>
-                                    </items>
-                                    <variation key="device=watch38mm" height="136"/>
-                                    <variation key="device=watch42mm" height="156"/>
-                                </group>
-                                <table alignment="left" id="yKL-qJ-vsL">
-                                    <items>
-                                        <tableRow identifier="preset" id="Emn-fH-DGB" customClass="WLWKReplyPresetRow">
-                                            <group key="rootItem" width="1" alignment="left" radius="0.0" id="Z85-qp-3OP">
-                                                <items>
-                                                    <label alignment="left" text="Preset" numberOfLines="0" id="c9J-WJ-Epv">
-                                                        <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                                    </label>
-                                                </items>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </group>
-                                            <connections>
-                                                <outlet property="text" destination="c9J-WJ-Epv" id="Jhc-Zq-7DS"/>
-                                            </connections>
-                                        </tableRow>
-                                    </items>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </table>
-                            </items>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </group>
-                    </items>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                    <connections>
-                        <outlet property="successGroup" destination="FYT-pK-bHq" id="9dV-dV-v93"/>
-                        <outlet property="table" destination="yKL-qJ-vsL" id="Uw5-No-OAj"/>
-                    </connections>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="770" y="348"/>
-        </scene>
         <!--alert-->
         <scene sceneID="Frx-pZ-zBZ">
             <objects>
@@ -344,7 +287,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="974" y="347.5"/>
+            <point key="canvasLocation" x="761" y="339"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -380,10 +323,18 @@
                                 <group width="1" alignment="left" id="rAr-AY-fOR">
                                     <items>
                                         <imageView width="44" height="44" alignment="left" contentMode="scaleAspectFill" id="uee-BH-wcj"/>
-                                        <label alignment="left" text="Alert Label" numberOfLines="0" id="7l1-25-HMV">
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="font" type="system" pointSize="15"/>
-                                        </label>
+                                        <group width="1" alignment="left" layout="vertical" id="bRE-H9-V5c">
+                                            <items>
+                                                <label alignment="left" text="Title Label" numberOfLines="0" id="UdI-ZI-ZP4">
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="font" type="system" weight="semibold" pointSize="15"/>
+                                                </label>
+                                                <label alignment="left" text="Alert Label" numberOfLines="0" id="7l1-25-HMV">
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="font" type="system" pointSize="15"/>
+                                                </label>
+                                            </items>
+                                        </group>
                                     </items>
                                 </group>
                             </items>
@@ -392,8 +343,9 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
+                        <outlet property="alertLabel" destination="7l1-25-HMV" id="hS7-vt-sgH"/>
                         <outlet property="image" destination="uee-BH-wcj" id="Nil-TI-7T4"/>
-                        <outlet property="label" destination="7l1-25-HMV" id="sxJ-Mb-22I"/>
+                        <outlet property="titleLabel" destination="UdI-ZI-ZP4" id="z7x-UB-dWM"/>
                     </connections>
                 </controller>
             </objects>

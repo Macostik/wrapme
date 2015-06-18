@@ -135,8 +135,8 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 }
 
 - (void)updateContributions {
-    if ([[WLAuthorization currentAuthorization] canAuthorize]) {
-        self.entries = [WLContribution recentContributions:WLRecentContributionsDefaultLimit];
+    if ([[WLAuthorization currentAuthorization:NO] canAuthorize]) {
+        self.entries = [WLContribution recentContributions:10];
     } else {
         [self showError:WLError(@"No data for authorization. Please, check wrapLive app on you iPhone.")];
     }

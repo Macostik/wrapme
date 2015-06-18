@@ -58,8 +58,12 @@
 
 @implementation WLAuthorization (CurrentAuthorization)
 
-+ (WLAuthorization*)currentAuthorization {
-	return [WLSession authorization];
++ (WLAuthorization *)currentAuthorization {
+    return [self currentAuthorization:YES];
+}
+
++ (WLAuthorization*)currentAuthorization:(BOOL)create {
+	return [WLSession authorization:create];
 }
 
 + (void)setCurrentAuthorization:(WLAuthorization*)authorization {

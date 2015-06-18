@@ -38,6 +38,10 @@ static NSString* WLSessionAppVersionKey = @"wrapLiveVersion";
 static WLAuthorization* _authorization = nil;
 
 + (WLAuthorization *)authorization {
+    return [self authorization:YES];
+}
+
++ (WLAuthorization *)authorization:(BOOL)create {
     if (!_authorization) {
         NSData *data = [[NSUserDefaults appGroupUserDefaults] objectForKey:WLAppGroupEncryptedAuthorization];
         if (data) {
@@ -47,7 +51,7 @@ static WLAuthorization* _authorization = nil;
         }
         _authorization = [WLAuthorization unarchive:data];
     }
-    if (!_authorization) {
+    if (!_authorization && create) {
         _authorization = [[WLAuthorization alloc] init];
     }
     return _authorization;

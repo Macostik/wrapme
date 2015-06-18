@@ -62,6 +62,8 @@ static inline CGFloat WLCalculateHeightString(NSString *string, UIFont *font, CG
 
 - (BOOL)isValidEmail;
 
+- (BOOL)isValidUrl;
+
 - (NSString*)trim;
 
 - (BOOL)matches:(NSString *)string, ... NS_REQUIRES_NIL_TERMINATION;

@@ -11,6 +11,7 @@
 @interface WLTypingViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *nameTextField;
+@property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 
 @end
 
@@ -19,6 +20,14 @@
 - (void)setNames:(NSString *)names {
     self.nameTextField.text = names;
     self.nameTextField.hidden = !names.nonempty;
+}
+
+- (void)setAvatar:(NSString *)url {
+    if (url.isValidUrl) {
+         self.avatarView.url = url;
+    } else {
+        [self.avatarView setImage:[UIImage imageNamed:url]];
+    }
 }
 
 @end

@@ -30,6 +30,8 @@
 
 @property (strong, nonatomic) NSString* typingNames;
 
+@property (strong, nonatomic) NSString* typingUserAvatar;
+
 @property (strong, nonatomic) NSMutableOrderedSet* sendMessageUsers;
 
 @property (strong, nonatomic) WLChatTypingChannel* typingChannel;

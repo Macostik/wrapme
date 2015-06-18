@@ -25,6 +25,12 @@
 	return [emailTest evaluateWithObject:[self lowercaseString]];
 }
 
+- (BOOL)isValidUrl {
+    NSString *urlRegEx = @"http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&amp;=]*)?";
+    NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegEx];
+    return [urlTest evaluateWithObject:[self lowercaseString]];
+}
+
 - (NSString *)trim {
 	return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }

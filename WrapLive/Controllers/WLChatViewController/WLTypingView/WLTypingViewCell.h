@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-static CGFloat WLTypingViewMinHeight = 20.0f;
+static CGFloat WLTypingViewMinHeight = 48.0;
+static NSString *WLFriendsTypingImage = @"friends";
 
 @interface WLTypingViewCell : UICollectionReusableView
 
 - (void)setNames:(NSString *)names;
+- (void)setAvatar:(NSString *)url;
 
 @end

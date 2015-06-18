@@ -8,6 +8,7 @@
 
 #import "WLChat.h"
 #import "NSMutableOrderedSet+Sorting.h"
+#import "WLTypingViewCell.h"
 
 @interface WLChat () <WLChatTypingChannelDelegate>
 
@@ -88,6 +89,11 @@
         self.typingNames = [self namesOfUsers:self.typingUsers];
         [self didChange];
     }
+}
+
+- (NSString *)typingUserAvatar {
+    WLUser *firstUser = self.typingUsers.firstObject;
+    return self.typingUsers.count > 1 ? WLFriendsTypingImage : firstUser.picture.small;
 }
 
 - (NSString *)namesOfUsers:(NSMutableOrderedSet*)users {

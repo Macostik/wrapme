@@ -2933,7 +2933,7 @@ Tap here to start.</string>
                                             <constraint firstItem="pOE-uq-b8h" firstAttribute="leading" secondItem="Vjy-ys-CTG" secondAttribute="leading" id="gi9-lq-gTc"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RM4-Jg-HlY" userLabel="ChatButton" customClass="WLLightSegmentControl">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RM4-Jg-HlY" userLabel="ChatButton" customClass="WLLightSegmentControl">
                                         <rect key="frame" x="107" y="0.0" width="107" height="44"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
                                         <state key="normal">
@@ -3033,11 +3033,13 @@ Tap here to start.</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="Vjy-ys-CTG" firstAttribute="centerX" secondItem="RM4-Jg-HlY" secondAttribute="centerX" id="0NI-lo-iCG"/>
                                     <constraint firstItem="p00-Ic-UNa" firstAttribute="width" secondItem="g5G-pP-jO9" secondAttribute="width" id="3f5-Za-nLB"/>
                                     <constraint firstItem="p00-Ic-UNa" firstAttribute="centerX" secondItem="g5G-pP-jO9" secondAttribute="centerX" id="6pH-0B-Tf1"/>
                                     <constraint firstItem="dlX-4m-vRl" firstAttribute="trailing" secondItem="Vjy-ys-CTG" secondAttribute="leading" id="78c-k8-rjQ"/>
                                     <constraint firstAttribute="height" constant="44" id="A8D-Hw-ytb"/>
                                     <constraint firstItem="dlX-4m-vRl" firstAttribute="leading" secondItem="aqT-yE-MER" secondAttribute="leading" id="FEa-en-kvy"/>
+                                    <constraint firstItem="Vjy-ys-CTG" firstAttribute="height" secondItem="RM4-Jg-HlY" secondAttribute="height" id="Ftz-ql-Fte"/>
                                     <constraint firstItem="Vjy-ys-CTG" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" id="GFS-kg-bGd"/>
                                     <constraint firstAttribute="bottom" secondItem="Vjy-ys-CTG" secondAttribute="bottom" id="I8E-DT-DZ5"/>
                                     <constraint firstItem="uGo-lW-T9v" firstAttribute="width" secondItem="dlX-4m-vRl" secondAttribute="width" id="IKs-t6-cpo"/>
@@ -3045,7 +3047,9 @@ Tap here to start.</string>
                                     <constraint firstAttribute="bottom" secondItem="g5G-pP-jO9" secondAttribute="bottom" id="P8s-cM-pmG"/>
                                     <constraint firstItem="Vjy-ys-CTG" firstAttribute="trailing" secondItem="g5G-pP-jO9" secondAttribute="leading" id="TCl-4I-9J1"/>
                                     <constraint firstItem="dlX-4m-vRl" firstAttribute="width" secondItem="aqT-yE-MER" secondAttribute="width" multiplier="0.33333" id="Tgd-3a-YCg"/>
+                                    <constraint firstItem="Vjy-ys-CTG" firstAttribute="width" secondItem="RM4-Jg-HlY" secondAttribute="width" id="UdP-YZ-8Z8"/>
                                     <constraint firstItem="g5G-pP-jO9" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="top" id="h04-ia-my4"/>
+                                    <constraint firstItem="Vjy-ys-CTG" firstAttribute="centerY" secondItem="RM4-Jg-HlY" secondAttribute="centerY" id="nAb-gT-tlk"/>
                                     <constraint firstItem="uGo-lW-T9v" firstAttribute="centerY" secondItem="dlX-4m-vRl" secondAttribute="centerY" id="nAf-zp-MKo"/>
                                     <constraint firstAttribute="trailing" secondItem="g5G-pP-jO9" secondAttribute="trailing" id="ppn-Zk-BPP"/>
                                     <constraint firstItem="uGo-lW-T9v" firstAttribute="height" secondItem="dlX-4m-vRl" secondAttribute="height" id="rtN-qA-nPB"/>
@@ -3059,6 +3063,9 @@ Tap here to start.</string>
                                     <outlet property="delegate" destination="hUj-RK-zkg" id="yHX-3b-GmH"/>
                                 </connections>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEr-of-cGm">
+                                <rect key="frame" x="0.0" y="108" width="320" height="460"/>
+                            </containerView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPi-5r-EKQ">
                                 <rect key="frame" x="118" y="480" width="84" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3076,9 +3083,6 @@ Tap here to start.</string>
                                     <action selector="present:" destination="tj6-Hw-Hld" eventType="touchUpInside" id="Q2v-ct-6Zl"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEr-of-cGm">
-                                <rect key="frame" x="0.0" y="108" width="320" height="460"/>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>

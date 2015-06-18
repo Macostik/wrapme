@@ -130,7 +130,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (void)updateExtensionWithResult:(void(^)(NCUpdateResult))result {
-    if (![[WLAuthorization currentAuthorization] canAuthorize]) {
+    if (![[WLAuthorization currentAuthorization:NO] canAuthorize]) {
         self.state = WLTodayViewStateUnauthorized;
         if (result) result(NCUpdateResultNoData);
         return;

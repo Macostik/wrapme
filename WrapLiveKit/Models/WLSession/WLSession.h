@@ -22,6 +22,8 @@ static NSUserDefaults* WLUserDefaults = nil;
  */
 + (WLAuthorization*)authorization;
 
++ (WLAuthorization*)authorization:(BOOL)create;
+
 /**
  *  Set current authorization.
  *

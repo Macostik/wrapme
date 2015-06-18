@@ -26,6 +26,8 @@
 
 @property (weak, nonatomic) WLWrap* wrap;
 
+- (void)showInViewController:(UIViewController*)controller animated:(BOOL)animated;
+
 - (void)hide;
 
 @end

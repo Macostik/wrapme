@@ -81,9 +81,19 @@
     return NO;
 }
 
+- (void)showInViewController:(UIViewController*)controller animated:(BOOL)animated {
+    self.view.frame = controller.view.bounds;
+    [controller addChildViewController:self];
+    [self viewWillAppear:animated];
+    [controller.view addSubview:self.view];
+    [self viewDidAppear:animated];
+}
+
 - (void)hide {
     [self.view endEditing:YES];
+    [self viewWillDisappear:NO];
     [self.view removeFromSuperview];
+    [self viewDidDisappear:NO];
     [self removeFromParentViewController];
 }
 

@@ -15,7 +15,6 @@
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"
 #import "WLHomeDataSource.h"
-#import "WLCreateWrapViewController.h"
 #import "WLHomeViewController.h"
 #import "WLLoadingView.h"
 #import "WLNavigationHelper.h"
@@ -27,7 +26,6 @@
 #import "WLWrapViewController.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLRemoteEntryHandler.h"
-#import "WLPickerViewController.h"
 #import "WLEditWrapViewController.h"
 #import "WLUploadingView.h"
 #import "WLAddressBook.h"
@@ -41,10 +39,9 @@
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
 #import "WLWhatsUpSet.h"
-#import "WLWrapPickerViewController.h"
 #import "WLNavigationHelper.h"
 
-@interface WLHomeViewController () <WLPickerViewDelegate, WLWrapCellDelegate, WLIntroductionViewControllerDelegate,
+@interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate,
                                     WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpDelegate>
 
 @property (strong, nonatomic) IBOutlet WLHomeDataSource *dataSource;
@@ -359,7 +356,7 @@
 }
 
 - (IBAction)addPhoto:(id)sender {
-    [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:YES];
+    [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:[WLUser currentUser].wraps.count > 1];
 }
 
 - (IBAction)addPhotoToTopWrap:(id)sender {
@@ -378,54 +375,6 @@
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
     [self dismissViewControllerAnimated:NO completion:nil];
-}
-
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didSelectWrap:(WLWrap *)wrap {
-    if (wrap) {
-        WLPickerViewController *pickerViewController = [[WLPickerViewController alloc] initWithWrap:wrap delegate:self];
-        [controller presentViewController:pickerViewController animated:NO completion:nil];
-    } else {
-        [self createWrapWithStillPictureViewController:controller];
-    }
-}
-
-// MARK: - WLPickerViewDelegate
-
-- (void)createWrapWithStillPictureViewController:(WLStillPictureViewController*)stillPictureViewController {
-    WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
-    [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
-        if (wrap.isFirstCreated) {
-            [WLChronologicalEntryPresenter presentEntry:wrap animated:NO];
-        }
-        stillPictureViewController.wrap = wrap;
-        [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
-    }];
-    __weak typeof(self)weakSelf = self;
-    [createWrapViewController setCancelHandler:^{
-        if (stillPictureViewController.wrap) {
-            [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
-        } else {
-            [weakSelf dismissViewControllerAnimated:NO completion:nil];
-        }
-    }];
-    [stillPictureViewController presentViewController:createWrapViewController animated:NO completion:nil];
-}
-
-- (void)pickerViewControllerNewWrapClicked:(WLPickerViewController *)pickerViewController {
-    WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
-    __weak typeof(self)weakSelf = self;
-    [stillPictureViewController dismissViewControllerAnimated:NO completion:^{
-        [weakSelf createWrapWithStillPictureViewController:stillPictureViewController];
-    }];
-}
-
-- (void)pickerViewController:(WLPickerViewController *)pickerViewController didSelectWrap:(WLWrap *)wrap {
-    WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
-    stillPictureViewController.wrap = wrap;
-}
-
-- (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
-    [pickerViewController.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
 // MARK: - WLIntroductionViewControllerDelegate

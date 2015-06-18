@@ -334,7 +334,6 @@
 		C50646101ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */; };
 		C50646261ABD815200CB4BE3 /* WLTodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */; };
 		C50646271ABD815200CB4BE3 /* WLTodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */; };
-		C50646301ABD815200CB4BE3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645C31ABD815100CB4BE3 /* Interface.storyboard */; };
 		C50646371ABD815200CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
 		C50646381ABD815200CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
 		C50646471ABD815200CB4BE3 /* WLWKNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645CC1ABD815100CB4BE3 /* WLWKNotificationController.m */; };
@@ -364,6 +363,8 @@
 		C51A521C1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
 		C51A521D1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
 		C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
+		C520C9D91B32FDBD00AC7351 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C520C9D71B32FDBD00AC7351 /* Interface.storyboard */; };
+		C520C9DA1B32FDBD00AC7351 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C520C9D71B32FDBD00AC7351 /* Interface.storyboard */; };
 		C5218E631AE5547D007E55D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E621AE5547D007E55D0 /* Accelerate.framework */; };
 		C5218E641AE5548B007E55D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
 		C5218E661AE554A2007E55D0 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E651AE554A2007E55D0 /* libz.1.2.5.dylib */; };
@@ -2163,7 +2164,6 @@
 		C5E54B421ACBF98D00444F7B /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4B18E049C300DBDB79 /* OpenSans-Light.ttf */; };
 		C5E54B431ACBF98D00444F7B /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA4D18E049C300DBDB79 /* OpenSans-Regular.ttf */; };
 		C5E54B441ACBF98D00444F7B /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
-		C5E54B461ACBF9AB00444F7B /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645C31ABD815100CB4BE3 /* Interface.storyboard */; };
 		C5E54B471ACBF9B100444F7B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
 		C5E54B481ACBF9B200444F7B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
 		C5E54B491ACBF9CE00444F7B /* WLWKNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645CC1ABD815100CB4BE3 /* WLWKNotificationController.m */; };
@@ -2762,7 +2762,6 @@
 		C50645BB1ABD815100CB4BE3 /* WrapLiveTodayExtension-Production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLiveTodayExtension-Production-Info.plist"; sourceTree = "<group>"; };
 		C50645C01ABD815100CB4BE3 /* WLTodayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayViewController.h; sourceTree = "<group>"; };
 		C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayViewController.m; sourceTree = "<group>"; };
-		C50645C41ABD815100CB4BE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		C50645C51ABD815100CB4BE3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C50645C61ABD815100CB4BE3 /* WrapLiveWatchKitApp-Development-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLiveWatchKitApp-Development-Info.plist"; sourceTree = "<group>"; };
 		C50645CB1ABD815100CB4BE3 /* WLWKNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKNotificationController.h; sourceTree = "<group>"; };
@@ -2797,6 +2796,7 @@
 		C518D79219E7E480001A3F08 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		C51A52191A24DCED00558BF3 /* WLPasscodeValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPasscodeValidation.h; path = WLValidation/WLPasscodeValidation.h; sourceTree = "<group>"; };
 		C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPasscodeValidation.m; path = WLValidation/WLPasscodeValidation.m; sourceTree = "<group>"; };
+		C520C9D81B32FDBD00AC7351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		C5218E621AE5547D007E55D0 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C5218E651AE554A2007E55D0 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		C5218E671AE554B7007E55D0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -4820,7 +4820,7 @@
 		C50645C21ABD815100CB4BE3 /* WrapLive WatchKit App */ = {
 			isa = PBXGroup;
 			children = (
-				C50645C31ABD815100CB4BE3 /* Interface.storyboard */,
+				C520C9D71B32FDBD00AC7351 /* Interface.storyboard */,
 				C50645C51ABD815100CB4BE3 /* Images.xcassets */,
 				C50645C61ABD815100CB4BE3 /* WrapLiveWatchKitApp-Development-Info.plist */,
 				C50646A91ABD830C00CB4BE3 /* WrapLiveWatchKitApp-Production-Info.plist */,
@@ -7426,12 +7426,12 @@
 				C540869E1AD29C77007E0D12 /* ChatAPNS.apns in Resources */,
 				C540869B1AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
 				C55B25AC1AC9A6210072E9D2 /* OpenSans-Light.ttf in Resources */,
-				C50646301ABD815200CB4BE3 /* Interface.storyboard in Resources */,
 				C50646381ABD815200CB4BE3 /* Images.xcassets in Resources */,
 				C55B25A21AC9A61C0072E9D2 /* OpenSans-Semibold.ttf in Resources */,
 				C540869C1AD29C77007E0D12 /* CandyAPNS.apns in Resources */,
 				C540869D1AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C55B25AD1AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */,
+				C520C9D91B32FDBD00AC7351 /* Interface.storyboard in Resources */,
 				C55B25AE1AC9A6210072E9D2 /* OpenSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7679,8 +7679,8 @@
 				C54086A51AD29C78007E0D12 /* CommentAPNS.apns in Resources */,
 				C54086A31AD29C78007E0D12 /* WrapAPNS.apns in Resources */,
 				C5E54B481ACBF9B200444F7B /* Images.xcassets in Resources */,
-				C5E54B461ACBF9AB00444F7B /* Interface.storyboard in Resources */,
 				C5E54B411ACBF98D00444F7B /* OpenSans-Semibold.ttf in Resources */,
+				C520C9DA1B32FDBD00AC7351 /* Interface.storyboard in Resources */,
 				C54086A41AD29C78007E0D12 /* CandyAPNS.apns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9680,10 +9680,10 @@
 			path = WLConfirmView;
 			sourceTree = "<group>";
 		};
-		C50645C31ABD815100CB4BE3 /* Interface.storyboard */ = {
+		C520C9D71B32FDBD00AC7351 /* Interface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C50645C41ABD815100CB4BE3 /* Base */,
+				C520C9D81B32FDBD00AC7351 /* Base */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";

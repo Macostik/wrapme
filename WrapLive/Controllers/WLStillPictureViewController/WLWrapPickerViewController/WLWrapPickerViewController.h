@@ -38,6 +38,8 @@
 
 @protocol WLAddWrapPickerViewDelegate <NSObject>
 
+- (BOOL)addWrapPickerViewShouldBeginEditing:(WLAddWrapPickerView*)view;
+
 - (void)addWrapPickerViewDidBeginEditing:(WLAddWrapPickerView*)view;
 
 - (void)addWrapPickerView:(WLAddWrapPickerView*)view didAddWrap:(WLWrap*)wrap;
@@ -45,6 +47,8 @@
 @end
 
 @interface WLAddWrapPickerView : WLEntryReusableView
+
+@property (weak, nonatomic, readonly) UITextField *wrapNameTextField;
 
 @property (weak, nonatomic) IBOutlet id <WLAddWrapPickerViewDelegate> delegate;
 

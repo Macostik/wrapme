@@ -2520,8 +2520,9 @@
                                                 <constraint firstItem="mRj-Yl-hQH" firstAttribute="leading" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" constant="8" id="DSE-K6-Pbk"/>
                                                 <constraint firstAttribute="trailing" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" constant="8" id="TdA-lm-5DH"/>
                                                 <constraint firstAttribute="centerY" secondItem="EQs-5i-dNx" secondAttribute="centerY" id="cXV-ga-InL"/>
-                                                <constraint firstItem="EQs-5i-dNx" firstAttribute="centerX" secondItem="QhU-V1-DHc" secondAttribute="leading" constant="98" id="hdI-og-UWa"/>
+                                                <constraint firstItem="EQs-5i-dNx" firstAttribute="centerX" secondItem="QhU-V1-DHc" secondAttribute="leading" priority="750" constant="98" id="hdI-og-UWa"/>
                                                 <constraint firstItem="Caa-Xm-Qlw" firstAttribute="leading" secondItem="EQs-5i-dNx" secondAttribute="trailing" constant="8" id="ida-n6-O1c"/>
+                                                <constraint firstItem="EQs-5i-dNx" firstAttribute="centerX" secondItem="QhU-V1-DHc" secondAttribute="leading" priority="250" constant="54" id="y4S-ui-54d"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="TYl-t6-Q4W" customClass="WLSeparatorView">
@@ -2547,6 +2548,8 @@
                                         <constraint firstAttribute="trailing" secondItem="TYl-t6-Q4W" secondAttribute="trailing" id="uNM-62-ScT"/>
                                     </constraints>
                                     <connections>
+                                        <outlet property="createButtonCenterConstraint" destination="hdI-og-UWa" id="Z7P-28-L9I"/>
+                                        <outlet property="createButtonLeadingConstraint" destination="y4S-ui-54d" id="hM4-IT-zta"/>
                                         <outlet property="delegate" destination="c77-hp-0nQ" id="iIy-v9-DFp"/>
                                         <outlet property="trailingTextFieldConstraint" destination="TdA-lm-5DH" id="SjC-4k-nEG"/>
                                         <outlet property="wrapNameTextField" destination="Caa-Xm-Qlw" id="SFM-UY-VCn"/>
@@ -2583,6 +2586,7 @@
                     <connections>
                         <outlet property="dataSource" destination="0yt-I4-bE6" id="62b-B2-H5G"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="FVW-LV-dTu" id="B6h-Ph-e9k"/>
+                        <outletCollection property="keyboardAdjustmentLayoutViews" destination="rre-N1-ooI" id="FTL-4S-RJJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E26-2U-hXn" userLabel="First Responder" sceneMemberID="firstResponder"/>

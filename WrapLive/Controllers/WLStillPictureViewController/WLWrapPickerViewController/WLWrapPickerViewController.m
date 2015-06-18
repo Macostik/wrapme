@@ -15,6 +15,8 @@
 
 @interface WLWrapPickerDataSource : WLBasicDataSource
 
+@property (strong, nonatomic) WLBlock didEndScrollingAnimationBlock;
+
 @end
 
 @implementation WLWrapPickerDataSource
@@ -22,6 +24,13 @@
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     targetContentOffset->y = roundf(targetContentOffset->y / self.itemSize.height) * self.itemSize.height;
     [super scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    if (self.didEndScrollingAnimationBlock) {
+        self.didEndScrollingAnimationBlock();
+        self.didEndScrollingAnimationBlock = nil;
+    }
 }
 
 @end
@@ -98,8 +107,18 @@
     [self.delegate wrapPickerViewController:self didSelectWrap:wrap];
 }
 
+- (BOOL)addWrapPickerViewShouldBeginEditing:(WLAddWrapPickerView *)view {
+    BOOL shouldBeginEditing = self.dataSource.collectionView.contentOffset.y == -self.dataSource.itemSize.height;
+    if (!shouldBeginEditing) {
+        self.dataSource.didEndScrollingAnimationBlock = ^{
+            [view.wrapNameTextField becomeFirstResponder];
+        };
+        [self.dataSource.collectionView setContentOffset:CGPointMake(0, -self.dataSource.itemSize.height) animated:YES];
+    }
+    return shouldBeginEditing;
+}
+
 - (void)addWrapPickerViewDidBeginEditing:(WLAddWrapPickerView *)view {
-    [self.dataSource.collectionView setContentOffset:CGPointMake(0, -self.dataSource.itemSize.height) animated:YES];
 }
 
 - (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
@@ -141,10 +160,12 @@
 
 @end
 
-@interface WLAddWrapPickerView ()
+@interface WLAddWrapPickerView () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *wrapNameTextField;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *trailingTextFieldConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *createButtonCenterConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *createButtonLeadingConstraint;
 
 @end
 
@@ -166,10 +187,26 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [self.delegate addWrapPickerViewDidBeginEditing:self];
     self.wrapNameTextField.placeholder = WLLS(@"what_is_new_wrap_about");
+    self.createButtonCenterConstraint.priority = UILayoutPriorityDefaultLow;
+    self.createButtonLeadingConstraint.priority = UILayoutPriorityDefaultHigh;
+    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.wrapNameTextField.superview layoutIfNeeded];
+    } completion:^(BOOL finished) {
+    }];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     self.wrapNameTextField.placeholder = WLLS(@"new_wrap");
+    self.createButtonCenterConstraint.priority = UILayoutPriorityDefaultHigh;
+    self.createButtonLeadingConstraint.priority = UILayoutPriorityDefaultLow;
+    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.wrapNameTextField.superview layoutIfNeeded];
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return [self.delegate addWrapPickerViewShouldBeginEditing:self];
 }
 
 - (IBAction)textFieldDidChange:(UITextField *)textField {

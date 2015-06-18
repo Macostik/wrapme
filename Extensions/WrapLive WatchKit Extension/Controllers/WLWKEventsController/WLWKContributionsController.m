@@ -8,10 +8,11 @@
 
 #import "WLWKContributionsController.h"
 #import "WLWKCommentEventRow.h"
+#import "WKInterfaceController+SimplifiedTextInput.h"
+#import "WLWKParentApplicationContext.h"
 
 typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     WLWKContributionsStateDefault,
-    WLWKContributionsStateLoading,
     WLWKContributionsStateEmpty,
     WLWKContributionsStateError
 };
@@ -32,21 +33,9 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 
 @implementation WLWKContributionsController
 
-- (void)awakeWithContext:(id)context {
-    [super awakeWithContext:context];
-    self.entries = [WLContribution recentContributions];
-    [[WLComment notifier] addReceiver:self];
-    [[WLCandy notifier] addReceiver:self];
-}
-
 - (void)setState:(WLWKContributionsState)state {
     _state = state;
     switch (state) {
-        case WLWKContributionsStateLoading:
-            [self.table setHidden:YES];
-            [self.errorGroup setHidden:YES];
-            [self.placeholderGroup setHidden:YES];
-            break;
         case WLWKContributionsStateEmpty:
             [self.table setHidden:YES];
             [self.errorGroup setHidden:YES];
@@ -66,20 +55,28 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 }
 
 - (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)remoteNotification {
-    WLEntryNotification *notification = [WLEntryNotification notificationWithData:remoteNotification];
-    WLEntry *entry = notification.targetEntry;
-    if (entry) {
-        __weak typeof(self)weakSelf = self;
-        [entry recursivelyFetchIfNeeded:^ {
-            if ([entry isKindOfClass:[WLComment class]]) {
-                [weakSelf pushControllerWithName:@"candy" context:entry.containingEntry];
-            } else if ([entry isKindOfClass:[WLCandy class]]) {
-                [weakSelf pushControllerWithName:@"candy" context:entry];
-            } else if ([identifier isEqualToString:@"reply"] && [entry isKindOfClass:[WLMessage class]]) {
-                [weakSelf pushControllerWithName:@"chatReply" context:entry.containingEntry];
-            }
-        } failure:nil];
-    }
+    __weak typeof(self)weakSelf = self;
+    [WLWKParentApplicationContext fetchNotification:remoteNotification success:^(NSDictionary *replyInfo) {
+        WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:replyInfo[@"entry"]];
+        if ([entry isKindOfClass:[WLComment class]]) {
+            [weakSelf pushControllerWithName:@"candy" context:entry.containingEntry];
+        } else if ([entry isKindOfClass:[WLCandy class]]) {
+            [weakSelf pushControllerWithName:@"candy" context:entry];
+        } else if ([identifier isEqualToString:@"reply"] && [entry isKindOfClass:[WLMessage class]]) {
+            run_after(0.2f,^{
+                [weakSelf presentTextInputControllerWithSuggestionsFromFileNamed:@"WLWKChatReplyPresets" completion:^(NSString *result) {
+                    WLWrap *wrap = [(WLMessage*)entry wrap];
+                    [WLWKParentApplicationContext postMessage:result wrap:wrap.identifier success:^(NSDictionary *replyInfo) {
+                        [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Message \"%@\" sent!", result]];
+                    } failure:^(NSError *error) {
+                        [weakSelf pushControllerWithName:@"alert" context:error];
+                    }];
+                }];
+            });
+        }
+    } failure:^(NSError *error) {
+        [weakSelf pushControllerWithName:@"alert" context:error];
+    }];
 }
 
 - (void)setEntries:(NSOrderedSet *)entries {
@@ -87,11 +84,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     
     NSMutableArray *rowTypes = [NSMutableArray array];
     for (WLEntry *entry in entries) {
-        if ([entry isKindOfClass:[WLCandy class]]) {
-            [rowTypes addObject:@"candy"];
-        } else {
-            [rowTypes addObject:@"comment"];
-        }
+        [rowTypes addObject:[[entry class] name]];
     }
     
     if (rowTypes.nonempty) {
@@ -112,19 +105,20 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
     if (self.entries.count == 0) {
         __weak typeof(self)weakSelf = self;
-        [WKInterfaceController openParentApplication:@{@"action":@"authorization"} reply:^(NSDictionary *replyInfo, NSError *error) {
-            if (error) {
-                [weakSelf showError:error];
-            } else {
-                BOOL success = [replyInfo boolForKey:@"success"];
-                NSString *message = [replyInfo stringForKey:@"message"];
-                if (!success && message) {
-                    [weakSelf showError:WLError(message)];
-                } else {
-                    [weakSelf updateContributions];
-                }
-            }
+        [WLWKParentApplicationContext requestAuthorization:^(NSDictionary *replyInfo) {
+            [weakSelf updateContributions];
+        } failure:^(NSError *error) {
+            [weakSelf showError:error];
         }];
+    } else {
+        WLEntry *entry = self.entries[rowIndex];
+        if (entry.valid) {
+            if ([entry isKindOfClass:[WLComment class]]) {
+                [self pushControllerWithName:@"candy" context:[(id)entry candy]];
+            } else if ([entry isKindOfClass:[WLCandy class]]) {
+                [self pushControllerWithName:@"candy" context:entry];
+            }
+        }
     }
 }
 
@@ -134,45 +128,18 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     [self.table setRowTypes:@[]];
 }
 
-- (id)contextForSegueWithIdentifier:(NSString *)segueIdentifier inTable:(WKInterfaceTable *)table rowIndex:(NSInteger)rowIndex {
-    WLEntry *entry = self.entries[rowIndex];
-    if ([entry isKindOfClass:[WLComment class]]) {
-        return [(id)entry candy];
-    }
-    return entry;
-}
-
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
     [self updateContributions];
-    WLLog(@"WATCHKIT", @"controller will activate", nil);
-}
-
-- (void)didDeactivate {
-    [super didDeactivate];
-    WLLog(@"WATCHKIT", @"controller did deactivate", nil);
 }
 
 - (void)updateContributions {
-    if (!self.entries.nonempty) {
-        self.state = WLWKContributionsStateLoading;
-    }
-    if ([[WLAuthorization currentAuthorization] canAuthorize]) {
-        self.entries = [WLContribution recentContributions];
+    if ([[WLAuthorization currentAuthorization:NO] canAuthorize]) {
+        self.entries = [WLContribution recentContributions:10];
     } else {
         [self showError:WLError(@"No data for authorization. Please, check wrapLive app on you iPhone.")];
     }
-}
-
-// MARK: - WLEntryNotifyReceiver
-
-- (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLCandy *)candy {
-    self.entries = [WLContribution recentContributions];
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLCandy *)candy {
-    self.entries = [WLContribution recentContributions];
 }
 
 @end

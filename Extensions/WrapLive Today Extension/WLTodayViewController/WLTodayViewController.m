@@ -103,7 +103,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (NCUpdateResult)fetchContributions {
-    NSMutableOrderedSet *contributions = [WLContribution recentContributions];
+    NSMutableOrderedSet *contributions = [WLContribution recentContributions:WLRecentContributionsDefaultLimit];
     NCUpdateResult updateResult = [self.contributions isEqualToOrderedSet:contributions] ? NCUpdateResultNoData : NCUpdateResultNewData;
     self.contributions = contributions;
     return updateResult;
@@ -130,7 +130,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (void)updateExtensionWithResult:(void(^)(NCUpdateResult))result {
-    if (![[WLAuthorization currentAuthorization] canAuthorize]) {
+    if (![[WLAuthorization currentAuthorization:NO] canAuthorize]) {
         self.state = WLTodayViewStateUnauthorized;
         if (result) result(NCUpdateResultNoData);
         return;

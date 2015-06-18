@@ -11,6 +11,8 @@
 #import "WLAPIManager.h"
 #import "WLWKCommentRow.h"
 #import "WKInterfaceImage+WLImageFetcher.h"
+#import "WKInterfaceController+SimplifiedTextInput.h"
+#import "WLWKParentApplicationContext.h"
 
 @interface WLWKCandyController ()
 
@@ -30,19 +32,13 @@
 - (void)awakeWithContext:(WLCandy*)candy {
     [super awakeWithContext:candy];
     self.candy = candy;
-    // Configure interface objects here.
-    __weak typeof(self)weakSelf = self;
-    [candy fetch:^(id object) {
-        [weakSelf update];
-    } failure:^(NSError *error) {
-    }];
 }
 
 - (void)update {
     WLCandy *candy = self.candy;
     [self.photoByLabel setText:[NSString stringWithFormat:WLLS(@"formatted_photo_by"), candy.contributor.name]];
     [self.wrapNameLabel setText:candy.wrap.name];
-    [self.dateLabel setText:candy.createdAt.timeAgoStringAtAMPM.stringByCapitalizingFirstCharacter];
+    [self.dateLabel setText:candy.createdAt.timeAgoStringAtAMPM];
     self.image.url = candy.picture.small;
     NSOrderedSet *comments = [self.candy.comments reversedOrderedSet];
     [self.table setNumberOfRows:[comments count] withRowType:@"comment"];
@@ -55,6 +51,17 @@
 
 - (id)contextForSegueWithIdentifier:(NSString *)segueIdentifier {
     return self.candy;
+}
+
+- (IBAction)writeComment {
+    __weak typeof(self)weakSelf = self;
+    [self presentTextInputControllerWithSuggestionsFromFileNamed:@"WLWKCommentReplyPresets" completion:^(NSString *result) {
+        [WLWKParentApplicationContext postComment:result candy:weakSelf.candy.identifier success:^(NSDictionary *replyInfo) {
+            [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Comment \"%@\" sent!", result]];
+        } failure:^(NSError *error) {
+            [weakSelf pushControllerWithName:@"alert" context:error];
+        }];
+    }];
 }
 
 - (void)willActivate {

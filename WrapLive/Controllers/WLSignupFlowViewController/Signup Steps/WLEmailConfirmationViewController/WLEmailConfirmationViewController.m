@@ -36,34 +36,34 @@
     
     NSString *userUID = [WLUser currentUser].identifier;
     if (userUID.nonempty) {
-        [[WLUser notifier] addReceiver:self];
         self.userChannel = [WLNotificationChannel channelWithName:userUID];
         [self.userChannel observeMessages:^(PNMessage *message) {
-            WLNotification *notification = [WLNotification notificationWithMessage:message];
+            WLEntryNotification *notification = [WLEntryNotification notificationWithMessage:message];
             if (notification.type == WLNotificationUserUpdate) {
-                [notification fetch:nil failure:nil];
+                [notification createTargetEntry];
+                if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
+                    [WLSoundPlayer playSound:WLSound_s01];
+                    [self setSuccessStatusAnimated:NO];
+                }
             }
         }];
     }
 }
 
 - (IBAction)resend:(id)sender {
+    __weak typeof(self)weakSelf = self;
     WLResendConfirmationRequest* request = [WLResendConfirmationRequest request];
     request.email = [WLAuthorization currentAuthorization].email;
     [request send:^(id object) {
         [WLAlertView showWithMessage:WLLS(@"sending_confirming_email")];
     } failure:^(NSError *error) {
-        [error show];
+        if ([error isError:WLErrorEmailAlreadyConfirmed]) {
+            [weakSelf setSuccessStatusAnimated:NO];
+            WLError(@"Your email is already confirmed.");
+        } else {
+            [error show];
+        }
     }];
-}
-
-#pragma mark - WLEntryNotifyReceiver
-
-- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
-    if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
-        [WLSoundPlayer playSound:WLSound_s01];
-        [self setSuccessStatusAnimated:NO];
-    }
 }
 
 @end

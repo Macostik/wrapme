@@ -24,6 +24,16 @@
 
 + (NSSet*)containedEntryClasses;
 
++ (Class)entryClassByName:(NSString*)entryName;
+
++ (NSString*)name;
+
++ (NSString*)displayName;
+
++ (id)entryFromDictionaryRepresentation:(NSDictionary*)dictionary;
+
+- (NSDictionary*)dictionaryRepresentation;
+
 @end
 
 @interface WLWrap (Containment)

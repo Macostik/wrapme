@@ -7,6 +7,7 @@
 //
 
 #import "WLEntry+Containment.h"
+#import "WLEntryManager.h"
 
 @implementation WLEntry (Containment)
 
@@ -18,6 +19,40 @@
     return nil;
 }
 
++ (Class)entryClassByName:(NSString*)entryName {
+    if ([entryName isEqualToString:WLCandyKey]) {
+        return [WLCandy class];
+    } else if ([entryName isEqualToString:WLWrapKey])  {
+        return [WLWrap class];
+    } else if ([entryName isEqualToString:WLCommentKey])  {
+        return [WLComment class];
+    } else  if ([entryName isEqualToString:WLMessageKey])  {
+        return [WLMessage class];
+    } else {
+        return nil;
+    }
+}
+
++ (NSString*)name {
+    return nil;
+}
+
++ (NSString*)displayName {
+    return @"Item";
+}
+
++ (id)entryFromDictionaryRepresentation:(NSDictionary *)dictionary {
+    NSString *name = dictionary[@"name"];
+    NSString *identifier = dictionary[@"identifier"];
+    if (name.nonempty && identifier.nonempty) {
+        Class entryClass = [self entryClassByName:name];
+        if ([entryClass entryExists:identifier]) {
+            return [entryClass entry:identifier];
+        }
+    }
+    return nil;
+}
+
 - (WLEntry*)containingEntry {
     return nil;
 }
@@ -26,12 +61,30 @@
     
 }
 
+- (NSDictionary *)dictionaryRepresentation {
+    NSString *name = [[self class] name];
+    NSString *identifier = [self identifier];
+    if (name.nonempty && identifier.nonempty) {
+        return @{@"name":name,@"identifier":identifier};
+    } else {
+        return nil;
+    }
+}
+
 @end
 
 @implementation WLWrap (Containment)
 
 + (NSSet *)containedEntryClasses {
     return [NSSet setWithObjects:[WLCandy class], [WLMessage class], nil];
+}
+
++ (NSString *)name {
+    return WLWrapKey;
+}
+
++ (NSString *)displayName {
+    return WLLS(@"wrap");
 }
 
 @end
@@ -44,6 +97,14 @@
 
 + (NSSet *)containedEntryClasses {
     return [NSSet setWithObjects:[WLComment class], nil];
+}
+
++ (NSString *)name {
+    return WLCandyKey;
+}
+
++ (NSString *)displayName {
+    return WLLS(@"photo");
 }
 
 - (WLEntry *)containingEntry {
@@ -64,6 +125,14 @@
     return [WLWrap class];
 }
 
++ (NSString *)name {
+    return WLMessageKey;
+}
+
++ (NSString *)displayName {
+    return WLLS(@"message");
+}
+
 - (WLEntry *)containingEntry {
     return self.wrap;
 }
@@ -80,6 +149,14 @@
 
 + (Class)containingEntryClass {
     return [WLCandy class];
+}
+
++ (NSString *)name {
+    return WLCommentKey;
+}
+
++ (NSString *)displayName {
+    return WLLS(@"comment");
 }
 
 - (WLEntry *)containingEntry {

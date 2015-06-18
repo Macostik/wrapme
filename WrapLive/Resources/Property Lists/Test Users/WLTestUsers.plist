@@ -226,6 +226,22 @@
 			<key>phone</key>
 			<string>9255551010</string>
 		</dict>
+		<dict>
+			<key>deviceUID</key>
+			<string>db8d70408a5aca5c9c8f2c30fb99d45787cb4597</string>
+			<key>email</key>
+			<string>s.maximenko@mobidev.biz</string>
+			<key>password</key>
+			<string>9c5ae81154</string>
+		</dict>
+		<dict>
+			<key>deviceUID</key>
+			<string>d5a69768e946f1537105d32721841e50aab2d494</string>
+			<key>email</key>
+			<string>s.maximenko@mobidev.biz</string>
+			<key>password</key>
+			<string>afc609c1c6</string>
+		</dict>
 	</array>
 	<key>local</key>
 	<array>
@@ -251,6 +267,18 @@
 			<string>s.maximenko@mobidev.biz</string>
 			<key>password</key>
 			<string>31bbe83cdf</string>
+		</dict>
+		<dict>
+			<key>countryCode</key>
+			<string>380</string>
+			<key>deviceUID</key>
+			<string>9c5530466301f7a41577cc2bd16ac2a15ea64fe5</string>
+			<key>email</key>
+			<string>y.granchenko@mobidev.biz</string>
+			<key>password</key>
+			<string>ab6d120242</string>
+			<key>phone</key>
+			<string>957115540</string>
 		</dict>
 	</array>
 	<key>qa</key>

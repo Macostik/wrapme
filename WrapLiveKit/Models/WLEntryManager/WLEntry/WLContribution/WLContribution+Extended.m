@@ -45,6 +45,14 @@
     return contributions;
 }
 
++ (NSMutableOrderedSet *)recentContributions:(NSUInteger)limit {
+    NSMutableOrderedSet *contributions = [self recentContributions];
+    if (contributions.count > limit) {
+        return [NSMutableOrderedSet orderedSetWithArray:[[contributions array] subarrayWithRange:NSMakeRange(0, limit)]];
+    }
+    return contributions;
+}
+
 + (NSNumber *)uploadingOrder {
     return @5;
 }

@@ -119,6 +119,7 @@
     NSError *error = nil;
     _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self model]];
     if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]) {
+        WLLog(@"WRAPLIVEKIT", @"Couldn't create persistent store so clearing the database.", error);
         [[NSFileManager defaultManager] removeItemAtURL:url error:NULL];
         [_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error];
     }

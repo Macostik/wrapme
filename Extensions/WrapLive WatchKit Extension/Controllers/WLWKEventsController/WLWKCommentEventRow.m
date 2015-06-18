@@ -32,7 +32,7 @@
     [self.photoByLabel setText:[NSString stringWithFormat:WLLS(@"formatted_photo_by"), entry.candy.contributor.name]];
     [self.wrapNameLabel setText:entry.candy.wrap.name];
     [self.text setText:[NSString stringWithFormat:@"\"%@\"", entry.text]];
-    [self.dateLabel setText:entry.createdAt.timeAgoStringAtAMPM.stringByCapitalizingFirstCharacter];
+    [self.dateLabel setText:entry.createdAt.timeAgoStringAtAMPM];
 }
 
 @end

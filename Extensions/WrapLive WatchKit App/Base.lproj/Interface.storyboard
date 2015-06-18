@@ -380,10 +380,18 @@
                                 <group width="1" alignment="left" id="rAr-AY-fOR">
                                     <items>
                                         <imageView width="44" height="44" alignment="left" contentMode="scaleAspectFill" id="uee-BH-wcj"/>
-                                        <label alignment="left" text="Alert Label" numberOfLines="0" id="7l1-25-HMV">
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="font" type="system" pointSize="15"/>
-                                        </label>
+                                        <group width="1" alignment="left" layout="vertical" id="bRE-H9-V5c">
+                                            <items>
+                                                <label alignment="left" text="Title Label" numberOfLines="0" id="UdI-ZI-ZP4">
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="font" type="system" weight="semibold" pointSize="15"/>
+                                                </label>
+                                                <label alignment="left" text="Alert Label" numberOfLines="0" id="7l1-25-HMV">
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="font" type="system" pointSize="15"/>
+                                                </label>
+                                            </items>
+                                        </group>
                                     </items>
                                 </group>
                             </items>
@@ -392,8 +400,9 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
+                        <outlet property="alertLabel" destination="7l1-25-HMV" id="hS7-vt-sgH"/>
                         <outlet property="image" destination="uee-BH-wcj" id="Nil-TI-7T4"/>
-                        <outlet property="label" destination="7l1-25-HMV" id="sxJ-Mb-22I"/>
+                        <outlet property="titleLabel" destination="UdI-ZI-ZP4" id="z7x-UB-dWM"/>
                     </connections>
                 </controller>
             </objects>

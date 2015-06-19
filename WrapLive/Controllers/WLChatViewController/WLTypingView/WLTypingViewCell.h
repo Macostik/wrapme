@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLChat.h"
 
 static CGFloat WLTypingViewMinHeight = 48.0;
 static NSString *WLFriendsTypingImage = @"friends";
 
 @interface WLTypingViewCell : UICollectionReusableView
 
-- (void)setNames:(NSString *)names;
-- (void)setAvatar:(NSString *)url;
+- (void)setChat:(WLChat *)chat;
 
 @end

@@ -17,16 +17,16 @@
 
 @implementation WLTypingViewCell
 
-- (void)setNames:(NSString *)names {
-    self.nameTextField.text = names;
-    self.nameTextField.hidden = !names.nonempty;
-}
-
-- (void)setAvatar:(NSString *)url {
-    if (url.isValidUrl) {
-         self.avatarView.url = url;
+- (void)setChat:(WLChat *)chat {
+    self.nameTextField.text = chat.typingNames;
+    self.nameTextField.hidden = !chat.typingNames.nonempty;
+    if (chat.typingUsers.count > 1) {
+        [self.avatarView setImage:[UIImage imageNamed:WLFriendsTypingImage]];
     } else {
-        [self.avatarView setImage:[UIImage imageNamed:url]];
+        WLUser *user = chat.typingUsers.firstObject;
+        if (user.valid) {
+            self.avatarView.url = user.picture.small;
+        }
     }
 }
 

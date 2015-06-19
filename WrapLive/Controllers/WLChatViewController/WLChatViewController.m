@@ -448,8 +448,7 @@ CGFloat WLMaxTextViewWidth;
         supplementaryView = loadingView;
     } else {
         WLTypingViewCell* typingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLTypingViewCell" forIndexPath:indexPath];
-        typingView.names = self.chat.typingNames;
-        typingView.avatar = self.chat.typingUserAvatar;
+        typingView.chat = self.chat;
         supplementaryView = typingView;
     }
     supplementaryView.layer.geometryFlipped = [self geometryFlipped];

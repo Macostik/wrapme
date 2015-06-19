@@ -91,11 +91,6 @@
     }
 }
 
-- (NSString *)typingUserAvatar {
-    WLUser *firstUser = self.typingUsers.firstObject;
-    return self.typingUsers.count > 1 ? WLFriendsTypingImage : firstUser.picture.small;
-}
-
 - (NSString *)namesOfUsers:(NSMutableOrderedSet*)users {
     if (!users.nonempty) return nil;
     if (users.count == 1) {

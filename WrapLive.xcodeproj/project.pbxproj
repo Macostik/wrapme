@@ -766,6 +766,10 @@
 		C55037881A2C828A007F2C2C /* WLNavigationAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C55037841A2C828A007F2C2C /* WLNavigationAnimator.m */; };
 		C552329E1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C552329D1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m */; };
 		C552329F1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C552329D1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m */; };
+		C5528A0E1B3425C500AF1311 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD172F61B2AC667007DA411 /* wrapliveicons.ttf */; };
+		C5528A0F1B3425C500AF1311 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD172F61B2AC667007DA411 /* wrapliveicons.ttf */; };
+		C5528A101B3425C600AF1311 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD172F61B2AC667007DA411 /* wrapliveicons.ttf */; };
+		C5528A111B3425C600AF1311 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD172F61B2AC667007DA411 /* wrapliveicons.ttf */; };
 		C5568BDD1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
 		C5568BDE1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
 		C5568BDF1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
@@ -7407,6 +7411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5DB9F421ADD6CC600A21E42 /* CoreData.xcdatamodeld in Resources */,
+				C5528A101B3425C600AF1311 /* wrapliveicons.ttf in Resources */,
 				C506460F1ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */,
 				C55B25A41AC9A6200072E9D2 /* OpenSans-Regular.ttf in Resources */,
 				C54C56811B1E0B1400CA4B12 /* Localizable.strings in Resources */,
@@ -7422,6 +7427,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5DB9F431ADD6CD000A21E42 /* CoreData.xcdatamodeld in Resources */,
+				C5528A0F1B3425C500AF1311 /* wrapliveicons.ttf in Resources */,
 				C50646101ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */,
 				C55B25A71AC9A6210072E9D2 /* OpenSans-Regular.ttf in Resources */,
 				C54C56821B1E0B1400CA4B12 /* Localizable.strings in Resources */,
@@ -7437,6 +7443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C564B2B91ADE6DD5000C3DF1 /* WrapLiveWatchKitApp-Development.app in Resources */,
+				C5528A0E1B3425C500AF1311 /* wrapliveicons.ttf in Resources */,
 				C5DB9F441ADD6CD800A21E42 /* CoreData.xcdatamodeld in Resources */,
 				C5B993C51B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */,
 				C55B25A91AC9A6210072E9D2 /* OpenSans-Light.ttf in Resources */,
@@ -7674,6 +7681,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5DB9F451ADD6CDF00A21E42 /* CoreData.xcdatamodeld in Resources */,
+				C5528A111B3425C600AF1311 /* wrapliveicons.ttf in Resources */,
 				C5E54B3E1ACBF98D00444F7B /* OpenSans-Light.ttf in Resources */,
 				C5B993C61B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */,
 				C5E54B3D1ACBF98D00444F7B /* OpenSans-Semibold.ttf in Resources */,

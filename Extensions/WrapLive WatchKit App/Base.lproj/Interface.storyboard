@@ -320,22 +320,24 @@
                     <items>
                         <group width="1" alignment="left" layout="vertical" radius="0.0" id="tkG-b3-hT1">
                             <items>
-                                <group width="1" alignment="left" id="rAr-AY-fOR">
+                                <group width="1" alignment="left" radius="0.0" spacing="0.0" id="rAr-AY-fOR">
                                     <items>
                                         <imageView width="44" height="44" alignment="left" contentMode="scaleAspectFill" id="uee-BH-wcj"/>
-                                        <group width="1" alignment="left" layout="vertical" id="bRE-H9-V5c">
+                                        <group alignment="left" layout="vertical" radius="0.0" spacing="0.0" id="bRE-H9-V5c">
                                             <items>
-                                                <label alignment="left" text="Title Label" numberOfLines="0" id="UdI-ZI-ZP4">
+                                                <label alignment="left" text="Title Label Title Label Title Label Title Label" numberOfLines="0" id="UdI-ZI-ZP4">
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="font" type="system" weight="semibold" pointSize="15"/>
                                                 </label>
-                                                <label alignment="left" text="Alert Label" numberOfLines="0" id="7l1-25-HMV">
+                                                <label alignment="left" text="Alert Label Alert Label Alert Label Alert Label" numberOfLines="0" id="7l1-25-HMV">
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="font" type="system" pointSize="15"/>
                                                 </label>
                                             </items>
+                                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                         </group>
                                     </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                 </group>
                             </items>
                         </group>

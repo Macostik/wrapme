@@ -793,6 +793,7 @@
 		C5528A0F1B3425C500AF1311 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD172F61B2AC667007DA411 /* wrapliveicons.ttf */; };
 		C5528A101B3425C600AF1311 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD172F61B2AC667007DA411 /* wrapliveicons.ttf */; };
 		C5528A111B3425C600AF1311 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD172F61B2AC667007DA411 /* wrapliveicons.ttf */; };
+		C5528A121B34279D00AF1311 /* WrapLiveWatchKitExtension-Development.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C50645841ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5568BDD1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
 		C5568BDE1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
 		C5568BDF1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
@@ -2226,6 +2227,13 @@
 			remoteGlobalIDString = 12A7A6FE18DA0945008FF6F0;
 			remoteInfo = "WrapLive-Development";
 		};
+		C5528A131B34279D00AF1311 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
+			remoteInfo = "WrapLiveWatchKitExtension-Development";
+		};
 		C557B0F91AF8AF7B00F437D7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -2360,6 +2368,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				5BA7AF2E1A481A9500C586CA /* WrapLiveToday-Development.appex in Embed App Extensions */,
+				C5528A121B34279D00AF1311 /* WrapLiveWatchKitExtension-Development.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7032,6 +7041,7 @@
 				C559CB751AA0BB6200100B2C /* PBXTargetDependency */,
 				C587C8E21AD2E8B5003E7647 /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
+				C5528A141B34279D00AF1311 /* PBXTargetDependency */,
 			);
 			name = "WrapLive-QA";
 			productName = WrapLive;
@@ -9480,6 +9490,11 @@
 			isa = PBXTargetDependency;
 			target = 12A7A6FE18DA0945008FF6F0 /* WrapLive-Development */;
 			targetProxy = C534D6701AF124F900D51700 /* PBXContainerItemProxy */;
+		};
+		C5528A141B34279D00AF1311 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C50645831ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development */;
+			targetProxy = C5528A131B34279D00AF1311 /* PBXContainerItemProxy */;
 		};
 		C557B0FA1AF8AF7B00F437D7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

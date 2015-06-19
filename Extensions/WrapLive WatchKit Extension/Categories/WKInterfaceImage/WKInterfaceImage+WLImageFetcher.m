@@ -13,7 +13,11 @@
 - (void)setUrl:(NSString *)url {
     [self setAssociatedObject:url forKey:"WKInterfaceImage_WLImageFetcherURL"];
     if (url.nonempty) {
-        [[WLImageFetcher fetcher] enqueueImageWithUrl:url receiver:self];
+        if ([[WKInterfaceDevice currentDevice].cachedImages objectForKey:url]) {
+            [self setImageNamed:url];
+        } else {
+            [[WLImageFetcher fetcher] enqueueImageWithUrl:url receiver:self];
+        }
     }
 }
 
@@ -26,6 +30,7 @@
 - (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
     WLLog(@"WATCHKIT", @"image loaded", self.url);
     [self setImage:image];
+    [[WKInterfaceDevice currentDevice] addCachedImage:image name:self.url];
 }
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
@@ -44,7 +49,11 @@
 - (void)setUrl:(NSString *)url {
     [self setAssociatedObject:url forKey:"WKInterfaceImage_WLImageFetcherURL"];
     if (url.nonempty) {
-        [[WLImageFetcher fetcher] enqueueImageWithUrl:url receiver:self];
+        if ([[WKInterfaceDevice currentDevice].cachedImages objectForKey:url]) {
+            [self setBackgroundImageNamed:url];
+        } else {
+            [[WLImageFetcher fetcher] enqueueImageWithUrl:url receiver:self];
+        }
     }
 }
 
@@ -57,6 +66,7 @@
 - (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
     WLLog(@"WATCHKIT", @"image loaded", self.url);
     [self setBackgroundImage:image];
+    [[WKInterfaceDevice currentDevice] addCachedImage:image name:self.url];
 }
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {

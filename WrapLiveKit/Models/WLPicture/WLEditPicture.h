@@ -16,7 +16,7 @@
 
 @property (weak, nonatomic) WLImageCache *cache;
 
-@property (nonatomic) BOOL isAsset;
+@property (strong, nonatomic) NSString* assetID;
 
 @property (nonatomic) BOOL edited;
 

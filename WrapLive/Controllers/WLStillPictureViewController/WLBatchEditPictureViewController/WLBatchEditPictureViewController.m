@@ -51,10 +51,15 @@
     [self setupWrapView:self.wrap];
     [self setViewController:[self editPictureViewControllerForPicture:self.pictures.firstObject] direction:0 animated:NO];
     
-    self.dataSource.items = self.pictures;
+    __weak WLBasicDataSource *dataSource = self.dataSource;
+    [dataSource setItemSizeBlock:^CGSize(id item, NSUInteger index) {
+        return CGSizeMake(MIN(80, dataSource.collectionView.height - 30), dataSource.collectionView.height);
+    }];
+    
+    dataSource.items = self.pictures;
     
     __weak typeof(self)weakSelf = self;
-    [self.dataSource setSelectionBlock:^(WLEditPicture *picture) {
+    [dataSource setSelectionBlock:^(WLEditPicture *picture) {
         [weakSelf setViewController:[weakSelf editPictureViewControllerForPicture:picture] direction:0 animated:NO];
     }];
     

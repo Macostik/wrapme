@@ -42,7 +42,7 @@
 
 @end
 
-@interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver, WLAssetsViewControllerDelegate>
+@interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver>
 
 #pragma mark - AVCaptureSession interface
 
@@ -122,17 +122,9 @@
     for (WLQuickAssetsViewController *assetsViewController in self.childViewControllers) {
         if ([assetsViewController isKindOfClass:[WLQuickAssetsViewController class]]) {
             self.assetsViewController = assetsViewController;
-            self.assetsViewController.delegate = self;
+            self.assetsViewController.delegate = self.delegate;
             break;
         }
-    }
-}
-
-#pragma mark - WLAssetsViewControllerDelegate
-
-- (void)assetsViewController:(id)controller didSelectAssets:(NSArray *)assets {
-    if ([self.delegate respondsToSelector:@selector(cameraViewController:didSelectAssets:)]) {
-        [self.delegate cameraViewController:self didSelectAssets:assets];
     }
 }
 
@@ -147,6 +139,12 @@
 }
 
 - (IBAction)shot:(UIButton*)sender {
+    if ([self.delegate respondsToSelector:@selector(cameraViewControllerShouldTakePhoto:)]) {
+        if ([self.delegate cameraViewControllerShouldTakePhoto:self] == NO) {
+            return;
+        }
+    }
+    
     [self setAssetsViewControllerHidden:YES animated:YES];
 	__weak typeof(self)weakSelf = self;
 	self.view.userInteractionEnabled = NO;

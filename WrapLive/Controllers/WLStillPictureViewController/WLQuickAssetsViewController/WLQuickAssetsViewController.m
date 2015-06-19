@@ -15,7 +15,7 @@
 #import "NSArray+Additions.h"
 #import "WLWrapView.h"
 
-@interface WLQuickAssetsViewController ()
+@interface WLQuickAssetsViewController () <WLAssetCellDelegate>
 
 @property (strong, nonatomic) NSArray *assets;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -36,6 +36,12 @@
     [super viewDidLoad];
     
     [self loadAssets];
+    
+    __weak WLBasicDataSource *dataSource = self.dataSource;
+    [dataSource setItemSizeBlock:^CGSize(id item, NSUInteger index) {
+        CGFloat size = dataSource.collectionView.height - dataSource.sectionBottomInset - dataSource.sectionTopInset;
+        return CGSizeMake(size, size);
+    }];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -82,19 +88,34 @@
 #pragma mark - PGAssetCellDelegate
 
 - (void)selectAsset:(ALAsset *)asset {
-    [self.selectedAssets addObject:asset.ID];
-    self.assets = [self.assets arrayByRemovingObject:asset];
-    [self.delegate assetsViewController:self didSelectAssets:@[asset]];
+    NSString *identifier = asset.ID;
+    if ([self.selectedAssets containsObject:identifier]) {
+        [self.selectedAssets removeObject:identifier];
+        if ([self.delegate respondsToSelector:@selector(quickAssetsViewController:didDeselectAsset:)]) {
+            [self.delegate quickAssetsViewController:self didDeselectAsset:asset];
+        }
+        [self.dataSource reload];
+    } else {
+        BOOL shouldSelect = YES;
+        if ([self.delegate respondsToSelector:@selector(quickAssetsViewController:shouldSelectAsset:)]) {
+            shouldSelect = [self.delegate quickAssetsViewController:self shouldSelectAsset:asset];
+        }
+        if (shouldSelect) {
+            [self.selectedAssets addObject:asset.ID];
+            if ([self.delegate respondsToSelector:@selector(quickAssetsViewController:didSelectAsset:)]) {
+                [self.delegate quickAssetsViewController:self didSelectAsset:asset];
+            }
+            [self.dataSource reload];
+        }
+    }
 }
 
 - (void)assetCell:(WLAssetCell *)cell didSelectAsset:(ALAsset *)asset {
     [self selectAsset:asset];
-    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    if (indexPath) {
-        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-    } else {
-        [self.collectionView reloadData];
-    }
+}
+
+- (BOOL)assetCell:(WLAssetCell *)cell isSelectedAsset:(ALAsset *)asset {
+    return [self.selectedAssets containsObject:asset.ID];
 }
 
 @end

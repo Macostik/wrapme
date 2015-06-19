@@ -20,6 +20,7 @@
 #import "WLNavigationHelper.h"
 #import "UIButton+Additions.h"
 #import "WLBatchEditPictureViewController.h"
+#import "NSArray+Additions.h"
 
 @interface WLNewStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate, WLBatchEditPictureViewControllerDelegate>
 
@@ -41,8 +42,10 @@
     WLEditPicture *picture = [WLEditPicture picture:image mode:self.mode completion:^(WLEditPicture *picture) {
         weakSelf.view.userInteractionEnabled = YES;
     }];
-    [weakSelf.pictures addObject:picture];
-    [weakSelf updatePicturesCountLabel];
+    [self addPicture:picture success:^{
+    } failure:^(NSError *error) {
+        [error show];
+    }];
 }
 
 #pragma mark - WLCameraViewControllerDelegate
@@ -71,24 +74,68 @@
     }
 }
 
-- (void)cameraViewController:(WLCameraViewController *)controller didSelectAssets:(NSArray *)assets {
-    [self handleAssets:assets];
+- (BOOL)cameraViewControllerShouldTakePhoto:(WLCameraViewController *)controller {
+    return [self shouldAddPicture:^{
+    } failure:^(NSError *error) {
+        [error show];
+    }];
+}
+
+#pragma mark - WLQuickAssetsViewControllerDelegate
+
+- (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(ALAsset *)asset {
+    return [self shouldAddPicture:^{
+    } failure:^(NSError *error) {
+        [error show];
+    }];
+}
+
+- (void)quickAssetsViewController:(WLQuickAssetsViewController *)controller didSelectAsset:(ALAsset *)asset {
+    [self handleAssets:@[asset]];
+}
+
+- (void)quickAssetsViewController:(WLQuickAssetsViewController *)controller didDeselectAsset:(ALAsset *)asset {
+    [self.pictures removeObjectsWhileEnumerating:^BOOL(WLEditPicture* picture) {
+        return [picture.assetID isEqualToString:asset.ID];
+    }];
+    [self updatePicturesCountLabel];
 }
 
 - (void)handleAssets:(NSArray*)assets {
     __weak typeof(self)weakSelf = self;
     for (ALAsset* asset in assets) {
         WLEditPicture *picture = [WLEditPicture picture:weakSelf.mode];
-        picture.isAsset = YES;
-        [self.pictures addObject:picture];
-        [self updatePicturesCountLabel];
-        runQueuedOperation(@"wl_still_picture_queue",3,^(WLOperation *operation) {
-            [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
-                [picture setImage:croppedImage completion:^(id object) {
-                    [operation finish];
+        picture.assetID = asset.ID;
+        [self addPicture:picture success:^{
+            runQueuedOperation(@"wl_still_picture_queue",3,^(WLOperation *operation) {
+                [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
+                    [picture setImage:croppedImage completion:^(id object) {
+                        [operation finish];
+                    }];
                 }];
-            }];
-        });
+            });
+        } failure:^(NSError *error) {
+            [error show];
+        }];
+    }
+}
+
+- (void)addPicture:(WLEditPicture*)picture success:(WLBlock)success failure:(WLFailureBlock)failure {
+    __weak typeof(self)weakSelf = self;
+    [self shouldAddPicture:^{
+        [weakSelf.pictures addObject:picture];
+        [weakSelf updatePicturesCountLabel];
+        if (success) success();
+    } failure:failure];
+}
+
+- (BOOL)shouldAddPicture:(WLBlock)success failure:(WLFailureBlock)failure {
+    if (self.pictures.count < 10) {
+        if (success) success();
+        return YES;
+    } else {
+        if (failure) failure(WLError(WLLS(@"upload_photos_limit_error")));
+        return NO;
     }
 }
 

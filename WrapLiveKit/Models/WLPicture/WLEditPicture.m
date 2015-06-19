@@ -106,7 +106,7 @@
 }
 
 - (void)saveToAssetsIfNeeded {
-    if (!self.isAsset) {
+    if (self.assetID == nil) {
         [self saveToAssets];
     }
 }

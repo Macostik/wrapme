@@ -7,10 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLAssetsViewController.h"
+
+@class ALAsset, WLQuickAssetsViewController;
+
+@protocol WLQuickAssetsViewControllerDelegate <NSObject>
+
+@optional
+- (BOOL)quickAssetsViewController:(WLQuickAssetsViewController*)controller shouldSelectAsset:(ALAsset*)asset;
+
+- (void)quickAssetsViewController:(WLQuickAssetsViewController*)controller didSelectAsset:(ALAsset*)asset;
+
+- (void)quickAssetsViewController:(WLQuickAssetsViewController*)controller didDeselectAsset:(ALAsset*)asset;
+
+@end
 
 @interface WLQuickAssetsViewController : UIViewController
 
-@property (weak, nonatomic) id <WLAssetsViewControllerDelegate> delegate;
+@property (weak, nonatomic) id <WLQuickAssetsViewControllerDelegate> delegate;
 
 @end

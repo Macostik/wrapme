@@ -39,6 +39,8 @@
 
 @property (strong, nonatomic) IBOutlet WLWrapPickerDataSource *dataSource;
 
+@property (nonatomic) BOOL keyboardHandled;
+
 @end
 
 @implementation WLWrapPickerViewController
@@ -113,6 +115,14 @@
     return UIStatusBarAnimationSlide;
 }
 
+// MARK: - WLAddWrapPickerViewDelegate
+
+- (BOOL)addWrapPickerViewShouldShowKeyboard:(WLAddWrapPickerView *)view {
+    BOOL shouldShowKeyboard = self.wrap == nil && !self.keyboardHandled;
+    self.keyboardHandled = YES;
+    return shouldShowKeyboard;
+}
+
 - (void)addWrapPickerView:(WLAddWrapPickerView *)view didAddWrap:(WLWrap *)wrap {
     [self.delegate wrapPickerViewController:self didSelectWrap:wrap];
 }
@@ -184,35 +194,48 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.wrapNameTextField.placeholder = WLLS(@"new_wrap");
-}
-
-- (void)setup:(id)entry {
-    if (!entry) {
-        [self.wrapNameTextField becomeFirstResponder];
+    if ([self.delegate addWrapPickerViewShouldShowKeyboard:self]) {
+        self.createButtonCenterConstraint.priority = UILayoutPriorityDefaultLow;
+        self.createButtonLeadingConstraint.priority = UILayoutPriorityDefaultHigh;
+        [self.wrapNameTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
     }
 }
 
 // MARK: - UITextFieldDelegate
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    BOOL changed = NO;
+    UILayoutPriority centerPriority = editing ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
+    UILayoutPriority leadingPriority = editing ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+    if (self.createButtonCenterConstraint.priority != centerPriority) {
+        self.createButtonCenterConstraint.priority = centerPriority;
+        changed = YES;
+    }
+    if (self.createButtonLeadingConstraint.priority != leadingPriority) {
+        self.createButtonLeadingConstraint.priority = leadingPriority;
+        changed = YES;
+    }
+    if (changed) {
+        if (animated) {
+            [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                [self.wrapNameTextField.superview layoutIfNeeded];
+            } completion:^(BOOL finished) {
+            }];
+        } else {
+            [self.wrapNameTextField.superview layoutIfNeeded];
+        }
+    }
+}
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [self.delegate addWrapPickerViewDidBeginEditing:self];
     self.wrapNameTextField.placeholder = WLLS(@"what_is_new_wrap_about");
-    self.createButtonCenterConstraint.priority = UILayoutPriorityDefaultLow;
-    self.createButtonLeadingConstraint.priority = UILayoutPriorityDefaultHigh;
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.wrapNameTextField.superview layoutIfNeeded];
-    } completion:^(BOOL finished) {
-    }];
+    [self setEditing:YES animated:YES];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     self.wrapNameTextField.placeholder = WLLS(@"new_wrap");
-    self.createButtonCenterConstraint.priority = UILayoutPriorityDefaultHigh;
-    self.createButtonLeadingConstraint.priority = UILayoutPriorityDefaultLow;
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.wrapNameTextField.superview layoutIfNeeded];
-    } completion:^(BOOL finished) {
-    }];
+    [self setEditing:NO animated:YES];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -220,12 +243,14 @@
 }
 
 - (IBAction)textFieldDidChange:(UITextField *)textField {
-    self.trailingTextFieldConstraint.constant = textField.text.nonempty ? 52 : 8;
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.wrapNameTextField.superview layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        
-    }];
+    CGFloat constant = textField.text.nonempty ? 52 : 8;
+    if (self.trailingTextFieldConstraint.constant != constant) {
+        self.trailingTextFieldConstraint.constant = constant;
+        [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [self.wrapNameTextField.superview layoutIfNeeded];
+        } completion:^(BOOL finished) {
+        }];
+    }
 }
 
 - (IBAction)createNewWrap:(id)sender {

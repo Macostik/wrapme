@@ -352,7 +352,6 @@
     controller.mode = WLStillPictureModeDefault;
     controller.delegate = self;
     [self presentViewController:controller animated:NO completion:nil];
-    [controller showWrapPickerWithController:NO];
 }
 
 - (IBAction)addPhoto:(id)sender {

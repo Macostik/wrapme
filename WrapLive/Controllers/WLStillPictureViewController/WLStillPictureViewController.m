@@ -60,6 +60,10 @@
     if (self.mode == WLStillPictureModeDefault) {
         [[WLWrap notifier] addReceiver:self];
     }
+    
+    if (self.wrap == nil) {
+        [self showWrapPickerWithController:NO];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

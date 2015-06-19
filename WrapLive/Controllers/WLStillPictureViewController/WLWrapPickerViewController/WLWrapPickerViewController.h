@@ -40,6 +40,8 @@
 
 @protocol WLAddWrapPickerViewDelegate <NSObject>
 
+- (BOOL)addWrapPickerViewShouldShowKeyboard:(WLAddWrapPickerView*)view;
+
 - (BOOL)addWrapPickerViewShouldBeginEditing:(WLAddWrapPickerView*)view;
 
 - (void)addWrapPickerViewDidBeginEditing:(WLAddWrapPickerView*)view;

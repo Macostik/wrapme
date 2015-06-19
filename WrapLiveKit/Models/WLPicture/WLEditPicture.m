@@ -21,6 +21,17 @@
 
 @implementation WLEditPicture
 
+- (void)dealloc {
+    NSLog(@"WLEditPicture dealloc");
+    if (!self.uploaded) {
+        NSLog(@"WLEditPicture removing photos");
+        [[NSFileManager defaultManager] removeItemAtPath:self.original error:NULL];
+        [[NSFileManager defaultManager] removeItemAtPath:self.large error:NULL];
+        [[NSFileManager defaultManager] removeItemAtPath:self.medium error:NULL];
+        [[NSFileManager defaultManager] removeItemAtPath:self.small error:NULL];
+    }
+}
+
 + (instancetype)picture:(UIImage *)image completion:(WLObjectBlock)completion {
     return [self picture:image cache:[WLImageCache uploadingCache] completion:completion];
 }
@@ -87,6 +98,7 @@
 }
 
 - (WLPicture *)uploadablePictureWithAnimation:(BOOL)withAnimation {
+    self.uploaded = YES;
     WLPicture *picture = [[WLPicture alloc] init];
     picture.original = self.original;
     picture.large = self.large;

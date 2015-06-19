@@ -24,6 +24,8 @@
 
 @property (nonatomic) BOOL deleted;
 
+@property (nonatomic) BOOL uploaded;
+
 + (instancetype)picture:(UIImage *)image completion:(WLObjectBlock)completion;
 
 + (instancetype)picture:(UIImage *)image cache:(WLImageCache*)cache completion:(WLObjectBlock)completion;

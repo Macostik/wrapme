@@ -11,7 +11,6 @@
 @interface WLWKAlertController ()
 
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel* errorLabel;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel *iconView;
 
 @end
 
@@ -20,10 +19,8 @@
 - (void)awakeWithContext:(id)message {
     [super awakeWithContext:message];
     if ([message isKindOfClass:[NSError class]]) {
-        [self.iconView setHidden:NO];
         [self.errorLabel setText:[message localizedDescription]];
     } else if ([message isKindOfClass:[NSString class]]) {
-        [self.iconView setHidden:YES];
         [self.errorLabel setText:message];
     }
     __weak typeof(self)weakSelf = self;

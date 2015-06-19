@@ -26,9 +26,6 @@
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
         </mutableArray>
-        <mutableArray key="wrapliveicons.ttf">
-            <string>wrapliveicons</string>
-        </mutableArray>
     </customFonts>
     <scenes>
         <!--events-->
@@ -267,10 +264,6 @@
                     <items>
                         <group width="1" height="136" alignment="left" layout="vertical" radius="0.0" id="chw-KB-Mb2">
                             <items>
-                                <label alignment="center" verticalAlignment="center" text="s" id="Gy3-Ci-tUp">
-                                    <color key="textColor" red="0.93058806660000004" green="0.372343272" blue="0.1172502711" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="font" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
-                                </label>
                                 <label alignment="center" verticalAlignment="center" text="Network connection error" textAlignment="center" numberOfLines="0" id="SFC-eh-ZGN">
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
@@ -283,7 +276,6 @@
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="errorLabel" destination="SFC-eh-ZGN" id="0PW-Te-Gkt"/>
-                        <outlet property="iconView" destination="Gy3-Ci-tUp" id="Sih-ZY-Oqq"/>
                     </connections>
                 </controller>
             </objects>
@@ -325,11 +317,11 @@
                                         <imageView width="44" height="44" alignment="left" contentMode="scaleAspectFill" id="uee-BH-wcj"/>
                                         <group alignment="left" layout="vertical" radius="0.0" spacing="0.0" id="bRE-H9-V5c">
                                             <items>
-                                                <label alignment="left" text="Title Label Title Label Title Label Title Label" numberOfLines="0" id="UdI-ZI-ZP4">
+                                                <label alignment="left" text="Title Label" numberOfLines="0" id="UdI-ZI-ZP4">
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="font" type="system" weight="semibold" pointSize="15"/>
                                                 </label>
-                                                <label alignment="left" text="Alert Label Alert Label Alert Label Alert Label" numberOfLines="0" id="7l1-25-HMV">
+                                                <label alignment="left" text="Alert Label" numberOfLines="0" id="7l1-25-HMV">
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="font" type="system" pointSize="15"/>
                                                 </label>

@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.pictures = [NSMutableArray array];
-    [self updatePicturesCountLabel];
+    [self performSelector:@selector(updatePicturesCountLabel) withObject:nil afterDelay:0.0f];
 }
 
 - (void)handleImage:(UIImage *)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {

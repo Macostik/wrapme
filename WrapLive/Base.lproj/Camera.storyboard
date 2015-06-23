@@ -51,6 +51,7 @@
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
+            <string>wrapliveicons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -553,8 +554,8 @@
                                                     <action selector="cancel:" destination="gkl-Du-487" eventType="touchUpInside" id="Ohw-9D-PNA"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agr-RC-KiU" customClass="WLButton">
-                                                <rect key="frame" x="274" y="46" width="36" height="48"/>
+                                            <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agr-RC-KiU" customClass="WLButton">
+                                                <rect key="frame" x="280" y="46" width="30" height="48"/>
                                                 <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="36"/>
                                                 <state key="normal" title="4">
                                                     <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
@@ -1972,6 +1973,36 @@
                                     <action selector="edit:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="2Tc-Q6-IzI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojC-8r-fOh" customClass="WLButton">
+                                <rect key="frame" x="212" y="329" width="44" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="17O-kZ-fSu"/>
+                                    <constraint firstAttribute="height" constant="44" id="WjV-Tf-lbe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
+                                <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="3">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="draw:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="m0n-c9-PJm"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oyu-cu-lw1" customClass="WLButton">
                                 <rect key="frame" x="10" y="329" width="44" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
@@ -2201,11 +2232,13 @@
                             <constraint firstItem="oyu-cu-lw1" firstAttribute="leading" secondItem="fOQ-kN-b10" secondAttribute="leading" constant="10" id="7jQ-wh-hGF"/>
                             <constraint firstItem="ao0-lV-pbN" firstAttribute="top" secondItem="oyu-cu-lw1" secondAttribute="bottom" constant="10" id="EnK-3f-YuW"/>
                             <constraint firstItem="mxa-eX-hMc" firstAttribute="top" secondItem="HzZ-19-wUA" secondAttribute="bottom" constant="10" id="GiC-TN-qLh"/>
+                            <constraint firstItem="3yq-a6-Fsm" firstAttribute="leading" secondItem="ojC-8r-fOh" secondAttribute="trailing" constant="10" id="K11-QH-kPH"/>
                             <constraint firstItem="x4C-3O-a96" firstAttribute="top" secondItem="J8F-Df-FmE" secondAttribute="bottom" id="KNe-Ow-O4e"/>
                             <constraint firstAttribute="centerX" secondItem="HzZ-19-wUA" secondAttribute="centerX" id="U5p-Kr-ULH"/>
                             <constraint firstItem="mxa-eX-hMc" firstAttribute="top" secondItem="x4C-3O-a96" secondAttribute="bottom" id="Wpo-Mb-D43"/>
                             <constraint firstItem="x4C-3O-a96" firstAttribute="leading" secondItem="fOQ-kN-b10" secondAttribute="leading" id="Xsc-OU-2ZG"/>
                             <constraint firstItem="JfN-vq-FkG" firstAttribute="top" secondItem="J8F-Df-FmE" secondAttribute="bottom" id="adE-nk-wDd"/>
+                            <constraint firstItem="ojC-8r-fOh" firstAttribute="centerY" secondItem="3yq-a6-Fsm" secondAttribute="centerY" id="bCp-iB-j1V"/>
                             <constraint firstAttribute="trailing" secondItem="mxa-eX-hMc" secondAttribute="trailing" id="gxK-qo-Goi"/>
                             <constraint firstItem="mxa-eX-hMc" firstAttribute="top" secondItem="ao0-lV-pbN" secondAttribute="bottom" id="kJD-sK-cdk"/>
                             <constraint firstItem="ao0-lV-pbN" firstAttribute="top" secondItem="3yq-a6-Fsm" secondAttribute="bottom" constant="10" id="pf0-CB-pNk"/>
@@ -2225,6 +2258,7 @@
                         <outlet property="composeBar" destination="ao0-lV-pbN" id="QXo-Sk-wDV"/>
                         <outlet property="dataSource" destination="y7X-Pb-ZcE" id="sTZ-vw-b7l"/>
                         <outlet property="deleteButton" destination="oyu-cu-lw1" id="L5Q-Qr-zRM"/>
+                        <outlet property="drawButton" destination="ojC-8r-fOh" id="6Zf-Mm-X3s"/>
                         <outlet property="editButton" destination="3yq-a6-Fsm" id="dCV-6Q-CsV"/>
                         <outlet property="restoreButton" destination="HzZ-19-wUA" id="uY9-qV-Q1x"/>
                         <outlet property="scrollView" destination="x4C-3O-a96" id="ptX-z4-MSm"/>

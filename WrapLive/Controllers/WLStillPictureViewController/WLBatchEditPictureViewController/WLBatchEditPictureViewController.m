@@ -17,8 +17,9 @@
 #import "WLToast.h"
 #import "WLHintView.h"
 #import "UIButton+Additions.h"
+#import "WLDrawingView.h"
 
-@interface WLBatchEditPictureViewController () <WLComposeBarDelegate>
+@interface WLBatchEditPictureViewController () <WLComposeBarDelegate, WLDrawingViewDelegate>
 
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 
@@ -30,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UIButton *restoreButton;
 @property (weak, nonatomic) IBOutlet UIButton *uploadButton;
+@property (weak, nonatomic) IBOutlet UIButton *drawButton;
 
 @end
 
@@ -216,6 +218,13 @@
     [self updatePictureData:self.picture];
 }
 
+- (IBAction)draw:(id)sender {
+    WLDrawingView *drawingView = [WLDrawingView loadFromNib];
+    drawingView.frame = self.view.bounds;
+    drawingView.delegate = self;
+    [self.view addSubview:drawingView];
+}
+
 // MARK: - WLComposeBarDelegate
 
 - (IBAction)composeBarDidFinish:(id)sender {
@@ -229,6 +238,16 @@
 
 - (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
     return (keyboardHeight - self.bottomView.height);
+}
+
+// MARK: - WLDrawingViewDelegate
+
+- (void)drawingViewDidCancel:(WLDrawingView *)view {
+    [view removeFromSuperview];
+}
+
+- (void)drawingViewDidFinish:(WLDrawingView *)view {
+    [view removeFromSuperview];
 }
 
 @end

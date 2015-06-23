@@ -81,6 +81,13 @@
     }
     self.inWrapLabel.text = candy.wrap.name;
     self.textView.text = nil;
+    
+    if (candy) {
+        WLWrap *wrap = candy.wrap;
+        WLLog(@"WHATSUP_TEMP_LOG", @"candy", ([NSString stringWithFormat:@"%@ in wrap %@ named \"%@\" created by %@ contributors count %lu is top wrap %d", candy.identifier, wrap.identifier, wrap.name, wrap.contributor.identifier, (unsigned long)wrap.contributors.count, [[[WLUser currentUser] sortedWraps] firstObject] == wrap]));
+    } else {
+        WLLog(@"WHATSUP_TEMP_LOG", @"no candy", nil);
+    }
 }
 
 @end

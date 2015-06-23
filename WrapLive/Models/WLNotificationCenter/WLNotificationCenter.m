@@ -134,8 +134,7 @@
                 [weakSelf addHandledNotifications:@[notification]];
             }
             
-            NSString *logMessage = [NSString stringWithFormat:@"direct message received %@", notification];
-            WLLog(@"PUBNUB", logMessage, notification.entryData);
+            WLLog(@"PUBNUB", ([NSString stringWithFormat:@"direct message received %@", notification]), notification.entryData);
         }];
     } else if (!self.userChannel.subscribed) {
         [self.userChannel subscribe];
@@ -197,8 +196,7 @@
         if (historyDate) {
             NSDate *fromDate = historyDate;
             NSDate *toDate = [NSDate now];
-            NSString *logMessage = [NSString stringWithFormat:@"requesting history starting from: %@ to: %@", fromDate, toDate];
-            WLLog(@"PUBNUB", logMessage, nil);
+            WLLog(@"PUBNUB", ([NSString stringWithFormat:@"requesting history starting from: %@ to: %@", fromDate, toDate]), nil);
             if  ([WLNetwork network].reachable) {
                 [PubNub requestHistoryForChannel:weakSelf.userChannel.channel from:[PNDate dateWithDate:fromDate] to:[PNDate dateWithDate:toDate] includingTimeToken:YES withCompletionBlock:^(NSArray *messages, id channel, PNDate* from, PNDate* to, id error) {
                     if (!error) {
@@ -220,8 +218,7 @@
 }
 
 - (void)handleHistoryMessages:(NSArray*)messages from:(NSDate*)from to:(NSDate*)to {
-    NSString *logMessage = [NSString stringWithFormat:@"received history starting from: %@ to: %@", from, to];
-    WLLog(@"PUBNUB", logMessage, nil);
+    WLLog(@"PUBNUB", ([NSString stringWithFormat:@"received history starting from: %@ to: %@", from, to]), nil);
     NSArray *notifications = [self notificationsFromMessages:messages];
     if (notifications.nonempty) {
         
@@ -237,8 +234,7 @@
                     [operation finish];
                 }];
             });
-            NSString *logMessage = [NSString stringWithFormat:@"history message received %@", notification];
-            WLLog(@"PUBNUB", logMessage, notification.entryData);
+            WLLog(@"PUBNUB", ([NSString stringWithFormat:@"history message received %@", notification]), notification.entryData);
         }
         WLNotification *notification = [notifications lastObject];
         NSDate *notificationDate = notification.date;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLLabel.h"
 
 typedef enum : NSUInteger {
     WLDefaultPlaceholderMode,
@@ -16,6 +17,7 @@ typedef enum : NSUInteger {
 @interface WLCollectionView : UICollectionView
 
 @property (strong, nonatomic) IBInspectable NSString *nibNamePlaceholder;
+@property (strong, nonatomic) NSString *placeholderText;
 
 - (BOOL)isDefaultPlaceholder;
 - (void)setDefaulPlaceholder;

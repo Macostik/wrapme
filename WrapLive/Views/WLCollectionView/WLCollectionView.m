@@ -16,6 +16,8 @@ static CGFloat WLDefaultType = -1;
 
 @interface WLCollectionView ()
 
+@property (weak, nonatomic) IBOutlet WLLabel *placeholderTextLabel;
+
 @property (assign, nonatomic) BOOL isShowPlacehoder;
 @property (strong, nonatomic) UIView *placeholderView;
 @property (strong, nonatomic) NSMapTable *placeholderMap;
@@ -104,7 +106,7 @@ static CGFloat WLDefaultType = -1;
             return nil;
         }
     }
-     return [UIView loadFromNib:[UINib nibWithNibName:nibName bundle:nil] ownedBy:nil];
+     return [UIView loadFromNib:[UINib nibWithNibName:nibName bundle:nil] ownedBy:self];
 }
 
 - (void)setBackgroundPlaceholderByType:(NSInteger)type {
@@ -116,6 +118,7 @@ static CGFloat WLDefaultType = -1;
         placeholderView.layer.geometryFlipped = self.layer.geometryFlipped;
     }
     self.placeholderView = placeholderView;
+    self.placeholderTextLabel.text = self.placeholderText;
 }
 
 - (void)dealloc {

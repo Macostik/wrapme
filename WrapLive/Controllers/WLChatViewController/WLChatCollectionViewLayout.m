@@ -140,7 +140,7 @@ static NSString *WLCollectionElementKindItem = @"item";
             contentOffset += attributes.bottomSpacing;
         }
     }
-    contentHeight = contentOffset + inset;
+    contentHeight = contentOffset + (contentOffset != 0 ? inset : 0);
 }
 
 - (void)prepareAttributes:(WLChatCollectionViewLayoutAttributes*)attributes ofKind:(NSString*)kind {

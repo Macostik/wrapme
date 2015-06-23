@@ -29,12 +29,13 @@
 #import "WLWrapViewController.h"
 #import "WLEntryPresenter.h"
 #import "WLToast.h"
+#import "WLCollectionView.h"
 
 CGFloat WLMaxTextViewWidth;
 
 @interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate, WLChatCollectionViewLayoutDelegate>
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
@@ -99,6 +100,7 @@ CGFloat WLMaxTextViewWidth;
     [self.collectionView registerNib:[WLUnreadMessagesView nib] forSupplementaryViewOfKind:@"unreadMessagesView" withReuseIdentifier:@"WLUnreadMessagesView"];
     [self.layout registerItemFooterSupplementaryViewKind:@"date"];
     [self.layout registerItemFooterSupplementaryViewKind:@"unreadMessagesView"];
+    self.collectionView.placeholderText = [NSString stringWithFormat:WLLS(@"no_chat_message"), self.wrap.name];
     
 	[super viewDidLoad];
     

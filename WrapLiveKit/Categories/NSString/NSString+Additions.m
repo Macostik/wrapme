@@ -101,3 +101,11 @@
 }
 
 @end
+
+@implementation NSAttributedString (Additions)
+
+- (CGFloat)heightForDefautWidth:(CGFloat)width {
+    return ceilf([self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height);
+}
+
+@end

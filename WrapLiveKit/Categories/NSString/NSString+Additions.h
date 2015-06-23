@@ -85,3 +85,9 @@ static inline CGFloat WLCalculateHeightString(NSString *string, UIFont *font, CG
 - (BOOL)isEqualToInteger:(NSInteger)integer;
 
 @end
+
+@interface NSAttributedString (Additions)
+
+- (CGFloat)heightForDefautWidth:(CGFloat)width;
+
+@end

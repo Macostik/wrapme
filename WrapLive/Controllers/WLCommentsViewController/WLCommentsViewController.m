@@ -17,6 +17,7 @@
 #import "UIFont+CustomFonts.h"
 #import "UIView+Extentions.h"
 #import "WLDeviceOrientationBroadcaster.h"
+#import "WLCommentCell.h"
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;
 static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
@@ -47,8 +48,13 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
     
     __weak typeof(self)weakSelf = self;
     [self.dataSource setItemSizeBlock:^CGSize(WLComment *comment, NSUInteger index) {
-        CGFloat textHeight = [comment.text heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal]
-                                                    width:weakSelf.collectionView.width - WLNotificationCommentHorizontalSpacing];
+        NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal];
+        paragraphStyle.firstLineHeadIndent = [[weakSelf.candy contributor] isCurrentUser] ? WLLineHeadIndent : 0;
+        NSAttributedString *attributedText = [[NSAttributedString alloc]initWithString:comment.text
+                                                                            attributes: @{NSParagraphStyleAttributeName : paragraphStyle,
+                                                                                          NSFontAttributeName : font}];
+        CGFloat textHeight = [attributedText heightForDefautWidth:weakSelf.collectionView.width - WLNotificationCommentHorizontalSpacing];
         return CGSizeMake(weakSelf.collectionView.width, textHeight + WLNotificationCommentVerticalSpacing);
     }];
  

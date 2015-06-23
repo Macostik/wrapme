@@ -68,14 +68,15 @@
 	self.userInteractionEnabled = YES;
     [entry markAsRead];
 	self.authorNameLabel.text = entry.contributor.name;
-    [self.commenttextView determineHyperLink:entry.text];
 	self.authorImageView.url = entry.contributor.picture.small;
     self.dateLabel.text = entry.createdAt.timeAgoString;
     [self.indicator updateStatusIndicator:entry];
-    
-    UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self convertRect:self.indicator.frame
-                                                                             toView:self.commenttextView]];
-    self.commenttextView.textContainer.exclusionPaths = [[self.entry contributor] isCurrentUser] ?  @[exlusionPath] : nil;
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.firstLineHeadIndent = [[self.entry contributor] isCurrentUser] ? WLLineHeadIndent : 0;
+    self.commenttextView.attributedText = [[NSAttributedString alloc]
+                                            initWithString:entry.text
+                                            attributes: @{NSParagraphStyleAttributeName : paragraphStyle,
+                                                          NSFontAttributeName : self.commenttextView.font}];
 }
 
 @end

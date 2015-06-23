@@ -2319,15 +2319,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGD-ES-q6i">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XIp-Cr-51w">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <connections>
-                                    <action selector="hide:" destination="c77-hp-0nQ" eventType="touchUpInside" id="y6H-ia-Z2g"/>
+                                    <outletCollection property="gestureRecognizers" destination="W2D-by-Qd2" appends="YES" id="Ih7-gV-tgx"/>
                                 </connections>
-                            </button>
+                            </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4My-FT-RPa" customClass="WLBlurredView">
                                 <rect key="frame" x="10" y="202" width="300" height="165"/>
                                 <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
@@ -2418,7 +2417,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhU-V1-DHc">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New wrap" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Caa-Xm-Qlw" customClass="WLTextField">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New wrap" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Caa-Xm-Qlw" customClass="WLTextField">
                                                     <rect key="frame" x="124" y="6" width="168" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="jhO-z9-ga9"/>
@@ -2526,18 +2525,19 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="rre-N1-ooI" secondAttribute="trailing" constant="10" id="8gy-G5-wTr"/>
-                            <constraint firstItem="cGC-n9-Dox" firstAttribute="top" secondItem="lGD-ES-q6i" secondAttribute="bottom" id="8sK-i9-PZl"/>
                             <constraint firstAttribute="centerY" secondItem="rre-N1-ooI" secondAttribute="centerY" id="FVW-LV-dTu"/>
-                            <constraint firstAttribute="trailing" secondItem="lGD-ES-q6i" secondAttribute="trailing" id="Oli-SP-J3v"/>
+                            <constraint firstItem="XIp-Cr-51w" firstAttribute="top" secondItem="2Td-FD-O3V" secondAttribute="bottom" id="OjM-DN-5SD"/>
+                            <constraint firstItem="cGC-n9-Dox" firstAttribute="top" secondItem="XIp-Cr-51w" secondAttribute="bottom" id="Qcw-cu-SPa"/>
                             <constraint firstItem="4My-FT-RPa" firstAttribute="height" secondItem="rre-N1-ooI" secondAttribute="height" id="RSL-aF-KVb"/>
                             <constraint firstItem="rre-N1-ooI" firstAttribute="leading" secondItem="gFv-uU-r5Z" secondAttribute="leading" constant="10" id="YJP-Ls-1ho"/>
                             <constraint firstItem="4My-FT-RPa" firstAttribute="centerX" secondItem="rre-N1-ooI" secondAttribute="centerX" id="Yle-7F-kFR"/>
+                            <constraint firstAttribute="trailing" secondItem="XIp-Cr-51w" secondAttribute="trailing" id="bHQ-XZ-B2f"/>
                             <constraint firstItem="4My-FT-RPa" firstAttribute="centerY" secondItem="rre-N1-ooI" secondAttribute="centerY" id="cuq-oG-yaE"/>
-                            <constraint firstItem="lGD-ES-q6i" firstAttribute="leading" secondItem="gFv-uU-r5Z" secondAttribute="leading" id="epB-7N-wbh"/>
+                            <constraint firstItem="XIp-Cr-51w" firstAttribute="leading" secondItem="gFv-uU-r5Z" secondAttribute="leading" id="e3l-Kh-0LI"/>
                             <constraint firstItem="4My-FT-RPa" firstAttribute="width" secondItem="rre-N1-ooI" secondAttribute="width" id="rUj-nZ-lB5"/>
-                            <constraint firstItem="lGD-ES-q6i" firstAttribute="top" secondItem="2Td-FD-O3V" secondAttribute="bottom" id="wfk-PO-ILg"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -2563,6 +2563,11 @@
                         <outlet property="collectionView" destination="rre-N1-ooI" id="axb-IB-UKh"/>
                     </connections>
                 </customObject>
+                <tapGestureRecognizer id="W2D-by-Qd2">
+                    <connections>
+                        <action selector="hide:" destination="c77-hp-0nQ" id="oxa-on-NVq"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2131" y="134"/>
         </scene>

@@ -243,7 +243,11 @@
 }
 
 - (IBAction)textFieldDidChange:(UITextField *)textField {
-    CGFloat constant = textField.text.nonempty ? 52 : 8;
+    NSString *text = textField.text;
+    if (text.length > WLProfileNameLimit) {
+        text = textField.text = [text substringToIndex:WLProfileNameLimit];
+    }
+    CGFloat constant = text.nonempty ? 52 : 8;
     if (self.trailingTextFieldConstraint.constant != constant) {
         self.trailingTextFieldConstraint.constant = constant;
         [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{

@@ -227,8 +227,6 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 @end
 
-static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave this wrap";
-
 @implementation WLWrap (WLAPIManager)
 
 - (BOOL)fetched {
@@ -363,7 +361,7 @@ static NSString *const WLLeaveAlertMessage  = @"Are you sure you want to leave t
 @implementation WLCandy (WLAPIManager)
 
 - (BOOL)fetched {
-    return self.wrap && self.picture.medium.nonempty;
+    return self.wrap && self.picture.original.nonempty;
 }
 
 - (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {

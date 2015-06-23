@@ -67,6 +67,7 @@
 
 @property (weak, nonatomic) WLQuickAssetsViewController* assetsViewController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *assetsBottomConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *assetsArrow;
 
 @end
 
@@ -180,7 +181,8 @@
         
     } else if (sender.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [sender translationInView:sender.view];
-        self.assetsBottomConstraint.constant = Smoothstep(-self.assetsViewController.view.height, 0, self.assetsBottomConstraint.constant - translation.y);
+        self.assetsBottomConstraint.constant = Smoothstep(-self.assetsViewController.view.height, 0, self.assetsBottomConstraint.constant - translation.y / 2);
+        self.assetsArrow.layer.transform = CATransform3DMakeRotation(M_PI * self.assetsBottomConstraint.constant / self.assetsViewController.view.height, 1, 0, 0);
         [self.view layoutIfNeeded];
         [sender setTranslation:CGPointZero inView:sender.view];
     } else if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
@@ -193,13 +195,22 @@
     }
 }
 
+- (IBAction)toggleQuickAssets:(id)sender {
+    [self setAssetsViewControllerHidden:self.assetsBottomConstraint.constant == 0 animated:YES];
+}
+
 - (void)setAssetsViewControllerHidden:(BOOL)hidden animated:(BOOL)animated {
     if (hidden) {
         self.assetsBottomConstraint.constant = -self.assetsViewController.view.height;
     } else {
         self.assetsBottomConstraint.constant = 0;
     }
-    [UIView animateWithDuration:animated ? 0.2 : 0 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:animated ? 0.3 : 0 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        if (hidden) {
+            self.assetsArrow.layer.transform = CATransform3DMakeRotation(M_PI, 1, 0, 0);
+        } else {
+            self.assetsArrow.layer.transform = CATransform3DIdentity;
+        }
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
     }];

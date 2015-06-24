@@ -18,6 +18,8 @@
 
 @implementation RMGestureCanvasView
 
+@dynamic delegate;
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
@@ -36,9 +38,19 @@
 }
 
 - (void) handleDrag:(RMPaintGestureRecognizer*)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        if ([self.delegate respondsToSelector:@selector(canvasViewDidBeginPaintingInteraction:)]) {
+            [self.delegate canvasViewDidBeginPaintingInteraction:self];
+        }
+    }
     NSSet* touches = sender.touches;
     for (UITouch* touch in touches) {
         [self renderLineFromTouch:touch];        
+    }
+    if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
+        if ([self.delegate respondsToSelector:@selector(canvasViewDidEndPaintingInteraction:)]) {
+            [self.delegate canvasViewDidEndPaintingInteraction:self];
+        }
     }
 }
 

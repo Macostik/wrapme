@@ -15,8 +15,19 @@
 
 #import "RMCanvasView.h"
 
+@protocol RMGestureCanvasViewDelegate <RMCanvasViewDelegate>
+
+@optional
+- (void)canvasViewDidBeginPaintingInteraction:(RMCanvasView*)canvasView;
+
+- (void)canvasViewDidEndPaintingInteraction:(RMCanvasView*)canvasView;
+
+@end
+
 @interface RMGestureCanvasView : RMCanvasView
 
-- (void) renderLineFromTouch:(UITouch*)touch;
+@property(weak, nonatomic) id<RMGestureCanvasViewDelegate> delegate;
+
+- (void)renderLineFromTouch:(UITouch*)touch;
 
 @end

@@ -13,7 +13,7 @@
 @protocol WLDrawingViewDelegate <NSObject>
 
 @optional
-- (void)drawingViewDidFinish:(WLDrawingView*)view;
+- (void)drawingView:(WLDrawingView*)view didFinishWithImage:(UIImage*)image;
 
 - (void)drawingViewDidCancel:(WLDrawingView*)view;
 
@@ -22,5 +22,8 @@
 @interface WLDrawingView : UIView
 
 @property (nonatomic, weak) IBOutlet id <WLDrawingViewDelegate> delegate;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeightConstraint;
+
+- (void)setImage:(UIImage*)image;
 
 @end

@@ -82,13 +82,13 @@
 
 - (void)updatePictureData:(WLEditPicture*)picture {
     if (picture.deleted) {
-        self.deleteButton.hidden = self.editButton.hidden = self.composeBar.hidden = YES;
+        self.drawButton.hidden = self.deleteButton.hidden = self.editButton.hidden = self.composeBar.hidden = YES;
         self.restoreButton.hidden = NO;
         if (self.composeBar.isFirstResponder) {
             [self.composeBar resignFirstResponder];
         }
     } else {
-        self.deleteButton.hidden = self.editButton.hidden = self.composeBar.hidden = NO;
+        self.drawButton.hidden = self.deleteButton.hidden = self.editButton.hidden = self.composeBar.hidden = NO;
         self.restoreButton.hidden = YES;
         self.composeBar.text = picture.comment;
     }
@@ -191,19 +191,27 @@
 - (IBAction)edit:(id)sender {
     __weak typeof(self)weakSelf = self;
     UIImage *image = [(WLEditPictureViewController*)self.viewController imageView].image;
+    if (!image) {
+        return;
+    }
     AdobeUXImageEditorViewController* aviaryController = [AdobeUXImageEditorViewController editControllerWithImage:image completion:^(UIImage *image, AdobeUXImageEditorViewController *controller) {
-        weakSelf.uploadButton.active = NO;
-        [weakSelf.picture setImage:image completion:^(id object) {
-            weakSelf.picture.edited = YES;
-            [weakSelf.dataSource reload];
-            weakSelf.uploadButton.active = YES;
-        }];
-        [(WLEditPictureViewController*)weakSelf.viewController imageView].image = image;
+        [weakSelf editCurrentPictureWithImage:image];
         [weakSelf.navigationController popViewControllerAnimated:NO];
     } cancel:^(AdobeUXImageEditorViewController *controller) {
         [weakSelf.navigationController popViewControllerAnimated:NO];
     }];
     [self.navigationController pushViewController:aviaryController animated:NO];
+}
+
+- (void)editCurrentPictureWithImage:(UIImage*)image {
+    __weak typeof(self)weakSelf = self;
+    self.uploadButton.active = NO;
+    [self.picture setImage:image completion:^(id object) {
+        weakSelf.picture.edited = YES;
+        [weakSelf.dataSource reload];
+        weakSelf.uploadButton.active = YES;
+    }];
+    [(WLEditPictureViewController*)self.viewController imageView].image = image;
 }
 
 - (IBAction)deletePicture:(id)sender {
@@ -219,10 +227,15 @@
 }
 
 - (IBAction)draw:(id)sender {
-    WLDrawingView *drawingView = [WLDrawingView loadFromNib];
-    drawingView.frame = self.view.bounds;
-    drawingView.delegate = self;
-    [self.view addSubview:drawingView];
+    UIImage *image = [(WLEditPictureViewController*)self.viewController imageView].image;
+    if (image) {
+        WLDrawingView *drawingView = [WLDrawingView loadFromNib];
+        drawingView.frame = self.view.bounds;
+        drawingView.delegate = self;
+        drawingView.bottomViewHeightConstraint.constant = self.bottomView.height;
+        [self.view addSubview:drawingView];
+        [drawingView setImage:image];
+    }
 }
 
 // MARK: - WLComposeBarDelegate
@@ -246,8 +259,9 @@
     [view removeFromSuperview];
 }
 
-- (void)drawingViewDidFinish:(WLDrawingView *)view {
+- (void)drawingView:(WLDrawingView *)view didFinishWithImage:(UIImage *)image {
     [view removeFromSuperview];
+    [self editCurrentPictureWithImage:image];
 }
 
 @end

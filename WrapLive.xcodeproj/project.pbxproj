@@ -341,36 +341,6 @@
 		C51A521C1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
 		C51A521D1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
 		C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
-		C51B412A1B398083007D481A /* RMCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B411F1B398083007D481A /* RMCanvasView.m */; };
-		C51B412B1B398083007D481A /* RMCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B411F1B398083007D481A /* RMCanvasView.m */; };
-		C51B412C1B398083007D481A /* RMCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B411F1B398083007D481A /* RMCanvasView.m */; };
-		C51B412D1B398083007D481A /* RMCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B411F1B398083007D481A /* RMCanvasView.m */; };
-		C51B412E1B398083007D481A /* RMCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B411F1B398083007D481A /* RMCanvasView.m */; };
-		C51B412F1B398083007D481A /* RMGestureCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41211B398083007D481A /* RMGestureCanvasView.m */; };
-		C51B41301B398083007D481A /* RMGestureCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41211B398083007D481A /* RMGestureCanvasView.m */; };
-		C51B41311B398083007D481A /* RMGestureCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41211B398083007D481A /* RMGestureCanvasView.m */; };
-		C51B41321B398083007D481A /* RMGestureCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41211B398083007D481A /* RMGestureCanvasView.m */; };
-		C51B41331B398083007D481A /* RMGestureCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41211B398083007D481A /* RMGestureCanvasView.m */; };
-		C51B41341B398083007D481A /* RMPaintGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41251B398083007D481A /* RMPaintGestureRecognizer.m */; };
-		C51B41351B398083007D481A /* RMPaintGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41251B398083007D481A /* RMPaintGestureRecognizer.m */; };
-		C51B41361B398083007D481A /* RMPaintGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41251B398083007D481A /* RMPaintGestureRecognizer.m */; };
-		C51B41371B398083007D481A /* RMPaintGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41251B398083007D481A /* RMPaintGestureRecognizer.m */; };
-		C51B41381B398083007D481A /* RMPaintGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41251B398083007D481A /* RMPaintGestureRecognizer.m */; };
-		C51B41391B398083007D481A /* RMPaintSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41271B398083007D481A /* RMPaintSession.m */; };
-		C51B413A1B398083007D481A /* RMPaintSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41271B398083007D481A /* RMPaintSession.m */; };
-		C51B413B1B398083007D481A /* RMPaintSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41271B398083007D481A /* RMPaintSession.m */; };
-		C51B413C1B398083007D481A /* RMPaintSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41271B398083007D481A /* RMPaintSession.m */; };
-		C51B413D1B398083007D481A /* RMPaintSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41271B398083007D481A /* RMPaintSession.m */; };
-		C51B413E1B398083007D481A /* RMPaintStep.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41291B398083007D481A /* RMPaintStep.m */; };
-		C51B413F1B398083007D481A /* RMPaintStep.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41291B398083007D481A /* RMPaintStep.m */; };
-		C51B41401B398083007D481A /* RMPaintStep.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41291B398083007D481A /* RMPaintStep.m */; };
-		C51B41411B398083007D481A /* RMPaintStep.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41291B398083007D481A /* RMPaintStep.m */; };
-		C51B41421B398083007D481A /* RMPaintStep.m in Sources */ = {isa = PBXBuildFile; fileRef = C51B41291B398083007D481A /* RMPaintStep.m */; };
-		C51B41441B3980CB007D481A /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = C51B41431B3980CB007D481A /* brush.png */; };
-		C51B41451B3980CB007D481A /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = C51B41431B3980CB007D481A /* brush.png */; };
-		C51B41461B3980CB007D481A /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = C51B41431B3980CB007D481A /* brush.png */; };
-		C51B41471B3980CB007D481A /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = C51B41431B3980CB007D481A /* brush.png */; };
-		C51B41481B3980CB007D481A /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = C51B41431B3980CB007D481A /* brush.png */; };
 		C520C9D91B32FDBD00AC7351 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C520C9D71B32FDBD00AC7351 /* Interface.storyboard */; };
 		C520C9DA1B32FDBD00AC7351 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C520C9D71B32FDBD00AC7351 /* Interface.storyboard */; };
 		C5218E631AE5547D007E55D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E621AE5547D007E55D0 /* Accelerate.framework */; };
@@ -1543,6 +1513,31 @@
 		C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
 		C5AB7D741B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */; };
 		C5AB7D751B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */; };
+		C5AEE42B1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */; };
+		C5AEE42C1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */; };
+		C5AEE42D1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */; };
+		C5AEE42E1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */; };
+		C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */; };
+		C5AEE4321B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4311B3AC9B4000C8CCF /* WLDrawingLine.m */; };
+		C5AEE4331B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4311B3AC9B4000C8CCF /* WLDrawingLine.m */; };
+		C5AEE4341B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4311B3AC9B4000C8CCF /* WLDrawingLine.m */; };
+		C5AEE4351B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4311B3AC9B4000C8CCF /* WLDrawingLine.m */; };
+		C5AEE4361B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4311B3AC9B4000C8CCF /* WLDrawingLine.m */; };
+		C5AEE4391B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4381B3AC9E3000C8CCF /* WLDrawingBrush.m */; };
+		C5AEE43A1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4381B3AC9E3000C8CCF /* WLDrawingBrush.m */; };
+		C5AEE43B1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4381B3AC9E3000C8CCF /* WLDrawingBrush.m */; };
+		C5AEE43C1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4381B3AC9E3000C8CCF /* WLDrawingBrush.m */; };
+		C5AEE43D1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4381B3AC9E3000C8CCF /* WLDrawingBrush.m */; };
+		C5AEE4401B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE43F1B3ACC84000C8CCF /* WLDrawingCanvas.m */; };
+		C5AEE4411B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE43F1B3ACC84000C8CCF /* WLDrawingCanvas.m */; };
+		C5AEE4421B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE43F1B3ACC84000C8CCF /* WLDrawingCanvas.m */; };
+		C5AEE4431B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE43F1B3ACC84000C8CCF /* WLDrawingCanvas.m */; };
+		C5AEE4441B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE43F1B3ACC84000C8CCF /* WLDrawingCanvas.m */; };
+		C5AEE4471B3AE770000C8CCF /* WLColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4461B3AE770000C8CCF /* WLColorPicker.m */; };
+		C5AEE4481B3AE770000C8CCF /* WLColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4461B3AE770000C8CCF /* WLColorPicker.m */; };
+		C5AEE4491B3AE770000C8CCF /* WLColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4461B3AE770000C8CCF /* WLColorPicker.m */; };
+		C5AEE44A1B3AE770000C8CCF /* WLColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4461B3AE770000C8CCF /* WLColorPicker.m */; };
+		C5AEE44B1B3AE770000C8CCF /* WLColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4461B3AE770000C8CCF /* WLColorPicker.m */; };
 		C5B233411B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
 		C5B233421B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
 		C5B233431B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */; };
@@ -2833,19 +2828,6 @@
 		C518D79219E7E480001A3F08 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		C51A52191A24DCED00558BF3 /* WLPasscodeValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPasscodeValidation.h; path = WLValidation/WLPasscodeValidation.h; sourceTree = "<group>"; };
 		C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPasscodeValidation.m; path = WLValidation/WLPasscodeValidation.m; sourceTree = "<group>"; };
-		C51B411E1B398083007D481A /* RMCanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCanvasView.h; sourceTree = "<group>"; };
-		C51B411F1B398083007D481A /* RMCanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCanvasView.m; sourceTree = "<group>"; };
-		C51B41201B398083007D481A /* RMGestureCanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGestureCanvasView.h; sourceTree = "<group>"; };
-		C51B41211B398083007D481A /* RMGestureCanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMGestureCanvasView.m; sourceTree = "<group>"; };
-		C51B41221B398083007D481A /* RMPaint-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMPaint-Prefix.pch"; sourceTree = "<group>"; };
-		C51B41231B398083007D481A /* RMPaint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPaint.h; sourceTree = "<group>"; };
-		C51B41241B398083007D481A /* RMPaintGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPaintGestureRecognizer.h; sourceTree = "<group>"; };
-		C51B41251B398083007D481A /* RMPaintGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMPaintGestureRecognizer.m; sourceTree = "<group>"; };
-		C51B41261B398083007D481A /* RMPaintSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPaintSession.h; sourceTree = "<group>"; };
-		C51B41271B398083007D481A /* RMPaintSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMPaintSession.m; sourceTree = "<group>"; };
-		C51B41281B398083007D481A /* RMPaintStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPaintStep.h; sourceTree = "<group>"; };
-		C51B41291B398083007D481A /* RMPaintStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMPaintStep.m; sourceTree = "<group>"; };
-		C51B41431B3980CB007D481A /* brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brush.png; sourceTree = "<group>"; };
 		C520C9D81B32FDBD00AC7351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		C5218E621AE5547D007E55D0 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C5218E651AE554A2007E55D0 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
@@ -3293,6 +3275,16 @@
 		C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
 		C5AB7D721B318FDD0077F9F1 /* WLWKParentApplicationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKParentApplicationContext.h; sourceTree = "<group>"; };
 		C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKParentApplicationContext.m; sourceTree = "<group>"; };
+		C5AEE4291B3AC9A7000C8CCF /* WLDrawingSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingSession.h; sourceTree = "<group>"; };
+		C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingSession.m; sourceTree = "<group>"; };
+		C5AEE4301B3AC9B4000C8CCF /* WLDrawingLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingLine.h; sourceTree = "<group>"; };
+		C5AEE4311B3AC9B4000C8CCF /* WLDrawingLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingLine.m; sourceTree = "<group>"; };
+		C5AEE4371B3AC9E3000C8CCF /* WLDrawingBrush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingBrush.h; sourceTree = "<group>"; };
+		C5AEE4381B3AC9E3000C8CCF /* WLDrawingBrush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingBrush.m; sourceTree = "<group>"; };
+		C5AEE43E1B3ACC84000C8CCF /* WLDrawingCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingCanvas.h; sourceTree = "<group>"; };
+		C5AEE43F1B3ACC84000C8CCF /* WLDrawingCanvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingCanvas.m; sourceTree = "<group>"; };
+		C5AEE4451B3AE770000C8CCF /* WLColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLColorPicker.h; sourceTree = "<group>"; };
+		C5AEE4461B3AE770000C8CCF /* WLColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLColorPicker.m; sourceTree = "<group>"; };
 		C5B2333F1B298B3F008A14D1 /* WLQuickAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLQuickAssetsViewController.h; sourceTree = "<group>"; };
 		C5B233401B298B3F008A14D1 /* WLQuickAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLQuickAssetsViewController.m; sourceTree = "<group>"; };
 		C5B233551B29C087008A14D1 /* WLBatchEditPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBatchEditPictureViewController.h; sourceTree = "<group>"; };
@@ -4999,25 +4991,6 @@
 			path = WLBlurredView;
 			sourceTree = "<group>";
 		};
-		C51B411D1B398083007D481A /* RMPaint */ = {
-			isa = PBXGroup;
-			children = (
-				C51B411E1B398083007D481A /* RMCanvasView.h */,
-				C51B411F1B398083007D481A /* RMCanvasView.m */,
-				C51B41201B398083007D481A /* RMGestureCanvasView.h */,
-				C51B41211B398083007D481A /* RMGestureCanvasView.m */,
-				C51B41221B398083007D481A /* RMPaint-Prefix.pch */,
-				C51B41231B398083007D481A /* RMPaint.h */,
-				C51B41241B398083007D481A /* RMPaintGestureRecognizer.h */,
-				C51B41251B398083007D481A /* RMPaintGestureRecognizer.m */,
-				C51B41261B398083007D481A /* RMPaintSession.h */,
-				C51B41271B398083007D481A /* RMPaintSession.m */,
-				C51B41281B398083007D481A /* RMPaintStep.h */,
-				C51B41291B398083007D481A /* RMPaintStep.m */,
-			);
-			path = RMPaint;
-			sourceTree = "<group>";
-		};
 		C52568791B2B0CC50009300A /* WLWrapPickerViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -6174,11 +6147,19 @@
 		C5978BE31B396FA500D5043E /* WLDrawingView */ = {
 			isa = PBXGroup;
 			children = (
-				C51B411D1B398083007D481A /* RMPaint */,
 				C5978BE41B396FB700D5043E /* WLDrawingView.h */,
 				C5978BE51B396FB700D5043E /* WLDrawingView.m */,
 				C5978BEB1B396FCB00D5043E /* WLDrawingView.xib */,
-				C51B41431B3980CB007D481A /* brush.png */,
+				C5AEE4291B3AC9A7000C8CCF /* WLDrawingSession.h */,
+				C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */,
+				C5AEE43E1B3ACC84000C8CCF /* WLDrawingCanvas.h */,
+				C5AEE43F1B3ACC84000C8CCF /* WLDrawingCanvas.m */,
+				C5AEE4301B3AC9B4000C8CCF /* WLDrawingLine.h */,
+				C5AEE4311B3AC9B4000C8CCF /* WLDrawingLine.m */,
+				C5AEE4371B3AC9E3000C8CCF /* WLDrawingBrush.h */,
+				C5AEE4381B3AC9E3000C8CCF /* WLDrawingBrush.m */,
+				C5AEE4451B3AE770000C8CCF /* WLColorPicker.h */,
+				C5AEE4461B3AE770000C8CCF /* WLColorPicker.m */,
 			);
 			path = WLDrawingView;
 			sourceTree = "<group>";
@@ -7479,7 +7460,6 @@
 				12E3DA5818E049C300DBDB79 /* OpenSans-Regular.ttf in Resources */,
 				5BD782821A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */,
 				C55908D01B18995D001CB99F /* WLDownloadingView.xib in Resources */,
-				C51B41451B3980CB007D481A /* brush.png in Resources */,
 				5BA6CAF21A10E51B004AD41C /* s01.wav in Resources */,
 				5BD782C81A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C56758151AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
@@ -7616,7 +7596,6 @@
 				5BA130801B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
 				C53C405B1AF0F2EC0001685D /* WLUnreadMessagesView.xib in Resources */,
 				C54AF54219B8C437006F7EDB /* OpenSans-Regular.ttf in Resources */,
-				C51B41461B3980CB007D481A /* brush.png in Resources */,
 				C518D79419E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				C55908D11B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BD782831A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */,
@@ -7682,7 +7661,6 @@
 				5BA130811B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
 				C53C405C1AF0F2EC0001685D /* WLUnreadMessagesView.xib in Resources */,
 				C54AF63F19B8C467006F7EDB /* OpenSans-Regular.ttf in Resources */,
-				C51B41471B3980CB007D481A /* brush.png in Resources */,
 				C518D79519E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				C55908D21B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BD782841A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */,
@@ -7748,7 +7726,6 @@
 				5BA130821B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
 				C53C405D1AF0F2EC0001685D /* WLUnreadMessagesView.xib in Resources */,
 				C54AF73C19B8C491006F7EDB /* OpenSans-Regular.ttf in Resources */,
-				C51B41481B3980CB007D481A /* brush.png in Resources */,
 				C518D79619E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				C55908D31B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BD782851A4EC02B0094BEE5 /* WLEditWrapViewController.xib in Resources */,
@@ -7860,7 +7837,6 @@
 				C57479EF1B26FA45001AB8C0 /* OpenSans-Regular.ttf in Resources */,
 				C57479F01B26FA45001AB8C0 /* WLEditWrapViewController.xib in Resources */,
 				C57479F11B26FA45001AB8C0 /* WLDownloadingView.xib in Resources */,
-				C51B41441B3980CB007D481A /* brush.png in Resources */,
 				C57479F21B26FA45001AB8C0 /* s01.wav in Resources */,
 				C57479F31B26FA45001AB8C0 /* WLConfirmView.xib in Resources */,
 				C57479F41B26FA45001AB8C0 /* WLTypingViewCell.xib in Resources */,
@@ -7969,6 +7945,7 @@
 				C5BEE0441B2AC7A800D3CF70 /* PNBaseRequest.m in Sources */,
 				C5603DD11AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C5BEDF7C1B2AC7A800D3CF70 /* PNResponseParser.m in Sources */,
+				C5AEE4411B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
 				C53E5D741A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C5BEDF541B2AC7A800D3CF70 /* PNClientStateResponseParser.m in Sources */,
 				C5603DCB1AD9233C00427DEC /* WLChronologicalEntryPresenter.m in Sources */,
@@ -7981,7 +7958,6 @@
 				12A8AA6D18F5919700F67113 /* WLLoadingView.m in Sources */,
 				C5BEDF591B2AC7A800D3CF70 /* PNClientStateUpdateResponseParser.m in Sources */,
 				C54E4ADE1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
-				C51B413F1B398083007D481A /* RMPaintStep.m in Sources */,
 				C5BEDF1D1B2AC7A800D3CF70 /* PNPresenceEvent.m in Sources */,
 				C500994B1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
 				5BB1F47119EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
@@ -7992,7 +7968,6 @@
 				C5BEDF951B2AC7A800D3CF70 /* PNAccessRightsInformation.m in Sources */,
 				5BB04F2819D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE11A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
-				C51B41351B398083007D481A /* RMPaintGestureRecognizer.m in Sources */,
 				C5BEDFF41B2AC7A800D3CF70 /* PNWhereNow.m in Sources */,
 				5BA60CDB1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
 				C5BEDF811B2AC7A800D3CF70 /* PNTimeTokenResponseParser.m in Sources */,
@@ -8021,6 +7996,7 @@
 				C5BEE02B1B2AC7A800D3CF70 /* NSSet+PNAdditions.m in Sources */,
 				C5BEDF091B2AC7A800D3CF70 /* PubNub.m in Sources */,
 				C577C2631A4C427100ECC7E5 /* iVersion.m in Sources */,
+				C5AEE43A1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */,
 				C53C404B1AF0F2CC0001685D /* WLMessageDateView.m in Sources */,
 				C5BEE0171B2AC7A800D3CF70 /* NSMutableArray+PNAdditions.m in Sources */,
 				1293678318E33A3500527250 /* WLCandyCell.m in Sources */,
@@ -8107,7 +8083,6 @@
 				C58AB9961B1384F300932272 /* WLWhatsUpSet.m in Sources */,
 				C5BEDF861B2AC7A800D3CF70 /* PNWhereNowResponseParser.m in Sources */,
 				12A7A73D18DA0A06008FF6F0 /* WLWelcomeViewController.m in Sources */,
-				C51B412B1B398083007D481A /* RMCanvasView.m in Sources */,
 				C5BEE0851B2AC7A800D3CF70 /* PNLeaveRequest.m in Sources */,
 				C55D758A1AE50914006FA19C /* WLChatTypingChannel.m in Sources */,
 				C50099721ADFCC940064CC7B /* WLEntryReusableView.m in Sources */,
@@ -8157,6 +8132,7 @@
 				C5947E5118F5271B00BDF038 /* WLChatViewController.m in Sources */,
 				C55997501A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C53E5CE81A84D876004F61B0 /* WLUserView.m in Sources */,
+				C5AEE4481B3AE770000C8CCF /* WLColorPicker.m in Sources */,
 				C5BEDFC21B2AC7A800D3CF70 /* PNDate.m in Sources */,
 				C5747A151B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */,
 				5BA60C671A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
@@ -8165,7 +8141,6 @@
 				C5BEDF0E1B2AC7A800D3CF70 /* PNWriteBuffer.m in Sources */,
 				C5BEDFAE1B2AC7A800D3CF70 /* PNChannelGroupNamespace.m in Sources */,
 				C577DA531AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
-				C51B41301B398083007D481A /* RMGestureCanvasView.m in Sources */,
 				5BA60D021A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE21A41952400A2C370 /* WLTextView.m in Sources */,
 				C5BEDFD11B2AC7A800D3CF70 /* PNJSONSerialization.m in Sources */,
@@ -8176,8 +8151,8 @@
 				C5BEDF9F1B2AC7A800D3CF70 /* PNChannelEvents.m in Sources */,
 				C500997A1ADFCC940064CC7B /* WLSectionedDataSource.m in Sources */,
 				C5C20B9B1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
+				C5AEE42C1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C5BEE0B21B2AC7A800D3CF70 /* PNMessagingChannel.m in Sources */,
-				C51B413A1B398083007D481A /* RMPaintSession.m in Sources */,
 				C53C40561AF0F2EC0001685D /* WLUnreadMessagesView.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
 				C568D8D61A6D491800C2333B /* WLHintView.m in Sources */,
@@ -8194,6 +8169,7 @@
 				C5F99B6F196BEB0C00A3FB19 /* WLMenu.m in Sources */,
 				C5BEDEE61B2AC7A800D3CF70 /* PubNub+Messaging.m in Sources */,
 				C537E9F01A8BBA8100EA450D /* WLIcon.m in Sources */,
+				C5AEE4331B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */,
 				C5BEE0A31B2AC7A800D3CF70 /* PNSubscribeRequest.m in Sources */,
 				12F0DAF019338C9100F9D898 /* SegmentedControl.m in Sources */,
 				C5BEDF901B2AC7A800D3CF70 /* PNAccessRightsCollection.m in Sources */,
@@ -8304,6 +8280,7 @@
 				C5BEE0451B2AC7A800D3CF70 /* PNBaseRequest.m in Sources */,
 				C5603DD21AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C5BEDF7D1B2AC7A800D3CF70 /* PNResponseParser.m in Sources */,
+				C5AEE4421B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
 				C53E5D751A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C5BEDF551B2AC7A800D3CF70 /* PNClientStateResponseParser.m in Sources */,
 				C5603DCC1AD9233C00427DEC /* WLChronologicalEntryPresenter.m in Sources */,
@@ -8316,7 +8293,6 @@
 				C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */,
 				C5BEDF5A1B2AC7A800D3CF70 /* PNClientStateUpdateResponseParser.m in Sources */,
 				C54E4ADF1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
-				C51B41401B398083007D481A /* RMPaintStep.m in Sources */,
 				C5BEDF1E1B2AC7A800D3CF70 /* PNPresenceEvent.m in Sources */,
 				C500994C1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
 				5BB1F47219EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
@@ -8327,7 +8303,6 @@
 				C5BEDF961B2AC7A800D3CF70 /* PNAccessRightsInformation.m in Sources */,
 				5BB04F2919D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE21A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
-				C51B41361B398083007D481A /* RMPaintGestureRecognizer.m in Sources */,
 				C5BEDFF51B2AC7A800D3CF70 /* PNWhereNow.m in Sources */,
 				5BA60CDC1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
 				C5BEDF821B2AC7A800D3CF70 /* PNTimeTokenResponseParser.m in Sources */,
@@ -8356,6 +8331,7 @@
 				C5BEE02C1B2AC7A800D3CF70 /* NSSet+PNAdditions.m in Sources */,
 				C5BEDF0A1B2AC7A800D3CF70 /* PubNub.m in Sources */,
 				C577C2641A4C427100ECC7E5 /* iVersion.m in Sources */,
+				C5AEE43B1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */,
 				C53C404C1AF0F2CC0001685D /* WLMessageDateView.m in Sources */,
 				C5BEE0181B2AC7A800D3CF70 /* NSMutableArray+PNAdditions.m in Sources */,
 				C54AF47E19B8C437006F7EDB /* WLCandyCell.m in Sources */,
@@ -8442,7 +8418,6 @@
 				C58AB9971B1384F300932272 /* WLWhatsUpSet.m in Sources */,
 				C5BEDF871B2AC7A800D3CF70 /* PNWhereNowResponseParser.m in Sources */,
 				C54AF4C119B8C437006F7EDB /* WLWelcomeViewController.m in Sources */,
-				C51B412C1B398083007D481A /* RMCanvasView.m in Sources */,
 				C5BEE0861B2AC7A800D3CF70 /* PNLeaveRequest.m in Sources */,
 				C55D758B1AE50914006FA19C /* WLChatTypingChannel.m in Sources */,
 				C50099731ADFCC940064CC7B /* WLEntryReusableView.m in Sources */,
@@ -8492,6 +8467,7 @@
 				C54AF4DF19B8C437006F7EDB /* WLChatViewController.m in Sources */,
 				C55997511A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C53E5CE91A84D876004F61B0 /* WLUserView.m in Sources */,
+				C5AEE4491B3AE770000C8CCF /* WLColorPicker.m in Sources */,
 				C5BEDFC31B2AC7A800D3CF70 /* PNDate.m in Sources */,
 				C5747A161B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */,
 				5BA60C681A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
@@ -8500,7 +8476,6 @@
 				C5BEDF0F1B2AC7A800D3CF70 /* PNWriteBuffer.m in Sources */,
 				C5BEDFAF1B2AC7A800D3CF70 /* PNChannelGroupNamespace.m in Sources */,
 				C577DA541AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
-				C51B41311B398083007D481A /* RMGestureCanvasView.m in Sources */,
 				5BA60D031A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE31A41952400A2C370 /* WLTextView.m in Sources */,
 				C5BEDFD21B2AC7A800D3CF70 /* PNJSONSerialization.m in Sources */,
@@ -8511,8 +8486,8 @@
 				C5BEDFA01B2AC7A800D3CF70 /* PNChannelEvents.m in Sources */,
 				C500997B1ADFCC940064CC7B /* WLSectionedDataSource.m in Sources */,
 				C5C20B9C1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
+				C5AEE42D1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C5BEE0B31B2AC7A800D3CF70 /* PNMessagingChannel.m in Sources */,
-				C51B413B1B398083007D481A /* RMPaintSession.m in Sources */,
 				C53C40571AF0F2EC0001685D /* WLUnreadMessagesView.m in Sources */,
 				C54AF4E619B8C437006F7EDB /* WLAppDelegate.m in Sources */,
 				C568D8D71A6D491800C2333B /* WLHintView.m in Sources */,
@@ -8529,6 +8504,7 @@
 				C54AF4EB19B8C437006F7EDB /* WLMenu.m in Sources */,
 				C5BEDEE71B2AC7A800D3CF70 /* PubNub+Messaging.m in Sources */,
 				C537E9F11A8BBA8100EA450D /* WLIcon.m in Sources */,
+				C5AEE4341B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */,
 				C5BEE0A41B2AC7A800D3CF70 /* PNSubscribeRequest.m in Sources */,
 				C54AF4ED19B8C437006F7EDB /* SegmentedControl.m in Sources */,
 				C5BEDF911B2AC7A800D3CF70 /* PNAccessRightsCollection.m in Sources */,
@@ -8599,6 +8575,7 @@
 				C5BEE0461B2AC7A800D3CF70 /* PNBaseRequest.m in Sources */,
 				C5603DD31AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C5BEDF7E1B2AC7A800D3CF70 /* PNResponseParser.m in Sources */,
+				C5AEE4431B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
 				C53E5D761A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C5BEDF561B2AC7A800D3CF70 /* PNClientStateResponseParser.m in Sources */,
 				C5603DCD1AD9233C00427DEC /* WLChronologicalEntryPresenter.m in Sources */,
@@ -8611,7 +8588,6 @@
 				C54AF56019B8C467006F7EDB /* WLLoadingView.m in Sources */,
 				C5BEDF5B1B2AC7A800D3CF70 /* PNClientStateUpdateResponseParser.m in Sources */,
 				C54E4AE01A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
-				C51B41411B398083007D481A /* RMPaintStep.m in Sources */,
 				C5BEDF1F1B2AC7A800D3CF70 /* PNPresenceEvent.m in Sources */,
 				C500994D1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
 				5BB1F47319EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
@@ -8622,7 +8598,6 @@
 				C5BEDF971B2AC7A800D3CF70 /* PNAccessRightsInformation.m in Sources */,
 				5BB04F2A19D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE31A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
-				C51B41371B398083007D481A /* RMPaintGestureRecognizer.m in Sources */,
 				C5BEDFF61B2AC7A800D3CF70 /* PNWhereNow.m in Sources */,
 				5BA60CDD1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
 				C5BEDF831B2AC7A800D3CF70 /* PNTimeTokenResponseParser.m in Sources */,
@@ -8651,6 +8626,7 @@
 				C5BEE02D1B2AC7A800D3CF70 /* NSSet+PNAdditions.m in Sources */,
 				C5BEDF0B1B2AC7A800D3CF70 /* PubNub.m in Sources */,
 				C577C2651A4C427100ECC7E5 /* iVersion.m in Sources */,
+				C5AEE43C1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */,
 				C53C404D1AF0F2CC0001685D /* WLMessageDateView.m in Sources */,
 				C5BEE0191B2AC7A800D3CF70 /* NSMutableArray+PNAdditions.m in Sources */,
 				C54AF57B19B8C467006F7EDB /* WLCandyCell.m in Sources */,
@@ -8737,7 +8713,6 @@
 				C58AB9981B1384F300932272 /* WLWhatsUpSet.m in Sources */,
 				C5BEDF881B2AC7A800D3CF70 /* PNWhereNowResponseParser.m in Sources */,
 				C54AF5BE19B8C467006F7EDB /* WLWelcomeViewController.m in Sources */,
-				C51B412D1B398083007D481A /* RMCanvasView.m in Sources */,
 				C5BEE0871B2AC7A800D3CF70 /* PNLeaveRequest.m in Sources */,
 				C55D758C1AE50914006FA19C /* WLChatTypingChannel.m in Sources */,
 				C50099741ADFCC940064CC7B /* WLEntryReusableView.m in Sources */,
@@ -8787,6 +8762,7 @@
 				C54AF5DC19B8C467006F7EDB /* WLChatViewController.m in Sources */,
 				C55997521A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C53E5CEA1A84D876004F61B0 /* WLUserView.m in Sources */,
+				C5AEE44A1B3AE770000C8CCF /* WLColorPicker.m in Sources */,
 				C5BEDFC41B2AC7A800D3CF70 /* PNDate.m in Sources */,
 				C5747A171B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */,
 				5BA60C691A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
@@ -8795,7 +8771,6 @@
 				C5BEDF101B2AC7A800D3CF70 /* PNWriteBuffer.m in Sources */,
 				C5BEDFB01B2AC7A800D3CF70 /* PNChannelGroupNamespace.m in Sources */,
 				C577DA551AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
-				C51B41321B398083007D481A /* RMGestureCanvasView.m in Sources */,
 				5BA60D041A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE41A41952400A2C370 /* WLTextView.m in Sources */,
 				C5BEDFD31B2AC7A800D3CF70 /* PNJSONSerialization.m in Sources */,
@@ -8806,8 +8781,8 @@
 				C5BEDFA11B2AC7A800D3CF70 /* PNChannelEvents.m in Sources */,
 				C500997C1ADFCC940064CC7B /* WLSectionedDataSource.m in Sources */,
 				C5C20B9D1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
+				C5AEE42E1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C5BEE0B41B2AC7A800D3CF70 /* PNMessagingChannel.m in Sources */,
-				C51B413C1B398083007D481A /* RMPaintSession.m in Sources */,
 				C53C40581AF0F2EC0001685D /* WLUnreadMessagesView.m in Sources */,
 				C54AF5E319B8C467006F7EDB /* WLAppDelegate.m in Sources */,
 				C568D8D81A6D491800C2333B /* WLHintView.m in Sources */,
@@ -8824,6 +8799,7 @@
 				C54AF5E819B8C467006F7EDB /* WLMenu.m in Sources */,
 				C5BEDEE81B2AC7A800D3CF70 /* PubNub+Messaging.m in Sources */,
 				C537E9F21A8BBA8100EA450D /* WLIcon.m in Sources */,
+				C5AEE4351B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */,
 				C5BEE0A51B2AC7A800D3CF70 /* PNSubscribeRequest.m in Sources */,
 				C54AF5EA19B8C467006F7EDB /* SegmentedControl.m in Sources */,
 				C5BEDF921B2AC7A800D3CF70 /* PNAccessRightsCollection.m in Sources */,
@@ -8894,6 +8870,7 @@
 				C5BEE0471B2AC7A800D3CF70 /* PNBaseRequest.m in Sources */,
 				C5603DD41AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C5BEDF7F1B2AC7A800D3CF70 /* PNResponseParser.m in Sources */,
+				C5AEE4441B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
 				C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C5BEDF571B2AC7A800D3CF70 /* PNClientStateResponseParser.m in Sources */,
 				C5603DCE1AD9233C00427DEC /* WLChronologicalEntryPresenter.m in Sources */,
@@ -8906,7 +8883,6 @@
 				C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */,
 				C5BEDF5C1B2AC7A800D3CF70 /* PNClientStateUpdateResponseParser.m in Sources */,
 				C54E4AE11A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
-				C51B41421B398083007D481A /* RMPaintStep.m in Sources */,
 				C5BEDF201B2AC7A800D3CF70 /* PNPresenceEvent.m in Sources */,
 				C500994E1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
 				5BB1F47419EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
@@ -8917,7 +8893,6 @@
 				C5BEDF981B2AC7A800D3CF70 /* PNAccessRightsInformation.m in Sources */,
 				5BB04F2B19D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE41A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
-				C51B41381B398083007D481A /* RMPaintGestureRecognizer.m in Sources */,
 				C5BEDFF71B2AC7A800D3CF70 /* PNWhereNow.m in Sources */,
 				5BA60CDE1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
 				C5BEDF841B2AC7A800D3CF70 /* PNTimeTokenResponseParser.m in Sources */,
@@ -8946,6 +8921,7 @@
 				C5BEE02E1B2AC7A800D3CF70 /* NSSet+PNAdditions.m in Sources */,
 				C5BEDF0C1B2AC7A800D3CF70 /* PubNub.m in Sources */,
 				C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */,
+				C5AEE43D1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */,
 				C53C404E1AF0F2CC0001685D /* WLMessageDateView.m in Sources */,
 				C5BEE01A1B2AC7A800D3CF70 /* NSMutableArray+PNAdditions.m in Sources */,
 				C54AF67819B8C491006F7EDB /* WLCandyCell.m in Sources */,
@@ -9032,7 +9008,6 @@
 				C58AB9991B1384F300932272 /* WLWhatsUpSet.m in Sources */,
 				C5BEDF891B2AC7A800D3CF70 /* PNWhereNowResponseParser.m in Sources */,
 				C54AF6BB19B8C491006F7EDB /* WLWelcomeViewController.m in Sources */,
-				C51B412E1B398083007D481A /* RMCanvasView.m in Sources */,
 				C5BEE0881B2AC7A800D3CF70 /* PNLeaveRequest.m in Sources */,
 				C55D758D1AE50914006FA19C /* WLChatTypingChannel.m in Sources */,
 				C50099751ADFCC940064CC7B /* WLEntryReusableView.m in Sources */,
@@ -9082,6 +9057,7 @@
 				C54AF6D919B8C491006F7EDB /* WLChatViewController.m in Sources */,
 				C55997531A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C53E5CEB1A84D876004F61B0 /* WLUserView.m in Sources */,
+				C5AEE44B1B3AE770000C8CCF /* WLColorPicker.m in Sources */,
 				C5BEDFC51B2AC7A800D3CF70 /* PNDate.m in Sources */,
 				C5747A181B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */,
 				5BA60C6A1A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
@@ -9090,7 +9066,6 @@
 				C5BEDF111B2AC7A800D3CF70 /* PNWriteBuffer.m in Sources */,
 				C5BEDFB11B2AC7A800D3CF70 /* PNChannelGroupNamespace.m in Sources */,
 				C577DA561AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
-				C51B41331B398083007D481A /* RMGestureCanvasView.m in Sources */,
 				5BA60D051A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */,
 				C5BEDFD41B2AC7A800D3CF70 /* PNJSONSerialization.m in Sources */,
@@ -9101,8 +9076,8 @@
 				C5BEDFA21B2AC7A800D3CF70 /* PNChannelEvents.m in Sources */,
 				C500997D1ADFCC940064CC7B /* WLSectionedDataSource.m in Sources */,
 				C5C20B9E1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
+				C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C5BEE0B51B2AC7A800D3CF70 /* PNMessagingChannel.m in Sources */,
-				C51B413D1B398083007D481A /* RMPaintSession.m in Sources */,
 				C53C40591AF0F2EC0001685D /* WLUnreadMessagesView.m in Sources */,
 				C54AF6E019B8C491006F7EDB /* WLAppDelegate.m in Sources */,
 				C568D8D91A6D491800C2333B /* WLHintView.m in Sources */,
@@ -9119,6 +9094,7 @@
 				C54AF6E519B8C491006F7EDB /* WLMenu.m in Sources */,
 				C5BEDEE91B2AC7A800D3CF70 /* PubNub+Messaging.m in Sources */,
 				C537E9F31A8BBA8100EA450D /* WLIcon.m in Sources */,
+				C5AEE4361B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */,
 				C5BEE0A61B2AC7A800D3CF70 /* PNSubscribeRequest.m in Sources */,
 				C54AF6E719B8C491006F7EDB /* SegmentedControl.m in Sources */,
 				C5BEDF931B2AC7A800D3CF70 /* PNAccessRightsCollection.m in Sources */,
@@ -9215,6 +9191,7 @@
 				C5BEE0431B2AC7A800D3CF70 /* PNBaseRequest.m in Sources */,
 				C57479091B26FA45001AB8C0 /* WLNotificationEntryPresenter.m in Sources */,
 				C5BEDF7B1B2AC7A800D3CF70 /* PNResponseParser.m in Sources */,
+				C5AEE4401B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
 				C574790A1B26FA45001AB8C0 /* WLCameraViewController.m in Sources */,
 				C5BEDF531B2AC7A800D3CF70 /* PNClientStateResponseParser.m in Sources */,
 				C574790B1B26FA45001AB8C0 /* WLChronologicalEntryPresenter.m in Sources */,
@@ -9227,7 +9204,6 @@
 				C57479111B26FA45001AB8C0 /* WLLoadingView.m in Sources */,
 				C5BEDF581B2AC7A800D3CF70 /* PNClientStateUpdateResponseParser.m in Sources */,
 				C57479121B26FA45001AB8C0 /* WLLaunchScreenViewController.m in Sources */,
-				C51B413E1B398083007D481A /* RMPaintStep.m in Sources */,
 				C5BEDF1C1B2AC7A800D3CF70 /* PNPresenceEvent.m in Sources */,
 				C57479131B26FA45001AB8C0 /* WLHomeDataSource.m in Sources */,
 				C57479141B26FA45001AB8C0 /* WLTypingViewCell.m in Sources */,
@@ -9238,7 +9214,6 @@
 				C5BEDF941B2AC7A800D3CF70 /* PNAccessRightsInformation.m in Sources */,
 				C57479191B26FA45001AB8C0 /* WLEditViewController.m in Sources */,
 				C574791A1B26FA45001AB8C0 /* WLTestUserPicker.m in Sources */,
-				C51B41341B398083007D481A /* RMPaintGestureRecognizer.m in Sources */,
 				C5BEDFF31B2AC7A800D3CF70 /* PNWhereNow.m in Sources */,
 				C574791B1B26FA45001AB8C0 /* UIScreen+Diagonal.m in Sources */,
 				C5BEDF801B2AC7A800D3CF70 /* PNTimeTokenResponseParser.m in Sources */,
@@ -9267,6 +9242,7 @@
 				C5BEE02A1B2AC7A800D3CF70 /* NSSet+PNAdditions.m in Sources */,
 				C5BEDF081B2AC7A800D3CF70 /* PubNub.m in Sources */,
 				C57479281B26FA45001AB8C0 /* iVersion.m in Sources */,
+				C5AEE4391B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */,
 				C57479291B26FA45001AB8C0 /* WLMessageDateView.m in Sources */,
 				C5BEE0161B2AC7A800D3CF70 /* NSMutableArray+PNAdditions.m in Sources */,
 				C574792A1B26FA45001AB8C0 /* WLCandyCell.m in Sources */,
@@ -9353,7 +9329,6 @@
 				C57479601B26FA45001AB8C0 /* WLWhatsUpSet.m in Sources */,
 				C5BEDF851B2AC7A800D3CF70 /* PNWhereNowResponseParser.m in Sources */,
 				C57479611B26FA45001AB8C0 /* WLWelcomeViewController.m in Sources */,
-				C51B412A1B398083007D481A /* RMCanvasView.m in Sources */,
 				C5BEE0841B2AC7A800D3CF70 /* PNLeaveRequest.m in Sources */,
 				C57479621B26FA45001AB8C0 /* WLChatTypingChannel.m in Sources */,
 				C57479631B26FA45001AB8C0 /* WLEntryReusableView.m in Sources */,
@@ -9403,6 +9378,7 @@
 				C574797D1B26FA45001AB8C0 /* WLChatViewController.m in Sources */,
 				C574797E1B26FA45001AB8C0 /* WLTelephony.m in Sources */,
 				C574797F1B26FA45001AB8C0 /* WLUserView.m in Sources */,
+				C5AEE4471B3AE770000C8CCF /* WLColorPicker.m in Sources */,
 				C5BEDFC11B2AC7A800D3CF70 /* PNDate.m in Sources */,
 				C5747A141B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */,
 				C57479801B26FA45001AB8C0 /* MFMailComposeViewController+Additions.m in Sources */,
@@ -9411,7 +9387,6 @@
 				C5BEDF0D1B2AC7A800D3CF70 /* PNWriteBuffer.m in Sources */,
 				C5BEDFAD1B2AC7A800D3CF70 /* PNChannelGroupNamespace.m in Sources */,
 				C57479821B26FA45001AB8C0 /* WLIconView.m in Sources */,
-				C51B412F1B398083007D481A /* RMGestureCanvasView.m in Sources */,
 				C57479831B26FA45001AB8C0 /* UIAlertController+Blocks.m in Sources */,
 				C57479841B26FA45001AB8C0 /* WLTextView.m in Sources */,
 				C5BEDFD01B2AC7A800D3CF70 /* PNJSONSerialization.m in Sources */,
@@ -9422,8 +9397,8 @@
 				C5BEDF9E1B2AC7A800D3CF70 /* PNChannelEvents.m in Sources */,
 				C57479881B26FA45001AB8C0 /* WLSectionedDataSource.m in Sources */,
 				C57479891B26FA45001AB8C0 /* WLEmailValidation.m in Sources */,
+				C5AEE42B1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C5BEE0B11B2AC7A800D3CF70 /* PNMessagingChannel.m in Sources */,
-				C51B41391B398083007D481A /* RMPaintSession.m in Sources */,
 				C574798A1B26FA45001AB8C0 /* WLUnreadMessagesView.m in Sources */,
 				C574798B1B26FA45001AB8C0 /* WLAppDelegate.m in Sources */,
 				C574798C1B26FA45001AB8C0 /* WLHintView.m in Sources */,
@@ -9440,6 +9415,7 @@
 				C57479931B26FA45001AB8C0 /* WLMenu.m in Sources */,
 				C5BEDEE51B2AC7A800D3CF70 /* PubNub+Messaging.m in Sources */,
 				C57479941B26FA45001AB8C0 /* WLIcon.m in Sources */,
+				C5AEE4321B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */,
 				C5BEE0A21B2AC7A800D3CF70 /* PNSubscribeRequest.m in Sources */,
 				C57479951B26FA45001AB8C0 /* SegmentedControl.m in Sources */,
 				C5BEDF8F1B2AC7A800D3CF70 /* PNAccessRightsCollection.m in Sources */,

@@ -5,6 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
+        </mutableArray>
         <mutableArray key="wrapliveicons.ttf">
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
@@ -25,31 +29,32 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6eM-Ol-jum">
                     <rect key="frame" x="0.0" y="500" width="375" height="167"/>
                     <subviews>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="IJY-LT-cOV">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <gestureRecognizers/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="44" id="vp3-2h-YN7"/>
-                            </constraints>
-                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="TR2-IS-guy">
-                                <size key="itemSize" width="1" height="44"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            </collectionViewFlowLayout>
-                            <connections>
-                                <outlet property="dataSource" destination="iN0-l3-epB" id="Dz1-Jj-tTp"/>
-                                <outlet property="delegate" destination="iN0-l3-epB" id="EVX-cW-OcO"/>
-                                <outletCollection property="gestureRecognizers" destination="vxy-HY-Itn" appends="YES" id="yCO-NO-oTD"/>
-                            </connections>
-                        </collectionView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oFY-Co-6Gc">
                             <rect key="frame" x="0.0" y="42" width="375" height="125"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PhX-uT-qh5">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
                                 </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h3q-lF-82h" customClass="WLButton">
+                                    <rect key="frame" x="129" y="44" width="30" height="37"/>
+                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="18"/>
+                                    <state key="normal" title="-">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="decreaseBrush:" destination="iN0-l3-epB" eventType="touchUpInside" id="iEh-yz-k9g"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5w3-E0-ng2" customClass="WLButton">
+                                    <rect key="frame" x="217" y="44" width="30" height="37"/>
+                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="18"/>
+                                    <state key="normal" title="+">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="increaseBrush:" destination="iN0-l3-epB" eventType="touchUpInside" id="hWX-XE-f9W"/>
+                                    </connections>
+                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="auy-ty-v4b" customClass="WLButton">
                                     <rect key="frame" x="10" y="39" width="36" height="48"/>
                                     <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="36"/>
@@ -83,29 +88,43 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstAttribute="centerX" secondItem="5w3-E0-ng2" secondAttribute="centerX" constant="-44" id="40E-mm-4S7"/>
                                 <constraint firstAttribute="trailing" secondItem="PhX-uT-qh5" secondAttribute="trailing" id="7Hp-gI-qab"/>
                                 <constraint firstItem="PhX-uT-qh5" firstAttribute="leading" secondItem="oFY-Co-6Gc" secondAttribute="leading" id="FjF-I2-h50"/>
                                 <constraint firstAttribute="centerY" secondItem="15e-Mn-MyZ" secondAttribute="centerY" id="Lt4-OQ-Cd7"/>
                                 <constraint firstAttribute="centerY" secondItem="auy-ty-v4b" secondAttribute="centerY" id="OTS-1e-Qim"/>
                                 <constraint firstAttribute="bottom" secondItem="PhX-uT-qh5" secondAttribute="bottom" id="P4D-TY-RAc"/>
                                 <constraint firstItem="pN6-mR-8qR" firstAttribute="leading" secondItem="15e-Mn-MyZ" secondAttribute="trailing" constant="10" id="QJA-hZ-yJv"/>
+                                <constraint firstAttribute="centerY" secondItem="h3q-lF-82h" secondAttribute="centerY" id="a5p-Aq-KGP"/>
                                 <constraint firstAttribute="trailing" secondItem="pN6-mR-8qR" secondAttribute="trailing" constant="10" id="aD1-sN-bJ0"/>
                                 <constraint firstAttribute="centerY" secondItem="pN6-mR-8qR" secondAttribute="centerY" id="cO1-Ww-1dV"/>
+                                <constraint firstAttribute="centerY" secondItem="5w3-E0-ng2" secondAttribute="centerY" id="fZT-VI-DsP"/>
                                 <constraint firstItem="PhX-uT-qh5" firstAttribute="top" secondItem="oFY-Co-6Gc" secondAttribute="top" id="msD-dU-q2y"/>
+                                <constraint firstAttribute="centerX" secondItem="h3q-lF-82h" secondAttribute="centerX" constant="44" id="pfu-Sq-JZF"/>
                                 <constraint firstItem="auy-ty-v4b" firstAttribute="leading" secondItem="oFY-Co-6Gc" secondAttribute="leading" constant="10" id="vvy-t5-gyt"/>
                             </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mX0-E7-r6V" customClass="WLColorPicker">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="a3q-MG-Ocn"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="delegate" destination="iN0-l3-epB" id="wXL-fK-NaG"/>
+                            </connections>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="oFY-Co-6Gc" firstAttribute="top" secondItem="IJY-LT-cOV" secondAttribute="bottom" constant="-2" id="4ak-Sa-9qY"/>
                         <constraint firstAttribute="trailing" secondItem="oFY-Co-6Gc" secondAttribute="trailing" id="6gQ-s8-SGr"/>
                         <constraint firstItem="oFY-Co-6Gc" firstAttribute="leading" secondItem="6eM-Ol-jum" secondAttribute="leading" id="DgP-Pn-QK5"/>
-                        <constraint firstItem="IJY-LT-cOV" firstAttribute="top" secondItem="6eM-Ol-jum" secondAttribute="top" id="JL4-2I-zaX"/>
-                        <constraint firstAttribute="trailing" secondItem="IJY-LT-cOV" secondAttribute="trailing" id="Osf-aP-Tsd"/>
-                        <constraint firstItem="IJY-LT-cOV" firstAttribute="leading" secondItem="6eM-Ol-jum" secondAttribute="leading" id="TP0-BO-upN"/>
+                        <constraint firstAttribute="trailing" secondItem="mX0-E7-r6V" secondAttribute="trailing" id="JCc-5d-xek"/>
                         <constraint firstAttribute="bottom" secondItem="oFY-Co-6Gc" secondAttribute="bottom" id="jVg-Mc-DjK"/>
+                        <constraint firstItem="oFY-Co-6Gc" firstAttribute="top" secondItem="mX0-E7-r6V" secondAttribute="bottom" constant="-2" id="nnP-5L-wqL"/>
+                        <constraint firstItem="mX0-E7-r6V" firstAttribute="top" secondItem="6eM-Ol-jum" secondAttribute="top" id="qrb-wG-GNJ"/>
                         <constraint firstAttribute="height" constant="167" id="w2e-7n-nND"/>
+                        <constraint firstItem="mX0-E7-r6V" firstAttribute="leading" secondItem="6eM-Ol-jum" secondAttribute="leading" id="ycp-wU-syq"/>
                     </constraints>
                 </view>
             </subviews>
@@ -124,17 +143,12 @@
             <connections>
                 <outlet property="bottomViewHeightConstraint" destination="w2e-7n-nND" id="gip-Qc-TPS"/>
                 <outlet property="brushImageView" destination="PhX-uT-qh5" id="1a5-va-f1h"/>
-                <outlet property="colorsView" destination="IJY-LT-cOV" id="1hK-X3-3TS"/>
+                <outlet property="colorsView" destination="mX0-E7-r6V" id="6dd-x7-G42"/>
                 <outlet property="imageView" destination="sXP-dm-KOf" id="b9J-4J-2ch"/>
                 <outlet property="undoButton" destination="15e-Mn-MyZ" id="Iam-ok-hHV"/>
             </connections>
             <point key="canvasLocation" x="450.5" y="405.5"/>
         </view>
-        <panGestureRecognizer minimumNumberOfTouches="1" id="vxy-HY-Itn">
-            <connections>
-                <action selector="colorPickerSelection:" destination="iN0-l3-epB" id="cS2-Uj-Mdd"/>
-            </connections>
-        </panGestureRecognizer>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

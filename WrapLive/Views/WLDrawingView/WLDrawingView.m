@@ -7,18 +7,21 @@
 //
 
 #import "WLDrawingView.h"
-#import "RMPaint.h"
 #import "WLButton.h"
+#import "WLDrawingCanvas.h"
+#import "WLDrawingSession.h"
+#import "WLColorPicker.h"
 
-@interface WLDrawingView () <RMGestureCanvasViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface WLDrawingView () <WLDrawingSessionDelegate, WLColorPickerDelegate>
 
-@property (strong, nonatomic) NSMutableArray *session;
-@property (strong, nonatomic) NSMutableArray *steps;
-@property (weak, nonatomic) RMCanvasView *canvas;
+@property (strong, nonatomic) WLDrawingSession *session;
+@property (weak, nonatomic) WLDrawingCanvas *canvas;
 @property (weak, nonatomic) IBOutlet UIButton *undoButton;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIImageView *brushImageView;
-@property (weak, nonatomic) IBOutlet UICollectionView *colorsView;
+@property (weak, nonatomic) IBOutlet UIView *colorsView;
+
+@property (strong, nonatomic) NSArray* colors;
 
 @end
 
@@ -26,57 +29,25 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.session = [NSMutableArray array];
-    [self.colorsView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    self.session = [[WLDrawingSession alloc] init];
+    self.session.delegate = self;
+    self.session.brush = [WLDrawingBrush brushWithColor:[UIColor redColor] width:24];
 }
 
 - (void)setImage:(UIImage *)image {
     self.imageView.image = image;
     self.imageView.userInteractionEnabled = YES;
-    [self setCanvasWithBrushColor:[UIColor WL_orange] size:64];
-    [self.colorsView reloadData];
-}
-
-- (void)setCanvasWithBrushColor:(UIColor*)color size:(CGFloat)size {
-    if (self.canvas) {
-        [self.canvas removeFromSuperview];
-    }
-    __weak typeof(self)weakSelf = self;
-    run_after_asap(^{
-        CGRect drawingRect = CGRectThatFitsSize(weakSelf.imageView.size, weakSelf.imageView.image.size);
-        RMCanvasView* canvas = [[RMGestureCanvasView alloc] initWithFrame:drawingRect];
-        weakSelf.canvas = canvas;
-        canvas.opaque = NO;
-        canvas.backgroundColor = [UIColor clearColor];
-        canvas.delegate = weakSelf;
-        canvas.brushColor = color;
-        canvas.delegate = weakSelf;
-        [weakSelf setBrushWithSize:size];
-        [weakSelf.imageView addSubview:canvas];
-        
-        if (weakSelf.session.nonempty) {
-            NSMutableArray *allSteps = [NSMutableArray array];
-            for (NSArray *steps in weakSelf.session) {
-                [allSteps addObjectsFromArray:steps];
-            }
-            [weakSelf.canvas renderSteps:allSteps];
-        }
-    });
-}
-
-- (void)setBrushWithSize:(CGFloat)size {
-    __weak typeof(self)weakSelf = self;
-    UIImage *brush = [UIImage draw:CGSizeMake(size, size) opaque:NO scale:1 drawing:^(CGSize drawSize) {
-        UIColor *color = weakSelf.canvas.brushColor;
-        NSArray *colors = @[(id)color.CGColor,(id)[color colorWithAlphaComponent:0].CGColor];
-        CGGradientRef gradient = CGGradientCreateWithColors(NULL, (__bridge CFArrayRef)(colors), NULL);
-        CGFloat radius = size/2.0f;
-        CGPoint center = CGPointMake(radius, radius);
-        CGContextDrawRadialGradient(UIGraphicsGetCurrentContext(), gradient, center, radius/2, center, radius, kCGGradientDrawsBeforeStartLocation);
-        CGGradientRelease(gradient);
-    }];
-    self.canvas.brush = brush;
-    self.brushImageView.image = brush;
+    CGRect drawingRect = CGRectThatFitsSize(self.imageView.size, self.imageView.image.size);
+    WLDrawingCanvas* canvas = [[WLDrawingCanvas alloc] initWithFrame:drawingRect];
+    self.canvas = canvas;
+    canvas.opaque = NO;
+    canvas.backgroundColor = [UIColor clearColor];
+    canvas.session = self.session;
+    [self.imageView addSubview:canvas];
+    [self updateBrushView];
+    
+    [self.imageView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:canvas action:@selector(panning:)]];
+    [canvas addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:canvas action:@selector(panning:)]];
 }
 
 - (IBAction)cancel:(id)sender {
@@ -86,29 +57,39 @@
 }
 
 - (IBAction)decreaseBrush:(id)sender {
-    CGFloat size = self.canvas.brush.size.width;
-    if (size > 10) {
-        [self setCanvasWithBrushColor:self.canvas.brushColor size:size - 3];
+    CGFloat size = self.session.brush.width;
+    if (size > 3) {
+        self.session.brush.width = size - 3;
+        [self updateBrushView];
     }
 }
 
 - (IBAction)increaseBrush:(id)sender {
-    CGFloat size = self.canvas.brush.size.width;
-    if (size < 100) {
-        [self setCanvasWithBrushColor:self.canvas.brushColor size:size + 3];
+    CGFloat size = self.session.brush.width;
+    if (size < 51) {
+        self.session.brush.width = size + 3;
+        [self updateBrushView];
     }
 }
 
+- (void)updateBrushView {
+    CGFloat size = self.session.brush.width;
+    __weak typeof(self)weakSelf = self;
+    self.brushImageView.image = [UIImage draw:CGSizeMake(size, size) opaque:NO scale:1 drawing:^(CGSize drawSize) {
+        WLDrawingSession *session = [[WLDrawingSession alloc] init];
+        session.brush = weakSelf.session.brush;
+        [session beginDrawing];
+        [session addPoint:CGPointMake(size/2.0f, size/2.0f)];
+//        [session addPoint:CGPointMake(size/2.0f, size/2.0f)];
+        [session endDrawing];
+        [session render:YES];
+    }];
+}
+
 - (IBAction)undo:(id)sender {
-    [self.session removeLastObject];
-    [self.canvas erase];
-    NSMutableArray *allSteps = [NSMutableArray array];
-    for (NSArray *steps in self.session) {
-        [allSteps addObjectsFromArray:steps];
-    }
-    [self.canvas renderSteps:allSteps];
-    
-    self.undoButton.hidden = !self.session.nonempty;
+    [self.session undo];
+    [self.canvas setNeedsDisplay];
+    self.undoButton.hidden = self.session.empty;
 }
 
 - (IBAction)finish:(WLButton *)sender {
@@ -120,73 +101,24 @@
         CGSize size = image.size;
         image = [UIImage draw:size opaque:NO scale:1 drawing:^(CGSize size) {
             [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-            [weakSelf.canvas renderSnapshotWithSize:size];
+            CGContextScaleCTM(UIGraphicsGetCurrentContext(), size.width / weakSelf.canvas.width, size.height / weakSelf.canvas.height);
+            [weakSelf.session render:YES];
         }];
         [self.delegate drawingView:self didFinishWithImage:image];
-        
-        
-//        sender.loading = YES;
-//        run_getting_object(^id{
-//            UIImage *image = weakSelf.imageView.image;
-//            CGSize size = image.size;
-//            return [UIImage draw:size opaque:NO scale:1 drawing:^(CGSize size) {
-//                [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-//                [weakSelf.canvas renderSnapshotWithSize:size];
-//            }];
-//        }, ^(UIImage *image) {
-//            sender.loading = NO;
-//            [weakSelf.delegate drawingView:weakSelf didFinishWithImage:image];
-//        });
     }
 }
 
-// MARK: - RMGestureCanvasViewDelegate
+// MARK: - WLDrawingSessionDelegate
 
-- (void)canvasViewDidBeginPaintingInteraction:(RMCanvasView *)canvasView {
-    self.steps = [NSMutableArray array];
+- (void)drawingSession:(WLDrawingSession *)session didEndDrawing:(WLDrawingLine *)line {
+    self.undoButton.hidden = session.empty;
 }
 
-- (void)canvasView:(RMCanvasView *)canvasView painted:(RMPaintStep *)step {
-    if (self.steps && step) {
-        [self.steps addObject:step];
-    }
-}
+// MARK: - WLColorPickerDelegate
 
-- (void)canvasViewDidEndPaintingInteraction:(RMCanvasView *)canvasView {
-    if (self.steps.count > 0) {
-        [self.session addObject:self.steps];
-        self.undoButton.hidden = NO;
-    }
-    self.steps = nil;
-}
-
-// MARK: - UICollectionViewDataSource
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 100;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor colorWithRed:indexPath.item / 100.0f green:1 - indexPath.item / 100.0f blue:indexPath.item / 100.0f alpha:1];
-    return cell;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(collectionView.width/100.0f, collectionView.height);
-}
-
-- (IBAction)colorPickerSelection:(UIPanGestureRecognizer*)sender {
-    if (sender.state == UIGestureRecognizerStateChanged) {
-        CGPoint location = [sender locationInView:self.colorsView];
-        for (UICollectionViewCell *cell in [self.colorsView visibleCells]) {
-            if (CGRectContainsPoint(cell.frame, location)) {
-                self.canvas.brushColor = cell.backgroundColor;
-                [self setBrushWithSize:self.canvas.brush.size.width];
-                break;
-            }
-        }
-    }
+- (void)colorPicker:(WLColorPicker *)picker pickedColor:(UIColor *)color {
+    self.session.brush.color = color;
+    [self updateBrushView];
 }
 
 @end

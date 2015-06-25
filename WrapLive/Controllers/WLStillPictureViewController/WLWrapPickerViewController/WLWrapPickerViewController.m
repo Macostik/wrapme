@@ -269,6 +269,11 @@
     }
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
 - (IBAction)createNewWrap:(id)sender {
     [self.wrapNameTextField becomeFirstResponder];
 }

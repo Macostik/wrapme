@@ -228,6 +228,7 @@
 }
 
 - (IBAction)draw:(id)sender {
+    [self.composeBar resignFirstResponder];
     UIImage *image = [(WLEditPictureViewController*)self.viewController imageView].image;
     if (image) {
         WLDrawingView *drawingView = [WLDrawingView loadFromNib];

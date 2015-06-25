@@ -38,6 +38,7 @@ static NSUInteger WLImageCacheSize = 524288000;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [self cacheWithIdentifier:@"wl_UploadingImagesCache"];
+        instance.compressionQuality = 0.75f;
         instance.size = 0;
     });
     return instance;

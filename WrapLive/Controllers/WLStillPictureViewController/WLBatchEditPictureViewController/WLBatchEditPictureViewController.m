@@ -63,7 +63,10 @@
     
     __weak typeof(self)weakSelf = self;
     [dataSource setSelectionBlock:^(WLEditPicture *picture) {
-        [weakSelf setViewController:[weakSelf editPictureViewControllerForPicture:picture] direction:0 animated:NO];
+        if (weakSelf.picture != picture) {
+            [weakSelf setViewController:[weakSelf editPictureViewControllerForPicture:picture] direction:0 animated:NO];
+        }
+        
     }];
     
     self.composeBar.showsDoneButtonOnEditing = YES;

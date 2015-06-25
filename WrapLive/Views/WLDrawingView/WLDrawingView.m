@@ -95,10 +95,15 @@
 
 - (IBAction)finish:(WLButton *)sender {
     if ([self.delegate respondsToSelector:@selector(drawingView:didFinishWithImage:)]) {
-        
         __weak typeof(self)weakSelf = self;
         
         UIImage *image = self.imageView.image;
+        
+        if (self.session.empty) {
+            [self.delegate drawingViewDidCancel:self];
+            return;
+        }
+        
         CGSize size = image.size;
         image = [UIImage draw:size opaque:NO scale:1 drawing:^(CGSize size) {
             [image drawInRect:CGRectMake(0, 0, size.width, size.height)];

@@ -77,22 +77,21 @@
     __weak WLImageCache *imageCache = cache;
     __strong typeof(self)weakSelf = self;
     run_in_default_queue(^{
-        __block NSData *metadataImage = UIImageJPEGRepresentation(image, .5f);
-        [imageCache setImageData:metadataImage completion:^(NSString *path) {
+        [imageCache setImage:image completion:^(NSString *path) {
             if (weakSelf.original) {
                 [[NSFileManager defaultManager] removeItemAtPath:weakSelf.original error:NULL];
             }
             weakSelf.original = weakSelf.large = [imageCache pathWithIdentifier:path];
             CGFloat size = isPad ? (isCandy ? 720 : 320) : (isCandy ? 480 : 320);
-            metadataImage =  UIImageJPEGRepresentation([image thumbnailImage:size], 1.0f);
-            [imageCache setImageData:metadataImage completion:^(NSString *path) {
+            UIImage *mediumImage = [image thumbnailImage:size];
+            [imageCache setImage:mediumImage completion:^(NSString *path) {
                 if (weakSelf.medium) {
                     [[NSFileManager defaultManager] removeItemAtPath:weakSelf.medium error:NULL];
                 }
                 weakSelf.medium = [imageCache pathWithIdentifier:path];
                 CGFloat size = isPad ? (isCandy ? 480 : 160) : (isCandy ? 240 : 160);
-                metadataImage = UIImageJPEGRepresentation([image thumbnailImage:size], 1.0f);
-                [imageCache setImageData:metadataImage completion:^(NSString *path) {
+                UIImage *smallImage = [mediumImage thumbnailImage:size];
+                [imageCache setImage:smallImage completion:^(NSString *path) {
                     if (weakSelf.small) {
                         [[NSFileManager defaultManager] removeItemAtPath:weakSelf.small error:NULL];
                     }

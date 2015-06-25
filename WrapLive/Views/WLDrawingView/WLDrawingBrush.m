@@ -20,7 +20,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.opacity = 0.2;
+        self.opacity = 1;
     }
     return self;
 }

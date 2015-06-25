@@ -32,9 +32,9 @@
     [self.lines removeLastObject];
 }
 
-- (void)render:(BOOL)approximated {
+- (void)render {
     for (WLDrawingLine *line in self.lines) {
-        [line render:approximated];
+        [line render];
     }
 }
 
@@ -59,7 +59,17 @@
     if ([self.delegate respondsToSelector:@selector(drawingSession:didEndDrawing:)]) {
         [self.delegate drawingSession:self didEndDrawing:self.line];
     }
+    if (self.interpolated) {
+        [self.line interpolate];
+    }
+    self.line.completed = YES;
     self.line = nil;
+}
+
+- (void)erase {
+    [self.lines removeAllObjects];
+    self.line = nil;
+    self.drawing = NO;
 }
 
 @end

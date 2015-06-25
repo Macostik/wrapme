@@ -31,11 +31,13 @@
 
 @property (nonatomic, readonly) BOOL empty;
 
+@property (nonatomic) BOOL interpolated;
+
 @property (weak, nonatomic, readonly) WLDrawingLine* line;
 
 @property (nonatomic) BOOL drawing;
 
-- (void)render:(BOOL)approximated;
+- (void)render;
 
 - (void)undo;
 
@@ -44,5 +46,7 @@
 - (void)addPoint:(CGPoint)point;
 
 - (void)endDrawing;
+
+- (void)erase;
 
 @end

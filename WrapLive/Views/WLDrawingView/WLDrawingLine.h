@@ -14,10 +14,12 @@
 
 @property (copy, nonatomic) WLDrawingBrush* brush;
 
-@property (strong, nonatomic) NSMutableArray* points;
+@property (nonatomic) BOOL completed;
 
 - (void)addPoint:(CGPoint)point;
 
-- (void)render:(BOOL)approximated;
+- (void)render;
+
+- (void)interpolate;
 
 @end

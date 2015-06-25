@@ -15,8 +15,24 @@
 
 @implementation WLDrawingCanvas
 
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.session = [[WLDrawingSession alloc] init];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.session = [[WLDrawingSession alloc] init];
+    }
+    return self;
+}
+
 - (void)drawRect:(CGRect)rect {
-    [self.session render:YES];
+    [self.session render];
 }
 
 - (IBAction)panning:(UIPanGestureRecognizer*)sender {

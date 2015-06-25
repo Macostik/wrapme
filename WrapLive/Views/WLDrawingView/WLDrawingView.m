@@ -18,7 +18,7 @@
 @property (weak, nonatomic) WLDrawingCanvas *canvas;
 @property (weak, nonatomic) IBOutlet UIButton *undoButton;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIImageView *brushImageView;
+@property (weak, nonatomic) IBOutlet WLDrawingCanvas *brushCanvas;
 @property (weak, nonatomic) IBOutlet UIView *colorsView;
 
 @property (strong, nonatomic) NSArray* colors;
@@ -26,13 +26,6 @@
 @end
 
 @implementation WLDrawingView
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.session = [[WLDrawingSession alloc] init];
-    self.session.delegate = self;
-    self.session.brush = [WLDrawingBrush brushWithColor:[UIColor redColor] width:24];
-}
 
 - (void)setImage:(UIImage *)image {
     self.imageView.image = image;
@@ -42,12 +35,16 @@
     self.canvas = canvas;
     canvas.opaque = NO;
     canvas.backgroundColor = [UIColor clearColor];
-    canvas.session = self.session;
     [self.imageView addSubview:canvas];
-    [self updateBrushView];
-    
     [self.imageView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:canvas action:@selector(panning:)]];
     [canvas addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:canvas action:@selector(panning:)]];
+    
+    self.session = self.canvas.session;
+    self.session.delegate = self;
+    self.session.interpolated = YES;
+    self.session.brush = [WLDrawingBrush brushWithColor:[UIColor redColor] width:24];
+    
+    [self updateBrushView];
 }
 
 - (IBAction)cancel:(id)sender {
@@ -56,34 +53,38 @@
     }
 }
 
-- (IBAction)decreaseBrush:(id)sender {
+- (IBAction)decreaseBrush:(UIButton*)sender {
     CGFloat size = self.session.brush.width;
     if (size > 3) {
-        self.session.brush.width = size - 3;
+        self.session.brush.width = size - 0.3f;
         [self updateBrushView];
+        
+        if (sender.tracking && sender.touchInside) {
+            [self performSelector:@selector(decreaseBrush:) withObject:sender afterDelay:0.0f];
+        }
     }
 }
 
-- (IBAction)increaseBrush:(id)sender {
+- (IBAction)increaseBrush:(UIButton*)sender {
     CGFloat size = self.session.brush.width;
     if (size < 51) {
-        self.session.brush.width = size + 3;
+        self.session.brush.width = size + 0.3f;
         [self updateBrushView];
+        
+        if (sender.tracking && sender.touchInside) {
+            [self performSelector:@selector(increaseBrush:) withObject:sender afterDelay:0.0f];
+        }
     }
 }
 
 - (void)updateBrushView {
-    CGFloat size = self.session.brush.width;
-    __weak typeof(self)weakSelf = self;
-    self.brushImageView.image = [UIImage draw:CGSizeMake(size, size) opaque:NO scale:1 drawing:^(CGSize drawSize) {
-        WLDrawingSession *session = [[WLDrawingSession alloc] init];
-        session.brush = weakSelf.session.brush;
-        [session beginDrawing];
-        [session addPoint:CGPointMake(size/2.0f, size/2.0f)];
-//        [session addPoint:CGPointMake(size/2.0f, size/2.0f)];
-        [session endDrawing];
-        [session render:YES];
-    }];
+    WLDrawingSession *session = self.brushCanvas.session;
+    [session erase];
+    session.brush = self.session.brush;
+    [session beginDrawing];
+    [session addPoint:self.brushCanvas.centerBoundary];
+    [session endDrawing];
+    [self.brushCanvas setNeedsDisplay];
 }
 
 - (IBAction)undo:(id)sender {
@@ -102,7 +103,7 @@
         image = [UIImage draw:size opaque:NO scale:1 drawing:^(CGSize size) {
             [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
             CGContextScaleCTM(UIGraphicsGetCurrentContext(), size.width / weakSelf.canvas.width, size.height / weakSelf.canvas.height);
-            [weakSelf.session render:YES];
+            [weakSelf.session render];
         }];
         [self.delegate drawingView:self didFinishWithImage:image];
     }
@@ -111,6 +112,7 @@
 // MARK: - WLDrawingSessionDelegate
 
 - (void)drawingSession:(WLDrawingSession *)session didEndDrawing:(WLDrawingLine *)line {
+    [line interpolate];
     self.undoButton.hidden = session.empty;
 }
 

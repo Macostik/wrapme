@@ -10,6 +10,8 @@
 
 @interface WLTextField : UITextField
 
+@property (nonatomic) IBInspectable BOOL disableSeparator;
+
 @property (nonatomic) IBInspectable NSString *preset;
 @property (nonatomic) IBInspectable UIColor *strokeColor;
 

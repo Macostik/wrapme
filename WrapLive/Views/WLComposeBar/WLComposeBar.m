@@ -108,6 +108,9 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 }
 
 - (void)setDoneButtonHidden:(BOOL)hidden animated:(BOOL)animated {
+    if (self.showsDoneButtonOnEditing && !self.isFirstResponder && !hidden) {
+        hidden = YES;
+    }
     self.doneButton.userInteractionEnabled = !hidden;
     [UIView performAnimated:animated animation:^{
         self.horizontalSpaceDoneButtonContstraint.constant = hidden ? 0 : -self.doneButton.width;
@@ -162,12 +165,18 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
+    if (self.showsDoneButtonOnEditing) {
+        [self updateStateAnimated:YES];
+    }
 	if ([self.delegate respondsToSelector:@selector(composeBarDidBeginEditing:)]) {
 		[self.delegate composeBarDidBeginEditing:self];
 	}
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
+    if (self.showsDoneButtonOnEditing) {
+        [self updateStateAnimated:YES];
+    }
 	if ([self.delegate respondsToSelector:@selector(composeBarDidEndEditing:)]) {
 		[self.delegate composeBarDidEndEditing:self];
 	}

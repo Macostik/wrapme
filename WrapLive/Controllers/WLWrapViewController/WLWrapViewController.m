@@ -10,8 +10,7 @@
 #import "WLWrapViewController.h"
 #import "WLStillPictureViewController.h"
 #import "WLEditWrapViewController.h"
-#import "WLPickerViewController.h"
-#import "WLCreateWrapViewController.h"
+//#import "WLCreateWrapViewController.h"
 #import "WLNavigationHelper.h"
 #import "WLPhotosViewController.h"
 #import "WLBadgeLabel.h"
@@ -77,13 +76,15 @@
     self.messageCountLabel.intValue = [self.wrap unreadNotificationsMessageCount];
 }
 
-- (UIViewController *)shakePresentedViewController {
-    WLStillPictureViewController *controller = [WLStillPictureViewController instantiate:
-                                                [UIStoryboard storyboardNamed:WLCameraStoryboard]];
-    controller.wrap = self.wrap;
-    controller.delegate = self;
-    controller.mode = WLStillPictureModeDefault;
-    return controller;
+// MARK: - User Actions
+
+- (IBAction)addPhoto:(id)sender {
+    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPictureViewController];
+    stillPictureViewController.wrap = self.wrap;
+    stillPictureViewController.mode = WLStillPictureModeDefault;
+    stillPictureViewController.delegate = self;
+    stillPictureViewController.startFromGallery = NO;
+    [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }
 
 // MARK: - WLEntryNotifyReceiver
@@ -143,38 +144,7 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didSelectWrap:(WLWrap *)wrap {
-    WLPickerViewController *pickerViewController = [[WLPickerViewController alloc] initWithWrap:wrap delegate:self];
-    [controller presentViewController:pickerViewController animated:NO completion:nil];
-}
-
-// MARK: - WLPickerViewDelegate
-
-- (void)pickerViewControllerNewWrapClicked:(WLPickerViewController *)pickerViewController {
-    WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
-    [stillPictureViewController dismissViewControllerAnimated:YES completion:^{
-        WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
-        [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
-            stillPictureViewController.wrap = wrap;
-            [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
-        }];
-        [createWrapViewController setCancelHandler:^{
-            [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
-        }];
-        [stillPictureViewController presentViewController:createWrapViewController animated:NO completion:nil];
-    }];
-}
-
-- (void)pickerViewController:(WLPickerViewController *)pickerViewController didSelectWrap:(WLWrap *)wrap {
-    WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
-    stillPictureViewController.wrap = wrap;
-}
-
-- (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
-    [pickerViewController.presentingViewController dismissViewControllerAnimated:NO completion:nil];
-}
-
-// MARK: - SegmentedControlDelegate
+// MARK: - Custom animation
 
 - (BOOL)segmentedControl:(SegmentedControl*)control shouldSelectSegment:(NSInteger)segment {
     self.cameraButton.hidden = !(segment == WLSegmentControlStatePhotos);

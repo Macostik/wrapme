@@ -204,7 +204,7 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(self.sectionTopInset, self.sectionLeftInset, self.sectionBootomInset, self.sectionRightInset);
+    return UIEdgeInsetsMake(self.sectionTopInset, self.sectionLeftInset, self.sectionBottomInset, self.sectionRightInset);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

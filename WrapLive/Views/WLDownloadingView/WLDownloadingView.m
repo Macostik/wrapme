@@ -12,6 +12,7 @@
 #import "WLCandy+Extended.h"
 #import "WLNavigationHelper.h"
 #import "WLUploadPhotoViewController.h"
+#import "AdobeUXImageEditorViewController+SharedEditing.h"
 
 @interface WLDownloadingView () <WLImageFetching, WLEntryNotifyReceiver>
 
@@ -31,8 +32,8 @@
     WLImageBlock downloadBlock = ^(UIImage *image) {
         [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
             if (candy.valid) {
-                [WLPicture picture:image completion:^(WLPicture *picture) {
-                    [candy setEditedPictureIfNeeded:picture];
+                [WLEditPicture picture:image completion:^(WLEditPicture *picture) {
+                    [candy setEditedPictureIfNeeded:[picture uploadablePictureWithAnimation:NO]];
                     [candy enqueueUpdate:failure];
                 }];
             } else {

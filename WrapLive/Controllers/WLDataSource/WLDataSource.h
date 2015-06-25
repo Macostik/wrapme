@@ -38,7 +38,7 @@ typedef NS_ENUM(NSUInteger, WLDataSourceScrollDirection) {
 
 @property (nonatomic) IBInspectable CGFloat sectionTopInset;
 
-@property (nonatomic) IBInspectable CGFloat sectionBootomInset;
+@property (nonatomic) IBInspectable CGFloat sectionBottomInset;
 
 @property (nonatomic) IBInspectable CGFloat sectionLeftInset;
 

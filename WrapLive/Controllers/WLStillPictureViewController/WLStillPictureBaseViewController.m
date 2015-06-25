@@ -15,6 +15,14 @@
 
 @implementation WLStillPictureBaseViewController
 
+@synthesize wrap = _wrap;
+
+@synthesize delegate = _delegate;
+
+@synthesize wrapView = _wrapView;
+
+@synthesize mode = _mode;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupWrapView:self.wrap];
@@ -50,6 +58,14 @@
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
 }
 
 @end

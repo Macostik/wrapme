@@ -33,6 +33,8 @@
 
 + (BOOL)isEmbeddedDefaultValue;
 
+- (BOOL)shouldResizeUsingScreenBounds;
+
 - (void)embeddingViewTapped:(UITapGestureRecognizer*)sender;
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext;

@@ -162,18 +162,18 @@
 }
 
 - (void)hideViews {
-	__weak WLCameraInteractionView* selfWeak = self;
+	__weak WLCameraInteractionView* weakSelf = self;
 	[UIView animateWithDuration:0.2 animations:^{
-		selfWeak.combinedView.alpha = 0;
-		selfWeak.focusView.alpha = 0;
-		selfWeak.exposureView.alpha = 0;
+		weakSelf.combinedView.alpha = 0;
+		weakSelf.focusView.alpha = 0;
+		weakSelf.exposureView.alpha = 0;
 	} completion:^(BOOL finished) {
-		selfWeak.combinedView.hidden = YES;
-		selfWeak.focusView.hidden = YES;
-		selfWeak.exposureView.hidden = YES;
-		selfWeak.combinedView.alpha = 1;
-		selfWeak.focusView.alpha = 1;
-		selfWeak.exposureView.alpha = 1;
+		weakSelf.combinedView.hidden = YES;
+		weakSelf.focusView.hidden = YES;
+		weakSelf.exposureView.hidden = YES;
+		weakSelf.combinedView.alpha = 1;
+		weakSelf.focusView.alpha = 1;
+		weakSelf.exposureView.alpha = 1;
 	}];
 }
 

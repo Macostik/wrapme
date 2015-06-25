@@ -33,6 +33,8 @@
 
 @property (nonatomic) BOOL doneButtonHidden;
 
+@property (nonatomic) BOOL showsDoneButtonOnEditing;
+
 - (void)setDoneButtonHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end

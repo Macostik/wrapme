@@ -45,6 +45,11 @@
 
 @implementation WLWrapPickerViewController
 
+- (void)dealloc {
+    self.dataSource.collectionView.dataSource = nil;
+    self.dataSource.collectionView.delegate = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -75,6 +80,12 @@
             [self.dataSource.collectionView setContentOffset:CGPointMake(0, index * itemHeight) animated:NO];
         }
     }
+    
+    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        receiver.didAddBlock = receiver.didDeleteBlock = receiver.didUpdateBlock = ^ (WLWrap *wrap) {
+            weakSelf.dataSource.items = [[WLUser currentUser] sortedWraps];
+        };
+    }];
     
     [self.view addGestureRecognizer:self.dataSource.collectionView.panGestureRecognizer];
 }
@@ -193,6 +204,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
     self.wrapNameTextField.placeholder = WLLS(@"new_wrap");
     if ([self.delegate addWrapPickerViewShouldShowKeyboard:self]) {
         self.createButtonCenterConstraint.priority = UILayoutPriorityDefaultLow;

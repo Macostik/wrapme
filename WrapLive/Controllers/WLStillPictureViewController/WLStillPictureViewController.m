@@ -260,8 +260,7 @@
 // MARK: - WLWrapPickerViewControllerDelegate
 
 - (void)wrapPickerViewController:(WLWrapPickerViewController *)controller didSelectWrap:(WLWrap *)wrap {
-    WLStillPictureViewController* stillPictureViewController = (id)controller.parentViewController;
-    stillPictureViewController.wrap = wrap;
+    self.wrap = wrap;
     [controller hide];
     [self showHintView];
 }

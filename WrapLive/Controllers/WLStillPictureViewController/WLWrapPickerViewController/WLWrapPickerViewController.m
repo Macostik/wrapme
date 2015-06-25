@@ -263,7 +263,7 @@
 
 - (IBAction)saveNewWrap:(WLButton*)sender {
     
-    NSString *name = self.wrapNameTextField.text;
+    NSString *name = [self.wrapNameTextField.text trim];
     if (!name.nonempty) {
         [WLToast showWithMessage:WLLS(@"wrap_name_cannot_be_blank")];
         return;

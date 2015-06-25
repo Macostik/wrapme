@@ -18,6 +18,7 @@
 #import "WLHintView.h"
 #import "UIButton+Additions.h"
 #import "WLDrawingView.h"
+#import "UIView+Extentions.h"
 
 @interface WLBatchEditPictureViewController () <WLComposeBarDelegate, WLDrawingViewDelegate>
 
@@ -231,9 +232,14 @@
     if (image) {
         WLDrawingView *drawingView = [WLDrawingView loadFromNib];
         drawingView.frame = self.view.bounds;
-        drawingView.delegate = self;
-        drawingView.bottomViewHeightConstraint.constant = self.bottomView.height;
         [self.view addSubview:drawingView];
+        drawingView.bottomViewHeightConstraint.constant = self.bottomView.height;
+        [drawingView constraintToItem:self.view equal:NSLayoutAttributeCenterX];
+        [drawingView constraintToItem:self.view equal:NSLayoutAttributeCenterY];
+        [drawingView constraintToItem:self.view equal:NSLayoutAttributeWidth];
+        [drawingView constraintToItem:self.view equal:NSLayoutAttributeHeight];
+        [drawingView layoutIfNeeded];
+        drawingView.delegate = self;
         [drawingView setImage:image];
     }
 }

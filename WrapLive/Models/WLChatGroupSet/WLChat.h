@@ -16,7 +16,7 @@
 @optional
 - (void)chat:(WLChat*)chat didBeginTyping:(WLUser *)user;
 
-- (void)chat:(WLChat*)chat didEndTyping:(WLUser *)user andSendMessage:(BOOL)sendMessage;
+- (void)chat:(WLChat*)chat didEndTyping:(WLUser *)user;
 
 - (void)chatDidChangeMessagesWithName:(WLChat*)chat;
 
@@ -29,8 +29,6 @@
 @property (strong, nonatomic) NSMutableOrderedSet* typingUsers;
 
 @property (strong, nonatomic) NSString* typingNames;
-
-@property (strong, nonatomic) NSMutableOrderedSet* sendMessageUsers;
 
 @property (strong, nonatomic) WLChatTypingChannel* typingChannel;
 

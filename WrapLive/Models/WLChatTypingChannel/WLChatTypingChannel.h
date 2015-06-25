@@ -14,7 +14,7 @@
 
 - (void)chatTypingChannel:(WLChatTypingChannel*)channel didBeginTyping:(WLUser *)user;
 
-- (void)chatTypingChannel:(WLChatTypingChannel*)channel didEndTyping:(WLUser *)user andSendMessage:(BOOL)sendMessage;
+- (void)chatTypingChannel:(WLChatTypingChannel*)channel didEndTyping:(WLUser *)user;
 
 @end
 

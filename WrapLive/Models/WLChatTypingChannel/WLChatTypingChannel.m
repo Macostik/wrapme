@@ -24,7 +24,7 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
         if (event.type == PNPresenceEventStateChanged) {
             [weakChannel handleClientState:[event.client stateForChannel:weakChannel.channel] user:user];
         } else if (event.type == PNPresenceEventTimeout) {
-            [weakChannel.delegate chatTypingChannel:weakChannel didEndTyping:user andSendMessage:NO];
+            [weakChannel.delegate chatTypingChannel:weakChannel didEndTyping:user];
         }
     }];
     return channel;
@@ -57,8 +57,7 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
     if (typing) {
         [self.delegate chatTypingChannel:self didBeginTyping:user];
     } else {
-        BOOL sendMessage = [state boolForKey:WLChatTypingChannelSendMessageKey];
-        [self.delegate chatTypingChannel:self didEndTyping:user andSendMessage:sendMessage];
+        [self.delegate chatTypingChannel:self didEndTyping:user];
     }
 }
 

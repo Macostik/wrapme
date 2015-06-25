@@ -35,7 +35,6 @@
         self.messagesWithDay = [NSHashTable weakObjectsHashTable];
         self.messagesWithName = [NSHashTable weakObjectsHashTable];
         self.typingUsers = [NSMutableOrderedSet orderedSet];
-        self.sendMessageUsers = [NSMutableOrderedSet orderedSet];
     }
     return self;
 }
@@ -79,7 +78,6 @@
     if (![self.typingUsers containsObject:user]) {
         [self.typingUsers addObject:user];
         self.typingNames = [self namesOfUsers:self.typingUsers];
-        [self didChange];
     }
 }
 
@@ -87,7 +85,6 @@
     if ([self.typingUsers containsObject:user]) {
         [self.typingUsers removeObject:user];
         self.typingNames = [self namesOfUsers:self.typingUsers];
-        [self didChange];
     }
 }
 
@@ -109,9 +106,6 @@
     if ([self.typingUsers containsObject:contributor]) {
         [self.typingUsers removeObject:contributor];
     }
-    if ([self.sendMessageUsers containsObject:contributor]) {
-        [self.sendMessageUsers removeObject:contributor];
-    }
     if (![super addEntry:message]) {
         [self sort];
     }
@@ -119,7 +113,7 @@
 }
 
 - (BOOL)showTypingView {
-    return self.typingUsers.nonempty || self.sendMessageUsers.nonempty;
+    return self.typingUsers.nonempty;
 }
 
 #pragma mark - WLChatTypingChannelDelegate
@@ -133,14 +127,11 @@
     }
 }
 
-- (void)chatTypingChannel:(WLChatTypingChannel *)channel didEndTyping:(WLUser *)user andSendMessage:(BOOL)sendMessage {
+- (void)chatTypingChannel:(WLChatTypingChannel *)channel didEndTyping:(WLUser *)user {
     if (![user isCurrentUser]) {
-        if (sendMessage) {
-            [self.sendMessageUsers addObject:user];
-        }
         [self removeTypingUser:user];
-        if ([self.delegate respondsToSelector:@selector(chat:didEndTyping:andSendMessage:)]) {
-            [self.delegate chat:self didEndTyping:user andSendMessage:sendMessage];
+        if ([self.delegate respondsToSelector:@selector(chat:didEndTyping:)]) {
+            [self.delegate chat:self didEndTyping:user];
         }
     }
 }

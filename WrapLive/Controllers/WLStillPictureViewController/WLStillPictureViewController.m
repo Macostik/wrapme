@@ -61,7 +61,7 @@
         [[WLWrap notifier] addReceiver:self];
     }
     
-    if (self.wrap == nil) {
+    if (self.wrap == nil && self.mode == WLStillPictureModeDefault) {
         [self showWrapPickerWithController:NO];
     }
 }

@@ -16,6 +16,8 @@
 
 @property (nonatomic) BOOL completed;
 
+@property (strong, nonatomic) UIBezierPath* path;
+
 - (void)addPoint:(CGPoint)point;
 
 - (void)render;

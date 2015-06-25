@@ -32,4 +32,8 @@
     return brush;
 }
 
+- (BOOL)isEqualToBrush:(WLDrawingBrush *)brush {
+    return [self.color isEqual:brush.color] && self.width == brush.width && self.opacity == brush.opacity;
+}
+
 @end

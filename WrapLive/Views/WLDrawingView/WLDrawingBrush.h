@@ -18,4 +18,6 @@
 
 + (instancetype)brushWithColor:(UIColor*)color width:(CGFloat)width;
 
+- (BOOL)isEqualToBrush:(WLDrawingBrush*)brush;
+
 @end

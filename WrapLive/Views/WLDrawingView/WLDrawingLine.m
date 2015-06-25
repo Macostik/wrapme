@@ -11,8 +11,6 @@
 
 @interface WLDrawingLine ()
 
-@property (strong, nonatomic) UIBezierPath* path;
-
 @end
 
 @implementation WLDrawingLine
@@ -45,12 +43,6 @@
     }
 }
 
-double interpolate_step(double p0, double p1, double t0, double t1, double t) {
-    //    p1 * (p2 - p3) / (p2 - p4) + p5 * (p3 - p4) / (p2 - p4)
-    //    p[0] * (time[1] - t) / (time[1] - time[0]) + p[1] * (t - time[0]) / (time[1] - time[0]);
-    return p0 * (t1 - t) / (t1 - t0) + p1 * (t - t0) / (t1 - t0);
-}
-
 double double_interpolate(double p[], double time[], double t) {
     double L01 = p[0] * (time[1] - t) / (time[1] - time[0]) + p[1] * (t - time[0]) / (time[1] - time[0]);
     double L12 = p[1] * (time[2] - t) / (time[2] - time[1]) + p[2] * (t - time[1]) / (time[2] - time[1]);
@@ -76,8 +68,6 @@ NSMutableArray* interpolateStep(NSArray* points, NSInteger index, NSInteger poin
     double tstart = 1;
     double tend = 2;
     
-    //
-    
     double total = 0;
     for (int i = 1; i < 4; i++) {
         double dx = x[i] - x[i - 1];
@@ -88,8 +78,6 @@ NSMutableArray* interpolateStep(NSArray* points, NSInteger index, NSInteger poin
     }
     tstart = time[1];
     tend = time[2];
-    
-    //
     
     NSInteger segments = pointsPerSegment - 1;
     [result addObject:points[index + 1]];
@@ -108,7 +96,7 @@ NSMutableArray* interpolateStep(NSArray* points, NSInteger index, NSInteger poin
         return currentPoints;
     }
     
-    NSInteger segments = 20;
+    NSInteger segments = 4;
     
     NSMutableArray* points = [currentPoints mutableCopy];
     
@@ -142,33 +130,67 @@ NSMutableArray* interpolateStep(NSArray* points, NSInteger index, NSInteger poin
     return result;
 }
 
+void CGPathApplierFunc (void *info, const CGPathElement *element) {
+    NSMutableArray *bezierPoints = (__bridge NSMutableArray *)info;
+    
+    CGPoint *points = element->points;
+    CGPathElementType type = element->type;
+    
+    switch(type) {
+        case kCGPathElementMoveToPoint: // contains 1 point
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[0]]];
+            break;
+            
+        case kCGPathElementAddLineToPoint: // contains 1 point
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[0]]];
+            break;
+            
+        case kCGPathElementAddQuadCurveToPoint: // contains 2 points
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[0]]];
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[1]]];
+            break;
+            
+        case kCGPathElementAddCurveToPoint: // contains 3 points
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[0]]];
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[1]]];
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[2]]];
+            break;
+            
+        case kCGPathElementCloseSubpath: // contains no point
+            break;
+    }
+}
+
 - (void)interpolate {
-//    self.points = [NSMutableArray arrayWithArray:[self interpolatePoints:self.points]];
+    NSMutableArray *points = [NSMutableArray array];
+    CGPathApply(self.path.CGPath, (__bridge void *)(points), CGPathApplierFunc);
+    __block CGPoint p;
+    points = [points map:^id(NSValue *point) {
+        BOOL remove = CGPointEqualToPoint(p, [point CGPointValue]);
+        p = [point CGPointValue];
+        return remove ? nil : point;
+    }];
+    points = [NSMutableArray arrayWithArray:[self interpolatePoints:points]];
+    [self.path removeAllPoints];
+    if (points.nonempty) {
+        if (points.count == 1) {
+            [self.path moveToPoint:[points[0] CGPointValue]];
+            [self.path addLineToPoint:[points[0] CGPointValue]];
+        } else {
+            for (NSValue *point in points) {
+                if (point == points.firstObject) {
+                    [self.path moveToPoint:[point CGPointValue]];
+                } else {
+                    [self.path addLineToPoint:[point CGPointValue]];
+                }
+            }
+        }
+    }
 }
 
 - (void)render {
     [[self.brush.color colorWithAlphaComponent:self.brush.opacity] setStroke];
     [self.path stroke];
-}
-
-- (void)setCompleted:(BOOL)completed {
-    _completed = completed;
-//    UIBezierPath *path = [UIBezierPath bezierPath];
-//    NSArray *points = self.points;
-//    for (NSValue *point in points) {
-//        if (point == points.firstObject) {
-//            [path moveToPoint:[point CGPointValue]];
-//            if (points.count == 1) {
-//                [path addLineToPoint:[point CGPointValue]];
-//            }
-//        } else {
-//            [path addLineToPoint:[point CGPointValue]];
-//        }
-//    }
-//    path.lineWidth = self.brush.width;
-//    path.lineCapStyle = kCGLineCapRound;
-//    path.lineJoinStyle = kCGLineJoinRound;
-//    self.path = path;
 }
 
 @end

@@ -321,7 +321,6 @@ CGFloat WLMaxTextViewWidth;
     });
 }
     
-
 - (void)chat:(WLChat*)chat didEndTyping:(WLUser *)user {
     __weak __typeof(self)weakSelf = self;
     runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {

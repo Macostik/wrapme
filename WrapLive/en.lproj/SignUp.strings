@@ -105,3 +105,6 @@
 
 /* Class = "UILabel"; text = "What is your email?"; ObjectID = "zgM-iC-MDR"; */
 "zgM-iC-MDR.text" = "What's your e-mail?";
+
+/* Class = "UILabel"; text = "Add your photo"; ObjectID = "w5f-mm-zRg"; */
+"w5f-mm-zRg.text" = "Add your photo";

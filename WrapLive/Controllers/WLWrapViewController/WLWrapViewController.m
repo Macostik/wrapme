@@ -10,7 +10,6 @@
 #import "WLWrapViewController.h"
 #import "WLStillPictureViewController.h"
 #import "WLEditWrapViewController.h"
-//#import "WLCreateWrapViewController.h"
 #import "WLNavigationHelper.h"
 #import "WLPhotosViewController.h"
 #import "WLBadgeLabel.h"
@@ -160,7 +159,7 @@
 // MARK: - WLChatViewControllerDelegate
 
 - (void)chatViewController:(WLChatViewController *)controller resetUnreageMessageCounter:(BOOL)reset {
-    self.messageCountLabel.intValue = reset ? 0 : [self.wrap unreadNotificationsMessageCount] ;
+    self.messageCountLabel.intValue = reset ? 0 : [self.wrap unreadNotificationsMessageCount];
 }
 
 @end

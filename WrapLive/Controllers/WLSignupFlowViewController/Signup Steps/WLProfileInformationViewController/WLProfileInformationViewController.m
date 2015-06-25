@@ -14,12 +14,14 @@
 #import "WLProfileEditSession.h"
 #import "WLButton.h"
 #import "WLNavigationAnimator.h"
+#import "WLEditPicture.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutlet WLImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UIButton *createImageButton;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UILabel *addPhotoLabel;
 @property (weak, nonatomic) WLUser * user;
 @property (strong, nonatomic) IBOutlet WLButton *continueButton;
 @property (strong, nonatomic) WLProfileEditSession *editSession;
@@ -34,9 +36,6 @@
 	self.user = [WLUser currentUser];
 	
 	self.nameTextField.text = self.user.name;
-    
-    [self.profileImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
-    [self.profileImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
     
 	self.profileImageView.url = self.user.picture.medium;
     
@@ -92,10 +91,11 @@
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-	WLPicture *picture = [pictures lastObject];
+	WLPicture *picture = [[pictures lastObject] uploadablePictureWithAnimation:NO];
 	self.profileImageView.url = picture.medium;
     self.editSession.url = picture.large;
     [self verifyContinueButton];
+    self.addPhotoLabel.hidden = picture.medium.nonempty;
 	[controller.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 

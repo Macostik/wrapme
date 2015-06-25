@@ -169,3 +169,6 @@
 /* (No Commment) */
 "zgM-iC-MDR.text" = "Укажите Ваш e-mail";
 
+/* Class = "UILabel"; text = "Add your photo"; ObjectID = "w5f-mm-zRg"; */
+"w5f-mm-zRg.text" = "Добавьте Ваше фото";
+

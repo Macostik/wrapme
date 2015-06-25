@@ -42,6 +42,7 @@
     WLEditPicture *picture = [WLEditPicture picture:image mode:self.mode completion:^(WLEditPicture *picture) {
         weakSelf.view.userInteractionEnabled = YES;
     }];
+    picture.date = [NSDate now];
     [self addPicture:picture success:^{
     } failure:^(NSError *error) {
         [error show];
@@ -56,6 +57,11 @@
     __weak typeof(self)weakSelf = self;
     WLBlock completionBlock = ^ {
         queue.finishQueueBlock = nil;
+        
+        [weakSelf.pictures sortUsingComparator:^NSComparisonResult(WLEditPicture* obj1, WLEditPicture* obj2) {
+            return [obj1.date compare:obj2.date];
+        }];
+        
         WLBatchEditPictureViewController *editController = [WLBatchEditPictureViewController instantiate:self.storyboard];
         editController.pictures = weakSelf.pictures;
         editController.delegate = weakSelf;
@@ -106,6 +112,7 @@
     for (ALAsset* asset in assets) {
         WLEditPicture *picture = [WLEditPicture picture:weakSelf.mode];
         picture.assetID = asset.ID;
+        picture.date = asset.date;
         [self addPicture:picture success:^{
             runQueuedOperation(@"wl_still_picture_queue",3,^(WLOperation *operation) {
                 [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {

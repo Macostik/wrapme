@@ -283,11 +283,6 @@ static NSDate *lastAssetCreationDate = nil;
 	
 	if (!date) {
 		date = [self valueForProperty:ALAssetPropertyDate];
-		NSDateComponents *components = [[NSCalendar currentCalendar]
-		                                components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit
-										fromDate:date];
-		date = [[NSCalendar currentCalendar]
-		        dateFromComponents:components];
 		objc_setAssociatedObject(self, "date", date, OBJC_ASSOCIATION_RETAIN);
 	}
 	

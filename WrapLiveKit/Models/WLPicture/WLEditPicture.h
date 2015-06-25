@@ -18,6 +18,8 @@
 
 @property (strong, nonatomic) NSString* assetID;
 
+@property (strong, nonatomic) NSDate* date;
+
 @property (nonatomic) BOOL edited;
 
 @property (nonatomic) BOOL selected;

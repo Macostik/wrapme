@@ -12,6 +12,7 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "WLImageFetcher.h"
 #import "UIImage+Drawing.h"
+#import "WLAPIRequest.h"
 
 @interface WLEditPicture () <WLImageFetching>
 
@@ -129,6 +130,13 @@
     if (self.assetID == nil) {
         [self saveToAssets];
     }
+}
+
+- (NSDate *)date {
+    if (!_date) {
+        _date = [NSDate now];
+    }
+    return _date;
 }
 
 // MARK: - WLImageFetching

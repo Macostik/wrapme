@@ -101,12 +101,17 @@ static NSInteger WLIndent = 12.0;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSString *name = [textField.text trim];
-    if (name.nonempty && self.editSession.hasChanges) {
-        self.wrap.name = name;
-        self.wrapNameLabel.text = name;
-        [self.wrap update:^(id object) {
-        } failure:^(NSError *error) {
-        }];
+    if (name.nonempty) {
+        if (self.editSession.hasChanges) {
+            self.wrap.name = name;
+            self.wrapNameLabel.text = name;
+            [self.wrap update:^(id object) {
+            } failure:^(NSError *error) {
+            }];
+        }
+    } else {
+        [WLToast showWithMessage:WLLS(@"wrap_name_cannot_be_blank")];
+        self.wrapNameTextField.text = [self.editSession originalValueForProperty:@"name"];
     }
     self.editButton.selected = NO;
     [textField resignFirstResponder];

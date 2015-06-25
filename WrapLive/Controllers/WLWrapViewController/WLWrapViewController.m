@@ -147,6 +147,7 @@
 
 - (BOOL)segmentedControl:(SegmentedControl*)control shouldSelectSegment:(NSInteger)segment {
     self.cameraButton.hidden = !(segment == WLSegmentControlStatePhotos);
+    self.selectedSegment = segment;
     return YES;
 }
 

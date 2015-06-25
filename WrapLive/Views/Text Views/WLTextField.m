@@ -15,15 +15,17 @@
 #if !TARGET_INTERFACE_BUILDER
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
-    UIBezierPath* path = [UIBezierPath bezierPath];
-    CGFloat lineWidth = 1.0f/[UIScreen mainScreen].scale;
-    path.lineWidth = lineWidth;
-    CGFloat y = self.bounds.size.height - path.lineWidth/2.0f;
-    [path moveToPoint:CGPointMake(0, y)];
-    [path addLineToPoint:CGPointMake(self.bounds.size.width, y)];
-    UIColor *placeholderColor = [self.attributedPlaceholder attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL];
-    [placeholderColor setStroke];
-    [path stroke];
+    if (!self.disableSeparator) {
+        UIBezierPath* path = [UIBezierPath bezierPath];
+        CGFloat lineWidth = 1.0f/[UIScreen mainScreen].scale;
+        path.lineWidth = lineWidth;
+        CGFloat y = self.bounds.size.height - path.lineWidth/2.0f;
+        [path moveToPoint:CGPointMake(0, y)];
+        [path addLineToPoint:CGPointMake(self.bounds.size.width, y)];
+        UIColor *placeholderColor = [self.attributedPlaceholder attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL];
+        [placeholderColor setStroke];
+        [path stroke];
+    }
 }
 #endif
 

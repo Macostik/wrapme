@@ -8,11 +8,13 @@
 
 #import "WLStillPictureBaseViewController.h"
 #import <AVFoundation/AVCaptureDevice.h>
+#import "WLCameraViewController.h"
+#import "WLAssetsGroupViewController.h"
 
 @class WLStillPictureViewController;
-@class WLCameraViewController;
+@class ALAsset;
 
-@protocol WLStillPictureViewControllerDelegate <WLStillPictureBaseViewControllerDelegate>
+@protocol WLStillPictureViewControllerDelegate <WLStillPictureBaseViewControllerDelegate, UINavigationControllerDelegate>
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController*)controller;
 
@@ -24,12 +26,30 @@
 
 @end
 
-@interface WLStillPictureViewController : WLStillPictureBaseViewController
-
-@property (weak, nonatomic, readonly) UINavigationController* cameraNavigationController;
+@interface WLStillPictureViewController : UINavigationController <WLStillPictureBaseViewController, WLCameraViewControllerDelegate, WLAssetsViewControllerDelegate>
 
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
 
 @property (nonatomic) BOOL startFromGallery;
+
+@property (weak, nonatomic) WLCameraViewController *cameraViewController;
+
++ (instancetype)stillPictureViewController;
+
+- (void)showWrapPickerWithController:(BOOL)animated;
+
+- (void)showHintView;
+
+- (id<WLStillPictureViewControllerDelegate>)getValidDelegate;
+
+- (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion;
+
+- (void)cropAsset:(ALAsset*)asset completion:(void (^)(UIImage *croppedImage))completion;
+
+- (void)openGallery:(BOOL)openCameraRoll animated:(BOOL)animated;
+
+- (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum;
+
+- (void)finishWithPictures:(NSArray*)pictures;
 
 @end

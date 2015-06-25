@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Nickolay Rybalko. All rights reserved.
 //
 
-#import "WLCollectionItemCell.h"
+#import "WLEntryCell.h"
 
 @class ALAsset;
 @class WLAssetCell;
@@ -15,12 +15,14 @@
 
 - (void)assetCell:(WLAssetCell*)cell didSelectAsset:(ALAsset*)asset;
 
+@optional
+
+- (BOOL)assetCell:(WLAssetCell*)cell isSelectedAsset:(ALAsset*)asset;
+
 @end
 
-@interface WLAssetCell : WLCollectionItemCell
+@interface WLAssetCell : WLEntryCell
 
-@property (nonatomic, weak) id <WLAssetCellDelegate> delegate;
-
-@property (nonatomic) BOOL checked;
+@property (nonatomic, weak) IBOutlet id <WLAssetCellDelegate> delegate;
 
 @end

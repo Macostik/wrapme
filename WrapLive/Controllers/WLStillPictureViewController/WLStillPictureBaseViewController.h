@@ -10,16 +10,17 @@
 
 @class WLStillPictureBaseViewController;
 @class WLWrapView;
+@protocol WLStillPictureBaseViewController;
 
 @protocol WLStillPictureBaseViewControllerDelegate <NSObject>
 
 @optional
 
-- (void)stillPictureViewController:(WLStillPictureBaseViewController*)controller didSelectWrap:(WLWrap*)wrap;
+- (void)stillPictureViewController:(id <WLStillPictureBaseViewController>)controller didSelectWrap:(WLWrap*)wrap;
 
 @end
 
-@interface WLStillPictureBaseViewController : WLBaseViewController <WLStillPictureBaseViewControllerDelegate>
+@protocol WLStillPictureBaseViewController <WLStillPictureBaseViewControllerDelegate>
 
 @property (nonatomic) WLStillPictureMode mode;
 
@@ -32,5 +33,9 @@
 - (IBAction)selectWrap:(UIButton*)sender;
 
 - (void)setupWrapView:(WLWrap *)wrap;
+
+@end
+
+@interface WLStillPictureBaseViewController : WLBaseViewController <WLStillPictureBaseViewController>
 
 @end

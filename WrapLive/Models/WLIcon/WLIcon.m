@@ -92,7 +92,8 @@
                   @"friends":@"1",
                   @"addFriends":@"2",
                   @"pencil":@"3",
-                  @"chat":@"4"};
+                  @"chat":@"4",
+                  @"restore":@"Y"};
     }
     
     NSString *code = [icons objectForKey:name];

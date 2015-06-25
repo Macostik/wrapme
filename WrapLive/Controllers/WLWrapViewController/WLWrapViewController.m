@@ -28,8 +28,6 @@
 #import "WLContributorsViewController.h"
 #import "WLBadgeLabel.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLCreateWrapViewController.h"
-#import "WLPickerViewController.h"
 #import "UIFont+CustomFonts.h"
 #import "WLHintView.h"
 #import "WLChronologicalEntryPresenter.h"
@@ -143,21 +141,21 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     self.messageCountLabel.intValue = [self.wrap unreadNotificationsMessageCount];
 }
 
-- (UIViewController *)shakePresentedViewController {
-    WLStillPictureViewController *controller = [WLStillPictureViewController instantiate:
-                                                [UIStoryboard storyboardNamed:WLCameraStoryboard]];
-    controller.wrap = self.wrap;
-    controller.delegate = self;
-    controller.mode = WLStillPictureModeDefault;
-	return controller;
-}
-
 // MARK: - User Actions
 
 - (IBAction)editWrapClick:(id)sender {
     WLEditWrapViewController* editWrapViewController = [WLEditWrapViewController new];
     editWrapViewController.wrap = self.wrap;
     [self presentViewController:editWrapViewController animated:NO completion:nil];
+}
+
+- (IBAction)addPhoto:(id)sender {
+    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPictureViewController];
+    stillPictureViewController.wrap = self.wrap;
+    stillPictureViewController.mode = WLStillPictureModeDefault;
+    stillPictureViewController.delegate = self;
+    stillPictureViewController.startFromGallery = NO;
+    [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }
 
 // MARK: - WLEntryNotifyReceiver
@@ -214,37 +212,6 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
     [self dismissViewControllerAnimated:NO completion:nil];
-}
-
-- (void)stillPictureViewController:(WLStillPictureViewController *)controller didSelectWrap:(WLWrap *)wrap {
-    WLPickerViewController *pickerViewController = [[WLPickerViewController alloc] initWithWrap:wrap delegate:self];
-    [controller presentViewController:pickerViewController animated:NO completion:nil];
-}
-
-// MARK: - WLPickerViewDelegate
-
-- (void)pickerViewControllerNewWrapClicked:(WLPickerViewController *)pickerViewController {
-    WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
-    [stillPictureViewController dismissViewControllerAnimated:YES completion:^{
-        WLCreateWrapViewController *createWrapViewController = [WLCreateWrapViewController new];
-        [createWrapViewController setCreateHandler:^(WLWrap *wrap) {
-            stillPictureViewController.wrap = wrap;
-            [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
-        }];
-        [createWrapViewController setCancelHandler:^{
-            [stillPictureViewController dismissViewControllerAnimated:NO completion:NULL];
-        }];
-        [stillPictureViewController presentViewController:createWrapViewController animated:NO completion:nil];
-    }];
-}
-
-- (void)pickerViewController:(WLPickerViewController *)pickerViewController didSelectWrap:(WLWrap *)wrap {
-    WLStillPictureViewController* stillPictureViewController = (id)pickerViewController.presentingViewController;
-    stillPictureViewController.wrap = wrap;
-}
-
-- (void)pickerViewControllerDidCancel:(WLPickerViewController *)pickerViewController {
-    [pickerViewController.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
 // MARK: - Custom animation

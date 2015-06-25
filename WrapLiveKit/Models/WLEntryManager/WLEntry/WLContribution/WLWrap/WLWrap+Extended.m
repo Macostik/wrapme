@@ -19,6 +19,7 @@
 #import "NSDate+Additions.h"
 #import "WLUploadingQueue.h"
 #import "WLOperationQueue.h"
+#import "WLEditPicture.h"
 
 @implementation WLWrap (Extended)
 
@@ -236,9 +237,9 @@
     return message;
 }
 
-- (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+- (void)uploadPicture:(WLEditPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     WLCandy* candy = [WLCandy candyWithType:WLCandyTypeImage wrap:self];
-    candy.picture = picture;
+    candy.picture = [picture uploadablePictureWithAnimation:YES];
     if (picture.comment.nonempty) {
         WLComment *comment = [WLComment comment:picture.comment];
         [candy addComment:comment];
@@ -260,13 +261,6 @@
             });
         });
     }
-}
-
-- (void)uploadImage:(UIImage *)image success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-    __weak typeof(self)weakSelf = self;
-    [WLPicture picture:image completion:^(id object) {
-        [weakSelf uploadPicture:object success:success failure:failure];
-    }];
 }
 
 - (BOOL)isFirstCreated {

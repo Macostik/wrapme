@@ -1338,7 +1338,7 @@
                                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="present:" destination="AWA-hF-c2z" eventType="touchUpInside" id="pnL-lB-cS0"/>
+                                                                                    <action selector="addPhotoToTopWrap:" destination="L91-fZ-J9O" eventType="touchUpInside" id="ya9-mW-hPw"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -2006,17 +2006,6 @@ Tap here to start.</string>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="QUX-wt-D3B"/>
                         <outletCollection property="animatableConstraints" destination="EPw-hT-f3u" id="lYu-8G-vJg"/>
-                    </connections>
-                </customObject>
-                <customObject id="AWA-hF-c2z" userLabel="Camera Transition" customClass="WLStoryboardTransition">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="storyboard" value="Camera"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="dataSource.wrap"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="sourceIsDelegate" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="sourceViewController" destination="L91-fZ-J9O" id="uiN-0w-E56"/>
                     </connections>
                 </customObject>
                 <customObject id="Qns-CC-AwC" userLabel="Notifications Transition" customClass="WLStoryboardTransition">
@@ -3018,7 +3007,7 @@ Tap here to start.</string>
                                 </state>
                                 <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
                                 <connections>
-                                    <action selector="present:" destination="tj6-Hw-Hld" eventType="touchUpInside" id="Q2v-ct-6Zl"/>
+                                    <action selector="addPhoto:" destination="hUj-RK-zkg" eventType="touchUpInside" id="7db-3b-LPs"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -3056,17 +3045,6 @@ Tap here to start.</string>
                     <connections>
                         <outlet property="collectionView" destination="p36-27-cbv" id="Acb-vS-cov"/>
                         <outletCollection property="animatableConstraints" destination="fZI-X5-yEI" id="n1W-bu-A6S"/>
-                    </connections>
-                </customObject>
-                <customObject id="tj6-Hw-Hld" userLabel="Camera Transition" customClass="WLStoryboardTransition">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="storyboard" value="Camera"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="sourceIsDelegate" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="sourceViewController" destination="hUj-RK-zkg" id="hhi-Dj-Vlh"/>
                     </connections>
                 </customObject>
                 <customObject id="9U2-ec-pwr" userLabel="Contributors Transition" customClass="WLStoryboardTransition">

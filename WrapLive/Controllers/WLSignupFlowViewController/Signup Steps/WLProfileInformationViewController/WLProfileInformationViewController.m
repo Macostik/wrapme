@@ -78,7 +78,7 @@
     cameraNavigation.delegate = self;
     cameraNavigation.mode = WLStillPictureModeSquare;
     cameraNavigation.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
-    [self.navigationController pushViewController:cameraNavigation animated:NO];
+    [self presentViewController:cameraNavigation animated:NO completion:nil];
 }
 
 - (void)verifyContinueButton {
@@ -88,7 +88,7 @@
 #pragma mark - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
-	[self.navigationController popToViewController:self animated:NO];
+	[controller.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
@@ -96,7 +96,7 @@
 	self.profileImageView.url = picture.medium;
     self.editSession.url = picture.large;
     [self verifyContinueButton];
-	[self.navigationController popToViewController:self animated:NO];
+	[controller.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate

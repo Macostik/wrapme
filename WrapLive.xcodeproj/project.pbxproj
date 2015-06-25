@@ -891,6 +891,16 @@
 		C55D77EB1AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C55D77E71AE51BA0006FA19C /* WLRemoteEntryHandler.m */; };
 		C55D77EF1AE51BD7006FA19C /* WLSoundPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C55D77ED1AE51BD7006FA19C /* WLSoundPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C55D77F01AE51BD7006FA19C /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C55D77EE1AE51BD7006FA19C /* WLSoundPlayer.m */; };
+		C55E109C1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E109B1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m */; };
+		C55E109D1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E109B1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m */; };
+		C55E109E1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E109B1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m */; };
+		C55E109F1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E109B1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m */; };
+		C55E10A01B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E109B1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m */; };
+		C55E10A31B3C0E1F0032DFDA /* CGPointExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E10A21B3C0E1F0032DFDA /* CGPointExtension.m */; };
+		C55E10A41B3C0E1F0032DFDA /* CGPointExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E10A21B3C0E1F0032DFDA /* CGPointExtension.m */; };
+		C55E10A51B3C0E1F0032DFDA /* CGPointExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E10A21B3C0E1F0032DFDA /* CGPointExtension.m */; };
+		C55E10A61B3C0E1F0032DFDA /* CGPointExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E10A21B3C0E1F0032DFDA /* CGPointExtension.m */; };
+		C55E10A71B3C0E1F0032DFDA /* CGPointExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C55E10A21B3C0E1F0032DFDA /* CGPointExtension.m */; };
 		C5603DBF1AD921EE00427DEC /* WLEntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5603DBE1AD921EE00427DEC /* WLEntryPresenter.m */; };
 		C5603DC01AD921EE00427DEC /* WLEntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5603DBE1AD921EE00427DEC /* WLEntryPresenter.m */; };
 		C5603DC11AD921EE00427DEC /* WLEntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5603DBE1AD921EE00427DEC /* WLEntryPresenter.m */; };
@@ -3038,6 +3048,10 @@
 		C55D77E71AE51BA0006FA19C /* WLRemoteEntryHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLRemoteEntryHandler.m; sourceTree = "<group>"; };
 		C55D77ED1AE51BD7006FA19C /* WLSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSoundPlayer.h; sourceTree = "<group>"; };
 		C55D77EE1AE51BD7006FA19C /* WLSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSoundPlayer.m; sourceTree = "<group>"; };
+		C55E109A1B3C0DE50032DFDA /* UIBezierPath+Interpolation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Interpolation.h"; sourceTree = "<group>"; };
+		C55E109B1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Interpolation.m"; sourceTree = "<group>"; };
+		C55E10A11B3C0E1F0032DFDA /* CGPointExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGPointExtension.h; sourceTree = "<group>"; };
+		C55E10A21B3C0E1F0032DFDA /* CGPointExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGPointExtension.m; sourceTree = "<group>"; };
 		C5603DBD1AD921EE00427DEC /* WLEntryPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryPresenter.h; sourceTree = "<group>"; };
 		C5603DBE1AD921EE00427DEC /* WLEntryPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryPresenter.m; sourceTree = "<group>"; };
 		C5603DC31AD922B800427DEC /* WLHierarchicalEntryPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHierarchicalEntryPresenter.h; sourceTree = "<group>"; };
@@ -6227,6 +6241,10 @@
 				C5AEE4381B3AC9E3000C8CCF /* WLDrawingBrush.m */,
 				C5AEE4451B3AE770000C8CCF /* WLColorPicker.h */,
 				C5AEE4461B3AE770000C8CCF /* WLColorPicker.m */,
+				C55E109A1B3C0DE50032DFDA /* UIBezierPath+Interpolation.h */,
+				C55E109B1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m */,
+				C55E10A11B3C0E1F0032DFDA /* CGPointExtension.h */,
+				C55E10A21B3C0E1F0032DFDA /* CGPointExtension.m */,
 			);
 			path = WLDrawingView;
 			sourceTree = "<group>";
@@ -8046,6 +8064,7 @@
 				C5568BDD1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */,
 				C5BEDFA41B2AC7A800D3CF70 /* PNChannelGroup.m in Sources */,
 				C500983E1AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
+				C55E109D1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				C5BEE0581B2AC7A800D3CF70 /* PNChannelGroupRemoveRequest.m in Sources */,
 				121B1B2E18E07430001F585C /* WLCountry.m in Sources */,
 				C5BEE0671B2AC7A800D3CF70 /* PNChannelsListUpdateForChannelGroupRequest.m in Sources */,
@@ -8073,6 +8092,7 @@
 				C5BEE0171B2AC7A800D3CF70 /* NSMutableArray+PNAdditions.m in Sources */,
 				1293678318E33A3500527250 /* WLCandyCell.m in Sources */,
 				C5C20BA11A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
+				C55E10A41B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C5BEE0491B2AC7A800D3CF70 /* PNChangeAccessRightsRequest.m in Sources */,
 				C5BEDFB81B2AC7A800D3CF70 /* PNConfiguration.m in Sources */,
 				C5BEDF8B1B2AC7A800D3CF70 /* PNAccessRightOptions.m in Sources */,
@@ -8385,6 +8405,7 @@
 				C5568BDE1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */,
 				C5BEDFA51B2AC7A800D3CF70 /* PNChannelGroup.m in Sources */,
 				C500983F1AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
+				C55E109E1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				C5BEE0591B2AC7A800D3CF70 /* PNChannelGroupRemoveRequest.m in Sources */,
 				C54AF46F19B8C437006F7EDB /* WLCountry.m in Sources */,
 				C5BEE0681B2AC7A800D3CF70 /* PNChannelsListUpdateForChannelGroupRequest.m in Sources */,
@@ -8412,6 +8433,7 @@
 				C5BEE0181B2AC7A800D3CF70 /* NSMutableArray+PNAdditions.m in Sources */,
 				C54AF47E19B8C437006F7EDB /* WLCandyCell.m in Sources */,
 				C5C20BA21A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
+				C55E10A51B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C5BEE04A1B2AC7A800D3CF70 /* PNChangeAccessRightsRequest.m in Sources */,
 				C5BEDFB91B2AC7A800D3CF70 /* PNConfiguration.m in Sources */,
 				C5BEDF8C1B2AC7A800D3CF70 /* PNAccessRightOptions.m in Sources */,
@@ -8684,6 +8706,7 @@
 				C5568BDF1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */,
 				C5BEDFA61B2AC7A800D3CF70 /* PNChannelGroup.m in Sources */,
 				C50098401AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
+				C55E109F1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				C5BEE05A1B2AC7A800D3CF70 /* PNChannelGroupRemoveRequest.m in Sources */,
 				C54AF56C19B8C467006F7EDB /* WLCountry.m in Sources */,
 				C5BEE0691B2AC7A800D3CF70 /* PNChannelsListUpdateForChannelGroupRequest.m in Sources */,
@@ -8711,6 +8734,7 @@
 				C5BEE0191B2AC7A800D3CF70 /* NSMutableArray+PNAdditions.m in Sources */,
 				C54AF57B19B8C467006F7EDB /* WLCandyCell.m in Sources */,
 				C5C20BA31A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
+				C55E10A61B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C5BEE04B1B2AC7A800D3CF70 /* PNChangeAccessRightsRequest.m in Sources */,
 				C5BEDFBA1B2AC7A800D3CF70 /* PNConfiguration.m in Sources */,
 				C5BEDF8D1B2AC7A800D3CF70 /* PNAccessRightOptions.m in Sources */,
@@ -8984,6 +9008,7 @@
 				C5568BE01A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */,
 				C5BEDFA71B2AC7A800D3CF70 /* PNChannelGroup.m in Sources */,
 				C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
+				C55E10A01B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				C5BEE05B1B2AC7A800D3CF70 /* PNChannelGroupRemoveRequest.m in Sources */,
 				C54AF66919B8C491006F7EDB /* WLCountry.m in Sources */,
 				C5BEE06A1B2AC7A800D3CF70 /* PNChannelsListUpdateForChannelGroupRequest.m in Sources */,
@@ -9011,6 +9036,7 @@
 				C5BEE01A1B2AC7A800D3CF70 /* NSMutableArray+PNAdditions.m in Sources */,
 				C54AF67819B8C491006F7EDB /* WLCandyCell.m in Sources */,
 				C5C20BA41A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
+				C55E10A71B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C5BEE04C1B2AC7A800D3CF70 /* PNChangeAccessRightsRequest.m in Sources */,
 				C5BEDFBB1B2AC7A800D3CF70 /* PNConfiguration.m in Sources */,
 				C5BEDF8E1B2AC7A800D3CF70 /* PNAccessRightOptions.m in Sources */,
@@ -9308,6 +9334,7 @@
 				C574791C1B26FA45001AB8C0 /* WLProgressBar+WLContribution.m in Sources */,
 				C5BEDFA31B2AC7A800D3CF70 /* PNChannelGroup.m in Sources */,
 				C574791D1B26FA45001AB8C0 /* WLCommentCell.m in Sources */,
+				C55E109C1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				C5BEE0571B2AC7A800D3CF70 /* PNChannelGroupRemoveRequest.m in Sources */,
 				C574791E1B26FA45001AB8C0 /* WLCountry.m in Sources */,
 				C5BEE0661B2AC7A800D3CF70 /* PNChannelsListUpdateForChannelGroupRequest.m in Sources */,
@@ -9335,6 +9362,7 @@
 				C5BEE0161B2AC7A800D3CF70 /* NSMutableArray+PNAdditions.m in Sources */,
 				C574792A1B26FA45001AB8C0 /* WLCandyCell.m in Sources */,
 				C574792B1B26FA45001AB8C0 /* WLTextFieldValidation.m in Sources */,
+				C55E10A31B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C5BEE0481B2AC7A800D3CF70 /* PNChangeAccessRightsRequest.m in Sources */,
 				C5BEDFB71B2AC7A800D3CF70 /* PNConfiguration.m in Sources */,
 				C5BEDF8A1B2AC7A800D3CF70 /* PNAccessRightOptions.m in Sources */,

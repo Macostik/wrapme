@@ -481,9 +481,6 @@
                                     <constraint firstItem="JuH-62-Y2V" firstAttribute="leading" secondItem="VyQ-Yd-53E" secondAttribute="leading" constant="10" id="s94-rz-BZk"/>
                                     <constraint firstItem="VyQ-Yd-53E" firstAttribute="trailing" secondItem="9Yt-Qh-gRF" secondAttribute="trailing" constant="10" id="xVo-d0-Ugm"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="huS-6Q-gZg" appends="YES" id="Z8p-Xa-ab9"/>
-                                </connections>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rg7-He-e6G">
                                 <rect key="frame" x="138" y="277" width="44" height="44"/>
@@ -730,6 +727,9 @@
                             <constraint firstAttribute="trailing" secondItem="11F-0m-rSj" secondAttribute="trailing" id="sy4-I5-VmH"/>
                             <constraint firstAttribute="trailing" secondItem="9Dh-4e-Zqm" secondAttribute="trailing" id="xqw-Oj-gQZ"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="huS-6Q-gZg" appends="YES" id="u9P-Ly-fh5"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="jF0-9u-DA6"/>
                     <nil key="simulatedStatusBarMetrics"/>

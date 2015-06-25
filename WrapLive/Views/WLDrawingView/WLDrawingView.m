@@ -56,7 +56,7 @@
 - (IBAction)decreaseBrush:(UIButton*)sender {
     CGFloat size = self.session.brush.width;
     if (size > 3) {
-        self.session.brush.width = size - 0.3f;
+        self.session.brush.width = size - 0.25f;
         [self updateBrushView];
         
         if (sender.tracking && sender.touchInside) {
@@ -68,7 +68,7 @@
 - (IBAction)increaseBrush:(UIButton*)sender {
     CGFloat size = self.session.brush.width;
     if (size < 51) {
-        self.session.brush.width = size + 0.3f;
+        self.session.brush.width = size + 0.25f;
         [self updateBrushView];
         
         if (sender.tracking && sender.touchInside) {
@@ -122,7 +122,7 @@
 }
 
 - (BOOL)drawingSession:(WLDrawingSession *)session isAcceptableLine:(WLDrawingLine *)line {
-    return [line intersectsRect:self.canvas.bounds];
+    return [line intersectsRect:CGRectInset(self.canvas.bounds, -line.brush.width/2, -line.brush.width/2)];
 }
 
 // MARK: - WLColorPickerDelegate

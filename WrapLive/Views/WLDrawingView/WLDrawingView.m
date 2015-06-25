@@ -121,6 +121,10 @@
     self.undoButton.hidden = session.empty;
 }
 
+- (BOOL)drawingSession:(WLDrawingSession *)session isAcceptableLine:(WLDrawingLine *)line {
+    return [line intersectsRect:self.canvas.bounds];
+}
+
 // MARK: - WLColorPickerDelegate
 
 - (void)colorPicker:(WLColorPicker *)picker pickedColor:(UIColor *)color {

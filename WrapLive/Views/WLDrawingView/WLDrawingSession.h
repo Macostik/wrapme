@@ -17,6 +17,8 @@
 @optional
 - (void)drawingSessionDidBeginDrawing:(WLDrawingSession*)session;
 
+- (BOOL)drawingSession:(WLDrawingSession*)session isAcceptableLine:(WLDrawingLine*)line;
+
 - (void)drawingSession:(WLDrawingSession*)session didEndDrawing:(WLDrawingLine*)line;
 
 @end

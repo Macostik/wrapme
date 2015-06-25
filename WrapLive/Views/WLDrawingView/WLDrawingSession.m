@@ -56,13 +56,26 @@
 
 - (void)endDrawing {
     self.drawing = NO;
+    
+    BOOL acceptable = YES;
+    
+    if ([self.delegate respondsToSelector:@selector(drawingSession:isAcceptableLine:)]) {
+        acceptable = [self.delegate drawingSession:self isAcceptableLine:self.line];
+    }
+    
+    if (acceptable) {
+        if (self.interpolated) {
+            [self.line interpolate];
+        }
+        self.line.completed = YES;
+    } else {
+        [self.lines removeObject:self.line];
+    }
+    
     if ([self.delegate respondsToSelector:@selector(drawingSession:didEndDrawing:)]) {
         [self.delegate drawingSession:self didEndDrawing:self.line];
     }
-    if (self.interpolated) {
-        [self.line interpolate];
-    }
-    self.line.completed = YES;
+    
     self.line = nil;
 }
 

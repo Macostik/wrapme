@@ -99,4 +99,8 @@ void CGPathApplierFunc (void *info, const CGPathElement *element) {
     [self.path stroke];
 }
 
+- (BOOL)intersectsRect:(CGRect)rect {
+    return CGRectIntersectsRect(self.path.bounds, rect);
+}
+
 @end

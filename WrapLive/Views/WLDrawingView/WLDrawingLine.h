@@ -24,4 +24,6 @@
 
 - (void)interpolate;
 
+- (BOOL)intersectsRect:(CGRect)rect;
+
 @end

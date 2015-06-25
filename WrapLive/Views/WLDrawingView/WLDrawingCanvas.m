@@ -44,11 +44,12 @@
     }
     
     [self.session addPoint:[sender locationInView:self]];
-    [self setNeedsDisplay];
     
     if (state == UIGestureRecognizerStateEnded || state == UIGestureRecognizerStateCancelled) {
         [self.session endDrawing];
     }
+    
+    [self setNeedsDisplay];
 }
 
 @end

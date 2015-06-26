@@ -3006,8 +3006,6 @@
 		C55908781B185F9D001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Introduction.storyboard; sourceTree = "<group>"; };
 		C559087B1B185FA7001CB99F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Introduction.strings; sourceTree = "<group>"; };
 		C559087D1B185FAC001CB99F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Introduction.strings; sourceTree = "<group>"; };
-		C559087E1B186216001CB99F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Camera.strings; sourceTree = "<group>"; };
-		C559087F1B186218001CB99F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Camera.strings; sourceTree = "<group>"; };
 		C55908801B18626C001CB99F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SignUp.strings; sourceTree = "<group>"; };
 		C55908811B18626E001CB99F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SignUp.strings; sourceTree = "<group>"; };
 		C55908861B1865A2001CB99F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -3290,6 +3288,8 @@
 		C577DA511AE0F7FB00DBC3D4 /* WLIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIconView.h; path = WLButton/WLIconView.h; sourceTree = "<group>"; };
 		C577DA521AE0F7FB00DBC3D4 /* WLIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIconView.m; path = WLButton/WLIconView.m; sourceTree = "<group>"; };
 		C577DA5C1AE1033400DBC3D4 /* WLDataSourceItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDataSourceItems.m; sourceTree = "<group>"; };
+		C57B2FA21B3D69DF0065EEDF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Camera.strings; sourceTree = "<group>"; };
+		C57B2FA41B3D6A230065EEDF /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Camera.strings; sourceTree = "<group>"; };
 		C57BDDB519FA5ED3003593F1 /* WLStoryboardSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStoryboardSegue.h; path = WLStoryboardSegue/WLStoryboardSegue.h; sourceTree = "<group>"; };
 		C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLStoryboardSegue.m; path = WLStoryboardSegue/WLStoryboardSegue.m; sourceTree = "<group>"; };
 		C581680019F169D90081F350 /* WLBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBaseViewController.h; path = WLBaseViewController/WLBaseViewController.h; sourceTree = "<group>"; };
@@ -7463,7 +7463,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -9896,8 +9896,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				5BBAB3AA1AAA002400CE6252 /* Base */,
-				C559087E1B186216001CB99F /* en */,
-				C559087F1B186218001CB99F /* ru */,
+				C57B2FA21B3D69DF0065EEDF /* en */,
+				C57B2FA41B3D6A230065EEDF /* ru */,
 			);
 			name = Camera.storyboard;
 			sourceTree = "<group>";
@@ -11401,7 +11401,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

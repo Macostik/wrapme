@@ -15,6 +15,8 @@
 
 @property (weak, nonatomic) UIActivityIndicatorView *spinner;
 
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *highlightings;
+
 @end
 
 @implementation WLButton
@@ -33,6 +35,11 @@
 - (void)setHighlighted:(BOOL)highlighted {
     [super setHighlighted:highlighted];
     [self update];
+    for (UIControl *highlighting in self.highlightings) {
+        if ([highlighting respondsToSelector:@selector(setHighlighted:)]) {
+            highlighting.highlighted = highlighted;
+        }
+    }
 }
 
 - (void)setSelected:(BOOL)selected {

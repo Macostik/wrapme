@@ -20,6 +20,8 @@
 #import "WLEntryPresenter.h"
 #import "WLChatViewController.h"
 
+static CGFloat WLBottomIndentCameraButton = 4.0;
+
 @interface WLWrapViewController ()  <WLStillPictureViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -150,7 +152,7 @@
 // MARK: - Custom animation
 
 - (BOOL)segmentedControl:(SegmentedControl*)control shouldSelectSegment:(NSInteger)segment {
-    self.cameraButton.hidden = !(segment == WLSegmentControlStatePhotos);
+    self.cameraButton.hidden = YES;
     self.selectedSegment = segment;
     return YES;
 }
@@ -158,7 +160,9 @@
 // MARK: - WLPhotoViewControllerDelegate
 
 - (void)photosViewController:(WLPhotosViewController *)controller usedDataSource:(WLBasicDataSource *)dataSource {
+    self.animatableConstraint.constant = WLBottomIndentCameraButton;
     dataSource.animatableConstraints = [NSArray arrayWithObject:self.animatableConstraint];
+    self.cameraButton.hidden = self.selectedSegment!= WLSegmentControlStatePhotos;
 }
 
 @end

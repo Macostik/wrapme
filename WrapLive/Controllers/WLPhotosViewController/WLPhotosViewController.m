@@ -61,9 +61,6 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     
     [[WLNetwork network] addReceiver:self];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(photosViewController:usedDataSource:)]) {
-        [self.delegate photosViewController:self usedDataSource:self.dataSource];
-    }
     if (self.wrap.candies.nonempty) {
         [self dropDownCollectionView];
     }
@@ -101,6 +98,9 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
         [self.collectionView setMinimumContentOffsetAnimated:NO];
         self.collectionView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(photosViewController:usedDataSource:)]) {
+            [self.delegate photosViewController:self usedDataSource:self.dataSource];
+        }
     }];
 }
 

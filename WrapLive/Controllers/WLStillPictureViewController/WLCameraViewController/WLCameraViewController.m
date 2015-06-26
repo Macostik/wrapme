@@ -150,7 +150,8 @@
 	__weak typeof(self)weakSelf = self;
 	self.view.userInteractionEnabled = NO;
 	sender.active = NO;
-	[self captureImage:^(UIImage *image, NSMutableDictionary* metadata) {
+    
+    [self captureImage:^{
         [UIView animateWithDuration:0.1 animations:^{
             weakSelf.cameraView.alpha = 0.0f;
         } completion:^(BOOL finished) {
@@ -158,12 +159,16 @@
                 weakSelf.cameraView.alpha = 1.0f;
             }];
         }];
-		[weakSelf finishWithImage:image metadata:metadata];
-		weakSelf.view.userInteractionEnabled = YES;
+    } result:^(UIImage *image, NSMutableDictionary *metadata) {
+        [weakSelf finishWithImage:image metadata:metadata];
+        weakSelf.view.userInteractionEnabled = YES;
         run_after(0.5f, ^{
             sender.active = YES;
         });
-	}];
+    } failure:^(NSError *error) {
+        weakSelf.view.userInteractionEnabled = YES;
+        [error show];
+    }];
 }
 
 - (IBAction)gallery:(id)sender {
@@ -372,7 +377,7 @@
     return _connection;
 }
 
-- (void)captureImage:(void (^)(UIImage*image, NSMutableDictionary* metadata))completion {
+- (void)captureImage:(WLBlock)completion result:(void (^)(UIImage*image, NSMutableDictionary* metadata))result failure:(WLFailureBlock)failure {
 #if TARGET_IPHONE_SIMULATOR
 	run_getting_object(^id{
         CGSize size = CGSizeMake(720, 720);
@@ -386,14 +391,15 @@
 #endif
 	
 	void (^handler) (CMSampleBufferRef, NSError *) = ^(CMSampleBufferRef buffer, NSError *error) {
-		UIImage* image = nil;
-		NSMutableDictionary* metadata = nil;
 		if (!error) {
-			NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
-			image = [[UIImage alloc] initWithData:imageData];
-			metadata = [[NSMutableDictionary alloc] initWithImageSampleBuffer:buffer];
-		}
-		completion(image, metadata);
+            if (completion) completion();
+            NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
+            NSMutableDictionary* metadata = [[NSMutableDictionary alloc] initWithImageSampleBuffer:buffer];
+            UIImage* image = [[UIImage alloc] initWithData:imageData];
+            if (result) result(image, metadata);
+        } else {
+            if (failure) failure(error);
+        }
 	};
     AVCaptureConnection *connection = self.connection;
     self.takePhotoButton.active = connection == nil;

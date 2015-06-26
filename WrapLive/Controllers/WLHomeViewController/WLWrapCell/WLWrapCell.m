@@ -105,7 +105,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     self.wrapNotificationLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:wrap];
     NSUInteger messageConter = [self.entry unreadNotificationsMessageCount];
     self.chatNotificationLabel.intValue = messageConter;
-    self.chatButton.hidden = ![wrap containsUnreadMessage];
+    self.chatButton.hidden = messageConter == 0;
     self.wrapNameWidthConstraint.constant = WLConstants.screenWidth - (messageConter > 0 ?
                                                                        WLWrapCellAvatarWidth + WLChatIndicatorWidth  :
                                                                        WLWrapCellAvatarWidth);

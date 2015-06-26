@@ -46,8 +46,6 @@
 @implementation WLWrapPickerViewController
 
 - (void)dealloc {
-    self.dataSource.collectionView.dataSource = nil;
-    self.dataSource.collectionView.delegate = nil;
     [self.dataSource.collectionView removeObserver:self forKeyPath:@"contentOffset" context:NULL];
 }
 
@@ -64,7 +62,9 @@
         if (index != NSNotFound && weakSelf.dataSource.collectionView.contentOffset.y != index * itemHeight) {
             [weakSelf.dataSource.collectionView setContentOffset:CGPointMake(0, index * itemHeight) animated:YES];
         } else {
-            [weakSelf.delegate wrapPickerViewControllerDidFinish:weakSelf];
+            run_after_asap(^{
+                [weakSelf.delegate wrapPickerViewControllerDidFinish:weakSelf];
+            });
         }
     }];
     

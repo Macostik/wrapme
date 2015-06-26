@@ -1,111 +1,348 @@
+
+/* Class = "UILabel"; text = "10089969657\n2342342343"; ObjectID = "04J-8C-m9o"; */
+"04J-8C-m9o.text" = "10089969657\n2342342343";
+
+/* Class = "UILabel"; text = "Photo by Calvin"; ObjectID = "08S-52-GIh"; */
+"08S-52-GIh.text" = "Photo by Calvin";
+
+/* Class = "UITextView"; text = "message text"; ObjectID = "0OD-Cn-Lp6"; */
+"0OD-Cn-Lp6.text" = "message text";
+
+/* Class = "UILabel"; text = "Wrap"; ObjectID = "0YA-Wt-D43"; */
+"0YA-Wt-D43.text" = "Wrap";
+
 /* Class = "UILabel"; text = "Create wrap is easy!\nTap here to start."; ObjectID = "0ka-0F-dc5"; */
 "0ka-0F-dc5.text" = "Create wrap is easy!\nTap here to start.";
 
-/* Class = "IBUIButton"; normalTitle = "Continue"; ObjectID = "7Bf-ro-UFC"; */
-"7Bf-ro-UFC.normalTitle" = "Continue";
+/* Class = "UILabel"; text = "Slide to open camera"; ObjectID = "0rs-Jv-qhC"; */
+"0rs-Jv-qhC.text" = "Slide to open camera";
 
-/* Class = "IBUIButton"; normalTitle = "Sign Out"; ObjectID = "7C1-yc-O8X"; */
-"7C1-yc-O8X.normalTitle" = "Sign out";
+/* Class = "UILabel"; text = "3 days ago"; ObjectID = "1y3-CJ-RVW"; */
+"1y3-CJ-RVW.text" = "3 days ago";
 
-/* Class = "IBUITextField"; placeholder = "Email address"; ObjectID = "82E-k4-0WJ"; */
-"82E-k4-0WJ.placeholder" = "E-mail address";
+/* Class = "UIButton"; normalTitle = "111 Comments"; ObjectID = "2ai-CO-qH0"; */
+"2ai-CO-qH0.normalTitle" = "111 Comments";
 
-/* Class = "IBUILabel"; text = "Invite your friends!"; ObjectID = "BgE-ku-qap"; */
-"BgE-ku-qap.text" = "Invite your friends!";
-
-/* Class = "IBUILabel"; text = "Add friends"; ObjectID = "Bop-dI-sMz"; */
-"Bop-dI-sMz.text" = "Add friends";
-
-/* Class = "IBUILabel"; text = "Email confirmation"; ObjectID = "CSs-OC-vDg"; */
-"CSs-OC-vDg.text" = "Help secure your account";
-
-/* Class = "IBUITextField"; placeholder = "Your name"; ObjectID = "D1N-1e-psu"; */
-"D1N-1e-psu.placeholder" = "Your name";
-
-/* Class = "IBUIButton"; normalTitle = "Comment"; ObjectID = "DNi-cn-kiB"; */
-"DNi-cn-kiB.normalTitle" = "Comment";
-
-/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "Efj-27-0UK"; */
-"Efj-27-0UK.normalTitle" = "Cancel";
-
-/* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "GkU-w3-rTK"; */
-"GkU-w3-rTK.normalTitle" = "Done";
-
-/* Class = "IBUITextField"; placeholder = "Search contacts"; ObjectID = "KDf-WU-v2H"; */
-"KDf-WU-v2H.placeholder" = "Search contacts";
-
-/* Class = "IBUIButton"; normalTitle = "About"; ObjectID = "Lq0-rh-5bS"; */
-"Lq0-rh-5bS.normalTitle" = "About";
-
-/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "MJV-nQ-gRy"; */
-"MJV-nQ-gRy.normalTitle" = "Cancel";
-
-/* Class = "IBUILabel"; text = "Email confirmation"; ObjectID = "Nim-LA-uPS"; */
-"Nim-LA-uPS.text" = "Help secure your account";
-
-/* Class = "IBUILabel"; text = "Edit your profile"; ObjectID = "QO2-SC-TvX"; */
-"QO2-SC-TvX.text" = "Edit your profile";
-
-/* Class = "IBUIButton"; normalTitle = "Change e-mail"; ObjectID = "R9i-Mn-k3a"; */
-"R9i-Mn-k3a.normalTitle" = "Change e-mail";
-
-/* Class = "IBUILabel"; text = "What's up"; ObjectID = "Te3-A9-g3F"; */
-"Te3-A9-g3F.text" = "What's up";
-
-/* Class = "IBUILabel"; text = "Enter your friend's name and phone number"; ObjectID = "TlS-f9-yyB"; */
-"TlS-f9-yyB.text" = "Enter your friend's name and phone number";
-
-/* Class = "IBUILabel"; text = "There was a problem connecting with wrapLive.\nCheck your internet connection and try again."; ObjectID = "TvM-gd-tcr"; */
-"TvM-gd-tcr.text" = "There was a problem connecting with wrapLive.\nCheck your internet connection and try again.";
-"TvM-gd-tcr.text" = "No internet connection. Please try again later.";
-
-/* Class = "IBUILabel"; text = "You haven't confirmed your e-mail address yet. Please check your e-mail."; ObjectID = "UL6-dF-3Kj"; */
-"UL6-dF-3Kj.text" = "You haven't confirmed your e-mail address yet. Please check your e-mail and confirm it.";
-
-/* Class = "IBUITextField"; placeholder = "Name"; ObjectID = "Xmt-yf-g7R"; */
-"Xmt-yf-g7R.placeholder" = "Name";
-
-/* Class = "IBUIButton"; normalTitle = "Resend"; ObjectID = "Yk6-tb-7gb"; */
-"Yk6-tb-7gb.normalTitle" = "Resend";
-
-/* Class = "IBUIButton"; normalTitle = "Account"; ObjectID = "co2-D4-XAH"; */
-"co2-D4-XAH.normalTitle" = "Account";
-
-/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "dYf-Sg-pHd"; */
-"dYf-Sg-pHd.normalTitle" = "Cancel";
-
-/* Class = "IBUILabel"; text = "You haven't confirmed your e-mail address yet. Please check your e-mail."; ObjectID = "eHd-9o-24J"; */
-"eHd-9o-24J.text" = "You haven't confirmed your e-mail address yet. Please check your e-mail and confirm it.";
-
-/* Class = "IBUIButton"; normalTitle = "Resend"; ObjectID = "gpG-be-cvC"; */
-"gpG-be-cvC.normalTitle" = "Resend";
-
-/* Class = "IBUIButton"; normalTitle = "Send invite"; ObjectID = "kdg-Ph-jY5"; */
-"kdg-Ph-jY5.normalTitle" = "Send invite";
-
-/* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "oMu-AF-YMH"; */
-"oMu-AF-YMH.normalTitle" = "Done";
-
-/* Class = "IBUILabel"; text = "Friends"; ObjectID = "s5o-k3-mbE"; */
-"s5o-k3-mbE.text" = "Friends";
-
-/* Class = "IBUILabel"; text = "Settings"; ObjectID = "ueu-Q3-dgA"; */
-"ueu-Q3-dgA.text" = "Settings";
-
-/* Class = "IBUIButton"; normalTitle = "Close"; ObjectID = "2nE-rT-l31"; */
+/* Class = "UIButton"; normalTitle = "Close"; ObjectID = "2nE-rT-l31"; */
 "2nE-rT-l31.normalTitle" = "Close";
 
-/* Class = "IBUILabel"; text = "Notifications"; ObjectID = "Vtf-da-c8a"; */
+/* Class = "UILabel"; text = "Label"; ObjectID = "4dB-kx-151"; */
+"4dB-kx-151.text" = "Label";
+
+/* Class = "UILabel"; text = "D"; ObjectID = "4dZ-BR-VPb"; */
+"4dZ-BR-VPb.text" = "D";
+
+/* Class = "UILabel"; text = "Timestamp"; ObjectID = "641-7R-EdV"; */
+"641-7R-EdV.text" = "Timestamp";
+
+/* Class = "UILabel"; text = "home:"; ObjectID = "6NA-Lj-jWd"; */
+"6NA-Lj-jWd.text" = "home:";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "70w-oo-mtg"; */
+"70w-oo-mtg.text" = "Name";
+
+/* Class = "UILabel"; text = "3 days ago"; ObjectID = "71z-7i-OMc"; */
+"71z-7i-OMc.text" = "3 days ago";
+
+/* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "7Bf-ro-UFC"; */
+"7Bf-ro-UFC.normalTitle" = "Continue";
+
+/* Class = "UIButton"; normalTitle = "Sign out"; ObjectID = "7C1-yc-O8X"; */
+"7C1-yc-O8X.normalTitle" = "Sign out";
+
+/* Class = "UILabel"; text = "a"; ObjectID = "7Ok-gy-eVo"; */
+"7Ok-gy-eVo.text" = "a";
+
+/* Class = "UIButton"; normalTitle = "Remove"; ObjectID = "7dN-Y5-4Ue"; */
+"7dN-Y5-4Ue.normalTitle" = "Remove";
+
+/* Class = "UILabel"; text = "Yestarday at 2:34pm"; ObjectID = "7nH-rK-CBH"; */
+"7nH-rK-CBH.text" = "Yestarday at 2:34pm";
+
+/* Class = "UILabel"; text = "D"; ObjectID = "7yS-IZ-1M1"; */
+"7yS-IZ-1M1.text" = "D";
+
+/* Class = "UILabel"; text = "2"; ObjectID = "7zc-rd-P8J"; */
+"7zc-rd-P8J.text" = "2";
+
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "82E-k4-0WJ"; */
+"82E-k4-0WJ.placeholder" = "Email address";
+
+/* Class = "UILabel"; text = "Slide to open camera"; ObjectID = "88Q-sD-VfR"; */
+"88Q-sD-VfR.text" = "Slide to open camera";
+
+/* Class = "UIButton"; disabledTitle = "l"; ObjectID = "8kJ-w2-piV"; */
+"8kJ-w2-piV.disabledTitle" = "l";
+
+/* Class = "UIButton"; normalTitle = "G"; ObjectID = "8kJ-w2-piV"; */
+"8kJ-w2-piV.normalTitle" = "G";
+
+/* Class = "UIButton"; selectedTitle = "H"; ObjectID = "8kJ-w2-piV"; */
+"8kJ-w2-piV.selectedTitle" = "H";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "8kR-VI-DgA"; */
+"8kR-VI-DgA.normalTitle" = "0";
+
+/* Class = "UILabel"; text = "Friends"; ObjectID = "9qq-sb-7FD"; */
+"9qq-sb-7FD.text" = "Friends";
+
+/* Class = "UILabel"; text = "5"; ObjectID = "9sT-hL-fQk"; */
+"9sT-hL-fQk.text" = "5";
+
+/* Class = "UILabel"; text = "11:32 PM"; ObjectID = "BDu-zS-cNB"; */
+"BDu-zS-cNB.text" = "11:32 PM";
+
+/* Class = "UIButton"; disabledTitle = "E"; ObjectID = "Beb-Fv-Wfr"; */
+"Beb-Fv-Wfr.disabledTitle" = "E";
+
+/* Class = "UIButton"; normalTitle = "G"; ObjectID = "Beb-Fv-Wfr"; */
+"Beb-Fv-Wfr.normalTitle" = "G";
+
+/* Class = "UIButton"; selectedTitle = "H"; ObjectID = "Beb-Fv-Wfr"; */
+"Beb-Fv-Wfr.selectedTitle" = "H";
+
+/* Class = "UILabel"; text = "Invite your friends!"; ObjectID = "BgE-ku-qap"; */
+"BgE-ku-qap.text" = "Invite your friends!";
+
+/* Class = "UILabel"; text = "Add friends"; ObjectID = "Bop-dI-sMz"; */
+"Bop-dI-sMz.text" = "Add friends";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "CKG-6V-WuA"; */
+"CKG-6V-WuA.text" = "1";
+
+/* Class = "UILabel"; text = "Help secure your account"; ObjectID = "CSs-OC-vDg"; */
+"CSs-OC-vDg.text" = "Help secure your account";
+
+/* Class = "UITextField"; placeholder = "Your name"; ObjectID = "D1N-1e-psu"; */
+"D1N-1e-psu.placeholder" = "Your name";
+
+/* Class = "UILabel"; text = "+380951383026"; ObjectID = "Dxm-Es-Lwk"; */
+"Dxm-Es-Lwk.text" = "+380951383026";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "EbT-vV-AiD"; */
+"EbT-vV-AiD.normalTitle" = "3";
+
+/* Class = "UIButton"; selectedTitle = "i"; ObjectID = "EbT-vV-AiD"; */
+"EbT-vV-AiD.selectedTitle" = "i";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "Efj-27-0UK"; */
+"Efj-27-0UK.normalTitle" = "Cancel";
+
+/* Class = "UILabel"; text = "Photos"; ObjectID = "Exo-Pi-XRe"; */
+"Exo-Pi-XRe.text" = "Photos";
+
+/* Class = "UILabel"; text = "Wrap"; ObjectID = "FBj-ps-Q2W"; */
+"FBj-ps-Q2W.text" = "Wrap";
+
+/* Class = "UITextView"; text = "Awesome photo!"; ObjectID = "FgB-22-MIB"; */
+"FgB-22-MIB.text" = "Awesome photo!";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "GkU-w3-rTK"; */
+"GkU-w3-rTK.normalTitle" = "Done";
+
+/* Class = "UITextView"; text = "Text"; ObjectID = "H8X-L5-O9h"; */
+"H8X-L5-O9h.text" = "Text";
+
+/* Class = "UILabel"; text = "name"; ObjectID = "HUe-Pv-h6W"; */
+"HUe-Pv-h6W.text" = "name";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "JuD-N5-awC"; */
+"JuD-N5-awC.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "Search contacts"; ObjectID = "KDf-WU-v2H"; */
+"KDf-WU-v2H.placeholder" = "Search contacts";
+
+/* Class = "UITextField"; placeholder = "555-555-5555"; ObjectID = "KIX-5W-ASY"; */
+"KIX-5W-ASY.placeholder" = "555-555-5555";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Kag-WO-QAb"; */
+"Kag-WO-QAb.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Kc2-7D-Uw6"; */
+"Kc2-7D-Uw6.text" = "Label";
+
+/* Class = "UILabel"; text = "Slide to chat"; ObjectID = "Kh9-Vi-feI"; */
+"Kh9-Vi-feI.text" = "Slide to chat";
+
+/* Class = "UIButton"; normalTitle = "P"; ObjectID = "KxF-7g-Abs"; */
+"KxF-7g-Abs.normalTitle" = "P";
+
+/* Class = "UILabel"; text = "11:32 PM"; ObjectID = "Lc4-Kr-oEr"; */
+"Lc4-Kr-oEr.text" = "11:32 PM";
+
+/* Class = "UIButton"; normalTitle = "About"; ObjectID = "Lq0-rh-5bS"; */
+"Lq0-rh-5bS.normalTitle" = "About";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "MJV-nQ-gRy"; */
+"MJV-nQ-gRy.normalTitle" = "Cancel";
+
+/* Class = "UILabel"; text = "Wrap Name"; ObjectID = "N8I-t6-aKU"; */
+"N8I-t6-aKU.text" = "Wrap Name";
+
+/* Class = "UILabel"; text = "Help secure your account"; ObjectID = "Nim-LA-uPS"; */
+"Nim-LA-uPS.text" = "Help secure your account";
+
+/* Class = "UILabel"; text = "Yesterday at"; ObjectID = "OBg-6r-k4s"; */
+"OBg-6r-k4s.text" = "Yesterday at";
+
+/* Class = "UILabel"; text = "5"; ObjectID = "QM4-q0-ku1"; */
+"QM4-q0-ku1.text" = "5";
+
+/* Class = "UILabel"; text = "Edit your profile"; ObjectID = "QO2-SC-TvX"; */
+"QO2-SC-TvX.text" = "Edit your profile";
+
+/* Class = "UILabel"; text = "e"; ObjectID = "Qjg-nF-pTh"; */
+"Qjg-nF-pTh.text" = "e";
+
+/* Class = "UIButton"; normalTitle = "Change e-mail"; ObjectID = "R9i-Mn-k3a"; */
+"R9i-Mn-k3a.normalTitle" = "Change e-mail";
+
+/* Class = "UILabel"; text = "5"; ObjectID = "RIL-os-qUh"; */
+"RIL-os-qUh.text" = "5";
+
+/* Class = "UILabel"; text = "e"; ObjectID = "STC-13-brF"; */
+"STC-13-brF.text" = "e";
+
+/* Class = "UILabel"; text = "What's up"; ObjectID = "Te3-A9-g3F"; */
+"Te3-A9-g3F.text" = "What's up";
+
+/* Class = "UILabel"; text = "Enter your friend's name and phone number"; ObjectID = "TlS-f9-yyB"; */
+"TlS-f9-yyB.text" = "Enter your friend's name and phone number";
+
+/* Class = "UILabel"; text = "No internet connection. Please try again later."; ObjectID = "TvM-gd-tcr"; */
+"TvM-gd-tcr.text" = "No internet connection. Please try again later.";
+
+/* Class = "UILabel"; text = "Wrap Name"; ObjectID = "Twb-Mn-vNw"; */
+"Twb-Mn-vNw.text" = "Wrap Name";
+
+/* Class = "UILabel"; text = "D"; ObjectID = "U0A-o6-Hed"; */
+"U0A-o6-Hed.text" = "D";
+
+/* Class = "UILabel"; text = "Confirm calvin@ravenpod.com as your email address to help secure your account."; ObjectID = "UL6-dF-3Kj"; */
+"UL6-dF-3Kj.text" = "Confirm calvin@ravenpod.com as your email address to help secure your account.";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "VDt-1T-mW3"; */
+"VDt-1T-mW3.normalTitle" = "5";
+
+/* Class = "UITextView"; text = "Confirm calvin@ravenpod.com as your email address to help secure your account."; ObjectID = "VXa-Dq-6e9"; */
+"VXa-Dq-6e9.text" = "Confirm calvin@ravenpod.com as your email address to help secure your account.";
+
+/* Class = "UILabel"; text = "Notifications"; ObjectID = "Vtf-da-c8a"; */
 "Vtf-da-c8a.text" = "Notifications";
 
-/* Class = "IBUILabel"; text = "Photo"; ObjectID = "bsu-Ad-ILe"; */
-"bsu-Ad-ILe.text" = "Photo";
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "Xmt-yf-g7R"; */
+"Xmt-yf-g7R.placeholder" = "Name";
 
-/* Class = "IBUILabel"; text = "Notify me when new photo is added to the wrap."; ObjectID = "bHL-LP-6Kt"; */
+/* Class = "UIButton"; normalTitle = "Resend"; ObjectID = "Yk6-tb-7gb"; */
+"Yk6-tb-7gb.normalTitle" = "Resend";
+
+/* Class = "UILabel"; text = "wrap name"; ObjectID = "ZL1-Bm-SmI"; */
+"ZL1-Bm-SmI.text" = "wrap name";
+
+/* Class = "UILabel"; text = "John Williams Brown"; ObjectID = "ZaI-gM-W2F"; */
+"ZaI-gM-W2F.text" = "John Williams Brown";
+
+/* Class = "UILabel"; text = "Notify me when new photo is added to the wrap."; ObjectID = "bHL-LP-6Kt"; */
 "bHL-LP-6Kt.text" = "Notify me when new photo is added to the wrap.";
 
-/* Class = "IBUILabel"; text = "Chat"; ObjectID = "zet-Ls-5CH"; */
-"zet-Ls-5CH.text" = "Chat";
+/* Class = "UILabel"; text = "Add friend..."; ObjectID = "bgl-Nc-aZ0"; */
+"bgl-Nc-aZ0.text" = "Add friend...";
 
-/* Class = "IBUILabel"; text = "Notify me when new chat is posted to the wrap."; ObjectID = "cUR-VV-aaK"; */
+/* Class = "UILabel"; text = "Photo"; ObjectID = "bsu-Ad-ILe"; */
+"bsu-Ad-ILe.text" = "Photo";
+
+/* Class = "UITextView"; text = "message text"; ObjectID = "cMC-ND-b5t"; */
+"cMC-ND-b5t.text" = "message text";
+
+/* Class = "UILabel"; text = "Notify me when new chat is posted to the wrap."; ObjectID = "cUR-VV-aaK"; */
 "cUR-VV-aaK.text" = "Notify me when new chat is posted to the wrap.";
+
+/* Class = "UILabel"; text = "Slide to chat"; ObjectID = "cgx-nY-B3d"; */
+"cgx-nY-B3d.text" = "Slide to chat";
+
+/* Class = "UIButton"; normalTitle = "Account"; ObjectID = "co2-D4-XAH"; */
+"co2-D4-XAH.normalTitle" = "Account";
+
+/* Class = "UILabel"; text = "wrap name"; ObjectID = "ek2-Bn-UN6"; */
+"ek2-Bn-UN6.text" = "wrap name";
+
+/* Class = "UIButton"; normalTitle = "Add Demo Images"; ObjectID = "fos-MI-VJD"; */
+"fos-MI-VJD.normalTitle" = "Add Demo Images";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fw4-o4-768"; */
+"fw4-o4-768.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Resend"; ObjectID = "gpG-be-cvC"; */
+"gpG-be-cvC.normalTitle" = "Resend";
+
+/* Class = "UILabel"; text = "Yestarday at 2:34pm"; ObjectID = "gs3-em-Muh"; */
+"gs3-em-Muh.text" = "Yestarday at 2:34pm";
+
+/* Class = "UIButton"; normalTitle = "Clean Cache"; ObjectID = "hNJ-iN-ANg"; */
+"hNJ-iN-ANg.normalTitle" = "Clean Cache";
+
+/* Class = "UILabel"; text = "Invite sent [friendly timestamp]. Swipe to resend invite"; ObjectID = "hiz-xa-3C6"; */
+"hiz-xa-3C6.text" = "Invite sent [friendly timestamp]. Swipe to resend invite";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "hw2-sP-LBk"; */
+"hw2-sP-LBk.text" = "1";
+
+/* Class = "UILabel"; text = "D"; ObjectID = "i2e-Xd-doh"; */
+"i2e-Xd-doh.text" = "D";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "jAi-R7-bNq"; */
+"jAi-R7-bNq.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "kG4-jG-ZTm"; */
+"kG4-jG-ZTm.normalTitle" = "5";
+
+/* Class = "UILabel"; text = "u"; ObjectID = "kdU-Ps-nCK"; */
+"kdU-Ps-nCK.text" = "u";
+
+/* Class = "UIButton"; normalTitle = "Send invite"; ObjectID = "kdg-Ph-jY5"; */
+"kdg-Ph-jY5.normalTitle" = "Send invite";
+
+/* Class = "UIButton"; normalTitle = "y"; ObjectID = "kso-wd-VlQ"; */
+"kso-wd-VlQ.normalTitle" = "y";
+
+/* Class = "UIButton"; selectedTitle = "z"; ObjectID = "kso-wd-VlQ"; */
+"kso-wd-VlQ.selectedTitle" = "z";
+
+/* Class = "UILabel"; text = "Chat"; ObjectID = "nwc-oQ-LVZ"; */
+"nwc-oQ-LVZ.text" = "Chat";
+
+/* Class = "UIButton"; normalTitle = "Resend invite"; ObjectID = "phJ-P1-MdW"; */
+"phJ-P1-MdW.normalTitle" = "Resend invite";
+
+/* Class = "UILabel"; text = "Calvin:"; ObjectID = "qxv-Cb-5DK"; */
+"qxv-Cb-5DK.text" = "Calvin:";
+
+/* Class = "UILabel"; text = "Write text..."; ObjectID = "sf0-Q1-mdw"; */
+"sf0-Q1-mdw.text" = "Write text...";
+
+/* Class = "UILabel"; text = "Write text..."; ObjectID = "uda-Ra-Xj8"; */
+"uda-Ra-Xj8.text" = "Write text...";
+
+/* Class = "UILabel"; text = "Settings"; ObjectID = "ueu-Q3-dgA"; */
+"ueu-Q3-dgA.text" = "Settings";
+
+/* Class = "UILabel"; text = "name"; ObjectID = "v2z-k0-EKs"; */
+"v2z-k0-EKs.text" = "name";
+
+/* Class = "UILabel"; text = "u"; ObjectID = "vBf-Om-hs7"; */
+"vBf-Om-hs7.text" = "u";
+
+/* Class = "UILabel"; text = "u"; ObjectID = "vk4-f0-Wr1"; */
+"vk4-f0-Wr1.text" = "u";
+
+/* Class = "UILabel"; text = "Photo by S"; ObjectID = "xGF-6q-Jgs"; */
+"xGF-6q-Jgs.text" = "Photo by S";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "yxU-kB-7d8"; */
+"yxU-kB-7d8.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "LEAVE WRAP"; ObjectID = "zBK-OX-573"; */
+"zBK-OX-573.normalTitle" = "LEAVE WRAP";
+
+/* Class = "UILabel"; text = "Chat"; ObjectID = "zet-Ls-5CH"; */
+"zet-Ls-5CH.text" = "Chat";

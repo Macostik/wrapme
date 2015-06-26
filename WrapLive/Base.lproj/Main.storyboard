@@ -2976,7 +2976,7 @@ Tap here to start.</string>
                                         <rect key="frame" x="214" y="0.0" width="106" height="44"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pze-Dr-jmG">
-                                                <rect key="frame" x="20" y="12" width="67" height="21"/>
+                                                <rect key="frame" x="16" y="12" width="74" height="21"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CKG-6V-WuA" customClass="WLLabel">
                                                         <rect key="frame" x="0.0" y="0.0" width="17" height="21"/>
@@ -2987,8 +2987,8 @@ Tap here to start.</string>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friend" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qq-sb-7FD" userLabel="Friend" customClass="WLLabel">
-                                                        <rect key="frame" x="22" y="0.0" width="45" height="21"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qq-sb-7FD" userLabel="Friends" customClass="WLLabel">
+                                                        <rect key="frame" x="22" y="0.0" width="52" height="21"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                         <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>

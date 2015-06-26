@@ -42,7 +42,7 @@
     self.session = self.canvas.session;
     self.session.delegate = self;
     self.session.interpolated = NO;
-    self.session.brush = [WLDrawingBrush brushWithColor:[UIColor redColor] width:24];
+    self.session.brush = [WLDrawingBrush brushWithColor:[UIColor redColor] width:10];
     
     [self updateBrushView];
 }

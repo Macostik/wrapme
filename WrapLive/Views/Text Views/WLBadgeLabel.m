@@ -5,7 +5,7 @@
 //  Created by Yura Granchenko on 9/25/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
-static CGFloat WLConstantPadding = 12.0f;
+static CGFloat WLConstantPadding = 10.0f;
 
 #import "WLBadgeLabel.h"
 #import "NSString+Additions.h"
@@ -35,7 +35,8 @@ static CGFloat WLConstantPadding = 12.0f;
 }
 
 - (void)sizeToFitByContent {
-    CGFloat width = [self sizeThatFits:CGSizeMake(CGFLOAT_MAX, self.height)].width + WLConstantPadding;
+    CGFloat width = [self sizeThatFits:CGSizeMake(CGFLOAT_MAX, self.height)].width;
+    width += width + WLConstantPadding > self.height ? WLConstantPadding : .0;
     self.widthConstraint.constant = Smoothstep(self.height, self.superview.width, width);
 }
 

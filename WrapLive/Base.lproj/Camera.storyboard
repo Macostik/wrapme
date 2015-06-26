@@ -2005,7 +2005,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
                                 <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="3">
+                                <state key="normal" title="7">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">

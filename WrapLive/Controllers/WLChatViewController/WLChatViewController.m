@@ -501,7 +501,7 @@ CGFloat WLMaxTextViewWidth;
 - (CGFloat)heightOfTypingCell:(WLChat *)chat {
     return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular
                                                                                               preset:WLFontPresetSmaller]
-                                                                 width:WLMaxTextViewWidth]);
+                                                                 width:WLMaxTextViewWidth] + WLTypingViewTopIndent);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {

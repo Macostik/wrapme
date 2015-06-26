@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "WLChat.h"
 
-static CGFloat WLTypingViewMinHeight = 48.0;
+static CGFloat WLTypingViewMinHeight = 60.0;
+static CGFloat WLTypingViewTopIndent = 12.0;
 static NSString *WLFriendsTypingImage = @"friends";
 
 @interface WLTypingViewCell : UICollectionReusableView

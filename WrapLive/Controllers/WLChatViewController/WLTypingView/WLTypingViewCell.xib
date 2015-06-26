@@ -13,11 +13,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLTypingViewCell" id="97O-yH-rHO" customClass="WLTypingViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ONi-gb-89W" customClass="WLCircleImageView">
-                    <rect key="frame" x="12" y="0.0" width="48" height="48"/>
+                    <rect key="frame" x="12" y="12" width="48" height="48"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="48" id="lQT-xQ-89e"/>
@@ -25,7 +25,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User1, User2 and User3 are typing..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgY-kG-uMD" customClass="WLLabel">
-                    <rect key="frame" x="72" y="0.0" width="218" height="48"/>
+                    <rect key="frame" x="72" y="12" width="218" height="48"/>
                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -36,10 +36,10 @@
             </subviews>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="JgY-kG-uMD" secondAttribute="bottom" id="2Pa-ms-lkS"/>
-                <constraint firstItem="ONi-gb-89W" firstAttribute="top" secondItem="97O-yH-rHO" secondAttribute="top" id="Knv-ZA-Jkc"/>
+                <constraint firstItem="ONi-gb-89W" firstAttribute="top" secondItem="97O-yH-rHO" secondAttribute="top" constant="12" id="Knv-ZA-Jkc"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JgY-kG-uMD" secondAttribute="trailing" constant="12" id="UU2-bX-k9A"/>
                 <constraint firstItem="JgY-kG-uMD" firstAttribute="leading" secondItem="ONi-gb-89W" secondAttribute="trailing" constant="12" id="kaD-s5-YLd"/>
-                <constraint firstItem="JgY-kG-uMD" firstAttribute="top" secondItem="97O-yH-rHO" secondAttribute="top" id="tGb-ew-0Oe"/>
+                <constraint firstItem="ONi-gb-89W" firstAttribute="top" secondItem="JgY-kG-uMD" secondAttribute="top" id="qVJ-xy-ZQ7"/>
                 <constraint firstItem="ONi-gb-89W" firstAttribute="leading" secondItem="97O-yH-rHO" secondAttribute="leading" constant="12" id="yv5-ZG-DrK"/>
             </constraints>
             <connections>

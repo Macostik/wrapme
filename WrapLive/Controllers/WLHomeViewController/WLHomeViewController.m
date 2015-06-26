@@ -357,7 +357,7 @@
 }
 
 - (IBAction)addPhoto:(id)sender {
-    [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:[WLUser currentUser].wraps.count > 1];
+    [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:NO];
 }
 
 - (IBAction)addPhotoToTopWrap:(id)sender {

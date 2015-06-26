@@ -107,6 +107,10 @@
     [self updatePicturesCountLabel];
 }
 
+- (BOOL)quickAssetsViewControllerShouldPreselectFirstAsset:(WLQuickAssetsViewController *)controller {
+    return self.startFromGallery;
+}
+
 - (void)handleAssets:(NSArray*)assets {
     __weak typeof(self)weakSelf = self;
     for (ALAsset* asset in assets) {

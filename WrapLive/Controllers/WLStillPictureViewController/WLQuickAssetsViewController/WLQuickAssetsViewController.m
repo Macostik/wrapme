@@ -35,7 +35,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self loadAssets];
+    __weak typeof(self)weakSelf = self;
+    [self loadAssets:^{
+        BOOL preselectFirstAsset = NO;
+        if ([weakSelf.delegate respondsToSelector:@selector(quickAssetsViewControllerShouldPreselectFirstAsset:)]) {
+            preselectFirstAsset = [weakSelf.delegate quickAssetsViewControllerShouldPreselectFirstAsset:weakSelf];
+        }
+        if (preselectFirstAsset) {
+            [weakSelf performSelector:@selector(selectAsset:) withObject:[weakSelf.assets firstObject] afterDelay:0.0f];
+        }
+    }];
     
     __weak WLBasicDataSource *dataSource = self.dataSource;
     [dataSource setItemSizeBlock:^CGSize(id item, NSUInteger index) {
@@ -65,15 +74,16 @@
 }
 
 - (void)assetsLibraryChanged:(NSNotification*)notifiection {
-    [self loadAssets];
+    [self loadAssets:nil];
 }
 
-- (void)loadAssets {
+- (void)loadAssets:(WLBlock)success {
     __weak typeof(self)weakSelf = self;
     [[ALAssetsLibrary library] enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         if (group) {
             [group assets:^(NSArray *assets) {
                 weakSelf.assets = assets;
+                if (success) success();
             }];
             *stop = YES;
         }

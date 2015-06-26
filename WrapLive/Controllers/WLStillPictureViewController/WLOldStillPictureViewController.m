@@ -27,6 +27,13 @@
 
 @implementation WLOldStillPictureViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    if (self.startFromGallery) {
+        [self openGallery:YES animated:NO];
+    }
+}
+
 - (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
     __weak typeof(self)weakSelf = self;
     [self editImage:image completion:^ (UIImage *resultImage, NSString *comment) {

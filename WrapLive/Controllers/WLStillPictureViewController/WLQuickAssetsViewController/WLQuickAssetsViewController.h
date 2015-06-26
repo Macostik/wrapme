@@ -13,6 +13,9 @@
 @protocol WLQuickAssetsViewControllerDelegate <NSObject>
 
 @optional
+
+- (BOOL)quickAssetsViewControllerShouldPreselectFirstAsset:(WLQuickAssetsViewController*)controller;
+
 - (BOOL)quickAssetsViewController:(WLQuickAssetsViewController*)controller shouldSelectAsset:(ALAsset*)asset;
 
 - (void)quickAssetsViewController:(WLQuickAssetsViewController*)controller didSelectAsset:(ALAsset*)asset;

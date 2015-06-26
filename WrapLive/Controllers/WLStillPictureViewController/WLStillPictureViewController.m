@@ -53,10 +53,6 @@
     cameraViewController.wrap = self.wrap;
     self.cameraViewController = cameraViewController;
     
-    if (self.startFromGallery) {
-        [self openGallery:YES animated:NO];
-    }
-    
     if (self.mode == WLStillPictureModeDefault) {
         [[WLWrap notifier] addReceiver:self];
     }

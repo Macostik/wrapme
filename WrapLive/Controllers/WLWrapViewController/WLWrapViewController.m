@@ -124,7 +124,7 @@
             return weakSelf.wrap;
         }];
         receiver.didAddBlock = receiver.didDeleteBlock = ^(WLMessage *message) {
-            if (self.segmentedControl.selectedSegment != WLSegmentControlStateChat) {
+            if (weakSelf.segmentedControl.selectedSegment != WLSegmentControlStateChat) {
                 [weakSelf updateNotificationCouter];
             }
         };

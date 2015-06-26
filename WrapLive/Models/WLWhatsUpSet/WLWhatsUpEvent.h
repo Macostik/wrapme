@@ -13,7 +13,7 @@
 
 @property (nonatomic) WLEvent event;
 
-@property (weak, nonatomic) id contribution;
+@property (strong, nonatomic) id contribution;
 
 @property (readonly, nonatomic) NSDate *date;
 

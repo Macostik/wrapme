@@ -385,7 +385,12 @@
 		NSString* url = url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
 		return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
 	}, ^ (UIImage* image) {
-		completion(image, nil);
+        if (image) {
+            if (completion) completion();
+            if (result) result(image, nil);
+        } else {
+            if (failure) failure(nil);
+        }
 	});
 	return;
 #endif

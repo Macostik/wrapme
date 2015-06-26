@@ -86,6 +86,10 @@
     [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }
 
+- (IBAction)chatTabSelected:(id)sender {
+    self.messageCountLabel.intValue = 0;
+}
+
 // MARK: - WLEntryNotifyReceiver
 
 - (void)addNotifyReceivers {
@@ -155,12 +159,6 @@
 
 - (void)photosViewController:(WLPhotosViewController *)controller usedDataSource:(WLBasicDataSource *)dataSource {
     dataSource.animatableConstraints = [NSArray arrayWithObject:self.animatableConstraint];
-}
-
-// MARK: - WLChatViewControllerDelegate
-
-- (void)chatViewController:(WLChatViewController *)controller resetUnreageMessageCounter:(BOOL)reset {
-    self.messageCountLabel.intValue = reset ? 0 : [self.wrap unreadNotificationsMessageCount];
 }
 
 @end

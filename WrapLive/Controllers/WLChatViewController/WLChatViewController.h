@@ -10,16 +10,8 @@
 
 @class WLChatViewController;
 
-@protocol WLChatViewControllerDelegate <NSObject>
-
-- (void)chatViewController:(WLChatViewController *)controller resetUnreageMessageCounter:(BOOL)reset;
-
-@end
-
 @interface WLChatViewController : WLBaseViewController
 
 @property (nonatomic, weak) WLWrap* wrap;
-
-@property (weak, nonatomic) id <WLChatViewControllerDelegate> delegate;
 
 @end

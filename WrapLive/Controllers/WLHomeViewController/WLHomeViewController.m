@@ -13,7 +13,6 @@
 #import "UILabel+Additions.h"
 #import "UIView+AnimationHelper.h"
 #import "WLCandyViewController.h"
-#import "WLChatViewController.h"
 #import "WLHomeDataSource.h"
 #import "WLHomeViewController.h"
 #import "WLLoadingView.h"

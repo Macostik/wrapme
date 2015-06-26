@@ -37,10 +37,6 @@ CGFloat WLMaxTextViewWidth;
 
 @property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-
-@property (weak, nonatomic) IBOutlet UIView *topView;
-
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 
 @property (nonatomic, readonly) WLChatCollectionViewLayout* layout;
@@ -114,12 +110,6 @@ CGFloat WLMaxTextViewWidth;
     collectionView.layer.geometryFlipped = [self geometryFlipped];
     
     WLMaxTextViewWidth = WLConstants.screenWidth - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
-    
-	__weak typeof(self)weakSelf = self;
-    [self.wrap fetchIfNeeded:^(id object) {
-        weakSelf.titleLabel.text = [NSString stringWithFormat:WLLS(@"formatted_chat_in"), WLString(weakSelf.wrap.name)];
-    } failure:^(NSError *error) {
-    }];
 	
 	self.composeBar.placeholder = WLLS(@"message_placeholder");
     self.chat = [WLChat chatWithWrap:self.wrap];
@@ -151,9 +141,6 @@ CGFloat WLMaxTextViewWidth;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self scrollToLastUnreadMessage];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(chatViewController:resetUnreageMessageCounter:)]) {
-        [self.delegate chatViewController:self resetUnreageMessageCounter:YES];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

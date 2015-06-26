@@ -10,7 +10,6 @@
 #import "WLCandyViewController.h"
 #import "WLComposeBar.h"
 #import "WLRefresher.h"
-#import "WLChatViewController.h"
 #import "WLLoadingView.h"
 #import "UILabel+Additions.h"
 #import "WLWrapCell.h"

@@ -48,6 +48,7 @@
 - (void)dealloc {
     self.dataSource.collectionView.dataSource = nil;
     self.dataSource.collectionView.delegate = nil;
+    [self.dataSource.collectionView removeObserver:self forKeyPath:@"contentOffset" context:NULL];
 }
 
 - (void)viewDidLoad {
@@ -63,7 +64,7 @@
         if (index != NSNotFound && weakSelf.dataSource.collectionView.contentOffset.y != index * itemHeight) {
             [weakSelf.dataSource.collectionView setContentOffset:CGPointMake(0, index * itemHeight) animated:YES];
         } else {
-            [weakSelf.delegate wrapPickerViewController:weakSelf didSelectWrap:wrap];
+            [weakSelf.delegate wrapPickerViewControllerDidFinish:weakSelf];
         }
     }];
     
@@ -88,6 +89,22 @@
     }];
     
     [self.view addGestureRecognizer:self.dataSource.collectionView.panGestureRecognizer];
+    
+    [self.dataSource.collectionView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"contentOffset"]) {
+        NSOrderedSet *wraps = (NSOrderedSet*)self.dataSource.items;
+        if (wraps.nonempty) {
+            NSUInteger index = roundf(self.dataSource.collectionView.contentOffset.y / self.dataSource.itemSize.height);
+            WLWrap *wrap = [wraps tryObjectAtIndex:index];
+            if (wrap && wrap != self.wrap) {
+                self.wrap = wrap;
+                [self.delegate wrapPickerViewController:self didSelectWrap:wrap];
+            }
+        }
+    }
 }
 
 - (BOOL)shouldResizeUsingScreenBounds {
@@ -136,6 +153,7 @@
 
 - (void)addWrapPickerView:(WLAddWrapPickerView *)view didAddWrap:(WLWrap *)wrap {
     [self.delegate wrapPickerViewController:self didSelectWrap:wrap];
+    [self.delegate wrapPickerViewControllerDidFinish:self];
 }
 
 - (BOOL)addWrapPickerViewShouldBeginEditing:(WLAddWrapPickerView *)view {

@@ -16,6 +16,8 @@
 
 - (void)wrapPickerViewController:(WLWrapPickerViewController*)controller didSelectWrap:(WLWrap*)wrap;
 
+- (void)wrapPickerViewControllerDidFinish:(WLWrapPickerViewController*)controller;
+
 - (void)wrapPickerViewControllerDidCancel:(WLWrapPickerViewController*)controller;
 
 @end

@@ -257,16 +257,19 @@
 
 - (void)wrapPickerViewController:(WLWrapPickerViewController *)controller didSelectWrap:(WLWrap *)wrap {
     self.wrap = wrap;
-    [controller hide];
-    [self showHintView];
 }
 
 - (void)wrapPickerViewControllerDidCancel:(WLWrapPickerViewController *)controller {
     if (self.wrap) {
         [controller hide];
+        [self showHintView];
     } else {
         [self.delegate stillPictureViewControllerDidCancel:self];
     }
+}
+
+- (void)wrapPickerViewControllerDidFinish:(WLWrapPickerViewController *)controller {
+    [controller hide];
     [self showHintView];
 }
 

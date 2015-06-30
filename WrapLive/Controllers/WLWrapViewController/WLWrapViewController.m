@@ -152,6 +152,7 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
 
 - (BOOL)segmentedControl:(SegmentedControl*)control shouldSelectSegment:(NSInteger)segment {
     self.cameraButton.hidden = YES;
+    control.selectionOnTouchUp = YES;
     self.selectedSegment = segment;
     return YES;
 }

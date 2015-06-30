@@ -208,7 +208,7 @@
     [self cropImage:image completion:completion];
 }
 
-- (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
+- (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum{
     
 }
 
@@ -226,11 +226,11 @@
 
 // MARK: - WLCameraViewControllerDelegate
 
-- (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image metadata:(NSMutableDictionary*)metadata {
+- (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
     [self cropImage:image completion:^(UIImage *croppedImage) {
-        [weakSelf handleImage:croppedImage metadata:metadata saveToAlbum:YES];
+        [weakSelf handleImage:croppedImage metadata:metadata saveToAlbum:saveToAlbum];
         weakSelf.view.userInteractionEnabled = YES;
     }];
 }

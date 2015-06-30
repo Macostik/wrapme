@@ -42,6 +42,7 @@
     WLEditPicture *picture = [WLEditPicture picture:image mode:self.mode completion:^(WLEditPicture *picture) {
         weakSelf.view.userInteractionEnabled = YES;
     }];
+    picture.saveToAlbum = saveToAlbum;
     picture.date = [NSDate now];
     [self addPicture:picture success:^{
     } failure:^(NSError *error) {

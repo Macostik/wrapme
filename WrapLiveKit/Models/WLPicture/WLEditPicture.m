@@ -127,7 +127,7 @@
 }
 
 - (void)saveToAssetsIfNeeded {
-    if (self.assetID == nil) {
+    if (self.saveToAlbum && self.assetID == nil) {
         [self saveToAssets];
     }
 }

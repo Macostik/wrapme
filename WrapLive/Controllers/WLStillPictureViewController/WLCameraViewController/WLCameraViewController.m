@@ -167,6 +167,7 @@
             sender.active = YES;
         });
     } failure:^(NSError *error) {
+        sender.active = YES;
         weakSelf.view.userInteractionEnabled = YES;
         [error show];
     }];
@@ -223,7 +224,7 @@
 }
 
 - (void)finishWithImage:(UIImage*)image metadata:(NSMutableDictionary*)metadata {
-	[self.delegate cameraViewController:self didFinishWithImage:image metadata:metadata];
+    [self.delegate cameraViewController:self didFinishWithImage:image metadata:metadata saveToAlbum:YES];
 }
 
 - (IBAction)flashModeChanged:(WLFlashModeControl *)sender {
@@ -279,6 +280,24 @@
 	} completion:^(BOOL finished) {
 		[focusView removeFromSuperview];
 	}];
+}
+
+- (IBAction)getSamplePhoto:(id)sender {
+    self.view.userInteractionEnabled = NO;
+    self.takePhotoButton.active = NO;
+    __weak typeof(self)weakSelf = self;
+    run_getting_object(^id{
+        CGSize size = CGSizeMake(720, 720);
+        size = [UIScreen mainScreen].bounds.size;
+        NSString* url = url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
+        return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+    }, ^ (UIImage* image) {
+        if (image) {
+            [weakSelf.delegate cameraViewController:weakSelf didFinishWithImage:image metadata:nil saveToAlbum:NO];
+        }
+        weakSelf.takePhotoButton.active = YES;
+        weakSelf.view.userInteractionEnabled = YES;
+    });
 }
 
 #pragma mark - AVCaptureSession

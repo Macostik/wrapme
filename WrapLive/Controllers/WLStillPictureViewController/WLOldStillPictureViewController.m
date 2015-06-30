@@ -37,7 +37,7 @@
 - (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
     __weak typeof(self)weakSelf = self;
     [self editImage:image completion:^ (UIImage *resultImage, NSString *comment) {
-        if (saveToAlbum) [resultImage save:metadata];
+        if (saveToAlbum) [resultImage save:nil];
         weakSelf.view.userInteractionEnabled = NO;
         [WLEditPicture picture:resultImage mode:weakSelf.mode completion:^(WLEditPicture *picture) {
             picture.comment = comment;

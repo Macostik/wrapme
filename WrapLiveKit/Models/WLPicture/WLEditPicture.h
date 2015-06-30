@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) WLImageCache *cache;
 
+@property (nonatomic) BOOL saveToAlbum;
+
 @property (strong, nonatomic) NSString* assetID;
 
 @property (strong, nonatomic) NSDate* date;

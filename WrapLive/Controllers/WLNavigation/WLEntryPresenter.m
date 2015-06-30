@@ -120,6 +120,7 @@
 
 - (BOOL)isValidViewController:(UIViewController *)controller {
     if (![controller isKindOfClass:[WLWrapViewController class]]) return NO;
+    if ([(WLWrapViewController*)controller wrap] != self.wrap) return NO;
     if (([(id)controller selectedSegment] != WLSegmentControlStateChat)) return NO;
     return YES;
 }

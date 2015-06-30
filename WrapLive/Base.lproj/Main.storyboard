@@ -3107,6 +3107,8 @@ Tap here to start.</string>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="hUj-RK-zkg" id="yHX-3b-GmH"/>
+                                    <outletCollection property="gestureRecognizers" destination="6Cg-MM-fJT" appends="YES" id="vDY-rh-oDJ"/>
+                                    <outletCollection property="gestureRecognizers" destination="5YH-Mv-50c" appends="YES" id="vGL-af-Ol1"/>
                                 </connections>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEr-of-cGm">
@@ -3115,6 +3117,7 @@ Tap here to start.</string>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPi-5r-EKQ">
                                 <rect key="frame" x="118" y="480" width="84" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="84" id="Y8D-Tf-OmS"/>
                                     <constraint firstAttribute="height" constant="84" id="wgg-oQ-Ojd"/>
@@ -3150,13 +3153,25 @@ Tap here to start.</string>
                         <outlet property="animatableConstraint" destination="fZI-X5-yEI" id="XhV-eE-gpr"/>
                         <outlet property="cameraButton" destination="OPi-5r-EKQ" id="P4I-eG-hc7"/>
                         <outlet property="candyCountLabel" destination="m01-Ic-fcZ" id="jaU-NF-20F"/>
+                        <outlet property="leftSwipeRecognizer" destination="6Cg-MM-fJT" id="3wE-0d-9ye"/>
                         <outlet property="messageCountLabel" destination="z3d-ia-fy3" id="Hpz-4E-8bd"/>
                         <outlet property="nameLabel" destination="ek2-Bn-UN6" id="85h-Ef-Vvk"/>
                         <outlet property="navigationBar" destination="b0w-IA-ZYu" id="iww-eD-owf"/>
+                        <outlet property="rightSwipeRecognizer" destination="5YH-Mv-50c" id="MmC-Ln-7Ux"/>
                         <outlet property="segmentedControl" destination="aqT-yE-MER" id="XmX-dw-ROx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUq-C2-qrY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="6Cg-MM-fJT">
+                    <connections>
+                        <action selector="handleLeftRecognizer:" destination="hUj-RK-zkg" id="bdX-Fl-Hdb"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="5YH-Mv-50c">
+                    <connections>
+                        <action selector="handleRightRecognizer:" destination="hUj-RK-zkg" id="dhy-DT-5vo"/>
+                    </connections>
+                </swipeGestureRecognizer>
                 <customObject id="tj6-Hw-Hld" userLabel="Camera Transition" customClass="WLStoryboardTransition">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="storyboard" value="Camera"/>

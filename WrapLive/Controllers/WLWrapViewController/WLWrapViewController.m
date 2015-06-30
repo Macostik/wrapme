@@ -30,6 +30,8 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 @property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *animatableConstraint;
+@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *leftSwipeRecognizer;
+@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *rightSwipeRecognizer;
 
 @end
 
@@ -87,6 +89,26 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
     stillPictureViewController.delegate = self;
     stillPictureViewController.startFromGallery = NO;
     [self presentViewController:stillPictureViewController animated:NO completion:nil];
+}
+
+// MARK: - SwipeHandlerOfSegmentedControl
+
+- (IBAction)handleLeftRecognizer:(UISwipeGestureRecognizer *)recognizer {
+    if (self.segmentedControl.selectedSegment > WLSegmentControlStatePhotos) {
+        NSUInteger selectedSegment = --self.segmentedControl.selectedSegment;
+        id segment = [self.segmentedControl controlForSegment:selectedSegment];
+        [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
+        self.selectedSegment = selectedSegment;
+    }
+}
+
+- (IBAction)handleRightRecognizer:(UISwipeGestureRecognizer *)recognizer {
+    if (self.segmentedControl.selectedSegment < WLSegmentControlStateFriend) {
+        NSUInteger selectedSegment = ++self.segmentedControl.selectedSegment;
+        id segment = [self.segmentedControl controlForSegment:selectedSegment];
+        [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
+        self.selectedSegment = selectedSegment;
+    }
 }
 
 // MARK: - WLEntryNotifyReceiver

@@ -3114,24 +3114,6 @@ Tap here to start.</string>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEr-of-cGm">
                                 <rect key="frame" x="0.0" y="108" width="320" height="460"/>
                             </containerView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPi-5r-EKQ">
-                                <rect key="frame" x="118" y="480" width="84" height="84"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="84" id="Y8D-Tf-OmS"/>
-                                    <constraint firstAttribute="height" constant="84" id="wgg-oQ-Ojd"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="61"/>
-                                <state key="normal" backgroundImage="btn_wrap_camera_enabled">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
-                                <connections>
-                                    <action selector="addPhoto:" destination="hUj-RK-zkg" eventType="touchUpInside" id="7db-3b-LPs"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -3141,17 +3123,13 @@ Tap here to start.</string>
                             <constraint firstItem="aqT-yE-MER" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" id="TxK-wP-QfJ"/>
                             <constraint firstAttribute="trailing" secondItem="rEr-of-cGm" secondAttribute="trailing" id="aqv-MO-djY"/>
                             <constraint firstItem="b0w-IA-ZYu" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" id="cit-wi-bUk"/>
-                            <constraint firstItem="Lgc-8H-MWM" firstAttribute="top" secondItem="OPi-5r-EKQ" secondAttribute="bottom" constant="4" id="fZI-X5-yEI"/>
                             <constraint firstItem="rEr-of-cGm" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" id="fzL-17-7NV"/>
                             <constraint firstItem="rEr-of-cGm" firstAttribute="height" secondItem="f6K-dz-2Hs" secondAttribute="height" constant="-108" id="g3A-em-iLk"/>
-                            <constraint firstAttribute="centerX" secondItem="OPi-5r-EKQ" secondAttribute="centerX" id="j2E-SI-ALx"/>
                             <constraint firstAttribute="trailing" secondItem="b0w-IA-ZYu" secondAttribute="trailing" id="orp-vP-j89"/>
                             <constraint firstItem="rEr-of-cGm" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="bottom" id="xRx-pe-7Zd"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="animatableConstraint" destination="fZI-X5-yEI" id="XhV-eE-gpr"/>
-                        <outlet property="cameraButton" destination="OPi-5r-EKQ" id="P4I-eG-hc7"/>
                         <outlet property="candyCountLabel" destination="m01-Ic-fcZ" id="jaU-NF-20F"/>
                         <outlet property="leftSwipeRecognizer" destination="6Cg-MM-fJT" id="3wE-0d-9ye"/>
                         <outlet property="messageCountLabel" destination="z3d-ia-fy3" id="Hpz-4E-8bd"/>
@@ -4941,10 +4919,30 @@ QWRkEEZyaWVuZFZpZXc
                                     <outlet property="delegate" destination="R4B-e5-fki" id="V77-aX-u4s"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNO-TY-VYu">
+                                <rect key="frame" x="118" y="480" width="84" height="84"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="NZ8-CV-V6c"/>
+                                    <constraint firstAttribute="height" constant="84" id="xWO-9U-Le4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="61"/>
+                                <state key="normal" backgroundImage="btn_wrap_camera_enabled">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
+                                <connections>
+                                    <action selector="addPhoto:" destination="Eg5-Ne-qmp" eventType="touchUpInside" id="d2i-r9-nOQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="PNO-TY-VYu" secondAttribute="bottom" constant="4" id="CrN-KF-fsR"/>
                             <constraint firstItem="a7y-ca-xlT" firstAttribute="top" secondItem="3DU-Zj-0y1" secondAttribute="bottom" id="ShD-Sj-J8h"/>
+                            <constraint firstAttribute="centerX" secondItem="PNO-TY-VYu" secondAttribute="centerX" id="UTb-fY-Pq4"/>
                             <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="a7y-ca-xlT" secondAttribute="bottom" id="bOH-HL-fTo"/>
                             <constraint firstItem="a7y-ca-xlT" firstAttribute="leading" secondItem="z88-8Q-V7N" secondAttribute="leading" id="bpB-z8-43g"/>
                             <constraint firstAttribute="trailing" secondItem="a7y-ca-xlT" secondAttribute="trailing" id="v5U-VC-oWc"/>
@@ -4952,6 +4950,7 @@ QWRkEEZyaWVuZFZpZXc
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="bottomConstraint" destination="CrN-KF-fsR" id="fMk-Pc-Azo"/>
                         <outlet property="collectionView" destination="a7y-ca-xlT" id="Fgn-6b-Eot"/>
                         <outlet property="dataSource" destination="R4B-e5-fki" id="nPm-NP-w5V"/>
                     </connections>
@@ -4962,6 +4961,7 @@ QWRkEEZyaWVuZFZpZXc
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="a7y-ca-xlT" id="Kqj-20-dlF"/>
+                        <outletCollection property="animatableConstraints" destination="CrN-KF-fsR" id="JLY-z0-7Pl"/>
                     </connections>
                 </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXa-Fb-BfF" userLabel="First Responder" sceneMemberID="firstResponder"/>

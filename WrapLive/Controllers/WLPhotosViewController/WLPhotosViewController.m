@@ -28,11 +28,13 @@
 #import "WLNavigationHelper.h"
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
+static CGFloat WLBottomIndentCameraButton = 4.0;
 
 @interface WLPhotosViewController () <WLPresentingImageViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
 
 @property (strong, nonatomic) WLHistory *history;
 
@@ -90,17 +92,28 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     }
 }
 
+// MARK: - User Actions
+
+- (IBAction)addPhoto:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(photosViewController:didTouchCameraButton:)]) {
+        [self.delegate photosViewController:self didTouchCameraButton:sender];
+    }
+}
+
 // MARK: - Custom animation
 
 - (void)dropDownCollectionView {
     self.collectionView.transform = CGAffineTransformMakeTranslation(0, -self.view.height);
+    UIView *cameraButton = self.bottomConstraint.secondItem;
+    self.bottomConstraint.constant -= WLBottomIndentCameraButton + cameraButton.height;
     [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
         [self.collectionView setMinimumContentOffsetAnimated:NO];
         self.collectionView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(photosViewController:usedDataSource:)]) {
-            [self.delegate photosViewController:self usedDataSource:self.dataSource];
-        }
+        [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
+            self.bottomConstraint.constant = WLBottomIndentCameraButton;
+            [cameraButton layoutIfNeeded];
+        } completion:nil];
     }];
 }
 

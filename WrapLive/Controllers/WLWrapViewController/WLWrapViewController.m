@@ -20,16 +20,12 @@
 #import "WLChatViewController.h"
 #import "WLWhatsUpSet.h"
 
-static CGFloat WLBottomIndentCameraButton = 4.0;
-
 @interface WLWrapViewController ()  <WLStillPictureViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *candyCountLabel;
-@property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 @property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *animatableConstraint;
 @property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *leftSwipeRecognizer;
 @property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *rightSwipeRecognizer;
 
@@ -59,14 +55,12 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
 - (void)viewWillAppear:(BOOL)animated {
     [self updateWrapData];
     [self updateNotificationCouter];
-     self.cameraButton.hidden = NO;
     [self viewShowed];
 }
 
 - (void)viewShowed {
     if (self.selectedSegment != self.segmentedControl.selectedSegment) {
         [self.segmentedControl setSelectedSegment:self.selectedSegment];
-        self.cameraButton.hidden = !(self.selectedSegment == WLSegmentControlStatePhotos);
         id segment = [self.segmentedControl controlForSegment:self.selectedSegment];
         [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
     }
@@ -78,17 +72,6 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
 
 - (void)updateNotificationCouter {
     self.messageCountLabel.intValue = [self.wrap unreadNotificationsMessageCount];
-}
-
-// MARK: - User Actions
-
-- (IBAction)addPhoto:(id)sender {
-    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPictureViewController];
-    stillPictureViewController.wrap = self.wrap;
-    stillPictureViewController.mode = WLStillPictureModeDefault;
-    stillPictureViewController.delegate = self;
-    stillPictureViewController.startFromGallery = NO;
-    [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }
 
 // MARK: - SwipeHandlerOfSegmentedControl
@@ -180,7 +163,6 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
 // MARK: - Custom animation
 
 - (BOOL)segmentedControl:(SegmentedControl*)control shouldSelectSegment:(NSInteger)segment {
-    self.cameraButton.hidden = YES;
     control.selectionOnTouchUp = YES;
     self.selectedSegment = segment;
     return YES;
@@ -188,10 +170,13 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
 
 // MARK: - WLPhotoViewControllerDelegate
 
-- (void)photosViewController:(WLPhotosViewController *)controller usedDataSource:(WLBasicDataSource *)dataSource {
-    self.animatableConstraint.constant = WLBottomIndentCameraButton;
-    dataSource.animatableConstraints = [NSArray arrayWithObject:self.animatableConstraint];
-    self.cameraButton.hidden = self.selectedSegment!= WLSegmentControlStatePhotos;
+- (void)photosViewController:(WLPhotosViewController *)controller didTouchCameraButton:(UIButton *)sender {
+    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPictureViewController];
+    stillPictureViewController.wrap = self.wrap;
+    stillPictureViewController.mode = WLStillPictureModeDefault;
+    stillPictureViewController.delegate = self;
+    stillPictureViewController.startFromGallery = NO;
+    [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }
 
 @end

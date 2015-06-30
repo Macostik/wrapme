@@ -12,7 +12,7 @@
 
 @protocol WLPhotosViewControllerDelegate <NSObject>
 
-- (void)photosViewController:(WLPhotosViewController *)controller usedDataSource:(WLBasicDataSource *)dataSource;
+- (void)photosViewController:(WLPhotosViewController *)controller didTouchCameraButton:(WLBasicDataSource *)dataSource;
 
 @end
 

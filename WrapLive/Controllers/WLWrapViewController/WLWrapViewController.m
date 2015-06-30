@@ -9,7 +9,6 @@
 
 #import "WLWrapViewController.h"
 #import "WLStillPictureViewController.h"
-#import "WLEditWrapViewController.h"
 #import "WLNavigationHelper.h"
 #import "WLPhotosViewController.h"
 #import "WLBadgeLabel.h"

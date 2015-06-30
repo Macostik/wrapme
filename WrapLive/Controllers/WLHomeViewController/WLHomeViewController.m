@@ -25,7 +25,6 @@
 #import "WLWrapViewController.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLRemoteEntryHandler.h"
-#import "WLEditWrapViewController.h"
 #import "WLUploadingView.h"
 #import "WLAddressBook.h"
 #import "WLIntroductionViewController.h"
@@ -267,15 +266,6 @@
 }
 
 // MARK: - WLWrapCellDelegate
-
-- (void)wrapCell:(WLWrapCell *)wrapCell didDeleteWrap:(WLWrap *)wrap {
-    if (wrap.valid) {
-        WLEditWrapViewController *editWrapViewController = [[WLEditWrapViewController alloc] initWithNibName:@"WLWrapOptionsViewController"
-                                                                                                      bundle:nil];
-        editWrapViewController.wrap = wrap;
-        [self presentViewController:editWrapViewController animated:NO completion:nil];
-    }
-}
 
 - (void)wrapCellDidBeginPanning:(WLWrapCell *)wrapCell {
     [self.collectionView lockReloadingData];

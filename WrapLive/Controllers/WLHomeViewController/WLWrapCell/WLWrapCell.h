@@ -18,7 +18,6 @@ static NSUInteger WLChatIndicatorWidth = 57;
 
 @protocol WLWrapCellDelegate <NSObject>
 
-- (void)wrapCell:(WLWrapCell *)wrapCell didDeleteWrap:(WLWrap *)wrap;
 - (void)wrapCellDidBeginPanning:(WLWrapCell *)wrapCell;
 - (void)wrapCellDidEndPanning:(WLWrapCell *)wrapCell performedAction:(BOOL)performedAction;
 - (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(WLWrap *)wrap;

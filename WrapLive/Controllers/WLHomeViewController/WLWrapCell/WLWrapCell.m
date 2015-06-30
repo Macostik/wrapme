@@ -74,13 +74,6 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
     
-    __weak __typeof(self)weakSelf = self;
-    [UILongPressGestureRecognizer recognizerWithView:self block:^(UIGestureRecognizer *recognizer) {
-        if (recognizer.state == UIGestureRecognizerStateBegan) {
-            [weakSelf.delegate wrapCell:weakSelf didDeleteWrap:weakSelf.entry];
-        }
-    }];
-    
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panning:)];
     panGestureRecognizer.delegate = self;
     [self.nameLabel.superview addGestureRecognizer:panGestureRecognizer];

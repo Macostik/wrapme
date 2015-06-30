@@ -312,12 +312,15 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
     
+    __block BOOL completed = NO;
     UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithExpirationHandler:^{
-        if (reply) reply(@{@"success":@NO,@"message":@"Background task expired."});
+        if (!completed && reply) reply(@{@"success":@NO,@"message":@"Background task expired."});
+        completed = YES;
     }];
     
     void (^completion) (NSDictionary*) = ^ (NSDictionary *replyInfo) {
-        if (reply) reply(replyInfo);
+        if (!completed && reply) reply(replyInfo);
+        completed = YES;
         [application endBackgroundTask:task];
     };
     
@@ -370,7 +373,7 @@ static WLDataBlock deviceTokenCompletion = nil;
                         completion(@{@"success":@NO,@"message":@"No data."});
                     }
                 } else {
-                    completion(@{@"success":@NO,@"message":@"This notification type isn't supperted."});
+                    completion(@{@"success":@NO,@"message":@"This notification type isn't supported."});
                 }
             } failure:^(NSError *error) {
                 completion(@{@"success":@NO,@"message":error.localizedDescription?:@""});

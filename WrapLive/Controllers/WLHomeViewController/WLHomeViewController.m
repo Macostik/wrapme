@@ -56,8 +56,6 @@
 
 @property (nonatomic) BOOL createWrapTipHidden;
 
-@property (nonatomic) BOOL canReloadCollectionView;
-
 @end
 
 @implementation WLHomeViewController
@@ -103,14 +101,8 @@
     [self.collectionView lockReloadingData];
     [queue setFinishQueueBlock:^{
         [weakSelf.collectionView unlockReloadingData];
-        if (weakSelf.canReloadCollectionView) {
-            queue.finishQueueBlock = nil;
-        }
+        queue.finishQueueBlock = nil;
     }];
-    
-    run_after(3, ^{
-        weakSelf.canReloadCollectionView = YES;
-    });
     
     [dataSource setSelectionBlock:^(id entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:NO];

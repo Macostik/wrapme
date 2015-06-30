@@ -313,11 +313,11 @@ CGFloat WLMaxTextViewWidth;
     runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
         if (!chat.showTypingView && CGPointEqualToPoint(weakSelf.collectionView.contentOffset, weakSelf.collectionView.minimumContentOffset) && user.valid) {
             CGPoint minimumContentOffset = weakSelf.collectionView.minimumContentOffset;
-                [self.collectionView setContentOffset:CGPointMake(minimumContentOffset.x, minimumContentOffset.y + [self heightOfTypingCell:chat]) animated:YES];
+                [weakSelf.collectionView setContentOffset:CGPointMake(minimumContentOffset.x, minimumContentOffset.y + [weakSelf heightOfTypingCell:chat]) animated:YES];
             run_after(1.0, ^{
                 [weakSelf.collectionView reloadData];
                 [operation finish];
-                self.collectionView.contentOffset = minimumContentOffset;
+                weakSelf.collectionView.contentOffset = minimumContentOffset;
             });
         } else {
             [weakSelf.collectionView reloadData];

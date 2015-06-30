@@ -59,6 +59,7 @@
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
@@ -2837,11 +2838,38 @@ Tap here to start.</string>
                                                     <constraint firstAttribute="height" constant="2" id="RXG-H3-NfS"/>
                                                 </constraints>
                                             </view>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="18" translatesAutoresizingMaskIntoConstraints="NO" id="m01-Ic-fcZ" customClass="WLBadgeLabel">
+                                                <rect key="frame" x="12" y="6" width="18" height="18"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="18" id="C8Z-65-XaU"/>
+                                                    <constraint firstAttribute="height" constant="18" id="Uls-Pu-mpz"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="14"/>
+                                                <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="9"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="widthConstraint" destination="C8Z-65-XaU" id="5bn-yc-0cD"/>
+                                                </connections>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="centerX" secondItem="qWI-hh-ZZb" secondAttribute="centerX" id="Ebf-7y-ZNY"/>
+                                            <constraint firstItem="m01-Ic-fcZ" firstAttribute="top" secondItem="qWI-hh-ZZb" secondAttribute="top" constant="-6" id="MNe-D8-52C"/>
                                             <constraint firstAttribute="centerY" secondItem="qWI-hh-ZZb" secondAttribute="centerY" id="Y6w-Vv-mm1"/>
+                                            <constraint firstItem="m01-Ic-fcZ" firstAttribute="leading" secondItem="qWI-hh-ZZb" secondAttribute="leading" constant="-6" id="dyX-Lc-b9d"/>
                                             <constraint firstAttribute="trailing" secondItem="gce-v5-9VK" secondAttribute="trailing" id="tY5-ma-utw"/>
                                             <constraint firstItem="gce-v5-9VK" firstAttribute="leading" secondItem="dlX-4m-vRl" secondAttribute="leading" id="vdQ-RW-WwJ"/>
                                             <constraint firstAttribute="bottom" secondItem="gce-v5-9VK" secondAttribute="bottom" id="y19-YW-5ZU"/>
@@ -2864,6 +2892,7 @@ Tap here to start.</string>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="addChild:" destination="bCh-Zb-Y2B" eventType="touchUpInside" id="pla-fb-9Qr"/>
+                                            <action selector="photosTabSelected:" destination="hUj-RK-zkg" eventType="touchUpInside" id="kBq-DB-Ejv"/>
                                             <outlet property="singalView" destination="gce-v5-9VK" id="448-gB-T1y"/>
                                             <outletCollection property="buttonContainer" destination="vBf-Om-hs7" id="3st-Tw-9bl"/>
                                             <outletCollection property="buttonContainer" destination="Exo-Pi-XRe" id="sWV-RH-sCh"/>
@@ -2966,7 +2995,7 @@ Tap here to start.</string>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="addChild:" destination="ZQ7-eu-zrn" eventType="touchUpInside" id="1nX-gv-WiQ"/>
-                                            <action selector="chatTabSelected:" destination="hUj-RK-zkg" eventType="touchUpInside" id="4Z9-qq-cMm"/>
+                                            <action selector="chatTabSeleced:" destination="hUj-RK-zkg" eventType="touchUpInside" id="JOD-A2-R12"/>
                                             <outlet property="singalView" destination="pOE-uq-b8h" id="Ccn-vm-1N1"/>
                                             <outletCollection property="buttonContainer" destination="9sT-hL-fQk" id="I3T-g1-cQd"/>
                                             <outletCollection property="buttonContainer" destination="nwc-oQ-LVZ" id="1p0-Um-l7z"/>
@@ -3120,6 +3149,7 @@ Tap here to start.</string>
                     <connections>
                         <outlet property="animatableConstraint" destination="fZI-X5-yEI" id="XhV-eE-gpr"/>
                         <outlet property="cameraButton" destination="OPi-5r-EKQ" id="P4I-eG-hc7"/>
+                        <outlet property="candyCountLabel" destination="m01-Ic-fcZ" id="jaU-NF-20F"/>
                         <outlet property="messageCountLabel" destination="z3d-ia-fy3" id="Hpz-4E-8bd"/>
                         <outlet property="nameLabel" destination="ek2-Bn-UN6" id="85h-Ef-Vvk"/>
                         <outlet property="navigationBar" destination="b0w-IA-ZYu" id="iww-eD-owf"/>

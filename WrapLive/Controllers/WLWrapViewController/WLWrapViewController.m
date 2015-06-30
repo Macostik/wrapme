@@ -18,6 +18,7 @@
 #import "WLBasicDataSource.h"
 #import "WLEntryPresenter.h"
 #import "WLChatViewController.h"
+#import "WLWhatsUpSet.h"
 
 static CGFloat WLBottomIndentCameraButton = 4.0;
 
@@ -25,6 +26,7 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
+@property (weak, nonatomic) IBOutlet WLBadgeLabel *candyCountLabel;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 @property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *animatableConstraint;
@@ -87,10 +89,6 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
     [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }
 
-- (IBAction)chatTabSelected:(id)sender {
-    self.messageCountLabel.intValue = 0;
-}
-
 // MARK: - WLEntryNotifyReceiver
 
 - (void)addNotifyReceivers {
@@ -114,9 +112,10 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
             return weakSelf.wrap;
         }];
         [receiver setDidAddBlock:^(WLCandy *candy) {
-            if ([weakSelf isViewLoaded]) {
+            if ([weakSelf isViewLoaded] && weakSelf.selectedSegment == WLSegmentControlStatePhotos) {
                 [candy markAsRead];
             }
+            weakSelf.candyCountLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:weakSelf.wrap];
         }];
     }];
     
@@ -130,6 +129,14 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
             }
         };
     }];
+}
+
+- (IBAction)photosTabSelected:(id)sender {
+    self.candyCountLabel.intValue = 0;
+}
+
+- (IBAction)chatTabSeleced:(id)sender {
+      self.messageCountLabel.intValue = 0;
 }
 
 // MARK: - WLStillPictureViewControllerDelegate

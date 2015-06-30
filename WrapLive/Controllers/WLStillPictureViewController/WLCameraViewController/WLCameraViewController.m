@@ -287,8 +287,8 @@
     self.takePhotoButton.active = NO;
     __weak typeof(self)weakSelf = self;
     run_getting_object(^id{
-        CGSize size = CGSizeMake(720, 720);
-        size = [UIScreen mainScreen].bounds.size;
+        CGFloat width = [UIScreen mainScreen].bounds.size.width;
+        CGSize size = CGSizeMake(width, width / 0.75);
         NSString* url = url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
         return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
     }, ^ (UIImage* image) {
@@ -400,8 +400,8 @@
 - (void)captureImage:(WLBlock)completion result:(void (^)(UIImage*image, NSMutableDictionary* metadata))result failure:(WLFailureBlock)failure {
 #if TARGET_IPHONE_SIMULATOR
 	run_getting_object(^id{
-        CGSize size = CGSizeMake(720, 720);
-        size = [UIScreen mainScreen].bounds.size;
+        CGFloat width = [UIScreen mainScreen].bounds.size.width;
+        CGSize size = CGSizeMake(width, width / 0.75);
 		NSString* url = url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
 		return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
 	}, ^ (UIImage* image) {

@@ -8,10 +8,13 @@
 
 #import "WLOperation.h"
 #import "WLOperationQueue.h"
+#import "NSString+Additions.h"
 
 @interface WLOperation ()
 
-@property (strong, nonatomic) NSTimer* timer;
+@property (strong, nonatomic) NSTimer *timer;
+
+@property (strong, nonatomic) NSString *identifier;
 
 @end
 
@@ -32,9 +35,13 @@
 - (void)start {
     if (self.block) {
         self.executing = YES;
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(finish) userInfo:@{@"schedulingDate":[NSDate date]} repeats:NO];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(timeout:) userInfo:@{@"schedulingDate":[NSDate date]} repeats:NO];
         self.block(self);
         self.block = nil;
+#ifdef DEBUG
+        self.identifier = GUID();
+        NSLog(@"WLOperation started: %@", self.identifier);
+#endif
     } else {
         [self finish];
     }
@@ -55,10 +62,20 @@
 
 - (void)timeout:(NSTimer*)timer {
     WLLog(@"WRAPLIVEKIT", @"WLOperation timeout", timer.userInfo);
+#ifdef DEBUG
+    if (self.identifier) {
+        NSLog(@"WLOperation timeout: %@", self.identifier);
+    }
+#endif
     [self finish];
 }
 
 - (void)finish {
+#ifdef DEBUG
+    if (self.identifier) {
+        NSLog(@"WLOperation finished: %@", self.identifier);
+    }
+#endif
     self.timer = nil;
     self.executing = NO;
     self.finished = YES;

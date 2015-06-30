@@ -61,7 +61,7 @@
     [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
     NSPersistentStoreCoordinator *coordinator = [self coordinator];
     if (coordinator != nil) {
-        _context = [[NSManagedObjectContext alloc] init];
+        _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         [_context setPersistentStoreCoordinator:coordinator];
         _context.mergePolicy = [[WLMergePolicy alloc] initWithMergeType:NSOverwriteMergePolicyType];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:NSManagedObjectContextObjectsDidChangeNotification object:_context];
@@ -220,11 +220,13 @@
     __weak typeof(self)weakSelf = self;
     run_after_asap(^{
         if ([weakSelf.context hasChanges] && weakSelf.coordinator.persistentStores.nonempty) {
-            NSError* error = nil;
-            [weakSelf.context save:&error];
-            if (error) {
-                WLLog(@"CoreData", @"save error", error);
-            }
+            [weakSelf.context performBlock:^{
+                NSError* error = nil;
+                [weakSelf.context save:&error];
+                if (error) {
+                    WLLog(@"CoreData", @"save error", error);
+                }
+            }];
         }
     });
 }

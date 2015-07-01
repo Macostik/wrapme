@@ -26,6 +26,8 @@
 
 @property (strong, nonatomic) NSOrderedSet* handledNotifications;
 
+@property (strong, nonatomic) NSMutableArray* enqueuedMessages;
+
 @end
 
 @implementation WLNotificationCenter
@@ -105,6 +107,7 @@
 }
 
 - (void)setup {
+    self.enqueuedMessages = [NSMutableArray array];
 	[PubNub setupWithConfiguration:[WLNotificationCenter configuration] andDelegate:self];
 }
 
@@ -123,23 +126,48 @@
         __weak typeof(self)weakSelf = self;
         [self.userChannel enableAPNS];
         [self.userChannel observeMessages:^(PNMessage *message) {
-            WLEntryNotification *notification = [WLEntryNotification notificationWithMessage:message];
-            
-            if (notification && ![weakSelf isAlreadyHandledNotification:notification]) {
-                runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-                    [weakSelf handleNotification:notification completion:^{
-                        [operation finish];
-                    }];
-                });
-                [weakSelf addHandledNotifications:@[notification]];
-            }
-            
-            WLLog(@"PUBNUB", ([NSString stringWithFormat:@"direct message received %@", notification]), notification.entryData);
+            [weakSelf.enqueuedMessages addObject:message];
+            [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(handleEnqueuedMessages) object:nil];
+            [weakSelf performSelector:@selector(handleEnqueuedMessages) withObject:nil afterDelay:0.5];
         }];
     } else if (!self.userChannel.subscribed) {
         [self.userChannel subscribe];
     }
     [self requestHistory];
+}
+
+- (void)handleEnqueuedMessages {
+    NSArray *messages = [self.enqueuedMessages copy];
+    [self.enqueuedMessages removeAllObjects];
+    NSArray *notifications = [self notificationsFromMessages:messages];
+    if (notifications.nonempty) {
+        NSLog(@"%lu", (unsigned long)notifications.count);
+        NSMutableIndexSet *playedSoundTypes = [NSMutableIndexSet indexSet];
+        
+        for (WLEntryNotification *notification in notifications) {
+            [notification prepare];
+        }
+        
+        for (WLEntryNotification *notification in notifications) {
+            runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+                [notification fetch:^{
+                    if (![playedSoundTypes containsIndex:notification.type]) [WLSoundPlayer playSoundForNotification:notification];
+                    [playedSoundTypes addIndex:notification.type];
+                    [operation finish];
+                } failure:^(NSError *error) {
+                    [operation finish];
+                }];
+            });
+            WLLog(@"PUBNUB", ([NSString stringWithFormat:@"direct message received %@", notification]), notification.entryData);
+        }
+        
+        runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+            for (WLEntryNotification *notification in notifications) {
+                [notification finalize];
+            }
+            [operation finish];
+        });
+    }
 }
 
 - (void)clear {
@@ -154,7 +182,7 @@
 }
 
 - (void)handleNotification:(WLEntryNotification*)notification completion:(WLBlock)completion {
-    [notification fetch:^{
+    [notification handle:^{
         [WLSoundPlayer playSoundForNotification:notification];
         if (completion) completion();
     } failure:^(NSError *error) {
@@ -225,6 +253,10 @@
         NSMutableIndexSet *playedSoundTypes = [NSMutableIndexSet indexSet];
         
         for (WLEntryNotification *notification in notifications) {
+            [notification prepare];
+        }
+        
+        for (WLEntryNotification *notification in notifications) {
             runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
                 [notification fetch:^{
                     if (![playedSoundTypes containsIndex:notification.type]) [WLSoundPlayer playSoundForNotification:notification];
@@ -236,6 +268,14 @@
             });
             WLLog(@"PUBNUB", ([NSString stringWithFormat:@"history message received %@", notification]), notification.entryData);
         }
+        
+        runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+            for (WLEntryNotification *notification in notifications) {
+                [notification finalize];
+            }
+            [operation finish];
+        });
+        
         WLNotification *notification = [notifications lastObject];
         NSDate *notificationDate = notification.date;
         self.historyDate = notificationDate ? [notificationDate dateByAddingTimeInterval:NSINTEGER_DEFINED] : to;
@@ -256,6 +296,10 @@
     if (!notifications.nonempty) return nil;
     
     [self addHandledNotifications:notifications];
+    
+    if (notifications.count == 1) {
+        return [notifications copy];
+    }
     
     NSArray *deleteNotifications = [notifications objectsWhere:@"event == %d", WLEventDelete];
     
@@ -324,7 +368,7 @@
                 if ([self isAlreadyHandledNotification:notification]) {
                     if (success) success(notification);
                 } else {
-                    [notification fetch:^ {
+                    [notification handle:^ {
                         [weakSelf addHandledNotifications:@[notification]];
                         if (success) success(notification);
                     } failure:failure];

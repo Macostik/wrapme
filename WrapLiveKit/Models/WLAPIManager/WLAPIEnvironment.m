@@ -16,7 +16,7 @@
                                            @"version":@"5",
                                            @"url_scheme":@"wrapliveadhoc"},
              WLAPIEnvironmentDevelopment:@{@"endpoint":@"https://dev-api.wraplive.com/api",
-                                           @"version":@"5",
+                                           @"version":@"6",
                                            @"url_scheme":@"wrapliveadhoc"},
              WLAPIEnvironmentQA:@{@"endpoint":@"https://qa-api.wraplive.com/api",
                                   @"version":@"5",

@@ -42,11 +42,17 @@
 
 - (void)prepareForDeleteNotification:(WLEntryNotification *)notification;
 
-- (void)finalizeAddNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler;
+- (void)fetchAddNotification:(WLEntryNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure;
 
-- (void)finalizeUpdateNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler;
+- (void)fetchUpdateNotification:(WLEntryNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure;
 
-- (void)finalizeDeleteNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler;
+- (void)fetchDeleteNotification:(WLEntryNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure;
+
+- (void)finalizeAddNotification:(WLEntryNotification *)notification;
+
+- (void)finalizeUpdateNotification:(WLEntryNotification *)notification;
+
+- (void)finalizeDeleteNotification:(WLEntryNotification *)notification;
 
 @end
 

@@ -104,7 +104,7 @@
     if (!_targetEntry) {
         [self createTargetEntry];
     }
-    return _targetEntry;
+    return _targetEntry.valid ? _targetEntry : nil;
 }
 
 - (void)createTargetEntry {
@@ -164,6 +164,42 @@
     _targetEntry = targetEntry;
 }
 
+- (void)prepare {
+    WLEvent event = self.event;
+    
+    WLEntry* targetEntry = [self targetEntry];
+    
+    if (!targetEntry) {
+        return;
+    }
+    
+    if (event == WLEventAdd) {
+        [targetEntry prepareForAddNotification:self];
+    } else if (event == WLEventUpdate) {
+        [targetEntry prepareForUpdateNotification:self];
+    } else if (event == WLEventDelete) {
+        [targetEntry prepareForDeleteNotification:self];
+    }
+}
+
+- (void)finalize {
+    WLEvent event = self.event;
+    
+    WLEntry* targetEntry = [self targetEntry];
+    
+    if (!targetEntry) {
+        return;
+    }
+    
+    if (event == WLEventAdd) {
+        [targetEntry finalizeAddNotification:self];
+    } else if (event == WLEventUpdate) {
+        [targetEntry finalizeUpdateNotification:self];
+    } else if (event == WLEventDelete) {
+        [targetEntry finalizeDeleteNotification:self];
+    }
+}
+
 - (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure {
     __weak __typeof(self)weakSelf = self;
     
@@ -176,24 +212,17 @@
     
     WLEntry* targetEntry = [weakSelf targetEntry];
     
-    if (!targetEntry.valid) {
+    if (!targetEntry) {
         if (success) success();
         return;
     }
     
     if (event == WLEventAdd) {
-        [targetEntry prepareForAddNotification:weakSelf];
-        [targetEntry recursivelyFetchIfNeeded:^{
-            [targetEntry finalizeAddNotification:weakSelf completionHandler:success];
-        } failure:failure];
+        [targetEntry fetchAddNotification:self success:success failure:failure];
     } else if (event == WLEventUpdate) {
-        [targetEntry prepareForUpdateNotification:weakSelf];
-        [targetEntry fetch:^(id object) {
-            [targetEntry finalizeUpdateNotification:weakSelf completionHandler:success];
-        } failure:failure];
+        [targetEntry fetchUpdateNotification:self success:success failure:failure];
     } else if (event == WLEventDelete) {
-        [targetEntry prepareForDeleteNotification:weakSelf];
-        [targetEntry finalizeDeleteNotification:weakSelf completionHandler:success];
+        [targetEntry fetchDeleteNotification:self success:success failure:failure];
     }
 }
 
@@ -246,19 +275,30 @@
     
 }
 
-- (void)finalizeAddNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+- (void)fetchAddNotification:(WLEntryNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
+    [self recursivelyFetchIfNeeded:success failure:failure];
+}
+
+- (void)fetchUpdateNotification:(WLEntryNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
+    [self fetch:^(id object) {
+        if (success) success();
+    } failure:failure];
+}
+
+- (void)fetchDeleteNotification:(WLEntryNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
+    if (success) success();
+}
+
+- (void)finalizeAddNotification:(WLEntryNotification *)notification {
     [self notifyOnAddition:nil];
-    if (completionHandler) completionHandler();
 }
 
-- (void)finalizeUpdateNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+- (void)finalizeUpdateNotification:(WLEntryNotification *)notification {
     [self notifyOnUpdate:nil];
-    if (completionHandler) completionHandler();
 }
 
-- (void)finalizeDeleteNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+- (void)finalizeDeleteNotification:(WLEntryNotification *)notification {
     [self remove];
-    if (completionHandler) completionHandler();
 }
 
 @end
@@ -302,23 +342,33 @@
 
 @implementation WLCandy (WLNotification)
 
-- (void)finalizeAddNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+- (void)fetchAddNotification:(WLEntryNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
+    __weak typeof(self)weakSelf = self;
+    [super fetchAddNotification:notification success:^{
+        [weakSelf.picture fetch:success];
+    } failure:failure];
+}
+
+- (void)fetchUpdateNotification:(WLEntryNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
+    __weak typeof(self)weakSelf = self;
+    [super fetchAddNotification:notification success:^{
+        [weakSelf.picture fetch:success];
+    } failure:failure];
+}
+
+- (void)finalizeAddNotification:(WLEntryNotification *)notification {
     if (notification.inserted) [self markAsUnreadIfNeededForEvent:notification.event];
-    [self.picture fetch:^{
-        [super finalizeAddNotification:notification completionHandler:completionHandler];
-    }];
+    [super finalizeAddNotification:notification];
 }
 
-- (void)finalizeUpdateNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+- (void)finalizeUpdateNotification:(WLEntryNotification *)notification {
     [self markAsUnreadIfNeededForEvent:notification.event];
-    [self.picture fetch:^{
-        [super finalizeUpdateNotification:notification completionHandler:completionHandler];
-    }];
+    [super finalizeUpdateNotification:notification];
 }
 
-- (void)finalizeDeleteNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+- (void)finalizeDeleteNotification:(WLEntryNotification *)notification {
     WLWrap *wrap = self.wrap;
-    [super finalizeDeleteNotification:notification completionHandler:completionHandler];
+    [super finalizeDeleteNotification:notification];
     if (wrap.valid && !wrap.candies.nonempty) {
         [wrap fetch:nil success:nil failure:nil];
     }
@@ -328,20 +378,20 @@
 
 @implementation WLMessage (WLNotification)
 
-- (void)finalizeAddNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+- (void)finalizeAddNotification:(WLEntryNotification *)notification {
     if (notification.inserted) [self markAsUnreadIfNeededForEvent:notification.event];
-    [super finalizeAddNotification:notification completionHandler:completionHandler];
+    [super finalizeAddNotification:notification];
 }
 
 @end
 
 @implementation WLComment (WLNotification)
 
-- (void)finalizeAddNotification:(WLEntryNotification *)notification completionHandler:(WLBlock)completionHandler {
+- (void)finalizeAddNotification:(WLEntryNotification *)notification {
     WLCandy *candy = self.candy;
     if (candy.valid) candy.commentCount = candy.comments.count;
     if (notification.inserted) [self markAsUnreadIfNeededForEvent:notification.event];
-    [super finalizeAddNotification:notification completionHandler:completionHandler];
+    [super finalizeAddNotification:notification];
 }
 
 @end

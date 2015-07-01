@@ -98,13 +98,6 @@
     NSMutableOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
     dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLWrapsRequest new]];
     
-    __weak WLOperationQueue *queue = [WLOperationQueue queueNamed:WLOperationFetchingDataQueue];
-    [self.collectionView lockReloadingData];
-    [queue setFinishQueueBlock:^{
-        [weakSelf.collectionView unlockReloadingData];
-        queue.finishQueueBlock = nil;
-    }];
-    
     [dataSource setSelectionBlock:^(id entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
     }];

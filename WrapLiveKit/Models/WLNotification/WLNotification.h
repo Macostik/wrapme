@@ -48,7 +48,13 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 + (BOOL)isSupportedType:(WLNotificationType)type;
 
+- (void)prepare;
+
 - (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure;
+
+- (void)finalize;
+
+- (void)handle:(WLBlock)success failure:(WLFailureBlock)failure;
 
 - (void)setup:(NSDictionary*)data;
 

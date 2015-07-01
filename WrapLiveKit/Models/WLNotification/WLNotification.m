@@ -71,8 +71,25 @@
     self.publishedAt = [data dateForKey:@"msg_published_at"];
 }
 
+- (void)prepare {
+    
+}
+
 - (void)fetch:(WLBlock)success failure:(WLFailureBlock)failure {
     if (success) success();
+}
+
+- (void)finalize {
+    
+}
+
+- (void)handle:(WLBlock)success failure:(WLFailureBlock)failure {
+    __weak __typeof(self)weakSelf = self;
+    [self prepare];
+    [self fetch:^{
+        [weakSelf finalize];
+        if (success) success();
+    } failure:failure];
 }
 
 - (BOOL)playSound {

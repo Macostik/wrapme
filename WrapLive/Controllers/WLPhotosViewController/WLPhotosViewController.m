@@ -106,15 +106,13 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
     self.collectionView.transform = CGAffineTransformMakeTranslation(0, -self.view.height);
     UIView *cameraButton = self.bottomConstraint.secondItem;
     self.bottomConstraint.constant -= WLBottomIndentCameraButton + cameraButton.height;
+    [cameraButton layoutIfNeeded];
     [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
         [self.collectionView setMinimumContentOffsetAnimated:NO];
         self.collectionView.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
-            self.bottomConstraint.constant = WLBottomIndentCameraButton;
-            [cameraButton layoutIfNeeded];
-        } completion:nil];
-    }];
+        self.bottomConstraint.constant = WLBottomIndentCameraButton;
+        [cameraButton layoutIfNeeded];
+    } completion:nil];
 }
 
 // MARK: - WLNetwork

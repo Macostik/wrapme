@@ -6,13 +6,24 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLDebugButton.h"
+#import "WLQAButton.h"
+
+@implementation WLQAButton
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.hidden = [WLAPIManager manager].environment.isProduction;
+}
+
+@end
 
 @implementation WLDebugButton
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.hidden = [WLAPIManager manager].environment.isProduction;
+#ifndef DEBUG
+    self.hidden = YES;
+#endif
 }
 
 @end

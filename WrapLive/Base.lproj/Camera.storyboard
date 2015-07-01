@@ -369,17 +369,17 @@
                         <viewControllerLayoutGuide type="bottom" id="Ji3-dV-tYy"/>
                     </layoutGuides>
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="cOO-xN-PZo">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Dh-4e-Zqm">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="427"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="376"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VyQ-Yd-53E" customClass="WLCameraView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="427"/>
+                                        <rect key="frame" x="19" y="0.0" width="282" height="376"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZBo-Mg-GjJ">
-                                                <rect key="frame" x="0.0" y="53" width="320" height="320"/>
+                                                <rect key="frame" x="0.0" y="47" width="282" height="282"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ZBo-Mg-GjJ" secondAttribute="height" id="K7G-Nb-3Lx"/>
@@ -403,7 +403,7 @@
                                         </connections>
                                     </view>
                                     <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To allow access to the camera go to the Settings &gt; Privacy &gt; Camera" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVW-IT-Sr6" customClass="WLLabel">
-                                        <rect key="frame" x="10" y="193" width="300" height="41"/>
+                                        <rect key="frame" x="29" y="168" width="262" height="41"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -413,7 +413,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JuH-62-Y2V" customClass="WLFlashModeControl">
-                                        <rect key="frame" x="10" y="277" width="44" height="44"/>
+                                        <rect key="frame" x="29" y="226" width="44" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="HQn-KC-h6D"/>
@@ -440,7 +440,7 @@
                                         </connections>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Yt-Qh-gRF">
-                                        <rect key="frame" x="266" y="277" width="44" height="44"/>
+                                        <rect key="frame" x="247" y="226" width="44" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="edF-bm-g4Z"/>
@@ -486,7 +486,7 @@
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rg7-He-e6G">
-                                <rect key="frame" x="138" y="277" width="44" height="44"/>
+                                <rect key="frame" x="138" y="226" width="44" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="7Li-1c-saJ"/>
@@ -514,7 +514,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="11F-0m-rSj">
-                                <rect key="frame" x="0.0" y="331" width="320" height="96"/>
+                                <rect key="frame" x="0.0" y="280" width="320" height="96"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5J-CJ-b93">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="16"/>
@@ -554,13 +554,26 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arS-gD-sRq">
-                                <rect key="frame" x="0.0" y="427" width="320" height="141"/>
+                                <rect key="frame" x="0.0" y="376" width="320" height="104"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zkq-Ye-DlO">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="141"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="104"/>
                                         <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qck-Rs-PkM" customClass="WLDebugButton">
+                                                <rect key="frame" x="0.0" y="68" width="138" height="36"/>
+                                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                <state key="normal" title="Get sample photo">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="getSamplePhoto:" destination="gkl-Du-487" eventType="touchUpInside" id="EsT-ac-NpJ"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITP-VR-CiW" customClass="WLButton">
-                                                <rect key="frame" x="10" y="46" width="36" height="48"/>
+                                                <rect key="frame" x="10" y="28" width="36" height="48"/>
                                                 <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="36"/>
                                                 <state key="normal" title="L">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -577,7 +590,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agr-RC-KiU" customClass="WLButton">
-                                                <rect key="frame" x="274" y="46" width="36" height="48"/>
+                                                <rect key="frame" x="274" y="28" width="36" height="48"/>
                                                 <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="36"/>
                                                 <state key="normal" title="4">
                                                     <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
@@ -594,7 +607,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iHd-sT-PMV" customClass="WLButton">
-                                                <rect key="frame" x="118" y="28" width="84" height="84"/>
+                                                <rect key="frame" x="118" y="10" width="84" height="84"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                                 <state key="normal" title="0" backgroundImage="camera_btn">
@@ -609,25 +622,12 @@
                                                     <action selector="shot:" destination="gkl-Du-487" eventType="touchUpInside" id="Sla-iD-pTZ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qck-Rs-PkM" customClass="WLDebugButton">
-                                                <rect key="frame" x="10" y="96" width="138" height="36"/>
-                                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
-                                                <state key="normal" title="Get sample photo">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <state key="highlighted">
-                                                    <color key="titleColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="getSamplePhoto:" destination="gkl-Du-487" eventType="touchUpInside" id="EsT-ac-NpJ"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="centerY" secondItem="ITP-VR-CiW" secondAttribute="centerY" id="1Yp-mN-1eB"/>
-                                            <constraint firstItem="qck-Rs-PkM" firstAttribute="leading" secondItem="Zkq-Ye-DlO" secondAttribute="leading" constant="10" id="9Jd-T1-e6h"/>
-                                            <constraint firstAttribute="bottom" secondItem="qck-Rs-PkM" secondAttribute="bottom" constant="9" id="BHu-bY-RDj"/>
+                                            <constraint firstItem="qck-Rs-PkM" firstAttribute="leading" secondItem="Zkq-Ye-DlO" secondAttribute="leading" id="9Jd-T1-e6h"/>
+                                            <constraint firstAttribute="bottom" secondItem="qck-Rs-PkM" secondAttribute="bottom" id="BHu-bY-RDj"/>
                                             <constraint firstAttribute="trailing" secondItem="agr-RC-KiU" secondAttribute="trailing" constant="10" id="JbT-w9-dNR"/>
                                             <constraint firstItem="ITP-VR-CiW" firstAttribute="leading" secondItem="Zkq-Ye-DlO" secondAttribute="leading" constant="10" id="LFE-UW-If0"/>
                                             <constraint firstAttribute="centerY" secondItem="agr-RC-KiU" secondAttribute="centerY" id="WYC-17-4L7"/>
@@ -763,7 +763,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="jF0-9u-DA6"/>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="assetsArrow" destination="t2i-cM-gaQ" id="ON0-OZ-y0L"/>
                         <outlet property="assetsBottomConstraint" destination="KBR-oe-JIZ" id="6rx-Eg-nYJ"/>

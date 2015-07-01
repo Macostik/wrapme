@@ -8,6 +8,10 @@
 
 #import "WLButton.h"
 
+@interface WLQAButton : WLButton
+
+@end
+
 @interface WLDebugButton : WLButton
 
 @end

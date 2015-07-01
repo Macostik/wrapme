@@ -559,10 +559,10 @@
 		C547A4521A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
 		C547A4531A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
 		C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
-		C54974581ABC1C34000E3F54 /* WLDebugButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLDebugButton.m */; };
-		C54974591ABC1C34000E3F54 /* WLDebugButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLDebugButton.m */; };
-		C549745A1ABC1C34000E3F54 /* WLDebugButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLDebugButton.m */; };
-		C549745B1ABC1C34000E3F54 /* WLDebugButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLDebugButton.m */; };
+		C54974581ABC1C34000E3F54 /* WLQAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLQAButton.m */; };
+		C54974591ABC1C34000E3F54 /* WLQAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLQAButton.m */; };
+		C549745A1ABC1C34000E3F54 /* WLQAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLQAButton.m */; };
+		C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLQAButton.m */; };
 		C549B73E1AC0179B003623A7 /* WLWKCandyEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DA1ABD815200CB4BE3 /* WLWKCandyEventRow.m */; };
 		C54AF45A19B8C437006F7EDB /* WLNavigationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FCC699199A5C4B009A0DC6 /* WLNavigationHelper.m */; };
 		C54AF45B19B8C437006F7EDB /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
@@ -1042,7 +1042,7 @@
 		C57479561B26FA45001AB8C0 /* WLSignupStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB81A239D6F008B2E2E /* WLSignupStepViewController.m */; };
 		C57479581B26FA45001AB8C0 /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
 		C57479591B26FA45001AB8C0 /* WLValidationGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B941A238B3D008B2E2E /* WLValidationGroup.m */; };
-		C574795A1B26FA45001AB8C0 /* WLDebugButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLDebugButton.m */; };
+		C574795A1B26FA45001AB8C0 /* WLQAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLQAButton.m */; };
 		C574795B1B26FA45001AB8C0 /* WLScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA755F41A7641890037D51E /* WLScrollView.m */; };
 		C574795C1B26FA45001AB8C0 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
 		C574795D1B26FA45001AB8C0 /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
@@ -2954,8 +2954,8 @@
 		C54773121A41911F004C5826 /* WLFontPresetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFontPresetter.m; sourceTree = "<group>"; };
 		C547A44F1A026B3E005061AB /* WLKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLKeyboard.h; sourceTree = "<group>"; };
 		C547A4501A026B3E005061AB /* WLKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLKeyboard.m; sourceTree = "<group>"; };
-		C54974561ABC1C34000E3F54 /* WLDebugButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDebugButton.h; path = WLButton/WLDebugButton.h; sourceTree = "<group>"; };
-		C54974571ABC1C34000E3F54 /* WLDebugButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDebugButton.m; path = WLButton/WLDebugButton.m; sourceTree = "<group>"; };
+		C54974561ABC1C34000E3F54 /* WLQAButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLQAButton.h; path = WLButton/WLQAButton.h; sourceTree = "<group>"; };
+		C54974571ABC1C34000E3F54 /* WLQAButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLQAButton.m; path = WLButton/WLQAButton.m; sourceTree = "<group>"; };
 		C54AF55019B8C437006F7EDB /* WrapLive-QA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-QA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54AF64D19B8C467006F7EDB /* WrapLive-Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54AF74A19B8C491006F7EDB /* WrapLive-Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLive-Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4383,8 +4383,8 @@
 				C577DA521AE0F7FB00DBC3D4 /* WLIconView.m */,
 				C52E1FC81A41951300A2C370 /* WLButton.h */,
 				C52E1FC91A41951300A2C370 /* WLButton.m */,
-				C54974561ABC1C34000E3F54 /* WLDebugButton.h */,
-				C54974571ABC1C34000E3F54 /* WLDebugButton.m */,
+				C54974561ABC1C34000E3F54 /* WLQAButton.h */,
+				C54974571ABC1C34000E3F54 /* WLQAButton.m */,
 			);
 			name = WLButton;
 			sourceTree = "<group>";
@@ -8117,7 +8117,7 @@
 				C5BEDFF91B2AC7A800D3CF70 /* NSArray+PNAdditions.m in Sources */,
 				C53CA3C41A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */,
 				C5C20B951A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
-				C54974581ABC1C34000E3F54 /* WLDebugButton.m in Sources */,
+				C54974581ABC1C34000E3F54 /* WLQAButton.m in Sources */,
 				C5BEDF9A1B2AC7A800D3CF70 /* PNCache.m in Sources */,
 				5BA755F51A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178219B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
@@ -8457,7 +8457,7 @@
 				C5BEDFFA1B2AC7A800D3CF70 /* NSArray+PNAdditions.m in Sources */,
 				C53CA3C51A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */,
 				C5C20B961A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
-				C54974591ABC1C34000E3F54 /* WLDebugButton.m in Sources */,
+				C54974591ABC1C34000E3F54 /* WLQAButton.m in Sources */,
 				C5BEDF9B1B2AC7A800D3CF70 /* PNCache.m in Sources */,
 				5BA755F61A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178319B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
@@ -8757,7 +8757,7 @@
 				C5BEDFFB1B2AC7A800D3CF70 /* NSArray+PNAdditions.m in Sources */,
 				C53CA3C61A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */,
 				C5C20B971A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
-				C549745A1ABC1C34000E3F54 /* WLDebugButton.m in Sources */,
+				C549745A1ABC1C34000E3F54 /* WLQAButton.m in Sources */,
 				C5BEDF9C1B2AC7A800D3CF70 /* PNCache.m in Sources */,
 				5BA755F71A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178419B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
@@ -9058,7 +9058,7 @@
 				C5BEDFFC1B2AC7A800D3CF70 /* NSArray+PNAdditions.m in Sources */,
 				C53CA3C71A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */,
 				C5C20B981A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
-				C549745B1ABC1C34000E3F54 /* WLDebugButton.m in Sources */,
+				C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */,
 				C5BEDF9D1B2AC7A800D3CF70 /* PNCache.m in Sources */,
 				5BA755F81A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
@@ -9383,7 +9383,7 @@
 				C5BEDFF81B2AC7A800D3CF70 /* NSArray+PNAdditions.m in Sources */,
 				C57479581B26FA45001AB8C0 /* WLUploadPhotoViewController.m in Sources */,
 				C57479591B26FA45001AB8C0 /* WLValidationGroup.m in Sources */,
-				C574795A1B26FA45001AB8C0 /* WLDebugButton.m in Sources */,
+				C574795A1B26FA45001AB8C0 /* WLQAButton.m in Sources */,
 				C5BEDF991B2AC7A800D3CF70 /* PNCache.m in Sources */,
 				C574795B1B26FA45001AB8C0 /* WLScrollView.m in Sources */,
 				C574795C1B26FA45001AB8C0 /* WLAddContributorsViewController.m in Sources */,

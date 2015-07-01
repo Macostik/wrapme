@@ -69,6 +69,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *assetsBottomConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *assetsArrow;
 
+@property (strong, nonatomic) dispatch_queue_t sessionQueue;
+
 @end
 
 @implementation WLCameraViewController
@@ -83,6 +85,8 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    
+    self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
 	
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
     [[WLDeviceOrientationBroadcaster broadcaster] beginUsingAccelerometer];
@@ -96,28 +100,25 @@
     self.cropAreaView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.25].CGColor;
     
     __weak typeof(self)weakSelf = self;
-    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-        run_in_main_queue(^{
-            weakSelf.unauthorizedStatusView.hidden = granted;
-            if (granted) {
-                AVCaptureDevicePosition defaultPosition = AVCaptureDevicePositionBack;
-                AVCaptureFlashMode flashMode = AVCaptureFlashModeOff;
-                if (weakSelf.mode == WLStillPictureModeDefault) {
-                    NSNumber *savedDefaultPosition = [WLSession object:@"WLCameraDefaultPosition"];
-                    if (savedDefaultPosition) defaultPosition = [savedDefaultPosition integerValue];
-                    NSNumber *savedFlashMode = [WLSession object:@"WLCameraDefaultFlashMode"];
-                    if (savedFlashMode) flashMode = [savedFlashMode integerValue];
-                } else {
-                    defaultPosition = AVCaptureDevicePositionFront;
-                }
-                weakSelf.position = defaultPosition;
-                weakSelf.flashMode = weakSelf.flashModeControl.mode = flashMode;
-                weakSelf.cameraView.layer.session = weakSelf.session;
-                [weakSelf start];
-            } else {
-                weakSelf.takePhotoButton.active = NO;
-            }
-        });
+    
+    [self authorize:^{
+        AVCaptureDevicePosition defaultPosition = AVCaptureDevicePositionBack;
+        AVCaptureFlashMode flashMode = AVCaptureFlashModeOff;
+        if (weakSelf.mode == WLStillPictureModeDefault) {
+            NSNumber *savedDefaultPosition = [WLSession object:@"WLCameraDefaultPosition"];
+            if (savedDefaultPosition) defaultPosition = [savedDefaultPosition integerValue];
+            NSNumber *savedFlashMode = [WLSession object:@"WLCameraDefaultFlashMode"];
+            if (savedFlashMode) flashMode = [savedFlashMode integerValue];
+        } else {
+            defaultPosition = AVCaptureDevicePositionFront;
+        }
+        weakSelf.position = defaultPosition;
+        weakSelf.flashMode = weakSelf.flashModeControl.mode = flashMode;
+        weakSelf.cameraView.layer.session = weakSelf.session;
+        [weakSelf start];
+    } failure:^(NSError *error) {
+        weakSelf.unauthorizedStatusView.hidden = NO;
+        weakSelf.takePhotoButton.active = NO;
     }];
     
     for (WLQuickAssetsViewController *assetsViewController in self.childViewControllers) {
@@ -126,6 +127,25 @@
             self.assetsViewController.delegate = self.delegate;
             break;
         }
+    }
+}
+
+- (void)authorize:(WLBlock)success failure:(WLFailureBlock)failure {
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (status == AVAuthorizationStatusAuthorized) {
+        if (success) success();
+    } else if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
+        if (failure) failure(nil);
+    } else {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+            run_in_main_queue(^{
+                if (granted) {
+                    if (success) success();
+                } else {
+                    if (failure) failure(nil);
+                }
+            });
+        }];
     }
 }
 
@@ -368,15 +388,19 @@
 }
 
 - (void)start {
-    if (!self.session.isRunning) {
-        [self.session startRunning];
-    }
+    dispatch_async(self.sessionQueue, ^{
+        if (!self.session.isRunning) {
+            [self.session startRunning];
+        }
+    });
 }
 
 - (void)stop {
-    if (self.session.isRunning) {
-        [self.session stopRunning];
-    }
+    dispatch_async(self.sessionQueue, ^{
+        if (self.session.isRunning) {
+            [self.session stopRunning];
+        }
+    });
 }
 
 - (AVCaptureConnection*)connection {

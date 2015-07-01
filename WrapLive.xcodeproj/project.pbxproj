@@ -7343,7 +7343,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = WL;
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = Ravenpod;
 				TargetAttributes = {
 					12A7A6FE18DA0945008FF6F0 = {
@@ -10987,7 +10987,6 @@
 		C587C7761AD2E5A9003E7647 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -11013,7 +11012,6 @@
 		C587C7771AD2E5A9003E7647 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -11040,7 +11038,6 @@
 		C587C7781AD2E5A9003E7647 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;

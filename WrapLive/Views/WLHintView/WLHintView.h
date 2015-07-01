@@ -39,4 +39,6 @@ typedef void (^WLHintViewDrawing)(CGContextRef ctx, CGRect rect);
 
 + (BOOL)showEditWrapHintViewInView:(UIView *)view withFocusToView:(UIView *)target;
 
++ (BOOL)showHomeSwipeTransitionHintViewInView:(UIView *)view;
+
 @end

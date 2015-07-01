@@ -39,6 +39,7 @@
 #import "WLWhatsUpSet.h"
 #import "WLTapBarStoryboardTransition.h"
 #import "WLNavigationHelper.h"
+#import "WLHintView.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate,
                                     WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpDelegate>
@@ -189,6 +190,10 @@
     [self updateEmailConfirmationView:NO];
     [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
     [self.uploadingView update];
+    NSUInteger numberOfLaunches = [WLSession numberOfLaunches];
+    if (numberOfLaunches >= 3 && [WLUser currentUser].wraps.count >= 3) {
+          [WLHintView showHomeSwipeTransitionHintViewInView:[UIWindow mainWindow]];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

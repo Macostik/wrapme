@@ -129,6 +129,10 @@
     }];
 }
 
++ (BOOL)showHomeSwipeTransitionHintViewInView:(UIView *)view {
+    return [self showHintViewFromNibNamed:@"WLHomeSwipeTransitionView" inView:view drawing:nil];
+}
+
 + (void)toDrawOvalInRect:(CGRect)bounds {
     UIBezierPath *transparentPath = [UIBezierPath bezierPathWithOvalInRect:bounds];
     [[UIColor colorWithRed:0.953 green:0.459 blue:0.149 alpha:1.000] setStroke];

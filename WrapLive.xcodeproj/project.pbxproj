@@ -74,6 +74,11 @@
 		5B5A8C6E1A4EB62F00F84529 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A8C701A4EB62F00F84529 /* SignUp.storyboard */; };
 		5B787D9D1A27876F004AE459 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		5B787DA81A27876F004AE459 /* WrapLiveToday-Development.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* WrapLiveToday-Development.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5B954BAC1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */; };
+		5B954BAD1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */; };
+		5B954BAE1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */; };
+		5B954BAF1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */; };
+		5B954BB01B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */; };
 		5BA1307B1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
 		5BA1307C1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
 		5BA1307D1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
@@ -2637,6 +2642,9 @@
 		5B5A8C6F1A4EB62F00F84529 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SignUp.storyboard; sourceTree = "<group>"; };
 		5B787D9B1A27876F004AE459 /* WrapLiveToday-Development.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WrapLiveToday-Development.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		5B954BAB1B44328B00D362B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLHomeSwipeTransitionView.xib; sourceTree = "<group>"; };
+		5B954BB11B4432A400D362B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
+		5B954BB21B4432A700D362B5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
 		5BA130781B15A92600385C2C /* WLPresentingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPresentingImageView.h; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.h; sourceTree = SOURCE_ROOT; };
 		5BA130791B15A92600385C2C /* WLPresentingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPresentingImageView.m; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.m; sourceTree = SOURCE_ROOT; };
 		5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPresentingImageView.xib; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.xib; sourceTree = SOURCE_ROOT; };
@@ -6054,6 +6062,7 @@
 				C55908E91B18B9FA001CB99F /* WLInviteHintView.xib */,
 				C55908F31B18BA01001CB99F /* WLEditWrapHintView.xib */,
 				C55908FD1B18BA0B001CB99F /* WLCandySwipeHintView.xib */,
+				5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */,
 			);
 			path = WLHintView;
 			sourceTree = "<group>";
@@ -7428,7 +7437,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -7471,6 +7480,7 @@
 				5BA6CAF51A10E51B004AD41C /* s04.wav in Resources */,
 				5BA6AA501A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				C55A8DF91ADD035C0069E5C7 /* chat_bubble_tail_gray.png in Resources */,
+				5B954BAD1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */,
 				12E3DA5B18E049C300DBDB79 /* Images.xcassets in Resources */,
 				C55A8E051ADD035C0069E5C7 /* chat_bubble_tail_red@2x.png in Resources */,
 				129654F518E1CB3000FF43F6 /* WLInputAccessoryView.xib in Resources */,
@@ -7606,6 +7616,7 @@
 				C5E4CCF91A1BA38B00B449F8 /* s04.wav in Resources */,
 				C54F4B1B1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
 				C5C20BDE1A239D6F008B2E2E /* WLTestUserCell.xib in Resources */,
+				5B954BAE1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */,
 				C55A8DFA1ADD035C0069E5C7 /* chat_bubble_tail_gray.png in Resources */,
 				C5E4CCF61A1BA38800B449F8 /* s03.wav in Resources */,
 				C55A8E061ADD035C0069E5C7 /* chat_bubble_tail_red@2x.png in Resources */,
@@ -7670,6 +7681,7 @@
 				C5E4CCFA1A1BA38C00B449F8 /* s04.wav in Resources */,
 				C54F4B1C1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
 				C5C20BDF1A239D6F008B2E2E /* WLTestUserCell.xib in Resources */,
+				5B954BAF1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */,
 				C55A8DFB1ADD035C0069E5C7 /* chat_bubble_tail_gray.png in Resources */,
 				C5E4CCF71A1BA38800B449F8 /* s03.wav in Resources */,
 				C55A8E071ADD035C0069E5C7 /* chat_bubble_tail_red@2x.png in Resources */,
@@ -7734,6 +7746,7 @@
 				C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */,
 				C54F4B1D1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
 				C5C20BE01A239D6F008B2E2E /* WLTestUserCell.xib in Resources */,
+				5B954BB01B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */,
 				C55A8DFC1ADD035C0069E5C7 /* chat_bubble_tail_gray.png in Resources */,
 				C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */,
 				C55A8E081ADD035C0069E5C7 /* chat_bubble_tail_red@2x.png in Resources */,
@@ -7844,6 +7857,7 @@
 				C57479C61B26FA45001AB8C0 /* s04.wav in Resources */,
 				C57479C81B26FA45001AB8C0 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				C57479C91B26FA45001AB8C0 /* chat_bubble_tail_gray.png in Resources */,
+				5B954BAC1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */,
 				C57479CA1B26FA45001AB8C0 /* Images.xcassets in Resources */,
 				C57479CB1B26FA45001AB8C0 /* chat_bubble_tail_red@2x.png in Resources */,
 				C57479CC1B26FA45001AB8C0 /* WLInputAccessoryView.xib in Resources */,
@@ -9802,6 +9816,16 @@
 			name = SignUp.storyboard;
 			sourceTree = "<group>";
 		};
+		5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5B954BAB1B44328B00D362B5 /* Base */,
+				5B954BB11B4432A400D362B5 /* en */,
+				5B954BB21B4432A700D362B5 /* ru */,
+			);
+			name = WLHomeSwipeTransitionView.xib;
+			sourceTree = "<group>";
+		};
 		5BA4C58B1A8BA0F600251B6D /* NoCommentsPlaceholderView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -11326,7 +11350,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

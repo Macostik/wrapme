@@ -19,6 +19,7 @@
 #import "UIButton+Additions.h"
 #import "WLDrawingView.h"
 #import "UIView+Extentions.h"
+#import "UIScrollView+Additions.h"
 
 @interface WLBatchEditPictureViewController () <WLComposeBarDelegate, WLDrawingViewDelegate>
 
@@ -32,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UIButton *restoreButton;
 @property (weak, nonatomic) IBOutlet UIButton *uploadButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *uploadButtonXConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *drawButton;
 
 @end
@@ -46,8 +48,16 @@
 
 @synthesize mode = _mode;
 
+- (void)dealloc {
+    [self.dataSource.collectionView removeObserver:self forKeyPath:@"contentOffset" context:NULL];
+    [self.dataSource.collectionView removeObserver:self forKeyPath:@"contentSize" context:NULL];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.dataSource.collectionView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+    [self.dataSource.collectionView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:NULL];
     
     [self.dataSource.collectionView.superview addGestureRecognizer:self.dataSource.collectionView.panGestureRecognizer];
     
@@ -70,6 +80,20 @@
     }];
     
     self.composeBar.showsDoneButtonOnEditing = YES;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    [self updateUploadButtonPosition];
+}
+
+- (void)updateUploadButtonPosition {
+    UICollectionView *collectionView = self.dataSource.collectionView;
+    CGFloat constant = Smoothstep(-30, 30, (collectionView.contentOffset.x - collectionView.maximumContentOffset.x) + 30);
+    constant = (collectionView.contentOffset.x - collectionView.maximumContentOffset.x) + 30;
+    if (self.uploadButtonXConstraint.constant != constant) {
+        self.uploadButtonXConstraint.constant = constant;
+        [self.uploadButton setNeedsLayout];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

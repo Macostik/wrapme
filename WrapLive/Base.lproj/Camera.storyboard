@@ -2136,7 +2136,7 @@
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="3" minimumInteritemSpacing="0.0" id="HA2-Ek-8Gl">
                                             <size key="itemSize" width="50" height="50"/>
                                             <size key="headerReferenceSize" width="59" height="44"/>
-                                            <size key="footerReferenceSize" width="59" height="44"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="59" minY="0.0" maxX="59" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
@@ -2238,40 +2238,32 @@
                                                 <constraint firstAttribute="centerX" secondItem="8l4-7n-9vU" secondAttribute="centerX" id="43m-Z1-JwC"/>
                                             </constraints>
                                         </collectionReusableView>
-                                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="footerView" id="L1W-ia-RWR">
-                                            <rect key="frame" x="257" y="0.0" width="59" height="141"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="WLButton">
-                                                    <rect key="frame" x="11" y="47" width="36" height="48"/>
-                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="36"/>
-                                                    <state key="normal" title="g">
-                                                        <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="upload:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="VWF-1E-M64"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerX" secondItem="taU-aO-Oxc" secondAttribute="centerX" id="60e-2c-x39"/>
-                                                <constraint firstAttribute="centerY" secondItem="taU-aO-Oxc" secondAttribute="centerY" id="wEX-4v-o4U"/>
-                                            </constraints>
-                                        </collectionReusableView>
                                         <connections>
                                             <outlet property="dataSource" destination="y7X-Pb-ZcE" id="8U2-n0-Pok"/>
                                             <outlet property="delegate" destination="y7X-Pb-ZcE" id="mGP-P6-2Ir"/>
                                         </connections>
                                     </collectionView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="WLButton">
+                                        <rect key="frame" x="272" y="47" width="36" height="48"/>
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="36"/>
+                                        <state key="normal" title="g">
+                                            <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="upload:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="VWF-1E-M64"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="taU-aO-Oxc" secondAttribute="centerX" constant="30" id="47G-gf-htm"/>
                                     <constraint firstAttribute="trailing" secondItem="rFg-Ju-UbB" secondAttribute="trailing" id="6YI-Wy-p4F"/>
                                     <constraint firstAttribute="bottom" secondItem="rFg-Ju-UbB" secondAttribute="bottom" id="YxY-qM-Rup"/>
+                                    <constraint firstAttribute="centerY" secondItem="taU-aO-Oxc" secondAttribute="centerY" id="d4f-wL-6ni"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="104" id="f6e-bm-aeR"/>
                                     <constraint firstItem="rFg-Ju-UbB" firstAttribute="leading" secondItem="mxa-eX-hMc" secondAttribute="leading" id="ijU-ei-DfA"/>
                                     <constraint firstItem="rFg-Ju-UbB" firstAttribute="top" secondItem="mxa-eX-hMc" secondAttribute="top" id="uaY-RA-D1Z"/>
@@ -2314,6 +2306,8 @@
                         <outlet property="editButton" destination="3yq-a6-Fsm" id="dCV-6Q-CsV"/>
                         <outlet property="restoreButton" destination="HzZ-19-wUA" id="uY9-qV-Q1x"/>
                         <outlet property="scrollView" destination="x4C-3O-a96" id="ptX-z4-MSm"/>
+                        <outlet property="uploadButton" destination="taU-aO-Oxc" id="uo7-dz-nh2"/>
+                        <outlet property="uploadButtonXConstraint" destination="47G-gf-htm" id="9ai-o9-bTV"/>
                         <outlet property="wrapView" destination="JfN-vq-FkG" id="CCE-sT-AcV"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="kJD-sK-cdk" id="hSw-7b-6xa"/>
                     </connections>
@@ -2329,7 +2323,7 @@
                             <real key="value" value="3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="sectionRightInset">
-                            <real key="value" value="3"/>
+                            <real key="value" value="62"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="minimumLineSpacing">
                             <real key="value" value="3"/>
@@ -2337,11 +2331,7 @@
                         <userDefinedRuntimeAttribute type="size" keyPath="headerSize">
                             <size key="value" width="59" height="44"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="size" keyPath="footerSize">
-                            <size key="value" width="59" height="44"/>
-                        </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="string" keyPath="headerIdentifier" value="headerView"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="footerIdentifier" value="footerView"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="rFg-Ju-UbB" id="Bpp-It-RYI"/>

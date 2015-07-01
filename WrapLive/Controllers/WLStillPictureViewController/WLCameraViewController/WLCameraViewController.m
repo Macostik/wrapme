@@ -42,7 +42,7 @@
 
 @end
 
-@interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver>
+@interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver, UIGestureRecognizerDelegate>
 
 #pragma mark - AVCaptureSession interface
 
@@ -220,6 +220,14 @@
             [self setAssetsViewControllerHidden:ABS(self.assetsBottomConstraint.constant) > self.assetsViewController.view.height/2 animated:YES];
         }
     }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.view == self.view && [gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+        CGPoint velocity = [gestureRecognizer velocityInView:self.view];
+        return ABS(velocity.y) > ABS(velocity.x);
+    }
+    return YES;
 }
 
 - (IBAction)toggleQuickAssets:(id)sender {

@@ -79,6 +79,11 @@
 		5B954BAE1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */; };
 		5B954BAF1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */; };
 		5B954BB01B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */; };
+		5B954BB51B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */; };
+		5B954BB61B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */; };
+		5B954BB71B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */; };
+		5B954BB81B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */; };
+		5B954BB91B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */; };
 		5BA1307B1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
 		5BA1307C1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
 		5BA1307D1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
@@ -2645,6 +2650,8 @@
 		5B954BAB1B44328B00D362B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLHomeSwipeTransitionView.xib; sourceTree = "<group>"; };
 		5B954BB11B4432A400D362B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
 		5B954BB21B4432A700D362B5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
+		5B954BB31B4437C000D362B5 /* WLPrimaryLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPrimaryLayoutConstraint.h; path = WrapLive/Models/WLPrimaryLayoutConstraint/WLPrimaryLayoutConstraint.h; sourceTree = "<group>"; };
+		5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPrimaryLayoutConstraint.m; path = WrapLive/Models/WLPrimaryLayoutConstraint/WLPrimaryLayoutConstraint.m; sourceTree = "<group>"; };
 		5BA130781B15A92600385C2C /* WLPresentingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPresentingImageView.h; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.h; sourceTree = SOURCE_ROOT; };
 		5BA130791B15A92600385C2C /* WLPresentingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPresentingImageView.m; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.m; sourceTree = SOURCE_ROOT; };
 		5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPresentingImageView.xib; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.xib; sourceTree = SOURCE_ROOT; };
@@ -3970,6 +3977,8 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
+				5B954BB31B4437C000D362B5 /* WLPrimaryLayoutConstraint.h */,
+				5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */,
 				C5259D651ACC2333003D3317 /* Entitlements */,
 				C50645AA1ABD815100CB4BE3 /* Extensions */,
 				12A7A70818DA0945008FF6F0 /* WrapLive */,
@@ -8159,6 +8168,7 @@
 				C5BEDFD61B2AC7A800D3CF70 /* PNMessage.m in Sources */,
 				C5BEDFE01B2AC7A800D3CF70 /* PNOperationStatus.m in Sources */,
 				C53E5D781A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
+				5B954BB61B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */,
 				C5BEDF771B2AC7A800D3CF70 /* PNResponseDeserialize.m in Sources */,
 				C504178619B9EE15000E55F3 /* WLContactCell.m in Sources */,
 				C577DA5D1AE1033400DBC3D4 /* WLDataSourceItems.m in Sources */,
@@ -8499,6 +8509,7 @@
 				C5BEDFD71B2AC7A800D3CF70 /* PNMessage.m in Sources */,
 				C5BEDFE11B2AC7A800D3CF70 /* PNOperationStatus.m in Sources */,
 				C53E5D791A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
+				5B954BB71B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */,
 				C5BEDF781B2AC7A800D3CF70 /* PNResponseDeserialize.m in Sources */,
 				C504178719B9EE15000E55F3 /* WLContactCell.m in Sources */,
 				C577DA5E1AE1033400DBC3D4 /* WLDataSourceItems.m in Sources */,
@@ -8799,6 +8810,7 @@
 				C5BEDFD81B2AC7A800D3CF70 /* PNMessage.m in Sources */,
 				C5BEDFE21B2AC7A800D3CF70 /* PNOperationStatus.m in Sources */,
 				C53E5D7A1A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
+				5B954BB81B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */,
 				C5BEDF791B2AC7A800D3CF70 /* PNResponseDeserialize.m in Sources */,
 				C504178819B9EE15000E55F3 /* WLContactCell.m in Sources */,
 				C577DA5F1AE1033400DBC3D4 /* WLDataSourceItems.m in Sources */,
@@ -9099,6 +9111,7 @@
 				C5BEDFD91B2AC7A800D3CF70 /* PNMessage.m in Sources */,
 				C5BEDFE31B2AC7A800D3CF70 /* PNOperationStatus.m in Sources */,
 				C53E5D7B1A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
+				5B954BB91B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */,
 				C5BEDF7A1B2AC7A800D3CF70 /* PNResponseDeserialize.m in Sources */,
 				C504178919B9EE15000E55F3 /* WLContactCell.m in Sources */,
 				C577DA601AE1033400DBC3D4 /* WLDataSourceItems.m in Sources */,
@@ -9425,6 +9438,7 @@
 				C5BEDFD51B2AC7A800D3CF70 /* PNMessage.m in Sources */,
 				C5BEDFDF1B2AC7A800D3CF70 /* PNOperationStatus.m in Sources */,
 				C574796A1B26FA45001AB8C0 /* WLFlashModeControl.m in Sources */,
+				5B954BB51B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */,
 				C5BEDF761B2AC7A800D3CF70 /* PNResponseDeserialize.m in Sources */,
 				C574796B1B26FA45001AB8C0 /* WLContactCell.m in Sources */,
 				C574796C1B26FA45001AB8C0 /* WLDataSourceItems.m in Sources */,

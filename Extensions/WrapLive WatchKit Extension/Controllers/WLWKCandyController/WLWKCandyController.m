@@ -31,6 +31,7 @@
 
 - (void)awakeWithContext:(WLCandy*)candy {
     [super awakeWithContext:candy];
+    [[WLEntryManager manager].context refreshObject:candy mergeChanges:NO];
     self.candy = candy;
 }
 

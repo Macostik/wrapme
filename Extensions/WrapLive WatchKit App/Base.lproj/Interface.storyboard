@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
@@ -188,46 +188,53 @@
                                             <edgeInsets key="margins" left="4" right="4" top="4" bottom="4"/>
                                         </group>
                                     </items>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                     <variation key="device=watch38mm" height="136"/>
                                     <variation key="device=watch42mm" height="156"/>
                                 </group>
-                                <button width="1" widthAdjustment="-2" alignment="center" title="Comment" id="55e-NG-3Tc">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
-                                    <connections>
-                                        <action selector="writeComment" destination="5u8-yz-26Q" id="vWw-kn-yWg"/>
-                                    </connections>
-                                </button>
+                                <group width="1" alignment="left" radius="0.0" spacing="0.0" id="PyO-Pm-XaZ">
+                                    <items>
+                                        <button width="1" widthAdjustment="-2" alignment="center" title="Comment" id="55e-NG-3Tc">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                            <connections>
+                                                <action selector="writeComment" destination="5u8-yz-26Q" id="vWw-kn-yWg"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                    <edgeInsets key="margins" left="5" right="5" top="5" bottom="5"/>
+                                </group>
                                 <table alignment="left" id="l82-W0-vgm">
                                     <items>
                                         <tableRow identifier="comment" id="KNg-tJ-EEO" customClass="WLWKCommentRow">
                                             <group key="rootItem" width="1" height="0.0" alignment="left" radius="0.0" spacing="1" id="BcM-vH-5ct">
                                                 <items>
                                                     <group width="40" height="40" alignment="left" contentMode="scaleAspectFill" radius="20" spacing="0.0" id="2LR-89-ufK">
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                     </group>
                                                     <group alignment="left" layout="vertical" spacing="4" id="Dxt-0n-qjn">
                                                         <items>
                                                             <label alignment="left" text="Name" textAlignment="left" id="yod-K8-G8c">
-                                                                <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="font" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                             </label>
                                                             <label alignment="left" text="Text" textAlignment="left" numberOfLines="0" id="iGb-nn-Z5r">
-                                                                <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                             </label>
                                                             <label alignment="left" text="Date" textAlignment="left" id="6NG-l4-ZQV">
-                                                                <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                             </label>
                                                         </items>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                     </group>
                                                 </items>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <edgeInsets key="margins" left="1" right="1" top="0.0" bottom="0.0"/>
                                             </group>
                                             <connections>
@@ -238,9 +245,10 @@
                                             </connections>
                                         </tableRow>
                                     </items>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </table>
                             </items>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                         </group>
                     </items>

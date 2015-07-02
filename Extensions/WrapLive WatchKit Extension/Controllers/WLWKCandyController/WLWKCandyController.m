@@ -40,7 +40,7 @@
     [self.wrapNameLabel setText:candy.wrap.name];
     [self.dateLabel setText:candy.createdAt.timeAgoStringAtAMPM];
     self.image.url = candy.picture.small;
-    NSOrderedSet *comments = [self.candy.comments reversedOrderedSet];
+    NSOrderedSet *comments = [candy sortedComments];
     [self.table setNumberOfRows:[comments count] withRowType:@"comment"];
     for (WLComment *comment in comments) {
         NSUInteger index = [comments indexOfObject:comment];
@@ -57,7 +57,9 @@
     __weak typeof(self)weakSelf = self;
     [self presentTextInputControllerWithSuggestionsFromFileNamed:@"WLWKCommentReplyPresets" completion:^(NSString *result) {
         [WLWKParentApplicationContext postComment:result candy:weakSelf.candy.identifier success:^(NSDictionary *replyInfo) {
-            [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Comment \"%@\" sent!", result]];
+            [[WLEntryManager manager].context refreshObject:weakSelf.candy mergeChanges:NO];
+            [weakSelf update];
+            [weakSelf.table scrollToRowAtIndex:0];
         } failure:^(NSError *error) {
             [weakSelf pushControllerWithName:@"alert" context:error];
         }];

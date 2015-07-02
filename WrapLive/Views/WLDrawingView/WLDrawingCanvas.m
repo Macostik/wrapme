@@ -8,8 +8,11 @@
 
 #import "WLDrawingCanvas.h"
 #import "WLDrawingSession.h"
+#import "UIView+Extentions.h"
 
 @interface WLDrawingCanvas ()
+
+@property (weak, nonatomic) UIImageView *imageView;
 
 @end
 
@@ -18,7 +21,7 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        self.session = [[WLDrawingSession alloc] init];
+        [self setup];
     }
     return self;
 }
@@ -26,13 +29,27 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.session = [[WLDrawingSession alloc] init];
+        [self setup];
     }
     return self;
 }
 
+- (void)setup {
+    self.session = [[WLDrawingSession alloc] init];
+}
+
+- (UIImageView *)imageView {
+    if (!_imageView) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        [self addSubview:imageView];
+        [self makeResizibleSubview:imageView];
+        _imageView = imageView;
+    }
+    return _imageView;
+}
+
 - (void)drawRect:(CGRect)rect {
-    [self.session render];
+    [self.session.line render];
 }
 
 - (IBAction)panning:(UIPanGestureRecognizer*)sender {
@@ -47,9 +64,27 @@
     
     if (state == UIGestureRecognizerStateEnded || state == UIGestureRecognizerStateCancelled) {
         [self.session endDrawing];
+        [self render];
     }
     
     [self setNeedsDisplay];
+}
+
+- (void)render {
+    __weak typeof(self)weakSelf = self;
+    self.imageView.image = [UIImage draw:self.size opaque:NO scale:[UIScreen mainScreen].scale drawing:^(CGSize size) {
+        [weakSelf.session render];
+    }];
+}
+
+- (void)undo {
+    [self.session undo];
+    [self render];
+}
+
+- (void)erase {
+    [self.session erase];
+    self.imageView.image = nil;
 }
 
 @end

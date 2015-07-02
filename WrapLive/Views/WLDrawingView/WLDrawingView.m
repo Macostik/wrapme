@@ -84,12 +84,11 @@
     [session beginDrawing];
     [session addPoint:self.brushCanvas.centerBoundary];
     [session endDrawing];
-    [self.brushCanvas setNeedsDisplay];
+    [self.brushCanvas render];
 }
 
 - (IBAction)undo:(id)sender {
-    [self.session undo];
-    [self.canvas setNeedsDisplay];
+    [self.canvas undo];
     self.undoButton.hidden = self.session.empty;
 }
 

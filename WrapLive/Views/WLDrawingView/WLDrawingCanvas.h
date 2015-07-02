@@ -16,4 +16,10 @@
 
 - (IBAction)panning:(UIPanGestureRecognizer*)sender;
 
+- (void)render;
+
+- (void)undo;
+
+- (void)erase;
+
 @end

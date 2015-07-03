@@ -2144,7 +2144,6 @@
 		C5BEE0F41B2AC8DB00D3CF70 /* WLNotification+PNMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */; };
 		C5BEE0F51B2AC8DB00D3CF70 /* WLNotification+PNMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */; };
 		C5BEE0F61B2AC8DB00D3CF70 /* WLNotification+PNMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */; };
-		C5C014E11B454ABA003623EC /* WrapLiveWatchKitExtension-Development.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C50645841ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5C20B8F1A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
 		C5C20B901A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
 		C5C20B911A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
@@ -2404,13 +2403,6 @@
 			remoteGlobalIDString = C587C7671AD2E5A9003E7647;
 			remoteInfo = WrapLiveKit;
 		};
-		C5C014E21B454ABA003623EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
-			remoteInfo = "WrapLiveWatchKitExtension-Development";
-		};
 		C5E54B371ACBF83A00444F7B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -2440,7 +2432,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				5BA7AF2E1A481A9500C586CA /* WrapLiveToday-Development.appex in Embed App Extensions */,
-				C5C014E11B454ABA003623EC /* WrapLiveWatchKitExtension-Development.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7216,7 +7207,6 @@
 				C559CB751AA0BB6200100B2C /* PBXTargetDependency */,
 				C587C8E21AD2E8B5003E7647 /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
-				C5C014E31B454ABA003623EC /* PBXTargetDependency */,
 			);
 			name = "WrapLive-QA";
 			productName = WrapLive;
@@ -9812,11 +9802,6 @@
 			target = C587C7671AD2E5A9003E7647 /* WrapLiveKit */;
 			targetProxy = C587C8E51AD2E8C0003E7647 /* PBXContainerItemProxy */;
 		};
-		C5C014E31B454ABA003623EC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C50645831ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development */;
-			targetProxy = C5C014E21B454ABA003623EC /* PBXContainerItemProxy */;
-		};
 		C5E54B381ACBF83A00444F7B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5BF1B22F1A49A683000BB2C1 /* WrapLiveToday-Production */;
@@ -10003,8 +9988,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -10022,7 +10007,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "7ce875f8-5f53-4c6b-90af-2432f59d8a43";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -10043,8 +10028,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -10055,7 +10040,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE = "2d6994cc-3f6b-4031-8966-121e77b0f320";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -10181,8 +10166,8 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -10243,8 +10228,8 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -10299,8 +10284,8 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -10309,7 +10294,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d2865ee1-1837-4ac5-b1b4-63401fa3b6b5";
+				PROVISIONING_PROFILE = "eb383f74-b6e6-4dc7-95dd-2646233918df";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
@@ -10324,8 +10309,8 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -10378,8 +10363,8 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -10395,7 +10380,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "7a339826-c0eb-4a92-a911-0f2f557eb5df";
+				PROVISIONING_PROFILE = "efea2529-e3aa-4605-adc2-9312b1cd690e";
 				SKIP_INSTALL = YES;
 			};
 			name = AdHoc;
@@ -10408,8 +10393,8 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -10478,8 +10463,8 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -10556,8 +10541,8 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -10634,8 +10619,8 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -10784,8 +10769,8 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -10794,7 +10779,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "11d6e255-7954-4169-8bd5-8cf4b6882ecd";
+				PROVISIONING_PROFILE = "b3795d16-85c7-491b-b7e8-276e71f86ce3";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
@@ -10809,8 +10794,8 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -10862,8 +10847,8 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -10880,7 +10865,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "f7431fe9-5656-49ab-8a14-30cff31618f5";
+				PROVISIONING_PROFILE = "ad5598e1-0326-4535-9f5e-7b1d78e6f355";
 				SKIP_INSTALL = YES;
 			};
 			name = AdHoc;
@@ -10892,8 +10877,8 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -11043,6 +11028,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 2.4;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -11056,6 +11042,7 @@
 				INFOPLIST_FILE = "WrapLiveKit/WrapLiveKit-Info.plist";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = framework;
@@ -11068,6 +11055,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 2.4;
@@ -11082,6 +11070,7 @@
 				INFOPLIST_FILE = "WrapLiveKit/WrapLiveKit-Info.plist";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = framework;
@@ -11094,6 +11083,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 2.4;
@@ -11104,6 +11094,7 @@
 				INFOPLIST_FILE = "WrapLiveKit/WrapLiveKit-Info.plist";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = framework;
@@ -11126,8 +11117,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chi Hong So (5WZED4TH7K)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -11142,7 +11133,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "7ce875f8-5f53-4c6b-90af-2432f59d8a43";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = AdHoc;
@@ -11197,8 +11188,8 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -11221,7 +11212,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-QA";
-				PROVISIONING_PROFILE = "af2386d6-981c-4f08-8e23-75a2018b5ecb";
+				PROVISIONING_PROFILE = "189fa146-ee5e-4517-94e0-9aa8f6bd25f8";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -11236,8 +11227,8 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -11259,7 +11250,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-Beta";
-				PROVISIONING_PROFILE = "7cc61101-ab06-45e4-b416-14fa68d586bf";
+				PROVISIONING_PROFILE = "08237be5-ca06-4442-a3fa-8cdbfaed6e4f";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -11274,8 +11265,8 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -11298,7 +11289,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-Production";
-				PROVISIONING_PROFILE = "b286e308-c695-4cbd-86cd-9d87a5569689";
+				PROVISIONING_PROFILE = "08237be5-ca06-4442-a3fa-8cdbfaed6e4f";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -11323,8 +11314,8 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -11340,7 +11331,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6bc273f6-d768-4794-a31c-f75429ef9f7f";
+				PROVISIONING_PROFILE = "37012950-d853-4fbf-9c33-12dcb909bf9c";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -11354,8 +11345,8 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -11370,7 +11361,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLiveToday-Production";
-				PROVISIONING_PROFILE = "2515d0d7-9dab-4ce3-8224-6182a2b40474";
+				PROVISIONING_PROFILE = "78469d0c-1d9b-4908-9115-dfc35de8c6d9";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -96,8 +96,9 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"contentOffset"]) {
         NSOrderedSet *wraps = (NSOrderedSet*)self.dataSource.items;
-        if (wraps.nonempty) {
-            NSUInteger index = roundf(self.dataSource.collectionView.contentOffset.y / self.dataSource.itemSize.height);
+        CGFloat offset = self.dataSource.collectionView.contentOffset.y;
+        if (wraps.nonempty && offset > 0) {
+            NSInteger index = roundf(offset / self.dataSource.itemSize.height);
             WLWrap *wrap = [wraps tryObjectAtIndex:index];
             if (wrap && wrap != self.wrap) {
                 self.wrap = wrap;

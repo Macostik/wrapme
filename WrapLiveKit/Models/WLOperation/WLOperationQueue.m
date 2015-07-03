@@ -90,7 +90,9 @@
 
 - (void)cancelAllOperations {
     NSMutableArray *operations = (id)self.operations;
-    [operations removeObjectsInArray:[operations objectsWhere:@"executing == NO"]];
+    NSArray *operationsToCancel = [operations objectsWhere:@"executing == NO"];
+    [operations removeObjectsInArray:operationsToCancel];
+    [operationsToCancel makeObjectsPerformSelector:@selector(cancel)];
 }
 
 @end

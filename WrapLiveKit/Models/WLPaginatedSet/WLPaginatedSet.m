@@ -71,7 +71,7 @@
     if (request) {
         __weak typeof(self)weakSelf = self;
         runUnaryQueuedOperation(WLOperationFetchingDataQueue,^(WLOperation *operation) {
-            if (weakSelf) {
+            if (weakSelf && request) {
                 weakSelf.request.type = type;
                 [weakSelf configureRequest:request];
                 [request send:^(NSOrderedSet *orderedSet) {

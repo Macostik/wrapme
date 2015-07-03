@@ -35,12 +35,12 @@
 - (void)start {
     if (self.block) {
         self.executing = YES;
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(timeout:) userInfo:@{@"schedulingDate":[NSDate date]} repeats:NO];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(timeout:) userInfo:nil repeats:NO];
         self.block(self);
         self.block = nil;
 #ifdef DEBUG
         self.identifier = GUID();
-        NSLog(@"WLOperation started: %@", self.identifier);
+        NSLog(@"WLOperation started: %@ queue: %@", self.identifier, self.queue.name);
 #endif
     } else {
         [self finish];
@@ -61,20 +61,15 @@
 }
 
 - (void)timeout:(NSTimer*)timer {
-    WLLog(@"WRAPLIVEKIT", @"WLOperation timeout", timer.userInfo);
 #ifdef DEBUG
-    if (self.identifier) {
-        NSLog(@"WLOperation timeout: %@", self.identifier);
-    }
+    NSLog(@"WLOperation timeout: %@ queue: %@", self.identifier, self.queue.name);
 #endif
     [self finish];
 }
 
 - (void)finish {
 #ifdef DEBUG
-    if (self.identifier) {
-        NSLog(@"WLOperation finished: %@", self.identifier);
-    }
+    NSLog(@"WLOperation finished: %@ queue: %@", self.identifier, self.queue.name);
 #endif
     self.timer = nil;
     self.executing = NO;

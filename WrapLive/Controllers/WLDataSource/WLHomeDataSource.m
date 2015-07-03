@@ -34,6 +34,10 @@
 - (void)fetchTopWrapIfNeeded:(WLWrap*)wrap {
     if ([wrap.candies count] < WLHomeTopWrapCandiesLimit) {
         runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+            if (!wrap.valid) {
+                [operation finish];
+                return;
+            }
             [wrap fetch:WLWrapContentTypeRecent success:^(NSOrderedSet* candies) {
                 [operation finish];
             } failure:^(NSError *error) {

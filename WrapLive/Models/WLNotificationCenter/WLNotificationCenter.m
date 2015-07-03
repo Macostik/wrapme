@@ -150,6 +150,10 @@
         
         for (WLEntryNotification *notification in notifications) {
             runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+                if (!notification) {
+                    [operation finish];
+                    return;
+                }
                 [notification fetch:^{
                     if (![playedSoundTypes containsIndex:notification.type]) [WLSoundPlayer playSoundForNotification:notification];
                     [playedSoundTypes addIndex:notification.type];
@@ -258,6 +262,10 @@
         
         for (WLEntryNotification *notification in notifications) {
             runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+                if (!notification) {
+                    [operation finish];
+                    return;
+                }
                 [notification fetch:^{
                     if (![playedSoundTypes containsIndex:notification.type]) [WLSoundPlayer playSoundForNotification:notification];
                     [playedSoundTypes addIndex:notification.type];

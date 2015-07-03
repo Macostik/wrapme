@@ -52,8 +52,6 @@
             UIColor *color = subview.backgroundColor;
             if (![self.color isEqual:color]) {
                 [self.delegate colorPicker:self pickedColor:color];
-            } else {
-                
             }
             break;
         }

@@ -96,6 +96,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     [self.table setRowTypes:rowTypes];
     
     for (WLEntry *entry in entries) {
+        [[WLEntryManager manager].context refreshObject:entry mergeChanges:NO];
         NSUInteger index = [entries indexOfObject:entry];
         WLWKEntryRow* row = [self.table rowControllerAtIndex:index];
         [row setEntry:entry];

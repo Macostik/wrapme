@@ -13,7 +13,7 @@
 #import "WLCandyViewController.h"
 #import "WLChatViewController.h"
 #import "WLHistoryViewController.h"
-#import "WLTapBarStoryboardTransition.h"
+#import "WLSegmentedControl.h"
 
 @implementation WLEntryPresenter
 

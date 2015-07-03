@@ -54,7 +54,6 @@
 		5B0BE6421B2886CD0083763C /* WLPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0BE63F1B2886CD0083763C /* WLPhotosViewController.m */; };
 		5B0BE6431B2886CD0083763C /* WLPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0BE63F1B2886CD0083763C /* WLPhotosViewController.m */; };
 		5B0BE6441B2886CD0083763C /* WLPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0BE63F1B2886CD0083763C /* WLPhotosViewController.m */; };
-		5B0BE6451B2886DC0083763C /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
 		5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
 		5B2B0C1C1A77A83900DADC9D /* WLIconButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2B0C1B1A77A83900DADC9D /* WLIconButton.m */; };
 		5B2B0C1D1A77A83900DADC9D /* WLIconButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2B0C1B1A77A83900DADC9D /* WLIconButton.m */; };
@@ -219,10 +218,6 @@
 		5BD121541B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD121551B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD121561B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
-		5BD2755D1B2853630060D951 /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
-		5BD2755E1B2853630060D951 /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
-		5BD2755F1B2853630060D951 /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
-		5BD275601B2853630060D951 /* WLLightSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */; };
 		5BD303411B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
 		5BD303421B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
 		5BD303431B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
@@ -233,6 +228,11 @@
 		5BD3034B1B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303481B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m */; };
 		5BD3034C1B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303481B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m */; };
 		5BD3034D1B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303481B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m */; };
+		5BD3BDBB1B45348400A42EBB /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */; };
+		5BD3BDBC1B45348400A42EBB /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */; };
+		5BD3BDBD1B45348400A42EBB /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */; };
+		5BD3BDBE1B45348400A42EBB /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */; };
+		5BD3BDBF1B45348400A42EBB /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */; };
 		5BD552111B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD5520F1B3C13F700530566 /* WhatsUpPlaceholderView.xib */; };
 		5BD552121B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD5520F1B3C13F700530566 /* WhatsUpPlaceholderView.xib */; };
 		5BD552131B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD5520F1B3C13F700530566 /* WhatsUpPlaceholderView.xib */; };
@@ -2650,8 +2650,8 @@
 		5B954BAB1B44328B00D362B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLHomeSwipeTransitionView.xib; sourceTree = "<group>"; };
 		5B954BB11B4432A400D362B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
 		5B954BB21B4432A700D362B5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
-		5B954BB31B4437C000D362B5 /* WLPrimaryLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPrimaryLayoutConstraint.h; path = WrapLive/Models/WLPrimaryLayoutConstraint/WLPrimaryLayoutConstraint.h; sourceTree = "<group>"; };
-		5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPrimaryLayoutConstraint.m; path = WrapLive/Models/WLPrimaryLayoutConstraint/WLPrimaryLayoutConstraint.m; sourceTree = "<group>"; };
+		5B954BB31B4437C000D362B5 /* WLPrimaryLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPrimaryLayoutConstraint.h; path = WLPrimaryLayoutConstraint/WLPrimaryLayoutConstraint.h; sourceTree = "<group>"; };
+		5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPrimaryLayoutConstraint.m; path = WLPrimaryLayoutConstraint/WLPrimaryLayoutConstraint.m; sourceTree = "<group>"; };
 		5BA130781B15A92600385C2C /* WLPresentingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPresentingImageView.h; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.h; sourceTree = SOURCE_ROOT; };
 		5BA130791B15A92600385C2C /* WLPresentingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPresentingImageView.m; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.m; sourceTree = SOURCE_ROOT; };
 		5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPresentingImageView.xib; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.xib; sourceTree = SOURCE_ROOT; };
@@ -2721,12 +2721,12 @@
 		5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPostEditingUploadCandyRequest.m; sourceTree = "<group>"; };
 		5BD1DD401B3D9D8400F44756 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		5BD1DD421B3D9DC800F44756 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		5BD2755B1B2853630060D951 /* WLLightSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLightSegmentControl.h; path = WLLIgthSegmentControl/WLLightSegmentControl.h; sourceTree = "<group>"; };
-		5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLightSegmentControl.m; path = WLLIgthSegmentControl/WLLightSegmentControl.m; sourceTree = "<group>"; };
 		5BD3033F1B2971D2002EA8D7 /* WLWrapSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapSettingsViewController.h; path = WLWrapSettingsViewController/WLWrapSettingsViewController.h; sourceTree = "<group>"; };
 		5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapSettingsViewController.m; path = WLWrapSettingsViewController/WLWrapSettingsViewController.m; sourceTree = "<group>"; };
 		5BD303471B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTapBarStoryboardTransition.h; path = WLStoryboardSegue/WLTapBarStoryboardTransition.h; sourceTree = "<group>"; };
 		5BD303481B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTapBarStoryboardTransition.m; path = WLStoryboardSegue/WLTapBarStoryboardTransition.m; sourceTree = "<group>"; };
+		5BD3BDB91B45348400A42EBB /* WLSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSegmentedControl.h; path = WLSegmentedControl/WLSegmentedControl.h; sourceTree = "<group>"; };
+		5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSegmentedControl.m; path = WLSegmentedControl/WLSegmentedControl.m; sourceTree = "<group>"; };
 		5BD552101B3C13F700530566 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WhatsUpPlaceholderView.xib; sourceTree = "<group>"; };
 		5BD5521D1B3C142200530566 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WhatsUpPlaceholderView.strings; sourceTree = "<group>"; };
 		5BD5521E1B3C142500530566 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WhatsUpPlaceholderView.strings; sourceTree = "<group>"; };
@@ -3977,8 +3977,6 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
-				5B954BB31B4437C000D362B5 /* WLPrimaryLayoutConstraint.h */,
-				5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */,
 				C5259D651ACC2333003D3317 /* Entitlements */,
 				C50645AA1ABD815100CB4BE3 /* Extensions */,
 				12A7A70818DA0945008FF6F0 /* WrapLive */,
@@ -4129,6 +4127,7 @@
 				129654E018E197D700FF43F6 /* WLAddressBook */,
 				121B1B2B18E0741A001F585C /* WLCountry */,
 				14A04F851940CAFF005DA4CE /* WLEmoji */,
+				5BD3BDC01B45370B00A42EBB /* WLPrimaryLayoutConstraint */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4136,7 +4135,6 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5BD275541B2853110060D951 /* WLLightSegmentControl */,
 				C5978BE31B396FA500D5043E /* WLDrawingView */,
 				5BD121571B0250E000FF5FBF /* WLDownloadingView */,
 				C5FE0A5A1ACD98F3007DBE95 /* WLCircleImageView */,
@@ -4337,6 +4335,7 @@
 		12F0DAED19338C9100F9D898 /* SegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
+				5BD3BDC11B45378100A42EBB /* WLSegmentedControl */,
 				12F0DAEE19338C9100F9D898 /* SegmentedControl.h */,
 				12F0DAEF19338C9100F9D898 /* SegmentedControl.m */,
 			);
@@ -4664,15 +4663,6 @@
 			name = WLDownloadingView;
 			sourceTree = "<group>";
 		};
-		5BD275541B2853110060D951 /* WLLightSegmentControl */ = {
-			isa = PBXGroup;
-			children = (
-				5BD2755B1B2853630060D951 /* WLLightSegmentControl.h */,
-				5BD2755C1B2853630060D951 /* WLLightSegmentControl.m */,
-			);
-			name = WLLightSegmentControl;
-			sourceTree = "<group>";
-		};
 		5BD303461B29C89E002EA8D7 /* WLWrapSettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -4680,6 +4670,24 @@
 				5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */,
 			);
 			name = WLWrapSettingsViewController;
+			sourceTree = "<group>";
+		};
+		5BD3BDC01B45370B00A42EBB /* WLPrimaryLayoutConstraint */ = {
+			isa = PBXGroup;
+			children = (
+				5B954BB31B4437C000D362B5 /* WLPrimaryLayoutConstraint.h */,
+				5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */,
+			);
+			name = WLPrimaryLayoutConstraint;
+			sourceTree = "<group>";
+		};
+		5BD3BDC11B45378100A42EBB /* WLSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				5BD3BDB91B45348400A42EBB /* WLSegmentedControl.h */,
+				5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */,
+			);
+			name = WLSegmentedControl;
 			sourceTree = "<group>";
 		};
 		5BD58FBE1B145A4C00B67A3F /* WLPresentingImageView */ = {
@@ -8043,6 +8051,7 @@
 				C5BEDFA41B2AC7A800D3CF70 /* PNChannelGroup.m in Sources */,
 				C500983E1AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
 				C55E109D1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
+				5BD3BDBC1B45348400A42EBB /* WLSegmentedControl.m in Sources */,
 				C5BEE0581B2AC7A800D3CF70 /* PNChannelGroupRemoveRequest.m in Sources */,
 				121B1B2E18E07430001F585C /* WLCountry.m in Sources */,
 				C5BEE0671B2AC7A800D3CF70 /* PNChannelsListUpdateForChannelGroupRequest.m in Sources */,
@@ -8228,7 +8237,6 @@
 				C53C40561AF0F2EC0001685D /* WLUnreadMessagesView.m in Sources */,
 				12A7A71318DA0946008FF6F0 /* WLAppDelegate.m in Sources */,
 				C568D8D61A6D491800C2333B /* WLHintView.m in Sources */,
-				5BD2755E1B2853630060D951 /* WLLightSegmentControl.m in Sources */,
 				C53E5D641A851F71004F61B0 /* WLAssetCell.m in Sources */,
 				C544E4FC1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */,
 				C5BEDF4A1B2AC7A800D3CF70 /* PNChannelHistoryParser.m in Sources */,
@@ -8384,6 +8392,7 @@
 				C5BEDFA51B2AC7A800D3CF70 /* PNChannelGroup.m in Sources */,
 				C500983F1AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
 				C55E109E1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
+				5BD3BDBD1B45348400A42EBB /* WLSegmentedControl.m in Sources */,
 				C5BEE0591B2AC7A800D3CF70 /* PNChannelGroupRemoveRequest.m in Sources */,
 				C54AF46F19B8C437006F7EDB /* WLCountry.m in Sources */,
 				C5BEE0681B2AC7A800D3CF70 /* PNChannelsListUpdateForChannelGroupRequest.m in Sources */,
@@ -8569,7 +8578,6 @@
 				C53C40571AF0F2EC0001685D /* WLUnreadMessagesView.m in Sources */,
 				C54AF4E619B8C437006F7EDB /* WLAppDelegate.m in Sources */,
 				C568D8D71A6D491800C2333B /* WLHintView.m in Sources */,
-				5BD2755F1B2853630060D951 /* WLLightSegmentControl.m in Sources */,
 				C53E5D651A851F71004F61B0 /* WLAssetCell.m in Sources */,
 				C544E4FD1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */,
 				C5BEDF4B1B2AC7A800D3CF70 /* PNChannelHistoryParser.m in Sources */,
@@ -8685,6 +8693,7 @@
 				C5BEDFA61B2AC7A800D3CF70 /* PNChannelGroup.m in Sources */,
 				C50098401AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
 				C55E109F1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
+				5BD3BDBE1B45348400A42EBB /* WLSegmentedControl.m in Sources */,
 				C5BEE05A1B2AC7A800D3CF70 /* PNChannelGroupRemoveRequest.m in Sources */,
 				C54AF56C19B8C467006F7EDB /* WLCountry.m in Sources */,
 				C5BEE0691B2AC7A800D3CF70 /* PNChannelsListUpdateForChannelGroupRequest.m in Sources */,
@@ -8870,7 +8879,6 @@
 				C53C40581AF0F2EC0001685D /* WLUnreadMessagesView.m in Sources */,
 				C54AF5E319B8C467006F7EDB /* WLAppDelegate.m in Sources */,
 				C568D8D81A6D491800C2333B /* WLHintView.m in Sources */,
-				5BD275601B2853630060D951 /* WLLightSegmentControl.m in Sources */,
 				C53E5D661A851F71004F61B0 /* WLAssetCell.m in Sources */,
 				C544E4FE1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */,
 				C5BEDF4C1B2AC7A800D3CF70 /* PNChannelHistoryParser.m in Sources */,
@@ -8986,6 +8994,7 @@
 				C5568BE01A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */,
 				C5BEDFA71B2AC7A800D3CF70 /* PNChannelGroup.m in Sources */,
 				C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
+				5BD3BDBF1B45348400A42EBB /* WLSegmentedControl.m in Sources */,
 				C55E10A01B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				C5BEE05B1B2AC7A800D3CF70 /* PNChannelGroupRemoveRequest.m in Sources */,
 				C54AF66919B8C491006F7EDB /* WLCountry.m in Sources */,
@@ -9163,7 +9172,6 @@
 				C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C504179419B9EE42000E55F3 /* WLContributorsViewController.m in Sources */,
 				C57BDDBA19FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
-				5B0BE6451B2886DC0083763C /* WLLightSegmentControl.m in Sources */,
 				C5BEDFA21B2AC7A800D3CF70 /* PNChannelEvents.m in Sources */,
 				C500997D1ADFCC940064CC7B /* WLSectionedDataSource.m in Sources */,
 				C5C20B9E1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
@@ -9313,6 +9321,7 @@
 				C5BEDFA31B2AC7A800D3CF70 /* PNChannelGroup.m in Sources */,
 				C574791D1B26FA45001AB8C0 /* WLCommentCell.m in Sources */,
 				C55E109C1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
+				5BD3BDBB1B45348400A42EBB /* WLSegmentedControl.m in Sources */,
 				C5BEE0571B2AC7A800D3CF70 /* PNChannelGroupRemoveRequest.m in Sources */,
 				C574791E1B26FA45001AB8C0 /* WLCountry.m in Sources */,
 				C5BEE0661B2AC7A800D3CF70 /* PNChannelsListUpdateForChannelGroupRequest.m in Sources */,
@@ -9498,7 +9507,6 @@
 				C574798A1B26FA45001AB8C0 /* WLUnreadMessagesView.m in Sources */,
 				C574798B1B26FA45001AB8C0 /* WLAppDelegate.m in Sources */,
 				C574798C1B26FA45001AB8C0 /* WLHintView.m in Sources */,
-				5BD2755D1B2853630060D951 /* WLLightSegmentControl.m in Sources */,
 				C574798D1B26FA45001AB8C0 /* WLAssetCell.m in Sources */,
 				C574798E1B26FA45001AB8C0 /* WLArrangedAddressBookGroup.m in Sources */,
 				C5BEDF491B2AC7A800D3CF70 /* PNChannelHistoryParser.m in Sources */,

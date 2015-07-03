@@ -128,7 +128,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         [self.delegate wrapCellDidBeginPanning:self];
         self.isRightSwipeAction = [sender velocityInView:sender.view].x < 0;
     } else if (sender.state == UIGestureRecognizerStateChanged) {
-        CGFloat constant = self.swipeActionConstraint.constant +  [sender translationInView:sender.view].x;
+        CGFloat constant = self.swipeActionConstraint.constant + [sender translationInView:sender.view].x;
         if (self.isRightSwipeAction) {
             self.swipeActionConstraint.constant = Smoothstep(-self.width, 0, constant);
             for (UIView *indicationView in self.rightSwipeIndicationViews) {

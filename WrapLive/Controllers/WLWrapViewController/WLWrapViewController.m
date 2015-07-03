@@ -13,8 +13,7 @@
 #import "WLPhotosViewController.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
-#import "SegmentedControl.h"
-#import "WLTapBarStoryboardTransition.h"
+#import "WLSegmentedControl.h"
 #import "WLBasicDataSource.h"
 #import "WLEntryPresenter.h"
 #import "WLChatViewController.h"
@@ -25,9 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *candyCountLabel;
-@property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
-@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *leftSwipeRecognizer;
-@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *rightSwipeRecognizer;
+@property (weak, nonatomic) IBOutlet WLSegmentedControl *segmentedControl;
 
 @end
 
@@ -45,10 +42,6 @@
     [super viewDidLoad];
     if (!self.wrap.valid) {
         return;
-    }
-    if (!self.selectedSegment) {
-        id segment = [self.segmentedControl controlForSegment:self.segmentedControl.selectedSegment];
-        [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
     }
 }
 
@@ -72,26 +65,6 @@
 
 - (void)updateNotificationCouter {
     self.messageCountLabel.intValue = [self.wrap unreadNotificationsMessageCount];
-}
-
-// MARK: - SwipeHandlerOfSegmentedControl
-
-- (IBAction)handleLeftRecognizer:(UISwipeGestureRecognizer *)recognizer {
-    if (self.segmentedControl.selectedSegment > WLSegmentControlStatePhotos) {
-        NSUInteger selectedSegment = --self.segmentedControl.selectedSegment;
-        id segment = [self.segmentedControl controlForSegment:selectedSegment];
-        [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
-        self.selectedSegment = selectedSegment;
-    }
-}
-
-- (IBAction)handleRightRecognizer:(UISwipeGestureRecognizer *)recognizer {
-    if (self.segmentedControl.selectedSegment < WLSegmentControlStateFriend) {
-        NSUInteger selectedSegment = ++self.segmentedControl.selectedSegment;
-        id segment = [self.segmentedControl controlForSegment:selectedSegment];
-        [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
-        self.selectedSegment = selectedSegment;
-    }
 }
 
 // MARK: - WLEntryNotifyReceiver
@@ -162,8 +135,7 @@
 
 // MARK: - Custom animation
 
-- (BOOL)segmentedControl:(SegmentedControl*)control shouldSelectSegment:(NSInteger)segment {
-    control.selectionOnTouchUp = YES;
+- (BOOL)segmentedControl:(SegmentedControl*)control didSelectSegment:(NSInteger)segment {
     self.selectedSegment = segment;
     return YES;
 }

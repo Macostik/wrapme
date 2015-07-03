@@ -45,7 +45,11 @@
         UILayoutPriority secondPriority = self.weakConstraint.priority;
         self.strongConstraint.priority = secondPriority;
         self.weakConstraint.priority = firstPriority;
-        [self.parentView layoutIfNeeded];
+        if (self.parentView != nil) {
+            [self.parentView layoutIfNeeded];
+        } else {
+            [self.strongConstraint.firstItem layoutIfNeeded];
+        }
     }
 }
 

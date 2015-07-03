@@ -17,10 +17,16 @@
 
 @implementation WLTapBarStoryboardTransition
 
-- (IBAction)addChild:(id)sender {
+- (IBAction)addChild:(UIButton *)sender {
     UIViewController *toViewController = self.destinationViewController;
     UIViewController *fromViewController = self.sourceViewController;
     toViewController.view.frame = self.containerView.bounds;
+    
+    for (UIViewController *viewController in self.sourceViewController.childViewControllers) {
+        if ([NSStringFromClass(viewController.class) isEqualToString:NSStringFromClass(self.destinationViewController.class)]) {
+            return;
+        }
+    }
     
     for (UIViewController *childViewController in [fromViewController childViewControllers]) {
         [childViewController.view removeFromSuperview];

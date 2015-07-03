@@ -20,6 +20,8 @@
 
 @interface SegmentedControl : UIControl
 
+@property (nonatomic, readonly)  NSArray* controls;
+
 @property (nonatomic, weak) IBOutlet id <SegmentedControlDelegate> delegate;
 
 @property (nonatomic) NSInteger selectedSegment;
@@ -31,5 +33,7 @@
 - (void)setEnabled:(BOOL)enabled segment:(NSInteger)segment;
 
 - (UIControl*)controlForSegment:(NSInteger)segment;
+
+- (void)setSelectedControl:(UIControl*)control;
 
 @end

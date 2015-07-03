@@ -9,12 +9,6 @@
 #import "WLStoryboardTransition.h"
 #import "SegmentedControl.h"
 
-typedef NS_OPTIONS(NSUInteger, WLSegmentControlState) {
-    WLSegmentControlStatePhotos,
-    WLSegmentControlStateChat,
-    WLSegmentControlStateFriend  
-};
-
 @interface WLTapBarStoryboardTransition : WLStoryboardTransition
 
 - (IBAction)addChild:(id)sender;

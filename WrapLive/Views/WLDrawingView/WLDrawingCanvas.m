@@ -18,6 +18,12 @@
 
 @implementation WLDrawingCanvas
 
+- (void)dealloc {
+    if (self.imageView) {
+        [self.imageView removeFromSuperview];
+    }
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
@@ -40,9 +46,12 @@
 
 - (UIImageView *)imageView {
     if (!_imageView) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        [self addSubview:imageView];
-        [self makeResizibleSubview:imageView];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.frame];
+        [self.superview insertSubview:imageView belowSubview:self];
+        [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+        [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
+        [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
         _imageView = imageView;
     }
     return _imageView;

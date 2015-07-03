@@ -14,7 +14,7 @@
 
 @property (nonatomic) WLEvent event;
 
-@property (weak, nonatomic) WLEntry* targetEntry;
+@property (strong, nonatomic) WLEntry* targetEntry;
 
 @property (strong, nonatomic) Class entryClass;
 

@@ -22,14 +22,12 @@
 
 - (void)setSelectedControl:(UIControl *)control {
     [super setSelectedControl:control];
-    [UIView animateWithDuration:.25 animations:^{
+    [UIView performAnimated:YES animation:^{
         self.sliceView.transform = CGAffineTransformIdentity;
         self.leadingSliceViewConstraint.constant = control.x;
         [self.sliceView layoutIfNeeded];
         [self hightlightAttributedViewsForControl:control byColor:[UIColor whiteColor]];
         control.selected = NO;
-    } completion:^(BOOL finished) {
-        [control sendActionsForControlEvents:UIControlEventTouchUpInside];
     }];
 }
 
@@ -61,6 +59,7 @@ CGFloat beganTouchPointX = .0;
             NSInteger selectedSegment = [self indexSegmentByPositionPoint:[recognizer translationInView:self]];
             UIControl *control = [self controlForSegment:selectedSegment];
             [self setSelectedControl:control];
+            [control sendActionsForControlEvents:UIControlEventTouchUpInside];
             break;
         }
         default:

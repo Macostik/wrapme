@@ -43,6 +43,10 @@
     if (!self.wrap.valid) {
         return;
     }
+    if (!self.selectedSegment) {
+        id segment = [self.segmentedControl controlForSegment:self.segmentedControl.selectedSegment];
+        [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

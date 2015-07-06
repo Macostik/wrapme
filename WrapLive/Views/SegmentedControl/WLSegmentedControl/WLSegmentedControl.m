@@ -23,12 +23,33 @@
 - (void)setSelectedControl:(UIControl *)control {
     [super setSelectedControl:control];
     [UIView performAnimated:YES animation:^{
-        self.sliceView.transform = CGAffineTransformIdentity;
-        self.leadingSliceViewConstraint.constant = control.x;
-        [self.sliceView layoutIfNeeded];
-        [self hightlightAttributedViewsForControl:control byColor:[UIColor whiteColor]];
-        control.selected = NO;
+        [self setIdentityControl:control];
     }];
+}
+
+- (void)setSelectedControl:(UIControl *)control animated:(BOOL)animated completion:(WLBooleanBlock)completion {
+    CGFloat duration = animated ? 0.25 : .0;
+    [UIView animateWithDuration:duration animations:^{
+        [self setIdentityControl:control];
+    } completion:completion];
+}
+
+- (void)setIdentityControl:(UIControl *)control {
+    self.sliceView.transform = CGAffineTransformIdentity;
+    self.leadingSliceViewConstraint.constant = control.x;
+    [self.sliceView layoutIfNeeded];
+    [self hightlightAttributedViewsForControl:control byColor:[UIColor whiteColor]];
+}
+
+- (NSUInteger)indexSegmentByPositionPoint:(CGPoint)point {
+    return MIN(2, ABS((beganTouchPointX + point.x)/(self.width/self.controls.count)));
+}
+
+- (void)hightlightAttributedViewsForControl:(UIControl *)control byColor:(UIColor *)color {
+    for (UIView *attributedView in self.attributedViews) {
+         [attributedView.subviews setValue:attributedView.superview.x == control.x ?
+                                            color : [UIColor WL_grayLighter] forKey:@"textColor"];
+    }
 }
 
 // MARK: - UIPanHandlerOfSegmentedControl
@@ -45,7 +66,7 @@ CGFloat beganTouchPointX = .0;
             break;
         }
         case UIGestureRecognizerStateChanged: {
-           CGPoint changePoint = [recognizer translationInView:self];
+            CGPoint changePoint = [recognizer translationInView:self];
             [UIView performAnimated:YES animation:^{
                 [self hightlightAttributedViewsForControl:nil byColor:[UIColor WL_grayLighter]];
                 self.leadingSliceViewConstraint.constant = beganTouchPointX + changePoint.x - self.sliceView.width/2;
@@ -56,25 +77,20 @@ CGFloat beganTouchPointX = .0;
         case UIGestureRecognizerStateEnded:
         UIGestureRecognizerStateCancelled:
         UIGestureRecognizerStateFailed: {
+            __weak __typeof(self)weakSelf = self;
             NSInteger selectedSegment = [self indexSegmentByPositionPoint:[recognizer translationInView:self]];
             UIControl *control = [self controlForSegment:selectedSegment];
-            [self setSelectedControl:control];
-            [control sendActionsForControlEvents:UIControlEventTouchUpInside];
+            [self setSelectedControl:control animated:YES completion:^(BOOL flag) {
+                control.selected = YES;
+                if ([weakSelf.delegate respondsToSelector:@selector(segmentedControl:didSelectSegment:)]) {
+                    [weakSelf.delegate segmentedControl:weakSelf didSelectSegment:selectedSegment];
+                }
+                [control sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }];
             break;
         }
         default:
             break;
-    }
-}
-
-- (NSUInteger)indexSegmentByPositionPoint:(CGPoint)point {
-    return MIN(2, ABS((beganTouchPointX + point.x)/(self.width/self.controls.count)));
-}
-
-- (void)hightlightAttributedViewsForControl:(UIControl *)control byColor:(UIColor *)color {
-    for (UIView *attributedView in self.attributedViews) {
-         [attributedView.subviews setValue:attributedView.superview.x == control.x ?
-                                            color : [UIColor WL_grayLighter] forKey:@"textColor"];
     }
 }
 

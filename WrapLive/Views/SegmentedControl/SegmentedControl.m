@@ -102,7 +102,7 @@
 	NSArray* controls = self.controls;
 	NSUInteger index = [controls indexOfObject:sender];
 	
-	if (index != NSNotFound && !sender.selected) {
+	if (index != NSNotFound) {
 
 		if ([self.delegate respondsToSelector:@selector(segmentedControl:shouldSelectSegment:)]) {
 			if (![self.delegate segmentedControl:self shouldSelectSegment:index]) {

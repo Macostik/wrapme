@@ -17,14 +17,20 @@
 #import "WLBasicDataSource.h"
 #import "WLEntryPresenter.h"
 #import "WLChatViewController.h"
+#import "WLContributorsViewController.h"
 #import "WLWhatsUpSet.h"
+#import "UIView+Extentions.h"
 
-@interface WLWrapViewController ()  <WLStillPictureViewControllerDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *candyCountLabel;
 @property (weak, nonatomic) IBOutlet WLSegmentedControl *segmentedControl;
+
+@property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (strong, nonatomic) NSMutableArray *controllersContainer;
+
 
 @end
 
@@ -34,6 +40,7 @@
     self = [super initWithCoder:coder];
     if (self) {
         [self addNotifyReceivers];
+        self.controllersContainer = [NSMutableArray array];
     }
     return self;
 }
@@ -44,8 +51,7 @@
         return;
     }
     if (!self.selectedSegment) {
-        id segment = [self.segmentedControl controlForSegment:self.segmentedControl.selectedSegment];
-        [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
+        [self photosTabSelected:nil];
     }
 }
 
@@ -115,10 +121,11 @@
 
 - (IBAction)photosTabSelected:(id)sender {
     self.candyCountLabel.intValue = 0;
+    [self controllerForSelectedSegment:self.segmentedControl.selectedSegment];
 }
 
 - (IBAction)chatTabSeleced:(id)sender {
-      self.messageCountLabel.intValue = 0;
+    self.messageCountLabel.intValue = 0;
 }
 
 // MARK: - WLStillPictureViewControllerDelegate
@@ -141,7 +148,59 @@
 
 - (BOOL)segmentedControl:(SegmentedControl*)control didSelectSegment:(NSInteger)segment {
     self.selectedSegment = segment;
+    [self controllerForSelectedSegment:segment];
     return YES;
+}
+
+- (void)addViewContrtroller:(UIViewController *)controller {
+    controller.view.frame = self.containerView.bounds;
+    [self addChildViewController:controller];
+    [controller didMoveToParentViewController:self];
+}
+
+- (void)bringControllerViewToFront:(UIViewController *)controller {
+    for (UIView *subView in self.containerView.subviews) {
+        if ([controller.view isEqual:subView]) {
+            [subView removeFromSuperview];
+        }
+    }
+    [self.containerView addSubview:controller.view];
+    [self.containerView makeResizibleSubview:controller.view];
+}
+
+- (void)controllerForSelectedSegment:(NSInteger)segment {
+    UIViewController *viewController = nil;
+    switch (segment) {
+        case WLSegmentControlStatePhotos:
+            viewController = [self controllerForClass:[WLPhotosViewController class]];
+            [(id)viewController setDelegate:self];
+            break;
+        case WLSegmentControlStateChat:
+            viewController = [self controllerForClass:[WLChatViewController class]];
+            break;
+        case WLSegmentControlStateFriend:
+            viewController = [self controllerForClass:[WLContributorsViewController class]];
+            break;
+    }
+   
+    [self bringControllerViewToFront:viewController];
+}
+
+- (UIViewController *)controllerForClass:(Class)class {
+    UIViewController *viewController = nil;
+    for (UIViewController *createdViewController in self.controllersContainer) {
+        if ([createdViewController.class isEqual:class]) {
+            viewController = createdViewController;
+        }
+    }
+    if (viewController == nil) {
+        viewController = [class instantiate:self.storyboard];
+        [(id)viewController setWrap:self.wrap];
+        [self.controllersContainer addObject:viewController];
+        [self addViewContrtroller:viewController];
+    }
+    
+    return viewController;
 }
 
 // MARK: - WLPhotoViewControllerDelegate

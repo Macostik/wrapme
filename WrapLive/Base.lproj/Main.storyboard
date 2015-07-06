@@ -2896,7 +2896,6 @@ Tap here to start.</string>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="addChild:" destination="bCh-Zb-Y2B" eventType="touchUpInside" id="pla-fb-9Qr"/>
                                             <action selector="photosTabSelected:" destination="hUj-RK-zkg" eventType="touchUpInside" id="kBq-DB-Ejv"/>
                                         </connections>
                                     </button>
@@ -2980,7 +2979,6 @@ Tap here to start.</string>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="addChild:" destination="ZQ7-eu-zrn" eventType="touchUpInside" id="1nX-gv-WiQ"/>
                                             <action selector="chatTabSeleced:" destination="hUj-RK-zkg" eventType="touchUpInside" id="JOD-A2-R12"/>
                                         </connections>
                                     </button>
@@ -3036,9 +3034,6 @@ Tap here to start.</string>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="addChild:" destination="RzQ-9C-UAe" eventType="touchUpInside" id="pBJ-pS-Fub"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3074,7 +3069,7 @@ Tap here to start.</string>
                                     <constraint firstItem="uGo-lW-T9v" firstAttribute="centerX" secondItem="dlX-4m-vRl" secondAttribute="centerX" id="zbY-E4-A7I"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="delegate" destination="hUj-RK-zkg" id="Pei-F5-DS6"/>
+                                    <outlet property="delegate" destination="hUj-RK-zkg" id="2UV-7c-Spy"/>
                                     <outlet property="leadingSliceViewConstraint" destination="qM7-Ib-OWb" id="jvb-sT-M4T"/>
                                     <outlet property="sliceView" destination="gce-v5-9VK" id="Uwx-Ip-bmg"/>
                                     <outletCollection property="gestureRecognizers" destination="pGT-OX-Trk" appends="YES" id="Mme-RY-yRb"/>
@@ -3103,6 +3098,7 @@ Tap here to start.</string>
                     </view>
                     <connections>
                         <outlet property="candyCountLabel" destination="m01-Ic-fcZ" id="jaU-NF-20F"/>
+                        <outlet property="containerView" destination="rEr-of-cGm" id="AcK-LX-CK0"/>
                         <outlet property="messageCountLabel" destination="z3d-ia-fy3" id="Hpz-4E-8bd"/>
                         <outlet property="nameLabel" destination="ek2-Bn-UN6" id="85h-Ef-Vvk"/>
                         <outlet property="navigationBar" destination="b0w-IA-ZYu" id="iww-eD-owf"/>
@@ -3135,40 +3131,6 @@ Tap here to start.</string>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="hUj-RK-zkg" id="kT4-Wh-UMP"/>
-                    </connections>
-                </customObject>
-                <customObject id="bCh-Zb-Y2B" userLabel="Photos Transition" customClass="WLTapBarStoryboardTransition">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLPhotosViewController"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="sourceIsDelegate" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="containerView" destination="rEr-of-cGm" id="zKJ-6U-ZQR"/>
-                        <outlet property="sourceViewController" destination="hUj-RK-zkg" id="dWO-Rx-hzJ"/>
-                    </connections>
-                </customObject>
-                <customObject id="ZQ7-eu-zrn" userLabel="Chat Transition" customClass="WLTapBarStoryboardTransition">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLChatViewController"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="containerView" destination="rEr-of-cGm" id="7sY-mO-0Ak"/>
-                        <outlet property="sourceViewController" destination="hUj-RK-zkg" id="iSq-ku-sca"/>
-                    </connections>
-                </customObject>
-                <customObject id="RzQ-9C-UAe" userLabel="Add Contributors Transition" customClass="WLTapBarStoryboardTransition">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLContributorsViewController"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="containerView" destination="rEr-of-cGm" id="HNm-LN-utR"/>
-                        <outlet property="sourceViewController" destination="hUj-RK-zkg" id="DKl-Kb-vgC"/>
                     </connections>
                 </customObject>
             </objects>

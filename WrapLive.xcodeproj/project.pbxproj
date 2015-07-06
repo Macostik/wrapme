@@ -223,11 +223,6 @@
 		5BD303431B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
 		5BD303441B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
 		5BD303451B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
-		5BD303491B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303481B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m */; };
-		5BD3034A1B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303481B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m */; };
-		5BD3034B1B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303481B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m */; };
-		5BD3034C1B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303481B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m */; };
-		5BD3034D1B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303481B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m */; };
 		5BD3BDBB1B45348400A42EBB /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */; };
 		5BD3BDBC1B45348400A42EBB /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */; };
 		5BD3BDBD1B45348400A42EBB /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */; };
@@ -2730,8 +2725,6 @@
 		5BD1DD421B3D9DC800F44756 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		5BD3033F1B2971D2002EA8D7 /* WLWrapSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapSettingsViewController.h; path = WLWrapSettingsViewController/WLWrapSettingsViewController.h; sourceTree = "<group>"; };
 		5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapSettingsViewController.m; path = WLWrapSettingsViewController/WLWrapSettingsViewController.m; sourceTree = "<group>"; };
-		5BD303471B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLTapBarStoryboardTransition.h; path = WLStoryboardSegue/WLTapBarStoryboardTransition.h; sourceTree = "<group>"; };
-		5BD303481B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTapBarStoryboardTransition.m; path = WLStoryboardSegue/WLTapBarStoryboardTransition.m; sourceTree = "<group>"; };
 		5BD3BDB91B45348400A42EBB /* WLSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSegmentedControl.h; path = WLSegmentedControl/WLSegmentedControl.h; sourceTree = "<group>"; };
 		5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSegmentedControl.m; path = WLSegmentedControl/WLSegmentedControl.m; sourceTree = "<group>"; };
 		5BD552101B3C13F700530566 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WhatsUpPlaceholderView.xib; sourceTree = "<group>"; };
@@ -6131,8 +6124,6 @@
 				C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */,
 				C56A760C1A640F1900D1FBED /* WLStoryboardTransition.h */,
 				C56A760D1A640F1900D1FBED /* WLStoryboardTransition.m */,
-				5BD303471B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.h */,
-				5BD303481B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m */,
 			);
 			name = WLStoryboardSegue;
 			sourceTree = "<group>";
@@ -7470,7 +7461,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -8262,7 +8253,6 @@
 				C545312A1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
 				C500997E1ADFCC940064CC7B /* WLSegmentedDataSource.m in Sources */,
 				C58AB99C1B13856700932272 /* WLWhatsUpEvent.m in Sources */,
-				5BD3034A1B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */,
 				C5BEDF3B1B2AC7A800D3CF70 /* PNChannelGroupNamespacesResponseParser.m in Sources */,
 				C5BEE00D1B2AC7A800D3CF70 /* NSError+PNAdditions.m in Sources */,
 				C5F99B6F196BEB0C00A3FB19 /* WLMenu.m in Sources */,
@@ -8604,7 +8594,6 @@
 				C545312B1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
 				C500997F1ADFCC940064CC7B /* WLSegmentedDataSource.m in Sources */,
 				C58AB99D1B13856700932272 /* WLWhatsUpEvent.m in Sources */,
-				5BD3034B1B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */,
 				C5BEDF3C1B2AC7A800D3CF70 /* PNChannelGroupNamespacesResponseParser.m in Sources */,
 				C5BEE00E1B2AC7A800D3CF70 /* NSError+PNAdditions.m in Sources */,
 				C54AF4EB19B8C437006F7EDB /* WLMenu.m in Sources */,
@@ -8906,7 +8895,6 @@
 				C545312C1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
 				C50099801ADFCC940064CC7B /* WLSegmentedDataSource.m in Sources */,
 				C58AB99E1B13856700932272 /* WLWhatsUpEvent.m in Sources */,
-				5BD3034C1B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */,
 				C5BEDF3D1B2AC7A800D3CF70 /* PNChannelGroupNamespacesResponseParser.m in Sources */,
 				C5BEE00F1B2AC7A800D3CF70 /* NSError+PNAdditions.m in Sources */,
 				C54AF5E819B8C467006F7EDB /* WLMenu.m in Sources */,
@@ -9208,7 +9196,6 @@
 				C545312D1A24A1F20048A677 /* WLCountriesViewController.m in Sources */,
 				C50099811ADFCC940064CC7B /* WLSegmentedDataSource.m in Sources */,
 				C58AB99F1B13856700932272 /* WLWhatsUpEvent.m in Sources */,
-				5BD3034D1B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */,
 				C5BEDF3E1B2AC7A800D3CF70 /* PNChannelGroupNamespacesResponseParser.m in Sources */,
 				C5BEE0101B2AC7A800D3CF70 /* NSError+PNAdditions.m in Sources */,
 				C54AF6E519B8C491006F7EDB /* WLMenu.m in Sources */,
@@ -9536,7 +9523,6 @@
 				C57479901B26FA45001AB8C0 /* WLCountriesViewController.m in Sources */,
 				C57479911B26FA45001AB8C0 /* WLSegmentedDataSource.m in Sources */,
 				C57479921B26FA45001AB8C0 /* WLWhatsUpEvent.m in Sources */,
-				5BD303491B29C9C7002EA8D7 /* WLTapBarStoryboardTransition.m in Sources */,
 				C5BEDF3A1B2AC7A800D3CF70 /* PNChannelGroupNamespacesResponseParser.m in Sources */,
 				C5BEE00C1B2AC7A800D3CF70 /* NSError+PNAdditions.m in Sources */,
 				C57479931B26FA45001AB8C0 /* WLMenu.m in Sources */,
@@ -11400,7 +11386,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

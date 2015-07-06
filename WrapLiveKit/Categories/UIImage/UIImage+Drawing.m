@@ -60,13 +60,18 @@
                    toAlbum:WLAlbumName
                   metadata:metadata
                 completion:^(NSURL *assetURL, NSError *error) {
-                    if (error) {
+                    run_in_main_queue(^{
+                        if (error) {
+                            if (failure) failure(error);
+                        } else {
+                            if (completion) completion();
+                        }
+                    });
+                } failure:^(NSError *error) {
+                    run_in_main_queue(^{
                         if (failure) failure(error);
-                    } else {
-                        if (completion) completion();
-                    }
-                }
-                   failure:failure];
+                    });
+                }];
     });
 }
 

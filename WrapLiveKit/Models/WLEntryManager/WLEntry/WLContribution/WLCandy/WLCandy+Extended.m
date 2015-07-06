@@ -162,13 +162,12 @@
     
     ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
     if (status == ALAuthorizationStatusDenied) {
-        if (failure) failure(WLError(@"To allow access to the Photos go to the Privacy settings of the app."));
+        if (failure) failure(WLError(WLLS(@"downloading_privacy_settings")));
         return;
     }
     
     [self setDownloadSuccessBlock:^(UIImage *image) {
-        [image save:nil];
-        if (success) success();
+        [image save:nil completion:success failure:failure];
     }];
    
     [self setDownloadFailureBlock:^(NSError *error) {

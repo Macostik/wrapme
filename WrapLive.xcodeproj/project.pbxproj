@@ -202,10 +202,10 @@
 		5BB04F2919D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
 		5BB04F2A19D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
 		5BB04F2B19D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
-		5BB1F47119EE835100ECAB67 /* WLTypingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingViewCell.m */; };
-		5BB1F47219EE835100ECAB67 /* WLTypingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingViewCell.m */; };
-		5BB1F47319EE835100ECAB67 /* WLTypingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingViewCell.m */; };
-		5BB1F47419EE835100ECAB67 /* WLTypingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingViewCell.m */; };
+		5BB1F47119EE835100ECAB67 /* WLTypingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingView.m */; };
+		5BB1F47219EE835100ECAB67 /* WLTypingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingView.m */; };
+		5BB1F47319EE835100ECAB67 /* WLTypingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingView.m */; };
+		5BB1F47419EE835100ECAB67 /* WLTypingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingView.m */; };
 		5BBAB3A61AAA002400CE6252 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */; };
 		5BBAB3A71AAA002400CE6252 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */; };
 		5BBAB3A81AAA002400CE6252 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */; };
@@ -941,10 +941,10 @@
 		C560D2371AFBB55E006B906E /* WLHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2331AFBB55E006B906E /* WLHistoryViewController.m */; };
 		C56498D31ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app in Resources */ = {isa = PBXBuildFile; fileRef = C56498D21ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app */; };
 		C564B2B91ADE6DD5000C3DF1 /* WrapLiveWatchKitApp-Development.app in Resources */ = {isa = PBXBuildFile; fileRef = C50645931ABD7FD500CB4BE3 /* WrapLiveWatchKitApp-Development.app */; };
-		C56758151AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */; };
-		C56758161AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */; };
-		C56758171AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */; };
-		C56758181AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */; };
+		C56758151AEE978800DFEC93 /* WLTypingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingView.xib */; };
+		C56758161AEE978800DFEC93 /* WLTypingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingView.xib */; };
+		C56758171AEE978800DFEC93 /* WLTypingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingView.xib */; };
+		C56758181AEE978800DFEC93 /* WLTypingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingView.xib */; };
 		C567582D1AEE981000DFEC93 /* WLCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLCollectionViewLayout.m */; };
 		C567582E1AEE981000DFEC93 /* WLCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLCollectionViewLayout.m */; };
 		C567582F1AEE981000DFEC93 /* WLCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLCollectionViewLayout.m */; };
@@ -985,7 +985,7 @@
 		C57479111B26FA45001AB8C0 /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		C57479121B26FA45001AB8C0 /* WLLaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */; };
 		C57479131B26FA45001AB8C0 /* WLHomeDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C50099461ADFCC250064CC7B /* WLHomeDataSource.m */; };
-		C57479141B26FA45001AB8C0 /* WLTypingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingViewCell.m */; };
+		C57479141B26FA45001AB8C0 /* WLTypingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1F47019EE835100ECAB67 /* WLTypingView.m */; };
 		C57479151B26FA45001AB8C0 /* WLRemoteEntryHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C55D77E71AE51BA0006FA19C /* WLRemoteEntryHandler.m */; };
 		C57479161B26FA45001AB8C0 /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
 		C57479171B26FA45001AB8C0 /* WLActivationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BB61A239D6F008B2E2E /* WLActivationViewController.m */; };
@@ -1195,7 +1195,7 @@
 		C57479F11B26FA45001AB8C0 /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908D51B18995D001CB99F /* WLDownloadingView.xib */; };
 		C57479F21B26FA45001AB8C0 /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
 		C57479F31B26FA45001AB8C0 /* WLConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782CD1A4EC56A0094BEE5 /* WLConfirmView.xib */; };
-		C57479F41B26FA45001AB8C0 /* WLTypingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */; };
+		C57479F41B26FA45001AB8C0 /* WLTypingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingView.xib */; };
 		C57479F51B26FA45001AB8C0 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C54F4B191A28A1D000B92982 /* OpenSans-Bold.ttf */; };
 		C57479F61B26FA45001AB8C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
 		C57479F71B26FA45001AB8C0 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
@@ -2715,8 +2715,8 @@
 		5BB02FF519F00BCE001E1D50 /* WLChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChat.m; path = WLChatGroupSet/WLChat.m; sourceTree = "<group>"; };
 		5BB04F2619D9822300B5C6EE /* WLEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditViewController.h; path = WLEditViewController/WLEditViewController.h; sourceTree = "<group>"; };
 		5BB04F2719D9822300B5C6EE /* WLEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditViewController.m; path = WLEditViewController/WLEditViewController.m; sourceTree = "<group>"; };
-		5BB1F46F19EE835100ECAB67 /* WLTypingViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTypingViewCell.h; sourceTree = "<group>"; };
-		5BB1F47019EE835100ECAB67 /* WLTypingViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTypingViewCell.m; sourceTree = "<group>"; };
+		5BB1F46F19EE835100ECAB67 /* WLTypingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTypingView.h; sourceTree = "<group>"; };
+		5BB1F47019EE835100ECAB67 /* WLTypingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTypingView.m; sourceTree = "<group>"; };
 		5BBAB3AA1AAA002400CE6252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Camera.storyboard; sourceTree = "<group>"; };
 		5BC48BDE1A8BBBEA003E90FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NoCommentsPlaceholderView.strings; sourceTree = "<group>"; };
 		5BC48BDF1A8BBBED003E90FA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/NoCommentsPlaceholderView.strings; sourceTree = "<group>"; };
@@ -3263,7 +3263,7 @@
 		C5612D6A1ACD968B0052578A /* WLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLConstants.h; sourceTree = "<group>"; };
 		C56498C71ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WrapLiveWatchKitExtension-Production.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C56498D21ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLiveWatchKitApp-Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLTypingViewCell.xib; sourceTree = "<group>"; };
+		C56758141AEE978800DFEC93 /* WLTypingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLTypingView.xib; sourceTree = "<group>"; };
 		C567582B1AEE981000DFEC93 /* WLCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionViewLayout.h; path = WLChatViewController/WLCollectionViewLayout.h; sourceTree = "<group>"; };
 		C567582C1AEE981000DFEC93 /* WLCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionViewLayout.m; path = WLChatViewController/WLCollectionViewLayout.m; sourceTree = "<group>"; };
 		C568C7BA1B21F1D800308CBA /* WLEntry+Containment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLEntry+Containment.h"; sourceTree = "<group>"; };
@@ -4647,9 +4647,9 @@
 		5BB1F46E19EE831800ECAB67 /* WLTypingView */ = {
 			isa = PBXGroup;
 			children = (
-				5BB1F46F19EE835100ECAB67 /* WLTypingViewCell.h */,
-				5BB1F47019EE835100ECAB67 /* WLTypingViewCell.m */,
-				C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */,
+				5BB1F46F19EE835100ECAB67 /* WLTypingView.h */,
+				5BB1F47019EE835100ECAB67 /* WLTypingView.m */,
+				C56758141AEE978800DFEC93 /* WLTypingView.xib */,
 			);
 			name = WLTypingView;
 			path = WLChatViewController/WLTypingView;
@@ -7553,7 +7553,7 @@
 				C55908D01B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BA6CAF21A10E51B004AD41C /* s01.wav in Resources */,
 				5BD782C81A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
-				C56758151AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
+				C56758151AEE978800DFEC93 /* WLTypingView.xib in Resources */,
 				C54F4B1A1A28A1D000B92982 /* OpenSans-Bold.ttf in Resources */,
 				5BD552211B3C149A00530566 /* wrapliveicons.ttf in Resources */,
 				C55908821B186293001CB99F /* Main.storyboard in Resources */,
@@ -7692,7 +7692,7 @@
 				C55908D11B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BD782C91A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				5BD552221B3C149A00530566 /* wrapliveicons.ttf in Resources */,
-				C56758161AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
+				C56758161AEE978800DFEC93 /* WLTypingView.xib in Resources */,
 				5B330E0D1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
 				C55908DB1B18B9E9001CB99F /* WLWrapPickerHintView.xib in Resources */,
@@ -7757,7 +7757,7 @@
 				C55908D21B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BD782CA1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				5BD552231B3C149A00530566 /* wrapliveicons.ttf in Resources */,
-				C56758171AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
+				C56758171AEE978800DFEC93 /* WLTypingView.xib in Resources */,
 				5B330E0E1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */,
 				C54AF64419B8C467006F7EDB /* iTunesArtwork in Resources */,
 				C55908DC1B18B9E9001CB99F /* WLWrapPickerHintView.xib in Resources */,
@@ -7822,7 +7822,7 @@
 				C55908D31B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BD782CB1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				5BD552241B3C149A00530566 /* wrapliveicons.ttf in Resources */,
-				C56758181AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */,
+				C56758181AEE978800DFEC93 /* WLTypingView.xib in Resources */,
 				5B330E0F1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				C55908DD1B18B9E9001CB99F /* WLWrapPickerHintView.xib in Resources */,
@@ -7930,7 +7930,7 @@
 				C57479F11B26FA45001AB8C0 /* WLDownloadingView.xib in Resources */,
 				C57479F21B26FA45001AB8C0 /* s01.wav in Resources */,
 				C57479F31B26FA45001AB8C0 /* WLConfirmView.xib in Resources */,
-				C57479F41B26FA45001AB8C0 /* WLTypingViewCell.xib in Resources */,
+				C57479F41B26FA45001AB8C0 /* WLTypingView.xib in Resources */,
 				C57479F51B26FA45001AB8C0 /* OpenSans-Bold.ttf in Resources */,
 				5BD552201B3C149A00530566 /* wrapliveicons.ttf in Resources */,
 				C57479F61B26FA45001AB8C0 /* Main.storyboard in Resources */,
@@ -8052,7 +8052,7 @@
 				C54E4ADE1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C5BEDF1D1B2AC7A800D3CF70 /* PNPresenceEvent.m in Sources */,
 				C500994B1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
-				5BB1F47119EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
+				5BB1F47119EE835100ECAB67 /* WLTypingView.m in Sources */,
 				C55D77E81AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
 				12E8FF1418E960E000BF1B96 /* StreamLayout.m in Sources */,
 				C5C20BC91A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
@@ -8394,7 +8394,7 @@
 				C54E4ADF1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C5BEDF1E1B2AC7A800D3CF70 /* PNPresenceEvent.m in Sources */,
 				C500994C1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
-				5BB1F47219EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
+				5BB1F47219EE835100ECAB67 /* WLTypingView.m in Sources */,
 				C55D77E91AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
 				C54AF46919B8C437006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCA1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
@@ -8696,7 +8696,7 @@
 				C54E4AE01A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C5BEDF1F1B2AC7A800D3CF70 /* PNPresenceEvent.m in Sources */,
 				C500994D1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
-				5BB1F47319EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
+				5BB1F47319EE835100ECAB67 /* WLTypingView.m in Sources */,
 				C55D77EA1AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
 				C54AF56619B8C467006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCB1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
@@ -8999,7 +8999,7 @@
 				C54E4AE11A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C5BEDF201B2AC7A800D3CF70 /* PNPresenceEvent.m in Sources */,
 				C500994E1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
-				5BB1F47419EE835100ECAB67 /* WLTypingViewCell.m in Sources */,
+				5BB1F47419EE835100ECAB67 /* WLTypingView.m in Sources */,
 				C55D77EB1AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
 				C54AF66319B8C491006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCC1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
@@ -9326,7 +9326,7 @@
 				C57479121B26FA45001AB8C0 /* WLLaunchScreenViewController.m in Sources */,
 				C5BEDF1C1B2AC7A800D3CF70 /* PNPresenceEvent.m in Sources */,
 				C57479131B26FA45001AB8C0 /* WLHomeDataSource.m in Sources */,
-				C57479141B26FA45001AB8C0 /* WLTypingViewCell.m in Sources */,
+				C57479141B26FA45001AB8C0 /* WLTypingView.m in Sources */,
 				C57479151B26FA45001AB8C0 /* WLRemoteEntryHandler.m in Sources */,
 				C57479161B26FA45001AB8C0 /* StreamLayout.m in Sources */,
 				C57479171B26FA45001AB8C0 /* WLActivationViewController.m in Sources */,

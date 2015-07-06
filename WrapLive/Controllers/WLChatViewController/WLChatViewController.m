@@ -21,7 +21,7 @@
 #import "WLRefresher.h"
 #import "WLSignificantTimeBroadcaster.h"
 #import "WLSoundPlayer.h"
-#import "WLTypingViewCell.h"
+#import "WLTypingView.h"
 #import "WLFontPresetter.h"
 #import "WLMessageDateView.h"
 #import "WLUnreadMessagesView.h"
@@ -57,6 +57,8 @@ CGFloat WLMaxTextViewWidth;
 
 @property (strong, nonatomic) NSMapTable* cachedMessageHeights;
 
+@property (weak, nonatomic) WLTypingView *typingView;
+
 @end
 
 @implementation WLChatViewController
@@ -91,7 +93,7 @@ CGFloat WLMaxTextViewWidth;
     self.timeFont = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
     
     [self.collectionView registerNib:[WLLoadingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WLLoadingViewIdentifier];
-    [self.collectionView registerNib:[WLTypingViewCell nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLTypingViewCell"];
+    [self.collectionView registerNib:[WLTypingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLTypingViewCell"];
     [self.collectionView registerNib:[WLMessageDateView nib] forSupplementaryViewOfKind:@"date" withReuseIdentifier:@"WLMessageDateView"];
     [self.collectionView registerNib:[WLUnreadMessagesView nib] forSupplementaryViewOfKind:@"unreadMessagesView" withReuseIdentifier:@"unreadMessagesView"];
     [self.layout registerItemFooterSupplementaryViewKind:@"date"];
@@ -152,7 +154,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)scrollToLastUnreadMessage {
     self.layout.scrollToUnreadMessages = YES;
-    [self.collectionView reloadData];
+    [self reloadDataSynchronously:NO];
 }
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
@@ -200,6 +202,7 @@ CGFloat WLMaxTextViewWidth;
             CGFloat offset = collectionView.contentOffset.y;
             CGFloat contentHeight = collectionView.contentSize.height;
             [weakSelf.chat addEntry:message];
+            [weakSelf.collectionView reloadData];
             [collectionView layoutIfNeeded];
             offset += collectionView.contentSize.height - contentHeight;
             [collectionView trySetContentOffset:CGPointMake(0, offset) animated:NO];
@@ -208,9 +211,9 @@ CGFloat WLMaxTextViewWidth;
         } else {
             
             [weakSelf.chat addEntry:message];
+            [weakSelf.collectionView reloadData];
             [collectionView layoutIfNeeded];
-            CGPoint minimumContentOffset = collectionView.minimumContentOffset;
-            collectionView.contentOffset = CGPointMake(minimumContentOffset.x, minimumContentOffset.y + [weakSelf heightOfMessageCell:message]);
+            collectionView.contentOffset = CGPointOffset(collectionView.minimumContentOffset, 0, [weakSelf heightOfMessageCell:message]);
             [collectionView setMinimumContentOffsetAnimated:YES];
             run_after(0.5, ^{
                 [operation finish];
@@ -275,26 +278,31 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)paginatedSetChanged:(WLPaginatedSet *)group {
-    [self.collectionView reloadData];
+    [self reloadDataSynchronously:NO];
 }
 
 - (void)paginatedSetCompleted:(WLPaginatedSet *)group {
-    [self.collectionView reloadData];
+    [self reloadDataSynchronously:NO];
+}
+
+- (BOOL)isTypingViewHidden {
+    return self.typingView.superview == nil || self.typingView.hidden;
 }
 
 - (void)chat:(WLChat*)chat didBeginTyping:(WLUser *)user {
     __weak __typeof(self)weakSelf = self;
     runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
-        [weakSelf.collectionView reloadData];
-        [weakSelf.collectionView layoutIfNeeded];
-        if (chat.typingUsers.count == 1 && CGPointEqualToPoint(weakSelf.collectionView.contentOffset, weakSelf.collectionView.minimumContentOffset)) {
-            CGPoint minimumContentOffset = weakSelf.collectionView.minimumContentOffset;
-            weakSelf.collectionView.contentOffset = CGPointMake(minimumContentOffset.x, minimumContentOffset.y + [weakSelf heightOfTypingCell:chat]);
-            [weakSelf.collectionView setMinimumContentOffsetAnimated:YES];
+        UICollectionView *cv = weakSelf.collectionView;
+        if ([weakSelf isTypingViewHidden] && CGPointEqualToPoint(cv.contentOffset, cv.minimumContentOffset)) {
+            [cv reloadData];
+            [cv layoutIfNeeded];
+            cv.contentOffset = CGPointOffset(weakSelf.collectionView.minimumContentOffset, 0, [weakSelf heightOfTypingCell:chat]);
+            [cv setMinimumContentOffsetAnimated:YES];
             run_after(1.0, ^{
                 [operation finish];
             });
         } else {
+            [cv reloadData];
             [operation finish];
         }
     });
@@ -303,18 +311,28 @@ CGFloat WLMaxTextViewWidth;
 - (void)chat:(WLChat*)chat didEndTyping:(WLUser *)user {
     __weak __typeof(self)weakSelf = self;
     runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
-        if (!chat.showTypingView && CGPointEqualToPoint(weakSelf.collectionView.contentOffset, weakSelf.collectionView.minimumContentOffset) && user.valid) {
-            CGPoint minimumContentOffset = weakSelf.collectionView.minimumContentOffset;
-                [weakSelf.collectionView setContentOffset:CGPointMake(minimumContentOffset.x, minimumContentOffset.y + [weakSelf heightOfTypingCell:chat]) animated:YES];
+        UICollectionView *cv = weakSelf.collectionView;
+        CGPoint minimumContentOffset = cv.minimumContentOffset;
+        if (![weakSelf isTypingViewHidden] && CGPointEqualToPoint(cv.contentOffset, minimumContentOffset) && user.valid) {
+            [cv setContentOffset:CGPointOffset(minimumContentOffset, 0, [weakSelf heightOfTypingCell:chat]) animated:YES];
             run_after(1.0, ^{
-                [weakSelf.collectionView reloadData];
+                [cv reloadData];
+                cv.contentOffset = weakSelf.collectionView.minimumContentOffset;
                 [operation finish];
-                weakSelf.collectionView.contentOffset = minimumContentOffset;
             });
         } else {
-            [weakSelf.collectionView reloadData];
+            [cv reloadData];
             [operation finish];
         }
+    });
+}
+
+- (void)reloadDataSynchronously:(BOOL)synchronously {
+    __weak typeof(self)weakSelf = self;
+    runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
+        [weakSelf.collectionView reloadData];
+        if (synchronously) [weakSelf.collectionView layoutIfNeeded];
+        [operation finish];
     });
 }
 
@@ -398,19 +416,12 @@ CGFloat WLMaxTextViewWidth;
 - (void)setTyping:(BOOL)typing sendMessage:(BOOL)sendMessage {
     if (_typing != typing) {
         _typing = typing;
-        if (typing) {
-            [self.chat.typingChannel beginTyping];
-        } else {
-            [self.chat.typingChannel endTyping:sendMessage];
-        }
+        [self.chat.typingChannel sendTyping:typing sendMessage:sendMessage];
     }
 }
 
 - (void)composeBarDidChangeText:(WLComposeBar*)composeBar {
-    __weak __typeof(self)weakSelf = self;
-    if (self.chat.typingChannel.subscribed) {
-        weakSelf.typing = composeBar.text.nonempty;
-    }
+    self.typing = composeBar.text.nonempty;
 }
 
 - (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
@@ -464,9 +475,10 @@ CGFloat WLMaxTextViewWidth;
         }
         supplementaryView = loadingView;
     } else {
-        WLTypingViewCell *typingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLTypingViewCell" forIndexPath:indexPath];
+        WLTypingView *typingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLTypingViewCell" forIndexPath:indexPath];
         typingView.chat = self.chat;
         supplementaryView = typingView;
+        self.typingView = typingView;
     }
     supplementaryView.layer.geometryFlipped = [self geometryFlipped];
     return supplementaryView;
@@ -529,17 +541,11 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView topSpacingForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    if ([kind isEqualToString:@"unreadMessagesView"]) {
-        return 12;
-    }
-    return 0;
+    return [kind isEqualToString:@"unreadMessagesView"] ? 12 : 0;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView bottomSpacingForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    if ([kind isEqualToString:@"unreadMessagesView"]) {
-        return 12;
-    }
-    return 0;
+    return [kind isEqualToString:@"unreadMessagesView"] ? 12 : 0;
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView applyContentSizeInsetForAttributes:(UICollectionViewLayoutAttributes *)attributes {
@@ -553,7 +559,7 @@ CGFloat WLMaxTextViewWidth;
     self.messageFont = [self.messageFont preferredFontWithPreset:WLFontPresetNormal];
     self.nameFont = [self.nameFont preferredFontWithPreset:WLFontPresetNormal];
     self.timeFont = [self.timeFont preferredFontWithPreset:WLFontPresetSmall];
-    [self.collectionView reloadData];
+    [self reloadDataSynchronously:NO];
 }
 
 @end

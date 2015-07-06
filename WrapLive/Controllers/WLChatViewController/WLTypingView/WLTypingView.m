@@ -6,16 +6,16 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLTypingViewCell.h"
+#import "WLTypingView.h"
 
-@interface WLTypingViewCell ()
+@interface WLTypingView ()
 
 @property (weak, nonatomic) IBOutlet UILabel *nameTextField;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 
 @end
 
-@implementation WLTypingViewCell
+@implementation WLTypingView
 
 - (void)setChat:(WLChat *)chat {
     self.nameTextField.text = chat.typingNames;

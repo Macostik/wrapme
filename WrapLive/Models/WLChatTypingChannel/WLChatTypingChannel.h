@@ -24,6 +24,8 @@
 
 + (instancetype)channelWithWrap:(WLWrap *)wrap;
 
+- (void)sendTyping:(BOOL)typing sendMessage:(BOOL)sendMessage;
+
 - (void)beginTyping;
 
 - (void)endTyping:(BOOL)sendMessage;

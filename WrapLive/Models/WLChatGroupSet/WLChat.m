@@ -8,7 +8,7 @@
 
 #import "WLChat.h"
 #import "NSMutableOrderedSet+Sorting.h"
-#import "WLTypingViewCell.h"
+#import "WLTypingView.h"
 
 @interface WLChat () <WLChatTypingChannelDelegate>
 

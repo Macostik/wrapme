@@ -13,7 +13,7 @@ static CGFloat WLTypingViewMinHeight = 60.0;
 static CGFloat WLTypingViewTopIndent = 12.0;
 static NSString *WLFriendsTypingImage = @"friends";
 
-@interface WLTypingViewCell : UICollectionReusableView
+@interface WLTypingView : UICollectionReusableView
 
 - (void)setChat:(WLChat *)chat;
 

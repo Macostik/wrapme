@@ -111,6 +111,10 @@ static inline CGFloat CGPointDistanceToPoint(CGPoint fromPoint, CGPoint toPoint)
     return sqrtf(powf(dx, 2.0f) + powf(dy, 2.0f));
 }
 
+static inline CGPoint CGPointOffset(CGPoint point, CGFloat x, CGFloat y) {
+    return CGPointMake(point.x + x, point.y + y);
+}
+
 static inline CGFloat Smoothstep(CGFloat min, CGFloat max, CGFloat value) {
     if (value < min) return min;
     else if (value > max) return max;

@@ -945,10 +945,10 @@
 		C56758161AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */; };
 		C56758171AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */; };
 		C56758181AEE978800DFEC93 /* WLTypingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */; };
-		C567582D1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */; };
-		C567582E1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */; };
-		C567582F1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */; };
-		C56758301AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */; };
+		C567582D1AEE981000DFEC93 /* WLCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLCollectionViewLayout.m */; };
+		C567582E1AEE981000DFEC93 /* WLCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLCollectionViewLayout.m */; };
+		C567582F1AEE981000DFEC93 /* WLCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLCollectionViewLayout.m */; };
+		C56758301AEE981000DFEC93 /* WLCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLCollectionViewLayout.m */; };
 		C56787F81B0F291A007E4A2B /* WLPostEditingUploadCandyRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BD1D5BF1B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C568C7BC1B21F1D800308CBA /* WLEntry+Containment.h in Headers */ = {isa = PBXBuildFile; fileRef = C568C7BA1B21F1D800308CBA /* WLEntry+Containment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C568C7BD1B21F1D800308CBA /* WLEntry+Containment.m in Sources */ = {isa = PBXBuildFile; fileRef = C568C7BB1B21F1D800308CBA /* WLEntry+Containment.m */; };
@@ -1022,7 +1022,7 @@
 		C57479371B26FA45001AB8C0 /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
 		C57479381B26FA45001AB8C0 /* WLInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */; };
 		C57479391B26FA45001AB8C0 /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
-		C574793A1B26FA45001AB8C0 /* WLChatCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */; };
+		C574793A1B26FA45001AB8C0 /* WLCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C567582C1AEE981000DFEC93 /* WLCollectionViewLayout.m */; };
 		C574793B1B26FA45001AB8C0 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB02FF519F00BCE001E1D50 /* WLChat.m */; };
 		C574793C1B26FA45001AB8C0 /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */; };
 		C574793D1B26FA45001AB8C0 /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
@@ -1595,6 +1595,11 @@
 		C5B2337C1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
 		C5B2337D1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
 		C5B2337E1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
+		C5B6D99D1B4A82C7009B9436 /* WLChatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */; };
+		C5B6D99E1B4A82C7009B9436 /* WLChatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */; };
+		C5B6D99F1B4A82C7009B9436 /* WLChatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */; };
+		C5B6D9A01B4A82C7009B9436 /* WLChatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */; };
+		C5B6D9A11B4A82C7009B9436 /* WLChatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */; };
 		C5B993C51B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */; };
 		C5B993C61B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */; };
 		C5B993C71B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */; };
@@ -3257,8 +3262,8 @@
 		C56498C71ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WrapLiveWatchKitExtension-Production.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C56498D21ACB00D2000F1E4B /* WrapLiveWatchKitApp-Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WrapLiveWatchKitApp-Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C56758141AEE978800DFEC93 /* WLTypingViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLTypingViewCell.xib; sourceTree = "<group>"; };
-		C567582B1AEE981000DFEC93 /* WLChatCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChatCollectionViewLayout.h; path = WLChatViewController/WLChatCollectionViewLayout.h; sourceTree = "<group>"; };
-		C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChatCollectionViewLayout.m; path = WLChatViewController/WLChatCollectionViewLayout.m; sourceTree = "<group>"; };
+		C567582B1AEE981000DFEC93 /* WLCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionViewLayout.h; path = WLChatViewController/WLCollectionViewLayout.h; sourceTree = "<group>"; };
+		C567582C1AEE981000DFEC93 /* WLCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionViewLayout.m; path = WLChatViewController/WLCollectionViewLayout.m; sourceTree = "<group>"; };
 		C568C7BA1B21F1D800308CBA /* WLEntry+Containment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLEntry+Containment.h"; sourceTree = "<group>"; };
 		C568C7BB1B21F1D800308CBA /* WLEntry+Containment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLEntry+Containment.m"; sourceTree = "<group>"; };
 		C568D8D41A6D491800C2333B /* WLHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHintView.h; sourceTree = "<group>"; };
@@ -3337,6 +3342,8 @@
 		C5B233741B29E0C4008A14D1 /* WLEditPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEditPicture.m; sourceTree = "<group>"; };
 		C5B233781B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AdobeUXImageEditorViewController+SharedEditing.h"; sourceTree = "<group>"; };
 		C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AdobeUXImageEditorViewController+SharedEditing.m"; sourceTree = "<group>"; };
+		C5B6D99B1B4A82C7009B9436 /* WLChatLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChatLayout.h; path = WLChatViewController/WLChatLayout.h; sourceTree = "<group>"; };
+		C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChatLayout.m; path = WLChatViewController/WLChatLayout.m; sourceTree = "<group>"; };
 		C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLWKChatReplyPresets.plist; sourceTree = "<group>"; };
 		C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLWKCommentReplyPresets.plist; sourceTree = "<group>"; };
 		C5B993CA1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceController+SimplifiedTextInput.h"; sourceTree = "<group>"; };
@@ -6201,8 +6208,10 @@
 				C5947E5018F5271B00BDF038 /* WLChatViewController.m */,
 				AC17ADAF18F8147900F55E17 /* WLCollectionViewFlowLayout.h */,
 				AC17ADB018F8147900F55E17 /* WLCollectionViewFlowLayout.m */,
-				C567582B1AEE981000DFEC93 /* WLChatCollectionViewLayout.h */,
-				C567582C1AEE981000DFEC93 /* WLChatCollectionViewLayout.m */,
+				C567582B1AEE981000DFEC93 /* WLCollectionViewLayout.h */,
+				C567582C1AEE981000DFEC93 /* WLCollectionViewLayout.m */,
+				C5B6D99B1B4A82C7009B9436 /* WLChatLayout.h */,
+				C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */,
 			);
 			name = WLChatViewController;
 			sourceTree = "<group>";
@@ -8043,6 +8052,7 @@
 				C54C56731B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
 				C5BEDF951B2AC7A800D3CF70 /* PNAccessRightsInformation.m in Sources */,
 				5BB04F2819D9822300B5C6EE /* WLEditViewController.m in Sources */,
+				C5B6D99E1B4A82C7009B9436 /* WLChatLayout.m in Sources */,
 				C5C20BE11A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				C5BEDFF41B2AC7A800D3CF70 /* PNWhereNow.m in Sources */,
 				5BA60CDB1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
@@ -8102,7 +8112,7 @@
 				C547A4511A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C5BEE03F1B2AC7A800D3CF70 /* PNAccessRightsAuditRequest.m in Sources */,
 				C5BEDF4F1B2AC7A800D3CF70 /* PNChannelsForGroupResponseParser.m in Sources */,
-				C567582D1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
+				C567582D1AEE981000DFEC93 /* WLCollectionViewLayout.m in Sources */,
 				5BB02FF619F00BCE001E1D50 /* WLChat.m in Sources */,
 				C5BEDED71B2AC7A800D3CF70 /* PubNub+ChannelRegistry.m in Sources */,
 				C52E1FE81A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
@@ -8384,6 +8394,7 @@
 				C54C56741B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
 				C5BEDF961B2AC7A800D3CF70 /* PNAccessRightsInformation.m in Sources */,
 				5BB04F2919D9822300B5C6EE /* WLEditViewController.m in Sources */,
+				C5B6D99F1B4A82C7009B9436 /* WLChatLayout.m in Sources */,
 				C5C20BE21A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				C5BEDFF51B2AC7A800D3CF70 /* PNWhereNow.m in Sources */,
 				5BA60CDC1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
@@ -8443,7 +8454,7 @@
 				C547A4521A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C5BEE0401B2AC7A800D3CF70 /* PNAccessRightsAuditRequest.m in Sources */,
 				C5BEDF501B2AC7A800D3CF70 /* PNChannelsForGroupResponseParser.m in Sources */,
-				C567582E1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
+				C567582E1AEE981000DFEC93 /* WLCollectionViewLayout.m in Sources */,
 				5BB02FF719F00BCE001E1D50 /* WLChat.m in Sources */,
 				C5BEDED81B2AC7A800D3CF70 /* PubNub+ChannelRegistry.m in Sources */,
 				C52E1FE91A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
@@ -8685,6 +8696,7 @@
 				C54C56751B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
 				C5BEDF971B2AC7A800D3CF70 /* PNAccessRightsInformation.m in Sources */,
 				5BB04F2A19D9822300B5C6EE /* WLEditViewController.m in Sources */,
+				C5B6D9A01B4A82C7009B9436 /* WLChatLayout.m in Sources */,
 				C5C20BE31A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				C5BEDFF61B2AC7A800D3CF70 /* PNWhereNow.m in Sources */,
 				5BA60CDD1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */,
@@ -8744,7 +8756,7 @@
 				C547A4531A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C5BEE0411B2AC7A800D3CF70 /* PNAccessRightsAuditRequest.m in Sources */,
 				C5BEDF511B2AC7A800D3CF70 /* PNChannelsForGroupResponseParser.m in Sources */,
-				C567582F1AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
+				C567582F1AEE981000DFEC93 /* WLCollectionViewLayout.m in Sources */,
 				5BB02FF819F00BCE001E1D50 /* WLChat.m in Sources */,
 				C5BEDED91B2AC7A800D3CF70 /* PubNub+ChannelRegistry.m in Sources */,
 				C52E1FEA1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
@@ -8986,6 +8998,7 @@
 				C5C20BCC1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
 				C54C56761B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
 				C5BEDF981B2AC7A800D3CF70 /* PNAccessRightsInformation.m in Sources */,
+				C5B6D9A11B4A82C7009B9436 /* WLChatLayout.m in Sources */,
 				5BB04F2B19D9822300B5C6EE /* WLEditViewController.m in Sources */,
 				C5C20BE41A239D6F008B2E2E /* WLTestUserPicker.m in Sources */,
 				C5BEDFF71B2AC7A800D3CF70 /* PNWhereNow.m in Sources */,
@@ -9046,7 +9059,7 @@
 				C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C5BEE0421B2AC7A800D3CF70 /* PNAccessRightsAuditRequest.m in Sources */,
 				C5BEDF521B2AC7A800D3CF70 /* PNChannelsForGroupResponseParser.m in Sources */,
-				C56758301AEE981000DFEC93 /* WLChatCollectionViewLayout.m in Sources */,
+				C56758301AEE981000DFEC93 /* WLCollectionViewLayout.m in Sources */,
 				5BB02FF919F00BCE001E1D50 /* WLChat.m in Sources */,
 				C5BEDEDA1B2AC7A800D3CF70 /* PubNub+ChannelRegistry.m in Sources */,
 				C52E1FEB1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
@@ -9313,6 +9326,7 @@
 				C57479181B26FA45001AB8C0 /* WLShapeView.m in Sources */,
 				C5BEDF941B2AC7A800D3CF70 /* PNAccessRightsInformation.m in Sources */,
 				C57479191B26FA45001AB8C0 /* WLEditViewController.m in Sources */,
+				C5B6D99D1B4A82C7009B9436 /* WLChatLayout.m in Sources */,
 				C574791A1B26FA45001AB8C0 /* WLTestUserPicker.m in Sources */,
 				C5BEDFF31B2AC7A800D3CF70 /* PNWhereNow.m in Sources */,
 				C574791B1B26FA45001AB8C0 /* UIScreen+Diagonal.m in Sources */,
@@ -9372,7 +9386,7 @@
 				C57479391B26FA45001AB8C0 /* WLKeyboard.m in Sources */,
 				C5BEE03E1B2AC7A800D3CF70 /* PNAccessRightsAuditRequest.m in Sources */,
 				C5BEDF4E1B2AC7A800D3CF70 /* PNChannelsForGroupResponseParser.m in Sources */,
-				C574793A1B26FA45001AB8C0 /* WLChatCollectionViewLayout.m in Sources */,
+				C574793A1B26FA45001AB8C0 /* WLCollectionViewLayout.m in Sources */,
 				C574793B1B26FA45001AB8C0 /* WLChat.m in Sources */,
 				C5BEDED61B2AC7A800D3CF70 /* PubNub+ChannelRegistry.m in Sources */,
 				C574793C1B26FA45001AB8C0 /* UIFont+CustomFonts.m in Sources */,

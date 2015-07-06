@@ -24,12 +24,12 @@
 #import "WLTypingViewCell.h"
 #import "WLFontPresetter.h"
 #import "WLMessageDateView.h"
-#import "WLChatCollectionViewLayout.h"
 #import "WLUnreadMessagesView.h"
 #import "WLWrapViewController.h"
 #import "WLEntryPresenter.h"
 #import "WLToast.h"
 #import "WLCollectionView.h"
+#import "WLChatLayout.h"
 
 CGFloat WLMaxTextViewWidth;
 
@@ -39,7 +39,7 @@ CGFloat WLMaxTextViewWidth;
 
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 
-@property (nonatomic, readonly) WLChatCollectionViewLayout* layout;
+@property (nonatomic, readonly) WLChatLayout* layout;
 
 @property (weak, nonatomic) id operation;
 
@@ -93,7 +93,7 @@ CGFloat WLMaxTextViewWidth;
     [self.collectionView registerNib:[WLLoadingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WLLoadingViewIdentifier];
     [self.collectionView registerNib:[WLTypingViewCell nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLTypingViewCell"];
     [self.collectionView registerNib:[WLMessageDateView nib] forSupplementaryViewOfKind:@"date" withReuseIdentifier:@"WLMessageDateView"];
-    [self.collectionView registerNib:[WLUnreadMessagesView nib] forSupplementaryViewOfKind:@"unreadMessagesView" withReuseIdentifier:@"WLUnreadMessagesView"];
+    [self.collectionView registerNib:[WLUnreadMessagesView nib] forSupplementaryViewOfKind:@"unreadMessagesView" withReuseIdentifier:@"unreadMessagesView"];
     [self.layout registerItemFooterSupplementaryViewKind:@"date"];
     [self.layout registerItemFooterSupplementaryViewKind:@"unreadMessagesView"];
     self.collectionView.placeholderText = [NSString stringWithFormat:WLLS(@"no_chat_message"), self.wrap.name];
@@ -151,16 +151,8 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)scrollToLastUnreadMessage {
+    self.layout.scrollToUnreadMessages = YES;
     [self.collectionView reloadData];
-    WLMessage *unreadMessage = [self.chat.unreadMessages lastObject];
-    if (unreadMessage.valid && unreadMessage != [self.chat.entries firstObject]) {
-        NSUInteger index = [self.chat.entries indexOfObject:unreadMessage];
-        if (index != NSNotFound) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
-            [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
-            [self.collectionView layoutIfNeeded];
-        }
-    }
 }
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
@@ -457,7 +449,7 @@ CGFloat WLMaxTextViewWidth;
         view.message = [self.chat.entries tryObjectAtIndex:indexPath.item];
         supplementaryView = view;
     } else if ([kind isEqualToString:@"unreadMessagesView"]) {
-        WLUnreadMessagesView *unreadMessagesView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLUnreadMessagesView" forIndexPath:indexPath];
+        WLUnreadMessagesView *unreadMessagesView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"unreadMessagesView" forIndexPath:indexPath];
         [unreadMessagesView setNumberOfUnreadMessages:[self.chat.unreadMessages count]];
         supplementaryView = unreadMessagesView;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {

@@ -27,10 +27,12 @@
 
 @end
 
-@interface WLChatCollectionViewLayout : UICollectionViewLayout
+@interface WLCollectionViewLayout : UICollectionViewLayout
 
 - (void)registerItemHeaderSupplementaryViewKind:(NSString*)kind;
 
 - (void)registerItemFooterSupplementaryViewKind:(NSString*)kind;
+
+- (void)handleContentOffset:(CGFloat)offset withContentHeight:(CGFloat)contentHeight forAttributes:(UICollectionViewLayoutAttributes *)attributes;
 
 @end

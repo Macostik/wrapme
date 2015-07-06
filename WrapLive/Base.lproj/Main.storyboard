@@ -3966,7 +3966,7 @@ Check your internet connection and try again.</string>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ez0-f9-dHG" customClass="WLCollectionView">
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <collectionViewLayout key="collectionViewLayout" id="sGF-Oh-KI6" customClass="WLChatCollectionViewLayout"/>
+                                <collectionViewLayout key="collectionViewLayout" id="sGF-Oh-KI6" customClass="WLChatLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMyMessageCell" id="blg-MX-zu0" customClass="WLMessageCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLChatCollectionViewLayout.h"
+#import "WLCollectionViewLayout.h"
 #import "UIScrollView+Additions.h"
 
 static NSString *WLCollectionElementKindItem = @"item";
@@ -30,7 +30,7 @@ static NSString *WLCollectionElementKindItem = @"item";
 
 @end
 
-@interface WLChatCollectionViewLayout ()
+@interface WLCollectionViewLayout ()
 
 @property (strong, nonatomic) NSArray* sectionFootingSupplementaryViewKinds;
 
@@ -44,7 +44,7 @@ static NSString *WLCollectionElementKindItem = @"item";
 
 @end
 
-@implementation WLChatCollectionViewLayout {
+@implementation WLCollectionViewLayout {
     CGFloat contentHeight;
     CGFloat contentOffset;
     NSMutableDictionary* layoutKeyedAttributes;
@@ -136,11 +136,16 @@ static NSString *WLCollectionElementKindItem = @"item";
             } else {
                 attributes.frame = CGRectMake(0, contentOffset, size.width, size.height);
             }
+            [self handleContentOffset:contentOffset withContentHeight:contentHeight forAttributes:attributes];
             contentOffset += size.height;
             contentOffset += attributes.bottomSpacing;
         }
     }
     contentHeight = contentOffset + (contentOffset != 0 ? inset : 0);
+}
+
+- (void)handleContentOffset:(CGFloat)offset withContentHeight:(CGFloat)contentHeight forAttributes:(UICollectionViewLayoutAttributes *)attributes {
+    
 }
 
 - (void)prepareAttributes:(WLChatCollectionViewLayoutAttributes*)attributes ofKind:(NSString*)kind {

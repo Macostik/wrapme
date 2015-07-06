@@ -18,6 +18,7 @@
 #import "UIView+Extentions.h"
 #import "WLDeviceOrientationBroadcaster.h"
 #import "WLCommentCell.h"
+#import "WLLoadingView.h"
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;
 static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
@@ -37,11 +38,24 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
 @implementation WLCommentsViewController
 
 - (void)viewDidLoad {
+    
+    UICollectionView *collectionView = self.dataSource.collectionView;
+    
+    [WLLoadingView registerInCollectionView:collectionView];
+    self.dataSource.footerIdentifier = @"WLLoadingView";
+    
+    self.dataSource.footerSize = CGSizeMake(collectionView.width, WLLoadingViewDefaultSize);
+    
     self.collectionView.layer.geometryFlipped = YES;
+    
     [super viewDidLoad];
+    
     if  (!self.candy.valid) return;
+    
+    
+    
     self.composeBar.placeholder = WLLS(@"comment_placeholder");
-    self.refresher = [WLRefresher refresher:self.collectionView target:self
+    self.refresher = [WLRefresher refresher:collectionView target:self
                                      action:@selector(refresh:)
                                       style:WLRefresherStyleWhite_Clear];
     [self refresh:nil];
@@ -54,8 +68,8 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
         NSAttributedString *attributedText = [[NSAttributedString alloc]initWithString:comment.text
                                                                             attributes: @{NSParagraphStyleAttributeName : paragraphStyle,
                                                                                           NSFontAttributeName : font}];
-        CGFloat textHeight = [attributedText heightForDefautWidth:weakSelf.collectionView.width - WLNotificationCommentHorizontalSpacing];
-        return CGSizeMake(weakSelf.collectionView.width, textHeight + WLNotificationCommentVerticalSpacing);
+        CGFloat textHeight = [attributedText heightForDefautWidth:collectionView.width - WLNotificationCommentHorizontalSpacing];
+        return CGSizeMake(collectionView.width, textHeight + WLNotificationCommentVerticalSpacing);
     }];
  
     self.dataSource.items = [self sortedComments];
@@ -75,9 +89,11 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
     __weak typeof(self)weakSelf = self;
     if (self.candy.uploaded) {
         [self.candy fetch:^(id object) {
+            weakSelf.dataSource.footerSize = CGSizeZero;
             weakSelf.dataSource.items = [weakSelf sortedComments];
             [sender setRefreshing:NO animated:YES];
         } failure:^(NSError *error) {
+            weakSelf.dataSource.footerSize = CGSizeZero;
             [error showIgnoringNetworkError];
             [sender setRefreshing:NO animated:YES];
         }];

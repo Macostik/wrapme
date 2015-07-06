@@ -13,6 +13,7 @@
 #import "UIFont+CustomFonts.h"
 #import "WLHintView.h"
 #import "WLNavigationHelper.h"
+#import "WLLoadingView.h"
 
 const static CGFloat WLContributorsVerticalIndent = 48.0f;
 const static CGFloat WLContributorsHorizontalIndent = 96.0f;
@@ -37,6 +38,10 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [WLLoadingView registerInCollectionView:self.dataSource.collectionView];
+    self.dataSource.footerIdentifier = @"WLLoadingView";
+    self.dataSource.footerSize = CGSizeMake(self.dataSource.collectionView.width, WLLoadingViewDefaultSize);
+    
     self.invitedContributors = [NSMutableSet set];
     
     self.removedContributors = [NSMutableSet set];
@@ -60,6 +65,14 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     [[WLWrap notifier] addReceiver:self];
     
     self.dataSource.items = [self sortedContributors];
+    
+    __weak typeof(self)weakSelf = self;
+    [[WLWrapContributorsRequest request:self.wrap] send:^(id object) {
+        weakSelf.dataSource.footerSize = CGSizeZero;
+        weakSelf.dataSource.items = [weakSelf sortedContributors];
+    } failure:^(NSError *error) {
+        [error showIgnoringNetworkError];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

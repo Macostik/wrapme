@@ -26,6 +26,7 @@ static NSString* WLWrapNameKey =@"wrap_name";
 static NSString* WLCandyUIDKey = @"candy_uid";
 static NSString* WLMessageUIDKey = @"chat_uid";
 static NSString* WLCommentUIDKey = @"comment_uid";
+static NSString* WLCreatorUIDKey = @"creator_uid";
 static NSString* WLUserUIDKey = @"user_uid";
 static NSString* WLContentKey = @"content";
 static NSString* WLUploadUIDKey = @"upload_uid";

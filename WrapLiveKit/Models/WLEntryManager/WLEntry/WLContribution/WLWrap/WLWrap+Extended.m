@@ -55,50 +55,38 @@
     NSString* name = [dictionary stringForKey:WLNameKey];
     if (!NSStringEqual(self.name, name)) self.name = name;
     if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
-    NSArray* contributorsArray = [dictionary arrayForKey:WLContributorsKey];
+    
+    NSArray *contributorsArray = [dictionary arrayForKey:WLContributorsKey];
+    NSMutableOrderedSet* contributors = self.contributors;
     if (contributorsArray.nonempty) {
-        NSMutableOrderedSet* contributors = [NSMutableOrderedSet orderedSetWithCapacity:[contributorsArray count]];
-        for (NSDictionary* contributor in contributorsArray) {
-            WLUser* user = [WLUser API_entry:contributor];
-            if (user) {
-                [contributors addObject:user];
-            }
-            if ([contributor boolForKey:WLIsCreatorKey] && self.contributor != user) {
-                self.contributor = user;
-            }
-        }
         
-        if (contributors.count != self.contributors.count || ![contributors isSubsetOfOrderedSet:self.contributors]) {
-            [contributors sort:comparatorByName];
+        if (!contributors) {
+            contributors = [NSMutableOrderedSet orderedSetWithCapacity:[contributorsArray count]];
+        }
+        [WLUser API_entries:contributorsArray relatedEntry:nil container:contributors];
+        self.contributors = contributors;
+    }
+    
+    if (dictionary[WLCreatorUIDKey] != nil) {
+        WLUser *contributor = [WLUser entry:dictionary[WLCreatorUIDKey]];
+        if (self.contributor != contributor) self.contributor = contributor;
+        
+        if (![contributors containsObject:contributor]) {
+            [contributors addObject:contributor];
             self.contributors = contributors;
         }
     }
     
-    NSArray* candiesArray = [dictionary arrayForKey:WLCandiesKey];
-    if (candiesArray.nonempty) {
-        candiesArray = [self arrayByRemovingDuplicatedCandies:candiesArray];
+    if (![contributors containsObject:[WLUser currentUser]]) {
+        [contributors addObject:[WLUser currentUser]];
+        self.contributors = contributors;
     }
-    NSMutableOrderedSet* candies = [WLCandy API_entries:candiesArray relatedEntry:self container:[NSMutableOrderedSet orderedSetWithCapacity:[candiesArray count]]];
+    
+    NSMutableOrderedSet* candies = [WLCandy API_entries:[dictionary arrayForKey:WLCandiesKey] relatedEntry:self];
     if (candies.nonempty && ![candies isSubsetOfOrderedSet:self.candies]) {
         [self addCandies:candies];
     }
-    BOOL isDefault = [dictionary boolForKey:WLDefaultWrapKey];
-    if (self.isDefault != isDefault) self.isDefault = isDefault;
     return self;
-}
-
-- (NSArray*)arrayByRemovingDuplicatedCandies:(NSArray*)candiesArray {
-    NSOrderedSet *uploadings = [self.candies filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"identifier == uploadIdentifier"]];
-    if (uploadings.count == 0) {
-        return candiesArray;
-    }
-    uploadings = [uploadings valueForKey:@"uploadIdentifier"];
-    return [candiesArray map:^id(NSDictionary* candyData) {
-        if ([uploadings containsObject:candyData[WLUploadUIDKey]]) {
-            return nil;
-        }
-        return candyData;
-    }];
 }
 
 - (void)addCandies:(NSOrderedSet *)candies {

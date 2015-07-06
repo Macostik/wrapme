@@ -32,7 +32,7 @@
 }
 
 + (NSMutableOrderedSet *)API_entries:(NSArray *)array relatedEntry:(id)relatedEntry {
-	return [[self API_entries:array relatedEntry:relatedEntry container:[NSMutableOrderedSet orderedSetWithCapacity:[array count]]] copy];
+	return [self API_entries:array relatedEntry:relatedEntry container:[NSMutableOrderedSet orderedSetWithCapacity:[array count]]];
 }
 
 + (NSMutableOrderedSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry container:(NSMutableOrderedSet*)container {

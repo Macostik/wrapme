@@ -415,7 +415,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)setTyping:(BOOL)typing sendMessage:(BOOL)sendMessage {
     if (_typing != typing) {
         _typing = typing;
-        [self.chat.typingChannel sendTyping:typing sendMessage:sendMessage];
+        [self.chat sendTyping:typing sendMessage:sendMessage];
     }
 }
 

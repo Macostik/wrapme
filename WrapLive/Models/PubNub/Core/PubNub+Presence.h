@@ -1,1012 +1,440 @@
-#import "PubNub.h"
+#import <Foundation/Foundation.h>
+#import "PubNub+Core.h"
+
+
+#pragma mark Class forward
+
+@class PNPresenceChannelGroupHereNowResult, PNPresenceChannelHereNowResult,
+       PNPresenceGlobalHereNowResult, PNPresenceWhereNowResult, PNErrorStatus;
+
+
+#pragma mark - Types
 
 /**
- Base class extension which provide methods for presence information fetching.
+ @brief  Here now completion block.
+ 
+ @param result Reference on result object which describe service response on here now request.
+ @param status Reference on status instance which hold information about processing results.
+ 
+ @since 4.0
+ */
+typedef void(^PNHereNowCompletionBlock)(PNPresenceChannelHereNowResult *result,
+                                        PNErrorStatus *status);
+
+/**
+ @brief  Global here now completion block.
+ 
+ @param result Reference on result object which describe service response on here now request.
+ @param status Reference on status instance which hold information about processing results.
+ 
+ @since 4.0
+ */
+typedef void(^PNGlobalHereNowCompletionBlock)(PNPresenceGlobalHereNowResult *result,
+                                              PNErrorStatus *status);
+
+/**
+ @brief  Channel group here now completion block.
+ 
+ @param result Reference on result object which describe service response on here now request.
+ @param status Reference on status instance which hold information about processing results.
+ 
+ @since 4.0
+ */
+typedef void(^PNChannelGroupHereNowCompletionBlock)(PNPresenceChannelGroupHereNowResult *result,
+                                                    PNErrorStatus *status);
+
+/**
+ @brief  UUID where now completion block.
+ 
+ @param result Reference on result object which describe service response on where now request.
+ @param status Reference on status instance which hold information about processing results.
+ 
+ @since 4.0
+ */
+typedef void(^PNWhereNowCompletionBlock)(PNPresenceWhereNowResult *result, PNErrorStatus *status);
+
+
+#pragma mark - API group interface
+/**
+ @brief      \b PubNub client core class extension to provide access to 'presence' API group.
+ @discussion Set of API which allow to retrieve information about subscriber(s) on remote data 
+             object live feeds and perform heartbeat requests to let \b PubNub service know what
+             client still interested in updates from feed.
  
  @author Sergey Mamontov
- @version 3.7.0
- @copyright © 2009-13 PubNub Inc.
+ @since 4.0
+ @copyright © 2009-2015 PubNub, Inc.
  */
 @interface PubNub (Presence)
 
 
-#pragma mark - Class (singleton) methods
+///------------------------------------------------
+/// @name Global here now
+///------------------------------------------------
 
 /**
- Request list of participants for all channels.
-
- @since 3.6.0
- */
-+ (void)requestParticipantsList;
-
-/**
- Request list of participants for all channels.
-
- @code
- @endcode
- This method extends \a +requestParticipantsList: and allow to specify
- participants retrieval process block.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participants list request operation will be completed.
- The block takes three arguments:
- \c clients - array of \b PNClient instances which represent client which is subscribed on target channel (if
- \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have \c kPNAnonymousParticipantIdentifier value);
- \c channel - will be empty for this type of request; \c error - describes what
- exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @note This method by default won't request client's state.
-
- @since 3.6.0
- */
-+ (void)requestParticipantsListWithCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock;
-
-/**
- Request list of participants for all channels.
-
- @code
- @endcode
- This method extends \a +requestParticipantsList: and allow to specify whether server should return client
- identifiers or not.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @since 3.6.0
- */
-+ (void)requestParticipantsListWithClientIdentifiers:(BOOL)isClientIdentifiersRequired;
-
-/**
- Request list of participants for all channels.
-
- @code
- @endcode
- This method extends \a +requestParticipantsListWithClientIdentifiers: and allow to specify participants retrieval
- process block.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participants list request operation will be completed.
- The block takes three arguments:
- \c clients - array of \b PNClient instances which represent client which is subscribed on target channel (if
- \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have \c kPNAnonymousParticipantIdentifier value);
- \c channel - will be empty for this type of request; \c error - describes what
- exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @note This method by default won't request client's state.
-
- @since 3.6.0
- */
-+ (void)requestParticipantsListWithClientIdentifiers:(BOOL)isClientIdentifiersRequired
-                                  andCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock;
-
-/**
- Request list of participants for all channels.
+ @brief      Request information about subscribers on all remote data objects live feeds.
+ @discussion This is application wide request for all remote data objects which is registered under
+             publish and subscribe keys used for client configuration.
+ @note       This API will retrieve only list of UUIDs along with their state for each remote data
+             object and number of subscribers in total for objects and overall.
  
  @code
  @endcode
- This method extends \a +requestParticipantsListWithClientIdentifiers: and allow to specify
- whether server should return state which is set to the client or not.
+ \b Example:
  
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
+ @code
+ // Client configuration.
+ PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:@"demo" 
+                                                                  subscribeKey:@"demo"];
+ self.client = [PubNub clientWithConfiguration:configuration];
+ [self.client hereNowWithCompletion:^(PNPresenceGlobalHereNowResult *result, PNErrorStatus *status) {
  
- @param shouldFetchClientState
- Whether or not \b PubNub client should fetch additional information which has been added to the client during
- subscription or specific API endpoints.
+     // Check whether request successfully completed or not.
+     if (!status.isError) {
  
- @note If \a 'isClientIdentifiersRequired' is set to \c NO then value of \a 'shouldFetchClientState' will be
- ignored and returned result array will contain list of \b PNClient instances with names set to \a 'unknown'.
+        // Handle downloaded presence information using:
+        //   result.data.channels - dictionary with active channels and presence information on 
+        //                          each. Each channel will have next fields: "uuids" - list of
+        //                          subscribers; occupancy - number of active subscribers.
+        //                          Each uuids entry has next fields: "uuid" - identifier and 
+        //                          "state" if it has been provided.
+        //   result.data.totalChannels - total number of active channels.
+        //   result.data.totalOccupancy - total number of active subscribers.
+     }
+     // Request processing failed.
+     else {
+     
+        // Handle presence audit error. Check 'category' property to find out possible issue because
+        // of which request did fail.
+        //
+        // Request can be resent using: [status retry];
+     }
+ }];
+ @endcode
  
- @since 3.6.0
+ @param block Here now processing completion block which pass two arguments: \c result - in case of
+              successful request processing \c data field will contain results of here now 
+              operation; \c status - in case if error occurred during request processing.
+ 
+ @since 4.0
  */
-+ (void)requestParticipantsListWithClientIdentifiers:(BOOL)isClientIdentifiersRequired
-                                         clientState:(BOOL)shouldFetchClientState;
+- (void)hereNowWithCompletion:(PNGlobalHereNowCompletionBlock)block;
 
 /**
- Request list of participants for all channels.
+ @brief      Request information about subscribers on all remote data objects live feeds.
+ @discussion This is application wide request for all remote data objects which is registered under
+             publish and subscribe keys used for client configuration.
 
  @code
  @endcode
- This method extends \a +requestParticipantsListWithClientIdentifiers:clientState: and allow to specify
- participants retrieval process block.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @param shouldFetchClientState
- Whether or not \b PubNub client should fetch additional information which has been added to the client during
- subscription or specific API endpoints.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participants list request operation will be completed.
- The block takes three arguments:
- \c clients - array of \b PNClient instances which represent client which is subscribed on target channel (if
- \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have \c kPNAnonymousParticipantIdentifier value);
- \c channel - will be empty for this type of request; \c error - describes what
- exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @note If \a 'isClientIdentifiersRequired' is set to \c NO then value of \a 'shouldFetchClientState' will be
- ignored and returned result array will contain list of \b PNClient instances with names set to \a 'unknown'.
-
- @since 3.6.0
- */
-+ (void)requestParticipantsListWithClientIdentifiers:(BOOL)isClientIdentifiersRequired
-                                         clientState:(BOOL)shouldFetchClientState
-                                  andCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock;
-
-/**
- Request list of participants for specified channel.
-
- @param channel
- \b PNChannel instance on for which \b PubNub client should retrieve information about participants.
-
- @note This method by default won't request client's state.
- */
-+ (void)requestParticipantsListForChannel:(PNChannel *)channel
-  DEPRECATED_MSG_ATTRIBUTE(" Use '+requestParticipantsListFor:' or "
-                           "'-requestParticipantsListFor:' instead. Class method will be removed in "
-                           "future.");
-
-/**
- Request list of participants for specified channel.
+ Extension to \c -hereNowWithCompletion: and allow to specify here now data which should be
+ returned by \b PubNub service.
  
  @code
  @endcode
- This method extends \a +requestParticipantsListForChannel: and allow to specify
- participants retrieval process block.
- 
- @param channel
- \b PNChannel instance on for which \b PubNub client should retrieve information about participants.
- 
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participants list request operation will be completed.
- The block takes three arguments:
- \c clients - array of \b PNClient instances which represent client which is subscribed on target channel (if
- \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have \c kPNAnonymousParticipantIdentifier value);
- \c channel - is \b PNChannel instance for which \b PubNub client received participants list; \c error - describes what
- exactly went wrong (check error code and compare it with \b PNErrorCodes ).
- 
- @note This method by default won't request client's state.
- */
-+ (void)requestParticipantsListForChannel:(PNChannel *)channel
-                      withCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock
-  DEPRECATED_MSG_ATTRIBUTE(" Use '+requestParticipantsListFor:withCompletionBlock:' or "
-                           "'-requestParticipantsListFor:withCompletionBlock:' instead. Class method "
-                           "will be removed in future.");
-
-/**
- @brief Request list of participants for specified set of channels.
- 
- @param channelObjects List of objects (which conforms to \b PNChannelProtocol data feed object protocol) like
-                       \b PNChannel and \b PNChannelGroup for which \b PubNub client should retrieve information about
-                       participants.
- 
- @note This method by default won't request client's state.
- @note \b PNChannelGroup instances will be expanded on server and information will be returned not for name of the
- group, but for channels which is registered under it.
-
- @since 3.7.0
- */
-+ (void)requestParticipantsListFor:(NSArray *)channelObjects;
-
-/**
- @brief Request list of participants for specified set of channels.
+ \b Example:
  
  @code
+ // Client configuration.
+ PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:@"demo" 
+                                                                  subscribeKey:@"demo"];
+ self.client = [PubNub clientWithConfiguration:configuration];
+ [self.client hereNowWithVerbosity:PNHereNowState
+                        completion:^(PNPresenceGlobalHereNowResult *result, PNErrorStatus *status) {
+ 
+     // Check whether request successfully completed or not.
+     if (!status.isError) {
+ 
+        // Handle downloaded presence information using:
+        //   result.data.channels - dictionary with active channels and presence information on 
+        //                          each. Each channel will have next fields: "uuids" - list of
+        //                          subscribers; "occupancy" - number of active subscribers.
+        //                          Each uuids entry has next fields: "uuid" - identifier and 
+        //                          "state" if it has been provided.
+        //   result.data.totalChannels - total number of active channels.
+        //   result.data.totalOccupancy - total number of active subscribers.
+     }
+     // Request processing failed.
+     else {
+     
+        // Handle presence audit error. Check 'category' property to find out possible issue because
+        // of which request did fail.
+        //
+        // Request can be resent using: [status retry];
+     }
+ }];
  @endcode
- This method extends \a +requestParticipantsListFor: and allow to specify participants retrieval process block.
  
- @param channelObjects List of objects (which conforms to \b PNChannelProtocol data feed object protocol)
-                       like \b PNChannel and \b PNChannelGroup for which \b PubNub client should retrieve information
-                       about participants.
- @param handleBlock    The block which will be called by \b PubNub client as soon as participants list request
-                       operation will be completed. The block takes three arguments: \c clients - array of
-                       \b PNClient instances which represent client which is subscribed on target channel (if
-                       \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have
-                       \c kPNAnonymousParticipantIdentifier value); \c channel - is \b PNChannel instance for which
-                       \b PubNub client received participants list; \c error - describes what exactly went wrong (check
-                       error code and compare it with \b PNErrorCodes ).
+ @param level  Reference on one of \b PNHereNowVerbosityLevel fields to instruct what exactly data
+               it expected in response.
+ @param block  Here now processing completion block which pass two arguments: \c result - in case of
+               successful request processing \c data field will contain results of here now
+               operation; \c status - in case if error occurred during request processing.
  
- @note This method by default won't request client's state.
- @note \b PNChannelGroup instances will be expanded on server and information will be returned not for name of the group, but for
- channels which is registered under it.
- 
- @since 3.7.0
+ @since 4.0
  */
-+ (void)requestParticipantsListFor:(NSArray *)channelObjects
-               withCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock;
+- (void)hereNowWithVerbosity:(PNHereNowVerbosityLevel)level
+                  completion:(PNGlobalHereNowCompletionBlock)block;
+
+
+///------------------------------------------------
+/// @name Channel here now
+///------------------------------------------------
 
 /**
- Request list of participants for specified channel. Depending on whether \a 'isIdentifiersListRequired' is set to \C
-  YES or not, \b PubNub client will receive from server list of client identifiers or just number of subscribers in
-  specified channel.
-
- @param channel
- \b PNChannel instance on for which \b PubNub client should retrieve information about participants.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @note This method by default won't request client's state.
-
- @note If \a 'isClientIdentifiersRequired' is set to \c NO then result array will contain list of \b PNClient
- instances with names set to \a 'unknown'.
-
- @since 3.6.0
- */
-+ (void)requestParticipantsListForChannel:(PNChannel *)channel
-                clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-  DEPRECATED_MSG_ATTRIBUTE(" Use '+requestParticipantsListFor:clientIdentifiersRequired:' or "
-                           "'-requestParticipantsListFor:clientIdentifiersRequired:' instead. Class "
-                           "method will be removed in future.");
-
-/**
- Request list of participants for specified channel. Depending on whether \a 'isIdentifiersListRequired' is set to \C
-  YES or not, \b PubNub client will receive from server list of client identifiers or just number of subscribers in
-  specified channel.
-
- @code
- @endcode
- This method extends \a +requestParticipantsListForChannel:clientIdentifiersRequired: and allow to specify
- participants retrieval process block.
-
- @param channel
- \b PNChannel instance on for which \b PubNub client should retrieve information about participants.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participants list request operation will be completed.
- The block takes three arguments:
- \c clients - array of \b PNClient instances which represent client which is subscribed on target channel (if
- \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have \c kPNAnonymousParticipantIdentifier value);
- \c channel - is \b PNChannel instance for which \b PubNub client received participants list; \c error - describes what
- exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @note This method by default won't request client's state.
-
- @note If \a 'isClientIdentifiersRequired' is set to \c NO then result array will contain list of \b PNClient
- instances with names set to \a 'unknown'.
-
- @since 3.6.0
- */
-+ (void)requestParticipantsListForChannel:(PNChannel *)channel
-                clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-                      withCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock
-  DEPRECATED_MSG_ATTRIBUTE(" Use '+requestParticipantsListFor:clientIdentifiersRequired:withCompletionBlock:'"
-                           " or '-requestParticipantsListFor:clientIdentifiersRequired:withCompletionBlock:'"
-                           " instead. Class method will be removed in future.");
-
-/**
- @brief Request list of participants for specified set of channels.
-
- @discussion Depending on whether \a 'isIdentifiersListRequired' is set to \c YES or not, \b PubNub client will receive
- from server list of client identifiers or just number of subscribers in specified channel.
- 
- @param channelObjects              List of objects (which conforms to \b PNChannelProtocol data feed object protocol)
-                                    like \b PNChannel and \b PNChannelGroup for which \b PubNub client should retrieve
-                                    information about participants.
- @param isClientIdentifiersRequired Whether or not \b PubNub client should fetch list of client identifiers or only
-                                    number of them will be returned by server.
- 
- @note This method by default won't request client's state.
- @note \b PNChannelGroup instances will be expanded on server and information will be returned not for name of the
- group, but for channels which is registered under it.
-
- @since 3.7.0
- */
-+ (void)requestParticipantsListFor:(NSArray *)channelObjects clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired;
-
-/**
- @brief Request list of participants for specified set of channels.
-
- @discussion Depending on whether \a 'isIdentifiersListRequired' is set to \c YES or not, \b PubNub client will receive
- from server list of client identifiers or just number of subscribers in specified channel.
+ @brief  Request information about subscribers on specific channel live feeds.
+ @note   This API will retrieve only list of UUIDs along with their state for each remote data
+         object and number of subscribers in total for objects and overall.
  
  @code
  @endcode
- This method extends \a +requestParticipantsListFor:clientIdentifiersRequired: and allow to specify participants
- retrieval process block.
-
- @param channelObjects              List of objects (which conforms to \b PNChannelProtocol data feed object protocol)
-                                    like \b PNChannel and \b PNChannelGroup for which \b PubNub client should retrieve
-                                    information about participants.
- @param isClientIdentifiersRequired Whether or not \b PubNub client should fetch list of client identifiers or only
-                                    number of them will be returned by server.
- @param handleBlock                 The block which will be called by \b PubNub client as soon as participants list
-                                    request operation will be completed. The block takes three arguments:
-                                    \c clients - array of \b PNClient instances which represent client which is
-                                    subscribed on target channel (if \a 'isClientIdentifiersRequired' is set to \c NO
-                                    than all objects will have \c kPNAnonymousParticipantIdentifier value);
-                                    \c channel - is \b PNChannel instance for which \b PubNub client received
-                                    participants list; \c error - describes what exactly went wrong (check error code
-                                    and compare it with \b PNErrorCodes ).
+ \b Example:
  
- @note This method by default won't request client's state.
- @note \b PNChannelGroup instances will be expanded on server and information will be returned not for name of the
- group, but for channels which is registered under it.
-
- @since 3.7.0
+ @code
+ // Client configuration.
+ PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:@"demo" 
+                                                                  subscribeKey:@"demo"];
+ self.client = [PubNub clientWithConfiguration:configuration];
+ [self.client hereNowForChannel:@"pubnub" withCompletion:^(PNPresenceChannelHereNowResult *result,
+                                                           PNErrorStatus *status) {
+ 
+     // Check whether request successfully completed or not.
+     if (!status.isError) {
+ 
+        // Handle downloaded presence information using:
+        //   result.data.uuids - dictionary with active subscriber. Each entry will have next 
+        //                       fields: "uuid" - identifier and "state" if it has been provided.
+        //   result.data.occupancy - total number of active subscribers.
+     }
+     // Request processing failed.
+     else {
+     
+        // Handle presence audit error. Check 'category' property to find out possible issue because
+        // of which request did fail.
+        //
+        // Request can be resent using: [status retry];
+     }
+ }];
+ @endcode
+ 
+ @param channel Reference on channel for which here now information should be received.
+ @param block   Here now processing completion block which pass two arguments: \c result - in case 
+                of successful request processing \c data field will contain results of here now 
+                operation; \c status - in case if error occurred during request processing.
+ 
+ @since 4.0
  */
-+ (void)requestParticipantsListFor:(NSArray *)channelObjects clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-               withCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock;
+- (void)hereNowForChannel:(NSString *)channel withCompletion:(PNHereNowCompletionBlock)block;
 
 /**
- Request list of participants for specified channel. Depending on whether \a 'isIdentifiersListRequired' is set to \C
-  YES or not, \b PubNub client will receive from server list of client identifiers or just number of subscribers in
-  specified channel.
+ @brief  Request information about subscribers on specific channel live feeds.
 
  @code
  @endcode
- This method extends \a +requestParticipantsListForChannel:clientIdentifiersRequired: and allow to specify
- whether server should return state which is set to the client or not.
-
- @param channel
- \b PNChannel instance on for which \b PubNub client should retrieve information about participants.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @param shouldFetchClientState
- Whether or not \b PubNub client should fetch additional information which has been added to the client during
- subscription or specific API endpoints.
-
- @note If \a 'isClientIdentifiersRequired' is set to \c NO then value of \a 'shouldFetchClientState' will be
- ignored and returned result array will contain list of \b PNClient instances with names set to \a 'unknown'.
-
- @since 3.6.0
- */
-+ (void)requestParticipantsListForChannel:(PNChannel *)channel clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-                              clientState:(BOOL)shouldFetchClientState
-  DEPRECATED_MSG_ATTRIBUTE(" Use '+requestParticipantsListFor:clientIdentifiersRequired:clientState:' "
-                           "or '-requestParticipantsListFor:clientIdentifiersRequired:clientState:' "
-                           "instead. Class method will be removed in future.");
-
-/**
- Request list of participants for specified channel. Depending on whether \a 'isIdentifiersListRequired' is set to \C
-  YES or not, \b PubNub client will receive from server list of client identifiers or just number of subscribers in
-  specified channel.
-
- @code
- @endcode
- This method extends \a +requestParticipantsListForChannel:clientIdentifiersRequired:clientState: and allow to
- specify participants retrieval process block.
-
- @param channel
- \b PNChannel instance on for which \b PubNub client should retrieve information about participants.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @param shouldFetchClientState
- Whether or not \b PubNub client should fetch additional information which has been added to the client during
- subscription or specific API endpoints.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participants list request operation will be completed.
- The block takes three arguments:
- \c clients - array of \b PNClient instances which represent client which is subscribed on target channel (if
- \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have \c kPNAnonymousParticipantIdentifier value);
- \c channel - is \b PNChannel instance for which \b PubNub client received participants list; \c error - describes what
- exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @note If \a 'isClientIdentifiersRequired' is set to \c NO then value of \a 'shouldFetchClientState' will be
- ignored and returned result array will contain list of \b PNClient instances with names set to \a 'unknown'.
-
- @since 3.6.0
- */
-+ (void)requestParticipantsListForChannel:(PNChannel *)channel clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-                              clientState:(BOOL)shouldFetchClientState
-                      withCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock
-  DEPRECATED_MSG_ATTRIBUTE(" Use '+requestParticipantsListFor:clientIdentifiersRequired:clientState:withCompletionBlock:' or "
-                           "'-requestParticipantsListFor:clientIdentifiersRequired:clientState:withCompletionBlock:'"
-                           " instead. Class method will be removed in future.");
-
-/**
- @brief Request list of participants for specified set of channels.
-
- @discussion Depending on whether \a 'isIdentifiersListRequired' is set to \c YES or not, \b PubNub client will receive
- from server list of client identifiers or just number of subscribers in specified channel.
+ Extension to \c -hereNowForChannel:withCompletion: and allow to specify here now data which should
+ be returned by \b PubNub service.
  
  @code
  @endcode
- This method extends \a +requestParticipantsListFor:clientIdentifiersRequired: and allow to specify
- whether server should return state which is set to the client or not.
-
- @param channelObjects              List of objects (which conforms to \b PNChannelProtocol data feed object protocol)
-                                    like \b PNChannel and \b PNChannelGroup for which \b PubNub client should retrieve
-                                    information about participants.
- @param isClientIdentifiersRequired Whether or not \b PubNub client should fetch list of client identifiers or only
-                                    number of them will be returned by server.
- @param shouldFetchClientState      Whether or not \b PubNub client should fetch additional information which has been
-                                    added to the client during subscription or specific API endpoints.
- 
- @note This method by default won't request client's state.
- @note \b PNChannelGroup instances will be expanded on server and information will be returned not for name of the
- group, but for channels which is registered under it.
-
- @since 3.7.0
- */
-+ (void)requestParticipantsListFor:(NSArray *)channelObjects clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-                       clientState:(BOOL)shouldFetchClientState;
-
-/**
- @brief Request list of participants for specified set of channels.
-
- @discussion Depending on whether \a 'isIdentifiersListRequired' is set to \c YES or not, \b PubNub client will receive
- from server list of client identifiers or just number of subscribers in specified channel.
+ \b Example:
  
  @code
+ // Client configuration.
+ PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:@"demo" 
+                                                                  subscribeKey:@"demo"];
+ self.client = [PubNub clientWithConfiguration:configuration];
+ [self.client hereNowForChannel:@"pubnub"  withVerbosity:PNHereNowState
+                     completion:^(PNPresenceChannelHereNowResult *result, PNErrorStatus *status) {
+ 
+     // Check whether request successfully completed or not.
+     if (!status.isError) {
+ 
+        // Handle downloaded presence information using:
+        //   result.data.uuids - dictionary with active subscriber. Each entry will have next 
+        //                       fields: "uuid" - identifier and "state" if it has been provided.
+        //   result.data.occupancy - total number of active subscribers.
+     }
+     // Request processing failed.
+     else {
+     
+        // Handle presence audit error. Check 'category' property to find out possible issue because
+        // of which request did fail.
+        //
+        // Request can be resent using: [status retry];
+     }
+ }];
  @endcode
- This method extends \a +requestParticipantsListFor:clientIdentifiersRequired:clientState: and allow to specify
- participants retrieval process block.
-
- @param channelObjects              List of objects (which conforms to \b PNChannelProtocol data feed object protocol)
-                                    like \b PNChannel and \b PNChannelGroup for which \b PubNub client should retrieve
-                                    information about participants.
- @param isClientIdentifiersRequired Whether or not \b PubNub client should fetch list of client identifiers or only
-                                    number of them will be returned by server.
- @param shouldFetchClientState      Whether or not \b PubNub client should fetch additional information which has been
-                                    added to the client during subscription or specific API endpoints.
- @param handleBlock                 The block which will be called by \b PubNub client as soon as participants list
-                                    request operation will be completed. The block takes three arguments:
-                                    \c clients - array of \b PNClient instances which represent client which is
-                                    subscribed on target channel (if \a 'isClientIdentifiersRequired' is set to \c NO
-                                    than all objects will have \c kPNAnonymousParticipantIdentifier value);
-                                    \c channel - is \b PNChannel instance for which \b PubNub client received
-                                    participants list; \c error - describes what exactly went wrong (check error code
-                                    and compare it with \b PNErrorCodes ).
-
- @note \b PNChannelGroup instances will be expanded on server and information will be returned not for name of the group, but for
- channels which is registered under it.
-
- @since 3.7.0
+ 
+ @param channel Reference on channel for which here now information should be received.
+ @param level   Reference on one of \b PNHereNowVerbosityLevel fields to instruct what exactly data
+                it expected in response.
+ @param block   Here now processing completion block which pass two arguments: \c result - in case 
+                of successful request processing \c data field will contain results of here now 
+                operation; \c status - in case if error occurred during request processing.
+ 
+ @since 4.0
  */
-+ (void)requestParticipantsListFor:(NSArray *)channelObjects clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-                       clientState:(BOOL)shouldFetchClientState
-               withCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock;
+- (void)hereNowForChannel:(NSString *)channel withVerbosity:(PNHereNowVerbosityLevel)level
+               completion:(PNHereNowCompletionBlock)block;
+
+
+///------------------------------------------------
+/// @name Channel group here now
+///------------------------------------------------
 
 /**
- Request list of channels in which current client identifier reside at this moment.
-
- @param clientIdentifier
- Client identifier for which \b PubNub client should get list of channels in which it reside.
-
- @since 3.6.0
- */
-+ (void)requestParticipantChannelsList:(NSString *)clientIdentifier;
-
-/**
- Request list of channels in which current client identifier reside at this moment.
-
- @code
- @endcode
- This method extends \a +requestParticipantChannelsList: and allow to specify participant channels retrieval process
- block.
-
- @param clientIdentifier
- Client identifier for which \b PubNub client should get list of channels in which it reside.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participant channels list request operation will be
- completed. The block takes three arguments:
- \c clientIdentifier - identifier for which \b PubNub client search for channels;
- \c channels - is list of \b PNChannel instances in which \c clientIdentifier has been found as subscriber; \c error -
- describes what exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @since 3.6.0
- */
-+ (void)requestParticipantChannelsList:(NSString *)clientIdentifier
-                   withCompletionBlock:(PNClientParticipantChannelsHandlingBlock)handleBlock;
-
-
-#pragma mark - Instance methods
-
-/**
- Request list of participants for all channels.
-
- @since 3.7.0
- */
-- (void)requestParticipantsList;
-
-/**
- Request list of participants for all channels.
-
- @code
- @endcode
- This method extends \a -requestParticipantsList: and allow to specify
- participants retrieval process block.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participants list request operation will be completed.
- The block takes three arguments:
- \c clients - array of \b PNClient instances which represent client which is subscribed on target channel (if
- \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have \c kPNAnonymousParticipantIdentifier value);
- \c channel - will be empty for this type of request; \c error - describes what
- exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @note This method by default won't request client's state.
-
- @since 3.7.0
- */
-- (void)requestParticipantsListWithCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock;
-
-/**
- Request list of participants for all channels.
-
- @code
- @endcode
- This method extends \a -requestParticipantsList: and allow to specify whether server should return client
- identifiers or not.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @since 3.7.0
- */
-- (void)requestParticipantsListWithClientIdentifiers:(BOOL)isClientIdentifiersRequired;
-
-/**
- Request list of participants for all channels.
-
- @code
- @endcode
- This method extends \a -requestParticipantsListWithClientIdentifiers: and allow to specify participants retrieval
- process block.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participants list request operation will be completed.
- The block takes three arguments:
- \c clients - array of \b PNClient instances which represent client which is subscribed on target channel (if
- \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have \c kPNAnonymousParticipantIdentifier value);
- \c channel - will be empty for this type of request; \c error - describes what
- exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @note This method by default won't request client's state.
-
- @since 3.7.0
- */
-- (void)requestParticipantsListWithClientIdentifiers:(BOOL)isClientIdentifiersRequired
-                                  andCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock;
-
-/**
- Request list of participants for all channels.
+ @brief  Request information about subscribers on specific channel group live feeds.
+ @note   This API will retrieve only list of UUIDs along with their state for each remote data
+         object and number of subscribers in total for objects and overall.
  
  @code
  @endcode
- This method extends \a -requestParticipantsListWithClientIdentifiers: and allow to specify
- whether server should return state which is set to the client or not.
+ \b Example:
  
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
+ @code
+ // Client configuration.
+ PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:@"demo" 
+                                                                  subscribeKey:@"demo"];
+ self.client = [PubNub clientWithConfiguration:configuration];
+ [self.client hereNowForChannelGroup:@"developers" 
+                      withCompletion:^(PNPresenceChannelGroupHereNowResult *result, 
+                                       PNErrorStatus *status) {
  
- @param shouldFetchClientState
- Whether or not \b PubNub client should fetch additional information which has been added to the client during
- subscription or specific API endpoints.
+     // Check whether request successfully completed or not.
+     if (!status.isError) {
  
- @note If \a 'isClientIdentifiersRequired' is set to \c NO then value of \a 'shouldFetchClientState' will be
- ignored and returned result array will contain list of \b PNClient instances with names set to \a 'unknown'.
+        // Handle downloaded presence information using:
+        //   result.data.channels - dictionary with active channels and presence information on 
+        //                          each. Each channel will have next fields: "uuids" - list of
+        //                          subscribers; occupancy - number of active subscribers.
+        //                          Each uuids entry has next fields: "uuid" - identifier and 
+        //                          "state" if it has been provided.
+        //   result.data.totalChannels - total number of active channels.
+        //   result.data.totalOccupancy - total number of active subscribers.
+     }
+     // Request processing failed.
+     else {
+     
+        // Handle presence audit error. Check 'category' property to find out possible issue because
+        // of which request did fail.
+        //
+        // Request can be resent using: [status retry];
+     }
+ }];
+ @endcode
  
- @since 3.7.0
- */
-- (void)requestParticipantsListWithClientIdentifiers:(BOOL)isClientIdentifiersRequired
-                                         clientState:(BOOL)shouldFetchClientState;
-
-/**
- Request list of participants for all channels.
-
- @code
- @endcode
- This method extends \a -requestParticipantsListWithClientIdentifiers:clientState: and allow to specify
- participants retrieval process block.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @param shouldFetchClientState
- Whether or not \b PubNub client should fetch additional information which has been added to the client during
- subscription or specific API endpoints.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participants list request operation will be completed.
- The block takes three arguments:
- \c clients - array of \b PNClient instances which represent client which is subscribed on target channel (if
- \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have \c kPNAnonymousParticipantIdentifier value);
- \c channel - will be empty for this type of request; \c error - describes what
- exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @note If \a 'isClientIdentifiersRequired' is set to \c NO then value of \a 'shouldFetchClientState' will be
- ignored and returned result array will contain list of \b PNClient instances with names set to \a 'unknown'.
-
- @since 3.7.0
- */
-- (void)requestParticipantsListWithClientIdentifiers:(BOOL)isClientIdentifiersRequired
-                                         clientState:(BOOL)shouldFetchClientState
-                                  andCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock;
-
-/**
- Request list of participants for specified channel.
-
- @param channel
- \b PNChannel instance on for which \b PubNub client should retrieve information about participants.
-
- @note This method by default won't request client's state.
- */
-- (void)requestParticipantsListForChannel:(PNChannel *)channel
-  DEPRECATED_MSG_ATTRIBUTE(" Use '-requestParticipantsListFor:' instead.");
-
-/**
- Request list of participants for specified channel.
-
- @code
- @endcode
- This method extends \a -requestParticipantsListForChannel: and allow to specify
- participants retrieval process block.
-
- @param channel
- \b PNChannel instance on for which \b PubNub client should retrieve information about participants.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participants list request operation will be completed.
- The block takes three arguments:
- \c clients - array of \b PNClient instances which represent client which is subscribed on target channel (if
- \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have \c kPNAnonymousParticipantIdentifier value);
- \c channel - is \b PNChannel instance for which \b PubNub client received participants list; \c error - describes what
- exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @note This method by default won't request client's state.
- */
-- (void)requestParticipantsListForChannel:(PNChannel *)channel
-                      withCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock
-  DEPRECATED_MSG_ATTRIBUTE(" Use '-requestParticipantsListFor:withCompletionBlock:' instead.");
-
-/**
- @brief Request list of participants for specified set of channels.
-
- @param channelObjects List of objects (which conforms to \b PNChannelProtocol data feed object protocol) like
-                       \b PNChannel and \b PNChannelGroup for which \b PubNub client should retrieve information about
-                       participants.
-
- @note This method by default won't request client's state.
- @note \b PNChannelGroup instances will be expanded on server and information will be returned not for name of the
- group, but for channels which is registered under it.
-
- @since 3.7.0
- */
-- (void)requestParticipantsListFor:(NSArray *)channelObjects;
-
-/**
- @brief Request list of participants for specified set of channels.
-
- @code
- @endcode
- This method extends \a -requestParticipantsListFor: and allow to specify participants retrieval process block.
-
- @param channelObjects List of objects (which conforms to \b PNChannelProtocol data feed object protocol)
-                       like \b PNChannel and \b PNChannelGroup for which \b PubNub client should retrieve information
-                       about participants.
- @param handleBlock    The block which will be called by \b PubNub client as soon as participants list request
-                       operation will be completed. The block takes three arguments: \c clients - array of
-                       \b PNClient instances which represent client which is subscribed on target channel (if
-                       \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have
-                       \c kPNAnonymousParticipantIdentifier value); \c channel - is \b PNChannel instance for which
-                       \b PubNub client received participants list; \c error - describes what exactly went wrong (check
-                       error code and compare it with \b PNErrorCodes ).
-
- @note This method by default won't request client's state.
- @note \b PNChannelGroup instances will be expanded on server and information will be returned not for name of the group, but for
- channels which is registered under it.
+ @param group Reference on channel group name for which here now information should be received.
+ @param block Here now processing completion block which pass two arguments: \c result - in case of 
+              successful request processing \c data field will contain results of here now 
+              operation; \c status - in case if error occurred during request processing.
  
- @since 3.7.0
+ @since 4.0
  */
-- (void)requestParticipantsListFor:(NSArray *)channelObjects
-               withCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock;
+- (void)hereNowForChannelGroup:(NSString *)group
+                withCompletion:(PNChannelGroupHereNowCompletionBlock)block;
 
 /**
- Request list of participants for specified channel. Depending on whether \a 'isIdentifiersListRequired' is set to \C
-  YES or not, \b PubNub client will receive from server list of client identifiers or just number of subscribers in
-  specified channel.
-
- @param channel
- \b PNChannel instance on for which \b PubNub client should retrieve information about participants.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @note This method by default won't request client's state.
-
- @note If \a 'isClientIdentifiersRequired' is set to \c NO then result array will contain list of \b PNClient
- instances with names set to \a 'unknown'.
-
- @since 3.7.0
- */
-- (void)requestParticipantsListForChannel:(PNChannel *)channel
-                clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-  DEPRECATED_MSG_ATTRIBUTE(" Use '-requestParticipantsListFor:clientIdentifiersRequired:' instead.");
-
-/**
- Request list of participants for specified channel. Depending on whether \a 'isIdentifiersListRequired' is set to \C
-  YES or not, \b PubNub client will receive from server list of client identifiers or just number of subscribers in
-  specified channel.
+ @brief  Request information about subscribers on specific channel group live feeds.
 
  @code
  @endcode
- This method extends \a -requestParticipantsListForChannel:clientIdentifiersRequired: and allow to specify
- participants retrieval process block.
-
- @param channel
- \b PNChannel instance on for which \b PubNub client should retrieve information about participants.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participants list request operation will be completed.
- The block takes three arguments:
- \c clients - array of \b PNClient instances which represent client which is subscribed on target channel (if
- \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have \c kPNAnonymousParticipantIdentifier value);
- \c channel - is \b PNChannel instance for which \b PubNub client received participants list; \c error - describes what
- exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @note This method by default won't request client's state.
-
- @note If \a 'isClientIdentifiersRequired' is set to \c NO then result array will contain list of \b PNClient
- instances with names set to \a 'unknown'.
-
- @since 3.7.0
- */
-- (void)requestParticipantsListForChannel:(PNChannel *)channel
-                clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-                      withCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock
-  DEPRECATED_MSG_ATTRIBUTE(" Use '-requestParticipantsListFor:clientIdentifiersRequired:withCompletionBlock:' instead.");
-
-/**
- @brief Request list of participants for specified set of channels.
-
- @discussion Depending on whether \a 'isIdentifiersListRequired' is set to \c YES or not, \b PubNub client will receive
- from server list of client identifiers or just number of subscribers in specified channel.
-
+ Extension to \c -hereNowForChannelGroup:withCompletion: and allow to specify here now data which 
+ should be returned by \b PubNub service.
+ 
  @code
  @endcode
- This method extends \a +requestParticipantsListFor:clientIdentifiersRequired: and allow to specify participants
- retrieval process block.
-
- @param channelObjects              List of objects (which conforms to \b PNChannelProtocol data feed object protocol)
-                                    like \b PNChannel and \b PNChannelGroup for which \b PubNub client should retrieve
-                                    information about participants.
- @param isClientIdentifiersRequired Whether or not \b PubNub client should fetch list of client identifiers or only
-                                    number of them will be returned by server.
-
- @note This method by default won't request client's state.
- @note \b PNChannelGroup instances will be expanded on server and information will be returned not for name of the
- group, but for channels which is registered under it.
-
- @since 3.7.0
+ \b Example:
+ 
+ @code
+ // Client configuration.
+ PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:@"demo" 
+                                                                  subscribeKey:@"demo"];
+ self.client = [PubNub clientWithConfiguration:configuration];
+ [self.client hereNowForChannelGroup:@"developers" withVerbosity:PNHereNowState
+                          completion:^(PNPresenceChannelGroupHereNowResult *result,
+                                       PNErrorStatus *status) {
+ 
+     // Check whether request successfully completed or not.
+     if (!status.isError) {
+ 
+        // Handle downloaded presence information using:
+        //   result.data.channels - dictionary with active channels and presence information on 
+        //                          each. Each channel will have next fields: "uuids" - list of
+        //                          subscribers; occupancy - number of active subscribers.
+        //                          Each uuids entry has next fields: "uuid" - identifier and 
+        //                          "state" if it has been provided.
+        //   result.data.totalChannels - total number of active channels.
+        //   result.data.totalOccupancy - total number of active subscribers.
+     }
+     // Request processing failed.
+     else {
+     
+        // Handle presence audit error. Check 'category' property to find out possible issue because
+        // of which request did fail.
+        //
+        // Request can be resent using: [status retry];
+     }
+ }];
+ @endcode
+ 
+ @param level Reference on one of \b PNHereNowVerbosityLevel fields to instruct what exactly data it
+              expected in response.
+ @param group Reference on channel group for which here now information should be received.
+ @param block Here now processing completion block which pass two arguments: \c result - in case of 
+              successful request processing \c data field will contain results of here now 
+              operation; \c status - in case if error occurred during request processing.
+ 
+ @since 4.0
  */
-- (void)requestParticipantsListFor:(NSArray *)channelObjects clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired;
+- (void)hereNowForChannelGroup:(NSString *)group withVerbosity:(PNHereNowVerbosityLevel)level
+                    completion:(PNChannelGroupHereNowCompletionBlock)block;
+
+
+///------------------------------------------------
+/// @name Client where now
+///------------------------------------------------
 
 /**
- @brief Request list of participants for specified set of channels.
-
- @discussion Depending on whether \a 'isIdentifiersListRequired' is set to \c YES or not, \b PubNub client will receive
- from server list of client identifiers or just number of subscribers in specified channel.
-
+ @brief  Request information about remote data object live feeds on which client with specified UUID
+         subscribed at this moment.
+ 
  @code
  @endcode
- This method extends \a -requestParticipantsListFor:clientIdentifiersRequired: and allow to specify participants
- retrieval process block.
-
- @param channelObjects              List of objects (which conforms to \b PNChannelProtocol data feed object protocol)
-                                    like \b PNChannel and \b PNChannelGroup for which \b PubNub client should retrieve
-                                    information about participants.
- @param isClientIdentifiersRequired Whether or not \b PubNub client should fetch list of client identifiers or only
-                                    number of them will be returned by server.
- @param handleBlock                 The block which will be called by \b PubNub client as soon as participants list
-                                    request operation will be completed. The block takes three arguments:
-                                    \c clients - array of \b PNClient instances which represent client which is
-                                    subscribed on target channel (if \a 'isClientIdentifiersRequired' is set to \c NO
-                                    than all objects will have \c kPNAnonymousParticipantIdentifier value);
-                                    \c channel - is \b PNChannel instance for which \b PubNub client received
-                                    participants list; \c error - describes what exactly went wrong (check error code
-                                    and compare it with \b PNErrorCodes ).
-
- @note This method by default won't request client's state.
- @note \b PNChannelGroup instances will be expanded on server and information will be returned not for name of the
- group, but for channels which is registered under it.
-
- @since 3.7.0
- */
-- (void)requestParticipantsListFor:(NSArray *)channelObjects clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-               withCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock;
-
-/**
- Request list of participants for specified channel. Depending on whether \a 'isIdentifiersListRequired' is set to \C
-  YES or not, \b PubNub client will receive from server list of client identifiers or just number of subscribers in
-  specified channel.
-
+ \b Example:
+ 
  @code
+ // Client configuration.
+ PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:@"demo" 
+                                                                  subscribeKey:@"demo"];
+ self.client = [PubNub clientWithConfiguration:configuration];
+ [self.client whereNowUUID:@"Steve" withCompletion:^(PNPresenceWhereNowResult *result, 
+                                                     PNErrorStatus *status) {
+ 
+     // Check whether request successfully completed or not.
+     if (!status.isError) {
+ 
+        // Handle downloaded presence 'where now' information using: result.data.channels
+     }
+     // Request processing failed.
+     else {
+     
+        // Handle presence audit error. Check 'category' property to find out possible issue because
+        // of which request did fail.
+        //
+        // Request can be resent using: [status retry];
+     }
+ }];
  @endcode
- This method extends \a -requestParticipantsListForChannel:clientIdentifiersRequired: and allow to specify
- whether server should return state which is set to the client or not.
-
- @param channel
- \b PNChannel instance on for which \b PubNub client should retrieve information about participants.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @param shouldFetchClientState
- Whether or not \b PubNub client should fetch additional information which has been added to the client during
- subscription or specific API endpoints.
-
- @note If \a 'isClientIdentifiersRequired' is set to \c NO then value of \a 'shouldFetchClientState' will be
- ignored and returned result array will contain list of \b PNClient instances with names set to \a 'unknown'.
-
- @since 3.7.0
+ 
+ @param uuid  Reference on UUID for which request should be performed.
+ @param block Where now processing completion block which pass two arguments: \c result - in case of
+              successful request processing \c data field will contain results of where now
+              operation; \c status - in case if error occurred during request processing.
+ 
+ @since 4.0
  */
-- (void)requestParticipantsListForChannel:(PNChannel *)channel
-                clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-                              clientState:(BOOL)shouldFetchClientState
-  DEPRECATED_MSG_ATTRIBUTE(" Use '-requestParticipantsListFor:clientIdentifiersRequired:clientState:' instead.");
-
-/**
- Request list of participants for specified channel. Depending on whether \a 'isIdentifiersListRequired' is set to \C
-  YES or not, \b PubNub client will receive from server list of client identifiers or just number of subscribers in
-  specified channel.
-
- @code
- @endcode
- This method extends \a -requestParticipantsListForChannel:clientIdentifiersRequired:clientState: and allow to
- specify participants retrieval process block.
-
- @param channel
- \b PNChannel instance on for which \b PubNub client should retrieve information about participants.
-
- @param isClientIdentifiersRequired
- Whether or not \b PubNub client should fetch list of client identifiers or only number of them will be returned by
- server.
-
- @param shouldFetchClientState
- Whether or not \b PubNub client should fetch additional information which has been added to the client during
- subscription or specific API endpoints.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participants list request operation will be completed.
- The block takes three arguments:
- \c clients - array of \b PNClient instances which represent client which is subscribed on target channel (if
- \a 'isClientIdentifiersRequired' is set to \c NO than all objects will have \c kPNAnonymousParticipantIdentifier value);
- \c channel - is \b PNChannel instance for which \b PubNub client received participants list; \c error - describes what
- exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @note If \a 'isClientIdentifiersRequired' is set to \c NO then value of \a 'shouldFetchClientState' will be
- ignored and returned result array will contain list of \b PNClient instances with names set to \a 'unknown'.
-
- @since 3.7.0
- */
-- (void)requestParticipantsListForChannel:(PNChannel *)channel clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-                              clientState:(BOOL)shouldFetchClientState
-                      withCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock
-  DEPRECATED_MSG_ATTRIBUTE(" Use '-requestParticipantsListFor:clientIdentifiersRequired:clientState:withCompletionBlock:'"
-                           " instead.");
-
-/**
- @brief Request list of participants for specified set of channels.
-
- @discussion Depending on whether \a 'isIdentifiersListRequired' is set to \c YES or not, \b PubNub client will receive
- from server list of client identifiers or just number of subscribers in specified channel.
-
- @code
- @endcode
- This method extends \a +requestParticipantsListFor:clientIdentifiersRequired: and allow to specify
- whether server should return state which is set to the client or not.
-
- @param channelObjects              List of objects (which conforms to \b PNChannelProtocol data feed object protocol)
-                                    like \b PNChannel and \b PNChannelGroup for which \b PubNub client should retrieve
-                                    information about participants.
- @param isClientIdentifiersRequired Whether or not \b PubNub client should fetch list of client identifiers or only
-                                    number of them will be returned by server.
- @param shouldFetchClientState      Whether or not \b PubNub client should fetch additional information which has been
-                                    added to the client during subscription or specific API endpoints.
-
- @note This method by default won't request client's state.
- @note \b PNChannelGroup instances will be expanded on server and information will be returned not for name of the
- group, but for channels which is registered under it.
-
- @since 3.7.0
- */
-- (void)requestParticipantsList:(NSArray *)channelObjects clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-                    clientState:(BOOL)shouldFetchClientState;
-
-/**
- @brief Request list of participants for specified set of channels.
-
- @discussion Depending on whether \a 'isIdentifiersListRequired' is set to \c YES or not, \b PubNub client will receive
- from server list of client identifiers or just number of subscribers in specified channel.
-
- @code
- @endcode
- This method extends \a -requestParticipantsListFor:clientIdentifiersRequired:clientState: and allow to specify
- participants retrieval process block.
-
- @param channelObjects              List of objects (which conforms to \b PNChannelProtocol data feed object protocol)
-                                    like \b PNChannel and \b PNChannelGroup for which \b PubNub client should retrieve
-                                    information about participants.
- @param isClientIdentifiersRequired Whether or not \b PubNub client should fetch list of client identifiers or only
-                                    number of them will be returned by server.
- @param shouldFetchClientState      Whether or not \b PubNub client should fetch additional information which has been
-                                    added to the client during subscription or specific API endpoints.
- @param handleBlock                 The block which will be called by \b PubNub client as soon as participants list
-                                    request operation will be completed. The block takes three arguments:
-                                    \c clients - array of \b PNClient instances which represent client which is
-                                    subscribed on target channel (if \a 'isClientIdentifiersRequired' is set to \c NO
-                                    than all objects will have \c kPNAnonymousParticipantIdentifier value);
-                                    \c channel - is \b PNChannel instance for which \b PubNub client received
-                                    participants list; \c error - describes what exactly went wrong (check error code
-                                    and compare it with \b PNErrorCodes ).
-
- @note \b PNChannelGroup instances will be expanded on server and information will be returned not for name of the group, but for
- channels which is registered under it.
-
- @since 3.7.0
- */
-- (void)requestParticipantsListFor:(NSArray *)channelObjects clientIdentifiersRequired:(BOOL)isClientIdentifiersRequired
-                       clientState:(BOOL)shouldFetchClientState
-               withCompletionBlock:(PNClientParticipantsHandlingBlock)handleBlock;
-
-/**
- Request list of channels in which current client identifier reside at this moment.
-
- @param clientIdentifier
- Client identifier for which \b PubNub client should get list of channels in which it reside.
-
- @since 3.7.0
- */
-- (void)requestParticipantChannelsList:(NSString *)clientIdentifier;
-
-/**
- Request list of channels in which current client identifier reside at this moment.
-
- @code
- @endcode
- This method extends \a -requestParticipantChannelsList: and allow to specify participant channels retrieval process
- block.
-
- @param clientIdentifier
- Client identifier for which \b PubNub client should get list of channels in which it reside.
-
- @param handleBlock
- The block which will be called by \b PubNub client as soon as participant channels list request operation will be
- completed. The block takes three arguments:
- \c clientIdentifier - identifier for which \b PubNub client search for channels;
- \c channels - is list of \b PNChannel instances in which \c clientIdentifier has been found as subscriber; \c error -
- describes what exactly went wrong (check error code and compare it with \b PNErrorCodes ).
-
- @since 3.7.0
- */
-- (void)requestParticipantChannelsList:(NSString *)clientIdentifier
-                   withCompletionBlock:(PNClientParticipantChannelsHandlingBlock)handleBlock;
+- (void)whereNowUUID:(NSString *)uuid withCompletion:(PNWhereNowCompletionBlock)block;
 
 #pragma mark -
 

@@ -1,227 +1,77 @@
-#import "PubNub.h"
+#import <Foundation/Foundation.h>
+#import "PubNub+Core.h"
+
+
+#pragma mark Class forward
+
+@class PNErrorStatus, PNTimeResult;
+
+
+#pragma mark - Types
 
 /**
- Base class extension which provide methods to get server time.
+ @brief  Time request completion block.
+ 
+ @param result Reference on result object which describe service response on time request.
+ @param status Reference on status instance which hold information about processing results.
+ 
+ @since 4.0
+ */
+typedef void(^PNTimeCompletionBlock)(PNTimeResult *result, PNErrorStatus *status);
+
+
+#pragma mark - API group interface
+
+/**
+ @brief \b PubNub client core class extension to provide access to 'time' API group.
  
  @author Sergey Mamontov
- @version 3.7.0
- @copyright © 2009-13 PubNub Inc.
+ @since 4.0
+ @copyright © 2009-2015 PubNub, Inc.
  */
 @interface PubNub (Time)
 
 
-#pragma mark - Class (singleton) methods
+///------------------------------------------------
+/// @name Time token request
+///------------------------------------------------
 
 /**
- Request time token from \b PubNub service. Service will respond with unixtimestamp (UTC+0).
+ @brief Request current time from \b PubNub service servers.
  
  @code
  @endcode
  \b Example:
  
  @code
- [PubNub setConfiguration:[PNConfiguration defaultConfiguration] andDelegate:self];
- [PubNub connect];
- [PubNub requestServerTimeToken];
- @endcode
- 
- And handle it with delegates:
- @code
- - (void)pubnubClient:(PubNub *)client didReceiveTimeToken:(NSNumber *)timeToken {
- 
-     // PubNub client successfully received time token.
- }
- 
- - (void)pubnubClient:(PubNub *)client timeTokenReceiveDidFailWithError:(PNError *)error {
- 
-     // PubNub client did fail to receive time token.
- }
- @endcode
- 
- There is also way to observe connection state from any place in your application using  \b PNObservationCenter:
- @code
- [[PNObservationCenter defaultCenter] addTimeTokenReceivingObserver:self withCallbackBlock:^(NSNumber *timeToken, PNError *error) {
- 
-     if (error == nil) {
- 
-         // PubNub client successfully received time token.
+ PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:@"demo" 
+                                                                  subscribeKey:@"demo"];
+ self.client = [PubNub clientWithConfiguration:configuration];
+ [self.client timeWithCompletion:^(PNTimeResult *result, PNErrorStatus *status) {
+     
+     // Check whether request successfully completed or not.
+     if (!status.isError) {
+         
+         // Handle downloaded server time token using: result.data.timetoken
      }
+     // Request processing failed.
      else {
- 
-         // PubNub client did fail to receive time token.
+     
+         // Handle tmie token download error. Check 'category' property to find out possible
+         // issue because of which request did fail.
+         //
+         // Request can be resent using: [status retry];
      }
  }];
  @endcode
  
- @see +requestServerTimeTokenWithCompletionBlock:
+ @param block Time request process results handling block which pass two arguments: \c result - in 
+              case of successful request processing \c data field will contain server-provided time 
+              token; \c status - in case if error occurred during request processing.
+ 
+ @since 4.0
  */
-+ (void)requestServerTimeToken;
-
-/**
- Request time token from \b PubNub service. Service will respond with unixtimestamp (UTC+0).
- 
- @code
- @endcode
- This method extendeds \a +requestServerTimeToken and allow to specify subscription process state change handler block.
- 
- @code
- @endcode
- \b Example:
- 
- @code
- [PubNub setConfiguration:[PNConfiguration defaultConfiguration] andDelegate:self];
- [PubNub connect];
- [PubNub requestServerTimeTokenWithCompletionBlock:^(NSNumber *timeToken, PNError *error) {
- 
-     if (error == nil) {
- 
-         // PubNub client successfully received time token.
-     }
-     else {
- 
-         // PubNub client did fail to receive time token.
-     }
- }];
- @endcode
- 
- And handle it with delegates:
- @code
- - (void)pubnubClient:(PubNub *)client didReceiveTimeToken:(NSNumber *)timeToken {
- 
-     // PubNub client successfully received time token.
- }
- 
- - (void)pubnubClient:(PubNub *)client timeTokenReceiveDidFailWithError:(PNError *)error {
- 
-     // PubNub client did fail to receive time token.
- }
- @endcode
- 
- There is also way to observe connection state from any place in your application using  \b PNObservationCenter:
- @code
- [[PNObservationCenter defaultCenter] addTimeTokenReceivingObserver:self withCallbackBlock:^(NSNumber *timeToken, PNError *error) {
- 
-     if (error == nil) {
- 
-         // PubNub client successfully received time token.
-     }
-     else {
- 
-         // PubNub client did fail to receive time token.
-     }
- }];
- @endcode
- 
- @see +requestServerTimeToken
- */
-+ (void)requestServerTimeTokenWithCompletionBlock:(PNClientTimeTokenReceivingCompleteBlock)success;
-
-
-#pragma mark - Instance methods
-
-/**
- Request time token from \b PubNub service. Service will respond with unixtimestamp (UTC+0).
- 
- @code
- @endcode
- \b Example:
- 
- @code
- PubNub *pubNub = [PubNub clientWithConfiguration:[PNConfiguration defaultConfiguration] andDelegate:self];
- [pubNub connect];
- [pubNub requestServerTimeToken];
- @endcode
- 
- And handle it with delegates:
- @code
- - (void)pubnubClient:(PubNub *)client didReceiveTimeToken:(NSNumber *)timeToken {
- 
-     // PubNub client successfully received time token.
- }
- 
- - (void)pubnubClient:(PubNub *)client timeTokenReceiveDidFailWithError:(PNError *)error {
- 
-     // PubNub client did fail to receive time token.
- }
- @endcode
- 
- There is also way to observe connection state from any place in your application using  \b PNObservationCenter:
- @code
- [pubNub.observationCenter addTimeTokenReceivingObserver:self withCallbackBlock:^(NSNumber *timeToken, PNError *error) {
- 
-     if (error == nil) {
- 
-         // PubNub client successfully received time token.
-     }
-     else {
- 
-         // PubNub client did fail to receive time token.
-     }
- }];
- @endcode
- 
- @see -requestServerTimeTokenWithCompletionBlock:
- */
-- (void)requestServerTimeToken;
-
-/**
- Request time token from \b PubNub service. Service will respond with unix timestamp (UTC+0).
- 
- @code
- @endcode
- This method extends \a -requestServerTimeToken and allow to specify subscription process state change handler block.
- 
- @code
- @endcode
- \b Example:
- 
- @code
- PubNub *pubNub = [PubNub clientWithConfiguration:[PNConfiguration defaultConfiguration] andDelegate:self];
- [pubNub connect];
- [pubNub requestServerTimeTokenWithCompletionBlock:^(NSNumber *timeToken, PNError *error) {
- 
-     if (error == nil) {
- 
-         // PubNub client successfully received time token.
-     }
-     else {
- 
-         // PubNub client did fail to receive time token.
-     }
- }];
- @endcode
- 
- And handle it with delegates:
- @code
- - (void)pubnubClient:(PubNub *)client didReceiveTimeToken:(NSNumber *)timeToken {
- 
-     // PubNub client successfully received time token.
- }
- 
- - (void)pubnubClient:(PubNub *)client timeTokenReceiveDidFailWithError:(PNError *)error {
- 
-     // PubNub client did fail to receive time token.
- }
- @endcode
- 
- There is also way to observe connection state from any place in your application using  \b PNObservationCenter:
- @code
- [pubNub.observationCenter addTimeTokenReceivingObserver:self withCallbackBlock:^(NSNumber *timeToken, PNError *error) {
- 
-     if (error == nil) {
- 
-         // PubNub client successfully received time token.
-     }
-     else {
- 
-         // PubNub client did fail to receive time token.
-     }
- }];
- @endcode
- 
- @see -requestServerTimeToken
- */
-- (void)requestServerTimeTokenWithCompletionBlock:(PNClientTimeTokenReceivingCompleteBlock)success;
+- (void)timeWithCompletion:(PNTimeCompletionBlock)block;
 
 #pragma mark -
 

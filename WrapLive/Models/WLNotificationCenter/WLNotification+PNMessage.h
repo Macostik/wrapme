@@ -8,10 +8,8 @@
 
 #import <WrapLiveKit/WrapLiveKit.h>
 
-@class PNMessage;
-
 @interface WLNotification (PNMessage)
 
-+ (instancetype)notificationWithMessage:(PNMessage*)message;
++ (instancetype)notificationWithMessage:(id)message;
 
 @end

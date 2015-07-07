@@ -1,198 +1,206 @@
-//
-//  PNConfiguration.h
-//  pubnub
-//
-//  This class allow to configure PubNub
-//  base class with required set of parameters.
-//
-//
-//  Created by Sergey Mamontov on 12/4/12.
-//
-//
-
 #import <Foundation/Foundation.h>
 
 
+/**
+ @brief      \b PubNub client configuration wrapper.
+ @discussion Use this instance to provide values which should be by client to communicate with
+             \b PubNub network.
+ 
+ @author Sergey Mamontov
+ @since 4.0
+ @copyright © 2009-2015 PubNub, Inc.
+ */
 @interface PNConfiguration : NSObject
 
 
-#pragma mark Properties
+///------------------------------------------------
+/// @name Initialization and Configuration
+///------------------------------------------------
 
-// Stores reference on services host name
-@property (nonatomic, readonly, copy) NSString *origin;
+/**
+ @brief   Reference on host name or IP address which should be used by client to get access to
+          \b PubNub services.
+ 
+ @default Client will use it's own constant (\b pubsub.pubnub.com) value if origin not
+          specified.
 
-// Stores reference on keys which is required
-// to establish connection and send packets to it
-@property (nonatomic, readonly, copy) NSString *publishKey;
-@property (nonatomic, readonly, copy) NSString *subscriptionKey;
-@property (nonatomic, readonly, copy) NSString *secretKey;
+ @since 4.0
+ */
+@property (nonatomic, copy) NSString *origin;
+
+/**
+ @brief   Reference on key which is used to push data/state to \b PubNub service.
+ @note    This key can be obtained on PubNub's administration portal after free registration
+          https://admin.pubnub.com
+ @warning Can't be \c nil and in attempt to set \c nil will throw \b UnacceptableValue exception.
+ 
+ @since 4.0
+ */
+@property (nonatomic, copy) NSString *publishKey;
+
+/**
+ @brief   Reference on key which is used to fetch data/state from \b PubNub service.
+ @note    This key can be obtained on PubNub's administration portal after free registration
+          https://admin.pubnub.com
+ @warning Can't be \c nil and in attempt to set \c nil will throw \b UnacceptableValue exception.
+ 
+ @default Client will use it's own constant (\b demo) value if origin not specified.
+ 
+ @since 4.0
+ */
+@property (nonatomic, copy) NSString *subscribeKey;
+
+/**
+ @brief      Reference on key which is used along with every request to \b PubNub service to
+             identify client user.
+ @discussion \b PubNub service provide \b PAM (PubNub Access Manager) functionality which allow
+             to specify access rights to access \b PubNub services with provided \c publishKey
+             and \c subscribeKey keys. Access can be limited to concrete users. \b PAM system
+             use this key to check whether client user has rights to access to required service
+             or not.
+ 
+ @default    By default this value set to \b nil.
+ 
+ @since 4.0
+ */
+@property (nonatomic, copy) NSString *authKey;
+
+/**
+ @brief      Reference on unique client identifier used to identify concrete client user from
+             another which currently use \b PubNub services.
+ @discussion This value is different from \c authKey (which is used only by \b PAM) and
+             represent concrete client across server. This identifier is used for presence events
+             to tell what some client joined or leaved live feed.
+ @warning    There can't be two same client identifiers online at the same time.
+ 
+ @default    Client will use it's own-generated value if won't be specified by user.
+ 
+ @since 4.0
+ */
+@property (nonatomic, copy, setter = setUUID:) NSString *uuid;
+
+/**
+ @brief       Reference on encryption key.
+ @discussion  Key which is used to encrypt messages pushed to \b PubNub service and decrypt messages
+              received from live feeds on which client subscribed at this moment.
+ 
+ @since 4.0
+ */
 @property (nonatomic, copy) NSString *cipherKey;
 
-// Stores reference on authorization key which is used for
-// request authorization
-@property (nonatomic, copy) NSString *authorizationKey;
-
-// Stores timeout which is used for non-subscription
-// requests to report that request failed
-@property (nonatomic, assign) NSTimeInterval nonSubscriptionRequestTimeout;
-
-// Stores timeout which is used for subscription requests to report that request failed
-@property (nonatomic, assign) NSTimeInterval subscriptionRequestTimeout;
-
 /**
- @brief      Stores reference on value used by timer to verify subscription stream is still
-             responsible.
- @discussion By default value is set to \b 310 seconds. If stream is responsible, there will be 
-             service response on subscribed channels (simple ping, if there is no other traffic)
-             and let know what it is still alive. If service won't send \a ping in time, stream
-             will be terminated and re-established connection and catch up on subscription.
+ @brief      Stores reference on maximum number of seconds which client should wait for events from
+             live feed.
+ @discussion By default value is set to \b 310 seconds. If in specified time frame \b PubNub service
+             won't push any events into live feed client will re-subscribe on remote data objects
+             with same time token (if configured).
  
- @since <#version number#>
+ @since 4.0
  */
-@property (nonatomic, assign) NSTimeInterval subscriptionMaximumIdleTime;
+@property (nonatomic, assign) NSTimeInterval subscribeMaximumIdleTime;
 
 /**
- Stores whether connection should be restored if it failed in previous session or not.
- */
-@property (nonatomic, assign, getter = shouldAutoReconnectClient) BOOL autoReconnectClient;
-
-/**
- Stores whether \b PubNub client should during subscription on additional channel use last time token or require new
- onw from server.
- */
-@property (nonatomic, assign, getter = shouldKeepTimeTokenOnChannelsListChange) BOOL keepTimeTokenOnChannelsListChange;
-
-/**
- Stores whether client should restore subscription on channels after connection has been restored or not.
- */
-@property (nonatomic, assign, getter = shouldResubscribeOnConnectionRestore) BOOL resubscribeOnConnectionRestore;
-
-/**
- Stores whether client should restore subscription on channel with last time token or should use "0" time token
- for initial subscription.
- */
-@property (nonatomic, assign, getter = shouldRestoreSubscriptionFromLastTimeToken) BOOL restoreSubscriptionFromLastTimeToken;
-
-/**
- Stores whether connection should be established with SSL support or not.
- */
-@property (nonatomic, assign, getter = shouldUseSecureConnection) BOOL useSecureConnection;
-
-/**
- Stores whether SSL security rules should be lowered when connection error occurs or not.
- */
-@property (nonatomic, assign, getter = shouldReduceSecurityLevelOnError) BOOL reduceSecurityLevelOnError;
-
-/**
- Stores whether client can ignore security requirements and connection using plain HTTP connection in case of SSL
- error.
- */
-@property (nonatomic, assign, getter = canIgnoreSecureConnectionRequirement) BOOL ignoreSecureConnectionRequirement;
-
-// Stores whether client should accept GZIP responses
-// from remote origin or not
-@property (nonatomic, assign, getter = shouldAcceptCompressedResponse) BOOL acceptCompressedResponse;
-
-/**
- @brief Stores property which allow to set whether in case of connection error to remote host,
-        client should try to "kill" system's DNS cache or not.
+ @brief      Reference on number of seconds which is used by client during non-subscription 
+             operations to check whether response potentially failed with 'timeout' or not.
+ @discussion This is maximum time which client should wait fore response from \b PubNub service
+             before reporting reuest error.
  
- @since 3.7.9
+ @default    Client will use it's own constant (\b 10 seconds) value if origin not specified.
+ 
+ @since 4.0
  */
-@property (nonatomic, assign, getter = isDNSCacheClearingEnabled) BOOL DNSCacheClearingEnabled;
+@property (nonatomic, assign) NSTimeInterval nonSubscribeRequestTimeout;
 
 /**
- Stores timeout which is used by server to kick inactive clients (by UUID).
+ @brief      Reference on number of seconds which is used by server to track whether client still
+             subscribed on remote data objects live feed or not.
+ @discussion This is time within which \b PubNub service expect to receive heartbeat request from
+             this client. If heartbeat request won't be called in time \b PubNub service will 
+             send to other subscribers \c 'timeout' presence event for this client.
+ @note       This value can't be smaller then \b 5 seconds and larget then \b 300 seconds and 
+             will be reset to it automatically.
  
- @warning Property will be completely removed before feature release.
+ @default    By default heartbeat functionality disabled.
+ 
+ @since 4.0
  */
-@property (nonatomic, assign) NSTimeInterval presenceExpirationTimeout DEPRECATED_MSG_ATTRIBUTE(" Use 'presenceHeartbeatTimeout' instead.");
+@property (nonatomic, assign) NSInteger presenceHeartbeatValue;
 
 /**
- Stores timeout which is used by server to kick inactive clients (by UUID).
+ @brief   Reference on number of seconds which is used by client to issue heartbeat requests to
+          \b PubNub service.
+ @note    This value should be smaller then \c presenceHeartbeatTimeout for better presence
+          control.
+ 
+ @default By default heartbeat functionality disabled.
+ 
+ @since 4.0
  */
-@property (nonatomic, assign) int presenceHeartbeatTimeout;
+@property (nonatomic, assign) NSInteger presenceHeartbeatInterval;
 
 /**
- Stores interval at which heartbeat request should be sent by client.
+ @brief   Stores whether client should communicate with \b PubNub services using secured
+          connection or not.
+ 
+ @default By default client use \b YES to secure communication with \b PubNub services.
+ 
+ @since 4.0
  */
-@property (nonatomic, assign) int presenceHeartbeatInterval;
-
-
-#pragma mark - Class methods
+@property (nonatomic, assign, getter = isTLSEnabled) BOOL TLSEnabled;
 
 /**
- * Retrieve reference on default configuration
- * which is initiated with values from 
- * PNDefaultConfiguration.h header file
+ @brief  Stores whether client should keep previous time token when subscribe on new set of remote
+         data objects live feeds.
+ 
+ @default By default client use \b YES to and previous time token will be used during subscription 
+          on new data objects.
+ 
+ @since 4.0
  */
-+ (PNConfiguration *)defaultConfiguration;
+@property (nonatomic, assign, getter = shouldKeepTimeTokenOnListChange) BOOL keepTimeTokenOnListChange;
 
 /**
- Retrieve reference on lightweight configuration which require only few parameters from user.
+ @brief      Stores whether client should restore subscription on remote data objects live feed 
+             after network connection restoring or not.
+ @discussion If set to \c YES as soon as network connection will be restored client will restore
+             subscription to previously subscribed remote data objects live feeds.
+ 
+ @default    By default client use \b YES to restore subscription on remote data objects live 
+             feeds.
+ 
+ @since 4.0
  */
-+ (PNConfiguration *)configurationWithPublishKey:(NSString *)publishKey subscribeKey:(NSString *)subscribeKey
-                                       secretKey:(NSString *)secretKey;
-+ (PNConfiguration *)configurationWithPublishKey:(NSString *)publishKey subscribeKey:(NSString *)subscribeKey
-                                       secretKey:(NSString *)secretKey authorizationKey:(NSString *)authorizationKey;
-+ (PNConfiguration *)configurationForOrigin:(NSString *)originHostName publishKey:(NSString *)publishKey
-                               subscribeKey:(NSString *)subscribeKey secretKey:(NSString *)secretKey;
-+ (PNConfiguration *)configurationForOrigin:(NSString *)originHostName publishKey:(NSString *)publishKey
-                               subscribeKey:(NSString *)subscribeKey secretKey:(NSString *)secretKey
-                           authorizationKey:(NSString *)authorizationKey;
+@property (nonatomic, assign, getter = shouldRestoreSubscription) BOOL restoreSubscription;
 
 /**
- Retrieve reference on configuration with full set of options specified by user.
+ @brief      Stores whether client should try to catch up for events which occurred on previously
+             subscribed remote data objects feed while client was off-line.
+ @discussion Live feeds return in response with events so called 'time token' which allow client
+             to specify target time from which it should expect new events. If property is set to
+             \c YES then client will re-use previously received 'time token' and try to receive
+             messages from the past.
+ @warning    If there history/storage feature has been activated for \b PubNub account, some 
+             messages can be pushed to it after some period of time and catch up won't be able to
+             receive them.
+ 
+ @since 4.0
  */
-+ (PNConfiguration *)configurationForOrigin:(NSString *)originHostName publishKey:(NSString *)publishKey
-                               subscribeKey:(NSString *)subscribeKey secretKey:(NSString *)secretKey
-                                  cipherKey:(NSString *)cipherKey;
-+ (PNConfiguration *)configurationForOrigin:(NSString *)originHostName publishKey:(NSString *)publishKey
-                               subscribeKey:(NSString *)subscribeKey secretKey:(NSString *)secretKey
-                                  cipherKey:(NSString *)cipherKey authorizationKey:(NSString *)authorizationKey;
-
-
-#pragma mark - Instance methods
+@property (nonatomic, assign, getter = shouldTryCatchUpOnSubscriptionRestore) BOOL catchUpOnSubscriptionRestore;
 
 /**
- * Initialize configuration instance with specified
- * set of parameters
+ @brief  Construct configuration instance using minimal required data.
+ 
+ @param publishKey   Key which allow client to use data push API.
+ @param subscribeKey Key which allow client to subscribe on live feeds pushed from \b PubNub 
+                     service.
+ 
+ @return Configured and ready to se configuration instance.
+ 
+ @since 4.0
  */
-- (id)initWithOrigin:(NSString *)originHostName publishKey:(NSString *)publishKey subscribeKey:(NSString *)subscribeKey
-           secretKey:(NSString *)secretKey cipherKey:(NSString *)cipherKey;
-- (id)initWithOrigin:(NSString *)originHostName publishKey:(NSString *)publishKey subscribeKey:(NSString *)subscribeKey
-           secretKey:(NSString *)secretKey cipherKey:(NSString *)cipherKey authorizationKey:(NSString *)authorizationKey;
-
-/**
- Construct new configuration based on provided instance with new values. This method is useful if only magor settings should be changed
- (excpet state flags and time outs).
- 
- @param originHostName
- Updated origin address which should be assigned to the configuration. If \c 'nil' is passed, previous value will be used.
- 
- @param publishKey
- Updated publish key which will be used with message posting API.
- 
- @param subscribeKey
- Updated subscribe key which will be used with subscription API to receive messages from \b PubNub service.
- 
- @param secretKey
- Updated secret key which will be used along with PAM API to sign access rights manipulation requests.
- 
- @param cipherKey
- Updated cipher key which will be automatically used by \b PubNub client to encrypt messages which is sent with publish API.
- 
- @param authorizationKey
- Updated authorization key which is important for PAM enabled keys, so \b PubNub service will recognize client which connects
- and what he can do.
- 
- @return New instance which is based on original instance with changed options as specified in parameters.
- */
-- (PNConfiguration *)updatedConfigurationWithOrigin:(NSString *)originHostName publishKey:(NSString *)publishKey
-                                       subscribeKey:(NSString *)subscribeKey secretKey:(NSString *)secretKey
-                                          cipherKey:(NSString *)cipherKey authorizationKey:(NSString *)authorizationKey;
++ (instancetype)configurationWithPublishKey:(NSString *)publishKey
+                               subscribeKey:(NSString *)subscribeKey;
 
 #pragma mark -
-
 
 @end

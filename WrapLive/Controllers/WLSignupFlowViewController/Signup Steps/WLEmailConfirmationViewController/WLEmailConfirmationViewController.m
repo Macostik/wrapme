@@ -9,21 +9,19 @@
 #import "WLEmailConfirmationViewController.h"
 #import "WLNavigationHelper.h"
 #import "WLAlertView.h"
-#import "WLNotificationCenter.h"
+#import "WLNotificationSubscription.h"
+#import "WLEntryNotification.h"
+#import "WLNotification+PNMessage.h"
 
-@interface WLEmailConfirmationViewController () <WLEntryNotifyReceiver>
+@interface WLEmailConfirmationViewController () <WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate>
 
-@property (strong, nonatomic) WLNotificationChannel* userChannel;
+@property (strong, nonatomic) WLNotificationSubscription* userChannel;
 @property (weak, nonatomic) IBOutlet UIButton *resendEmailButton;
 @property (weak, nonatomic) IBOutlet UIButton *useAnotherEmailButton;
 
 @end
 
 @implementation WLEmailConfirmationViewController
-
-- (void)dealloc {
-    [self.userChannel removeObserving];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,17 +34,8 @@
     
     NSString *userUID = [WLUser currentUser].identifier;
     if (userUID.nonempty) {
-        self.userChannel = [WLNotificationChannel channelWithName:userUID];
-        [self.userChannel observeMessages:^(PNMessage *message) {
-            WLEntryNotification *notification = [WLEntryNotification notificationWithMessage:message];
-            if (notification.type == WLNotificationUserUpdate) {
-                [notification createTargetEntry];
-                if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
-                    [WLSoundPlayer playSound:WLSound_s01];
-                    [self setSuccessStatusAnimated:NO];
-                }
-            }
-        }];
+        self.userChannel = [WLNotificationSubscription subscription:userUID];
+        self.userChannel.delegate = self;
     }
 }
 
@@ -64,6 +53,19 @@
             [error show];
         }
     }];
+}
+
+// MARK: - WLNotificationSubscriptionDelegate
+
+- (void)notificationSubscription:(WLNotificationSubscription *)subscription didReceiveMessage:(PNMessageData *)message {
+    WLEntryNotification *notification = [WLEntryNotification notificationWithMessage:message];
+    if (notification.type == WLNotificationUserUpdate) {
+        [notification createTargetEntry];
+        if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
+            [WLSoundPlayer playSound:WLSound_s01];
+            [self setSuccessStatusAnimated:NO];
+        }
+    }
 }
 
 @end

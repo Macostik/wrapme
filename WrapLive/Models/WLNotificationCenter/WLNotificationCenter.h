@@ -6,9 +6,6 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLNotificationChannel.h"
-#import "WLNotification+PNMessage.h"
-
 @interface WLNotificationCenter : NSObject
 
 @property (strong, nonatomic) void (^gettingDeviceTokenBlock) (WLDataBlock gettingDeviceTokenCompletionBlock);

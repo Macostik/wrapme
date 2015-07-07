@@ -1,1260 +1,152 @@
 /**
- 
  @author Sergey Mamontov
- @version 3.7.0
- @copyright © 2009-14 PubNub Inc.
- 
+ @since 4.0
+ @copyright © 2009-2015 PubNub, Inc.
  */
-
 #import "PubNub+APNS.h"
-#import "PNPushNotificationsEnabledChannelsRequest.h"
-#import "PNPushNotificationsStateChangeRequest.h"
-#import "PNPushNotificationsRemoveRequest.h"
-#import "NSObject+PNAdditions.h"
-#import "PNServiceChannel.h"
-#import "PubNub+Protected.h"
-#import "PNNotifications.h"
-#import "PNHelper.h"
-
-#import "PNLogger+Protected.h"
-#import "PNLoggerSymbols.h"
+#import "PNRequestParameters.h"
+#import "PubNub+CorePrivate.h"
+#import "PNStatus+Private.h"
+#import "PNHelpers.h"
 
 
-#pragma mark - Category private interface declaration
+#pragma mark Protected interface declaration
 
-@interface PubNub (APNSPrivate)
+@interface PubNub (APNSProtected)
 
 
-#pragma mark - Instance methods
+#pragma mark - Push notifications state manipulation 
 
 /**
- @brief Extension of -enablePushNotificationsOnChannels:withDevicePushToken:andCompletionHandlingBlock:
-        and allow specify whether handler block should be replaced or not.
-
- @param channels               Array of \b PNChannel instances for which push notification should be
-                               enabled.
- @param pushToken              Device push token which is used to identify push notification
-                               recipient.
- @param callbackToken          Reference on callback token under which stored block passed by user
-                               on API usage. This block will be reused because of method
-                               rescheduling.
- @param numberOfRetriesOnError How many times re-scheduled request already re-sent because of error.
- @param handlerBlock           The block which is called when push notification enabling state
-                               changed. The block takes two arguments: \c channels - list of
-                               channels for which push notification enabling state changed;
-                               \c error - error because of which push notification enabling failed.
-                               Always check \a error.code to find out what caused error (check
-                               PNErrorCodes header file and use \a -localizedDescription /
-                               \a -localizedFailureReason and \a -localizedRecoverySuggestion to get
-                               human readable description for error).
- */
-- (void)enablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
-                 rescheduledCallbackToken:(NSString *)callbackToken
-                   numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-               andCompletionHandlingBlock:(PNClientPushNotificationsEnableHandlingBlock)handlerBlock;
-
-/**
- @brief Postpone push notification enabling user request so it will be executed in future.
-
- @note  Postpone can be because of few cases: \b PubNub client is in connecting or initial
-        connection state; another request which has been issued earlier didn't completed yet.
-
- @param channels               Array of \b PNChannel instances for which push notification should be
-                               enabled.
- @param pushToken              Device push token which is used to identify push notification
-                               recipient.
- @param callbackToken          Reference on callback token under which stored block passed by user
-                               on API usage. This block will be reused because of method
-                               rescheduling.
- @param numberOfRetriesOnError How many times re-scheduled request already re-sent because of error.
- @param handlerBlock           The block which is called when push notification enabling state
-                               changed. The block takes two arguments: \c channels - list of
-                               channels for which push notification enabling state changed;
-                               \c error - error because of which push notification enabling failed.
-                               Always check \a error.code to find out what caused error (check
-                               PNErrorCodes header file and use \a -localizedDescription /
-                               \a -localizedFailureReason and \a -localizedRecoverySuggestion to get
-                               human readable description for error).
- */
-- (void)postponeEnablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
-                         rescheduledCallbackToken:(NSString *)callbackToken
-                           numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                       andCompletionHandlingBlock:(id)handlerBlock;
-
-/**
- @brief Extension of -disablePushNotificationsOnChannels:withDevicePushToken:andCompletionHandlingBlock:
-        and allow specify whether handler block should be replaced or not.
-
- @param channels               Array of \b PNChannel instances for which push notification should be
-                               disabled.
- @param pushToken              Device push token which previously has been used to register for
-                               messages  observation via Apple Push Notifications.
- @param callbackToken          Reference on callback token under which stored block passed by user
-                               on API usage. This block will be reused because of method rescheduling.
- @param numberOfRetriesOnError How many times re-scheduled request already re-sent because of error.
- @param handlerBlock           The block which is called when push notification disabling state
-                               changed. The block takes two arguments: \c channels - list of
-                               channels for which push notification disabling state changed;
-                               \c error - error because of which push notification disabling failed.
-                               Always check \a error.code to find out what caused error (check
-                               PNErrorCodes header file and use \a -localizedDescription /
-                               \a -localizedFailureReason and \a -localizedRecoverySuggestion to get
-                               human readable description for error).
- */
-- (void)disablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
-                  rescheduledCallbackToken:(NSString *)callbackToken
-                    numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                andCompletionHandlingBlock:(PNClientPushNotificationsDisableHandlingBlock)handlerBlock;
-
-/**
- @brief Postpone push notification disabling user request so it will be executed in future.
-
- @note  Postpone can be because of few cases: \b PubNub client is in connecting or initial
-        connection state; another request which has been issued earlier didn't completed yet.
-
- @param channels               Array of \b PNChannel instances for which push notification should be
-                               disabled.
- @param pushToken              Device push token which previously has been used to register for
-                               messages  observation via Apple Push Notifications.
- @param callbackToken          Reference on callback token under which stored block passed by user
-                               on API usage. This block will be reused because of method rescheduling.
- @param numberOfRetriesOnError How many times re-scheduled request already re-sent because of error.
- @param handlerBlock           The block which is called when push notification disabling state
-                               changed. The block takes two arguments: \c channels - list of
-                               channels for which push notification disabling state changed;
-                               \c error - error because of which push notification disabling failed.
-                               Always check \a error.code to find out what caused error (check
-                               PNErrorCodes header file and use \a -localizedDescription /
-                               \a -localizedFailureReason and \a -localizedRecoverySuggestion to get
-                               human readable description for error).
- */
-- (void)postponeDisablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
-                          rescheduledCallbackToken:(NSString *)callbackToken
-                            numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                        andCompletionHandlingBlock:(id)handlerBlock;
-
-/**
- @brief Extension of -disablePushNotificationsOnChannels:withDevicePushToken:andCompletionHandlingBlock:
-        and allow specify whether handler block should be replaced or not.
-
- @param pushToken              Device push token which previously has been used to register for
-                               messages observation via Apple Push Notifications.
- @param callbackToken          Reference on callback token under which stored block passed by user
-                               on API usage. This block will be reused because of method rescheduling.
- @param numberOfRetriesOnError How many times re-scheduled request already re-sent because of error.
- @param handlerBlock           The block which is called when push notification disabling state
-                               changed. The block takes one argument: \c error - error because of
-                               which push notification disabling failed. Always check \a error.code
-                               to find out what caused error (check PNErrorCodes header file and use
-                               \a -localizedDescription / \a -localizedFailureReason and
-                               \a -localizedRecoverySuggestion to get human readable description for
-                               error).
- */
-- (void)removeAllPushNotificationsForDevicePushToken:(NSData *)pushToken
-                            rescheduledCallbackToken:(NSString *)callbackToken
-                              numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                         withCompletionHandlingBlock:(PNClientPushNotificationsRemoveHandlingBlock)handlerBlock;
-
-/**
- @brief Postpone push notification remove user request so it will be executed in future.
-
- @note  Postpone can be because of few cases: \b PubNub client is in connecting or initial
-        connection state; another request which has been issued earlier didn't completed yet.
-
- @param pushToken              Device push token which previously has been used to register for
-                               messages observation via Apple Push Notifications.
- @param callbackToken          Reference on callback token under which stored block passed by user
-                               on API usage. This block will be reused because of method rescheduling.
- @param numberOfRetriesOnError How many times re-scheduled request already re-sent because of error.
- @param handlerBlock           The block which is called when push notification disabling state
-                               changed. The block takes one argument: \c error - error because of
-                               which push notification disabling failed. Always check \a error.code
-                               to find out what caused error (check PNErrorCodes header file and use
-                               \a -localizedDescription / \a -localizedFailureReason and
-                               \a -localizedRecoverySuggestion to get human readable description for
-                               error).
- */
-- (void)postponeRemoveAllPushNotificationsForDevicePushToken:(NSData *)pushToken
-                                    rescheduledCallbackToken:(NSString *)callbackToken
-                                      numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                                 withCompletionHandlingBlock:(id)handlerBlock;
-
-/**
- @brief Extension of -disablePushNotificationsOnChannels:withDevicePushToken:andCompletionHandlingBlock:
-        and allow specify whether handler block should be replaced or not.
-
- @param pushToken              Device push token which previously has been used to register for
-                               messages observation via Apple Push Notifications.
- @param callbackToken          Reference on callback token under which stored block passed by user
-                               on API usage. This block will be reused because of method rescheduling.
- @param numberOfRetriesOnError How many times re-scheduled request already re-sent because of error.
- @param handlerBlock           The block which is called when push notification disabling state
-                               changed. The block takes two arguments: \c channels - return list of
-                               channels for which push notification has been enabled with specified
-                               device push token; \c error - error because of push notification
-                               enabled channels fetch failed. Always check \a error.code to find out
-                               what caused error (check PNErrorCodes header file and use
-                               \a -localizedDescription / \a -localizedFailureReason and
-                               \a -localizedRecoverySuggestion to get human readable description
-                               for error).
- */
-- (void)requestPushNotificationEnabledChannelsForDevicePushToken:(NSData *)pushToken
-                                        rescheduledCallbackToken:(NSString *)callbackToken
-                                          numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                                     withCompletionHandlingBlock:(PNClientPushNotificationsEnabledChannelsHandlingBlock)handlerBlock;
-
-/**
- @brief Postpone push notification enabled channels audit user request so it will be executed in
-        future.
+ @brief  Final designated method which allow to modify push notifications state on set of channels
+         for device specified by \c pushToken.
  
- @note  Postpone can be because of few cases: \b PubNub client is in connecting or initial
-        connection state; another request which has been issued earlier didn't completed yet.
+ @param shouldEnabled Whether push notification should be enabled or disabled on \c channels.
+ @param channels      List of channels for which notification state should be changed.
+ @param pushToken     Reference on device push token for which on specified \c channels push
+                      notifications will be enabled or disabled.
+ @param block         Push notifications state modification on channels processing completion 
+                      block which pass only one argument - request processing status to report about
+                      how data pushing was successful or not.
  
- @param pushToken              Device push token which previously has been used to register for
-                               messages observation via Apple Push Notifications.
- @param callbackToken          Reference on callback token under which stored block passed by user
-                               on API usage. This block will be reused because of method rescheduling.
- @param numberOfRetriesOnError How many times re-scheduled request already re-sent because of error.
- @param handlerBlock           The block which is called when push notification disabling state
-                               changed. The block takes two arguments: \c channels - return list of
-                               channels for which push notification has been enabled with specified
-                               device push token; \c error - error because of push notification
-                               enabled channels fetch failed. Always check \a error.code to find out
-                               what caused error (check PNErrorCodes header file and use
-                               \a -localizedDescription / \a -localizedFailureReason and
-                               \a -localizedRecoverySuggestion to get human readable description
-                               for error).
+ @since 4.0
  */
-- (void)postponeRequestPushNotificationEnabledChannelsForDevicePushToken:(NSData *)pushToken
-                                                rescheduledCallbackToken:(NSString *)callbackToken
-                                                  numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                                             withCompletionHandlingBlock:(id)handlerBlock;
+- (void)enablePushNotification:(BOOL)shouldEnabled onChannels:(NSArray *)channels
+           withDevicePushToken:(NSData *)pushToken
+                 andCompletion:(PNPushNotificationsStateModificationCompletionBlock)block;
 
-
-#pragma mark - Misc methods
-
-/**
- @brief This method will notify delegate about that push notification enabling failed with error.
- 
- @param error         \b PNError instance which hold information about what exactly went wrong
-                      during push notification enabling process.
- @param callbackToken Reference on callback token under which stored block passed by user on API
-                      usage. This block will be reused because of method rescheduling.
- */
-- (void)notifyDelegateAboutPushNotificationsEnableFailedWithError:(PNError *)error
-                                                 andCallbackToken:(NSString *)callbackToken;
-
-/**
- @brief This method will notify delegate about that push notification disabling failed with error.
- 
- @param error         \b PNError instance which hold information about what exactly went wrong
-                      during push notification disabling process.
- @param callbackToken Reference on callback token under which stored block passed by user on API
-                      usage. This block will be reused because of method rescheduling.
- */
-- (void)notifyDelegateAboutPushNotificationsDisableFailedWithError:(PNError *)error
-                                                  andCallbackToken:(NSString *)callbackToken;
-
-/**
- @brief This method will notify delegate about that push notification removal from all channels
-        failed because of error.
- 
- @param error         \b PNError instance which hold information about what exactly went wrong
-                      during push notification removal process.
- @param callbackToken Reference on callback token under which stored block passed by user on API
-                      usage. This block will be reused because of method rescheduling.
- */
-- (void)notifyDelegateAboutPushNotificationsRemoveFailedWithError:(PNError *)error
-                                                 andCallbackToken:(NSString *)callbackToken;
-
-/**
- @brief This method will notify delegate about that push notification enabled channels list
-        retrieval request failed with error.
- 
- @param error         \b PNError instance which hold information about what exactly went wrong
-                      during push notification audit process.
- @param callbackToken Reference on callback token under which stored block passed by user on API
-                      usage. This block will be reused because of method rescheduling.
- */
-- (void)notifyDelegateAboutPushNotificationsEnabledChannelsFailedWithError:(PNError *)error
-                                                          andCallbackToken:(NSString *)callbackToken;
-
-#pragma mark -
+#pragma mark - 
 
 
 @end
 
 
-#pragma mark - Category methods implementation
+#pragma mark - Interface implementation
 
 @implementation PubNub (APNS)
 
 
-#pragma mark - Class (singleton) methods
+#pragma mark - Push notifications state manipulation
 
-+ (void)enablePushNotificationsOnChannel:(PNChannel *)channel withDevicePushToken:(NSData *)pushToken {
+- (void)addPushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
+                         andCompletion:(PNPushNotificationsStateModificationCompletionBlock)block {
     
-    [self enablePushNotificationsOnChannel:channel withDevicePushToken:pushToken
-                andCompletionHandlingBlock:nil];
+    [self enablePushNotification:YES onChannels:channels withDevicePushToken:pushToken
+                   andCompletion:block];
 }
 
-+ (void)enablePushNotificationsOnChannel:(PNChannel *)channel withDevicePushToken:(NSData *)pushToken
-              andCompletionHandlingBlock:(PNClientPushNotificationsEnableHandlingBlock)handlerBlock {
+- (void)removePushNotificationsFromChannels:(NSArray *)channels
+                        withDevicePushToken:(NSData *)pushToken
+                              andCompletion:(PNPushNotificationsStateModificationCompletionBlock)block {
     
-    [self enablePushNotificationsOnChannels:(channel ? @[channel] : nil) withDevicePushToken:pushToken
-                 andCompletionHandlingBlock:handlerBlock];
+    [self enablePushNotification:NO onChannels:channels withDevicePushToken:pushToken
+                   andCompletion:block];
 }
 
-+ (void)enablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken {
+- (void)removeAllPushNotificationsFromDeviceWithPushToken:(NSData *)pushToken
+                          andCompletion:(PNPushNotificationsStateModificationCompletionBlock)block {
     
-    [self enablePushNotificationsOnChannels:channels withDevicePushToken:pushToken
-                 andCompletionHandlingBlock:nil];
+    [self enablePushNotification:NO onChannels:nil withDevicePushToken:pushToken
+                   andCompletion:block];
 }
 
-+ (void)enablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
-               andCompletionHandlingBlock:(PNClientPushNotificationsEnableHandlingBlock)handlerBlock {
-    
-    [[self sharedInstance] enablePushNotificationsOnChannels:channels withDevicePushToken:pushToken
-                                  andCompletionHandlingBlock:handlerBlock];
-}
-
-+ (void)disablePushNotificationsOnChannel:(PNChannel *)channel withDevicePushToken:(NSData *)pushToken {
-    
-    [self disablePushNotificationsOnChannel:channel withDevicePushToken:pushToken
-                 andCompletionHandlingBlock:nil];
-}
-
-+ (void)disablePushNotificationsOnChannel:(PNChannel *)channel withDevicePushToken:(NSData *)pushToken
-               andCompletionHandlingBlock:(PNClientPushNotificationsDisableHandlingBlock)handlerBlock {
-    
-    [self disablePushNotificationsOnChannels:(channel ? @[channel] : nil) withDevicePushToken:pushToken
-                  andCompletionHandlingBlock:handlerBlock];
-}
-
-+ (void)disablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken {
-    
-    [self disablePushNotificationsOnChannels:channels withDevicePushToken:pushToken
-                  andCompletionHandlingBlock:nil];
-}
-
-+ (void)disablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
-                andCompletionHandlingBlock:(PNClientPushNotificationsDisableHandlingBlock)handlerBlock {
-    
-    [[self sharedInstance] disablePushNotificationsOnChannels:channels withDevicePushToken:pushToken
-                                   andCompletionHandlingBlock:handlerBlock];
-}
-
-+ (void)removeAllPushNotificationsForDevicePushToken:(NSData *)pushToken
-                         withCompletionHandlingBlock:(PNClientPushNotificationsRemoveHandlingBlock)handlerBlock {
-    
-    [[self sharedInstance] removeAllPushNotificationsForDevicePushToken:pushToken
-                                            withCompletionHandlingBlock:handlerBlock];
-}
-
-+ (void)requestPushNotificationEnabledChannelsForDevicePushToken:(NSData *)pushToken
-                                     withCompletionHandlingBlock:(PNClientPushNotificationsEnabledChannelsHandlingBlock)handlerBlock {
-    
-    [[self sharedInstance] requestPushNotificationEnabledChannelsForDevicePushToken:pushToken
-                                                        withCompletionHandlingBlock:handlerBlock];
-}
-
-
-#pragma mark - Instance methods
-
-- (void)enablePushNotificationsOnChannel:(PNChannel *)channel withDevicePushToken:(NSData *)pushToken {
-    
-    [self enablePushNotificationsOnChannel:channel withDevicePushToken:pushToken
-                andCompletionHandlingBlock:nil];
-}
-
-- (void)enablePushNotificationsOnChannel:(PNChannel *)channel withDevicePushToken:(NSData *)pushToken
-              andCompletionHandlingBlock:(PNClientPushNotificationsEnableHandlingBlock)handlerBlock {
-    
-    [self enablePushNotificationsOnChannels:(channel ? @[channel] : nil) withDevicePushToken:pushToken
-                 andCompletionHandlingBlock:handlerBlock];
-}
-
-- (void)enablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken {
-    
-    [self enablePushNotificationsOnChannels:channels withDevicePushToken:pushToken
-                 andCompletionHandlingBlock:nil];
-}
-
-- (void)enablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
-               andCompletionHandlingBlock:(PNClientPushNotificationsEnableHandlingBlock)handlerBlock {
-
-    [self enablePushNotificationsOnChannels:channels withDevicePushToken:pushToken
-                   rescheduledCallbackToken:nil numberOfRetriesOnError:0
-                 andCompletionHandlingBlock:handlerBlock];
-}
-
-- (void)enablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
-                 rescheduledCallbackToken:(NSString *)callbackToken
-                   numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-               andCompletionHandlingBlock:(PNClientPushNotificationsEnableHandlingBlock)handlerBlock {
-
-    // Create additional references on objects passed from outside to ensure what objects will
-    // survive till asynchronous operation will complete.
-    channels = [[NSArray alloc] initWithArray:channels copyItems:NO];
-    pushToken = [pushToken copy];
-
-    [self pn_dispatchBlock:^{
-        
-        [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
-            
-            return @[PNLoggerSymbols.api.pushNotificationsEnableAttempt,
-                     (channels ? channels : [NSNull null]), (pushToken ? pushToken : [NSNull null]),
-                     [self humanReadableStateFrom:self.state]];
-        }];
-        
-        [self   performAsyncLockingBlock:^{
-
-            // Check whether client is able to send request or not
-            NSInteger statusCode = [self requestExecutionPossibilityStatusCode];
-            if (statusCode == 0 && pushToken != nil) {
-
-                [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-                    return @[PNLoggerSymbols.api.enablingPushNotifications,
-                            [self humanReadableStateFrom:self.state]];
-                }];
-
-                PNPushNotificationsStateChangeRequest *request;
-                request = [PNPushNotificationsStateChangeRequest requestWithDevicePushToken:pushToken
-                                                                                    toState:PNPushNotificationsState.enable
-                                                                                forChannels:channels];
-                if (handlerBlock && !callbackToken) {
-
-                    [self.observationCenter addClientAsPushNotificationsEnableObserverWithToken:request.shortIdentifier
-                                                                                       andBlock:handlerBlock];
-                }
-                else if (callbackToken) {
-
-                    [self.observationCenter changeClientCallbackToken:callbackToken
-                                                                   to:request.shortIdentifier];
-                }
-
-                request.retryCount = numberOfRetriesOnError;
-                [self sendRequest:request shouldObserveProcessing:YES];
-            }
-                // Looks like client can't send request because of some reasons
-            else {
-
-                [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-                    return @[PNLoggerSymbols.api.pushNotificationEnablingImpossible,
-                            [self humanReadableStateFrom:self.state]];
-                }];
-
-                if (pushToken == nil) {
-
-                    statusCode = kPNDevicePushTokenIsEmptyError;
-                }
-                PNError *stateChangeError = [PNError errorWithCode:statusCode];
-                stateChangeError.associatedObject = channels;
-
-                [self notifyDelegateAboutPushNotificationsEnableFailedWithError:stateChangeError
-                                                               andCallbackToken:callbackToken];
-
-
-                if (handlerBlock && !callbackToken) {
-
-                    dispatch_async(dispatch_get_main_queue(), ^{
-
-                        handlerBlock(channels, stateChangeError);
-                    });
-                }
-            }
-        }        postponedExecutionBlock:^{
-
-            [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-                return @[PNLoggerSymbols.api.postponePushNotificationEnabling,
-                        [self humanReadableStateFrom:self.state]];
-            }];
-
-            [self postponeEnablePushNotificationsOnChannels:channels withDevicePushToken:pushToken
-                                   rescheduledCallbackToken:callbackToken
-                                     numberOfRetriesOnError:numberOfRetriesOnError
-                                 andCompletionHandlingBlock:handlerBlock];
-        } burstExecutionLockingOperation:NO];
-    }];
-}
-
-- (void)postponeEnablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
-                         rescheduledCallbackToken:(NSString *)callbackToken
-                           numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                       andCompletionHandlingBlock:(id)handlerBlock {
-    
-    SEL selector = @selector(enablePushNotificationsOnChannels:withDevicePushToken:rescheduledCallbackToken:numberOfRetriesOnError:andCompletionHandlingBlock:);
-    id handlerBlockCopy = (handlerBlock ? [handlerBlock copy] : nil);
-    [self postponeSelector:selector forObject:self
-            withParameters:@[channels, [PNHelper nilifyIfNotSet:pushToken],
-                             [PNHelper nilifyIfNotSet:callbackToken], @(numberOfRetriesOnError),
-                             [PNHelper nilifyIfNotSet:handlerBlockCopy]]
-                outOfOrder:(callbackToken != nil) burstExecutionLock:NO];
-}
-
-- (void)disablePushNotificationsOnChannel:(PNChannel *)channel withDevicePushToken:(NSData *)pushToken {
-    
-    [self disablePushNotificationsOnChannel:channel withDevicePushToken:pushToken
-                 andCompletionHandlingBlock:nil];
-}
-
-- (void)disablePushNotificationsOnChannel:(PNChannel *)channel withDevicePushToken:(NSData *)pushToken
-               andCompletionHandlingBlock:(PNClientPushNotificationsDisableHandlingBlock)handlerBlock {
-    
-    [self disablePushNotificationsOnChannels:(channel ? @[channel] : nil) withDevicePushToken:pushToken
-                  andCompletionHandlingBlock:handlerBlock];
-}
-
-- (void)disablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken {
-    
-    [self disablePushNotificationsOnChannels:channels withDevicePushToken:pushToken
-                  andCompletionHandlingBlock:nil];
-}
-
-- (void)disablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
-                andCompletionHandlingBlock:(PNClientPushNotificationsDisableHandlingBlock)handlerBlock {
-
-    [self disablePushNotificationsOnChannels:channels withDevicePushToken:pushToken
-                    rescheduledCallbackToken:nil numberOfRetriesOnError:0
-                  andCompletionHandlingBlock:handlerBlock];
-}
-
-- (void)disablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
-                  rescheduledCallbackToken:(NSString *)callbackToken
-                    numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                andCompletionHandlingBlock:(PNClientPushNotificationsDisableHandlingBlock)handlerBlock {
-
-    // Create additional references on objects passed from outside to ensure what objects will
-    // survive till asynchronous operation will complete.
-    channels = [[NSArray alloc] initWithArray:channels copyItems:NO];
-    pushToken = [pushToken copy];
-
-    [self pn_dispatchBlock:^{
-        
-        [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
-            
-            return @[PNLoggerSymbols.api.pushNotificationsDisableAttempt,
-                     (channels ? channels : [NSNull null]), (pushToken ? pushToken : [NSNull null]),
-                     [self humanReadableStateFrom:self.state]];
-        }];
-        
-        [self   performAsyncLockingBlock:^{
-
-            // Check whether client is able to send request or not
-            NSInteger statusCode = [self requestExecutionPossibilityStatusCode];
-            if (statusCode == 0 && pushToken != nil) {
-
-                [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-                    return @[PNLoggerSymbols.api.disablingPushNotifications,
-                            [self humanReadableStateFrom:self.state]];
-                }];
-
-                PNPushNotificationsStateChangeRequest *request;
-                request = [PNPushNotificationsStateChangeRequest requestWithDevicePushToken:pushToken
-                                                                                    toState:PNPushNotificationsState.disable
-                                                                                forChannels:channels];
-                if (handlerBlock && !callbackToken) {
-
-                    [self.observationCenter addClientAsPushNotificationsDisableObserverWithToken:request.shortIdentifier
-                                                                                        andBlock:handlerBlock];
-                }
-                else if (callbackToken) {
-
-                    [self.observationCenter changeClientCallbackToken:callbackToken
-                                                                   to:request.shortIdentifier];
-                }
-
-                request.retryCount = numberOfRetriesOnError;
-                [self sendRequest:request shouldObserveProcessing:YES];
-            }
-            // Looks like client can't send request because of some reasons
-            else {
-
-                [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-                    return @[PNLoggerSymbols.api.pushNotificationDisablingImpossible,
-                            [self humanReadableStateFrom:self.state]];
-                }];
-
-                if (pushToken == nil) {
-
-                    statusCode = kPNDevicePushTokenIsEmptyError;
-                }
-
-                PNError *stateChangeError = [PNError errorWithCode:statusCode];
-                stateChangeError.associatedObject = channels;
-
-                [self notifyDelegateAboutPushNotificationsDisableFailedWithError:stateChangeError
-                                                                andCallbackToken:callbackToken];
-
-                if (handlerBlock && !callbackToken) {
-
-                    dispatch_async(dispatch_get_main_queue(), ^{
-
-                        handlerBlock(channels, stateChangeError);
-                    });
-                }
-            }
-        }        postponedExecutionBlock:^{
-
-            [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-                return @[PNLoggerSymbols.api.postponePushNotificationDisabling,
-                        [self humanReadableStateFrom:self.state]];
-            }];
-
-            [self postponeDisablePushNotificationsOnChannels:channels withDevicePushToken:pushToken
-                                    rescheduledCallbackToken:callbackToken
-                                      numberOfRetriesOnError:numberOfRetriesOnError
-                                  andCompletionHandlingBlock:handlerBlock];
-        } burstExecutionLockingOperation:NO];
-    }];
-}
-
-- (void)postponeDisablePushNotificationsOnChannels:(NSArray *)channels withDevicePushToken:(NSData *)pushToken
-                          rescheduledCallbackToken:(NSString *)callbackToken
-                            numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                        andCompletionHandlingBlock:(id)handlerBlock {
-    
-    SEL selector = @selector(disablePushNotificationsOnChannels:withDevicePushToken:rescheduledCallbackToken:numberOfRetriesOnError:andCompletionHandlingBlock:);
-    id handlerBlockCopy = (handlerBlock ? [handlerBlock copy] : nil);
-    [self postponeSelector:selector forObject:self
-            withParameters:@[channels, [PNHelper nilifyIfNotSet:pushToken],
-                             [PNHelper nilifyIfNotSet:callbackToken], @(numberOfRetriesOnError),
-                             [PNHelper nilifyIfNotSet:handlerBlockCopy]]
-                outOfOrder:(callbackToken != nil) burstExecutionLock:NO];
-}
-
-- (void)removeAllPushNotificationsForDevicePushToken:(NSData *)pushToken
-                         withCompletionHandlingBlock:(PNClientPushNotificationsRemoveHandlingBlock)handlerBlock {
-
-    [self removeAllPushNotificationsForDevicePushToken:pushToken rescheduledCallbackToken:nil
-                                numberOfRetriesOnError:0 withCompletionHandlingBlock:handlerBlock];
-}
-
-- (void)removeAllPushNotificationsForDevicePushToken:(NSData *)pushToken
-                            rescheduledCallbackToken:(NSString *)callbackToken
-                              numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                         withCompletionHandlingBlock:(PNClientPushNotificationsRemoveHandlingBlock)handlerBlock {
-
-    // Create additional references on objects passed from outside to ensure what objects will
-    // survive till asynchronous operation will complete.
-    pushToken = [pushToken copy];
-
-    [self pn_dispatchBlock:^{
-        
-        [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
-            
-            return @[PNLoggerSymbols.api.pushNotificationsRemovalAttempt,
-                     (pushToken ? pushToken : [NSNull null]),
-                     [self humanReadableStateFrom:self.state]];
-        }];
-        
-        [self   performAsyncLockingBlock:^{
-
-            // Check whether client is able to send request or not
-            NSInteger statusCode = [self requestExecutionPossibilityStatusCode];
-            if (statusCode == 0 && pushToken != nil) {
-
-                [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-                    return @[PNLoggerSymbols.api.removePushNotifications, [self humanReadableStateFrom:self.state]];
-                }];
-
-                PNPushNotificationsRemoveRequest *request = [PNPushNotificationsRemoveRequest requestWithDevicePushToken:pushToken];
-                if (handlerBlock && !callbackToken) {
-
-                    [self.observationCenter addClientAsPushNotificationsRemoveObserverWithToken:request.shortIdentifier
-                                                                                       andBlock:handlerBlock];
-                }
-                else if (callbackToken) {
-
-                    [self.observationCenter changeClientCallbackToken:callbackToken
-                                                                   to:request.shortIdentifier];
-                }
-
-                request.retryCount = numberOfRetriesOnError;
-                [self sendRequest:request shouldObserveProcessing:YES];
-            }
-                // Looks like client can't send request because of some reasons
-            else {
-
-                [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-                    return @[PNLoggerSymbols.api.pushNotificationRemovalImpossible,
-                            [self humanReadableStateFrom:self.state]];
-                }];
-
-                if (pushToken == nil) {
-
-                    statusCode = kPNDevicePushTokenIsEmptyError;
-                }
-
-                PNError *removalError = [PNError errorWithCode:statusCode];
-                [self notifyDelegateAboutPushNotificationsRemoveFailedWithError:removalError
-                                                               andCallbackToken:callbackToken];
-
-                if (handlerBlock && !callbackToken) {
-
-                    dispatch_async(dispatch_get_main_queue(), ^{
-
-                        handlerBlock(removalError);
-                    });
-                }
-            }
-        }        postponedExecutionBlock:^{
-
-            [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-                return @[PNLoggerSymbols.api.postponePushNotificationRemoval,
-                        [self humanReadableStateFrom:self.state]];
-            }];
-
-            [self postponeRemoveAllPushNotificationsForDevicePushToken:pushToken
-                                              rescheduledCallbackToken:callbackToken
-                                                numberOfRetriesOnError:numberOfRetriesOnError
-                                           withCompletionHandlingBlock:handlerBlock];
-        } burstExecutionLockingOperation:NO];
-    }];
-}
-
-- (void)postponeRemoveAllPushNotificationsForDevicePushToken:(NSData *)pushToken
-                                    rescheduledCallbackToken:(NSString *)callbackToken
-                                      numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                                 withCompletionHandlingBlock:(id)handlerBlock {
-    
-    SEL selector = @selector(removeAllPushNotificationsForDevicePushToken:rescheduledCallbackToken:numberOfRetriesOnError:withCompletionHandlingBlock:);
-    id handlerBlockCopy = (handlerBlock ? [handlerBlock copy] : nil);
-    [self postponeSelector:selector forObject:self
-            withParameters:@[[PNHelper nilifyIfNotSet:pushToken], [PNHelper nilifyIfNotSet:callbackToken],
-                             @(numberOfRetriesOnError), [PNHelper nilifyIfNotSet:handlerBlockCopy]]
-                outOfOrder:(callbackToken != nil) burstExecutionLock:NO];
-}
-
-- (void)requestPushNotificationEnabledChannelsForDevicePushToken:(NSData *)pushToken
-                                     withCompletionHandlingBlock:(PNClientPushNotificationsEnabledChannelsHandlingBlock)handlerBlock {
-
-    [self requestPushNotificationEnabledChannelsForDevicePushToken:pushToken
-                                          rescheduledCallbackToken:nil numberOfRetriesOnError:0
-                                       withCompletionHandlingBlock:handlerBlock];
-}
-
-- (void)requestPushNotificationEnabledChannelsForDevicePushToken:(NSData *)pushToken
-                                        rescheduledCallbackToken:(NSString *)callbackToken
-                                          numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                                     withCompletionHandlingBlock:(PNClientPushNotificationsEnabledChannelsHandlingBlock)handlerBlock {
-
-    // Create additional references on objects passed from outside to ensure what objects will
-    // survive till asynchronous operation will complete.
-    pushToken = [pushToken copy];
-
-    [self pn_dispatchBlock:^{
-
-        [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
-
-            return @[PNLoggerSymbols.api.pushNotificationsAuditAttempt,
-                     (pushToken ? pushToken : [NSNull null]),
-                     [self humanReadableStateFrom:self.state]];
-        }];
-
-        [self   performAsyncLockingBlock:^{
-
-            // Check whether client is able to send request or not
-            NSInteger statusCode = [self requestExecutionPossibilityStatusCode];
-            if (statusCode == 0 && pushToken != nil) {
-
-                [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-                    return @[PNLoggerSymbols.api.auditPushNotifications,
-                            [self humanReadableStateFrom:self.state]];
-                }];
-
-                PNPushNotificationsEnabledChannelsRequest *request = [PNPushNotificationsEnabledChannelsRequest requestWithDevicePushToken:pushToken];
-                if (handlerBlock && !callbackToken) {
-
-                    [self.observationCenter addClientAsPushNotificationsEnabledChannelsObserverWithToken:request.shortIdentifier
-                                                                                                andBlock:handlerBlock];
-                }
-                else if (callbackToken) {
-
-                    [self.observationCenter changeClientCallbackToken:callbackToken
-                                                                   to:request.shortIdentifier];
-                }
-
-                request.retryCount = numberOfRetriesOnError;
-                [self sendRequest:request shouldObserveProcessing:YES];
-            }
-                // Looks like client can't send request because of some reasons
-            else {
-
-                [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-                    return @[PNLoggerSymbols.api.pushNotificationAuditImpossible,
-                            [self humanReadableStateFrom:self.state]];
-                }];
-
-                if (pushToken == nil) {
-
-                    statusCode = kPNDevicePushTokenIsEmptyError;
-                }
-
-                PNError *listRetrieveError = [PNError errorWithCode:statusCode];
-
-                [self notifyDelegateAboutPushNotificationsEnabledChannelsFailedWithError:listRetrieveError
-                                                                        andCallbackToken:callbackToken];
-
-                if (handlerBlock && !callbackToken) {
-
-                    dispatch_async(dispatch_get_main_queue(), ^{
-
-                        handlerBlock(nil, listRetrieveError);
-                    });
-                }
-            }
-        }        postponedExecutionBlock:^{
-
-            [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-                return @[PNLoggerSymbols.api.postponePushNotificationAudit,
-                        [self humanReadableStateFrom:self.state]];
-            }];
-
-            [self postponeRequestPushNotificationEnabledChannelsForDevicePushToken:pushToken
-                                                          rescheduledCallbackToken:callbackToken
-                                                            numberOfRetriesOnError:numberOfRetriesOnError
-                                                       withCompletionHandlingBlock:handlerBlock];
-        } burstExecutionLockingOperation:NO];
-    }];
-}
-
-- (void)postponeRequestPushNotificationEnabledChannelsForDevicePushToken:(NSData *)pushToken
-                                                rescheduledCallbackToken:(NSString *)callbackToken
-                                                  numberOfRetriesOnError:(NSUInteger)numberOfRetriesOnError
-                                             withCompletionHandlingBlock:(id)handlerBlock {
-    
-    SEL selector = @selector(requestPushNotificationEnabledChannelsForDevicePushToken:rescheduledCallbackToken:numberOfRetriesOnError:withCompletionHandlingBlock:);
-    id handlerBlockCopy = (handlerBlock ? [handlerBlock copy] : nil);
-    [self postponeSelector:selector forObject:self
-            withParameters:@[[PNHelper nilifyIfNotSet:pushToken], [PNHelper nilifyIfNotSet:callbackToken],
-                             @(numberOfRetriesOnError), [PNHelper nilifyIfNotSet:handlerBlockCopy]]
-                outOfOrder:(callbackToken != nil) burstExecutionLock:NO];
-}
-
-
-#pragma mark - Misc methods
-
-- (void)notifyDelegateAboutPushNotificationsEnableFailedWithError:(PNError *)error
-                                                 andCallbackToken:(NSString *)callbackToken {
-    
-    [self handleLockingOperationBlockCompletion:^{
-
-        [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-            return @[PNLoggerSymbols.api.pushNotificationEnablingFailed,
-                    [self humanReadableStateFrom:self.state]];
-        }];
-
-        // Check whether delegate is able to handle push notification enabling error or not
-        SEL selector = @selector(pubnubClient:pushNotificationEnableDidFailWithError:);
-        if ([self.clientDelegate respondsToSelector:selector]) {
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            dispatch_async(dispatch_get_main_queue(), ^{
-
-                [self.clientDelegate performSelector:selector withObject:self withObject:error];
-            });
-#pragma clang diagnostic pop
-        }
-
-
-        [self sendNotification:kPNClientPushNotificationEnableDidFailNotification withObject:error
-              andCallbackToken:callbackToken];
-    }                           shouldStartNext:YES burstExecutionLockingOperation:NO];
-}
-
-- (void)notifyDelegateAboutPushNotificationsDisableFailedWithError:(PNError *)error
-                                                  andCallbackToken:(NSString *)callbackToken {
-    
-    [self handleLockingOperationBlockCompletion:^{
-
-        [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-            return @[PNLoggerSymbols.api.pushNotificationDisablingFailed,
-                    [self humanReadableStateFrom:self.state]];
-        }];
-
-        // Check whether delegate is able to handle push notification enabling error or not
-        SEL selector = @selector(pubnubClient:pushNotificationDisableDidFailWithError:);
-        if ([self.clientDelegate respondsToSelector:selector]) {
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            dispatch_async(dispatch_get_main_queue(), ^{
-
-                [self.clientDelegate performSelector:selector withObject:self withObject:error];
-            });
-#pragma clang diagnostic pop
-        }
-
-        [self sendNotification:kPNClientPushNotificationDisableDidFailNotification withObject:error
-              andCallbackToken:callbackToken];
-    }                           shouldStartNext:YES burstExecutionLockingOperation:NO];
-}
-
-- (void)notifyDelegateAboutPushNotificationsRemoveFailedWithError:(PNError *)error
-                                                 andCallbackToken:(NSString *)callbackToken {
-    
-    [self handleLockingOperationBlockCompletion:^{
-
-        [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-            return @[PNLoggerSymbols.api.pushNotificationRemovalFailed,
-                    [self humanReadableStateFrom:self.state]];
-        }];
-
-        // Check whether delegate is able to handle push notifications removal error or not
-        SEL selector = @selector(pubnubClient:pushNotificationsRemoveFromChannelsDidFailWithError:);
-        if ([self.clientDelegate respondsToSelector:selector]) {
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            dispatch_async(dispatch_get_main_queue(), ^{
-
-                [self.clientDelegate performSelector:selector withObject:self withObject:error];
-            });
-#pragma clang diagnostic pop
-        }
-
-        [self sendNotification:kPNClientPushNotificationRemoveDidFailNotification withObject:error
-              andCallbackToken:callbackToken];
-    }                           shouldStartNext:YES burstExecutionLockingOperation:NO];
-}
-
-- (void)notifyDelegateAboutPushNotificationsEnabledChannelsFailedWithError:(PNError *)error
-                                                          andCallbackToken:(NSString *)callbackToken {
-    
-    [self handleLockingOperationBlockCompletion:^{
-
-        [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray * {
-
-            return @[PNLoggerSymbols.api.pushNotificationAuditFailed,
-                    [self humanReadableStateFrom:self.state]];
-        }];
-
-        // Check whether delegate is able to handle push notifications removal error or not
-        SEL selector = @selector(pubnubClient:pushNotificationEnabledChannelsReceiveDidFailWithError:);
-        if ([self.clientDelegate respondsToSelector:selector]) {
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            dispatch_async(dispatch_get_main_queue(), ^{
-
-                [self.clientDelegate performSelector:selector withObject:self withObject:error];
-            });
-#pragma clang diagnostic pop
-        }
-
-        [self sendNotification:kPNClientPushNotificationChannelsRetrieveDidFailNotification
-                    withObject:error andCallbackToken:callbackToken];
-    }                           shouldStartNext:YES burstExecutionLockingOperation:NO];
-}
-
-
-#pragma mark - Service channel delegate methods
-
-- (void)                serviceChannel:(PNServiceChannel *)channel
-  didEnablePushNotificationsOnChannels:(NSArray *)channels
-                             onRequest:(PNBaseRequest *)request {
-
-    void(^handlingBlock)(BOOL) = ^(BOOL shouldNotify){
-
-        [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
-
-            return @[PNLoggerSymbols.api.didEnablePushNotifications,
-                     [self humanReadableStateFrom:self.state]];
-        }];
-
-        if (shouldNotify) {
-
-            // Check whether delegate is able to handle push notification enabled event or not
-            SEL selector = @selector(pubnubClient:didEnablePushNotificationsOnChannels:);
-            if ([self.clientDelegate respondsToSelector:selector]) {
-
-                #pragma clang diagnostic push
-                #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                dispatch_async(dispatch_get_main_queue(), ^{
-
-                    [self.clientDelegate performSelector:selector withObject:self
-                                              withObject:channels];
-                });
-                #pragma clang diagnostic pop
-            }
-
-            [self sendNotification:kPNClientPushNotificationEnableDidCompleteNotification
-                        withObject:channels andCallbackToken:request.shortIdentifier];
-        }
-    };
-
-    [self checkShouldChannelNotifyAboutEvent:channel withBlock:^(BOOL shouldNotify) {
-
-        [self handleLockingOperationBlockCompletion:^{
-
-            handlingBlock(shouldNotify);
-        }                           shouldStartNext:YES burstExecutionLockingOperation:NO];
-    }];
-}
-
-- (void)                    serviceChannel:(PNServiceChannel *)__unused channel
-  didFailPushNotificationEnableForChannels:(NSArray *)channels
-                                 withError:(PNError *)error forRequest:(PNBaseRequest *)request {
-
-    NSString *callbackToken = request.shortIdentifier;
-    if (error.code != kPNRequestCantBeProcessedWithOutRescheduleError) {
-        
-        [error replaceAssociatedObject:channels];
-        [self notifyDelegateAboutPushNotificationsEnableFailedWithError:error
-                                                       andCallbackToken:callbackToken];
+- (void)enablePushNotification:(BOOL)shouldEnabled onChannels:(NSArray *)channels
+           withDevicePushToken:(NSData *)pushToken andCompletion:(PNPushNotificationsStateModificationCompletionBlock)block {
+
+    BOOL removeAllChannels = (!shouldEnabled && channels == nil);
+    PNOperationType operationType = PNRemoveAllPushNotificationsOperation;
+    PNRequestParameters *parameters = [PNRequestParameters new];
+    if ([pushToken length]) {
+
+        [parameters addPathComponent:[[PNData HEXFromDevicePushToken:pushToken] lowercaseString]
+                      forPlaceholder:@"{token}"];
     }
-    else {
-        
-        [self rescheduleMethodCall:^{
-            
-            NSData *devicePushToken = (NSData *)[error.associatedObject valueForKey:@"data"];
-            NSUInteger retryCountOnError = [[error.associatedObject valueForKey:@"errorCounter"] unsignedIntegerValue];
-            
-            [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
-                
-                return @[PNLoggerSymbols.api.reschedulePushNotificationEnable,
-                         [self humanReadableStateFrom:self.state]];
-            }];
 
-            [self enablePushNotificationsOnChannels:channels withDevicePushToken:devicePushToken
-                           rescheduledCallbackToken:callbackToken numberOfRetriesOnError:retryCountOnError
-                         andCompletionHandlingBlock:nil];
-        }];
-    }
-}
+    if (!removeAllChannels){
 
-- (void)serviceChannel:(PNServiceChannel *)channel didDisablePushNotificationsOnChannels:(NSArray *)channels
-             onRequest:(PNBaseRequest *)request {
+        operationType = (shouldEnabled ? PNAddPushNotificationsOnChannelsOperation :
+                         PNRemovePushNotificationsFromChannelsOperation);
+        if ([channels count]) {
 
-    void(^handlingBlock)(BOOL) = ^(BOOL shouldNotify){
-
-        [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
-
-            return @[PNLoggerSymbols.api.didDisablePushNotifications,
-                     [self humanReadableStateFrom:self.state]];
-        }];
-
-        if (shouldNotify) {
-
-            // Check whether delegate is able to handle push notification disable event or not
-            SEL selector = @selector(pubnubClient:didDisablePushNotificationsOnChannels:);
-            if ([self.clientDelegate respondsToSelector:selector]) {
-
-                #pragma clang diagnostic push
-                #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                dispatch_async(dispatch_get_main_queue(), ^{
-
-                    [self.clientDelegate performSelector:selector withObject:self
-                                              withObject:channels];
-                });
-                #pragma clang diagnostic pop
-            }
-
-            [self sendNotification:kPNClientPushNotificationDisableDidCompleteNotification
-                        withObject:channels andCallbackToken:request.shortIdentifier];
+            [parameters addQueryParameter:[PNChannel namesForRequest:channels]
+                             forFieldName:(shouldEnabled ? @"add":@"remove")];
         }
-    };
 
-    [self checkShouldChannelNotifyAboutEvent:channel withBlock:^(BOOL shouldNotify) {
-
-        [self handleLockingOperationBlockCompletion:^{
-
-            handlingBlock(shouldNotify);
-        }                           shouldStartNext:YES burstExecutionLockingOperation:NO];
-    }];
-}
-
-- (void)serviceChannel:(PNServiceChannel *)__unused channel didFailPushNotificationDisableForChannels:(NSArray *)channels
-             withError:(PNError *)error forRequest:(PNBaseRequest *)request {
-
-    NSString *callbackToken = request.shortIdentifier;
-    if (error.code != kPNRequestCantBeProcessedWithOutRescheduleError) {
-        
-        [error replaceAssociatedObject:channels];
-        [self notifyDelegateAboutPushNotificationsDisableFailedWithError:error
-                                                        andCallbackToken:callbackToken];
-    }
-    else {
-        
-        [self rescheduleMethodCall:^{
-            
-            NSData *devicePushToken = (NSData *)[error.associatedObject valueForKey:@"data"];
-            NSUInteger retryCountOnError = [[error.associatedObject valueForKey:@"errorCounter"] unsignedIntegerValue];
-            
-            [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
-                
-                return @[PNLoggerSymbols.api.reschedulePushNotificationDisable,
-                         [self humanReadableStateFrom:self.state]];
-            }];
-
-            [self disablePushNotificationsOnChannels:channels withDevicePushToken:devicePushToken
-                            rescheduledCallbackToken:callbackToken numberOfRetriesOnError:retryCountOnError
-                          andCompletionHandlingBlock:nil];
-        }];
-    }
-}
-
-- (void)serviceChannelDidRemovePushNotifications:(PNServiceChannel *)channel
-                                       onRequest:(PNBaseRequest *)request {
-
-    void(^handlingBlock)(BOOL) = ^(BOOL shouldNotify){
-
-        [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
-
-            return @[PNLoggerSymbols.api.didRemovePushNotifications,
-                     [self humanReadableStateFrom:self.state]];
-        }];
-
-        if (shouldNotify) {
-
-            // Check whether delegate is able to handle successful push notification removal from
-            // all channels or not
-            SEL selector = @selector(pubnubClientDidRemovePushNotifications:);
-            if ([self.clientDelegate respondsToSelector:selector]) {
-
-                #pragma clang diagnostic push
-                #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                dispatch_async(dispatch_get_main_queue(), ^{
-
-                    [self.clientDelegate performSelector:selector withObject:self];
-                });
-                #pragma clang diagnostic pop
-            }
-
-            [self sendNotification:kPNClientPushNotificationRemoveDidCompleteNotification
-                        withObject:nil andCallbackToken:request.shortIdentifier];
-        }
-    };
-
-    [self checkShouldChannelNotifyAboutEvent:channel withBlock:^(BOOL shouldNotify) {
-
-        [self handleLockingOperationBlockCompletion:^{
-
-            handlingBlock(shouldNotify);
-        }                           shouldStartNext:YES burstExecutionLockingOperation:NO];
-    }];
-}
-
-- (void)                   serviceChannel:(PNServiceChannel *)__unused channel
-  didFailPushNotificationsRemoveWithError:(PNError *)error
-                               forRequest:(PNBaseRequest *)request {
-
-    NSString *callbackToken = request.shortIdentifier;
-    if (error.code != kPNRequestCantBeProcessedWithOutRescheduleError) {
-        
-        [self notifyDelegateAboutPushNotificationsRemoveFailedWithError:error
-                                                       andCallbackToken:callbackToken];
-    }
-    else {
-        
-        [self rescheduleMethodCall:^{
-            
-            NSData *devicePushToken = (NSData *)[error.associatedObject valueForKey:@"data"];
-            NSUInteger retryCountOnError = [[error.associatedObject valueForKey:@"errorCounter"] unsignedIntegerValue];
-            
-            [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
-                
-                return @[PNLoggerSymbols.api.reschedulePushNotificationRemove,
-                         [self humanReadableStateFrom:self.state]];
-            }];
-
-            [self removeAllPushNotificationsForDevicePushToken:devicePushToken
-                                      rescheduledCallbackToken:callbackToken
-                                        numberOfRetriesOnError:retryCountOnError
-                                   withCompletionHandlingBlock:nil];
-        }];
-    }
-}
-
-- (void)                      serviceChannel:(PNServiceChannel *)channel
-  didReceivePushNotificationsEnabledChannels:(NSArray *)channels
-                                   onRequest:(PNBaseRequest *)request {
-
-    void(^handlingBlock)(BOOL) = ^(BOOL shouldNotify){
-
-        [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
-
-            return @[PNLoggerSymbols.api.didAuditPushNotifications,
-                     [self humanReadableStateFrom:self.state]];
-        }];
-
-        if (shouldNotify) {
-
-            // Check whether delegate is able to handle push notification enabled
-            // channels retrieval or not
-            SEL selector = @selector(pubnubClient:didReceivePushNotificationEnabledChannels:);
-            if ([self.clientDelegate respondsToSelector:selector]) {
-
-                #pragma clang diagnostic push
-                #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                dispatch_async(dispatch_get_main_queue(), ^{
-
-                    [self.clientDelegate performSelector:selector withObject:self
-                                              withObject:channels];
-                });
-                #pragma clang diagnostic pop
-            }
-
-            [self sendNotification:kPNClientPushNotificationChannelsRetrieveDidCompleteNotification
-                        withObject:channels andCallbackToken:request.shortIdentifier];
-        }
-    };
-
-    [self checkShouldChannelNotifyAboutEvent:channel withBlock:^(BOOL shouldNotify) {
-
-        [self handleLockingOperationBlockCompletion:^{
-
-            handlingBlock(shouldNotify);
-        }                           shouldStartNext:YES burstExecutionLockingOperation:NO];
-    }];
-}
-
-- (void)                                  serviceChannel:(PNServiceChannel *)__unused channel
-  didFailPushNotificationEnabledChannelsReceiveWithError:(PNError *)error
-                                              forRequest:(PNBaseRequest *)request {
-
-    NSString *callbackToken = request.shortIdentifier;
-    if (error.code != kPNRequestCantBeProcessedWithOutRescheduleError) {
-        
-        [self notifyDelegateAboutPushNotificationsEnabledChannelsFailedWithError:error
-                                                                andCallbackToken:callbackToken];
+        DDLogAPICall([[self class] ddLogLevel], @"<PubNub> %@ push notifications for device '%@': %@.",
+                (shouldEnabled ? @"Enable" : @"Disable"),
+                [[PNData HEXFromDevicePushToken:pushToken] lowercaseString],
+                [PNChannel namesForRequest:channels]);
     }
     else {
 
-        [self rescheduleMethodCall:^{
-
-            NSData *devicePushToken = (NSData *)[error.associatedObject valueForKey:@"data"];
-            NSUInteger retryCountOnError = [[error.associatedObject valueForKey:@"errorCounter"] unsignedIntegerValue];
-
-            [PNLogger logGeneralMessageFrom:self withParametersFromBlock:^NSArray *{
-
-                return @[PNLoggerSymbols.api.reschedulePushNotificationAudit,
-                         [self humanReadableStateFrom:self.state]];
-            }];
-
-            [self requestPushNotificationEnabledChannelsForDevicePushToken:devicePushToken
-                                                  rescheduledCallbackToken:callbackToken
-                                                    numberOfRetriesOnError:retryCountOnError
-                                               withCompletionHandlingBlock:nil];
-        }];
+        DDLogAPICall([[self class] ddLogLevel], @"<PubNub> Disable push notifications for device '%@'.",
+                [[PNData HEXFromDevicePushToken:pushToken] lowercaseString]);
     }
+
+    __weak __typeof(self) weakSelf = self;
+    [self processOperation:operationType withParameters:parameters
+           completionBlock:^(PNStatus *status){
+
+        // Silence static analyzer warnings.
+        // Code is aware about this case and at the end will simply call on 'nil' object method.
+        // In most cases if referenced object become 'nil' it mean what there is no more need in
+        // it and probably whole client instance has been deallocated.
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wreceiver-is-weak"
+        [weakSelf callBlock:block status:YES withResult:nil andStatus:status];
+        #pragma clang diagnostic pop
+    }];
+}
+
+
+#pragma mark - Push notifications state audit
+
+- (void)pushNotificationEnabledChannelsForDeviceWithPushToken:(NSData *)pushToken
+                                 andCompletion:(PNPushNotificationsStateAuditCompletionBlock)block {
+
+    PNRequestParameters *parameters = [PNRequestParameters new];
+    if ([pushToken length]) {
+
+        [parameters addPathComponent:[[PNData HEXFromDevicePushToken:pushToken] lowercaseString]
+                      forPlaceholder:@"{token}"];
+    }
+
+    DDLogAPICall([[self class] ddLogLevel], @"<PubNub> Push notification enabled channels for device '%@'.",
+            [[PNData HEXFromDevicePushToken:pushToken] lowercaseString]);
+
+    __weak __typeof(self) weakSelf = self;
+    [self processOperation:PNPushNotificationEnabledChannelsOperation withParameters:parameters
+           completionBlock:^(PNResult *result, PNStatus *status){
+
+               // Silence static analyzer warnings.
+               // Code is aware about this case and at the end will simply call on 'nil' object
+               // method. In most cases if referenced object become 'nil' it mean what there is no
+               // more need in it and probably whole client instance has been deallocated.
+               #pragma clang diagnostic push
+               #pragma clang diagnostic ignored "-Wreceiver-is-weak"
+               [weakSelf callBlock:block status:NO withResult:result andStatus:status];
+               #pragma clang diagnostic pop
+           }];
 }
 
 #pragma mark -

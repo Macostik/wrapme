@@ -1,163 +1,347 @@
-//
-//  PNStructures.h
-//  pubnub
-//
-//  Created by Sergey Mamontov on 12/6/12.
-//
-//
-
+/**
+ @brief Set of types and structures which is used as part of API calls in \b PubNub client.
+ 
+ @author Sergey Mamontov
+ @since 4.0
+ @copyright © 2009-2015 PubNub, Inc.
+ */
 #import <Foundation/Foundation.h>
 
 
 #pragma mark Class forward
 
-@class PNAccessRightsCollection, PNPresenceEvent, PNChannelGroup, PNHereNow, PNMessage, PNChannel, PNClient, PNError, PNDate;
+@class PNResult, PNStatus;
 
 
 #ifndef PNStructures_h
 #define PNStructures_h
 
-// This enum represents possible message processing states
-typedef NS_OPTIONS(NSUInteger, PNMessageState) {
-
-    // Message was scheduled for processing. "processingData" field will contain message instance which was scheduled
-    // for processing
-    PNMessageSending,
-
-    // Message was successfully sent to the PubNub service. "processingData" field will contain message instance
-    // which was sent for processing
-    PNMessageSent,
-
-    // PubNub client failed to send message because of some reasons. "processingData" field will contain error instance
-    // which will describe error which occurred during message processing
-    PNMessageSendingError
-};
-
-
-// This enum represents list of possible presence event types
-typedef NS_OPTIONS(NSUInteger, PNPresenceEventType) {
-    
-    // Number of persons changed in observed channel
-    PNPresenceEventChanged,
-
-    // Client's state changed on one of channels
-    PNPresenceEventStateChanged,
-
-    // New person joined to the channel
-    PNPresenceEventJoin,
-    
-    // Person leaved channel by its own
-    PNPresenceEventLeave,
-    
-    // Person leaved channel because of timeout
-    PNPresenceEventTimeout
-};
-
-
-// This enum represent list of possible events which can occur during requests execution
-typedef NS_OPTIONS(NSUInteger, PNOperationResultEvent) {
-
-    // Stores unknown event
-    PNOperationResultUnknown,
-    PNOperationResultLeave = PNPresenceEventLeave
-};
-
-
-// This enum represents list of possible subscription states which can occur while client subscribing/restoring
-typedef NS_OPTIONS(NSUInteger, PNSubscriptionProcessState) {
-
-    // Not subscribed state (maybe some error occurred while tried to subscribe)
-    PNSubscriptionProcessNotSubscribedState,
-
-    // Subscribed state
-    PNSubscriptionProcessSubscribedState,
-
-    // Will restore subscription (called right after connection restored)
-    PNSubscriptionProcessWillRestoreState,
-
-    // Restored subscription after connection restored
-    PNSubscriptionProcessRestoredState
-};
-
-
-// This enum represents list of available channel access rights
-typedef NS_OPTIONS(unsigned long, PNAccessRights)  {
-
-    // Access rights is unknown because of error or any other reasons.
-    PNUnknownAccessRights = 0,
-
-    // \a 'read' access rights is granted.
-    PNReadAccessRight = 1 << 0,
-    
-    // \a 'write' access rights is granted.
-    PNWriteAccessRight = 1 << 1,
-    
-    // All access rights is granted.
-    PNAllAccessRights = (PNReadAccessRight | PNWriteAccessRight),
-    
-    // Additional management right for user level on namespaces/channel groups
-    PNManagementRight = 1 << 2,
-
-    // There is no access rights (maybe they has been revoked or expired).
-    PNNoAccessRights = 1 << 3
-};
-
-// this enum represents access right levels
-typedef NS_OPTIONS(NSInteger , PNAccessRightsLevel) {
-
-    /**
-     Access rights granted application wide (for \a 'subscribe' key).
-     */
-    PNApplicationAccessRightsLevel,
+/**
+ @brief  \b PubNub client logging levels available for manipulations.
+ 
+ @since 4.0
+ */
+typedef NS_OPTIONS(NSUInteger, PNLogLevel){
     
     /**
-     Access rights granted for channel group or namespace.
+     @brief       \b PNLog level which allow to disable all active logging levels.
+     @discussion This log level can be set with \b PNLog class method +setLogLevel:
+     
+     @since 4.0
      */
-    PNChannelGroupAccessRightsLevel,
+    PNSilentLogLevel = (~(NSUIntegerMax >> 1)),
     
     /**
-     Access rights granted for particular channel.
+     @brief  \b PNLog level which allow to print out client information data.
+     @discussion Log events like: transition between foreground/background, configuration 
+                 modification
+     
+     @since 4.0
      */
-    PNChannelAccessRightsLevel,
-
+    PNInfoLogLevel = (~(NSUIntegerMax >> 2)),
+    
     /**
-     Access rights granted for concrete user (users identified by \a 'authorization' key).
+     @brief  \b PNLog level which allow to print out all reachability events.
+     
+     @since 4.0
      */
-    PNUserAccessRightsLevel,
+    PNReachabilityLogLevel = (~(NSUIntegerMax >> 3)),
+    
+    /**
+     @brief  \b PNLog level which allow to print out all API call request URI which has been passed
+             to communicate with \b PubNub service.
+     
+     @since 4.0
+     */
+    PNRequestLogLevel = (~(NSUIntegerMax >> 4)),
+    
+    /**
+     @brief  \b PNLog level which allow to print out API execution results.
+     
+     @since 4.0
+     */
+    PNResultLogLevel = (~(NSUIntegerMax >> 5)),
+    
+    /**
+     @brief  \b PNLog level which allow to print out client state change status information and 
+             API request processing errors.
+     
+     @since 4.0
+     */
+    PNStatusLogLevel = (~(NSUIntegerMax >> 6)),
+    
+    /**
+     @brief      \b PNLog level which allow to print out every failure status information.
+     @discussion Every API call may fail and this option allow to print out information about 
+                 processing status and current client state.
+     
+     @since 4.0
+     */
+    PNFailureStatusLogLevel = (~(NSUIntegerMax >> 7)),
+    
+    /**
+     @brief      \b PNLog level which allow to print out all API calls with passed parameters.
+     @discussion This log level allo with debug to find out when API has been called and what
+                 parameters should be passed.
+     
+     @since 4.0
+     */
+    PNAPICallLogLevel = (~(NSUIntegerMax >> 8)),
+    
+    /**
+     @brief  \b PNLog level which allow to print out all AES errors.
+     
+     @since 4.0
+     */
+    PNAESErrorLogLevel = (~(NSUIntegerMax >> 9)),
+    
+    /**
+     @brief  Log every message from \b PubNub client.
+     
+     @since 4.0
+     */
+    PNVerboseLogLevel = (PNInfoLogLevel|PNReachabilityLogLevel|PNRequestLogLevel|PNResultLogLevel|
+                         PNStatusLogLevel|PNFailureStatusLogLevel|PNAPICallLogLevel|
+                         PNAESErrorLogLevel)
 };
 
+/**
+ @brief      Type which specify possible operations for \b PNResult/ \b PNStatus event objects.
+ @discussion This fields allow to identify for what kind of API this object arrived.
+ 
+ @since 4.0
+ */
+typedef NS_ENUM(NSInteger, PNOperationType){
+    PNSubscribeOperation,
+    PNUnsubscribeOperation,
+    PNPublishOperation,
+    PNHistoryOperation,
+    PNWhereNowOperation,
+    PNHereNowGlobalOperation,
+    PNHereNowForChannelOperation,
+    PNHereNowForChannelGroupOperation,
+    PNHeartbeatOperation,
+    PNSetStateOperation,
+    PNStateForChannelOperation,
+    PNStateForChannelGroupOperation,
+    PNAddChannelsToGroupOperation,
+    PNRemoveChannelsFromGroupOperation,
+    PNChannelGroupsOperation,
+    PNRemoveGroupOperation,
+    PNChannelsForGroupOperation,
+    PNPushNotificationEnabledChannelsOperation,
+    PNAddPushNotificationsOnChannelsOperation,
+    PNRemovePushNotificationsFromChannelsOperation,
+    PNRemoveAllPushNotificationsOperation,
+    PNTimeOperation
+};
 
-typedef void (^PNClientConnectionSuccessBlock)(NSString *origin);
-typedef void (^PNClientConnectionFailureBlock)(PNError *error);
-typedef void (^PNClientConnectionStateChangeBlock)(NSString *origin, BOOL isConnected, PNError *error);
-typedef void (^PNClientStateRetrieveHandlingBlock)(PNClient *client, PNError *error);
-typedef void (^PNClientStateUpdateHandlingBlock)(PNClient *client, PNError *error);
-typedef void (^PNClientChannelGroupsRequestHandlingBlock)(NSString *namespaceName, NSArray *channelGroups, PNError *error);
-typedef void (^PNClientChannelGroupNamespacesRequestHandlingBlock)(NSArray *namespaces, PNError *error);
-typedef void (^PNClientChannelGroupNamespaceRemoveHandlingBlock)(NSString *namespaceName, PNError *error);
-typedef void (^PNClientChannelGroupRemoveHandlingBlock)(PNChannelGroup *channelGroup, PNError *error);
-typedef void (^PNClientChannelsForGroupRequestHandlingBlock)(PNChannelGroup *channelGroup, PNError *error);
-typedef void (^PNClientChannelsAdditionToGroupHandlingBlock)(PNChannelGroup *channelGroup, NSArray *channels,
-                                                             PNError *error);
-typedef void (^PNClientChannelsRemovalFromGroupHandlingBlock)(PNChannelGroup *channelGroup, NSArray *channels,
-                                                              PNError *error);
-typedef void (^PNClientChannelSubscriptionHandlerBlock)(PNSubscriptionProcessState state, NSArray *channels, PNError *error);
-typedef void (^PNClientChannelUnsubscriptionHandlerBlock)(NSArray *channels, PNError *error);
-typedef void (^PNClientTimeTokenReceivingCompleteBlock)(NSNumber *timeToken, PNError *error);
-typedef void (^PNClientMessageProcessingBlock)(PNMessageState state, id data);
-typedef void (^PNClientMessageHandlingBlock)(PNMessage *message);
-typedef void (^PNClientHistoryLoadHandlingBlock)(NSArray *messages, PNChannel *channel, PNDate *startDate, PNDate *endDate,
-                                                 PNError *error);
-typedef void (^PNClientParticipantsHandlingBlock)(PNHereNow *presenceInformation, NSArray *channels, PNError *error);
-typedef void (^PNClientParticipantChannelsHandlingBlock)(NSString *clientIdentifier, NSArray *channels, PNError *error);
-typedef void (^PNClientChannelAccessRightsChangeBlock)(PNAccessRightsCollection *accessRightsCollection, PNError *error);
-typedef void (^PNClientChannelAccessRightsAuditBlock)(PNAccessRightsCollection *accessRightsCollection, PNError *error);
-typedef void (^PNClientPresenceEventHandlingBlock)(PNPresenceEvent *event);
-typedef void (^PNClientPresenceEnableHandlingBlock)(NSArray *channels, PNError *error);
-typedef void (^PNClientPresenceDisableHandlingBlock)(NSArray *channels, PNError *error);
-typedef void (^PNClientPushNotificationsRemoveHandlingBlock)(PNError *error);
-typedef void (^PNClientPushNotificationsEnableHandlingBlock)(NSArray *channels, PNError *error);
-typedef void (^PNClientPushNotificationsDisableHandlingBlock)(NSArray *channels, PNError *error);
-typedef void (^PNClientPushNotificationsEnabledChannelsHandlingBlock)(NSArray *channels, PNError *error);
+/**
+ @brief  Describe set of \b status categories which will be used to deliver any client state change
+         using handlers.
+
+ @since 4.0
+ */
+typedef NS_ENUM(NSInteger, PNStatusCategory) {
+    
+    PNUnknownCategory,
+    
+    /**
+     @brief      \b PubNub request acknowledgment status.
+     @discussion Some API endpoints respond with request processing status w/o useful data.
+
+     @since 4.0
+     */
+    PNAcknowledgmentCategory,
+
+    /**
+     @brief      \b PubNub Access Manager forbidden access to particular API.
+     @discussion It is possible what at the moment when API has been used access rights hasn't been
+                 applied to the client.
+
+     @since 4.0
+     */
+    PNAccessDeniedCategory,
+
+    /**
+     @brief      API processing failed because of request time out.
+     @discussion This type of status is possible in case of very slow connection when request
+                 doesn't have enough time to complete processing (send request body and receive
+                 server response).
+
+     @since 4.0
+     */
+    PNTimeoutCategory,
+
+    /**
+     @brief      API request is impossible because there is no connection.
+     @discussion At the moment when API has been used there was no active connection to the
+                 Internet.
+
+     @since 4.0
+     */
+    PNNetworkIssuesCategory,
+
+    /**
+     @brief      Status sent when client successfully subscribed to remote data objects live feed.
+     @discussion Connected mean what client will receive live updates from \b PubNub service at
+                 specified set of data objects.
+
+     @since 4.0
+     */
+    PNConnectedCategory,
+
+    /**
+     @brief      Status sent when client successfully restored subscription to remote data objects
+                 live feed after unexpected disconnection.
+
+     @since 4.0
+     */
+    PNReconnectedCategory,
+
+    /**
+     @brief      Status sent when client successfully unsubscribed from one of remote data objects
+                 live feeds.
+     @discussion Disconnected mean what client won't receive live updates from \b PubNub service
+                 from set of channels used in unsubscribe API.
+
+     @since 4.0
+     */
+    PNDisconnectedCategory,
+
+    /**
+     @brief  Status sent when client unexpectedly lost ability to receive live updates from
+             \b PubNub service.
+     @discussion This state is sent in case of issues which doesn't allow it anymore receive live
+                 updates from \b PubNub service. After issue resolve connection can be restored.
+                 In case if issue appeared because of network connection client will restore
+                 connection only if configured to restore subscription.
+
+     @since 4.0
+     */
+    PNUnexpectedDisconnectCategory,
+
+    /**
+     @brief      Status which is used to notify about API call cancellation.
+     @discussion Mostly cancellation possible only for connection based operations
+                 (subscribe/leave).
+
+     @since 4.0
+     */
+    PNCancelledCategory,
+
+    /**
+     @brief      Status is used to notify what API request from client is malformed.
+     @discussion In case if this status arrive, it is better to print out status object debug
+                 description and contact support@pubnub.com
+
+     @since 4.0
+     */
+    PNBadRequestCategory,
+
+    /**
+     @brief      \b PubNub because of some issues sent malformed response.
+     @discussion In case if this status arrive, it is better to print out status object debug
+                 description and contact support@pubnub.com
+
+     @since 4.0
+     */
+    PNMalformedResponseCategory,
+
+    /**
+     @brief      Looks like \b PubNub client can't use provided \c cipherKey to decrypt received
+                 message.
+     @discussion In case if this status arrive, make sure what all clients use same \c cipherKey to
+                 encrypt published messages.
+
+     @since 4.0
+     */
+    PNDecryptionErrorCategory,
+
+    /**
+     @brief      Status is sent in case if client was unable to use API using secured connection.
+     @discussion In case if this issue happens, client can be re-configured to use insecure
+                 connection. If insecure connection is impossible then it is better to print out
+                 status object debug description and contact support@pubnub.com
+
+     @since 4.0
+     */
+    PNTLSConnectionFailedCategory,
+
+    /**
+     @brief      Status is sent in case if client unable to check certificates trust chain.
+     @discussion If this state arrive it is possible what proxy or VPN has been used to connect to
+                 internet. In another case it is better to get output of
+                 "nslookup pubsub.pubnub.com" status object debug description and mail to
+                 support@pubnub.com
+    */
+    PNTLSUntrustedCertificateCategory
+};
+
+/**
+ @brief  Definition for set of data which can be pulled out using presence API.
+
+ @since 4.0
+ */
+typedef NS_ENUM(NSInteger, PNHereNowVerbosityLevel) {
+
+    /**
+     @brief  Request presence service return only number of participants at specified remote data
+             objects live feeds.
+
+     @since 4.0
+     */
+    PNHereNowOccupancy,
+
+    /**
+     @brief  Request presence service return participants identifier names at specified remote data
+             objects live feeds.
+
+     @since 4.0
+     */
+    PNHereNowUUID,
+
+    /**
+     @brief  Request presence service return participants identifier names along with state
+             information at specified remote data objects live feeds.
+
+     @since 4.0
+     */
+    PNHereNowState
+};
+
+/**
+ @brief  Base block structure used by client for all API endpoints to handle request processing
+         completion.
+
+ @param result Provide \b PubNub service response information.
+ @param status Provide information about request to \b PubNub service failed or received error.
+
+ @since 4.0
+ */
+typedef void(^PNCompletionBlock)(PNResult *result, PNStatus *status);
+
+
+/**
+ @brief      Block type which is used as completion block for som API endpoint where only server
+             response can be delivered.
+ @discussion Used by API which as \b PubNub service to generate usable data (not request processing
+             status).
+
+ @param result Reference on results generated from passed request.
+
+ @since 4.0
+ */
+typedef void(^PNResultBlock)(PNResult *result);
+
+/**
+ @brief  Block type which is used as completion block for som API endpoint where only request
+         processing status can be delivered in response.
+
+ @param status Reference on status which represent service request processing state.
+
+ @since 4.0
+ */
+typedef void(^PNStatusBlock)(PNStatus *status);
 
 #endif // PNStructures_h

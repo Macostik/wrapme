@@ -7,15 +7,21 @@
 //
 
 #import "WLNotification+PNMessage.h"
-#import "PNMessage.h"
-#import "PNDate.h"
+#import "PubNub.h"
 
 @implementation WLNotification (PNMessage)
 
-+ (instancetype)notificationWithMessage:(PNMessage*)message {
-    WLNotification *notification = [self notificationWithData:(NSDictionary*)message.message];
-    notification.date = [(message.receiveDate ? : message.date) date];
-    return notification;
++ (instancetype)notificationWithMessage:(id)message {
+    if ([message isKindOfClass:[PNMessageData class]]) {
+        WLNotification *notification = [self notificationWithData:[(PNMessageData*)message message]];
+        notification.date = [NSDate dateWithTimeIntervalSince1970:[[(PNMessageData*)message timetoken] doubleValue] / 10000000.0f];
+        return notification;
+    } else if ([message isKindOfClass:[NSDictionary class]]) {
+        WLNotification *notification = [self notificationWithData:[(NSDictionary*)message objectForKey:@"message"]];
+        notification.date = [NSDate dateWithTimeIntervalSince1970:[(NSDictionary*)message doubleForKey:@"timetoken"] / 10000000.0f];
+        return notification;
+    }
+    return nil;
 }
 
 @end

@@ -13,19 +13,19 @@
 
 + (NSDictionary*)environments {
     return @{WLAPIEnvironmentLocal:@{@"endpoint":@"http://0.0.0.0:3000/api",
-                                           @"version":@"5",
+                                           @"version":@"6",
                                            @"url_scheme":@"wrapliveadhoc"},
              WLAPIEnvironmentDevelopment:@{@"endpoint":@"https://dev-api.wraplive.com/api",
                                            @"version":@"6",
                                            @"url_scheme":@"wrapliveadhoc"},
              WLAPIEnvironmentQA:@{@"endpoint":@"https://qa-api.wraplive.com/api",
-                                  @"version":@"5",
+                                  @"version":@"6",
                                   @"url_scheme":@"wrapliveadhoc"},
              WLAPIEnvironmentBeta:@{@"endpoint":@"https://qa-api.wraplive.com/api",
-                                    @"version":@"5",
+                                    @"version":@"6",
                                     @"url_scheme":@"wraplive"},
              WLAPIEnvironmentProduction:@{@"endpoint":@"https://prd-api.wraplive.com/api",
-                                          @"version":@"5",
+                                          @"version":@"6",
                                           @"url_scheme":@"wraplive"}};
 }
 

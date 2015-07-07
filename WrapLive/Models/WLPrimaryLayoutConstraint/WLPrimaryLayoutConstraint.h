@@ -10,9 +10,8 @@
 
 @interface WLPrimaryLayoutConstraint : NSObject
 
-- (void)performSwitchConstraints;
-- (void)performSwitchConstraintsAnimated:(BOOL)animated;
-- (void)performSwitchConstraintsAnimated:(BOOL)animated duration:(CGFloat)duration;
-- (BOOL)isDefaultPriotiry;
+@property (assign, nonatomic) BOOL defaultState;
+
+- (void)setDefaultState:(BOOL)state animated:(BOOL)animated;
 
 @end

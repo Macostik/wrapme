@@ -24,6 +24,7 @@
 #import "WLUploadPhotoViewController.h"
 #import "WLPresentingImageView.h"
 #import "WLCommentsViewController.h"
+#import "WLPrimaryLayoutConstraint.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -49,8 +50,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLTextView *lastCommentTextView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewContstraint;
+@property (weak, nonatomic) IBOutlet WLPrimaryLayoutConstraint *topPrimaryConstraint;
+@property (weak, nonatomic) IBOutlet WLPrimaryLayoutConstraint *bottomPrimaryConstraint;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;
@@ -197,12 +198,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated {
-    __weak typeof(self)weakSelf = self;
-    [UIView performAnimated:animated animation:^{
-        weakSelf.topViewConstraint.constant = hidden ? -weakSelf.topView.height : .0f;
-        weakSelf.bottomViewContstraint.constant = hidden ? -weakSelf.bottomView.height : .0f;
-        [weakSelf.view setNeedsLayout];
-    }];
+    [self.topPrimaryConstraint setDefaultState:!hidden animated:animated];
+    [self.bottomPrimaryConstraint setDefaultState:!hidden animated:animated];
 }
 
 - (void)setHistoryItem:(WLHistoryItem *)historyItem direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated {

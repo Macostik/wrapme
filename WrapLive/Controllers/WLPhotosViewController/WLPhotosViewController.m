@@ -26,6 +26,7 @@
 #import "WLHistoryViewController.h"
 #import "WLPhotosViewController.h"
 #import "WLNavigationHelper.h"
+#import "WLPrimaryLayoutConstraint.h"
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 static CGFloat WLBottomIndentCameraButton = 4.0;
@@ -34,7 +35,7 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
+@property (strong, nonatomic) IBOutlet WLPrimaryLayoutConstraint *primaryConstraint;
 
 @property (strong, nonatomic) WLHistory *history;
 
@@ -104,14 +105,11 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
 
 - (void)dropDownCollectionView {
     self.collectionView.transform = CGAffineTransformMakeTranslation(0, -self.view.height);
-    UIView *cameraButton = self.bottomConstraint.secondItem;
-    self.bottomConstraint.constant -= WLBottomIndentCameraButton + cameraButton.height;
-    [cameraButton layoutIfNeeded];
+    self.primaryConstraint.defaultState = NO;
     [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
         [self.collectionView setMinimumContentOffsetAnimated:NO];
         self.collectionView.transform = CGAffineTransformIdentity;
-        self.bottomConstraint.constant = WLBottomIndentCameraButton;
-        [cameraButton layoutIfNeeded];
+        self.primaryConstraint.defaultState = YES;
     } completion:nil];
 }
 

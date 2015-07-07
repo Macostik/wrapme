@@ -18,33 +18,23 @@
 
 @implementation WLPrimaryLayoutConstraint
 
-- (void)performSwitchConstraints {
-    [self performSwitchConstraintsAnimated:YES];
-}
-
-- (void)performSwitchConstraintsAnimated:(BOOL)animated {
-    [self performSwitchConstraintsAnimated:(BOOL)animated duration:1.0];
-}
-
-- (void)performSwitchConstraintsAnimated:(BOOL)animated duration:(CGFloat)duration {
+- (void)setDefaultState:(BOOL)state animated:(BOOL)animated {
     if (animated) {
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationBeginsFromCurrentState:YES];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [UIView setAnimationDuration:duration];
-        [self exchangePriorityConstraints];
+        [UIView setAnimationDuration:0.25];
+        self.defaultState = state;
         [UIView commitAnimations];
     } else {
-        [self exchangePriorityConstraints];
+        self.defaultState = state;
     }
 }
 
-- (void)exchangePriorityConstraints {
+- (void)setDefaultState:(BOOL)defaultState {
     if (self.strongConstraint.priority != self.weakConstraint.priority) {
-        UILayoutPriority firstPriority = self.strongConstraint.priority;
-        UILayoutPriority secondPriority = self.weakConstraint.priority;
-        self.strongConstraint.priority = secondPriority;
-        self.weakConstraint.priority = firstPriority;
+        self.strongConstraint.priority = defaultState ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+        self.weakConstraint.priority = defaultState ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
         if (self.parentView != nil) {
             [self.parentView layoutIfNeeded];
         } else {
@@ -53,7 +43,7 @@
     }
 }
 
-- (BOOL)isDefaultPriotiry {
+- (BOOL)defaultState {
     return self.strongConstraint.priority > self.weakConstraint.priority;
 }
 

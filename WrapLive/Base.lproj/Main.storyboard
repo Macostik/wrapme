@@ -2979,7 +2979,7 @@ Tap here to start.</string>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="chatTabSeleced:" destination="hUj-RK-zkg" eventType="touchUpInside" id="JOD-A2-R12"/>
+                                            <action selector="chatTabSelected:" destination="hUj-RK-zkg" eventType="touchUpInside" id="Pnj-f7-3Hs"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g5G-pP-jO9" userLabel="FriendView">
@@ -3034,6 +3034,9 @@ Tap here to start.</string>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="friendsTabSelected:" destination="hUj-RK-zkg" eventType="touchUpInside" id="yEW-76-i9t"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

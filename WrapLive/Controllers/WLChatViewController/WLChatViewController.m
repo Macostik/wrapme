@@ -339,7 +339,6 @@ CGFloat WLMaxTextViewWidth;
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLMessage *)message {
-    [message markAsRead];
     [self insertMessage:message];
 }
 

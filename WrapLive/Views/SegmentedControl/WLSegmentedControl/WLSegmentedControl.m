@@ -77,14 +77,10 @@ CGFloat beganTouchPointX = .0;
         case UIGestureRecognizerStateEnded:
         UIGestureRecognizerStateCancelled:
         UIGestureRecognizerStateFailed: {
-            __weak __typeof(self)weakSelf = self;
             NSInteger selectedSegment = [self indexSegmentByPositionPoint:[recognizer translationInView:self]];
             UIControl *control = [self controlForSegment:selectedSegment];
+             self.selectedSegment = selectedSegment;
             [self setSelectedControl:control animated:YES completion:^(BOOL flag) {
-                control.selected = YES;
-                if ([weakSelf.delegate respondsToSelector:@selector(segmentedControl:didSelectSegment:)]) {
-                    [weakSelf.delegate segmentedControl:weakSelf didSelectSegment:selectedSegment];
-                }
                 [control sendActionsForControlEvents:UIControlEventTouchUpInside];
             }];
             break;

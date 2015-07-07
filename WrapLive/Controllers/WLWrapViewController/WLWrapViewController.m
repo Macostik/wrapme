@@ -29,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet WLSegmentedControl *segmentedControl;
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
-@property (strong, nonatomic) NSMutableArray *controllersContainer;
+@property (strong, nonatomic) UIViewController *viewController;
 
 
 @end
@@ -40,7 +40,6 @@
     self = [super initWithCoder:coder];
     if (self) {
         [self addNotifyReceivers];
-        self.controllersContainer = [NSMutableArray array];
     }
     return self;
 }
@@ -111,9 +110,11 @@
         [receiver setContainingEntryBlock:^WLEntry *{
             return weakSelf.wrap;
         }];
-        receiver.didAddBlock = receiver.didDeleteBlock = ^(WLMessage *message) {
+         receiver.didAddBlock = receiver.didDeleteBlock = ^(WLMessage *message) {
             if (weakSelf.segmentedControl.selectedSegment != WLSegmentControlStateChat) {
                 [weakSelf updateNotificationCouter];
+            } else {
+                [message markAsRead];
             }
         };
     }];
@@ -121,11 +122,19 @@
 
 - (IBAction)photosTabSelected:(id)sender {
     self.candyCountLabel.intValue = 0;
-    [self controllerForSelectedSegment:self.segmentedControl.selectedSegment];
+    self.selectedSegment = WLSegmentControlStatePhotos;
+    [self controllerForSelectedSegment:WLSegmentControlStatePhotos];
 }
 
-- (IBAction)chatTabSeleced:(id)sender {
+- (IBAction)chatTabSelected:(id)sender {
     self.messageCountLabel.intValue = 0;
+    self.selectedSegment = WLSegmentControlStateChat;
+    [self controllerForSelectedSegment:WLSegmentControlStateChat];
+}
+
+- (IBAction)friendsTabSelected:(id)sender {
+    self.selectedSegment = WLSegmentControlStateFriend;
+    [self controllerForSelectedSegment:WLSegmentControlStateFriend];
 }
 
 // MARK: - WLStillPictureViewControllerDelegate
@@ -146,49 +155,31 @@
 
 // MARK: - Custom animation
 
-- (BOOL)segmentedControl:(SegmentedControl*)control didSelectSegment:(NSInteger)segment {
-    self.selectedSegment = segment;
-    [self controllerForSelectedSegment:segment];
-    return YES;
-}
-
-- (void)addViewContrtroller:(UIViewController *)controller {
-    controller.view.frame = self.containerView.bounds;
-    [self addChildViewController:controller];
-    [controller didMoveToParentViewController:self];
-}
-
-- (void)bringControllerViewToFront:(UIViewController *)controller {
-    for (UIView *subView in self.containerView.subviews) {
-        if ([controller.view isEqual:subView]) {
-            [subView removeFromSuperview];
-        }
-    }
-    [self.containerView addSubview:controller.view];
-    [self.containerView makeResizibleSubview:controller.view];
+- (void)setViewController:(UIViewController *)viewController {
+    [_viewController.view removeFromSuperview];
+    _viewController = viewController;
+    [self.containerView addSubview:viewController.view];
+    [self.containerView makeResizibleSubview:viewController.view];
 }
 
 - (void)controllerForSelectedSegment:(NSInteger)segment {
-    UIViewController *viewController = nil;
     switch (segment) {
         case WLSegmentControlStatePhotos:
-            viewController = [self controllerForClass:[WLPhotosViewController class]];
-            [(id)viewController setDelegate:self];
+            self.viewController = [self controllerForClass:[WLPhotosViewController class]];
+            [(id)self.viewController setDelegate:self];
             break;
         case WLSegmentControlStateChat:
-            viewController = [self controllerForClass:[WLChatViewController class]];
+            self.viewController = [self controllerForClass:[WLChatViewController class]];
             break;
         case WLSegmentControlStateFriend:
-            viewController = [self controllerForClass:[WLContributorsViewController class]];
+            self.viewController = [self controllerForClass:[WLContributorsViewController class]];
             break;
     }
-   
-    [self bringControllerViewToFront:viewController];
 }
 
 - (UIViewController *)controllerForClass:(Class)class {
     UIViewController *viewController = nil;
-    for (UIViewController *createdViewController in self.controllersContainer) {
+    for (UIViewController *createdViewController in self.childViewControllers) {
         if ([createdViewController.class isEqual:class]) {
             viewController = createdViewController;
         }
@@ -196,8 +187,9 @@
     if (viewController == nil) {
         viewController = [class instantiate:self.storyboard];
         [(id)viewController setWrap:self.wrap];
-        [self.controllersContainer addObject:viewController];
-        [self addViewContrtroller:viewController];
+        viewController.view.frame = self.containerView.bounds;
+        [self addChildViewController:viewController];
+        [viewController didMoveToParentViewController:self];
     }
     
     return viewController;

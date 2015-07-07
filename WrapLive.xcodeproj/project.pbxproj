@@ -1640,6 +1640,11 @@
 		C5B2A1241B4BFED8004759F3 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1211B4BFED8004759F3 /* WLChat.m */; };
 		C5B2A1251B4BFED8004759F3 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1211B4BFED8004759F3 /* WLChat.m */; };
 		C5B2A1261B4BFED8004759F3 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1211B4BFED8004759F3 /* WLChat.m */; };
+		C5B2A1291B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */; };
+		C5B2A12A1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */; };
+		C5B2A12B1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */; };
+		C5B2A12C1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */; };
+		C5B2A12D1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */; };
 		C5B6D99D1B4A82C7009B9436 /* WLChatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */; };
 		C5B6D99E1B4A82C7009B9436 /* WLChatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */; };
 		C5B6D99F1B4A82C7009B9436 /* WLChatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */; };
@@ -3221,6 +3226,8 @@
 		C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AdobeUXImageEditorViewController+SharedEditing.m"; sourceTree = "<group>"; };
 		C5B2A1201B4BFED8004759F3 /* WLChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChat.h; sourceTree = "<group>"; };
 		C5B2A1211B4BFED8004759F3 /* WLChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChat.m; sourceTree = "<group>"; };
+		C5B2A1271B4C07DF004759F3 /* NSDate+PNTimetoken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PNTimetoken.h"; sourceTree = "<group>"; };
+		C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PNTimetoken.m"; sourceTree = "<group>"; };
 		C5B6D99B1B4A82C7009B9436 /* WLChatLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChatLayout.h; path = WLChatViewController/WLChatLayout.h; sourceTree = "<group>"; };
 		C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChatLayout.m; path = WLChatViewController/WLChatLayout.m; sourceTree = "<group>"; };
 		C5B6D9A21B4AB70C009B9436 /* WLWrapContributorsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapContributorsRequest.h; sourceTree = "<group>"; };
@@ -6173,6 +6180,8 @@
 				C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */,
 				C54186AC1B4561A700F83889 /* PubNub+SharedInstance.h */,
 				C54186AD1B4561A700F83889 /* PubNub+SharedInstance.m */,
+				C5B2A1271B4C07DF004759F3 /* NSDate+PNTimetoken.h */,
+				C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */,
 			);
 			path = WLNotificationCenter;
 			sourceTree = "<group>";
@@ -7884,6 +7893,7 @@
 				5BA60CA31A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */,
 				C5C20BD11A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
+				C5B2A12A1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */,
 				5BA60CE31A8257ED000F795C /* UITextView+Aditions.m in Sources */,
 				C515055719F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C5D051C11A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
@@ -8198,6 +8208,7 @@
 				5BA60CA41A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */,
 				C5C20BD21A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C54AF4F219B8C437006F7EDB /* WLAddressBook.m in Sources */,
+				C5B2A12B1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */,
 				5BA60CE41A8257ED000F795C /* UITextView+Aditions.m in Sources */,
 				C515055819F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C5D051C21A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
@@ -8472,6 +8483,7 @@
 				5BA60CA51A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */,
 				C5C20BD31A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C54AF5EF19B8C467006F7EDB /* WLAddressBook.m in Sources */,
+				C5B2A12C1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */,
 				5BA60CE51A8257ED000F795C /* UITextView+Aditions.m in Sources */,
 				C515055919F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C5D051C31A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
@@ -8569,6 +8581,7 @@
 				C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
 				C5B2335D1B29C087008A14D1 /* WLBatchEditPictureViewController.m in Sources */,
 				C54186971B4560E300F83889 /* DDLog.m in Sources */,
+				C5B2A12D1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */,
 				C5C0169B1B455760003623EC /* PNPresenceHereNowParser.m in Sources */,
 				C53E709D1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */,
 				C5B233621B29C087008A14D1 /* WLEditPictureCell.m in Sources */,
@@ -9045,6 +9058,7 @@
 				C57479981B26FA45001AB8C0 /* UIActionSheet+Blocks.m in Sources */,
 				C57479991B26FA45001AB8C0 /* WLEmailViewController.m in Sources */,
 				C574799A1B26FA45001AB8C0 /* WLAddressBook.m in Sources */,
+				C5B2A1291B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */,
 				C574799B1B26FA45001AB8C0 /* UITextView+Aditions.m in Sources */,
 				C574799C1B26FA45001AB8C0 /* WLBlurredView.m in Sources */,
 				C574799D1B26FA45001AB8C0 /* WLAddressBookPhoneNumberCell.m in Sources */,

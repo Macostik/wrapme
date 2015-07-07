@@ -9,6 +9,7 @@
 #import "WLNotificationSubscription.h"
 #import "WLUser+Extended.h"
 #import "PubNub+SharedInstance.h"
+#import "NSDate+PNTimetoken.h"
 
 @interface WLNotificationSubscription () <PNObjectEventListener>
 
@@ -108,8 +109,8 @@
 }
 
 - (void)history:(NSDate *)from to:(NSDate *)to success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
-    NSNumber *startDate = @((unsigned long long)([from timeIntervalSince1970]*10000000));
-    NSNumber *endDate = @((unsigned long long)([to timeIntervalSince1970]*10000000));
+    NSNumber *startDate = [from timetoken];
+    NSNumber *endDate = [to timetoken];
     [[PubNub sharedInstance] historyForChannel:self.name start:startDate end:endDate includeTimeToken:YES withCompletion:^(PNHistoryResult *result, PNErrorStatus *status) {
         if (!status.isError) {
             if (success) success(result.data.messages);

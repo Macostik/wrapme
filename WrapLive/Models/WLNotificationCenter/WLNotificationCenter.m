@@ -17,6 +17,7 @@
 #import "PubNub+SharedInstance.h"
 #import "WLNotificationSubscription.h"
 #import "WLNotification+PNMessage.h"
+#import "NSDate+PNTimetoken.h"
 
 @interface WLNotificationCenter () <PNObjectEventListener, WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate>
 
@@ -217,7 +218,7 @@
                     if (messages.count > 0) {
                         WLLog(@"PUBNUB", ([NSString stringWithFormat:@"received history starting from: %@ to: %@", fromDate, toDate]), nil);
                         [weakSelf handleHistoryMessages:messages];
-                        weakSelf.historyDate = [NSDate dateWithTimeIntervalSince1970:[[messages lastObject] doubleForKey:@"timetoken"] / 10000000.0f + 0.0001];
+                        weakSelf.historyDate = [[NSDate dateWithTimetoken:[(NSDictionary*)[messages lastObject] numberForKey:@"timetoken"]] dateByAddingTimeInterval:0.001];
                         [weakSelf requestHistory];
                     } else {
                         WLLog(@"PUBNUB", @"no missed messages in history", nil);

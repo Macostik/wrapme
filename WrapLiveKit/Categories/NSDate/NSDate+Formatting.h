@@ -10,18 +10,6 @@
 
 @interface NSDate (Formatting)
 
-+ (NSString*)defaultFormat;
-
-+ (void)setDefaultFormat:(NSString*)dateFormat;
-
-+ (NSDateFormatter *)formatter;
-
-+ (NSDateFormatter *)formatterWithDateFormat:(NSString*)dateFormat;
-
-+ (NSDateFormatter *)formatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle;
-
-+ (NSDateFormatter *)formatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle relative:(BOOL)relative;
-
 - (NSString*)stringWithFormat:(NSString*)dateFormat;
 
 - (NSString*)stringWithFormat:(NSString*)dateFormat timeZone:(NSTimeZone*)timeZone;
@@ -45,6 +33,18 @@
 @end
 
 @interface NSDateFormatter (DateFormatting)
+
++ (NSString*)defaultFormat;
+
++ (void)setDefaultFormat:(NSString*)dateFormat;
+
++ (NSDateFormatter *)formatter;
+
++ (NSDateFormatter *)formatterWithDateFormat:(NSString*)dateFormat;
+
++ (NSDateFormatter *)formatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle;
+
++ (NSDateFormatter *)formatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle relative:(BOOL)relative;
 
 - (NSDate *)dateFromString:(NSString *)string withFormat:(NSString*)dateFormat;
 

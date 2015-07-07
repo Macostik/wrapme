@@ -38,13 +38,24 @@
     return history;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSSystemTimeZoneDidChangeNotification object:nil];
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
         [[WLCandy notifier] addReceiver:self];
         self.sortComparator = comparatorByDate;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(systemTimeZoneChanged:) name:NSSystemTimeZoneDidChangeNotification object:nil];
     }
     return self;
+}
+
+- (void)systemTimeZoneChanged:(NSNotification*)notification {
+    if (self.wrap.valid) {
+        [self performSelector:@selector(resetEntries:) withObject:self.wrap.candies afterDelay:0.0f];
+    }
 }
 
 - (void)resetEntries:(NSOrderedSet *)entries {

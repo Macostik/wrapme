@@ -10,69 +10,12 @@
 
 @implementation NSDate (Formatting)
 
-static NSString* _defaultFormat = @"MMM d, yyyy";
-
-+ (NSString*)defaultFormat {
-	return _defaultFormat;
-}
-
-+ (void)setDefaultFormat:(NSString*)format {
-	_defaultFormat = format;
-}
-
-static NSMutableDictionary* formatters = nil;
-
-+ (NSDateFormatter *)formatter {
-    return [self formatterWithDateFormat:_defaultFormat];
-}
-
-+ (NSDateFormatter *)formatterWithDateFormat:(NSString *)format {
-    if (!formatters) {
-        formatters = [NSMutableDictionary dictionary];
-    }
-    
-    NSDateFormatter* formatter = [formatters objectForKey:format];
-    
-    if (!formatter) {
-        formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = format;
-        [formatter setAMSymbol:@"am"];
-        [formatter setPMSymbol:@"pm"];
-        [formatters setObject:formatter forKey:format];
-    }
-    
-    return formatter;
-}
-
-+ (NSDateFormatter *)formatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle {
-    return [self formatterWithDateStyle:dateStyle timeStyle:timeStyle relative:NO];
-}
-
-+ (NSDateFormatter *)formatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle relative:(BOOL)relative {
-    if (!formatters) {
-        formatters = [NSMutableDictionary dictionary];
-    }
-    
-    NSString *formatterKey = [NSString stringWithFormat:@"%lu-%lu-%d", (unsigned long)dateStyle, (unsigned long)timeStyle, relative];
-    NSDateFormatter* formatter = [formatters objectForKey:formatterKey];
-    
-    if (!formatter) {
-        formatter = [[NSDateFormatter alloc] init];
-        formatter.dateStyle = dateStyle;
-        formatter.timeStyle = timeStyle;
-        formatter.doesRelativeDateFormatting = relative;
-        [formatters setObject:formatter forKey:formatterKey];
-    }
-    
-    return formatter;
-}
-
 - (NSString *)stringWithFormat:(NSString *)format {
-    return [[NSDate formatterWithDateFormat:format] stringFromDate:self withFormat:format];
+    return [[NSDateFormatter formatterWithDateFormat:format] stringFromDate:self withFormat:format];
 }
 
 - (NSString *)stringWithFormat:(NSString *)format timeZone:(NSTimeZone *)timeZone {
-	return [[NSDate formatterWithDateFormat:format] stringFromDate:self withFormat:format timeZone:timeZone];
+	return [[NSDateFormatter formatterWithDateFormat:format] stringFromDate:self withFormat:format timeZone:timeZone];
 }
 
 - (NSString *)GMTStringWithFormat:(NSString *)format {
@@ -80,11 +23,11 @@ static NSMutableDictionary* formatters = nil;
 }
 
 - (NSString *)string {
-    return [self stringWithFormat:[NSDate defaultFormat]];
+    return [self stringWithFormat:[NSDateFormatter defaultFormat]];
 }
 
 - (NSString *)stringWithTimeZone:(NSTimeZone *)timeZone {
-	return [self stringWithFormat:[NSDate defaultFormat] timeZone:timeZone];
+	return [self stringWithFormat:[NSDateFormatter defaultFormat] timeZone:timeZone];
 }
 
 - (NSString *)GMTString {
@@ -104,12 +47,75 @@ static NSMutableDictionary* formatters = nil;
 }
 
 - (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle relative:(BOOL)relative {
-    return [[NSDate formatterWithDateStyle:dateStyle timeStyle:timeStyle relative:relative] stringFromDate:self];
+    return [[NSDateFormatter formatterWithDateStyle:dateStyle timeStyle:timeStyle relative:relative] stringFromDate:self];
 }
 
 @end
 
 @implementation NSDateFormatter (DateFormatting)
+
+static NSString* _defaultFormat = @"MMM d, yyyy";
+
++ (NSString*)defaultFormat {
+    return _defaultFormat;
+}
+
++ (void)setDefaultFormat:(NSString*)format {
+    _defaultFormat = format;
+}
+
+static NSMutableDictionary* _formatters = nil;
+
++ (NSMutableDictionary *)formatters {
+    if (!_formatters) {
+        _formatters = [NSMutableDictionary dictionary];
+        [[NSNotificationCenter defaultCenter] addObserverForName:NSSystemTimeZoneDidChangeNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+            [_formatters removeAllObjects];
+        }];
+    }
+    return _formatters;
+}
+
++ (NSDateFormatter *)formatter {
+    return [self formatterWithDateFormat:_defaultFormat];
+}
+
++ (NSDateFormatter *)formatterWithDateFormat:(NSString *)format {
+    NSMutableDictionary *formatters = [self formatters];
+    
+    NSDateFormatter* formatter = [formatters objectForKey:format];
+    
+    if (!formatter) {
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = format;
+        [formatter setAMSymbol:@"am"];
+        [formatter setPMSymbol:@"pm"];
+        [formatters setObject:formatter forKey:format];
+    }
+    
+    return formatter;
+}
+
++ (NSDateFormatter *)formatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle {
+    return [self formatterWithDateStyle:dateStyle timeStyle:timeStyle relative:NO];
+}
+
++ (NSDateFormatter *)formatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle relative:(BOOL)relative {
+    NSMutableDictionary *formatters = [self formatters];
+    
+    NSString *formatterKey = [NSString stringWithFormat:@"%lu-%lu-%d", (unsigned long)dateStyle, (unsigned long)timeStyle, relative];
+    NSDateFormatter* formatter = [formatters objectForKey:formatterKey];
+    
+    if (!formatter) {
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.dateStyle = dateStyle;
+        formatter.timeStyle = timeStyle;
+        formatter.doesRelativeDateFormatting = relative;
+        [formatters setObject:formatter forKey:formatterKey];
+    }
+    
+    return formatter;
+}
 
 - (NSDate *)dateFromString:(NSString *)string withFormat:(NSString*)format {
 	return [self dateFromString:string withFormat:format timeZone:[NSTimeZone localTimeZone]];
@@ -136,11 +142,11 @@ static NSMutableDictionary* formatters = nil;
 @implementation NSString (DateFormatting)
 
 - (NSDate *)dateWithFormat:(NSString *)format {
-    return [[NSDate formatterWithDateFormat:format] dateFromString:self withFormat:format];
+    return [[NSDateFormatter formatterWithDateFormat:format] dateFromString:self withFormat:format];
 }
 
 - (NSDate *)dateWithFormat:(NSString *)format timeZone:(NSTimeZone *)timeZone {
-	return [[NSDate formatterWithDateFormat:format] dateFromString:self withFormat:format timeZone:timeZone];
+	return [[NSDateFormatter formatterWithDateFormat:format] dateFromString:self withFormat:format timeZone:timeZone];
 }
 
 - (NSDate *)GMTDateWithFormat:(NSString *)format {
@@ -148,11 +154,11 @@ static NSMutableDictionary* formatters = nil;
 }
 
 - (NSDate *)date {
-    return [self dateWithFormat:[NSDate defaultFormat]];
+    return [self dateWithFormat:[NSDateFormatter defaultFormat]];
 }
 
 - (NSDate *)dateWithTimeZone:(NSTimeZone *)timeZone {
-	return [self dateWithFormat:[NSDate defaultFormat] timeZone:timeZone];
+	return [self dateWithFormat:[NSDateFormatter defaultFormat] timeZone:timeZone];
 }
 
 - (NSDate *)GMTDate {

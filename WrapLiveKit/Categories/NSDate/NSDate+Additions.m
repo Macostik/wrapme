@@ -16,22 +16,13 @@ static NSInteger WLDaySeconds = 24*60*60;
 
 @implementation NSDate (Additions)
 
-static inline NSCalendar* NSCurrentCalendar() {
-    static NSCalendar* calendar = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        calendar = [NSCalendar currentCalendar];
-    });
-    return calendar;
-}
-
 + (NSDate *)defaultBirtday {
 	NSDateComponents* components = [NSDateComponents  new];
 	[components setYear:2013];
 	[components setMonth:06];
 	[components setDay:19];
 	components.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-	return [NSCurrentCalendar() dateFromComponents:components];
+	return [[NSCalendar currentCalendar] dateFromComponents:components];
 }
 
 + (NSDate *)sinceWeekAgo {
@@ -43,22 +34,22 @@ static inline NSCalendar* NSCurrentCalendar() {
 }
 
 - (NSDate *)beginOfDay {
-    return [NSCurrentCalendar() dateFromComponents:[self componentsBeginOfDay]];
+    return [[NSCalendar currentCalendar] dateFromComponents:[self componentsBeginOfDay]];
 }
 
 - (NSDate *)endOfDay {
-    return [NSCurrentCalendar() dateFromComponents:[self componentsEndOfDay]];
+    return [[NSCalendar currentCalendar] dateFromComponents:[self componentsEndOfDay]];
 }
 
 - (void)getBeginOfDay:(NSDate *__autoreleasing *)beginOfDay endOfDay:(NSDate *__autoreleasing *)endOfDay {
     NSDateComponents* components = [self componentsBeginOfDay];
     if (beginOfDay != NULL) {
-        *beginOfDay = [NSCurrentCalendar() dateFromComponents:components];
+        *beginOfDay = [[NSCalendar currentCalendar] dateFromComponents:components];
     }
     components.hour = 23;
     components.minute = components.second = 59;
     if (endOfDay != NULL) {
-        *endOfDay = [NSCurrentCalendar() dateFromComponents:components];
+        *endOfDay = [[NSCalendar currentCalendar] dateFromComponents:components];
     }
 }
 
@@ -76,13 +67,13 @@ static inline NSCalendar* NSCurrentCalendar() {
 }
 
 - (NSDateComponents *)dayComponents {
-    return [NSCurrentCalendar() components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self];
+    return [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self];
 }
 
 - (BOOL)isSameDay:(NSDate *)date {
     if (ABS([self timeIntervalSinceDate:date]) > WLTimeIntervalDay) return NO;
     if (SystemVersionGreaterThanOrEqualTo8()) {
-        NSCalendar *calendar = NSCurrentCalendar();
+        NSCalendar *calendar = [NSCalendar currentCalendar];
         if ([calendar component:NSDayCalendarUnit fromDate:self] != [calendar component:NSDayCalendarUnit fromDate:date]) return NO;
         if ([calendar component:NSMonthCalendarUnit fromDate:self] != [calendar component:NSMonthCalendarUnit fromDate:date]) return NO;
         if ([calendar component:NSYearCalendarUnit fromDate:self] != [calendar component:NSYearCalendarUnit fromDate:date]) return NO;
@@ -94,7 +85,7 @@ static inline NSCalendar* NSCurrentCalendar() {
 
 - (BOOL)isSameDayComponents:(NSDateComponents *)c {
     if (SystemVersionGreaterThanOrEqualTo8()) {
-        NSCalendar *calendar = NSCurrentCalendar();
+        NSCalendar *calendar = [NSCalendar currentCalendar];
         if ([calendar component:NSDayCalendarUnit fromDate:self] != c.day) return NO;
         if ([calendar component:NSMonthCalendarUnit fromDate:self] != c.month) return NO;
         if ([calendar component:NSYearCalendarUnit fromDate:self] != c.year) return NO;
@@ -109,7 +100,7 @@ static inline NSCalendar* NSCurrentCalendar() {
 
 - (BOOL)isSameHour:(NSDate *)date {
     if (SystemVersionGreaterThanOrEqualTo8()) {
-        NSCalendar *calendar = NSCurrentCalendar();
+        NSCalendar *calendar = [NSCalendar currentCalendar];
         if ([calendar component:NSHourCalendarUnit fromDate:self] != [calendar component:NSHourCalendarUnit fromDate:date]) return NO;
         if ([calendar component:NSDayCalendarUnit fromDate:self] != [calendar component:NSDayCalendarUnit fromDate:date]) return NO;
         if ([calendar component:NSMonthCalendarUnit fromDate:self] != [calendar component:NSMonthCalendarUnit fromDate:date]) return NO;
@@ -117,7 +108,7 @@ static inline NSCalendar* NSCurrentCalendar() {
     } else {
         NSCalendarUnit units = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit;
         ;
-        NSCalendar* calendar = NSCurrentCalendar();
+        NSCalendar* calendar = [NSCalendar currentCalendar];
         NSDateComponents* c1 = [calendar components:units fromDate:self];
         NSDateComponents* c2 = [calendar components:units fromDate:date];
         if (c1.hour != c2.hour) return NO;

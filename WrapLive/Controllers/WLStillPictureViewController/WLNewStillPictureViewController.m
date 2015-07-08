@@ -39,9 +39,13 @@
 - (void)handleImage:(UIImage *)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
     __weak typeof(self)weakSelf = self;
     self.view.userInteractionEnabled = NO;
-    WLEditPicture *picture = [WLEditPicture picture:image mode:self.mode completion:^(WLEditPicture *picture) {
-        weakSelf.view.userInteractionEnabled = YES;
-    }];
+    WLEditPicture *picture = [WLEditPicture picture:self.mode];
+    runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
+        [picture setImage:image completion:^(id object) {
+            weakSelf.view.userInteractionEnabled = YES;
+            [operation finish];
+        }];
+    });
     picture.saveToAlbum = saveToAlbum;
     picture.date = [NSDate now];
     [self addPicture:picture success:^{
@@ -53,7 +57,7 @@
 #pragma mark - WLCameraViewControllerDelegate
 
 - (void)cameraViewControllerDidFinish:(WLCameraViewController *)controller sender:(WLButton*)sender {
-    WLOperationQueue *queue = [WLOperationQueue queueNamed:@"wl_still_picture_queue" capacity:3];
+    WLOperationQueue *queue = [WLOperationQueue queueNamed:@"wl_still_picture_queue" capacity:1];
     
     __weak typeof(self)weakSelf = self;
     WLBlock completionBlock = ^ {
@@ -119,7 +123,7 @@
         picture.assetID = asset.ID;
         picture.date = asset.date;
         [self addPicture:picture success:^{
-            runQueuedOperation(@"wl_still_picture_queue",3,^(WLOperation *operation) {
+            runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
                 [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
                     [picture setImage:croppedImage completion:^(id object) {
                         [operation finish];

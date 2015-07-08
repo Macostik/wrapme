@@ -368,6 +368,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         WLCandy *nextCandy = [self candyAfterDeletingCandy:candy];
         if (nextCandy) {
             [self setCandy:nextCandy direction:0 animated:NO];
+            [self setBarsHidden:NO animated:YES];
         } else {
             [self.navigationController popViewControllerAnimated:NO];
         }

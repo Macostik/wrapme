@@ -16,15 +16,17 @@
 }
 
 + (void)performAction:(NSString*)action parameters:(NSDictionary*)parameters success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure {
-    NSMutableDictionary *_parameters = [NSMutableDictionary dictionaryWithObject:action forKey:@"action"];
-    [_parameters addEntriesFromDictionary:parameters];
-    [WKInterfaceController openParentApplication:[_parameters copy] reply:^(NSDictionary *replyInfo, NSError *error) {
+    WLExtensionRequest *request = [WLExtensionRequest requestWithAction:action userInfo:parameters];
+    [WKInterfaceController openParentApplication:[request serialize] reply:^(NSDictionary *replyInfo, NSError *error) {
         if (error) {
             if (failure) failure(error);
-        } else if ([replyInfo[@"success"] boolValue] == NO) {
-            if (failure) failure(WLError(replyInfo[@"message"]));
-        } else {
-            if (success) success(replyInfo);
+        } else  {
+            WLExtensionResponse *response = [WLExtensionResponse deserialize:replyInfo];
+            if (response.success) {
+                if (success) success(response.userInfo);
+            } else {
+                if (failure) failure(WLError(response.message));
+            }
         }
     }];
 }

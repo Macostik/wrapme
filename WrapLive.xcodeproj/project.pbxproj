@@ -2067,6 +2067,14 @@
 		C5C20BEB1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
 		C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
 		C5C6465519A6264300F8243A /* WLWhatsUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLWhatsUpCell.m */; };
+		C5CD95671B4D358A00F5932F /* WrapLiveWatchKitExtension-Development.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C50645841ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C5CD956A1B4D361700F5932F /* WrapLiveWatchKitExtension-Production.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C56498C71ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C5CD95741B4D382E00F5932F /* WLExtensionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CD956F1B4D382E00F5932F /* WLExtensionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5CD95751B4D382E00F5932F /* WLExtensionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD95701B4D382E00F5932F /* WLExtensionRequest.m */; };
+		C5CD95761B4D382E00F5932F /* WLExtensionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CD95721B4D382E00F5932F /* WLExtensionResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5CD95771B4D382E00F5932F /* WLExtensionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD95731B4D382E00F5932F /* WLExtensionResponse.m */; };
+		C5CD957A1B4D383F00F5932F /* WLExtensionMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CD95781B4D383F00F5932F /* WLExtensionMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5CD957B1B4D383F00F5932F /* WLExtensionMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD95791B4D383F00F5932F /* WLExtensionMessage.m */; };
 		C5D051B41A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */; };
 		C5D051B51A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */; };
 		C5D051B61A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */; };
@@ -2273,6 +2281,20 @@
 			remoteGlobalIDString = C587C7671AD2E5A9003E7647;
 			remoteInfo = WrapLiveKit;
 		};
+		C5CD95681B4D358A00F5932F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
+			remoteInfo = "WrapLiveWatchKitExtension-Development";
+		};
+		C5CD956B1B4D361700F5932F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C56498C61ACB00D2000F1E4B;
+			remoteInfo = "WrapLiveWatchKitExtension-Production";
+		};
 		C5E54B371ACBF83A00444F7B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -2302,6 +2324,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				5BA7AF2E1A481A9500C586CA /* WrapLiveToday-Development.appex in Embed App Extensions */,
+				C5CD95671B4D358A00F5932F /* WrapLiveWatchKitExtension-Development.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2392,6 +2415,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				C5CD956A1B4D361700F5932F /* WrapLiveWatchKitExtension-Production.appex in Embed App Extensions */,
 				C55B92031AFA6677006A3A55 /* WrapLiveToday-Production.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -3432,6 +3456,12 @@
 		C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignupFlowViewController.m; sourceTree = "<group>"; };
 		C5C6465319A6264300F8243A /* WLWhatsUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWhatsUpCell.h; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.h; sourceTree = "<group>"; };
 		C5C6465419A6264300F8243A /* WLWhatsUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWhatsUpCell.m; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.m; sourceTree = "<group>"; };
+		C5CD956F1B4D382E00F5932F /* WLExtensionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionRequest.h; sourceTree = "<group>"; };
+		C5CD95701B4D382E00F5932F /* WLExtensionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLExtensionRequest.m; sourceTree = "<group>"; };
+		C5CD95721B4D382E00F5932F /* WLExtensionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionResponse.h; sourceTree = "<group>"; };
+		C5CD95731B4D382E00F5932F /* WLExtensionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLExtensionResponse.m; sourceTree = "<group>"; };
+		C5CD95781B4D383F00F5932F /* WLExtensionMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionMessage.h; sourceTree = "<group>"; };
+		C5CD95791B4D383F00F5932F /* WLExtensionMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLExtensionMessage.m; sourceTree = "<group>"; };
 		C5D051B21A9F7D7B00855A01 /* WLAddressBookRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookRecord.h; sourceTree = "<group>"; };
 		C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookRecord.m; sourceTree = "<group>"; };
 		C5D051B81A9F7E6E00855A01 /* WLAddressBookPhoneNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookPhoneNumber.h; sourceTree = "<group>"; };
@@ -5486,6 +5516,7 @@
 		C5612CB01ACD968A0052578A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C5CD956D1B4D382E00F5932F /* WLExtensionMessage */,
 				C5BEE0D41B2AC8B100D3CF70 /* WLNotification */,
 				C55C8DBD1B0CDB5E0085DB60 /* WLAnimation */,
 				C55D77EC1AE51BD7006FA19C /* WLSoundPlayer */,
@@ -6506,6 +6537,35 @@
 			path = WLProfileInformationViewController;
 			sourceTree = "<group>";
 		};
+		C5CD956D1B4D382E00F5932F /* WLExtensionMessage */ = {
+			isa = PBXGroup;
+			children = (
+				C5CD956E1B4D382E00F5932F /* WLExtensionRequest */,
+				C5CD95711B4D382E00F5932F /* WLExtensionResponse */,
+				C5CD95781B4D383F00F5932F /* WLExtensionMessage.h */,
+				C5CD95791B4D383F00F5932F /* WLExtensionMessage.m */,
+			);
+			path = WLExtensionMessage;
+			sourceTree = "<group>";
+		};
+		C5CD956E1B4D382E00F5932F /* WLExtensionRequest */ = {
+			isa = PBXGroup;
+			children = (
+				C5CD956F1B4D382E00F5932F /* WLExtensionRequest.h */,
+				C5CD95701B4D382E00F5932F /* WLExtensionRequest.m */,
+			);
+			path = WLExtensionRequest;
+			sourceTree = "<group>";
+		};
+		C5CD95711B4D382E00F5932F /* WLExtensionResponse */ = {
+			isa = PBXGroup;
+			children = (
+				C5CD95721B4D382E00F5932F /* WLExtensionResponse.h */,
+				C5CD95731B4D382E00F5932F /* WLExtensionResponse.m */,
+			);
+			path = WLExtensionResponse;
+			sourceTree = "<group>";
+		};
 		C5D051BE1A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -6686,9 +6746,11 @@
 				C587C7991AD2E6A0003E7647 /* WLAddWrapRequest.h in Headers */,
 				C587C78D1AD2E6A0003E7647 /* NSString+Additions.h in Headers */,
 				C587C7A01AD2E6A0003E7647 /* WLDeleteCommentRequest.h in Headers */,
+				C5CD95741B4D382E00F5932F /* WLExtensionRequest.h in Headers */,
 				C587C7D11AD2E6A0003E7647 /* WLUploading.h in Headers */,
 				C587C7CF1AD2E6A0003E7647 /* WLEntryKeys.h in Headers */,
 				C587C7C11AD2E6A0003E7647 /* WLCandy+Extended.h in Headers */,
+				C5CD957A1B4D383F00F5932F /* WLExtensionMessage.h in Headers */,
 				C587C78A1AD2E6A0003E7647 /* NSMutableOrderedSet+Sorting.h in Headers */,
 				C587C78F1AD2E6A0003E7647 /* NSString+MD5.h in Headers */,
 				C587C7E61AD2E6A0003E7647 /* SupportHeaders.h in Headers */,
@@ -6700,6 +6762,7 @@
 				C5BEE0DF1B2AC8B100D3CF70 /* WLUpdateNotification.h in Headers */,
 				C587C7E31AD2E6A0003E7647 /* DefinedBlocks.h in Headers */,
 				C587C7E51AD2E6A0003E7647 /* GeometryHelper.h in Headers */,
+				C5CD95761B4D382E00F5932F /* WLExtensionResponse.h in Headers */,
 				C587C7AE1AD2E6A0003E7647 /* WLUploadMessageRequest.h in Headers */,
 				C587C7C71AD2E6A0003E7647 /* WLMessage+Extended.h in Headers */,
 				C587C7B91AD2E6A0003E7647 /* WLLogger.h in Headers */,
@@ -6886,6 +6949,7 @@
 				C559CB751AA0BB6200100B2C /* PBXTargetDependency */,
 				C587C8E21AD2E8B5003E7647 /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
+				C5CD95691B4D358A00F5932F /* PBXTargetDependency */,
 			);
 			name = "WrapLive-QA";
 			productName = WrapLive;
@@ -6909,6 +6973,7 @@
 				C559CB771AA0BB6500100B2C /* PBXTargetDependency */,
 				C587C8E41AD2E8BA003E7647 /* PBXTargetDependency */,
 				C55B92051AFA6678006A3A55 /* PBXTargetDependency */,
+				C5CD956C1B4D361700F5932F /* PBXTargetDependency */,
 			);
 			name = "WrapLive-Beta";
 			productName = WrapLive;
@@ -7631,7 +7696,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c\"";
+			shellScript = "if [ \"$CONFIGURATION\" != \"Debug\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c\"\nfi";
 		};
 		C5D41CF81AB1FD5F00990944 /* NewRelic upload dSym */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7645,7 +7710,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8\"";
+			shellScript = "if [ \"$CONFIGURATION\" != \"Debug\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8\"\nfi";
 		};
 		C5D41CF91AB1FD6400990944 /* NewRelic upload dSym */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7659,7 +7724,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8\"";
+			shellScript = "if [ \"$CONFIGURATION\" != \"Debug\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -9171,7 +9236,9 @@
 				C587C8C11AD2E708003E7647 /* UIAlertView+AFNetworking.m in Sources */,
 				C55B92021AFA39FE006A3A55 /* WLEntryNotifyReceiver.m in Sources */,
 				C587C8CA1AD2E708003E7647 /* UIRefreshControl+AFNetworking.m in Sources */,
+				C5CD95751B4D382E00F5932F /* WLExtensionRequest.m in Sources */,
 				C587C8581AD2E6DB003E7647 /* NSURL+WLRemoteEntryHandler.m in Sources */,
+				C5CD957B1B4D383F00F5932F /* WLExtensionMessage.m in Sources */,
 				C587C8AC1AD2E708003E7647 /* AFHTTPRequestOperationManager.m in Sources */,
 				C587C8A71AD2E6DB003E7647 /* WLUploadingQueue.m in Sources */,
 				C587C8751AD2E6DB003E7647 /* WLUploadMessageRequest.m in Sources */,
@@ -9188,6 +9255,7 @@
 				C587C89B1AD2E6DB003E7647 /* WLEntryNotifier.m in Sources */,
 				C587C8DB1AD2E736003E7647 /* OpenUDID.m in Sources */,
 				C587C8511AD2E6DB003E7647 /* NSObject+NibAdditions.m in Sources */,
+				C5CD95771B4D382E00F5932F /* WLExtensionResponse.m in Sources */,
 				C587C8A61AD2E6DB003E7647 /* WLSession.m in Sources */,
 				C5BEE0DC1B2AC8B100D3CF70 /* WLEntryNotification.m in Sources */,
 				C587C8641AD2E6DB003E7647 /* WLCandiesRequest.m in Sources */,
@@ -9347,6 +9415,16 @@
 			isa = PBXTargetDependency;
 			target = C587C7671AD2E5A9003E7647 /* WrapLiveKit */;
 			targetProxy = C587C8E51AD2E8C0003E7647 /* PBXContainerItemProxy */;
+		};
+		C5CD95691B4D358A00F5932F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C50645831ABD7FD400CB4BE3 /* WrapLiveWatchKitExtension-Development */;
+			targetProxy = C5CD95681B4D358A00F5932F /* PBXContainerItemProxy */;
+		};
+		C5CD956C1B4D361700F5932F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C56498C61ACB00D2000F1E4B /* WrapLiveWatchKitExtension-Production */;
+			targetProxy = C5CD956B1B4D361700F5932F /* PBXContainerItemProxy */;
 		};
 		C5E54B381ACBF83A00444F7B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

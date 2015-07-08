@@ -65,3 +65,7 @@ static NSString* WLCommentCountKey = @"comment_count";
 static NSString* WLUIDKey = @"uid";
 static NSString* WLEditorUIDKey = @"editor_uid";
 static NSString* WLEditedAtKey = @"edited_at_in_epoch";
+static NSString* WLPreferenceKey = @"wrap_preference";
+static NSString* WLChatNotifiableKey = @"notify_when_chat_addition";
+static NSString* WLCandyNotifiableKey = @"notify_when_image_candy_addition";
+

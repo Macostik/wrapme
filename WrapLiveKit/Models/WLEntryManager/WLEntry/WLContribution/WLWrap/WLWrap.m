@@ -19,5 +19,7 @@
 @dynamic contributors;
 @dynamic isDefault;
 @dynamic lastUnread;
+@dynamic isCandyNotifiable;
+@dynamic isChatNotifiable;
 
 @end

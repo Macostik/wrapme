@@ -20,6 +20,8 @@
 @property (nonatomic, retain) NSMutableOrderedSet *contributors;
 @property (nonatomic) BOOL isDefault;
 @property (nonatomic) NSDate *lastUnread;
+@property (nonatomic) BOOL isCandyNotifiable;
+@property (nonatomic) BOOL isChatNotifiable;
 
 @end
 

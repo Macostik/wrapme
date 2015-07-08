@@ -11,6 +11,8 @@
 #import "WLIconButton.h"
 #import "WLToast.h"
 #import "WLEditSession.h"
+#import "WLPreferenceRequest.h"
+#import "WLUploadPreferenceRequest.h"
 
 static NSInteger WLIndent = 12.0;
 
@@ -20,7 +22,7 @@ static NSInteger WLIndent = 12.0;
 @property (weak, nonatomic) IBOutlet UITextField *wrapNameTextField;
 @property (weak, nonatomic) IBOutlet WLIconButton *editButton;
 @property (weak, nonatomic) IBOutlet WLButton *actionButton;
-@property (weak, nonatomic) IBOutlet UISwitch *photoNotifyTrigger;
+@property (weak, nonatomic) IBOutlet UISwitch *candyNotifyTrigger;
 @property (weak, nonatomic) IBOutlet UISwitch *chatNotifyTrigger;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthTextFieldConstraint;
 
@@ -39,6 +41,13 @@ static NSInteger WLIndent = 12.0;
     self.wrapNameTextField.enabled = self.wrap.deletable;
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
     self.widthTextFieldConstraint.constant += !self.wrap.deletable ? : self.editButton.width + WLIndent;
+    
+    __weak __typeof(self)weakSelf = self;
+    [[WLPreferenceRequest request:self.wrap] send:^(WLWrap *wrap) {
+        [weakSelf.candyNotifyTrigger setOn:wrap.isCandyNotifiable];
+        [weakSelf.chatNotifyTrigger setOn:wrap.isChatNotifiable];
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (IBAction)handleAction:(WLButton *)sender {
@@ -76,6 +85,15 @@ static NSInteger WLIndent = 12.0;
             }
         }];
     }
+}
+
+- (IBAction)changeSwichValue:(id)sender {
+    WLUploadPreferenceRequest *request = [WLUploadPreferenceRequest request:self.wrap];
+    request.candyNotify = self.candyNotifyTrigger.isOn;
+    request.chatNotify = self.chatNotifyTrigger.isOn;
+    [request send:^(id object) {
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (IBAction)editButtonClick:(UIButton *)sender {

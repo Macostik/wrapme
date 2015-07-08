@@ -67,6 +67,10 @@
 		5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
+		5B4E6BBF1B4C05EE00B8EE66 /* WLPreferenceRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B4E6BBD1B4C05EE00B8EE66 /* WLPreferenceRequest.h */; };
+		5B4E6BC51B4C05EE00B8EE66 /* WLPreferenceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4E6BBE1B4C05EE00B8EE66 /* WLPreferenceRequest.m */; };
+		5B4E6BC81B4C111700B8EE66 /* WLUploadPreferenceRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B4E6BC61B4C111700B8EE66 /* WLUploadPreferenceRequest.h */; };
+		5B4E6BC91B4C111700B8EE66 /* WLUploadPreferenceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4E6BC71B4C111700B8EE66 /* WLUploadPreferenceRequest.m */; };
 		5B5A8C6B1A4EB62F00F84529 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A8C701A4EB62F00F84529 /* SignUp.storyboard */; };
 		5B5A8C6C1A4EB62F00F84529 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A8C701A4EB62F00F84529 /* SignUp.storyboard */; };
 		5B5A8C6D1A4EB62F00F84529 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A8C701A4EB62F00F84529 /* SignUp.storyboard */; };
@@ -2510,6 +2514,10 @@
 		5B2B0C1B1A77A83900DADC9D /* WLIconButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIconButton.m; path = WLButton/WLIconButton.m; sourceTree = "<group>"; };
 		5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
+		5B4E6BBD1B4C05EE00B8EE66 /* WLPreferenceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPreferenceRequest.h; sourceTree = "<group>"; };
+		5B4E6BBE1B4C05EE00B8EE66 /* WLPreferenceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPreferenceRequest.m; sourceTree = "<group>"; };
+		5B4E6BC61B4C111700B8EE66 /* WLUploadPreferenceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploadPreferenceRequest.h; sourceTree = "<group>"; };
+		5B4E6BC71B4C111700B8EE66 /* WLUploadPreferenceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploadPreferenceRequest.m; sourceTree = "<group>"; };
 		5B5A8C6F1A4EB62F00F84529 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SignUp.storyboard; sourceTree = "<group>"; };
 		5B787D9B1A27876F004AE459 /* WrapLiveToday-Development.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WrapLiveToday-Development.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -5582,6 +5590,10 @@
 				C5612CF01ACD968B0052578A /* WLWrapsRequest.m */,
 				C5B6D9A21B4AB70C009B9436 /* WLWrapContributorsRequest.h */,
 				C5B6D9A31B4AB70C009B9436 /* WLWrapContributorsRequest.m */,
+				5B4E6BBD1B4C05EE00B8EE66 /* WLPreferenceRequest.h */,
+				5B4E6BBE1B4C05EE00B8EE66 /* WLPreferenceRequest.m */,
+				5B4E6BC61B4C111700B8EE66 /* WLUploadPreferenceRequest.h */,
+				5B4E6BC71B4C111700B8EE66 /* WLUploadPreferenceRequest.m */,
 			);
 			path = WLAPIRequest;
 			sourceTree = "<group>";
@@ -6610,6 +6622,7 @@
 				C587C7DE1AD2E6A0003E7647 /* WLOperationQueue.h in Headers */,
 				C587C7C81AD2E6A0003E7647 /* WLMessage.h in Headers */,
 				C587C7B01AD2E6A0003E7647 /* WLVerificationCallRequest.h in Headers */,
+				5B4E6BC81B4C111700B8EE66 /* WLUploadPreferenceRequest.h in Headers */,
 				C587C7BF1AD2E6A0003E7647 /* WLSystemImageCache.h in Headers */,
 				C587C7A61AD2E6A0003E7647 /* WLPostCommentRequest.h in Headers */,
 				C587C7851AD2E6A0003E7647 /* NSDictionary+Extended.h in Headers */,
@@ -6666,6 +6679,7 @@
 				C587C7981AD2E6A0003E7647 /* WLCommonEnums.h in Headers */,
 				C587C7A91AD2E6A0003E7647 /* WLResendInviteRequest.h in Headers */,
 				C587C7A21AD2E6A0003E7647 /* WLEntityRequest.h in Headers */,
+				5B4E6BBF1B4C05EE00B8EE66 /* WLPreferenceRequest.h in Headers */,
 				C587C7921AD2E6A0003E7647 /* UIDevice+SystemVersion.h in Headers */,
 				C5BEE0DB1B2AC8B100D3CF70 /* WLEntryNotification.h in Headers */,
 				C587C7B11AD2E6A0003E7647 /* WLWrapRequest.h in Headers */,
@@ -9144,6 +9158,7 @@
 				C587C8681AD2E6DB003E7647 /* WLDeleteWrapRequest.m in Sources */,
 				C587C8531AD2E6DB003E7647 /* NSOrderedSet+Additions.m in Sources */,
 				C587C8931AD2E6DB003E7647 /* WLEntry+Extended.m in Sources */,
+				5B4E6BC91B4C111700B8EE66 /* WLUploadPreferenceRequest.m in Sources */,
 				C587C85F1AD2E6DB003E7647 /* UIImage+RoundedCorner.m in Sources */,
 				C535F9D71AD4321F000C81B4 /* NSData+CommonCrypto.m in Sources */,
 				C587C86F1AD2E6DB003E7647 /* WLResendConfirmationRequest.m in Sources */,
@@ -9161,6 +9176,7 @@
 				C587C8A71AD2E6DB003E7647 /* WLUploadingQueue.m in Sources */,
 				C587C8751AD2E6DB003E7647 /* WLUploadMessageRequest.m in Sources */,
 				C587C85D1AD2E6DB003E7647 /* UIImage+Drawing.m in Sources */,
+				5B4E6BC51B4C05EE00B8EE66 /* WLPreferenceRequest.m in Sources */,
 				C587C88C1AD2E6DB003E7647 /* WLContribution.m in Sources */,
 				C587C8971AD2E6DB003E7647 /* WLUploadingData.m in Sources */,
 				C587C8541AD2E6DB003E7647 /* NSPropertyListSerialization+Shorthand.m in Sources */,

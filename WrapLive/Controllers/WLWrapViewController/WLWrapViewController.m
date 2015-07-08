@@ -56,7 +56,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [self updateWrapData];
-    [self updateNotificationCouter];
+    [self updateMessageCouter];
+    [self updateCandyCounter];
     [self viewShowed];
 }
 
@@ -72,8 +73,18 @@
     self.nameLabel.text = self.wrap.name;
 }
 
-- (void)updateNotificationCouter {
-    self.messageCountLabel.intValue = [self.wrap unreadNotificationsMessageCount];
+- (void)updateMessageCouter {
+    __weak typeof(self)weakSelf = self;
+    run_after(0.5, ^{
+        weakSelf.messageCountLabel.intValue = [weakSelf.wrap unreadNotificationsMessageCount];
+    });
+}
+
+- (void)updateCandyCounter {
+    __weak typeof(self)weakSelf = self;
+    run_after(0.5, ^{
+          weakSelf.candyCountLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:weakSelf.wrap];
+    });
 }
 
 // MARK: - WLEntryNotifyReceiver
@@ -102,7 +113,7 @@
             if ([weakSelf isViewLoaded] && weakSelf.selectedSegment == WLSegmentControlStatePhotos) {
                 [candy markAsRead];
             }
-            weakSelf.candyCountLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:weakSelf.wrap];
+            [weakSelf updateCandyCounter];
         }];
     }];
     
@@ -112,7 +123,7 @@
         }];
          receiver.didAddBlock = receiver.didDeleteBlock = ^(WLMessage *message) {
             if (weakSelf.segmentedControl.selectedSegment != WLSegmentControlStateChat) {
-                [weakSelf updateNotificationCouter];
+                [weakSelf updateMessageCouter];
             } else {
                 [message markAsRead];
             }
@@ -121,20 +132,21 @@
 }
 
 - (IBAction)photosTabSelected:(id)sender {
-    self.candyCountLabel.intValue = 0;
     self.selectedSegment = WLSegmentControlStatePhotos;
-    [self controllerForSelectedSegment:WLSegmentControlStatePhotos];
+    self.viewController = [self controllerForClass:[WLPhotosViewController class]];
+    [(id)self.viewController setDelegate:self];
+    [self updateCandyCounter];
 }
 
 - (IBAction)chatTabSelected:(id)sender {
-    self.messageCountLabel.intValue = 0;
     self.selectedSegment = WLSegmentControlStateChat;
-    [self controllerForSelectedSegment:WLSegmentControlStateChat];
+    self.viewController = [self controllerForClass:[WLChatViewController class]];
+    [self updateMessageCouter];
 }
 
 - (IBAction)friendsTabSelected:(id)sender {
     self.selectedSegment = WLSegmentControlStateFriend;
-    [self controllerForSelectedSegment:WLSegmentControlStateFriend];
+    self.viewController = [self controllerForClass:[WLContributorsViewController class]];
 }
 
 // MARK: - WLStillPictureViewControllerDelegate
@@ -160,21 +172,6 @@
     _viewController = viewController;
     [self.containerView addSubview:viewController.view];
     [self.containerView makeResizibleSubview:viewController.view];
-}
-
-- (void)controllerForSelectedSegment:(NSInteger)segment {
-    switch (segment) {
-        case WLSegmentControlStatePhotos:
-            self.viewController = [self controllerForClass:[WLPhotosViewController class]];
-            [(id)self.viewController setDelegate:self];
-            break;
-        case WLSegmentControlStateChat:
-            self.viewController = [self controllerForClass:[WLChatViewController class]];
-            break;
-        case WLSegmentControlStateFriend:
-            self.viewController = [self controllerForClass:[WLContributorsViewController class]];
-            break;
-    }
 }
 
 - (UIViewController *)controllerForClass:(Class)class {

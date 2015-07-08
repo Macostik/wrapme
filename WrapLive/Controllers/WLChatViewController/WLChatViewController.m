@@ -143,10 +143,6 @@ CGFloat WLMaxTextViewWidth;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self scrollToLastUnreadMessage];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
     [self.wrap.messages all:^(WLMessage *message) {
         [message markAsRead];
     }];

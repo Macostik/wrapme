@@ -24,6 +24,8 @@
 
 @property (strong, nonatomic) NSString* containingEntryIdentifier;
 
+@property (nonatomic) BOOL trimmed;
+
 @property (nonatomic) BOOL inserted;
 
 - (void)createTargetEntry;

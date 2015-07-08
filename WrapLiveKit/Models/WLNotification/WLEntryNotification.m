@@ -84,6 +84,7 @@
     
     self.entryData = [data dictionaryForKey:dataKey];
     self.entryIdentifier = [self.entryClass API_identifier:self.entryData ? : data];
+    self.trimmed = self.entryData == nil;
     
     switch (type) {
         case WLNotificationCandyAdd:
@@ -280,9 +281,13 @@
 }
 
 - (void)fetchUpdateNotification:(WLEntryNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
-    [self fetch:^(id object) {
+    if (notification.trimmed) {
+        [self fetch:^(id object) {
+            if (success) success();
+        } failure:failure];
+    } else {
         if (success) success();
-    } failure:failure];
+    }
 }
 
 - (void)fetchDeleteNotification:(WLEntryNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
@@ -351,7 +356,7 @@
 
 - (void)fetchUpdateNotification:(WLEntryNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
-    [super fetchAddNotification:notification success:^{
+    [super fetchUpdateNotification:notification success:^{
         [weakSelf.picture fetch:success];
     } failure:failure];
 }

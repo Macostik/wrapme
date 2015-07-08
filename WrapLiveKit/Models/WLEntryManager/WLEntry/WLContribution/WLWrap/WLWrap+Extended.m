@@ -70,11 +70,6 @@
     if (dictionary[WLCreatorUIDKey] != nil) {
         WLUser *contributor = [WLUser entry:dictionary[WLCreatorUIDKey]];
         if (self.contributor != contributor) self.contributor = contributor;
-        
-        if (![contributors containsObject:contributor]) {
-            [contributors addObject:contributor];
-            self.contributors = contributors;
-        }
     }
     
     if (![contributors containsObject:[WLUser currentUser]]) {

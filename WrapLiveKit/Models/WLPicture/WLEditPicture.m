@@ -27,7 +27,9 @@
     if (!self.uploaded) {
         NSLog(@"WLEditPicture removing photos");
         [[NSFileManager defaultManager] removeItemAtPath:self.original error:NULL];
-        [[NSFileManager defaultManager] removeItemAtPath:self.large error:NULL];
+        if (![self.original isEqualToString:self.large]) {
+            [[NSFileManager defaultManager] removeItemAtPath:self.large error:NULL];
+        }
         [[NSFileManager defaultManager] removeItemAtPath:self.medium error:NULL];
         [[NSFileManager defaultManager] removeItemAtPath:self.small error:NULL];
     }
@@ -74,55 +76,48 @@
     
     BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
     BOOL isCandy = self.mode == WLStillPictureModeDefault;
+    CGFloat smallSize = isPad ? (isCandy ? 480 : 160) : (isCandy ? 240 : 160);
     
     __weak WLImageCache *imageCache = cache;
     __weak typeof(self)weakSelf = self;
-    run_in_default_queue(^{
-        [imageCache setImage:image completion:^(NSString *largePath) {
-            if (weakSelf) {
-                if (weakSelf.original) {
-                    [[NSFileManager defaultManager] removeItemAtPath:weakSelf.original error:NULL];
-                }
-                weakSelf.original = weakSelf.large = [imageCache pathWithIdentifier:largePath];
-                CGFloat size = isPad ? (isCandy ? 720 : 320) : (isCandy ? 480 : 320);
-                UIImage *mediumImage = [image thumbnailImage:size];
-                [imageCache setImage:mediumImage completion:^(NSString *mediumPath) {
+    [imageCache setImage:image completion:^(NSString *identifier) {
+        NSString *largePath = [imageCache pathWithIdentifier:identifier];
+        if (weakSelf) {
+            weakSelf.large = weakSelf.original = largePath;
+            run_getting_object(^id{
+                return [image thumbnailImage:smallSize];
+            }, ^(UIImage *smallImage) {
+                [imageCache setImage:smallImage completion:^(NSString *identifier) {
+                    NSString *smallPath = [imageCache pathWithIdentifier:identifier];
                     if (weakSelf) {
-                        if (weakSelf.medium) {
-                            [[NSFileManager defaultManager] removeItemAtPath:weakSelf.medium error:NULL];
-                        }
-                        weakSelf.medium = [imageCache pathWithIdentifier:mediumPath];
-                        CGFloat size = isPad ? (isCandy ? 480 : 160) : (isCandy ? 240 : 160);
-                        UIImage *smallImage = [mediumImage thumbnailImage:size];
-                        [imageCache setImage:smallImage completion:^(NSString *smallPath) {
-                            if (weakSelf) {
-                                if (weakSelf.small) {
-                                    [[NSFileManager defaultManager] removeItemAtPath:weakSelf.small error:NULL];
-                                }
-                                weakSelf.small = [imageCache pathWithIdentifier:smallPath];
-                                run_in_main_queue(^ {
-                                    if (completion) completion(weakSelf);
-                                });
-                            } else {
-                                [[NSFileManager defaultManager] removeItemAtPath:largePath error:NULL];
-                                [[NSFileManager defaultManager] removeItemAtPath:mediumPath error:NULL];
-                                [[NSFileManager defaultManager] removeItemAtPath:smallPath error:NULL];
-                                if (completion) completion(weakSelf);
-                            }
-                        }];
+                        weakSelf.small = smallPath;
+                        if (completion) completion(weakSelf);
                     } else {
                         [[NSFileManager defaultManager] removeItemAtPath:largePath error:NULL];
-                        [[NSFileManager defaultManager] removeItemAtPath:mediumPath error:NULL];
+                        [[NSFileManager defaultManager] removeItemAtPath:smallPath error:NULL];
                         if (completion) completion(weakSelf);
                     }
                 }];
-            } else {
-                [[NSFileManager defaultManager] removeItemAtPath:largePath error:NULL];
-                if (completion) completion(weakSelf);
-            }
-            
-        }];
-    });
+            });
+        } else {
+            [[NSFileManager defaultManager] removeItemAtPath:largePath error:NULL];
+            if (completion) completion(weakSelf);
+        }
+    }];
+}
+
+- (void)setOriginal:(NSString *)original {
+    if (self.original) {
+        [[NSFileManager defaultManager] removeItemAtPath:self.original error:NULL];
+    }
+    [super setOriginal:original];
+}
+
+- (void)setSmall:(NSString *)small {
+    if (self.small) {
+        [[NSFileManager defaultManager] removeItemAtPath:self.small error:NULL];
+    }
+    [super setSmall:small];
 }
 
 - (WLPicture *)uploadablePictureWithAnimation:(BOOL)withAnimation {

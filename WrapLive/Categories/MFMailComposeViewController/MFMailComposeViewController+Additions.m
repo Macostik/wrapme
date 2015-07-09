@@ -22,7 +22,7 @@
     if ([MFMailComposeViewController canSendMail]) {
         NSString *emailTitle = @"Reporting inappropriate content on wrapLive";
         // Email Content
-        NSString *messageBody = [NSString stringWithFormat:@"I'd like to report the following item as inappropriate content:\nImage URL - %@,\nWrap ID - %@,\nCandy ID - %@", candy.picture.medium, candy.wrap.identifier, candy.identifier];
+        NSString *messageBody = [NSString stringWithFormat:@"I'd like to report the following item as inappropriate content:\nImage URL - %@,\nWrap ID - %@,\nCandy ID - %@", candy.picture.original, candy.wrap.identifier, candy.identifier];
         // To address
         NSArray *toRecipents = [NSArray arrayWithObject:@"help@ravenpod.com"];
         

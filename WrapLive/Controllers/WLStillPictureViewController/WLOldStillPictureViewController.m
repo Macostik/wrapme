@@ -23,6 +23,8 @@
 
 @interface WLOldStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
 
+@property (strong, nonatomic) WLEditPicture* picture;
+
 @end
 
 @implementation WLOldStillPictureViewController
@@ -39,9 +41,9 @@
     [self editImage:image completion:^ (UIImage *resultImage, NSString *comment) {
         if (saveToAlbum) [resultImage save:nil];
         weakSelf.view.userInteractionEnabled = NO;
-        [WLEditPicture picture:resultImage mode:weakSelf.mode completion:^(WLEditPicture *picture) {
-            picture.comment = comment;
-            [weakSelf finishWithPictures:@[picture]];
+        self.picture = [WLEditPicture picture:resultImage mode:weakSelf.mode completion:^(id object) {
+            weakSelf.picture.comment = comment;
+            [weakSelf finishWithPictures:@[weakSelf.picture]];
             weakSelf.view.userInteractionEnabled = YES;
         }];
     }];

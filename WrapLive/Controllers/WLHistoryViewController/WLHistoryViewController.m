@@ -223,7 +223,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
     if (shouldAppendCandies) {
         runUnaryQueuedOperation(@"wl_candy_pagination_queue", ^(WLOperation *operation) {
-            [historyItem older:^(NSOrderedSet *candies) {
+            [historyItem older:^(NSSet *candies) {
                 [operation finish];
             } failure:^(NSError *error) {
                 if (error.isNetworkError) {
@@ -243,7 +243,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
     if (shouldAppendCandies) {
         runUnaryQueuedOperation(@"wl_candy_pagination_queue", ^(WLOperation *operation) {
-            [history older:^(NSOrderedSet *candies) {
+            [history older:^(NSSet *candies) {
                 [operation finish];
             } failure:^(NSError *error) {
                 if (error.isNetworkError) {
@@ -306,32 +306,32 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         return nil;
     }
     
-    candy = [self.historyItem.entries tryObjectAtIndex:self.currentCandyIndex];
+    candy = [self.historyItem.entries tryAt:self.currentCandyIndex];
     if (candy) {
         return candy;
     }
     
     WLHistoryItem *nextItem = nil;
     if ([self.history.entries containsObject:self.historyItem]) {
-        nextItem = [self.history.entries tryObjectAtIndex:[self.history.entries indexOfObject:self.historyItem] + 1];
+        nextItem = [self.history.entries tryAt:[self.history.entries indexOfObject:self.historyItem] + 1];
     } else {
-        nextItem = [self.history.entries tryObjectAtIndex:self.currentHistoryItemIndex];
+        nextItem = [self.history.entries tryAt:self.currentHistoryItemIndex];
     }
     if (nextItem) {
         self.historyItem = nextItem;
         return [nextItem.entries firstObject];
     }
     
-    candy = [self.historyItem.entries tryObjectAtIndex:self.currentCandyIndex - 1];
+    candy = [self.historyItem.entries tryAt:self.currentCandyIndex - 1];
     if (candy) {
         return candy;
     }
     
     WLHistoryItem *previousItem = nil;
     if ([self.history.entries containsObject:self.historyItem]) {
-        previousItem = [self.history.entries tryObjectAtIndex:[self.history.entries indexOfObject:self.historyItem] - 1];
+        previousItem = [self.history.entries tryAt:[self.history.entries indexOfObject:self.historyItem] - 1];
     } else {
-        previousItem = [self.history.entries tryObjectAtIndex:self.currentHistoryItemIndex - 1];
+        previousItem = [self.history.entries tryAt:self.currentHistoryItemIndex - 1];
     }
     if (previousItem) {
         self.historyItem = previousItem;
@@ -483,14 +483,14 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (UIViewController *)viewControllerAfterViewController:(WLCandyViewController *)viewController {
     WLCandy *candy = viewController.candy;
     WLHistoryItem *item = self.historyItem;
-    candy = [item.entries tryObjectAtIndex:[item.entries indexOfObject:candy] + 1];
+    candy = [item.entries tryAt:[item.entries indexOfObject:candy] + 1];
     if (candy) {
         WLCandyViewController *candyViewController = [self candyViewController:candy];
         return candyViewController;
     }
     
     if (item.completed) {
-        item = [self.history.entries tryObjectAtIndex:[self.history.entries indexOfObject:item] + 1];
+        item = [self.history.entries tryAt:[self.history.entries indexOfObject:item] + 1];
         if (item) {
             WLCandyViewController *candyViewController = [self candyViewController:[item.entries firstObject]];
             return candyViewController;
@@ -506,12 +506,12 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (UIViewController *)viewControllerBeforeViewController:(WLCandyViewController *)viewController {
     WLCandy *candy = viewController.candy;
     WLHistoryItem *item = self.historyItem;
-    candy = [item.entries tryObjectAtIndex:[item.entries indexOfObject:candy] - 1];
+    candy = [item.entries tryAt:[item.entries indexOfObject:candy] - 1];
     if (candy) {
         WLCandyViewController *candyViewController = [self candyViewController:candy];
         return candyViewController;
     } else {
-        item = [self.history.entries tryObjectAtIndex:[self.history.entries indexOfObject:item] - 1];
+        item = [self.history.entries tryAt:[self.history.entries indexOfObject:item] - 1];
         if (item) {
             WLCandyViewController *candyViewController = [self candyViewController:[item.entries lastObject]];
             return candyViewController;

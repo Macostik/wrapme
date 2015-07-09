@@ -1289,16 +1289,11 @@
 		C587C7691AD2E5A9003E7647 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
 		C587C77F1AD2E619003E7647 /* WrapLiveKit-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C587C77B1AD2E619003E7647 /* WrapLiveKit-Prefix.pch */; };
 		C587C7811AD2E6A0003E7647 /* UIView+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = C5FE0A4F1ACD97F6007DBE95 /* UIView+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C587C7821AD2E6A0003E7647 /* NSArray+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C791ACD968A0052578A /* NSArray+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7831AD2E6A0003E7647 /* NSDate+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C7C1ACD968A0052578A /* NSDate+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7841AD2E6A0003E7647 /* NSDate+Formatting.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C7E1ACD968A0052578A /* NSDate+Formatting.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C587C7851AD2E6A0003E7647 /* NSDictionary+Extended.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C811ACD968A0052578A /* NSDictionary+Extended.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C587C7861AD2E6A0003E7647 /* NSMutableDictionary+ImageMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C831ACD968A0052578A /* NSMutableDictionary+ImageMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7871AD2E6A0003E7647 /* NSObject+AssociatedObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C861ACD968A0052578A /* NSObject+AssociatedObjects.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7881AD2E6A0003E7647 /* NSObject+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C881ACD968A0052578A /* NSObject+Extension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7891AD2E6A0003E7647 /* NSObject+NibAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C8A1ACD968A0052578A /* NSObject+NibAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C587C78A1AD2E6A0003E7647 /* NSMutableOrderedSet+Sorting.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C8D1ACD968A0052578A /* NSMutableOrderedSet+Sorting.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C587C78B1AD2E6A0003E7647 /* NSOrderedSet+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C8F1ACD968A0052578A /* NSOrderedSet+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C78C1AD2E6A0003E7647 /* NSPropertyListSerialization+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C921ACD968A0052578A /* NSPropertyListSerialization+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C78D1AD2E6A0003E7647 /* NSString+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C951ACD968A0052578A /* NSString+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C78E1AD2E6A0003E7647 /* NSString+Documents.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C971ACD968A0052578A /* NSString+Documents.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1393,16 +1388,11 @@
 		C587C7E81AD2E6A0003E7647 /* WLConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612D6A1ACD968B0052578A /* WLConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7E91AD2E6A0003E7647 /* WrapLiveKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C50646ED1ABD844700CB4BE3 /* WrapLiveKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C8491AD2E6DB003E7647 /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FE0A501ACD97F6007DBE95 /* UIView+Shorthand.m */; };
-		C587C84A1AD2E6DB003E7647 /* NSArray+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C7A1ACD968A0052578A /* NSArray+Additions.m */; };
 		C587C84B1AD2E6DB003E7647 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C7D1ACD968A0052578A /* NSDate+Additions.m */; };
 		C587C84C1AD2E6DB003E7647 /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C7F1ACD968A0052578A /* NSDate+Formatting.m */; };
-		C587C84D1AD2E6DB003E7647 /* NSDictionary+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C821ACD968A0052578A /* NSDictionary+Extended.m */; };
-		C587C84E1AD2E6DB003E7647 /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C841ACD968A0052578A /* NSMutableDictionary+ImageMetadata.m */; };
 		C587C84F1AD2E6DB003E7647 /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C871ACD968A0052578A /* NSObject+AssociatedObjects.m */; };
 		C587C8501AD2E6DB003E7647 /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C891ACD968A0052578A /* NSObject+Extension.m */; };
 		C587C8511AD2E6DB003E7647 /* NSObject+NibAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C8B1ACD968A0052578A /* NSObject+NibAdditions.m */; };
-		C587C8521AD2E6DB003E7647 /* NSMutableOrderedSet+Sorting.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C8E1ACD968A0052578A /* NSMutableOrderedSet+Sorting.m */; };
-		C587C8531AD2E6DB003E7647 /* NSOrderedSet+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C901ACD968A0052578A /* NSOrderedSet+Additions.m */; };
 		C587C8541AD2E6DB003E7647 /* NSPropertyListSerialization+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C931ACD968A0052578A /* NSPropertyListSerialization+Shorthand.m */; };
 		C587C8551AD2E6DB003E7647 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C961ACD968A0052578A /* NSString+Additions.m */; };
 		C587C8561AD2E6DB003E7647 /* NSString+Documents.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C981ACD968A0052578A /* NSString+Documents.m */; };
@@ -1658,6 +1648,20 @@
 		C5B6D9A51B4AB70C009B9436 /* WLWrapContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6D9A31B4AB70C009B9436 /* WLWrapContributorsRequest.m */; };
 		C5B93D271B4E6CC0005681DB /* WLBlockImageFetching.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D251B4E6CC0005681DB /* WLBlockImageFetching.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5B93D281B4E6CC0005681DB /* WLBlockImageFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B93D261B4E6CC0005681DB /* WLBlockImageFetching.m */; };
+		C5B93D451B4E7BE8005681DB /* NSDictionary+Extended.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D3A1B4E7BE8005681DB /* NSDictionary+Extended.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B93D461B4E7BE8005681DB /* NSDictionary+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B93D3B1B4E7BE8005681DB /* NSDictionary+Extended.m */; };
+		C5B93D471B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D3C1B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B93D481B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B93D3D1B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.m */; };
+		C5B93D4E1B4E7C30005681DB /* WLCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D4D1B4E7C30005681DB /* WLCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B93D561B4E87B0005681DB /* NSSet+WLCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D541B4E87B0005681DB /* NSSet+WLCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B93D571B4E87B0005681DB /* NSSet+WLCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B93D551B4E87B0005681DB /* NSSet+WLCollection.m */; };
+		C5B93D5A1B4E87C3005681DB /* NSArray+WLCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D581B4E87C3005681DB /* NSArray+WLCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B93D5B1B4E87C3005681DB /* NSArray+WLCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B93D591B4E87C3005681DB /* NSArray+WLCollection.m */; };
+		C5B93D5E1B4E8B7F005681DB /* NSOrderedSet+WLCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D5C1B4E8B7F005681DB /* NSOrderedSet+WLCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B93D5F1B4E8B7F005681DB /* NSOrderedSet+WLCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B93D5D1B4E8B7F005681DB /* NSOrderedSet+WLCollection.m */; };
+		C5B93D611B4E8C55005681DB /* WLCollections.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D601B4E8C55005681DB /* WLCollections.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B93D641B4E984C005681DB /* WLDefinedComparators.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D621B4E984C005681DB /* WLDefinedComparators.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B93D651B4E984C005681DB /* WLDefinedComparators.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B93D631B4E984C005681DB /* WLDefinedComparators.m */; };
 		C5B993C51B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */; };
 		C5B993C61B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */; };
 		C5B993C71B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */; };
@@ -2980,26 +2984,16 @@
 		C560D2271AFB7703006B906E /* WLSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSwipeViewController.m; sourceTree = "<group>"; };
 		C560D2321AFBB55E006B906E /* WLHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHistoryViewController.h; sourceTree = "<group>"; };
 		C560D2331AFBB55E006B906E /* WLHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHistoryViewController.m; sourceTree = "<group>"; };
-		C5612C791ACD968A0052578A /* NSArray+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Additions.h"; sourceTree = "<group>"; };
-		C5612C7A1ACD968A0052578A /* NSArray+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Additions.m"; sourceTree = "<group>"; };
 		C5612C7C1ACD968A0052578A /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
 		C5612C7D1ACD968A0052578A /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
 		C5612C7E1ACD968A0052578A /* NSDate+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Formatting.h"; sourceTree = "<group>"; };
 		C5612C7F1ACD968A0052578A /* NSDate+Formatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Formatting.m"; sourceTree = "<group>"; };
-		C5612C811ACD968A0052578A /* NSDictionary+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extended.h"; sourceTree = "<group>"; };
-		C5612C821ACD968A0052578A /* NSDictionary+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extended.m"; sourceTree = "<group>"; };
-		C5612C831ACD968A0052578A /* NSMutableDictionary+ImageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+ImageMetadata.h"; sourceTree = "<group>"; };
-		C5612C841ACD968A0052578A /* NSMutableDictionary+ImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+ImageMetadata.m"; sourceTree = "<group>"; };
 		C5612C861ACD968A0052578A /* NSObject+AssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AssociatedObjects.h"; sourceTree = "<group>"; };
 		C5612C871ACD968A0052578A /* NSObject+AssociatedObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AssociatedObjects.m"; sourceTree = "<group>"; };
 		C5612C881ACD968A0052578A /* NSObject+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extension.h"; sourceTree = "<group>"; };
 		C5612C891ACD968A0052578A /* NSObject+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extension.m"; sourceTree = "<group>"; };
 		C5612C8A1ACD968A0052578A /* NSObject+NibAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+NibAdditions.h"; sourceTree = "<group>"; };
 		C5612C8B1ACD968A0052578A /* NSObject+NibAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+NibAdditions.m"; sourceTree = "<group>"; };
-		C5612C8D1ACD968A0052578A /* NSMutableOrderedSet+Sorting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableOrderedSet+Sorting.h"; sourceTree = "<group>"; };
-		C5612C8E1ACD968A0052578A /* NSMutableOrderedSet+Sorting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableOrderedSet+Sorting.m"; sourceTree = "<group>"; };
-		C5612C8F1ACD968A0052578A /* NSOrderedSet+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+Additions.h"; sourceTree = "<group>"; };
-		C5612C901ACD968A0052578A /* NSOrderedSet+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOrderedSet+Additions.m"; sourceTree = "<group>"; };
 		C5612C921ACD968A0052578A /* NSPropertyListSerialization+Shorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPropertyListSerialization+Shorthand.h"; sourceTree = "<group>"; };
 		C5612C931ACD968A0052578A /* NSPropertyListSerialization+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPropertyListSerialization+Shorthand.m"; sourceTree = "<group>"; };
 		C5612C951ACD968A0052578A /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
@@ -3269,6 +3263,20 @@
 		C5B6D9A31B4AB70C009B9436 /* WLWrapContributorsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapContributorsRequest.m; sourceTree = "<group>"; };
 		C5B93D251B4E6CC0005681DB /* WLBlockImageFetching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBlockImageFetching.h; sourceTree = "<group>"; };
 		C5B93D261B4E6CC0005681DB /* WLBlockImageFetching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLBlockImageFetching.m; sourceTree = "<group>"; };
+		C5B93D3A1B4E7BE8005681DB /* NSDictionary+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extended.h"; sourceTree = "<group>"; };
+		C5B93D3B1B4E7BE8005681DB /* NSDictionary+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extended.m"; sourceTree = "<group>"; };
+		C5B93D3C1B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+ImageMetadata.h"; sourceTree = "<group>"; };
+		C5B93D3D1B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+ImageMetadata.m"; sourceTree = "<group>"; };
+		C5B93D4D1B4E7C30005681DB /* WLCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCollection.h; sourceTree = "<group>"; };
+		C5B93D541B4E87B0005681DB /* NSSet+WLCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSSet+WLCollection.h"; sourceTree = "<group>"; };
+		C5B93D551B4E87B0005681DB /* NSSet+WLCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSet+WLCollection.m"; sourceTree = "<group>"; };
+		C5B93D581B4E87C3005681DB /* NSArray+WLCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+WLCollection.h"; sourceTree = "<group>"; };
+		C5B93D591B4E87C3005681DB /* NSArray+WLCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+WLCollection.m"; sourceTree = "<group>"; };
+		C5B93D5C1B4E8B7F005681DB /* NSOrderedSet+WLCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+WLCollection.h"; sourceTree = "<group>"; };
+		C5B93D5D1B4E8B7F005681DB /* NSOrderedSet+WLCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOrderedSet+WLCollection.m"; sourceTree = "<group>"; };
+		C5B93D601B4E8C55005681DB /* WLCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCollections.h; sourceTree = "<group>"; };
+		C5B93D621B4E984C005681DB /* WLDefinedComparators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDefinedComparators.h; sourceTree = "<group>"; };
+		C5B93D631B4E984C005681DB /* WLDefinedComparators.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDefinedComparators.m; sourceTree = "<group>"; };
 		C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLWKChatReplyPresets.plist; sourceTree = "<group>"; };
 		C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLWKCommentReplyPresets.plist; sourceTree = "<group>"; };
 		C5B993CA1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceController+SimplifiedTextInput.h"; sourceTree = "<group>"; };
@@ -5379,14 +5387,12 @@
 		C5612C771ACD968A0052578A /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C5B93D351B4E7BE8005681DB /* Collections */,
 				C535F9D31AD4321F000C81B4 /* NSData */,
 				C587C8EE1AD2E980003E7647 /* NSUserDefaults */,
 				C5FE0A4E1ACD97F6007DBE95 /* UIView */,
-				C5612C781ACD968A0052578A /* NSArray */,
 				C5612C7B1ACD968A0052578A /* NSDate */,
-				C5612C801ACD968A0052578A /* NSDictionary */,
 				C5612C851ACD968A0052578A /* NSObject */,
-				C5612C8C1ACD968A0052578A /* NSOrderedSet */,
 				C5612C911ACD968A0052578A /* NSPropertyListSerialization */,
 				C5612C941ACD968A0052578A /* NSString */,
 				C5612C9C1ACD968A0052578A /* NSURL */,
@@ -5395,15 +5401,6 @@
 				C5612CA71ACD968A0052578A /* UIImage */,
 			);
 			path = Categories;
-			sourceTree = "<group>";
-		};
-		C5612C781ACD968A0052578A /* NSArray */ = {
-			isa = PBXGroup;
-			children = (
-				C5612C791ACD968A0052578A /* NSArray+Additions.h */,
-				C5612C7A1ACD968A0052578A /* NSArray+Additions.m */,
-			);
-			path = NSArray;
 			sourceTree = "<group>";
 		};
 		C5612C7B1ACD968A0052578A /* NSDate */ = {
@@ -5417,17 +5414,6 @@
 			path = NSDate;
 			sourceTree = "<group>";
 		};
-		C5612C801ACD968A0052578A /* NSDictionary */ = {
-			isa = PBXGroup;
-			children = (
-				C5612C811ACD968A0052578A /* NSDictionary+Extended.h */,
-				C5612C821ACD968A0052578A /* NSDictionary+Extended.m */,
-				C5612C831ACD968A0052578A /* NSMutableDictionary+ImageMetadata.h */,
-				C5612C841ACD968A0052578A /* NSMutableDictionary+ImageMetadata.m */,
-			);
-			path = NSDictionary;
-			sourceTree = "<group>";
-		};
 		C5612C851ACD968A0052578A /* NSObject */ = {
 			isa = PBXGroup;
 			children = (
@@ -5439,17 +5425,6 @@
 				C5612C8B1ACD968A0052578A /* NSObject+NibAdditions.m */,
 			);
 			path = NSObject;
-			sourceTree = "<group>";
-		};
-		C5612C8C1ACD968A0052578A /* NSOrderedSet */ = {
-			isa = PBXGroup;
-			children = (
-				C5612C8D1ACD968A0052578A /* NSMutableOrderedSet+Sorting.h */,
-				C5612C8E1ACD968A0052578A /* NSMutableOrderedSet+Sorting.m */,
-				C5612C8F1ACD968A0052578A /* NSOrderedSet+Additions.h */,
-				C5612C901ACD968A0052578A /* NSOrderedSet+Additions.m */,
-			);
-			path = NSOrderedSet;
 			sourceTree = "<group>";
 		};
 		C5612C911ACD968A0052578A /* NSPropertyListSerialization */ = {
@@ -6175,6 +6150,35 @@
 			path = WLChat;
 			sourceTree = "<group>";
 		};
+		C5B93D351B4E7BE8005681DB /* Collections */ = {
+			isa = PBXGroup;
+			children = (
+				C5B93D4D1B4E7C30005681DB /* WLCollection.h */,
+				C5B93D621B4E984C005681DB /* WLDefinedComparators.h */,
+				C5B93D631B4E984C005681DB /* WLDefinedComparators.m */,
+				C5B93D601B4E8C55005681DB /* WLCollections.h */,
+				C5B93D541B4E87B0005681DB /* NSSet+WLCollection.h */,
+				C5B93D551B4E87B0005681DB /* NSSet+WLCollection.m */,
+				C5B93D581B4E87C3005681DB /* NSArray+WLCollection.h */,
+				C5B93D591B4E87C3005681DB /* NSArray+WLCollection.m */,
+				C5B93D5C1B4E8B7F005681DB /* NSOrderedSet+WLCollection.h */,
+				C5B93D5D1B4E8B7F005681DB /* NSOrderedSet+WLCollection.m */,
+				C5B93D391B4E7BE8005681DB /* NSDictionary */,
+			);
+			path = Collections;
+			sourceTree = "<group>";
+		};
+		C5B93D391B4E7BE8005681DB /* NSDictionary */ = {
+			isa = PBXGroup;
+			children = (
+				C5B93D3A1B4E7BE8005681DB /* NSDictionary+Extended.h */,
+				C5B93D3B1B4E7BE8005681DB /* NSDictionary+Extended.m */,
+				C5B93D3C1B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.h */,
+				C5B93D3D1B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.m */,
+			);
+			path = NSDictionary;
+			sourceTree = "<group>";
+		};
 		C5B993C91B303687002BCC8C /* WKInterfaceController */ = {
 			isa = PBXGroup;
 			children = (
@@ -6687,23 +6691,21 @@
 				C535F9D61AD4321F000C81B4 /* NSData+CommonCrypto.h in Headers */,
 				C587C7931AD2E6A0003E7647 /* UIDevice-Hardware.h in Headers */,
 				C587C7DE1AD2E6A0003E7647 /* WLOperationQueue.h in Headers */,
+				C5B93D611B4E8C55005681DB /* WLCollections.h in Headers */,
 				C587C7C81AD2E6A0003E7647 /* WLMessage.h in Headers */,
 				C587C7B01AD2E6A0003E7647 /* WLVerificationCallRequest.h in Headers */,
 				5B4E6BC81B4C111700B8EE66 /* WLUploadPreferenceRequest.h in Headers */,
 				C587C7BF1AD2E6A0003E7647 /* WLSystemImageCache.h in Headers */,
 				C587C7A61AD2E6A0003E7647 /* WLPostCommentRequest.h in Headers */,
-				C587C7851AD2E6A0003E7647 /* NSDictionary+Extended.h in Headers */,
 				C587C77F1AD2E619003E7647 /* WrapLiveKit-Prefix.pch in Headers */,
 				C587C8D81AD2E708003E7647 /* LogFiles.h in Headers */,
 				C587C7B41AD2E6A0003E7647 /* WLAPIEnvironment+TestUsers.h in Headers */,
-				C587C78B1AD2E6A0003E7647 /* NSOrderedSet+Additions.h in Headers */,
 				C587C7AC1AD2E6A0003E7647 /* WLUploadAPIRequest.h in Headers */,
 				C587C7D41AD2E6A0003E7647 /* WLUser.h in Headers */,
 				C587C7C31AD2E6A0003E7647 /* WLComment+Extended.h in Headers */,
 				C587C7831AD2E6A0003E7647 /* NSDate+Additions.h in Headers */,
 				C587C7E71AD2E6A0003E7647 /* Timecost.h in Headers */,
 				C587C7D71AD2E6A0003E7647 /* WLHistory.h in Headers */,
-				C587C7821AD2E6A0003E7647 /* NSArray+Additions.h in Headers */,
 				C587C8F11AD2E980003E7647 /* NSUserDefaults+WLAppGroup.h in Headers */,
 				C587C7941AD2E6A0003E7647 /* UIImage+Alpha.h in Headers */,
 				C5B233751B29E0C4008A14D1 /* WLEditPicture.h in Headers */,
@@ -6735,10 +6737,11 @@
 				C587C7AF1AD2E6A0003E7647 /* WLUploadWrapRequest.h in Headers */,
 				C587C7CA1AD2E6A0003E7647 /* WLWrap.h in Headers */,
 				C587C7C01AD2E6A0003E7647 /* WLCryptographer.h in Headers */,
-				C587C7861AD2E6A0003E7647 /* NSMutableDictionary+ImageMetadata.h in Headers */,
+				C5B93D451B4E7BE8005681DB /* NSDictionary+Extended.h in Headers */,
 				C587C7D91AD2E6A0003E7647 /* WLImageFetcher.h in Headers */,
 				C587C7D31AD2E6A0003E7647 /* WLUser+Extended.h in Headers */,
 				C55D77EF1AE51BD7006FA19C /* WLSoundPlayer.h in Headers */,
+				C5B93D561B4E87B0005681DB /* NSSet+WLCollection.h in Headers */,
 				C587C7841AD2E6A0003E7647 /* NSDate+Formatting.h in Headers */,
 				C587C7B31AD2E6A0003E7647 /* NSError+WLAPIManager.h in Headers */,
 				C587C7BC1AD2E6A0003E7647 /* WLBroadcaster.h in Headers */,
@@ -6756,14 +6759,16 @@
 				C587C7A01AD2E6A0003E7647 /* WLDeleteCommentRequest.h in Headers */,
 				C5CD95741B4D382E00F5932F /* WLExtensionRequest.h in Headers */,
 				C587C7D11AD2E6A0003E7647 /* WLUploading.h in Headers */,
+				C5B93D4E1B4E7C30005681DB /* WLCollection.h in Headers */,
 				C587C7CF1AD2E6A0003E7647 /* WLEntryKeys.h in Headers */,
 				C587C7C11AD2E6A0003E7647 /* WLCandy+Extended.h in Headers */,
 				C5CD957A1B4D383F00F5932F /* WLExtensionMessage.h in Headers */,
-				C587C78A1AD2E6A0003E7647 /* NSMutableOrderedSet+Sorting.h in Headers */,
 				C587C78F1AD2E6A0003E7647 /* NSString+MD5.h in Headers */,
 				C587C7E61AD2E6A0003E7647 /* SupportHeaders.h in Headers */,
 				C55C8DC01B0CDB5E0085DB60 /* WLAnimation.h in Headers */,
+				C5B93D471B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.h in Headers */,
 				C587C7971AD2E6A0003E7647 /* UIImage+RoundedCorner.h in Headers */,
+				C5B93D5E1B4E8B7F005681DB /* NSOrderedSet+WLCollection.h in Headers */,
 				C587C7E11AD2E6A0003E7647 /* WLSession.h in Headers */,
 				C587C7961AD2E6A0003E7647 /* UIImage+Resize.h in Headers */,
 				C587C79F1AD2E6A0003E7647 /* WLDeleteCandyRequest.h in Headers */,
@@ -6777,6 +6782,7 @@
 				C587C8CF1AD2E708003E7647 /* lecore.h in Headers */,
 				C568C7BC1B21F1D800308CBA /* WLEntry+Containment.h in Headers */,
 				C587C7A51AD2E6A0003E7647 /* WLPaginatedRequest.h in Headers */,
+				C5B93D5A1B4E87C3005681DB /* NSArray+WLCollection.h in Headers */,
 				C587C7D61AD2E6A0003E7647 /* WLEntryNotifier.h in Headers */,
 				C56787F81B0F291A007E4A2B /* WLPostEditingUploadCandyRequest.h in Headers */,
 				C587C8C41AD2E708003E7647 /* UIImageView+AFNetworking.h in Headers */,
@@ -6799,6 +6805,7 @@
 				C587C8D41AD2E708003E7647 /* LeNetworkStatus.h in Headers */,
 				C587C8C71AD2E708003E7647 /* UIProgressView+AFNetworking.h in Headers */,
 				C587C8BE1AD2E708003E7647 /* UIActivityIndicatorView+AFNetworking.h in Headers */,
+				C5B93D641B4E984C005681DB /* WLDefinedComparators.h in Headers */,
 				C587C7B21AD2E6A0003E7647 /* WLWrapsRequest.h in Headers */,
 				C587C7811AD2E6A0003E7647 /* UIView+Shorthand.h in Headers */,
 				C587C7CD1AD2E6A0003E7647 /* WLEntry+Extended.h in Headers */,
@@ -9207,11 +9214,10 @@
 				C587C87A1AD2E6DB003E7647 /* NSError+WLAPIManager.m in Sources */,
 				C587C8CC1AD2E708003E7647 /* UIWebView+AFNetworking.m in Sources */,
 				C587C8561AD2E6DB003E7647 /* NSString+Documents.m in Sources */,
+				C5B93D5B1B4E87C3005681DB /* NSArray+WLCollection.m in Sources */,
 				C587C8D31AD2E708003E7647 /* LELog.m in Sources */,
-				C587C84E1AD2E6DB003E7647 /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				C587C8961AD2E6DB003E7647 /* WLUploading.m in Sources */,
 				C587C89F1AD2E6DB003E7647 /* WLImageView.m in Sources */,
-				C587C8521AD2E6DB003E7647 /* NSMutableOrderedSet+Sorting.m in Sources */,
 				C587C8991AD2E6DB003E7647 /* WLUser.m in Sources */,
 				C587C84B1AD2E6DB003E7647 /* NSDate+Additions.m in Sources */,
 				C587C8601AD2E6DB003E7647 /* WLAddWrapRequest.m in Sources */,
@@ -9223,6 +9229,7 @@
 				C587C89C1AD2E6DB003E7647 /* WLHistory.m in Sources */,
 				C587C8C51AD2E708003E7647 /* UIImageView+AFNetworking.m in Sources */,
 				C587C89D1AD2E6DB003E7647 /* WLHistoryItem.m in Sources */,
+				C5B93D5F1B4E8B7F005681DB /* NSOrderedSet+WLCollection.m in Sources */,
 				C587C86D1AD2E6DB003E7647 /* WLPostCommentRequest.m in Sources */,
 				C587C8A01AD2E6DB003E7647 /* WLNetwork.m in Sources */,
 				C587C8941AD2E6DB003E7647 /* WLEntry.m in Sources */,
@@ -9230,7 +9237,6 @@
 				C587C8A51AD2E6DB003E7647 /* WLPicture.m in Sources */,
 				C587C8621AD2E6DB003E7647 /* WLAuthorizationRequest.m in Sources */,
 				C587C8681AD2E6DB003E7647 /* WLDeleteWrapRequest.m in Sources */,
-				C587C8531AD2E6DB003E7647 /* NSOrderedSet+Additions.m in Sources */,
 				C587C8931AD2E6DB003E7647 /* WLEntry+Extended.m in Sources */,
 				5B4E6BC91B4C111700B8EE66 /* WLUploadPreferenceRequest.m in Sources */,
 				C587C85F1AD2E6DB003E7647 /* UIImage+RoundedCorner.m in Sources */,
@@ -9241,11 +9247,13 @@
 				C587C8921AD2E6DB003E7647 /* WLDevice.m in Sources */,
 				C587C8811AD2E6DB003E7647 /* WLAuthorization.m in Sources */,
 				C587C8BB1AD2E708003E7647 /* AFURLSessionManager.m in Sources */,
+				C5B93D571B4E87B0005681DB /* NSSet+WLCollection.m in Sources */,
 				C587C87E1AD2E6DB003E7647 /* WLAPIResponse.m in Sources */,
 				C587C8C11AD2E708003E7647 /* UIAlertView+AFNetworking.m in Sources */,
 				C55B92021AFA39FE006A3A55 /* WLEntryNotifyReceiver.m in Sources */,
 				C587C8CA1AD2E708003E7647 /* UIRefreshControl+AFNetworking.m in Sources */,
 				C5CD95751B4D382E00F5932F /* WLExtensionRequest.m in Sources */,
+				C5B93D481B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				C587C8581AD2E6DB003E7647 /* NSURL+WLRemoteEntryHandler.m in Sources */,
 				C5CD957B1B4D383F00F5932F /* WLExtensionMessage.m in Sources */,
 				C587C8AC1AD2E708003E7647 /* AFHTTPRequestOperationManager.m in Sources */,
@@ -9259,7 +9267,6 @@
 				C587C86C1AD2E6DB003E7647 /* WLPaginatedRequest.m in Sources */,
 				C587C85A1AD2E6DB003E7647 /* UIDevice+SystemVersion.m in Sources */,
 				C587C85C1AD2E6DB003E7647 /* UIImage+Alpha.m in Sources */,
-				C587C84A1AD2E6DB003E7647 /* NSArray+Additions.m in Sources */,
 				C55D77F01AE51BD7006FA19C /* WLSoundPlayer.m in Sources */,
 				C587C89B1AD2E6DB003E7647 /* WLEntryNotifier.m in Sources */,
 				C587C8DB1AD2E736003E7647 /* OpenUDID.m in Sources */,
@@ -9268,6 +9275,7 @@
 				C587C8A61AD2E6DB003E7647 /* WLSession.m in Sources */,
 				C5BEE0DC1B2AC8B100D3CF70 /* WLEntryNotification.m in Sources */,
 				C587C8641AD2E6DB003E7647 /* WLCandiesRequest.m in Sources */,
+				C5B93D651B4E984C005681DB /* WLDefinedComparators.m in Sources */,
 				C587C8B31AD2E708003E7647 /* AFSecurityPolicy.m in Sources */,
 				C587C8C81AD2E708003E7647 /* UIProgressView+AFNetworking.m in Sources */,
 				C587C86E1AD2E6DB003E7647 /* WLRecentContributionsRequest.m in Sources */,
@@ -9278,7 +9286,6 @@
 				C587C8551AD2E6DB003E7647 /* NSString+Additions.m in Sources */,
 				C587C89E1AD2E6DB003E7647 /* WLImageFetcher.m in Sources */,
 				C587C8B91AD2E708003E7647 /* AFURLResponseSerialization.m in Sources */,
-				C587C84D1AD2E6DB003E7647 /* NSDictionary+Extended.m in Sources */,
 				C587C8791AD2E6DB003E7647 /* WLWrapsRequest.m in Sources */,
 				C587C8891AD2E6DB003E7647 /* WLComment+Extended.m in Sources */,
 				C587C84F1AD2E6DB003E7647 /* NSObject+AssociatedObjects.m in Sources */,
@@ -9317,6 +9324,7 @@
 				C587C87F1AD2E6DB003E7647 /* WLLogger.m in Sources */,
 				C587C8C31AD2E708003E7647 /* UIButton+AFNetworking.m in Sources */,
 				C587C87B1AD2E6DB003E7647 /* WLAPIEnvironment+TestUsers.m in Sources */,
+				C5B93D461B4E7BE8005681DB /* NSDictionary+Extended.m in Sources */,
 				C587C8691AD2E6DB003E7647 /* WLEntityRequest.m in Sources */,
 				C587C8A41AD2E6DB003E7647 /* WLPaginatedSet.m in Sources */,
 			);

@@ -31,7 +31,7 @@
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLWrap *wrap = self.wrap;
     if (wrap.valid) {
-        NSOrderedSet* messages = [WLMessage API_entries:response.data[@"chats"] relatedEntry:wrap];
+        NSSet* messages = [WLMessage API_entries:response.data[@"chats"] relatedEntry:wrap];
         if (messages.nonempty) {
             [wrap notifyOnUpdate:nil];
         }

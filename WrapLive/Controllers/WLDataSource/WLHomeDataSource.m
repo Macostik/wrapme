@@ -38,7 +38,7 @@
                 [operation finish];
                 return;
             }
-            [wrap fetch:WLWrapContentTypeRecent success:^(NSOrderedSet* candies) {
+            [wrap fetch:WLWrapContentTypeRecent success:^(NSSet* set) {
                 [operation finish];
             } failure:^(NSError *error) {
                 [operation finish];
@@ -48,7 +48,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    self.wrap = [self.items tryObjectAtIndex:0];
+    self.wrap = [self.items tryAt:0];
     return [super collectionView:collectionView numberOfItemsInSection:section];
 }
 

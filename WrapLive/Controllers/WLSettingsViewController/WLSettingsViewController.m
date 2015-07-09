@@ -51,7 +51,7 @@
             [[WLEntryManager manager] deleteEntry:entry];
         }
     }];
-    currentUser.wraps = [NSMutableOrderedSet orderedSet];
+    currentUser.wraps = [NSSet set];
     [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
 }
 

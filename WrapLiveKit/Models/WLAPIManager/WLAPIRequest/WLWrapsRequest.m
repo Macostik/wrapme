@@ -15,14 +15,9 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    NSOrderedSet* wraps = [WLWrap API_entries:[response.data arrayForKey:@"wraps"]];
+    NSSet* wraps = [WLWrap API_entries:[response.data arrayForKey:@"wraps"]];
     if (wraps.nonempty) {
         [[WLUser currentUser] addWraps:wraps];
-        id candies = [response.data arrayForKey:@"recent_candies"];
-        if (candies) {
-            WLWrap* wrap = [wraps firstObject];
-            [wrap addCandies:[WLCandy API_entries:candies relatedEntry:wrap]];
-        }
     }
     return wraps;
 }

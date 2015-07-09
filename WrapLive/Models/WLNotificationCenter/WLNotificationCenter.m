@@ -291,24 +291,24 @@
         return [notifications copy];
     }
     
-    NSArray *deleteNotifications = [notifications objectsWhere:@"event == %d", WLEventDelete];
+    NSArray *deleteNotifications = [notifications where:@"event == %d", WLEventDelete];
     
     for (WLEntryNotification *notification in deleteNotifications) {
         if (![notifications containsObject:notification]) {
             continue;
         }
-        NSArray *deleted = [deleteNotifications objectsWhere:@"entryIdentifier == %@", notification.entryIdentifier];
-        NSArray *added = [notifications objectsWhere:@"event == %d AND entryIdentifier == %@", WLEventAdd, notification.entryIdentifier];
+        NSArray *deleted = [deleteNotifications where:@"entryIdentifier == %@", notification.entryIdentifier];
+        NSArray *added = [notifications where:@"event == %d AND entryIdentifier == %@", WLEventAdd, notification.entryIdentifier];
         if (added.count > deleted.count) {
-            added = [added arrayByRemovingObject:[added lastObject]];
+            added = [added remove:[added lastObject]];
         } else if (added.count < deleted.count) {
-            deleted = [deleted arrayByRemovingObject:[deleted lastObject]];
+            deleted = [deleted remove:[deleted lastObject]];
         }
         [notifications removeObjectsInArray:deleted];
         [notifications removeObjectsInArray:added];
     }
     
-    deleteNotifications = [notifications objectsWhere:@"event == %d", WLEventDelete];
+    deleteNotifications = [notifications where:@"event == %d", WLEventDelete];
     
     deleteNotifications = [deleteNotifications sortedArrayUsingComparator:^NSComparisonResult(WLEntryNotification* n1, WLEntryNotification* n2) {
         return [[n1.entryClass uploadingOrder] compare:[n2.entryClass uploadingOrder]];
@@ -320,7 +320,7 @@
         }
         NSString *entryIdentifier = deleteNotification.entryIdentifier;
         if (entryIdentifier.nonempty) {
-            NSArray *discardedNotifications = [notifications objectsWhere:@"SELF != %@ AND (entryIdentifier == %@ OR containingEntryIdentifier == %@)",deleteNotification, entryIdentifier, entryIdentifier];
+            NSArray *discardedNotifications = [notifications where:@"SELF != %@ AND (entryIdentifier == %@ OR containingEntryIdentifier == %@)",deleteNotification, entryIdentifier, entryIdentifier];
             [notifications removeObjectsInArray:discardedNotifications];
             if (![deleteNotification.entryClass entryExists:entryIdentifier]) {
                 [notifications removeObject:deleteNotification];

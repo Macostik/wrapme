@@ -16,7 +16,7 @@
 #import "WLContribution+Extended.h"
 #import "WLUploading+Extended.h"
 #import "WLMessage+Extended.h"
-#import "NSOrderedSet+Additions.h"
+#import "WLCollections.h"
 
 @interface WLEntryManager : NSObject
 
@@ -46,6 +46,8 @@
 
 - (NSArray*)executeFetchRequest:(NSFetchRequest*)request;
 
+- (void)executeFetchRequest:(NSFetchRequest*)request success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
 - (void)clear;
 
 @end
@@ -72,6 +74,12 @@
 
 + (NSMutableOrderedSet *)entriesSortedBy:(NSString*)key ascending:(BOOL)ascending where:(NSString *)predicateFormat, ...;
 
++ (void)entries:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
++ (void)entries:(void (^)(NSFetchRequest* request))configure success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
++ (void)entriesWithPredicate:(NSPredicate*)predicate success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
 + (BOOL)entryExists:(NSString*)identifier;
 
 - (void)save;
@@ -83,5 +91,7 @@
 @interface NSFetchRequest (WLEntryManager)
 
 - (NSArray*)execute;
+
+- (void)execute:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 @end

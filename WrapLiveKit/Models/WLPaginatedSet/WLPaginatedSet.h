@@ -39,7 +39,7 @@
 
 @property (nonatomic) BOOL sortDescending;
 
-+ (instancetype)setWithEntries:(NSOrderedSet*)entries request:(WLPaginatedRequest*)request;
++ (instancetype)setWithEntries:(NSSet*)entries request:(WLPaginatedRequest*)request;
 
 + (instancetype)setWithRequest:(WLPaginatedRequest*)request;
 
@@ -49,17 +49,17 @@
 
 - (NSDate*)olderPaginationDate;
 
-- (void)resetEntries:(NSOrderedSet*)entries;
+- (void)resetEntries:(NSSet*)entries;
 
-- (void)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (void)fresh:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
-- (void)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (void)newer:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
-- (void)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (void)older:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
-- (void)handleResponse:(NSOrderedSet*)entries;
+- (void)handleResponse:(NSSet*)entries;
 
-- (BOOL)addEntries:(NSOrderedSet *)entries;
+- (BOOL)addEntries:(NSSet *)entries;
 
 - (BOOL)addEntry:(id)entry;
 
@@ -69,7 +69,7 @@
 
 - (void)sort:(id)entry;
 
-- (void)recursiveOlder:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (void)recursiveOlder:(WLFailureBlock)failure;
 
 - (void)didChange;
 

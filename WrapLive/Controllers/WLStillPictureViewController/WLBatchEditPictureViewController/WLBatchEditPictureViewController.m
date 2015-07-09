@@ -184,7 +184,7 @@
 // MARK: - WLSwipeViewController
 
 - (UIViewController *)viewControllerAfterViewController:(WLEditPictureViewController *)viewController {
-    WLEditPicture *picture = [self.pictures tryObjectAtIndex:[self.pictures indexOfObject:viewController.picture] + 1];
+    WLEditPicture *picture = [self.pictures tryAt:[self.pictures indexOfObject:viewController.picture] + 1];
     if (picture) {
         return [self editPictureViewControllerForPicture:picture];
     }
@@ -192,7 +192,7 @@
 }
 
 - (UIViewController *)viewControllerBeforeViewController:(WLEditPictureViewController *)viewController {
-    WLEditPicture *picture = [self.pictures tryObjectAtIndex:[self.pictures indexOfObject:viewController.picture] - 1];
+    WLEditPicture *picture = [self.pictures tryAt:[self.pictures indexOfObject:viewController.picture] - 1];
     if (picture) {
         return [self editPictureViewControllerForPicture:picture];
     }
@@ -206,7 +206,7 @@
 // MARK: - Actions
 
 - (IBAction)upload:(id)sender {
-    NSArray *pictures = [self.pictures selectObjects:^BOOL(WLEditPicture *picture) {
+    NSArray *pictures = [self.pictures selects:^BOOL(WLEditPicture *picture) {
         return ![picture deleted];
     }];
     if (pictures.nonempty) {

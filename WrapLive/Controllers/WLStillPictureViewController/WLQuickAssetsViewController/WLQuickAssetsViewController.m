@@ -12,7 +12,7 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "WLToast.h"
 #import "UIButton+Additions.h"
-#import "NSArray+Additions.h"
+#import "WLCollections.h"
 #import "WLWrapView.h"
 
 @interface WLQuickAssetsViewController () <WLAssetCellDelegate>
@@ -67,7 +67,7 @@
 }
 
 - (void)setAssets:(NSArray *)assets {
-    _assets = [assets selectObjects:^BOOL(ALAsset* asset) {
+    _assets = [assets selects:^BOOL(ALAsset* asset) {
         return ![self.selectedAssets containsObject:asset.ID];
     }];
     self.dataSource.items = _assets;

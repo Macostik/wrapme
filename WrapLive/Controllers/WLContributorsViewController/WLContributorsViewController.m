@@ -85,7 +85,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 }
 
 - (NSMutableOrderedSet*)sortedContributors {
-    NSMutableOrderedSet *contributors = [self.wrap.contributors mutableCopy];
+    NSMutableOrderedSet *contributors = [NSMutableOrderedSet orderedSetWithSet:self.wrap.contributors];
     [contributors sortUsingComparator:^NSComparisonResult(WLUser *obj1, WLUser *obj2) {
         if ([obj1 isCurrentUser]) {
             return NSOrderedDescending;

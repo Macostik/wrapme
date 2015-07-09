@@ -70,13 +70,13 @@ typedef void (^WLContributionUpdatePreparingBlock)(WLContribution *contribution,
 
 @interface WLWrap (WLAPIManager)
 
-- (id)fetch:(NSString*)contentType success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)fetch:(NSString*)contentType success:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)messagesNewer:(NSDate*)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)messagesNewer:(NSDate*)newer success:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)messagesOlder:(NSDate*)older newer:(NSDate*)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)messagesOlder:(NSDate*)older newer:(NSDate*)newer success:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)messages:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+- (id)messages:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
 - (id)latestMessage:(WLMessageBlock)success failure:(WLFailureBlock)failure;
 

@@ -1,9 +1,9 @@
 //
 //  WLCandy.m
-//  WrapLive
+//  wrapLive
 //
-//  Created by Sergey Maximenko on 13.06.14.
-//  Copyright (c) 2014 Mobidev. All rights reserved.
+//  Created by Sergey Maximenko on 7/9/15.
+//  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
 #import "WLCandy.h"
@@ -13,10 +13,10 @@
 
 @implementation WLCandy
 
-@dynamic type;
 @dynamic commentCount;
-@dynamic wrap;
-@dynamic comments;
 @dynamic editedPicture;
+@dynamic type;
+@dynamic comments;
+@dynamic wrap;
 
 @end

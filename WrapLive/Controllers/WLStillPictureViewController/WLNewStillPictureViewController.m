@@ -20,7 +20,7 @@
 #import "WLNavigationHelper.h"
 #import "UIButton+Additions.h"
 #import "WLBatchEditPictureViewController.h"
-#import "NSArray+Additions.h"
+#import "WLCollections.h"
 
 @interface WLNewStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate, WLBatchEditPictureViewControllerDelegate>
 
@@ -106,7 +106,7 @@
 }
 
 - (void)quickAssetsViewController:(WLQuickAssetsViewController *)controller didDeselectAsset:(ALAsset *)asset {
-    [self.pictures removeObjectsWhileEnumerating:^BOOL(WLEditPicture* picture) {
+    [self.pictures removeSelectively:^BOOL(WLEditPicture* picture) {
         return [picture.assetID isEqualToString:asset.ID];
     }];
     [self updatePicturesCountLabel];

@@ -56,7 +56,7 @@
     
     NSUInteger unreadEntriesCount = 0;
     
-    NSMutableOrderedSet *events = [NSMutableOrderedSet orderedSet];
+    NSMutableSet *events = [NSMutableSet set];
     
     NSPredicate *contributionsPredicate = [self predicateByAddingVariables:self.contributionsPredicate];
     

@@ -8,7 +8,7 @@
 
 #import "NSDictionary+Extended.h"
 #import "NSDate+Formatting.h"
-#import "NSArray+Additions.h"
+#import "WLCollections.h"
 #import "NSString+Additions.h"
 
 @implementation NSDictionary (Extended)

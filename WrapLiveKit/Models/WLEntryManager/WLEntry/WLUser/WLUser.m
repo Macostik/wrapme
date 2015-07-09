@@ -1,12 +1,13 @@
 //
 //  WLUser.m
-//  WrapLive
+//  wrapLive
 //
-//  Created by Sergey Maximenko on 11/10/14.
-//  Copyright (c) 2014 Ravenpod. All rights reserved.
+//  Created by Sergey Maximenko on 7/9/15.
+//  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
 #import "WLUser.h"
+#import "WLCandy.h"
 #import "WLContribution.h"
 #import "WLDevice.h"
 #import "WLWrap.h"
@@ -18,9 +19,9 @@
 @dynamic firstTimeUse;
 @dynamic name;
 @dynamic contributions;
-@dynamic wraps;
 @dynamic devices;
 @dynamic editings;
+@dynamic wraps;
 
 @synthesize phones = _phones;
 @synthesize securePhones = _securePhones;

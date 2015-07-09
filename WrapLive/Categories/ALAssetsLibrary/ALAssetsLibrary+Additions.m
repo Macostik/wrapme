@@ -9,7 +9,7 @@
 #import "ALAssetsLibrary+Additions.h"
 #import <ImageIO/ImageIO.h>
 #import <objc/runtime.h>
-#import "NSArray+Additions.h"
+#import "WLCollections.h"
 #import "NSString+Additions.h"
 
 @implementation ALAssetsLibrary (PGTools)

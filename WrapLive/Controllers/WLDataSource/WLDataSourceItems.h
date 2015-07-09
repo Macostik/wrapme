@@ -11,11 +11,13 @@
 
 @protocol WLDataSourceItems <NSObject>
 
+@optional
+
 @property (nonatomic, readonly) NSUInteger count;
 
 - (id)objectAtIndex:(NSUInteger)index;
 
-- (id)tryObjectAtIndex:(NSUInteger)index;
+- (id)tryAt:(NSUInteger)index;
 
 @end
 

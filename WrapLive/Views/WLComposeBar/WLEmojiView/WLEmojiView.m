@@ -12,7 +12,7 @@
 #import "SegmentedControl.h"
 #import "UIColor+CustomColors.h"
 #import "NSObject+NibAdditions.h"
-#import "NSArray+Additions.h"
+#import "WLCollections.h"
 #import "WLEmoji.h"
 
 @interface WLEmojiView () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SegmentedControlDelegate>

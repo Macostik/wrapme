@@ -90,12 +90,12 @@
 }
 
 - (IBAction)resendInvite:(WLButton*)sender {
-    self.cells = [self.cells arrayByReplacingObject:@"resendInviteAction" withObject:@"resendingSpinner"];
+    self.cells = [self.cells replace:@"resendInviteAction" with:@"resendingSpinner"];
     __weak typeof(self)weakSelf = self;
     sender.userInteractionEnabled = NO;
     [self.delegate contributorCell:self didInviteContributor:self.entry completionHandler:^(BOOL success) {
         sender.userInteractionEnabled = NO;
-        weakSelf.cells = [weakSelf.cells arrayByReplacingObject:@"resendingSpinner" withObject:success ? @"resendDone" : @"resendInviteAction"];
+        weakSelf.cells = [weakSelf.cells replace:@"resendingSpinner" with:success ? @"resendDone" : @"resendInviteAction"];
     }];
 }
 

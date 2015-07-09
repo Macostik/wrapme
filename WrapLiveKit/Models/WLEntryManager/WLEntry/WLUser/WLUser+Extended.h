@@ -22,9 +22,9 @@ static NSUInteger WLPhoneNumberLimit = 20;
 @property (readonly, nonatomic) NSString *invitationHintText;
 
 - (void)addWrap:(WLWrap*)wrap;
-- (void)addWraps:(NSOrderedSet*)wraps;
+
 - (void)removeWrap:(WLWrap*)wrap;
-- (void)sortWraps;
+
 - (NSMutableOrderedSet*)sortedWraps;
 
 @end

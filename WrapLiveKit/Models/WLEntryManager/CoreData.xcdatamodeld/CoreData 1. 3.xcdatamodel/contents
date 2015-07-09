@@ -4,7 +4,7 @@
         <attribute name="commentCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="editedPicture" optional="YES" attributeType="Transformable" valueTransformerName="pictureTransformer" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="WLComment" inverseName="candy" inverseEntity="WLComment" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WLComment" inverseName="candy" inverseEntity="WLComment" syncable="YES"/>
         <relationship name="wrap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLWrap" inverseName="candies" inverseEntity="WLWrap" syncable="YES"/>
     </entity>
     <entity name="WLComment" representedClassName="WLComment" parentEntity="WLContribution" syncable="YES">
@@ -47,21 +47,19 @@
         <attribute name="current" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="firstTimeUse" optional="YES" attributeType="Boolean" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="contributions" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WLContribution" inverseName="contributor" inverseEntity="WLContribution" syncable="YES"/>
-        <relationship name="devices" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="WLDevice" inverseName="owner" inverseEntity="WLDevice" syncable="YES"/>
+        <relationship name="contributions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WLContribution" inverseName="contributor" inverseEntity="WLContribution" syncable="YES"/>
+        <relationship name="devices" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WLDevice" inverseName="owner" inverseEntity="WLDevice" syncable="YES"/>
         <relationship name="editings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WLCandy" inverseName="editor" inverseEntity="WLContribution" syncable="YES"/>
-        <relationship name="wraps" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WLWrap" inverseName="contributors" inverseEntity="WLWrap" syncable="YES"/>
+        <relationship name="wraps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WLWrap" inverseName="contributors" inverseEntity="WLWrap" syncable="YES"/>
         <userInfo/>
     </entity>
     <entity name="WLWrap" representedClassName="WLWrap" parentEntity="WLContribution">
         <attribute name="isCandyNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="isChatNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="isDefault" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="lastUnread" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="candies" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="WLCandy" inverseName="wrap" inverseEntity="WLCandy" syncable="YES"/>
-        <relationship name="contributors" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WLUser" inverseName="wraps" inverseEntity="WLUser" syncable="YES"/>
-        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="WLMessage" inverseName="wrap" inverseEntity="WLMessage" syncable="YES"/>
+        <relationship name="candies" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WLCandy" inverseName="wrap" inverseEntity="WLCandy" syncable="YES"/>
+        <relationship name="contributors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WLUser" inverseName="wraps" inverseEntity="WLUser" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WLMessage" inverseName="wrap" inverseEntity="WLMessage" syncable="YES"/>
         <userInfo/>
     </entity>
     <elements>
@@ -73,6 +71,6 @@
         <element name="WLMessage" positionX="18" positionY="72" width="128" height="73"/>
         <element name="WLUploading" positionX="0" positionY="0" width="128" height="75"/>
         <element name="WLUser" positionX="0" positionY="0" width="128" height="150"/>
-        <element name="WLWrap" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="WLWrap" positionX="0" positionY="0" width="128" height="135"/>
     </elements>
 </model>

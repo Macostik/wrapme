@@ -163,7 +163,7 @@ static BOOL authorized = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         runUnaryQueuedOperation(WLOperationFetchingDataQueue,^(WLOperation *operation) {
-            [[WLWrapsRequest request] fresh:^(NSOrderedSet *orderedSet) {
+            [[WLWrapsRequest request] fresh:^(NSSet *set) {
                 NSOrderedSet *wraps = [user sortedWraps];
                 if (wraps.count > 0) {
                     [wraps enumerateObjectsUsingBlock:^(WLWrap *wrap, NSUInteger idx, BOOL *stop) {

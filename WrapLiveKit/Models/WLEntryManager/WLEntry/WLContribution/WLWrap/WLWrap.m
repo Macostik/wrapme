@@ -1,25 +1,24 @@
 //
 //  WLWrap.m
-//  WrapLive
+//  wrapLive
 //
-//  Created by Sergey Maximenko on 13.06.14.
-//  Copyright (c) 2014 Mobidev. All rights reserved.
+//  Created by Sergey Maximenko on 7/9/15.
+//  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
 #import "WLWrap.h"
 #import "WLCandy.h"
+#import "WLMessage.h"
 #import "WLUser.h"
 
 
 @implementation WLWrap
 
-@dynamic name;
-@dynamic candies;
-@dynamic messages;
-@dynamic contributors;
-@dynamic isDefault;
-@dynamic lastUnread;
 @dynamic isCandyNotifiable;
 @dynamic isChatNotifiable;
+@dynamic name;
+@dynamic candies;
+@dynamic contributors;
+@dynamic messages;
 
 @end

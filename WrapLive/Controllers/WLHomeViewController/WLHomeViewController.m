@@ -95,7 +95,7 @@
         return (index == 0) ? @"WLTopWrapCell" : @"WLWrapCell";
     }];
     
-    NSMutableOrderedSet* wraps = [[WLUser currentUser] sortedWraps];
+    NSSet* wraps = [WLUser currentUser].wraps;
     dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLWrapsRequest new]];
     
     [dataSource setSelectionBlock:^(id entry) {
@@ -131,7 +131,7 @@
     __weak typeof(self)weakSelf = self;
     runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
         WLUser *user = [WLUser currentUser];
-        NSOrderedSet *wraps = user.wraps;
+        NSSet *wraps = user.wraps;
         NSUInteger numberOfLaunches = [WLSession numberOfLaunches];
         
         void (^showBlock)(void) = ^ {
@@ -296,7 +296,7 @@
         }];
         [receiver setDidUpdateBlock:^(WLWrap *wrap) {
             WLPaginatedSet *wraps = [weakSelf.dataSource items];
-            [wraps resetEntries:[[WLUser currentUser] sortedWraps]];
+            [wraps resetEntries:[[WLUser currentUser] wraps]];
         }];
         [receiver setWillDeleteBlock:^(WLWrap *wrap) {
             WLPaginatedSet *wraps = [weakSelf.dataSource items];

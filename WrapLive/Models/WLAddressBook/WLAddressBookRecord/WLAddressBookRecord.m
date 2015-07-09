@@ -93,12 +93,12 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 
 - (NSString *)name {
     if (!_name.nonempty) {
-        _name = [[self.phoneNumbers selectObject:^BOOL(WLAddressBookPhoneNumber* person) {
+        _name = [[self.phoneNumbers select:^BOOL(WLAddressBookPhoneNumber* person) {
             return person.user.name.nonempty;
         }] name];
     }
     if (!_name.nonempty) {
-        _name = [[self.phoneNumbers selectObject:^BOOL(WLAddressBookPhoneNumber* person) {
+        _name = [[self.phoneNumbers select:^BOOL(WLAddressBookPhoneNumber* person) {
             return person.phone.nonempty;
         }] phone];
     }

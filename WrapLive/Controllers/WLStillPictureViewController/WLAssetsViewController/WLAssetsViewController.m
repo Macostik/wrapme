@@ -13,7 +13,7 @@
 #import "NSObject+NibAdditions.h"
 #import "WLToast.h"
 #import "UIButton+Additions.h"
-#import "NSArray+Additions.h"
+#import "WLCollections.h"
 #import "WLWrapView.h"
 #import "WLBasicDataSource.h"
 
@@ -145,7 +145,7 @@ static NSUInteger WLAssetsSelectionLimit = 10;
     [self.spinner startAnimating];
     __weak typeof(self)weakSelf = self;
     [self.delegate assetsViewController:self didSelectAssets:[self.selectedAssets map:^id(NSString* assetID) {
-        return [weakSelf.assets selectObject:^BOOL(ALAsset* asset) {
+        return [weakSelf.assets select:^BOOL(ALAsset* asset) {
             return [asset.ID isEqualToString:assetID];
         }];
     }]];

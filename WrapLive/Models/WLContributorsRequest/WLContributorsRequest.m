@@ -57,7 +57,7 @@
     NSMutableSet *registeredUsers = [NSMutableSet set];
     return [contacts map:^id(WLAddressBookRecord* contact) {
         contact.phoneNumbers = [contact.phoneNumbers map:^id(WLAddressBookPhoneNumber *phoneNumber) {
-            NSDictionary *userData = [[users objectsWhere:@"address_book_number == %@", phoneNumber.phone] lastObject];
+            NSDictionary *userData = [[users where:@"address_book_number == %@", phoneNumber.phone] lastObject];
             if (userData) {
                 WLUser *user = [WLUser API_entry:userData];
                 if (user) {

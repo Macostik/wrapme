@@ -28,44 +28,23 @@
                medium:[dictionary stringForKey:WLMediumAvatarKey]
                 small:[dictionary stringForKey:WLSmallAvatarKey]];
     
-    NSMutableOrderedSet* devices = [WLDevice API_entries:[dictionary arrayForKey:@"devices"] relatedEntry:self];
-    if (![self.devices isEqualToOrderedSet:devices]) self.devices = devices;
+    NSSet* devices = [WLDevice API_entries:[dictionary arrayForKey:@"devices"] relatedEntry:self];
+    if (![self.devices isEqualToSet:devices]) self.devices = devices;
     self.phones = nil;
     
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }
 
 - (void)addWrap:(WLWrap *)wrap {
-    if (!wrap || [self.wraps containsObject:wrap]) {
-        [self sortWraps];
-        return;
-    }
-    if (!self.wraps) self.wraps = [NSMutableOrderedSet orderedSet];
-    [self.wraps addObject:wrap comparator:comparatorByUpdatedAt descending:YES];
-}
-
-- (void)addWraps:(NSOrderedSet *)wraps {
-    if (!self.wraps) self.wraps = [NSMutableOrderedSet orderedSet];
-    [self.wraps unionOrderedSet:wraps];
-    [self sortWraps];
+    [self addWrapsObject:wrap];
 }
 
 - (void)removeWrap:(WLWrap *)wrap {
-    if ([self.wraps containsObject:wrap]) {
-        [self.wraps removeObject:wrap];
-    }
-}
-
-- (void)sortWraps {
-    NSMutableOrderedSet* wraps = self.wraps;
-    if ([wraps sortByUpdatedAt]) {
-        self.wraps = wraps;
-    }
+    [self removeWrapsObject:wrap];
 }
 
 - (NSMutableOrderedSet *)sortedWraps {
-    [self sortWraps];
-    return self.wraps;
+    return [[NSMutableOrderedSet orderedSetWithSet:self.wraps] sortByCreatedAt];
 }
 
 - (BOOL)isSignupCompleted {
@@ -74,7 +53,7 @@
 
 - (BOOL)isInvited {
     if ([self isCurrentUser]) return NO;
-    NSOrderedSet *devices = self.devices;
+    NSSet *devices = self.devices;
     if (devices.nonempty) {
         for (WLDevice *device in devices) {
             if (device.activated) {
@@ -88,7 +67,7 @@
 }
 
 - (NSDate *)invitedAt {
-    return [(WLDevice*)[self.devices lastObject] invitedAt];
+    return [(WLDevice*)[self.devices anyObject] invitedAt];
 }
 
 - (NSString *)invitationHintText {

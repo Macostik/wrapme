@@ -37,10 +37,10 @@
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLWrap *wrap = self.wrap;
     if (wrap.valid) {
-        NSMutableOrderedSet* oldCandies = [wrap.candies mutableCopy];
+        NSSet* oldCandies = [wrap.candies copy];
         [wrap update:response.data[WLWrapKey]];
-        NSMutableOrderedSet* newCandies = [wrap.candies mutableCopy];
-        [newCandies minusOrderedSet:oldCandies];
+        NSMutableSet* newCandies = [wrap.candies mutableCopy];
+        [newCandies minusSet:oldCandies];
         return newCandies;
     }
     return nil;

@@ -8,9 +8,8 @@
 
 #import "WLEntry.h"
 #import "NSDictionary+Extended.h"
-#import "NSArray+Additions.h"
+#import "WLCollections.h"
 #import "NSString+Additions.h"
-#import "NSMutableOrderedSet+Sorting.h"
 #import "WLEntryKeys.h"
 #import "WLEntry+Containment.h"
 
@@ -20,13 +19,13 @@
 
 + (instancetype)entry:(NSString *)identifier containingEntry:(WLEntry*)containingEntry;
 
-+ (NSMutableOrderedSet*)API_entries:(NSArray*)array;
++ (NSSet*)API_entries:(NSArray*)array;
 
 + (instancetype)API_entry:(NSDictionary*)dictionary;
 
-+ (NSMutableOrderedSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry;
++ (NSSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry;
 
-+ (NSMutableOrderedSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry container:(NSMutableOrderedSet*)container;
++ (NSSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry container:(NSMutableSet*)container;
 
 + (instancetype)API_entry:(NSDictionary*)dictionary relatedEntry:(id)relatedEntry;
 

@@ -29,7 +29,7 @@
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLWrap *wrap = self.wrap;
     if (wrap.valid) {
-        NSOrderedSet* candies = [WLCandy API_entries:response.data[WLCandiesKey] relatedEntry:wrap];
+        NSSet* candies = [WLCandy API_entries:response.data[WLCandiesKey] relatedEntry:wrap];
         [wrap addCandies:candies];
         return candies;
     }

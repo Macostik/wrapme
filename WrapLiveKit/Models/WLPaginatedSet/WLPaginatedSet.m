@@ -18,7 +18,7 @@
 
 @implementation WLPaginatedSet
 
-+ (instancetype)setWithEntries:(NSOrderedSet *)entries request:(WLPaginatedRequest *)request {
++ (instancetype)setWithEntries:(NSSet *)entries request:(WLPaginatedRequest *)request {
     WLPaginatedSet* set = [[WLPaginatedSet alloc] init];
     set.request = request;
     [set resetEntries:entries];
@@ -39,34 +39,33 @@
     return self;
 }
 
-- (void)resetEntries:(NSOrderedSet *)entries {
+- (void)resetEntries:(NSSet *)entries {
     [self.entries removeAllObjects];
-    [self.entries unionOrderedSet:entries];
+    [self.entries unionSet:entries];
     [self sort];
 }
 
-- (void)fresh:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (void)fresh:(WLSetBlock)success failure:(WLFailureBlock)failure {
     [self send:WLPaginatedRequestTypeFresh success:success failure:failure];
 }
 
-- (void)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (void)newer:(WLSetBlock)success failure:(WLFailureBlock)failure {
     [self send:WLPaginatedRequestTypeNewer success:success failure:failure];
 }
 
-- (void)older:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (void)older:(WLSetBlock)success failure:(WLFailureBlock)failure {
     [self send:WLPaginatedRequestTypeOlder success:success failure:failure];
 }
 
-- (void)recursiveOlder:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    [self older:^(NSOrderedSet *orderedSet) {
-        if (success) success(orderedSet);
+- (void)recursiveOlder:(WLFailureBlock)failure {
+    [self older:^(NSSet *set) {
         if (!self.completed) {
-            [self recursiveOlder:success failure:failure];
+            [self recursiveOlder:failure];
         }
     } failure:failure];
 }
 
-- (id)send:(WLPaginatedRequestType)type success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)send:(WLPaginatedRequestType)type success:(WLSetBlock)success failure:(WLFailureBlock)failure {
     WLPaginatedRequest* request = self.request;
     if (request) {
         __weak typeof(self)weakSelf = self;
@@ -74,10 +73,10 @@
             if (weakSelf && request) {
                 weakSelf.request.type = type;
                 [weakSelf configureRequest:request];
-                [request send:^(NSOrderedSet *orderedSet) {
-                    [weakSelf handleResponse:orderedSet];
+                [request send:^(NSSet *set) {
+                    [weakSelf handleResponse:set];
                     [operation finish];
-                    if (success) success(orderedSet);
+                    if (success) success(set);
                 } failure:^(NSError *error) {
                     [operation finish];
                     if (failure) failure(error);
@@ -112,7 +111,7 @@
     return lastEntry.paginationDate;
 }
 
-- (void)handleResponse:(NSOrderedSet*)entries {
+- (void)handleResponse:(NSSet*)entries {
     if ((!entries.nonempty || ![self addEntries:entries]) && self.request.type == WLPaginatedRequestTypeOlder) {
         self.completed = YES;
     } else if (!self.entries.nonempty) {
@@ -134,11 +133,11 @@
 
 }
 
-- (BOOL)addEntries:(NSOrderedSet *)entries {
-    if (!entries.nonempty || [entries isSubsetOfOrderedSet:self.entries]) {
+- (BOOL)addEntries:(NSSet *)entries {
+    if (!entries.nonempty || [entries isSubsetOfSet:self.entries.set]) {
         return NO;
     }
-    [self.entries unionOrderedSet:entries];
+    [self.entries unionSet:entries];
     [self sort];
     return YES;
 }
@@ -147,7 +146,7 @@
     if ([self.entries containsObject:entry]) {
         return NO;
     }
-    [self.entries addObject:entry comparator:self.sortComparator descending:self.sortDescending];
+    [self.entries add:entry comparator:self.sortComparator descending:self.sortDescending];
     [self didChange];
     return YES;
 }

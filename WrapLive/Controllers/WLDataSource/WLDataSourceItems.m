@@ -7,6 +7,7 @@
 //
 
 #import "WLDataSourceItems.h"
+#import "WLCollections.h"
 
 @implementation NSArray (WLDataSourceItems) @end
 
@@ -22,8 +23,8 @@
     return [self.entries objectAtIndex:index];
 }
 
-- (id)tryObjectAtIndex:(NSUInteger)index {
-    return [self.entries tryObjectAtIndex:index];
+- (id)tryAt:(NSUInteger)index {
+    return [self.entries tryAt:index];
 }
 
 @end

@@ -31,7 +31,7 @@
     
     NSMutableArray *contributors = [NSMutableArray arrayWithArray:self.contributors];
     
-    NSArray* registeredContributors = [self.contributors objectsWhere:@"user != nil"];
+    NSArray* registeredContributors = [self.contributors where:@"user != nil"];
     [contributors removeObjectsInArray:registeredContributors];
     [parameters trySetObject:[registeredContributors valueForKeyPath:@"user.identifier"] forKey:@"user_uids"];
     
@@ -41,7 +41,7 @@
         while (contributors.nonempty) {
             WLAddressBookPhoneNumber *_person = [contributors firstObject];
             if (_person.record) {
-                NSArray *groupedContributors = [contributors objectsWhere:@"record == %@", _person.record];
+                NSArray *groupedContributors = [contributors where:@"record == %@", _person.record];
                 [invitees addObject:@{@"name":WLString(_person.name),@"phone_numbers":[groupedContributors valueForKey:@"phone"]}];
                 [contributors removeObjectsInArray:groupedContributors];
             } else {

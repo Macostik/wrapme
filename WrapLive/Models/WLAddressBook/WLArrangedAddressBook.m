@@ -8,14 +8,13 @@
 
 #import "WLArrangedAddressBook.h"
 #import "WLArrangedAddressBookGroup.h"
-#import "NSMutableOrderedSet+Sorting.h"
 
 @implementation WLArrangedAddressBook
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.groups = [NSArray arrayWithBlock:^(NSMutableArray *array) {
+        self.groups = [[NSArray array] mutate:^(NSMutableArray *array) {
             [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:WLLS(@"FRIENDS_ON_WRAPLIVE") addingRule:^BOOL(WLAddressBookRecord *record) {
                 WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
                 return phoneNumber.user != nil;
@@ -77,7 +76,7 @@
         NSMutableArray *records = [NSMutableArray array];
         NSMutableArray *phoneNumbers = [record.phoneNumbers mutableCopy];
         
-        [phoneNumbers removeObjectsWhileEnumerating:^BOOL(WLAddressBookPhoneNumber *phoneNumber) {
+        [phoneNumbers removeSelectively:^BOOL(WLAddressBookPhoneNumber *phoneNumber) {
             if (phoneNumber.user) {
                 WLAddressBookRecord *newRecord = [WLAddressBookRecord record:@[phoneNumber]];
                 WLArrangedAddressBookGroup *group = [self addRecordToGroup:newRecord];
@@ -130,7 +129,7 @@
         return NO;
     };
     for (WLArrangedAddressBookGroup *group in self.groups) {
-        WLAddressBookRecord *record = [group.records selectObject:selectBlock];
+        WLAddressBookRecord *record = [group.records select:selectBlock];
         if (record) {
             if (success) success(YES, @[record], @[group]);
             return;
@@ -172,7 +171,7 @@
         addressBook.groups = [self.groups map:^id (WLArrangedAddressBookGroup *group) {
             WLArrangedAddressBookGroup *_group = [[WLArrangedAddressBookGroup alloc] initWithTitle:group.title
                                                                                         addingRule:group.addingRule];
-            _group.records = [group.records selectObjects:^BOOL(WLAddressBookRecord  *record) {
+            _group.records = [group.records selects:^BOOL(WLAddressBookRecord  *record) {
                 WLAddressBookPhoneNumber *phoneNumbler = record.phoneNumbers.lastObject;
                 return ([phoneNumbler.priorityName rangeOfString:text options:NSCaseInsensitiveSearch].location != NSNotFound);
             }];

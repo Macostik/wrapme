@@ -27,17 +27,17 @@
     return entry;
 }
 
-+ (NSMutableOrderedSet*)API_entries:(NSArray*)array {
++ (NSSet*)API_entries:(NSArray*)array {
 	return [self API_entries:array relatedEntry:nil];
 }
 
-+ (NSMutableOrderedSet *)API_entries:(NSArray *)array relatedEntry:(id)relatedEntry {
-	return [self API_entries:array relatedEntry:relatedEntry container:[NSMutableOrderedSet orderedSetWithCapacity:[array count]]];
++ (NSSet *)API_entries:(NSArray *)array relatedEntry:(id)relatedEntry {
+	return [self API_entries:array relatedEntry:relatedEntry container:[NSMutableSet setWithCapacity:[array count]]];
 }
 
-+ (NSMutableOrderedSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry container:(NSMutableOrderedSet*)container {
++ (NSSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry container:(NSMutableSet*)container {
     if (!container) {
-        container = [NSMutableOrderedSet orderedSetWithCapacity:[array count]];
+        container = [NSMutableSet setWithCapacity:[array count]];
     }
     for (NSDictionary* dictionary in array) {
 		WLEntry* entry = [self API_entry:dictionary relatedEntry:relatedEntry];

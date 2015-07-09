@@ -21,8 +21,8 @@
 }
 
 - (id)objectInResponse:(WLAPIResponse *)response {
-    NSMutableOrderedSet *contributors = [WLUser API_entries:[response.data arrayForKey:WLContributorsKey]];
-    if (self.wrap.valid && ![self.wrap.contributors isEqualToOrderedSet:contributors]) {
+    NSSet *contributors = [WLUser API_entries:[response.data arrayForKey:WLContributorsKey]];
+    if (self.wrap.valid && ![self.wrap.contributors isEqualToSet:contributors]) {
         self.wrap.contributors = contributors;
     }
     return contributors;

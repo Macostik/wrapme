@@ -39,7 +39,6 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     [self initializeCrashlyticsAndLogging];
     
     [self initializeAPIManager];

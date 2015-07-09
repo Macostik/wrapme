@@ -247,6 +247,32 @@
     return [[WLEntryManager manager].context executeFetchRequest:request error:NULL];
 }
 
+- (void)executeFetchRequest:(NSFetchRequest *)request success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+    
+    NSManagedObjectContext *mainContext = self.context;
+    NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    
+    NSPersistentStoreCoordinator *coordinator = mainContext.persistentStoreCoordinator;
+    
+    [backgroundContext performBlock:^{
+        backgroundContext.persistentStoreCoordinator = coordinator;
+        
+        NSError *error = nil;
+        __block NSArray *objects = [backgroundContext executeFetchRequest:request error:&error];
+        
+        [mainContext performBlock:^{
+            if (objects) {
+                objects = [objects map:^id(NSManagedObject *object) {
+                    return [mainContext objectWithID:[object objectID]];
+                }];
+                if (success) success(objects);
+            } else {
+                if (failure) failure(error);
+            }
+        }];
+    }];
+}
+
 @end
 
 @implementation WLEntry (WLEntryManager)
@@ -307,6 +333,23 @@ va_end(args);
     }];
 }
 
++ (void)entries:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+    [self entries:nil success:success failure:failure];
+}
+
++ (void)entriesWithPredicate:(NSPredicate*)predicate success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+    [self entries:^(NSFetchRequest *request) {
+        request.predicate = predicate;
+    } success:success failure:failure];
+}
+
++ (void)entries:(void (^)(NSFetchRequest* request))configure success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    request.entity = [self entity];
+    if (configure) configure(request);
+    [[WLEntryManager manager] executeFetchRequest:request success:success failure:failure];
+}
+
 + (BOOL)entryExists:(NSString*)identifier {
     return [[WLEntryManager manager] entryExists:self identifier:identifier];
 }
@@ -356,6 +399,10 @@ va_end(args);
 
 - (NSArray *)execute {
     return [[WLEntryManager manager] executeFetchRequest:self];
+}
+
+- (void)execute:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+    [[WLEntryManager manager] executeFetchRequest:self success:success failure:failure];
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "WLOperationQueue.h"
-#import "NSArray+Additions.h"
+#import "WLCollections.h"
 
 @interface WLOperationQueue ()
 
@@ -42,7 +42,7 @@
 }
 
 - (NSArray *)executingOperations {
-    return [self.operations objectsWhere:@"executing == YES"];
+    return [self.operations where:@"executing == YES"];
 }
 
 - (void)addOperation:(WLOperation *)operation {
@@ -90,7 +90,7 @@
 
 - (void)cancelAllOperations {
     NSMutableArray *operations = (id)self.operations;
-    NSArray *operationsToCancel = [operations objectsWhere:@"executing == NO"];
+    NSArray *operationsToCancel = [operations where:@"executing == NO"];
     [operations removeObjectsInArray:operationsToCancel];
     [operationsToCancel makeObjectsPerformSelector:@selector(cancel)];
 }

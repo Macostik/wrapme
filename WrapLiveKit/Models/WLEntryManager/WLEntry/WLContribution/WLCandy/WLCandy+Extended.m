@@ -38,14 +38,8 @@
     [super API_setup:dictionary relatedEntry:relatedEntry];
     NSInteger type = [dictionary integerForKey:WLCandyTypeKey];
     if (self.type != type) self.type = type;
-    NSArray *commentsArray = [dictionary arrayForKey:WLCommentsKey];
-    NSMutableOrderedSet* comments = self.comments;
-    if (!comments) {
-        comments = [NSMutableOrderedSet orderedSetWithCapacity:[commentsArray count]];
-        self.comments = comments;
-    }
-    [WLComment API_entries:commentsArray relatedEntry:self container:comments];
-    if (comments.nonempty && [comments sortByCreatedAt:NO]) {
+    NSSet *comments = [WLComment API_entries:[dictionary arrayForKey:WLCommentsKey] relatedEntry:self];
+    if (![comments isEqualToSet:self.comments]) {
         self.comments = comments;
     }
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -98,7 +92,6 @@
     [super touch:date];
     WLWrap* wrap = self.wrap;
     [wrap touch:date];
-    [wrap sortCandies];
 }
 
 - (BOOL)isCandyOfType:(NSInteger)type {
@@ -115,16 +108,12 @@
 }
 
 - (void)addComment:(WLComment *)comment {
-    NSMutableOrderedSet* comments = self.comments;
+    NSSet* comments = self.comments;
     self.commentCount++;
     if (!comment || [comments containsObject:comment]) {
-        if ([comments sortByCreatedAt:NO]) {
-            self.comments = comments;
-        }
         return;
     }
-    comment.candy = self;
-    [comments addObject:comment comparator:comparatorByCreatedAt descending:NO];
+    [self addCommentsObject:comment];
     [self touch];
     [comment notifyOnAddition:^(id object) {
         
@@ -132,11 +121,10 @@
 }
 
 - (void)removeComment:(WLComment *)comment {
-    NSMutableOrderedSet* comments = self.comments;
+    NSSet* comments = self.comments;
     if ([comments containsObject:comment]) {
-        [comments removeObject:comment];
+        [self removeCommentsObject:comment];
         if (self.commentCount > 0)  self.commentCount--;
-        self.comments = comments;
     }
 }
 
@@ -177,7 +165,7 @@
 }
 
 - (NSMutableOrderedSet *)sortedComments {
-    NSMutableOrderedSet* comments = self.comments;
+    NSMutableOrderedSet* comments = [NSMutableOrderedSet orderedSetWithSet:self.comments];
     [comments sortByCreatedAt];
     return comments;
 }

@@ -32,7 +32,7 @@
     self.filePath = candy.picture.original;
     [parameters trySetObject:candy.uploadIdentifier forKey:WLUploadUIDKey];
 	[parameters trySetObject:@([candy.updatedAt timestamp]) forKey:WLContributedAtKey];
-    WLComment *firstComment = [[candy.comments objectsWhere:@"uploading == nil"] lastObject];
+    WLComment *firstComment = [[candy.comments where:@"uploading == nil"] anyObject];
     if (firstComment) {
         [parameters trySetObject:firstComment.text forKey:@"message"];
         [parameters trySetObject:firstComment.uploadIdentifier forKey:@"message_upload_uid"];

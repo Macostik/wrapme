@@ -37,6 +37,7 @@ typedef void (^WLCommentBlock) (WLComment *comment);
 typedef void (^WLContactBlock) (WLAddressBookRecord *contact);
 typedef void (^WLAddressBookPhoneNumberBlock) (WLAddressBookPhoneNumber *person);
 typedef void (^WLArrayBlock) (NSArray *array);
+typedef void (^WLSetBlock) (NSSet *set);
 typedef void (^WLOrderedSetBlock) (NSOrderedSet *orderedSet);
 typedef void (^WLDictionaryBlock) (NSDictionary *dictionary);
 typedef void (^WLStringBlock) (NSString *string);

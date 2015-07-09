@@ -83,7 +83,7 @@
     }
     [[PubNub sharedInstance] pushNotificationEnabledChannelsForDeviceWithPushToken:data andCompletion:^(PNAPNSEnabledChannelsResult *result, PNErrorStatus *status) {
         if (!status) {
-            NSArray *channels = [result.data.channels arrayByRemovingObject:weakSelf.name];
+            NSArray *channels = [[result.data.channels mutableCopy] remove:weakSelf.name];
             [[PubNub sharedInstance] removePushNotificationsFromChannels:channels withDevicePushToken:data andCompletion:nil];
             if (![result.data.channels containsObject:weakSelf.name]) {
                 [[PubNub sharedInstance] addPushNotificationsOnChannels:@[weakSelf.name] withDevicePushToken:data andCompletion:nil];

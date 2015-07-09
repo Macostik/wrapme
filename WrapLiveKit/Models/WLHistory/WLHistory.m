@@ -10,7 +10,7 @@
 #import "WLCandy+Extended.h"
 #import "WLEntry+Extended.h"
 #import "NSDate+Formatting.h"
-#import "NSOrderedSet+Additions.h"
+#import "WLCollections.h"
 #import "NSDate+Additions.h"
 #import "WLWrapRequest.h"
 #import "WLEntryNotifier.h"
@@ -58,19 +58,19 @@
     }
 }
 
-- (void)resetEntries:(NSOrderedSet *)entries {
+- (void)resetEntries:(NSSet *)entries {
     [self clear];
     [self addEntries:entries];
 }
 
-- (BOOL)addEntries:(NSOrderedSet *)entries {
+- (BOOL)addEntries:(NSSet *)entries {
     BOOL added = NO;
-    NSMutableOrderedSet* entriesCopy = [entries mutableCopy];
+    NSMutableSet* entriesCopy = [entries mutableCopy];
     while (entriesCopy.nonempty) {
-        NSDate* date = [[entriesCopy firstObject] createdAt];
+        NSDate* date = [[entriesCopy anyObject] createdAt];
         NSDateComponents* components = [date dayComponents];
         WLHistoryItem* group = [self itemForDate:date create:YES];
-        NSOrderedSet* dayEntries = [entriesCopy selectObjects:^BOOL(id item) {
+        NSSet* dayEntries = [entriesCopy selects:^BOOL(id item) {
             if (components == nil) {
                 return [item createdAt] == nil;
             }
@@ -79,7 +79,7 @@
         if ([group addEntries:dayEntries]) {
             added = YES;
         }
-        [entriesCopy minusOrderedSet:dayEntries];
+        [entriesCopy minusSet:dayEntries];
         
         if  (self.checkCompletion) {
             group.completed = group.entries.count < WLPageSize;
@@ -103,7 +103,7 @@
 
 - (void)removeEntry:(id)entry {
     __block BOOL removed = NO;
-    [self.entries removeObjectsWhileEnumerating:^BOOL(WLHistoryItem* group) {
+    [self.entries removeSelectively:^BOOL(WLHistoryItem* group) {
         if ([group.entries containsObject:entry]) {
             [group.entries removeObject:entry];
             removed = YES;
@@ -129,7 +129,7 @@
         [group sort];
         return;
     }
-    [self.entries removeObjectsWhileEnumerating:^BOOL(WLHistoryItem* group) {
+    [self.entries removeSelectively:^BOOL(WLHistoryItem* group) {
         if ([group.entries containsObject:candy]) {
             [group.entries removeObject:candy];
             if (group.entries.nonempty) {
@@ -150,19 +150,19 @@
 }
 
 - (WLHistoryItem *)itemWithCandy:(WLCandy *)candy {
-    return [self.entries selectObject:^BOOL(WLHistoryItem* item) {
+    return [self.entries select:^BOOL(WLHistoryItem* item) {
         return [item.entries containsObject:candy];
     }];
 }
 
 - (WLHistoryItem *)itemForDate:(NSDate *)date {
-    return [self.entries selectObject:^BOOL(WLHistoryItem* item) {
+    return [self.entries select:^BOOL(WLHistoryItem* item) {
         return [item.date isSameDay:date];
     }];
 }
 
 - (WLHistoryItem *)itemForDate:(NSDate *)date create:(BOOL)create {
-    WLHistoryItem* item = [self.entries selectObject:^BOOL(WLHistoryItem* item) {
+    WLHistoryItem* item = [self.entries select:^BOOL(WLHistoryItem* item) {
         return [item.date isSameDay:date];
     }];
     if (!item && create) {

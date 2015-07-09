@@ -83,7 +83,7 @@ static NSMapTable *queues = nil;
 }
 
 - (void)prepare {
-    NSMutableOrderedSet *uploadings = [[[WLUploading entries] selectObjects:^BOOL(WLUploading* uploading) {
+    NSMutableOrderedSet *uploadings = [[[WLUploading entries] selects:^BOOL(WLUploading* uploading) {
         return [uploading.contribution isKindOfClass:self.entryClass];
     }] mutableCopy];
     [uploadings sortByCreatedAt:NO];

@@ -9,7 +9,7 @@
 #import "WLWrap+Extended.h"
 #import "WLEntryNotifier.h"
 #import "NSString+Additions.h"
-#import "NSOrderedSet+Additions.h"
+#import "WLCollections.h"
 #import "WLEntryManager.h"
 #import "WLImageCache.h"
 #import "UIImage+Resize.h"
@@ -31,7 +31,7 @@
     WLWrap* wrap = [self contribution];
     [wrap.contributor addWrap:wrap];
     if (wrap.contributor) {
-        wrap.contributors = [NSMutableOrderedSet orderedSetWithObject:wrap.contributor];
+        wrap.contributors = [NSSet setWithObject:wrap.contributor];
     }
     return wrap;
 }
@@ -40,31 +40,14 @@
 	return [dictionary stringForKey:WLWrapUIDKey];
 }
 
-- (void)prepareForDeletion {
-    [[WLUser currentUser] removeWrap:self];
-    [super prepareForDeletion];
-}
-
-- (void)touch:(NSDate *)date {
-    [super touch:date];
-    [[WLUser currentUser] sortWraps];
-}
-
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
     [super API_setup:dictionary relatedEntry:relatedEntry];
     NSString* name = [dictionary stringForKey:WLNameKey];
     if (!NSStringEqual(self.name, name)) self.name = name;
-    if (!self.candies) self.candies = [NSMutableOrderedSet orderedSet];
     
     NSArray *contributorsArray = [dictionary arrayForKey:WLContributorsKey];
-    NSMutableOrderedSet* contributors = self.contributors;
     if (contributorsArray.nonempty) {
-        
-        if (!contributors) {
-            contributors = [NSMutableOrderedSet orderedSetWithCapacity:[contributorsArray count]];
-        }
-        [WLUser API_entries:contributorsArray relatedEntry:nil container:contributors];
-        self.contributors = contributors;
+        [self addContributors:[WLUser API_entries:contributorsArray]];
     }
     
     if (dictionary[WLCreatorUIDKey] != nil) {
@@ -72,32 +55,19 @@
         if (self.contributor != contributor) self.contributor = contributor;
     }
     
-    if (![contributors containsObject:[WLUser currentUser]]) {
-        [contributors addObject:[WLUser currentUser]];
-        self.contributors = contributors;
+    if (![self.contributors containsObject:[WLUser currentUser]]) {
+        [self addContributorsObject:[WLUser currentUser]];
     }
     
-    NSMutableOrderedSet* candies = [WLCandy API_entries:[dictionary arrayForKey:WLCandiesKey] relatedEntry:self];
-    if (candies.nonempty && ![candies isSubsetOfOrderedSet:self.candies]) {
+    NSSet* candies = [WLCandy API_entries:[dictionary arrayForKey:WLCandiesKey] relatedEntry:self];
+    if (candies.nonempty && ![candies isSubsetOfSet:self.candies]) {
         [self addCandies:candies];
     }
     return self;
 }
 
-- (void)addCandies:(NSOrderedSet *)candies {
-    NSMutableOrderedSet *existingCandies = self.candies;
-    if (!existingCandies) {
-        existingCandies = [NSMutableOrderedSet orderedSetWithCapacity:[candies count]];
-        self.candies = existingCandies;
-    }
-    [existingCandies unionOrderedSet:candies];
-    if ([existingCandies sortByUpdatedAt]) {
-        self.candies = existingCandies;
-    }
-}
-
 - (NSString *)contributorNamesWithYouAndAmount:(NSInteger)numberOfUsers {
-    NSMutableOrderedSet *contributors = self.contributors;
+    NSSet *contributors = self.contributors;
     if (contributors.count <= 1 || numberOfUsers == 0) return WLLS(@"you");
     NSMutableString* names = [NSMutableString string];
     NSUInteger i = 0;
@@ -121,22 +91,13 @@
 }
 
 - (void)addCandy:(WLCandy *)candy {
-    NSMutableOrderedSet *candies = self.candies;
+    NSSet *candies = self.candies;
     if (!candy || [candies containsObject:candy]) {
-        if ([candies sortByUpdatedAt]) {
-            self.candies = candies;
-        }
         return;
     }
-    candy.wrap = self;
-    if (!candies) {
-        candies = [NSMutableOrderedSet orderedSet];
-        self.candies = candies;
-    }
-    
     __weak typeof(self)weakSelf = self;
 	[candy notifyOnAddition:^(id object) {
-        [candies addObject:candy comparator:comparatorByCreatedAt descending:YES];
+        [weakSelf addCandiesObject:candy];
         [weakSelf touch];
     }];
 }
@@ -146,66 +107,15 @@
 }
 
 - (WLPicture *)picture {
-    return [[self.candies firstObject] picture];
-}
-
-- (void)sortCandies {
-    NSMutableOrderedSet* candies = self.candies;
-    if ([candies sortByUpdatedAt]) {
-        self.candies = candies;
-    }
+    return [[[[self.candies allObjects] sortByUpdatedAt] firstObject] picture];
 }
 
 - (void)removeCandy:(WLCandy *)candy {
-    NSMutableOrderedSet *candies = self.candies;
-    if ([candies containsObject:candy]) {
-        [candies removeObject:candy];
-        self.candies = candies;
-    }
+    [self removeCandiesObject:candy];
 }
 
 - (void)removeMessage:(WLMessage *)message {
-    NSMutableOrderedSet *messages = self.messages;
-    if ([messages containsObject:message]) {
-        [messages removeObject:message];
-        self.messages = messages;
-    }
-}
-
-- (NSOrderedSet *)candies:(NSInteger)type limit:(NSUInteger)limit {
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"type == %d", type];
-    NSMutableOrderedSet *candies = [[self.candies filteredOrderedSetUsingPredicate:predicate] mutableCopy];
-    if (candies.count > limit) {
-        NSIndexSet* indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, limit)];
-        return [NSMutableOrderedSet orderedSetWithArray:[candies objectsAtIndexes:indexes]];
-    } else {
-        return candies;
-    }
-}
-
-- (NSMutableOrderedSet*)candies:(NSUInteger)limit {
-    NSMutableOrderedSet *candies = self.candies;
-    [candies sortByUpdatedAt];
-    if (candies.count > limit) {
-        NSIndexSet* indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, limit)];
-        return [NSMutableOrderedSet orderedSetWithArray:[candies objectsAtIndexes:indexes]];
-    } else {
-        return candies;
-    }
-}
-
-- (NSOrderedSet*)messages:(NSUInteger)limit {
-	NSMutableOrderedSet *messages = self.messages;
-    if (messages.count > limit) {
-        NSIndexSet* indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, limit)];
-        return [NSMutableOrderedSet orderedSetWithArray:[messages objectsAtIndexes:indexes]];
-    } else {
-        return messages;
-    }
-}
-
-- (NSMutableOrderedSet*)recentCandies:(NSUInteger)limit {
-    return [self candies:limit];
+    [self removeMessagesObject:message];
 }
 
 - (id)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
@@ -247,7 +157,7 @@
 }
 
 - (BOOL)isFirstCreated {
-    NSOrderedSet *wraps = [self.contributor.wraps objectsWhere:@"isDefault != YES AND contributor == %@", [WLUser currentUser]];
+    NSSet *wraps = [self.contributor.wraps where:@"contributor == %@", [WLUser currentUser]];
     return [wraps containsObject:self] && wraps.count == 1;
 }
 

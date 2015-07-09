@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "NSDictionary+Extended.h"
-#import "NSArray+Additions.h"
+#import "WLCollections.h"
 #import "NSString+Additions.h"
 #import "NSDate+Additions.h"
 #import "WLAPIResponse.h"

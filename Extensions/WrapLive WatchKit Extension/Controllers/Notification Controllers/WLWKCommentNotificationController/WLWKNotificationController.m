@@ -52,7 +52,7 @@
         return localizedAlert;
     }
 
-    return [NSString stringWithFormat:localizedAlert, [args tryObjectAtIndex:0], [args tryObjectAtIndex:1],[args tryObjectAtIndex:2], nil];
+    return [NSString stringWithFormat:localizedAlert, [args tryAt:0], [args tryAt:1],[args tryAt:2], nil];
 }
 
 - (NSString*)titleMessageFromNotification:(NSDictionary*)notification {
@@ -66,7 +66,7 @@
         return title;
     }
     
-    return [NSString stringWithFormat:title, [args tryObjectAtIndex:0], [args tryObjectAtIndex:1],[args tryObjectAtIndex:2], nil];
+    return [NSString stringWithFormat:title, [args tryAt:0], [args tryAt:1],[args tryAt:2], nil];
 }
 
 @end

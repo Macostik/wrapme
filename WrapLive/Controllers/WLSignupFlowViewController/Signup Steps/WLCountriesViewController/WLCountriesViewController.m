@@ -51,7 +51,7 @@
 - (WLCountry *)selectedCountry {
     NSIndexPath* indexPath = [[self.dataSource.collectionView indexPathsForSelectedItems] lastObject];
     if (indexPath) {
-        return [(NSArray*)self.dataSource.items tryObjectAtIndex:indexPath.item];
+        return [(NSArray*)self.dataSource.items tryAt:indexPath.item];
     }
     return nil;
 }

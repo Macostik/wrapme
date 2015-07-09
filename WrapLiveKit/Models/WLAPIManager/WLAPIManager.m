@@ -9,7 +9,7 @@
 #import "WLAPIManager.h"
 #import "WLSession.h"
 #import "NSDate+Formatting.h"
-#import "NSArray+Additions.h"
+#import "WLCollections.h"
 #import "WLAddressBook.h"
 #import "WLEntryNotifier.h"
 #import "NSString+Additions.h"
@@ -274,11 +274,11 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     return nil;
 }
 
-- (id)fetch:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)fetch:(WLSetBlock)success failure:(WLFailureBlock)failure {
     return [self fetch:WLWrapContentTypeRecent success:success failure:failure];
 }
 
-- (id)fetch:(NSString*)contentType success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)fetch:(NSString*)contentType success:(WLSetBlock)success failure:(WLFailureBlock)failure {
     if (self.uploaded) {
         WLWrapRequest* request = [WLWrapRequest request:self];
         request.contentType = contentType;
@@ -293,14 +293,14 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     return [[WLUploadWrapRequest request:self] send:success failure:failure];
 }
 
-- (id)messagesNewer:(NSDate *)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)messagesNewer:(NSDate *)newer success:(WLSetBlock)success failure:(WLFailureBlock)failure {
     WLMessagesRequest* request = [WLMessagesRequest request:self];
     request.type = WLPaginatedRequestTypeNewer;
     request.newer = newer;
     return [request send:success failure:failure];
 }
 
-- (id)messagesOlder:(NSDate *)older newer:(NSDate *)newer success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)messagesOlder:(NSDate *)older newer:(NSDate *)newer success:(WLSetBlock)success failure:(WLFailureBlock)failure {
     WLMessagesRequest* request = [WLMessagesRequest request:self];
     request.type = WLPaginatedRequestTypeOlder;
     request.newer = newer;
@@ -308,7 +308,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     return [request send:success failure:failure];
 }
 
-- (id)messages:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
+- (id)messages:(WLSetBlock)success failure:(WLFailureBlock)failure {
     WLMessagesRequest* request = [WLMessagesRequest request:self];
     request.type = WLPaginatedRequestTypeFresh;
     return [request send:success failure:failure];
@@ -345,7 +345,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 - (void)preload {
     WLHistory *history = [WLHistory historyWithWrap:self];
-    [history fresh:^(NSOrderedSet *orderedSet) {
+    [history fresh:^(NSSet *set) {
         [history.entries enumerateObjectsUsingBlock:^(WLHistoryItem* item, NSUInteger idx, BOOL *stop) {
             [item.entries enumerateObjectsUsingBlock:^(WLCandy* candy, NSUInteger idx, BOOL *stop) {
                 [candy.picture fetch:nil];

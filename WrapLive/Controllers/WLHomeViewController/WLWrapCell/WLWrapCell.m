@@ -91,7 +91,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     self.dateLabel.text = WLString(wrap.updatedAt.timeAgoStringAtAMPM);
     
     if (self.candiesView) {
-        self.candiesDataSource.items = [wrap recentCandies:WLHomeTopWrapCandiesLimit];
+        self.candiesDataSource.items = [[NSMutableOrderedSet orderedSetWithSet:wrap.candies] sortByUpdatedAt];
     }
     
     self.coverView.url = [wrap.picture anyUrl];

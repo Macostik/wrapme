@@ -7,7 +7,6 @@
 //
 
 #import "WLChat.h"
-#import "NSMutableOrderedSet+Sorting.h"
 #import "WLNotificationSubscription.h"
 
 static NSString *WLChatTypingChannelTypingKey = @"typing";
@@ -45,46 +44,36 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
     [self resetEntries:wrap.messages];
     [self setUnreadMessages];
     if (wrap) {
-        self.subscription = [WLNotificationSubscription subscription:wrap.identifier presence:YES];
-        self.subscription.delegate = self;
         __weak typeof(self)weakSelf = self;
-        [self.subscription hereNow:^(NSArray *uuids) {
-            for (NSDictionary* uuid in uuids) {
-                WLUser* user = [WLUser entry:uuid[@"uuid"]];
-                if ([user isCurrentUser]) {
-                    continue;
+        run_after_asap(^{
+            weakSelf.subscription = [WLNotificationSubscription subscription:wrap.identifier presence:YES];
+            weakSelf.subscription.delegate = weakSelf;
+            [weakSelf.subscription hereNow:^(NSArray *uuids) {
+                for (NSDictionary* uuid in uuids) {
+                    WLUser* user = [WLUser entry:uuid[@"uuid"]];
+                    if ([user isCurrentUser]) {
+                        continue;
+                    }
+                    if ([uuid[@"state"][WLChatTypingChannelTypingKey] boolValue]) {
+                        [weakSelf didBeginTyping:user];
+                    }
                 }
-                if ([uuid[@"state"][WLChatTypingChannelTypingKey] boolValue]) {
-                    [weakSelf didBeginTyping:user];
-                }
-            }
-        }];
+            }];
+        });
     } else {
         self.subscription = nil;
     }
 }
 
 - (void)setUnreadMessages {
-    NSDate *lastUnread = _wrap.lastUnread;
-    NSMutableOrderedSet *unreadMessages = nil;
-    if (lastUnread) {
-        unreadMessages = [self.entries objectsWhere:@"createdAt > %@", lastUnread];
-    } else {
-        unreadMessages = [self.entries objectsWhere:@"unread == YES"];
-    }
-    if (unreadMessages.nonempty) {
-        unreadMessages = [unreadMessages mutableCopy];
-        __block BOOL isMessagesFromCurrentUser = NO;
-        [unreadMessages removeObjectsWhileEnumerating:^BOOL(WLMessage *message) {
-            if ([message.contributor isCurrentUser]) {
-                isMessagesFromCurrentUser = YES;
-                return YES;
-            } else {
-                return isMessagesFromCurrentUser;
-            }
-        }];
-    }
-    self.unreadMessages = unreadMessages;
+    __weak typeof(self)weakSelf = self;
+    [WLMessage entries:^(NSFetchRequest *request) {
+        request.predicate = [NSPredicate predicateWithFormat:@"wrap == %@ AND unread == YES", weakSelf.wrap];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
+    } success:^(NSArray *array) {
+        weakSelf.unreadMessages = [NSMutableOrderedSet orderedSetWithArray:array];
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (void)addTypingUser:(WLUser *)user {
@@ -109,7 +98,7 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
         return [NSString stringWithFormat:WLLS(@"formatted_and_are_typing"), [(WLUser*)users[0] name], [(WLUser*)users[1] name]];
     } else {
         WLUser* lastUser = [users lastObject];
-        NSString* names = [[[[users array] arrayByRemovingObject:lastUser] valueForKey:@"name"] componentsJoinedByString:@", "];
+        NSString* names = [[[[users array] remove:lastUser] valueForKey:@"name"] componentsJoinedByString:@", "];
         return [NSString stringWithFormat:WLLS(@"formatted_and_are_typing"), names, lastUser.name];
     }
 }
@@ -157,7 +146,7 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
     NSOrderedSet *messages = self.entries;
     for (WLMessage *message in messages) {
         NSUInteger index = [messages indexOfObject:message];
-        WLMessage* previousMessage = [messages tryObjectAtIndex:index + 1];
+        WLMessage* previousMessage = [messages tryAt:index + 1];
         BOOL showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
         if (showDay) {
             [_messagesWithDay addObject:message];

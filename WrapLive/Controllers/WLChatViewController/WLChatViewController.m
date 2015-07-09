@@ -235,7 +235,7 @@ CGFloat WLMaxTextViewWidth;
         [self loadMessages:success failure:failure];
         return;
     }
-    [self.wrap messagesNewer:message.createdAt success:^(NSOrderedSet *messages) {
+    [self.wrap messagesNewer:message.createdAt success:^(NSSet *messages) {
         if (!weakSelf.wrap.messages.nonempty) weakSelf.chat.completed = YES;
         [weakSelf.chat addEntries:messages];
         if (success) success();
@@ -244,7 +244,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)loadMessages:(WLBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
-    [self.wrap messages:^(NSOrderedSet *messages) {
+    [self.wrap messages:^(NSSet *messages) {
         weakSelf.chat.completed = messages.count < WLPageSize;
 		[weakSelf.chat resetEntries:messages];
         if (success) success();
@@ -260,7 +260,7 @@ CGFloat WLMaxTextViewWidth;
         [self loadMessages:success failure:failure];
         return;
     }
-	self.operation = [self.wrap messagesOlder:olderMessage.createdAt newer:newerMessage.createdAt success:^(NSOrderedSet *messages) {
+	self.operation = [self.wrap messagesOlder:olderMessage.createdAt newer:newerMessage.createdAt success:^(NSSet *messages) {
 		weakSelf.chat.completed = messages.count < WLPageSize;
         [weakSelf.chat addEntries:messages];
         if (success) success();
@@ -339,7 +339,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLEntry *)entry {
-    [self.chat resetEntries:[self.wrap messages]];
+    [self.chat removeEntry:entry];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier willDeleteContainingEntry:(WLEntry *)entry {
@@ -436,14 +436,14 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLMessage* message = [self.chat.entries tryObjectAtIndex:indexPath.item];
+    WLMessage* message = [self.chat.entries tryAt:indexPath.item];
     NSString *cellIdentifier = cellIdentifier = message.contributedByCurrentUser ? WLMyMessageCellIdentifier : WLMessageCellIdentifier;
     WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     [cell setShowName:[self.chat.messagesWithName containsObject:message]];
     cell.entry = message;
     cell.layer.geometryFlipped = [self geometryFlipped];
-    if (self.wrap.lastUnread == nil || [self.wrap.lastUnread earlier:message.createdAt]) {
-        self.wrap.lastUnread = message.createdAt;
+    if (self.wrap.unread) {
+        self.wrap.unread = YES;
     }
     return cell;
 }
@@ -452,7 +452,7 @@ CGFloat WLMaxTextViewWidth;
     UICollectionReusableView *supplementaryView = nil;
     if ([kind isEqualToString:@"date"]) {
         WLMessageDateView* view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLMessageDateView" forIndexPath:indexPath];
-        view.message = [self.chat.entries tryObjectAtIndex:indexPath.item];
+        view.message = [self.chat.entries tryAt:indexPath.item];
         supplementaryView = view;
     } else if ([kind isEqualToString:@"unreadMessagesView"]) {
         WLUnreadMessagesView *unreadMessagesView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"unreadMessagesView" forIndexPath:indexPath];
@@ -504,16 +504,16 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
+    WLMessage *message = [self.chat.entries tryAt:indexPath.item];
     return CGSizeMake(collectionView.width, [self heightOfMessageCell:message]);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:@"date"]) {
-        WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
+        WLMessage *message = [self.chat.entries tryAt:indexPath.item];
         return [self.chat.messagesWithDay containsObject:message] ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
     } else if ([kind isEqualToString:@"unreadMessagesView"]) {
-        WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
+        WLMessage *message = [self.chat.entries tryAt:indexPath.item];
         return (message == [self.chat.unreadMessages lastObject]) ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
         if (self.chat.completed) return CGSizeZero;
@@ -525,7 +525,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView bottomSpacingForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLMessage *message = [self.chat.entries tryObjectAtIndex:indexPath.item];
+    WLMessage *message = [self.chat.entries tryAt:indexPath.item];
     if ([self.chat.messagesWithDay containsObject:message]) {
         return 0;
     } else if ([self.chat.messagesWithName containsObject:message]) {

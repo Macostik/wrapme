@@ -99,7 +99,7 @@
         CGFloat offset = self.dataSource.collectionView.contentOffset.y;
         if (wraps.nonempty && offset > 0) {
             NSInteger index = roundf(offset / self.dataSource.itemSize.height);
-            WLWrap *wrap = [wraps tryObjectAtIndex:index];
+            WLWrap *wrap = [wraps tryAt:index];
             if (wrap && wrap != self.wrap) {
                 self.wrap = wrap;
                 [self.delegate wrapPickerViewController:self didSelectWrap:wrap];

@@ -21,13 +21,12 @@ FOUNDATION_EXPORT const unsigned char WrapLiveKitVersionString[];
 #import <WrapLiveKit/DefinedBlocks.h>
 #import <WrapLiveKit/GCDHelper.h>
 #import <WrapLiveKit/SupportHeaders.h>
-#import <WrapLiveKit/NSArray+Additions.h>
+#import <WrapLiveKit/WLCollections.h>
 #import <WrapLiveKit/NSDate+Additions.h>
 #import <WrapLiveKit/NSDate+Formatting.h>
 #import <WrapLiveKit/NSDictionary+Extended.h>
 #import <WrapLiveKit/NSObject+AssociatedObjects.h>
-#import <WrapLiveKit/NSMutableOrderedSet+Sorting.h>
-#import <WrapLiveKit/NSOrderedSet+Additions.h>
+#import <WrapLiveKit/WLCollections.h>
 #import <WrapLiveKit/NSPropertyListSerialization+Shorthand.h>
 #import <WrapLiveKit/NSString+Additions.h>
 #import <WrapLiveKit/NSString+Documents.h>

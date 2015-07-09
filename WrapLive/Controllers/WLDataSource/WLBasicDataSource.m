@@ -62,7 +62,7 @@
 }
 
 - (id)itemAtIndex:(NSUInteger)index {
-    return [self.items tryObjectAtIndex:index];
+    return [self.items tryAt:index];
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {

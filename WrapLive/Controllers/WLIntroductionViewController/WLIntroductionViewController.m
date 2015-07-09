@@ -37,11 +37,11 @@
 // MARK: - <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 - (UIViewController *)viewControllerBeforeViewController:(UIViewController *)viewController {
-    return [self.stepViewControllers tryObjectAtIndex:[self.stepViewControllers indexOfObject:viewController] - 1];
+    return [self.stepViewControllers tryAt:[self.stepViewControllers indexOfObject:viewController] - 1];
 }
 
 - (UIViewController *)viewControllerAfterViewController:(UIViewController *)viewController {
-    return [self.stepViewControllers tryObjectAtIndex:[self.stepViewControllers indexOfObject:viewController] + 1];
+    return [self.stepViewControllers tryAt:[self.stepViewControllers indexOfObject:viewController] + 1];
 }
 
 - (void)didChangeViewController:(UIViewController *)viewController {

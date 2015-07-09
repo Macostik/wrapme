@@ -45,13 +45,9 @@
     return self;
 }
 
-- (void)enqueueImageWithUrl:(NSString *)url receiver:(id)receiver {
+- (id)enqueueImageWithUrl:(NSString *)url receiver:(id)receiver {
     [self.receivers addObject:receiver];
-    [self enqueueImageWithUrl:url];
-}
-
-- (void)enqueueImageWithUrl:(NSString *)url {
-    return [self enqueueImageWithUrl:url completionBlock:nil];
+    return [self enqueueImageWithUrl:url];
 }
 
 - (void)handleResultForUrl:(NSString*)url block:(void (^)(NSObject <WLImageFetching> *receiver))block {
@@ -74,55 +70,37 @@
     }
 }
 
-- (void)enqueueImageWithUrl:(NSString *)url operationBlock:(void (^)(id operation))operationBlock {
-    [self enqueueImageWithUrl:url operationBlock:operationBlock completionBlock:nil];
-}
-
-- (void)enqueueImageWithUrl:(NSString *)url completionBlock:(WLImageBlock)completionBlock {
-    [self enqueueImageWithUrl:url operationBlock:nil completionBlock:completionBlock];
-}
-
-- (void)enqueueImageWithUrl:(NSString *)url operationBlock:(void (^)(id operation))operationBlock completionBlock:(WLImageBlock)completionBlock {
-    
-    id operation = nil;
-    
-	if (!url.nonempty || [self.urls containsObject:url]) {
-        if (operationBlock) {
-            for (AFHTTPRequestOperation *_operation in self.fetchingQueue.operations) {
-                if ([[_operation.request.URL absoluteString] isEqualToString:url]) {
-                    operation = _operation;
-                    break;
+- (id)enqueueImageWithUrl:(NSString *)url {
+	if (url.nonempty) {
+        if ([self.urls containsObject:url]) {
+            for (AFHTTPRequestOperation *operation in self.fetchingQueue.operations) {
+                if ([[operation.request.URL absoluteString] isEqualToString:url]) {
+                    return operation;
                 }
             }
-        }
-        if (completionBlock) completionBlock(nil);
-    } else {
-        [self.urls addObject:url];
-        __weak typeof(self)weakSelf = self;
-        WLImageFetcherBlock success = ^(UIImage *image, BOOL cached) {
-            [weakSelf handleResultForUrl:url block:^(NSObject<WLImageFetching> *receiver) {
-                [receiver fetcher:weakSelf didFinishWithImage:image cached:cached];
-            }];
-            if (completionBlock) completionBlock(image);
-        };
-        
-        if ([[WLImageCache cache] containsImageWithUrl:url]) {
-            [[WLImageCache cache] imageWithUrl:url completion:success];
-        } else if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
-            [self setFileSystemUrl:url completion:success];
         } else {
-            operation = [self setNetworkUrl:url success:success failure:^(NSError *error) {
+            [self.urls addObject:url];
+            __weak typeof(self)weakSelf = self;
+            WLImageFetcherBlock success = ^(UIImage *image, BOOL cached) {
                 [weakSelf handleResultForUrl:url block:^(NSObject<WLImageFetching> *receiver) {
-                    [receiver fetcher:weakSelf didFailWithError:error];
+                    [receiver fetcher:weakSelf didFinishWithImage:image cached:cached];
                 }];
-                if (completionBlock) completionBlock(nil);
-            }];
+            };
+            
+            if ([[WLImageCache cache] containsImageWithUrl:url]) {
+                [[WLImageCache cache] imageWithUrl:url completion:success];
+            } else if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+                [self setFileSystemUrl:url completion:success];
+            } else {
+                return [self setNetworkUrl:url success:success failure:^(NSError *error) {
+                    [weakSelf handleResultForUrl:url block:^(NSObject<WLImageFetching> *receiver) {
+                        [receiver fetcher:weakSelf didFailWithError:error];
+                    }];
+                }];
+            }
         }
     }
-	
-    if (operationBlock) {
-        operationBlock(operation);
-    }
+    return nil;
 }
 
 - (id)setNetworkUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure {

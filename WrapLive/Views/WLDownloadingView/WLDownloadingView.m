@@ -72,20 +72,19 @@
     self.alpha = 0.0f;
     
     __weak typeof(self)weakSelf = self;
-    [self downloadEntry:success operationBlock:^(id operation) {
-        if (operation) {
-            [weakSelf.progressBar setOperation:operation];
-            [UIView animateWithDuration:0.5f
-                                  delay:0.0f
-                 usingSpringWithDamping:1
-                  initialSpringVelocity:1
-                                options:UIViewAnimationOptionCurveEaseIn
-                             animations:^{
-                                 weakSelf.alpha = 1.0f;
-                             } completion:^(BOOL finished) {
-                             }];
-        }
-    } failureBlock:failure];
+    id operation = [self downloadEntry:success failure:failure];
+    if (operation) {
+        [weakSelf.progressBar setOperation:operation];
+        [UIView animateWithDuration:0.5f
+                              delay:0.0f
+             usingSpringWithDamping:1
+              initialSpringVelocity:1
+                            options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             weakSelf.alpha = 1.0f;
+                         } completion:^(BOOL finished) {
+                         }];
+    }
     
     return self;
 }
@@ -118,11 +117,10 @@
     }
 }
 
-- (void)downloadEntry:(WLImageBlock)success operationBlock:(void (^)(id operation))operationBlock failureBlock:(WLFailureBlock)failure {
+- (id)downloadEntry:(WLImageBlock)success failure:(WLFailureBlock)failure {
     self.successBlock = success;
     self.failureBlock = failure;
-    [[WLImageFetcher fetcher] addReceiver:self];
-    [[WLImageFetcher fetcher] enqueueImageWithUrl:self.candy.picture.original operationBlock:operationBlock];
+    return [[WLImageFetcher fetcher] enqueueImageWithUrl:self.candy.picture.original receiver:self];
 }
 
 // MARK: - WLImageFetching

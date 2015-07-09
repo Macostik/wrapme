@@ -12,10 +12,10 @@
 #import "NSString+Additions.h"
 #import "WLImageCache.h"
 #import "UIImage+Drawing.h"
-#import "WLImageFetcher.h"
 #import "WLUploadingQueue.h"
 #import "NSError+WLAPIManager.h"
 #import "ALAssetsLibrary+Additions.h"
+#import "WLBlockImageFetching.h"
 
 @implementation WLCandy (Extended)
 
@@ -166,40 +166,14 @@
         return;
     }
     
-    [self setDownloadSuccessBlock:^(UIImage *image) {
+    [[WLBlockImageFetching fetchingWithUrl:self.picture.original] enqueue:^(UIImage *image) {
         [image save:nil completion:success failure:failure];
-    }];
-   
-    [self setDownloadFailureBlock:^(NSError *error) {
+    } failure:^(NSError *error) {
         if (error.isNetworkError) {
             error = WLError(WLLS(@"downloading_internet_connection_error"));
         }
         if (failure) failure(error);
     }];
-    
-    [[WLImageFetcher fetcher] enqueueImageWithUrl:self.picture.original receiver:self];
-}
-
-// MARK: - WLImageFetching
-
-- (NSString*)fetcherTargetUrl:(WLImageFetcher*)fetcher {
-    return self.picture.original;
-}
-
-- (void)fetcher:(WLImageFetcher*)fetcher didFinishWithImage:(UIImage*)image cached:(BOOL)cached {
-    if (self.downloadSuccessBlock) {
-        self.downloadSuccessBlock(image);
-        self.downloadSuccessBlock = nil;
-    }
-    self.downloadFailureBlock = nil;
-}
-
-- (void)fetcher:(WLImageFetcher*)fetcher didFailWithError:(NSError*)error {
-    if (self.downloadFailureBlock) {
-        self.downloadFailureBlock(error);
-        self.downloadFailureBlock = nil;
-    }
-    self.downloadSuccessBlock = nil;
 }
 
 - (NSMutableOrderedSet *)sortedComments {

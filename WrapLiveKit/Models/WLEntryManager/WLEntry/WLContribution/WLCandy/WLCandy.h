@@ -20,9 +20,6 @@
 @property (nonatomic, retain) NSMutableOrderedSet *comments;
 @property (nonatomic, retain) WLPicture * editedPicture;
 
-@property (nonatomic, strong) WLImageBlock downloadSuccessBlock;
-@property (nonatomic, strong) WLFailureBlock downloadFailureBlock;
-
 @end
 
 @interface WLCandy (CoreDataGeneratedAccessors)

@@ -69,6 +69,7 @@ FOUNDATION_EXPORT const unsigned char WrapLiveKitVersionString[];
 #import <WrapLiveKit/WLEntryKeys.h>
 #import <WrapLiveKit/WLEntryManager.h>
 #import <WrapLiveKit/WLImageFetcher.h>
+#import <WrapLiveKit/WLBlockImageFetching.h>
 #import <WrapLiveKit/WLImageCache.h>
 #import <WrapLiveKit/WLSystemImageCache.h>
 #import <WrapLiveKit/WLCache.h>

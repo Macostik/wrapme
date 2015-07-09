@@ -11,6 +11,7 @@
 #import "UIImage+Resize.h"
 #import "NSString+Additions.h"
 #import "NSDictionary+Extended.h"
+#import "WLBlockImageFetching.h"
 #import "WLImageFetcher.h"
 
 @implementation WLPicture
@@ -67,18 +68,22 @@
     if (self.large) [urls addObject:self.large];
     
     if (urls.count > 0) {
+        __block NSUInteger fetched = 0;
         for (NSString *url in urls) {
-            run_after_asap(^{
-                [[WLImageFetcher fetcher] enqueueImageWithUrl:url completionBlock:^(UIImage *image){
-                    [urls removeObject:url];
-                    if (urls.count == 0) {
-                        if (completion) completion();
-                    }
-                }];
-            });
+            [[WLBlockImageFetching fetchingWithUrl:url] enqueue:^(UIImage *image) {
+                fetched++;
+                if (urls.count == fetched) {
+                    completion();
+                }
+            } failure:^(NSError *error) {
+                fetched++;
+                if (urls.count == fetched) {
+                    completion();
+                }
+            }];
         }
     } else {
-        if (completion) completion();
+        completion();
     }
 }
 

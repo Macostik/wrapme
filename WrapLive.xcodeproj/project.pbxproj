@@ -1656,6 +1656,8 @@
 		C5B6D9A11B4A82C7009B9436 /* WLChatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */; };
 		C5B6D9A41B4AB70C009B9436 /* WLWrapContributorsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B6D9A21B4AB70C009B9436 /* WLWrapContributorsRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5B6D9A51B4AB70C009B9436 /* WLWrapContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6D9A31B4AB70C009B9436 /* WLWrapContributorsRequest.m */; };
+		C5B93D271B4E6CC0005681DB /* WLBlockImageFetching.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D251B4E6CC0005681DB /* WLBlockImageFetching.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B93D281B4E6CC0005681DB /* WLBlockImageFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B93D261B4E6CC0005681DB /* WLBlockImageFetching.m */; };
 		C5B993C51B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */; };
 		C5B993C61B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */; };
 		C5B993C71B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */; };
@@ -3264,6 +3266,8 @@
 		C5B6D99C1B4A82C7009B9436 /* WLChatLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChatLayout.m; path = WLChatViewController/WLChatLayout.m; sourceTree = "<group>"; };
 		C5B6D9A21B4AB70C009B9436 /* WLWrapContributorsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapContributorsRequest.h; sourceTree = "<group>"; };
 		C5B6D9A31B4AB70C009B9436 /* WLWrapContributorsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapContributorsRequest.m; sourceTree = "<group>"; };
+		C5B93D251B4E6CC0005681DB /* WLBlockImageFetching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBlockImageFetching.h; sourceTree = "<group>"; };
+		C5B93D261B4E6CC0005681DB /* WLBlockImageFetching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLBlockImageFetching.m; sourceTree = "<group>"; };
 		C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLWKChatReplyPresets.plist; sourceTree = "<group>"; };
 		C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLWKCommentReplyPresets.plist; sourceTree = "<group>"; };
 		C5B993CA1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceController+SimplifiedTextInput.h"; sourceTree = "<group>"; };
@@ -5836,6 +5840,8 @@
 			children = (
 				C5612D491ACD968B0052578A /* WLImageFetcher.h */,
 				C5612D4A1ACD968B0052578A /* WLImageFetcher.m */,
+				C5B93D251B4E6CC0005681DB /* WLBlockImageFetching.h */,
+				C5B93D261B4E6CC0005681DB /* WLBlockImageFetching.m */,
 				C5612D4B1ACD968B0052578A /* WLImageView.h */,
 				C5612D4C1ACD968B0052578A /* WLImageView.m */,
 			);
@@ -6718,6 +6724,7 @@
 				C587C7B61AD2E6A0003E7647 /* WLAPIManager.h in Headers */,
 				C587C7D01AD2E6A0003E7647 /* WLUploading+Extended.h in Headers */,
 				C587C7BD1AD2E6A0003E7647 /* WLCache.h in Headers */,
+				C5B93D271B4E6CC0005681DB /* WLBlockImageFetching.h in Headers */,
 				C587C7E41AD2E6A0003E7647 /* GCDHelper.h in Headers */,
 				C587C7E21AD2E6A0003E7647 /* WLUploadingQueue.h in Headers */,
 				C587C7B51AD2E6A0003E7647 /* WLAPIEnvironment.h in Headers */,
@@ -9191,6 +9198,7 @@
 				C5B233761B29E0C4008A14D1 /* WLEditPicture.m in Sources */,
 				C587C8741AD2E6DB003E7647 /* WLUploadCandyRequest.m in Sources */,
 				C587C8611AD2E6DB003E7647 /* WLAPIRequest.m in Sources */,
+				C5B93D281B4E6CC0005681DB /* WLBlockImageFetching.m in Sources */,
 				C587C8B71AD2E708003E7647 /* AFURLRequestSerialization.m in Sources */,
 				C587C88F1AD2E6DB003E7647 /* WLWrap+Extended.m in Sources */,
 				C587C88A1AD2E6DB003E7647 /* WLComment.m in Sources */,

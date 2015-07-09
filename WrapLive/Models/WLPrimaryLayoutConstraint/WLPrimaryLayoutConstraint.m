@@ -10,9 +10,9 @@
 
 @interface WLPrimaryLayoutConstraint ()
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *strongConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *weakConstraint;
-@property (weak, nonatomic) IBOutlet UIView *parentView;
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *strongConstraints;
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *weakConstraints;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *parentViews;
 
 @end
 
@@ -32,19 +32,19 @@
 }
 
 - (void)setDefaultState:(BOOL)defaultState {
-    if (self.strongConstraint.priority != self.weakConstraint.priority) {
-        self.strongConstraint.priority = defaultState ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
-        self.weakConstraint.priority = defaultState ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
-        if (self.parentView != nil) {
-            [self.parentView layoutIfNeeded];
-        } else {
-            [self.strongConstraint.firstItem layoutIfNeeded];
-        }
+    for (NSLayoutConstraint *_constraint in self.strongConstraints) {
+            _constraint.priority = defaultState ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+    }
+    for (NSLayoutConstraint *_constraint in self.weakConstraints) {
+         _constraint.priority = defaultState ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
+    }
+    for (UIView *view in self.parentViews) {
+        [view layoutIfNeeded];
     }
 }
 
 - (BOOL)defaultState {
-    return self.strongConstraint.priority > self.weakConstraint.priority;
+    return [[self.strongConstraints firstObject] priority] > [[self.weakConstraints firstObject] priority];
 }
 
 @end

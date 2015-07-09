@@ -29,7 +29,6 @@
 #import "WLPrimaryLayoutConstraint.h"
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
-static CGFloat WLBottomIndentCameraButton = 4.0;
 
 @interface WLPhotosViewController () <WLPresentingImageViewDelegate>
 
@@ -104,11 +103,8 @@ static CGFloat WLBottomIndentCameraButton = 4.0;
 // MARK: - Custom animation
 
 - (void)dropDownCollectionView {
-    self.collectionView.transform = CGAffineTransformMakeTranslation(0, -self.view.height);
     self.primaryConstraint.defaultState = NO;
     [UIView animateWithDuration:1 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.3 options:0 animations:^{
-        [self.collectionView setMinimumContentOffsetAnimated:NO];
-        self.collectionView.transform = CGAffineTransformIdentity;
         self.primaryConstraint.defaultState = YES;
     } completion:nil];
 }

@@ -3419,7 +3419,7 @@ Tap here to start.</string>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="bottom" priority="750" id="3Zf-0D-3vD"/>
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="top" secondItem="FUv-v8-MyM" secondAttribute="top" priority="750" id="9OU-iu-BTw"/>
                             <constraint firstAttribute="trailing" secondItem="wdj-eZ-S3g" secondAttribute="trailing" id="Bro-hF-oDw"/>
-                            <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="bottom" priority="250" constant="-120" id="FGX-3K-gVJ"/>
+                            <constraint firstItem="DOa-Ws-aK4" firstAttribute="top" secondItem="kcj-4A-oFo" secondAttribute="top" priority="250" id="FGX-3K-gVJ"/>
                             <constraint firstItem="wdj-eZ-S3g" firstAttribute="top" secondItem="FUv-v8-MyM" secondAttribute="top" id="Oo7-M6-a6c"/>
                             <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="2ai-CO-qH0" secondAttribute="bottom" constant="12" id="R09-AS-8Qc"/>
                             <constraint firstAttribute="trailing" secondItem="DOa-Ws-aK4" secondAttribute="trailing" id="WMM-NN-L4t"/>
@@ -3434,7 +3434,6 @@ Tap here to start.</string>
                     <connections>
                         <outlet property="actionButton" destination="J3S-jS-mvs" id="NRV-ah-tMy"/>
                         <outlet property="avatarImageView" destination="DKe-of-CwY" id="pwy-xB-Q7n"/>
-                        <outlet property="bottomPrimaryConstraint" destination="lcj-Bb-o54" id="eLa-ef-JU2"/>
                         <outlet property="bottomView" destination="DOa-Ws-aK4" id="oO2-CG-2mp"/>
                         <outlet property="candyIndicator" destination="7yS-IZ-1M1" id="4SO-xL-ie4"/>
                         <outlet property="commentButton" destination="2ai-CO-qH0" id="gaJ-nC-R6A"/>
@@ -3442,10 +3441,10 @@ Tap here to start.</string>
                         <outlet property="editButton" destination="P4L-uu-XEd" id="ZyM-nD-E5G"/>
                         <outlet property="lastCommentTextView" destination="G8T-0M-jNN" id="747-dx-mt6"/>
                         <outlet property="postLabel" destination="xGF-6q-Jgs" id="QRd-Pg-cNO"/>
+                        <outlet property="primaryConstraint" destination="7tb-Tf-pQx" id="7Hi-fX-7fY"/>
                         <outlet property="scrollView" destination="wdj-eZ-S3g" id="lT5-G5-juv"/>
                         <outlet property="spinner" destination="TL4-HZ-bti" id="PiR-V6-Unb"/>
                         <outlet property="timeLabel" destination="OBg-6r-k4s" id="gLL-0G-dWw"/>
-                        <outlet property="topPrimaryConstraint" destination="7tb-Tf-pQx" id="54V-8p-i7I"/>
                         <outlet property="topView" destination="Wbg-W9-8Ie" id="6g0-cf-4Q4"/>
                     </connections>
                 </viewController>
@@ -3463,16 +3462,12 @@ Tap here to start.</string>
                 </customObject>
                 <customObject id="7tb-Tf-pQx" customClass="WLPrimaryLayoutConstraint">
                     <connections>
-                        <outlet property="parentView" destination="Wbg-W9-8Ie" id="Ozt-LO-p1F"/>
-                        <outlet property="strongConstraint" destination="9OU-iu-BTw" id="lG6-mz-P2Y"/>
-                        <outlet property="weakConstraint" destination="x8y-fG-5Cd" id="j7Q-yu-pxR"/>
-                    </connections>
-                </customObject>
-                <customObject id="lcj-Bb-o54" customClass="WLPrimaryLayoutConstraint">
-                    <connections>
-                        <outlet property="parentView" destination="DOa-Ws-aK4" id="FwW-70-djg"/>
-                        <outlet property="strongConstraint" destination="3Zf-0D-3vD" id="TT8-PL-nVv"/>
-                        <outlet property="weakConstraint" destination="FGX-3K-gVJ" id="Ehi-Sq-M9C"/>
+                        <outletCollection property="strongConstraints" destination="9OU-iu-BTw" id="xtm-pT-2da"/>
+                        <outletCollection property="weakConstraints" destination="x8y-fG-5Cd" id="jre-wM-Nfy"/>
+                        <outletCollection property="strongConstraints" destination="3Zf-0D-3vD" id="jNB-NZ-kXc"/>
+                        <outletCollection property="weakConstraints" destination="FGX-3K-gVJ" id="aQf-j9-BaT"/>
+                        <outletCollection property="parentViews" destination="Wbg-W9-8Ie" id="Ueq-JB-rij"/>
+                        <outletCollection property="parentViews" destination="DOa-Ws-aK4" id="CDc-hV-lWD"/>
                     </connections>
                 </customObject>
             </objects>
@@ -4804,7 +4799,7 @@ QWRkEEZyaWVuZFZpZXc
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="a7y-ca-xlT" customClass="WLCollectionView">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="94"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="qkQ-oJ-ztg">
@@ -4974,14 +4969,16 @@ QWRkEEZyaWVuZFZpZXc
                         <constraints>
                             <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="PNO-TY-VYu" secondAttribute="bottom" priority="750" constant="4" id="CrN-KF-fsR"/>
                             <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="PNO-TY-VYu" secondAttribute="top" priority="250" id="Dqa-Ym-RTY"/>
-                            <constraint firstItem="a7y-ca-xlT" firstAttribute="top" secondItem="3DU-Zj-0y1" secondAttribute="bottom" id="ShD-Sj-J8h"/>
+                            <constraint firstAttribute="height" secondItem="a7y-ca-xlT" secondAttribute="height" id="U0K-GA-9fE"/>
                             <constraint firstAttribute="centerX" secondItem="PNO-TY-VYu" secondAttribute="centerX" id="UTb-fY-Pq4"/>
-                            <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="a7y-ca-xlT" secondAttribute="bottom" id="bOH-HL-fTo"/>
+                            <constraint firstItem="a7y-ca-xlT" firstAttribute="bottom" secondItem="3DU-Zj-0y1" secondAttribute="bottom" priority="250" id="a1M-pT-hWe"/>
+                            <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="a7y-ca-xlT" secondAttribute="bottom" priority="750" id="bOH-HL-fTo"/>
                             <constraint firstItem="a7y-ca-xlT" firstAttribute="leading" secondItem="z88-8Q-V7N" secondAttribute="leading" id="bpB-z8-43g"/>
                             <constraint firstAttribute="trailing" secondItem="a7y-ca-xlT" secondAttribute="trailing" id="v5U-VC-oWc"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="a7y-ca-xlT" id="Fgn-6b-Eot"/>
                         <outlet property="dataSource" destination="R4B-e5-fki" id="nPm-NP-w5V"/>
@@ -4999,9 +4996,11 @@ QWRkEEZyaWVuZFZpZXc
                 </customObject>
                 <customObject id="8F6-xd-Raa" customClass="WLPrimaryLayoutConstraint">
                     <connections>
-                        <outlet property="parentView" destination="PNO-TY-VYu" id="Cci-tJ-p1p"/>
-                        <outlet property="strongConstraint" destination="CrN-KF-fsR" id="7gN-kJ-lxs"/>
-                        <outlet property="weakConstraint" destination="Dqa-Ym-RTY" id="p7v-PJ-PRC"/>
+                        <outletCollection property="strongConstraints" destination="CrN-KF-fsR" id="M0N-Cu-n2p"/>
+                        <outletCollection property="weakConstraints" destination="Dqa-Ym-RTY" id="xLf-PY-1CW"/>
+                        <outletCollection property="strongConstraints" destination="bOH-HL-fTo" id="abU-ro-mEt"/>
+                        <outletCollection property="weakConstraints" destination="a1M-pT-hWe" id="Wnn-So-AwW"/>
+                        <outletCollection property="parentViews" destination="z88-8Q-V7N" id="NSu-0h-eYw"/>
                     </connections>
                 </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXa-Fb-BfF" userLabel="First Responder" sceneMemberID="firstResponder"/>

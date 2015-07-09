@@ -50,8 +50,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLTextView *lastCommentTextView;
 
-@property (weak, nonatomic) IBOutlet WLPrimaryLayoutConstraint *topPrimaryConstraint;
-@property (weak, nonatomic) IBOutlet WLPrimaryLayoutConstraint *bottomPrimaryConstraint;
+@property (weak, nonatomic) IBOutlet WLPrimaryLayoutConstraint *primaryConstraint;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;
@@ -198,8 +197,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated {
-    [self.topPrimaryConstraint setDefaultState:!hidden animated:animated];
-    [self.bottomPrimaryConstraint setDefaultState:!hidden animated:animated];
+    [self.primaryConstraint setDefaultState:!hidden animated:animated];
 }
 
 - (void)setHistoryItem:(WLHistoryItem *)historyItem direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated {

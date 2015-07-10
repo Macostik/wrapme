@@ -155,6 +155,11 @@ CGFloat WLMaxTextViewWidth;
     }];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.chat.resetUnreadMessages = NO;
+}
+
 - (void)scrollToLastUnreadMessage {
     self.layout.scrollToUnreadMessages = YES;
     [self reloadDataSynchronously:NO];
@@ -462,6 +467,8 @@ CGFloat WLMaxTextViewWidth;
             NSUInteger unreadMessagesCount = [self.chat unreadMessagesCount];
             [self notifyOnChangeUnreadMessagesCount:unreadMessagesCount];
             if (unreadMessagesCount == 0) {
+                [self.chat.unreadMessages removeAllObjects];
+                [self.chat.readMessages removeAllObjects];
                 [self reloadDataSynchronously:NO];
             } else {
                 [self.unreadMessagesView updateWithUnreadMessagesCount:unreadMessagesCount];

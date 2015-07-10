@@ -28,9 +28,11 @@
                medium:[dictionary stringForKey:WLMediumAvatarKey]
                 small:[dictionary stringForKey:WLSmallAvatarKey]];
     
-    NSSet* devices = [WLDevice API_entries:[dictionary arrayForKey:@"devices"] relatedEntry:self];
-    if (![self.devices isEqualToSet:devices]) self.devices = devices;
-    self.phones = nil;
+    if (dictionary[@"devices"]) {
+        NSSet* devices = [WLDevice API_entries:[dictionary arrayForKey:@"devices"] relatedEntry:self];
+        if (![self.devices isEqualToSet:devices]) self.devices = devices;
+        self.phones = nil;
+    }
     
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }

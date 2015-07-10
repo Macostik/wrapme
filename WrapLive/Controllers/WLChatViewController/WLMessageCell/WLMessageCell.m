@@ -93,6 +93,11 @@
     if (self.indicator) {
         [self.indicator updateStatusIndicator:message];
     }
+    
+    WLMenu *menu = [WLMenu sharedMenu];
+    if (menu.visible) {
+        [menu hide];
+    }
 }
 
 @end

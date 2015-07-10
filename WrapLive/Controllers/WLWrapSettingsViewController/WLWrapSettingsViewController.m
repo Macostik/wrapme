@@ -42,6 +42,9 @@ static NSInteger WLIndent = 12.0;
     self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
     self.widthTextFieldConstraint.constant += !self.wrap.deletable ? : self.editButton.width + WLIndent;
     
+    [self.candyNotifyTrigger setOn:self.wrap.isCandyNotifiable];
+    [self.chatNotifyTrigger setOn:self.wrap.isChatNotifiable];
+    
     __weak __typeof(self)weakSelf = self;
     [[WLPreferenceRequest request:self.wrap] send:^(WLWrap *wrap) {
         [weakSelf.candyNotifyTrigger setOn:wrap.isCandyNotifiable];

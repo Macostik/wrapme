@@ -53,6 +53,8 @@ typedef void (^WLEntryManagerMainContextFailureBlock) (NSError *error, NSManaged
 
 - (NSArray*)executeFetchRequest:(NSFetchRequest*)request;
 
+- (void)assureSave:(WLBlock)block;
+
 - (void)performBlockInBackground:(WLEntryManagerBackgroundContextBlock)block success:(WLEntryManagerMainContextSuccessBlock)success failure:(WLEntryManagerMainContextFailureBlock)failure;
 
 - (void)executeFetchRequest:(NSFetchRequest*)request success:(WLArrayBlock)success failure:(WLFailureBlock)failure;

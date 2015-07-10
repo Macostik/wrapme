@@ -60,14 +60,15 @@
     
     __weak typeof(self)weakSelf = self;
     
-    __block NSUInteger unreadEntriesCount = 0;
-    
     NSPredicate *contributionsPredicate = [self predicateByAddingVariables:self.contributionsPredicate];
     
     NSPredicate *updatesPredicate = [self predicateByAddingVariables:self.updatesPredicate];
     
     if (updatesPredicate && contributionsPredicate) {
         [[WLEntryManager manager] performBlockInBackground:^(__autoreleasing id *result, NSError *__autoreleasing *error, NSManagedObjectContext *backgroundContext) {
+            
+            NSUInteger unreadEntriesCount = 0;
+            
             NSMutableSet *events = [NSMutableSet set];
             NSMutableArray *contributions = [NSMutableArray array];
             [contributions adds:[backgroundContext executeFetchRequest:[WLComment fetchRequestWithPredicate:contributionsPredicate] error:error]];
@@ -75,20 +76,14 @@
             NSArray *updates = [backgroundContext executeFetchRequest:[WLCandy fetchRequestWithPredicate:updatesPredicate] error:error];
             
             for (WLContribution *contribution in contributions) {
-                WLWhatsUpEvent *event = [[WLWhatsUpEvent alloc] init];
-                event.event = WLEventAdd;
-                event.contribution = contribution;
-                [events addObject:event];
+                [events addObject:[WLWhatsUpEvent event:WLEventAdd contribution:contribution]];
                 if (contribution.unread) {
                     unreadEntriesCount++;
                 }
             }
             
             for (WLContribution *contribution in updates) {
-                WLWhatsUpEvent *event = [[WLWhatsUpEvent alloc] init];
-                event.event = WLEventUpdate;
-                event.contribution = contribution;
-                [events addObject:event];
+                [events addObject:[WLWhatsUpEvent event:WLEventUpdate contribution:contribution]];
                 if (contribution.unread && ![contributions containsObject:contribution]) {
                     unreadEntriesCount++;
                 }
@@ -96,9 +91,11 @@
             weakSelf.unreadEntriesCount = unreadEntriesCount;
             *result = events;
         } success:^(NSMutableSet *events, NSManagedObjectContext *mainContext) {
-            for (WLWhatsUpEvent *event in events) {
-                event.contribution = [mainContext objectWithID:[event.contribution objectID]];
-            }
+            events = [events map:^id(WLWhatsUpEvent *event) {
+                WLContribution *contribution = event.contribution;
+                event.contribution = [mainContext objectWithID:[contribution objectID]];
+                return [contribution valid] ? event : nil;
+            }];
             [weakSelf resetEntries:events];
             if (success) success();
         } failure:^(NSError *error, NSManagedObjectContext *mainContext) {

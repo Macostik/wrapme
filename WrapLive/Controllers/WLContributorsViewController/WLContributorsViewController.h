@@ -6,12 +6,8 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLBaseViewController.h"
+#import "WLWrapEmbeddedViewController.h"
 
-@class WLWrap;
-
-@interface WLContributorsViewController : WLBaseViewController
-
-@property (weak, nonatomic) WLWrap *wrap;
+@interface WLContributorsViewController : WLWrapEmbeddedViewController
 
 @end

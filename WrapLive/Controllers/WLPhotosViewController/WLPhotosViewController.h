@@ -6,19 +6,18 @@
 //
 //
 
-#import "WLBaseViewController.h"
+#import "WLWrapEmbeddedViewController.h"
 
-@class WLPhotosViewController, WLBasicDataSource;
+@class WLPhotosViewController;
 
-@protocol WLPhotosViewControllerDelegate <NSObject>
+@protocol WLPhotosViewControllerDelegate <WLWrapEmbeddedViewControllerDelegate>
 
-- (void)photosViewController:(WLPhotosViewController *)controller didTouchCameraButton:(WLBasicDataSource *)dataSource;
+@optional
+- (void)photosViewControllerDidAddPhoto:(WLPhotosViewController *)controller;
 
 @end
 
-@interface WLPhotosViewController : WLBaseViewController
-
-@property (weak, nonatomic) WLWrap* wrap;
+@interface WLPhotosViewController : WLWrapEmbeddedViewController
 
 @property (nonatomic, weak) id <WLPhotosViewControllerDelegate> delegate;
 

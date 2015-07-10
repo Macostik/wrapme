@@ -10,6 +10,13 @@
 
 @implementation WLWhatsUpEvent
 
++ (instancetype)event:(WLEvent)evnt contribution:(id)contribution {
+    WLWhatsUpEvent *event = [[WLWhatsUpEvent alloc] init];
+    event.event = evnt;
+    event.contribution = contribution;
+    return event;
+}
+
 - (NSDate *)date {
     if (self.event == WLEventUpdate) {
         return [self.contribution editedAt];

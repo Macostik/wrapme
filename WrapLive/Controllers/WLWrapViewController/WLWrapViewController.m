@@ -21,7 +21,7 @@
 #import "WLWhatsUpSet.h"
 #import "UIView+Extentions.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLChatViewControllerDelegate, WLPhotosViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
@@ -123,11 +123,7 @@
             return weakSelf.wrap;
         }];
          receiver.didAddBlock = receiver.didDeleteBlock = ^(WLMessage *message) {
-            if (weakSelf.segmentedControl.selectedSegment != WLSegmentControlStateChat) {
-                [weakSelf updateMessageCouter];
-            } else {
-                [message markAsRead];
-            }
+            [weakSelf updateMessageCouter];
         };
     }];
 }
@@ -135,7 +131,6 @@
 - (IBAction)photosTabSelected:(id)sender {
     self.selectedSegment = WLSegmentControlStatePhotos;
     self.viewController = [self controllerForClass:[WLPhotosViewController class]];
-    [(id)self.viewController setDelegate:self];
     [self updateCandyCounter];
 }
 
@@ -169,22 +164,25 @@
 // MARK: - Custom animation
 
 - (void)setViewController:(UIViewController *)viewController {
-    [_viewController.view removeFromSuperview];
+    if (_viewController) {
+        [_viewController.view removeFromSuperview];
+    }
     _viewController = viewController;
     [self.containerView addSubview:viewController.view];
     [self.containerView makeResizibleSubview:viewController.view];
 }
 
-- (UIViewController *)controllerForClass:(Class)class {
-    UIViewController *viewController = nil;
-    for (UIViewController *createdViewController in self.childViewControllers) {
+- (WLWrapEmbeddedViewController *)controllerForClass:(Class)class {
+    WLWrapEmbeddedViewController *viewController = nil;
+    for (WLWrapEmbeddedViewController *createdViewController in self.childViewControllers) {
         if ([createdViewController.class isEqual:class]) {
             viewController = createdViewController;
         }
     }
     if (viewController == nil) {
         viewController = [class instantiate:self.storyboard];
-        [(id)viewController setWrap:self.wrap];
+        viewController.wrap = self.wrap;
+        viewController.delegate = self;
         viewController.view.frame = self.containerView.bounds;
         [self addChildViewController:viewController];
         [viewController didMoveToParentViewController:self];
@@ -195,13 +193,19 @@
 
 // MARK: - WLPhotoViewControllerDelegate
 
-- (void)photosViewController:(WLPhotosViewController *)controller didTouchCameraButton:(UIButton *)sender {
+- (void)photosViewControllerDidAddPhoto:(WLPhotosViewController *)controller {
     WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPictureViewController];
     stillPictureViewController.wrap = self.wrap;
     stillPictureViewController.mode = WLStillPictureModeDefault;
     stillPictureViewController.delegate = self;
     stillPictureViewController.startFromGallery = NO;
     [self presentViewController:stillPictureViewController animated:NO completion:nil];
+}
+
+// MARK: - WLChatViewControllerDelegate
+
+- (void)chatViewController:(WLChatViewController *)controller didChangeUnreadMessagesCount:(NSUInteger)unreadMessagesCount {
+    self.messageCountLabel.intValue = unreadMessagesCount;
 }
 
 @end

@@ -30,6 +30,8 @@
 
 @property (strong, nonatomic) NSMapTable* cachedEntries;
 
+@property (strong, nonatomic) NSMutableSet *assureSaveBlocks;
+
 @end
 
 @implementation WLEntryManager
@@ -45,6 +47,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.assureSaveBlocks = [NSMutableSet set];
         self.cachedEntries = [NSMapTable strongToWeakObjectsMapTable];
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
         [notificationCenter addObserver:self selector:@selector(save) name:UIApplicationWillTerminateNotification object:nil];
@@ -65,8 +68,15 @@
         [_context setPersistentStoreCoordinator:coordinator];
         _context.mergePolicy = [[WLMergePolicy alloc] initWithMergeType:NSOverwriteMergePolicyType];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:NSManagedObjectContextObjectsDidChangeNotification object:_context];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSaveNotification:) name:NSManagedObjectContextDidSaveNotification object:_context];
     }
     return _context;
+}
+
+- (void)didSaveNotification:(NSNotification*)notification {
+    if (notification.object == self.context) {
+        [self.backgroundContext mergeChangesFromContextDidSaveNotification:notification];
+    }
 }
 
 - (NSManagedObjectModel *)model {
@@ -220,17 +230,29 @@
 
 - (void)save {
     __weak typeof(self)weakSelf = self;
-    run_after_asap(^{
-        if ([weakSelf.context hasChanges] && weakSelf.coordinator.persistentStores.nonempty) {
-            [weakSelf.context performBlock:^{
-                NSError* error = nil;
-                [weakSelf.context save:&error];
-                if (error) {
-                    WLLog(@"CoreData", @"save error", error);
-                }
-            }];
+    if ([weakSelf.context hasChanges] && weakSelf.coordinator.persistentStores.nonempty) {
+        [weakSelf.context performBlock:^{
+            NSError* error = nil;
+            [weakSelf.context save:&error];
+            for (WLBlock block in weakSelf.assureSaveBlocks) {
+                block();
+            }
+            [weakSelf.assureSaveBlocks removeAllObjects];
+            if (error) {
+                WLLog(@"CoreData", @"save error", error);
+            }
+        }];
+    }
+}
+
+- (void)assureSave:(WLBlock)block {
+    if (block) {
+        if ([self.context hasChanges]) {
+            [self.assureSaveBlocks addObject:block];
+        } else {
+            block();
         }
-    });
+    }
 }
 
 - (void)clear {
@@ -263,16 +285,18 @@
 - (void)performBlockInBackground:(WLEntryManagerBackgroundContextBlock)block success:(WLEntryManagerMainContextSuccessBlock)success failure:(WLEntryManagerMainContextFailureBlock)failure {
     NSManagedObjectContext *mainContext = self.context;
     NSManagedObjectContext *backgroundContext = self.backgroundContext;
-    [self.backgroundContext performBlock:^{
-        NSError *error = nil;
-        id result = nil;
-        if (block) block(&result, &error, backgroundContext);
-        [mainContext performBlock:^{
-            if (error) {
-                if (failure) failure(error, mainContext);
-            } else {
-                if (success) success(result, mainContext);
-            }
+    [self assureSave:^{
+        [backgroundContext performBlock:^{
+            NSError *error = nil;
+            id result = nil;
+            if (block) block(&result, &error, backgroundContext);
+            [mainContext performBlock:^{
+                if (error) {
+                    if (failure) failure(error, mainContext);
+                } else {
+                    if (success) success(result, mainContext);
+                }
+            }];
         }];
     }];
 }

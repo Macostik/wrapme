@@ -42,6 +42,8 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 @implementation WLPhotosViewController
 
+@dynamic delegate;
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -95,8 +97,8 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 // MARK: - User Actions
 
 - (IBAction)addPhoto:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(photosViewController:didTouchCameraButton:)]) {
-        [self.delegate photosViewController:self didTouchCameraButton:sender];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(photosViewControllerDidAddPhoto:)]) {
+        [self.delegate photosViewControllerDidAddPhoto:self];
     }
 }
 

@@ -14,4 +14,6 @@
 
 - (void)updateWithChat:(WLChat*)chat;
 
+- (void)updateWithUnreadMessagesCount:(NSUInteger)unreadMessagesCount;
+
 @end

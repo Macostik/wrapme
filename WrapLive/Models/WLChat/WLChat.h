@@ -41,6 +41,8 @@
 
 @property (readonly, nonatomic) BOOL showTypingView;
 
+@property (nonatomic) BOOL resetUnreadMessages;
+
 + (instancetype)chatWithWrap:(WLWrap*)wrap;
 
 - (void)sendTyping:(BOOL)typing sendMessage:(BOOL)sendMessage;
@@ -48,5 +50,11 @@
 - (void)beginTyping;
 
 - (void)endTyping:(BOOL)sendMessage;
+
+- (BOOL)showUnreadMessagesViewForMessgae:(WLMessage*)message;
+
+- (void)refreshUnreadMessages:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
+
+- (NSUInteger)unreadMessagesCount;
 
 @end

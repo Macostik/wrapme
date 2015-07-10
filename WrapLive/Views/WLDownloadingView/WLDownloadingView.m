@@ -32,7 +32,7 @@
     WLImageBlock downloadBlock = ^(UIImage *image) {
         [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
             if (candy.valid) {
-                [WLEditPicture picture:image completion:^(WLEditPicture *picture) {
+                __block WLEditPicture *picture = [WLEditPicture picture:image completion:^(id object) {
                     [candy setEditedPictureIfNeeded:[picture uploadablePictureWithAnimation:NO]];
                     [candy enqueueUpdate:failure];
                 }];

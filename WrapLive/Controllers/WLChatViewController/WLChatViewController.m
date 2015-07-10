@@ -59,11 +59,13 @@ CGFloat WLMaxTextViewWidth;
 
 @property (weak, nonatomic) WLTypingView *typingView;
 
-@property (nonatomic) BOOL resetUnreadMessages;
+@property (weak, nonatomic) WLUnreadMessagesView *unreadMessagesView;
 
 @end
 
 @implementation WLChatViewController
+
+@dynamic delegate;
 
 - (void)dealloc {
     self.collectionView.delegate = nil;
@@ -77,9 +79,11 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)reloadChatAfterApplicationBecameActive {
-    self.chat = [WLChat chatWithWrap:self.wrap];
-    self.chat.delegate = self;
-    [self scrollToLastUnreadMessage];
+    __weak typeof(self)weakSelf = self;
+    [self.chat refreshUnreadMessages:^(NSOrderedSet *orderedSet) {
+        [weakSelf scrollToLastUnreadMessage];
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (BOOL)geometryFlipped {
@@ -144,9 +148,10 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self scrollToLastUnreadMessage];
-    [self.wrap.messages all:^(WLMessage *message) {
-        [message markAsRead];
+    __weak typeof(self)weakSelf = self;
+    [self.chat refreshUnreadMessages:^(NSOrderedSet *unreadMessages) {
+        [weakSelf scrollToLastUnreadMessage];
+    } failure:^(NSError *error) {
     }];
 }
 
@@ -180,7 +185,7 @@ CGFloat WLMaxTextViewWidth;
     if (applicationState == UIApplicationStateBackground) {
         return;
     }
-    BOOL applicationActive = applicationState == UIApplicationStateActive;
+    BOOL chatVisible = applicationState == UIApplicationStateActive && self.view.superview;
     __weak typeof(self)weakSelf = self;
     runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
         
@@ -195,7 +200,7 @@ CGFloat WLMaxTextViewWidth;
             [weakSelf.chat addEntry:message];
             [operation finish];
             
-        } else if (collectionView.contentOffset.y > collectionView.minimumContentOffset.y || !applicationActive) {
+        } else if (collectionView.contentOffset.y > collectionView.minimumContentOffset.y || !chatVisible) {
             
             CGFloat offset = collectionView.contentOffset.y;
             CGFloat contentHeight = collectionView.contentSize.height;
@@ -334,6 +339,12 @@ CGFloat WLMaxTextViewWidth;
     });
 }
 
+- (void)notifyOnChangeUnreadMessagesCount:(NSUInteger)count {
+    if ([self.delegate respondsToSelector:@selector(chatViewController:didChangeUnreadMessagesCount:)]) {
+        [self.delegate chatViewController:self didChangeUnreadMessagesCount:count];
+    }
+}
+
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLMessage *)message {
@@ -444,11 +455,17 @@ CGFloat WLMaxTextViewWidth;
     [cell setShowName:[self.chat.messagesWithName containsObject:message]];
     cell.entry = message;
     cell.layer.geometryFlipped = [self geometryFlipped];
-    if (message.unread) {
-        message.unread = YES;
-        if (self.resetUnreadMessages) {
-            [self.chat.readMessages addObject:message];
-            [self reloadDataSynchronously:NO];
+    if ([self.chat.unreadMessages containsObject:message] && self.view.superview) {
+        message.unread = NO;
+        [self.chat.readMessages addObject:message];
+        if (self.chat.resetUnreadMessages) {
+            NSUInteger unreadMessagesCount = [self.chat unreadMessagesCount];
+            [self notifyOnChangeUnreadMessagesCount:unreadMessagesCount];
+            if (unreadMessagesCount == 0) {
+                [self reloadDataSynchronously:NO];
+            } else {
+                [self.unreadMessagesView updateWithUnreadMessagesCount:unreadMessagesCount];
+            }
         }
     }
     return cell;
@@ -461,9 +478,9 @@ CGFloat WLMaxTextViewWidth;
         view.message = [self.chat.entries tryAt:indexPath.item];
         supplementaryView = view;
     } else if ([kind isEqualToString:@"unreadMessagesView"]) {
-        WLUnreadMessagesView *unreadMessagesView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"unreadMessagesView" forIndexPath:indexPath];
-        [unreadMessagesView updateWithChat:self.chat];
-        supplementaryView = unreadMessagesView;
+        self.unreadMessagesView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"unreadMessagesView" forIndexPath:indexPath];
+        [self.unreadMessagesView updateWithChat:self.chat];
+        supplementaryView = self.unreadMessagesView;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
          WLLoadingView *loadingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:WLLoadingViewIdentifier forIndexPath:indexPath];
         if (self.chat.wrap) {
@@ -520,7 +537,8 @@ CGFloat WLMaxTextViewWidth;
         return [self.chat.messagesWithDay containsObject:message] ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
     } else if ([kind isEqualToString:@"unreadMessagesView"]) {
         WLMessage *message = [self.chat.entries tryAt:indexPath.item];
-        return (message == [self.chat.unreadMessages lastObject]) ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
+        BOOL showUnreadMessagesView = [self.chat showUnreadMessagesViewForMessgae:message];
+        return showUnreadMessagesView ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
         if (self.chat.completed) return CGSizeZero;
         return CGSizeMake(collectionView.width, WLLoadingViewDefaultSize);
@@ -535,9 +553,9 @@ CGFloat WLMaxTextViewWidth;
     if ([self.chat.messagesWithDay containsObject:message]) {
         return 0;
     } else if ([self.chat.messagesWithName containsObject:message]) {
-        return [self.chat.unreadMessages lastObject] == message ? 0 : WLMessageGroupSpacing;
+        return [self.chat showUnreadMessagesViewForMessgae:message] ? 0 : WLMessageGroupSpacing;
     } else {
-        return [self.chat.unreadMessages lastObject] == message ? 0 : 3;
+        return [self.chat showUnreadMessagesViewForMessgae:message] ? 0 : 3;
     }
 }
 
@@ -553,8 +571,8 @@ CGFloat WLMaxTextViewWidth;
     return ![attributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader];
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    self.resetUnreadMessages = YES;
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.chat.resetUnreadMessages = YES;
 }
 
 #pragma mark - WLFontPresetterReceiver

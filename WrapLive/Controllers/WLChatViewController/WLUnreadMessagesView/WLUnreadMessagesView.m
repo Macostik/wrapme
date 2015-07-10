@@ -18,14 +18,17 @@
 @implementation WLUnreadMessagesView
 
 - (void)updateWithChat:(WLChat*)chat {
-    NSUInteger numberOfUnreadMessages = MAX(0, chat.unreadMessages.count - chat.readMessages.count);
+    [self updateWithUnreadMessagesCount:[chat unreadMessagesCount]];
+}
+
+- (void)updateWithUnreadMessagesCount:(NSUInteger)count {
     NSString *text = nil;
-    if (numberOfUnreadMessages == 1) {
-        text = [NSString stringWithFormat:WLLS(@"unread_message"), (unsigned long)numberOfUnreadMessages, WLLS(@"oe_Ending"), WLLS(@"ue_Ending")];
-    } else if (numberOfUnreadMessages < 5) {
-        text = [NSString stringWithFormat:WLLS(@"unread_message"), (unsigned long)numberOfUnreadMessages, WLLS(@"sORix_Ending"), WLLS(@"iya_Ending")];
+    if (count == 1) {
+        text = [NSString stringWithFormat:WLLS(@"unread_message"), (unsigned long)count, WLLS(@"oe_Ending"), WLLS(@"ue_Ending")];
+    } else if (count < 5) {
+        text = [NSString stringWithFormat:WLLS(@"unread_message"), (unsigned long)count, WLLS(@"sORix_Ending"), WLLS(@"iya_Ending")];
     } else {
-        text = [NSString stringWithFormat:WLLS(@"unread_message"), (unsigned long)numberOfUnreadMessages, WLLS(@"sORix_Ending"), WLLS(@"ii_Ending")];
+        text = [NSString stringWithFormat:WLLS(@"unread_message"), (unsigned long)count, WLLS(@"sORix_Ending"), WLLS(@"ii_Ending")];
     }
     self.textLabel.text = text;
 }

@@ -6,12 +6,19 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLBaseViewController.h"
+#import "WLWrapEmbeddedViewController.h"
 
 @class WLChatViewController;
 
-@interface WLChatViewController : WLBaseViewController
+@protocol WLChatViewControllerDelegate <WLWrapEmbeddedViewControllerDelegate>
 
-@property (nonatomic, weak) WLWrap* wrap;
+@optional
+- (void)chatViewController:(WLChatViewController*)controller didChangeUnreadMessagesCount:(NSUInteger)unreadMessagesCount;
+
+@end
+
+@interface WLChatViewController : WLWrapEmbeddedViewController
+
+@property (nonatomic, weak) id <WLChatViewControllerDelegate> delegate;
 
 @end

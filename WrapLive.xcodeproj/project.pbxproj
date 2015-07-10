@@ -1691,6 +1691,11 @@
 		C5BEE0F41B2AC8DB00D3CF70 /* WLNotification+PNMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */; };
 		C5BEE0F51B2AC8DB00D3CF70 /* WLNotification+PNMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */; };
 		C5BEE0F61B2AC8DB00D3CF70 /* WLNotification+PNMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */; };
+		C5BFE4CF1B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */; };
+		C5BFE4D01B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */; };
+		C5BFE4D11B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */; };
+		C5BFE4D21B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */; };
+		C5BFE4D31B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */; };
 		C5C015841B455760003623EC /* PubNub+APNS.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C014E91B45575F003623EC /* PubNub+APNS.m */; };
 		C5C015851B455760003623EC /* PubNub+APNS.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C014E91B45575F003623EC /* PubNub+APNS.m */; };
 		C5C015861B455760003623EC /* PubNub+APNS.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C014E91B45575F003623EC /* PubNub+APNS.m */; };
@@ -3286,6 +3291,8 @@
 		C5BEE0E51B2AC8C300D3CF70 /* WLNotificationSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationSubscription.m; sourceTree = "<group>"; };
 		C5BEE0F01B2AC8DB00D3CF70 /* WLNotification+PNMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLNotification+PNMessage.h"; sourceTree = "<group>"; };
 		C5BEE0F11B2AC8DB00D3CF70 /* WLNotification+PNMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLNotification+PNMessage.m"; sourceTree = "<group>"; };
+		C5BFE4CD1B4FD930004B655E /* WLWrapEmbeddedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapEmbeddedViewController.h; sourceTree = "<group>"; };
+		C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapEmbeddedViewController.m; sourceTree = "<group>"; };
 		C5C014E81B45575F003623EC /* PubNub+APNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PubNub+APNS.h"; sourceTree = "<group>"; };
 		C5C014E91B45575F003623EC /* PubNub+APNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PubNub+APNS.m"; sourceTree = "<group>"; };
 		C5C014EA1B45575F003623EC /* PubNub+ChannelGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PubNub+ChannelGroup.h"; sourceTree = "<group>"; };
@@ -4052,6 +4059,7 @@
 		12DCBA8818DB399B00A4BC44 /* WLWrapViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C5BFE4CC1B4FD913004B655E /* WLWrapEmbeddedViewController */,
 				1293677C18E337A800527250 /* WLWrapCandiesCell */,
 				12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */,
 				12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */,
@@ -6231,6 +6239,16 @@
 			path = WLNotificationCenter;
 			sourceTree = "<group>";
 		};
+		C5BFE4CC1B4FD913004B655E /* WLWrapEmbeddedViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5BFE4CD1B4FD930004B655E /* WLWrapEmbeddedViewController.h */,
+				C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */,
+			);
+			name = WLWrapEmbeddedViewController;
+			path = WLWrapViewController/WLWrapEmbeddedViewController;
+			sourceTree = "<group>";
+		};
 		C5C014E71B45575F003623EC /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -7808,6 +7826,7 @@
 				C541869E1B4560E300F83889 /* DDContextFilterLogFormatter.m in Sources */,
 				C5C016521B455760003623EC /* PNJSON.m in Sources */,
 				C5C015FD1B455760003623EC /* PNPresenceChannelGroupHereNowResult.m in Sources */,
+				C5BFE4D01B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */,
 				C54FC7631A160C2000623FC1 /* WLCollectionView.m in Sources */,
 				C577C2631A4C427100ECC7E5 /* iVersion.m in Sources */,
 				C5C0159E1B455760003623EC /* PubNub+Publish.m in Sources */,
@@ -8123,6 +8142,7 @@
 				C541869F1B4560E300F83889 /* DDContextFilterLogFormatter.m in Sources */,
 				C5C016531B455760003623EC /* PNJSON.m in Sources */,
 				C5C015FE1B455760003623EC /* PNPresenceChannelGroupHereNowResult.m in Sources */,
+				C5BFE4D11B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */,
 				C54FC7641A160C2000623FC1 /* WLCollectionView.m in Sources */,
 				C577C2641A4C427100ECC7E5 /* iVersion.m in Sources */,
 				C5C0159F1B455760003623EC /* PubNub+Publish.m in Sources */,
@@ -8398,6 +8418,7 @@
 				C54186A01B4560E300F83889 /* DDContextFilterLogFormatter.m in Sources */,
 				C5C016541B455760003623EC /* PNJSON.m in Sources */,
 				C5C015FF1B455760003623EC /* PNPresenceChannelGroupHereNowResult.m in Sources */,
+				C5BFE4D21B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */,
 				C54FC7651A160C2000623FC1 /* WLCollectionView.m in Sources */,
 				C577C2651A4C427100ECC7E5 /* iVersion.m in Sources */,
 				C5C015A01B455760003623EC /* PubNub+Publish.m in Sources */,
@@ -8626,6 +8647,7 @@
 				C54AF65B19B8C491006F7EDB /* WLProfileEditSession.m in Sources */,
 				C5C016731B455760003623EC /* PNChannelGroupAuditionParser.m in Sources */,
 				C5C016AA1B455760003623EC /* PNPushNotificationsStateModificationParser.m in Sources */,
+				C5BFE4D31B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */,
 				C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
 				C5C016411B455760003623EC /* PNClass.m in Sources */,
 				C5C015921B455760003623EC /* PubNub+Core.m in Sources */,
@@ -8973,6 +8995,7 @@
 				C541869D1B4560E300F83889 /* DDContextFilterLogFormatter.m in Sources */,
 				C5C016511B455760003623EC /* PNJSON.m in Sources */,
 				C5C015FC1B455760003623EC /* PNPresenceChannelGroupHereNowResult.m in Sources */,
+				C5BFE4CF1B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */,
 				C57479271B26FA45001AB8C0 /* WLCollectionView.m in Sources */,
 				C57479281B26FA45001AB8C0 /* iVersion.m in Sources */,
 				C5C0159D1B455760003623EC /* PubNub+Publish.m in Sources */,

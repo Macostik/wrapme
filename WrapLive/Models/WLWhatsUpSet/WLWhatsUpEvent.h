@@ -17,4 +17,6 @@
 
 @property (readonly, nonatomic) NSDate *date;
 
++ (instancetype)event:(WLEvent)evnt contribution:(id)contribution;
+
 @end

@@ -17,11 +17,11 @@
 
 - (instancetype)add:(id)object;
 
-- (instancetype)adds:(id)objects;
+- (instancetype)adds:(id <WLCollection>)objects;
 
 - (instancetype)remove:(id)object;
 
-- (instancetype)removes:(id)objects;
+- (instancetype)removes:(id <WLCollection>)objects;
 
 - (instancetype)map:(MapBlock)block;
 
@@ -41,11 +41,25 @@
 
 - (instancetype)replace:(id)object with:(id)replaceObject;
 
+- (NSArray*)array;
+
+- (NSSet*)set;
+
+- (NSOrderedSet*)orderedSet;
+
 @end
 
-@protocol WLOrderedCollection <WLCollection>
+@protocol WLBaseOrderedCollection <NSObject>
 
-- (id)tryAt:(NSInteger)index;
+@property (nonatomic, readonly) NSUInteger count;
+
+- (id)objectAtIndex:(NSUInteger)index;
+
+- (id)tryAt:(NSUInteger)index;
+
+@end
+
+@protocol WLOrderedCollection <WLCollection, WLBaseOrderedCollection>
 
 - (BOOL)containsAt:(NSUInteger)index;
 
@@ -69,10 +83,10 @@
 
 @end
 
-#define PREDICATE_FORMAT \
+#define BEGIN_PREDICATE_FORMAT \
 va_list args;\
 va_start(args, predicateFormat);\
-va_end(args);\
-if (predicateFormat && ![predicateFormat isKindOfClass:[NSString class]]) {\
-    return self;\
-}\
+
+#define END_PREDICATE_FORMAT va_end(args);
+
+

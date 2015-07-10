@@ -32,6 +32,7 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.readMessages = [NSMutableOrderedSet orderedSet];
         self.messagesWithDay = [NSHashTable weakObjectsHashTable];
         self.messagesWithName = [NSHashTable weakObjectsHashTable];
         self.typingUsers = [NSMutableOrderedSet orderedSet];
@@ -65,14 +66,17 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
     }
 }
 
+- (void)setUnreadMessages:(NSMutableOrderedSet *)unreadMessages {
+    _unreadMessages = unreadMessages;
+    [self.readMessages removeAllObjects];
+}
+
 - (void)setUnreadMessages {
     __weak typeof(self)weakSelf = self;
-    [WLMessage entries:^(NSFetchRequest *request) {
-        request.predicate = [NSPredicate predicateWithFormat:@"wrap == %@ AND unread == YES", weakSelf.wrap];
-        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
-    } success:^(NSArray *array) {
+    [[[WLMessage fetchRequest:@"wrap == %@ AND unread == YES", weakSelf.wrap] sortedBy:@"createdAt"] execute:^(NSArray *array) {
         weakSelf.unreadMessages = [NSMutableOrderedSet orderedSetWithArray:array];
     } failure:^(NSError *error) {
+        
     }];
 }
 

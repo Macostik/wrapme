@@ -19,7 +19,7 @@
 
 @implementation WLHomeDataSource
 
-- (void)setItems:(id<WLDataSourceItems>)items {
+- (void)setItems:(id<WLBaseOrderedCollection>)items {
     if (items.count > 0) self.wrap = [items objectAtIndex:0];
     [super setItems:items];
 }

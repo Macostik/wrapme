@@ -58,30 +58,14 @@
 
 @end
 
-@interface WLContribution (WLNotification)
+@interface WLContribution (WLNotification) @end
 
-@end
+@interface WLUser (WLNotification) @end
 
-@interface WLUser (WLNotification)
+@interface WLWrap (WLNotification) @end
 
-@end
+@interface WLCandy (WLNotification) @end
 
-@interface WLWrap (WLNotification)
+@interface WLMessage (WLNotification) @end
 
-- (BOOL)containsUnreadMessage;
-
-- (NSUInteger)unreadNotificationsMessageCount;
-
-@end
-
-@interface WLCandy (WLNotification)
-
-@end
-
-@interface WLMessage (WLNotification)
-
-@end
-
-@interface WLComment (WLNotification)
-
-@end
+@interface WLComment (WLNotification) @end

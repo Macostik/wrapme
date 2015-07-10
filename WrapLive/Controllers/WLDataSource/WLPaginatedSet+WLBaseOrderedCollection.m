@@ -6,14 +6,10 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLDataSourceItems.h"
+#import "WLPaginatedSet+WLBaseOrderedCollection.h"
 #import "WLCollections.h"
 
-@implementation NSArray (WLDataSourceItems) @end
-
-@implementation NSOrderedSet (WLDataSourceItems) @end
-
-@implementation WLPaginatedSet (WLDataSourceItems)
+@implementation WLPaginatedSet (WLBaseOrderedCollection)
 
 - (NSUInteger)count {
     return self.entries.count;

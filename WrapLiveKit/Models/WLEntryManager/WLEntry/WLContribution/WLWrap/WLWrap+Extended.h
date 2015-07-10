@@ -36,4 +36,8 @@ static NSUInteger WLWrapNameLimit = 190;
 
 - (BOOL)isFirstCreated;
 
+- (NSUInteger)unreadNotificationsMessageCount;
+
+- (void)countOfUnreadMessages:(void (^)(NSUInteger count))success failure:(WLFailureBlock)failure;
+
 @end

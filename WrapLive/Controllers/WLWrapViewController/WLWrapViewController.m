@@ -75,9 +75,10 @@
 
 - (void)updateMessageCouter {
     __weak typeof(self)weakSelf = self;
-    run_after(0.5, ^{
-        weakSelf.messageCountLabel.intValue = [weakSelf.wrap unreadNotificationsMessageCount];
-    });
+    [self.wrap countOfUnreadMessages:^(NSUInteger count) {
+        weakSelf.messageCountLabel.intValue = count;
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (void)updateCandyCounter {

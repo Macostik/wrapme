@@ -30,7 +30,7 @@
     return NO;
 }
 
-- (void)setItems:(id<WLDataSourceItems>)items {
+- (void)setItems:(id<WLBaseOrderedCollection>)items {
     _items = items;
     if ([items isKindOfClass:[WLPaginatedSet class]]) {
         [WLLoadingView registerInCollectionView:self.collectionView];

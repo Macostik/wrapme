@@ -247,29 +247,54 @@
     return [[WLEntryManager manager].context executeFetchRequest:request error:NULL];
 }
 
-- (void)executeFetchRequest:(NSFetchRequest *)request success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
-    
+- (NSManagedObjectContext *)backgroundContext {
+    if (!_backgroundContext) {
+        NSPersistentStoreCoordinator *coordinator = [self coordinator];
+        if (coordinator != nil) {
+            _backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+            _backgroundContext.persistentStoreCoordinator = coordinator;
+        }
+    }
+    return _backgroundContext;
+}
+
+- (void)performBlockInBackground:(WLEntryManagerBackgroundContextBlock)block success:(WLEntryManagerMainContextSuccessBlock)success failure:(WLEntryManagerMainContextFailureBlock)failure {
     NSManagedObjectContext *mainContext = self.context;
-    NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    
-    NSPersistentStoreCoordinator *coordinator = mainContext.persistentStoreCoordinator;
-    
-    [backgroundContext performBlock:^{
-        backgroundContext.persistentStoreCoordinator = coordinator;
-        
+    NSManagedObjectContext *backgroundContext = self.backgroundContext;
+    [self.backgroundContext performBlock:^{
         NSError *error = nil;
-        __block NSArray *objects = [backgroundContext executeFetchRequest:request error:&error];
-        
+        id result = nil;
+        if (block) block(&result, &error, backgroundContext);
         [mainContext performBlock:^{
-            if (objects) {
-                objects = [objects map:^id(NSManagedObject *object) {
-                    return [mainContext objectWithID:[object objectID]];
-                }];
-                if (success) success(objects);
+            if (error) {
+                if (failure) failure(error, mainContext);
             } else {
-                if (failure) failure(error);
+                if (success) success(result, mainContext);
             }
         }];
+    }];
+}
+
+- (void)executeFetchRequest:(NSFetchRequest *)request success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+    [self performBlockInBackground:^(__autoreleasing id *objects, NSError *__autoreleasing *error, NSManagedObjectContext *backgroundContext) {
+        *objects = [backgroundContext executeFetchRequest:request error:error];
+    } success:^(NSArray *objects, NSManagedObjectContext *mainContext) {
+        objects = [objects map:^id(NSManagedObject *object) {
+            return [mainContext objectWithID:[object objectID]];
+        }];
+        if (success) success(objects);
+    } failure:^(NSError *error, NSManagedObjectContext *mainContext) {
+        if (failure) failure(error);
+    }];
+}
+
+- (void)countForFetchRequest:(NSFetchRequest *)request success:(void (^)(NSUInteger))success failure:(WLFailureBlock)failure {
+    [self performBlockInBackground:^(__autoreleasing id *objects, NSError *__autoreleasing *error, NSManagedObjectContext *backgroundContext) {
+        *objects = [backgroundContext executeFetchRequest:request error:error];
+    } success:^(NSArray *objects, NSManagedObjectContext *mainContext) {
+        if (success) success([objects count]);
+    } failure:^(NSError *error, NSManagedObjectContext *mainContext) {
+        if (failure) failure(error);
     }];
 }
 
@@ -305,24 +330,25 @@
     }];
 }
 
-#define WL_PREDICATE_ARGUMENTS \
-va_list args;\
-va_start(args, predicateFormat);\
-va_end(args);
-
 + (NSMutableOrderedSet *)entriesWhere:(NSString *)predicateFormat, ... {
-    WL_PREDICATE_ARGUMENTS
-    return [self entriesSortedBy:nil ascending:NO where:predicateFormat arguments:args];
+    BEGIN_PREDICATE_FORMAT
+    id result = [self entriesSortedBy:nil ascending:NO where:predicateFormat arguments:args];
+    END_PREDICATE_FORMAT
+    return result;
 }
 
 + (NSMutableOrderedSet *)entriesSortedBy:(NSString *)key where:(NSString *)predicateFormat, ... {
-    WL_PREDICATE_ARGUMENTS
-    return [self entriesSortedBy:key ascending:NO where:predicateFormat arguments:args];
+    BEGIN_PREDICATE_FORMAT
+    id result = [self entriesSortedBy:key ascending:NO where:predicateFormat arguments:args];
+    END_PREDICATE_FORMAT
+    return result;
 }
 
 + (NSMutableOrderedSet *)entriesSortedBy:(NSString *)key ascending:(BOOL)ascending where:(NSString *)predicateFormat, ... {
-    WL_PREDICATE_ARGUMENTS
-    return [self entriesSortedBy:key ascending:ascending where:predicateFormat arguments:args];
+    BEGIN_PREDICATE_FORMAT
+    id result = [self entriesSortedBy:key ascending:ascending where:predicateFormat arguments:args];
+    END_PREDICATE_FORMAT
+    return result;
 }
 
 + (NSMutableOrderedSet *)entriesSortedBy:(NSString *)key ascending:(BOOL)ascending where:(NSString *)predicateFormat arguments:(va_list)args {
@@ -343,9 +369,27 @@ va_end(args);
     } success:success failure:failure];
 }
 
-+ (void)entries:(void (^)(NSFetchRequest* request))configure success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
++ (NSFetchRequest *)fetchRequest {
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     request.entity = [self entity];
+    return request;
+}
+
++ (NSFetchRequest *)fetchRequest:(NSString *)predicateFormat, ... {
+    BEGIN_PREDICATE_FORMAT
+    id result = [self fetchRequestWithPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
+    END_PREDICATE_FORMAT
+    return result;
+}
+
++ (NSFetchRequest *)fetchRequestWithPredicate:(NSPredicate *)predicate {
+    NSFetchRequest *request = [self fetchRequest];
+    request.predicate = predicate;
+    return request;
+}
+
++ (void)entries:(void (^)(NSFetchRequest* request))configure success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
+    NSFetchRequest* request = [self fetchRequest];
     if (configure) configure(request);
     [[WLEntryManager manager] executeFetchRequest:request success:success failure:failure];
 }
@@ -403,6 +447,24 @@ va_end(args);
 
 - (void)execute:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     [[WLEntryManager manager] executeFetchRequest:self success:success failure:failure];
+}
+
+- (void)count:(void (^)(NSUInteger))success failure:(WLFailureBlock)failure {
+    [[WLEntryManager manager] countForFetchRequest:self success:success failure:failure];
+}
+
+- (instancetype)limitedTo:(NSUInteger)limitedTo {
+    self.fetchLimit = limitedTo;
+    return self;
+}
+
+- (instancetype)sortedBy:(NSString *)sortedBy {
+    return [self sortedBy:sortedBy ascending:NO];
+}
+
+- (instancetype)sortedBy:(NSString *)sortedBy ascending:(BOOL)ascending {
+    self.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:sortedBy ascending:ascending]];
+    return self;
 }
 
 @end

@@ -161,6 +161,18 @@
     return [wraps containsObject:self] && wraps.count == 1;
 }
 
+- (NSUInteger)unreadNotificationsMessageCount {
+    NSDate *date = [NSDate dayAgo];
+    return [self.messages selects:^BOOL(WLMessage *message) {
+        return message.unread && message.contributor && !message.contributedByCurrentUser && [message.createdAt later:date];
+    }].count;
+}
+
+- (void)countOfUnreadMessages:(void (^)(NSUInteger))success failure:(WLFailureBlock)failure {
+    NSDate *date = [NSDate dayAgo];
+    [[WLMessage fetchRequest:@"unread == YES AND contributor.current != YES AND createdAt > %@", date] count:success failure:failure];
+}
+
 @end
 
 

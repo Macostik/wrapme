@@ -26,7 +26,7 @@
     }];
 }
 
-- (instancetype)adds:(id)objects {
+- (instancetype)adds:(id <WLCollection>)objects {
     return [self mutate:^(id<WLCollection> mutableCopy) {
         [mutableCopy adds:objects];
     }];
@@ -38,7 +38,7 @@
     }];
 }
 
-- (instancetype)removes:(id)objects {
+- (instancetype)removes:(id <WLCollection>)objects {
     return [self mutate:^(id<WLCollection> mutableCopy) {
         [mutableCopy removes:objects];
     }];
@@ -50,7 +50,7 @@
         id _object = block(object);
         if (_object != nil) [set addObject:_object];
     }
-    return [set copy];
+    return set;
 }
 
 - (id)select:(SelectBlock)block {
@@ -88,13 +88,16 @@
 }
 
 - (instancetype)where:(NSString *)predicateFormat, ... {
-    PREDICATE_FORMAT
-    return [self filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
+    BEGIN_PREDICATE_FORMAT
+    id result = [self filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
+    END_PREDICATE_FORMAT
+    return result;
 }
 
 - (instancetype)removeWhere:(NSString *)predicateFormat, ... {
-    PREDICATE_FORMAT
+    BEGIN_PREDICATE_FORMAT
     NSOrderedSet *objects = [self filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
+    END_PREDICATE_FORMAT
     return [self removes:objects];
 }
 
@@ -102,6 +105,10 @@
     return [self mutate:^(id<WLCollection> mutableCopy) {
         [mutableCopy replace:object with:replaceObject];
     }];
+}
+
+- (NSOrderedSet*)orderedSet {
+    return self;
 }
 
 - (id)tryAt:(NSInteger)index {
@@ -169,8 +176,8 @@
     return self;
 }
 
-- (instancetype)adds:(id)objects {
-    [self unionOrderedSet:objects];
+- (instancetype)adds:(id <WLCollection>)objects {
+    [self unionOrderedSet:[objects orderedSet]];
     return self;
 }
 
@@ -179,8 +186,8 @@
     return self;
 }
 
-- (instancetype)removes:(id)objects {
-    [self minusOrderedSet:objects];
+- (instancetype)removes:(id <WLCollection>)objects {
+    [self minusOrderedSet:[objects orderedSet]];
     return self;
 }
 
@@ -194,8 +201,10 @@
 }
 
 - (instancetype)where:(NSString *)predicateFormat, ... {
-    PREDICATE_FORMAT
-    return [[self filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]] mutableCopy];
+    BEGIN_PREDICATE_FORMAT
+    id result = [[self filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]] mutableCopy];
+    END_PREDICATE_FORMAT
+    return result;
 }
 
 - (instancetype)replace:(id)object with:(id)replaceObject {

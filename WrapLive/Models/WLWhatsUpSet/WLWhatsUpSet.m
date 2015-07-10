@@ -53,44 +53,58 @@
 }
 
 - (void)update {
+    [self update:nil failure:nil];
+}
+
+- (void)update:(WLBlock)success failure:(WLFailureBlock)failure {
     
-    NSUInteger unreadEntriesCount = 0;
+    __weak typeof(self)weakSelf = self;
     
-    NSMutableSet *events = [NSMutableSet set];
+    __block NSUInteger unreadEntriesCount = 0;
     
     NSPredicate *contributionsPredicate = [self predicateByAddingVariables:self.contributionsPredicate];
     
     NSPredicate *updatesPredicate = [self predicateByAddingVariables:self.updatesPredicate];
     
     if (updatesPredicate && contributionsPredicate) {
-        NSMutableOrderedSet *contributions = [NSMutableOrderedSet orderedSet];
-        [contributions unionOrderedSet:[WLComment entriesWithPredicate:contributionsPredicate]];
-        [contributions unionOrderedSet:[WLCandy entriesWithPredicate:contributionsPredicate]];
-        NSMutableOrderedSet *updates = [WLCandy entriesWithPredicate:updatesPredicate];
-        
-        for (WLContribution *contribution in contributions) {
-            WLWhatsUpEvent *event = [[WLWhatsUpEvent alloc] init];
-            event.event = WLEventAdd;
-            event.contribution = contribution;
-            [events addObject:event];
-            if (contribution.unread) {
-                unreadEntriesCount++;
+        [[WLEntryManager manager] performBlockInBackground:^(__autoreleasing id *result, NSError *__autoreleasing *error, NSManagedObjectContext *backgroundContext) {
+            NSMutableSet *events = [NSMutableSet set];
+            NSMutableArray *contributions = [NSMutableArray array];
+            [contributions adds:[backgroundContext executeFetchRequest:[WLComment fetchRequestWithPredicate:contributionsPredicate] error:error]];
+            [contributions adds:[backgroundContext executeFetchRequest:[WLCandy fetchRequestWithPredicate:contributionsPredicate] error:error]];
+            NSArray *updates = [backgroundContext executeFetchRequest:[WLCandy fetchRequestWithPredicate:updatesPredicate] error:error];
+            
+            for (WLContribution *contribution in contributions) {
+                WLWhatsUpEvent *event = [[WLWhatsUpEvent alloc] init];
+                event.event = WLEventAdd;
+                event.contribution = contribution;
+                [events addObject:event];
+                if (contribution.unread) {
+                    unreadEntriesCount++;
+                }
             }
-        }
-        
-        for (WLContribution *contribution in updates) {
-            WLWhatsUpEvent *event = [[WLWhatsUpEvent alloc] init];
-            event.event = WLEventUpdate;
-            event.contribution = contribution;
-            [events addObject:event];
-            if (contribution.unread && ![contributions containsObject:contribution]) {
-                unreadEntriesCount++;
+            
+            for (WLContribution *contribution in updates) {
+                WLWhatsUpEvent *event = [[WLWhatsUpEvent alloc] init];
+                event.event = WLEventUpdate;
+                event.contribution = contribution;
+                [events addObject:event];
+                if (contribution.unread && ![contributions containsObject:contribution]) {
+                    unreadEntriesCount++;
+                }
             }
-        }
+            weakSelf.unreadEntriesCount = unreadEntriesCount;
+            *result = events;
+        } success:^(NSMutableSet *events, NSManagedObjectContext *mainContext) {
+            for (WLWhatsUpEvent *event in events) {
+                event.contribution = [mainContext objectWithID:[event.contribution objectID]];
+            }
+            [weakSelf resetEntries:events];
+            if (success) success();
+        } failure:^(NSError *error, NSManagedObjectContext *mainContext) {
+            if (failure) failure(error);
+        }];
     }
-    
-    self.unreadEntriesCount = unreadEntriesCount;
-    [self resetEntries:events];
 }
 
 - (NSUInteger)unreadCandiesCountForWrap:(WLWrap *)wrap {
@@ -105,18 +119,27 @@
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier didAddEntry:(WLEntry*)entry {
-    [self update];
-    [self.counterDelegate whatsUpSet:self figureOutUnreadEntryCounter:self.unreadEntriesCount];
+    __weak typeof(self)weakSelf = self;
+    [self update:^{
+        [weakSelf.counterDelegate whatsUpSet:weakSelf figureOutUnreadEntryCounter:weakSelf.unreadEntriesCount];
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier didDeleteEntry:(WLEntry *)entry {
-    [self update];
-    [self.counterDelegate whatsUpSet:self figureOutUnreadEntryCounter:self.unreadEntriesCount];
+    __weak typeof(self)weakSelf = self;
+    [self update:^{
+        [weakSelf.counterDelegate whatsUpSet:weakSelf figureOutUnreadEntryCounter:weakSelf.unreadEntriesCount];
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
-    [self update];
-    [self.counterDelegate whatsUpSet:self figureOutUnreadEntryCounter:self.unreadEntriesCount];
+    __weak typeof(self)weakSelf = self;
+    [self update:^{
+        [weakSelf.counterDelegate whatsUpSet:weakSelf figureOutUnreadEntryCounter:weakSelf.unreadEntriesCount];
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (NSInteger)broadcasterOrderPriority:(WLBroadcaster *)broadcaster {

@@ -7,6 +7,7 @@
 //
 
 #import "WLUnreadMessagesView.h"
+#import "WLChat.h"
 
 @interface WLUnreadMessagesView ()
 
@@ -16,7 +17,8 @@
 
 @implementation WLUnreadMessagesView
 
-- (void)setNumberOfUnreadMessages:(NSUInteger)numberOfUnreadMessages {
+- (void)updateWithChat:(WLChat*)chat {
+    NSUInteger numberOfUnreadMessages = MAX(0, chat.unreadMessages.count - chat.readMessages.count);
     NSString *text = nil;
     if (numberOfUnreadMessages == 1) {
         text = [NSString stringWithFormat:WLLS(@"unread_message"), (unsigned long)numberOfUnreadMessages, WLLS(@"oe_Ending"), WLLS(@"ue_Ending")];

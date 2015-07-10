@@ -35,6 +35,8 @@
 
 @property (strong, nonatomic) NSMutableOrderedSet* unreadMessages;
 
+@property (strong, nonatomic) NSMutableOrderedSet* readMessages;
+
 @property (weak, nonatomic) WLWrap* wrap;
 
 @property (readonly, nonatomic) BOOL showTypingView;

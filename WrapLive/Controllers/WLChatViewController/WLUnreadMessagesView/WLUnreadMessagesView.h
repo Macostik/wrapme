@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class WLChat;
+
 @interface WLUnreadMessagesView : UICollectionReusableView
 
-- (void)setNumberOfUnreadMessages:(NSUInteger)numberOfUnreadMessages;
+- (void)updateWithChat:(WLChat*)chat;
 
 @end

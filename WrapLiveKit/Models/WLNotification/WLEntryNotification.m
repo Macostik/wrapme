@@ -327,22 +327,6 @@
 
 @implementation WLWrap (WLNotification)
 
-- (BOOL)containsUnreadMessage {
-    for (WLMessage *message in self.messages) {
-        if (message.unread) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
-- (NSUInteger)unreadNotificationsMessageCount {
-    NSDate *date = [NSDate dayAgo];
-    return [self.messages selects:^BOOL(WLMessage *message) {
-        return message.unread && message.contributor && !message.contributedByCurrentUser && [message.createdAt later:date];
-    }].count;
-}
-
 @end
 
 @implementation WLCandy (WLNotification)

@@ -59,6 +59,8 @@ CGFloat WLMaxTextViewWidth;
 
 @property (weak, nonatomic) WLTypingView *typingView;
 
+@property (nonatomic) BOOL resetUnreadMessages;
+
 @end
 
 @implementation WLChatViewController
@@ -442,8 +444,12 @@ CGFloat WLMaxTextViewWidth;
     [cell setShowName:[self.chat.messagesWithName containsObject:message]];
     cell.entry = message;
     cell.layer.geometryFlipped = [self geometryFlipped];
-    if (self.wrap.unread) {
-        self.wrap.unread = YES;
+    if (message.unread) {
+        message.unread = YES;
+        if (self.resetUnreadMessages) {
+            [self.chat.readMessages addObject:message];
+            [self reloadDataSynchronously:NO];
+        }
     }
     return cell;
 }
@@ -456,7 +462,7 @@ CGFloat WLMaxTextViewWidth;
         supplementaryView = view;
     } else if ([kind isEqualToString:@"unreadMessagesView"]) {
         WLUnreadMessagesView *unreadMessagesView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"unreadMessagesView" forIndexPath:indexPath];
-        [unreadMessagesView setNumberOfUnreadMessages:[self.chat.unreadMessages count]];
+        [unreadMessagesView updateWithChat:self.chat];
         supplementaryView = unreadMessagesView;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
          WLLoadingView *loadingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:WLLoadingViewIdentifier forIndexPath:indexPath];
@@ -545,6 +551,10 @@ CGFloat WLMaxTextViewWidth;
 
 - (BOOL)collectionView:(UICollectionView *)collectionView applyContentSizeInsetForAttributes:(UICollectionViewLayoutAttributes *)attributes {
     return ![attributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    self.resetUnreadMessages = YES;
 }
 
 #pragma mark - WLFontPresetterReceiver

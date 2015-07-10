@@ -26,6 +26,8 @@
 
 - (void)update;
 
+- (void)update:(WLBlock)success failure:(WLFailureBlock)failure;
+
 - (NSUInteger)unreadCandiesCountForWrap:(WLWrap*)wrap;
 
 @end

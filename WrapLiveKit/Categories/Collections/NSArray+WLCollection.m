@@ -26,7 +26,7 @@
     }];
 }
 
-- (instancetype)adds:(id)objects {
+- (instancetype)adds:(id <WLCollection>)objects {
     return [self mutate:^(id<WLCollection> mutableCopy) {
         [mutableCopy adds:objects];
     }];
@@ -38,7 +38,7 @@
     }];
 }
 
-- (instancetype)removes:(id)objects {
+- (instancetype)removes:(id <WLCollection>)objects {
     return [self mutate:^(id<WLCollection> mutableCopy) {
         [mutableCopy removes:objects];
     }];
@@ -50,7 +50,7 @@
         id _object = block(object);
         if (_object != nil) [array addObject:_object];
     }
-    return [array copy];
+    return array;
 }
 
 - (id)select:(SelectBlock)block {
@@ -88,13 +88,16 @@
 }
 
 - (instancetype)where:(NSString *)predicateFormat, ... {
-    PREDICATE_FORMAT
-    return [self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
+    BEGIN_PREDICATE_FORMAT
+    id result = [self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
+    END_PREDICATE_FORMAT
+    return result;
 }
 
 - (instancetype)removeWhere:(NSString *)predicateFormat, ... {
-    PREDICATE_FORMAT
+    BEGIN_PREDICATE_FORMAT
     NSArray *objects = [self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
+    END_PREDICATE_FORMAT
     return [self removes:objects];
 }
 
@@ -102,6 +105,18 @@
     return [self mutate:^(id<WLCollection> mutableCopy) {
         [mutableCopy replace:object with:replaceObject];
     }];
+}
+
+- (NSArray*)array {
+    return self;
+}
+
+- (NSSet*)set {
+    return [NSSet setWithArray:self];
+}
+
+- (NSOrderedSet*)orderedSet {
+    return [NSOrderedSet orderedSetWithArray:self];
 }
 
 - (id)tryAt:(NSInteger)index {
@@ -169,8 +184,8 @@
     return self;
 }
 
-- (instancetype)adds:(id)objects {
-    [self addObjectsFromArray:objects];
+- (instancetype)adds:(id <WLCollection>)objects {
+    [self addObjectsFromArray:[objects array]];
     return self;
 }
 
@@ -179,8 +194,8 @@
     return self;
 }
 
-- (instancetype)removes:(id)objects {
-    [self removeObjectsInArray:objects];
+- (instancetype)removes:(id <WLCollection>)objects {
+    [self removeObjectsInArray:[objects array]];
     return self;
 }
 
@@ -194,8 +209,10 @@
 }
 
 - (instancetype)where:(NSString *)predicateFormat, ... {
-    PREDICATE_FORMAT
-    return [[self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]] mutableCopy];
+    BEGIN_PREDICATE_FORMAT
+    id result = [[self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]] mutableCopy];
+    END_PREDICATE_FORMAT
+    return result;
 }
 
 - (instancetype)replace:(id)object with:(id)replaceObject {

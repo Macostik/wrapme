@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WLRefresher.h"
-#import "WLDataSourceItems.h"
+#import "WLPaginatedSet+WLBaseOrderedCollection.h"
 
 typedef NS_ENUM(NSUInteger, WLDataSourceScrollDirection) {
     WLDataSourceScrollDirectionUnknown,

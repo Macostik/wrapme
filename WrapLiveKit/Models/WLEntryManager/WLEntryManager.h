@@ -18,9 +18,16 @@
 #import "WLMessage+Extended.h"
 #import "WLCollections.h"
 
+typedef void (^WLEntryManagerBackgroundContextBlock) (id *result, NSError **error, NSManagedObjectContext *backgroundContext);
+
+typedef void (^WLEntryManagerMainContextSuccessBlock) (id result, NSManagedObjectContext *mainContext);
+
+typedef void (^WLEntryManagerMainContextFailureBlock) (NSError *error, NSManagedObjectContext *mainContext);
+
 @interface WLEntryManager : NSObject
 
 @property (strong, nonatomic) NSManagedObjectContext *context;
+@property (strong, nonatomic) NSManagedObjectContext *backgroundContext;
 @property (strong, nonatomic) NSManagedObjectModel *model;
 @property (strong, nonatomic) NSPersistentStoreCoordinator *coordinator;
 
@@ -46,7 +53,11 @@
 
 - (NSArray*)executeFetchRequest:(NSFetchRequest*)request;
 
+- (void)performBlockInBackground:(WLEntryManagerBackgroundContextBlock)block success:(WLEntryManagerMainContextSuccessBlock)success failure:(WLEntryManagerMainContextFailureBlock)failure;
+
 - (void)executeFetchRequest:(NSFetchRequest*)request success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+- (void)countForFetchRequest:(NSFetchRequest*)request success:(void (^)(NSUInteger))success failure:(WLFailureBlock)failure;
 
 - (void)clear;
 
@@ -74,6 +85,12 @@
 
 + (NSMutableOrderedSet *)entriesSortedBy:(NSString*)key ascending:(BOOL)ascending where:(NSString *)predicateFormat, ...;
 
++ (NSFetchRequest*)fetchRequest;
+
++ (NSFetchRequest*)fetchRequest:(NSString *)predicateFormat, ...;
+
++ (NSFetchRequest*)fetchRequestWithPredicate:(NSPredicate*)predicate;
+
 + (void)entries:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 + (void)entries:(void (^)(NSFetchRequest* request))configure success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
@@ -93,5 +110,13 @@
 - (NSArray*)execute;
 
 - (void)execute:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+
+- (void)count:(void (^)(NSUInteger))success failure:(WLFailureBlock)failure;
+
+- (instancetype)sortedBy:(NSString*)sortedBy;
+
+- (instancetype)sortedBy:(NSString*)sortedBy ascending:(BOOL)ascending;
+
+- (instancetype)limitedTo:(NSUInteger)limitedTo;
 
 @end

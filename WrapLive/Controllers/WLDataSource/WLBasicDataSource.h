@@ -10,15 +10,15 @@
 
 @interface WLBasicDataSource : WLDataSource
 
-@property (strong, nonatomic) id <WLDataSourceItems> items;
+@property (strong, nonatomic) id <WLBaseOrderedCollection> items;
 
 @property (nonatomic) IBInspectable BOOL headerAnimated;
 
 @property (nonatomic, readonly) BOOL appendable;
 
-@property (strong, nonatomic) BOOL (^appendableBlock) (id <WLDataSourceItems> items);
+@property (strong, nonatomic) BOOL (^appendableBlock) (id <WLBaseOrderedCollection> items);
 
-@property (strong, nonatomic) void (^changeBlock) (id <WLDataSourceItems> items);
+@property (strong, nonatomic) void (^changeBlock) (id <WLBaseOrderedCollection> items);
 
 - (void)append:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 

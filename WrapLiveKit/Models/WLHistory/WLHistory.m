@@ -79,7 +79,7 @@
         if ([group addEntries:dayEntries]) {
             added = YES;
         }
-        [entriesCopy minusSet:dayEntries];
+        [entriesCopy removes:dayEntries];
         
         if  (self.checkCompletion) {
             group.completed = group.entries.count < WLPageSize;

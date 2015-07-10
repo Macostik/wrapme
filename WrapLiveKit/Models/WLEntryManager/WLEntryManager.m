@@ -139,7 +139,9 @@
 }
 
 - (void)cacheEntry:(WLEntry*)entry {
-    [self.cachedEntries setObject:entry forKey:entry.identifier];
+    if (entry.managedObjectContext == self.context) {
+        [self.cachedEntries setObject:entry forKey:entry.identifier];
+    }
 }
 
 - (void)uncacheEntry:(WLEntry *)entry {

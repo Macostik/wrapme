@@ -67,6 +67,7 @@
 }
 
 - (void)setup:(NSDictionary*)data {
+    self.data = data;
     self.identifier = [data stringForKey:@"msg_uid"];
     self.publishedAt = [data dateForKey:@"msg_published_at"];
 }

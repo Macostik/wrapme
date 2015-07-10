@@ -327,6 +327,33 @@
 
 @implementation WLWrap (WLNotification)
 
+- (void)fetchAddNotification:(WLEntryNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
+    NSString *userIdentifier = notification.data[WLUserUIDKey];
+    NSDictionary *userData = notification.data[WLUserKey];
+    WLUser *user = userData ? [WLUser API_entry:userData] : [WLUser entry:userIdentifier];
+    if (!user) {
+        user = [WLUser currentUser];
+    }
+    if (![self.contributors containsObject:user]) {
+        [self addContributorsObject:user];
+    }
+    [super fetchAddNotification:notification success:success failure:failure];
+}
+
+- (void)finalizeDeleteNotification:(WLEntryNotification *)notification {
+    NSString *userIdentifier = notification.data[WLUserUIDKey];
+    NSDictionary *userData = notification.data[WLUserKey];
+    WLUser *user = userData ? [WLUser API_entry:userData] : [WLUser entry:userIdentifier];
+    if (!user || [user isCurrentUser]) {
+        [super finalizeDeleteNotification:notification];
+    } else {
+        __weak typeof(self)weakSelf = self;
+        [self notifyOnUpdate:^(id object) {
+            [weakSelf removeContributorsObject:user];
+        }];
+    }
+}
+
 @end
 
 @implementation WLCandy (WLNotification)

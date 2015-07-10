@@ -12,6 +12,7 @@
 #import "WLNotificationSubscription.h"
 #import "WLEntryNotification.h"
 #import "WLNotification+PNMessage.h"
+#import "WLSoundPlayer.h"
 
 @interface WLEmailConfirmationViewController () <WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate>
 

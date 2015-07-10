@@ -42,6 +42,8 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @property (readonly, nonatomic) BOOL presentable;
 
+@property (strong, nonatomic) NSDictionary *data;
+
 + (instancetype)notificationWithData:(NSDictionary*)data;
 
 + (NSMutableOrderedSet*)notificationsWithDataArray:(NSArray*)array;

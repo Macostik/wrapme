@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import <WrapLiveKit/WrapLiveKit.h>
+#import "WLNotification.h"
 #import "WLEntryManager.h"
 #import "WLCommonEnums.h"
 

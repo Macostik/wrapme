@@ -25,6 +25,7 @@
 #import <NewRelicAgent/NewRelic.h>
 #import "WLToast.h"
 #import "WLAddressBook.h"
+#import "WLEntryNotification.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 

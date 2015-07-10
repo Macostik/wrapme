@@ -15,6 +15,7 @@
 #import "WLWrapView.h"
 #import "WLCameraViewController.h"
 #import "ALAssetsLibrary+Additions.h"
+#import "WLSoundPlayer.h"
 
 @interface WLStillPictureViewController () <WLWrapPickerViewControllerDelegate, WLEntryNotifyReceiver>
 

@@ -120,13 +120,9 @@ FOUNDATION_EXPORT const unsigned char WrapLiveKitVersionString[];
 #import <WrapLiveKit/WLAlertView.h>
 #import <WrapLiveKit/AFNetworking.h>
 #import <WrapLiveKit/NSObject+NibAdditions.h>
-#import <WrapLiveKit/WLNotification.h>
 #import <WrapLiveKit/NSObject+Extension.h>
 #import <WrapLiveKit/NSMutableDictionary+ImageMetadata.h>
 #import <WrapLiveKit/WLCommonEnums.h>
-#import <WrapLiveKit/WLEntryNotification.h>
-#import <WrapLiveKit/WLUpdateNotification.h>
-#import <WrapLiveKit/WLSoundPlayer.h>
 #import <WrapLiveKit/WLEntryNotifyReceiver.h>
 #import <WrapLiveKit/WLAnimation.h>
 #import <WrapLiveKit/UIView+QuatzCoreAnimations.h>

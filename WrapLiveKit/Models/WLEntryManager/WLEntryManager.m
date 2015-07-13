@@ -430,9 +430,12 @@
 
 - (void)remove {
     __weak typeof(self)weakSelf = self;
-    [self notifyOnDeleting:^(id object) {
-        WLLog(@"WRAPLIVE", @"LOCAL DELETING", weakSelf);
-        [[WLEntryManager manager] deleteEntry:weakSelf];
+    WLEntryManager *manager = [WLEntryManager manager];
+    [manager assureSave:^{
+        [weakSelf notifyOnDeleting:^(id object) {
+            WLLog(@"WRAPLIVE", @"LOCAL DELETING", weakSelf);
+            [manager deleteEntry:weakSelf];
+        }];
     }];
 }
 

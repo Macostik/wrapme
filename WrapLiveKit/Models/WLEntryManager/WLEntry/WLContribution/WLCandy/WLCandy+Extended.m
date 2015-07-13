@@ -39,8 +39,8 @@
     NSInteger type = [dictionary integerForKey:WLCandyTypeKey];
     if (self.type != type) self.type = type;
     NSSet *comments = [WLComment API_entries:[dictionary arrayForKey:WLCommentsKey] relatedEntry:self];
-    if (![comments isEqualToSet:self.comments]) {
-        self.comments = comments;
+    if (![comments isSubsetOfSet:self.comments]) {
+        [self addComments:comments];
     }
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [self editPicture:[dictionary stringForKey:WLCandyOriginalURLKey]

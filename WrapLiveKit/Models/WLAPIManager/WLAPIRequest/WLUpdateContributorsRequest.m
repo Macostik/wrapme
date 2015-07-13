@@ -60,7 +60,17 @@
 
 - (id)objectInResponse:(WLAPIResponse *)response {
     WLWrap* wrap = self.wrap;
-    return wrap.valid ? [wrap update:response.data[WLWrapKey]] : nil;
+    NSSet *contributors = [WLUser API_entries:[response.data arrayForKey:WLContributorsKey]];
+    if (wrap.valid) {
+        if (![wrap.contributors isEqualToSet:contributors]) {
+            [wrap notifyOnUpdate:^(id object) {
+                wrap.contributors = contributors;
+            }];
+        }
+        return wrap;
+    } else {
+        return nil;
+    }
 }
 
 @end

@@ -422,7 +422,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 @implementation WLMessage (WLAPIManager)
 
 - (BOOL)fetched {
-    return self.text.nonempty;
+    return self.text.nonempty && self.wrap;
 }
 
 - (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {
@@ -434,7 +434,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 @implementation WLComment (WLAPIManager)
 
 - (BOOL)fetched {
-    return self.text.nonempty;
+    return self.text.nonempty && self.candy;
 }
 
 - (id)add:(WLCommentBlock)success failure:(WLFailureBlock)failure {

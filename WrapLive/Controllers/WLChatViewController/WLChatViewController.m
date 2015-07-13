@@ -92,6 +92,14 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)viewDidLoad {
     
+    if (!self.wrap) {
+        __weak typeof(self)weakSelf = self;
+        run_after(0.5, ^{
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        });
+        return;
+    }
+    
     self.cachedMessageHeights = [NSMapTable strongToStrongObjectsMapTable];
     
     self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal];

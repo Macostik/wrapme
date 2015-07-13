@@ -280,6 +280,14 @@
 			<key>phone</key>
 			<string>957115540</string>
 		</dict>
+		<dict>
+			<key>deviceUID</key>
+			<string>8a02addef59ec177137e1045e1c1a04e4db6b39d</string>
+			<key>email</key>
+			<string>sergey.zakharov.md@gmail.com</string>
+			<key>password</key>
+			<string>f3b0ffd574</string>
+		</dict>
 	</array>
 	<key>qa</key>
 	<array>

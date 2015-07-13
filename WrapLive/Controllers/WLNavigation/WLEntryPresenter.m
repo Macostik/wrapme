@@ -112,10 +112,14 @@
 @implementation WLMessage (WLEntryPresenter)
 
 - (UIViewController *)viewController {
-    WLWrapViewController* controller = [WLWrapViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
-    controller.wrap = self.wrap;
-    controller.selectedSegment = WLSegmentControlStateChat;
-    return controller;
+    WLWrap *wrap = self.wrap;
+    if (wrap) {
+        WLWrapViewController* controller = [WLWrapViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
+        controller.wrap = wrap;
+        controller.selectedSegment = WLSegmentControlStateChat;
+        return controller;
+    }
+    return nil;
 }
 
 - (BOOL)isValidViewController:(UIViewController *)controller {

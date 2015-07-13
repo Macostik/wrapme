@@ -82,11 +82,11 @@
 		5B954BAE1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */; };
 		5B954BAF1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */; };
 		5B954BB01B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */; };
-		5B954BB51B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */; };
-		5B954BB61B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */; };
-		5B954BB71B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */; };
-		5B954BB81B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */; };
-		5B954BB91B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */; };
+		5B954BB51B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */; };
+		5B954BB61B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */; };
+		5B954BB71B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */; };
+		5B954BB81B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */; };
+		5B954BB91B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */; };
 		5BA1307B1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
 		5BA1307C1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
 		5BA1307D1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
@@ -2563,8 +2563,8 @@
 		5B954BAB1B44328B00D362B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLHomeSwipeTransitionView.xib; sourceTree = "<group>"; };
 		5B954BB11B4432A400D362B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
 		5B954BB21B4432A700D362B5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
-		5B954BB31B4437C000D362B5 /* WLPrimaryLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPrimaryLayoutConstraint.h; path = WLPrimaryLayoutConstraint/WLPrimaryLayoutConstraint.h; sourceTree = "<group>"; };
-		5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPrimaryLayoutConstraint.m; path = WLPrimaryLayoutConstraint/WLPrimaryLayoutConstraint.m; sourceTree = "<group>"; };
+		5B954BB31B4437C000D362B5 /* WLLayoutPrioritizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLayoutPrioritizer.h; path = WLPrimaryLayoutConstraint/WLLayoutPrioritizer.h; sourceTree = "<group>"; };
+		5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLayoutPrioritizer.m; path = WLPrimaryLayoutConstraint/WLLayoutPrioritizer.m; sourceTree = "<group>"; };
 		5BA130781B15A92600385C2C /* WLPresentingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPresentingImageView.h; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.h; sourceTree = SOURCE_ROOT; };
 		5BA130791B15A92600385C2C /* WLPresentingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPresentingImageView.m; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.m; sourceTree = SOURCE_ROOT; };
 		5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPresentingImageView.xib; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.xib; sourceTree = SOURCE_ROOT; };
@@ -4498,8 +4498,8 @@
 		5BD3BDC01B45370B00A42EBB /* WLPrimaryLayoutConstraint */ = {
 			isa = PBXGroup;
 			children = (
-				5B954BB31B4437C000D362B5 /* WLPrimaryLayoutConstraint.h */,
-				5B954BB41B4437C000D362B5 /* WLPrimaryLayoutConstraint.m */,
+				5B954BB31B4437C000D362B5 /* WLLayoutPrioritizer.h */,
+				5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */,
 			);
 			name = WLPrimaryLayoutConstraint;
 			sourceTree = "<group>";
@@ -7934,7 +7934,7 @@
 				12DCBA8B18DB39B500A4BC44 /* WLWrapViewController.m in Sources */,
 				C53E5D781A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
 				C5C015BC1B455760003623EC /* PNStateListener.m in Sources */,
-				5B954BB61B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */,
+				5B954BB61B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */,
 				C5C015C61B455760003623EC /* PNAES.m in Sources */,
 				C504178619B9EE15000E55F3 /* WLContactCell.m in Sources */,
 				C577DA5D1AE1033400DBC3D4 /* WLPaginatedSet+WLBaseOrderedCollection.m in Sources */,
@@ -8254,7 +8254,7 @@
 				C54AF4CA19B8C437006F7EDB /* WLWrapViewController.m in Sources */,
 				C53E5D791A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
 				C5C015BD1B455760003623EC /* PNStateListener.m in Sources */,
-				5B954BB71B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */,
+				5B954BB71B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */,
 				C5C015C71B455760003623EC /* PNAES.m in Sources */,
 				C504178719B9EE15000E55F3 /* WLContactCell.m in Sources */,
 				C577DA5E1AE1033400DBC3D4 /* WLPaginatedSet+WLBaseOrderedCollection.m in Sources */,
@@ -8534,7 +8534,7 @@
 				C54AF5C719B8C467006F7EDB /* WLWrapViewController.m in Sources */,
 				C53E5D7A1A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
 				C5C015BE1B455760003623EC /* PNStateListener.m in Sources */,
-				5B954BB81B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */,
+				5B954BB81B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */,
 				C5C015C81B455760003623EC /* PNAES.m in Sources */,
 				C504178819B9EE15000E55F3 /* WLContactCell.m in Sources */,
 				C577DA5F1AE1033400DBC3D4 /* WLPaginatedSet+WLBaseOrderedCollection.m in Sources */,
@@ -8814,7 +8814,7 @@
 				C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */,
 				C53E5D7B1A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
 				C5C015BF1B455760003623EC /* PNStateListener.m in Sources */,
-				5B954BB91B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */,
+				5B954BB91B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */,
 				C5C015C91B455760003623EC /* PNAES.m in Sources */,
 				C504178919B9EE15000E55F3 /* WLContactCell.m in Sources */,
 				C577DA601AE1033400DBC3D4 /* WLPaginatedSet+WLBaseOrderedCollection.m in Sources */,
@@ -9120,7 +9120,7 @@
 				C57479691B26FA45001AB8C0 /* WLWrapViewController.m in Sources */,
 				C574796A1B26FA45001AB8C0 /* WLFlashModeControl.m in Sources */,
 				C5C015BB1B455760003623EC /* PNStateListener.m in Sources */,
-				5B954BB51B4437C000D362B5 /* WLPrimaryLayoutConstraint.m in Sources */,
+				5B954BB51B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */,
 				C5C015C51B455760003623EC /* PNAES.m in Sources */,
 				C574796B1B26FA45001AB8C0 /* WLContactCell.m in Sources */,
 				C574796C1B26FA45001AB8C0 /* WLPaginatedSet+WLBaseOrderedCollection.m in Sources */,

@@ -40,6 +40,7 @@
 #import "WLSegmentedControl.h"
 #import "WLNavigationHelper.h"
 #import "WLHintView.h"
+#import "WLLayoutPrioritizer.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate,
                                     WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpDelegate>
@@ -47,13 +48,12 @@
 @property (strong, nonatomic) IBOutlet WLHomeDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *hiddenEmailConfirmationConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *visibleEmailConfirmationConstraint;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
 @property (weak, nonatomic) IBOutlet UIView *createWrapTipView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
+@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *emailConfirmationLayoutPrioritizer;
 
 @property (nonatomic) BOOL createWrapTipHidden;
 
@@ -209,26 +209,7 @@
 }
 
 - (void)setEmailConfirmationViewHidden:(BOOL)hidden animated:(BOOL)animated {
-    
-    NSArray *constraints = [self.view.constraints copy];
-    
-    NSLayoutConstraint *visibleConstraint = self.visibleEmailConfirmationConstraint;
-    NSLayoutConstraint *hiddenConstraint = self.hiddenEmailConfirmationConstraint;
-    
-    if (hidden) {
-        if ([constraints containsObject:visibleConstraint]) [self.view removeConstraint:visibleConstraint];
-        if (![constraints containsObject:hiddenConstraint]) [self.view addConstraint:hiddenConstraint];
-    } else {
-        if ([constraints containsObject:hiddenConstraint]) [self.view removeConstraint:hiddenConstraint];
-        if (![constraints containsObject:visibleConstraint]) [self.view addConstraint:visibleConstraint];
-    }
-    
-    if (![self.view.constraints isEqualToArray:constraints]) {
-        __weak typeof(self)weakSelf = self;
-        [UIView performAnimated:animated animation:^{
-            [weakSelf.view layoutIfNeeded];
-        }];
-    }
+    [self.emailConfirmationLayoutPrioritizer setDefaultState:!hidden animated:animated];
 }
 
 - (void)deadlineEmailConfirmationView {

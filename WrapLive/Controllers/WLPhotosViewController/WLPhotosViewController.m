@@ -26,7 +26,7 @@
 #import "WLHistoryViewController.h"
 #import "WLPhotosViewController.h"
 #import "WLNavigationHelper.h"
-#import "WLPrimaryLayoutConstraint.h"
+#import "WLLayoutPrioritizer.h"
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
@@ -34,7 +34,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
-@property (strong, nonatomic) IBOutlet WLPrimaryLayoutConstraint *primaryConstraint;
+@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *primaryConstraint;
 
 @property (strong, nonatomic) WLHistory *history;
 

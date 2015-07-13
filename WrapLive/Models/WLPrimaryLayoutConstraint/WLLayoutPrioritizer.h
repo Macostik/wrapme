@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WLPrimaryLayoutConstraint : NSObject
+@interface WLLayoutPrioritizer : NSObject
 
 @property (assign, nonatomic) BOOL defaultState;
 

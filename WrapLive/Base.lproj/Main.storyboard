@@ -2005,7 +2005,7 @@ Tap here to start.</string>
                             <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="eam-qO-REB" secondAttribute="bottom" constant="4" id="EPw-hT-f3u"/>
                             <constraint firstAttribute="trailing" secondItem="rgB-qi-Gbh" secondAttribute="trailing" constant="4" id="Uwx-3x-MHV"/>
                             <constraint firstItem="rgB-qi-Gbh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L5N-Xm-IFu" secondAttribute="leadingMargin" constant="12" id="Xak-QO-3IX"/>
-                            <constraint firstItem="Qcq-LH-ZNY" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" id="ZK0-p3-ckA"/>
+                            <constraint firstItem="Qcq-LH-ZNY" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" priority="750" id="ZK0-p3-ckA"/>
                             <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="y7O-GH-Q4Y" secondAttribute="bottom" constant="2" id="ZdV-Xu-BQB"/>
                             <constraint firstAttribute="trailing" secondItem="9Rl-cW-5hv" secondAttribute="trailing" id="a0D-I9-wse"/>
                             <constraint firstItem="Qcq-LH-ZNY" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="aMO-Xl-sXk"/>
@@ -2014,7 +2014,7 @@ Tap here to start.</string>
                             <constraint firstItem="rgB-qi-Gbh" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" id="iuy-XQ-QmQ"/>
                             <constraint firstAttribute="trailing" secondItem="y7O-GH-Q4Y" secondAttribute="trailing" id="lsC-oB-Bwq"/>
                             <constraint firstAttribute="trailing" secondItem="Qcq-LH-ZNY" secondAttribute="trailing" id="sog-kt-HWt"/>
-                            <constraint firstItem="Qcq-LH-ZNY" firstAttribute="bottom" secondItem="9Rl-cW-5hv" secondAttribute="bottom" priority="750" id="v3N-j7-b7C"/>
+                            <constraint firstItem="Qcq-LH-ZNY" firstAttribute="bottom" secondItem="9Rl-cW-5hv" secondAttribute="bottom" priority="250" id="v3N-j7-b7C"/>
                             <constraint firstItem="y7O-GH-Q4Y" firstAttribute="top" secondItem="Qcq-LH-ZNY" secondAttribute="bottom" id="y6l-Au-its"/>
                             <constraint firstItem="9Rl-cW-5hv" firstAttribute="top" secondItem="XNa-AC-NhU" secondAttribute="bottom" constant="-20" id="yr0-5l-IHU"/>
                         </constraints>
@@ -2026,13 +2026,12 @@ Tap here to start.</string>
                         <outlet property="createWrapButton" destination="KxF-7g-Abs" id="DiP-hq-Kq1"/>
                         <outlet property="createWrapTipView" destination="rgB-qi-Gbh" id="lEh-RQ-itL"/>
                         <outlet property="dataSource" destination="fHn-3G-fGW" id="mME-eD-7au"/>
+                        <outlet property="emailConfirmationLayoutPrioritizer" destination="LSq-pS-yid" id="Bin-aV-yY8"/>
                         <outlet property="emailConfirmationView" destination="Qcq-LH-ZNY" id="shZ-oR-vok"/>
-                        <outlet property="hiddenEmailConfirmationConstraint" destination="v3N-j7-b7C" id="FWy-iU-7XH"/>
                         <outlet property="navigationBar" destination="9Rl-cW-5hv" id="9kd-xs-4J2"/>
                         <outlet property="notificationsLabel" destination="2L6-nO-etl" id="5XW-mo-EXZ"/>
                         <outlet property="uploadingView" destination="IWZ-KR-48g" id="KrJ-sE-ftu"/>
                         <outlet property="verificationEmailLabel" destination="UL6-dF-3Kj" id="nDG-MA-MkU"/>
-                        <outlet property="visibleEmailConfirmationConstraint" destination="ZK0-p3-ckA" id="BZM-Ce-PWI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfT-C3-6mj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2072,6 +2071,13 @@ Tap here to start.</string>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="L91-fZ-J9O" id="2aI-EZ-H5r"/>
+                    </connections>
+                </customObject>
+                <customObject id="LSq-pS-yid" customClass="WLLayoutPrioritizer">
+                    <connections>
+                        <outletCollection property="defaultConstraints" destination="ZK0-p3-ckA" id="JEK-z0-gLq"/>
+                        <outletCollection property="alternativeConstraints" destination="v3N-j7-b7C" id="zhv-wN-1li"/>
+                        <outletCollection property="parentViews" destination="L5N-Xm-IFu" id="gul-rp-0Az"/>
                     </connections>
                 </customObject>
             </objects>
@@ -3460,14 +3466,14 @@ Tap here to start.</string>
                         <outlet property="sourceViewController" destination="eto-O4-OHy" id="dMT-6T-eNW"/>
                     </connections>
                 </customObject>
-                <customObject id="7tb-Tf-pQx" customClass="WLPrimaryLayoutConstraint">
+                <customObject id="7tb-Tf-pQx" customClass="WLLayoutPrioritizer">
                     <connections>
-                        <outletCollection property="strongConstraints" destination="9OU-iu-BTw" id="xtm-pT-2da"/>
-                        <outletCollection property="weakConstraints" destination="x8y-fG-5Cd" id="jre-wM-Nfy"/>
-                        <outletCollection property="strongConstraints" destination="3Zf-0D-3vD" id="jNB-NZ-kXc"/>
-                        <outletCollection property="weakConstraints" destination="FGX-3K-gVJ" id="aQf-j9-BaT"/>
                         <outletCollection property="parentViews" destination="Wbg-W9-8Ie" id="Ueq-JB-rij"/>
                         <outletCollection property="parentViews" destination="DOa-Ws-aK4" id="CDc-hV-lWD"/>
+                        <outletCollection property="defaultConstraints" destination="9OU-iu-BTw" id="gwk-nV-i1D"/>
+                        <outletCollection property="defaultConstraints" destination="3Zf-0D-3vD" id="PnL-zi-F1g"/>
+                        <outletCollection property="alternativeConstraints" destination="x8y-fG-5Cd" id="5Gp-be-fh2"/>
+                        <outletCollection property="alternativeConstraints" destination="FGX-3K-gVJ" id="8PQ-3c-tpd"/>
                     </connections>
                 </customObject>
             </objects>
@@ -4994,13 +5000,13 @@ QWRkEEZyaWVuZFZpZXc
                         <outletCollection property="animatableConstraints" destination="CrN-KF-fsR" id="JLY-z0-7Pl"/>
                     </connections>
                 </customObject>
-                <customObject id="8F6-xd-Raa" customClass="WLPrimaryLayoutConstraint">
+                <customObject id="8F6-xd-Raa" customClass="WLLayoutPrioritizer">
                     <connections>
-                        <outletCollection property="strongConstraints" destination="CrN-KF-fsR" id="M0N-Cu-n2p"/>
-                        <outletCollection property="weakConstraints" destination="Dqa-Ym-RTY" id="xLf-PY-1CW"/>
-                        <outletCollection property="strongConstraints" destination="bOH-HL-fTo" id="abU-ro-mEt"/>
-                        <outletCollection property="weakConstraints" destination="a1M-pT-hWe" id="Wnn-So-AwW"/>
                         <outletCollection property="parentViews" destination="z88-8Q-V7N" id="NSu-0h-eYw"/>
+                        <outletCollection property="defaultConstraints" destination="CrN-KF-fsR" id="wdU-KA-Ihl"/>
+                        <outletCollection property="defaultConstraints" destination="bOH-HL-fTo" id="u1L-me-NZW"/>
+                        <outletCollection property="alternativeConstraints" destination="Dqa-Ym-RTY" id="1Te-nr-cRc"/>
+                        <outletCollection property="alternativeConstraints" destination="a1M-pT-hWe" id="5dl-av-n24"/>
                     </connections>
                 </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXa-Fb-BfF" userLabel="First Responder" sceneMemberID="firstResponder"/>

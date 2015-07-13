@@ -24,7 +24,7 @@
 #import "WLUploadPhotoViewController.h"
 #import "WLPresentingImageView.h"
 #import "WLCommentsViewController.h"
-#import "WLPrimaryLayoutConstraint.h"
+#import "WLLayoutPrioritizer.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLTextView *lastCommentTextView;
 
-@property (weak, nonatomic) IBOutlet WLPrimaryLayoutConstraint *primaryConstraint;
+@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *primaryConstraint;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;

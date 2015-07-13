@@ -18,7 +18,6 @@
 @interface WLQuickAssetsViewController () <WLAssetCellDelegate>
 
 @property (strong, nonatomic) NSArray *assets;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSMutableArray *selectedAssets;
 
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
@@ -74,17 +73,19 @@
 }
 
 - (void)assetsLibraryChanged:(NSNotification*)notifiection {
-    [self loadAssets:nil];
+    [self performSelectorOnMainThread:@selector(loadAssets:) withObject:nil waitUntilDone:NO];
 }
 
 - (void)loadAssets:(WLBlock)success {
     __weak typeof(self)weakSelf = self;
     [[ALAssetsLibrary library] enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         if (group) {
-            [group assets:^(NSArray *assets) {
-                weakSelf.assets = assets;
-                if (success) success();
-            }];
+            if (weakSelf) {
+                [group assets:^(NSArray *assets) {
+                    weakSelf.assets = assets;
+                    if (success) success();
+                }];
+            }
             *stop = YES;
         }
     } failureBlock:^(NSError *error) {

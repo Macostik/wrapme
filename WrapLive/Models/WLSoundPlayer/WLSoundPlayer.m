@@ -110,7 +110,9 @@ void WLSoundPlayerCompletion (SystemSoundID ssID, void *clientData) {
     if (notification.playSound) {
         switch (notification.type) {
             case WLNotificationContributorAdd:
-                [self playSound:WLSound_s01];
+                if ([[WLUser currentUser].identifier isEqualToString:notification.data[WLUserUIDKey]]) {
+                     [self playSound:WLSound_s01];
+                }
                 break;
             case WLNotificationCommentAdd:
                 [self playSound:WLSound_s02];

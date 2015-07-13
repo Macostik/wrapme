@@ -342,57 +342,27 @@
 	return [[WLEntryManager manager] entryOfClass:self identifier:identifier];
 }
 
-+ (NSMutableOrderedSet*)entries {
-    return [self entries:nil];
++ (NSArray*)entries {
+    return [[self fetchRequest] execute];
 }
 
-+ (NSMutableOrderedSet *)entries:(void (^)(NSFetchRequest *))configure {
-	return [[WLEntryManager manager] entriesOfClass:self configure:configure];
++ (NSArray *)entriesWithPredicate:(NSPredicate *)predicate {
+    return [[self fetchRequestWithPredicate:predicate] execute];
 }
 
-+ (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate *)predicate {
-    return [self entries:^(NSFetchRequest *request) {
-        request.predicate = predicate;
-    }];
-}
-
-+ (NSMutableOrderedSet *)entriesWhere:(NSString *)predicateFormat, ... {
++ (NSArray *)entriesWhere:(NSString *)predicateFormat, ... {
     BEGIN_PREDICATE_FORMAT
-    id result = [self entriesSortedBy:nil ascending:NO where:predicateFormat arguments:args];
+    id result = [self entriesWithPredicate:[NSPredicate predicateWithFormat:predicateFormat arguments:args]];
     END_PREDICATE_FORMAT
     return result;
-}
-
-+ (NSMutableOrderedSet *)entriesSortedBy:(NSString *)key where:(NSString *)predicateFormat, ... {
-    BEGIN_PREDICATE_FORMAT
-    id result = [self entriesSortedBy:key ascending:NO where:predicateFormat arguments:args];
-    END_PREDICATE_FORMAT
-    return result;
-}
-
-+ (NSMutableOrderedSet *)entriesSortedBy:(NSString *)key ascending:(BOOL)ascending where:(NSString *)predicateFormat, ... {
-    BEGIN_PREDICATE_FORMAT
-    id result = [self entriesSortedBy:key ascending:ascending where:predicateFormat arguments:args];
-    END_PREDICATE_FORMAT
-    return result;
-}
-
-+ (NSMutableOrderedSet *)entriesSortedBy:(NSString *)key ascending:(BOOL)ascending where:(NSString *)predicateFormat arguments:(va_list)args {
-    if (![predicateFormat isKindOfClass:[NSString class]]) return nil;
-    return [self entries:^(NSFetchRequest *request) {
-        request.predicate = [NSPredicate predicateWithFormat:predicateFormat arguments:args];
-        if (key) request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:key ascending:ascending]];
-    }];
 }
 
 + (void)entries:(WLArrayBlock)success failure:(WLFailureBlock)failure {
-    [self entries:nil success:success failure:failure];
+    [[self fetchRequest] execute:success failure:failure];
 }
 
 + (void)entriesWithPredicate:(NSPredicate*)predicate success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
-    [self entries:^(NSFetchRequest *request) {
-        request.predicate = predicate;
-    } success:success failure:failure];
+    [[self fetchRequestWithPredicate:predicate] execute:success failure:failure];
 }
 
 + (NSFetchRequest *)fetchRequest {
@@ -412,12 +382,6 @@
     NSFetchRequest *request = [self fetchRequest];
     request.predicate = predicate;
     return request;
-}
-
-+ (void)entries:(void (^)(NSFetchRequest* request))configure success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
-    NSFetchRequest* request = [self fetchRequest];
-    if (configure) configure(request);
-    [[WLEntryManager manager] executeFetchRequest:request success:success failure:failure];
 }
 
 + (BOOL)entryExists:(NSString*)identifier {
@@ -472,6 +436,10 @@
 
 - (NSArray *)execute {
     return [[WLEntryManager manager] executeFetchRequest:self];
+}
+
+- (NSArray *)executeInContext:(NSManagedObjectContext *)context {
+    return [context executeFetchRequest:self error:NULL];
 }
 
 - (void)execute:(WLArrayBlock)success failure:(WLFailureBlock)failure {

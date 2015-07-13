@@ -113,6 +113,8 @@
     [self performSelector:@selector(showIntroductionIfNeeded) withObject:nil afterDelay:0.0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCreateWrapTipIfNeeded) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    [WLWhatsUpSet sharedSet].counterDelegate = self;
 }
 
 - (void)setCreateWrapTipHidden:(BOOL)createWrapTipHidden {
@@ -177,9 +179,12 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     [self.dataSource reload];
-    [[WLWhatsUpSet sharedSet] update];
-    [WLWhatsUpSet sharedSet].counterDelegate = self;
-    [self updateNotificationsLabelCounter:[WLWhatsUpSet sharedSet].unreadEntriesCount];
+    __weak typeof(self)weakSelf = self;
+    [[WLWhatsUpSet sharedSet] refreshCount:^(NSUInteger count) {
+        weakSelf.notificationsLabel.intValue = count;
+        [weakSelf.dataSource reload];
+    } failure:nil];
+    
     [self updateEmailConfirmationView:NO];
     [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
     [self.uploadingView update];
@@ -313,12 +318,6 @@
     }];
 }
 
-// MARK: - WLNotificationReceiver
-
-- (void)updateNotificationsLabelCounter:(NSUInteger)counter {
-    self.notificationsLabel.intValue = counter;
-}
-
 // MARK: - Actions
 
 - (IBAction)resendConfirmation:(id)sender {
@@ -423,7 +422,8 @@
 // MARK: - WLWhatsUpDelegate
 
 - (void)whatsUpSet:(WLWhatsUpSet *)set figureOutUnreadEntryCounter:(NSUInteger)counter {
-    [self updateNotificationsLabelCounter:counter];
+    self.notificationsLabel.intValue = counter;
+    [self.dataSource reload];
 }
 
 @end

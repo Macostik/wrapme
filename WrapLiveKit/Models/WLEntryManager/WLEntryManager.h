@@ -75,17 +75,11 @@ typedef void (^WLEntryManagerMainContextFailureBlock) (NSError *error, NSManaged
 
 + (instancetype)entry:(NSString*)identifier;
 
-+ (NSMutableOrderedSet *)entries;
++ (NSArray *)entries;
 
-+ (NSMutableOrderedSet *)entries:(void (^)(NSFetchRequest* request))configure;
++ (NSArray *)entriesWithPredicate:(NSPredicate*)predicate;
 
-+ (NSMutableOrderedSet *)entriesWithPredicate:(NSPredicate*)predicate;
-
-+ (NSMutableOrderedSet *)entriesWhere:(NSString *)predicateFormat, ...;
-
-+ (NSMutableOrderedSet *)entriesSortedBy:(NSString*)key where:(NSString *)predicateFormat, ...;
-
-+ (NSMutableOrderedSet *)entriesSortedBy:(NSString*)key ascending:(BOOL)ascending where:(NSString *)predicateFormat, ...;
++ (NSArray *)entriesWhere:(NSString *)predicateFormat, ...;
 
 + (NSFetchRequest*)fetchRequest;
 
@@ -94,8 +88,6 @@ typedef void (^WLEntryManagerMainContextFailureBlock) (NSError *error, NSManaged
 + (NSFetchRequest*)fetchRequestWithPredicate:(NSPredicate*)predicate;
 
 + (void)entries:(WLArrayBlock)success failure:(WLFailureBlock)failure;
-
-+ (void)entries:(void (^)(NSFetchRequest* request))configure success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 + (void)entriesWithPredicate:(NSPredicate*)predicate success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
@@ -110,6 +102,8 @@ typedef void (^WLEntryManagerMainContextFailureBlock) (NSError *error, NSManaged
 @interface NSFetchRequest (WLEntryManager)
 
 - (NSArray*)execute;
+
+- (NSArray*)executeInContext:(NSManagedObjectContext*)context;
 
 - (void)execute:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 

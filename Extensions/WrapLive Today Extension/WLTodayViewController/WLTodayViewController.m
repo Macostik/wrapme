@@ -103,7 +103,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (NCUpdateResult)fetchContributions {
-    NSMutableOrderedSet *contributions = [WLContribution recentContributions:WLRecentContributionsDefaultLimit];
+    NSOrderedSet *contributions = [WLContribution recentContributions:WLRecentContributionsDefaultLimit];
     NCUpdateResult updateResult = [self.contributions isEqualToOrderedSet:contributions] ? NCUpdateResultNoData : NCUpdateResultNewData;
     self.contributions = contributions;
     return updateResult;

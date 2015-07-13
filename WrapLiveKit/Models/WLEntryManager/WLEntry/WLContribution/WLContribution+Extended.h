@@ -29,9 +29,9 @@ static NSUInteger WLRecentContributionsDefaultLimit = 6;
 
 + (instancetype)contribution;
 
-+ (NSMutableOrderedSet*)recentContributions;
++ (NSOrderedSet*)recentContributions;
 
-+ (NSMutableOrderedSet *)recentContributions:(NSUInteger)limit;
++ (NSOrderedSet *)recentContributions:(NSUInteger)limit;
 
 + (NSNumber*)uploadingOrder;
 

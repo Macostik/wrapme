@@ -56,7 +56,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [(WLWhatsUpSet*)self.dataSource.items update];
+    [(WLWhatsUpSet*)self.dataSource.items update:nil failure:nil];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier willDeleteEntry:(WLEntry *)entry {

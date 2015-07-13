@@ -36,19 +36,19 @@
     return contributrion;
 }
 
-+ (NSMutableOrderedSet *)recentContributions {
-    NSMutableOrderedSet *contributions = [NSMutableOrderedSet orderedSet];
++ (NSOrderedSet *)recentContributions {
+    NSMutableArray *contributions = [NSMutableArray array];
     NSDate *date = [[NSDate now] beginOfDay];
-    [contributions unionOrderedSet:[WLComment entriesWhere:@"createdAt > %@ AND contributor != nil", date]];
-    [contributions unionOrderedSet:[WLCandy entriesWhere:@"createdAt > %@ AND contributor != nil", date]];
+    [contributions adds:[WLComment entriesWhere:@"createdAt > %@ AND contributor != nil", date]];
+    [contributions adds:[WLCandy entriesWhere:@"createdAt > %@ AND contributor != nil", date]];
     [contributions sortByCreatedAt];
-    return contributions;
+    return [contributions orderedSet];
 }
 
-+ (NSMutableOrderedSet *)recentContributions:(NSUInteger)limit {
-    NSMutableOrderedSet *contributions = [self recentContributions];
++ (NSOrderedSet *)recentContributions:(NSUInteger)limit {
+    NSOrderedSet *contributions = [self recentContributions];
     if (contributions.count > limit) {
-        return [NSMutableOrderedSet orderedSetWithArray:[[contributions array] subarrayWithRange:NSMakeRange(0, limit)]];
+        return [NSOrderedSet orderedSetWithArray:[[contributions array] subarrayWithRange:NSMakeRange(0, limit)]];
     }
     return contributions;
 }

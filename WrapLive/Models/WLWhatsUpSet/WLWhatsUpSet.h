@@ -24,9 +24,9 @@
 
 + (instancetype)sharedSet;
 
-- (void)update;
-
 - (void)update:(WLBlock)success failure:(WLFailureBlock)failure;
+
+- (void)refreshCount:(void (^)(NSUInteger count))success failure:(WLFailureBlock)failure;
 
 - (NSUInteger)unreadCandiesCountForWrap:(WLWrap*)wrap;
 

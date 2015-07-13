@@ -95,9 +95,7 @@ static NSString *_combinedIdentifier = nil;
 
 + (WLUser*)currentUser {
 	if (!currentUser) {
-		currentUser = [[WLUser entries:^(NSFetchRequest *request) {
-			request.predicate = [NSPredicate predicateWithFormat:@"current == TRUE"];
-		}] lastObject];
+		currentUser = [[WLUser entriesWhere:@"current == TRUE"] lastObject];
 	}
 	return currentUser;
 }
@@ -108,10 +106,8 @@ static NSString *_combinedIdentifier = nil;
             if (currentUser.current) currentUser.current = NO;
         }
     } else {
-        [[WLUser entries:^(NSFetchRequest *request) {
-            request.predicate = [NSPredicate predicateWithFormat:@"current == TRUE"];
-        }] all:^(WLUser* _user) {
-            if (_user.current) _user.current = NO;
+        [[WLUser entriesWhere:@"current == TRUE"] all:^(WLUser* _user) {
+            _user.current = NO;
         }];
     }
 	currentUser = user;

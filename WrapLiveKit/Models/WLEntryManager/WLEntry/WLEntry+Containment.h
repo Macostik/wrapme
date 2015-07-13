@@ -34,6 +34,8 @@
 
 - (NSDictionary*)dictionaryRepresentation;
 
+- (WLWrap*)tryFindWrap;
+
 @end
 
 @interface WLWrap (Containment)

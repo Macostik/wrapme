@@ -11,9 +11,11 @@
 
 @interface WLWhatsUpSet () <WLEntryNotifyReceiver>
 
-@property (strong, nonatomic) NSPredicate* contributionsPredicate;
+@property (strong, nonatomic) NSString* contributionsPredicate;
 
-@property (strong, nonatomic) NSPredicate* updatesPredicate;
+@property (strong, nonatomic) NSString* updatesPredicate;
+
+@property (strong, nonatomic) NSDictionary *wrapCounters;
 
 @end
 
@@ -30,55 +32,54 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.wrapCounters = [NSDictionary dictionary];
         self.sortComparator = comparatorByDate;
         self.completed = YES;
         [[WLComment notifier] addReceiver:self];
         [[WLCandy notifier] addReceiver:self];
         [[WLWrap notifier] addReceiver:self];
-        self.contributionsPredicate = [NSPredicate predicateWithFormat:@"createdAt >= $DATE AND contributor != nil AND contributor != $CURRENT_USER"];
-        self.updatesPredicate = [NSPredicate predicateWithFormat:@"editedAt >= $DATE AND editor != nil AND editor != $CURRENT_USER"];
-        [self update];
+        self.contributionsPredicate = @"createdAt >= %@ AND contributor != nil AND contributor != %@";
+        self.updatesPredicate = @"editedAt >= %@ AND editor != nil AND editor != %@";
+        [self update:nil failure:nil];
     }
     return self;
 }
 
-- (NSPredicate *)predicateByAddingVariables:(NSPredicate*)predicate {
+- (NSString *)predicateByAddingVariables:(NSString*)predicate {
     NSDate *dayAgo = [NSDate dayAgo];
     WLUser *currentUser = [WLUser currentUser];
     if (dayAgo && currentUser) {
-        NSDictionary *variables = @{@"DATE":dayAgo, @"CURRENT_USER":currentUser};
-        return [predicate predicateWithSubstitutionVariables:variables];
+        return [NSString stringWithFormat:predicate, dayAgo, currentUser];
     }
     return nil;
-}
-
-- (void)update {
-    [self update:nil failure:nil];
 }
 
 - (void)update:(WLBlock)success failure:(WLFailureBlock)failure {
     
     __weak typeof(self)weakSelf = self;
-    
-    NSPredicate *contributionsPredicate = [self predicateByAddingVariables:self.contributionsPredicate];
-    
-    NSPredicate *updatesPredicate = [self predicateByAddingVariables:self.updatesPredicate];
-    
-    if (updatesPredicate && contributionsPredicate) {
+    NSDate *dayAgo = [NSDate dayAgo];
+    WLUser *currentUser = [WLUser currentUser];
+    if (dayAgo && currentUser) {
         [[WLEntryManager manager] performBlockInBackground:^(__autoreleasing id *result, NSError *__autoreleasing *error, NSManagedObjectContext *backgroundContext) {
             
             NSUInteger unreadEntriesCount = 0;
             
+            NSMutableDictionary *wrapCounters = [NSMutableDictionary dictionary];
+            
             NSMutableSet *events = [NSMutableSet set];
             NSMutableArray *contributions = [NSMutableArray array];
-            [contributions adds:[backgroundContext executeFetchRequest:[WLComment fetchRequestWithPredicate:contributionsPredicate] error:error]];
-            [contributions adds:[backgroundContext executeFetchRequest:[WLCandy fetchRequestWithPredicate:contributionsPredicate] error:error]];
-            NSArray *updates = [backgroundContext executeFetchRequest:[WLCandy fetchRequestWithPredicate:updatesPredicate] error:error];
+            [contributions adds:[[WLComment fetchRequest:weakSelf.contributionsPredicate, dayAgo, currentUser] executeInContext:backgroundContext]];
+            [contributions adds:[[WLCandy fetchRequest:weakSelf.contributionsPredicate, dayAgo, currentUser] executeInContext:backgroundContext]];
+            NSArray *updates = [[WLCandy fetchRequest:weakSelf.updatesPredicate, dayAgo, currentUser] executeInContext:backgroundContext];
             
             for (WLContribution *contribution in contributions) {
                 [events addObject:[WLWhatsUpEvent event:WLEventAdd contribution:contribution]];
                 if (contribution.unread) {
                     unreadEntriesCount++;
+                    NSString *wrapId = [contribution tryFindWrap].identifier;
+                    if (wrapId) {
+                        wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
+                    }
                 }
             }
             
@@ -86,9 +87,14 @@
                 [events addObject:[WLWhatsUpEvent event:WLEventUpdate contribution:contribution]];
                 if (contribution.unread && ![contributions containsObject:contribution]) {
                     unreadEntriesCount++;
+                    NSString *wrapId = [contribution tryFindWrap].identifier;
+                    if (wrapId) {
+                        wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
+                    }
                 }
             }
             weakSelf.unreadEntriesCount = unreadEntriesCount;
+            weakSelf.wrapCounters = [wrapCounters copy];
             *result = events;
         } success:^(NSMutableSet *events, NSManagedObjectContext *mainContext) {
             events = [events map:^id(WLWhatsUpEvent *event) {
@@ -104,15 +110,15 @@
     }
 }
 
+- (void)refreshCount:(void (^)(NSUInteger))success failure:(WLFailureBlock)failure {
+    __weak typeof(self)weakSelf = self;
+    [self update:^{
+        if (success) success(weakSelf.unreadEntriesCount);
+    } failure:failure];
+}
+
 - (NSUInteger)unreadCandiesCountForWrap:(WLWrap *)wrap {
-    NSMutableSet *unreadCandies = [NSMutableSet set];
-    for (WLWhatsUpEvent *event in self.entries) {
-        WLCandy *candy = event.contribution;
-        if ([candy isKindOfClass:[WLCandy class]] && candy.wrap == wrap && [candy unread]) {
-            [unreadCandies addObject:candy];
-        }
-    }
-    return unreadCandies.count;
+    return [self.wrapCounters[wrap.identifier] unsignedIntegerValue];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier didAddEntry:(WLEntry*)entry {

@@ -219,7 +219,7 @@ static WLDataBlock deviceTokenCompletion = nil;
     return YES;
 }
 
-- (void)presentRemoteNotification:(WLEntryNotification *)notification {
+- (void)presentNotification:(WLEntryNotification *)notification {
     [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification failure:^(NSError *error) {
         [error show];
     }];
@@ -230,20 +230,31 @@ static WLDataBlock deviceTokenCompletion = nil;
     BOOL probablyUserInteraction = [UIApplication sharedApplication].applicationState == UIApplicationStateInactive;
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
         if (notification.presentable) {
-            UIApplicationState state = [UIApplication sharedApplication].applicationState;
-            if (state == UIApplicationStateActive) {
-                if (probablyUserInteraction) [weakSelf presentRemoteNotification:(id)notification];
-                if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
-            } else if (state == UIApplicationStateInactive) {
-                [weakSelf setDidBecomeActiveBlock:^{
-                    if (probablyUserInteraction) [weakSelf presentRemoteNotification:(id)notification];
-                }];
-                run_after(1.0f, ^{
-                    weakSelf.didBecomeActiveBlock = nil;
+            NSDictionary *alert = notification.data[@"aps"][@"alert"];
+            if (alert.count > 0) {
+                UIApplicationState state = [UIApplication sharedApplication].applicationState;
+                if (state == UIApplicationStateActive) {
+                    if (probablyUserInteraction) [weakSelf presentNotification:(id)notification];
                     if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
-                });
+                } else if (state == UIApplicationStateInactive) {
+                    [weakSelf setDidBecomeActiveBlock:^{
+                        if (probablyUserInteraction) [weakSelf presentNotification:(id)notification];
+                    }];
+                    run_after(1.0f, ^{
+                        weakSelf.didBecomeActiveBlock = nil;
+                        if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+                    });
+                } else {
+                    if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+                }
             } else {
-                if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+                WLEntryNotification *entryNotification = (id)notification;
+                WLEntry *entry = entryNotification.targetEntry;
+                UILocalNotification *localNotification = [entry localNotificationForEntryNotification:entryNotification];
+                [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+                [weakSelf setDidBecomeActiveBlock:^{
+                    if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+                }];
             }
         } else {
             if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
@@ -259,6 +270,14 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
     [self handleRemoteNotification:userInfo completionHandler:^(UIBackgroundFetchResult result) {
+        if (completionHandler) completionHandler();
+    }];
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)())completionHandler {
+    WLEntryNotification *emtrynotification = (id)[WLNotification notificationWithData:notification.userInfo];
+    [self presentNotification:emtrynotification];
+    [self setDidBecomeActiveBlock:^{
         if (completionHandler) completionHandler();
     }];
 }
@@ -307,6 +326,9 @@ static WLDataBlock deviceTokenCompletion = nil;
             }
             [homeViewController openCameraAnimated:NO startFromGallery:YES showWrapPicker:YES];
         }
+    } else {
+        WLEntryNotification *emtrynotification = (id)[WLNotification notificationWithData:notification.userInfo];
+        [self presentNotification:emtrynotification];
     }
 }
 

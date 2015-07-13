@@ -56,6 +56,8 @@
 
 - (void)finalizeDeleteNotification:(WLEntryNotification *)notification;
 
+- (UILocalNotification *)localNotificationForEntryNotification:(WLEntryNotification *)notification;
+
 @end
 
 @interface WLContribution (WLNotification) @end

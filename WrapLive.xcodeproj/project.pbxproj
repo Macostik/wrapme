@@ -121,14 +121,6 @@
 		5BA60C681A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */; };
 		5BA60C691A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */; };
 		5BA60C6A1A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */; };
-		5BA60CA31A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C241A8257ED000F795C /* UIActionSheet+Blocks.m */; };
-		5BA60CA41A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C241A8257ED000F795C /* UIActionSheet+Blocks.m */; };
-		5BA60CA51A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C241A8257ED000F795C /* UIActionSheet+Blocks.m */; };
-		5BA60CA61A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C241A8257ED000F795C /* UIActionSheet+Blocks.m */; };
-		5BA60CAB1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C2A1A8257ED000F795C /* UIAlertView+Blocks.m */; };
-		5BA60CAC1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C2A1A8257ED000F795C /* UIAlertView+Blocks.m */; };
-		5BA60CAD1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C2A1A8257ED000F795C /* UIAlertView+Blocks.m */; };
-		5BA60CAE1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C2A1A8257ED000F795C /* UIAlertView+Blocks.m */; };
 		5BA60CAF1A8257ED000F795C /* UIButton+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C2D1A8257ED000F795C /* UIButton+Additions.m */; };
 		5BA60CB01A8257ED000F795C /* UIButton+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C2D1A8257ED000F795C /* UIButton+Additions.m */; };
 		5BA60CB11A8257ED000F795C /* UIButton+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C2D1A8257ED000F795C /* UIButton+Additions.m */; };
@@ -169,10 +161,6 @@
 		5BA60CF01A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C571A8257ED000F795C /* UIView+GestureRecognizing.m */; };
 		5BA60CF11A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C571A8257ED000F795C /* UIView+GestureRecognizing.m */; };
 		5BA60CF21A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C571A8257ED000F795C /* UIView+GestureRecognizing.m */; };
-		5BA60D021A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
-		5BA60D031A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
-		5BA60D041A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
-		5BA60D051A82613F000F795C /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
 		5BA6AA421A66779D00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA6AA431A66779D00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA6AA441A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
@@ -1060,7 +1048,6 @@
 		C57479311B26FA45001AB8C0 /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		C57479321B26FA45001AB8C0 /* WLPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BBE1A239D6F008B2E2E /* WLPhoneViewController.m */; };
 		C57479331B26FA45001AB8C0 /* WLBasicDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C50099501ADFCC940064CC7B /* WLBasicDataSource.m */; };
-		C57479341B26FA45001AB8C0 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C2A1A8257ED000F795C /* UIAlertView+Blocks.m */; };
 		C57479351B26FA45001AB8C0 /* WLDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C50099541ADFCC940064CC7B /* WLDataSource.m */; };
 		C57479361B26FA45001AB8C0 /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179719B9EEB9000E55F3 /* WLContributorCell.m */; };
 		C57479371B26FA45001AB8C0 /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
@@ -1134,7 +1121,6 @@
 		C57479801B26FA45001AB8C0 /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */; };
 		C57479811B26FA45001AB8C0 /* VerticalStreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */; };
 		C57479821B26FA45001AB8C0 /* WLIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = C577DA521AE0F7FB00DBC3D4 /* WLIconView.m */; };
-		C57479831B26FA45001AB8C0 /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */; };
 		C57479841B26FA45001AB8C0 /* WLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE11A41952400A2C370 /* WLTextView.m */; };
 		C57479851B26FA45001AB8C0 /* WLStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */; };
 		C57479861B26FA45001AB8C0 /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504179019B9EE42000E55F3 /* WLContributorsViewController.m */; };
@@ -1155,7 +1141,6 @@
 		C57479951B26FA45001AB8C0 /* SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F0DAEF19338C9100F9D898 /* SegmentedControl.m */; };
 		C57479961B26FA45001AB8C0 /* WLStoryboardTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C56A760D1A640F1900D1FBED /* WLStoryboardTransition.m */; };
 		C57479971B26FA45001AB8C0 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
-		C57479981B26FA45001AB8C0 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C241A8257ED000F795C /* UIActionSheet+Blocks.m */; };
 		C57479991B26FA45001AB8C0 /* WLEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BBB1A239D6F008B2E2E /* WLEmailViewController.m */; };
 		C574799A1B26FA45001AB8C0 /* WLAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E218E197ED00FF43F6 /* WLAddressBook.m */; };
 		C574799B1B26FA45001AB8C0 /* UITextView+Aditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C501A8257ED000F795C /* UITextView+Aditions.m */; };
@@ -1537,8 +1522,6 @@
 		C587C8ED1AD2E8E1003E7647 /* WrapLiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* WrapLiveKit.framework */; };
 		C587C8F11AD2E980003E7647 /* NSUserDefaults+WLAppGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C587C8EF1AD2E980003E7647 /* NSUserDefaults+WLAppGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C8F21AD2E980003E7647 /* NSUserDefaults+WLAppGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C587C8F01AD2E980003E7647 /* NSUserDefaults+WLAppGroup.m */; };
-		C587C8F71AD2E9BF003E7647 /* WLAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = C587C8F51AD2E9BF003E7647 /* WLAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C587C8F81AD2E9BF003E7647 /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C587C8F61AD2E9BF003E7647 /* WLAlertView.m */; };
 		C58AB9961B1384F300932272 /* WLWhatsUpSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB9951B1384F300932272 /* WLWhatsUpSet.m */; };
 		C58AB9971B1384F300932272 /* WLWhatsUpSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB9951B1384F300932272 /* WLWhatsUpSet.m */; };
 		C58AB9981B1384F300932272 /* WLWhatsUpSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB9951B1384F300932272 /* WLWhatsUpSet.m */; };
@@ -1666,6 +1649,11 @@
 		C5B993C81B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */; };
 		C5B993CC1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B993CB1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m */; };
 		C5B993CD1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B993CB1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m */; };
+		C5BAD1321B53F9C60028FCEB /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BAD1311B53F9C60028FCEB /* WLAlertView.m */; };
+		C5BAD1331B53F9C60028FCEB /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BAD1311B53F9C60028FCEB /* WLAlertView.m */; };
+		C5BAD1341B53F9C60028FCEB /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BAD1311B53F9C60028FCEB /* WLAlertView.m */; };
+		C5BAD1351B53F9C60028FCEB /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BAD1311B53F9C60028FCEB /* WLAlertView.m */; };
+		C5BAD1361B53F9C60028FCEB /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BAD1311B53F9C60028FCEB /* WLAlertView.m */; };
 		C5BCAC401B2EDF2300080650 /* WLWKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */; };
 		C5BCAC411B2EDF2300080650 /* WLWKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */; };
 		C5BEE0E61B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0E31B2AC8C300D3CF70 /* WLNotificationCenter.m */; };
@@ -2576,10 +2564,6 @@
 		5BA60BFA1A8257ED000F795C /* ALAssetsLibrary+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+Additions.m"; sourceTree = "<group>"; };
 		5BA60BFD1A8257ED000F795C /* MFMailComposeViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMailComposeViewController+Additions.h"; sourceTree = "<group>"; };
 		5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MFMailComposeViewController+Additions.m"; sourceTree = "<group>"; };
-		5BA60C231A8257ED000F795C /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
-		5BA60C241A8257ED000F795C /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
-		5BA60C291A8257ED000F795C /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
-		5BA60C2A1A8257ED000F795C /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		5BA60C2C1A8257ED000F795C /* UIButton+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Additions.h"; sourceTree = "<group>"; };
 		5BA60C2D1A8257ED000F795C /* UIButton+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Additions.m"; sourceTree = "<group>"; };
 		5BA60C2F1A8257ED000F795C /* UICollectionViewCell+Autoresizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+Autoresizing.h"; sourceTree = "<group>"; };
@@ -2600,8 +2584,6 @@
 		5BA60C551A8257ED000F795C /* UIView+Extentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extentions.m"; sourceTree = "<group>"; };
 		5BA60C561A8257ED000F795C /* UIView+GestureRecognizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GestureRecognizing.h"; sourceTree = "<group>"; };
 		5BA60C571A8257ED000F795C /* UIView+GestureRecognizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GestureRecognizing.m"; sourceTree = "<group>"; };
-		5BA60D001A82613F000F795C /* UIAlertController+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertController+Blocks.h"; path = "UIAlertController/UIAlertController+Blocks.h"; sourceTree = "<group>"; };
-		5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertController+Blocks.m"; path = "UIAlertController/UIAlertController+Blocks.m"; sourceTree = "<group>"; };
 		5BA6AA541A66805E00493582 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLWrapPlaceholderViewHistory.xib; sourceTree = "<group>"; };
 		5BA6AA571A66806200493582 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLWrapPlaceholderViewHistory.strings; sourceTree = "<group>"; };
 		5BA6AA591A66806400493582 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLWrapPlaceholderViewHistory.strings; sourceTree = "<group>"; };
@@ -3215,8 +3197,6 @@
 		C587C77B1AD2E619003E7647 /* WrapLiveKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WrapLiveKit-Prefix.pch"; sourceTree = "<group>"; };
 		C587C8EF1AD2E980003E7647 /* NSUserDefaults+WLAppGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+WLAppGroup.h"; sourceTree = "<group>"; };
 		C587C8F01AD2E980003E7647 /* NSUserDefaults+WLAppGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+WLAppGroup.m"; sourceTree = "<group>"; };
-		C587C8F51AD2E9BF003E7647 /* WLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAlertView.h; sourceTree = "<group>"; };
-		C587C8F61AD2E9BF003E7647 /* WLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAlertView.m; sourceTree = "<group>"; };
 		C58AB9921B13422500932272 /* CoreData 1. 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 2.xcdatamodel"; sourceTree = "<group>"; };
 		C58AB9941B1384F300932272 /* WLWhatsUpSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWhatsUpSet.h; sourceTree = "<group>"; };
 		C58AB9951B1384F300932272 /* WLWhatsUpSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWhatsUpSet.m; sourceTree = "<group>"; };
@@ -3288,6 +3268,8 @@
 		C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLWKCommentReplyPresets.plist; sourceTree = "<group>"; };
 		C5B993CA1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceController+SimplifiedTextInput.h"; sourceTree = "<group>"; };
 		C5B993CB1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKInterfaceController+SimplifiedTextInput.m"; sourceTree = "<group>"; };
+		C5BAD1301B53F9C60028FCEB /* WLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAlertView.h; sourceTree = "<group>"; };
+		C5BAD1311B53F9C60028FCEB /* WLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAlertView.m; sourceTree = "<group>"; };
 		C5BCAC3E1B2EDF2300080650 /* WLWKAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKAlertController.h; sourceTree = "<group>"; };
 		C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKAlertController.m; sourceTree = "<group>"; };
 		C5BEE0E21B2AC8C300D3CF70 /* WLNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationCenter.h; sourceTree = "<group>"; };
@@ -3966,6 +3948,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C5BAD12F1B53F9C60028FCEB /* WLAlertView */,
 				C5978BE31B396FA500D5043E /* WLDrawingView */,
 				5BD121571B0250E000FF5FBF /* WLDownloadingView */,
 				C5FE0A5A1ACD98F3007DBE95 /* WLCircleImageView */,
@@ -4261,9 +4244,6 @@
 				C5B233771B29E692008A14D1 /* AdobeUXImageEditorViewController */,
 				5BA60BF81A8257ED000F795C /* ALAssetsLibrary */,
 				5BA60BFC1A8257ED000F795C /* MFMailComposeViewController */,
-				5BA60C221A8257ED000F795C /* UIActionSheet */,
-				5BA60C281A8257ED000F795C /* UIAlertView */,
-				5BA60D061A826146000F795C /* UIAlertController */,
 				5BA60C2B1A8257ED000F795C /* UIButton */,
 				5BA60C2E1A8257ED000F795C /* UICollectionViewCell */,
 				5BA60C421A8257ED000F795C /* UILabel */,
@@ -4292,24 +4272,6 @@
 				5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */,
 			);
 			path = MFMailComposeViewController;
-			sourceTree = "<group>";
-		};
-		5BA60C221A8257ED000F795C /* UIActionSheet */ = {
-			isa = PBXGroup;
-			children = (
-				5BA60C231A8257ED000F795C /* UIActionSheet+Blocks.h */,
-				5BA60C241A8257ED000F795C /* UIActionSheet+Blocks.m */,
-			);
-			path = UIActionSheet;
-			sourceTree = "<group>";
-		};
-		5BA60C281A8257ED000F795C /* UIAlertView */ = {
-			isa = PBXGroup;
-			children = (
-				5BA60C291A8257ED000F795C /* UIAlertView+Blocks.h */,
-				5BA60C2A1A8257ED000F795C /* UIAlertView+Blocks.m */,
-			);
-			path = UIAlertView;
 			sourceTree = "<group>";
 		};
 		5BA60C2B1A8257ED000F795C /* UIButton */ = {
@@ -4386,15 +4348,6 @@
 				5BA60C571A8257ED000F795C /* UIView+GestureRecognizing.m */,
 			);
 			path = UIView;
-			sourceTree = "<group>";
-		};
-		5BA60D061A826146000F795C /* UIAlertController */ = {
-			isa = PBXGroup;
-			children = (
-				5BA60D001A82613F000F795C /* UIAlertController+Blocks.h */,
-				5BA60D011A82613F000F795C /* UIAlertController+Blocks.m */,
-			);
-			name = UIAlertController;
 			sourceTree = "<group>";
 		};
 		5BA755F91A7641A90037D51E /* WLScrollView */ = {
@@ -4835,7 +4788,6 @@
 				C5612D641ACD968B0052578A /* Support Headers */,
 				C5612C771ACD968A0052578A /* Categories */,
 				C5612CB01ACD968A0052578A /* Models */,
-				C587C8F31AD2E9BF003E7647 /* Views */,
 				C50646ED1ABD844700CB4BE3 /* WrapLiveKit.h */,
 				C587C7791AD2E619003E7647 /* WrapLiveKit-Info.plist */,
 				C587C77B1AD2E619003E7647 /* WrapLiveKit-Prefix.pch */,
@@ -5975,23 +5927,6 @@
 			path = NSUserDefaults;
 			sourceTree = "<group>";
 		};
-		C587C8F31AD2E9BF003E7647 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				C587C8F41AD2E9BF003E7647 /* WLAlertView */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		C587C8F41AD2E9BF003E7647 /* WLAlertView */ = {
-			isa = PBXGroup;
-			children = (
-				C587C8F51AD2E9BF003E7647 /* WLAlertView.h */,
-				C587C8F61AD2E9BF003E7647 /* WLAlertView.m */,
-			);
-			path = WLAlertView;
-			sourceTree = "<group>";
-		};
 		C58AB9931B1384D800932272 /* WLWhatsUpSet */ = {
 			isa = PBXGroup;
 			children = (
@@ -6188,6 +6123,15 @@
 				C5B993CB1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m */,
 			);
 			path = WKInterfaceController;
+			sourceTree = "<group>";
+		};
+		C5BAD12F1B53F9C60028FCEB /* WLAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				C5BAD1301B53F9C60028FCEB /* WLAlertView.h */,
+				C5BAD1311B53F9C60028FCEB /* WLAlertView.m */,
+			);
+			path = WLAlertView;
 			sourceTree = "<group>";
 		};
 		C5BCAC3D1B2EDEFF00080650 /* WLWKErrorController */ = {
@@ -6744,7 +6688,6 @@
 				C587C7D51AD2E6A0003E7647 /* WLEntryManager.h in Headers */,
 				C587C7DF1AD2E6A0003E7647 /* WLPaginatedSet.h in Headers */,
 				C587C7AB1AD2E6A0003E7647 /* WLUpdateUserRequest.h in Headers */,
-				C587C8F71AD2E9BF003E7647 /* WLAlertView.h in Headers */,
 				C587C79C1AD2E6A0003E7647 /* WLBaseOperationWrapRequest.h in Headers */,
 				C587C7B61AD2E6A0003E7647 /* WLAPIManager.h in Headers */,
 				C587C7D01AD2E6A0003E7647 /* WLUploading+Extended.h in Headers */,
@@ -7863,7 +7806,6 @@
 				C5C20BD51A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C50099621ADFCC940064CC7B /* WLBasicDataSource.m in Sources */,
 				C54186A81B4560E300F83889 /* DDMultiFormatter.m in Sources */,
-				5BA60CAB1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */,
 				C500996A1ADFCC940064CC7B /* WLDataSource.m in Sources */,
 				C504179819B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				12E8FF1F18E9885100BF1B96 /* WLComposeBar.m in Sources */,
@@ -7873,6 +7815,7 @@
 				C5C016661B455760003623EC /* PNLogFileManager.m in Sources */,
 				C52E1FE81A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B8F1A238AE7008B2E2E /* WLValidation.m in Sources */,
+				C5BAD1331B53F9C60028FCEB /* WLAlertView.m in Sources */,
 				5BA7AC211A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD41A41951300A2C370 /* WLLabel.m in Sources */,
 				C5BEE0EC1B2AC8C300D3CF70 /* WLNotificationSubscription.m in Sources */,
@@ -7974,7 +7917,6 @@
 				5BA60C671A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				12E8FF1618E960E000BF1B96 /* VerticalStreamLayout.m in Sources */,
 				C577DA531AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
-				5BA60D021A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE21A41952400A2C370 /* WLTextView.m in Sources */,
 				C5C015EE1B455760003623EC /* PNClientStateUpdateStatus.m in Sources */,
 				C525687D1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
@@ -8005,7 +7947,6 @@
 				C56A760E1A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
 				C5D7FE801B501CD000746908 /* WLEntryNotification.m in Sources */,
 				5BD104F21AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */,
-				5BA60CA31A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */,
 				C5C20BD11A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				129654E318E197ED00FF43F6 /* WLAddressBook.m in Sources */,
 				C5B2A12A1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */,
@@ -8183,7 +8124,6 @@
 				C5C20BD61A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C50099631ADFCC940064CC7B /* WLBasicDataSource.m in Sources */,
 				C54186A91B4560E300F83889 /* DDMultiFormatter.m in Sources */,
-				5BA60CAC1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */,
 				C500996B1ADFCC940064CC7B /* WLDataSource.m in Sources */,
 				C504179919B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */,
@@ -8193,6 +8133,7 @@
 				C5C016671B455760003623EC /* PNLogFileManager.m in Sources */,
 				C52E1FE91A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B901A238AE7008B2E2E /* WLValidation.m in Sources */,
+				C5BAD1341B53F9C60028FCEB /* WLAlertView.m in Sources */,
 				5BA7AC221A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD51A41951300A2C370 /* WLLabel.m in Sources */,
 				C5BEE0ED1B2AC8C300D3CF70 /* WLNotificationSubscription.m in Sources */,
@@ -8294,7 +8235,6 @@
 				5BA60C681A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54AF4E119B8C437006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C577DA541AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
-				5BA60D031A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE31A41952400A2C370 /* WLTextView.m in Sources */,
 				C5C015EF1B455760003623EC /* PNClientStateUpdateStatus.m in Sources */,
 				C525687E1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
@@ -8325,7 +8265,6 @@
 				C56A760F1A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
 				C5D7FE811B501CD000746908 /* WLEntryNotification.m in Sources */,
 				5BD104F31AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */,
-				5BA60CA41A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */,
 				C5C20BD21A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C54AF4F219B8C437006F7EDB /* WLAddressBook.m in Sources */,
 				C5B2A12B1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */,
@@ -8463,7 +8402,6 @@
 				C5C20BD71A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C50099641ADFCC940064CC7B /* WLBasicDataSource.m in Sources */,
 				C54186AA1B4560E300F83889 /* DDMultiFormatter.m in Sources */,
-				5BA60CAD1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */,
 				C500996C1ADFCC940064CC7B /* WLDataSource.m in Sources */,
 				C504179A19B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF58E19B8C467006F7EDB /* WLComposeBar.m in Sources */,
@@ -8473,6 +8411,7 @@
 				C5C016681B455760003623EC /* PNLogFileManager.m in Sources */,
 				C52E1FEA1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
 				C5C20B911A238AE7008B2E2E /* WLValidation.m in Sources */,
+				C5BAD1351B53F9C60028FCEB /* WLAlertView.m in Sources */,
 				5BA7AC231A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD61A41951300A2C370 /* WLLabel.m in Sources */,
 				C5BEE0EE1B2AC8C300D3CF70 /* WLNotificationSubscription.m in Sources */,
@@ -8574,7 +8513,6 @@
 				5BA60C691A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54AF5DE19B8C467006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C577DA551AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
-				5BA60D041A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE41A41952400A2C370 /* WLTextView.m in Sources */,
 				C5C015F01B455760003623EC /* PNClientStateUpdateStatus.m in Sources */,
 				C525687F1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
@@ -8605,7 +8543,6 @@
 				C56A76101A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
 				C5D7FE821B501CD000746908 /* WLEntryNotification.m in Sources */,
 				5BD104F41AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */,
-				5BA60CA51A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */,
 				C5C20BD31A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C54AF5EF19B8C467006F7EDB /* WLAddressBook.m in Sources */,
 				C5B2A12C1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */,
@@ -8744,7 +8681,6 @@
 				C5C20BD81A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C54186AB1B4560E300F83889 /* DDMultiFormatter.m in Sources */,
 				C50099651ADFCC940064CC7B /* WLBasicDataSource.m in Sources */,
-				5BA60CAE1A8257ED000F795C /* UIAlertView+Blocks.m in Sources */,
 				C500996D1ADFCC940064CC7B /* WLDataSource.m in Sources */,
 				C504179B19B9EEB9000E55F3 /* WLContributorCell.m in Sources */,
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
@@ -8753,6 +8689,7 @@
 				C5D7FE771B501C5600746908 /* PNLogFileManager.m in Sources */,
 				C56758301AEE981000DFEC93 /* WLCollectionViewLayout.m in Sources */,
 				C52E1FEB1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
+				C5BAD1361B53F9C60028FCEB /* WLAlertView.m in Sources */,
 				C5C20B921A238AE7008B2E2E /* WLValidation.m in Sources */,
 				5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */,
@@ -8855,7 +8792,6 @@
 				5BA60C6A1A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54AF6DB19B8C491006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C577DA561AE0F7FB00DBC3D4 /* WLIconView.m in Sources */,
-				5BA60D051A82613F000F795C /* UIAlertController+Blocks.m in Sources */,
 				C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */,
 				C5C015F11B455760003623EC /* PNClientStateUpdateStatus.m in Sources */,
 				C52568801B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
@@ -8886,7 +8822,6 @@
 				C5D7FE831B501CD000746908 /* WLEntryNotification.m in Sources */,
 				C56A76111A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
 				5BD104F51AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */,
-				5BA60CA61A8257ED000F795C /* UIActionSheet+Blocks.m in Sources */,
 				C5C20BD41A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C54AF6EC19B8C491006F7EDB /* WLAddressBook.m in Sources */,
 				5BA60CE61A8257ED000F795C /* UITextView+Aditions.m in Sources */,
@@ -9049,7 +8984,6 @@
 				C57479321B26FA45001AB8C0 /* WLPhoneViewController.m in Sources */,
 				C57479331B26FA45001AB8C0 /* WLBasicDataSource.m in Sources */,
 				C54186A71B4560E300F83889 /* DDMultiFormatter.m in Sources */,
-				C57479341B26FA45001AB8C0 /* UIAlertView+Blocks.m in Sources */,
 				C57479351B26FA45001AB8C0 /* WLDataSource.m in Sources */,
 				C57479361B26FA45001AB8C0 /* WLContributorCell.m in Sources */,
 				C57479371B26FA45001AB8C0 /* WLComposeBar.m in Sources */,
@@ -9059,6 +8993,7 @@
 				C5C016651B455760003623EC /* PNLogFileManager.m in Sources */,
 				C574793C1B26FA45001AB8C0 /* UIFont+CustomFonts.m in Sources */,
 				C574793D1B26FA45001AB8C0 /* WLValidation.m in Sources */,
+				C5BAD1321B53F9C60028FCEB /* WLAlertView.m in Sources */,
 				C574793E1B26FA45001AB8C0 /* WLCommentsViewController.m in Sources */,
 				C574793F1B26FA45001AB8C0 /* WLLabel.m in Sources */,
 				C5BEE0EB1B2AC8C300D3CF70 /* WLNotificationSubscription.m in Sources */,
@@ -9160,7 +9095,6 @@
 				C57479801B26FA45001AB8C0 /* MFMailComposeViewController+Additions.m in Sources */,
 				C57479811B26FA45001AB8C0 /* VerticalStreamLayout.m in Sources */,
 				C57479821B26FA45001AB8C0 /* WLIconView.m in Sources */,
-				C57479831B26FA45001AB8C0 /* UIAlertController+Blocks.m in Sources */,
 				C57479841B26FA45001AB8C0 /* WLTextView.m in Sources */,
 				C5C015ED1B455760003623EC /* PNClientStateUpdateStatus.m in Sources */,
 				C525687C1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
@@ -9191,7 +9125,6 @@
 				C57479961B26FA45001AB8C0 /* WLStoryboardTransition.m in Sources */,
 				C5D7FE7F1B501CD000746908 /* WLEntryNotification.m in Sources */,
 				C57479971B26FA45001AB8C0 /* WLEntryStatusIndicator.m in Sources */,
-				C57479981B26FA45001AB8C0 /* UIActionSheet+Blocks.m in Sources */,
 				C57479991B26FA45001AB8C0 /* WLEmailViewController.m in Sources */,
 				C574799A1B26FA45001AB8C0 /* WLAddressBook.m in Sources */,
 				C5B2A1291B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */,
@@ -9339,7 +9272,6 @@
 				C587C8911AD2E6DB003E7647 /* WLDevice+Extended.m in Sources */,
 				C587C8D91AD2E708003E7647 /* LogFiles.m in Sources */,
 				C587C8571AD2E6DB003E7647 /* NSString+MD5.m in Sources */,
-				C587C8F81AD2E9BF003E7647 /* WLAlertView.m in Sources */,
 				C587C8661AD2E6DB003E7647 /* WLDeleteCandyRequest.m in Sources */,
 				C587C8901AD2E6DB003E7647 /* WLWrap.m in Sources */,
 				C587C8591AD2E6DB003E7647 /* UIColor+CustomColors.m in Sources */,

@@ -1,16 +1,14 @@
 //
-//  UIAlertView+Blocks.h
+//  WLAlertView.h
 //  WrapLive
 //
-//  Created by Sergey Maximenko on 05.05.14.
-//  Copyright (c) 2014 Mobidev. All rights reserved.
+//  Created by Yura Granchenko on 04/02/15.
+//  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
-
-#import <UIKit/UIKit.h>
 
 typedef void (^WLAlertViewCompletion)(NSUInteger index);
 
-@interface UIAlertView (Blocks)
+@protocol WLAlertView <NSObject>
 
 + (void)showWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completion:(WLAlertViewCompletion)completion;
 
@@ -19,6 +17,27 @@ typedef void (^WLAlertViewCompletion)(NSUInteger index);
 + (void)showWithTitle:(NSString *)title message:(NSString *)message action:(NSString *)action cancel:(NSString *)cancel completion:(void (^)(void))completion;
 
 + (void)showWithMessage:(NSString*)message;
+
+@end
+
+
+@interface WLAlertView : NSObject <WLAlertView>
+
+@end
+
+@interface WLAlertView (DefinedAlerts)
+
++ (void)confirmWrapDeleting:(WLWrap*)wrap success:(WLBlock)success failure:(WLFailureBlock)failure;
+
++ (void)confirmCandyDeleting:(WLCandy *)candy success:(WLBlock)success failure:(WLFailureBlock)failure;
+
+@end
+
+@interface UIAlertController (WLAlertView) <WLAlertView>
+
+@end
+
+@interface UIAlertView (WLAlertView) <WLAlertView>
 
 @property (strong, nonatomic) WLAlertViewCompletion completion;
 

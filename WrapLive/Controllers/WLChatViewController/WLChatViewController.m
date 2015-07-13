@@ -368,23 +368,8 @@ CGFloat WLMaxTextViewWidth;
     [self.chat removeEntry:entry];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier willDeleteContainingEntry:(WLEntry *)entry {
-    [self.operation cancel];
-    for (UIViewController *controller in self.navigationController.viewControllers) {
-        if ([self.wrap isValidViewController:controller]) {
-            return;
-        }
-    }
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    [WLToast showMessageForUnavailableWrap:self.wrap];
-}
-
 - (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
     return self.wrap == entry.containingEntry;
-}
-
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnContainingEntry:(WLEntry *)entry {
-    return self.wrap == entry;
 }
 
 #pragma mark - WlSignificantTimeBroadcasterReceiver

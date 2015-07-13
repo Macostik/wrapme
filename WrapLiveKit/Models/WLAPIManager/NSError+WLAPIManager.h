@@ -22,7 +22,6 @@ typedef NS_ENUM(NSInteger, WLErrorCode) {
     WLErrorCredentialNotValid = 50,
     WLErrorUploadFileNotFound = 100,
     WLErrorEmailAlreadyConfirmed = 110,
-    WLErrorActionCancelled = 10001
 };
 
 @interface NSError (WLAPIManager)

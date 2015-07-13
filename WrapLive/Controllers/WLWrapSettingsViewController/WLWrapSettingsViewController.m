@@ -13,6 +13,7 @@
 #import "WLEditSession.h"
 #import "WLPreferenceRequest.h"
 #import "WLUploadPreferenceRequest.h"
+#import "WLAlertView.h"
 
 static NSInteger WLIndent = 12.0;
 
@@ -55,48 +56,33 @@ static NSInteger WLIndent = 12.0;
 
 - (IBAction)handleAction:(WLButton *)sender {
     __weak __typeof(self)weakSelf = self;
-    sender.loading = YES;
-    if (self.wrap.deletable) {
-        [self.wrap remove:^(id object) {
-            if (object != nil) {
-                [WLToast showWithMessage:WLLS(@"delete_wrap_success")];
-                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            }
+    WLWrap *wrap = self.wrap;
+    BOOL deletable = wrap.deletable;
+    [WLAlertView confirmWrapDeleting:wrap success:^{
+        sender.loading = YES;
+        [wrap remove:^(id object) {
+            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+            if (deletable) [WLToast showWithMessage:WLLS(@"delete_wrap_success")];
             sender.loading = NO;
         } failure:^(NSError *error) {
-            if ([error isError:WLErrorActionCancelled]) {
-                [weakSelf.navigationController popViewControllerAnimated:NO];
-                sender.loading = NO;
-            } else {
-                [error show];
-                sender.loading = NO;
-            }
-        }];
-    } else {
-        [self.wrap leave:^(id object) {
-            if (object != nil) {
-                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            }
+            [error show];
             sender.loading = NO;
-        } failure:^(NSError *error) {
-            if ([error isError:WLErrorActionCancelled]) {
-                [weakSelf.navigationController popViewControllerAnimated:NO];
-                sender.loading = NO;
-            } else {
-                [error show];
-                sender.loading = NO;
-            }
         }];
-    }
+    } failure:nil];
 }
 
 - (IBAction)changeSwichValue:(id)sender {
-    WLUploadPreferenceRequest *request = [WLUploadPreferenceRequest request:self.wrap];
-    request.candyNotify = self.candyNotifyTrigger.isOn;
-    request.chatNotify = self.chatNotifyTrigger.isOn;
-    [request send:^(id object) {
-    } failure:^(NSError *error) {
-    }];
+    BOOL candyNotify = self.candyNotifyTrigger.isOn;
+    BOOL chatNotify = self.chatNotifyTrigger.isOn;
+    __weak typeof(self)weakSelf = self;
+    runUnaryQueuedOperation(@"wl_changing_notification_preferences_queue", ^(WLOperation *operation) {
+        WLUploadPreferenceRequest *request = [WLUploadPreferenceRequest request:weakSelf.wrap];
+        request.candyNotify = candyNotify;
+        request.chatNotify = chatNotify;
+        [request send:^(id object) {
+        } failure:^(NSError *error) {
+        }];
+    });
 }
 
 - (IBAction)editButtonClick:(UIButton *)sender {
@@ -117,7 +103,6 @@ static NSInteger WLIndent = 12.0;
     }
     [self.editSession changeValue:[sender.text trim] forProperty:@"name"];
     self.editButton.selected = self.editSession.hasChanges;
-    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

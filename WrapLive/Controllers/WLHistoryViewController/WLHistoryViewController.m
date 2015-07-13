@@ -25,6 +25,7 @@
 #import "WLPresentingImageView.h"
 #import "WLCommentsViewController.h"
 #import "WLLayoutPrioritizer.h"
+#import "WLAlertView.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -417,19 +418,21 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (IBAction)navigationButtonClick:(WLIconButton *)sender {
     WLCandy *candy = self.candy;
-    self.removedCandy = candy;
     if (candy.deletable) {
-        sender.userInteractionEnabled = NO;
         __weak typeof(self)weakSelf = self;
-        [candy remove:^(id object) {
-            sender.userInteractionEnabled = YES;
-        } failure:^(NSError *error) {
-            weakSelf.removedCandy = nil;
-            [error show];
-            sender.userInteractionEnabled = YES;
-        }];
+        [WLAlertView confirmCandyDeleting:candy success:^{
+            weakSelf.removedCandy = candy;
+            sender.loading = YES;
+            [candy remove:^(id object) {
+                sender.loading = NO;
+            } failure:^(NSError *error) {
+                weakSelf.removedCandy = nil;
+                [error show];
+                sender.loading = NO;
+            }];
+        } failure:nil];
     } else {
-        [MFMailComposeViewController messageWithCandy:self.candy];
+        [MFMailComposeViewController messageWithCandy:candy];
     }
 }
 

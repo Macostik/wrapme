@@ -7,10 +7,6 @@
 //
 
 #import "WLCandyCell.h"
-#import "UIAlertView+Blocks.h"
-#import "UIActionSheet+Blocks.h"
-#import "UIView+GestureRecognizing.h"
-#import "UIView+QuatzCoreAnimations.h"
 #import "WLToast.h"
 #import "MFMailComposeViewController+Additions.h"
 #import "WLMenu.h"
@@ -18,6 +14,7 @@
 #import "WLChronologicalEntryPresenter.h"
 #import "WLDownloadingView.h"
 #import "WLUploadPhotoViewController.h"
+#import "WLAlertView.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 
@@ -60,13 +57,15 @@
             
             if (candy.deletable) {
                 [menu addDeleteItem:^(WLCandy *candy) {
-                    weakSelf.userInteractionEnabled = NO;
-                    [candy remove:^(id object) {
-                        weakSelf.userInteractionEnabled = YES;
-                    } failure:^(NSError *error) {
-                        [error show];
-                        weakSelf.userInteractionEnabled = YES;
-                    }];
+                    [WLAlertView confirmCandyDeleting:candy success:^{
+                        weakSelf.userInteractionEnabled = NO;
+                        [candy remove:^(id object) {
+                            weakSelf.userInteractionEnabled = YES;
+                        } failure:^(NSError *error) {
+                            [error show];
+                            weakSelf.userInteractionEnabled = YES;
+                        }];
+                    } failure:nil];
                 }];
             } else {
                 [menu addReportItem:^(WLCandy *candy) {

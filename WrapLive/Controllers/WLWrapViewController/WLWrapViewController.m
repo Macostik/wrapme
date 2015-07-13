@@ -101,8 +101,10 @@
             [weakSelf updateWrapData];
         };
         receiver.willDeleteBlock = ^(WLWrap *wrap) {
-            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            [WLToast showMessageForUnavailableWrap:wrap];
+            if (weakSelf.viewAppeared) {
+                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                [WLToast showMessageForUnavailableWrap:wrap];
+            }
         };
     }];
     

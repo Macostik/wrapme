@@ -154,11 +154,6 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    [self remove:YES success:success failure:failure];
-    return nil;
-}
-
-- (id)remove:(BOOL)confirm success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (success) success(self);
     return nil;
 }
@@ -237,41 +232,30 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     return [[WLAddWrapRequest request:self] send:success failure:failure];
 }
 
-- (id)remove:(BOOL)confirm success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    __weak typeof(self)weakSelf = self;
-    void (^removeBlock)(void) = ^{
-        switch (self.status) {
-            case WLContributionStatusReady:
-                [weakSelf remove];
-                if (success) success(nil);
-                break;
-            case WLContributionStatusInProgress:
-                if (failure) failure([NSError errorWithDescription:WLLS(@"wrap_is_uploading")]);
-                break;
-            case WLContributionStatusFinished: {
-                [[WLDeleteWrapRequest request:weakSelf] send:^(id object) {
-                    if (success) success(object);
-                } failure:failure];
-            }   break;
-            default:
-                break;
-        }
-    };
-    if (!confirm) {
-        removeBlock();
-        return nil;
+- (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    if (!self.deletable) {
+        __weak typeof(self)weakSelf = self;
+        return [[WLLeaveWrapRequest request:self] send:^(id object) {
+            [weakSelf remove];
+            success(object);
+        } failure:failure];
     }
-    [WLAlertView showWithTitle:WLLS(@"delete_wrap")
-                       message:[NSString stringWithFormat:WLLS(@"formatted_delete_wrap_confirmation"), self.name]
-                       buttons:@[WLLS(@"cancel"),WLLS(@"delete")]
-                    completion:^(NSUInteger index) {
-                        if (index == 1) {
-                            removeBlock();
-                        } else if (failure) {
-                            failure([NSError errorWithDescription:@"Action cancelled" code:WLErrorActionCancelled]);
-                        }
-                    }];
-    return nil;
+    id operation = nil;
+    switch (self.status) {
+        case WLContributionStatusReady:
+            [self remove];
+            if (success) success(nil);
+            break;
+        case WLContributionStatusInProgress:
+            if (failure) failure([NSError errorWithDescription:WLLS(@"wrap_is_uploading")]);
+            break;
+        case WLContributionStatusFinished: {
+            operation = [[WLDeleteWrapRequest request:self] send:success failure:failure];
+        }   break;
+        default:
+            break;
+    }
+    return operation;
 }
 
 - (id)fetch:(WLSetBlock)success failure:(WLFailureBlock)failure {
@@ -325,24 +309,6 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     } failure:failure];
 }
 
-- (id)leave:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    __weak __typeof(self)weakSelf = self;
-    [WLAlertView showWithTitle:WLLS(@"leave_wrap")
-                       message:WLLS(@"leave_wrap_confirmation")
-                       buttons:@[WLLS(@"uppercase_yes"),WLLS(@"uppercase_no")]
-                    completion:^(NSUInteger index) {
-                        if (!index) {
-                            [[WLLeaveWrapRequest request:weakSelf] send:^(id object) {
-                                [weakSelf remove];
-                                success(object);
-                            } failure:failure];
-                        } else {
-                            success(nil);
-                        }
-                    }];
-    return nil;
-}
-
 - (void)preload {
     WLHistory *history = [WLHistory historyWithWrap:self];
     [history fresh:^(NSSet *set) {
@@ -372,40 +338,23 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     return [[WLPostEditingUploadCandyRequest request:self] send:success failure:failure];
 }
 
-- (id)remove:(BOOL)confirm success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    __weak typeof(self)weakSelf = self;
-    void (^removeBlock) (void) = ^ {
-        switch (weakSelf.status) {
-            case WLContributionStatusReady:
-                [weakSelf remove];
-                if (success) success(nil);
-                break;
-            case WLContributionStatusInProgress: {
-                if (failure) failure([NSError errorWithDescription:WLLS(@"photo_is_uploading")]);
-            } break;
-            case WLContributionStatusFinished: {
-                [[WLDeleteCandyRequest request:weakSelf] send:success failure:failure];
-            } break;
-            default:
-                break;
-        }
-    };
-    
-    if (!confirm) {
-        removeBlock();
-        return nil;
+- (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    id operation = nil;
+    switch (self.status) {
+        case WLContributionStatusReady:
+            [self remove];
+            if (success) success(nil);
+            break;
+        case WLContributionStatusInProgress: {
+            if (failure) failure([NSError errorWithDescription:WLLS(@"photo_is_uploading")]);
+        } break;
+        case WLContributionStatusFinished: {
+            operation = [[WLDeleteCandyRequest request:self] send:success failure:failure];
+        } break;
+        default:
+            break;
     }
-    [WLAlertView showWithTitle:WLLS(@"delete_photo")
-                       message:WLLS(@"delete_photo_confirmation")
-                       buttons:@[WLLS(@"cancel"),WLLS(@"ok")]
-                    completion:^(NSUInteger index) {
-                        if (index == 1) {
-                            removeBlock();
-                        } else if (failure) {
-                            failure(nil);
-                        }
-                    }];
-    return nil;
+    return operation;
 }
 
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {

@@ -10,7 +10,6 @@
 #import "WLTelephony.h"
 #import "WLButton.h"
 #import "WLTestUserPicker.h"
-#import "UIAlertView+Blocks.h"
 #import "WLNavigationHelper.h"
 #import "NSObject+NibAdditions.h"
 #import "WLConfirmView.h"

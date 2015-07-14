@@ -1967,7 +1967,6 @@
                                             <userDefinedRuntimeAttribute type="size" keyPath="touchArea">
                                                 <size key="value" width="70" height="70"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="large"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="composeBarDidFinish:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="F2R-OV-epi"/>

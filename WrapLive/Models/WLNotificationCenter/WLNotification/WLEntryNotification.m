@@ -7,6 +7,7 @@
 //
 
 #import "WLEntryNotification.h"
+#import "WLSoundPlayer.h"
 
 @implementation WLEntryNotification
 
@@ -306,11 +307,21 @@
     [self remove];
 }
 
-- (UILocalNotification *)localNotificationForEntryNotification:(WLEntryNotification *)entryNotification {
+- (UILocalNotification *)localNotificationForData:(NSDictionary *)userInfo {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.userInfo = entryNotification.data;
+    notification.userInfo = userInfo;
+    if ([notification respondsToSelector:@selector(setAlertTitle:)]) {
+        notification.alertTitle = [self alertTitle];
+    }
+    notification.alertBody = [self alertBody];
+    notification.soundName = [self soundName];
     return notification;
 }
+
+- (NSString *)alertTitle {return nil;}
+- (NSString *)alertBody {return nil;}
+- (NSString *)soundName {return nil;}
+- (NSString *)category {return nil;}
 
 @end
 
@@ -329,10 +340,8 @@
 
 @implementation WLUser (WLNotification)
 
-- (UILocalNotification *)localNotificationForEntryNotification:(WLEntryNotification *)notification {
-    UILocalNotification *contributionNotification = [super localNotificationForEntryNotification:notification];
-    contributionNotification.soundName = @"s01.wav";
-    return contributionNotification;
+- (NSString *)soundName{
+    return [WLSoundFileName(WLSound_s01) stringByAppendingString:@".wav"];;
 }
 
 @end
@@ -402,24 +411,32 @@
     }
 }
 
-- (UILocalNotification *)localNotificationForEntryNotification:(WLEntryNotification *)notification {
-    UILocalNotification *candyNotification = [super localNotificationForEntryNotification:notification];
-    switch (notification.event) {
-        case WLEventAdd: {
-            candyNotification.alertTitle = [NSString stringWithFormat:WLLS(@"APNS_TT02"), [WLUser currentUser].name];
-            candyNotification.alertBody = [NSString stringWithFormat:WLLS(@"APNS_MSG02"), self.contributor.name];
-            break;
-        }
-        case WLEventUpdate: {
-            candyNotification.alertTitle = [NSString stringWithFormat:WLLS(@"APNS_TT05"), self.wrap.name];
-            candyNotification.alertBody = [NSString stringWithFormat:WLLS(@"APNS_MSG05"), self.editor.name];
-            break;
-        }
-        default:
-            break;
-    }
-     return candyNotification;
+- (UILocalNotification *)localNotificationForData:(NSDictionary *)userInfo {
+    UILocalNotification *candyNotification = [super localNotificationForData:userInfo];
+    NSInteger eventType = [userInfo integerForKey:@"msg_type"];
+    if ([candyNotification respondsToSelector:@selector(setAlertTitle:)])
+    candyNotification.alertTitle = [self alertTitleForType:eventType];
+    candyNotification.alertBody = [self alertBodyForType:eventType];
+    return candyNotification;
     
+}
+
+- (NSString *)alertTitleForType:(NSInteger)type {
+    if (type == WLNotificationCandyAdd) {
+        return [NSString stringWithFormat:WLLS(@"APNS_TT02"), [WLUser currentUser].name];
+    } else if (type == WLNotificationCandyUpdate) {
+        return [NSString stringWithFormat:WLLS(@"APNS_TT05"), self.wrap.name];
+    }
+    return nil;
+}
+
+- (NSString *)alertBodyForType:(NSInteger)type {
+    if (type == WLNotificationCandyAdd) {
+        return [NSString stringWithFormat:WLLS(@"APNS_MSG02"), self.contributor.name];
+    } else if (type == WLNotificationCandyUpdate) {
+        return [NSString stringWithFormat:WLLS(@"APNS_MSG05"), self.editor.name];
+    }
+    return nil;
 }
 
 @end
@@ -431,13 +448,20 @@
     [super finalizeAddNotification:notification];
 }
 
-- (UILocalNotification *)localNotificationForEntryNotification:(WLEntryNotification *)notification {
-    UILocalNotification *messageNotification = [super localNotificationForEntryNotification:notification];
-    messageNotification.alertTitle = [NSString stringWithFormat:WLLS(@"APNS_TT04"), self.contributor.name];
-    messageNotification.alertBody = [NSString stringWithFormat:WLLS(@"APNS_MSG04"), self.text, self.wrap.name];
-    messageNotification.soundName = @"s03.wav";
-    messageNotification.category = @"chat";
-    return messageNotification;
+- (NSString *)alertTitle {
+    return [NSString stringWithFormat:WLLS(@"APNS_TT04"), self.contributor.name];
+}
+
+- (NSString *)alertBody {
+    return [NSString stringWithFormat:WLLS(@"APNS_MSG04"), self.text, self.wrap.name];
+}
+
+- (NSString *)soundName {
+    return [WLSoundFileName(WLSound_s03) stringByAppendingString:@".wav"];
+}
+
+- (NSString *)category {
+    return @"chat";
 }
 
 @end
@@ -451,12 +475,16 @@
     [super finalizeAddNotification:notification];
 }
 
-- (UILocalNotification *)localNotificationForEntryNotification:(WLEntryNotification *)notification {
-    UILocalNotification *commentNotification = [super localNotificationForEntryNotification:notification];
-    commentNotification.alertTitle = [NSString stringWithFormat:WLLS(@"APNS_TT03"), self.contributor.name];
-    commentNotification.alertBody = [NSString stringWithFormat:WLLS(@"APNS_MSG03"), self.text];
-    commentNotification.soundName = @"s02.wav";
-    return commentNotification;
+- (NSString *)alertTitle {
+    return [NSString stringWithFormat:WLLS(@"APNS_TT03"), self.contributor.name];
+}
+
+- (NSString *)alertBody {
+    return [NSString stringWithFormat:WLLS(@"APNS_MSG03"), self.text];
+}
+
+- (NSString *)soundName {
+    return [WLSoundFileName(WLSound_s02) stringByAppendingString:@".wav"];;
 }
 
 @end

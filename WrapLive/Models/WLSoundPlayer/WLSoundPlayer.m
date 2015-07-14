@@ -12,26 +12,6 @@
 #import "WLNotification.h"
 #import "WLOperationQueue.h"
 
-static inline NSString *WLSoundFileName(WLSound sound) {
-    switch (sound) {
-        case WLSound_s01:
-            return @"s01";
-            break;
-        case WLSound_s02:
-            return @"s02";
-            break;
-        case WLSound_s03:
-            return @"s03";
-            break;
-        case WLSound_s04:
-            return @"s04";
-            break;
-        default:
-            return nil;
-            break;
-    }
-}
-
 @interface WLSoundPlayer()
 
 @end

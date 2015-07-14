@@ -56,7 +56,15 @@
 
 - (void)finalizeDeleteNotification:(WLEntryNotification *)notification;
 
-- (UILocalNotification *)localNotificationForEntryNotification:(WLEntryNotification *)notification;
+- (UILocalNotification *)localNotificationForData:(NSDictionary *)userInfo;
+
+- (NSString *)alertTitle;
+
+- (NSString *)alertBody;
+
+- (NSString *)soundName;
+
+- (NSString *)category;
 
 @end
 

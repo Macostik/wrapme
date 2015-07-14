@@ -230,8 +230,8 @@ static WLDataBlock deviceTokenCompletion = nil;
     BOOL probablyUserInteraction = [UIApplication sharedApplication].applicationState == UIApplicationStateInactive;
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
         if (notification.presentable) {
-            NSDictionary *alert = notification.data[@"aps"][@"alert"];
-            if (alert.count > 0) {
+            id alert = notification.data[@"aps"][@"alert"];
+            if (alert != nil) {
                 UIApplicationState state = [UIApplication sharedApplication].applicationState;
                 if (state == UIApplicationStateActive) {
                     if (probablyUserInteraction) [weakSelf presentNotification:(id)notification];
@@ -250,11 +250,9 @@ static WLDataBlock deviceTokenCompletion = nil;
             } else {
                 WLEntryNotification *entryNotification = (id)notification;
                 WLEntry *entry = entryNotification.targetEntry;
-                UILocalNotification *localNotification = [entry localNotificationForEntryNotification:entryNotification];
+                UILocalNotification *localNotification = [entry localNotificationForData:userInfo];
                 [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-                [weakSelf setDidBecomeActiveBlock:^{
-                    if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
-                }];
+                if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
             }
         } else {
             if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
@@ -277,9 +275,7 @@ static WLDataBlock deviceTokenCompletion = nil;
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)())completionHandler {
     WLEntryNotification *emtrynotification = (id)[WLNotification notificationWithData:notification.userInfo];
     [self presentNotification:emtrynotification];
-    [self setDidBecomeActiveBlock:^{
         if (completionHandler) completionHandler();
-    }];
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {

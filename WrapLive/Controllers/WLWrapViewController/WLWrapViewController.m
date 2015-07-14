@@ -55,6 +55,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self updateWrapData];
     [self updateMessageCouter];
     [self updateCandyCounter];

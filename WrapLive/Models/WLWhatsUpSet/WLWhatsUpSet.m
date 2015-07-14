@@ -76,9 +76,11 @@
                 [events addObject:[WLWhatsUpEvent event:WLEventAdd contribution:contribution]];
                 if (contribution.unread) {
                     unreadEntriesCount++;
-                    NSString *wrapId = [contribution tryFindWrap].identifier;
-                    if (wrapId) {
-                        wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
+                    if ([contribution isKindOfClass:[WLCandy class]]) {
+                        NSString *wrapId = [[(WLCandy*)contribution wrap] identifier];
+                        if (wrapId) {
+                            wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
+                        }
                     }
                 }
             }
@@ -87,9 +89,11 @@
                 [events addObject:[WLWhatsUpEvent event:WLEventUpdate contribution:contribution]];
                 if (contribution.unread && ![contributions containsObject:contribution]) {
                     unreadEntriesCount++;
-                    NSString *wrapId = [contribution tryFindWrap].identifier;
-                    if (wrapId) {
-                        wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
+                    if ([contribution isKindOfClass:[WLCandy class]]) {
+                        NSString *wrapId = [[(WLCandy*)contribution wrap] identifier];
+                        if (wrapId) {
+                            wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
+                        }
                     }
                 }
             }

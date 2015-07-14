@@ -71,13 +71,6 @@
     }
 }
 
-- (WLWrap*)tryFindWrap {
-    if ([self respondsToSelector:@selector(wrap)]) {
-        return [(id)self wrap];
-    }
-    return [self.containingEntry tryFindWrap];
-}
-
 @end
 
 @implementation WLWrap (Containment)

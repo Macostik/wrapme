@@ -368,6 +368,10 @@ CGFloat WLMaxTextViewWidth;
     [self insertMessage:message];
 }
 
+- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
+    [self reloadDataSynchronously:NO];
+}
+
 - (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLEntry *)entry {
     [self.chat removeEntry:entry];
     if (entry.unread) {

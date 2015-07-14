@@ -99,9 +99,9 @@
     return nil;
 }
 
-- (void)prepareForDeletion {
+- (void)remove {
     self.contribution.uploading = nil;
-    [super prepareForDeletion];
+    [super remove];
 }
 
 @end

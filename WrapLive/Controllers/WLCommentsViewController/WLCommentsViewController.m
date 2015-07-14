@@ -98,6 +98,8 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
             [sender setRefreshing:NO animated:YES];
         }];
     } else {
+        weakSelf.dataSource.footerSize = CGSizeZero;
+        [weakSelf.dataSource reload];
         [sender setRefreshing:NO animated:YES];
     }
 }

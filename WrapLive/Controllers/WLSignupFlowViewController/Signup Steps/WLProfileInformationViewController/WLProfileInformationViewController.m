@@ -37,7 +37,7 @@
 	
 	self.nameTextField.text = self.user.name;
     
-	self.profileImageView.url = self.user.picture.medium;
+	self.profileImageView.url = self.user.picture.large;
     
     self.editSession = [[WLProfileEditSession alloc] initWithUser:self.user];
 	
@@ -92,7 +92,7 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
 	WLPicture *picture = [[pictures lastObject] uploadablePictureWithAnimation:NO];
-	self.profileImageView.url = picture.medium;
+	self.profileImageView.url = picture.large;
     self.editSession.url = picture.large;
     [self verifyContinueButton];
     self.addPhotoLabel.hidden = picture.medium.nonempty;

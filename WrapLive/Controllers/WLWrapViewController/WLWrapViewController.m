@@ -21,7 +21,7 @@
 #import "WLWhatsUpSet.h"
 #import "UIView+Extentions.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLChatViewControllerDelegate, WLPhotosViewControllerDelegate>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPhotosViewControllerDelegate, WLWhatsUpSetBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
@@ -83,10 +83,7 @@
 }
 
 - (void)updateCandyCounter {
-    __weak typeof(self)weakSelf = self;
-    run_after(0.5, ^{
-          weakSelf.candyCountLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:weakSelf.wrap];
-    });
+    self.candyCountLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:self.wrap];
 }
 
 // MARK: - WLEntryNotifyReceiver
@@ -117,7 +114,6 @@
             if ([weakSelf isViewLoaded] && weakSelf.selectedSegment == WLSegmentControlStatePhotos) {
                 [candy markAsRead];
             }
-            [weakSelf updateCandyCounter];
         }];
     }];
     
@@ -131,22 +127,25 @@
             }
         };
     }];
+    
+    [[WLWhatsUpSet sharedSet].broadcaster addReceiver:self];
 }
 
 - (IBAction)photosTabSelected:(id)sender {
     self.selectedSegment = WLSegmentControlStatePhotos;
-    self.viewController = [self controllerForClass:[WLPhotosViewController class]];
-    [self updateCandyCounter];
+    self.viewController = [self controllerForClass:[WLPhotosViewController class] badge:self.candyCountLabel];
 }
 
 - (IBAction)chatTabSelected:(id)sender {
     self.selectedSegment = WLSegmentControlStateChat;
-    self.viewController = [self controllerForClass:[WLChatViewController class]];
+    self.viewController = [self controllerForClass:[WLChatViewController class] badge:self.messageCountLabel];
+    [self updateCandyCounter];
 }
 
 - (IBAction)friendsTabSelected:(id)sender {
     self.selectedSegment = WLSegmentControlStateFriend;
-    self.viewController = [self controllerForClass:[WLContributorsViewController class]];
+    self.viewController = [self controllerForClass:[WLContributorsViewController class] badge:nil];
+    [self updateCandyCounter];
 }
 
 // MARK: - WLStillPictureViewControllerDelegate
@@ -176,7 +175,7 @@
     [self.containerView makeResizibleSubview:viewController.view];
 }
 
-- (WLWrapEmbeddedViewController *)controllerForClass:(Class)class {
+- (WLWrapEmbeddedViewController *)controllerForClass:(Class)class badge:(WLBadgeLabel*)badge {
     WLWrapEmbeddedViewController *viewController = nil;
     for (WLWrapEmbeddedViewController *createdViewController in self.childViewControllers) {
         if ([createdViewController.class isEqual:class]) {
@@ -192,6 +191,8 @@
         [viewController didMoveToParentViewController:self];
     }
     
+    viewController.badge = badge;
+    
     return viewController;
 }
 
@@ -206,10 +207,10 @@
     [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }
 
-// MARK: - WLChatViewControllerDelegate
+// MARK: - WLWhatsUpSetBroadcastReceiver
 
-- (void)chatViewController:(WLChatViewController *)controller didChangeUnreadMessagesCount:(NSUInteger)unreadMessagesCount {
-    self.messageCountLabel.intValue = unreadMessagesCount;
+- (void)whatsUpBroadcaster:(WLBroadcaster *)broadcaster updated:(WLWhatsUpSet *)set {
+    [self updateCandyCounter];
 }
 
 @end

@@ -29,6 +29,7 @@
 #import "WLToast.h"
 #import "WLCollectionView.h"
 #import "WLChatLayout.h"
+#import "WLBadgeLabel.h"
 
 CGFloat WLMaxTextViewWidth;
 
@@ -357,9 +358,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)notifyOnChangeUnreadMessagesCount:(NSUInteger)count {
-    if ([self.delegate respondsToSelector:@selector(chatViewController:didChangeUnreadMessagesCount:)]) {
-        [self.delegate chatViewController:self didChangeUnreadMessagesCount:count];
-    }
+    self.badge.intValue = count;
 }
 
 #pragma mark - WLEntryNotifyReceiver

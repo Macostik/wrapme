@@ -32,6 +32,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.broadcaster = [[WLBroadcaster alloc] init];
         self.wrapCounters = [NSDictionary dictionary];
         self.sortComparator = comparatorByDate;
         self.completed = YES;
@@ -126,17 +127,23 @@
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier didAddEntry:(WLEntry*)entry {
+    if ([[(WLContribution*)entry contributor] isCurrentUser]) {
+        return;
+    }
     __weak typeof(self)weakSelf = self;
     [self update:^{
-        [weakSelf.counterDelegate whatsUpSet:weakSelf figureOutUnreadEntryCounter:weakSelf.unreadEntriesCount];
+        [weakSelf.broadcaster broadcast:@selector(whatsUpBroadcaster:updated:) object:weakSelf];
     } failure:^(NSError *error) {
     }];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier didDeleteEntry:(WLEntry *)entry {
+    if ([[(WLContribution*)entry contributor] isCurrentUser]) {
+        return;
+    }
     __weak typeof(self)weakSelf = self;
     [self update:^{
-        [weakSelf.counterDelegate whatsUpSet:weakSelf figureOutUnreadEntryCounter:weakSelf.unreadEntriesCount];
+        [weakSelf.broadcaster broadcast:@selector(whatsUpBroadcaster:updated:) object:weakSelf];
     } failure:^(NSError *error) {
     }];
 }
@@ -144,7 +151,7 @@
 - (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
     __weak typeof(self)weakSelf = self;
     [self update:^{
-        [weakSelf.counterDelegate whatsUpSet:weakSelf figureOutUnreadEntryCounter:weakSelf.unreadEntriesCount];
+        [weakSelf.broadcaster broadcast:@selector(whatsUpBroadcaster:updated:) object:weakSelf];
     } failure:^(NSError *error) {
     }];
 }

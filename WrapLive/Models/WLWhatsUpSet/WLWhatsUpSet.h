@@ -9,10 +9,11 @@
 #import <WrapLiveKit/WrapLiveKit.h>
 
 @class WLWhatsUpSet;
+@class WLBroadcaster;
 
-@protocol WLWhatsUpDelegate <NSObject>
+@protocol WLWhatsUpSetBroadcastReceiver <NSObject>
 
-- (void)whatsUpSet:(WLWhatsUpSet *)set figureOutUnreadEntryCounter:(NSUInteger)counter;
+- (void)whatsUpBroadcaster:(WLBroadcaster*)broadcaster updated:(WLWhatsUpSet *)set;
 
 @end
 
@@ -20,7 +21,7 @@
 
 @property (nonatomic) NSUInteger unreadEntriesCount;
 
-@property (weak, nonatomic) id <WLWhatsUpDelegate> counterDelegate;
+@property (strong, nonatomic) WLBroadcaster *broadcaster;
 
 + (instancetype)sharedSet;
 

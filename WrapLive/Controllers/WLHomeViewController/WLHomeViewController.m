@@ -41,7 +41,7 @@
 #import "WLLayoutPrioritizer.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate,
-                                    WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpDelegate>
+                                    WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutlet WLHomeDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
@@ -112,7 +112,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCreateWrapTipIfNeeded) name:UIApplicationWillEnterForegroundNotification object:nil];
     
-    [WLWhatsUpSet sharedSet].counterDelegate = self;
+    [[WLWhatsUpSet sharedSet].broadcaster addReceiver:self];
 }
 
 - (void)setCreateWrapTipHidden:(BOOL)createWrapTipHidden {
@@ -398,10 +398,10 @@
     return nil;
 }
 
-// MARK: - WLWhatsUpDelegate
+// MARK: - WLWhatsUpSetBroadcastReceiver
 
-- (void)whatsUpSet:(WLWhatsUpSet *)set figureOutUnreadEntryCounter:(NSUInteger)counter {
-    self.notificationsLabel.intValue = counter;
+- (void)whatsUpBroadcaster:(WLBroadcaster *)broadcaster updated:(WLWhatsUpSet *)set {
+    self.notificationsLabel.intValue = set.unreadEntriesCount;
     [self.dataSource reload];
 }
 

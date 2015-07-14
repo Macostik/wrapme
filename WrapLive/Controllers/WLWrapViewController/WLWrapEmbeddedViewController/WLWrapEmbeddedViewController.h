@@ -8,7 +8,7 @@
 
 #import "WLBaseViewController.h"
 
-@class WLWrapEmbeddedViewController;
+@class WLWrapEmbeddedViewController, WLBadgeLabel;
 
 @protocol WLWrapEmbeddedViewControllerDelegate <NSObject>
 
@@ -19,5 +19,7 @@
 @property (nonatomic, weak) id <WLWrapEmbeddedViewControllerDelegate> delegate;
 
 @property (weak, nonatomic) WLWrap *wrap;
+
+@property (weak, nonatomic) WLBadgeLabel* badge;
 
 @end

@@ -124,8 +124,10 @@
         [receiver setContainingEntryBlock:^WLEntry *{
             return weakSelf.wrap;
         }];
-         receiver.didAddBlock = receiver.didDeleteBlock = ^(WLMessage *message) {
-            [weakSelf updateMessageCouter];
+        receiver.didAddBlock = receiver.didDeleteBlock = ^(WLMessage *message) {
+            if (weakSelf.selectedSegment != WLSegmentControlStateChat) {
+                [weakSelf updateMessageCouter];
+            }
         };
     }];
 }
@@ -139,7 +141,6 @@
 - (IBAction)chatTabSelected:(id)sender {
     self.selectedSegment = WLSegmentControlStateChat;
     self.viewController = [self controllerForClass:[WLChatViewController class]];
-    [self updateMessageCouter];
 }
 
 - (IBAction)friendsTabSelected:(id)sender {

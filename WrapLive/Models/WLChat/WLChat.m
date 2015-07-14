@@ -32,7 +32,6 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.readMessages = [NSMutableOrderedSet orderedSet];
         self.messagesWithDay = [NSHashTable weakObjectsHashTable];
         self.messagesWithName = [NSHashTable weakObjectsHashTable];
         self.typingUsers = [NSMutableOrderedSet orderedSet];
@@ -65,11 +64,6 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
     }
 }
 
-- (void)setUnreadMessages:(NSMutableOrderedSet *)unreadMessages {
-    _unreadMessages = unreadMessages;
-    [self.readMessages removeAllObjects];
-}
-
 - (void)refreshUnreadMessages:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [[[WLMessage fetchRequest:@"wrap == %@ AND unread == YES", weakSelf.wrap] sortedBy:@"createdAt"] execute:^(NSArray *array) {
@@ -79,7 +73,7 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
 }
 
 - (NSUInteger)unreadMessagesCount {
-    return self.resetUnreadMessages ? MAX(0, self.unreadMessages.count - self.readMessages.count) : self.unreadMessages.count;
+    return self.unreadMessages.count;
 }
 
 - (void)addTypingUser:(WLUser *)user {
@@ -125,10 +119,7 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
 }
 
 - (BOOL)showUnreadMessagesViewForMessgae:(WLMessage *)message {
-    if (!self.resetUnreadMessages) {
-        return message == [self.unreadMessages lastObject];
-    }
-    return (message == [self.unreadMessages lastObject] && self.unreadMessages.count != self.readMessages.count);
+    return message == [self.unreadMessages lastObject];
 }
 
 #pragma mark - WLChatTypingChannelDelegate

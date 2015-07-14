@@ -11,16 +11,19 @@
 
 @implementation WLChatLayout
 
+- (void)prepareLayout {
+    self.unreadMessagesViewIndexPath = nil;
+    [super prepareLayout];
+}
+
 - (void)handleContentOffset:(CGFloat)offset withContentHeight:(CGFloat)contentHeight forAttributes:(UICollectionViewLayoutAttributes *)attributes {
     if ([attributes.representedElementKind isEqualToString:@"unreadMessagesView"]) {
+        self.unreadMessagesViewIndexPath = attributes.indexPath;
         if (self.scrollToUnreadMessages) {
             UICollectionView *cv = self.collectionView;
-            UIEdgeInsets insets = cv.contentInset;
-            CGFloat height = contentHeight - (cv.height - insets.bottom);
-            CGPoint contentOffset = CGPointMake(0, offset - (cv.height - cv.verticalContentInsets)/2);
-            if (IsInBounds(-insets.top, ((height > -insets.top) ? height : -insets.top), contentOffset.y)) {
-                self.collectionView.contentOffset = contentOffset;
-            }
+            CGFloat height = MAX(0, contentHeight - cv.height);
+            CGPoint contentOffset = CGPointMake(0, Smoothstep(0, height, offset - cv.height/2));
+            self.collectionView.contentOffset = contentOffset;
             self.scrollToUnreadMessages = NO;
         }
     }

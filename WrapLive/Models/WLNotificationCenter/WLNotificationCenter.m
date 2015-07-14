@@ -371,15 +371,15 @@
 #pragma mark - PNObjectEventListener
 
 - (void)client:(PubNub *)client didReceiveMessage:(PNMessageResult *)message {
-    WLLog(@"PUBNUB", @"did receive message", [message debugDescription]);
+    WLLog(@"PUBNUB", @"did receive message", nil);
 }
 
 - (void)client:(PubNub *)client didReceivePresenceEvent:(PNPresenceEventResult *)event {
-    WLLog(@"PUBNUB", @"did receive presence event", [event debugDescription]);
+    WLLog(@"PUBNUB", @"did receive presence event", event.data.presenceEvent);
 }
 
 - (void)client:(PubNub *)client didReceiveStatus:(PNSubscribeStatus *)status {
-    WLLog(@"PUBNUB", @"did receive status", [status debugDescription]);
+    WLLog(@"PUBNUB", @"did receive status", status.data.subscribedChannel);
 }
 
 // MARK: - WLEntryNotifyReceiver

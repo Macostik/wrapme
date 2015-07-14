@@ -25,30 +25,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLTextView *textView;
 @property (weak, nonatomic) IBOutlet UIImageView *tailView;
-@property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
 
 @end
 
 @implementation WLMessageCell
-
-+ (UIImage*)bubbleImageWithColor:(UIColor*)color {
-    static NSMutableDictionary *images = nil;
-    UIImage *image = [images objectForKey:color];
-    if (!image) {
-        image = [[UIImage draw:CGSizeMake(11, 11) opaque:YES scale:[UIScreen mainScreen].scale drawing:^(CGSize size) {
-            [[UIColor whiteColor] setFill];
-            [[UIBezierPath bezierPathWithRect:CGRectMake(0, 0, size.width, size.height)] fill];
-            [color setFill];
-            [[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, size.width, size.height) cornerRadius:5] fill];
-        }] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch];
-        if (!images) {
-            images = [NSMutableDictionary dictionary];
-        }
-        images[color] = image;
-    }
-    return image;
-}
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
@@ -57,7 +38,6 @@
     [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateFailed];
     self.textView.textContainerInset = UIEdgeInsetsZero;
     self.textView.textContainer.lineFragmentPadding = .0;
-    self.bubbleImageView.image = [WLMessageCell bubbleImageWithColor:self.bubbleImageView.backgroundColor];
     
     __weak typeof(self)weakSelf = self;
     [[WLMenu sharedMenu] addView:self configuration:^WLEntry *(WLMenu *menu, BOOL *vibrate) {

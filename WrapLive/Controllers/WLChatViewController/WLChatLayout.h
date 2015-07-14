@@ -10,6 +10,8 @@
 
 @interface WLChatLayout : WLCollectionViewLayout
 
+@property (strong, nonatomic) NSIndexPath *unreadMessagesViewIndexPath;
+
 @property (nonatomic) BOOL scrollToUnreadMessages;
 
 @end

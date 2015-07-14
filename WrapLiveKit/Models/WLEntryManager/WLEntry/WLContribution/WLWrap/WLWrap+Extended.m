@@ -170,7 +170,7 @@
 
 - (void)countOfUnreadMessages:(void (^)(NSUInteger))success failure:(WLFailureBlock)failure {
     NSDate *date = [NSDate dayAgo];
-    [[WLMessage fetchRequest:@"unread == YES AND contributor != %@ AND createdAt > %@", [WLUser currentUser], date] count:success failure:failure];
+    [[WLMessage fetchRequest:@"wrap == %@ AND unread == YES AND contributor != %@ AND createdAt > %@", self, [WLUser currentUser], date] count:success failure:failure];
 }
 
 @end

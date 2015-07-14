@@ -100,7 +100,7 @@
             events = [events map:^id(WLWhatsUpEvent *event) {
                 WLContribution *contribution = event.contribution;
                 event.contribution = [mainContext objectWithID:[contribution objectID]];
-                return [contribution valid] ? event : nil;
+                return [event.contribution valid] ? event : nil;
             }];
             [weakSelf resetEntries:events];
             if (success) success();

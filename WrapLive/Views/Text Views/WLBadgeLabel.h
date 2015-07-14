@@ -10,6 +10,8 @@
 
 @interface WLBadgeLabel : WLLabel
 
-@property (assign, nonatomic) NSUInteger intValue;
+@property (nonatomic) IBInspectable CGSize intrinsicContentSizeInsets;
+
+@property (nonatomic) NSUInteger intValue;
 
 @end

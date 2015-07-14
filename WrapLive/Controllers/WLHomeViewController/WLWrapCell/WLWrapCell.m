@@ -16,7 +16,7 @@
 #import "UIFont+CustomFonts.h"
 #import "WLGradientView.h"
 #import "WLWhatsUpSet.h"
-#import "WLWhatsUpEvent.h"
+#import "UIView+Extentions.h"
 
 static CGFloat WLWrapCellSwipeActionWidth = 125;
 
@@ -29,7 +29,6 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *wrapNotificationLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *chatNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *wrapNameWidthConstraint;
 
 @property (strong, nonatomic) WLBasicDataSource* candiesDataSource;
 
@@ -95,10 +94,11 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     self.wrapNotificationLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:wrap];
     NSUInteger messageConter = [self.entry unreadNotificationsMessageCount];
     self.chatNotificationLabel.intValue = messageConter;
-    self.chatButton.hidden = messageConter == 0;
-    self.wrapNameWidthConstraint.constant = WLConstants.screenWidth - (messageConter > 0 ?
-                                                                       WLWrapCellAvatarWidth + WLChatIndicatorWidth  :
-                                                                       WLWrapCellAvatarWidth);
+    BOOL hasUnreadMessages = messageConter > 0;
+    self.chatButton.hidden = !hasUnreadMessages;
+    self.nameLabel.lowHorizontalContentCompressionResistance = hasUnreadMessages;
+    self.chatButton.lowHorizontalContentCompressionResistance = !hasUnreadMessages;
+    self.chatNotificationLabel.lowHorizontalContentCompressionResistance = !hasUnreadMessages;
 }
 
 - (IBAction)notifyChatClick:(id)sender {

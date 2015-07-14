@@ -41,6 +41,86 @@
     return [NSLayoutConstraint constraintWithItem:self attribute:attribute1 relatedBy:NSLayoutRelationEqual toItem:item attribute:attribute2 multiplier:1 constant:0];
 }
 
+- (void)setHighHorizontalContentCompressionResistance:(BOOL)flag {
+    [self setHorizontalContentCompressionResistancePriority:flag ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow];
+}
+
+- (BOOL)highHorizontalContentCompressionResistance {
+    return [self contentCompressionResistancePriorityForAxis:UILayoutConstraintAxisHorizontal] == UILayoutPriorityDefaultHigh;
+}
+
+- (void)setHighVerticalContentCompressionResistance:(BOOL)flag {
+    [self setVerticalContentCompressionResistancePriority:flag ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow];
+}
+
+- (BOOL)highVerticalContentCompressionResistance {
+    return [self contentCompressionResistancePriorityForAxis:UILayoutConstraintAxisVertical] == UILayoutPriorityDefaultHigh;
+}
+
+- (void)setLowHorizontalContentCompressionResistance:(BOOL)flag {
+    [self setHorizontalContentCompressionResistancePriority:flag ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh];
+}
+
+- (BOOL)lowHorizontalContentCompressionResistance {
+    return [self contentCompressionResistancePriorityForAxis:UILayoutConstraintAxisHorizontal] == UILayoutPriorityDefaultLow;
+}
+
+- (void)setLowVerticalContentCompressionResistance:(BOOL)flag {
+    [self setVerticalContentCompressionResistancePriority:flag ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh];
+}
+
+- (BOOL)lowVerticalContentCompressionResistance {
+    return [self contentCompressionResistancePriorityForAxis:UILayoutConstraintAxisVertical] == UILayoutPriorityDefaultLow;
+}
+
+- (void)setHighHorizontalContentHugging:(BOOL)flag {
+    [self setHorizontalContentCompressionResistancePriority:flag ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow];
+}
+
+- (BOOL)highHorizontalContentHugging {
+    return [self contentHuggingPriorityForAxis:UILayoutConstraintAxisHorizontal] == UILayoutPriorityDefaultHigh;
+}
+
+- (void)setHighVerticalContentHugging:(BOOL)flag {
+    [self setVerticalContentHuggingPriority:flag ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow];
+}
+
+- (BOOL)highVerticalContentHugging {
+    return [self contentHuggingPriorityForAxis:UILayoutConstraintAxisVertical] == UILayoutPriorityDefaultHigh;
+}
+
+- (void)setLowHorizontalContentHugging:(BOOL)flag {
+    [self setHorizontalContentHuggingPriority:flag ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh];
+}
+
+- (BOOL)lowHorizontalContentHugging {
+    return [self contentHuggingPriorityForAxis:UILayoutConstraintAxisHorizontal] == UILayoutPriorityDefaultLow;
+}
+
+- (void)setLowVerticalContentHugging:(BOOL)flag {
+    [self setVerticalContentHuggingPriority:flag ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh];
+}
+
+- (BOOL)lowVerticalContentHugging {
+    return [self contentHuggingPriorityForAxis:UILayoutConstraintAxisVertical] == UILayoutPriorityDefaultLow;
+}
+
+- (void)setHorizontalContentCompressionResistancePriority:(CGFloat)priority {
+    [self setContentCompressionResistancePriority:priority forAxis:UILayoutConstraintAxisHorizontal];
+}
+
+- (void)setVerticalContentCompressionResistancePriority:(CGFloat)priority {
+    [self setContentCompressionResistancePriority:priority forAxis:UILayoutConstraintAxisVertical];
+}
+
+- (void)setHorizontalContentHuggingPriority:(CGFloat)priority {
+    [self setContentHuggingPriority:priority forAxis:UILayoutConstraintAxisHorizontal];
+}
+
+- (void)setVerticalContentHuggingPriority:(CGFloat)priority {
+    [self setContentHuggingPriority:priority forAxis:UILayoutConstraintAxisVertical];
+}
+
 - (id)findFirstResponder {
     if (self.isFirstResponder) {
         return self;

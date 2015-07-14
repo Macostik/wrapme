@@ -36,6 +36,8 @@
 
 - (BOOL)notifiableForEvent:(WLEvent)event;
 
+- (BOOL)notifiableByPreferences;
+
 - (void)markAsUnreadIfNeededForEvent:(WLEvent)event;
 
 - (void)prepareForAddNotification:(WLEntryNotification *)notification;

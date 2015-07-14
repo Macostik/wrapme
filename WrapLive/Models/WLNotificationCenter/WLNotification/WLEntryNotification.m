@@ -261,6 +261,10 @@
     return NO;
 }
 
+- (BOOL)notifiableByPreferences {
+    return YES;
+}
+
 - (void)markAsUnreadIfNeededForEvent:(WLEvent)event {
     if ([self notifiableForEvent:event]) [self markAsUnread];
 }
@@ -439,6 +443,10 @@
     return nil;
 }
 
+- (BOOL)notifiableByPreferences {
+    return self.wrap.isCandyNotifiable;
+}
+
 @end
 
 @implementation WLMessage (WLNotification)
@@ -462,6 +470,10 @@
 
 - (NSString *)category {
     return @"chat";
+}
+
+- (BOOL)notifiableByPreferences {
+    return self.wrap.isChatNotifiable;
 }
 
 @end

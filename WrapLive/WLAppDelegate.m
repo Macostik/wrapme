@@ -250,8 +250,10 @@ static WLDataBlock deviceTokenCompletion = nil;
             } else {
                 WLEntryNotification *entryNotification = (id)notification;
                 WLEntry *entry = entryNotification.targetEntry;
-                UILocalNotification *localNotification = [entry localNotificationForData:userInfo];
-                [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+                if  (entry.notifiableByPreferences) {
+                    UILocalNotification *localNotification = [entry localNotificationForData:userInfo];
+                    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+                }
                 if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
             }
         } else {

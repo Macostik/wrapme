@@ -56,6 +56,7 @@
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
+            <string>wrapliveicons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1945,16 +1946,15 @@
                                             <constraint firstAttribute="height" constant="1" id="0ID-nR-c2M"/>
                                         </constraints>
                                     </view>
-                                    <button tag="5" contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Nk-uxq" customClass="WLIconButton">
-                                        <rect key="frame" x="276" y="0.0" width="45" height="44"/>
+                                    <button tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Nk-uxq" customClass="WLButton">
+                                        <rect key="frame" x="276" y="5" width="45" height="34"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="45" id="8tF-V7-AC5"/>
-                                            <constraint firstAttribute="height" constant="44" id="Z3Q-ft-DVA"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="22"/>
+                                        <state key="normal" title="8">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="disabled">
@@ -1964,10 +1964,6 @@
                                             <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="tick"/>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
-                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="size" keyPath="touchArea">
                                                 <size key="value" width="70" height="70"/>
                                             </userDefinedRuntimeAttribute>

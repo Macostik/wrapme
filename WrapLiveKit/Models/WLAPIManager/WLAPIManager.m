@@ -395,7 +395,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     return nil;
 }
 
-- (id)remove:(BOOL)confirm success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     switch (self.status) {
         case WLContributionStatusReady:
             [self remove];

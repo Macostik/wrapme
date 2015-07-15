@@ -12,10 +12,11 @@
 #import "UIScrollView+Additions.h"
 #import "WLEntryCell.h"
 #import "WLFontPresetter.h"
+#import "WLLayoutPrioritizer.h"
 
 @interface WLDataSource () <WLFontPresetterReceiver>
 
-@property (strong, nonatomic) NSMapTable* animatingConstraintsDefaultValues;
+@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *scrollDirectionLayoutPrioritizer;
 
 @end
 
@@ -74,15 +75,6 @@
     dataSource.collectionView = collectionView;
     [dataSource connect];
     return dataSource;
-}
-
-- (void)setAnimatableConstraints:(NSArray *)animatableConstraints {
-    _animatableConstraints = animatableConstraints;
-    NSMapTable *animatingConstraintsDefaultValues = [NSMapTable strongToStrongObjectsMapTable];
-    for (NSLayoutConstraint* constraint in animatableConstraints) {
-        [animatingConstraintsDefaultValues setObject:@(constraint.constant) forKey:constraint];
-    }
-    self.animatingConstraintsDefaultValues = animatingConstraintsDefaultValues;
 }
 
 - (void)reload {
@@ -236,7 +228,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.animatableConstraints.nonempty && scrollView.tracking) {
+    if (self.scrollDirectionLayoutPrioritizer && scrollView.tracking) {
         if (scrollView.contentSize.height > scrollView.height || self.direction == WLDataSourceScrollDirectionUp) {
             self.direction = [scrollView.panGestureRecognizer translationInView:scrollView].y > 0 ? WLDataSourceScrollDirectionDown : WLDataSourceScrollDirectionUp;
         }
@@ -246,19 +238,7 @@
 - (void)setDirection:(WLDataSourceScrollDirection)direction {
     if (_direction != direction) {
         _direction = direction;
-        CGFloat constantValue = 0;
-        if (direction == WLDataSourceScrollDirectionUp) {
-            constantValue = -self.collectionView.height/2;
-        }
-        for (NSLayoutConstraint* constraint in self.animatableConstraints) {
-            constraint.constant = [[self.animatingConstraintsDefaultValues objectForKey:constraint] floatValue] + constantValue;
-        }
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationBeginsFromCurrentState:YES];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [UIView setAnimationDuration:0.3];
-        [self.collectionView.superview layoutIfNeeded];
-        [UIView commitAnimations];
+        [self.scrollDirectionLayoutPrioritizer setDefaultState:(direction == WLDataSourceScrollDirectionDown) animated:YES];
     }
 }
 

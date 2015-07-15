@@ -22,8 +22,6 @@ typedef NS_ENUM(NSUInteger, WLDataSourceScrollDirection) {
 
 @property (nonatomic) WLDataSourceScrollDirection direction;
 
-@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray* animatableConstraints;
-
 @property (strong, nonatomic) IBInspectable NSString* cellIdentifier;
 
 @property (strong, nonatomic) IBInspectable NSString* headerIdentifier;

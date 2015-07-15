@@ -1730,7 +1730,8 @@ Tap here to start.</string>
                             <constraint firstAttribute="trailing" secondItem="IWZ-KR-48g" secondAttribute="trailing" constant="8" id="0dG-Xy-kS1"/>
                             <constraint firstAttribute="centerX" secondItem="eam-qO-REB" secondAttribute="centerX" id="3hQ-KI-JoY"/>
                             <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="IWZ-KR-48g" secondAttribute="bottom" constant="5" id="5TZ-qZ-R7a"/>
-                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="eam-qO-REB" secondAttribute="bottom" constant="4" id="EPw-hT-f3u"/>
+                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="eam-qO-REB" secondAttribute="top" priority="250" constant="-4" id="C8A-MS-PNZ"/>
+                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="eam-qO-REB" secondAttribute="bottom" priority="750" constant="4" id="EPw-hT-f3u"/>
                             <constraint firstAttribute="trailing" secondItem="rgB-qi-Gbh" secondAttribute="trailing" constant="4" id="Uwx-3x-MHV"/>
                             <constraint firstItem="rgB-qi-Gbh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L5N-Xm-IFu" secondAttribute="leadingMargin" constant="12" id="Xak-QO-3IX"/>
                             <constraint firstItem="Qcq-LH-ZNY" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" priority="750" id="ZK0-p3-ckA"/>
@@ -1773,7 +1774,7 @@ Tap here to start.</string>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="QUX-wt-D3B"/>
-                        <outletCollection property="animatableConstraints" destination="EPw-hT-f3u" id="lYu-8G-vJg"/>
+                        <outlet property="scrollDirectionLayoutPrioritizer" destination="qqw-Aq-nfs" id="q6l-iD-6t9"/>
                     </connections>
                 </customObject>
                 <customObject id="Qns-CC-AwC" userLabel="Notifications Transition" customClass="WLStoryboardTransition">
@@ -1806,6 +1807,13 @@ Tap here to start.</string>
                         <outletCollection property="defaultConstraints" destination="ZK0-p3-ckA" id="JEK-z0-gLq"/>
                         <outletCollection property="alternativeConstraints" destination="v3N-j7-b7C" id="zhv-wN-1li"/>
                         <outletCollection property="parentViews" destination="L5N-Xm-IFu" id="gul-rp-0Az"/>
+                    </connections>
+                </customObject>
+                <customObject id="qqw-Aq-nfs" customClass="WLLayoutPrioritizer">
+                    <connections>
+                        <outletCollection property="defaultConstraints" destination="EPw-hT-f3u" id="VYy-JE-NAB"/>
+                        <outletCollection property="alternativeConstraints" destination="C8A-MS-PNZ" id="d83-Lv-sbu"/>
+                        <outletCollection property="parentViews" destination="eam-qO-REB" id="njb-VC-u4h"/>
                     </connections>
                 </customObject>
             </objects>
@@ -4726,7 +4734,7 @@ QWRkEEZyaWVuZFZpZXc
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="a7y-ca-xlT" id="Kqj-20-dlF"/>
-                        <outletCollection property="animatableConstraints" destination="CrN-KF-fsR" id="JLY-z0-7Pl"/>
+                        <outlet property="scrollDirectionLayoutPrioritizer" destination="SFh-vB-Xt1" id="kc9-SI-bGm"/>
                     </connections>
                 </customObject>
                 <customObject id="8F6-xd-Raa" customClass="WLLayoutPrioritizer">
@@ -4736,6 +4744,13 @@ QWRkEEZyaWVuZFZpZXc
                         <outletCollection property="defaultConstraints" destination="bOH-HL-fTo" id="u1L-me-NZW"/>
                         <outletCollection property="alternativeConstraints" destination="Dqa-Ym-RTY" id="1Te-nr-cRc"/>
                         <outletCollection property="alternativeConstraints" destination="a1M-pT-hWe" id="5dl-av-n24"/>
+                    </connections>
+                </customObject>
+                <customObject id="SFh-vB-Xt1" customClass="WLLayoutPrioritizer">
+                    <connections>
+                        <outletCollection property="defaultConstraints" destination="CrN-KF-fsR" id="cs2-Wo-0GI"/>
+                        <outletCollection property="alternativeConstraints" destination="Dqa-Ym-RTY" id="hJI-2F-00F"/>
+                        <outletCollection property="parentViews" destination="PNO-TY-VYu" id="jwJ-Aj-e5U"/>
                     </connections>
                 </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXa-Fb-BfF" userLabel="First Responder" sceneMemberID="firstResponder"/>

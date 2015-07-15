@@ -8,9 +8,6 @@
 
 #import "WLEntryCell.h"
 
-static NSUInteger WLHomeTopWrapCandiesLimit = 6;
-static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
-
 @class WLWrapCell, WLBasicDataSource;
 
 @protocol WLWrapCellDelegate <NSObject>
@@ -25,7 +22,5 @@ static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 @interface WLWrapCell : WLEntryCell
 
 @property (strong, nonatomic) IBOutlet id <WLWrapCellDelegate> delegate;
-@property (strong, nonatomic, readonly) WLBasicDataSource* candiesDataSource;
-@property (weak, nonatomic, readonly) UICollectionView *candiesView;
 
 @end

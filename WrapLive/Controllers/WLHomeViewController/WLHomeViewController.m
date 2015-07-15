@@ -68,8 +68,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    __weak typeof(self)weakSelf = self;
-    
     self.createWrapTipHidden = YES;
     
     [[WLAddressBook addressBook] beginCaching];
@@ -79,19 +77,6 @@
     [self addNotifyReceivers];
     
     __weak WLHomeDataSource *dataSource = self.dataSource;
-    [dataSource setRefreshable];
-    [dataSource setItemSizeBlock:^CGSize(WLWrap *wrap, NSUInteger index) {
-        CGFloat height = 50;
-        if (index == 0) {
-            int size = (weakSelf.collectionView.bounds.size.width - 2.0f)/3.0f;;
-            height = 75 + ([dataSource.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size);
-        }
-        return CGSizeMake(weakSelf.collectionView.width, height);
-    }];
-    
-    [dataSource setCellIdentifierForItemBlock:^NSString *(WLWrap *wrap, NSUInteger index) {
-        return (index == 0) ? @"WLTopWrapCell" : @"WLWrapCell";
-    }];
     
     NSSet* wraps = [WLUser currentUser].wraps;
     dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLWrapsRequest new]];
@@ -388,13 +373,12 @@
 }
 
 - (WLCandyCell *)presentedCandyCell:(WLCandy *)candy {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.collectionView layoutIfNeeded];
-    WLWrapCell *wrapCell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
-    NSUInteger index = [(id)wrapCell.candiesDataSource.items indexOfObject:candy];
-    if (index != NSNotFound) {
+    WLRecentCandiesView *candiesView = self.dataSource.candiesView;
+    NSUInteger index = [(id)candiesView.dataSource.items indexOfObject:candy];
+    if (index != NSNotFound && candiesView) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        WLCandyCell *candyCell = (id)[wrapCell.candiesView cellForItemAtIndexPath:indexPath];
+        WLCandyCell *candyCell = (id)[candiesView.collectionView cellForItemAtIndexPath:indexPath];
         if (candyCell) {
             return candyCell;
         }

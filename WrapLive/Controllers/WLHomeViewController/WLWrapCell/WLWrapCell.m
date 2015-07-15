@@ -26,12 +26,10 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UICollectionView *candiesView;
+
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *wrapNotificationLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *chatNotificationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
-
-@property (strong, nonatomic) WLBasicDataSource* candiesDataSource;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftSwipeActionConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightSwipeActionConstraint;
@@ -51,23 +49,6 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 - (void)awakeFromNib {
 	[super awakeFromNib];
     
-    if (self.candiesView) {
-        WLBasicDataSource* dataSource = [WLBasicDataSource dataSource:self.candiesView];
-        dataSource.cellIdentifier = WLCandyCellIdentifier;
-        dataSource.minimumLineSpacing = WLCandyCellSpacing;
-        dataSource.sectionLeftInset = dataSource.sectionRightInset = WLCandyCellSpacing;
-        [dataSource setNumberOfItemsBlock:^NSUInteger {
-            return ([dataSource.items count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
-        }];
-        [dataSource setCellIdentifierForItemBlock:^NSString *(id item, NSUInteger index) {
-            return (index < [dataSource.items count]) ? WLCandyCellIdentifier : @"CandyPlaceholderCell";
-        }];
-        [dataSource setItemSizeBlock:^CGSize(id item, NSUInteger index) {
-            int size = (WLConstants.screenWidth - 2.0f)/3.0f;
-            return CGSizeMake(size, size);
-        }];
-        self.candiesDataSource = dataSource;
-    }
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
     [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
     
@@ -86,11 +67,6 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 - (void)setup:(WLWrap*)wrap {
 	self.nameLabel.text = wrap.name;
     self.dateLabel.text = WLString(wrap.updatedAt.timeAgoStringAtAMPM);
-    
-    if (self.candiesView) {
-        self.candiesDataSource.items = [[NSMutableOrderedSet orderedSetWithSet:wrap.candies] sortByUpdatedAt];
-    }
-    
     self.coverView.url = [wrap.picture anyUrl];
     self.wrapNotificationLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:wrap];
     NSUInteger messageConter = [[WLMessagesCounter instance] countForWrap:wrap];

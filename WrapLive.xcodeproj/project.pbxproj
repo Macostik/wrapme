@@ -2129,6 +2129,11 @@
 		C5EE2CE01B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
 		C5EE2CE11B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
 		C5EE2CE21B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
+		C5EE2CE61B567A970016889E /* WLRecentCandiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */; };
+		C5EE2CE71B567A970016889E /* WLRecentCandiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */; };
+		C5EE2CE81B567A970016889E /* WLRecentCandiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */; };
+		C5EE2CE91B567A970016889E /* WLRecentCandiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */; };
+		C5EE2CEA1B567A970016889E /* WLRecentCandiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */; };
 		C5F99B6F196BEB0C00A3FB19 /* WLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */; };
 		C5FCC69A199A5C4B009A0DC6 /* WLNavigationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FCC699199A5C4B009A0DC6 /* WLNavigationHelper.m */; };
 		C5FE0A561ACD9896007DBE95 /* WLContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FE0A551ACD9896007DBE95 /* WLContributorsRequest.m */; };
@@ -3477,6 +3482,8 @@
 		C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LayoutHelper.m"; sourceTree = "<group>"; };
 		C5EE2CDC1B5658F90016889E /* WLMessagesCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessagesCounter.h; sourceTree = "<group>"; };
 		C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMessagesCounter.m; sourceTree = "<group>"; };
+		C5EE2CE41B567A970016889E /* WLRecentCandiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLRecentCandiesView.h; sourceTree = "<group>"; };
+		C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLRecentCandiesView.m; sourceTree = "<group>"; };
 		C5F99B6D196BEB0C00A3FB19 /* WLMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMenu.h; sourceTree = "<group>"; };
 		C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMenu.m; sourceTree = "<group>"; };
 		C5FCC698199A5C4B009A0DC6 /* WLNavigationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNavigationHelper.h; sourceTree = "<group>"; };
@@ -3964,6 +3971,7 @@
 		12A7A74218DA17F7008FF6F0 /* WLHomeViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C5EE2CE31B567A850016889E /* WLRecentCandiesView */,
 				12DCBA7818DB17B000A4BC44 /* WLWrapCell */,
 				12A7A74318DA180C008FF6F0 /* WLHomeViewController.h */,
 				12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */,
@@ -6549,6 +6557,16 @@
 			path = WLMessagesCounter;
 			sourceTree = "<group>";
 		};
+		C5EE2CE31B567A850016889E /* WLRecentCandiesView */ = {
+			isa = PBXGroup;
+			children = (
+				C5EE2CE41B567A970016889E /* WLRecentCandiesView.h */,
+				C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */,
+			);
+			name = WLRecentCandiesView;
+			path = WLHomeViewController/WLRecentCandiesView;
+			sourceTree = "<group>";
+		};
 		C5F99B6C196BEB0C00A3FB19 /* WLMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -7889,6 +7907,7 @@
 				C500997A1ADFCC940064CC7B /* WLSectionedDataSource.m in Sources */,
 				C5BCF01C1B551B7B00E4AD6D /* WLTypingView.m in Sources */,
 				C5C0161B1B455760003623EC /* PNServiceData.m in Sources */,
+				C5EE2CE71B567A970016889E /* WLRecentCandiesView.m in Sources */,
 				C5C20B9B1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
 				C5AEE42C1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C5C015AD1B455760003623EC /* PubNub+Time.m in Sources */,
@@ -8208,6 +8227,7 @@
 				C500997B1ADFCC940064CC7B /* WLSectionedDataSource.m in Sources */,
 				C5BCF01D1B551B7B00E4AD6D /* WLTypingView.m in Sources */,
 				C5C0161C1B455760003623EC /* PNServiceData.m in Sources */,
+				C5EE2CE81B567A970016889E /* WLRecentCandiesView.m in Sources */,
 				C5C20B9C1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
 				C5AEE42D1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C5C015AE1B455760003623EC /* PubNub+Time.m in Sources */,
@@ -8487,6 +8507,7 @@
 				C500997C1ADFCC940064CC7B /* WLSectionedDataSource.m in Sources */,
 				C5BCF01E1B551B7B00E4AD6D /* WLTypingView.m in Sources */,
 				C5C0161D1B455760003623EC /* PNServiceData.m in Sources */,
+				C5EE2CE91B567A970016889E /* WLRecentCandiesView.m in Sources */,
 				C5C20B9D1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
 				C5AEE42E1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C5C015AF1B455760003623EC /* PubNub+Time.m in Sources */,
@@ -8766,6 +8787,7 @@
 				C57BDDBA19FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
 				C5BCF01F1B551B7B00E4AD6D /* WLTypingView.m in Sources */,
 				C5C0161E1B455760003623EC /* PNServiceData.m in Sources */,
+				C5EE2CEA1B567A970016889E /* WLRecentCandiesView.m in Sources */,
 				C500997D1ADFCC940064CC7B /* WLSectionedDataSource.m in Sources */,
 				C5C20B9E1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
 				C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
@@ -9071,6 +9093,7 @@
 				C57479881B26FA45001AB8C0 /* WLSectionedDataSource.m in Sources */,
 				C5BCF01B1B551B7B00E4AD6D /* WLTypingView.m in Sources */,
 				C5C0161A1B455760003623EC /* PNServiceData.m in Sources */,
+				C5EE2CE61B567A970016889E /* WLRecentCandiesView.m in Sources */,
 				C57479891B26FA45001AB8C0 /* WLEmailValidation.m in Sources */,
 				C5AEE42B1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C5C015AC1B455760003623EC /* PubNub+Time.m in Sources */,

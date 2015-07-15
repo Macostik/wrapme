@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol WLChatCollectionViewLayoutDelegate <UICollectionViewDelegate>
+@protocol WLCollectionViewLayoutDelegate <UICollectionViewDelegate>
 
 @optional
 - (CGSize)collectionView:(UICollectionView*)collectionView sizeForItemAtIndexPath:(NSIndexPath*)indexPath;
@@ -28,6 +28,14 @@
 @end
 
 @interface WLCollectionViewLayout : UICollectionViewLayout
+
+@property (strong, nonatomic) NSArray* sectionFootingSupplementaryViewKinds;
+
+@property (strong, nonatomic) NSArray* sectionHeadingSupplementaryViewKinds;
+
+@property (strong, nonatomic) NSArray* itemFootingSupplementaryViewKinds;
+
+@property (strong, nonatomic) NSArray* itemHeadingSupplementaryViewKinds;
 
 - (void)registerItemHeaderSupplementaryViewKind:(NSString*)kind;
 

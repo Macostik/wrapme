@@ -32,16 +32,6 @@ static NSString *WLCollectionElementKindItem = @"item";
 
 @interface WLCollectionViewLayout ()
 
-@property (strong, nonatomic) NSArray* sectionFootingSupplementaryViewKinds;
-
-@property (strong, nonatomic) NSArray* sectionHeadingSupplementaryViewKinds;
-
-@property (strong, nonatomic) NSArray* itemFootingSupplementaryViewKinds;
-
-@property (strong, nonatomic) NSArray* itemHeadingSupplementaryViewKinds;
-
-@property (strong, nonatomic) NSMutableSet* insertingIndexPaths;
-
 @end
 
 @implementation WLCollectionViewLayout {
@@ -89,7 +79,7 @@ static NSString *WLCollectionElementKindItem = @"item";
     
     UICollectionView *collectionView = self.collectionView;
     
-    id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
+    id <WLCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
     
     NSUInteger numberOfSections = [collectionView numberOfSections];
     
@@ -166,7 +156,7 @@ static NSString *WLCollectionElementKindItem = @"item";
     
     UICollectionView *collectionView = self.collectionView;
     
-    id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
+    id <WLCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
     
     WLChatCollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
     
@@ -189,7 +179,7 @@ static NSString *WLCollectionElementKindItem = @"item";
     
     UICollectionView *collectionView = self.collectionView;
     
-    id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
+    id <WLCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
     
     WLChatCollectionViewLayoutAttributes *attributes = [self prepareLayoutAttributesForItemAtIndexPath:indexPath];
     
@@ -228,7 +218,7 @@ static NSString *WLCollectionElementKindItem = @"item";
 
 - (WLChatCollectionViewLayoutAttributes*)prepareLayoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionView *collectionView = self.collectionView;
-    id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
+    id <WLCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
     CGSize size = CGSizeZero;
     if ([delegate respondsToSelector:@selector(collectionView:sizeForItemAtIndexPath:)]) {
         size = [delegate collectionView:collectionView sizeForItemAtIndexPath:indexPath];
@@ -243,7 +233,7 @@ static NSString *WLCollectionElementKindItem = @"item";
 - (WLChatCollectionViewLayoutAttributes*)prepareLayoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     CGSize size = CGSizeZero;
     UICollectionView *collectionView = self.collectionView;
-    id <WLChatCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
+    id <WLCollectionViewLayoutDelegate> delegate = (id)collectionView.delegate;
     if ([delegate respondsToSelector:@selector(collectionView:sizeForSupplementaryViewOfKind:atIndexPath:)]) {
         size = [delegate collectionView:collectionView sizeForSupplementaryViewOfKind:elementKind atIndexPath:indexPath];
     }

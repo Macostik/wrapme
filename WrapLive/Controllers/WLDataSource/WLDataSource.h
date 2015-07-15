@@ -74,6 +74,8 @@ typedef NS_ENUM(NSUInteger, WLDataSourceScrollDirection) {
 
 - (NSUInteger)indexFromIndexPath:(NSIndexPath*)indexPath;
 
+- (NSString*)cellIdentifierForItem:(id)item atIndex:(NSUInteger)index;
+
 - (void)reload;
 
 - (void)connect;

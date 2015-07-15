@@ -7,11 +7,14 @@
 //
 
 #import "WLSectionedDataSource.h"
+#import "WLRecentCandiesView.h"
 
 @class WLWrap;
 
 @interface WLHomeDataSource : WLBasicDataSource
 
 @property (strong, nonatomic) WLWrap* wrap;
+
+@property (strong, nonatomic) WLRecentCandiesView *candiesView;
 
 @end

@@ -34,7 +34,7 @@
 
 CGFloat WLMaxTextViewWidth;
 
-@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate, WLChatCollectionViewLayoutDelegate>
+@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate, WLCollectionViewLayoutDelegate>
 
 @property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
 

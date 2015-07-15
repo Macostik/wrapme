@@ -305,9 +305,26 @@
     [self performBlockInBackground:^(__autoreleasing id *objects, NSError *__autoreleasing *error, NSManagedObjectContext *backgroundContext) {
         *objects = [backgroundContext executeFetchRequest:request error:error];
     } success:^(NSArray *objects, NSManagedObjectContext *mainContext) {
-        objects = [objects map:^id(NSManagedObject *object) {
-            return [mainContext objectWithID:[object objectID]];
-        }];
+        switch (request.resultType) {
+            case NSManagedObjectResultType: {
+                objects = [objects map:^id(NSManagedObject *object) {
+                    return [mainContext objectWithID:[object objectID]];
+                }];
+            }   break;
+            case NSManagedObjectIDResultType: {
+                objects = [objects map:^id(NSManagedObjectID *objectID) {
+                    return [mainContext objectWithID:objectID];
+                }];
+            }   break;
+            case NSDictionaryResultType: {
+                
+            }   break;
+            case NSCountResultType: {
+                
+            }   break;
+            default:
+                break;
+        }
         if (success) success(objects);
     } failure:^(NSError *error, NSManagedObjectContext *mainContext) {
         if (failure) failure(error);
@@ -317,8 +334,14 @@
 - (void)countForFetchRequest:(NSFetchRequest *)request success:(void (^)(NSUInteger))success failure:(WLFailureBlock)failure {
     [self performBlockInBackground:^(__autoreleasing id *objects, NSError *__autoreleasing *error, NSManagedObjectContext *backgroundContext) {
         *objects = [backgroundContext executeFetchRequest:request error:error];
-    } success:^(NSArray *objects, NSManagedObjectContext *mainContext) {
-        if (success) success([objects count]);
+    } success:^(id result, NSManagedObjectContext *mainContext) {
+        if ([result isKindOfClass:[NSArray class]]) {
+            if (success) success([result count]);
+        } else if ([result isKindOfClass:[NSNumber class]]) {
+            if (success) success([result unsignedIntegerValue]);
+        } else {
+            if (success) success(0);
+        }
     } failure:^(NSError *error, NSManagedObjectContext *mainContext) {
         if (failure) failure(error);
     }];
@@ -460,7 +483,39 @@
 }
 
 - (instancetype)sortedBy:(NSString *)sortedBy ascending:(BOOL)ascending {
-    self.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:sortedBy ascending:ascending]];
+    NSMutableArray *sortDescriptors = [NSMutableArray arrayWithArray:self.sortDescriptors];
+    [sortDescriptors addObject:[NSSortDescriptor sortDescriptorWithKey:sortedBy ascending:ascending]];
+    self.sortDescriptors = [sortDescriptors copy];
+    return self;
+}
+
+- (instancetype)groupedBy:(NSArray *)propertiesToGroupBy fetch:(NSArray *)propertiesToFetch {
+    self.resultType = NSDictionaryResultType;
+    NSDictionary *namedProperies = self.entity.propertiesByName;
+    
+    NSMutableArray *_propertiesToGroupBy = [NSMutableArray arrayWithArray:self.propertiesToGroupBy];
+    
+    for (id propertyToGroupBy in propertiesToGroupBy) {
+        if ([propertyToGroupBy isKindOfClass:[NSString class]]) {
+            [_propertiesToGroupBy addObject:[namedProperies objectForKey:propertyToGroupBy]];
+        } else {
+            [_propertiesToGroupBy addObject:propertyToGroupBy];
+        }
+    }
+    
+    self.propertiesToGroupBy = [_propertiesToGroupBy copy];
+    
+    NSMutableArray *_propertiesToFetch = [NSMutableArray arrayWithArray:self.propertiesToFetch];
+    
+    for (id propertyToFetch in propertiesToFetch) {
+        if ([propertyToFetch isKindOfClass:[NSString class]]) {
+            [_propertiesToFetch addObject:[namedProperies objectForKey:propertyToFetch]];
+        } else {
+            [_propertiesToFetch addObject:propertyToFetch];
+        }
+    }
+    
+    self.propertiesToFetch = [_propertiesToFetch copy];
     return self;
 }
 

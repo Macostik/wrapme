@@ -19,9 +19,10 @@
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"
 #import "WLWhatsUpSet.h"
-#import "UIView+Extentions.h"
+#import "UIView+LayoutHelper.h"
+#import "WLMessagesCounter.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPhotosViewControllerDelegate, WLWhatsUpSetBroadcastReceiver>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPhotosViewControllerDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
@@ -75,11 +76,8 @@
 }
 
 - (void)updateMessageCouter {
-    __weak typeof(self)weakSelf = self;
-    [self.wrap countOfUnreadMessages:^(NSUInteger count) {
-        weakSelf.messageCountLabel.intValue = count;
-    } failure:^(NSError *error) {
-    }];
+    self.messageCountLabel.intValue = [[WLMessagesCounter instance] countForWrap:self.wrap];
+    [[WLMessagesCounter instance] update:nil];
 }
 
 - (void)updateCandyCounter {
@@ -117,18 +115,9 @@
         }];
     }];
     
-    [WLMessage notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setContainingEntryBlock:^WLEntry *{
-            return weakSelf.wrap;
-        }];
-        receiver.didAddBlock = receiver.didDeleteBlock = ^(WLMessage *message) {
-            if (weakSelf.selectedSegment != WLSegmentControlStateChat) {
-                [weakSelf updateMessageCouter];
-            }
-        };
-    }];
-    
     [[WLWhatsUpSet sharedSet].broadcaster addReceiver:self];
+    
+    [[WLMessagesCounter instance] addReceiver:self];
 }
 
 - (IBAction)photosTabSelected:(id)sender {
@@ -211,6 +200,14 @@
 
 - (void)whatsUpBroadcaster:(WLBroadcaster *)broadcaster updated:(WLWhatsUpSet *)set {
     [self updateCandyCounter];
+}
+
+// MARK: - WLMessagesCounterReceiver
+
+- (void)counterDidChange:(WLMessagesCounter *)counter {
+    if (self.selectedSegment != WLSegmentControlStateChat) {
+        self.messageCountLabel.intValue = [counter countForWrap:self.wrap];
+    }
 }
 
 @end

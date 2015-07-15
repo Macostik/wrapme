@@ -83,6 +83,12 @@
 
 @end
 
+#define BEGIN_ARGUMENTS(name) \
+va_list args;\
+va_start(args, (name));\
+
+#define END_ARGUMENTS va_end(args);
+
 #define BEGIN_PREDICATE_FORMAT \
 va_list args;\
 va_start(args, predicateFormat);\

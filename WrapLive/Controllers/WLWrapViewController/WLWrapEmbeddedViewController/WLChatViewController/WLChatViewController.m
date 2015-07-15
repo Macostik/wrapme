@@ -30,6 +30,7 @@
 #import "WLCollectionView.h"
 #import "WLChatLayout.h"
 #import "WLBadgeLabel.h"
+#import "WLMessagesCounter.h"
 
 CGFloat WLMaxTextViewWidth;
 
@@ -148,6 +149,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     __weak typeof(self)weakSelf = self;
+    [[WLMessagesCounter instance] update:nil];
     [self.chat refreshUnreadMessages:^(NSOrderedSet *unreadMessages) {
         [weakSelf scrollToLastUnreadMessage];
         [weakSelf notifyOnChangeUnreadMessagesCount:unreadMessages.count];
@@ -157,6 +159,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[WLMessagesCounter instance] update:nil];
     [self refreshUnreadMessagesAndNotifyDelegate];
 }
 
@@ -587,6 +590,9 @@ CGFloat WLMaxTextViewWidth;
     if (self.chat.unreadMessagesCount == 0) {
         return;
     }
+    
+    [[WLMessagesCounter instance] update:nil];
+    
     __weak typeof(self)weakSelf = self;
     [self.chat refreshUnreadMessages:^(NSOrderedSet *orderedSet) {
         [weakSelf reloadDataSynchronously:NO];

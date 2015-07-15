@@ -2139,6 +2139,16 @@
 		C5E54B511ACBF9CE00444F7B /* WLWKEntryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */; };
 		C5E54B531ACBF9CE00444F7B /* WLWKContributionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */; };
 		C5E673841B0E384B00A48CDF /* WLPostEditingUploadCandyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */; };
+		C5EE2CD61B5653A90016889E /* UIView+LayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */; };
+		C5EE2CD71B5653A90016889E /* UIView+LayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */; };
+		C5EE2CD81B5653A90016889E /* UIView+LayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */; };
+		C5EE2CD91B5653A90016889E /* UIView+LayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */; };
+		C5EE2CDA1B5653A90016889E /* UIView+LayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */; };
+		C5EE2CDE1B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
+		C5EE2CDF1B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
+		C5EE2CE01B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
+		C5EE2CE11B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
+		C5EE2CE21B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
 		C5F99B6F196BEB0C00A3FB19 /* WLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */; };
 		C5FCC69A199A5C4B009A0DC6 /* WLNavigationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FCC699199A5C4B009A0DC6 /* WLNavigationHelper.m */; };
 		C5FE0A561ACD9896007DBE95 /* WLContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FE0A551ACD9896007DBE95 /* WLContributorsRequest.m */; };
@@ -3487,6 +3497,10 @@
 		C5D7FE7E1B501CD000746908 /* WLUpdateNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUpdateNotification.m; sourceTree = "<group>"; };
 		C5D7FE8F1B501CDE00746908 /* WLSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSoundPlayer.h; sourceTree = "<group>"; };
 		C5D7FE901B501CDE00746908 /* WLSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSoundPlayer.m; sourceTree = "<group>"; };
+		C5EE2CD41B5653A90016889E /* UIView+LayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LayoutHelper.h"; sourceTree = "<group>"; };
+		C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LayoutHelper.m"; sourceTree = "<group>"; };
+		C5EE2CDC1B5658F90016889E /* WLMessagesCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessagesCounter.h; sourceTree = "<group>"; };
+		C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMessagesCounter.m; sourceTree = "<group>"; };
 		C5F99B6D196BEB0C00A3FB19 /* WLMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMenu.h; sourceTree = "<group>"; };
 		C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMenu.m; sourceTree = "<group>"; };
 		C5FCC698199A5C4B009A0DC6 /* WLNavigationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNavigationHelper.h; sourceTree = "<group>"; };
@@ -3897,6 +3911,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C5EE2CDB1B5658E90016889E /* WLMessagesCounter */,
 				C5D7FE8E1B501CDE00746908 /* WLSoundPlayer */,
 				C5BEE0E11B2AC8C300D3CF70 /* WLNotificationCenter */,
 				C5BEDDAC1B2AC7A700D3CF70 /* PubNub */,
@@ -4314,6 +4329,8 @@
 				5BA60C531A8257ED000F795C /* UIView+AnimationHelper.m */,
 				5BA60C541A8257ED000F795C /* UIView+Extentions.h */,
 				5BA60C551A8257ED000F795C /* UIView+Extentions.m */,
+				C5EE2CD41B5653A90016889E /* UIView+LayoutHelper.h */,
+				C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */,
 				5BA60C561A8257ED000F795C /* UIView+GestureRecognizing.h */,
 				5BA60C571A8257ED000F795C /* UIView+GestureRecognizing.m */,
 			);
@@ -6559,6 +6576,15 @@
 			path = WLSoundPlayer;
 			sourceTree = "<group>";
 		};
+		C5EE2CDB1B5658E90016889E /* WLMessagesCounter */ = {
+			isa = PBXGroup;
+			children = (
+				C5EE2CDC1B5658F90016889E /* WLMessagesCounter.h */,
+				C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */,
+			);
+			path = WLMessagesCounter;
+			sourceTree = "<group>";
+		};
 		C5F99B6C196BEB0C00A3FB19 /* WLMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -7785,6 +7811,7 @@
 				C54186801B4560E300F83889 /* DDAbstractDatabaseLogger.m in Sources */,
 				C55E10A41B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C51383D019A4AB3300D23257 /* WLWhatsUpViewController.m in Sources */,
+				C5EE2CD71B5653A90016889E /* UIView+LayoutHelper.m in Sources */,
 				C535F9CA1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
 				C5C016C51B455760003623EC /* PNRequestParameters.m in Sources */,
 				C5C016111B455760003623EC /* PNPublishStatus.m in Sources */,
@@ -7853,6 +7880,7 @@
 				C53CA3C41A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */,
 				C5C20B951A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C54974581ABC1C34000E3F54 /* WLQAButton.m in Sources */,
+				C5EE2CDF1B5658F90016889E /* WLMessagesCounter.m in Sources */,
 				5BA755F51A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178219B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				5BA1307B1B15A92600385C2C /* WLPresentingImageView.m in Sources */,
@@ -8102,6 +8130,7 @@
 				C54186811B4560E300F83889 /* DDAbstractDatabaseLogger.m in Sources */,
 				C55E10A51B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C54AF48019B8C437006F7EDB /* WLWhatsUpViewController.m in Sources */,
+				C5EE2CD81B5653A90016889E /* UIView+LayoutHelper.m in Sources */,
 				C535F9CB1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
 				C5C016C61B455760003623EC /* PNRequestParameters.m in Sources */,
 				C5C016121B455760003623EC /* PNPublishStatus.m in Sources */,
@@ -8170,6 +8199,7 @@
 				C53CA3C51A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */,
 				C5C20B961A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C54974591ABC1C34000E3F54 /* WLQAButton.m in Sources */,
+				C5EE2CE01B5658F90016889E /* WLMessagesCounter.m in Sources */,
 				5BA755F61A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178319B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				5BA1307C1B15A92600385C2C /* WLPresentingImageView.m in Sources */,
@@ -8379,6 +8409,7 @@
 				C54186821B4560E300F83889 /* DDAbstractDatabaseLogger.m in Sources */,
 				C55E10A61B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C54AF57D19B8C467006F7EDB /* WLWhatsUpViewController.m in Sources */,
+				C5EE2CD91B5653A90016889E /* UIView+LayoutHelper.m in Sources */,
 				C535F9CC1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
 				C5C016C71B455760003623EC /* PNRequestParameters.m in Sources */,
 				C5C016131B455760003623EC /* PNPublishStatus.m in Sources */,
@@ -8447,6 +8478,7 @@
 				C53CA3C61A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */,
 				C5C20B971A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C549745A1ABC1C34000E3F54 /* WLQAButton.m in Sources */,
+				C5EE2CE11B5658F90016889E /* WLMessagesCounter.m in Sources */,
 				5BA755F71A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178419B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				5BA1307D1B15A92600385C2C /* WLPresentingImageView.m in Sources */,
@@ -8656,6 +8688,7 @@
 				C5C20BA41A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C55E10A71B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C54AF67A19B8C491006F7EDB /* WLWhatsUpViewController.m in Sources */,
+				C5EE2CDA1B5653A90016889E /* UIView+LayoutHelper.m in Sources */,
 				C5C016C81B455760003623EC /* PNRequestParameters.m in Sources */,
 				C5C016141B455760003623EC /* PNPublishStatus.m in Sources */,
 				C5C016AF1B455760003623EC /* PNRemoveDeviceFromAPNSResponseParser.m in Sources */,
@@ -8724,6 +8757,7 @@
 				C53CA3C71A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */,
 				C5C20B981A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */,
+				C5EE2CE21B5658F90016889E /* WLMessagesCounter.m in Sources */,
 				5BA755F81A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				5BA1307E1B15A92600385C2C /* WLPresentingImageView.m in Sources */,
@@ -8959,6 +8993,7 @@
 				C541867F1B4560E300F83889 /* DDAbstractDatabaseLogger.m in Sources */,
 				C55E10A31B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C574792C1B26FA45001AB8C0 /* WLWhatsUpViewController.m in Sources */,
+				C5EE2CD61B5653A90016889E /* UIView+LayoutHelper.m in Sources */,
 				C574792D1B26FA45001AB8C0 /* WLAddressBookGroupView.m in Sources */,
 				C5C016C41B455760003623EC /* PNRequestParameters.m in Sources */,
 				C5C016101B455760003623EC /* PNPublishStatus.m in Sources */,
@@ -9027,6 +9062,7 @@
 				C57479581B26FA45001AB8C0 /* WLUploadPhotoViewController.m in Sources */,
 				C57479591B26FA45001AB8C0 /* WLValidationGroup.m in Sources */,
 				C574795A1B26FA45001AB8C0 /* WLQAButton.m in Sources */,
+				C5EE2CDE1B5658F90016889E /* WLMessagesCounter.m in Sources */,
 				C574795B1B26FA45001AB8C0 /* WLScrollView.m in Sources */,
 				C574795C1B26FA45001AB8C0 /* WLAddContributorsViewController.m in Sources */,
 				C574795D1B26FA45001AB8C0 /* WLPresentingImageView.m in Sources */,

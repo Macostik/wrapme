@@ -14,7 +14,7 @@
 #import "NSObject+NibAdditions.h"
 #import "UIView+AnimationHelper.h"
 #import "WLNavigationHelper.h"
-#import "UIView+Extentions.h"
+#import "UIView+LayoutHelper.h"
 
 @implementation WLToastAppearance
 

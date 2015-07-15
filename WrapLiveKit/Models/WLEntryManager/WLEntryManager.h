@@ -115,4 +115,6 @@ typedef void (^WLEntryManagerMainContextFailureBlock) (NSError *error, NSManaged
 
 - (instancetype)limitedTo:(NSUInteger)limitedTo;
 
+- (instancetype)groupedBy:(NSArray *)propertiesToGroupBy fetch:(NSArray*)propertiesToFetch;
+
 @end

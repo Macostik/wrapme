@@ -39,9 +39,9 @@
 #import "WLNavigationHelper.h"
 #import "WLHintView.h"
 #import "WLLayoutPrioritizer.h"
+#import "WLMessagesCounter.h"
 
-@interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate,
-                                    WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver>
+@interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
 @property (strong, nonatomic) IBOutlet WLHomeDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
@@ -113,6 +113,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCreateWrapTipIfNeeded) name:UIApplicationWillEnterForegroundNotification object:nil];
     
     [[WLWhatsUpSet sharedSet].broadcaster addReceiver:self];
+    
+    [[WLMessagesCounter instance] addReceiver:self];
 }
 
 - (void)setCreateWrapTipHidden:(BOOL)createWrapTipHidden {
@@ -178,10 +180,12 @@
 	[super viewWillAppear:animated];
     [self.dataSource reload];
     __weak typeof(self)weakSelf = self;
+    self.notificationsLabel.intValue = [WLWhatsUpSet sharedSet].unreadEntriesCount;
     [[WLWhatsUpSet sharedSet] refreshCount:^(NSUInteger count) {
         weakSelf.notificationsLabel.intValue = count;
         [weakSelf.dataSource reload];
     } failure:nil];
+    [[WLMessagesCounter instance] update:nil];
     
     [self updateEmailConfirmationView:NO];
     [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
@@ -402,6 +406,12 @@
 
 - (void)whatsUpBroadcaster:(WLBroadcaster *)broadcaster updated:(WLWhatsUpSet *)set {
     self.notificationsLabel.intValue = set.unreadEntriesCount;
+    [self.dataSource reload];
+}
+
+// MARK: - WLMessagesCounterReceiver
+
+- (void)counterDidChange:(WLMessagesCounter *)counter {
     [self.dataSource reload];
 }
 

@@ -18,7 +18,7 @@
 #import "WLHintView.h"
 #import "UIButton+Additions.h"
 #import "WLDrawingView.h"
-#import "UIView+Extentions.h"
+#import "UIView+LayoutHelper.h"
 #import "UIScrollView+Additions.h"
 
 @interface WLBatchEditPictureViewController () <WLComposeBarDelegate, WLDrawingViewDelegate>

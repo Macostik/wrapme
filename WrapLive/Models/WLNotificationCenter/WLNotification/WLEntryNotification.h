@@ -70,7 +70,11 @@
 
 @end
 
-@interface WLContribution (WLNotification) @end
+@interface WLContribution (WLNotification)
+
+- (BOOL)notifiable;
+
+@end
 
 @interface WLUser (WLNotification) @end
 

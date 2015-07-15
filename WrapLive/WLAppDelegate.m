@@ -250,7 +250,7 @@ static WLDataBlock deviceTokenCompletion = nil;
             } else {
                 WLEntryNotification *entryNotification = (id)notification;
                 WLEntry *entry = entryNotification.targetEntry;
-                if  (entry.notifiableByPreferences) {
+                if  (entry.notifiableByPreferences && [(id)entry notifiable]) {
                     UILocalNotification *localNotification = [entry localNotificationForData:userInfo];
                     [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
                 }

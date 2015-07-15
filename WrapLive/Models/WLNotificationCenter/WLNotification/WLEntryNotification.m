@@ -340,6 +340,10 @@
     return NO;
 }
 
+- (BOOL)notifiable {
+    return !self.contributedByCurrentUser;
+}
+
 @end
 
 @implementation WLUser (WLNotification)
@@ -497,6 +501,22 @@
 
 - (NSString *)soundName {
     return [WLSoundFileName(WLSound_s02) stringByAppendingString:@".wav"];;
+}
+
+- (BOOL)notifiable {
+    if (self.contributedByCurrentUser) return NO;
+    WLCandy *candy = self.candy;
+    if (candy.contributedByCurrentUser) {
+        return YES;
+    } else {
+        NSUInteger index = [[candy.comments orderedSet] indexOfObjectPassingTest:^BOOL(WLComment* comment, NSUInteger idx, BOOL *stop) {
+            return comment.contributedByCurrentUser;
+        }];
+        if (index != NSNotFound && [[candy.comments orderedSet] indexOfObject:self] > index) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end

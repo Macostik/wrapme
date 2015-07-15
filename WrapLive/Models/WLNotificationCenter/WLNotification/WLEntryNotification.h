@@ -36,8 +36,6 @@
 
 - (BOOL)notifiableForEvent:(WLEvent)event;
 
-- (BOOL)notifiableByPreferences;
-
 - (void)markAsUnreadIfNeededForEvent:(WLEvent)event;
 
 - (void)prepareForAddNotification:(WLEntryNotification *)notification;
@@ -58,23 +56,9 @@
 
 - (void)finalizeDeleteNotification:(WLEntryNotification *)notification;
 
-- (UILocalNotification *)localNotificationForData:(NSDictionary *)userInfo;
-
-- (NSString *)alertTitle;
-
-- (NSString *)alertBody;
-
-- (NSString *)soundName;
-
-- (NSString *)category;
-
 @end
 
-@interface WLContribution (WLNotification)
-
-- (BOOL)notifiable;
-
-@end
+@interface WLContribution (WLNotification) @end
 
 @interface WLUser (WLNotification) @end
 

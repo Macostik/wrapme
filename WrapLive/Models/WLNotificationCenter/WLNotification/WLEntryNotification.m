@@ -7,7 +7,6 @@
 //
 
 #import "WLEntryNotification.h"
-#import "WLSoundPlayer.h"
 
 @implementation WLEntryNotification
 
@@ -261,10 +260,6 @@
     return NO;
 }
 
-- (BOOL)notifiableByPreferences {
-    return YES;
-}
-
 - (void)markAsUnreadIfNeededForEvent:(WLEvent)event {
     if ([self notifiableForEvent:event]) [self markAsUnread];
 }
@@ -311,22 +306,6 @@
     [self remove];
 }
 
-- (UILocalNotification *)localNotificationForData:(NSDictionary *)userInfo {
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.userInfo = userInfo;
-    if ([notification respondsToSelector:@selector(setAlertTitle:)]) {
-        notification.alertTitle = [self alertTitle];
-    }
-    notification.alertBody = [self alertBody];
-    notification.soundName = [self soundName];
-    return notification;
-}
-
-- (NSString *)alertTitle {return nil;}
-- (NSString *)alertBody {return nil;}
-- (NSString *)soundName {return nil;}
-- (NSString *)category {return nil;}
-
 @end
 
 @implementation WLContribution (WLNotification)
@@ -340,17 +319,9 @@
     return NO;
 }
 
-- (BOOL)notifiable {
-    return !self.contributedByCurrentUser;
-}
-
 @end
 
 @implementation WLUser (WLNotification)
-
-- (NSString *)soundName{
-    return [WLSoundFileName(WLSound_s01) stringByAppendingString:@".wav"];;
-}
 
 @end
 
@@ -419,38 +390,6 @@
     }
 }
 
-- (UILocalNotification *)localNotificationForData:(NSDictionary *)userInfo {
-    UILocalNotification *candyNotification = [super localNotificationForData:userInfo];
-    NSInteger eventType = [userInfo integerForKey:@"msg_type"];
-    if ([candyNotification respondsToSelector:@selector(setAlertTitle:)])
-    candyNotification.alertTitle = [self alertTitleForType:eventType];
-    candyNotification.alertBody = [self alertBodyForType:eventType];
-    return candyNotification;
-    
-}
-
-- (NSString *)alertTitleForType:(NSInteger)type {
-    if (type == WLNotificationCandyAdd) {
-        return [NSString stringWithFormat:WLLS(@"APNS_TT02"), [WLUser currentUser].name];
-    } else if (type == WLNotificationCandyUpdate) {
-        return [NSString stringWithFormat:WLLS(@"APNS_TT05"), self.wrap.name];
-    }
-    return nil;
-}
-
-- (NSString *)alertBodyForType:(NSInteger)type {
-    if (type == WLNotificationCandyAdd) {
-        return [NSString stringWithFormat:WLLS(@"APNS_MSG02"), self.contributor.name];
-    } else if (type == WLNotificationCandyUpdate) {
-        return [NSString stringWithFormat:WLLS(@"APNS_MSG05"), self.editor.name];
-    }
-    return nil;
-}
-
-- (BOOL)notifiableByPreferences {
-    return self.wrap.isCandyNotifiable;
-}
-
 @end
 
 @implementation WLMessage (WLNotification)
@@ -458,26 +397,6 @@
 - (void)finalizeAddNotification:(WLEntryNotification *)notification {
     if (notification.inserted) [self markAsUnreadIfNeededForEvent:notification.event];
     [super finalizeAddNotification:notification];
-}
-
-- (NSString *)alertTitle {
-    return [NSString stringWithFormat:WLLS(@"APNS_TT04"), self.contributor.name];
-}
-
-- (NSString *)alertBody {
-    return [NSString stringWithFormat:WLLS(@"APNS_MSG04"), self.text, self.wrap.name];
-}
-
-- (NSString *)soundName {
-    return [WLSoundFileName(WLSound_s03) stringByAppendingString:@".wav"];
-}
-
-- (NSString *)category {
-    return @"chat";
-}
-
-- (BOOL)notifiableByPreferences {
-    return self.wrap.isChatNotifiable;
 }
 
 @end
@@ -489,34 +408,6 @@
     if (candy.valid) candy.commentCount = candy.comments.count;
     if (notification.inserted) [self markAsUnreadIfNeededForEvent:notification.event];
     [super finalizeAddNotification:notification];
-}
-
-- (NSString *)alertTitle {
-    return [NSString stringWithFormat:WLLS(@"APNS_TT03"), self.contributor.name];
-}
-
-- (NSString *)alertBody {
-    return [NSString stringWithFormat:WLLS(@"APNS_MSG03"), self.text];
-}
-
-- (NSString *)soundName {
-    return [WLSoundFileName(WLSound_s02) stringByAppendingString:@".wav"];;
-}
-
-- (BOOL)notifiable {
-    if (self.contributedByCurrentUser) return NO;
-    WLCandy *candy = self.candy;
-    if (candy.contributedByCurrentUser) {
-        return YES;
-    } else {
-        NSUInteger index = [[candy.comments orderedSet] indexOfObjectPassingTest:^BOOL(WLComment* comment, NSUInteger idx, BOOL *stop) {
-            return comment.contributedByCurrentUser;
-        }];
-        if (index != NSNotFound && [[candy.comments orderedSet] indexOfObject:self] > index) {
-            return YES;
-        }
-    }
-    return NO;
 }
 
 @end

@@ -101,6 +101,8 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="OpenSans-Semibold.ttf">
             <string>OpenSans-Semibold</string>
@@ -1022,7 +1024,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y7O-GH-Q4Y" customClass="WLCollectionView">
-                                <rect key="frame" x="0.0" y="169" width="320" height="397"/>
+                                <rect key="frame" x="0.0" y="169" width="320" height="335"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="94"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="T0u-2f-ASf">
@@ -1417,8 +1419,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="nibNamePlaceholder" value="WLHomePlaceholderView"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="dataSource" destination="fHn-3G-fGW" id="QAw-6f-LlG"/>
-                                    <outlet property="delegate" destination="fHn-3G-fGW" id="TVy-PG-UqU"/>
+                                    <outlet property="dataSource" destination="gv8-Nb-wf7" id="bQW-sX-X3Y"/>
+                                    <outlet property="delegate" destination="gv8-Nb-wf7" id="vxX-wO-x1Y"/>
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcq-LH-ZNY">
@@ -1592,7 +1594,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eam-qO-REB">
-                                <rect key="frame" x="118" y="480" width="84" height="84"/>
+                                <rect key="frame" x="118" y="416" width="84" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="84" id="OAp-oR-yaY"/>
@@ -1724,18 +1726,73 @@ Tap here to start.</string>
                                     <outlet property="delegate" destination="L91-fZ-J9O" id="5Ve-av-mgl"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xxr-1f-Jzb" customClass="SegmentedControl">
+                                <rect key="frame" x="0.0" y="504" width="320" height="64"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhi-C4-lKW" customClass="WLSegmentButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="64"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                        <state key="normal" title="Home">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                                <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                <color key="value" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xg-qz-q6g" customClass="WLSegmentButton">
+                                        <rect key="frame" x="160" y="0.0" width="160" height="64"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                        <state key="normal" title="What's hot">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                                <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                <color key="value" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="3xg-qz-q6g" secondAttribute="bottom" id="7I2-jQ-Xz4"/>
+                                    <constraint firstAttribute="trailing" secondItem="3xg-qz-q6g" secondAttribute="trailing" id="8n2-yE-PId"/>
+                                    <constraint firstItem="mhi-C4-lKW" firstAttribute="leading" secondItem="Xxr-1f-Jzb" secondAttribute="leading" id="DXf-Ob-hS0"/>
+                                    <constraint firstItem="3xg-qz-q6g" firstAttribute="top" secondItem="Xxr-1f-Jzb" secondAttribute="top" id="I62-ex-DbV"/>
+                                    <constraint firstAttribute="bottom" secondItem="mhi-C4-lKW" secondAttribute="bottom" id="Lb7-xT-aFL"/>
+                                    <constraint firstAttribute="height" constant="64" id="QOa-Ms-g4O"/>
+                                    <constraint firstItem="3xg-qz-q6g" firstAttribute="leading" secondItem="mhi-C4-lKW" secondAttribute="trailing" id="enw-J1-RdE"/>
+                                    <constraint firstItem="mhi-C4-lKW" firstAttribute="top" secondItem="Xxr-1f-Jzb" secondAttribute="top" id="tU3-1e-ilg"/>
+                                    <constraint firstItem="mhi-C4-lKW" firstAttribute="width" secondItem="3xg-qz-q6g" secondAttribute="width" id="vjZ-EH-YcW"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="segmentValueChanged:" destination="gv8-Nb-wf7" eventType="valueChanged" id="DYu-AI-HHc"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="IWZ-KR-48g" secondAttribute="trailing" constant="8" id="0dG-Xy-kS1"/>
                             <constraint firstAttribute="centerX" secondItem="eam-qO-REB" secondAttribute="centerX" id="3hQ-KI-JoY"/>
+                            <constraint firstItem="Xxr-1f-Jzb" firstAttribute="top" secondItem="y7O-GH-Q4Y" secondAttribute="bottom" id="4AX-wc-ewq"/>
                             <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="IWZ-KR-48g" secondAttribute="bottom" constant="5" id="5TZ-qZ-R7a"/>
-                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="eam-qO-REB" secondAttribute="top" priority="250" constant="-4" id="C8A-MS-PNZ"/>
-                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="eam-qO-REB" secondAttribute="bottom" priority="750" constant="4" id="EPw-hT-f3u"/>
+                            <constraint firstAttribute="trailing" secondItem="Xxr-1f-Jzb" secondAttribute="trailing" id="9eW-Gs-SU3"/>
+                            <constraint firstItem="y7O-GH-Q4Y" firstAttribute="bottom" secondItem="eam-qO-REB" secondAttribute="bottom" priority="750" constant="4" id="BiA-pr-XH9"/>
+                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="Xxr-1f-Jzb" secondAttribute="bottom" id="EBe-HF-XDG"/>
+                            <constraint firstItem="Xxr-1f-Jzb" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="EDo-sH-Bzd"/>
                             <constraint firstAttribute="trailing" secondItem="rgB-qi-Gbh" secondAttribute="trailing" constant="4" id="Uwx-3x-MHV"/>
+                            <constraint firstItem="y7O-GH-Q4Y" firstAttribute="bottom" secondItem="eam-qO-REB" secondAttribute="top" priority="250" constant="-4" id="Wi5-8E-OHt"/>
                             <constraint firstItem="rgB-qi-Gbh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L5N-Xm-IFu" secondAttribute="leadingMargin" constant="12" id="Xak-QO-3IX"/>
                             <constraint firstItem="Qcq-LH-ZNY" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" priority="750" id="ZK0-p3-ckA"/>
-                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="y7O-GH-Q4Y" secondAttribute="bottom" constant="2" id="ZdV-Xu-BQB"/>
                             <constraint firstAttribute="trailing" secondItem="9Rl-cW-5hv" secondAttribute="trailing" id="a0D-I9-wse"/>
                             <constraint firstItem="Qcq-LH-ZNY" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="aMO-Xl-sXk"/>
                             <constraint firstItem="9Rl-cW-5hv" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="iFH-7m-26c"/>
@@ -1754,16 +1811,26 @@ Tap here to start.</string>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="5cB-EH-3pL"/>
                         <outlet property="createWrapButton" destination="KxF-7g-Abs" id="DiP-hq-Kq1"/>
                         <outlet property="createWrapTipView" destination="rgB-qi-Gbh" id="lEh-RQ-itL"/>
-                        <outlet property="dataSource" destination="fHn-3G-fGW" id="mME-eD-7au"/>
+                        <outlet property="dataSource" destination="gv8-Nb-wf7" id="lbe-6L-ul4"/>
                         <outlet property="emailConfirmationLayoutPrioritizer" destination="LSq-pS-yid" id="Bin-aV-yY8"/>
                         <outlet property="emailConfirmationView" destination="Qcq-LH-ZNY" id="shZ-oR-vok"/>
+                        <outlet property="homeDataSource" destination="fHn-3G-fGW" id="PO3-jr-2b7"/>
                         <outlet property="navigationBar" destination="9Rl-cW-5hv" id="9kd-xs-4J2"/>
                         <outlet property="notificationsLabel" destination="2L6-nO-etl" id="5XW-mo-EXZ"/>
+                        <outlet property="publicDataSource" destination="uJJ-OA-ZDD" id="Pa2-yU-Ali"/>
                         <outlet property="uploadingView" destination="IWZ-KR-48g" id="KrJ-sE-ftu"/>
                         <outlet property="verificationEmailLabel" destination="UL6-dF-3Kj" id="nDG-MA-MkU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfT-C3-6mj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="gv8-Nb-wf7" customClass="WLSegmentedDataSource">
+                    <connections>
+                        <outlet property="collectionView" destination="y7O-GH-Q4Y" id="aim-EG-DAj"/>
+                        <outlet property="scrollDirectionLayoutPrioritizer" destination="qqw-Aq-nfs" id="XD7-NW-ICm"/>
+                        <outletCollection property="items" destination="fHn-3G-fGW" collectionClass="NSMutableArray" id="Hxr-cp-jFd"/>
+                        <outletCollection property="items" destination="uJJ-OA-ZDD" collectionClass="NSMutableArray" id="oqd-v8-Isl"/>
+                    </connections>
+                </customObject>
                 <customObject id="fHn-3G-fGW" customClass="WLHomeDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLWrapCell"/>
@@ -1774,7 +1841,11 @@ Tap here to start.</string>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="QUX-wt-D3B"/>
-                        <outlet property="scrollDirectionLayoutPrioritizer" destination="qqw-Aq-nfs" id="q6l-iD-6t9"/>
+                    </connections>
+                </customObject>
+                <customObject id="uJJ-OA-ZDD" customClass="WLBasicDataSource">
+                    <connections>
+                        <outlet property="collectionView" destination="y7O-GH-Q4Y" id="5NO-04-rHl"/>
                     </connections>
                 </customObject>
                 <customObject id="Qns-CC-AwC" userLabel="Notifications Transition" customClass="WLStoryboardTransition">
@@ -1811,9 +1882,9 @@ Tap here to start.</string>
                 </customObject>
                 <customObject id="qqw-Aq-nfs" customClass="WLLayoutPrioritizer">
                     <connections>
-                        <outletCollection property="defaultConstraints" destination="EPw-hT-f3u" id="VYy-JE-NAB"/>
-                        <outletCollection property="alternativeConstraints" destination="C8A-MS-PNZ" id="d83-Lv-sbu"/>
                         <outletCollection property="parentViews" destination="eam-qO-REB" id="njb-VC-u4h"/>
+                        <outletCollection property="alternativeConstraints" destination="Wi5-8E-OHt" id="xUx-ec-8Dm"/>
+                        <outletCollection property="defaultConstraints" destination="BiA-pr-XH9" id="Qkl-6k-Vnx"/>
                     </connections>
                 </customObject>
             </objects>

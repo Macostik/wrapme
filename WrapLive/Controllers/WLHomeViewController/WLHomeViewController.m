@@ -40,10 +40,15 @@
 #import "WLHintView.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLMessagesCounter.h"
+#import "WLSegmentedDataSource.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
-@property (strong, nonatomic) IBOutlet WLHomeDataSource *dataSource;
+@property (strong, nonatomic) IBOutlet WLSegmentedDataSource *dataSource;
+
+@property (strong, nonatomic) IBOutlet WLBasicDataSource *publicDataSource;
+
+@property (strong, nonatomic) IBOutlet WLHomeDataSource *homeDataSource;
 @property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
@@ -76,7 +81,7 @@
     
     [self addNotifyReceivers];
     
-    __weak WLHomeDataSource *dataSource = self.dataSource;
+    __weak WLHomeDataSource *dataSource = self.homeDataSource;
     
     NSSet* wraps = [WLUser currentUser].wraps;
     dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLWrapsRequest new]];
@@ -209,7 +214,7 @@
 }
 
 - (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
-    [self openCameraForWrap:self.dataSource.wrap animated:animated startFromGallery:startFromGallery showWrapPicker:showPicker];
+    [self openCameraForWrap:self.homeDataSource.wrap animated:animated startFromGallery:startFromGallery showWrapPicker:showPicker];
 }
 
 - (void)openCameraForWrap:(WLWrap*)wrap animated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
@@ -263,16 +268,16 @@
     
     [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
         [receiver setDidAddBlock:^(WLWrap *wrap) {
-            WLPaginatedSet *wraps = [weakSelf.dataSource items];
+            WLPaginatedSet *wraps = [weakSelf.homeDataSource items];
             [wraps addEntry:wrap];
             weakSelf.collectionView.contentOffset = CGPointZero;
         }];
         [receiver setDidUpdateBlock:^(WLWrap *wrap) {
-            WLPaginatedSet *wraps = [weakSelf.dataSource items];
+            WLPaginatedSet *wraps = [weakSelf.homeDataSource items];
             [wraps resetEntries:[[WLUser currentUser] wraps]];
         }];
         [receiver setWillDeleteBlock:^(WLWrap *wrap) {
-            WLPaginatedSet *wraps = [weakSelf.dataSource items];
+            WLPaginatedSet *wraps = [weakSelf.homeDataSource items];
             [wraps removeEntry:wrap];
         }];
     }];
@@ -374,7 +379,7 @@
 
 - (WLCandyCell *)presentedCandyCell:(WLCandy *)candy {
     [self.collectionView layoutIfNeeded];
-    WLRecentCandiesView *candiesView = self.dataSource.candiesView;
+    WLRecentCandiesView *candiesView = self.homeDataSource.candiesView;
     NSUInteger index = [(id)candiesView.dataSource.items indexOfObject:candy];
     if (index != NSNotFound && candiesView) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];

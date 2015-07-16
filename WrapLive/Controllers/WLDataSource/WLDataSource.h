@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WLRefresher.h"
 #import "WLPaginatedSet+WLBaseOrderedCollection.h"
+#import "WLCollectionViewLayout.h"
 
 typedef NS_ENUM(NSUInteger, WLDataSourceScrollDirection) {
     WLDataSourceScrollDirectionUnknown,
@@ -16,7 +17,7 @@ typedef NS_ENUM(NSUInteger, WLDataSourceScrollDirection) {
     WLDataSourceScrollDirectionDown
 };
 
-@interface WLDataSource : NSObject <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface WLDataSource : NSObject <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLCollectionViewLayoutDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 

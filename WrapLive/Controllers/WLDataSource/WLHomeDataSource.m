@@ -12,10 +12,9 @@
 #import "UIView+Shorthand.h"
 #import "WLWrapRequest.h"
 #import "WLEntryCell.h"
-#import "WLCollectionViewLayout.h"
 #import "WLLoadingView.h"
 
-@interface WLHomeDataSource () <WLCollectionViewLayoutDelegate>
+@interface WLHomeDataSource ()
 
 @end
 

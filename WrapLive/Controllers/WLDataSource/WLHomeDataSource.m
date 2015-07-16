@@ -21,14 +21,9 @@
 
 @implementation WLHomeDataSource
 
-- (void)awakeAfterInit {
-    [super awakeAfterInit];
-    
-    [self setRefreshable];
-}
-
 - (void)setCollectionView:(UICollectionView *)collectionView {
     [super setCollectionView:collectionView];
+    [self setRefreshable];
     WLCollectionViewLayout *layout = [[WLCollectionViewLayout alloc] init];
     layout.sectionHeadingSupplementaryViewKinds = @[];
     collectionView.collectionViewLayout = layout;

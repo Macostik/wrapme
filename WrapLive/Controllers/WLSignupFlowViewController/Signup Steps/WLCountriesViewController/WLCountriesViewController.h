@@ -8,8 +8,10 @@
 
 #import "WLBaseViewController.h"
 
+@class WLCountry;
+
 @interface WLCountriesViewController : WLBaseViewController
 
-@property (strong, nonatomic) Country *selectedCountry;
+@property (strong, nonatomic) WLCountry *selectedCountry;
 
 @end

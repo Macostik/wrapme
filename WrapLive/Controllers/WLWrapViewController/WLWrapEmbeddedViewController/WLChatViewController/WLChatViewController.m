@@ -453,11 +453,6 @@ CGFloat WLMaxTextViewWidth;
     self.typing = composeBar.text.nonempty;
 }
 
-- (void)composeBarDidChangeHeight:(WLComposeBar *)composeBar {
-    [self.collectionView layoutIfNeeded];
-    [self.collectionView setMinimumContentOffsetAnimated:YES];
-}
-
 #pragma mark - UICollectionViewDataSource
 
 - (void)setBackgroundColorForView:(UIView*)view atIndexPath:(NSIndexPath*)indexPath {

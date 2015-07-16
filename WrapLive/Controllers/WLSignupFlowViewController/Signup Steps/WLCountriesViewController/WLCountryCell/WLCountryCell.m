@@ -1,5 +1,5 @@
 //
-//  WLCountryCell.m
+//  CountryCell.m
 //  WrapLive
 //
 //  Created by Sergey Maximenko on 24.03.14.
@@ -7,7 +7,6 @@
 //
 
 #import "WLCountryCell.h"
-#import "WLCountry.h"
 
 @interface WLCountryCell ()
 
@@ -17,7 +16,7 @@
 
 @implementation WLCountryCell
 
-- (void)setup:(WLCountry*)country {
+- (void)setup:(Country*)country {
 	self.countryNameLabel.text = country.name;
 }
 

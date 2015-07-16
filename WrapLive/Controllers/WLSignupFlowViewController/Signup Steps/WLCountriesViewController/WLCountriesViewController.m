@@ -7,7 +7,6 @@
 //
 
 #import "WLCountriesViewController.h"
-#import "WLCountry.h"
 #import "WLCountryCell.h"
 #import "NSObject+NibAdditions.h"
 #import "WLBasicDataSource.h"
@@ -32,13 +31,13 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	__weak typeof(self)weakSelf = self;
-    WLCountry* selectedCountry = _selectedCountry;
+    Country* selectedCountry = _selectedCountry;
     run_getting_object(^id {
-        return [WLCountry all];
+        return [Country all];
     }, ^(NSMutableOrderedSet* countries) {
         weakSelf.dataSource.items = countries;
 		if (selectedCountry) {
-			NSUInteger index = [countries indexOfObjectPassingTest:^BOOL(WLCountry* obj, NSUInteger idx, BOOL *stop) {
+			NSUInteger index = [countries indexOfObjectPassingTest:^BOOL(Country* obj, NSUInteger idx, BOOL *stop) {
 				return [obj.code isEqualToString:selectedCountry.code];
 			}];
 			if (index != NSNotFound) {
@@ -48,7 +47,7 @@
     });
 }
 
-- (WLCountry *)selectedCountry {
+- (Country *)selectedCountry {
     NSIndexPath* indexPath = [[self.dataSource.collectionView indexPathsForSelectedItems] lastObject];
     if (indexPath) {
         return [(NSArray*)self.dataSource.items tryAt:indexPath.item];

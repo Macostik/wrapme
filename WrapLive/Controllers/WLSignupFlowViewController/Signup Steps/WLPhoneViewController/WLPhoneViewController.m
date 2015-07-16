@@ -8,7 +8,6 @@
 
 #import "WLPhoneViewController.h"
 #import "WLCountriesViewController.h"
-#import "WLCountry.h"
 #import "WLInputAccessoryView.h"
 #import "UIButton+Additions.h"
 #import "WLNavigationHelper.h"
@@ -26,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *selectCountryButton;
 @property (weak, nonatomic) IBOutlet UILabel *countryCodeLabel;
 
-@property (strong, nonatomic) WLCountry *country;
+@property (strong, nonatomic) Country *country;
 
 @property (strong, nonatomic) IBOutlet WLPhoneValidation *validation;
 
@@ -36,12 +35,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.country = [WLCountry getCurrentCountry];
+	self.country = [Country currentCountry];
     
 	self.phoneNumberTextField.text = [WLAuthorization currentAuthorization].phone;
 }
 
-- (void)setCountry:(WLCountry *)country {
+- (void)setCountry:(Country *)country {
 	_country = country;
     [WLAuthorization currentAuthorization].countryCode = country.callingCode;
 	[self.selectCountryButton setTitle:country.name forState:UIControlStateNormal];
@@ -101,7 +100,7 @@
 }
 
 - (IBAction)countrySelected:(UIStoryboardSegue *)unwindSegue {
-    WLCountry* selectedCountry = [unwindSegue.sourceViewController selectedCountry];
+    Country* selectedCountry = [unwindSegue.sourceViewController selectedCountry];
     if (selectedCountry) {
         self.country = selectedCountry;
     }

@@ -1,5 +1,5 @@
 //
-//  WLCountryCell.h
+//  CountryCell.h
 //  WrapLive
 //
 //  Created by Sergey Maximenko on 24.03.14.

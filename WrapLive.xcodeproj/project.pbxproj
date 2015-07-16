@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		121B1B2E18E07430001F585C /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		121B1B4518E08B7E001F585C /* CountryCodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 121B1B4418E08B7E001F585C /* CountryCodes.json */; };
 		121FC9E3190A93D80034486D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E2190A93D80034486D /* CFNetwork.framework */; };
 		121FC9E5190A93E50034486D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E4190A93E50034486D /* SystemConfiguration.framework */; };
@@ -582,7 +581,6 @@
 		C54AF46119B8C437006F7EDB /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
 		C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		C54AF46919B8C437006F7EDB /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
-		C54AF46F19B8C437006F7EDB /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		C54AF47119B8C437006F7EDB /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
 		C54AF47319B8C437006F7EDB /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C54AF48019B8C437006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
@@ -639,7 +637,6 @@
 		C54AF55E19B8C467006F7EDB /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
 		C54AF56019B8C467006F7EDB /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		C54AF56619B8C467006F7EDB /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
-		C54AF56C19B8C467006F7EDB /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		C54AF56E19B8C467006F7EDB /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
 		C54AF57019B8C467006F7EDB /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C54AF57D19B8C467006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
@@ -696,7 +693,6 @@
 		C54AF65B19B8C491006F7EDB /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
 		C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		C54AF66319B8C491006F7EDB /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
-		C54AF66919B8C491006F7EDB /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		C54AF66B19B8C491006F7EDB /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
 		C54AF66D19B8C491006F7EDB /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C54AF67A19B8C491006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
@@ -951,7 +947,6 @@
 		C574791B1B26FA45001AB8C0 /* UIScreen+Diagonal.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C4A1A8257ED000F795C /* UIScreen+Diagonal.m */; };
 		C574791C1B26FA45001AB8C0 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
 		C574791D1B26FA45001AB8C0 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C500983D1AFCCC6400729DA4 /* WLCommentCell.m */; };
-		C574791E1B26FA45001AB8C0 /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		C574791F1B26FA45001AB8C0 /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
 		C57479201B26FA45001AB8C0 /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C57479211B26FA45001AB8C0 /* WLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FCF1A41951300A2C370 /* WLTextField.m */; };
@@ -2134,6 +2129,11 @@
 		C5EE2CE81B567A970016889E /* WLRecentCandiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */; };
 		C5EE2CE91B567A970016889E /* WLRecentCandiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */; };
 		C5EE2CEA1B567A970016889E /* WLRecentCandiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */; };
+		C5EE2D141B56B25F0016889E /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2D131B56B25F0016889E /* Country.swift */; };
+		C5EE2D151B56B25F0016889E /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2D131B56B25F0016889E /* Country.swift */; };
+		C5EE2D161B56B25F0016889E /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2D131B56B25F0016889E /* Country.swift */; };
+		C5EE2D171B56B25F0016889E /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2D131B56B25F0016889E /* Country.swift */; };
+		C5EE2D181B56B25F0016889E /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2D131B56B25F0016889E /* Country.swift */; };
 		C5F99B6F196BEB0C00A3FB19 /* WLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */; };
 		C5FCC69A199A5C4B009A0DC6 /* WLNavigationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FCC699199A5C4B009A0DC6 /* WLNavigationHelper.m */; };
 		C5FE0A561ACD9896007DBE95 /* WLContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FE0A551ACD9896007DBE95 /* WLContributorsRequest.m */; };
@@ -2456,8 +2456,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		121B1B2C18E07430001F585C /* WLCountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCountry.h; path = WLCountry/WLCountry.h; sourceTree = "<group>"; };
-		121B1B2D18E07430001F585C /* WLCountry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCountry.m; path = WLCountry/WLCountry.m; sourceTree = "<group>"; };
 		121B1B4418E08B7E001F585C /* CountryCodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountryCodes.json; sourceTree = "<group>"; };
 		121FC9E2190A93D80034486D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		121FC9E4190A93E50034486D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -3445,6 +3443,7 @@
 		C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignupFlowViewController.m; sourceTree = "<group>"; };
 		C5C6465319A6264300F8243A /* WLWhatsUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWhatsUpCell.h; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.h; sourceTree = "<group>"; };
 		C5C6465419A6264300F8243A /* WLWhatsUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWhatsUpCell.m; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.m; sourceTree = "<group>"; };
+		C5CB97931B57A71200899740 /* WrapLive-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WrapLive-Bridging-Header.h"; sourceTree = "<group>"; };
 		C5CD956F1B4D382E00F5932F /* WLExtensionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionRequest.h; sourceTree = "<group>"; };
 		C5CD95701B4D382E00F5932F /* WLExtensionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLExtensionRequest.m; sourceTree = "<group>"; };
 		C5CD95721B4D382E00F5932F /* WLExtensionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionResponse.h; sourceTree = "<group>"; };
@@ -3484,6 +3483,7 @@
 		C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMessagesCounter.m; sourceTree = "<group>"; };
 		C5EE2CE41B567A970016889E /* WLRecentCandiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLRecentCandiesView.h; sourceTree = "<group>"; };
 		C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLRecentCandiesView.m; sourceTree = "<group>"; };
+		C5EE2D131B56B25F0016889E /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = WLCountry/Country.swift; sourceTree = "<group>"; };
 		C5F99B6D196BEB0C00A3FB19 /* WLMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMenu.h; sourceTree = "<group>"; };
 		C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMenu.m; sourceTree = "<group>"; };
 		C5FCC698199A5C4B009A0DC6 /* WLNavigationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNavigationHelper.h; sourceTree = "<group>"; };
@@ -3691,8 +3691,7 @@
 		121B1B2B18E0741A001F585C /* WLCountry */ = {
 			isa = PBXGroup;
 			children = (
-				121B1B2C18E07430001F585C /* WLCountry.h */,
-				121B1B2D18E07430001F585C /* WLCountry.m */,
+				C5EE2D131B56B25F0016889E /* Country.swift */,
 			);
 			name = WLCountry;
 			sourceTree = "<group>";
@@ -3859,6 +3858,7 @@
 				C54AF84A19B8C5F0006F7EDB /* WrapLive-QA-Info.plist */,
 				12A7A70E18DA0946008FF6F0 /* main.m */,
 				12A7A71018DA0946008FF6F0 /* WrapLive-Prefix.pch */,
+				C5CB97931B57A71200899740 /* WrapLive-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -7740,7 +7740,6 @@
 				C5C016201B455760003623EC /* PNStatus.m in Sources */,
 				C55E109D1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				5BD3BDBC1B45348400A42EBB /* WLSegmentedControl.m in Sources */,
-				121B1B2E18E07430001F585C /* WLCountry.m in Sources */,
 				12DCBA8418DB18F400A4BC44 /* WLCollectionItemCell.m in Sources */,
 				ACDE2A0E192CB38B00CA0803 /* WLEmojiView.m in Sources */,
 				C52E1FDC1A41951300A2C370 /* WLTextField.m in Sources */,
@@ -7938,6 +7937,7 @@
 				C5D051C11A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				C5C20BD91A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				5BA60CB31A8257ED000F795C /* UICollectionViewCell+Autoresizing.m in Sources */,
+				C5EE2D151B56B25F0016889E /* Country.swift in Sources */,
 				C5C015B71B455760003623EC /* PNHeartbeat.m in Sources */,
 				C5D7FE921B501CDE00746908 /* WLSoundPlayer.m in Sources */,
 				C5C015DF1B455760003623EC /* PNChannelGroupChannelsResult.m in Sources */,
@@ -8060,7 +8060,6 @@
 				C5C016211B455760003623EC /* PNStatus.m in Sources */,
 				C55E109E1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				5BD3BDBD1B45348400A42EBB /* WLSegmentedControl.m in Sources */,
-				C54AF46F19B8C437006F7EDB /* WLCountry.m in Sources */,
 				C54AF47119B8C437006F7EDB /* WLCollectionItemCell.m in Sources */,
 				C54AF47319B8C437006F7EDB /* WLEmojiView.m in Sources */,
 				C52E1FDD1A41951300A2C370 /* WLTextField.m in Sources */,
@@ -8258,6 +8257,7 @@
 				C5D051C21A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				C5C20BDA1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				5BA60CB41A8257ED000F795C /* UICollectionViewCell+Autoresizing.m in Sources */,
+				C5EE2D161B56B25F0016889E /* Country.swift in Sources */,
 				C5C015B81B455760003623EC /* PNHeartbeat.m in Sources */,
 				C5D7FE931B501CDE00746908 /* WLSoundPlayer.m in Sources */,
 				C5C015E01B455760003623EC /* PNChannelGroupChannelsResult.m in Sources */,
@@ -8340,7 +8340,6 @@
 				C5C016221B455760003623EC /* PNStatus.m in Sources */,
 				C55E109F1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				5BD3BDBE1B45348400A42EBB /* WLSegmentedControl.m in Sources */,
-				C54AF56C19B8C467006F7EDB /* WLCountry.m in Sources */,
 				C54AF56E19B8C467006F7EDB /* WLCollectionItemCell.m in Sources */,
 				C54AF57019B8C467006F7EDB /* WLEmojiView.m in Sources */,
 				C52E1FDE1A41951300A2C370 /* WLTextField.m in Sources */,
@@ -8538,6 +8537,7 @@
 				C5D051C31A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				C5C20BDB1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				5BA60CB51A8257ED000F795C /* UICollectionViewCell+Autoresizing.m in Sources */,
+				C5EE2D171B56B25F0016889E /* Country.swift in Sources */,
 				C5C015B91B455760003623EC /* PNHeartbeat.m in Sources */,
 				C5D7FE941B501CDE00746908 /* WLSoundPlayer.m in Sources */,
 				C5C015E11B455760003623EC /* PNChannelGroupChannelsResult.m in Sources */,
@@ -8620,7 +8620,6 @@
 				C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
 				5BD3BDBF1B45348400A42EBB /* WLSegmentedControl.m in Sources */,
 				C55E10A01B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
-				C54AF66919B8C491006F7EDB /* WLCountry.m in Sources */,
 				C54AF66B19B8C491006F7EDB /* WLCollectionItemCell.m in Sources */,
 				C54AF66D19B8C491006F7EDB /* WLEmojiView.m in Sources */,
 				C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */,
@@ -8818,6 +8817,7 @@
 				C5D051C41A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				5BA60CB61A8257ED000F795C /* UICollectionViewCell+Autoresizing.m in Sources */,
+				C5EE2D181B56B25F0016889E /* Country.swift in Sources */,
 				C5C015BA1B455760003623EC /* PNHeartbeat.m in Sources */,
 				C5D7FE951B501CDE00746908 /* WLSoundPlayer.m in Sources */,
 				C5C015E21B455760003623EC /* PNChannelGroupChannelsResult.m in Sources */,
@@ -8926,7 +8926,6 @@
 				C5C0161F1B455760003623EC /* PNStatus.m in Sources */,
 				C55E109C1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				5BD3BDBB1B45348400A42EBB /* WLSegmentedControl.m in Sources */,
-				C574791E1B26FA45001AB8C0 /* WLCountry.m in Sources */,
 				C574791F1B26FA45001AB8C0 /* WLCollectionItemCell.m in Sources */,
 				C57479201B26FA45001AB8C0 /* WLEmojiView.m in Sources */,
 				C57479211B26FA45001AB8C0 /* WLTextField.m in Sources */,
@@ -9124,6 +9123,7 @@
 				C574799D1B26FA45001AB8C0 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				C574799E1B26FA45001AB8C0 /* WLTestUserCell.m in Sources */,
 				C574799F1B26FA45001AB8C0 /* UICollectionViewCell+Autoresizing.m in Sources */,
+				C5EE2D141B56B25F0016889E /* Country.swift in Sources */,
 				C5C015B61B455760003623EC /* PNHeartbeat.m in Sources */,
 				C5D7FE911B501CDE00746908 /* WLSoundPlayer.m in Sources */,
 				C5C015DE1B455760003623EC /* PNChannelGroupChannelsResult.m in Sources */,
@@ -9668,6 +9668,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
@@ -9696,6 +9697,9 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -9709,6 +9713,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
@@ -9738,6 +9743,8 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10039,6 +10046,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
@@ -10067,6 +10075,9 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-QA";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10080,6 +10091,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
@@ -10109,6 +10121,8 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-QA";
 				PROVISIONING_PROFILE = "5dcdac67-bb6e-4ba9-9338-d6b43ed8833d";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10122,6 +10136,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
@@ -10149,6 +10164,9 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-Beta";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10162,6 +10180,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
@@ -10190,6 +10209,8 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-Beta";
 				PROVISIONING_PROFILE = "56db280b-2ce7-4f9b-b1b6-e7c9c532a241";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10203,6 +10224,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
@@ -10231,6 +10253,9 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-Production";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10244,6 +10269,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
@@ -10273,6 +10299,8 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-Production";
 				PROVISIONING_PROFILE = "56db280b-2ce7-4f9b-b1b6-e7c9c532a241";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10536,6 +10564,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
@@ -10564,6 +10593,9 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-Development";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10577,6 +10609,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
@@ -10606,6 +10639,9 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-Development";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10619,6 +10655,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
@@ -10648,6 +10685,8 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-Development";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10789,6 +10828,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
@@ -10818,6 +10858,9 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10831,6 +10874,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
@@ -10859,6 +10903,9 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-QA";
 				PROVISIONING_PROFILE = "189fa146-ee5e-4517-94e0-9aa8f6bd25f8";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10872,6 +10919,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
@@ -10899,6 +10947,9 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-Beta";
 				PROVISIONING_PROFILE = "08237be5-ca06-4442-a3fa-8cdbfaed6e4f";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -10912,6 +10963,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
@@ -10940,6 +10992,9 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "WrapLive-Production";
 				PROVISIONING_PROFILE = "08237be5-ca06-4442-a3fa-8cdbfaed6e4f";
+				SWIFT_OBJC_BRIDGING_HEADER = "WrapLive/WrapLive-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "WrapLive-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;

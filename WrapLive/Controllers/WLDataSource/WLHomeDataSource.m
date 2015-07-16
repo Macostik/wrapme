@@ -67,7 +67,7 @@
 
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-        return [self collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
+        return [super collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
     } else if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         WLRecentCandiesView *candiesView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLRecentCandiesView" forIndexPath:indexPath];
         self.candiesView = candiesView;
@@ -83,7 +83,7 @@
 
 - (CGSize)collectionView:(UICollectionView*)collectionView sizeForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-        return [super collectionView:collectionView layout:collectionView.collectionViewLayout referenceSizeForHeaderInSection:0];
+        return self.appendable ? CGSizeMake(collectionView.width, WLLoadingViewDefaultSize) : CGSizeZero;
     } else if ([kind isEqualToString:UICollectionElementKindSectionHeader] && indexPath.item == 0) {
         int size = (collectionView.width - 2.0f)/3.0f;;
         return CGSizeMake(collectionView.width, ([self.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size) + 5);

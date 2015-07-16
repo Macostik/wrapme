@@ -45,6 +45,10 @@ static NSString *WLCollectionElementKindItem = @"item";
     return [WLChatCollectionViewLayoutAttributes class];
 }
 
+- (UICollectionViewScrollDirection)scrollDirection {
+    return UICollectionViewScrollDirectionVertical;
+}
+
 - (void)prepareLayout {
     
     if (!self.sectionFootingSupplementaryViewKinds) {

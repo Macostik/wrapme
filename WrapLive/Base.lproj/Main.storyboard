@@ -1279,7 +1279,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLRecentCandiesView" id="QrK-lr-94z" customClass="WLRecentCandiesView">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="111"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="68L-hz-4uC">
@@ -3774,7 +3774,7 @@ Check your internet connection and try again.</string>
                                                 </view>
                                                 <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="cGF-9C-FfY">
                                                     <rect key="frame" x="248" y="35" width="8" height="10"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="ODL-tk-jp8"/>
                                                         <constraint firstAttribute="width" constant="8" id="Sr7-Ab-vOc"/>
@@ -3881,7 +3881,7 @@ Check your internet connection and try again.</string>
                                                 </view>
                                                 <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="pMb-Ne-nj5">
                                                     <rect key="frame" x="64" y="35" width="8" height="10"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="JBn-vp-QVa"/>
                                                         <constraint firstAttribute="width" constant="8" id="fi3-oR-Epn"/>

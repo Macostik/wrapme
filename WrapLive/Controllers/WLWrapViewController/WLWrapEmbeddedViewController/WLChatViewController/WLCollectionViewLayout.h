@@ -29,6 +29,8 @@
 
 @interface WLCollectionViewLayout : UICollectionViewLayout
 
+@property (nonatomic) UICollectionViewScrollDirection scrollDirection;
+
 @property (strong, nonatomic) NSArray* sectionFootingSupplementaryViewKinds;
 
 @property (strong, nonatomic) NSArray* sectionHeadingSupplementaryViewKinds;

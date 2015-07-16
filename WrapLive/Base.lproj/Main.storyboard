@@ -3686,7 +3686,7 @@ Check your internet connection and try again.</string>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewLayout key="collectionViewLayout" id="sGF-Oh-KI6" customClass="WLChatLayout"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMyMessageCell" id="blg-MX-zu0" customClass="WLMessageCell">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMyMessageCell" id="blg-MX-zu0" customClass="WLMessageCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -3803,7 +3803,7 @@ Check your internet connection and try again.</string>
                                             <outlet property="timeLabel" destination="Lc4-Kr-oEr" id="2g9-Gw-WTT"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMessageCell" id="S2A-2d-E7B" customClass="WLMessageCell">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMessageCell" id="S2A-2d-E7B" customClass="WLMessageCell">
                                         <rect key="frame" x="0.0" y="60" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

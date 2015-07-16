@@ -234,10 +234,13 @@
         [weakSelf.context performBlock:^{
             NSError* error = nil;
             [weakSelf.context save:&error];
-            for (WLBlock block in weakSelf.assureSaveBlocks) {
-                block();
+            if (weakSelf.assureSaveBlocks.nonempty) {
+                NSSet *blocks = [weakSelf.assureSaveBlocks copy];
+                for (WLBlock block in blocks) {
+                    block();
+                }
+                [weakSelf.assureSaveBlocks minusSet:blocks];
             }
-            [weakSelf.assureSaveBlocks removeAllObjects];
             if (error) {
                 WLLog(@"CoreData", @"save error", error);
             }

@@ -311,12 +311,12 @@
         switch (request.resultType) {
             case NSManagedObjectResultType: {
                 objects = [objects map:^id(NSManagedObject *object) {
-                    return [mainContext objectWithID:[object objectID]];
+                    return [mainContext existingObjectWithID:[object objectID] error:NULL];
                 }];
             }   break;
             case NSManagedObjectIDResultType: {
                 objects = [objects map:^id(NSManagedObjectID *objectID) {
-                    return [mainContext objectWithID:objectID];
+                    return [mainContext existingObjectWithID:objectID error:NULL];
                 }];
             }   break;
             case NSDictionaryResultType: {

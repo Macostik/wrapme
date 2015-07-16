@@ -104,8 +104,9 @@
         } success:^(NSMutableSet *events, NSManagedObjectContext *mainContext) {
             events = [events map:^id(WLWhatsUpEvent *event) {
                 WLContribution *contribution = event.contribution;
-                event.contribution = [mainContext objectWithID:[contribution objectID]];
-                return [event.contribution valid] ? event : nil;
+                NSError *error = nil;
+                event.contribution = [mainContext existingObjectWithID:[contribution objectID] error:&error];
+                return [event.contribution valid] && !error ? event : nil;
             }];
             [weakSelf resetEntries:events];
             if (success) success();

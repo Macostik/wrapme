@@ -182,25 +182,25 @@
 
 "APNS_MSG01" = "%@ invited you to '%@'. Add your photos and watch the fun unfold!";
 
-"APNS_TT02" = "%@";
+"APNS_TT02" = "New photo";
 
-"APNS_MSG02" = "%@ just added a new photo. Check it out!";
+"APNS_MSG02" = "%@ just added a new photo in '%@'. Check it out!";
 
-"APNS_TT03" = "%@ commented:";
+"APNS_TT03" = "New comment";
 
-"APNS_MSG03" = "%@";
+"APNS_MSG03" = "%@ commented: '%@'";
 
-"APNS_TT04" = "%@:";
+"APNS_TT04" = "New chat";
 
-"APNS_MSG04" = "'%@' in '%@'";
+"APNS_MSG04" = "%@: '%@' in '%@'";
 
-"APNS_TT05" = "%@";
+"APNS_TT05" = "Edited photo";
 
 "APNS_MSG05" = "%@ just edited a photo. Check it out!";
 
 "APNS_TT06" = "A new version of wrapLive is available";
 
-"APNS_MSG06" = "Download it now!";
+"APNS_MSG06" = "wrapLive has a new update! Download it now!";
 
 "reply" = "Reply";
 

@@ -29,9 +29,6 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 @property (strong, nonatomic) WLRefresher *refresher;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topCommentViewContstrain;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leadingContstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *trailingConstraint;
 
 @end
 
@@ -176,21 +173,6 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
     return NO;
-}
-
-- (void)composeBarDidBeginEditing:(WLComposeBar*)composeBar {
-    [self hideTopView:YES];
-}
-
-- (void)composeBarDidEndEditing:(WLComposeBar*)composeBar {
-    [self hideTopView:NO];
-}
-
-- (void)hideTopView:(BOOL)hide {
-    [UIView performAnimated:YES animation:^{
-        self.topCommentViewContstrain.constant = hide ? 20.0f : WLContstraintOffset;
-        [self.view layoutIfNeeded];
-    }];
 }
 
 #pragma mark - WLKeyboardBroadcastReceiver

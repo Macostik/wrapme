@@ -18,6 +18,16 @@
 
 @property (assign, nonatomic) BOOL defaultState;
 
+@property (nonatomic) IBInspectable BOOL animated;
+
+@property (nonatomic) IBInspectable BOOL asynchronous;
+
 - (void)setDefaultState:(BOOL)state animated:(BOOL)animated;
+
+- (IBAction)enableDefaultState:(id)sender;
+
+- (IBAction)enableAlternativeState:(id)sender;
+
+- (IBAction)toggleState:(id)sender;
 
 @end

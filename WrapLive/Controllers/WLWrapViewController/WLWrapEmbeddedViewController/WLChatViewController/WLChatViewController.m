@@ -78,10 +78,8 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)reloadChatAfterApplicationBecameActive {
-    __weak typeof(self)weakSelf = self;
     [self.chat resetEntries:self.wrap.messages];
     [self scrollToLastUnreadMessage];
-    [self notifyOnChangeUnreadMessagesCount:self.chat.unreadMessages.count];
 }
 
 - (BOOL)geometryFlipped {
@@ -147,21 +145,14 @@ CGFloat WLMaxTextViewWidth;
     [[WLMessagesCounter instance] update:nil];
     [self.chat sort];
     [self scrollToLastUnreadMessage];
-    [self notifyOnChangeUnreadMessagesCount:self.chat.unreadMessages.count];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChatAfterApplicationBecameActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[WLMessagesCounter instance] update:nil];
-    [self refreshUnreadMessagesAndNotifyDelegate];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
-}
-
-- (void)refreshUnreadMessagesAndNotifyDelegate {
     [self.chat sort];
-    [self reloadDataSynchronously:NO];
-    [self notifyOnChangeUnreadMessagesCount:self.chat.unreadMessages.count];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)scrollToLastUnreadMessage {
@@ -210,11 +201,6 @@ CGFloat WLMaxTextViewWidth;
             CGFloat offset = collectionView.contentOffset.y;
             CGFloat contentHeight = collectionView.contentSize.height;
             [weakSelf.chat addEntry:message];
-            
-            if(message.unread) {
-                [weakSelf notifyOnChangeUnreadMessagesCount:weakSelf.chat.unreadMessages.count];
-            }
-            
             [weakSelf.collectionView reloadData];
             [collectionView layoutIfNeeded];
             offset += collectionView.contentSize.height - contentHeight;
@@ -321,8 +307,8 @@ CGFloat WLMaxTextViewWidth;
     });
 }
 
-- (void)notifyOnChangeUnreadMessagesCount:(NSUInteger)count {
-    self.badge.intValue = count;
+- (void)updateBadge {
+    self.badge.intValue = self.chat.unreadMessages.count;
 }
 
 #pragma mark - WLEntryNotifyReceiver
@@ -338,7 +324,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLEntry *)entry {
     [self.chat removeEntry:entry];
     if (entry.unread) {
-        [self notifyOnChangeUnreadMessagesCount:self.chat.unreadMessages.count];
+        [self updateBadge];
     }
 }
 
@@ -425,6 +411,7 @@ CGFloat WLMaxTextViewWidth;
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
         return 0;
     }
+    [self updateBadge];
     return [self.chat.entries count];
 }
 
@@ -540,14 +527,12 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)refreshUnreadMessagesAfterDragging {
     if (self.chat.unreadMessagesCount == 0) {
+        [self updateBadge];
         return;
     }
     
     [[WLMessagesCounter instance] update:nil];
-    
     [self.chat sort];
-    [self reloadDataSynchronously:NO];
-    [self notifyOnChangeUnreadMessagesCount:self.chat.unreadMessages.count];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {

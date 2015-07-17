@@ -42,7 +42,7 @@
         weakSelf.nameTextField.text = typingNames;
         weakSelf.nameTextField.hidden = !typingNames.nonempty;
         WLUser *user = chat.typingUsers.firstObject;
-        if (user.valid) {
+        if (chat.typingUsers.count == 1 && user.valid) {
             weakSelf.avatarView.url = user.picture.small;
         } else {
             weakSelf.avatarView.url = nil;

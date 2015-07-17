@@ -10,10 +10,6 @@
 
 @interface WLLayoutPrioritizer ()
 
-@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *defaultConstraints;
-@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *alternativeConstraints;
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *parentViews;
-
 @end
 
 @implementation WLLayoutPrioritizer

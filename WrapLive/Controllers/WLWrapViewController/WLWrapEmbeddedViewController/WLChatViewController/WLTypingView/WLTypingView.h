@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "WLChat.h"
 
-static CGFloat WLTypingViewMinHeight = 60.0;
-static CGFloat WLTypingViewTopIndent = 12.0;
+static CGFloat WLTypingViewMinHeight = 52.0;
+static CGFloat WLTypingViewTopIndent = 4.0;
 static NSString *WLFriendsTypingImage = @"friends";
 
 @interface WLTypingView : UICollectionReusableView
 
-- (void)setChat:(WLChat *)chat;
+- (void)updateWithChat:(WLChat *)chat;
 
 @end

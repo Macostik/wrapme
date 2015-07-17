@@ -10,6 +10,12 @@
 
 @interface WLLayoutPrioritizer : NSObject
 
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *defaultConstraints;
+
+@property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *alternativeConstraints;
+
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *parentViews;
+
 @property (assign, nonatomic) BOOL defaultState;
 
 - (void)setDefaultState:(BOOL)state animated:(BOOL)animated;

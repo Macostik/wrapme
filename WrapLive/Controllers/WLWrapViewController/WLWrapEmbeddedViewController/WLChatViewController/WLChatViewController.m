@@ -80,11 +80,8 @@ CGFloat WLMaxTextViewWidth;
 - (void)reloadChatAfterApplicationBecameActive {
     __weak typeof(self)weakSelf = self;
     [self.chat resetEntries:self.wrap.messages];
-    [self.chat refreshUnreadMessages:^(NSOrderedSet *orderedSet) {
-        [weakSelf scrollToLastUnreadMessage];
-        [weakSelf notifyOnChangeUnreadMessagesCount:orderedSet.count];
-    } failure:^(NSError *error) {
-    }];
+    [self scrollToLastUnreadMessage];
+    [self notifyOnChangeUnreadMessagesCount:self.chat.unreadMessages.count];
 }
 
 - (BOOL)geometryFlipped {
@@ -142,34 +139,29 @@ CGFloat WLMaxTextViewWidth;
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLFontPresetter presetter] addReceiver:self];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChatAfterApplicationBecameActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     self.modalPresentationStyle = UIModalPresentationCurrentContext;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    __weak typeof(self)weakSelf = self;
     [[WLMessagesCounter instance] update:nil];
-    [self.chat refreshUnreadMessages:^(NSOrderedSet *unreadMessages) {
-        [weakSelf scrollToLastUnreadMessage];
-        [weakSelf notifyOnChangeUnreadMessagesCount:unreadMessages.count];
-    } failure:^(NSError *error) {
-    }];
+    [self.chat sort];
+    [self scrollToLastUnreadMessage];
+    [self notifyOnChangeUnreadMessagesCount:self.chat.unreadMessages.count];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChatAfterApplicationBecameActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[WLMessagesCounter instance] update:nil];
     [self refreshUnreadMessagesAndNotifyDelegate];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)refreshUnreadMessagesAndNotifyDelegate {
-    __weak typeof(self)weakSelf = self;
-    [self.chat refreshUnreadMessages:^(NSOrderedSet *orderedSet) {
-        [weakSelf reloadDataSynchronously:NO];
-        [weakSelf notifyOnChangeUnreadMessagesCount:orderedSet.count];
-    } failure:^(NSError *error) {
-    }];
+    [self.chat sort];
+    [self reloadDataSynchronously:NO];
+    [self notifyOnChangeUnreadMessagesCount:self.chat.unreadMessages.count];
 }
 
 - (void)scrollToLastUnreadMessage {
@@ -220,10 +212,7 @@ CGFloat WLMaxTextViewWidth;
             [weakSelf.chat addEntry:message];
             
             if(message.unread) {
-                [weakSelf.chat refreshUnreadMessages:^(NSOrderedSet *orderedSet) {
-                    [weakSelf notifyOnChangeUnreadMessagesCount:orderedSet.count];
-                } failure:^(NSError *error) {
-                }];
+                [weakSelf notifyOnChangeUnreadMessagesCount:weakSelf.chat.unreadMessages.count];
             }
             
             [weakSelf.collectionView reloadData];
@@ -309,54 +298,26 @@ CGFloat WLMaxTextViewWidth;
     [self reloadDataSynchronously:NO];
 }
 
-- (BOOL)isTypingViewHidden {
-    return self.typingView.superview == nil || self.typingView.hidden;
-}
-
 - (void)chat:(WLChat*)chat didBeginTyping:(WLUser *)user {
-    __weak __typeof(self)weakSelf = self;
-    runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
-        UICollectionView *cv = weakSelf.collectionView;
-        if ([weakSelf isTypingViewHidden] && CGPointEqualToPoint(cv.contentOffset, cv.minimumContentOffset)) {
-            [cv reloadData];
-            [cv layoutIfNeeded];
-            cv.contentOffset = CGPointOffset(weakSelf.collectionView.minimumContentOffset, 0, [weakSelf heightOfTypingCell:chat]);
-            [cv setMinimumContentOffsetAnimated:YES];
-            run_after(1.0, ^{
-                [operation finish];
-            });
-        } else {
-            [cv reloadData];
-            [operation finish];
-        }
-    });
+    [self reloadDataSynchronously:NO];
 }
     
 - (void)chat:(WLChat*)chat didEndTyping:(WLUser *)user {
-    __weak __typeof(self)weakSelf = self;
-    runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
-        UICollectionView *cv = weakSelf.collectionView;
-        CGPoint minimumContentOffset = cv.minimumContentOffset;
-        if (![weakSelf isTypingViewHidden] && CGPointEqualToPoint(cv.contentOffset, minimumContentOffset) && user.valid) {
-            [cv setContentOffset:CGPointOffset(minimumContentOffset, 0, [weakSelf heightOfTypingCell:chat]) animated:YES];
-            run_after(1.0, ^{
-                [cv reloadData];
-                cv.contentOffset = weakSelf.collectionView.minimumContentOffset;
-                [operation finish];
-            });
-        } else {
-            [cv reloadData];
-            [operation finish];
-        }
-    });
+    [self reloadDataSynchronously:NO];
 }
 
 - (void)reloadDataSynchronously:(BOOL)synchronously {
     __weak typeof(self)weakSelf = self;
+    static BOOL reloading = NO;
+    if (reloading) {
+        return;
+    }
+    reloading = YES;
     runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
         [weakSelf.collectionView reloadData];
         if (synchronously) [weakSelf.collectionView layoutIfNeeded];
         [operation finish];
+        reloading = NO;
     });
 }
 
@@ -377,11 +338,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLEntry *)entry {
     [self.chat removeEntry:entry];
     if (entry.unread) {
-        __weak typeof(self)weakSelf = self;
-        [self.chat refreshUnreadMessages:^(NSOrderedSet *orderedSet) {
-            [weakSelf notifyOnChangeUnreadMessagesCount:orderedSet.count];
-        } failure:^(NSError *error) {
-        }];
+        [self notifyOnChangeUnreadMessagesCount:self.chat.unreadMessages.count];
     }
 }
 
@@ -424,7 +381,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
-    [self setTyping:NO sendMessage:YES];
+    self.typing = NO;
 	[self sendMessageWithText:text];
 }
 
@@ -439,14 +396,15 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)setTyping:(BOOL)typing {
-    [self setTyping:typing sendMessage:NO];
-}
-
-- (void)setTyping:(BOOL)typing sendMessage:(BOOL)sendMessage {
     if (_typing != typing) {
         _typing = typing;
-        [self.chat sendTyping:typing sendMessage:sendMessage];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(sendTypingStateChange) object:nil];
+        [self performSelector:@selector(sendTypingStateChange) withObject:nil afterDelay:1];
     }
+}
+
+- (void)sendTypingStateChange {
+    [self.chat sendTyping:_typing];
 }
 
 - (void)composeBarDidChangeText:(WLComposeBar*)composeBar {
@@ -510,7 +468,7 @@ CGFloat WLMaxTextViewWidth;
         supplementaryView = loadingView;
     } else {
         WLTypingView *typingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLTypingViewCell" forIndexPath:indexPath];
-        typingView.chat = self.chat;
+        [typingView updateWithChat:self.chat];
         supplementaryView = typingView;
         self.typingView = typingView;
         [self setBackgroundColorForView:typingView atIndexPath:indexPath];
@@ -560,7 +518,6 @@ CGFloat WLMaxTextViewWidth;
         if (self.chat.completed) return CGSizeZero;
         return CGSizeMake(collectionView.width, WLLoadingViewDefaultSize);
     } else {
-        if (!self.chat.showTypingView) return CGSizeZero;
         return CGSizeMake(collectionView.width, [self heightOfTypingCell:self.chat]);
     }
 }
@@ -588,12 +545,9 @@ CGFloat WLMaxTextViewWidth;
     
     [[WLMessagesCounter instance] update:nil];
     
-    __weak typeof(self)weakSelf = self;
-    [self.chat refreshUnreadMessages:^(NSOrderedSet *orderedSet) {
-        [weakSelf reloadDataSynchronously:NO];
-        [weakSelf notifyOnChangeUnreadMessagesCount:orderedSet.count];
-    } failure:^(NSError *error) {
-    }];
+    [self.chat sort];
+    [self reloadDataSynchronously:NO];
+    [self notifyOnChangeUnreadMessagesCount:self.chat.unreadMessages.count];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {

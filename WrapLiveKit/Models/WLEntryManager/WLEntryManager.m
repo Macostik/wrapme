@@ -75,7 +75,10 @@
 
 - (void)didSaveNotification:(NSNotification*)notification {
     if (notification.object == self.context) {
-        [self.backgroundContext mergeChangesFromContextDidSaveNotification:notification];
+        __weak typeof(self)weakSelf = self;
+        [self.backgroundContext performBlockAndWait:^{
+            [weakSelf.backgroundContext mergeChangesFromContextDidSaveNotification:notification];
+        }];
     }
 }
 

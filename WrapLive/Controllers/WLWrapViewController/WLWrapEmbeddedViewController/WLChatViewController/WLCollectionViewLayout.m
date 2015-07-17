@@ -130,7 +130,7 @@ static NSString *WLCollectionElementKindItem = @"item";
             } else {
                 attributes.frame = CGRectMake(0, contentOffset, size.width, size.height);
             }
-            [self handleContentOffset:contentOffset withContentHeight:contentHeight forAttributes:attributes];
+            [self didPrepareAttributes:attributes withContentHeight:contentHeight];
             contentOffset += size.height;
             contentOffset += attributes.bottomSpacing;
         }
@@ -138,7 +138,7 @@ static NSString *WLCollectionElementKindItem = @"item";
     contentHeight = contentOffset + (contentOffset != 0 ? inset : 0);
 }
 
-- (void)handleContentOffset:(CGFloat)offset withContentHeight:(CGFloat)contentHeight forAttributes:(UICollectionViewLayoutAttributes *)attributes {
+- (void)didPrepareAttributes:(UICollectionViewLayoutAttributes *)attributes withContentHeight:(CGFloat)contentHeight {
     
 }
 

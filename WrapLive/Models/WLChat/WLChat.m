@@ -64,10 +64,6 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     }
 }
 
-- (NSUInteger)unreadMessagesCount {
-    return self.unreadMessages.count;
-}
-
 - (void)addTypingUser:(WLUser *)user {
     if (![self.typingUsers containsObject:user]) {
         [self.typingUsers addObject:user];
@@ -104,10 +100,6 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
         [self sort];
     }
     return YES;
-}
-
-- (BOOL)showUnreadMessagesViewForMessgae:(WLMessage *)message {
-    return message == [self.unreadMessages lastObject];
 }
 
 #pragma mark - WLChatTypingChannelDelegate

@@ -45,8 +45,4 @@
 
 - (void)endTyping;
 
-- (BOOL)showUnreadMessagesViewForMessgae:(WLMessage*)message;
-
-- (NSUInteger)unreadMessagesCount;
-
 @end

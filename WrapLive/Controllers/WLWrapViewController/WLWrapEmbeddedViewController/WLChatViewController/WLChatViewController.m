@@ -499,8 +499,7 @@ CGFloat WLMaxTextViewWidth;
         return [self.chat.messagesWithDay containsObject:message] ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
     } else if ([kind isEqualToString:@"unreadMessagesView"]) {
         WLMessage *message = [self.chat.entries tryAt:indexPath.item];
-        BOOL showUnreadMessagesView = [self.chat showUnreadMessagesViewForMessgae:message];
-        return showUnreadMessagesView ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
+        return message == self.chat.unreadMessages.lastObject ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
         if (self.chat.completed) return CGSizeZero;
         return CGSizeMake(collectionView.width, WLLoadingViewDefaultSize);
@@ -509,24 +508,12 @@ CGFloat WLMaxTextViewWidth;
     }
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView bottomSpacingForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return 0;
-    WLMessage *message = [self.chat.entries tryAt:indexPath.item];
-    if ([self.chat.messagesWithDay containsObject:message]) {
-        return 0;
-    } else if ([self.chat.messagesWithName containsObject:message]) {
-        return [self.chat showUnreadMessagesViewForMessgae:message] ? 0 : WLMessageGroupSpacing;
-    } else {
-        return [self.chat showUnreadMessagesViewForMessgae:message] ? 0 : 3;
-    }
-}
-
 - (BOOL)collectionView:(UICollectionView *)collectionView applyContentSizeInsetForAttributes:(UICollectionViewLayoutAttributes *)attributes {
     return ![attributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader];
 }
 
 - (void)refreshUnreadMessagesAfterDragging {
-    if (self.chat.unreadMessagesCount == 0) {
+    if (self.chat.unreadMessages.count == 0) {
         [self updateBadge];
         return;
     }

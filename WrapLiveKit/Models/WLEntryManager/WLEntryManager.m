@@ -234,20 +234,21 @@
 - (void)save {
     __weak typeof(self)weakSelf = self;
     if ([weakSelf.context hasChanges] && weakSelf.coordinator.persistentStores.nonempty) {
-        [weakSelf.context performBlock:^{
+        [weakSelf.context performBlockAndWait:^{
             NSError* error = nil;
             [weakSelf.context save:&error];
-            if (weakSelf.assureSaveBlocks.nonempty) {
-                NSSet *blocks = [weakSelf.assureSaveBlocks copy];
-                for (WLBlock block in blocks) {
-                    block();
-                }
-                [weakSelf.assureSaveBlocks minusSet:blocks];
-            }
             if (error) {
                 WLLog(@"CoreData", @"save error", error);
             }
         }];
+        
+        if (weakSelf.assureSaveBlocks.nonempty) {
+            NSSet *blocks = [weakSelf.assureSaveBlocks copy];
+            for (WLBlock block in blocks) {
+                block();
+            }
+            [weakSelf.assureSaveBlocks minusSet:blocks];
+        }
     }
 }
 

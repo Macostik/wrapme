@@ -136,6 +136,7 @@ static NSTimeInterval _difference = 0;
     NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
     if (response && response.statusCode == 401 && self.reauthorizationEnabled) {
         __strong typeof(self)strongSelf = self;
+        [WLSession setAuthorizationCookie:nil];
         [[WLAuthorizationRequest signInRequest] send:^(id object) {
             [strongSelf send];
         } failure:^(NSError *error) {

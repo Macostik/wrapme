@@ -72,4 +72,8 @@ static NSUserDefaults* WLUserDefaults = nil;
 
 + (void)setNumberOfLaunches:(NSUInteger)numberOfLaunches;
 
++ (NSHTTPCookie*)authorizationCookie;
+
++ (void)setAuthorizationCookie:(NSHTTPCookie*)authorizationCookie;
+
 @end

@@ -16,6 +16,14 @@
 
 static BOOL authorized = NO;
 
++ (void)initialize {
+    NSHTTPCookie* cookie = [WLSession authorizationCookie];
+    if (cookie) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+        authorized = YES;
+    }
+}
+
 + (BOOL)authorized {
     return authorized;
 }
@@ -95,6 +103,13 @@ static BOOL authorized = NO;
             authorized = YES;
             [WLUploadingQueue start];
         }
+        
+        for (NSHTTPCookie *cookie in [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies) {
+            if ([cookie.name isEqualToString:@"_session_id"]) {
+                [WLSession setAuthorizationCookie:cookie];
+            }
+        }
+        
         id pageSize = [response.data objectForKey:@"pagination_fetch_size"];
         if (pageSize) {
             WLPageSize = [pageSize integerValue];

@@ -129,7 +129,6 @@
     
     [UIWindow setMainWindow:self.window];
     
-    self.window.rootViewController = [[WLLaunchScreenViewController alloc] init];
     NSString* storedVersion = [WLSession appVersion];
     if (!storedVersion || [storedVersion compare:@"2.0" options:NSNumericSearch] == NSOrderedAscending) {
         [WLSession clear];
@@ -151,6 +150,14 @@
     
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
     if ([authorization canAuthorize]) {
+        if ([WLAuthorizationRequest authorized]) {
+            WLUser *currentUser = [WLUser currentUser];
+            if (currentUser) {
+                successBlock(currentUser);
+                return;
+            }
+        }
+        self.window.rootViewController = [[WLLaunchScreenViewController alloc] init];
         [authorization signIn:successBlock failure:^(NSError *error) {
             WLUser *currentUser = [WLUser currentUser];
             if ([error isNetworkError] && currentUser) {

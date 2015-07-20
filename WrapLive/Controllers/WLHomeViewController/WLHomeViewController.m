@@ -306,10 +306,6 @@
     [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:NO];
 }
 
-- (IBAction)addPhotoToTopWrap:(id)sender {
-    [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:NO];
-}
-
 // MARK: - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {

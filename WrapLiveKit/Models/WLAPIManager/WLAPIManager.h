@@ -17,14 +17,17 @@
 @class WLAPIResponse;
 @class WLDate;
 @class WLAuthorization;
+@class WLAPIRequest;
 
 static NSUInteger WLPageSize = 10;
+
+typedef void (^WLAPIManagerUnauthorizedErrorBlock) (WLAPIRequest *request, NSError *error);
 
 @interface WLAPIManager : AFHTTPRequestOperationManager
 
 @property (strong, nonatomic) WLAPIEnvironment* environment;
 
-@property (strong, nonatomic) WLFailureBlock unauthorizedErrorBlock;
+@property (strong, nonatomic) WLAPIManagerUnauthorizedErrorBlock unauthorizedErrorBlock;
 
 @property (strong, nonatomic) WLFailureBlock showErrorBlock;
 

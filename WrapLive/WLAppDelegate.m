@@ -26,6 +26,7 @@
 #import "WLToast.h"
 #import "WLAddressBook.h"
 #import "WLEntryNotification.h"
+#import "WLAlertView.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 
@@ -43,6 +44,8 @@
     [self initializeCrashlyticsAndLogging];
     
     [self initializeAPIManager];
+    
+    [self createWindow];
     
     [self presentInitialViewController];
     
@@ -84,11 +87,15 @@
 
 - (void)initializeAPIManager {
     WLAPIManager *manager = [WLAPIManager manager];
-    [manager setUnauthorizedErrorBlock:^ (NSError *error) {
-        WLLog(@"ERROR", @"redirection to welcome screen, sign in failed", error);
+    [manager setUnauthorizedErrorBlock:^ (WLAPIRequest *request, NSError *error) {
         UIStoryboard *storyboard = [UIStoryboard storyboardNamed:WLSignUpStoryboard];
         if ([UIWindow mainWindow].rootViewController.storyboard != storyboard) {
-            [storyboard present:YES];
+            [WLAlertView confirmRedirectingToSignUp:^{
+                WLLog(@"ERROR", @"redirection to welcome screen, sign in failed", error);
+                [storyboard present:YES];
+            } tryAgain:^{
+                [request send];
+            }];
         }
     }];
     
@@ -122,11 +129,9 @@
     version.updatePriority = iVersionUpdatePriorityMedium;
 }
 
-- (void)presentInitialViewController {
-
+- (void)createWindow {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window makeKeyAndVisible];
-    
     [UIWindow setMainWindow:self.window];
     
     NSString* storedVersion = [WLSession appVersion];
@@ -134,6 +139,9 @@
         [WLSession clear];
     }
     [WLSession setCurrentAppVersion];
+}
+
+- (void)presentInitialViewController {
     
     void (^successBlock) (WLUser *user) = ^(WLUser *user) {
         if (user.isSignupCompleted) {
@@ -158,13 +166,18 @@
             }
         }
         self.window.rootViewController = [[WLLaunchScreenViewController alloc] init];
+        __weak typeof(self)weakSelf = self;
         [authorization signIn:successBlock failure:^(NSError *error) {
             WLUser *currentUser = [WLUser currentUser];
             if ([error isNetworkError] && currentUser) {
                 successBlock(currentUser);
             } else {
-                WLLog(@"INITIAL SIGN IN ERROR", @"couldn't sign in, so redirecting to welcome screen", nil);
-                [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+                [WLAlertView confirmRedirectingToSignUp:^{
+                    WLLog(@"INITIAL SIGN IN ERROR", @"couldn't sign in, so redirecting to welcome screen", nil);
+                    [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+                } tryAgain:^{
+                    [weakSelf presentInitialViewController];
+                }];
             }
         }];
     } else {

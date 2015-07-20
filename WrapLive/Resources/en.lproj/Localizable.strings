@@ -220,3 +220,11 @@
 
 "what_is_new_wrap_about" = "What is new wrap about?";
 
+"authorization_error_title" = "Login failed.";
+
+"authorization_error_message" = "Sorry, we don't expect it to occur. Please try again later. If the problem persists, using your same e-mail address to sign up again and everything's good to go!";
+
+"authorization_error_try_again" = "Try Again";
+
+"authorization_error_sign_up" = "Sign Up";
+

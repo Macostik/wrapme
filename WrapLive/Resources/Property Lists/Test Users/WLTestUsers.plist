@@ -447,11 +447,35 @@
 			<key>countryCode</key>
 			<string>380</string>
 			<key>deviceUID</key>
-			<string>75d46b948270982b6d2495d2a4731e288f893892</string>
+			<string>aae0b51cca888f56fc8110010eec639675f0d331</string>
 			<key>email</key>
-			<string>adsfadsf@rambler.ru</string>
+			<string>y.granchenko@gmail.com</string>
 			<key>password</key>
-			<string>f9196a7e43</string>
+			<string>01b56dedeb</string>
+			<key>phone</key>
+			<string>957115541</string>
+		</dict>
+		<dict>
+			<key>countryCode</key>
+			<string>380</string>
+			<key>deviceUID</key>
+			<string>1db3ca27d2a2c8a0e977514b40933d27e4ca6e7c</string>
+			<key>email</key>
+			<string>yura-granchenko@yandex.ru</string>
+			<key>password</key>
+			<string>93996c09a1</string>
+			<key>phone</key>
+			<string>666680745</string>
+		</dict>
+		<dict>
+			<key>countryCode</key>
+			<string>380</string>
+			<key>deviceUID</key>
+			<string>1db3ca27d2a2c8a0e977514b40933d27e4ca6e7c</string>
+			<key>email</key>
+			<string>y.granchenko@mobidev.biz</string>
+			<key>password</key>
+			<string>12df8b312a</string>
 			<key>phone</key>
 			<string>957115540</string>
 		</dict>

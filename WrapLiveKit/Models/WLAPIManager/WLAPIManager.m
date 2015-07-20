@@ -21,18 +21,9 @@
 #import "WLAddWrapRequest.h"
 #import "WLUploadWrapRequest.h"
 #import "WLAuthorizationRequest.h"
-#import "WLWrapRequest.h"
-#import "WLDeleteWrapRequest.h"
 #import "WLUploadCandyRequest.h"
-#import "WLCandiesRequest.h"
-#import "WLCandyRequest.h"
-#import "WLMessagesRequest.h"
-#import "WLDeleteCandyRequest.h"
-#import "WLDeleteCommentRequest.h"
 #import "WLPostCommentRequest.h"
 #import "WLUploadMessageRequest.h"
-#import "WLEntityRequest.h"
-#import "WLLeaveWrapRequest.h"
 #import "WLOperationQueue.h"
 #import "WLHistory.h"
 #import "NSUserDefaults+WLAppGroup.h"
@@ -160,7 +151,8 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    return [[WLEntityRequest request:self] send:success failure:failure];
+    if (success) success(self);
+    return nil;
 }
 
 - (id)older:(BOOL)withinDay success:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
@@ -236,7 +228,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (!self.deletable) {
         __weak typeof(self)weakSelf = self;
-        return [[WLLeaveWrapRequest request:self] send:^(id object) {
+        return [[WLAPIRequest leaveWrap:self] send:^(id object) {
             [weakSelf remove];
             success(object);
         } failure:failure];
@@ -251,7 +243,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
             if (failure) failure([NSError errorWithDescription:WLLS(@"wrap_is_uploading")]);
             break;
         case WLContributionStatusFinished: {
-            operation = [[WLDeleteWrapRequest request:self] send:success failure:failure];
+            operation = [[WLAPIRequest deleteWrap:self] send:success failure:failure];
         }   break;
         default:
             break;
@@ -265,9 +257,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 - (id)fetch:(NSString*)contentType success:(WLSetBlock)success failure:(WLFailureBlock)failure {
     if (self.uploaded) {
-        WLWrapRequest* request = [WLWrapRequest request:self];
-        request.contentType = contentType;
-        return [request send:success failure:failure];
+        return [[WLPaginatedRequest wrap:self contentType:contentType] send:success failure:failure];
     } else if (success) {
         success(nil);
     }
@@ -279,14 +269,14 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)messagesNewer:(NSDate *)newer success:(WLSetBlock)success failure:(WLFailureBlock)failure {
-    WLMessagesRequest* request = [WLMessagesRequest request:self];
+    WLPaginatedRequest* request = [WLPaginatedRequest messages:self];
     request.type = WLPaginatedRequestTypeNewer;
     request.newer = newer;
     return [request send:success failure:failure];
 }
 
 - (id)messagesOlder:(NSDate *)older newer:(NSDate *)newer success:(WLSetBlock)success failure:(WLFailureBlock)failure {
-    WLMessagesRequest* request = [WLMessagesRequest request:self];
+    WLPaginatedRequest* request = [WLPaginatedRequest messages:self];
     request.type = WLPaginatedRequestTypeOlder;
     request.newer = newer;
     request.older = older;
@@ -294,20 +284,9 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)messages:(WLSetBlock)success failure:(WLFailureBlock)failure {
-    WLMessagesRequest* request = [WLMessagesRequest request:self];
+    WLPaginatedRequest* request = [WLPaginatedRequest messages:self];
     request.type = WLPaginatedRequestTypeFresh;
     return [request send:success failure:failure];
-}
-
-- (id)latestMessage:(WLMessageBlock)success failure:(WLFailureBlock)failure {
-    WLMessagesRequest* request = [WLMessagesRequest request:self];
-    request.type = WLPaginatedRequestTypeFresh;
-    request.latest = YES;
-    return [request send:^(id object) {
-        if (success) {
-            success([object lastObject]);
-        }
-    } failure:failure];
 }
 
 - (void)preload {
@@ -350,7 +329,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
             if (failure) failure([NSError errorWithDescription:WLLS(@"photo_is_uploading")]);
         } break;
         case WLContributionStatusFinished: {
-            operation = [[WLDeleteCandyRequest request:self] send:success failure:failure];
+            operation = [[WLAPIRequest deleteCandy:self] send:success failure:failure];
         } break;
         default:
             break;
@@ -360,7 +339,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 - (id)fetch:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (self.uploaded) {
-        return [[WLCandyRequest request:self] send:success failure:failure];
+        return [[WLAPIRequest candy:self] send:success failure:failure];
     } else {
         if (failure) failure([NSError errorWithDescription:WLLS(@"photo_is_uploading")]);
         return nil;
@@ -415,7 +394,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
                     if (failure) failure([NSError errorWithDescription:WLLS(@"photo_is_uploading")]);
                     break;
                 case WLContributionStatusFinished:
-                    return [[WLDeleteCommentRequest request:self] send:success failure:failure];
+                    return [[WLAPIRequest deleteComment:self] send:success failure:failure];
                     break;
                 default:
                     break;

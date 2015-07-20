@@ -8,43 +8,29 @@
 
 #import "WLAPIRequest.h"
 
-typedef NS_ENUM(NSUInteger, WLAuthorizationStep) {
-    WLAuthorizationStepSignUp,
-    WLAuthorizationStepActivation,
-    WLAuthorizationStepSignIn
-};
-
 @interface WLAuthorizationRequest : WLAPIRequest
-
-@property (strong, nonatomic) WLAuthorization* authorization;
-
-@property (nonatomic) WLAuthorizationStep step;
 
 @property (nonatomic) BOOL tryUncorfirmedEmail;
 
 + (BOOL)authorized;
 
-+ (instancetype)request:(WLAuthorizationStep)step authorization:(WLAuthorization*)authorization;
++ (instancetype)signUp:(WLAuthorization*)authorization;
 
-+ (instancetype)request:(WLAuthorizationStep)step;
++ (instancetype)activation:(WLAuthorization*)authorization;
 
-+ (instancetype)signUpRequest:(WLAuthorization*)authorization;
++ (instancetype)signIn:(WLAuthorization*)authorization;
 
-+ (instancetype)activationRequest:(WLAuthorization*)authorization;
++ (instancetype)signUp;
 
-+ (instancetype)signInRequest:(WLAuthorization*)authorization;
++ (instancetype)activation;
 
-+ (instancetype)signUpRequest;
-
-+ (instancetype)activationRequest;
-
-+ (instancetype)signInRequest;
++ (instancetype)signIn;
 
 @end
 
-@interface WLWhoIsRequest : WLAPIRequest
+@interface WLAPIRequest (WLWhoIs)
 
-@property (strong, nonatomic) NSString* email;
++ (instancetype)whois:(NSString*)email;
 
 @end
 

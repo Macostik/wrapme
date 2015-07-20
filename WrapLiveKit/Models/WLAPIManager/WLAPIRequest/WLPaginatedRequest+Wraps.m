@@ -1,0 +1,92 @@
+//
+//  WLAPIRequest+Wraps.m
+//  wrapLive
+//
+//  Created by Sergey Maximenko on 7/20/15.
+//  Copyright (c) 2015 Ravenpod. All rights reserved.
+//
+
+#import "WLPaginatedRequest+Wraps.h"
+#import "WLEntryNotifier.h"
+
+@implementation WLPaginatedRequest (Wraps)
+
++ (instancetype)wraps:(NSString *)scope {
+    return [[[self GET:@"wraps", nil] parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
+        [parameters trySetObject:scope forKey:@"scope"];
+    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        NSSet* wraps = [WLWrap API_entries:[response.data arrayForKey:@"wraps"]];
+        if (wraps.nonempty) {
+            [[WLUser currentUser] addWraps:wraps];
+        }
+        success(wraps);
+    }];
+}
+
++ (instancetype)candies:(WLWrap *)wrap {
+    return [[[self alloc] init] candies:wrap];
+}
+
++ (instancetype)messages:(WLWrap *)wrap {
+    return [[[self GET:@"wraps/%@/chats", wrap.identifier] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        if (wrap.valid) {
+            NSSet* messages = [WLMessage API_entries:response.data[@"chats"] relatedEntry:wrap];
+            if (messages.nonempty) {
+                [wrap notifyOnUpdate:nil];
+            }
+            success(messages);
+        } else {
+            success(nil);
+        }
+    }] afterFailure:^(NSError *error) {
+        if ([error isError:WLErrorContentUnavaliable] && wrap.valid && wrap.uploaded) {
+            [wrap remove];
+        }
+    }];
+}
+
+- (instancetype)candies:(WLWrap *)wrap {
+    self.path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
+    [[self parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
+        [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
+    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        if (wrap.valid) {
+            NSSet* candies = [WLCandy API_entries:response.data[WLCandiesKey] relatedEntry:wrap];
+            [wrap addCandies:candies];
+            success(candies);
+        } else {
+            success(nil);
+        }
+    }];
+    return self;
+}
+
++ (instancetype)wrap:(WLWrap *)wrap contentType:(NSString *)contentType {
+    return [[[[self GET:@"wraps/%@", wrap.identifier] parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
+        [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
+        [parameters trySetObject:contentType forKey:@"pick"];
+        if (request.type == WLPaginatedRequestTypeNewer && request.newer) {
+            [parameters trySetObject:@"newer_than" forKey:@"condition"];
+            [parameters trySetObject:@([request.newer endOfDay].timestamp) forKey:@"offset_in_epoch"];
+        } else if (request.type == WLPaginatedRequestTypeOlder && request.older) {
+            [parameters trySetObject:@"older_than" forKey:@"condition"];
+            [parameters trySetObject:@([request.older beginOfDay].timestamp) forKey:@"offset_in_epoch"];
+        }
+    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        if (wrap.valid) {
+            NSSet* oldCandies = [wrap.candies copy];
+            [wrap update:response.data[WLWrapKey]];
+            NSMutableSet* newCandies = [wrap.candies mutableCopy];
+            [newCandies minusSet:oldCandies];
+            success(newCandies);
+        } else {
+            success(nil);
+        }
+    }] beforeFailure:^(NSError *error) {
+        if (wrap.uploaded && error.isContentUnavaliable) {
+            [wrap remove];
+        }
+    }];
+}
+
+@end

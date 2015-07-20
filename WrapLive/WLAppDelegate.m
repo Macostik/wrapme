@@ -55,7 +55,7 @@
                 [WLUploadingQueue start];
                 [[WLAddressBook addressBook] updateCachedRecordsAfterFailure];
             } else {
-                [[WLAuthorizationRequest signInRequest] send];
+                [[WLAuthorizationRequest signIn] send];
             }
         }
     }];

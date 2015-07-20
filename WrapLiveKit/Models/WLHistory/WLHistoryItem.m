@@ -7,6 +7,7 @@
 //
 
 #import "WLHistoryItem.h"
+#import "WLPaginatedRequest+Wraps.h"
 
 @implementation WLHistoryItem
 
@@ -17,18 +18,15 @@
     if (self) {
         self.sortComparator = comparatorByCreatedAt;
         self.offset = CGPointZero;
-        self.request = [WLCandiesRequest request];
+        self.request = [WLPaginatedRequest candies:nil];
         self.request.sameDay = YES;
     }
     return self;
 }
 
-- (void)configureRequest:(WLCandiesRequest *)request {
+- (void)configureRequest:(WLPaginatedRequest *)request {
     WLWrap* wrap = [[self.entries firstObject] wrap];
-    if (wrap) {
-        request.wrap = wrap;
-    }
-    [super configureRequest:request];
+    [super configureRequest:[request candies:wrap]];
 }
 
 - (NSDate *)paginationDate {

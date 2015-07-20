@@ -14,17 +14,35 @@
 #import "WLAPIResponse.h"
 #import "WLAPIManager.h"
 
+@class WLAPIRequest;
+
+typedef void (^WLAPIRequestMapper)(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure);
+
+typedef void (^WLAPIRequestParametrizer)(id request, NSMutableDictionary* parameters);
+
+typedef BOOL (^WLAPIRequestFailureValidator)(id request, NSError *error);
+
 @interface WLAPIRequest : NSObject
 
 @property (strong, nonatomic) NSString* method;
 
-@property (readonly, nonatomic) NSString* path;
+@property (strong, nonatomic) NSString* path;
+
+@property (strong, nonatomic) WLAPIRequestMapper mapper;
+
+@property (strong, nonatomic) WLAPIRequestParametrizer parametrizer;
 
 @property (readonly, nonatomic) WLAPIManager* manager;
 
 @property (strong, nonatomic) WLObjectBlock successBlock;
 
+@property (strong, nonatomic) WLFailureBlock beforeFailure;
+
 @property (strong, nonatomic) WLFailureBlock failureBlock;
+
+@property (strong, nonatomic) WLFailureBlock afterFailure;
+
+@property (strong, nonatomic) WLAPIRequestFailureValidator failureValidator;
 
 @property (weak, nonatomic) AFHTTPRequestOperation *operation;
 
@@ -39,6 +57,24 @@
 + (NSString*)defaultMethod;
 
 + (NSTimeInterval)timeout;
+
++ (instancetype)GET:(NSString*)path, ...;
+
++ (instancetype)POST:(NSString*)path, ...;
+
++ (instancetype)PUT:(NSString*)path, ...;
+
++ (instancetype)DELETE:(NSString*)path, ...;
+
+- (instancetype)map:(WLAPIRequestMapper)mapper;
+
+- (instancetype)parametrize:(WLAPIRequestParametrizer)parametrizer;
+
+- (instancetype)beforeFailure:(WLFailureBlock)beforeFailure;
+
+- (instancetype)afterFailure:(WLFailureBlock)afterFailure;
+
+- (instancetype)validateFailure:(WLAPIRequestFailureValidator)validateFailure;
 
 - (NSMutableDictionary *)configure:(NSMutableDictionary*)parameters;
 

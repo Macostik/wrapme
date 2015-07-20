@@ -61,6 +61,67 @@ static NSTimeInterval _difference = 0;
     return 45;
 }
 
++ (instancetype)GET:(NSString*)path, ... {
+    BEGIN_ARGUMENTS(path)
+    WLAPIRequest *request = [[self alloc] init];
+    request.path = [[NSString alloc] initWithFormat:path arguments:args];
+    request.method = @"GET";
+    END_ARGUMENTS
+    return request;
+}
+
++ (instancetype)POST:(NSString*)path, ... {
+    BEGIN_ARGUMENTS(path)
+    WLAPIRequest *request = [[self alloc] init];
+    request.path = [[NSString alloc] initWithFormat:path arguments:args];
+    request.method = @"POST";
+    END_ARGUMENTS
+    return request;
+}
+
++ (instancetype)PUT:(NSString*)path, ... {
+    BEGIN_ARGUMENTS(path)
+    WLAPIRequest *request = [[self alloc] init];
+    request.path = [[NSString alloc] initWithFormat:path arguments:args];
+    request.method = @"PUT";
+    END_ARGUMENTS
+    return request;
+}
+
++ (instancetype)DELETE:(NSString*)path, ... {
+    BEGIN_ARGUMENTS(path)
+    WLAPIRequest *request = [[self alloc] init];
+    request.path = [[NSString alloc] initWithFormat:path arguments:args];
+    request.method = @"DELETE";
+    END_ARGUMENTS
+    return request;
+}
+
+- (instancetype)map:(WLAPIRequestMapper)mapper {
+    self.mapper = mapper;
+    return self;
+}
+
+- (instancetype)parametrize:(WLAPIRequestParametrizer)parametrizer {
+    self.parametrizer = parametrizer;
+    return self;
+}
+
+- (instancetype)beforeFailure:(WLFailureBlock)beforeFailure {
+    self.beforeFailure = beforeFailure;
+    return self;
+}
+
+- (instancetype)afterFailure:(WLFailureBlock)afterFailure {
+    self.afterFailure = afterFailure;
+    return self;
+}
+
+- (instancetype)validateFailure:(WLAPIRequestFailureValidator)validateFailure {
+    self.failureValidator = validateFailure;
+    return self;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -94,6 +155,9 @@ static NSTimeInterval _difference = 0;
 - (id)send {
     [self cancel];
     NSMutableDictionary* parameters = [self configure:[NSMutableDictionary dictionary]];
+    if (self.parametrizer) {
+        self.parametrizer(self, parameters);
+    }
     NSString* url = [self.manager urlWithPath:self.path];
     NSMutableURLRequest *request = [self request:parameters url:url];
     request.timeoutInterval = self.timeout;
@@ -104,7 +168,16 @@ static NSTimeInterval _difference = 0;
         WLAPIResponse* response = [WLAPIResponse response:responseObject];
 		if (response.code == WLAPIResponseCodeSuccess) {
             WLLog(@"RESPONSE",[operation.request.URL relativeString], responseObject);
-            [strongSelf handleSuccess:[strongSelf objectInResponse:response]];
+            if (strongSelf.mapper) {
+                strongSelf.mapper(response, ^(id object) {
+                    [strongSelf handleSuccess:object];
+                }, ^(NSError *error) {
+                    WLLog(@"ERROR",[operation.request.URL relativeString], error);
+                    [strongSelf handleFailure:error];
+                });
+            } else {
+                [strongSelf handleSuccess:[strongSelf objectInResponse:response]];
+            }
 		} else {
             WLLog(@"API ERROR",[operation.request.URL relativeString], responseObject);
             [strongSelf handleFailure:[NSError errorWithResponse:response]];
@@ -133,11 +206,19 @@ static NSTimeInterval _difference = 0;
 }
 
 - (void)handleFailure:(NSError *)error {
+    
+    if (self.failureValidator && !self.failureValidator(self, error)) {
+        return;
+    }
+    
+    if (self.beforeFailure) {
+        self.beforeFailure(error);
+    }
     NSHTTPURLResponse* response = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseErrorKey];
     if (response && response.statusCode == 401 && self.reauthorizationEnabled) {
         __strong typeof(self)strongSelf = self;
         [WLSession setAuthorizationCookie:nil];
-        [[WLAuthorizationRequest signInRequest] send:^(id object) {
+        [[WLAuthorizationRequest signIn] send:^(id object) {
             [strongSelf send];
         } failure:^(NSError *error) {
             if ([error isNetworkError]) {
@@ -159,6 +240,10 @@ static NSTimeInterval _difference = 0;
             self.failureBlock = nil;
             self.successBlock = nil;
         }
+    }
+    
+    if (self.afterFailure) {
+        self.afterFailure(error);
     }
 }
 

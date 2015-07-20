@@ -84,7 +84,7 @@
     __weak WLHomeDataSource *dataSource = self.homeDataSource;
     
     NSSet* wraps = [WLUser currentUser].wraps;
-    dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLWrapsRequest new]];
+    dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:@"public_not_following"]];
     
     [dataSource setSelectionBlock:^(id entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:NO];

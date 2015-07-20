@@ -7,7 +7,6 @@
 //
 
 #import "WLPaginatedSet.h"
-#import "WLCandiesRequest.h"
 
 @class WLHistory;
 
@@ -19,6 +18,6 @@
 
 @property (nonatomic) CGPoint offset;
 
-@property (strong, nonatomic) WLCandiesRequest* request;
+@property (strong, nonatomic) WLPaginatedRequest* request;
 
 @end

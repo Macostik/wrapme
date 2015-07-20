@@ -43,6 +43,6 @@
 
 - (void)registerItemFooterSupplementaryViewKind:(NSString*)kind;
 
-- (void)handleContentOffset:(CGFloat)offset withContentHeight:(CGFloat)contentHeight forAttributes:(UICollectionViewLayoutAttributes *)attributes;
+- (void)didPrepareAttributes:(UICollectionViewLayoutAttributes *)attributes withContentHeight:(CGFloat)contentHeight;
 
 @end

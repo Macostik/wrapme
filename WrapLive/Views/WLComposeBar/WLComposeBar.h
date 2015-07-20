@@ -23,7 +23,7 @@
 
 @end
 
-@interface WLComposeBar : UIView
+@interface WLComposeBar : UIControl
 
 @property (nonatomic, weak) IBOutlet id delegate;
 

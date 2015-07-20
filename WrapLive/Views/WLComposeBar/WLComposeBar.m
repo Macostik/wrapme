@@ -162,6 +162,7 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
     self.placeholderLabel.hidden = textView.text.nonempty;
     [self updateHeight];
     [self updateStateAnimated:YES];
+    [self sendActionsForControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
@@ -171,6 +172,7 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 	if ([self.delegate respondsToSelector:@selector(composeBarDidBeginEditing:)]) {
 		[self.delegate composeBarDidBeginEditing:self];
 	}
+    [self sendActionsForControlEvents:UIControlEventEditingDidBegin];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
@@ -180,6 +182,7 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 	if ([self.delegate respondsToSelector:@selector(composeBarDidEndEditing:)]) {
 		[self.delegate composeBarDidEndEditing:self];
 	}
+    [self sendActionsForControlEvents:UIControlEventEditingDidEnd];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {

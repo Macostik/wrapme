@@ -129,7 +129,6 @@
     
     [UIWindow setMainWindow:self.window];
     
-    self.window.rootViewController = [[WLLaunchScreenViewController alloc] init];
     NSString* storedVersion = [WLSession appVersion];
     if (!storedVersion || [storedVersion compare:@"2.0" options:NSNumericSearch] == NSOrderedAscending) {
         [WLSession clear];
@@ -151,6 +150,14 @@
     
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
     if ([authorization canAuthorize]) {
+        if ([WLAuthorizationRequest authorized]) {
+            WLUser *currentUser = [WLUser currentUser];
+            if (currentUser) {
+                successBlock(currentUser);
+                return;
+            }
+        }
+        self.window.rootViewController = [[WLLaunchScreenViewController alloc] init];
         [authorization signIn:successBlock failure:^(NSError *error) {
             WLUser *currentUser = [WLUser currentUser];
             if ([error isNetworkError] && currentUser) {
@@ -227,29 +234,42 @@ static WLDataBlock deviceTokenCompletion = nil;
 
 - (void)handleRemoteNotification:(NSDictionary*)userInfo completionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     __weak typeof(self)weakSelf = self;
+    __block void (^blockCompletion)(UIBackgroundFetchResult) = completionHandler;
+    
+    UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        if (blockCompletion) blockCompletion(UIBackgroundFetchResultFailed);
+        blockCompletion = nil;
+    }];
+    
+    void (^validatedCompletion)(UIBackgroundFetchResult) = ^ (UIBackgroundFetchResult result) {
+        if (blockCompletion) blockCompletion(result);
+        blockCompletion = nil;
+        [[UIApplication sharedApplication] endBackgroundTask:task];
+    };
+    
     BOOL probablyUserInteraction = [UIApplication sharedApplication].applicationState == UIApplicationStateInactive;
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
         if (notification.presentable) {
             UIApplicationState state = [UIApplication sharedApplication].applicationState;
             if (state == UIApplicationStateActive) {
                 if (probablyUserInteraction) [weakSelf presentRemoteNotification:(id)notification];
-                if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+                validatedCompletion(UIBackgroundFetchResultNewData);
             } else if (state == UIApplicationStateInactive) {
                 [weakSelf setDidBecomeActiveBlock:^{
                     if (probablyUserInteraction) [weakSelf presentRemoteNotification:(id)notification];
                 }];
                 run_after(1.0f, ^{
                     weakSelf.didBecomeActiveBlock = nil;
-                    if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+                    validatedCompletion(UIBackgroundFetchResultNewData);
                 });
             } else {
-                if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+                validatedCompletion(UIBackgroundFetchResultNewData);
             }
         } else {
-            if (completionHandler) completionHandler(UIBackgroundFetchResultNewData);
+            validatedCompletion(UIBackgroundFetchResultNewData);
         }
     } failure:^(NSError *error) {
-        if (completionHandler) completionHandler(UIBackgroundFetchResultFailed);
+        validatedCompletion(UIBackgroundFetchResultFailed);
     }];
 }
 

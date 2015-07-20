@@ -354,10 +354,18 @@
                 if ([self isAlreadyHandledNotification:notification]) {
                     if (success) success(notification);
                 } else {
-                    [notification handle:^ {
-                        [weakSelf addHandledNotifications:@[notification]];
-                        if (success) success(notification);
-                    } failure:failure];
+                    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+                        [[WLEntryManager manager] assureSave:^{
+                            [notification handle:^ {
+                                [weakSelf addHandledNotifications:@[notification]];
+                                if (success) success(notification);
+                                [operation finish];
+                            } failure:^(NSError *error) {
+                                if (failure) failure(error);
+                                [operation finish];
+                            }];
+                        }];
+                    });
                 }
             } else {
                 if (failure) failure([NSError errorWithDescription:@"Cannot handle remote notification."]);

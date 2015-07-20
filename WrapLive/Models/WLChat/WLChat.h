@@ -37,20 +37,12 @@
 
 @property (weak, nonatomic) WLWrap* wrap;
 
-@property (readonly, nonatomic) BOOL showTypingView;
-
 + (instancetype)chatWithWrap:(WLWrap*)wrap;
 
-- (void)sendTyping:(BOOL)typing sendMessage:(BOOL)sendMessage;
+- (void)sendTyping:(BOOL)typing;
 
 - (void)beginTyping;
 
-- (void)endTyping:(BOOL)sendMessage;
-
-- (BOOL)showUnreadMessagesViewForMessgae:(WLMessage*)message;
-
-- (void)refreshUnreadMessages:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure;
-
-- (NSUInteger)unreadMessagesCount;
+- (void)endTyping;
 
 @end

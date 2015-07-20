@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ONi-gb-89W" customClass="WLImageView">
-                    <rect key="frame" x="12" y="12" width="48" height="48"/>
+                    <rect key="frame" x="12" y="62" width="48" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="48" id="lQT-xQ-89e"/>
@@ -29,8 +29,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User1, User2 and User3 are typing..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgY-kG-uMD" customClass="WLLabel">
-                    <rect key="frame" x="72" y="12" width="218" height="48"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User1, User2 and User3 are typi..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgY-kG-uMD" customClass="WLLabel">
+                    <rect key="frame" x="72" y="77" width="203" height="18"/>
                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -40,18 +40,21 @@
                 </label>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="JgY-kG-uMD" secondAttribute="bottom" id="2Pa-ms-lkS"/>
-                <constraint firstItem="ONi-gb-89W" firstAttribute="top" secondItem="97O-yH-rHO" secondAttribute="top" constant="12" id="Knv-ZA-Jkc"/>
+                <constraint firstItem="ONi-gb-89W" firstAttribute="top" secondItem="97O-yH-rHO" secondAttribute="top" priority="250" constant="2" id="Knv-ZA-Jkc"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JgY-kG-uMD" secondAttribute="trailing" constant="12" id="UU2-bX-k9A"/>
                 <constraint firstItem="JgY-kG-uMD" firstAttribute="leading" secondItem="ONi-gb-89W" secondAttribute="trailing" constant="12" id="kaD-s5-YLd"/>
-                <constraint firstItem="ONi-gb-89W" firstAttribute="top" secondItem="JgY-kG-uMD" secondAttribute="top" id="qVJ-xy-ZQ7"/>
+                <constraint firstItem="ONi-gb-89W" firstAttribute="top" secondItem="97O-yH-rHO" secondAttribute="bottom" priority="750" constant="2" id="oAH-5e-xLb"/>
+                <constraint firstItem="ONi-gb-89W" firstAttribute="centerY" secondItem="JgY-kG-uMD" secondAttribute="centerY" priority="750" id="q7G-aO-YAr"/>
+                <constraint firstItem="JgY-kG-uMD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ONi-gb-89W" secondAttribute="top" id="qVJ-xy-ZQ7"/>
                 <constraint firstItem="ONi-gb-89W" firstAttribute="leading" secondItem="97O-yH-rHO" secondAttribute="leading" constant="12" id="yv5-ZG-DrK"/>
             </constraints>
             <connections>
                 <outlet property="avatarView" destination="ONi-gb-89W" id="AVJ-z6-aOX"/>
+                <outlet property="invisibleConstraint" destination="oAH-5e-xLb" id="61x-bk-U9f"/>
                 <outlet property="nameTextField" destination="JgY-kG-uMD" id="33u-ml-v2I"/>
+                <outlet property="visibleConstraint" destination="Knv-ZA-Jkc" id="98O-Fi-QLw"/>
             </connections>
-            <point key="canvasLocation" x="437" y="293"/>
+            <point key="canvasLocation" x="429" y="325"/>
         </collectionReusableView>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

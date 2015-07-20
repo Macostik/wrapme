@@ -169,4 +169,16 @@ static NSDate *_confirmationDate = nil;
     [self setInteger:numberOfLaunches key:@"WLNumberOfLaucnhes"];
 }
 
++ (NSHTTPCookie*)authorizationCookie {
+    NSDictionary *cookieProperties = [self object:@"authorizationCookie"];
+    if (cookieProperties) {
+        return [NSHTTPCookie cookieWithProperties:cookieProperties];
+    }
+    return nil;
+}
+
++ (void)setAuthorizationCookie:(NSHTTPCookie*)authorizationCookie {
+    [self setObject:authorizationCookie.properties key:@"authorizationCookie"];
+}
+
 @end

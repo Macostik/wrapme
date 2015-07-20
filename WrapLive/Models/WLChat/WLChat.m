@@ -10,7 +10,6 @@
 #import "WLNotificationSubscription.h"
 
 static NSString *WLChatTypingChannelTypingKey = @"typing";
-static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
 
 @interface WLChat () <WLNotificationSubscriptionDelegate>
 
@@ -32,6 +31,7 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.unreadMessages = [NSMutableOrderedSet orderedSet];
         self.messagesWithDay = [NSHashTable weakObjectsHashTable];
         self.messagesWithName = [NSHashTable weakObjectsHashTable];
         self.typingUsers = [NSMutableOrderedSet orderedSet];
@@ -62,18 +62,6 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
     } else {
         self.subscription = nil;
     }
-}
-
-- (void)refreshUnreadMessages:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
-    __weak typeof(self)weakSelf = self;
-    [[[WLMessage fetchRequest:@"wrap == %@ AND unread == YES", weakSelf.wrap] sortedBy:@"createdAt"] execute:^(NSArray *array) {
-        weakSelf.unreadMessages = [NSMutableOrderedSet orderedSetWithArray:array];
-        if (success) success(weakSelf.unreadMessages);
-    } failure:failure];
-}
-
-- (NSUInteger)unreadMessagesCount {
-    return self.unreadMessages.count;
 }
 
 - (void)addTypingUser:(WLUser *)user {
@@ -114,14 +102,6 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
     return YES;
 }
 
-- (BOOL)showTypingView {
-    return self.typingUsers.nonempty;
-}
-
-- (BOOL)showUnreadMessagesViewForMessgae:(WLMessage *)message {
-    return message == [self.unreadMessages lastObject];
-}
-
 #pragma mark - WLChatTypingChannelDelegate
 
 - (void)didBeginTyping:(WLUser *)user {
@@ -145,10 +125,15 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
 - (void)didChange {
     
     NSHashTable *messagesWithName = [NSHashTable weakObjectsHashTable];
-    
+    [_unreadMessages removeAllObjects];
     [_messagesWithDay removeAllObjects];
     NSOrderedSet *messages = self.entries;
     for (WLMessage *message in messages) {
+        
+        if (message.unread) {
+            [_unreadMessages addObject:message];
+        }
+        
         NSUInteger index = [messages indexOfObject:message];
         WLMessage* previousMessage = [messages tryAt:index + 1];
         BOOL showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
@@ -199,16 +184,16 @@ static NSString *WLChatTypingChannelSendMessageKey = @"send_message";
     }
 }
 
-- (void)sendTyping:(BOOL)typing sendMessage:(BOOL)sendMessage {
-    [self.subscription changeState:@{WLChatTypingChannelTypingKey : @(typing),WLChatTypingChannelSendMessageKey : @(sendMessage)}];
+- (void)sendTyping:(BOOL)typing {
+    [self.subscription changeState:@{WLChatTypingChannelTypingKey : @(typing)}];
 }
 
 - (void)beginTyping {
-    [self sendTyping:YES sendMessage:NO];
+    [self sendTyping:YES];
 }
 
-- (void)endTyping:(BOOL)sendMessage {
-    [self sendTyping:NO sendMessage:sendMessage];
+- (void)endTyping {
+    [self sendTyping:NO];
 }
 
 @end

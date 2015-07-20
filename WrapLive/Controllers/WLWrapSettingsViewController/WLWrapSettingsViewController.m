@@ -45,13 +45,19 @@ static NSInteger WLIndent = 12.0;
     
     [self.candyNotifyTrigger setOn:self.wrap.isCandyNotifiable];
     [self.chatNotifyTrigger setOn:self.wrap.isChatNotifiable];
+    self.candyNotifyTrigger.userInteractionEnabled = NO;
+    self.chatNotifyTrigger.userInteractionEnabled = NO;
     
-//    __weak __typeof(self)weakSelf = self;
-//    [[WLPreferenceRequest request:self.wrap] send:^(WLWrap *wrap) {
-//        [weakSelf.candyNotifyTrigger setOn:wrap.isCandyNotifiable];
-//        [weakSelf.chatNotifyTrigger setOn:wrap.isChatNotifiable];
-//    } failure:^(NSError *error) {
-//    }];
+    __weak __typeof(self)weakSelf = self;
+        [[WLPreferenceRequest request:self.wrap] send:^(WLWrap *wrap) {
+            [weakSelf.candyNotifyTrigger setOn:wrap.isCandyNotifiable];
+            [weakSelf.chatNotifyTrigger setOn:wrap.isChatNotifiable];
+            weakSelf.candyNotifyTrigger.userInteractionEnabled = YES;
+            weakSelf.chatNotifyTrigger.userInteractionEnabled = YES;
+        } failure:^(NSError *error) {
+            weakSelf.candyNotifyTrigger.userInteractionEnabled = YES;
+            weakSelf.chatNotifyTrigger.userInteractionEnabled = YES;
+        }];
 }
 
 - (IBAction)handleAction:(WLButton *)sender {
@@ -71,23 +77,20 @@ static NSInteger WLIndent = 12.0;
     } failure:nil];
 }
 
-- (IBAction)changeSwichValue:(id)sender {
-    self.wrap.isCandyNotifiable = self.candyNotifyTrigger.isOn;
-    self.wrap.isChatNotifiable = self.chatNotifyTrigger.isOn;
-   
-//    BOOL candyNotify = self.candyNotifyTrigger.isOn;
-//    BOOL chatNotify = self.chatNotifyTrigger.isOn;
-//    __weak typeof(self)weakSelf = self;
-//    runUnaryQueuedOperation(@"wl_changing_notification_preferences_queue", ^(WLOperation *operation) {
-//        WLUploadPreferenceRequest *request = [WLUploadPreferenceRequest request:weakSelf.wrap];
-//        request.candyNotify = candyNotify;
-//        request.chatNotify = chatNotify;
-//        [request send:^(id object) {
-//            [operation finish];
-//        } failure:^(NSError *error) {
-//            [operation finish];
-//        }];
-//    });
+- (IBAction)changeSwichValue:(id)sender {   
+    BOOL candyNotify = self.candyNotifyTrigger.isOn;
+    BOOL chatNotify = self.chatNotifyTrigger.isOn;
+    __weak typeof(self)weakSelf = self;
+    runUnaryQueuedOperation(@"wl_changing_notification_preferences_queue", ^(WLOperation *operation) {
+        WLUploadPreferenceRequest *request = [WLUploadPreferenceRequest request:weakSelf.wrap];
+        request.candyNotify = candyNotify;
+        request.chatNotify = chatNotify;
+        [request send:^(id object) {
+            [operation finish];
+        } failure:^(NSError *error) {
+            [operation finish];
+        }];
+    });
 }
 
 - (IBAction)editButtonClick:(UIButton *)sender {

@@ -28,6 +28,8 @@
             secretKey = @"sec-c-MzYyMTY1YzMtYTZkOC00NzU3LTkxMWUtMzgwYjdkNWNkMmFl";
         }
         
+        [PNLog enabled:NO];
+        
         PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:publishKey subscribeKey:subscribeKey];
         instance = [self clientWithConfiguration:configuration];
     }

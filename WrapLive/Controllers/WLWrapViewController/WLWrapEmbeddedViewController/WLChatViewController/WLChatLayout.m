@@ -16,17 +16,18 @@
     [super prepareLayout];
 }
 
-- (void)handleContentOffset:(CGFloat)offset withContentHeight:(CGFloat)contentHeight forAttributes:(UICollectionViewLayoutAttributes *)attributes {
+- (void)didPrepareAttributes:(UICollectionViewLayoutAttributes *)attributes withContentHeight:(CGFloat)contentHeight {
     if ([attributes.representedElementKind isEqualToString:@"unreadMessagesView"]) {
         self.unreadMessagesViewIndexPath = attributes.indexPath;
         if (self.scrollToUnreadMessages) {
-            UICollectionView *cv = self.collectionView;
-            CGFloat height = MAX(0, contentHeight - cv.height);
-            CGPoint contentOffset = CGPointMake(0, Smoothstep(0, height, offset - cv.height/2));
-            self.collectionView.contentOffset = contentOffset;
+            CGFloat maxOffset = contentHeight - self.collectionView.height;
+            if (maxOffset > 0) {
+                CGFloat offset = attributes.frame.origin.y - self.collectionView.height/2 + attributes.frame.size.height/2;
+                self.collectionView.contentOffset = CGPointMake(0, Smoothstep(0, maxOffset, offset));
+            }
             self.scrollToUnreadMessages = NO;
         }
     }
-}   
+}
 
 @end

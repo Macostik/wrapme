@@ -84,6 +84,7 @@ static WLAuthorization* _authorization = nil;
 + (void)clear {
     [WLUser setCurrentUser:nil];
 	[self setAuthorization:nil];
+    [self setAuthorizationCookie:nil];
     [[WLEntryManager manager] clear];
 }
 

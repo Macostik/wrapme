@@ -30,8 +30,10 @@
     
     if (dictionary[@"devices"]) {
         NSSet* devices = [WLDevice API_entries:[dictionary arrayForKey:@"devices"] relatedEntry:self];
-        if (![self.devices isEqualToSet:devices]) self.devices = devices;
-        self.phones = nil;
+        if (![self.devices isEqualToSet:devices]) {
+            self.devices = devices;
+            self.phones = nil;
+        }
     }
     
     return [super API_setup:dictionary relatedEntry:relatedEntry];
@@ -95,7 +97,10 @@ static NSString *_combinedIdentifier = nil;
 
 + (WLUser*)currentUser {
 	if (!currentUser) {
-		currentUser = [[WLUser entriesWhere:@"current == TRUE"] lastObject];
+		WLUser *currentUser = [[WLUser entriesWhere:@"current == TRUE"] lastObject];
+        if (currentUser) {
+            [self setCurrentUser:currentUser];
+        }
 	}
 	return currentUser;
 }

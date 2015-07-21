@@ -45,6 +45,8 @@
     
     [self initializeAPIManager];
     
+    [[WLNotificationCenter defaultCenter] configure];
+    
     [self createWindow];
     
     [self presentInitialViewController];
@@ -63,7 +65,7 @@
         }
     }];
 	[[WLKeyboard keyboard] configure];
-	[[WLNotificationCenter defaultCenter] configure];
+	
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:^(WLNotification *notification) {
         if ([notification isKindOfClass:[WLEntryNotification class]]) {
             [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification failure:^(NSError *error) {

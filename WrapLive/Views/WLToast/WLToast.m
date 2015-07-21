@@ -177,8 +177,7 @@
             [operation finish];
         };
         
-        [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(dismiss) object:nil];
-        [weakSelf performSelector:@selector(dismiss) withObject:nil afterDelay:WLToastDismissalDelay];
+        [weakSelf enqueueSelectorPerforming:@selector(dismiss) afterDelay:WLToastDismissalDelay];
     });
 }
 

@@ -16,6 +16,7 @@
 #import "WLEntryManager.h"
 #import "WLCryptographer.h"
 #import "NSUserDefaults+WLAppGroup.h"
+#import "NSObject+Extension.h"
 
 static NSString* WLSessionServiceName = @"WrapLive";
 static NSString* WLSessionAccountName = @"WrapLiveAccount";
@@ -145,8 +146,7 @@ static NSDate *_confirmationDate = nil;
 }
 
 + (void)synchronize {
-    [NSObject cancelPreviousPerformRequestsWithTarget:WLUserDefaults selector:_cmd object:nil];
-    [WLUserDefaults performSelector:_cmd withObject:nil afterDelay:0.5f];
+    [WLUserDefaults enqueueSelectorPerforming:_cmd];
 }
 
 + (NSString *)appVersion {

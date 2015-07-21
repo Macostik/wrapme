@@ -114,8 +114,7 @@
 
 - (void)notificationSubscription:(WLNotificationSubscription *)subscription didReceiveMessage:(PNMessageData *)message {
     [self.enqueuedMessages addObject:message];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(handleEnqueuedMessages) object:nil];
-    [self performSelector:@selector(handleEnqueuedMessages) withObject:nil afterDelay:0.5];
+    [self enqueueSelectorPerforming:@selector(handleEnqueuedMessages)];
 }
 
 - (void)handleEnqueuedMessages {

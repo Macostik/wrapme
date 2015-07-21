@@ -10,6 +10,7 @@
 #import "NSString+Documents.h"
 #import "WLCollections.h"
 #import "UIDevice+SystemVersion.h"
+#import "NSObject+Extension.h"
 
 @interface WLCacheItem : NSObject
 
@@ -152,8 +153,7 @@
     if (!_permitted) {
         return;
     }
-	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(checkSizeAndClearIfNeededInBackground) object:nil];
-	[self performSelector:@selector(checkSizeAndClearIfNeededInBackground) withObject:nil afterDelay:0.5f];
+	[self enqueueSelectorPerforming:@selector(checkSizeAndClearIfNeededInBackground)];
 }
 
 - (void)checkSizeAndClearIfNeededInBackground {

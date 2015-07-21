@@ -384,8 +384,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)setTyping:(BOOL)typing {
     if (_typing != typing) {
         _typing = typing;
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(sendTypingStateChange) object:nil];
-        [self performSelector:@selector(sendTypingStateChange) withObject:nil afterDelay:1];
+        [self enqueueSelectorPerforming:@selector(sendTypingStateChange) afterDelay:1.0f];
     }
 }
 

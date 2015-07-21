@@ -77,7 +77,11 @@ static NSInteger WLIndent = 12.0;
     } failure:nil];
 }
 
-- (IBAction)changeSwichValue:(id)sender {   
+- (IBAction)changeSwichValue:(id)sender {
+    [self enqueueSelectorPerforming:@selector(performUploadPreferenceRequest) afterDelay:1.0];
+}
+
+- (void)performUploadPreferenceRequest {
     BOOL candyNotify = self.candyNotifyTrigger.isOn;
     BOOL chatNotify = self.chatNotifyTrigger.isOn;
     __weak typeof(self)weakSelf = self;

@@ -224,9 +224,9 @@ static NSTimeInterval _difference = 0;
             if ([error isNetworkError]) {
                 [strongSelf handleFailure:error];
             } else {
-                WLFailureBlock unauthorizedErrorBlock = [WLAPIManager manager].unauthorizedErrorBlock;
+                WLAPIManagerUnauthorizedErrorBlock unauthorizedErrorBlock = [WLAPIManager manager].unauthorizedErrorBlock;
                 if (unauthorizedErrorBlock) {
-                    unauthorizedErrorBlock(error);
+                    unauthorizedErrorBlock(strongSelf, error);
                 } else {
                     [strongSelf handleFailure:error];
                 }

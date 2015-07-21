@@ -31,6 +31,8 @@ typedef void (^WLAlertViewCompletion)(NSUInteger index);
 
 + (void)confirmCandyDeleting:(WLCandy *)candy success:(WLBlock)success failure:(WLFailureBlock)failure;
 
++ (void)confirmRedirectingToSignUp:(WLBlock)signUp tryAgain:(WLBlock)tryAgain;
+
 @end
 
 @interface UIAlertController (WLAlertView) <WLAlertView>

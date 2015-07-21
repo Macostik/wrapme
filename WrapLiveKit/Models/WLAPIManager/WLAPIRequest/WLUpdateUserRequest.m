@@ -27,7 +27,7 @@
 
 - (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
     WLUser* user = self.user;
-    self.filePath = user.picture.original;
+    self.filePath = user.picture.large;
     [parameters trySetObject:user.name forKey:@"name"];
     [parameters trySetObject:self.email forKey:@"email"];
     return parameters;

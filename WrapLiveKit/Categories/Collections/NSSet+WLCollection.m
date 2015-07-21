@@ -34,7 +34,7 @@
 
 - (instancetype)remove:(id)object {
     return [self mutate:^(id mutableCopy) {
-        [mutableCopy add:object];
+        [mutableCopy remove:object];
     }];
 }
 

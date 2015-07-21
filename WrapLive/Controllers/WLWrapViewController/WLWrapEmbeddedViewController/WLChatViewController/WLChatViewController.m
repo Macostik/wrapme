@@ -458,7 +458,6 @@ CGFloat WLMaxTextViewWidth;
         [typingView updateWithChat:self.chat];
         supplementaryView = typingView;
         self.typingView = typingView;
-        [self setBackgroundColorForView:typingView atIndexPath:indexPath];
     }
     supplementaryView.layer.geometryFlipped = [self geometryFlipped];
     return supplementaryView;

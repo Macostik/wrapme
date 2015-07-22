@@ -45,6 +45,9 @@
     NSString* name = [dictionary stringForKey:WLNameKey];
     if (!NSStringEqual(self.name, name)) self.name = name;
     
+    BOOL isPublic = [dictionary boolForKey:@"is_public"];
+    if (self.isPublic != isPublic) self.isPublic = isPublic;
+    
     NSArray *contributorsArray = [dictionary arrayForKey:WLContributorsKey];
     if (contributorsArray.nonempty) {
         [self addContributors:[WLUser API_entries:contributorsArray]];
@@ -55,7 +58,7 @@
         if (self.contributor != contributor) self.contributor = contributor;
     }
     
-    if (![self.contributors containsObject:[WLUser currentUser]]) {
+    if (!self.isPublic && ![self.contributors containsObject:[WLUser currentUser]]) {
         [self addContributorsObject:[WLUser currentUser]];
     }
     
@@ -63,6 +66,7 @@
     if (candies.nonempty && ![candies isSubsetOfSet:self.candies]) {
         [self addCandies:candies];
     }
+    
     return self;
 }
 

@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSSet *candies;
 @property (nonatomic, retain) NSSet *contributors;
 @property (nonatomic, retain) NSSet *messages;
+@property (nonatomic) BOOL isPublic;
 
 @end
 

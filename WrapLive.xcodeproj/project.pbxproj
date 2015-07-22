@@ -992,8 +992,6 @@
 		C587C79B1AD2E6A0003E7647 /* WLAuthorizationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CBF1ACD968A0052578A /* WLAuthorizationRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C79C1AD2E6A0003E7647 /* WLBaseOperationWrapRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CC11ACD968A0052578A /* WLBaseOperationWrapRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7A51AD2E6A0003E7647 /* WLPaginatedRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CD51ACD968B0052578A /* WLPaginatedRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C587C7A61AD2E6A0003E7647 /* WLPostCommentRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CD71ACD968B0052578A /* WLPostCommentRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C587C7A81AD2E6A0003E7647 /* WLResendConfirmationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CDB1ACD968B0052578A /* WLResendConfirmationRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7A91AD2E6A0003E7647 /* WLResendInviteRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CDD1ACD968B0052578A /* WLResendInviteRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7AA1AD2E6A0003E7647 /* WLUpdateContributorsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CDF1ACD968B0052578A /* WLUpdateContributorsRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7AB1AD2E6A0003E7647 /* WLUpdateUserRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CE11ACD968B0052578A /* WLUpdateUserRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1079,8 +1077,6 @@
 		C587C8621AD2E6DB003E7647 /* WLAuthorizationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CC01ACD968A0052578A /* WLAuthorizationRequest.m */; };
 		C587C8631AD2E6DB003E7647 /* WLBaseOperationWrapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CC21ACD968A0052578A /* WLBaseOperationWrapRequest.m */; };
 		C587C86C1AD2E6DB003E7647 /* WLPaginatedRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CD61ACD968B0052578A /* WLPaginatedRequest.m */; };
-		C587C86D1AD2E6DB003E7647 /* WLPostCommentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CD81ACD968B0052578A /* WLPostCommentRequest.m */; };
-		C587C86F1AD2E6DB003E7647 /* WLResendConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CDC1ACD968B0052578A /* WLResendConfirmationRequest.m */; };
 		C587C8701AD2E6DB003E7647 /* WLResendInviteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CDE1ACD968B0052578A /* WLResendInviteRequest.m */; };
 		C587C8711AD2E6DB003E7647 /* WLUpdateContributorsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CE01ACD968B0052578A /* WLUpdateContributorsRequest.m */; };
 		C587C8721AD2E6DB003E7647 /* WLUpdateUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CE21ACD968B0052578A /* WLUpdateUserRequest.m */; };
@@ -2580,10 +2576,6 @@
 		C5612CC21ACD968A0052578A /* WLBaseOperationWrapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLBaseOperationWrapRequest.m; sourceTree = "<group>"; };
 		C5612CD51ACD968B0052578A /* WLPaginatedRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPaginatedRequest.h; sourceTree = "<group>"; };
 		C5612CD61ACD968B0052578A /* WLPaginatedRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPaginatedRequest.m; sourceTree = "<group>"; };
-		C5612CD71ACD968B0052578A /* WLPostCommentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPostCommentRequest.h; sourceTree = "<group>"; };
-		C5612CD81ACD968B0052578A /* WLPostCommentRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPostCommentRequest.m; sourceTree = "<group>"; };
-		C5612CDB1ACD968B0052578A /* WLResendConfirmationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLResendConfirmationRequest.h; sourceTree = "<group>"; };
-		C5612CDC1ACD968B0052578A /* WLResendConfirmationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLResendConfirmationRequest.m; sourceTree = "<group>"; };
 		C5612CDD1ACD968B0052578A /* WLResendInviteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLResendInviteRequest.h; sourceTree = "<group>"; };
 		C5612CDE1ACD968B0052578A /* WLResendInviteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLResendInviteRequest.m; sourceTree = "<group>"; };
 		C5612CDF1ACD968B0052578A /* WLUpdateContributorsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUpdateContributorsRequest.h; sourceTree = "<group>"; };
@@ -4955,12 +4947,8 @@
 				C5612CC01ACD968A0052578A /* WLAuthorizationRequest.m */,
 				C5612CC11ACD968A0052578A /* WLBaseOperationWrapRequest.h */,
 				C5612CC21ACD968A0052578A /* WLBaseOperationWrapRequest.m */,
-				C5612CD71ACD968B0052578A /* WLPostCommentRequest.h */,
-				C5612CD81ACD968B0052578A /* WLPostCommentRequest.m */,
 				5BD1D5BF1B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.h */,
 				5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */,
-				C5612CDB1ACD968B0052578A /* WLResendConfirmationRequest.h */,
-				C5612CDC1ACD968B0052578A /* WLResendConfirmationRequest.m */,
 				C5612CDD1ACD968B0052578A /* WLResendInviteRequest.h */,
 				C5612CDE1ACD968B0052578A /* WLResendInviteRequest.m */,
 				C5612CDF1ACD968B0052578A /* WLUpdateContributorsRequest.h */,
@@ -6170,7 +6158,6 @@
 				C587C7951AD2E6A0003E7647 /* UIImage+Drawing.h in Headers */,
 				C587C7901AD2E6A0003E7647 /* NSURL+WLRemoteEntryHandler.h in Headers */,
 				C587C7D81AD2E6A0003E7647 /* WLHistoryItem.h in Headers */,
-				C587C7A81AD2E6A0003E7647 /* WLResendConfirmationRequest.h in Headers */,
 				C58D14221B170E2A005E30C6 /* UIView+QuatzCoreAnimations.h in Headers */,
 				C587C7CB1AD2E6A0003E7647 /* WLDevice+Extended.h in Headers */,
 				C587C7C51AD2E6A0003E7647 /* WLContribution+Extended.h in Headers */,
@@ -6185,7 +6172,6 @@
 				C587C7B01AD2E6A0003E7647 /* WLVerificationCallRequest.h in Headers */,
 				5B4E6BC81B4C111700B8EE66 /* WLUploadPreferenceRequest.h in Headers */,
 				C587C7BF1AD2E6A0003E7647 /* WLSystemImageCache.h in Headers */,
-				C587C7A61AD2E6A0003E7647 /* WLPostCommentRequest.h in Headers */,
 				C587C77F1AD2E619003E7647 /* WrapLiveKit-Prefix.pch in Headers */,
 				C587C8D81AD2E708003E7647 /* LogFiles.h in Headers */,
 				C587C7B41AD2E6A0003E7647 /* WLAPIEnvironment+TestUsers.h in Headers */,
@@ -8344,7 +8330,6 @@
 				C587C8C51AD2E708003E7647 /* UIImageView+AFNetworking.m in Sources */,
 				C587C89D1AD2E6DB003E7647 /* WLHistoryItem.m in Sources */,
 				C5B93D5F1B4E8B7F005681DB /* NSOrderedSet+WLCollection.m in Sources */,
-				C587C86D1AD2E6DB003E7647 /* WLPostCommentRequest.m in Sources */,
 				C587C8A01AD2E6DB003E7647 /* WLNetwork.m in Sources */,
 				C587C8941AD2E6DB003E7647 /* WLEntry.m in Sources */,
 				C587C8A51AD2E6DB003E7647 /* WLPicture.m in Sources */,
@@ -8353,7 +8338,6 @@
 				5B4E6BC91B4C111700B8EE66 /* WLUploadPreferenceRequest.m in Sources */,
 				C587C85F1AD2E6DB003E7647 /* UIImage+RoundedCorner.m in Sources */,
 				C535F9D71AD4321F000C81B4 /* NSData+CommonCrypto.m in Sources */,
-				C587C86F1AD2E6DB003E7647 /* WLResendConfirmationRequest.m in Sources */,
 				C55C8DC11B0CDB5E0085DB60 /* WLAnimation.m in Sources */,
 				C587C8921AD2E6DB003E7647 /* WLDevice.m in Sources */,
 				C587C8811AD2E6DB003E7647 /* WLAuthorization.m in Sources */,

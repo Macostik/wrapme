@@ -29,11 +29,7 @@
 - (IBAction)next:(WLButton*)sender {
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;
-    WLLinkDeviceRequest *request = [WLLinkDeviceRequest request];
-    request.email = [WLAuthorization currentAuthorization].email;
-    request.deviceUID = [WLAuthorization currentAuthorization].deviceUID;
-    request.approvalCode = self.passcodeField.text;
-    [request send:^(id object) {
+    [[WLAPIRequest linkDevice:self.passcodeField.text] send:^(id object) {
         [WLSoundPlayer playSound:WLSound_s01];
         [[WLAuthorization currentAuthorization] signIn:^(WLUser *user) {
             [weakSelf setSuccessStatusAnimated:NO];

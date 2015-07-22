@@ -176,8 +176,8 @@ static BOOL authorized = NO;
     });
 }
 
-- (BOOL)reauthorizationEnabled {
-    return NO;
+- (BOOL)skipReauthorizing {
+    return YES;
 }
 
 @end
@@ -185,7 +185,8 @@ static BOOL authorized = NO;
 @implementation WLAPIRequest (WLWhoIs)
 
 + (instancetype)whois:(NSString *)email {
-    return [[[self GET:@"users/whois"] parametrize:^(id request, NSMutableDictionary *parameters) {
+    return [[[self GET:@"users/whois"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
+        request.skipReauthorizing = YES;
         [parameters trySetObject:email forKey:@"email"];
     }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         WLWhoIs* whoIs = [WLWhoIs sharedInstance];
@@ -220,38 +221,18 @@ static BOOL authorized = NO;
     }];
 }
 
-- (BOOL)reauthorizationEnabled {
-    return NO;
-}
-
-@end
-
-@implementation WLLinkDeviceRequest
-
-+ (NSString *)defaultMethod {
-    return @"POST";
-}
-
-- (NSString *)path {
-    return @"users/link_device";
-}
-
-- (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
-    [parameters trySetObject:self.email forKey:WLEmailKey];
-    [parameters trySetObject:self.deviceUID forKey:@"device_uid"];
-    [parameters trySetObject:self.approvalCode forKey:@"approval_code"];
-    return [super configure:parameters];
-}
-
-- (id)objectInResponse:(WLAPIResponse *)response {
-    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
-    authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
-    [authorization setCurrent];
-    return authorization;
-}
-
-- (BOOL)reauthorizationEnabled {
-    return NO;
++ (instancetype)linkDevice:(NSString*)passcode {
+    return [[[self POST:@"users/link_device"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
+        request.skipReauthorizing = YES;
+        [parameters trySetObject:[WLAuthorization currentAuthorization].email forKey:WLEmailKey];
+        [parameters trySetObject:[WLAuthorization currentAuthorization].deviceUID forKey:@"device_uid"];
+        [parameters trySetObject:passcode forKey:@"approval_code"];
+    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+        authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
+        [authorization setCurrent];
+        success(authorization);
+    }];
 }
 
 @end

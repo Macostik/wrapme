@@ -94,7 +94,7 @@
 
 - (IBAction)resendEmailConfirmation:(UIButton*)sender {
     sender.userInteractionEnabled = NO;
-    [[WLResendConfirmationRequest request] send:^(id object) {
+    [[WLAPIRequest resendConfirmation:nil] send:^(id object) {
         [WLToast showWithMessage:WLLS(@"confirmation_resend")];
         sender.userInteractionEnabled = YES;
     } failure:^(NSError *error) {

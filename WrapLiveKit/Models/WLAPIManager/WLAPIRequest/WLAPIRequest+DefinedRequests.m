@@ -72,4 +72,56 @@
     }];
 }
 
++ (instancetype)followWrap:(WLWrap *)wrap {
+    return [[[self POST:@"wraps/%@/follow", wrap.identifier] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        [wrap notifyOnAddition:^(id object) {
+            [wrap addContributorsObject:[WLUser currentUser]];
+        }];
+        success(nil);
+    }] beforeFailure:^(NSError *error) {
+        if (wrap.uploaded && error.isContentUnavaliable) {
+            [wrap remove];
+        }
+    }];
+}
+
++ (instancetype)unfollowWrap:(WLWrap *)wrap {
+    return [[[self DELETE:@"wraps/%@/unfollow", wrap.identifier] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        [wrap notifyOnDeleting:^(id object) {
+            [[WLUser currentUser] removeWrap:wrap];
+        }];
+        success(nil);
+    }] beforeFailure:^(NSError *error) {
+        if (wrap.uploaded && error.isContentUnavaliable) {
+            [wrap remove];
+        }
+    }];
+}
+
++ (instancetype)postComment:(WLComment*)comment {
+    return [[[self POST:@"wraps/%@/candies/%@/comments", comment.candy.wrap.identifier, comment.candy.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
+        [parameters trySetObject:comment.text forKey:@"message"];
+        [parameters trySetObject:comment.uploadIdentifier forKey:@"upload_uid"];
+        [parameters trySetObject:@(comment.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];
+    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        WLCandy *candy = comment.candy;
+        if (candy.valid) {
+            [comment API_setup:[response.data dictionaryForKey:@"comment"]];
+            [candy touch:comment.createdAt];
+            int commentCount = [response.data[WLCommentCountKey] intValue];
+            if (candy.commentCount < commentCount)
+                candy.commentCount = commentCount;
+            success(comment);
+        } else {
+            success(nil);
+        }
+    }];
+}
+
++ (instancetype)resendConfirmation:(NSString*)email {
+    return [[self POST:@"users/resend_confirmation"] parametrize:^(id request, NSMutableDictionary *parameters) {
+        [parameters trySetObject:email forKey:WLEmailKey];
+    }];
+}
+
 @end

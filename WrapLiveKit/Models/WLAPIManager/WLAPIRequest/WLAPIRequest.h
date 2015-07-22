@@ -50,7 +50,7 @@ typedef BOOL (^WLAPIRequestFailureValidator)(id request, NSError *error);
 
 @property (nonatomic) NSTimeInterval timeout;
 
-@property (readonly, nonatomic) BOOL reauthorizationEnabled;
+@property (nonatomic) BOOL skipReauthorizing;
 
 + (instancetype)request;
 

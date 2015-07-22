@@ -32,15 +32,7 @@
 
 + (instancetype)whois:(NSString*)email;
 
-@end
-
-@interface WLLinkDeviceRequest : WLAPIRequest
-
-@property (strong, nonatomic) NSString *email;
-
-@property (strong, nonatomic) NSString *deviceUID;
-
-@property (strong, nonatomic) NSString *approvalCode;
++ (instancetype)linkDevice:(NSString*)passcode;
 
 @end
 

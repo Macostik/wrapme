@@ -22,7 +22,6 @@
 #import "WLUploadWrapRequest.h"
 #import "WLAuthorizationRequest.h"
 #import "WLUploadCandyRequest.h"
-#import "WLPostCommentRequest.h"
 #import "WLUploadMessageRequest.h"
 #import "WLOperationQueue.h"
 #import "WLHistory.h"
@@ -227,9 +226,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (!self.deletable) {
-        __weak typeof(self)weakSelf = self;
         return [[WLAPIRequest leaveWrap:self] send:^(id object) {
-            [weakSelf remove];
             success(object);
         } failure:failure];
     }
@@ -368,7 +365,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 
 - (id)add:(WLCommentBlock)success failure:(WLFailureBlock)failure {
     if (self.candy.uploaded) {
-        return [[WLPostCommentRequest request:self] send:success failure:failure];
+        return [[WLAPIRequest postComment:self] send:success failure:failure];
     } else if (failure) {
         failure(nil);
     }

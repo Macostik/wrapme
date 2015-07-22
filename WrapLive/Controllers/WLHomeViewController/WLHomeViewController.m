@@ -307,7 +307,7 @@
 // MARK: - Actions
 
 - (IBAction)resendConfirmation:(id)sender {
-    [[WLResendConfirmationRequest request] send:^(id object) {
+    [[WLAPIRequest resendConfirmation:nil] send:^(id object) {
         [WLToast showWithMessage:WLLS(@"confirmation_resend")];
     } failure:^(NSError *error) {
     }];

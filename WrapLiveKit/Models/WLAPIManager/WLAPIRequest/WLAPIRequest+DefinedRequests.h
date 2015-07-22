@@ -20,4 +20,12 @@
 
 + (instancetype)leaveWrap:(WLWrap *)wrap;
 
++ (instancetype)followWrap:(WLWrap*)wrap;
+
++ (instancetype)unfollowWrap:(WLWrap *)wrap;
+
++ (instancetype)postComment:(WLComment*)comment;
+
++ (instancetype)resendConfirmation:(NSString*)email;
+
 @end

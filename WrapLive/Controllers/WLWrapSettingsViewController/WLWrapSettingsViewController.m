@@ -84,9 +84,9 @@ static NSInteger WLIndent = 12.0;
 - (void)performUploadPreferenceRequest {
     BOOL candyNotify = self.candyNotifyTrigger.isOn;
     BOOL chatNotify = self.chatNotifyTrigger.isOn;
-    __weak typeof(self)weakSelf = self;
+    WLWrap *wrap = self.wrap;
     runUnaryQueuedOperation(@"wl_changing_notification_preferences_queue", ^(WLOperation *operation) {
-        WLUploadPreferenceRequest *request = [WLUploadPreferenceRequest request:weakSelf.wrap];
+        WLUploadPreferenceRequest *request = [WLUploadPreferenceRequest request:wrap];
         request.candyNotify = candyNotify;
         request.chatNotify = chatNotify;
         [request send:^(id object) {

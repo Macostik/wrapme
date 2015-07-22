@@ -118,6 +118,8 @@
 		5BD121541B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD121551B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD121561B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
+		5BD149111B5F7B80004F1992 /* WLUserRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BD1490F1B5F7B80004F1992 /* WLUserRequest.h */; };
+		5BD149161B5F7B80004F1992 /* WLUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD149101B5F7B80004F1992 /* WLUserRequest.m */; };
 		5BD303411B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
 		5BD303431B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
 		5BD303441B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
@@ -2191,6 +2193,8 @@
 		5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEntryStatusIndicator.m; path = WLEntryStatusIndicator/WLEntryStatusIndicator.m; sourceTree = "<group>"; };
 		5BD121511B0250B400FF5FBF /* WLDownloadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDownloadingView.h; path = WLDownloadingView/WLDownloadingView.h; sourceTree = "<group>"; };
 		5BD121521B0250B500FF5FBF /* WLDownloadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDownloadingView.m; path = WLDownloadingView/WLDownloadingView.m; sourceTree = "<group>"; };
+		5BD1490F1B5F7B80004F1992 /* WLUserRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUserRequest.h; sourceTree = "<group>"; };
+		5BD149101B5F7B80004F1992 /* WLUserRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUserRequest.m; sourceTree = "<group>"; };
 		5BD1D5BF1B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPostEditingUploadCandyRequest.h; sourceTree = "<group>"; };
 		5BD1D5C01B0B489D00A15D37 /* WLPostEditingUploadCandyRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPostEditingUploadCandyRequest.m; sourceTree = "<group>"; };
 		5BD1DD401B3D9D8400F44756 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -5023,6 +5027,8 @@
 				5B4E6BBE1B4C05EE00B8EE66 /* WLPreferenceRequest.m */,
 				5B4E6BC61B4C111700B8EE66 /* WLUploadPreferenceRequest.h */,
 				5B4E6BC71B4C111700B8EE66 /* WLUploadPreferenceRequest.m */,
+				5BD1490F1B5F7B80004F1992 /* WLUserRequest.h */,
+				5BD149101B5F7B80004F1992 /* WLUserRequest.m */,
 			);
 			path = WLAPIRequest;
 			sourceTree = "<group>";
@@ -6330,6 +6336,7 @@
 				C587C8D41AD2E708003E7647 /* LeNetworkStatus.h in Headers */,
 				C587C8C71AD2E708003E7647 /* UIProgressView+AFNetworking.h in Headers */,
 				C587C8BE1AD2E708003E7647 /* UIActivityIndicatorView+AFNetworking.h in Headers */,
+				5BD149111B5F7B80004F1992 /* WLUserRequest.h in Headers */,
 				C5B93D641B4E984C005681DB /* WLDefinedComparators.h in Headers */,
 				C587C7B21AD2E6A0003E7647 /* WLWrapsRequest.h in Headers */,
 				C587C7811AD2E6A0003E7647 /* UIView+Shorthand.h in Headers */,
@@ -6693,7 +6700,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -8395,6 +8402,7 @@
 				C587C8681AD2E6DB003E7647 /* WLDeleteWrapRequest.m in Sources */,
 				C587C8931AD2E6DB003E7647 /* WLEntry+Extended.m in Sources */,
 				5B4E6BC91B4C111700B8EE66 /* WLUploadPreferenceRequest.m in Sources */,
+				5BD149161B5F7B80004F1992 /* WLUserRequest.m in Sources */,
 				C587C85F1AD2E6DB003E7647 /* UIImage+RoundedCorner.m in Sources */,
 				C535F9D71AD4321F000C81B4 /* NSData+CommonCrypto.m in Sources */,
 				C587C86F1AD2E6DB003E7647 /* WLResendConfirmationRequest.m in Sources */,
@@ -10061,7 +10069,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "wrapLive" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "WrapLive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,

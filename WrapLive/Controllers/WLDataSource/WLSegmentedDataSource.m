@@ -77,6 +77,10 @@
     }
 }
 
+- (void)refresh:(WLObjectBlock)success failure:(WLFailureBlock)failure{
+    [self.currentDataSource refresh:success failure:failure];
+}
+
 // MARK: - SegmentedControlDelegate
 
 - (void)segmentedControl:(SegmentedControl *)control didSelectSegment:(NSInteger)segment {

@@ -186,9 +186,6 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger index = [self indexFromIndexPath:indexPath];
-    if (index >= [self numberOfItems]) {
-        
-    }
     return  self.itemSizeBlock ? self.itemSizeBlock([self itemAtIndex:index], index) : self.itemSize;
 }
 
@@ -251,10 +248,15 @@
 // MARK: - WLCollectionViewLayout
 
 - (CGSize)collectionView:(UICollectionView*)collectionView sizeForItemAtIndexPath:(NSIndexPath*)indexPath {
-    return CGSizeZero;
+    return [self collectionView:collectionView layout:nil sizeForItemAtIndexPath:indexPath];
 }
 
 - (CGSize)collectionView:(UICollectionView*)collectionView sizeForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        return [self collectionView:collectionView layout:nil referenceSizeForHeaderInSection:indexPath.section];
+    } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
+        return [self collectionView:collectionView layout:nil referenceSizeForFooterInSection:indexPath.section];
+    }
     return CGSizeZero;
 }
 

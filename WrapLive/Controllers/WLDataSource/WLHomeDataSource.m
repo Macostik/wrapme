@@ -19,15 +19,6 @@
 
 @implementation WLHomeDataSource
 
-- (void)setCollectionView:(UICollectionView *)collectionView {
-    [super setCollectionView:collectionView];
-    [self setRefreshable];
-    WLCollectionViewLayout *layout = [[WLCollectionViewLayout alloc] init];
-    layout.sectionHeadingSupplementaryViewKinds = @[];
-    collectionView.collectionViewLayout = layout;
-    [layout registerItemFooterSupplementaryViewKind:UICollectionElementKindSectionHeader];
-}
-
 - (void)setItems:(id<WLBaseOrderedCollection>)items {
     if (items.count > 0) self.wrap = [items objectAtIndex:0];
     [super setItems:items];

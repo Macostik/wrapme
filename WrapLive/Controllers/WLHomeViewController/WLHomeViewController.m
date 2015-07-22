@@ -41,12 +41,13 @@
 #import "WLLayoutPrioritizer.h"
 #import "WLMessagesCounter.h"
 #import "WLSegmentedDataSource.h"
+#import "WLPublicWrapsDataSource.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
 @property (strong, nonatomic) IBOutlet WLSegmentedDataSource *dataSource;
 
-@property (strong, nonatomic) IBOutlet WLBasicDataSource *publicDataSource;
+@property (strong, nonatomic) IBOutlet WLPublicWrapsDataSource *publicDataSource;
 
 @property (strong, nonatomic) IBOutlet WLHomeDataSource *homeDataSource;
 @property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
@@ -71,6 +72,16 @@
 }
 
 - (void)viewDidLoad {
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:@"WLPublicWrapsHeaderView" bundle:nil] forSupplementaryViewOfKind:@"WLPublicWrapsHeaderView" withReuseIdentifier:@"WLPublicWrapsHeaderView"];
+    UICollectionView *collectionView = self.collectionView;
+    [self.dataSource setRefreshable];
+    WLCollectionViewLayout *layout = [[WLCollectionViewLayout alloc] init];
+    layout.sectionHeadingSupplementaryViewKinds = @[];
+    collectionView.collectionViewLayout = layout;
+    [layout registerItemFooterSupplementaryViewKind:UICollectionElementKindSectionHeader];
+    [layout registerItemHeaderSupplementaryViewKind:@"WLPublicWrapsHeaderView"];
+    
     [super viewDidLoad];
     
     self.createWrapTipHidden = YES;
@@ -81,17 +92,19 @@
     
     [self addNotifyReceivers];
     
-    __weak WLHomeDataSource *dataSource = self.homeDataSource;
+    __weak WLHomeDataSource *homeDataSource = self.homeDataSource;
+    __weak WLPublicWrapsDataSource *publicDataSource = self.publicDataSource;
     
     NSSet* wraps = [WLUser currentUser].wraps;
-    dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:@"public_not_following"]];
+    homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:nil]];
+    publicDataSource.items = [WLPaginatedSet setWithEntries:nil request:[WLPaginatedRequest wraps:@"public_not_following"]];
     
-    [dataSource setSelectionBlock:^(id entry) {
+    homeDataSource.selectionBlock = publicDataSource.selectionBlock = ^(id entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
-    }];
+    };
     
     if (wraps.nonempty) {
-        [dataSource refresh];
+        [homeDataSource refresh];
     }
     
     self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];

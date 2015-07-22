@@ -1273,6 +1273,14 @@
 		C5B2A12B1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */; };
 		C5B2A12C1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */; };
 		C5B2A12D1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */; };
+		C5B531F21B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B531F11B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib */; };
+		C5B531F31B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B531F11B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib */; };
+		C5B531F41B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B531F11B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib */; };
+		C5B531F51B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B531F11B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib */; };
+		C5B531F81B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */; };
+		C5B531F91B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */; };
+		C5B531FA1B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */; };
+		C5B531FB1B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */; };
 		C5B5F0A01B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B5F09E1B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5B5F0A11B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B5F09F1B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.m */; };
 		C5B5F0A41B5D43AA00B1FF17 /* WLAPIRequest+DefinedRequests.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B5F0A21B5D43AA00B1FF17 /* WLAPIRequest+DefinedRequests.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2762,6 +2770,9 @@
 		C5B2A1211B4BFED8004759F3 /* WLChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChat.m; sourceTree = "<group>"; };
 		C5B2A1271B4C07DF004759F3 /* NSDate+PNTimetoken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PNTimetoken.h"; sourceTree = "<group>"; };
 		C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PNTimetoken.m"; sourceTree = "<group>"; };
+		C5B531F11B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPublicWrapsHeaderView.xib; path = WLHomeViewController/WLPublicWrapsHeaderView.xib; sourceTree = "<group>"; };
+		C5B531F61B5FB70D00AA5088 /* WLPublicWrapsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPublicWrapsDataSource.h; sourceTree = "<group>"; };
+		C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPublicWrapsDataSource.m; sourceTree = "<group>"; };
 		C5B5F09E1B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLPaginatedRequest+Wraps.h"; sourceTree = "<group>"; };
 		C5B5F09F1B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLPaginatedRequest+Wraps.m"; sourceTree = "<group>"; };
 		C5B5F0A21B5D43AA00B1FF17 /* WLAPIRequest+DefinedRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLAPIRequest+DefinedRequests.h"; sourceTree = "<group>"; };
@@ -3502,6 +3513,7 @@
 		12A7A74218DA17F7008FF6F0 /* WLHomeViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C5B531F11B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib */,
 				C5EE2CE31B567A850016889E /* WLRecentCandiesView */,
 				12DCBA7818DB17B000A4BC44 /* WLWrapCell */,
 				12A7A74318DA180C008FF6F0 /* WLHomeViewController.h */,
@@ -4032,6 +4044,8 @@
 				C50099441ADFCC250064CC7B /* WLHistoryItemDataSource.m */,
 				C50099451ADFCC250064CC7B /* WLHomeDataSource.h */,
 				C50099461ADFCC250064CC7B /* WLHomeDataSource.m */,
+				C5B531F61B5FB70D00AA5088 /* WLPublicWrapsDataSource.h */,
+				C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */,
 			);
 			path = WLDataSource;
 			sourceTree = "<group>";
@@ -6766,6 +6780,7 @@
 				C55908751B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
+				C5B531F31B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib in Resources */,
 				C54AF53619B8C437006F7EDB /* WLEmojiView.xib in Resources */,
 				5BBAB3A71AAA002400CE6252 /* Camera.storyboard in Resources */,
 				C54AF53D19B8C437006F7EDB /* rings.plist in Resources */,
@@ -6827,6 +6842,7 @@
 				C55908761B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D11AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
+				C5B531F41B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib in Resources */,
 				C54AF63319B8C467006F7EDB /* WLEmojiView.xib in Resources */,
 				5BBAB3A81AAA002400CE6252 /* Camera.storyboard in Resources */,
 				C54AF63A19B8C467006F7EDB /* rings.plist in Resources */,
@@ -6888,6 +6904,7 @@
 				C55908771B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
+				C5B531F51B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib in Resources */,
 				C54AF73019B8C491006F7EDB /* WLEmojiView.xib in Resources */,
 				5BBAB3A91AAA002400CE6252 /* Camera.storyboard in Resources */,
 				C54AF73719B8C491006F7EDB /* rings.plist in Resources */,
@@ -6995,6 +7012,7 @@
 				C57479E11B26FA45001AB8C0 /* Camera.storyboard in Resources */,
 				C57479E21B26FA45001AB8C0 /* s02.wav in Resources */,
 				C57479E51B26FA45001AB8C0 /* WLInviteHintView.xib in Resources */,
+				C5B531F21B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib in Resources */,
 				C57479E61B26FA45001AB8C0 /* rings.plist in Resources */,
 				C57479E71B26FA45001AB8C0 /* WLCandySwipeHintView.xib in Resources */,
 				C57479E81B26FA45001AB8C0 /* smiles.plist in Resources */,
@@ -7164,6 +7182,7 @@
 				C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */,
 				C5C0163F1B455760003623EC /* PNClass.m in Sources */,
 				C5C015901B455760003623EC /* PubNub+Core.m in Sources */,
+				C5B531F91B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */,
 				C54E4ADF1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C500994C1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
 				C5C015D11B455760003623EC /* PNAcknowledgmentStatus.m in Sources */,
@@ -7444,6 +7463,7 @@
 				C54AF56019B8C467006F7EDB /* WLLoadingView.m in Sources */,
 				C5C016401B455760003623EC /* PNClass.m in Sources */,
 				C5C015911B455760003623EC /* PubNub+Core.m in Sources */,
+				C5B531FA1B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */,
 				C54E4AE01A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C500994D1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
 				C5C015D21B455760003623EC /* PNAcknowledgmentStatus.m in Sources */,
@@ -7724,6 +7744,7 @@
 				C5C016411B455760003623EC /* PNClass.m in Sources */,
 				C5C015921B455760003623EC /* PubNub+Core.m in Sources */,
 				C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */,
+				C5B531FB1B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */,
 				C54E4AE11A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C5C015D31B455760003623EC /* PNAcknowledgmentStatus.m in Sources */,
 				C5C0160A1B455760003623EC /* PNPresenceGlobalHereNowResult.m in Sources */,
@@ -8030,6 +8051,7 @@
 				C57479111B26FA45001AB8C0 /* WLLoadingView.m in Sources */,
 				C5C0163D1B455760003623EC /* PNClass.m in Sources */,
 				C5C0158E1B455760003623EC /* PubNub+Core.m in Sources */,
+				C5B531F81B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */,
 				C57479121B26FA45001AB8C0 /* WLLaunchScreenViewController.m in Sources */,
 				C57479131B26FA45001AB8C0 /* WLHomeDataSource.m in Sources */,
 				C5C015CF1B455760003623EC /* PNAcknowledgmentStatus.m in Sources */,

@@ -1843,7 +1843,10 @@ Tap here to start.</string>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="QUX-wt-D3B"/>
                     </connections>
                 </customObject>
-                <customObject id="uJJ-OA-ZDD" customClass="WLBasicDataSource">
+                <customObject id="uJJ-OA-ZDD" customClass="WLPublicWrapsDataSource">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLWrapCell"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="5NO-04-rHl"/>
                     </connections>

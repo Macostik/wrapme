@@ -11,6 +11,7 @@
 #import "WLCollections.h"
 #import "UIDevice+SystemVersion.h"
 #import "NSObject+Extension.h"
+#import "NSUserDefaults+WLAppGroup.h"
 
 @interface WLCacheItem : NSObject
 
@@ -39,7 +40,7 @@
 @implementation WLCache
 
 + (void)initialize {
-    [[NSFileManager defaultManager] changeCurrentDirectoryPath:NSHomeDirectory()];
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:WLAppGroupIdentifier()] absoluteString]];
 }
 
 + (instancetype)cache {

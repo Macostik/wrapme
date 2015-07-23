@@ -192,9 +192,17 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (IBAction)embedAsChild:(id)sender {
-    WLCommentsViewController *commentViewController = [WLCommentsViewController instantiate:self.storyboard];
-    commentViewController.candy = self.candy;
-    [commentViewController presentAsChildForParentViewController:self];
+    WLCommentsViewController *commentViewController = nil;
+    for (UIViewController *controller in [self childViewControllers]) {
+        if ([controller isKindOfClass:WLCommentsViewController.class]) {
+            return;
+        }
+    }
+    if (!commentViewController) {
+        commentViewController = [WLCommentsViewController instantiate:self.storyboard];
+        commentViewController.candy = self.candy;
+        [commentViewController presentAsChildForParentViewController:self];
+    }
 }
 
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated {

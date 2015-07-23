@@ -492,6 +492,9 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if (self.chat.entries != nil && [self.chat.entries count] == 0) {
+        return CGSizeZero;
+    }
     if ([kind isEqualToString:@"date"]) {
         WLMessage *message = [self.chat.entries tryAt:indexPath.item];
         return [self.chat.messagesWithDay containsObject:message] ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
@@ -504,6 +507,7 @@ CGFloat WLMaxTextViewWidth;
     } else {
         return CGSizeMake(collectionView.width, [self heightOfTypingCell:self.chat]);
     }
+    
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView applyContentSizeInsetForAttributes:(UICollectionViewLayoutAttributes *)attributes {

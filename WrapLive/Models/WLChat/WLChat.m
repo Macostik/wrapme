@@ -34,6 +34,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     self = [super init];
     if (self) {
         self.unreadMessages = [NSMutableOrderedSet orderedSet];
+        self.readMessages = [NSMutableOrderedSet orderedSet];
         self.messagesWithDay = [NSHashTable weakObjectsHashTable];
         self.messagesWithName = [NSHashTable weakObjectsHashTable];
         self.typingUsers = [NSMutableOrderedSet orderedSet];

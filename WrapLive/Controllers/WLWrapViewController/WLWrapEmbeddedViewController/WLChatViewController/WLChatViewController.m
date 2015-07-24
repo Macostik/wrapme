@@ -152,6 +152,11 @@ CGFloat WLMaxTextViewWidth;
     [super viewWillDisappear:animated];
     [[WLMessagesCounter instance] update:nil];
     [self.chat sort];
+    [self.chat.readMessages all:^(WLMessage *message) {
+        [message markAsRead];
+    }];
+    [self.chat.unreadMessages minusSet:[self.chat.readMessages set]];
+    [self updateBadge];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
@@ -422,8 +427,8 @@ CGFloat WLMaxTextViewWidth;
     cell.entry = message;
     cell.layer.geometryFlipped = [self geometryFlipped];
     
-    if (message.unread && self.view.superview) {
-        message.unread = NO;
+    if (message.unread && self.view.superview && ![self.chat.readMessages containsObject:message]) {
+        [self.chat.readMessages addObject:message];
     }
     
     [self setBackgroundColorForView:cell atIndexPath:indexPath];
@@ -519,6 +524,10 @@ CGFloat WLMaxTextViewWidth;
         [self updateBadge];
         return;
     }
+    
+    [self.chat.readMessages all:^(WLMessage *message) {
+        [message markAsRead];
+    }];
     
     [[WLMessagesCounter instance] update:nil];
     [self.chat sort];

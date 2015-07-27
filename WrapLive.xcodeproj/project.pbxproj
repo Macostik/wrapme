@@ -14,6 +14,10 @@
 		5B330E0D1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
 		5B330E0E1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
 		5B330E0F1A9783A800FDD92D /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */; };
+		5B36F4FC1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B36F5011B668091009609C3 /* WLUnreadMessagesView.xib */; };
+		5B36F4FD1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B36F5011B668091009609C3 /* WLUnreadMessagesView.xib */; };
+		5B36F4FE1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B36F5011B668091009609C3 /* WLUnreadMessagesView.xib */; };
+		5B36F4FF1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B36F5011B668091009609C3 /* WLUnreadMessagesView.xib */; };
 		5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
@@ -1363,14 +1367,6 @@
 		C5BCF0221B551B7B00E4AD6D /* WLTypingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFE81B551B7B00E4AD6D /* WLTypingView.xib */; };
 		C5BCF0231B551B7B00E4AD6D /* WLTypingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFE81B551B7B00E4AD6D /* WLTypingView.xib */; };
 		C5BCF0241B551B7B00E4AD6D /* WLTypingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFE81B551B7B00E4AD6D /* WLTypingView.xib */; };
-		C5BCF0251B551B7B00E4AD6D /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFEA1B551B7B00E4AD6D /* WLUnreadMessagesView.xib */; };
-		C5BCF0271B551B7B00E4AD6D /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFEA1B551B7B00E4AD6D /* WLUnreadMessagesView.xib */; };
-		C5BCF0281B551B7B00E4AD6D /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFEA1B551B7B00E4AD6D /* WLUnreadMessagesView.xib */; };
-		C5BCF0291B551B7B00E4AD6D /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFEA1B551B7B00E4AD6D /* WLUnreadMessagesView.xib */; };
-		C5BCF02A1B551B7B00E4AD6D /* WLUnreadMessagesView.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFEC1B551B7B00E4AD6D /* WLUnreadMessagesView.strings */; };
-		C5BCF02C1B551B7B00E4AD6D /* WLUnreadMessagesView.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFEC1B551B7B00E4AD6D /* WLUnreadMessagesView.strings */; };
-		C5BCF02D1B551B7B00E4AD6D /* WLUnreadMessagesView.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFEC1B551B7B00E4AD6D /* WLUnreadMessagesView.strings */; };
-		C5BCF02E1B551B7B00E4AD6D /* WLUnreadMessagesView.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFEC1B551B7B00E4AD6D /* WLUnreadMessagesView.strings */; };
 		C5BCF02F1B551B7B00E4AD6D /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFF21B551B7B00E4AD6D /* WLContributorCell.m */; };
 		C5BCF0311B551B7B00E4AD6D /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFF21B551B7B00E4AD6D /* WLContributorCell.m */; };
 		C5BCF0321B551B7B00E4AD6D /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFF21B551B7B00E4AD6D /* WLContributorCell.m */; };
@@ -2125,6 +2121,9 @@
 		5B2B0C1A1A77A83900DADC9D /* WLIconButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLIconButton.h; path = WLButton/WLIconButton.h; sourceTree = "<group>"; };
 		5B2B0C1B1A77A83900DADC9D /* WLIconButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLIconButton.m; path = WLButton/WLIconButton.m; sourceTree = "<group>"; };
 		5B330E0B1A9783A800FDD92D /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		5B36F5001B668091009609C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLUnreadMessagesView.xib; sourceTree = "<group>"; };
+		5B36F5021B668094009609C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLUnreadMessagesView.strings; sourceTree = "<group>"; };
+		5B36F5031B668097009609C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLUnreadMessagesView.strings; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
 		5B4E6BBD1B4C05EE00B8EE66 /* WLPreferenceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPreferenceRequest.h; sourceTree = "<group>"; };
 		5B4E6BBE1B4C05EE00B8EE66 /* WLPreferenceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPreferenceRequest.m; sourceTree = "<group>"; };
@@ -2848,9 +2847,6 @@
 		C5BCEFE61B551B7B00E4AD6D /* WLTypingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTypingView.h; sourceTree = "<group>"; };
 		C5BCEFE71B551B7B00E4AD6D /* WLTypingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTypingView.m; sourceTree = "<group>"; };
 		C5BCEFE81B551B7B00E4AD6D /* WLTypingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLTypingView.xib; sourceTree = "<group>"; };
-		C5BCEFEB1B551B7B00E4AD6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLUnreadMessagesView.xib; sourceTree = "<group>"; };
-		C5BCEFED1B551B7B00E4AD6D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLUnreadMessagesView.strings; sourceTree = "<group>"; };
-		C5BCEFEE1B551B7B00E4AD6D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLUnreadMessagesView.strings; sourceTree = "<group>"; };
 		C5BCEFF11B551B7B00E4AD6D /* WLContributorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLContributorCell.h; sourceTree = "<group>"; };
 		C5BCEFF21B551B7B00E4AD6D /* WLContributorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLContributorCell.m; sourceTree = "<group>"; };
 		C5BCEFF31B551B7B00E4AD6D /* WLContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLContributorsViewController.h; sourceTree = "<group>"; };
@@ -5636,8 +5632,7 @@
 		C5BCEFE91B551B7B00E4AD6D /* WLUnreadMessagesView */ = {
 			isa = PBXGroup;
 			children = (
-				C5BCEFEA1B551B7B00E4AD6D /* WLUnreadMessagesView.xib */,
-				C5BCEFEC1B551B7B00E4AD6D /* WLUnreadMessagesView.strings */,
+				5B36F5011B668091009609C3 /* WLUnreadMessagesView.xib */,
 			);
 			path = WLUnreadMessagesView;
 			sourceTree = "<group>";
@@ -6828,11 +6823,11 @@
 				C54AF52E19B8C437006F7EDB /* WLLoadingView.xib in Resources */,
 				C53F2CE11A6EB5FB00D99741 /* PhoneFormats.dat in Resources */,
 				C558E7C71A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */,
-				C5BCF02C1B551B7B00E4AD6D /* WLUnreadMessagesView.strings in Resources */,
 				5BDCA8801B394C2F00C4AB3E /* NoMessagePlaceholderView.xib in Resources */,
 				5BA4F87A1A1CA08900DB1A25 /* s01.wav in Resources */,
 				C54AF53119B8C437006F7EDB /* OpenSans-Light.ttf in Resources */,
 				C54AF53219B8C437006F7EDB /* Main.storyboard in Resources */,
+				5B36F4FD1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */,
 				C55908751B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
@@ -6847,7 +6842,6 @@
 				C55908F91B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */,
 				C54AF54119B8C437006F7EDB /* CountryCodes.json in Resources */,
 				5BA130801B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
-				C5BCF0271B551B7B00E4AD6D /* WLUnreadMessagesView.xib in Resources */,
 				C54AF54219B8C437006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C518D79419E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				C55908D11B18995D001CB99F /* WLDownloadingView.xib in Resources */,
@@ -6889,11 +6883,11 @@
 				C54AF62B19B8C467006F7EDB /* WLLoadingView.xib in Resources */,
 				C53F2CE21A6EB5FB00D99741 /* PhoneFormats.dat in Resources */,
 				C558E7C81A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */,
-				C5BCF02D1B551B7B00E4AD6D /* WLUnreadMessagesView.strings in Resources */,
 				5BDCA8811B394C2F00C4AB3E /* NoMessagePlaceholderView.xib in Resources */,
 				5BA4F87E1A1CA08900DB1A25 /* s01.wav in Resources */,
 				C54AF62E19B8C467006F7EDB /* OpenSans-Light.ttf in Resources */,
 				C54AF62F19B8C467006F7EDB /* Main.storyboard in Resources */,
+				5B36F4FE1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */,
 				C55908761B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D11AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74C19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
@@ -6908,7 +6902,6 @@
 				C55908FA1B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */,
 				C54AF63E19B8C467006F7EDB /* CountryCodes.json in Resources */,
 				5BA130811B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
-				C5BCF0281B551B7B00E4AD6D /* WLUnreadMessagesView.xib in Resources */,
 				C54AF63F19B8C467006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C518D79519E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				C55908D21B18995D001CB99F /* WLDownloadingView.xib in Resources */,
@@ -6950,11 +6943,11 @@
 				C54AF72819B8C491006F7EDB /* WLLoadingView.xib in Resources */,
 				C53F2CE31A6EB5FB00D99741 /* PhoneFormats.dat in Resources */,
 				C558E7C91A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */,
-				C5BCF02E1B551B7B00E4AD6D /* WLUnreadMessagesView.strings in Resources */,
 				5BDCA8821B394C2F00C4AB3E /* NoMessagePlaceholderView.xib in Resources */,
 				5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */,
 				C54AF72B19B8C491006F7EDB /* OpenSans-Light.ttf in Resources */,
 				C54AF72C19B8C491006F7EDB /* Main.storyboard in Resources */,
+				5B36F4FF1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */,
 				C55908771B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
@@ -6969,7 +6962,6 @@
 				C55908FB1B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */,
 				C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */,
 				5BA130821B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
-				C5BCF0291B551B7B00E4AD6D /* WLUnreadMessagesView.xib in Resources */,
 				C54AF73C19B8C491006F7EDB /* OpenSans-Regular.ttf in Resources */,
 				C518D79619E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				C55908D31B18995D001CB99F /* WLDownloadingView.xib in Resources */,
@@ -7057,11 +7049,11 @@
 				C57479DA1B26FA45001AB8C0 /* OpenSans-Light.ttf in Resources */,
 				C57479DB1B26FA45001AB8C0 /* WLTestUserCell.xib in Resources */,
 				C57479DC1B26FA45001AB8C0 /* Introduction.storyboard in Resources */,
-				C5BCF02A1B551B7B00E4AD6D /* WLUnreadMessagesView.strings in Resources */,
 				5BDCA87E1B394C2F00C4AB3E /* NoMessagePlaceholderView.xib in Resources */,
 				C57479DD1B26FA45001AB8C0 /* WLAddressBookGroupView.xib in Resources */,
 				C57479DE1B26FA45001AB8C0 /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C57479DF1B26FA45001AB8C0 /* WLEmojiView.xib in Resources */,
+				5B36F4FC1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */,
 				C57479E11B26FA45001AB8C0 /* Camera.storyboard in Resources */,
 				C57479E21B26FA45001AB8C0 /* s02.wav in Resources */,
 				C57479E51B26FA45001AB8C0 /* WLInviteHintView.xib in Resources */,
@@ -7076,7 +7068,6 @@
 				C57479EC1B26FA45001AB8C0 /* WLPresentingImageView.xib in Resources */,
 				C57479EF1B26FA45001AB8C0 /* OpenSans-Regular.ttf in Resources */,
 				C57479F11B26FA45001AB8C0 /* WLDownloadingView.xib in Resources */,
-				C5BCF0251B551B7B00E4AD6D /* WLUnreadMessagesView.xib in Resources */,
 				C57479F21B26FA45001AB8C0 /* s01.wav in Resources */,
 				C57479F31B26FA45001AB8C0 /* WLConfirmView.xib in Resources */,
 				C57479F51B26FA45001AB8C0 /* OpenSans-Bold.ttf in Resources */,
@@ -8591,6 +8582,16 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
+		5B36F5011B668091009609C3 /* WLUnreadMessagesView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5B36F5001B668091009609C3 /* Base */,
+				5B36F5021B668094009609C3 /* en */,
+				5B36F5031B668097009609C3 /* ru */,
+			);
+			name = WLUnreadMessagesView.xib;
+			sourceTree = "<group>";
+		};
 		5B5A8C701A4EB62F00F84529 /* SignUp.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -8738,23 +8739,6 @@
 				C55909011B18BA10001CB99F /* ru */,
 			);
 			name = WLCandySwipeHintView.xib;
-			sourceTree = "<group>";
-		};
-		C5BCEFEA1B551B7B00E4AD6D /* WLUnreadMessagesView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C5BCEFEB1B551B7B00E4AD6D /* Base */,
-			);
-			name = WLUnreadMessagesView.xib;
-			sourceTree = "<group>";
-		};
-		C5BCEFEC1B551B7B00E4AD6D /* WLUnreadMessagesView.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C5BCEFED1B551B7B00E4AD6D /* en */,
-				C5BCEFEE1B551B7B00E4AD6D /* ru */,
-			);
-			name = WLUnreadMessagesView.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

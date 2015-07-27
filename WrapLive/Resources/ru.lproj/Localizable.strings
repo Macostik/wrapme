@@ -50,10 +50,10 @@
 "delete_photo_confirmation" = "Вы уверены, что хотите удалить это фото?";
 
 /* (No Commment) */
-"delete_wrap" = "Удалить wrap?";
+"delete_moji" = "Удалить Moji?";
 
 /* (No Commment) */
-"delete_wrap_success" = "Wrap был успешно удален.";
+"delete_moji_success" = "Moji был успешно удален.";
 
 /* (No Commment) */
 "downloading_internet_connection_error" = "Интернет не доступен. Попытайтесь скачать позже, пожалуйста.";
@@ -70,7 +70,7 @@
 "email_account_setup" = "Пожайлуйста, настройте почтовый клиент на этом устройстве.";
 
 /* (No Commment) */
-"engagement_notification_alert" = "Получены новые фотографии? Обновить их в Вашем wrap сейчас!";
+"engagement_notification_alert" = "Получены новые фотографии? Обновить их в Вашем Moji сейчас!";
 
 /* (No Commment) */
 "formatted_about_message" = "Вы используете %@\nv%@\nСборка %@";
@@ -88,7 +88,7 @@
 "formatted_comments" = "%i комментариев";
 
 /* (No Commment) */
-"formatted_delete_wrap_confirmation" = "Вы уверены, что хотитие удалить wrap";
+"formatted_delete_moji_confirmation" = "Вы уверены, что хотитие удалить Moji";
 
 /* (No Commment) */
 "formatted_edited_by" = "Отредактировал %@";
@@ -106,7 +106,7 @@
 "formatted_verification_email_text" = "Подтвердите Ваш e-mail %@ чтобы помочь обезопасить Ваш аккаунт.";
 
 /* (No Commment) */
-"formatted_wrap_unavailable" = "Wrap %@ больше не доступен.";
+"formatted_moji_unavailable" = "Moji %@ больше не доступен.";
 
 /* (No Commment) */
 "incorrect_email" = "Ваш e-mail не корректна.";
@@ -121,10 +121,10 @@
 "leave_screen_on_editing" = "Фото в режиме редактирования и еще не сохранено. Вы уверены, что хотите покинуть данный скрин?";
 
 /* (No Commment) */
-"leave_wrap" = "Покинуть wrap?";
+"leave_moji" = "Покинуть Moji?";
 
 /* (No Commment) */
-"leave_wrap_confirmation" = "Вы уверены, что хотите покинуть этот wrap?";
+"leave_moji_confirmation" = "Вы уверены, что хотите покинуть этот Moji?";
 
 /* (No Commment) */
 "mail_sent" = "Письмо отправлено.Спасибо Вам за помощь!";
@@ -136,7 +136,7 @@
 "name_cannot_be_blank" = "Имя не может быть пустым.";
 
 /* (No Commment) */
-"new_version_is_available" = "Доступна новая версия wrapLive";
+"new_version_is_available" = "Доступна новая версия MOJI";
 
 /* (No Commment) */
 "no_access_to_contacts" = "Доступ к вашей адрессной книги не предоставлен.";
@@ -208,10 +208,10 @@
 "user_cannot_be_invited" = "Этот пользователь не может быть приглашен.";
 
 /* (No Commment) */
-"wrap_is_uploading" = "Wrap обновляется, подождите немного ...";
+"moji_is_uploading" = "Moji обновляется, подождите немного ...";
 
 /* (No Commment) */
-"wrap_name_cannot_be_blank" = "Имя wrap не может быть пустым.";
+"moji_name_cannot_be_blank" = "Имя Moji не может быть пустым.";
 
 /* (No Commment) */
 "you" = "Вы";
@@ -257,9 +257,9 @@
 
 "plural_ending" = "";
 
-"FRIENDS_ON_WRAPLIVE" = "ДРУЗЬЯ В WRAPLIVE";
+"FRIENDS_ON_MOJI" = "ДРУЗЬЯ В MOJI";
 
-"INVITE_TO_WRAPLIVE" = "ПРИГЛАСИТЬ В WRAPLIVE";
+"INVITE_TO_MOJI" = "ПРИГЛАСИТЬ В MOJI";
 
 "APNS_TT01" = "Вы приглашены!";
 
@@ -281,9 +281,9 @@
 
 "APNS_MSG05" = "%@ отредактировал фото. Посмотрите!";
 
-"APNS_TT06" = "wrapLive обновил версию";
+"APNS_TT06" = "MOJI обновил версию";
 
-"APNS_MSG06" = "wrapLive обновился. Скачайте сейчас!";
+"APNS_MSG06" = "MOJI обновился. Скачайте сейчас!";
 
 "reply" = "Ответить";
 
@@ -303,9 +303,9 @@
 
 "no_photos_to_upload" = "Нет фото, которые можно загрузить.";
 
-"new_wrap" = "Новый wrap";
+"new_moji" = "Новый Moji";
 
-"what_is_new_wrap_about" = "О чем этот wrap?";
+"what_is_new_moji_about" = "О чем этот Moji?";
 
 "authorization_error_title" = "Login failed.";
 

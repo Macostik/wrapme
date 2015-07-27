@@ -71,6 +71,7 @@
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
+            <string>wrapliveicons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -169,19 +170,39 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bpf-YH-4as">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="75"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="termsAndConditions" translatesAutoresizingMaskIntoConstraints="NO" id="3tf-fU-xIJ">
-                                                        <rect key="frame" x="27" y="10" width="226" height="55"/>
+                                                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Cq-cU-Kci">
+                                                        <rect key="frame" x="66" y="10" width="149" height="56"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrW-0Q-whc">
+                                                                <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                                                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="56"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="QHb-k1-ref">
+                                                                <rect key="frame" x="76" y="3" width="73" height="50"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="36"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="226" id="Ecn-6o-khb"/>
-                                                            <constraint firstAttribute="height" constant="55" id="QFh-iZ-cp4"/>
+                                                            <constraint firstAttribute="trailing" secondItem="QHb-k1-ref" secondAttribute="trailing" id="08U-Wb-gSm"/>
+                                                            <constraint firstItem="yrW-0Q-whc" firstAttribute="leading" secondItem="5Cq-cU-Kci" secondAttribute="leading" id="8Hh-8Y-SRk"/>
+                                                            <constraint firstItem="QHb-k1-ref" firstAttribute="centerY" secondItem="yrW-0Q-whc" secondAttribute="centerY" id="bog-pe-L7h"/>
+                                                            <constraint firstItem="yrW-0Q-whc" firstAttribute="top" secondItem="5Cq-cU-Kci" secondAttribute="top" id="gCC-72-VZm"/>
+                                                            <constraint firstAttribute="bottom" secondItem="yrW-0Q-whc" secondAttribute="bottom" id="iTP-Iy-MJB"/>
+                                                            <constraint firstItem="QHb-k1-ref" firstAttribute="leading" secondItem="yrW-0Q-whc" secondAttribute="trailing" constant="20" id="iwd-IE-COD"/>
                                                         </constraints>
-                                                    </imageView>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="centerX" secondItem="3tf-fU-xIJ" secondAttribute="centerX" id="5hm-w2-nao"/>
-                                                    <constraint firstAttribute="centerY" secondItem="3tf-fU-xIJ" secondAttribute="centerY" id="6ST-RE-lze"/>
+                                                    <constraint firstAttribute="centerX" secondItem="5Cq-cU-Kci" secondAttribute="centerX" id="EkA-57-rsa"/>
                                                     <constraint firstAttribute="height" constant="75" id="ONj-YX-vHP"/>
+                                                    <constraint firstAttribute="centerY" secondItem="5Cq-cU-Kci" secondAttribute="centerY" id="QMx-tf-FZR"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -437,17 +458,10 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wrap" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="GbQ-pR-DxP">
-                                        <rect key="frame" x="54" y="29" width="43" height="26"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="GbQ-pR-DxP">
+                                        <rect key="frame" x="54" y="29" width="37" height="26"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="19"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="WAj-iY-zKl">
-                                        <rect key="frame" x="97" y="29" width="35" height="26"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -455,8 +469,6 @@
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="GbQ-pR-DxP" firstAttribute="leading" secondItem="RCC-0D-s50" secondAttribute="trailing" constant="12" id="3Fv-fM-gM2"/>
-                                    <constraint firstItem="WAj-iY-zKl" firstAttribute="centerY" secondItem="GbQ-pR-DxP" secondAttribute="centerY" id="A2q-s3-p0y"/>
-                                    <constraint firstItem="WAj-iY-zKl" firstAttribute="leading" secondItem="GbQ-pR-DxP" secondAttribute="trailing" id="KWc-CY-Q01"/>
                                     <constraint firstAttribute="centerY" secondItem="RCC-0D-s50" secondAttribute="centerY" constant="-10" id="Xet-At-VId"/>
                                     <constraint firstItem="RCC-0D-s50" firstAttribute="leading" secondItem="mJg-XG-GUq" secondAttribute="leading" constant="12" id="aal-4g-Bjn"/>
                                     <constraint firstAttribute="height" constant="64" id="j0f-6f-6Pt"/>
@@ -722,8 +734,8 @@
                                             <action selector="phoneChanged:" destination="Jh0-1l-1TK" eventType="editingChanged" id="VVX-oK-BaH"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wrapLive will send one time SMS message to verify your phone number. Carrier SMS charges may apply." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="jGq-WB-mde" customClass="WLLabel">
-                                        <rect key="frame" x="13" y="291" width="291" height="54"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOJI will send one time SMS message to verify your phone number. Carrier SMS charges may apply." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="jGq-WB-mde" customClass="WLLabel">
+                                        <rect key="frame" x="16" y="291" width="285" height="54"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -1109,8 +1121,8 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The passcode is required to link this device to your wrapLive account. Enter it above when you receive it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="HrT-ph-Lnj" customClass="WLLabel">
-                                        <rect key="frame" x="14" y="303" width="293" height="54"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The passcode is required to link this device to your MOJI account. Enter it above when you receive it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="HrT-ph-Lnj" customClass="WLLabel">
+                                        <rect key="frame" x="21" y="303" width="278" height="54"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -1461,8 +1473,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have linked this device to your wrapLive account. Enjoy!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Itw-PI-Mz8" customClass="WLLabel">
-                                <rect key="frame" x="27" y="242" width="266" height="52"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have linked this device to your MOJI account. Enjoy!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Itw-PI-Mz8" customClass="WLLabel">
+                                <rect key="frame" x="28" y="242" width="265" height="52"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1911,7 +1923,6 @@
         <image name="1st_screen_btn_agree_and_continue_hightlighted" width="246" height="48"/>
         <image name="horizontal_separator_gray" width="1" height="1"/>
         <image name="logo_and_caption" width="215" height="165"/>
-        <image name="termsAndConditions" width="325" height="80"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

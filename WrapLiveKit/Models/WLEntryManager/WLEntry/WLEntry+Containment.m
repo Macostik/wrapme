@@ -84,7 +84,7 @@
 }
 
 + (NSString *)displayName {
-    return WLLS(@"wrap");
+    return WLLS(@"moji");
 }
 
 @end

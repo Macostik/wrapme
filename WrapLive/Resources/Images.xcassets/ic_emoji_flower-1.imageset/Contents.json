@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Terms_logo.png"
+      "filename" : "ic_flower.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Terms_logo@2x.png"
+      "filename" : "ic_flower@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "Terms_logo@3x.png"
+      "filename" : "ic_flower@3x.png"
     }
   ],
   "info" : {

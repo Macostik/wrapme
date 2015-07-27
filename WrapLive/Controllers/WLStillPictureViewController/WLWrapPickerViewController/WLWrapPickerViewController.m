@@ -224,7 +224,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.wrapNameTextField.placeholder = WLLS(@"new_wrap");
+    self.wrapNameTextField.placeholder = WLLS(@"new_moji");
     if ([self.delegate addWrapPickerViewShouldShowKeyboard:self]) {
         self.createButtonCenterConstraint.priority = UILayoutPriorityDefaultLow;
         self.createButtonLeadingConstraint.priority = UILayoutPriorityDefaultHigh;
@@ -260,12 +260,12 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [self.delegate addWrapPickerViewDidBeginEditing:self];
-    self.wrapNameTextField.placeholder = WLLS(@"what_is_new_wrap_about");
+    self.wrapNameTextField.placeholder = WLLS(@"what_is_new_moji_about");
     [self setEditing:YES animated:YES];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    self.wrapNameTextField.placeholder = WLLS(@"new_wrap");
+    self.wrapNameTextField.placeholder = WLLS(@"new_moji");
     [self setEditing:NO animated:YES];
 }
 
@@ -301,7 +301,7 @@
     
     NSString *name = [self.wrapNameTextField.text trim];
     if (!name.nonempty) {
-        [WLToast showWithMessage:WLLS(@"wrap_name_cannot_be_blank")];
+        [WLToast showWithMessage:WLLS(@"moji_name_cannot_be_blank")];
         return;
     }
     

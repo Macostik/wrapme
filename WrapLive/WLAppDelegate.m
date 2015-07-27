@@ -367,7 +367,7 @@ static WLDataBlock deviceTokenCompletion = nil;
                 [WLAPIManager saveEnvironmentName:[WLAPIManager manager].environment.name];
                 completion([WLExtensionResponse success]);
             } else {
-                completion([WLExtensionResponse failureWithMessage:@"Please, launch wrapLive containing app for registration"]);
+                completion([WLExtensionResponse failureWithMessage:@"Please, launch MOJI containing app for registration"]);
             }
         } else if ([request.action isEqualToString:@"post_chat_message"]) {
             NSString *wrapIdentifier = request.userInfo[WLWrapUIDKey];
@@ -380,7 +380,7 @@ static WLDataBlock deviceTokenCompletion = nil;
                     completion([WLExtensionResponse failureWithMessage:error.localizedDescription]);
                 }];
             } else {
-                completion([WLExtensionResponse failureWithMessage:@"Wrap isn't available."]);
+                completion([WLExtensionResponse failureWithMessage:@"Moji isn't available."]);
             }
         } else if ([request.action isEqualToString:@"post_comment"]) {
             NSString *candyIdentifier = request.userInfo[WLCandyUIDKey];

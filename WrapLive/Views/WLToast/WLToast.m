@@ -257,7 +257,7 @@
 }
 
 + (void)showMessageForUnavailableWrap:(WLWrap *)wrap {
-    [self showWithMessage:[NSString stringWithFormat:WLLS(@"formatted_wrap_unavailable"), WLString(wrap.name)]];
+    [self showWithMessage:[NSString stringWithFormat:WLLS(@"formatted_moji_unavailable"), WLString(wrap.name)]];
 }
 
 @end

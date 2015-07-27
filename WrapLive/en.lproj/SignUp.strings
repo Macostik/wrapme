@@ -23,8 +23,8 @@
 /* Class = "UITextField"; placeholder = "Your name"; ObjectID = "HcW-vf-tjk"; */
 "HcW-vf-tjk.placeholder" = "Your name";
 
-/* Class = "UILabel"; text = "You have linked this device to your wrapLive account. Enjoy!"; ObjectID = "Itw-PI-Mz8"; */
-"Itw-PI-Mz8.text" = "You have linked this device to your wrapLive account. Enjoy!";
+/* Class = "UILabel"; text = "You have linked this device to your MOJI account. Enjoy!"; ObjectID = "Itw-PI-Mz8"; */
+"Itw-PI-Mz8.text" = "You have linked this device to your MOJI account. Enjoy!";
 
 /* Class = "UIButton"; normalTitle = "Use test account"; ObjectID = "Km1-Wj-3a4"; */
 "Km1-Wj-3a4.normalTitle" = "Use test account";
@@ -38,8 +38,8 @@
 /* Class = "UIButton"; normalTitle = "Select Country"; ObjectID = "Pla-to-4nx"; */
 "Pla-to-4nx.normalTitle" = "Select Country";
 
-/* Class = "UILabel"; text = "wrapLive will send one time SMS message to verify your phone number. Carrier SMS charges may apply."; ObjectID = "RcF-WP-Qlr"; */
-"RcF-WP-Qlr.text" = "wrapLive will send one time SMS message to verify your phone number. Carrier SMS charges may apply.";
+/* Class = "UILabel"; text = "MOJI will send one time SMS message to verify your phone number. Carrier SMS charges may apply."; ObjectID = "RcF-WP-Qlr"; */
+"RcF-WP-Qlr.text" = "MOJI will send one time SMS message to verify your phone number. Carrier SMS charges may apply.";
 
 /* Class = "UIButton"; normalTitle = "Use another phone number"; ObjectID = "T4H-t0-WgJ"; */
 "T4H-t0-WgJ.normalTitle" = "Use another phone number";
@@ -82,8 +82,8 @@
 /* Class = "UILabel"; text = "What is your phone number?"; ObjectID = "pmp-Nw-u2O"; */
 "pmp-Nw-u2O.text" = "What's your phone number?";
 
-/* Class = "UILabel"; text = "The passcode is required to link this device to your wrapLive account. Enter it above when you receive it."; ObjectID = "HrT-ph-Lnj"; */
-"HrT-ph-Lnj.text" = "The passcode is required to link this device to your wrapLive account. Enter it above when you receive it.";
+/* Class = "UILabel"; text = "The passcode is required to link this device to your MOJI account. Enter it above when you receive it."; ObjectID = "HrT-ph-Lnj"; */
+"HrT-ph-Lnj.text" = "The passcode is required to link this device to your MOJI account. Enter it above when you receive it.";
 
 /* Class = "UILabel"; text = "Successful!"; ObjectID = "qCY-vc-S18"; */
 "qCY-vc-S18.text" = "Successful!";

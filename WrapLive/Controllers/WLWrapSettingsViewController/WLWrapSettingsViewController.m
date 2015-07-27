@@ -36,7 +36,7 @@ static NSInteger WLIndent = 12.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.actionButton setTitle:self.wrap.deletable ? WLLS(@"delete_wrap") : WLLS(@"leave_wrap")  forState:UIControlStateNormal];
+    [self.actionButton setTitle:self.wrap.deletable ? WLLS(@"delete_moji") : WLLS(@"leave_moji")  forState:UIControlStateNormal];
     self.wrapNameTextField.text = self.wrapNameLabel.text = self.wrap.name;
     self.editButton.hidden = !self.wrap.deletable;
     self.wrapNameTextField.enabled = self.wrap.deletable;
@@ -68,7 +68,7 @@ static NSInteger WLIndent = 12.0;
         sender.loading = YES;
         [wrap remove:^(id object) {
             [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            if (deletable) [WLToast showWithMessage:WLLS(@"delete_wrap_success")];
+            if (deletable) [WLToast showWithMessage:WLLS(@"delete_moji_success")];
             sender.loading = NO;
         } failure:^(NSError *error) {
             [error show];
@@ -128,7 +128,7 @@ static NSInteger WLIndent = 12.0;
             }];
         }
     } else {
-        [WLToast showWithMessage:WLLS(@"wrap_name_cannot_be_blank")];
+        [WLToast showWithMessage:WLLS(@"moji_name_cannot_be_blank")];
         self.wrapNameTextField.text = [self.editSession originalValueForProperty:@"name"];
     }
     self.editButton.selected = NO;

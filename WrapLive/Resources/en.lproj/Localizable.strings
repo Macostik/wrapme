@@ -46,21 +46,21 @@
 
 "formatted_calling_now" = "Calling %@ now. Please wait.";
 
-"cannot_add_yourself" = "You can't add yourself to the wrap.";
+"cannot_add_yourself" = "You can't add yourself to the Moji.";
 
-"wrap_name_cannot_be_blank" = "Name of the wrap can't be blank.";
+"moji_name_cannot_be_blank" = "Name of the Moji can't be blank.";
 
-"delete_wrap" = "Delete wrap?";
+"delete_moji" = "Delete Moji?";
 
-"leave_wrap" = "Leave wrap?";
+"leave_moji" = "Leave Moji?";
 
-"formatted_delete_wrap_confirmation" = "Are you sure you want to delete this wrap \"%@\"?";
+"formatted_delete_moji_confirmation" = "Are you sure you want to delete this Moji \"%@\"?";
 
-"leave_wrap_confirmation" = "Are you sure you want to leave this wrap?";
+"leave_moji_confirmation" = "Are you sure you want to leave this Moji?";
 
-"delete_wrap_success" = "Wrap has been deleted successfully.";
+"delete_moji_success" = "Moji has been deleted successfully.";
 
-"wrap_is_uploading" = "Uploading the wrap now. Please wait.";
+"moji_is_uploading" = "Uploading the Moji now. Please wait.";
 
 "photo_is_uploading" = "Uploading the photo now. Please wait.";
 
@@ -70,13 +70,13 @@
 
 "delete_photo_confirmation" = "Are you sure you want to delete this photo?";
 
-"new_version_is_available" = "A new version of wrapLive is available";
+"new_version_is_available" = "A new version of Moji is available";
 
 "update" = "Update";
 
 "not_now" = "Not now";
 
-"engagement_notification_alert" = "Got new photos? Upload them to your wraps now!";
+"engagement_notification_alert" = "Got new photos? Upload them to your Mojis now!";
 
 "upload" = "Upload";
 
@@ -114,7 +114,7 @@
 
 "terms_and_conditions" = "Terms and Conditions";
 
-"formatted_wrap_unavailable" = "\"%@\" is no longer available.";
+"formatted_moji_unavailable" = "\"%@\" is no longer available.";
 
 "formatted_photo_by" = "Photo by %@";
 
@@ -136,7 +136,7 @@
 
 "editing_internet_connection_error" = "No internet connection. Can't download the photo for editing.";
 
-"downloading_privacy_settings" = "Please go to Settings > wrapLive to allow wrapLive access the photos on this device.";
+"downloading_privacy_settings" = "Please go to Settings > MOJI to allow MOJI access the photos on this device.";
 
 "formatted_verification_email_text" = "Confirm %@ as your e-mail address to help secure your account.";
 
@@ -174,9 +174,9 @@
 
 "plural_ending" = "s";
 
-"FRIENDS_ON_WRAPLIVE" = "FRIENDS ON WRAPLIVE";
+"FRIENDS_ON_MOJI" = "FRIENDS ON MOJI";
 
-"INVITE_TO_WRAPLIVE" = "INVITE TO WRAPLIVE";
+"INVITE_TO_MOJI" = "INVITE TO MOJI";
 
 "APNS_TT01" = "You are invited!";
 
@@ -198,9 +198,9 @@
 
 "APNS_MSG05" = "%@ just edited a photo. Check it out!";
 
-"APNS_TT06" = "A new version of wrapLive is available";
+"APNS_TT06" = "A new version of MOJI is available";
 
-"APNS_MSG06" = "wrapLive has a new update! Download it now!";
+"APNS_MSG06" = "MOJI has a new update! Download it now!";
 
 "reply" = "Reply";
 
@@ -216,9 +216,9 @@
 
 "no_photos_to_upload" = "No photos to be uploaded.";
 
-"new_wrap" = "New wrap";
+"new_moji" = "New Moji";
 
-"what_is_new_wrap_about" = "What is new wrap about?";
+"what_is_new_moji_about" = "What is new Moji about?";
 
 "authorization_error_title" = "Login failed.";
 

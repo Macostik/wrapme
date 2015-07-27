@@ -132,7 +132,7 @@ CGFloat WLMaxTextViewWidth;
             [error showIgnoringNetworkError];
         }];
     }
-		
+    
     [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLFontPresetter presetter] addReceiver:self];
@@ -486,9 +486,13 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGFloat)heightOfTypingCell:(WLChat *)chat {
-    return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular
-                                                                                              preset:WLFontPresetSmaller]
-                                                                 width:WLMaxTextViewWidth] + WLTypingViewTopIndent);
+    if (chat.wrap.messages.nonempty) {
+        return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular
+                                                                                                  preset:WLFontPresetSmaller]
+                                                                     width:WLMaxTextViewWidth] + WLTypingViewTopIndent);
+    } else {
+        return 0;
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -497,9 +501,6 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    if (self.chat.entries != nil && [self.chat.entries count] == 0) {
-        return CGSizeZero;
-    }
     if ([kind isEqualToString:@"date"]) {
         WLMessage *message = [self.chat.entries tryAt:indexPath.item];
         return [self.chat.messagesWithDay containsObject:message] ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;

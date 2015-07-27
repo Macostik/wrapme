@@ -215,10 +215,17 @@ CGFloat WLMaxTextViewWidth;
         } else {
             
             [weakSelf.chat addEntry:message];
-            [weakSelf.collectionView reloadData];
-            [collectionView layoutIfNeeded];
-            collectionView.contentOffset = CGPointOffset(collectionView.minimumContentOffset, 0, [weakSelf heightOfMessageCell:message]);
-            [collectionView setMinimumContentOffsetAnimated:YES];
+            
+            if (self.collectionView.height/2 < [weakSelf heightOfMessageCell:message] &&
+                [self.chat.unreadMessages count] == 1) {
+                self.layout.scrollToUnreadMessages = YES;
+            } else {
+                [weakSelf.collectionView reloadData];
+                [collectionView layoutIfNeeded];
+                collectionView.contentOffset = CGPointOffset(collectionView.minimumContentOffset, 0, [weakSelf heightOfMessageCell:message]);
+                [collectionView setMinimumContentOffsetAnimated:YES];
+            }
+            
             run_after(0.5, ^{
                 [operation finish];
             });
@@ -366,6 +373,9 @@ CGFloat WLMaxTextViewWidth;
         }];
         [WLSoundPlayer playSound:WLSound_s04];
         [self.collectionView setMinimumContentOffsetAnimated:YES];
+        [self.chat.readMessages all:^(WLMessage *message) {
+            [message markAsRead];
+        }];
     } else {
         [self.navigationController popToRootViewControllerAnimated:NO];
     }

@@ -170,8 +170,8 @@
 /* Class = "UILabel"; text = "11:32 PM"; ObjectID = "Lc4-Kr-oEr"; */
 "Lc4-Kr-oEr.text" = "11:32 PM";
 
-/* Class = "UIButton"; normalTitle = "About"; ObjectID = "Lq0-rh-5bS"; */
-"Lq0-rh-5bS.normalTitle" = "About";
+/* Class = "UIButton"; normalTitle = "About MOJI"; ObjectID = "Lq0-rh-5bS"; */
+"Lq0-rh-5bS.normalTitle" = "About MOJI";
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "MJV-nQ-gRy"; */
 "MJV-nQ-gRy.normalTitle" = "Cancel";

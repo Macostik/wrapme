@@ -20,8 +20,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap is better with friends." textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H0z-j3-IR4" customClass="WLLabel">
-                    <rect key="frame" x="73" y="240" width="173" height="52"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji is better with friends." textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H0z-j3-IR4" customClass="WLLabel">
+                    <rect key="frame" x="14" y="240" width="232" height="26"/>
                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="19"/>
                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -30,7 +30,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alp-kS-BQe" customClass="WLLabel">
-                    <rect key="frame" x="110" y="312" width="136" height="78"/>
+                    <rect key="frame" x="110" y="286" width="136" height="78"/>
                     <string key="text">Add friends.
 Chip in photos.
 Stay connected.</string>
@@ -42,7 +42,7 @@ Stay connected.</string>
                     </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wy3-57-sV0" customClass="WLButton">
-                    <rect key="frame" x="151" y="410" width="95" height="33"/>
+                    <rect key="frame" x="151" y="384" width="95" height="33"/>
                     <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="95" id="b33-h0-AXs"/>

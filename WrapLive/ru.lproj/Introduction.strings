@@ -2,10 +2,10 @@
 "YFX-em-iVo.text" = "Moji - это альбом, в котором Вы и указанные Вами люди могут добавлять картинки и делится воспоминаниями.";
 
 /* Class = "UILabel"; text = "A new way to communicate. Capture your life stories in a Moji."; ObjectID = "duP-DA-GDK"; */
-"duP-DA-GDK.text" = "Новый способ общения. Сохряняйте истории своей жизни во Moji.";
+"duP-DA-GDK.text" = "Новый способ общения. Сохряняйте истории своей жизни в Moji.";
 
 /* Class = "UILabel"; text = "Welcome to MOJI!"; ObjectID = "iaE-LB-F5N"; */
-"iaE-LB-F5N.text" = "Добро пожаловать во MOJI!";
+"iaE-LB-F5N.text" = "Добро пожаловать в MOJI!";
 
 /* Class = "UILabel"; text = "What's a Moji?"; ObjectID = "mNA-4e-bin"; */
 "mNA-4e-bin.text" = "Что такое Moji?";

@@ -29,13 +29,6 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widget-extension</string>
 	</dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>OpenSans-Light.ttf</string>
-		<string>OpenSans-Regular.ttf</string>
-		<string>OpenSans-Bold.ttf</string>
-		<string>wrapliveicons.ttf</string>
-	</array>
 	<key>WLAppGroupIdentifier</key>
 	<string>group.com.ravenpod.wrapliveadhoc</string>
 </dict>

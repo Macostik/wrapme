@@ -4,29 +4,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="OpenSans-Light.ttf">
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-            <string>OpenSans-Light</string>
-        </mutableArray>
-        <mutableArray key="OpenSans-Regular.ttf">
-            <string>OpenSans</string>
-        </mutableArray>
-    </customFonts>
     <scenes>
         <!--events-->
         <scene sceneID="aou-V4-d1y">
@@ -39,7 +16,7 @@
                                     <items>
                                         <label alignment="center" verticalAlignment="center" text="Label" numberOfLines="0" id="ZOa-1m-kLy">
                                             <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                            <fontDescription key="font" type="system" pointSize="17"/>
                                         </label>
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
@@ -51,7 +28,7 @@
                                         <imageView alignment="center" verticalAlignment="center" image="watchkit_placeholder" contentMode="center" id="kBr-Be-QGw"/>
                                         <label alignment="center" verticalAlignment="center" text="No recent updates" textAlignment="center" numberOfLines="2" id="jYA-WL-ubk">
                                             <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                            <fontDescription key="font" type="system" pointSize="17"/>
                                         </label>
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
@@ -72,22 +49,22 @@
                                                                     </group>
                                                                     <label alignment="left" verticalAlignment="center" text="Text" textAlignment="left" numberOfLines="2" id="Pyy-yw-gmE">
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="19"/>
+                                                                        <fontDescription key="font" type="system" pointSize="19"/>
                                                                     </label>
                                                                 </items>
                                                                 <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                             </group>
                                                             <label alignment="left" verticalAlignment="bottom" text="Photo By" textAlignment="left" id="4Gx-Lw-LSq">
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                                <fontDescription key="font" type="system" pointSize="17"/>
                                                             </label>
                                                             <label alignment="left" verticalAlignment="bottom" text="Moji Name" textAlignment="left" id="xx6-re-wx6">
                                                                 <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                                <fontDescription key="font" type="system" pointSize="17"/>
                                                             </label>
                                                             <label alignment="left" verticalAlignment="bottom" text="Date" textAlignment="left" id="Zed-Mn-G3D">
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                                <fontDescription key="font" type="system" pointSize="17"/>
                                                             </label>
                                                         </items>
                                                         <edgeInsets key="margins" left="4" right="4" top="4" bottom="4"/>
@@ -114,15 +91,15 @@
                                                         <items>
                                                             <label alignment="left" verticalAlignment="center" text="Photo By" textAlignment="left" id="7wg-8q-jSs">
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                                <fontDescription key="font" type="system" pointSize="17"/>
                                                             </label>
                                                             <label alignment="left" verticalAlignment="center" text="Moji Name" textAlignment="left" id="hEJ-g4-zYi">
                                                                 <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                                <fontDescription key="font" type="system" pointSize="17"/>
                                                             </label>
                                                             <label alignment="left" verticalAlignment="center" text="Date" textAlignment="left" id="W5b-9z-OPw">
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                                <fontDescription key="font" type="system" pointSize="17"/>
                                                             </label>
                                                         </items>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -173,15 +150,15 @@
                                             <items>
                                                 <label alignment="left" verticalAlignment="center" text="Photo By" textAlignment="left" id="99U-ca-OFF">
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                    <fontDescription key="font" type="system" pointSize="17"/>
                                                 </label>
                                                 <label alignment="left" verticalAlignment="center" text="Moji Name" textAlignment="left" id="eAm-N6-qtb">
                                                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                    <fontDescription key="font" type="system" pointSize="17"/>
                                                 </label>
                                                 <label alignment="left" verticalAlignment="center" text="Date" textAlignment="left" id="ilC-YI-lqm">
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                                    <fontDescription key="font" type="system" pointSize="17"/>
                                                 </label>
                                             </items>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -198,7 +175,7 @@
                                         <button width="1" widthAdjustment="-2" alignment="center" title="Comment" id="55e-NG-3Tc">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                            <fontDescription key="font" type="system" pointSize="15"/>
                                             <connections>
                                                 <action selector="writeComment" destination="5u8-yz-26Q" id="vWw-kn-yWg"/>
                                             </connections>
@@ -219,15 +196,15 @@
                                                         <items>
                                                             <label alignment="left" text="Name" textAlignment="left" id="yod-K8-G8c">
                                                                 <color key="textColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <fontDescription key="font" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                                                <fontDescription key="font" type="system" pointSize="15"/>
                                                             </label>
                                                             <label alignment="left" text="Text" textAlignment="left" numberOfLines="0" id="iGb-nn-Z5r">
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                                <fontDescription key="font" type="system" pointSize="15"/>
                                                             </label>
                                                             <label alignment="left" text="Date" textAlignment="left" id="6NG-l4-ZQV">
                                                                 <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
+                                                                <fontDescription key="font" type="system" pointSize="15"/>
                                                             </label>
                                                         </items>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -274,7 +251,7 @@
                             <items>
                                 <label alignment="center" verticalAlignment="center" text="Network connection error" textAlignment="center" numberOfLines="0" id="SFC-eh-ZGN">
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="font" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                                    <fontDescription key="font" type="system" pointSize="17"/>
                                 </label>
                             </items>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

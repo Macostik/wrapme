@@ -20,7 +20,7 @@
 - (UILabel *)emojiLabel {
 	if (!_emojiLabel) {
 		UILabel *emojiLabel = [[UILabel alloc] initWithFrame:self.bounds];
-		emojiLabel.font = [UIFont fontWithName:WLFontOpenSansRegular size:34];
+		emojiLabel.font = [UIFont fontWithName:WLDefaultSystemFont size:34];
 		emojiLabel.textAlignment = NSTextAlignmentCenter;
 		[self addSubview:emojiLabel];
 		[emojiLabel setFullFlexible];

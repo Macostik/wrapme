@@ -98,9 +98,9 @@ CGFloat WLMaxTextViewWidth;
     
     self.cachedMessageHeights = [NSMapTable strongToStrongObjectsMapTable];
     
-    self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal];
-    self.nameFont = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetNormal];
-    self.timeFont = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
+    self.messageFont = [UIFont preferredFontWithName:WLDefaultBoldSystemFont preset:WLFontPresetNormal];
+    self.nameFont = [UIFont preferredFontWithName:WLDefaultSystemFont preset:WLFontPresetNormal];
+    self.timeFont = [UIFont preferredFontWithName:WLDefaultSystemFont preset:WLFontPresetSmall];
     
     [self.collectionView registerNib:[WLLoadingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WLLoadingViewIdentifier];
     [self.collectionView registerNib:[WLTypingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLTypingViewCell"];
@@ -497,7 +497,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (CGFloat)heightOfTypingCell:(WLChat *)chat {
     if (chat.wrap.messages.nonempty) {
-        return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular
+        return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredFontWithName:WLDefaultSystemFont
                                                                                                   preset:WLFontPresetSmaller]
                                                                      width:WLMaxTextViewWidth] + WLTypingViewTopIndent);
     } else {

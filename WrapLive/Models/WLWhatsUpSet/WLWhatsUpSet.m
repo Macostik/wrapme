@@ -105,7 +105,10 @@
             events = [events map:^id(WLWhatsUpEvent *event) {
                 WLContribution *contribution = event.contribution;
                 NSError *error = nil;
-                event.contribution = [mainContext existingObjectWithID:[contribution objectID] error:&error];
+                NSManagedObject *existingContributor = [mainContext existingObjectWithID:[contribution objectID] error:&error];
+                if (existingContributor != nil && !existingContributor.fault) {
+                    event.contribution = existingContributor;
+                }
                 return [event.contribution valid] && !error ? event : nil;
             }];
             [weakSelf resetEntries:events];

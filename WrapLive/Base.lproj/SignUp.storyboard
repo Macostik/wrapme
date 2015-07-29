@@ -112,7 +112,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="75"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Cq-cU-Kci">
-                                                        <rect key="frame" x="67" y="10" width="147" height="56"/>
+                                                        <rect key="frame" x="69" y="10" width="143" height="56"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrW-0Q-whc">
                                                                 <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
@@ -121,9 +121,9 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="QHb-k1-ref">
-                                                                <rect key="frame" x="76" y="7" width="71" height="43"/>
+                                                                <rect key="frame" x="76" y="7" width="67" height="43"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -188,7 +188,7 @@
                                     <constraint firstAttribute="width" constant="240" id="8Kg-BO-2cE"/>
                                     <constraint firstAttribute="height" constant="48" id="Mvf-zF-hjm"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <inset key="imageEdgeInsets" minX="300" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" backgroundImage="1st_screen_btn_agree_and_continue_enabled">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -264,7 +264,7 @@
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKx-Py-m2B" customClass="WLLabel">
                                                     <rect key="frame" x="10" y="0.0" width="300" height="44"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
@@ -306,7 +306,7 @@
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your country" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5MV-3s-wuD" customClass="WLLabel">
                                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -473,9 +473,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="59A-fh-MwM" customClass="WLPressButton">
-                                <rect key="frame" x="267" y="25" width="41" height="35"/>
+                                <rect key="frame" x="268" y="25" width="40" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Next">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -506,8 +506,8 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your email?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="fKc-pu-juY" customClass="WLLabel">
-                                        <rect key="frame" x="75" y="176" width="172" height="23"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                        <rect key="frame" x="78" y="176" width="166" height="23"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -521,7 +521,7 @@
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="ud4-IB-XPf"/>
                                         </constraints>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
@@ -534,7 +534,7 @@
                                             <constraint firstAttribute="height" constant="46" id="17m-Pm-LIr"/>
                                             <constraint firstAttribute="width" constant="180" id="h6h-zT-FQq"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                         <state key="normal" title="Use test account">
                                             <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -605,9 +605,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sze-nv-qGE" customClass="WLPressButton">
-                                <rect key="frame" x="267" y="25" width="41" height="35"/>
+                                <rect key="frame" x="268" y="25" width="40" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Next">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -632,8 +632,8 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your phone number?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="b75-OF-Awx" customClass="WLLabel">
-                                        <rect key="frame" x="33" y="176" width="253" height="23"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                        <rect key="frame" x="38" y="176" width="244" height="23"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -646,7 +646,7 @@
                                             <constraint firstAttribute="width" constant="45" id="P0T-wm-xfQ"/>
                                             <constraint firstAttribute="height" constant="32" id="iYy-Gn-QLS"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
@@ -658,7 +658,7 @@
                                             <constraint firstAttribute="width" constant="201" id="5UB-07-1v5"/>
                                             <constraint firstAttribute="height" constant="32" id="Uak-28-wfM"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
@@ -668,8 +668,8 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOJI will send one time SMS message to verify your phone number. Carrier SMS charges may apply." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="jGq-WB-mde" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="288" width="293" height="47"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <rect key="frame" x="13" y="288" width="291" height="47"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -681,7 +681,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="246" id="nLq-gT-wkj"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <inset key="imageEdgeInsets" minX="238" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Select Country">
                                             <color key="titleColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
@@ -767,9 +767,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Rx-X7-5Up" customClass="WLPressButton">
-                                <rect key="frame" x="266" y="24" width="42" height="36"/>
+                                <rect key="frame" x="268" y="24" width="40" height="36"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <state key="normal" title="Next">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -793,8 +793,8 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1 925-682-1888" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="s7C-hv-ivf" customClass="WLLabel">
-                                        <rect key="frame" x="86" y="176" width="148" height="23"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                        <rect key="frame" x="87" y="176" width="147" height="23"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -816,12 +816,12 @@
                                             <constraint firstAttribute="width" constant="180" id="vfH-BF-Ucu"/>
                                         </constraints>
                                         <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are sending you a 4-digit code. Enter it above to verify your phone number." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="a1z-Vo-fE0" customClass="WLLabel">
-                                        <rect key="frame" x="28" y="255" width="265" height="32"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <rect key="frame" x="30" y="255" width="260" height="32"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -829,8 +829,8 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Haven't received the SMS?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="r04-q5-jeO" customClass="WLLabel">
-                                        <rect key="frame" x="77" y="314" width="166" height="16"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <rect key="frame" x="78" y="314" width="164" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -840,7 +840,7 @@
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rvs-HT-UrH" customClass="WLPressButton">
                                         <rect key="frame" x="12" y="336" width="296" height="28"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <state key="normal" title="Try the voice call option">
                                             <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -878,7 +878,7 @@
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bx6-G7-X4j" customClass="WLButton">
                                         <rect key="frame" x="12" y="376" width="296" height="28"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <state key="normal" title="Use another phone number">
                                             <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -989,9 +989,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Lq-nT-Bu5" customClass="WLPressButton">
-                                <rect key="frame" x="267" y="25" width="41" height="35"/>
+                                <rect key="frame" x="268" y="25" width="40" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Next">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1022,15 +1022,15 @@
                                             <constraint firstAttribute="height" constant="32" id="aLM-kv-FDH"/>
                                         </constraints>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The passcode is required to link this device to your MOJI account. Enter it above when you receive it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="HrT-ph-Lnj" customClass="WLLabel">
-                                        <rect key="frame" x="18" y="278" width="285" height="47"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <rect key="frame" x="20" y="278" width="280" height="47"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -1038,8 +1038,8 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are sending you a passcode through e-mail and phone..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3SS-8p-5Y2" customClass="WLLabel">
-                                        <rect key="frame" x="18" y="176" width="285" height="46"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                        <rect key="frame" x="23" y="176" width="274" height="46"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -1108,9 +1108,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e0l-0g-x0j" customClass="WLPressButton">
-                                <rect key="frame" x="266" y="24" width="42" height="36"/>
+                                <rect key="frame" x="268" y="24" width="40" height="36"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <state key="normal" title="Next">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1136,7 +1136,7 @@
                                     <constraint firstAttribute="height" constant="20" id="YMw-bj-1WY"/>
                                     <constraint firstAttribute="width" constant="320" id="uma-S0-OAH"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -1149,7 +1149,7 @@
                                     <constraint firstAttribute="width" constant="260" id="4sD-4A-obT"/>
                                     <constraint firstAttribute="height" constant="60" id="CXJ-kX-eZM"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -1203,7 +1203,7 @@
                                     <constraint firstAttribute="height" constant="20" id="3l7-gi-tGE"/>
                                     <constraint firstAttribute="width" constant="320" id="cHk-jx-k7i"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -1216,7 +1216,7 @@
                                     <constraint firstAttribute="width" constant="260" id="Tbc-ID-6rl"/>
                                     <constraint firstAttribute="height" constant="60" id="k1C-ro-LLl"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -1226,7 +1226,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xte-7W-F0S" customClass="WLPressButton">
                                 <rect key="frame" x="12" y="390" width="296" height="33"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Try again">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1256,7 +1256,7 @@
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uIo-Dt-OO6" customClass="WLPressButton">
                                 <rect key="frame" x="12" y="435" width="296" height="33"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Edit phone number">
                                     <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1332,8 +1332,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Successful!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCY-vc-S18" customClass="WLLabel">
-                                <rect key="frame" x="109" y="240" width="102" height="23"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <rect key="frame" x="112" y="240" width="97" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -1341,8 +1341,8 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have linked this device to your MOJI account. Enjoy!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Itw-PI-Mz8" customClass="WLLabel">
-                                <rect key="frame" x="27" y="271" width="266" height="46"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <rect key="frame" x="12" y="271" width="296" height="46"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -1350,9 +1350,9 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zwb-OE-87q" customClass="WLPressButton">
-                                <rect key="frame" x="267" y="27" width="41" height="35"/>
+                                <rect key="frame" x="268" y="27" width="40" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Next">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1414,8 +1414,8 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="calvin@ravenpod.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="CYI-Om-Lg8" customClass="WLLabel">
-                                <rect key="frame" x="64" y="240" width="193" height="23"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <rect key="frame" x="67" y="240" width="186" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -1423,8 +1423,8 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="is confirmed successfully!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="238" translatesAutoresizingMaskIntoConstraints="NO" id="Vxz-ag-TOf" customClass="WLLabel">
-                                <rect key="frame" x="47" y="263" width="227" height="23"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <rect key="frame" x="52" y="263" width="217" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -1432,9 +1432,9 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X8h-Le-1RA" customClass="WLPressButton">
-                                <rect key="frame" x="267" y="25" width="41" height="35"/>
+                                <rect key="frame" x="268" y="25" width="40" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Next">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1494,8 +1494,8 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="calvin@ravenpod.com" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fab-q9-FLD" customClass="WLLabel">
-                                <rect key="frame" x="64" y="240" width="193" height="23"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <rect key="frame" x="67" y="240" width="186" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -1503,9 +1503,9 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="dRx-kr-5xI" customClass="WLLabel">
-                                <rect key="frame" x="15" y="275" width="291" height="63"/>
+                                <rect key="frame" x="14" y="275" width="292" height="47"/>
                                 <string key="text">We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -1513,9 +1513,9 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oIH-Zc-2Z8" customClass="WLPressButton">
-                                <rect key="frame" x="12" y="350" width="296" height="33"/>
+                                <rect key="frame" x="12" y="334" width="296" height="33"/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <state key="normal" title="Resend the e-mail">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1539,9 +1539,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dM9-5p-U8h" customClass="WLButton">
-                                <rect key="frame" x="12" y="395" width="296" height="33"/>
+                                <rect key="frame" x="12" y="379" width="296" height="33"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <state key="normal" title="Use another e-mail">
                                     <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1613,9 +1613,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cr9-5f-gle" customClass="WLPressButton">
-                                <rect key="frame" x="256" y="25" width="52" height="35"/>
+                                <rect key="frame" x="258" y="25" width="50" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <inset key="imageEdgeInsets" minX="300" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Finish">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1635,8 +1635,8 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit your profile" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="239" translatesAutoresizingMaskIntoConstraints="NO" id="JDb-jD-Zkt" customClass="WLLabel">
-                                        <rect key="frame" x="91" y="83" width="139" height="23"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                        <rect key="frame" x="94" y="83" width="133" height="23"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -1650,15 +1650,15 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your photo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w5f-mm-zRg">
-                                                <rect key="frame" x="29" y="80" width="123" height="21"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <rect key="frame" x="30" y="80" width="120" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="trg-qA-KZr">
                                                 <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="4"/>
                                                 <state key="normal">
                                                     <color key="titleShadowColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1702,7 +1702,7 @@
                                             <constraint firstAttribute="height" constant="32" id="tOL-4p-ihP"/>
                                         </constraints>
                                         <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>

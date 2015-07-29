@@ -12,8 +12,8 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to see next photo" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LpS-0e-hFu" customClass="WLLabel">
-                    <rect key="frame" x="44" y="101" width="213" height="23"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                    <rect key="frame" x="52" y="101" width="205" height="23"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
                     <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -26,7 +26,7 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="95" id="TVr-nG-VQh"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="Got it">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

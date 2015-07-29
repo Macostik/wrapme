@@ -59,7 +59,7 @@
     if (text) {
         NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.alignment = NSTextAlignmentCenter;
-        UIFont* font = [UIFont fontWithName:WLDefaultBoldSystemFont preset:WLFontPresetXSmall];
+        UIFont* font = [UIFont fontWithName:WLDefaultSystemFont preset:WLFontPresetXSmall];
         NSDictionary* attributes = @{NSFontAttributeName:font,NSForegroundColorAttributeName:color, NSParagraphStyleAttributeName:paragraphStyle};
         NSAttributedString* string = [[NSAttributedString alloc] initWithString:text attributes:attributes];
         

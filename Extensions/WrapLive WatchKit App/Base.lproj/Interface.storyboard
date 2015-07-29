@@ -49,22 +49,22 @@
                                                                     </group>
                                                                     <label alignment="left" verticalAlignment="center" text="Text" textAlignment="left" numberOfLines="2" id="Pyy-yw-gmE">
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <fontDescription key="font" type="system" pointSize="19"/>
+                                                                        <fontDescription key="font" type="system" weight="light" pointSize="19"/>
                                                                     </label>
                                                                 </items>
                                                                 <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                             </group>
                                                             <label alignment="left" verticalAlignment="bottom" text="Photo By" textAlignment="left" id="4Gx-Lw-LSq">
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="font" type="system" pointSize="17"/>
+                                                                <fontDescription key="font" type="system" weight="light" pointSize="17"/>
                                                             </label>
                                                             <label alignment="left" verticalAlignment="bottom" text="Moji Name" textAlignment="left" id="xx6-re-wx6">
                                                                 <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <fontDescription key="font" type="system" pointSize="17"/>
+                                                                <fontDescription key="font" type="system" weight="light" pointSize="17"/>
                                                             </label>
                                                             <label alignment="left" verticalAlignment="bottom" text="Date" textAlignment="left" id="Zed-Mn-G3D">
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="font" type="system" pointSize="17"/>
+                                                                <fontDescription key="font" type="system" weight="light" pointSize="17"/>
                                                             </label>
                                                         </items>
                                                         <edgeInsets key="margins" left="4" right="4" top="4" bottom="4"/>
@@ -91,15 +91,15 @@
                                                         <items>
                                                             <label alignment="left" verticalAlignment="center" text="Photo By" textAlignment="left" id="7wg-8q-jSs">
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="font" type="system" pointSize="17"/>
+                                                                <fontDescription key="font" type="system" weight="light" pointSize="17"/>
                                                             </label>
                                                             <label alignment="left" verticalAlignment="center" text="Moji Name" textAlignment="left" id="hEJ-g4-zYi">
                                                                 <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <fontDescription key="font" type="system" pointSize="17"/>
+                                                                <fontDescription key="font" type="system" weight="light" pointSize="17"/>
                                                             </label>
                                                             <label alignment="left" verticalAlignment="center" text="Date" textAlignment="left" id="W5b-9z-OPw">
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="font" type="system" pointSize="17"/>
+                                                                <fontDescription key="font" type="system" weight="light" pointSize="17"/>
                                                             </label>
                                                         </items>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -150,15 +150,15 @@
                                             <items>
                                                 <label alignment="left" verticalAlignment="center" text="Photo By" textAlignment="left" id="99U-ca-OFF">
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="font" type="system" pointSize="17"/>
+                                                    <fontDescription key="font" type="system" weight="light" pointSize="17"/>
                                                 </label>
                                                 <label alignment="left" verticalAlignment="center" text="Moji Name" textAlignment="left" id="eAm-N6-qtb">
                                                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="font" type="system" pointSize="17"/>
+                                                    <fontDescription key="font" type="system" weight="light" pointSize="17"/>
                                                 </label>
                                                 <label alignment="left" verticalAlignment="center" text="Date" textAlignment="left" id="ilC-YI-lqm">
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="font" type="system" pointSize="17"/>
+                                                    <fontDescription key="font" type="system" weight="light" pointSize="17"/>
                                                 </label>
                                             </items>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -196,11 +196,11 @@
                                                         <items>
                                                             <label alignment="left" text="Name" textAlignment="left" id="yod-K8-G8c">
                                                                 <color key="textColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <fontDescription key="font" type="system" pointSize="15"/>
+                                                                <fontDescription key="font" type="system" weight="light" pointSize="15"/>
                                                             </label>
                                                             <label alignment="left" text="Text" textAlignment="left" numberOfLines="0" id="iGb-nn-Z5r">
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="font" type="system" pointSize="15"/>
+                                                                <fontDescription key="font" type="system" weight="light" pointSize="15"/>
                                                             </label>
                                                             <label alignment="left" text="Date" textAlignment="left" id="6NG-l4-ZQV">
                                                                 <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
@@ -251,7 +251,7 @@
                             <items>
                                 <label alignment="center" verticalAlignment="center" text="Network connection error" textAlignment="center" numberOfLines="0" id="SFC-eh-ZGN">
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="font" type="system" pointSize="17"/>
+                                    <fontDescription key="font" type="system" weight="light" pointSize="17"/>
                                 </label>
                             </items>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -273,7 +273,7 @@
                     <items>
                         <label alignment="left" text="Alert Label" numberOfLines="0" id="XkS-y5-khE">
                             <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="font" type="system" pointSize="15"/>
+                            <fontDescription key="font" type="system" weight="light" pointSize="15"/>
                         </label>
                     </items>
                     <notificationCategory key="notificationCategory" id="JfB-70-Muf">
@@ -304,11 +304,11 @@
                                             <items>
                                                 <label alignment="left" text="Title Label" numberOfLines="0" id="UdI-ZI-ZP4">
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="font" type="system" weight="semibold" pointSize="15"/>
+                                                    <fontDescription key="font" type="system" pointSize="15"/>
                                                 </label>
                                                 <label alignment="left" text="Alert Label" numberOfLines="0" id="7l1-25-HMV">
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="font" type="system" pointSize="15"/>
+                                                    <fontDescription key="font" type="system" weight="light" pointSize="15"/>
                                                 </label>
                                             </items>
                                             <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>

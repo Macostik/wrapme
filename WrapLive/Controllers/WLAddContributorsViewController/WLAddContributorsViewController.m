@@ -144,7 +144,7 @@ const static CGFloat WLDefaultHeight = 72.0f;
         }
     } else {
         NSString *phoneString = [WLContactCell collectionPersonsStringFromContact:contact];
-        CGFloat height = [phoneString heightWithFont:[UIFont fontWithName:WLDefaultBoldSystemFont preset:WLFontPresetSmall]
+        CGFloat height = [phoneString heightWithFont:[UIFont fontWithName:WLDefaultSystemFont preset:WLFontPresetSmall]
                                        width:self.tableView.width - 142.0f];
         return height + 54.0;
     }

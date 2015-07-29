@@ -37,9 +37,9 @@
         
         CGFloat textHeight  = [WLWhatsUpCell additionalHeightCell:event];
         
-        UIFont *fontNormal = [UIFont preferredFontWithName:WLDefaultBoldSystemFont
+        UIFont *fontNormal = [UIFont preferredFontWithName:WLDefaultSystemFont
                                                     preset:WLFontPresetNormal];
-        UIFont *fontSmall = [UIFont preferredFontWithName:WLDefaultBoldSystemFont
+        UIFont *fontSmall = [UIFont preferredFontWithName:WLDefaultSystemFont
                                                    preset:WLFontPresetSmall];
         return CGSizeMake(WLConstants.screenWidth, textHeight + 2*floorf(fontNormal.lineHeight) + floorf(fontSmall.lineHeight) + WLPaddingCell);
 

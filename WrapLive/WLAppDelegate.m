@@ -27,6 +27,7 @@
 #import "WLAddressBook.h"
 #import "WLEntryNotification.h"
 #import "WLAlertView.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 

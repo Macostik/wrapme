@@ -16,7 +16,7 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="236" id="eFI-7A-3Bt"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
                     <color key="textColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
@@ -29,7 +29,7 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="95" id="cM6-2S-0Jz"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <state key="normal" title="Got it">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

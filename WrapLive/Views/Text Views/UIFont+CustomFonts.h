@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString* WLDefaultBoldSystemFont = @".HelveticaNeueInterface-MediumP4";
-static NSString* WLDefaultSystemFont = @".HelveticaNeueInterface-Regular";
+static NSString* WLDefaultSystemFont = @"Helvetica";
+static NSString* WLDefaultSystemLightFont = @"HelveticaNeue-Light";
 
 static NSString *WLFontPresetXSmall = @"xsmall";
 static NSString *WLFontPresetSmaller = @"smaller";

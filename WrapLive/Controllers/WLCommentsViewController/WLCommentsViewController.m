@@ -91,6 +91,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
             [sender setRefreshing:NO animated:YES];
         } failure:^(NSError *error) {
             weakSelf.dataSource.footerSize = CGSizeZero;
+            [weakSelf.dataSource reload];
             [error showIgnoringNetworkError];
             [sender setRefreshing:NO animated:YES];
         }];

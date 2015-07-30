@@ -81,6 +81,15 @@
     return [self fontWithName:fontName size:[self preferredSizeWithPreset:preset]];
 }
 
++ (UIFont*)preferredDefaultFontWithPreset:(NSString *)preset {
+    UIFont *defaultFont = [self systemFontOfSize:[self sizeWithPreset:preset]];
+    return [self preferredFontWithName:[defaultFont fontName] preset:preset];
+}
+
++ (UIFont*)preferredDefaultLightFontWithPreset:(NSString *)preset {
+    return [self preferredFontWithName:WLDefaultSystemLightFont preset:preset];
+}
+
 - (UIFont*)fontWithPreset:(NSString *)preset {
 	UIFont* font = [UIFont fontWithName:self.fontName preset:preset];
     return font ? : self;
@@ -90,5 +99,7 @@
     UIFont* font = [UIFont preferredFontWithName:self.fontName preset:preset];
     return font ? : self;
 }
+
+
 
 @end

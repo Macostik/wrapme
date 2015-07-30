@@ -48,7 +48,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     
     __weak UICollectionView *collectionView = self.dataSource.collectionView;
     [self.dataSource setItemSizeBlock:^CGSize(WLUser *contributor, NSUInteger index) {
-        UIFont *font = [UIFont preferredFontWithName:WLDefaultSystemFont preset:WLFontPresetSmall];
+        UIFont *font = [UIFont preferredDefaultFontWithPreset:WLFontPresetSmall];
         CGFloat textWidth = collectionView.width - WLContributorsHorizontalIndent;
         CGFloat height = [contributor.securePhones heightWithFont:font width:textWidth];
         if (contributor.isInvited) {

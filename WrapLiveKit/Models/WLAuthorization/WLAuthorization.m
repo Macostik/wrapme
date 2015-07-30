@@ -87,9 +87,9 @@
                                                           [[NSString alloc] initWithFormat:WLLS(@"formatted_verification_email_text"), email]];
     NSRange fullRange = NSMakeRange(0, emailVerificationString.length);
     NSRange bitRange = [emailVerificationString.string rangeOfString:email];
-    [emailVerificationString setAttributes:@{NSFontAttributeName:[UIFont preferredFontWithName:WLDefaultSystemLightFont preset:WLFontPresetXSmall]}
+    [emailVerificationString setAttributes:@{NSFontAttributeName:[UIFont preferredDefaultLightFontWithPreset:WLFontPresetXSmall]}
                                      range:fullRange];
-    [emailVerificationString setAttributes:@{NSFontAttributeName:[UIFont preferredFontWithName:WLDefaultSystemFont preset:WLFontPresetXSmall]}
+    [emailVerificationString setAttributes:@{NSFontAttributeName:[UIFont preferredDefaultFontWithPreset:WLFontPresetXSmall]}
                                      range:bitRange];
     return emailVerificationString;
 }

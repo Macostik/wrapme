@@ -496,7 +496,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGFloat)heightOfTypingCell:(WLChat *)chat {
-    if (chat.wrap.messages.nonempty) {
+    if (chat.wrap.messages.nonempty || chat.typingUsers.nonempty) {
         return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmaller]
                                                                      width:WLMaxTextViewWidth] + WLTypingViewTopIndent);
     } else {

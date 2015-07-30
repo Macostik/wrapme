@@ -88,14 +88,8 @@
             
             for (WLContribution *contribution in updates) {
                 [events addObject:[WLWhatsUpEvent event:WLEventUpdate contribution:contribution]];
-                if (contribution.unread && ![contributions containsObject:contribution]) {
+                if (contribution.unread && [contributions containsObject:contribution]) {
                     unreadEntriesCount++;
-                    if ([contribution isKindOfClass:[WLCandy class]]) {
-                        NSString *wrapId = [[(WLCandy*)contribution wrap] identifier];
-                        if (wrapId) {
-                            wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
-                        }
-                    }
                 }
             }
             weakSelf.unreadEntriesCount = unreadEntriesCount;

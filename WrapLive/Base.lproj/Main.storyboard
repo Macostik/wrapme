@@ -4610,6 +4610,69 @@ QWRkEEZyaWVuZFZpZXc
                                     <outlet property="delegate" destination="R4B-e5-fki" id="V77-aX-u4s"/>
                                 </connections>
                             </collectionView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7qZ-uD-y8y" customClass="WLUploadingView">
+                                <rect key="frame" x="278" y="529" width="34" height="34"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efs-bl-JlE" userLabel="iCloudButton" customClass="WLIconButton">
+                                        <rect key="frame" x="2" y="-5" width="30" height="34"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="cloud"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="base"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rs-9Z-OXv" userLabel="PlaceholderButton" customClass="WLIconButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="34" height="34"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="arrow-up"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconPreset" value="smaller"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="456-IP-xA6" userLabel="countLabel" customClass="WLLabel">
+                                        <rect key="frame" x="3" y="14" width="28" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="1b1-S2-EkP"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xsmall"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="8rs-9Z-OXv" secondAttribute="bottom" id="2W8-Gk-Oyb"/>
+                                    <constraint firstItem="8rs-9Z-OXv" firstAttribute="top" secondItem="7qZ-uD-y8y" secondAttribute="top" id="8od-fX-fhK"/>
+                                    <constraint firstAttribute="bottom" secondItem="Efs-bl-JlE" secondAttribute="bottom" constant="5" id="Bbq-gX-EVI"/>
+                                    <constraint firstAttribute="bottom" secondItem="456-IP-xA6" secondAttribute="bottom" id="Dr6-Ru-F9O"/>
+                                    <constraint firstAttribute="centerX" secondItem="Efs-bl-JlE" secondAttribute="centerX" id="Hu7-F9-ALg"/>
+                                    <constraint firstAttribute="width" secondItem="Efs-bl-JlE" secondAttribute="width" constant="4" id="deB-Qx-HEb"/>
+                                    <constraint firstItem="8rs-9Z-OXv" firstAttribute="leading" secondItem="7qZ-uD-y8y" secondAttribute="leading" id="efD-Xi-qaO"/>
+                                    <constraint firstItem="456-IP-xA6" firstAttribute="leading" secondItem="7qZ-uD-y8y" secondAttribute="leading" constant="3" id="lL1-pb-iAd"/>
+                                    <constraint firstAttribute="trailing" secondItem="456-IP-xA6" secondAttribute="trailing" constant="3" id="mYs-0p-eQ1"/>
+                                    <constraint firstAttribute="height" secondItem="Efs-bl-JlE" secondAttribute="height" id="qms-Ii-i5v"/>
+                                    <constraint firstAttribute="trailing" secondItem="8rs-9Z-OXv" secondAttribute="trailing" id="uda-BO-NTq"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="arrowIcon" destination="8rs-9Z-OXv" id="xmK-bF-Vnq"/>
+                                    <outlet property="countLabel" destination="456-IP-xA6" id="GpP-jF-68e"/>
+                                </connections>
+                            </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNO-TY-VYu">
                                 <rect key="frame" x="118" y="480" width="84" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4638,6 +4701,8 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstItem="a7y-ca-xlT" firstAttribute="bottom" secondItem="3DU-Zj-0y1" secondAttribute="bottom" priority="250" id="a1M-pT-hWe"/>
                             <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="a7y-ca-xlT" secondAttribute="bottom" priority="750" id="bOH-HL-fTo"/>
                             <constraint firstItem="a7y-ca-xlT" firstAttribute="leading" secondItem="z88-8Q-V7N" secondAttribute="leading" id="bpB-z8-43g"/>
+                            <constraint firstAttribute="trailing" secondItem="7qZ-uD-y8y" secondAttribute="trailing" constant="8" id="fo0-4D-eAv"/>
+                            <constraint firstItem="riF-U0-7aK" firstAttribute="top" secondItem="7qZ-uD-y8y" secondAttribute="bottom" constant="5" id="tLc-5B-weP"/>
                             <constraint firstAttribute="trailing" secondItem="a7y-ca-xlT" secondAttribute="trailing" id="v5U-VC-oWc"/>
                         </constraints>
                     </view>
@@ -4647,6 +4712,7 @@ QWRkEEZyaWVuZFZpZXc
                         <outlet property="collectionView" destination="a7y-ca-xlT" id="Fgn-6b-Eot"/>
                         <outlet property="dataSource" destination="R4B-e5-fki" id="nPm-NP-w5V"/>
                         <outlet property="primaryConstraint" destination="8F6-xd-Raa" id="idQ-bf-VUC"/>
+                        <outlet property="uploadingView" destination="7qZ-uD-y8y" id="88j-sP-MSI"/>
                     </connections>
                 </viewController>
                 <customObject id="R4B-e5-fki" customClass="WLBasicDataSource">

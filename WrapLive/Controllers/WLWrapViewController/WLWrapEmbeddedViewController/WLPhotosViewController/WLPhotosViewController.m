@@ -27,6 +27,7 @@
 #import "WLPhotosViewController.h"
 #import "WLNavigationHelper.h"
 #import "WLLayoutPrioritizer.h"
+#import "WLUploadingView.h"
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
@@ -35,6 +36,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *primaryConstraint;
+@property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
 
 @property (strong, nonatomic) WLHistory *history;
 
@@ -62,6 +64,8 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     [self.dataSource setRefreshableWithStyle:WLRefresherStyleOrange];
     
     [self firstLoadRequest];
+    
+    self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
     
     [[WLNetwork network] addReceiver:self];
     
@@ -92,6 +96,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
             [weakSelf.navigationController popViewControllerAnimated:NO];
         });
     }
+    [self.uploadingView update];
 }
 
 // MARK: - User Actions

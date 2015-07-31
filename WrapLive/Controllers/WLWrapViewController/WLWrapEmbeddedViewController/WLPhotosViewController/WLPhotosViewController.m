@@ -68,6 +68,8 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
     
     [[WLNetwork network] addReceiver:self];
+
+    [self addNotifyReceivers];
     
     if (self.wrap.candies.nonempty) {
         [self dropDownCollectionView];
@@ -178,6 +180,20 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
         }
     }
     return nil;
+}
+
+// MARK: - WLEntryNotifyReceiver
+
+- (void)addNotifyReceivers {
+    __weak __typeof(self)weakSelf = self;
+    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        [receiver setDidUpdateBlock:^(WLWrap *wrap) {
+            if ([wrap isEqualToEntry:self.wrap] && self.wrap.updated) {
+                WLHistory *history = weakSelf.dataSource.items;
+                [history resetEntries:wrap.candies];
+            }
+        }];
+    }];
 }
 
 @end

@@ -66,7 +66,7 @@
 "7zc-rd-P8J.text" = "2";
 
 /* Class = "UITextField"; placeholder = "Email address"; ObjectID = "82E-k4-0WJ"; */
-"82E-k4-0WJ.placeholder" = "Email address";
+"82E-k4-0WJ.placeholder" = "E-mail address";
 
 /* Class = "UILabel"; text = "Slide to open camera"; ObjectID = "88Q-sD-VfR"; */
 "88Q-sD-VfR.text" = "Slide to open camera";
@@ -243,7 +243,7 @@
 "ZaI-gM-W2F.text" = "John Williams Brown";
 
 /* Class = "UILabel"; text = "Notify me when new photo is added to the Moji."; ObjectID = "bHL-LP-6Kt"; */
-"bHL-LP-6Kt.text" = "Notify me when new photo is added to the Moji.";
+"bHL-LP-6Kt.text" = "Notify me when new photo is added.";
 
 /* Class = "UILabel"; text = "Add friend..."; ObjectID = "bgl-Nc-aZ0"; */
 "bgl-Nc-aZ0.text" = "Add friend...";
@@ -255,7 +255,7 @@
 "cMC-ND-b5t.text" = "message text";
 
 /* Class = "UILabel"; text = "Notify me when new chat is posted to the Moji."; ObjectID = "cUR-VV-aaK"; */
-"cUR-VV-aaK.text" = "Notify me when new chat is posted to the Moji.";
+"cUR-VV-aaK.text" = "Notify me when new chat is posted.";
 
 /* Class = "UILabel"; text = "Slide to chat"; ObjectID = "cgx-nY-B3d"; */
 "cgx-nY-B3d.text" = "Slide to chat";

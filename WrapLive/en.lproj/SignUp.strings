@@ -24,7 +24,7 @@
 "HcW-vf-tjk.placeholder" = "Your name";
 
 /* Class = "UILabel"; text = "You have linked this device to your MOJI account. Enjoy!"; ObjectID = "Itw-PI-Mz8"; */
-"Itw-PI-Mz8.text" = "You have linked this device to your MOJI account. Enjoy!";
+"Itw-PI-Mz8.text" = "You've successfully linked this device to you MOJI account. Enjoy!";
 
 /* Class = "UIButton"; normalTitle = "Use test account"; ObjectID = "Km1-Wj-3a4"; */
 "Km1-Wj-3a4.normalTitle" = "Use test account";
@@ -39,10 +39,10 @@
 "Pla-to-4nx.normalTitle" = "Select Country";
 
 /* Class = "UILabel"; text = "MOJI will send one time SMS message to verify your phone number. Carrier SMS charges may apply."; ObjectID = "RcF-WP-Qlr"; */
-"RcF-WP-Qlr.text" = "MOJI will send one time SMS message to verify your phone number. Carrier SMS charges may apply.";
+"RcF-WP-Qlr.text" = "We\'ll send one time SMS message to verify your phone number. Carrier SMS charges may apply";
 
 /* Class = "UIButton"; normalTitle = "Use another phone number"; ObjectID = "T4H-t0-WgJ"; */
-"T4H-t0-WgJ.normalTitle" = "Use another phone number";
+"T4H-t0-WgJ.normalTitle" = "Edit phone number";
 
 /* Class = "UILabel"; text = "is confirmed successfully!"; ObjectID = "Vxz-ag-TOf"; */
 "Vxz-ag-TOf.text" = "is confirmed successfully!";
@@ -59,13 +59,13 @@
 "cKx-Py-m2B.text" = "Country";
 
 /* Class = "UILabel"; text = "We are sending you a 4-digit code. Enter it above to verify your phone number."; ObjectID = "cP5-dA-Wip"; */
-"cP5-dA-Wip.text" = "We are sending you a 4-digit code. Enter it above to verify your phone number.";
+"cP5-dA-Wip.text" = "We're sending you a 4-digit code. Enter it above to verify your phone number.";
 
 /* Class = "UIButton"; normalTitle = "Use another e-mail"; ObjectID = "dM9-5p-U8h"; */
-"dM9-5p-U8h.normalTitle" = "Use another e-mail";
+"dM9-5p-U8h.normalTitle" = "Edit e-mail";
 
 /* Class = "UILabel"; text = "We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue"; ObjectID = "dRx-kr-5xI"; */
-"dRx-kr-5xI.text" = "You need to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue";
+"dRx-kr-5xI.text" = "We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue.";
 
 /* Class = "UIButton"; normalTitle = "Next"; ObjectID = "erk-mO-XXr"; */
 "erk-mO-XXr.normalTitle" = "Next";
@@ -77,13 +77,13 @@
 "oIH-Zc-2Z8.normalTitle" = "Resend the e-mail";
 
 /* Class = "UILabel"; text = "We are sending you a passcode through e-mail and phone..."; ObjectID = "otQ-7a-PwI"; */
-"otQ-7a-PwI.text" = "We are sending you a passcode through e-mail and phone...";
+"otQ-7a-PwI.text" = "We're sending you a passcode to your e-mail...";
 
 /* Class = "UILabel"; text = "What is your phone number?"; ObjectID = "pmp-Nw-u2O"; */
 "pmp-Nw-u2O.text" = "What's your phone number?";
 
 /* Class = "UILabel"; text = "The passcode is required to link this device to your MOJI account. Enter it above when you receive it."; ObjectID = "HrT-ph-Lnj"; */
-"HrT-ph-Lnj.text" = "The passcode is required to link this device to your MOJI account. Enter it above when you receive it.";
+"HrT-ph-Lnj.text" = "Passcode is needed to link this device to your MOJI account. Enter it above when you receive it.";
 
 /* Class = "UILabel"; text = "Successful!"; ObjectID = "qCY-vc-S18"; */
 "qCY-vc-S18.text" = "Successful!";

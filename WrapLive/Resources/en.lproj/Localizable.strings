@@ -1,14 +1,14 @@
 
 
-"formatted_owner" = "%@ (Owner)";
+"formatted_owner" = "%@ (Admin)";
 
 "you" = "You";
 
-"comment_placeholder" = "Write your comment ...";
+"comment_placeholder" = "Write your comment...";
 
 "delete" = "Delete";
 
-"message_placeholder" = "Write your message ...";
+"message_placeholder" = "Write your message...";
 
 "formatted_chat_in" = "Chat in %@";
 
@@ -26,13 +26,13 @@
 
 "roaming_is_off" = "International roaming is currently off.";
 
-"no_contacts_with_phone_number" = "No contacts with phone numbers found on this device.";
+"no_contacts_with_phone_number" = "No contacts found.";
 
-"no_contacts" = "No contacts found on this device.";
+"no_contacts" = "No contacts found.";
 
-"no_access_to_contacts" = "No permission to access your address book.";
+"no_access_to_contacts" = "No permission to access contacts.";
 
-"leave_screen_on_editing" = "Your photo is not saved yet. Are you sure you want to leave this screen?";
+"leave_screen_on_editing" = "Changes will be lost if you don't save them. Are you sure you want to leave this screen?";
 
 "unsaved_photo" = "Unsaved photo";
 
@@ -46,53 +46,53 @@
 
 "formatted_calling_now" = "Calling %@ now. Please wait.";
 
-"cannot_add_yourself" = "You can't add yourself to the Moji.";
+"cannot_add_yourself" = "You're already in the Moji.";
 
-"moji_name_cannot_be_blank" = "Name of the Moji can't be blank.";
+"moji_name_cannot_be_blank" = "Please give Moji a name.";
 
 "delete_moji" = "Delete Moji?";
 
 "leave_moji" = "Leave Moji?";
 
-"formatted_delete_moji_confirmation" = "Are you sure you want to delete this Moji \"%@\"?";
+"formatted_delete_moji_confirmation" = "Are you sure you want to delete \"%@\"?";
 
-"leave_moji_confirmation" = "Are you sure you want to leave this Moji?";
+"leave_moji_confirmation" = "Are you sure you want to leave the Moji?";
 
-"delete_moji_success" = "Moji has been deleted successfully.";
+"delete_moji_success" = "Moji was deleted.";
 
-"moji_is_uploading" = "Uploading the Moji now. Please wait.";
+"moji_is_uploading" = "Uploading Moji now. Please wait.";
 
 "photo_is_uploading" = "Uploading the photo now. Please wait.";
 
 "comment_is_uploading" = "Uploading the comment now. Please wait.";
 
-"delete_photo" = "Delete photo";
+"delete_photo" = "Delete";
 
-"delete_photo_confirmation" = "Are you sure you want to delete this photo?";
+"delete_photo_confirmation" = "Are you sure you want to delete the photo?";
 
-"new_version_is_available" = "A new version of Moji is available";
+"new_version_is_available" = "A new version of MOJI is available";
 
 "update" = "Update";
 
 "not_now" = "Not now";
 
-"engagement_notification_alert" = "Got new photos? Upload them to your Mojis now!";
+"engagement_notification_alert" = "Got new photos? Share them on MOJI now!";
 
 "upload" = "Upload";
 
-"invalid_image_error" = "Invalid image. Please choose another one.";
+"invalid_image_error" = "Error occurred while processing the photo.";
 
-"too_small_image_error" = "The image is too small. Please choose another one.";
+"too_small_image_error" = "The photo is too small. Please choose another one.";
 
 "report" = "Report";
 
-"candy_deleted" = "The photo has been deleted successfully.";
+"candy_deleted" = "The photo was deleted.";
 
-"candy_unavailable" = "The photo is no longer avaliable.";
+"candy_unavailable" = "Photo not found.";
 
 "incorrect_email" = "Incorrect e-mail.";
 
-"name_cannot_be_blank" = "Name can't be blank.";
+"name_cannot_be_blank" = "Please enter your name.";
 
 "formatted_is_typing" = "%@ is typing...";
 
@@ -102,19 +102,19 @@
 
 "remote_notification_when_app_is_active_error" = "Can't handle remote notification when app is active.";
 
-"formatted_about_message" = "You are using %@\nv%@\nBuild %@";
+"formatted_about_message" = "You're using %@\nv%@\nBuild %@";
 
 "sign_out" = "Sign out";
 
 "sign_out_confirmation" = "Are you sure you want to sign out?";
 
-"downloading_photo" = "Downloading the photo now. It'll be saved in \"%@\" album momentarily.";
+"downloading_photo" = "Downloading the photo now. It'll be in \"%@\" album momentarily.";
 
 "no_devices" = "No registered devices";
 
 "terms_and_conditions" = "Terms and Conditions";
 
-"formatted_moji_unavailable" = "\"%@\" is no longer available.";
+"formatted_moji_unavailable" = "\"%@\" not found.";
 
 "formatted_photo_by" = "Photo by %@";
 
@@ -132,11 +132,11 @@
 
 "upload_photos_limit_error" = "You can upload up to 10 pictures at a time.";
 
-"downloading_internet_connection_error" = "No internet connection. Please try downloading it later.";
+"downloading_internet_connection_error" = "No internet connection. Please try again later.";
 
 "editing_internet_connection_error" = "No internet connection. Can't download the photo for editing.";
 
-"downloading_privacy_settings" = "Please go to Settings > MOJI to allow MOJI access the photos on this device.";
+"downloading_privacy_settings" = "Please go to Settings > MOJI to allow MOJI access the photos.";
 
 "formatted_verification_email_text" = "Confirm %@ as your e-mail address to help secure your account.";
 
@@ -144,7 +144,7 @@
 
 "mail_sent" = "E-mail sent successfully.\nThank you for your help!";
 
-"user_cannot_be_invited" = "This user can't be invited.";
+"user_cannot_be_invited" = "Unable to invite this friend.";
 
 "minute" = "minute";
 
@@ -178,7 +178,7 @@
 
 "INVITE_TO_MOJI" = "INVITE TO MOJI";
 
-"APNS_TT01" = "You are invited!";
+"APNS_TT01" = "You're invited!";
 
 "APNS_MSG01" = "%@ invited you to '%@'. Add your photos and watch the fun unfold!";
 
@@ -218,11 +218,11 @@
 
 "new_moji" = "New Moji";
 
-"what_is_new_moji_about" = "What is new Moji about?";
+"what_is_new_moji_about" = "What's new Moji about?";
 
 "authorization_error_title" = "Login failed.";
 
-"authorization_error_message" = "Sorry, we don't expect it to occur. Please try again later. If the problem persists, using your same e-mail address to sign up again and everything's good to go!";
+"authorization_error_message" = "Unexpected error while logging into MOJI. Please try again later. If the problem persists, please sign up again.";
 
 "authorization_error_try_again" = "Try Again";
 

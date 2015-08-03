@@ -1,60 +1,40 @@
-
 /* Class = "WKInterfaceLabel"; text = "Photo By"; ObjectID = "4Gx-Lw-LSq"; */
-"4Gx-Lw-LSq.text" = "Photo By";
-
+"4Gx-Lw-LSq.text" = "拍攝者";
 /* Class = "WKInterfaceButton"; title = "Comment"; ObjectID = "55e-NG-3Tc"; */
-"55e-NG-3Tc.title" = "Comment";
-
+"55e-NG-3Tc.title" = "回應";
 /* Class = "WKInterfaceLabel"; text = "Date"; ObjectID = "6NG-l4-ZQV"; */
-"6NG-l4-ZQV.text" = "Date";
-
+"6NG-l4-ZQV.text" = "日期";
 /* Class = "WKInterfaceLabel"; text = "Alert Label"; ObjectID = "7l1-25-HMV"; */
 "7l1-25-HMV.text" = "Alert Label";
-
 /* Class = "WKInterfaceLabel"; text = "Photo By"; ObjectID = "7wg-8q-jSs"; */
-"7wg-8q-jSs.text" = "Photo By";
-
+"7wg-8q-jSs.text" = "拍攝者";
 /* Class = "WKInterfaceLabel"; text = "Photo By"; ObjectID = "99U-ca-OFF"; */
-"99U-ca-OFF.text" = "Photo By";
-
+"99U-ca-OFF.text" = "拍攝者";
 /* Class = "WKInterfaceLabel"; text = "Text"; ObjectID = "Pyy-yw-gmE"; */
 "Pyy-yw-gmE.text" = "Text";
-
 /* Class = "WKInterfaceLabel"; text = "Network connection error"; ObjectID = "SFC-eh-ZGN"; */
-"SFC-eh-ZGN.text" = "Network connection error";
-
+"SFC-eh-ZGN.text" = "無法連線";
 /* Class = "WKInterfaceLabel"; text = "Title Label"; ObjectID = "UdI-ZI-ZP4"; */
 "UdI-ZI-ZP4.text" = "Title Label";
-
 /* Class = "WKInterfaceLabel"; text = "Date"; ObjectID = "W5b-9z-OPw"; */
-"W5b-9z-OPw.text" = "Date";
-
+"W5b-9z-OPw.text" = "日期";
 /* Class = "WKInterfaceLabel"; text = "Alert Label"; ObjectID = "XkS-y5-khE"; */
 "XkS-y5-khE.text" = "Alert Label";
-
 /* Class = "WKInterfaceLabel"; text = "Label"; ObjectID = "ZOa-1m-kLy"; */
 "ZOa-1m-kLy.text" = "Label";
-
 /* Class = "WKInterfaceLabel"; text = "Date"; ObjectID = "Zed-Mn-G3D"; */
-"Zed-Mn-G3D.text" = "Date";
-
+"Zed-Mn-G3D.text" = "日期";
 /* Class = "WKInterfaceLabel"; text = "Moji Name"; ObjectID = "eAm-N6-qtb"; */
-"eAm-N6-qtb.text" = "Moji Name";
-
+"eAm-N6-qtb.text" = "Moji名稱";
 /* Class = "WKInterfaceLabel"; text = "Moji Name"; ObjectID = "hEJ-g4-zYi"; */
-"hEJ-g4-zYi.text" = "Moji Name";
-
+"hEJ-g4-zYi.text" = "Moji名稱";
 /* Class = "WKInterfaceLabel"; text = "Text"; ObjectID = "iGb-nn-Z5r"; */
 "iGb-nn-Z5r.text" = "Text";
-
 /* Class = "WKInterfaceLabel"; text = "Date"; ObjectID = "ilC-YI-lqm"; */
-"ilC-YI-lqm.text" = "Date";
-
+"ilC-YI-lqm.text" = "日期";
 /* Class = "WKInterfaceLabel"; text = "No recent updates"; ObjectID = "jYA-WL-ubk"; */
-"jYA-WL-ubk.text" = "No recent updates";
-
+"jYA-WL-ubk.text" = "未有最近更新";
 /* Class = "WKInterfaceLabel"; text = "Moji Name"; ObjectID = "xx6-re-wx6"; */
-"xx6-re-wx6.text" = "Moji Name";
-
+"xx6-re-wx6.text" = "Moji名稱";
 /* Class = "WKInterfaceLabel"; text = "Name"; ObjectID = "yod-K8-G8c"; */
-"yod-K8-G8c.text" = "Name";
+"yod-K8-G8c.text" = "姓名";

@@ -47,7 +47,7 @@
 /* Class = "UIButton"; normalTitle = "4"; ObjectID = "agr-RC-KiU"; */
 "agr-RC-KiU.normalTitle" = "4";
 /* Class = "UILabel"; text = "TAP TO CHANGE"; ObjectID = "av4-g2-N6y"; */
-"av4-g2-N6y.text" = "接此更改";
+"av4-g2-N6y.text" = "按此更改";
 /* Class = "UILabel"; text = "Please go to Settings > MOJI to allow Moji access the photos on this device."; ObjectID = "bvQ-XE-Vmc"; */
 "bvQ-XE-Vmc.text" = "請前往「設定」> MOJI，並允許MOJI使用相機。";
 /* Class = "UILabel"; text = "Photos"; ObjectID = "dGM-vI-GSH"; */

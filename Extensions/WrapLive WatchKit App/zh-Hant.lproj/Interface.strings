@@ -1,0 +1,60 @@
+
+/* Class = "WKInterfaceLabel"; text = "Photo By"; ObjectID = "4Gx-Lw-LSq"; */
+"4Gx-Lw-LSq.text" = "Photo By";
+
+/* Class = "WKInterfaceButton"; title = "Comment"; ObjectID = "55e-NG-3Tc"; */
+"55e-NG-3Tc.title" = "Comment";
+
+/* Class = "WKInterfaceLabel"; text = "Date"; ObjectID = "6NG-l4-ZQV"; */
+"6NG-l4-ZQV.text" = "Date";
+
+/* Class = "WKInterfaceLabel"; text = "Alert Label"; ObjectID = "7l1-25-HMV"; */
+"7l1-25-HMV.text" = "Alert Label";
+
+/* Class = "WKInterfaceLabel"; text = "Photo By"; ObjectID = "7wg-8q-jSs"; */
+"7wg-8q-jSs.text" = "Photo By";
+
+/* Class = "WKInterfaceLabel"; text = "Photo By"; ObjectID = "99U-ca-OFF"; */
+"99U-ca-OFF.text" = "Photo By";
+
+/* Class = "WKInterfaceLabel"; text = "Text"; ObjectID = "Pyy-yw-gmE"; */
+"Pyy-yw-gmE.text" = "Text";
+
+/* Class = "WKInterfaceLabel"; text = "Network connection error"; ObjectID = "SFC-eh-ZGN"; */
+"SFC-eh-ZGN.text" = "Network connection error";
+
+/* Class = "WKInterfaceLabel"; text = "Title Label"; ObjectID = "UdI-ZI-ZP4"; */
+"UdI-ZI-ZP4.text" = "Title Label";
+
+/* Class = "WKInterfaceLabel"; text = "Date"; ObjectID = "W5b-9z-OPw"; */
+"W5b-9z-OPw.text" = "Date";
+
+/* Class = "WKInterfaceLabel"; text = "Alert Label"; ObjectID = "XkS-y5-khE"; */
+"XkS-y5-khE.text" = "Alert Label";
+
+/* Class = "WKInterfaceLabel"; text = "Label"; ObjectID = "ZOa-1m-kLy"; */
+"ZOa-1m-kLy.text" = "Label";
+
+/* Class = "WKInterfaceLabel"; text = "Date"; ObjectID = "Zed-Mn-G3D"; */
+"Zed-Mn-G3D.text" = "Date";
+
+/* Class = "WKInterfaceLabel"; text = "Moji Name"; ObjectID = "eAm-N6-qtb"; */
+"eAm-N6-qtb.text" = "Moji Name";
+
+/* Class = "WKInterfaceLabel"; text = "Moji Name"; ObjectID = "hEJ-g4-zYi"; */
+"hEJ-g4-zYi.text" = "Moji Name";
+
+/* Class = "WKInterfaceLabel"; text = "Text"; ObjectID = "iGb-nn-Z5r"; */
+"iGb-nn-Z5r.text" = "Text";
+
+/* Class = "WKInterfaceLabel"; text = "Date"; ObjectID = "ilC-YI-lqm"; */
+"ilC-YI-lqm.text" = "Date";
+
+/* Class = "WKInterfaceLabel"; text = "No recent updates"; ObjectID = "jYA-WL-ubk"; */
+"jYA-WL-ubk.text" = "No recent updates";
+
+/* Class = "WKInterfaceLabel"; text = "Moji Name"; ObjectID = "xx6-re-wx6"; */
+"xx6-re-wx6.text" = "Moji Name";
+
+/* Class = "WKInterfaceLabel"; text = "Name"; ObjectID = "yod-K8-G8c"; */
+"yod-K8-G8c.text" = "Name";

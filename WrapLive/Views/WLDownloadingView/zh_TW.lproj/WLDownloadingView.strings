@@ -1,0 +1,6 @@
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "f26-nL-Pe9"; */
+"f26-nL-Pe9.normalTitle" = "取消";
+
+/* Class = "UILabel"; text = "Downloading the photo for editing..."; ObjectID = "gb2-6e-1xw"; */
+"gb2-6e-1xw.text" = "請稍候，現正下載相片中...";

@@ -1,0 +1,232 @@
+/* Class = "UILabel"; text = "10089969657\n2342342343"; ObjectID = "04J-8C-m9o"; */
+"04J-8C-m9o.text" = "10089969657\n2342342343";
+/* Class = "UILabel"; text = "Photo by Calvin"; ObjectID = "08S-52-GIh"; */
+"08S-52-GIh.text" = "拍攝者Calvin";
+/* Class = "UITextView"; text = "message text"; ObjectID = "0OD-Cn-Lp6"; */
+"0OD-Cn-Lp6.text" = "message text";
+/* Class = "UILabel"; text = "Moji"; ObjectID = "0YA-Wt-D43"; */
+"0YA-Wt-D43.text" = "Moji";
+/* Class = "UILabel"; text = "Create Moji is easy!\nTap here to start."; ObjectID = "0ka-0F-dc5"; */
+"0ka-0F-dc5.text" = "按此即可建立Moji，簡易又輕鬆！";
+/* Class = "UILabel"; text = "Slide to open camera"; ObjectID = "0rs-Jv-qhC"; */
+"0rs-Jv-qhC.text" = "滑動開啟相機";
+/* Class = "UILabel"; text = "3 days ago"; ObjectID = "1y3-CJ-RVW"; */
+"1y3-CJ-RVW.text" = "3天前";
+/* Class = "UIButton"; normalTitle = "111 Comments"; ObjectID = "2ai-CO-qH0"; */
+"2ai-CO-qH0.normalTitle" = "111個回應";
+/* Class = "UIButton"; normalTitle = "Close"; ObjectID = "2nE-rT-l31"; */
+"2nE-rT-l31.normalTitle" = "關閉";
+/* Class = "UILabel"; text = "Label"; ObjectID = "4dB-kx-151"; */
+"4dB-kx-151.text" = "Label";
+/* Class = "UILabel"; text = "D"; ObjectID = "4dZ-BR-VPb"; */
+"4dZ-BR-VPb.text" = "D";
+/* Class = "UILabel"; text = "Timestamp"; ObjectID = "641-7R-EdV"; */
+"641-7R-EdV.text" = "時間";
+/* Class = "UILabel"; text = "home:"; ObjectID = "6NA-Lj-jWd"; */
+"6NA-Lj-jWd.text" = "住家：";
+/* Class = "UILabel"; text = "Name"; ObjectID = "70w-oo-mtg"; */
+"70w-oo-mtg.text" = "姓名";
+/* Class = "UILabel"; text = "3 days ago"; ObjectID = "71z-7i-OMc"; */
+"71z-7i-OMc.text" = "3天前";
+/* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "7Bf-ro-UFC"; */
+"7Bf-ro-UFC.normalTitle" = "繼續";
+/* Class = "UIButton"; normalTitle = "Sign out"; ObjectID = "7C1-yc-O8X"; */
+"7C1-yc-O8X.normalTitle" = "登出";
+/* Class = "UILabel"; text = "a"; ObjectID = "7Ok-gy-eVo"; */
+"7Ok-gy-eVo.text" = "a";
+/* Class = "UIButton"; normalTitle = "Remove"; ObjectID = "7dN-Y5-4Ue"; */
+"7dN-Y5-4Ue.normalTitle" = "刪除";
+/* Class = "UILabel"; text = "Yestarday at 2:34pm"; ObjectID = "7nH-rK-CBH"; */
+"7nH-rK-CBH.text" = "昨天下午2:34";
+/* Class = "UILabel"; text = "D"; ObjectID = "7yS-IZ-1M1"; */
+"7yS-IZ-1M1.text" = "D";
+/* Class = "UILabel"; text = "2"; ObjectID = "7zc-rd-P8J"; */
+"7zc-rd-P8J.text" = "2";
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "82E-k4-0WJ"; */
+"82E-k4-0WJ.placeholder" = "電郵地址";
+/* Class = "UILabel"; text = "Slide to open camera"; ObjectID = "88Q-sD-VfR"; */
+"88Q-sD-VfR.text" = "滑動開啟相機";
+/* Class = "UIButton"; disabledTitle = "l"; ObjectID = "8kJ-w2-piV"; */
+"8kJ-w2-piV.disabledTitle" = "l";
+/* Class = "UIButton"; normalTitle = "G"; ObjectID = "8kJ-w2-piV"; */
+"8kJ-w2-piV.normalTitle" = "G";
+/* Class = "UIButton"; selectedTitle = "H"; ObjectID = "8kJ-w2-piV"; */
+"8kJ-w2-piV.selectedTitle" = "H";
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "8kR-VI-DgA"; */
+"8kR-VI-DgA.normalTitle" = "0";
+/* Class = "UILabel"; text = "Friends"; ObjectID = "9qq-sb-7FD"; */
+"9qq-sb-7FD.text" = "成員";
+/* Class = "UILabel"; text = "5"; ObjectID = "9sT-hL-fQk"; */
+"9sT-hL-fQk.text" = "5";
+/* Class = "UILabel"; text = "11:32 PM"; ObjectID = "BDu-zS-cNB"; */
+"BDu-zS-cNB.text" = "下午11:32";
+/* Class = "UIButton"; disabledTitle = "E"; ObjectID = "Beb-Fv-Wfr"; */
+"Beb-Fv-Wfr.disabledTitle" = "E";
+/* Class = "UIButton"; normalTitle = "G"; ObjectID = "Beb-Fv-Wfr"; */
+"Beb-Fv-Wfr.normalTitle" = "G";
+/* Class = "UIButton"; selectedTitle = "H"; ObjectID = "Beb-Fv-Wfr"; */
+"Beb-Fv-Wfr.selectedTitle" = "H";
+/* Class = "UILabel"; text = "Invite your friends!"; ObjectID = "BgE-ku-qap"; */
+"BgE-ku-qap.text" = "邀請好友加入MOJI";
+/* Class = "UILabel"; text = "Add friends"; ObjectID = "Bop-dI-sMz"; */
+"Bop-dI-sMz.text" = "新增成員";
+/* Class = "UILabel"; text = "1"; ObjectID = "CKG-6V-WuA"; */
+"CKG-6V-WuA.text" = "1";
+/* Class = "UILabel"; text = "Help secure your account"; ObjectID = "CSs-OC-vDg"; */
+"CSs-OC-vDg.text" = "保障帳戶安全";
+/* Class = "UITextField"; placeholder = "Your name"; ObjectID = "D1N-1e-psu"; */
+"D1N-1e-psu.placeholder" = "輸入你的姓名";
+/* Class = "UILabel"; text = "+380951383026"; ObjectID = "Dxm-Es-Lwk"; */
+"Dxm-Es-Lwk.text" = "+380951383026";
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "EbT-vV-AiD"; */
+"EbT-vV-AiD.normalTitle" = "3";
+/* Class = "UIButton"; selectedTitle = "i"; ObjectID = "EbT-vV-AiD"; */
+"EbT-vV-AiD.selectedTitle" = "i";
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "Efj-27-0UK"; */
+"Efj-27-0UK.normalTitle" = "取消";
+/* Class = "UILabel"; text = "Photos"; ObjectID = "Exo-Pi-XRe"; */
+"Exo-Pi-XRe.text" = "相片";
+/* Class = "UILabel"; text = "Moji"; ObjectID = "FBj-ps-Q2W"; */
+"FBj-ps-Q2W.text" = "Moji";
+/* Class = "UITextView"; text = "Awesome photo!"; ObjectID = "FgB-22-MIB"; */
+"FgB-22-MIB.text" = "很精彩的相片！";
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "GkU-w3-rTK"; */
+"GkU-w3-rTK.normalTitle" = "完成";
+/* Class = "UITextView"; text = "Text"; ObjectID = "H8X-L5-O9h"; */
+"H8X-L5-O9h.text" = "Text";
+/* Class = "UILabel"; text = "name"; ObjectID = "HUe-Pv-h6W"; */
+"HUe-Pv-h6W.text" = "姓名";
+/* Class = "UILabel"; text = "Label"; ObjectID = "JuD-N5-awC"; */
+"JuD-N5-awC.text" = "Label";
+/* Class = "UITextField"; placeholder = "Search contacts"; ObjectID = "KDf-WU-v2H"; */
+"KDf-WU-v2H.placeholder" = "搜尋聯絡人";
+/* Class = "UITextField"; placeholder = "555-555-5555"; ObjectID = "KIX-5W-ASY"; */
+"KIX-5W-ASY.placeholder" = "555-555-5555";
+/* Class = "UILabel"; text = "Label"; ObjectID = "Kag-WO-QAb"; */
+"Kag-WO-QAb.text" = "Label";
+/* Class = "UILabel"; text = "Label"; ObjectID = "Kc2-7D-Uw6"; */
+"Kc2-7D-Uw6.text" = "Label";
+/* Class = "UILabel"; text = "Slide to chat"; ObjectID = "Kh9-Vi-feI"; */
+"Kh9-Vi-feI.text" = "滑動開啟對話";
+/* Class = "UIButton"; normalTitle = "P"; ObjectID = "KxF-7g-Abs"; */
+"KxF-7g-Abs.normalTitle" = "P";
+/* Class = "UILabel"; text = "11:32 PM"; ObjectID = "Lc4-Kr-oEr"; */
+"Lc4-Kr-oEr.text" = "下午11:32";
+/* Class = "UIButton"; normalTitle = "About MOJI"; ObjectID = "Lq0-rh-5bS"; */
+"Lq0-rh-5bS.normalTitle" = "關於MOJI";
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "MJV-nQ-gRy"; */
+"MJV-nQ-gRy.normalTitle" = "取消";
+/* Class = "UILabel"; text = "Moji Name"; ObjectID = "N8I-t6-aKU"; */
+"N8I-t6-aKU.text" = "Moji名稱";
+/* Class = "UILabel"; text = "Help secure your account"; ObjectID = "Nim-LA-uPS"; */
+"Nim-LA-uPS.text" = "保障帳戶安全";
+/* Class = "UILabel"; text = "Yesterday at"; ObjectID = "OBg-6r-k4s"; */
+"OBg-6r-k4s.text" = "昨天";
+/* Class = "UILabel"; text = "5"; ObjectID = "QM4-q0-ku1"; */
+"QM4-q0-ku1.text" = "5";
+/* Class = "UILabel"; text = "Edit your profile"; ObjectID = "QO2-SC-TvX"; */
+"QO2-SC-TvX.text" = "編輯個人資料";
+/* Class = "UILabel"; text = "e"; ObjectID = "Qjg-nF-pTh"; */
+"Qjg-nF-pTh.text" = "e";
+/* Class = "UIButton"; normalTitle = "Change e-mail"; ObjectID = "R9i-Mn-k3a"; */
+"R9i-Mn-k3a.normalTitle" = "更改電郵地址";
+/* Class = "UILabel"; text = "5"; ObjectID = "RIL-os-qUh"; */
+"RIL-os-qUh.text" = "5";
+/* Class = "UILabel"; text = "e"; ObjectID = "STC-13-brF"; */
+"STC-13-brF.text" = "e";
+/* Class = "UILabel"; text = "What's up"; ObjectID = "Te3-A9-g3F"; */
+"Te3-A9-g3F.text" = "最近更新";
+/* Class = "UILabel"; text = "Enter your friend's name and phone number"; ObjectID = "TlS-f9-yyB"; */
+"TlS-f9-yyB.text" = "輸入好友名稱和手機號碼";
+/* Class = "UILabel"; text = "No internet connection. Please try again later."; ObjectID = "TvM-gd-tcr"; */
+"TvM-gd-tcr.text" = "無法連線。請稍後重試。";
+/* Class = "UILabel"; text = "Moji Name"; ObjectID = "Twb-Mn-vNw"; */
+"Twb-Mn-vNw.text" = "Moji名稱";
+/* Class = "UILabel"; text = "D"; ObjectID = "U0A-o6-Hed"; */
+"U0A-o6-Hed.text" = "D";
+/* Class = "UILabel"; text = "Confirm calvin@ravenpod.com as your email address to help secure your account."; ObjectID = "UL6-dF-3Kj"; */
+"UL6-dF-3Kj.text" = "請確認calvin@ravenpod.com為你的電郵地址，以保障你的帳戶安全。";
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "VDt-1T-mW3"; */
+"VDt-1T-mW3.normalTitle" = "5";
+/* Class = "UITextView"; text = "Confirm calvin@ravenpod.com as your email address to help secure your account."; ObjectID = "VXa-Dq-6e9"; */
+"VXa-Dq-6e9.text" = "請確認calvin@ravenpod.com為你的電郵地址，以保障你的帳戶安全。";
+/* Class = "UILabel"; text = "Notifications"; ObjectID = "Vtf-da-c8a"; */
+"Vtf-da-c8a.text" = "通知";
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "Xmt-yf-g7R"; */
+"Xmt-yf-g7R.placeholder" = "姓名";
+/* Class = "UIButton"; normalTitle = "Resend"; ObjectID = "Yk6-tb-7gb"; */
+"Yk6-tb-7gb.normalTitle" = "重發";
+/* Class = "UILabel"; text = "Moji name"; ObjectID = "ZL1-Bm-SmI"; */
+"ZL1-Bm-SmI.text" = "Moji名稱";
+/* Class = "UILabel"; text = "John Williams Brown"; ObjectID = "ZaI-gM-W2F"; */
+"ZaI-gM-W2F.text" = "John Williams Brown";
+/* Class = "UILabel"; text = "Notify me when new photo is added to the Moji."; ObjectID = "bHL-LP-6Kt"; */
+"bHL-LP-6Kt.text" = "當有新相片時通知我";
+/* Class = "UILabel"; text = "Add friend..."; ObjectID = "bgl-Nc-aZ0"; */
+"bgl-Nc-aZ0.text" = "新增成員...";
+/* Class = "UILabel"; text = "Photo"; ObjectID = "bsu-Ad-ILe"; */
+"bsu-Ad-ILe.text" = "相片";
+/* Class = "UITextView"; text = "message text"; ObjectID = "cMC-ND-b5t"; */
+"cMC-ND-b5t.text" = "message text";
+/* Class = "UILabel"; text = "Notify me when new chat is posted to the Moji."; ObjectID = "cUR-VV-aaK"; */
+"cUR-VV-aaK.text" = "當有新對話時通知我";
+/* Class = "UILabel"; text = "Slide to chat"; ObjectID = "cgx-nY-B3d"; */
+"cgx-nY-B3d.text" = "滑動開啟對話";
+/* Class = "UIButton"; normalTitle = "Account"; ObjectID = "co2-D4-XAH"; */
+"co2-D4-XAH.normalTitle" = "個人資料";
+/* Class = "UILabel"; text = "Moji name"; ObjectID = "ek2-Bn-UN6"; */
+"ek2-Bn-UN6.text" = "Moji名稱";
+/* Class = "UIButton"; normalTitle = "Add Demo Images"; ObjectID = "fos-MI-VJD"; */
+"fos-MI-VJD.normalTitle" = "加入樣本相片";
+/* Class = "UILabel"; text = "Label"; ObjectID = "fw4-o4-768"; */
+"fw4-o4-768.text" = "Label";
+/* Class = "UIButton"; normalTitle = "Resend"; ObjectID = "gpG-be-cvC"; */
+"gpG-be-cvC.normalTitle" = "重發";
+/* Class = "UILabel"; text = "Yestarday at 2:34pm"; ObjectID = "gs3-em-Muh"; */
+"gs3-em-Muh.text" = "昨天下午2:34";
+/* Class = "UIButton"; normalTitle = "Clean Cache"; ObjectID = "hNJ-iN-ANg"; */
+"hNJ-iN-ANg.normalTitle" = "清除緩存";
+/* Class = "UILabel"; text = "Invite sent [friendly timestamp]. Swipe to resend invite"; ObjectID = "hiz-xa-3C6"; */
+"hiz-xa-3C6.text" = "[friendly timestamp]已發送邀請。滑動重發。";
+/* Class = "UILabel"; text = "1"; ObjectID = "hw2-sP-LBk"; */
+"hw2-sP-LBk.text" = "1";
+/* Class = "UILabel"; text = "D"; ObjectID = "i2e-Xd-doh"; */
+"i2e-Xd-doh.text" = "D";
+/* Class = "UILabel"; text = "Label"; ObjectID = "jAi-R7-bNq"; */
+"jAi-R7-bNq.text" = "Label";
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "kG4-jG-ZTm"; */
+"kG4-jG-ZTm.normalTitle" = "5";
+/* Class = "UILabel"; text = "u"; ObjectID = "kdU-Ps-nCK"; */
+"kdU-Ps-nCK.text" = "u";
+/* Class = "UIButton"; normalTitle = "Send invite"; ObjectID = "kdg-Ph-jY5"; */
+"kdg-Ph-jY5.normalTitle" = "傳送邀請";
+/* Class = "UIButton"; normalTitle = "y"; ObjectID = "kso-wd-VlQ"; */
+"kso-wd-VlQ.normalTitle" = "y";
+/* Class = "UIButton"; selectedTitle = "z"; ObjectID = "kso-wd-VlQ"; */
+"kso-wd-VlQ.selectedTitle" = "z";
+/* Class = "UILabel"; text = "Chat"; ObjectID = "nwc-oQ-LVZ"; */
+"nwc-oQ-LVZ.text" = "對話";
+/* Class = "UIButton"; normalTitle = "Resend invite"; ObjectID = "phJ-P1-MdW"; */
+"phJ-P1-MdW.normalTitle" = "重發邀請";
+/* Class = "UILabel"; text = "Calvin:"; ObjectID = "qxv-Cb-5DK"; */
+"qxv-Cb-5DK.text" = "Calvin:";
+/* Class = "UILabel"; text = "Write text..."; ObjectID = "sf0-Q1-mdw"; */
+"sf0-Q1-mdw.text" = "輸入訊息...";
+/* Class = "UILabel"; text = "Write text..."; ObjectID = "uda-Ra-Xj8"; */
+"uda-Ra-Xj8.text" = "輸入訊息...";
+/* Class = "UILabel"; text = "Settings"; ObjectID = "ueu-Q3-dgA"; */
+"ueu-Q3-dgA.text" = "設定";
+/* Class = "UILabel"; text = "name"; ObjectID = "v2z-k0-EKs"; */
+"v2z-k0-EKs.text" = "姓名";
+/* Class = "UILabel"; text = "u"; ObjectID = "vBf-Om-hs7"; */
+"vBf-Om-hs7.text" = "u";
+/* Class = "UILabel"; text = "u"; ObjectID = "vk4-f0-Wr1"; */
+"vk4-f0-Wr1.text" = "u";
+/* Class = "UILabel"; text = "Photo by S"; ObjectID = "xGF-6q-Jgs"; */
+"xGF-6q-Jgs.text" = "拍攝者S";
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "yxU-kB-7d8"; */
+"yxU-kB-7d8.normalTitle" = "Button";
+/* Class = "UIButton"; normalTitle = "LEAVE MOJI"; ObjectID = "zBK-OX-573"; */
+"zBK-OX-573.normalTitle" = "退出Moji";
+/* Class = "UILabel"; text = "Chat"; ObjectID = "zet-Ls-5CH"; */
+"zet-Ls-5CH.text" = "對話";

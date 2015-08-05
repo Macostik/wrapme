@@ -11,7 +11,7 @@
 static NSString* WLWrapContentTypeRecent = @"recent_candies";
 static NSString* WLWrapContentTypePaginated = @"paginated_by_date";
 
-@interface WLPaginatedRequest (Wraps)
+@interface WLPaginatedRequest (Defined)
 
 + (instancetype)wraps:(NSString*)scope;
 

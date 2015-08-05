@@ -7,7 +7,7 @@
 //
 
 #import "WLHistoryItem.h"
-#import "WLPaginatedRequest+Wraps.h"
+#import "WLPaginatedRequest+Defined.h"
 
 @implementation WLHistoryItem
 

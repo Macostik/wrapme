@@ -1221,8 +1221,8 @@
 		C5B531F91B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */; };
 		C5B531FA1B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */; };
 		C5B531FB1B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */; };
-		C5B5F0A01B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B5F09E1B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C5B5F0A11B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B5F09F1B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.m */; };
+		C5B5F0A01B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B5F09E1B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5B5F0A11B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B5F09F1B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.m */; };
 		C5B5F0A41B5D43AA00B1FF17 /* WLAPIRequest+Defined.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B5F0A21B5D43AA00B1FF17 /* WLAPIRequest+Defined.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5B5F0A51B5D43AA00B1FF17 /* WLAPIRequest+Defined.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B5F0A31B5D43AA00B1FF17 /* WLAPIRequest+Defined.m */; };
 		C5B93D271B4E6CC0005681DB /* WLBlockImageFetching.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D251B4E6CC0005681DB /* WLBlockImageFetching.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2675,8 +2675,8 @@
 		C5B531F11B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPublicWrapsHeaderView.xib; path = WLHomeViewController/WLPublicWrapsHeaderView.xib; sourceTree = "<group>"; };
 		C5B531F61B5FB70D00AA5088 /* WLPublicWrapsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPublicWrapsDataSource.h; sourceTree = "<group>"; };
 		C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPublicWrapsDataSource.m; sourceTree = "<group>"; };
-		C5B5F09E1B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLPaginatedRequest+Wraps.h"; sourceTree = "<group>"; };
-		C5B5F09F1B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLPaginatedRequest+Wraps.m"; sourceTree = "<group>"; };
+		C5B5F09E1B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLPaginatedRequest+Defined.h"; sourceTree = "<group>"; };
+		C5B5F09F1B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLPaginatedRequest+Defined.m"; sourceTree = "<group>"; };
 		C5B5F0A21B5D43AA00B1FF17 /* WLAPIRequest+Defined.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLAPIRequest+Defined.h"; sourceTree = "<group>"; };
 		C5B5F0A31B5D43AA00B1FF17 /* WLAPIRequest+Defined.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLAPIRequest+Defined.m"; sourceTree = "<group>"; };
 		C5B93D251B4E6CC0005681DB /* WLBlockImageFetching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBlockImageFetching.h; sourceTree = "<group>"; };
@@ -4831,8 +4831,8 @@
 				C5612CBE1ACD968A0052578A /* WLAPIRequest.m */,
 				C5612CD51ACD968B0052578A /* WLPaginatedRequest.h */,
 				C5612CD61ACD968B0052578A /* WLPaginatedRequest.m */,
-				C5B5F09E1B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.h */,
-				C5B5F09F1B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.m */,
+				C5B5F09E1B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.h */,
+				C5B5F09F1B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.m */,
 				C5B5F0A21B5D43AA00B1FF17 /* WLAPIRequest+Defined.h */,
 				C5B5F0A31B5D43AA00B1FF17 /* WLAPIRequest+Defined.m */,
 				C5C2DE761B725F6B006B47F6 /* WLAuthorizationRequest.h */,
@@ -6019,7 +6019,7 @@
 				C587C7C51AD2E6A0003E7647 /* WLContribution+Extended.h in Headers */,
 				C587C7BA1AD2E6A0003E7647 /* WLArchivingObject.h in Headers */,
 				C535F9D61AD4321F000C81B4 /* NSData+CommonCrypto.h in Headers */,
-				C5B5F0A01B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.h in Headers */,
+				C5B5F0A01B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.h in Headers */,
 				C587C7931AD2E6A0003E7647 /* UIDevice-Hardware.h in Headers */,
 				C587C7DE1AD2E6A0003E7647 /* WLOperationQueue.h in Headers */,
 				C5B93D611B4E8C55005681DB /* WLCollections.h in Headers */,
@@ -8109,7 +8109,7 @@
 				C587C8D31AD2E708003E7647 /* LELog.m in Sources */,
 				C587C8961AD2E6DB003E7647 /* WLUploading.m in Sources */,
 				C587C89F1AD2E6DB003E7647 /* WLImageView.m in Sources */,
-				C5B5F0A11B5D2AF100B1FF17 /* WLPaginatedRequest+Wraps.m in Sources */,
+				C5B5F0A11B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.m in Sources */,
 				C587C8991AD2E6DB003E7647 /* WLUser.m in Sources */,
 				C587C84B1AD2E6DB003E7647 /* NSDate+Additions.m in Sources */,
 				C587C8D51AD2E708003E7647 /* LeNetworkStatus.m in Sources */,

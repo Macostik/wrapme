@@ -11,7 +11,7 @@
 #import "WLAddressBookPhoneNumber.h"
 #import "WLAddressBookRecord.h"
 
-@implementation WLAPIRequest (DefinedRequests)
+@implementation WLAPIRequest (Defined)
 
 + (instancetype)candy:(WLCandy *)candy {
     WLAPIRequest *request = nil;

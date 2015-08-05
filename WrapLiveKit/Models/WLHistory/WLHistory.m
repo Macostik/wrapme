@@ -13,7 +13,7 @@
 #import "WLCollections.h"
 #import "NSDate+Additions.h"
 #import "WLEntryNotifier.h"
-#import "WLPaginatedRequest+Wraps.h"
+#import "WLPaginatedRequest+Defined.h"
 
 @interface WLHistory () <WLEntryNotifyReceiver, WLBroadcastReceiver>
 

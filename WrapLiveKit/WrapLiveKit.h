@@ -83,7 +83,7 @@ FOUNDATION_EXPORT const unsigned char WrapLiveKitVersionString[];
 #import <WrapLiveKit/WLSession.h>
 #import <WrapLiveKit/NSURL+WLRemoteEntryHandler.h>
 #import <WrapLiveKit/WLNetwork.h>
-#import <WrapLiveKit/WLPaginatedRequest+Wraps.h>
+#import <WrapLiveKit/WLPaginatedRequest+Defined.h>
 #import <WrapLiveKit/WLAPIRequest+Defined.h>
 #import <WrapLiveKit/WLAPIManager.h>
 #import <WrapLiveKit/WLAPIResponse.h>

@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLPaginatedRequest+Wraps.h"
+#import "WLPaginatedRequest+Defined.h"
 #import "WLEntryNotifier.h"
 
-@implementation WLPaginatedRequest (Wraps)
+@implementation WLPaginatedRequest (Defined)
 
 + (instancetype)wraps:(NSString *)scope {
     return [[[self GET:@"wraps", nil] parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {

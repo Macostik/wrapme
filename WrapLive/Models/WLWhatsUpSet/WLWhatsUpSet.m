@@ -88,7 +88,7 @@
             
             for (WLContribution *contribution in updates) {
                 [events addObject:[WLWhatsUpEvent event:WLEventUpdate contribution:contribution]];
-                if (contribution.unread && [contributions containsObject:contribution]) {
+                if (contribution.unread) {
                     unreadEntriesCount++;
                 }
             }

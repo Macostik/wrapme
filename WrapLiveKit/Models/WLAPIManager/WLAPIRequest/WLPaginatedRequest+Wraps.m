@@ -74,11 +74,7 @@
         }
     }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet* oldCandies = [wrap.candies copy];
-            [wrap update:response.data[WLWrapKey]];
-            NSMutableSet* newCandies = [wrap.candies mutableCopy];
-            [newCandies minusSet:oldCandies];
-            success(newCandies);
+            success([wrap update:response.data[WLWrapKey]]);
         } else {
             success(nil);
         }

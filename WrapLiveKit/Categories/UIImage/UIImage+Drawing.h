@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString *WLAlbumName = @"wrapLive";
+static NSString *WLAlbumName = @"MOJI";
 
 @interface UIImage (Drawing)
 

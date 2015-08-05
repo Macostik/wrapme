@@ -23,22 +23,19 @@
 - (void)didReceiveRemoteNotification:(NSDictionary *)remoteNotification withCompletion:(void (^)(WKUserNotificationInterfaceType))completionHandler {
     __weak typeof(self)weakSelf = self;
     [self.image setImage:nil];
-    [weakSelf.image setHidden:YES];
+    [weakSelf.alertLabel setText:[weakSelf alertMessageFromNotification:remoteNotification]];
+    [weakSelf.titleLabel setText:[weakSelf titleMessageFromNotification:remoteNotification]];
     [WLWKParentApplicationContext fetchNotification:remoteNotification success:^(NSDictionary *replyInfo) {
         WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:replyInfo[@"entry"]];
         if (entry) {
-            [weakSelf.image setHidden:NO];
+            [[WLImageCache cache] fetchIdentifiers];
             weakSelf.image.url = entry.picture.small;
+        } else {
+            [weakSelf.image setHidden:YES];
         }
-        [weakSelf.alertLabel setText:[weakSelf alertMessageFromNotification:remoteNotification]];
-        [weakSelf.titleLabel setText:[weakSelf titleMessageFromNotification:remoteNotification]];
-        completionHandler(WKUserNotificationInterfaceTypeCustom);
     } failure:^(NSError *error) {
-        [weakSelf.alertLabel setText:[weakSelf alertMessageFromNotification:remoteNotification]];
-        [weakSelf.titleLabel setText:[weakSelf titleMessageFromNotification:remoteNotification]];
-        completionHandler(WKUserNotificationInterfaceTypeCustom);
     }];
-    
+    completionHandler(WKUserNotificationInterfaceTypeCustom);
 }
 
 - (NSString*)alertMessageFromNotification:(NSDictionary*)notification {

@@ -51,7 +51,7 @@
 
 + (CGFloat)additionalHeightCell:(WLWhatsUpEvent *)event {
     if (![event.contribution respondsToSelector:@selector(text)]) return .0f;
-    UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal];
+    UIFont *font = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
     return [[event.contribution text] heightWithFont:font width:WLConstants.screenWidth - WLWhatsUpCommentHorizontalSpacing];
 }
 

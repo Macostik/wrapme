@@ -8,6 +8,8 @@
 
 #import "WLChat.h"
 #import "WLNotificationSubscription.h"
+#import "WLUserRequest.h"
+#import "WLToast.h"
 
 static NSString *WLChatTypingChannelTypingKey = @"typing";
 
@@ -32,6 +34,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     self = [super init];
     if (self) {
         self.unreadMessages = [NSMutableOrderedSet orderedSet];
+        self.readMessages = [NSMutableOrderedSet orderedSet];
         self.messagesWithDay = [NSHashTable weakObjectsHashTable];
         self.messagesWithName = [NSHashTable weakObjectsHashTable];
         self.typingUsers = [NSMutableOrderedSet orderedSet];
@@ -106,7 +109,21 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
 
 - (void)didBeginTyping:(WLUser *)user {
     if (![user isCurrentUser]) {
-        [self addTypingUser:user];
+        if (!user.name.nonempty || !user.picture.large.nonempty) {
+            __weak __typeof(self)weakSelf = self;
+            [self.wrap addContributorsObject:user];
+            [[WLUserRequest request:user] send:^(WLUser *_user) {
+                [weakSelf addTypingUser:_user];
+                if ([weakSelf.delegate respondsToSelector:@selector(chat:didBeginTyping:)]) {
+                    [weakSelf.delegate chat:weakSelf didBeginTyping:_user];
+                }
+            } failure:^(NSError *error) {
+                [WLToast showWithMessage:WLLS(@"data_invalid")];
+            }];
+        } else {
+            [self addTypingUser:user];
+        }
+        
         if ([self.delegate respondsToSelector:@selector(chat:didBeginTyping:)]) {
             [self.delegate chat:self didBeginTyping:user];
         }

@@ -48,7 +48,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     
     __weak UICollectionView *collectionView = self.dataSource.collectionView;
     [self.dataSource setItemSizeBlock:^CGSize(WLUser *contributor, NSUInteger index) {
-        UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
+        UIFont *font = [UIFont preferredDefaultFontWithPreset:WLFontPresetSmall];
         CGFloat textWidth = collectionView.width - WLContributorsHorizontalIndent;
         CGFloat height = [contributor.securePhones heightWithFont:font width:textWidth];
         if (contributor.isInvited) {
@@ -142,8 +142,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     [request send:^(id object) {
         if (completionHandler) completionHandler(YES);
         [weakSelf.invitedContributors addObject:contributor];
-        [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(hideMenuForContributor:) object:contributor];
-        [weakSelf performSelector:@selector(hideMenuForContributor:) withObject:contributor afterDelay:3];
+        [weakSelf enqueueSelectorPerforming:@selector(hideMenuForContributor:) afterDelay:3.0f];
     } failure:^(NSError *error) {
         [error show];
         if (completionHandler) completionHandler(NO);

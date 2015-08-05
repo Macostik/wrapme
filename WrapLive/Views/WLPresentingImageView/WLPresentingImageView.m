@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *aspectRatioConstraint;
+@property (assign, nonatomic) CGRect clearRect;
 
 @end
 
@@ -25,6 +26,7 @@
 
 - (instancetype)presentingCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion {
     [self presentingAsMainWindowSubview];
+    self.clearRect = CGRectZero;
     CGRect convertRect = CGRectZero;
     if ([self.delegate respondsToSelector:@selector(presentImageView:getFrameCandyCell:)]) {
         convertRect = [self.delegate presentImageView:self getFrameCandyCell:candy];
@@ -42,26 +44,36 @@
 - (void)dismissViewByCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion {
     [self presentingAsMainWindowSubview];
     self.backgroundColor = [UIColor clearColor];
-    CGRect convertRect = CGRectZero;
     if ([self.delegate respondsToSelector:@selector(dismissImageView:getFrameCandyCell:)]) {
-        convertRect = [self.delegate dismissImageView:self getFrameCandyCell:candy];
+       self.clearRect = [self.delegate dismissImageView:self getFrameCandyCell:candy];
     }
-    if(CGRectEqualToRect(convertRect, CGRectZero)) {
+    
+    if(CGRectEqualToRect(self.clearRect, CGRectZero)) {
         self.hidden = YES;
         [self removeFromSuperview];
     } else {
+        __weak __typeof(self)weakSelf = self;
         run_after(.1, ^{
             [UIView animateWithDuration:0.25
                                   delay:.0
                                 options:UIViewAnimationOptionCurveEaseIn
                              animations:^{
-                                 self.imageView.frame = convertRect;
+                                 self.imageView.frame = weakSelf.clearRect;
                              } completion:^(BOOL finished) {
                                  if  (completion) completion(finished);
                                  [self removeFromSuperview];
                              }];
         });
     }
+}
+
+- (void)drawRect:(CGRect)rect {
+    if (CGRectEqualToRect(self.clearRect, CGRectZero)) {
+        return;
+    }
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
+    CGContextFillRect (ctx, self.clearRect);
 }
 
 - (void)presentingAsMainWindowSubview {

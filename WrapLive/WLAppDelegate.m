@@ -27,6 +27,7 @@
 #import "WLAddressBook.h"
 #import "WLEntryNotification.h"
 #import "WLAlertView.h"
+#import "UIFont+CustomFonts.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 
@@ -44,6 +45,8 @@
     [self initializeCrashlyticsAndLogging];
     
     [self initializeAPIManager];
+    
+    [[WLNotificationCenter defaultCenter] configure];
     
     [self createWindow];
     
@@ -63,7 +66,7 @@
         }
     }];
 	[[WLKeyboard keyboard] configure];
-	[[WLNotificationCenter defaultCenter] configure];
+	
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] success:^(WLNotification *notification) {
         if ([notification isKindOfClass:[WLEntryNotification class]]) {
             [[WLRemoteEntryHandler sharedHandler] presentEntryFromNotification:(id)notification failure:^(NSError *error) {
@@ -365,7 +368,7 @@ static WLDataBlock deviceTokenCompletion = nil;
                 [WLAPIManager saveEnvironmentName:[WLAPIManager manager].environment.name];
                 completion([WLExtensionResponse success]);
             } else {
-                completion([WLExtensionResponse failureWithMessage:@"Please, launch wrapLive containing app for registration"]);
+                completion([WLExtensionResponse failureWithMessage:@"Please, launch MOJI containing app for registration"]);
             }
         } else if ([request.action isEqualToString:@"post_chat_message"]) {
             NSString *wrapIdentifier = request.userInfo[WLWrapUIDKey];
@@ -378,7 +381,7 @@ static WLDataBlock deviceTokenCompletion = nil;
                     completion([WLExtensionResponse failureWithMessage:error.localizedDescription]);
                 }];
             } else {
-                completion([WLExtensionResponse failureWithMessage:@"Wrap isn't available."]);
+                completion([WLExtensionResponse failureWithMessage:@"Moji isn't available."]);
             }
         } else if ([request.action isEqualToString:@"post_comment"]) {
             NSString *candyIdentifier = request.userInfo[WLCandyUIDKey];

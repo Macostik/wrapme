@@ -97,10 +97,10 @@ CGFloat WLMaxTextViewWidth;
     }
     
     self.cachedMessageHeights = [NSMapTable strongToStrongObjectsMapTable];
-    
-    self.messageFont = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal];
-    self.nameFont = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetNormal];
-    self.timeFont = [UIFont preferredFontWithName:WLFontOpenSansLight preset:WLFontPresetSmall];
+
+    self.messageFont = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
+    self.nameFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetNormal];
+    self.timeFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmall];
     
     [self.collectionView registerNib:[WLLoadingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WLLoadingViewIdentifier];
     [self.collectionView registerNib:[WLTypingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLTypingViewCell"];
@@ -132,7 +132,7 @@ CGFloat WLMaxTextViewWidth;
             [error showIgnoringNetworkError];
         }];
     }
-		
+    
     [[WLMessage notifier] addReceiver:self];
     [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLFontPresetter presetter] addReceiver:self];
@@ -150,8 +150,13 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.chat.readMessages all:^(WLMessage *message) {
+        [message markAsRead];
+    }];
     [[WLMessagesCounter instance] update:nil];
     [self.chat sort];
+    [self.chat.unreadMessages minusSet:[self.chat.readMessages set]];
+    [self updateBadge];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
@@ -210,10 +215,17 @@ CGFloat WLMaxTextViewWidth;
         } else {
             
             [weakSelf.chat addEntry:message];
-            [weakSelf.collectionView reloadData];
-            [collectionView layoutIfNeeded];
-            collectionView.contentOffset = CGPointOffset(collectionView.minimumContentOffset, 0, [weakSelf heightOfMessageCell:message]);
-            [collectionView setMinimumContentOffsetAnimated:YES];
+            
+            if (self.collectionView.height/2 < [weakSelf heightOfMessageCell:message] &&
+                [self.chat.unreadMessages count] == 1) {
+                self.layout.scrollToUnreadMessages = YES;
+            } else {
+                [weakSelf.collectionView reloadData];
+                [collectionView layoutIfNeeded];
+                collectionView.contentOffset = CGPointOffset(collectionView.minimumContentOffset, 0, [weakSelf heightOfMessageCell:message]);
+                [collectionView setMinimumContentOffsetAnimated:YES];
+            }
+            
             run_after(0.5, ^{
                 [operation finish];
             });
@@ -361,6 +373,9 @@ CGFloat WLMaxTextViewWidth;
         }];
         [WLSoundPlayer playSound:WLSound_s04];
         [self.collectionView setMinimumContentOffsetAnimated:YES];
+        [self.chat.readMessages all:^(WLMessage *message) {
+            [message markAsRead];
+        }];
     } else {
         [self.navigationController popToRootViewControllerAnimated:NO];
     }
@@ -384,8 +399,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)setTyping:(BOOL)typing {
     if (_typing != typing) {
         _typing = typing;
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(sendTypingStateChange) object:nil];
-        [self performSelector:@selector(sendTypingStateChange) withObject:nil afterDelay:1];
+        [self enqueueSelectorPerforming:@selector(sendTypingStateChange) afterDelay:1.0f];
     }
 }
 
@@ -423,8 +437,8 @@ CGFloat WLMaxTextViewWidth;
     cell.entry = message;
     cell.layer.geometryFlipped = [self geometryFlipped];
     
-    if (message.unread && self.view.superview) {
-        message.unread = NO;
+    if (message.unread && self.view.superview && ![self.chat.readMessages containsObject:message]) {
+        [self.chat.readMessages addObject:message];
     }
     
     [self setBackgroundColorForView:cell atIndexPath:indexPath];
@@ -482,9 +496,12 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGFloat)heightOfTypingCell:(WLChat *)chat {
-    return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredFontWithName:WLFontOpenSansRegular
-                                                                                              preset:WLFontPresetSmaller]
-                                                                 width:WLMaxTextViewWidth] + WLTypingViewTopIndent);
+    if (chat.wrap.messages.nonempty || chat.typingUsers.nonempty) {
+        return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmaller]
+                                                                     width:WLMaxTextViewWidth] + WLTypingViewTopIndent);
+    } else {
+        return 0;
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -505,6 +522,7 @@ CGFloat WLMaxTextViewWidth;
     } else {
         return CGSizeMake(collectionView.width, [self heightOfTypingCell:self.chat]);
     }
+    
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView applyContentSizeInsetForAttributes:(UICollectionViewLayoutAttributes *)attributes {
@@ -516,6 +534,10 @@ CGFloat WLMaxTextViewWidth;
         [self updateBadge];
         return;
     }
+    
+    [self.chat.readMessages all:^(WLMessage *message) {
+        [message markAsRead];
+    }];
     
     [[WLMessagesCounter instance] update:nil];
     [self.chat sort];

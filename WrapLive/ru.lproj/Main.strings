@@ -8,11 +8,11 @@
 /* Class = "UITextView"; text = "message text"; ObjectID = "0OD-Cn-Lp6"; */
 "0OD-Cn-Lp6.text" = "message text";
 
-/* Class = "UILabel"; text = "Wrap"; ObjectID = "0YA-Wt-D43"; */
-"0YA-Wt-D43.text" = "Wrap";
+/* Class = "UILabel"; text = "Moji"; ObjectID = "0YA-Wt-D43"; */
+"0YA-Wt-D43.text" = "Moji";
 
-/* Class = "UILabel"; text = "Create wrap is easy!\nTap here to start."; ObjectID = "0ka-0F-dc5"; */
-"0ka-0F-dc5.text" = "Create wrap is easy!\nTap here to start.";
+/* Class = "UILabel"; text = "Create Moji is easy!\nTap here to start."; ObjectID = "0ka-0F-dc5"; */
+"0ka-0F-dc5.text" = "Создать Moji легко!\nНажми кнопку.";
 
 /* Class = "UILabel"; text = "Открыть камеру"; ObjectID = "0rs-Jv-qhC"; */
 "0rs-Jv-qhC.text" = "Открыть камеру";
@@ -131,8 +131,8 @@
 /* Class = "UILabel"; text = "Photos"; ObjectID = "Exo-Pi-XRe"; */
 "Exo-Pi-XRe.text" = "Фото";
 
-/* Class = "UILabel"; text = "Wrap"; ObjectID = "FBj-ps-Q2W"; */
-"FBj-ps-Q2W.text" = "Wrap";
+/* Class = "UILabel"; text = "Moji"; ObjectID = "FBj-ps-Q2W"; */
+"FBj-ps-Q2W.text" = "Moji";
 
 /* Class = "UITextView"; text = "Отличное фото!"; ObjectID = "FgB-22-MIB"; */
 "FgB-22-MIB.text" = "Отличное фото!";
@@ -176,8 +176,8 @@
 /* Class = "UIButton"; normalTitle = "Отмена"; ObjectID = "MJV-nQ-gRy"; */
 "MJV-nQ-gRy.normalTitle" = "Отмена";
 
-/* Class = "UILabel"; text = "Wrap Name"; ObjectID = "N8I-t6-aKU"; */
-"N8I-t6-aKU.text" = "Wrap Name";
+/* Class = "UILabel"; text = "Moji Name"; ObjectID = "N8I-t6-aKU"; */
+"N8I-t6-aKU.text" = "Moji Name";
 
 /* Class = "UILabel"; text = "Help secure your account"; ObjectID = "Nim-LA-uPS"; */
 "Nim-LA-uPS.text" = "Help secure your account";
@@ -209,11 +209,11 @@
 /* Class = "UILabel"; text = "Enter your friend's name and phone number"; ObjectID = "TlS-f9-yyB"; */
 "TlS-f9-yyB.text" = "Enter your friend's name and phone number";
 
-/* Class = "UILabel"; text = "Проблемы соединения с wrapLive. Проверте интернет соединение и попытайтесь снова."; ObjectID = "TvM-gd-tcr"; */
-"TvM-gd-tcr.text" = "Проблемы соединения с wrapLive. Проверте интернет соединение и попытайтесь снова.";
+/* Class = "UILabel"; text = "Проблемы соединения с MOJI. Проверте интернет соединение и попытайтесь снова."; ObjectID = "TvM-gd-tcr"; */
+"TvM-gd-tcr.text" = "Проблемы соединения с MOJI. Проверте интернет соединение и попытайтесь снова.";
 
-/* Class = "UILabel"; text = "Wrap Name"; ObjectID = "Twb-Mn-vNw"; */
-"Twb-Mn-vNw.text" = "Wrap Name";
+/* Class = "UILabel"; text = "Moji Name"; ObjectID = "Twb-Mn-vNw"; */
+"Twb-Mn-vNw.text" = "Moji Name";
 
 /* Class = "UILabel"; text = "D"; ObjectID = "U0A-o6-Hed"; */
 "U0A-o6-Hed.text" = "D";
@@ -236,8 +236,8 @@
 /* Class = "UIButton"; normalTitle = "Resend"; ObjectID = "Yk6-tb-7gb"; */
 "Yk6-tb-7gb.normalTitle" = "Resend";
 
-/* Class = "UILabel"; text = "wrap name"; ObjectID = "ZL1-Bm-SmI"; */
-"ZL1-Bm-SmI.text" = "wrap name";
+/* Class = "UILabel"; text = "Moji name"; ObjectID = "ZL1-Bm-SmI"; */
+"ZL1-Bm-SmI.text" = "Moji name";
 
 /* Class = "UILabel"; text = "John Williams Brown"; ObjectID = "ZaI-gM-W2F"; */
 "ZaI-gM-W2F.text" = "John Williams Brown";
@@ -254,7 +254,7 @@
 /* Class = "UITextView"; text = "message text"; ObjectID = "cMC-ND-b5t"; */
 "cMC-ND-b5t.text" = "текст сообщения";
 
-/* Class = "UILabel"; text = "Notify me when new chat is posted to the wrap."; ObjectID = "cUR-VV-aaK"; */
+/* Class = "UILabel"; text = "Notify me when new chat is posted to the Moji."; ObjectID = "cUR-VV-aaK"; */
 "cUR-VV-aaK.text" = "Напомнить когда будет добавлено новое сообщение.";
 
 /* Class = "UILabel"; text = "Slide to chat"; ObjectID = "cgx-nY-B3d"; */
@@ -263,8 +263,8 @@
 /* Class = "UIButton"; normalTitle = "Аккаунт"; ObjectID = "co2-D4-XAH"; */
 "co2-D4-XAH.normalTitle" = "Аккаунт";
 
-/* Class = "UILabel"; text = "wrap name"; ObjectID = "ek2-Bn-UN6"; */
-"ek2-Bn-UN6.text" = "wrap name";
+/* Class = "UILabel"; text = "Moji name"; ObjectID = "ek2-Bn-UN6"; */
+"ek2-Bn-UN6.text" = "Moji name";
 
 /* Class = "UIButton"; normalTitle = "Add Demo Images"; ObjectID = "fos-MI-VJD"; */
 "fos-MI-VJD.normalTitle" = "Add Demo Images";
@@ -341,8 +341,8 @@
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "yxU-kB-7d8"; */
 "yxU-kB-7d8.normalTitle" = "Button";
 
-/* Class = "UIButton"; normalTitle = "LEAVE WRAP"; ObjectID = "zBK-OX-573"; */
-"zBK-OX-573.normalTitle" = "ПОКИНУТЬ ВРАП";
+/* Class = "UIButton"; normalTitle = "LEAVE MOJI"; ObjectID = "zBK-OX-573"; */
+"zBK-OX-573.normalTitle" = "ПОКИНУТЬ MOJI";
 
 /* Class = "UILabel"; text = "Chat"; ObjectID = "zet-Ls-5CH"; */
 "zet-Ls-5CH.text" = "Чат";

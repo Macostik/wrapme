@@ -383,6 +383,9 @@
 
 - (CGRect)dismissImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy {
     WLCandyCell *candyCell = [self presentedCandyCell:candy];
+    if (self.collectionView.contentOffset.y > self.navigationBar.height) {
+        [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x, 70) animated:NO];
+    }
     return [self.view convertRect:candyCell.frame fromView:candyCell.superview];
 }
 

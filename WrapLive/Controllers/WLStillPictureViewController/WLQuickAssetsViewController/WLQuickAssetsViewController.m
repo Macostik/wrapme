@@ -66,10 +66,8 @@
 }
 
 - (void)setAssets:(NSArray *)assets {
-    _assets = [assets selects:^BOOL(ALAsset* asset) {
-        return ![self.selectedAssets containsObject:asset.ID];
-    }];
-    self.dataSource.items = _assets;
+    _assets = assets;
+    self.dataSource.items = assets;
 }
 
 - (void)assetsLibraryChanged:(NSNotification*)notifiection {

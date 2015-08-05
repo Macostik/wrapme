@@ -139,7 +139,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     if ([[WLAuthorization currentAuthorization:NO] canAuthorize]) {
         self.entries = [WLContribution recentContributions:10];
     } else {
-        [self showError:WLError(@"No data for authorization. Please, check wrapLive app on you iPhone.")];
+        [self showError:WLError(@"No data for authorization. Please, check MOJI app on you iPhone.")];
     }
 }
 

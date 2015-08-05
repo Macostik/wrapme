@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString* WLFontOpenSansRegular = @"OpenSans";
-static NSString* WLFontOpenSansLight = @"OpenSans-Light";
-static NSString* WLFontOpenSansBold = @"OpenSans-Bold";
+static NSString* WLDefaultSystemLightFont = @"HelveticaNeue-Light";
 
 static NSString *WLFontPresetXSmall = @"xsmall";
 static NSString *WLFontPresetSmaller = @"smaller";
@@ -29,6 +27,10 @@ static NSString *WLFontPresetXLarge = @"xlarge";
 + (CGFloat)preferredSizeWithPreset:(NSString *)preset;
 
 + (UIFont*)preferredFontWithName:(NSString *)fontName preset:(NSString *)preset;
+
++ (UIFont*)preferredDefaultFontWithPreset:(NSString *)preset;
+
++ (UIFont*)preferredDefaultLightFontWithPreset:(NSString *)preset;
 
 - (UIFont*)fontWithPreset:(NSString *)preset;
 

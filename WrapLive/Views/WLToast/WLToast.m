@@ -177,8 +177,7 @@
             [operation finish];
         };
         
-        [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(dismiss) object:nil];
-        [weakSelf performSelector:@selector(dismiss) withObject:nil afterDelay:WLToastDismissalDelay];
+        [weakSelf enqueueSelectorPerforming:@selector(dismiss) afterDelay:WLToastDismissalDelay];
     });
 }
 
@@ -258,7 +257,7 @@
 }
 
 + (void)showMessageForUnavailableWrap:(WLWrap *)wrap {
-    [self showWithMessage:[NSString stringWithFormat:WLLS(@"formatted_wrap_unavailable"), WLString(wrap.name)]];
+    [self showWithMessage:[NSString stringWithFormat:WLLS(@"formatted_moji_unavailable"), WLString(wrap.name)]];
 }
 
 @end

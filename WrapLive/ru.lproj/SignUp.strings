@@ -40,8 +40,8 @@
 /* (No Commment) */
 "HcW-vf-tjk.placeholder" = "Ваше имя";
 
-/* Class = "UILabel"; text = "You have linked this device to your wrapLive account. Enjoy!"; ObjectID = "Itw-PI-Mz8"; */
-"Itw-PI-Mz8.text" = "Вы связали это устройство с Вашей учетной записью wrapLive. Наслаждайтесь!";
+/* Class = "UILabel"; text = "You have linked this device to your MOJI account. Enjoy!"; ObjectID = "Itw-PI-Mz8"; */
+"Itw-PI-Mz8.text" = "Вы связали это устройство с Вашей учетной записью MOJI. Наслаждайтесь!";
 
 /* Class = "UILabel"; text = "Edit your profile"; ObjectID = "JDb-jD-Zkt"; */
 "JDb-jD-Zkt.text" = "Редактировать профиль";
@@ -59,7 +59,7 @@
 "Pla-to-4nx.normalTitle" = "Выберите страну";
 
 /* (No Commment) */
-"RcF-WP-Qlr.text" = "wrapLive отправит одноразовое SMS-сообщение, чтобы подтвердить Ваш номер. Могут потребоватся расходы, установленные SMS-провайдером.";
+"RcF-WP-Qlr.text" = "MOJI отправит одноразовое SMS-сообщение, чтобы подтвердить Ваш номер. Могут потребоватся расходы, установленные SMS-провайдером.";
 
 /* Class = "UIButton"; normalTitle = "Try the voice call option"; ObjectID = "Rvs-HT-UrH"; */
 "Rvs-HT-UrH.normalTitle" = "Использовать голосовой звонок";
@@ -115,8 +115,8 @@
 /* Class = "UILabel"; text = "What is your email?"; ObjectID = "fKc-pu-juY"; */
 "fKc-pu-juY.text" = "Укажите Ваш e-mail";
 
-/* Class = "UILabel"; text = "wrapLive will send one time SMS message to verify your phone number. Carrier SMS charges may apply."; ObjectID = "jGq-WB-mde"; */
-"jGq-WB-mde.text" = "wrapLive отправит одноразовое SMS-сообщение, чтобы подтвердить Ваш номер. Могут потребоватся расходы, установленные SMS-провайдером.";
+/* Class = "UILabel"; text = "MOJI will send one time SMS message to verify your phone number. Carrier SMS charges may apply."; ObjectID = "jGq-WB-mde"; */
+"jGq-WB-mde.text" = "MOJI отправит одноразовое SMS-сообщение, чтобы подтвердить Ваш номер. Могут потребоватся расходы, установленные SMS-провайдером.";
 
 /* (No Commment) */
 "k1E-PN-xcp.normalTitle" = "Далее";
@@ -133,8 +133,8 @@
 /* (No Commment) */
 "pmp-Nw-u2O.text" = "Кокой у Вас номер телефона?";
 
-/* Class = "UILabel"; text = "The passcode is required to link this device to your wrapLive account. Enter it above when you receive it."; ObjectID = "HrT-ph-Lnj"; */
-"HrT-ph-Lnj.text" = "Пароль необходим, чтобы связать это устройство с Вашей учетной записью wrapLive. Когда получите пароль, введите его выше.";
+/* Class = "UILabel"; text = "The passcode is required to link this device to your MOJI account. Enter it above when you receive it."; ObjectID = "HrT-ph-Lnj"; */
+"HrT-ph-Lnj.text" = "Пароль необходим, чтобы связать это устройство с Вашей учетной записью MOJI. Когда получите пароль, введите его выше.";
 
 /* Class = "UILabel"; text = "Successful!"; ObjectID = "qCY-vc-S18"; */
 "qCY-vc-S18.text" = "Успешно!";

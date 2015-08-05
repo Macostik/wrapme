@@ -55,4 +55,6 @@ typedef void (^WLCacheWriteCompletionBlock)(NSString* identifier);
 
 - (void)checkSizeAndClearIfNeededInBackground;
 
+- (void)fetchIdentifiers;
+
 @end

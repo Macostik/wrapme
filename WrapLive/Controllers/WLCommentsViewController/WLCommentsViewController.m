@@ -60,7 +60,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
     __weak typeof(self)weakSelf = self;
     [self.dataSource setItemSizeBlock:^CGSize(WLComment *comment, NSUInteger index) {
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-        UIFont *font = [UIFont preferredFontWithName:WLFontOpenSansRegular preset:WLFontPresetNormal];
+        UIFont *font = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
         paragraphStyle.firstLineHeadIndent = [[weakSelf.candy contributor] isCurrentUser] ? WLLineHeadIndent : 0;
         NSAttributedString *attributedText = [[NSAttributedString alloc]initWithString:comment.text
                                                                             attributes: @{NSParagraphStyleAttributeName : paragraphStyle,
@@ -91,6 +91,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
             [sender setRefreshing:NO animated:YES];
         } failure:^(NSError *error) {
             weakSelf.dataSource.footerSize = CGSizeZero;
+            [weakSelf.dataSource reload];
             [error showIgnoringNetworkError];
             [sender setRefreshing:NO animated:YES];
         }];

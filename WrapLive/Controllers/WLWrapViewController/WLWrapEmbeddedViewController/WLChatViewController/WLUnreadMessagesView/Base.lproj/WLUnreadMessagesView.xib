@@ -4,37 +4,27 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="OpenSans-Regular.ttf">
-            <string>OpenSans</string>
-        </mutableArray>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="unreadMessagesView" id="U6b-Vx-4bR">
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="RX9-ya-hfz">
             <rect key="frame" x="0.0" y="0.0" width="320" height="34"/>
-            <autoresizingMask key="autoresizingMask"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNREAD MESSAGES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xw3-dx-bSA" customClass="WLLabel">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNREAD MESSAGES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3J-PO-D05">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="34"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                    <color key="textColor" white="0.26399999856948853" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                    </userDefinedRuntimeAttributes>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Xw3-dx-bSA" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="AcQ-D0-f7k"/>
-                <constraint firstItem="Xw3-dx-bSA" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="DgL-1o-cYq"/>
-                <constraint firstAttribute="bottom" secondItem="Xw3-dx-bSA" secondAttribute="bottom" id="TJq-hA-q0B"/>
-                <constraint firstAttribute="trailing" secondItem="Xw3-dx-bSA" secondAttribute="trailing" id="qqS-L1-rIS"/>
+                <constraint firstAttribute="bottom" secondItem="P3J-PO-D05" secondAttribute="bottom" id="2go-Ui-s5n"/>
+                <constraint firstItem="P3J-PO-D05" firstAttribute="top" secondItem="RX9-ya-hfz" secondAttribute="top" id="3gl-jq-MQY"/>
+                <constraint firstAttribute="trailing" secondItem="P3J-PO-D05" secondAttribute="trailing" id="9gm-Nf-2yr"/>
+                <constraint firstItem="P3J-PO-D05" firstAttribute="leading" secondItem="RX9-ya-hfz" secondAttribute="leading" id="sVw-Xv-nWD"/>
             </constraints>
-            <point key="canvasLocation" x="190" y="252"/>
+            <point key="canvasLocation" x="360" y="229"/>
         </collectionReusableView>
     </objects>
 </document>

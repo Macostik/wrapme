@@ -20,8 +20,8 @@
 /* Class = "UIButton"; normalTitle = "L"; ObjectID = "8l4-7n-9vU"; */
 "8l4-7n-9vU.normalTitle" = "L";
 
-/* Class = "UITextField"; placeholder = "New wrap"; ObjectID = "Caa-Xm-Qlw"; */
-"Caa-Xm-Qlw.placeholder" = "New wrap";
+/* Class = "UITextField"; placeholder = "New Moji"; ObjectID = "Caa-Xm-Qlw"; */
+"Caa-Xm-Qlw.placeholder" = "New Moji";
 
 /* Class = "UILabel"; text = "Add a comment..."; ObjectID = "CtH-sR-dzA"; */
 "CtH-sR-dzA.text" = "Add a comment...";
@@ -44,11 +44,11 @@
 /* Class = "UIButton"; normalTitle = "L"; ObjectID = "ITP-VR-CiW"; */
 "ITP-VR-CiW.normalTitle" = "L";
 
-/* Class = "UILabel"; text = "Please go to Settings > wrapLive to allow wrapLive access the camera on this device."; ObjectID = "Jwv-dz-I8C"; */
-"Jwv-dz-I8C.text" = "Please go to Settings > wrapLive to allow wrapLive access the camera on this device.";
+/* Class = "UILabel"; text = "Please go to Settings > MOJI to allow Moji access the camera on this device."; ObjectID = "Jwv-dz-I8C"; */
+"Jwv-dz-I8C.text" = "Please go to Settings > MOJI to allow MOJI access the camera.";
 
-/* Class = "UILabel"; text = "wrap name"; ObjectID = "Kgt-p9-lfD"; */
-"Kgt-p9-lfD.text" = "wrap name";
+/* Class = "UILabel"; text = "Moji name"; ObjectID = "Kgt-p9-lfD"; */
+"Kgt-p9-lfD.text" = "Moji name";
 
 /* Class = "UIButton"; normalTitle = "Done"; ObjectID = "N3t-xp-O3A"; */
 "N3t-xp-O3A.normalTitle" = "Done";
@@ -63,7 +63,7 @@
 "Rg7-He-e6G.normalTitle" = "t";
 
 /* Class = "UILabel"; text = "To allow access to the camera go to the Settings > Privacy > Camera"; ObjectID = "SVW-IT-Sr6"; */
-"SVW-IT-Sr6.text" = "To allow access to the camera go to the Settings > Privacy > Camera";
+"SVW-IT-Sr6.text" = "To allow MOJI access the camera, please go to Settings > Privacy > Camera";
 
 /* Class = "UIButton"; normalTitle = "w"; ObjectID = "X3H-5w-amr"; */
 "X3H-5w-amr.normalTitle" = "w";
@@ -74,8 +74,8 @@
 /* Class = "UILabel"; text = "TAP TO CHANGE"; ObjectID = "av4-g2-N6y"; */
 "av4-g2-N6y.text" = "TAP TO CHANGE";
 
-/* Class = "UILabel"; text = "Please go to Settings > wrapLive to allow wrapLive access the photos on this device."; ObjectID = "bvQ-XE-Vmc"; */
-"bvQ-XE-Vmc.text" = "Please go to Settings > wrapLive to allow wrapLive access the photos on this device.";
+/* Class = "UILabel"; text = "Please go to Settings > MOJI to allow Moji access the photos on this device."; ObjectID = "bvQ-XE-Vmc"; */
+"bvQ-XE-Vmc.text" = "Please go to Settings > MOJI to allow MOJI access the photos.";
 
 /* Class = "UILabel"; text = "Photos"; ObjectID = "dGM-vI-GSH"; */
 "dGM-vI-GSH.text" = "Photos";
@@ -120,7 +120,7 @@
 "upJ-Du-Uru.text" = "TAP TO CHANGE";
 
 /* Class = "UILabel"; text = "To allow access to the photos go to the Settings > Privacy > Photos"; ObjectID = "uud-iT-GCw"; */
-"uud-iT-GCw.text" = "To allow access to the photos go to the Settings > Privacy > Photos";
+"uud-iT-GCw.text" = "To allow MOJI access the photos, please go to Settings > Privacy > Photos";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "zto-LL-FxR"; */
 "zto-LL-FxR.text" = "Label";

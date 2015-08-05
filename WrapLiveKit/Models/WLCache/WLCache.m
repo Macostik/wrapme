@@ -10,6 +10,8 @@
 #import "NSString+Documents.h"
 #import "WLCollections.h"
 #import "UIDevice+SystemVersion.h"
+#import "NSObject+Extension.h"
+#import "NSUserDefaults+WLAppGroup.h"
 
 @interface WLCacheItem : NSObject
 
@@ -38,7 +40,7 @@
 @implementation WLCache
 
 + (void)initialize {
-    [[NSFileManager defaultManager] changeCurrentDirectoryPath:NSHomeDirectory()];
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:WLAppGroupIdentifier()] path]];
 }
 
 + (instancetype)cache {
@@ -152,8 +154,7 @@
     if (!_permitted) {
         return;
     }
-	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(checkSizeAndClearIfNeededInBackground) object:nil];
-	[self performSelector:@selector(checkSizeAndClearIfNeededInBackground) withObject:nil afterDelay:0.5f];
+	[self enqueueSelectorPerforming:@selector(checkSizeAndClearIfNeededInBackground)];
 }
 
 - (void)checkSizeAndClearIfNeededInBackground {

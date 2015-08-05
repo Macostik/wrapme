@@ -20,8 +20,8 @@
 /* Class = "UIButton"; normalTitle = "L"; ObjectID = "8l4-7n-9vU"; */
 "8l4-7n-9vU.normalTitle" = "L";
 
-/* Class = "UITextField"; placeholder = "New wrap"; ObjectID = "Caa-Xm-Qlw"; */
-"Caa-Xm-Qlw.placeholder" = "Новый wrap";
+/* Class = "UITextField"; placeholder = "New Moji"; ObjectID = "Caa-Xm-Qlw"; */
+"Caa-Xm-Qlw.placeholder" = "Новый Moji";
 
 /* Class = "UILabel"; text = "Добавить комментарий..."; ObjectID = "CtH-sR-dzA"; */
 "CtH-sR-dzA.text" = "Добавить комментарий...";
@@ -47,8 +47,8 @@
 /* Class = "UILabel"; text = "Разрешить доступ для камеры в Настройках > Конфиденциальность > Камера"; ObjectID = "Jwv-dz-I8C"; */
 "Jwv-dz-I8C.text" = "Разрешить доступ для камеры в Настройках > Конфиденциальность > Камера";
 
-/* Class = "UILabel"; text = "wrap name"; ObjectID = "Kgt-p9-lfD"; */
-"Kgt-p9-lfD.text" = "wrap name";
+/* Class = "UILabel"; text = "Moji name"; ObjectID = "Kgt-p9-lfD"; */
+"Kgt-p9-lfD.text" = "Moji name";
 
 /* Class = "UIButton"; normalTitle = "Готово"; ObjectID = "N3t-xp-O3A"; */
 "N3t-xp-O3A.normalTitle" = "Готово";

@@ -99,8 +99,7 @@ static BOOL updateCachedRecordsFailed = NO;
 void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, void *context) {
     WLAddressBook *_addressBook = (__bridge WLAddressBook *)(context);
     if (_addressBook) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:_addressBook selector:@selector(updateCachedRecords:) object:nil];
-        [_addressBook performSelector:@selector(updateCachedRecords) withObject:nil afterDelay:0.0f];
+        [_addressBook enqueueSelectorPerforming:@selector(updateCachedRecords:) afterDelay:.0f];
     }
 }
 

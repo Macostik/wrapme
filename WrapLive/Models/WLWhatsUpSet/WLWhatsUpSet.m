@@ -88,14 +88,8 @@
             
             for (WLContribution *contribution in updates) {
                 [events addObject:[WLWhatsUpEvent event:WLEventUpdate contribution:contribution]];
-                if (contribution.unread && ![contributions containsObject:contribution]) {
+                if (contribution.unread) {
                     unreadEntriesCount++;
-                    if ([contribution isKindOfClass:[WLCandy class]]) {
-                        NSString *wrapId = [[(WLCandy*)contribution wrap] identifier];
-                        if (wrapId) {
-                            wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
-                        }
-                    }
                 }
             }
             weakSelf.unreadEntriesCount = unreadEntriesCount;
@@ -105,7 +99,10 @@
             events = [events map:^id(WLWhatsUpEvent *event) {
                 WLContribution *contribution = event.contribution;
                 NSError *error = nil;
-                event.contribution = [mainContext existingObjectWithID:[contribution objectID] error:&error];
+                NSManagedObject *existingContributor = [mainContext existingObjectWithID:[contribution objectID] error:&error];
+                if (existingContributor != nil && !existingContributor.fault) {
+                    event.contribution = existingContributor;
+                }
                 return [event.contribution valid] && !error ? event : nil;
             }];
             [weakSelf resetEntries:events];

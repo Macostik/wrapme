@@ -15,11 +15,11 @@
     self = [super init];
     if (self) {
         self.groups = [[NSArray array] mutate:^(NSMutableArray *array) {
-            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:WLLS(@"FRIENDS_ON_WRAPLIVE") addingRule:^BOOL(WLAddressBookRecord *record) {
+            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:WLLS(@"FRIENDS_ON_MOJI") addingRule:^BOOL(WLAddressBookRecord *record) {
                 WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
                 return phoneNumber.user != nil;
             }]];
-            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:WLLS(@"INVITE_TO_WRAPLIVE") addingRule:^BOOL(WLAddressBookRecord *record) {
+            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:WLLS(@"INVITE_TO_MOJI") addingRule:^BOOL(WLAddressBookRecord *record) {
                 WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
                 return phoneNumber.user == nil;
             }]];

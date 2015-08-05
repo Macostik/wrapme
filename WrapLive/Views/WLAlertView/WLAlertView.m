@@ -41,12 +41,12 @@
     NSString *title, *message;
     NSArray *buttons = nil;
     if (wrap.deletable) {
-        title = WLLS(@"delete_wrap");
-        message = [NSString stringWithFormat:WLLS(@"formatted_delete_wrap_confirmation"), wrap.name];
+        title = WLLS(@"delete_moji");
+        message = [NSString stringWithFormat:WLLS(@"formatted_delete_moji_confirmation"), wrap.name];
         buttons = @[WLLS(@"cancel"),WLLS(@"delete")];
     } else {
-        title = WLLS(@"leave_wrap");
-        message = WLLS(@"leave_wrap_confirmation");
+        title = WLLS(@"leave_moji");
+        message = WLLS(@"leave_moji_confirmation");
         buttons = @[WLLS(@"uppercase_no"),WLLS(@"uppercase_yes")];
     }
     [WLAlertView showWithTitle:title

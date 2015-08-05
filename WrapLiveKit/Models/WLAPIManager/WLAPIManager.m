@@ -237,7 +237,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
             if (success) success(nil);
             break;
         case WLContributionStatusInProgress:
-            if (failure) failure([NSError errorWithDescription:WLLS(@"wrap_is_uploading")]);
+            if (failure) failure([NSError errorWithDescription:WLLS(@"moji_is_uploading")]);
             break;
         case WLContributionStatusFinished: {
             operation = [[WLAPIRequest deleteWrap:self] send:success failure:failure];

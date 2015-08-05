@@ -1,9 +1,9 @@
 
-/* Class = "UILabel"; text = "Tap the wrap name to choose a different wrap."; ObjectID = "1zI-Zd-PEP"; */
-"1zI-Zd-PEP.text" = "Tap the wrap name to choose a different wrap.";
+/* Class = "UILabel"; text = "Tap the Moji name to choose a different Moji."; ObjectID = "1zI-Zd-PEP"; */
+"1zI-Zd-PEP.text" = "Choose a Moji";
 
-/* Class = "UILabel"; text = "To choose a different wrap for this upload, tap the wrap name"; ObjectID = "INP-a4-pR4"; */
-"INP-a4-pR4.text" = "To choose a different wrap for this upload, tap the wrap name";
+/* Class = "UILabel"; text = "To choose a different Moji for this upload, tap the Moji name"; ObjectID = "INP-a4-pR4"; */
+"INP-a4-pR4.text" = "Tap Moji name to choose a different Moji.";
 
 /* Class = "UIButton"; normalTitle = "Got it"; ObjectID = "ite-5o-2Vr"; */
 "ite-5o-2Vr.normalTitle" = "Got it";

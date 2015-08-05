@@ -36,7 +36,7 @@ static NSInteger WLIndent = 12.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.actionButton setTitle:self.wrap.deletable ? WLLS(@"delete_wrap") : WLLS(@"leave_wrap")  forState:UIControlStateNormal];
+    [self.actionButton setTitle:self.wrap.deletable ? WLLS(@"delete_moji") : WLLS(@"leave_moji")  forState:UIControlStateNormal];
     self.wrapNameTextField.text = self.wrapNameLabel.text = self.wrap.name;
     self.editButton.hidden = !self.wrap.deletable;
     self.wrapNameTextField.enabled = self.wrap.deletable;
@@ -68,7 +68,7 @@ static NSInteger WLIndent = 12.0;
         sender.loading = YES;
         [wrap remove:^(id object) {
             [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            if (deletable) [WLToast showWithMessage:WLLS(@"delete_wrap_success")];
+            if (deletable) [WLToast showWithMessage:WLLS(@"delete_moji_success")];
             sender.loading = NO;
         } failure:^(NSError *error) {
             [error show];
@@ -77,12 +77,16 @@ static NSInteger WLIndent = 12.0;
     } failure:nil];
 }
 
-- (IBAction)changeSwichValue:(id)sender {   
+- (IBAction)changeSwichValue:(id)sender {
+    [self enqueueSelectorPerforming:@selector(performUploadPreferenceRequest) afterDelay:1.0];
+}
+
+- (void)performUploadPreferenceRequest {
     BOOL candyNotify = self.candyNotifyTrigger.isOn;
     BOOL chatNotify = self.chatNotifyTrigger.isOn;
-    __weak typeof(self)weakSelf = self;
+    WLWrap *wrap = self.wrap;
     runUnaryQueuedOperation(@"wl_changing_notification_preferences_queue", ^(WLOperation *operation) {
-        WLUploadPreferenceRequest *request = [WLUploadPreferenceRequest request:weakSelf.wrap];
+        WLUploadPreferenceRequest *request = [WLUploadPreferenceRequest request:wrap];
         request.candyNotify = candyNotify;
         request.chatNotify = chatNotify;
         [request send:^(id object) {
@@ -124,7 +128,7 @@ static NSInteger WLIndent = 12.0;
             }];
         }
     } else {
-        [WLToast showWithMessage:WLLS(@"wrap_name_cannot_be_blank")];
+        [WLToast showWithMessage:WLLS(@"moji_name_cannot_be_blank")];
         self.wrapNameTextField.text = [self.editSession originalValueForProperty:@"name"];
     }
     self.editButton.selected = NO;

@@ -34,13 +34,6 @@
 	</dict>
 	<key>RemoteInterfacePrincipalClass</key>
 	<string>WLWKContributionsController</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>OpenSans-Light.ttf</string>
-		<string>OpenSans-Regular.ttf</string>
-		<string>OpenSans-Bold.ttf</string>
-		<string>wrapliveicons.ttf</string>
-	</array>
 	<key>WLAPIEnvironment</key>
 	<string>production</string>
 	<key>WLAppGroupIdentifier</key>

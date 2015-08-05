@@ -597,8 +597,7 @@
 	[UIView beginAnimations:nil context:nil];
 	self.zoomLabel.alpha = 1.0f;
 	[UIView commitAnimations];
-	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideZoomLabel) object:nil];
-	[self performSelector:@selector(hideZoomLabel) withObject:nil afterDelay:1.0f];
+	[self enqueueSelectorPerforming:@selector(hideZoomLabel) afterDelay:1.0f];
 }
 
 - (void)hideZoomLabel {

@@ -175,6 +175,14 @@
     return item;
 }
 
+- (void)handleResponse:(NSSet *)entries {
+    NSMutableSet *candies = [self.wrap.candies mutableCopy];
+    for (WLHistoryItem *item in self.entries) {
+        [candies minusSet:item.entries.set];
+    }
+    [super handleResponse:candies];
+}
+
 // MARK: - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLCandy *)candy {

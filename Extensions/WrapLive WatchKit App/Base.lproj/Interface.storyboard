@@ -70,7 +70,6 @@
                                                         <edgeInsets key="margins" left="4" right="4" top="4" bottom="4"/>
                                                     </group>
                                                 </items>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                 <variation key="device=watch38mm" height="136"/>
                                                 <variation key="device=watch42mm" height="156"/>
@@ -106,7 +105,6 @@
                                                         <edgeInsets key="margins" left="4" right="4" top="4" bottom="4"/>
                                                     </group>
                                                 </items>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                 <variation key="device=watch38mm" height="136"/>
                                                 <variation key="device=watch42mm" height="156"/>
@@ -125,7 +123,6 @@
                             <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                         </group>
                     </items>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="errorGroup" destination="AW5-IN-BKT" id="EQw-CK-K1l"/>
@@ -250,14 +247,12 @@
                         <group width="1" height="136" alignment="left" layout="vertical" radius="0.0" id="chw-KB-Mb2">
                             <items>
                                 <label alignment="center" verticalAlignment="center" text="Network connection error" textAlignment="center" numberOfLines="0" id="SFC-eh-ZGN">
-                                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="font" type="system" weight="light" pointSize="17"/>
                                 </label>
                             </items>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </group>
                     </items>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="errorLabel" destination="SFC-eh-ZGN" id="0PW-Te-Gkt"/>

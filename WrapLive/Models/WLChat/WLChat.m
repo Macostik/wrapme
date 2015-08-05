@@ -8,7 +8,6 @@
 
 #import "WLChat.h"
 #import "WLNotificationSubscription.h"
-#import "WLUserRequest.h"
 #import "WLToast.h"
 
 static NSString *WLChatTypingChannelTypingKey = @"typing";
@@ -112,7 +111,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
         if (!user.name.nonempty || !user.picture.large.nonempty) {
             __weak __typeof(self)weakSelf = self;
             [self.wrap addContributorsObject:user];
-            [[WLUserRequest request:user] send:^(WLUser *_user) {
+            [[WLAPIRequest user:user] send:^(WLUser *_user) {
                 [weakSelf addTypingUser:_user];
                 if ([weakSelf.delegate respondsToSelector:@selector(chat:didBeginTyping:)]) {
                     [weakSelf.delegate chat:weakSelf didBeginTyping:_user];

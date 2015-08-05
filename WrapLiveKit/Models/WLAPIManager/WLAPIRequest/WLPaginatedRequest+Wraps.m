@@ -14,7 +14,7 @@
 + (instancetype)wraps:(NSString *)scope {
     return [[[self GET:@"wraps", nil] parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:scope forKey:@"scope"];
-    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         NSSet* wraps = [WLWrap API_entries:[response.data arrayForKey:@"wraps"]];
         if (wraps.nonempty) {
             [[WLUser currentUser] addWraps:wraps];
@@ -28,7 +28,7 @@
 }
 
 + (instancetype)messages:(WLWrap *)wrap {
-    return [[[self GET:@"wraps/%@/chats", wrap.identifier] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    return [[[self GET:@"wraps/%@/chats", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
             NSSet* messages = [WLMessage API_entries:response.data[@"chats"] relatedEntry:wrap];
             if (messages.nonempty) {
@@ -49,7 +49,7 @@
     self.path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
     [[self parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
-    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
             NSSet* candies = [WLCandy API_entries:response.data[WLCandiesKey] relatedEntry:wrap];
             [wrap addCandies:candies];
@@ -72,7 +72,7 @@
             [parameters trySetObject:@"older_than" forKey:@"condition"];
             [parameters trySetObject:@([request.older beginOfDay].timestamp) forKey:@"offset_in_epoch"];
         }
-    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
             success([wrap update:response.data[WLWrapKey]]);
         } else {

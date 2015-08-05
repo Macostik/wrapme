@@ -26,10 +26,6 @@
 
 + (instancetype)signIn;
 
-@end
-
-@interface WLAPIRequest (WLWhoIs)
-
 + (instancetype)whois:(NSString*)email;
 
 + (instancetype)linkDevice:(NSString*)passcode;

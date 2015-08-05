@@ -97,13 +97,18 @@ static NSTimeInterval _difference = 0;
     return request;
 }
 
-- (instancetype)map:(WLAPIRequestMapper)mapper {
-    self.mapper = mapper;
+- (instancetype)parse:(WLAPIRequestParser)parser {
+    self.parser = parser;
     return self;
 }
 
 - (instancetype)parametrize:(WLAPIRequestParametrizer)parametrizer {
-    self.parametrizer = parametrizer;
+    [self.parametrizers addObject:parametrizer];
+    return self;
+}
+
+- (instancetype)file:(WLAPIRequestFile)file {
+    self.file = file;
     return self;
 }
 
@@ -125,6 +130,7 @@ static NSTimeInterval _difference = 0;
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.parametrizers = [NSMutableArray array];
         self.method = [[self class] defaultMethod];
         self.timeout = [[self class] timeout];
     }
@@ -135,15 +141,34 @@ static NSTimeInterval _difference = 0;
     return [WLAPIManager manager];
 }
 
-- (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
+- (NSMutableDictionary *)parametrize {
+    NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+    for (WLAPIRequestParametrizer parametrizer in self.parametrizers) {
+        parametrizer(self, parameters);
+    }
     return parameters;
 }
 
 - (NSMutableURLRequest *)request:(NSMutableDictionary *)parameters url:(NSString *)url {
-    return [self.manager.requestSerializer requestWithMethod:self.method
-                                                   URLString:url
-                                                  parameters:parameters
-                                                       error:nil];
+    AFHTTPRequestSerializer <AFURLRequestSerialization> *serializer = self.manager.requestSerializer;
+    NSString* file = self.file ? self.file(self) : nil;
+    if (file) {
+        void (^constructing) (id<AFMultipartFormData> formData) = ^(id<AFMultipartFormData> formData) {
+            if (file && [[NSFileManager defaultManager] fileExistsAtPath:file]) {
+                [formData appendPartWithFileURL:[NSURL fileURLWithPath:file]
+                                           name:@"qqfile"
+                                       fileName:[file lastPathComponent]
+                                       mimeType:@"image/jpeg" error:NULL];
+            }
+        };
+        return [serializer multipartFormRequestWithMethod:self.method
+                                                URLString:url
+                                               parameters:parameters
+                                constructingBodyWithBlock:constructing
+                                                    error:NULL];
+    } else {
+        return [serializer requestWithMethod:self.method URLString:url parameters:parameters error:nil];
+    }
 }
 
 - (id)send:(WLObjectBlock)success failure:(WLFailureBlock)failure {
@@ -154,10 +179,7 @@ static NSTimeInterval _difference = 0;
 
 - (id)send {
     [self cancel];
-    NSMutableDictionary* parameters = [self configure:[NSMutableDictionary dictionary]];
-    if (self.parametrizer) {
-        self.parametrizer(self, parameters);
-    }
+    NSMutableDictionary* parameters = [self parametrize];
     NSString* url = [self.manager urlWithPath:self.path];
     NSMutableURLRequest *request = [self request:parameters url:url];
     request.timeoutInterval = self.timeout;
@@ -168,8 +190,8 @@ static NSTimeInterval _difference = 0;
         WLAPIResponse* response = [WLAPIResponse response:responseObject];
 		if (response.code == WLAPIResponseCodeSuccess) {
             WLLog(@"RESPONSE",[operation.request.URL relativeString], responseObject);
-            if (strongSelf.mapper) {
-                strongSelf.mapper(response, ^(id object) {
+            if (strongSelf.parser) {
+                strongSelf.parser(response, ^(id object) {
                     [strongSelf handleSuccess:object];
                 }, ^(NSError *error) {
                     WLLog(@"ERROR",[operation.request.URL relativeString], error);

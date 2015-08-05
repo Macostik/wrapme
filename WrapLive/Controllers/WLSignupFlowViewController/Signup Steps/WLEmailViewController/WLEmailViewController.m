@@ -33,7 +33,7 @@
     sender.loading = YES;
     [self.view endEditing:YES];
     __weak typeof(self)weakSelf = self;
-    [[WLAPIRequest whois:self.emailField.text] send:^(WLWhoIs* whoIs) {
+    [[WLAuthorizationRequest whois:self.emailField.text] send:^(WLWhoIs* whoIs) {
         sender.loading = NO;
         if (whoIs.found && whoIs.requiresApproving) {
             if (whoIs.confirmed) {

@@ -34,7 +34,7 @@ static BOOL authorized = NO;
         [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];
         [parameters trySetObject:authorization.email forKey:@"email"];
-    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         success(authorization);
     }];
 }
@@ -47,7 +47,7 @@ static BOOL authorized = NO;
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];
         [parameters trySetObject:authorization.activationCode forKey:@"activation_code"];
         [parameters trySetObject:authorization.email forKey:@"email"];
-    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
         [authorization setCurrent];
         success(authorization);
@@ -61,7 +61,7 @@ static BOOL authorized = NO;
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];
         [parameters trySetObject:authorization.password forKey:@"password"];
         [parameters trySetObject:request.tryUncorfirmedEmail ? authorization.unconfirmed_email : authorization.email forKey:@"email"];
-    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (!authorized) {
             authorized = YES;
             [WLUploadingQueue start];
@@ -176,19 +176,10 @@ static BOOL authorized = NO;
     });
 }
 
-- (BOOL)skipReauthorizing {
-    return YES;
-}
-
-@end
-
-@implementation WLAPIRequest (WLWhoIs)
-
 + (instancetype)whois:(NSString *)email {
     return [[[self GET:@"users/whois"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
-        request.skipReauthorizing = YES;
         [parameters trySetObject:email forKey:@"email"];
-    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         WLWhoIs* whoIs = [WLWhoIs sharedInstance];
         NSDictionary *userInfo = [response.data dictionaryForKey:WLUserKey];
         whoIs.found = [userInfo boolForKey:@"found"];
@@ -223,16 +214,19 @@ static BOOL authorized = NO;
 
 + (instancetype)linkDevice:(NSString*)passcode {
     return [[[self POST:@"users/link_device"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
-        request.skipReauthorizing = YES;
         [parameters trySetObject:[WLAuthorization currentAuthorization].email forKey:WLEmailKey];
         [parameters trySetObject:[WLAuthorization currentAuthorization].deviceUID forKey:@"device_uid"];
         [parameters trySetObject:passcode forKey:@"approval_code"];
-    }] map:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         WLAuthorization *authorization = [WLAuthorization currentAuthorization];
         authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
         [authorization setCurrent];
         success(authorization);
     }];
+}
+
+- (BOOL)skipReauthorizing {
+    return YES;
 }
 
 @end

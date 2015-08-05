@@ -11,8 +11,6 @@
 #import "WLIconButton.h"
 #import "WLToast.h"
 #import "WLEditSession.h"
-#import "WLPreferenceRequest.h"
-#import "WLUploadPreferenceRequest.h"
 #import "WLAlertView.h"
 
 static NSInteger WLIndent = 12.0;
@@ -49,7 +47,7 @@ static NSInteger WLIndent = 12.0;
     self.chatNotifyTrigger.userInteractionEnabled = NO;
     
     __weak __typeof(self)weakSelf = self;
-        [[WLPreferenceRequest request:self.wrap] send:^(WLWrap *wrap) {
+        [[WLAPIRequest preferences:self.wrap] send:^(WLWrap *wrap) {
             [weakSelf.candyNotifyTrigger setOn:wrap.isCandyNotifiable];
             [weakSelf.chatNotifyTrigger setOn:wrap.isChatNotifiable];
             weakSelf.candyNotifyTrigger.userInteractionEnabled = YES;
@@ -82,17 +80,21 @@ static NSInteger WLIndent = 12.0;
 }
 
 - (void)performUploadPreferenceRequest {
-    BOOL candyNotify = self.candyNotifyTrigger.isOn;
-    BOOL chatNotify = self.chatNotifyTrigger.isOn;
+    BOOL candyNotify = self.candyNotifyTrigger.on;
+    BOOL chatNotify = self.chatNotifyTrigger.on;
+    __weak typeof(self)weakSelf = self;
     WLWrap *wrap = self.wrap;
     runUnaryQueuedOperation(@"wl_changing_notification_preferences_queue", ^(WLOperation *operation) {
-        WLUploadPreferenceRequest *request = [WLUploadPreferenceRequest request:wrap];
-        request.candyNotify = candyNotify;
-        request.chatNotify = chatNotify;
-        [request send:^(id object) {
+        BOOL _candyNotify = wrap.isCandyNotifiable;
+        BOOL _chatNotify = wrap.isChatNotifiable;
+        wrap.isCandyNotifiable = candyNotify;
+        wrap.isChatNotifiable = chatNotify;
+        [[WLAPIRequest changePreferences:wrap] send:^(id object) {
             [operation finish];
         } failure:^(NSError *error) {
             [operation finish];
+            weakSelf.candyNotifyTrigger.on = wrap.isCandyNotifiable = _candyNotify;
+            weakSelf.chatNotifyTrigger.on = wrap.isChatNotifiable = _chatNotify;
         }];
     });
 }

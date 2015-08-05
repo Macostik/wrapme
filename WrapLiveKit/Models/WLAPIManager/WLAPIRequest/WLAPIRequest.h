@@ -16,11 +16,13 @@
 
 @class WLAPIRequest;
 
-typedef void (^WLAPIRequestMapper)(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure);
+typedef void (^WLAPIRequestParser) (WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure);
 
-typedef void (^WLAPIRequestParametrizer)(id request, NSMutableDictionary* parameters);
+typedef void (^WLAPIRequestParametrizer) (id request, NSMutableDictionary* parameters);
 
-typedef BOOL (^WLAPIRequestFailureValidator)(id request, NSError *error);
+typedef BOOL (^WLAPIRequestFailureValidator) (id request, NSError *error);
+
+typedef NSString *(^WLAPIRequestFile) (id request);
 
 @interface WLAPIRequest : NSObject
 
@@ -28,9 +30,9 @@ typedef BOOL (^WLAPIRequestFailureValidator)(id request, NSError *error);
 
 @property (strong, nonatomic) NSString* path;
 
-@property (strong, nonatomic) WLAPIRequestMapper mapper;
+@property (strong, nonatomic) WLAPIRequestParser parser;
 
-@property (strong, nonatomic) WLAPIRequestParametrizer parametrizer;
+@property (strong, nonatomic) NSMutableArray *parametrizers;
 
 @property (readonly, nonatomic) WLAPIManager* manager;
 
@@ -52,6 +54,8 @@ typedef BOOL (^WLAPIRequestFailureValidator)(id request, NSError *error);
 
 @property (nonatomic) BOOL skipReauthorizing;
 
+@property (strong, nonatomic) WLAPIRequestFile file;
+
 + (instancetype)request;
 
 + (NSString*)defaultMethod;
@@ -66,9 +70,11 @@ typedef BOOL (^WLAPIRequestFailureValidator)(id request, NSError *error);
 
 + (instancetype)DELETE:(NSString*)path, ...;
 
-- (instancetype)map:(WLAPIRequestMapper)mapper;
+- (instancetype)parse:(WLAPIRequestParser)parser;
 
 - (instancetype)parametrize:(WLAPIRequestParametrizer)parametrizer;
+
+- (instancetype)file:(WLAPIRequestFile)file;
 
 - (instancetype)beforeFailure:(WLFailureBlock)beforeFailure;
 
@@ -76,7 +82,7 @@ typedef BOOL (^WLAPIRequestFailureValidator)(id request, NSError *error);
 
 - (instancetype)validateFailure:(WLAPIRequestFailureValidator)validateFailure;
 
-- (NSMutableDictionary *)configure:(NSMutableDictionary*)parameters;
+- (NSMutableDictionary *)parametrize;
 
 - (NSMutableURLRequest*)request:(NSMutableDictionary*)parameters url:(NSString*)url;
 

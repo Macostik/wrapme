@@ -74,7 +74,7 @@
 - (IBAction)call:(UIButton*)sender {
     __weak typeof(self)weakSelf = self;
     sender.userInteractionEnabled = NO;
-    [[WLVerificationCallRequest request] send:^(id object) {
+    [[WLAPIRequest verificationCall] send:^(id object) {
         sender.userInteractionEnabled = YES;
         [WLAlertView showWithMessage:[NSString stringWithFormat:WLLS(@"formatted_calling_now"), weakSelf.phoneNumberLabel.text]];
     } failure:^(NSError *error) {

@@ -18,16 +18,11 @@
 #import "WLWelcomeViewController.h"
 #import "WLImageCache.h"
 #import "WLAddressBookPhoneNumber.h"
-#import "WLAddWrapRequest.h"
-#import "WLUploadWrapRequest.h"
 #import "WLAuthorizationRequest.h"
-#import "WLUploadCandyRequest.h"
-#import "WLUploadMessageRequest.h"
 #import "WLOperationQueue.h"
 #import "WLHistory.h"
 #import "NSUserDefaults+WLAppGroup.h"
 #import "WLAlertView.h"
-#import "WLPostEditingUploadCandyRequest.h"
 
 static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
 
@@ -221,7 +216,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)add:(WLWrapBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAddWrapRequest request:self] send:success failure:failure];
+    return [[WLAPIRequest uploadWrap:self] send:success failure:failure];
 }
 
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
@@ -262,7 +257,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)update:(WLWrapBlock)success failure:(WLFailureBlock)failure {
-    return [[WLUploadWrapRequest request:self] send:success failure:failure];
+    return [[WLAPIRequest updateWrap:self] send:success failure:failure];
 }
 
 - (id)messagesNewer:(NSDate *)newer success:(WLSetBlock)success failure:(WLFailureBlock)failure {
@@ -308,11 +303,11 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-    return [[WLUploadCandyRequest request:self] send:success failure:failure];
+    return [[WLAPIRequest uploadCandy:self] send:success failure:failure];
 }
 
 - (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    return [[WLPostEditingUploadCandyRequest request:self] send:success failure:failure];
+    return [[WLAPIRequest editCandy:self] send:success failure:failure];
 }
 
 - (id)remove:(WLObjectBlock)success failure:(WLFailureBlock)failure {
@@ -352,7 +347,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
 }
 
 - (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-    return [[WLUploadMessageRequest request:self] send:success failure:failure];
+    return [[WLAPIRequest uploadMessage:self] send:success failure:failure];
 }
 
 @end

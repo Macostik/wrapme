@@ -11,18 +11,23 @@
 
 @implementation WLPaginatedRequest
 
-- (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
-    WLPaginatedRequestType type = self.type;
-    if (type == WLPaginatedRequestTypeNewer) {
-        [parameters setObject:@(self.newer.timestamp) forKey:@"offset_x_in_epoch"];
-    } else if (type == WLPaginatedRequestTypeOlder) {
-        [parameters setObject:@(self.newer.timestamp) forKey:@"offset_x_in_epoch"];
-        [parameters setObject:@(self.older.timestamp) forKey:@"offset_y_in_epoch"];
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
+            WLPaginatedRequestType type = request.type;
+            if (type == WLPaginatedRequestTypeNewer) {
+                [parameters setObject:@(request.newer.timestamp) forKey:@"offset_x_in_epoch"];
+            } else if (type == WLPaginatedRequestTypeOlder) {
+                [parameters setObject:@(request.newer.timestamp) forKey:@"offset_x_in_epoch"];
+                [parameters setObject:@(request.older.timestamp) forKey:@"offset_y_in_epoch"];
+            }
+            if (request.sameDay) {
+                [parameters setObject:@(request.sameDay) forKey:@"same_day"];
+            }
+        }];
     }
-    if (self.sameDay) {
-        [parameters setObject:@(self.sameDay) forKey:@"same_day"];
-    }
-    return parameters;
+    return self;
 }
 
 - (id)fresh:(WLSetBlock)success failure:(WLFailureBlock)failure {

@@ -121,9 +121,7 @@
         ![[WLAuthorization currentAuthorization].email isEqualToString:email]) {
         [WLSession setConfirmationDate:nil];
     }
-    WLUpdateUserRequest *userRequest = [WLUpdateUserRequest request:[WLUser currentUser]];
-    userRequest.email = email;
-    [userRequest send:success failure:failure];
+    [[WLAPIRequest updateUser:[WLUser currentUser] email:email] send:success failure:failure];
 }
 
 - (void)didCompleteDoneAction {

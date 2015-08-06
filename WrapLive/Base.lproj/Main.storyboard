@@ -9,6 +9,10 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+            <string>OpenSans</string>
+        </mutableArray>
         <mutableArray key="wrapliveicons.ttf">
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
@@ -927,7 +931,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y7O-GH-Q4Y" customClass="WLCollectionView">
-                                <rect key="frame" x="0.0" y="163" width="320" height="403"/>
+                                <rect key="frame" x="0.0" y="163" width="320" height="341"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="94"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="T0u-2f-ASf">
@@ -2898,8 +2902,23 @@ Tap here to start.</string>
                                         </connections>
                                     </button>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="TL4-HZ-bti">
-                                        <rect key="frame" x="170" y="37" width="20" height="20"/>
+                                        <rect key="frame" x="130" y="37" width="20" height="20"/>
                                     </activityIndicatorView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U2n-dd-fSG" userLabel="DrawButton" customClass="WLIconButton">
+                                        <rect key="frame" x="160" y="30" width="30" height="34"/>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.91664922240000002" green="0.91662174460000001" blue="0.91663730139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="draw-feather"/>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                                <size key="value" width="10" height="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="draw:" destination="eto-O4-OHy" eventType="touchUpInside" id="vfA-mZ-Ffc"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4L-uu-XEd" userLabel="EditButton" customClass="WLIconButton">
                                         <rect key="frame" x="200" y="30" width="30" height="34"/>
                                         <state key="highlighted">
@@ -2951,14 +2970,16 @@ Tap here to start.</string>
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" constant="-10" id="0nd-cJ-KtR"/>
                                     <constraint firstItem="sPd-Ai-V8F" firstAttribute="leading" secondItem="P4L-uu-XEd" secondAttribute="trailing" constant="10" id="43c-hF-BQ1"/>
+                                    <constraint firstItem="P4L-uu-XEd" firstAttribute="leading" secondItem="U2n-dd-fSG" secondAttribute="trailing" constant="10" id="FUG-et-Tdl"/>
                                     <constraint firstItem="0rM-Ee-8of" firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" id="Mlp-zH-ksi"/>
                                     <constraint firstItem="sPd-Ai-V8F" firstAttribute="centerY" secondItem="J3S-jS-mvs" secondAttribute="centerY" id="Oe7-bB-r8N"/>
                                     <constraint firstAttribute="trailing" secondItem="J3S-jS-mvs" secondAttribute="trailing" constant="10" id="REl-9b-Ndz"/>
                                     <constraint firstItem="J3S-jS-mvs" firstAttribute="centerY" secondItem="TL4-HZ-bti" secondAttribute="centerY" id="Ydf-QF-dGl"/>
                                     <constraint firstItem="P4L-uu-XEd" firstAttribute="centerY" secondItem="J3S-jS-mvs" secondAttribute="centerY" id="hMk-bQ-Wwk"/>
                                     <constraint firstAttribute="height" secondItem="sPd-Ai-V8F" secondAttribute="height" constant="40" id="jJj-ki-Nzl"/>
-                                    <constraint firstItem="P4L-uu-XEd" firstAttribute="leading" secondItem="TL4-HZ-bti" secondAttribute="trailing" constant="10" id="jPY-mK-icI"/>
+                                    <constraint firstItem="J3S-jS-mvs" firstAttribute="centerY" secondItem="U2n-dd-fSG" secondAttribute="centerY" id="mQp-6J-3gF"/>
                                     <constraint firstItem="0rM-Ee-8of" firstAttribute="leading" secondItem="Wbg-W9-8Ie" secondAttribute="leading" constant="12" id="rw6-ky-DHO"/>
+                                    <constraint firstItem="U2n-dd-fSG" firstAttribute="leading" secondItem="TL4-HZ-bti" secondAttribute="trailing" constant="10" id="vih-pG-FOH"/>
                                     <constraint firstItem="J3S-jS-mvs" firstAttribute="leading" secondItem="sPd-Ai-V8F" secondAttribute="trailing" constant="10" id="wc4-UG-eZv"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>

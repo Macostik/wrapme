@@ -932,6 +932,10 @@
 		C583A40D1AE79DCE0024003F /* WLTestUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = C583A4051AE79DCE0024003F /* WLTestUsers.plist */; };
 		C583A40E1AE79DCE0024003F /* WLTestUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = C583A4051AE79DCE0024003F /* WLTestUsers.plist */; };
 		C583A40F1AE79DCE0024003F /* WLTestUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = C583A4051AE79DCE0024003F /* WLTestUsers.plist */; };
+		C583DC7B1B73B9C100F57DCA /* WLDrawingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C583DC7A1B73B9C100F57DCA /* WLDrawingView.xib */; };
+		C583DC7C1B73B9C100F57DCA /* WLDrawingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C583DC7A1B73B9C100F57DCA /* WLDrawingView.xib */; };
+		C583DC7D1B73B9C100F57DCA /* WLDrawingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C583DC7A1B73B9C100F57DCA /* WLDrawingView.xib */; };
+		C583DC7E1B73B9C100F57DCA /* WLDrawingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C583DC7A1B73B9C100F57DCA /* WLDrawingView.xib */; };
 		C587C7691AD2E5A9003E7647 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
 		C587C77F1AD2E619003E7647 /* WrapLiveKit-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C587C77B1AD2E619003E7647 /* WrapLiveKit-Prefix.pch */; };
 		C587C7811AD2E6A0003E7647 /* UIView+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = C5FE0A4F1ACD97F6007DBE95 /* UIView+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1148,10 +1152,6 @@
 		C5978BE81B396FB700D5043E /* WLDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5978BE51B396FB700D5043E /* WLDrawingView.m */; };
 		C5978BE91B396FB700D5043E /* WLDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5978BE51B396FB700D5043E /* WLDrawingView.m */; };
 		C5978BEA1B396FB700D5043E /* WLDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5978BE51B396FB700D5043E /* WLDrawingView.m */; };
-		C5978BEC1B396FCB00D5043E /* WLDrawingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5978BEB1B396FCB00D5043E /* WLDrawingView.xib */; };
-		C5978BEE1B396FCB00D5043E /* WLDrawingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5978BEB1B396FCB00D5043E /* WLDrawingView.xib */; };
-		C5978BEF1B396FCB00D5043E /* WLDrawingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5978BEB1B396FCB00D5043E /* WLDrawingView.xib */; };
-		C5978BF01B396FCB00D5043E /* WLDrawingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5978BEB1B396FCB00D5043E /* WLDrawingView.xib */; };
 		C5A28D631ACBEF1E00F0E8BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */; };
 		C5A28D641ACBEF2500F0E8BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */; };
 		C5A28D651ACBEF2B00F0E8BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */; };
@@ -2626,6 +2626,7 @@
 		C583DC6E1B73737300F57DCA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SignUp.strings; sourceTree = "<group>"; };
 		C583DC701B73738A00F57DCA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SignUp.strings; sourceTree = "<group>"; };
 		C583DC741B73743100F57DCA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SignUp.strings"; sourceTree = "<group>"; };
+		C583DC7A1B73B9C100F57DCA /* WLDrawingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLDrawingView.xib; sourceTree = "<group>"; };
 		C587C7681AD2E5A9003E7647 /* WrapLiveKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = WrapLiveKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C587C7791AD2E619003E7647 /* WrapLiveKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WrapLiveKit-Info.plist"; sourceTree = "<group>"; };
 		C587C77B1AD2E619003E7647 /* WrapLiveKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WrapLiveKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -2640,7 +2641,6 @@
 		C58D14211B170E2A005E30C6 /* UIView+QuatzCoreAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+QuatzCoreAnimations.m"; sourceTree = "<group>"; };
 		C5978BE41B396FB700D5043E /* WLDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingView.h; sourceTree = "<group>"; };
 		C5978BE51B396FB700D5043E /* WLDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingView.m; sourceTree = "<group>"; };
-		C5978BEB1B396FCB00D5043E /* WLDrawingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLDrawingView.xib; sourceTree = "<group>"; };
 		C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C5A82CCA1ACD979B00336027 /* WLSignificantTimeBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignificantTimeBroadcaster.h; sourceTree = "<group>"; };
 		C5A82CCB1ACD979B00336027 /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
@@ -5233,7 +5233,7 @@
 			children = (
 				C5978BE41B396FB700D5043E /* WLDrawingView.h */,
 				C5978BE51B396FB700D5043E /* WLDrawingView.m */,
-				C5978BEB1B396FCB00D5043E /* WLDrawingView.xib */,
+				C583DC7A1B73B9C100F57DCA /* WLDrawingView.xib */,
 				C5AEE4291B3AC9A7000C8CCF /* WLDrawingSession.h */,
 				C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */,
 				C5AEE43E1B3ACC84000C8CCF /* WLDrawingCanvas.h */,
@@ -6574,7 +6574,7 @@
 				C5BCF0221B551B7B00E4AD6D /* WLTypingView.xib in Resources */,
 				5BA6AA511A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				5BA4F87B1A1CA08900DB1A25 /* s02.wav in Resources */,
-				C5978BEE1B396FCB00D5043E /* WLDrawingView.xib in Resources */,
+				C583DC7C1B73B9C100F57DCA /* WLDrawingView.xib in Resources */,
 				C54AF52819B8C437006F7EDB /* Images.xcassets in Resources */,
 				C583A40D1AE79DCE0024003F /* WLTestUsers.plist in Resources */,
 				C54AF52B19B8C437006F7EDB /* WLInputAccessoryView.xib in Resources */,
@@ -6631,7 +6631,7 @@
 				C5BCF0231B551B7B00E4AD6D /* WLTypingView.xib in Resources */,
 				5BA6AA521A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				5BA4F87F1A1CA08900DB1A25 /* s02.wav in Resources */,
-				C5978BEF1B396FCB00D5043E /* WLDrawingView.xib in Resources */,
+				C583DC7D1B73B9C100F57DCA /* WLDrawingView.xib in Resources */,
 				C54AF62519B8C467006F7EDB /* Images.xcassets in Resources */,
 				C583A40E1AE79DCE0024003F /* WLTestUsers.plist in Resources */,
 				C54AF62819B8C467006F7EDB /* WLInputAccessoryView.xib in Resources */,
@@ -6688,7 +6688,7 @@
 				C5BCF0241B551B7B00E4AD6D /* WLTypingView.xib in Resources */,
 				5BA6AA531A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */,
-				C5978BF01B396FCB00D5043E /* WLDrawingView.xib in Resources */,
+				C583DC7E1B73B9C100F57DCA /* WLDrawingView.xib in Resources */,
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
 				C583A40F1AE79DCE0024003F /* WLTestUsers.plist in Resources */,
 				C54AF72519B8C491006F7EDB /* WLInputAccessoryView.xib in Resources */,
@@ -6783,8 +6783,8 @@
 				C57479CD1B26FA45001AB8C0 /* WLToast.xib in Resources */,
 				C5BCF0201B551B7B00E4AD6D /* WLTypingView.xib in Resources */,
 				C57479CE1B26FA45001AB8C0 /* cars.plist in Resources */,
+				C583DC7B1B73B9C100F57DCA /* WLDrawingView.xib in Resources */,
 				C57479D01B26FA45001AB8C0 /* SignUp.storyboard in Resources */,
-				C5978BEC1B396FCB00D5043E /* WLDrawingView.xib in Resources */,
 				C57479D11B26FA45001AB8C0 /* flowers.plist in Resources */,
 				C57479D21B26FA45001AB8C0 /* WLTestUsers.plist in Resources */,
 				C57479D31B26FA45001AB8C0 /* WLLoadingView.xib in Resources */,

@@ -26,6 +26,8 @@
 #import "WLCommentsViewController.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLAlertView.h"
+#import "WLDrawingView.h"
+#import "UIView+LayoutHelper.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -448,6 +450,37 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     __weak __typeof(self)weakSelf = self;
     [self.candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
         [WLDownloadingView downloadAndEditCandy:weakSelf.candy success:^(UIImage *image) {
+        } failure:^(NSError *error) {
+            [error show];
+        }];
+    } failure:^(NSError *error) {
+        [error show];
+    }];
+}
+
+- (IBAction)draw:(id)sender {
+    __weak __typeof(self)weakSelf = self;
+    WLCandy *candy = self.candy;
+    [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
+        [WLDownloadingView downloadingViewForCandy:candy success:^(UIImage *image) {
+            __weak WLDrawingView *drawingView = [WLDrawingView loadFromNib];
+            drawingView.frame = weakSelf.view.bounds;
+            [weakSelf.view addSubview:drawingView];
+            [weakSelf.view makeResizibleSubview:drawingView];
+            [drawingView layoutIfNeeded];
+            [drawingView setImage:image done:^(UIImage *image) {
+                if (candy.valid) {
+                    __block WLEditPicture *picture = [WLEditPicture picture:image completion:^(id object) {
+                        [candy setEditedPictureIfNeeded:[picture uploadablePictureWithAnimation:NO]];
+                        [candy enqueueUpdate:^(NSError *error) {
+                            [error showIgnoringNetworkError];
+                        }];
+                    }];
+                }
+                [drawingView removeFromSuperview];
+            } cancel:^{
+                [drawingView removeFromSuperview];
+            }];
         } failure:^(NSError *error) {
             [error show];
         }];

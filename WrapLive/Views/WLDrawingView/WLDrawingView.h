@@ -26,4 +26,6 @@
 
 - (void)setImage:(UIImage*)image;
 
+- (void)setImage:(UIImage*)image done:(WLImageBlock)done cancel:(WLBlock)cancel;
+
 @end

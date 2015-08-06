@@ -44,7 +44,6 @@
 - (void)setup:(WLWhatsUpEvent*)event {
     WLContribution *contribution = event.contribution;
     [contribution markAsRead];
-    self.pictureView.url = contribution.contributor.picture.small;
     self.timeLabel.text = event.date.timeAgoStringAtAMPM;
     self.wrapImageView.url = contribution.picture.small;
 }
@@ -62,6 +61,7 @@
 - (void)setup:(WLWhatsUpEvent*)event {
     [super setup:event];
     WLComment *comment = event.contribution;
+    self.pictureView.url = comment.contributor.picture.small;
     self.userNameLabel.text = [NSString stringWithFormat:@"%@:", comment.contributor.name];
     self.inWrapLabel.text = comment.candy.wrap.name;
     [self.textView determineHyperLink:comment.text];
@@ -75,8 +75,10 @@
     [super setup:event];
     WLCandy *candy = event.contribution;
     if (event.event == WLEventUpdate) {
+        self.pictureView.url = candy.editor.picture.small;
         self.userNameLabel.text = [NSString stringWithFormat:WLLS(@"formatted_edited_by"), candy.editor.name];
     } else {
+        self.pictureView.url = candy.contributor.picture.small;
         self.userNameLabel.text = [NSString stringWithFormat:WLLS(@"formatted_photo_by"), candy.contributor.name];
     }
     self.inWrapLabel.text = candy.wrap.name;

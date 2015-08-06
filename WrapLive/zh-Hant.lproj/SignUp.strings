@@ -59,6 +59,9 @@
 /* Class = "UIButton"; normalTitle = "使用語音通知"; ObjectID = "Rvs-HT-UrH"; */
 "Rvs-HT-UrH.normalTitle" = "使用語音通知";
 
+/* Class = "UILabel"; text = "x"; ObjectID = "V11-Xl-ach"; */
+"V11-Xl-ach.text" = "x";
+
 /* Class = "UILabel"; text = "確認成功！"; ObjectID = "Vxz-ag-TOf"; */
 "Vxz-ag-TOf.text" = "確認成功！";
 
@@ -97,6 +100,9 @@
 
 /* Class = "UILabel"; text = "+1 925-682-1888"; ObjectID = "f59-g6-xEE"; */
 "f59-g6-xEE.text" = "+1 925-682-1888";
+
+/* Class = "UILabel"; text = "同意並繼續"; ObjectID = "fA2-25-iSn"; */
+"fA2-25-iSn.text" = "同意並繼續";
 
 /* Class = "UILabel"; text = "你的電郵地址是什麼？"; ObjectID = "fKc-pu-juY"; */
 "fKc-pu-juY.text" = "你的電郵地址是什麼？";

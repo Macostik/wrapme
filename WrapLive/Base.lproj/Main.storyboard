@@ -968,7 +968,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Moji Name Moji Name Moji Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8I-t6-aKU" customClass="WLLabel">
-                                                            <rect key="frame" x="85" y="8" width="164" height="24"/>
+                                                            <rect key="frame" x="85" y="6" width="164" height="24"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                                             <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
@@ -978,7 +978,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="206" translatesAutoresizingMaskIntoConstraints="NO" id="71z-7i-OMc" customClass="WLLabel">
-                                                            <rect key="frame" x="85" y="28" width="72" height="18"/>
+                                                            <rect key="frame" x="85" y="30" width="72" height="18"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                             <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1055,14 +1055,14 @@
                                                         <constraint firstAttribute="centerY" secondItem="VDt-1T-mW3" secondAttribute="centerY" id="FzG-fb-p87"/>
                                                         <constraint firstItem="ctG-Sd-jmI" firstAttribute="leading" secondItem="Vul-aG-hE6" secondAttribute="leading" id="HKg-3L-R6z"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="71z-7i-OMc" secondAttribute="trailing" constant="44" id="Hib-Sf-kM5"/>
-                                                        <constraint firstItem="N8I-t6-aKU" firstAttribute="bottom" secondItem="HLY-EW-9Wa" secondAttribute="centerY" constant="2" id="IDW-co-7uy"/>
+                                                        <constraint firstItem="N8I-t6-aKU" firstAttribute="bottom" secondItem="HLY-EW-9Wa" secondAttribute="centerY" id="IDW-co-7uy"/>
                                                         <constraint firstItem="vhN-RG-jpt" firstAttribute="leading" secondItem="VDt-1T-mW3" secondAttribute="centerX" id="L9Q-K6-Kfi"/>
                                                         <constraint firstAttribute="trailing" secondItem="vhN-RG-jpt" secondAttribute="trailing" constant="12" id="Sck-76-UPw"/>
                                                         <constraint firstAttribute="bottom" secondItem="ctG-Sd-jmI" secondAttribute="bottom" id="Wa4-d4-L8e"/>
                                                         <constraint firstItem="VDt-1T-mW3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="N8I-t6-aKU" secondAttribute="trailing" id="Xfh-em-Uc6"/>
                                                         <constraint firstItem="N8I-t6-aKU" firstAttribute="leading" secondItem="1g0-Jo-BE2" secondAttribute="trailing" constant="7" id="YKE-hp-niH"/>
                                                         <constraint firstItem="vhN-RG-jpt" firstAttribute="bottom" secondItem="VDt-1T-mW3" secondAttribute="centerY" id="b9R-zA-eef"/>
-                                                        <constraint firstItem="71z-7i-OMc" firstAttribute="top" secondItem="HLY-EW-9Wa" secondAttribute="centerY" constant="-2" id="ce4-Vo-DcU"/>
+                                                        <constraint firstItem="71z-7i-OMc" firstAttribute="top" secondItem="HLY-EW-9Wa" secondAttribute="centerY" id="ce4-Vo-DcU"/>
                                                         <constraint firstItem="N8I-t6-aKU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HLY-EW-9Wa" secondAttribute="trailing" constant="12" id="jsZ-Rb-jLw"/>
                                                         <constraint firstItem="HLY-EW-9Wa" firstAttribute="top" secondItem="1g0-Jo-BE2" secondAttribute="top" id="ms0-J9-o8E"/>
                                                         <constraint firstAttribute="trailing" secondItem="ctG-Sd-jmI" secondAttribute="trailing" id="ql2-s3-T9k"/>

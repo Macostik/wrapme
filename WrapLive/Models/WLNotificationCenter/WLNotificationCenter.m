@@ -102,6 +102,7 @@
         self.userSubscription.delegate = self;
         __weak typeof(self)weakSelf = self;
         [self deviceToken:^(NSData *data) {
+			WLLog(@"PUBNUB", @"apns_device_token", [data description]);
             [weakSelf.userSubscription enableAPNSWithData:data];
         }];
     } else {

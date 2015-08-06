@@ -104,8 +104,8 @@
 /* Class = "UILabel"; text = "我們將會向閣下手機發送一個確認短訊，電訊網絡商或會徵收短訊費用。"; ObjectID = "jGq-WB-mde"; */
 "jGq-WB-mde.text" = "我們將會向閣下手機發送一個確認短訊，電訊網絡商或會徵收短訊費用。";
 
-/* Class = "UITextField"; placeholder = "驗證碼無效。"; ObjectID = "lc0-Sk-CJb"; */
-"lc0-Sk-CJb.placeholder" = "驗證碼無效。";
+/* Class = "UITextField"; placeholder = "輸入驗證碼"; ObjectID = "lc0-Sk-CJb"; */
+"lc0-Sk-CJb.placeholder" = "輸入驗證碼";
 
 /* Class = "UIButton"; normalTitle = "重發確認電郵"; ObjectID = "oIH-Zc-2Z8"; */
 "oIH-Zc-2Z8.normalTitle" = "重發確認電郵";

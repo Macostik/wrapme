@@ -7,7 +7,7 @@
 /* Class = "UILabel"; text = "Moji"; ObjectID = "0YA-Wt-D43"; */
 "0YA-Wt-D43.text" = "Moji";
 /* Class = "UILabel"; text = "Create Moji is easy!\nTap here to start."; ObjectID = "0ka-0F-dc5"; */
-"0ka-0F-dc5.text" = "按此即可建立Moji，簡易又輕鬆！";
+"0ka-0F-dc5.text" = "按此即可建立Moji，\n簡易又輕鬆！";
 /* Class = "UILabel"; text = "Slide to open camera"; ObjectID = "0rs-Jv-qhC"; */
 "0rs-Jv-qhC.text" = "滑動開啟相機";
 /* Class = "UILabel"; text = "3 days ago"; ObjectID = "1y3-CJ-RVW"; */

@@ -58,8 +58,6 @@ typedef NSString *(^WLAPIRequestFile) (id request);
 
 + (instancetype)request;
 
-+ (NSString*)defaultMethod;
-
 + (NSTimeInterval)timeout;
 
 + (instancetype)GET:(NSString*)path, ...;
@@ -89,8 +87,6 @@ typedef NSString *(^WLAPIRequestFile) (id request);
 - (id)send:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (id)send;
-
-- (id)objectInResponse:(WLAPIResponse*)response;
 
 - (void)handleSuccess:(id)object;
 

@@ -53,10 +53,6 @@ static NSTimeInterval _difference = 0;
     return [[self alloc] init];
 }
 
-+ (NSString *)defaultMethod {
-    return @"GET";
-}
-
 + (NSTimeInterval)timeout {
     return 45;
 }
@@ -131,7 +127,6 @@ static NSTimeInterval _difference = 0;
     self = [super init];
     if (self) {
         self.parametrizers = [NSMutableArray array];
-        self.method = [[self class] defaultMethod];
         self.timeout = [[self class] timeout];
     }
     return self;
@@ -179,6 +174,9 @@ static NSTimeInterval _difference = 0;
 
 - (id)send {
     [self cancel];
+    if (!self.method) {
+        self.method = @"GET";
+    }
     NSMutableDictionary* parameters = [self parametrize];
     NSString* url = [self.manager urlWithPath:self.path];
     NSMutableURLRequest *request = [self request:parameters url:url];
@@ -198,7 +196,7 @@ static NSTimeInterval _difference = 0;
                     [strongSelf handleFailure:error];
                 });
             } else {
-                [strongSelf handleSuccess:[strongSelf objectInResponse:response]];
+                [strongSelf handleSuccess:response];
             }
 		} else {
             WLLog(@"API ERROR",[operation.request.URL relativeString], responseObject);
@@ -213,10 +211,6 @@ static NSTimeInterval _difference = 0;
     [self.manager.operationQueue addOperation:self.operation];
     
     return self.operation;
-}
-
-- (id)objectInResponse:(WLAPIResponse *)response {
-    return response;
 }
 
 - (void)handleSuccess:(id)object {

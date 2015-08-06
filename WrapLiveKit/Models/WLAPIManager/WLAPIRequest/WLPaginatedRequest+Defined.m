@@ -16,8 +16,10 @@
         [parameters trySetObject:scope forKey:@"scope"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         NSSet* wraps = [WLWrap API_entries:[response.data arrayForKey:@"wraps"]];
-        if (wraps.nonempty) {
-            [[WLUser currentUser] addWraps:wraps];
+        for (WLWrap *wrap in wraps) {
+            if (!wrap.isPublic) {
+                [[WLUser currentUser] addWraps:wraps];
+            }
         }
         success(wraps);
     }];

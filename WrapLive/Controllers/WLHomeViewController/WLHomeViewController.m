@@ -97,7 +97,7 @@
     
     NSSet* wraps = [WLUser currentUser].wraps;
     homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:nil]];
-    publicDataSource.items = [WLPaginatedSet setWithEntries:nil request:[WLPaginatedRequest wraps:@"public_not_following"]];
+    publicDataSource.items = [WLPaginatedSet setWithEntries:[[WLWrap entriesWhere:@"isPublic == YES"] set] request:[WLPaginatedRequest wraps:@"public_not_following"]];
     
     homeDataSource.selectionBlock = publicDataSource.selectionBlock = ^(id entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
@@ -281,17 +281,17 @@
     
     [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
         [receiver setDidAddBlock:^(WLWrap *wrap) {
-            WLPaginatedSet *wraps = [weakSelf.homeDataSource items];
-            [wraps addEntry:wrap];
+            [(WLPaginatedSet *)[weakSelf.homeDataSource items] addEntry:wrap];
+            [(WLPaginatedSet *)[weakSelf.publicDataSource items] addEntry:wrap];
             weakSelf.collectionView.contentOffset = CGPointZero;
         }];
         [receiver setDidUpdateBlock:^(WLWrap *wrap) {
-            WLPaginatedSet *wraps = [weakSelf.homeDataSource items];
-            [wraps resetEntries:[[WLUser currentUser] wraps]];
+            [(WLPaginatedSet *)[weakSelf.homeDataSource items] sort];
+            [(WLPaginatedSet *)[weakSelf.publicDataSource items] sort];
         }];
         [receiver setWillDeleteBlock:^(WLWrap *wrap) {
-            WLPaginatedSet *wraps = [weakSelf.homeDataSource items];
-            [wraps removeEntry:wrap];
+            [(WLPaginatedSet *)[weakSelf.homeDataSource items] removeEntry:wrap];
+            [(WLPaginatedSet *)[weakSelf.publicDataSource items] removeEntry:wrap];
         }];
     }];
     

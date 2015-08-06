@@ -65,6 +65,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 }
 
 - (void)setup:(WLWrap*)wrap {
+    self.swipeActionGestureRecognizer.enabled = !(wrap.isPublic && ![wrap.contributors containsObject:[WLUser currentUser]]);
 	self.nameLabel.text = wrap.name;
     self.dateLabel.text = WLString(wrap.updatedAt.timeAgoStringAtAMPM);
     self.coverView.url = [wrap.picture anyUrl];

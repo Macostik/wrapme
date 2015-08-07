@@ -114,6 +114,9 @@
         cell.nameLabel.text = isCreator ? [NSString stringWithFormat:WLLS(@"formatted_owner"), userNameText] : userNameText;
         cell.phoneLabel.text = user.securePhones;
         
+        cell.inviteLabel.hidden = !self.canBeInvited;
+        cell.signUpView.hidden = self.canBeInvited;
+        
         NSString *url = user.picture.small;
         if (!cell.signUpView.hidden && !url.nonempty) {
             [cell.avatarView setImageName:@"default-medium-avatar-orange" forState:WLImageViewStateEmpty];
@@ -123,9 +126,6 @@
             [cell.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
         }
         cell.avatarView.url = url;
-        
-        cell.inviteLabel.hidden = !self.canBeInvited;
-        cell.signUpView.hidden = self.canBeInvited;
         
         if (self.canBeInvited) {
             cell.inviteLabel.text = user.invitationHintText;

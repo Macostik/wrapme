@@ -165,6 +165,10 @@
     return [wraps containsObject:self] && wraps.count == 1;
 }
 
+- (BOOL)requiresFollowing {
+    return self.isPublic && ![self.contributors containsObject:[WLUser currentUser]];
+}
+
 @end
 
 

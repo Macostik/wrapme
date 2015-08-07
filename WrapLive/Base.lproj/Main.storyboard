@@ -1622,7 +1622,7 @@ Tap here to start.</string>
                                 <rect key="frame" x="0.0" y="520" width="320" height="48"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhi-C4-lKW" customClass="WLHomeSegmentButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="48"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="125" height="48"/>
                                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
@@ -1640,10 +1640,10 @@ Tap here to start.</string>
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="941-r6-Olj">
-                                        <rect key="frame" x="128" y="0.0" width="64" height="48"/>
+                                        <rect key="frame" x="125" y="0.0" width="70" height="48"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eam-qO-REB" customClass="WLButton">
-                                                <rect key="frame" x="0.0" y="0.0" width="64" height="48"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="48"/>
                                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <state key="normal" image="bt_camera_normal">
@@ -1663,7 +1663,7 @@ Tap here to start.</string>
                                         </subviews>
                                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="64" id="O9e-HT-fMf"/>
+                                            <constraint firstAttribute="width" constant="70" id="O9e-HT-fMf"/>
                                             <constraint firstAttribute="trailing" secondItem="eam-qO-REB" secondAttribute="trailing" id="d6K-tU-Fja"/>
                                             <constraint firstAttribute="bottom" secondItem="eam-qO-REB" secondAttribute="bottom" id="fKu-wu-yYS"/>
                                             <constraint firstItem="eam-qO-REB" firstAttribute="top" secondItem="941-r6-Olj" secondAttribute="top" id="kIa-sU-bea"/>
@@ -1671,7 +1671,7 @@ Tap here to start.</string>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xg-qz-q6g" customClass="WLHomeSegmentButton">
-                                        <rect key="frame" x="192" y="0.0" width="128" height="48"/>
+                                        <rect key="frame" x="195" y="0.0" width="125" height="48"/>
                                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
@@ -2829,20 +2829,41 @@ Tap here to start.</string>
                                     <outletCollection property="attributedViews" destination="pze-Dr-jmG" id="hij-cj-kIc"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xC-mH-huG">
+                                <rect key="frame" x="12" y="70" width="296" height="32"/>
+                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="Mdr-ut-23U"/>
+                                </constraints>
+                                <state key="normal" title="Follow">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="follow:" destination="hUj-RK-zkg" eventType="touchUpInside" id="KQu-9U-rz5"/>
+                                </connections>
+                            </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEr-of-cGm">
                                 <rect key="frame" x="0.0" y="108" width="320" height="460"/>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="5xC-mH-huG" secondAttribute="trailing" constant="12" id="7TI-hc-HNh"/>
                             <constraint firstAttribute="trailing" secondItem="aqT-yE-MER" secondAttribute="trailing" id="BVR-P6-Zyc"/>
                             <constraint firstItem="aqT-yE-MER" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="bottom" id="MQg-Fb-Rad"/>
                             <constraint firstItem="b0w-IA-ZYu" firstAttribute="top" secondItem="Fgm-DM-Lps" secondAttribute="bottom" constant="-20" id="R2P-z6-Yyp"/>
                             <constraint firstItem="aqT-yE-MER" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" id="TxK-wP-QfJ"/>
                             <constraint firstAttribute="trailing" secondItem="rEr-of-cGm" secondAttribute="trailing" id="aqv-MO-djY"/>
                             <constraint firstItem="b0w-IA-ZYu" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" id="cit-wi-bUk"/>
+                            <constraint firstItem="5xC-mH-huG" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" constant="12" id="dMs-4d-OSq"/>
                             <constraint firstItem="rEr-of-cGm" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" id="fzL-17-7NV"/>
                             <constraint firstItem="rEr-of-cGm" firstAttribute="height" secondItem="f6K-dz-2Hs" secondAttribute="height" constant="-108" id="g3A-em-iLk"/>
+                            <constraint firstItem="5xC-mH-huG" firstAttribute="centerY" secondItem="aqT-yE-MER" secondAttribute="centerY" id="iKm-uK-G4N"/>
                             <constraint firstAttribute="trailing" secondItem="b0w-IA-ZYu" secondAttribute="trailing" id="orp-vP-j89"/>
                             <constraint firstItem="rEr-of-cGm" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="bottom" id="xRx-pe-7Zd"/>
                         </constraints>
@@ -2850,10 +2871,12 @@ Tap here to start.</string>
                     <connections>
                         <outlet property="candyCountLabel" destination="m01-Ic-fcZ" id="jaU-NF-20F"/>
                         <outlet property="containerView" destination="rEr-of-cGm" id="AcK-LX-CK0"/>
+                        <outlet property="followButton" destination="5xC-mH-huG" id="2bZ-Sa-Mwc"/>
                         <outlet property="messageCountLabel" destination="z3d-ia-fy3" id="Hpz-4E-8bd"/>
                         <outlet property="nameLabel" destination="ek2-Bn-UN6" id="85h-Ef-Vvk"/>
                         <outlet property="navigationBar" destination="b0w-IA-ZYu" id="iww-eD-owf"/>
                         <outlet property="segmentedControl" destination="aqT-yE-MER" id="XmX-dw-ROx"/>
+                        <outlet property="settingsButton" destination="8kR-VI-DgA" id="6h1-3i-TaZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUq-C2-qrY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4821,6 +4844,7 @@ QWRkEEZyaWVuZFZpZXc
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="addPhotoButton" destination="PNO-TY-VYu" id="m5b-cf-eyT"/>
                         <outlet property="collectionView" destination="a7y-ca-xlT" id="Fgn-6b-Eot"/>
                         <outlet property="dataSource" destination="R4B-e5-fki" id="nPm-NP-w5V"/>
                         <outlet property="primaryConstraint" destination="8F6-xd-Raa" id="idQ-bf-VUC"/>

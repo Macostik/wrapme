@@ -282,7 +282,7 @@
     
     [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
         [receiver setDidAddBlock:^(WLWrap *wrap) {
-            if (wrap.isPublic) {
+            if (wrap.requiresFollowing) {
                 [(WLPaginatedSet *)[weakSelf.publicDataSource items] addEntry:wrap];
             } else {
                 [(WLPaginatedSet *)[weakSelf.homeDataSource items] addEntry:wrap];
@@ -290,14 +290,26 @@
             weakSelf.collectionView.contentOffset = CGPointZero;
         }];
         [receiver setDidUpdateBlock:^(WLWrap *wrap) {
-            if (wrap.isPublic) {
-                [(WLPaginatedSet *)[weakSelf.publicDataSource items] sort];
+            if (wrap.requiresFollowing) {
+                WLPaginatedSet *publicWraps = (WLPaginatedSet *)[weakSelf.publicDataSource items];
+                if ([publicWraps.entries containsObject:wrap]) {
+                    [publicWraps sort];
+                } else {
+                    [publicWraps addEntry:wrap];
+                    [(WLPaginatedSet *)[weakSelf.homeDataSource items] removeEntry:wrap];
+                }
             } else {
-                [(WLPaginatedSet *)[weakSelf.homeDataSource items] sort];
+                WLPaginatedSet *wraps = (WLPaginatedSet *)[weakSelf.homeDataSource items];
+                if ([wraps.entries containsObject:wrap]) {
+                    [wraps sort];
+                } else {
+                    [wraps addEntry:wrap];
+                    [(WLPaginatedSet *)[weakSelf.publicDataSource items] removeEntry:wrap];
+                }
             }
         }];
         [receiver setWillDeleteBlock:^(WLWrap *wrap) {
-            if (wrap.isPublic) {
+            if (wrap.requiresFollowing) {
                 [(WLPaginatedSet *)[weakSelf.publicDataSource items] removeEntry:wrap];
             } else {
                 [(WLPaginatedSet *)[weakSelf.homeDataSource items] removeEntry:wrap];

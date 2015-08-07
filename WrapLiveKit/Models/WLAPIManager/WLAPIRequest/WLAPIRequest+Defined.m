@@ -65,7 +65,13 @@
 
 + (instancetype)leaveWrap:(WLWrap *)wrap {
     return [[[self DELETE:@"wraps/%@/leave", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        [wrap remove];
+        if (wrap.isPublic) {
+            [wrap notifyOnUpdate:^(id object) {
+                [wrap removeContributorsObject:[WLUser currentUser]];
+            }];
+        } else {
+            [wrap remove];
+        }
         success(nil);
     }] beforeFailure:^(NSError *error) {
         if (wrap.uploaded && error.isContentUnavaliable) {
@@ -77,7 +83,9 @@
 + (instancetype)followWrap:(WLWrap *)wrap {
     return [[[self POST:@"wraps/%@/follow", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         [wrap notifyOnAddition:^(id object) {
-            [wrap addContributorsObject:[WLUser currentUser]];
+            [wrap notifyOnUpdate:^(id object) {
+                [wrap addContributorsObject:[WLUser currentUser]];
+            }];
         }];
         success(nil);
     }] beforeFailure:^(NSError *error) {

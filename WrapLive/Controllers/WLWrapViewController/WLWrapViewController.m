@@ -31,7 +31,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) UIViewController *viewController;
-
+@property (weak, nonatomic) IBOutlet UIButton *followButton;
+@property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 
 @end
 
@@ -47,6 +48,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     if (!self.wrap.valid) {
         return;
     }
@@ -57,10 +59,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self updateWrapData];
-    [self updateMessageCouter];
-    [self updateCandyCounter];
-    [self viewShowed];
+    if (self.wrap.valid) {
+        [self updateWrapData];
+        [self updateMessageCouter];
+        [self updateCandyCounter];
+        [self viewShowed];
+    }
 }
 
 - (void)viewShowed {
@@ -72,7 +76,11 @@
 }
 
 - (void)updateWrapData {
-    self.nameLabel.text = self.wrap.name;
+    WLWrap *wrap = self.wrap;
+    self.nameLabel.text = wrap.name;
+    BOOL requiresFollowing = wrap.requiresFollowing;
+    self.followButton.hidden = !requiresFollowing;
+    self.segmentedControl.hidden = self.settingsButton.hidden = requiresFollowing;
 }
 
 - (void)updateMessageCouter {
@@ -93,7 +101,7 @@
         [receiver setEntryBlock:^WLEntry *{
             return weakSelf.wrap;
         }];
-        receiver.didAddBlock = receiver.didUpdateBlock = ^(WLWrap *wrap) {
+        receiver.didUpdateBlock = ^(WLWrap *wrap) {
             [weakSelf updateWrapData];
         };
         receiver.willDeleteBlock = ^(WLWrap *wrap) {
@@ -135,6 +143,14 @@
     self.selectedSegment = WLSegmentControlStateFriend;
     self.viewController = [self controllerForClass:[WLContributorsViewController class] badge:nil];
     [self updateCandyCounter];
+}
+
+- (IBAction)follow:(id)sender {
+    [[WLAPIRequest followWrap:self.wrap] send:^(id object) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 // MARK: - WLStillPictureViewControllerDelegate

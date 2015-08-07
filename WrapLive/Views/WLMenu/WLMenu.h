@@ -52,4 +52,6 @@ typedef WLEntry *(^WLMenuConfiguration)(WLMenu* menu, BOOL *vibrate);
 
 - (void)addEditPhotoItem:(WLObjectBlock)block;
 
+- (void)addDrawPhotoItem:(WLObjectBlock)block;
+
 @end

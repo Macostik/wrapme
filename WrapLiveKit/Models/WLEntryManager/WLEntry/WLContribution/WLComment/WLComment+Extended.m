@@ -35,6 +35,10 @@
     [super prepareForDeletion];
 }
 
+- (BOOL)deletable {
+    return self.contributedByCurrentUser || self.candy.deletable;
+}
+
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
     NSString* text = [dictionary stringForKey:WLContentKey];
     if (!NSStringEqual(self.text, text)) self.text = text;

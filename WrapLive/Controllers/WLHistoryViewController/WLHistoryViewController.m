@@ -44,6 +44,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet WLButton *commentButton;
 @property (weak, nonatomic) IBOutlet WLIconButton *actionButton;
 @property (weak, nonatomic) IBOutlet WLIconButton *editButton;
+@property (weak, nonatomic) IBOutlet WLIconButton *downloadButton;
+@property (weak, nonatomic) IBOutlet WLIconButton *drawButton;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *commentIndicator;
@@ -85,6 +87,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     if (!_wrap) {
         _wrap = _candy.wrap;
     }
+    
+    self.editButton.hidden = self.downloadButton.hidden = self.actionButton.hidden = self.drawButton.hidden = self.commentButton.hidden = _wrap.requiresFollowing;
     
     if (!_history && _wrap) {
         _history = [WLHistory historyWithWrap:self.wrap];

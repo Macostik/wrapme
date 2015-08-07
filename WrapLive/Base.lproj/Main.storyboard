@@ -3226,6 +3226,8 @@ Tap here to start.</string>
                         <outlet property="candyIndicator" destination="7yS-IZ-1M1" id="4SO-xL-ie4"/>
                         <outlet property="commentButton" destination="2ai-CO-qH0" id="gaJ-nC-R6A"/>
                         <outlet property="commentIndicator" destination="U0A-o6-Hed" id="fn6-LQ-ijP"/>
+                        <outlet property="downloadButton" destination="sPd-Ai-V8F" id="xcQ-Js-zwj"/>
+                        <outlet property="drawButton" destination="U2n-dd-fSG" id="MpT-rX-G0x"/>
                         <outlet property="editButton" destination="P4L-uu-XEd" id="ZyM-nD-E5G"/>
                         <outlet property="lastCommentTextView" destination="G8T-0M-jNN" id="747-dx-mt6"/>
                         <outlet property="postLabel" destination="xGF-6q-Jgs" id="QRd-Pg-cNO"/>

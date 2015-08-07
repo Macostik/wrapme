@@ -65,8 +65,12 @@ static NSInteger WLIndent = 12.0;
     [WLAlertView confirmWrapDeleting:wrap success:^{
         sender.loading = YES;
         [wrap remove:^(id object) {
-            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            if (deletable) [WLToast showWithMessage:WLLS(@"delete_moji_success")];
+            if (wrap.isPublic) {
+                [weakSelf.navigationController popViewControllerAnimated:NO];
+            } else {
+                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                if (deletable) [WLToast showWithMessage:WLLS(@"delete_moji_success")];
+            }
             sender.loading = NO;
         } failure:^(NSError *error) {
             [error show];

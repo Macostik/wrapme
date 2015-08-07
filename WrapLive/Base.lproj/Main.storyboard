@@ -2483,6 +2483,24 @@ Tap here to start.</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xC-mH-huG">
+                                <rect key="frame" x="12" y="70" width="296" height="32"/>
+                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="Mdr-ut-23U"/>
+                                </constraints>
+                                <state key="normal" title="Follow">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="follow:" destination="hUj-RK-zkg" eventType="touchUpInside" id="KQu-9U-rz5"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b0w-IA-ZYu">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
@@ -2600,8 +2618,8 @@ Tap here to start.</string>
                                                     <constraint firstAttribute="trailing" secondItem="Exo-Pi-XRe" secondAttribute="trailing" id="vH0-l9-5Cv"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m01-Ic-fcZ" customClass="WLBadgeLabel">
-                                                <rect key="frame" x="27" y="7" width="16" height="16"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m01-Ic-fcZ" customClass="WLBadgeLabel">
+                                                <rect key="frame" x="79" y="7" width="22" height="16"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="m01-Ic-fcZ" secondAttribute="height" multiplier="1:1" id="Pts-7h-qNF"/>
@@ -2630,8 +2648,8 @@ Tap here to start.</string>
                                         <constraints>
                                             <constraint firstAttribute="centerX" secondItem="qWI-hh-ZZb" secondAttribute="centerX" id="Ebf-7y-ZNY"/>
                                             <constraint firstItem="vBf-Om-hs7" firstAttribute="top" secondItem="m01-Ic-fcZ" secondAttribute="centerY" constant="-2" id="EqX-yN-Fj8"/>
-                                            <constraint firstItem="vBf-Om-hs7" firstAttribute="trailing" secondItem="m01-Ic-fcZ" secondAttribute="centerX" id="RLg-T2-Fr4"/>
                                             <constraint firstAttribute="centerY" secondItem="qWI-hh-ZZb" secondAttribute="centerY" id="Y6w-Vv-mm1"/>
+                                            <constraint firstItem="Exo-Pi-XRe" firstAttribute="trailing" secondItem="m01-Ic-fcZ" secondAttribute="leading" constant="10" id="hBH-fb-EFG"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGo-lW-T9v" userLabel="PhotosButton" customClass="WLButton">
@@ -2683,8 +2701,8 @@ Tap here to start.</string>
                                                     <constraint firstItem="9sT-hL-fQk" firstAttribute="trailing" secondItem="nwc-oQ-LVZ" secondAttribute="leading" constant="-5" id="pfw-zL-hRw"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3d-ia-fy3" customClass="WLBadgeLabel">
-                                                <rect key="frame" x="35" y="7" width="16" height="16"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3d-ia-fy3" customClass="WLBadgeLabel">
+                                                <rect key="frame" x="71" y="7" width="22" height="16"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="z3d-ia-fy3" secondAttribute="height" multiplier="1:1" id="Hhe-6y-XJr"/>
@@ -2714,7 +2732,7 @@ Tap here to start.</string>
                                             <constraint firstAttribute="centerY" secondItem="e5n-YY-oV2" secondAttribute="centerY" id="5x1-Az-met"/>
                                             <constraint firstAttribute="centerX" secondItem="e5n-YY-oV2" secondAttribute="centerX" id="ZXa-Kw-wBc"/>
                                             <constraint firstItem="z3d-ia-fy3" firstAttribute="centerY" secondItem="9sT-hL-fQk" secondAttribute="top" constant="2" id="fnH-tN-7K1"/>
-                                            <constraint firstItem="z3d-ia-fy3" firstAttribute="centerX" secondItem="9sT-hL-fQk" secondAttribute="trailing" id="sUu-7E-iBM"/>
+                                            <constraint firstItem="z3d-ia-fy3" firstAttribute="leading" secondItem="nwc-oQ-LVZ" secondAttribute="trailing" constant="-10" id="g9t-MM-Y0W"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RM4-Jg-HlY" userLabel="ChatButton" customClass="WLButton">
@@ -2829,24 +2847,6 @@ Tap here to start.</string>
                                     <outletCollection property="attributedViews" destination="pze-Dr-jmG" id="hij-cj-kIc"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xC-mH-huG">
-                                <rect key="frame" x="12" y="70" width="296" height="32"/>
-                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="Mdr-ut-23U"/>
-                                </constraints>
-                                <state key="normal" title="Follow">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="follow:" destination="hUj-RK-zkg" eventType="touchUpInside" id="KQu-9U-rz5"/>
-                                </connections>
-                            </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEr-of-cGm">
                                 <rect key="frame" x="0.0" y="108" width="320" height="460"/>
                             </containerView>

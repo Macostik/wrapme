@@ -97,7 +97,7 @@
     if ([keyPath isEqualToString:@"contentOffset"]) {
         NSOrderedSet *wraps = (NSOrderedSet*)self.dataSource.items;
         CGFloat offset = self.dataSource.collectionView.contentOffset.y;
-        if (wraps.nonempty && offset > 0) {
+        if (wraps.nonempty && offset >= 0) {
             NSInteger index = roundf(offset / self.dataSource.itemSize.height);
             WLWrap *wrap = [wraps tryAt:index];
             if (wrap && wrap != self.wrap) {

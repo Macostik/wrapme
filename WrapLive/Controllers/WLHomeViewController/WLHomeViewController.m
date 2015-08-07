@@ -58,6 +58,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *emailConfirmationLayoutPrioritizer;
+@property (weak, nonatomic) IBOutlet UIButton *photoButton;
 
 @property (nonatomic) BOOL createWrapTipHidden;
 
@@ -281,17 +282,26 @@
     
     [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
         [receiver setDidAddBlock:^(WLWrap *wrap) {
-            [(WLPaginatedSet *)[weakSelf.homeDataSource items] addEntry:wrap];
-            [(WLPaginatedSet *)[weakSelf.publicDataSource items] addEntry:wrap];
+            if (wrap.isPublic) {
+                [(WLPaginatedSet *)[weakSelf.publicDataSource items] addEntry:wrap];
+            } else {
+                [(WLPaginatedSet *)[weakSelf.homeDataSource items] addEntry:wrap];
+            }
             weakSelf.collectionView.contentOffset = CGPointZero;
         }];
         [receiver setDidUpdateBlock:^(WLWrap *wrap) {
-            [(WLPaginatedSet *)[weakSelf.homeDataSource items] sort];
-            [(WLPaginatedSet *)[weakSelf.publicDataSource items] sort];
+            if (wrap.isPublic) {
+                [(WLPaginatedSet *)[weakSelf.publicDataSource items] sort];
+            } else {
+                [(WLPaginatedSet *)[weakSelf.homeDataSource items] sort];
+            }
         }];
         [receiver setWillDeleteBlock:^(WLWrap *wrap) {
-            [(WLPaginatedSet *)[weakSelf.homeDataSource items] removeEntry:wrap];
-            [(WLPaginatedSet *)[weakSelf.publicDataSource items] removeEntry:wrap];
+            if (wrap.isPublic) {
+                [(WLPaginatedSet *)[weakSelf.publicDataSource items] removeEntry:wrap];
+            } else {
+                [(WLPaginatedSet *)[weakSelf.homeDataSource items] removeEntry:wrap];
+            }
         }];
     }];
     
@@ -322,6 +332,10 @@
 
 - (IBAction)addPhoto:(id)sender {
     [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:NO];
+}
+
+- (IBAction)tabChanged:(SegmentedControl*)sender {
+    self.photoButton.enabled = sender.selectedSegment == 0;
 }
 
 // MARK: - WLStillPictureViewControllerDelegate

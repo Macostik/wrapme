@@ -11,6 +11,7 @@
 #import "WLDrawingCanvas.h"
 #import "WLDrawingSession.h"
 #import "WLColorPicker.h"
+#import "UIView+LayoutHelper.h"
 
 @interface WLDrawingView () <WLDrawingSessionDelegate, WLColorPickerDelegate, WLDrawingViewDelegate>
 
@@ -30,6 +31,12 @@
 @end
 
 @implementation WLDrawingView
+
+- (void)showInView:(UIView *)view {
+    self.frame = view.bounds;
+    [view addSubview:self];
+    [view makeResizibleSubview:self];
+}
 
 - (void)setImage:(UIImage *)image {
     self.imageView.image = image;

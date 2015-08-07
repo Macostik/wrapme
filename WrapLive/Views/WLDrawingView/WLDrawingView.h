@@ -24,6 +24,8 @@
 @property (nonatomic, weak) IBOutlet id <WLDrawingViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeightConstraint;
 
+- (void)showInView:(UIView*)view;
+
 - (void)setImage:(UIImage*)image;
 
 - (void)setImage:(UIImage*)image done:(WLImageBlock)done cancel:(WLBlock)cancel;

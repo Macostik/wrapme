@@ -28,40 +28,12 @@
 
 @implementation WLDownloadingView
 
-+ (void)downloadAndEditCandy:(WLCandy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
-    WLImageBlock downloadBlock = ^(UIImage *image) {
-        [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
-            if (candy.valid) {
-                __block WLEditPicture *picture = [WLEditPicture picture:image completion:^(id object) {
-                    [candy setEditedPictureIfNeeded:[picture uploadablePictureWithAnimation:NO]];
-                    [candy enqueueUpdate:failure];
-                }];
-            } else {
-                if (failure) failure(nil);
-            }
-        } cancel:nil];
-    };
-    [WLDownloadingView downloadingViewForCandy:candy success:downloadBlock failure:failure];
++ (instancetype)downloadCandy:(WLCandy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
+    return [[WLDownloadingView loadFromNib] downloadCandy:candy success:success failure:failure];
 }
 
-+ (instancetype)downloadingViewForCandy:(WLCandy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
-    return [self downloadingView:[UIWindow mainWindow] forCandy:candy success:success failure:failure];
-}
-
-+ (instancetype)downloadingView:(UIView *)view
-                       forCandy:(WLCandy *)candy
-                        success:(WLImageBlock)success
-                        failure:(WLFailureBlock)failure {
-    return  [[WLDownloadingView loadFromNib] downloadingView:view
-                                                    forCandy:candy
-                                                     success:success
-                                                     failure:failure];
-}
-
-- (instancetype)downloadingView:(UIView *)view
-                       forCandy:(WLCandy *)candy
-                        success:(WLImageBlock)success
-                        failure:(WLFailureBlock)failure {
+- (instancetype)downloadCandy:(WLCandy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
+    UIView *view = [UIWindow mainWindow];
     self.frame = view.frame;
     self.candy = candy;
     [view addSubview:self];
@@ -142,6 +114,7 @@
 // MARK: - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLEntry *)entry {
+    self.candy = nil;
     if (self.failureBlock) self.failureBlock(nil);
     [self dissmis];
 }

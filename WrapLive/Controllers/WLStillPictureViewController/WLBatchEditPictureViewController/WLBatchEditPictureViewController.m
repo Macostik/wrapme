@@ -259,13 +259,8 @@
     UIImage *image = [(WLEditPictureViewController*)self.viewController imageView].image;
     if (image) {
         WLDrawingView *drawingView = [WLDrawingView loadFromNib];
-        drawingView.frame = self.view.bounds;
-        [self.view addSubview:drawingView];
+        [drawingView showInView:self.view];
         drawingView.bottomViewHeightConstraint.constant = self.bottomView.height;
-        [drawingView constraintToItem:self.view equal:NSLayoutAttributeCenterX];
-        [drawingView constraintToItem:self.view equal:NSLayoutAttributeCenterY];
-        [drawingView constraintToItem:self.view equal:NSLayoutAttributeWidth];
-        [drawingView constraintToItem:self.view equal:NSLayoutAttributeHeight];
         [drawingView layoutIfNeeded];
         drawingView.delegate = self;
         [drawingView setImage:image];

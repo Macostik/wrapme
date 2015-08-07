@@ -16,6 +16,8 @@
 #import "NSError+WLAPIManager.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "WLBlockImageFetching.h"
+#import "WLEditPicture.h"
+#import "WLAPIManager.h"
 
 @implementation WLCandy (Extended)
 
@@ -162,6 +164,17 @@
         }
         if (failure) failure(error);
     }];
+}
+
+- (void)editWithImage:(UIImage*)image {
+    if (self.valid) {
+        __block WLEditPicture *picture = [WLEditPicture picture:image completion:^(id object) {
+            [self setEditedPictureIfNeeded:[picture uploadablePictureWithAnimation:NO]];
+            [self enqueueUpdate:^(NSError *error) {
+                [error show];
+            }];
+        }];
+    }
 }
 
 - (NSMutableOrderedSet *)sortedComments {

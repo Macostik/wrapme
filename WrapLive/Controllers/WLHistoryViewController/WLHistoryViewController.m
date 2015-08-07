@@ -28,6 +28,7 @@
 #import "WLAlertView.h"
 #import "WLDrawingView.h"
 #import "UIView+LayoutHelper.h"
+#import "AdobeUXImageEditorViewController+SharedEditing.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -447,12 +448,11 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (IBAction)editPhoto:(id)sender {
-    __weak __typeof(self)weakSelf = self;
-    [self.candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
-        [WLDownloadingView downloadAndEditCandy:weakSelf.candy success:^(UIImage *image) {
-        } failure:^(NSError *error) {
-            [error show];
-        }];
+    WLCandy *candy = self.candy;
+    [self downloadCandyOriginal:candy success:^(UIImage *image) {
+        [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
+            [candy editWithImage:image];
+        } cancel:nil];
     } failure:^(NSError *error) {
         [error show];
     }];
@@ -461,32 +461,24 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (IBAction)draw:(id)sender {
     __weak __typeof(self)weakSelf = self;
     WLCandy *candy = self.candy;
-    [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
-        [WLDownloadingView downloadingViewForCandy:candy success:^(UIImage *image) {
-            __weak WLDrawingView *drawingView = [WLDrawingView loadFromNib];
-            drawingView.frame = weakSelf.view.bounds;
-            [weakSelf.view addSubview:drawingView];
-            [weakSelf.view makeResizibleSubview:drawingView];
-            [drawingView layoutIfNeeded];
-            [drawingView setImage:image done:^(UIImage *image) {
-                if (candy.valid) {
-                    __block WLEditPicture *picture = [WLEditPicture picture:image completion:^(id object) {
-                        [candy setEditedPictureIfNeeded:[picture uploadablePictureWithAnimation:NO]];
-                        [candy enqueueUpdate:^(NSError *error) {
-                            [error showIgnoringNetworkError];
-                        }];
-                    }];
-                }
-                [drawingView removeFromSuperview];
-            } cancel:^{
-                [drawingView removeFromSuperview];
-            }];
-        } failure:^(NSError *error) {
-            [error show];
+    [self downloadCandyOriginal:candy success:^(UIImage *image) {
+        __weak WLDrawingView *drawingView = [WLDrawingView loadFromNib];
+        [drawingView showInView:weakSelf.view];
+        [drawingView setImage:image done:^(UIImage *image) {
+            [candy editWithImage:image];
+            [drawingView removeFromSuperview];
+        } cancel:^{
+            [drawingView removeFromSuperview];
         }];
     } failure:^(NSError *error) {
         [error show];
     }];
+}
+
+- (void)downloadCandyOriginal:(WLCandy*)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
+    [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
+        [WLDownloadingView downloadCandy:candy success:success failure:failure];
+    } failure:failure];
 }
 
 - (IBAction)toggleBottomViewMode:(id)sender {

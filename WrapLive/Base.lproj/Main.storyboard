@@ -31,7 +31,6 @@
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
             <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -930,7 +929,7 @@
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y7O-GH-Q4Y" customClass="WLCollectionView">
                                 <rect key="frame" x="0.0" y="163" width="320" height="405"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="44"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="48"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="T0u-2f-ASf">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="320" height="111"/>
@@ -1620,50 +1619,43 @@ Tap here to start.</string>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xxr-1f-Jzb" customClass="SegmentedControl">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="520" width="320" height="48"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhi-C4-lKW" customClass="WLSegmentButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="44"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Home"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhi-C4-lKW" customClass="WLHomeSegmentButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="48"/>
+                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                        <state key="normal" title="Home" image="ic_home_normal">
+                                            <color key="titleColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="ic_home_selected">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
                                                 <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
-                                                <color key="value" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="941-r6-Olj">
-                                        <rect key="frame" x="128" y="0.0" width="64" height="44"/>
+                                        <rect key="frame" x="128" y="0.0" width="64" height="48"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eam-qO-REB" customClass="WLButton">
-                                                <rect key="frame" x="0.0" y="0.0" width="64" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="64" height="48"/>
                                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="30"/>
-                                                <state key="normal" title="u">
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <state key="normal" image="bt_camera_normal">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="disabled">
+                                                <state key="disabled" image="bt_camera_disabled">
                                                     <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
-                                                <state key="highlighted">
+                                                <state key="highlighted" image="bt_camera_pressed">
                                                     <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
-                                                        <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
-                                                        <color key="value" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="disabledColor">
-                                                        <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="addPhoto:" destination="L91-fZ-J9O" eventType="touchUpInside" id="3Ca-tV-RCv"/>
                                                 </connections>
@@ -1678,20 +1670,23 @@ Tap here to start.</string>
                                             <constraint firstItem="eam-qO-REB" firstAttribute="leading" secondItem="941-r6-Olj" secondAttribute="leading" id="wJ6-Bd-aqg"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xg-qz-q6g" customClass="WLSegmentButton">
-                                        <rect key="frame" x="192" y="0.0" width="128" height="44"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="What's hot">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xg-qz-q6g" customClass="WLHomeSegmentButton">
+                                        <rect key="frame" x="192" y="0.0" width="128" height="48"/>
+                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                        <state key="normal" title="What's hot" image="ic_hot_normal">
+                                            <color key="titleColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="ic_hot_selected">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
                                                 <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
-                                                <color key="value" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
@@ -1704,7 +1699,7 @@ Tap here to start.</string>
                                     <constraint firstItem="mhi-C4-lKW" firstAttribute="leading" secondItem="Xxr-1f-Jzb" secondAttribute="leading" id="DXf-Ob-hS0"/>
                                     <constraint firstItem="3xg-qz-q6g" firstAttribute="top" secondItem="Xxr-1f-Jzb" secondAttribute="top" id="I62-ex-DbV"/>
                                     <constraint firstAttribute="bottom" secondItem="mhi-C4-lKW" secondAttribute="bottom" id="Lb7-xT-aFL"/>
-                                    <constraint firstAttribute="height" constant="44" id="QOa-Ms-g4O"/>
+                                    <constraint firstAttribute="height" constant="48" id="QOa-Ms-g4O"/>
                                     <constraint firstItem="3xg-qz-q6g" firstAttribute="leading" secondItem="941-r6-Olj" secondAttribute="trailing" id="RJV-kC-ewY"/>
                                     <constraint firstAttribute="centerX" secondItem="941-r6-Olj" secondAttribute="centerX" id="bxK-Mn-hw9"/>
                                     <constraint firstAttribute="bottom" secondItem="941-r6-Olj" secondAttribute="bottom" id="nPK-jU-F9m"/>
@@ -2606,7 +2601,7 @@ Tap here to start.</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m01-Ic-fcZ" customClass="WLBadgeLabel">
-                                                <rect key="frame" x="12" y="7" width="16" height="16"/>
+                                                <rect key="frame" x="27" y="7" width="16" height="16"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="m01-Ic-fcZ" secondAttribute="height" multiplier="1:1" id="Pts-7h-qNF"/>
@@ -2626,7 +2621,7 @@ Tap here to start.</string>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                     <userDefinedRuntimeAttribute type="size" keyPath="intrinsicContentSizeInsets">
-                                                        <size key="value" width="2" height="2"/>
+                                                        <size key="value" width="10" height="0.0"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
@@ -2634,9 +2629,9 @@ Tap here to start.</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="centerX" secondItem="qWI-hh-ZZb" secondAttribute="centerX" id="Ebf-7y-ZNY"/>
-                                            <constraint firstItem="m01-Ic-fcZ" firstAttribute="top" secondItem="qWI-hh-ZZb" secondAttribute="top" constant="-6" id="MNe-D8-52C"/>
+                                            <constraint firstItem="vBf-Om-hs7" firstAttribute="top" secondItem="m01-Ic-fcZ" secondAttribute="centerY" constant="-2" id="EqX-yN-Fj8"/>
+                                            <constraint firstItem="vBf-Om-hs7" firstAttribute="trailing" secondItem="m01-Ic-fcZ" secondAttribute="centerX" id="RLg-T2-Fr4"/>
                                             <constraint firstAttribute="centerY" secondItem="qWI-hh-ZZb" secondAttribute="centerY" id="Y6w-Vv-mm1"/>
-                                            <constraint firstItem="m01-Ic-fcZ" firstAttribute="leading" secondItem="qWI-hh-ZZb" secondAttribute="leading" constant="-6" id="dyX-Lc-b9d"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGo-lW-T9v" userLabel="PhotosButton" customClass="WLButton">
@@ -2689,7 +2684,7 @@ Tap here to start.</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3d-ia-fy3" customClass="WLBadgeLabel">
-                                                <rect key="frame" x="20" y="7" width="16" height="16"/>
+                                                <rect key="frame" x="35" y="7" width="16" height="16"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="z3d-ia-fy3" secondAttribute="height" multiplier="1:1" id="Hhe-6y-XJr"/>
@@ -2709,7 +2704,7 @@ Tap here to start.</string>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                     <userDefinedRuntimeAttribute type="size" keyPath="intrinsicContentSizeInsets">
-                                                        <size key="value" width="2" height="2"/>
+                                                        <size key="value" width="10" height="0.0"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
@@ -2718,8 +2713,8 @@ Tap here to start.</string>
                                         <constraints>
                                             <constraint firstAttribute="centerY" secondItem="e5n-YY-oV2" secondAttribute="centerY" id="5x1-Az-met"/>
                                             <constraint firstAttribute="centerX" secondItem="e5n-YY-oV2" secondAttribute="centerX" id="ZXa-Kw-wBc"/>
-                                            <constraint firstItem="z3d-ia-fy3" firstAttribute="leading" secondItem="e5n-YY-oV2" secondAttribute="leading" constant="-6" id="jul-1e-lZ2"/>
-                                            <constraint firstItem="z3d-ia-fy3" firstAttribute="top" secondItem="e5n-YY-oV2" secondAttribute="top" constant="-6" id="v8P-CS-fdF"/>
+                                            <constraint firstItem="z3d-ia-fy3" firstAttribute="centerY" secondItem="9sT-hL-fQk" secondAttribute="top" constant="2" id="fnH-tN-7K1"/>
+                                            <constraint firstItem="z3d-ia-fy3" firstAttribute="centerX" secondItem="9sT-hL-fQk" secondAttribute="trailing" id="sUu-7E-iBM"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RM4-Jg-HlY" userLabel="ChatButton" customClass="WLButton">
@@ -5120,6 +5115,9 @@ QWRkEEZyaWVuZFZpZXc
     </scenes>
     <resources>
         <image name="add_by_phone_white" width="30" height="30"/>
+        <image name="bt_camera_disabled" width="40" height="40"/>
+        <image name="bt_camera_normal" width="40" height="40"/>
+        <image name="bt_camera_pressed" width="40" height="40"/>
         <image name="btn_wrap_camera_enabled" width="84" height="84"/>
         <image name="btn_wrap_camera_pressed" width="84" height="84"/>
         <image name="camera_medium" width="50" height="50"/>
@@ -5128,6 +5126,10 @@ QWRkEEZyaWVuZFZpZXc
         <image name="ic_back_in_circle_white" width="30" height="30"/>
         <image name="ic_emoji" width="26" height="26"/>
         <image name="ic_emoji_keyboard" width="30" height="18"/>
+        <image name="ic_home_normal" width="24" height="24"/>
+        <image name="ic_home_selected" width="24" height="24"/>
+        <image name="ic_hot_normal" width="24" height="24"/>
+        <image name="ic_hot_selected" width="24" height="24"/>
         <image name="ic_photo_placeholder" width="60" height="48"/>
         <image name="ic_search" width="16" height="16"/>
     </resources>

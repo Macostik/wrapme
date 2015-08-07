@@ -1309,6 +1309,10 @@
 		C5BCF04B1B551C3E00E4AD6D /* WLCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCF0431B551C3E00E4AD6D /* WLCandyCell.m */; };
 		C5BCF04C1B551C3E00E4AD6D /* WLCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCF0431B551C3E00E4AD6D /* WLCandyCell.m */; };
 		C5BCF04D1B551C3E00E4AD6D /* WLCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCF0431B551C3E00E4AD6D /* WLCandyCell.m */; };
+		C5BEB3041B74D4AC000E170B /* WLHomeSegmentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEB3031B74D4AC000E170B /* WLHomeSegmentButton.m */; };
+		C5BEB3051B74D4AC000E170B /* WLHomeSegmentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEB3031B74D4AC000E170B /* WLHomeSegmentButton.m */; };
+		C5BEB3061B74D4AC000E170B /* WLHomeSegmentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEB3031B74D4AC000E170B /* WLHomeSegmentButton.m */; };
+		C5BEB3071B74D4AC000E170B /* WLHomeSegmentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEB3031B74D4AC000E170B /* WLHomeSegmentButton.m */; };
 		C5BEE0E61B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0E31B2AC8C300D3CF70 /* WLNotificationCenter.m */; };
 		C5BEE0E81B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0E31B2AC8C300D3CF70 /* WLNotificationCenter.m */; };
 		C5BEE0E91B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0E31B2AC8C300D3CF70 /* WLNotificationCenter.m */; };
@@ -2731,6 +2735,8 @@
 		C5BCF0401B551C3E00E4AD6D /* WLCandiesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCandiesCell.m; sourceTree = "<group>"; };
 		C5BCF0421B551C3E00E4AD6D /* WLCandyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCandyCell.h; sourceTree = "<group>"; };
 		C5BCF0431B551C3E00E4AD6D /* WLCandyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCandyCell.m; sourceTree = "<group>"; };
+		C5BEB3021B74D4AC000E170B /* WLHomeSegmentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLHomeSegmentButton.h; path = WLButton/WLHomeSegmentButton.h; sourceTree = "<group>"; };
+		C5BEB3031B74D4AC000E170B /* WLHomeSegmentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLHomeSegmentButton.m; path = WLButton/WLHomeSegmentButton.m; sourceTree = "<group>"; };
 		C5BEE0E21B2AC8C300D3CF70 /* WLNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationCenter.h; sourceTree = "<group>"; };
 		C5BEE0E31B2AC8C300D3CF70 /* WLNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationCenter.m; sourceTree = "<group>"; };
 		C5BEE0E41B2AC8C300D3CF70 /* WLNotificationSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationSubscription.h; sourceTree = "<group>"; };
@@ -3613,6 +3619,8 @@
 				C52E1FC91A41951300A2C370 /* WLButton.m */,
 				C54974561ABC1C34000E3F54 /* WLQAButton.h */,
 				C54974571ABC1C34000E3F54 /* WLQAButton.m */,
+				C5BEB3021B74D4AC000E170B /* WLHomeSegmentButton.h */,
+				C5BEB3031B74D4AC000E170B /* WLHomeSegmentButton.m */,
 			);
 			name = WLButton;
 			sourceTree = "<group>";
@@ -7052,6 +7060,7 @@
 				C52E1FD51A41951300A2C370 /* WLLabel.m in Sources */,
 				C5BEE0ED1B2AC8C300D3CF70 /* WLNotificationSubscription.m in Sources */,
 				C5A82CD31ACD979B00336027 /* WLSignificantTimeBroadcaster.m in Sources */,
+				C5BEB3051B74D4AC000E170B /* WLHomeSegmentButton.m in Sources */,
 				C53E5D611A851F71004F61B0 /* WLAssetsGroupViewController.m in Sources */,
 				C5C016261B455760003623EC /* PNSubscriberResults.m in Sources */,
 				C500996F1ADFCC940064CC7B /* WLEntryCell.m in Sources */,
@@ -7332,6 +7341,7 @@
 				C52E1FD61A41951300A2C370 /* WLLabel.m in Sources */,
 				C5BEE0EE1B2AC8C300D3CF70 /* WLNotificationSubscription.m in Sources */,
 				C5A82CD41ACD979B00336027 /* WLSignificantTimeBroadcaster.m in Sources */,
+				C5BEB3061B74D4AC000E170B /* WLHomeSegmentButton.m in Sources */,
 				C53E5D621A851F71004F61B0 /* WLAssetsGroupViewController.m in Sources */,
 				C5C016271B455760003623EC /* PNSubscriberResults.m in Sources */,
 				C50099701ADFCC940064CC7B /* WLEntryCell.m in Sources */,
@@ -7612,6 +7622,7 @@
 				C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */,
 				C5BEE0EF1B2AC8C300D3CF70 /* WLNotificationSubscription.m in Sources */,
 				C5A82CD51ACD979B00336027 /* WLSignificantTimeBroadcaster.m in Sources */,
+				C5BEB3071B74D4AC000E170B /* WLHomeSegmentButton.m in Sources */,
 				C5C016281B455760003623EC /* PNSubscriberResults.m in Sources */,
 				C53E5D631A851F71004F61B0 /* WLAssetsGroupViewController.m in Sources */,
 				C5C0165A1B455760003623EC /* PNString.m in Sources */,
@@ -7918,6 +7929,7 @@
 				C574793F1B26FA45001AB8C0 /* WLLabel.m in Sources */,
 				C5BEE0EB1B2AC8C300D3CF70 /* WLNotificationSubscription.m in Sources */,
 				C57479401B26FA45001AB8C0 /* WLSignificantTimeBroadcaster.m in Sources */,
+				C5BEB3041B74D4AC000E170B /* WLHomeSegmentButton.m in Sources */,
 				C57479411B26FA45001AB8C0 /* WLAssetsGroupViewController.m in Sources */,
 				C5C016241B455760003623EC /* PNSubscriberResults.m in Sources */,
 				C57479421B26FA45001AB8C0 /* WLEntryCell.m in Sources */,

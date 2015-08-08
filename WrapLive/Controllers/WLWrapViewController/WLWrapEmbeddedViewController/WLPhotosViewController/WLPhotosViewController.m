@@ -51,6 +51,8 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     
     [super viewDidLoad];
     
+    self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
+    
     __weak typeof(self)weakSelf = self;
     [self.dataSource setItemSizeBlock:^CGSize(id entry, NSUInteger index) {
         return CGSizeMake(weakSelf.collectionView.width, (weakSelf.collectionView.width/2.5f + WLCandiesHistoryDateHeaderHeight));

@@ -105,9 +105,9 @@
         AVCaptureDevicePosition defaultPosition = AVCaptureDevicePositionBack;
         AVCaptureFlashMode flashMode = AVCaptureFlashModeOff;
         if (weakSelf.mode == WLStillPictureModeDefault) {
-            NSNumber *savedDefaultPosition = [WLSession object:@"WLCameraDefaultPosition"];
+            NSNumber *savedDefaultPosition = WLSession.cameraDefaultPosition;
             if (savedDefaultPosition) defaultPosition = [savedDefaultPosition integerValue];
-            NSNumber *savedFlashMode = [WLSession object:@"WLCameraDefaultFlashMode"];
+            NSNumber *savedFlashMode = WLSession.cameraDefaultFlashMode;
             if (savedFlashMode) flashMode = [savedFlashMode integerValue];
         } else {
             defaultPosition = AVCaptureDevicePositionFront;
@@ -261,7 +261,7 @@
 		sender.mode = self.flashMode;
 	}
     if (self.mode == WLStillPictureModeDefault) {
-        [WLSession setObject:@(self.flashMode) key:@"WLCameraDefaultFlashMode"];
+        WLSession.cameraDefaultFlashMode = @(self.flashMode);
     }
 }
 
@@ -275,7 +275,7 @@
     self.zoomScale = 1;
     if (self.mode == WLStillPictureModeDefault) {
         if (self.position != AVCaptureDevicePositionUnspecified)
-            [WLSession setObject:@(self.position) key:@"WLCameraDefaultPosition"];
+            WLSession.cameraDefaultPosition = @(self.position);
     }
 }
 

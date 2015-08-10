@@ -44,8 +44,6 @@
 
 + (WLAuthorization*)currentAuthorization;
 
-+ (WLAuthorization*)currentAuthorization:(BOOL)create;
-
 + (void)setCurrentAuthorization:(WLAuthorization*)authorization;
 
 + (NSString *)priorityEmail;

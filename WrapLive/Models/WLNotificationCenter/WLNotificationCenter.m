@@ -22,18 +22,11 @@
 
 @property (strong, nonatomic) WLNotificationSubscription* userSubscription;
 
-@property (strong, nonatomic) NSDate* historyDate;
-
-@property (strong, nonatomic) NSOrderedSet* handledNotifications;
-
 @property (strong, nonatomic) NSMutableArray* enqueuedMessages;
 
 @end
 
 @implementation WLNotificationCenter
-
-@synthesize historyDate = _historyDate;
-@synthesize handledNotifications = _handledNotifications;
 
 + (instancetype)defaultCenter {
     static id instance = nil;
@@ -57,18 +50,6 @@
         
     }
     return self;
-}
-
-- (NSDate *)historyDate {
-    if (!_historyDate) _historyDate = [WLSession object:@"historyDate"];
-    return _historyDate;
-}
-
-- (void)setHistoryDate:(NSDate *)historyDate {
-    if (historyDate) {
-        _historyDate = historyDate;
-        [WLSession setObject:historyDate key:@"historyDate"];
-    }
 }
 
 - (void)deviceToken:(WLDataBlock)completion {
@@ -156,13 +137,13 @@
 
 - (void)clear {
     self.userSubscription = nil;
-    self.handledNotifications = nil;
-    self.historyDate = nil;
+    WLSession.handledNotifications = nil;
+    WLSession.historyDate = nil;
     [[[PubNub sharedInstance] currentConfiguration] setUUID:nil];
 }
 
 - (BOOL)isAlreadyHandledNotification:(WLNotification*)notification {
-    return [self.handledNotifications containsObject:notification.identifier];
+    return [WLSession.handledNotifications containsObject:notification.identifier];
 }
 
 - (void)handleNotification:(WLEntryNotification*)notification completion:(WLBlock)completion {
@@ -180,31 +161,19 @@
     }];
     
     if (identifiers.nonempty) {
-        NSMutableOrderedSet *handledNotifications = [self.handledNotifications mutableCopy];
+        NSMutableOrderedSet *handledNotifications = [WLSession.handledNotifications mutableCopy];
         if (handledNotifications.count > 100) {
             [handledNotifications removeObjectsInRange:NSMakeRange(0, MIN(100, identifiers.count))];
         }
         [handledNotifications unionOrderedSet:[NSOrderedSet orderedSetWithArray:identifiers]];
-        self.handledNotifications = handledNotifications;
+        WLSession.handledNotifications = handledNotifications;
     }
-}
-
-- (NSOrderedSet *)handledNotifications {
-    if (!_handledNotifications) {
-        _handledNotifications = [NSOrderedSet orderedSetWithArray:[WLSession object:@"handledNotifications"]];
-    }
-    return _handledNotifications;
-}
-
-- (void)setHandledNotifications:(NSOrderedSet *)handledNotifications {
-    _handledNotifications = handledNotifications;
-    [WLSession setObject:[_handledNotifications array] key:@"handledNotifications"];
 }
 
 - (void)requestHistory {
     __weak typeof(self)weakSelf = self;
     runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-        NSDate *historyDate = weakSelf.historyDate;
+        NSDate *historyDate = WLSession.historyDate;
         if (historyDate) {
             NSDate *fromDate = historyDate;
             NSDate *toDate = [NSDate now];
@@ -217,11 +186,11 @@
                     if (messages.count > 0) {
                         WLLog(@"PUBNUB", ([NSString stringWithFormat:@"received history starting from: %@ to: %@", fromDate, toDate]), nil);
                         [weakSelf handleHistoryMessages:messages];
-                        weakSelf.historyDate = [[NSDate dateWithTimetoken:[(NSDictionary*)[messages lastObject] numberForKey:@"timetoken"]] dateByAddingTimeInterval:0.001];
+                        WLSession.historyDate = [[NSDate dateWithTimetoken:[(NSDictionary*)[messages lastObject] numberForKey:@"timetoken"]] dateByAddingTimeInterval:0.001];
                         [weakSelf requestHistory];
                     } else {
                         WLLog(@"PUBNUB", @"no missed messages in history", nil);
-                        weakSelf.historyDate = toDate;
+                        WLSession.historyDate = toDate;
                     }
                     [operation finish];
                 } failure:^(NSError *error) {
@@ -232,7 +201,7 @@
             }
         } else {
             WLLog(@"PUBNUB", @"history date is empty", nil);
-            weakSelf.historyDate = [NSDate now];
+            WLSession.historyDate = [NSDate now];
             [operation finish];
         }
     });

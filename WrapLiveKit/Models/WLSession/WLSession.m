@@ -18,9 +18,6 @@
 #import "NSUserDefaults+WLAppGroup.h"
 #import "NSObject+Extension.h"
 
-static NSString* WLSessionServiceName = @"WrapLive";
-static NSString* WLSessionAccountName = @"WrapLiveAccount";
-static NSString* WLSessionUserKey = @"WrapLiveUser";
 static NSString* WLSessionAuthorizationKey = @"WrapLiveAuthorization";
 static NSString* WLSessionPhoneNumberKey = @"WrapLivePhoneNumber";
 static NSString* WLSessionCountryCallingCodeKey = @"WrapLiveCountryCallingCode";
@@ -28,158 +25,240 @@ static NSString* WLSessionEmailKey = @"WLSessionEmailKey";
 static NSString* WLSessionDeviceTokenKey = @"WrapLiveDeviceToken";
 static NSString* WLSessionConfirmationKey = @"WLSessionConfirmationConditions";
 static NSString* WLSessionAppVersionKey = @"wrapLiveVersion";
+static NSString* WLSessionServerTimeDifference = @"WLServerTimeDifference";
 
-@implementation WLSession
+@implementation NSUserDefaults (WLSessionData)
 
-+ (void)initialize {
-    [super initialize];
-    WLUserDefaults = [NSUserDefaults standardUserDefaults];
-}
+// MARK: - authorization
 
 static WLAuthorization* _authorization = nil;
 
-+ (WLAuthorization *)authorization {
-    return [self authorization:YES];
-}
-
-+ (WLAuthorization *)authorization:(BOOL)create {
+- (WLAuthorization *)authorization {
     if (!_authorization) {
         NSData *data = [[NSUserDefaults appGroupUserDefaults] objectForKey:WLAppGroupEncryptedAuthorization];
         if (data) {
             data = [WLCryptographer decryptData:data];
         } else {
-            data = [[NSUserDefaults standardUserDefaults] objectForKey:WLSessionAuthorizationKey];
+            data = [self objectForKey:WLSessionAuthorizationKey];
         }
         _authorization = [WLAuthorization unarchive:data];
-    }
-    if (!_authorization && create) {
-        _authorization = [[WLAuthorization alloc] init];
     }
     return _authorization;
 }
 
-+ (void)setAuthorization:(WLAuthorization *)authorization {
+- (void)setAuthorization:(WLAuthorization *)authorization {
     _authorization = authorization;
+    NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
     if (authorization) {
         [authorization archive:^(NSData *data) {
             NSData *encryptedData = [WLCryptographer encryptData:data];
-            NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
             [userDefaults setObject:encryptedData forKey:WLAppGroupEncryptedAuthorization];
-            [userDefaults synchronize];
-            [[NSUserDefaults standardUserDefaults] setObject:encryptedData forKey:WLAppGroupEncryptedAuthorization];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self setObject:encryptedData forKey:WLAppGroupEncryptedAuthorization];
         }];
     } else {
-        NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
         [userDefaults setObject:nil forKey:WLAppGroupEncryptedAuthorization];
-        [userDefaults synchronize];
-        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:WLAppGroupEncryptedAuthorization];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self setObject:nil forKey:WLAppGroupEncryptedAuthorization];
     }
+    [userDefaults synchronize];
+    [self enqueueSynchronize];
 }
 
-+ (NSString *)UDID {
-	return [OpenUDID value];
-}
+// MARK: - authorizationCookie
 
-+ (void)clear {
-    [WLUser setCurrentUser:nil];
-	[self setAuthorization:nil];
-    [self setAuthorizationCookie:nil];
-    [[WLEntryManager manager] clear];
-}
-
-static NSData* _deviceToken = nil;
-static NSDate *_confirmationDate = nil;
-
-+ (NSData *)deviceToken {
-	if (!_deviceToken) {
-		_deviceToken = [WLUserDefaults dataForKey:WLSessionDeviceTokenKey];
-	}
-	return _deviceToken;
-}
-
-+ (void)setDeviceToken:(NSData *)deviceToken {
-	_deviceToken = deviceToken;
-	[WLUserDefaults setObject:deviceToken forKey:WLSessionDeviceTokenKey];
-    [self synchronize];
-}
-
-+ (NSDate *)confirmationDate {
-    if (!_confirmationDate) {
-        _confirmationDate = [WLUserDefaults objectForKey:WLSessionConfirmationKey];
-    }
-    return _confirmationDate;
-}
-
-+ (void)setConfirmationDate:(NSDate *)confirmationDate {
-    _confirmationDate = confirmationDate;
-    [WLUserDefaults setObject:confirmationDate forKey:WLSessionConfirmationKey];
-    [self synchronize];
-}
-
-+ (void)setObject:(id)o key:(NSString *)k {
-    [WLUserDefaults setObject:o forKey:k];
-    [self synchronize];
-}
-
-+ (void)setDouble:(double)d key:(NSString *)k {
-    [WLUserDefaults setDouble:d forKey:k];
-    [self synchronize];
-}
-
-+ (void)setInteger:(NSInteger)i key:(NSString *)k {
-    [WLUserDefaults setInteger:i forKey:k];
-    [self synchronize];
-}
-
-+ (id)object:(NSString*)k {
-    return [WLUserDefaults objectForKey:k];
-}
-
-+ (double)wl_double:(NSString*)k {
-    return [WLUserDefaults doubleForKey:k];
-}
-
-+ (NSInteger)integer:(NSString*)k {
-    return [WLUserDefaults integerForKey:k];
-}
-
-+ (void)synchronize {
-    [WLUserDefaults enqueueSelectorPerforming:_cmd];
-}
-
-+ (NSString *)appVersion {
-    return [self object:WLSessionAppVersionKey];
-}
-
-+ (void)setAppVersion:(NSString *)version {
-    [self setObject:version key:WLSessionAppVersionKey];
-}
-
-+ (void)setCurrentAppVersion {
-    NSString* currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    [self setAppVersion:currentVersion];
-}
-
-+ (NSUInteger)numberOfLaunches {
-    return [self integer:@"WLNumberOfLaucnhes"];
-}
-
-+ (void)setNumberOfLaunches:(NSUInteger)numberOfLaunches {
-    [self setInteger:numberOfLaunches key:@"WLNumberOfLaucnhes"];
-}
-
-+ (NSHTTPCookie*)authorizationCookie {
-    NSDictionary *cookieProperties = [self object:@"authorizationCookie"];
+- (NSHTTPCookie*)authorizationCookie {
+    NSDictionary *cookieProperties = [self dictionaryForKey:@"authorizationCookie"];
     if (cookieProperties) {
         return [NSHTTPCookie cookieWithProperties:cookieProperties];
     }
     return nil;
 }
 
-+ (void)setAuthorizationCookie:(NSHTTPCookie*)authorizationCookie {
-    [self setObject:authorizationCookie.properties key:@"authorizationCookie"];
+- (void)setAuthorizationCookie:(NSHTTPCookie*)authorizationCookie {
+    [self setObject:authorizationCookie.properties forKey:@"authorizationCookie"];
+    [self enqueueSynchronize];
+}
+
+// MARK: - UDID
+
+- (NSString *)UDID {
+	return [OpenUDID value];
+}
+
+// MARK: - deviceToken
+
+static NSData* _deviceToken = nil;
+
+- (NSData *)deviceToken {
+	if (!_deviceToken) {
+		_deviceToken = [self dataForKey:WLSessionDeviceTokenKey];
+	}
+	return _deviceToken;
+}
+
+- (void)setDeviceToken:(NSData *)deviceToken {
+	_deviceToken = deviceToken;
+	[self setObject:deviceToken forKey:WLSessionDeviceTokenKey];
+    [self enqueueSynchronize];
+}
+
+// MARK: - confirmationDate
+
+static NSDate *_confirmationDate = nil;
+
+- (NSDate *)confirmationDate {
+    if (!_confirmationDate) {
+        _confirmationDate = [self objectForKey:WLSessionConfirmationKey];
+    }
+    return _confirmationDate;
+}
+
+- (void)setConfirmationDate:(NSDate *)confirmationDate {
+    _confirmationDate = confirmationDate;
+    [self setObject:confirmationDate forKey:WLSessionConfirmationKey];
+    [self enqueueSynchronize];
+}
+
+// MARK: - appVersion
+
+- (NSString *)appVersion {
+    return [self stringForKey:WLSessionAppVersionKey];
+}
+
+- (void)setAppVersion:(NSString *)version {
+    [self setObject:version forKey:WLSessionAppVersionKey];
+    [self enqueueSynchronize];
+}
+
+// MARK: - numberOfLaunches
+
+- (NSUInteger)numberOfLaunches {
+    return [self integerForKey:@"WLNumberOfLaucnhes"];
+}
+
+- (void)setNumberOfLaunches:(NSUInteger)numberOfLaunches {
+    [self setInteger:numberOfLaunches forKey:@"WLNumberOfLaucnhes"];
+    [self enqueueSynchronize];
+}
+
+// MARK: - serverTimeDifference
+
+static NSTimeInterval _difference = 0;
+
+- (NSTimeInterval)serverTimeDifference {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _difference = [self doubleForKey:WLSessionServerTimeDifference];
+    });
+    return _difference;
+}
+
+- (void)setServerTimeDifference:(NSTimeInterval)interval {
+    if (_difference != interval) {
+        _difference = interval;
+        [self setDouble:interval forKey:WLSessionServerTimeDifference];
+        [self enqueueSynchronize];
+    }
+}
+
+// MARK: - cameraDefaultPosition
+
+- (NSNumber*)cameraDefaultPosition {
+    return [self objectForKey:@"WLCameraDefaultPosition"];
+}
+
+- (void)setCameraDefaultPosition:(NSNumber*)cameraDefaultPosition {
+    [self setObject:cameraDefaultPosition forKey:@"WLCameraDefaultPosition"];
+    [self enqueueSynchronize];
+}
+
+// MARK: - cameraDefaultFlashMode
+
+- (NSNumber*)cameraDefaultFlashMode {
+    return [self objectForKey:@"WLCameraDefaultFlashMode"];
+}
+
+- (void)setCameraDefaultFlashMode:(NSNumber*)cameraDefaultFlashMode {
+    [self setObject:cameraDefaultFlashMode forKey:@"WLCameraDefaultFlashMode"];
+    [self enqueueSynchronize];
+}
+
+// MARK: - shownHints
+
+- (NSMutableDictionary *)shownHints {
+    NSMutableDictionary *shownHints = [self objectForKey:@"WLHintView_shownHints"];
+    if (!shownHints) {
+        self.shownHints = shownHints = [NSMutableDictionary dictionary];
+    } else {
+        shownHints = [shownHints mutableCopy];
+    }
+    return shownHints;
+}
+
+- (void)setShownHints:(NSMutableDictionary *)shownHints {
+    [self setObject:shownHints forKey:@"WLHintView_shownHints"];
+    [self enqueueSynchronize];
+}
+
+// MARK: - historyDate
+
+static NSDate *_historyDate;
+
+- (NSDate *)historyDate {
+    if (!_historyDate) _historyDate = [self objectForKey:@"historyDate"];
+    return _historyDate;
+}
+
+- (void)setHistoryDate:(NSDate *)historyDate {
+    if (historyDate) {
+        _historyDate = historyDate;
+        [self setObject:historyDate forKey:@"historyDate"];
+        [self enqueueSynchronize];
+    }
+}
+
+// MARK: - handledNotifications
+
+static NSOrderedSet *_handledNotifications;
+
+- (NSOrderedSet *)handledNotifications {
+    if (!_handledNotifications) {
+        _handledNotifications = [NSOrderedSet orderedSetWithArray:[self objectForKey:@"handledNotifications"]];
+    }
+    return _handledNotifications;
+}
+
+- (void)setHandledNotifications:(NSOrderedSet *)handledNotifications {
+    _handledNotifications = handledNotifications;
+    [self setObject:[_handledNotifications array] forKey:@"handledNotifications"];
+    [self enqueueSynchronize];
+}
+
+// MARK: - recentEmojis
+
+- (NSArray *)recentEmojis {
+    return [self arrayForKey:@"recentEmojis"];
+}
+
+- (void)setRecentEmojis:(NSArray *)recentEmojis {
+    [self setObject:recentEmojis forKey:@"recentEmojis"];
+    [self enqueueSynchronize];
+}
+
+// MARK: - methods
+
+- (void)setCurrentAppVersion {
+    self.appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+}
+
+- (void)clear {
+    [WLUser setCurrentUser:nil];
+    [self setAuthorization:nil];
+    [self setAuthorizationCookie:nil];
+    [[WLEntryManager manager] clear];
+}
+
+- (void)enqueueSynchronize {
+    [self enqueueSelectorPerforming:@selector(synchronize)];
 }
 
 @end

@@ -8,72 +8,42 @@
 
 #import <Foundation/Foundation.h>
 
-@class WLUser;
 @class WLAuthorization;
 
-static NSUserDefaults* WLUserDefaults = nil;
+#define WLSession [NSUserDefaults standardUserDefaults]
 
-@interface WLSession : NSObject
+@interface NSUserDefaults (WLSessionData)
 
-/**
- *  Get current authorization.
- *
- *  @return WLAuthorization object
- */
-+ (WLAuthorization*)authorization;
+@property WLAuthorization *authorization;
 
-+ (WLAuthorization*)authorization:(BOOL)create;
+@property NSHTTPCookie *authorizationCookie;
 
-/**
- *  Set current authorization.
- *
- *  @param authorization WLAuthorization object
- */
-+ (void)setAuthorization:(WLAuthorization*)authorization;
+@property (readonly) NSString *UDID;
 
-/**
- *  Get UDID for current device.
- *
- *  @return string object with UDID
- */
-+ (NSString*)UDID;
+@property NSData *deviceToken;
 
-+ (void)clear;
+@property NSDate *confirmationDate;
 
-+ (NSData*)deviceToken;
+@property NSString *appVersion;
 
-+ (void)setDeviceToken:(NSData*)deviceToken;
+@property NSUInteger numberOfLaunches;
 
-+ (NSDate *)confirmationDate;
+@property NSTimeInterval serverTimeDifference;
 
-+ (void)setConfirmationDate:(NSDate *)confirmationConditions;
+@property NSNumber *cameraDefaultPosition;
 
-+ (void)setObject:(id)o key:(NSString*)k;
+@property NSNumber *cameraDefaultFlashMode;
 
-+ (void)setDouble:(double)d key:(NSString*)k;
+@property NSMutableDictionary *shownHints;
 
-+ (void)setInteger:(NSInteger)i key:(NSString*)k;
+@property NSDate *historyDate;
 
-+ (id)object:(NSString*)k;
+@property NSOrderedSet *handledNotifications;
 
-+ (double)wl_double:(NSString*)k;
+@property NSArray *recentEmojis;
 
-+ (NSInteger)integer:(NSString*)k;
+- (void)setCurrentAppVersion;
 
-+ (void)synchronize;
-
-+ (NSString*)appVersion;
-
-+ (void)setAppVersion:(NSString*)version;
-
-+ (void)setCurrentAppVersion;
-
-+ (NSUInteger)numberOfLaunches;
-
-+ (void)setNumberOfLaunches:(NSUInteger)numberOfLaunches;
-
-+ (NSHTTPCookie*)authorizationCookie;
-
-+ (void)setAuthorizationCookie:(NSHTTPCookie*)authorizationCookie;
+- (void)clear;
 
 @end

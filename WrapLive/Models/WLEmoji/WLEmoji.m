@@ -15,7 +15,7 @@ static NSArray *_recentEmoji = nil;
 @implementation WLEmoji
 
 + (NSArray *)recentEmoji {
-    NSArray * recentEmoji = [[NSUserDefaults standardUserDefaults] arrayForKey:WLEmojiTypeRecent];
+    NSArray * recentEmoji = WLSession.recentEmojis;
     if (recentEmoji.nonempty) {
         return [[recentEmoji reverseObjectEnumerator] allObjects];
     } else {
@@ -28,7 +28,7 @@ static NSArray *_recentEmoji = nil;
 }
 
 + (void)saveAsRecent:(NSString *)emoji {
-    NSMutableArray * recentEmoji = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:WLEmojiTypeRecent]];
+    NSMutableArray * recentEmoji = [NSMutableArray arrayWithArray:WLSession.recentEmojis];
     if (![recentEmoji containsObject:emoji]) {
         [recentEmoji addObject:emoji];
         if (recentEmoji.count > WLMaxRecentEmojiCount) {
@@ -38,8 +38,7 @@ static NSArray *_recentEmoji = nil;
         [recentEmoji removeObject:emoji];
         [recentEmoji addObject:emoji];
     }
-    [[NSUserDefaults standardUserDefaults] setObject:recentEmoji forKey:WLEmojiTypeRecent];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    WLSession.recentEmojis = recentEmoji;
 }
 
 @end

@@ -110,7 +110,7 @@
     
     self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
     
-    [WLSession setNumberOfLaunches:[WLSession numberOfLaunches] + 1];
+    WLSession.numberOfLaunches++;
     
     [self performSelector:@selector(showIntroductionIfNeeded) withObject:nil afterDelay:0.0];
     
@@ -165,8 +165,7 @@
 }
 
 - (void)showIntroductionIfNeeded {
-    NSUInteger numberOfLaunches = [WLSession numberOfLaunches];
-    if (numberOfLaunches == 1) {
+    if (WLSession.numberOfLaunches == 1) {
         static BOOL introductionShown = NO;
         if (!introductionShown) {
             introductionShown = YES;
@@ -194,8 +193,7 @@
     [self updateEmailConfirmationView:NO];
     [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
     [self.uploadingView update];
-    NSUInteger numberOfLaunches = [WLSession numberOfLaunches];
-    if (numberOfLaunches >= 3 && [WLUser currentUser].wraps.count >= 3) {
+    if (WLSession.numberOfLaunches >= 3 && [WLUser currentUser].wraps.count >= 3) {
           [WLHintView showHomeSwipeTransitionHintViewInView:[UIWindow mainWindow]];
     }
 }

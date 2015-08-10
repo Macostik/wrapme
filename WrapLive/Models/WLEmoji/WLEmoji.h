@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString* WLEmojiTypeRecent = @"reсent";
 static NSString* WLEmojiTypeSmiles = @"smiles";
 static NSString* WLEmojiTypeFlowers = @"flowers";
 static NSString* WLEmojiTypeRings = @"rings";

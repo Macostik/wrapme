@@ -17,33 +17,16 @@ static NSString* WLServerTimeDifference = @"WLServerTimeDifference";
 
 @implementation NSDate (WLServerTime)
 
-static NSTimeInterval _difference = 0;
-
-+ (NSTimeInterval)serverTimeDifference {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _difference = [WLSession wl_double:WLServerTimeDifference];
-    });
-    return _difference;
-}
-
-+ (void)setServerTimeDifference:(NSTimeInterval)interval {
-    if (_difference != interval) {
-        _difference = interval;
-        [WLSession setDouble:interval key:WLServerTimeDifference];
-    }
-}
-
 + (void)trackServerTime:(NSDate *)serverTime {
-    [self setServerTimeDifference:serverTime ? [serverTime timeIntervalSinceNow] : 0];
+    WLSession.serverTimeDifference = serverTime ? [serverTime timeIntervalSinceNow] : 0;
 }
 
 + (NSDate*)now {
-    return [self dateWithTimeIntervalSinceNow:[self serverTimeDifference]];
+    return [self dateWithTimeIntervalSinceNow:WLSession.serverTimeDifference];
 }
 
 + (instancetype)now:(NSTimeInterval)offset {
-    return [self dateWithTimeIntervalSinceNow:[self serverTimeDifference] + offset];
+    return [self dateWithTimeIntervalSinceNow:WLSession.serverTimeDifference + offset];
 }
 
 @end

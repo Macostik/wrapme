@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString *const WLURLScheme = @"wraplive";
+static NSString *const WLURLScheme = @"moji";
 
 @interface NSURL (WLRemoteEntryHandler)
 

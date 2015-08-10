@@ -40,7 +40,7 @@
 @implementation WLCache
 
 + (void)initialize {
-    [[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:WLAppGroupIdentifier()] path]];
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:AppGroupIdentifier()] path]];
 }
 
 + (instancetype)cache {

@@ -14,7 +14,7 @@
 + (instancetype)appGroupUserDefaults {
     static NSUserDefaults *appGroupUserDefaults = nil;
     if (!appGroupUserDefaults) {
-        appGroupUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:WLAppGroupIdentifier()];
+        appGroupUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:AppGroupIdentifier()];
     }
     return appGroupUserDefaults;
 }

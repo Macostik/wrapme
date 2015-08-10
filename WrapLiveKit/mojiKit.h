@@ -89,7 +89,6 @@ FOUNDATION_EXPORT const unsigned char mojiKitVersionString[];
 #import <mojiKit/WLAPIResponse.h>
 #import <mojiKit/NSError+WLAPIManager.h>
 #import <mojiKit/WLAPIEnvironment.h>
-#import <mojiKit/WLAPIEnvironment+TestUsers.h>
 #import <mojiKit/WLLogger.h>
 #import <mojiKit/WLLocalization.h>
 #import <mojiKit/NSUserDefaults+WLAppGroup.h>

@@ -515,7 +515,6 @@
 		C587C79A1AD2E6A0003E7647 /* WLAPIRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CBD1ACD968A0052578A /* WLAPIRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7A51AD2E6A0003E7647 /* WLPaginatedRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CD51ACD968B0052578A /* WLPaginatedRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7B31AD2E6A0003E7647 /* NSError+WLAPIManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CB21ACD968A0052578A /* NSError+WLAPIManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C587C7B41AD2E6A0003E7647 /* WLAPIEnvironment+TestUsers.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CB41ACD968A0052578A /* WLAPIEnvironment+TestUsers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7B51AD2E6A0003E7647 /* WLAPIEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CB61ACD968A0052578A /* WLAPIEnvironment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7B61AD2E6A0003E7647 /* WLEntry+WLAPIRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CB81ACD968A0052578A /* WLEntry+WLAPIRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7B71AD2E6A0003E7647 /* WLAPIResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612CF11ACD968B0052578A /* WLAPIResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -589,7 +588,6 @@
 		C587C8611AD2E6DB003E7647 /* WLAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CBE1ACD968A0052578A /* WLAPIRequest.m */; };
 		C587C86C1AD2E6DB003E7647 /* WLPaginatedRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CD61ACD968B0052578A /* WLPaginatedRequest.m */; };
 		C587C87A1AD2E6DB003E7647 /* NSError+WLAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CB31ACD968A0052578A /* NSError+WLAPIManager.m */; };
-		C587C87B1AD2E6DB003E7647 /* WLAPIEnvironment+TestUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CB51ACD968A0052578A /* WLAPIEnvironment+TestUsers.m */; };
 		C587C87C1AD2E6DB003E7647 /* WLAPIEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CB71ACD968A0052578A /* WLAPIEnvironment.m */; };
 		C587C87D1AD2E6DB003E7647 /* WLEntry+WLAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CB91ACD968A0052578A /* WLEntry+WLAPIRequest.m */; };
 		C587C87E1AD2E6DB003E7647 /* WLAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612CF21ACD968B0052578A /* WLAPIResponse.m */; };
@@ -1699,8 +1697,6 @@
 		C5612CAF1ACD968A0052578A /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		C5612CB21ACD968A0052578A /* NSError+WLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+WLAPIManager.h"; sourceTree = "<group>"; };
 		C5612CB31ACD968A0052578A /* NSError+WLAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WLAPIManager.m"; sourceTree = "<group>"; };
-		C5612CB41ACD968A0052578A /* WLAPIEnvironment+TestUsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLAPIEnvironment+TestUsers.h"; sourceTree = "<group>"; };
-		C5612CB51ACD968A0052578A /* WLAPIEnvironment+TestUsers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLAPIEnvironment+TestUsers.m"; sourceTree = "<group>"; };
 		C5612CB61ACD968A0052578A /* WLAPIEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAPIEnvironment.h; sourceTree = "<group>"; };
 		C5612CB71ACD968A0052578A /* WLAPIEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAPIEnvironment.m; sourceTree = "<group>"; };
 		C5612CB81ACD968A0052578A /* WLEntry+WLAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLEntry+WLAPIRequest.h"; sourceTree = "<group>"; };
@@ -3965,8 +3961,6 @@
 				C5612CBA1ACD968A0052578A /* WLAPIRequest */,
 				C5612CB21ACD968A0052578A /* NSError+WLAPIManager.h */,
 				C5612CB31ACD968A0052578A /* NSError+WLAPIManager.m */,
-				C5612CB41ACD968A0052578A /* WLAPIEnvironment+TestUsers.h */,
-				C5612CB51ACD968A0052578A /* WLAPIEnvironment+TestUsers.m */,
 				C5612CB61ACD968A0052578A /* WLAPIEnvironment.h */,
 				C5612CB71ACD968A0052578A /* WLAPIEnvironment.m */,
 				C5612CB81ACD968A0052578A /* WLEntry+WLAPIRequest.h */,
@@ -5183,7 +5177,6 @@
 				C587C7BF1AD2E6A0003E7647 /* WLSystemImageCache.h in Headers */,
 				C587C77F1AD2E619003E7647 /* mojiKit-Prefix.pch in Headers */,
 				C587C8D81AD2E708003E7647 /* LogFiles.h in Headers */,
-				C587C7B41AD2E6A0003E7647 /* WLAPIEnvironment+TestUsers.h in Headers */,
 				C587C7D41AD2E6A0003E7647 /* WLUser.h in Headers */,
 				C587C7C31AD2E6A0003E7647 /* WLComment+Extended.h in Headers */,
 				C587C7831AD2E6A0003E7647 /* NSDate+Additions.h in Headers */,
@@ -6604,7 +6597,6 @@
 				C587C8AE1AD2E708003E7647 /* AFHTTPSessionManager.m in Sources */,
 				C587C87F1AD2E6DB003E7647 /* WLLogger.m in Sources */,
 				C587C8C31AD2E708003E7647 /* UIButton+AFNetworking.m in Sources */,
-				C587C87B1AD2E6DB003E7647 /* WLAPIEnvironment+TestUsers.m in Sources */,
 				C5B93D461B4E7BE8005681DB /* NSDictionary+Extended.m in Sources */,
 				C587C8A41AD2E6DB003E7647 /* WLPaginatedSet.m in Sources */,
 			);

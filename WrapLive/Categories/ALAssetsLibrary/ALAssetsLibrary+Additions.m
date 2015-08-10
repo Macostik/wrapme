@@ -31,17 +31,12 @@ static NSDate *lastAssetCreationDate = nil;
         [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
             if (alAsset) {
                 NSDate *date = [alAsset valueForProperty:ALAssetPropertyDate];
-                if (lastAssetCreationDate) {
-                    if ([lastAssetCreationDate compare:date] == NSOrderedAscending) {
-                        if (completion) completion(YES);
-                    } else {
-                        if (completion) completion(NO);
-                    }
-                } else if (date) {
-                    if (completion) completion(YES);
-                }
+                BOOL hasChanges = !lastAssetCreationDate || [lastAssetCreationDate compare:date] == NSOrderedAscending;
                 lastAssetCreationDate = date;
                 *stop = YES; *innerStop = YES;
+                if (completion) completion(hasChanges);
+            } else {
+                if (completion) completion(NO);
             }
         }];
     } failureBlock: ^(NSError *error) {

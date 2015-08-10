@@ -10,10 +10,10 @@
 
 static NSString *const WLAppGroupEncryptedAuthorization = @"encrypted_authorization";
 
-static inline NSString *WLAppGroupIdentifier(void) {
+static inline NSString *AppGroupIdentifier(void) {
     static NSString *identifier = nil;
     if (!identifier) {
-        identifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WLAppGroupIdentifier"];
+        identifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AppGroupIdentifier"];
         if (identifier.length == 0) identifier = @"group.com.ravenpod.wraplive";
     }
     return identifier;

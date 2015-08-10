@@ -80,9 +80,12 @@
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
-    run_after(0.5f, ^{
-        [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
-        }];
+    runUnaryQueuedOperation(@"background_fetch", ^(WLOperation *operation) {
+        run_after(0.5f, ^{
+            [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
+                [operation finish];
+            }];
+        });
     });
     
 	return YES;
@@ -301,7 +304,7 @@ static WLDataBlock deviceTokenCompletion = nil;
         return;
     }
     
-    runDefaultQueuedOperations (@"background_fetch", ^(WLOperation *operation) {
+    runUnaryQueuedOperations(@"background_fetch", ^(WLOperation *operation) {
         [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
             if (hasChanges) {
                 UILocalNotification *photoNotification = [[UILocalNotification alloc] init];

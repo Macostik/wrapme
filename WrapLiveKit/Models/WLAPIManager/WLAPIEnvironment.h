@@ -20,12 +20,12 @@ static NSString* WLAPIEnvironmentProduction = @"production";
 
 @property (strong, nonatomic) NSString* version;
 
-@property (strong, nonatomic) NSString* urlScheme;
-
 @property (readonly, nonatomic) BOOL isProduction;
 
 + (instancetype)environmentNamed:(NSString*)name;
 
 + (instancetype)currentEnvironment;
+
+- (void)testUsers:(void (^)(NSArray* testUsers))completion;
 
 @end

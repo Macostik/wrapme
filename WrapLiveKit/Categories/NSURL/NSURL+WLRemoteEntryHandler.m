@@ -13,7 +13,7 @@
 @implementation NSURL (WLRemoteEntryHandler)
 
 + (instancetype)WLURLWithPath:(NSString *)path {
-    NSString *urlScheme = [WLAPIEnvironment currentEnvironment].urlScheme ? : WLURLScheme;
+    NSString *urlScheme = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"URLScheme"] ? : WLURLScheme;
     return [[self alloc] initWithScheme:urlScheme host:nil path:path];
 }
 

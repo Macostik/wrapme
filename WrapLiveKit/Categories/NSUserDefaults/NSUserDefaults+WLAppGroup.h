@@ -10,8 +10,6 @@
 
 static NSString *const WLAppGroupEncryptedAuthorization = @"encrypted_authorization";
 
-static NSString *const WLAPIEnvironmentKey = @"WLAPIEnvironment";
-
 static inline NSString *WLAppGroupIdentifier(void) {
     static NSString *identifier = nil;
     if (!identifier) {

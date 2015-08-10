@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WLKeyboard.h"
 #import "GAITrackedViewController.h"
-#import <WrapLiveKit/WrapLiveKit.h>
+#import <mojiKit/mojiKit.h>
 
 @interface WLBaseViewController : GAITrackedViewController <WLKeyboardBroadcastReceiver>
 

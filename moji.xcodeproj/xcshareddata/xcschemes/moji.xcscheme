@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C54AF45519B8C437006F7EDB"
-               BuildableName = "WrapLive-QA.app"
-               BlueprintName = "WrapLive-QA"
-               ReferencedContainer = "container:wrapLive.xcodeproj">
+               BlueprintIdentifier = "C54AF64F19B8C491006F7EDB"
+               BuildableName = "WrapLive.app"
+               BlueprintName = "moji"
+               ReferencedContainer = "container:moji.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C54AF45519B8C437006F7EDB"
-            BuildableName = "WrapLive-QA.app"
-            BlueprintName = "WrapLive-QA"
-            ReferencedContainer = "container:wrapLive.xcodeproj">
+            BlueprintIdentifier = "C54AF64F19B8C491006F7EDB"
+            BuildableName = "WrapLive.app"
+            BlueprintName = "moji"
+            ReferencedContainer = "container:moji.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,10 +52,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C54AF45519B8C437006F7EDB"
-            BuildableName = "WrapLive-QA.app"
-            BlueprintName = "WrapLive-QA"
-            ReferencedContainer = "container:wrapLive.xcodeproj">
+            BlueprintIdentifier = "C54AF64F19B8C491006F7EDB"
+            BuildableName = "WrapLive.app"
+            BlueprintName = "moji"
+            ReferencedContainer = "container:moji.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -71,10 +71,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C54AF45519B8C437006F7EDB"
-            BuildableName = "WrapLive-QA.app"
-            BlueprintName = "WrapLive-QA"
-            ReferencedContainer = "container:wrapLive.xcodeproj">
+            BlueprintIdentifier = "C54AF64F19B8C491006F7EDB"
+            BuildableName = "WrapLive.app"
+            BlueprintName = "moji"
+            ReferencedContainer = "container:moji.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
@@ -82,7 +82,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "AdHoc"
+      buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

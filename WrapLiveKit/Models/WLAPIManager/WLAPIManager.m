@@ -37,7 +37,7 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
     static WLAPIManager* instance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-        WLAPIEnvironment* environment = [self initializationEnvironment];
+        WLAPIEnvironment* environment = [WLAPIEnvironment environmentNamed:ENV];
         WLLog(environment.endpoint, @"API environment initialized", environment.name);
         instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:environment.endpoint]];
         instance.environment = environment;
@@ -48,26 +48,6 @@ typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, N
         instance.securityPolicy.allowInvalidCertificates = YES;
 	});
     return instance;
-}
-
-+ (WLAPIEnvironment*)initializationEnvironment {
-    NSString* environmentName = [[[NSBundle mainBundle] infoDictionary] stringForKey:WLAPIEnvironmentKey];
-    if (!environmentName.nonempty) {
-        environmentName = [[NSUserDefaults appGroupUserDefaults] objectForKey:WLAPIEnvironmentKey];
-    } else {
-#ifndef WRAPLIVE_EXTENSION_TERGET
-        [self saveEnvironmentName:environmentName];
-#endif
-    }
-    if (!environmentName.nonempty) environmentName = WLAPIEnvironmentDefault;
-    
-    return [WLAPIEnvironment environmentNamed:environmentName];
-}
-
-+ (void)saveEnvironmentName:(NSString*)environmentName {
-    NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
-    [userDefaults setObject:environmentName forKey:WLAPIEnvironmentKey];
-    [userDefaults synchronize];
 }
 
 - (NSString *)urlWithPath:(NSString *)path {

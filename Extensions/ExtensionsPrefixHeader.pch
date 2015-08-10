@@ -11,6 +11,6 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import <WrapLiveKit/WrapLiveKit.h>
+#import <mojiKit/mojiKit.h>
 
 #endif

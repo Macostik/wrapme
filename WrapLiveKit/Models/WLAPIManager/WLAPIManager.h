@@ -35,8 +35,6 @@ typedef void (^WLAPIManagerUnauthorizedErrorBlock) (WLAPIRequest *request, NSErr
 
 - (NSString*)urlWithPath:(NSString*)path;
 
-+ (void)saveEnvironmentName:(NSString*)environmentName;
-
 @end
 
 @interface WLEntry (WLAPIManager)

@@ -365,7 +365,6 @@ static WLDataBlock deviceTokenCompletion = nil;
         if ([request.action isEqualToString:@"authorization"]) {
             if ([[WLAuthorization currentAuthorization] canAuthorize]) {
                 [[WLAuthorization currentAuthorization] setCurrent];
-                [WLAPIManager saveEnvironmentName:[WLAPIManager manager].environment.name];
                 completion([WLExtensionResponse success]);
             } else {
                 completion([WLExtensionResponse failureWithMessage:@"Please, launch MOJI containing app for registration"]);

@@ -1,6 +1,6 @@
 //
-//  WrapLiveKit_Tests.m
-//  WrapLiveKit Tests
+//  mojiKit_Tests.m
+//  mojiKit Tests
 //
 //  Created by Sergey Maximenko on 4/3/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <WrapLiveKit/WrapLiveKit.h>
+#import <mojiKit/mojiKit.h>
 
-@interface WrapLiveKit_Tests : XCTestCase
+@interface mojiKit_Tests : XCTestCase
 
 @end
 
-@implementation WrapLiveKit_Tests
+@implementation mojiKit_Tests
 
 - (void)testNewMethod {
     // This is an example of a functional test case.

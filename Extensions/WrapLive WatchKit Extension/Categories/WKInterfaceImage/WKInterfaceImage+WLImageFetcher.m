@@ -1,8 +1,8 @@
 //
 //  WKInterfaceImage+WLImageFetcher.m
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 4/2/15.
+//  Created by Ravenpod on 4/2/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 

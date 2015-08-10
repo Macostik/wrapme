@@ -1,9 +1,9 @@
 //
 //  NSString+MD5.m
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 28.04.14.
-//  Copyright (c) 2014 Mobidev. All rights reserved.
+//  Created by Ravenpod on 28.04.14.
+//  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
 #import "NSString+MD5.h"

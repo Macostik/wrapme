@@ -2,8 +2,8 @@
 //  TableView.m
 //  ScrollAnimation
 //
-//  Created by Sergey Maximenko on 04.02.13.
-//  Copyright (c) 2013 Mobidev. All rights reserved.
+//  Created by Ravenpod on 04.02.13.
+//  Copyright (c) 2013 Ravenpod. All rights reserved.
 //
 
 #import "StreamView.h"

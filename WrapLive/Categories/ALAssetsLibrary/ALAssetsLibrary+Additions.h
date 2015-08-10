@@ -1,6 +1,6 @@
 //
 //  PGPhotoLibrary.h
-//  PressGram-iOS
+//  moji
 //
 //  Created by Nikolay Rybalko on 4/17/13.
 //  Copyright (c) 2013 Nickolay Rybalko. All rights reserved.

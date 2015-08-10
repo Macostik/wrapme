@@ -1,9 +1,9 @@
 //
 //  WLChangeProfileViewController.h
-//  WrapLive
+//  moji
 //
-//  Created by Oleg Vyshnivetsky on 4/24/14.
-//  Copyright (c) 2014 Mobidev. All rights reserved.
+//  Created by Ravenpod on 4/24/14.
+//  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
 #import "WLEditViewController.h"

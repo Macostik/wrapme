@@ -1,8 +1,8 @@
 //
 //  WLWhatsUpEvent.h
-//  wrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 5/25/15.
+//  Created by Ravenpod on 5/25/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  NSDictionary+Extended.m
 //  Riot
 //
-//  Created by Sergey Maximenko on 21.08.12.
+//  Created by Ravenpod on 21.08.12.
 //
 //
 

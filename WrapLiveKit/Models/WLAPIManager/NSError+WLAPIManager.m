@@ -1,8 +1,8 @@
 //
 //  NSError+CustomErrors.m
-//  Pressgram
+//  moji
 //
-//  Created by Sergey Maximenko on 30.11.13.
+//  Created by Ravenpod on 30.11.13.
 //  Copyright (c) 2013 yo, gg. All rights reserved.
 //
 

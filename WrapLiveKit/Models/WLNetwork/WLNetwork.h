@@ -1,9 +1,9 @@
 //
 //  WLNetwork.h
-//  WrapLive
+//  moji
 //
-//  Created by Oleg Vyshnivetsky on 5/7/14.
-//  Copyright (c) 2014 Mobidev. All rights reserved.
+//  Created by Ravenpod on 5/7/14.
+//  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
 #import "WLBroadcaster.h"

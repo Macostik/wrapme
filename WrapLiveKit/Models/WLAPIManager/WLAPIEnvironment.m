@@ -1,8 +1,8 @@
 //
 //  WLAPIConfiguration.m
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 9/4/14.
+//  Created by Ravenpod on 9/4/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 

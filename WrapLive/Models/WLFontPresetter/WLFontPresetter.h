@@ -1,8 +1,8 @@
 //
 //  WLFontPresetHandler.h
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 12/17/14.
+//  Created by Ravenpod on 12/17/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 

@@ -1,6 +1,6 @@
 //
 //  PGPhotoLibraryViewController.m
-//  PressGram-iOS
+//  moji
 //
 //  Created by Andrey Ivanov on 30.05.13.
 //  Copyright (c) 2013 Nickolay Rybalko. All rights reserved.

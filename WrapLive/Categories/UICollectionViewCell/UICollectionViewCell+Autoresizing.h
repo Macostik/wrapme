@@ -1,8 +1,8 @@
 //
 //  UICollectionViewCell+Autoresizing.h
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 10/9/14.
+//  Created by Ravenpod on 10/9/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 

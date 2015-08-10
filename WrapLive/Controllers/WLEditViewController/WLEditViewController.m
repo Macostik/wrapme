@@ -1,6 +1,6 @@
 //
 //  WLEditViewController.m
-//  WrapLive
+//  moji
 //
 //  Created by Yuriy Granchenko on 10.07.14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.

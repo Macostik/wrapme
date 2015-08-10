@@ -1,6 +1,6 @@
 //
 //  WLAlertView.m
-//  WrapLive
+//  moji
 //
 //  Created by Yura Granchenko on 04/02/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.

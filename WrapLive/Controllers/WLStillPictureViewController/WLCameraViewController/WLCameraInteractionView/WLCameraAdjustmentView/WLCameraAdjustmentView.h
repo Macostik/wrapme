@@ -1,6 +1,6 @@
 //
 //  PGFocusAnimationView.h
-//  PressGram-iOS
+//  moji
 //
 //  Created by Nikolay Rybalko on 7/10/13.
 //  Copyright (c) 2013 Nickolay Rybalko. All rights reserved.

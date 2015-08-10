@@ -1,9 +1,9 @@
 //
 //  WLNotification.h
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 19.05.14.
-//  Copyright (c) 2014 Mobidev. All rights reserved.
+//  Created by Ravenpod on 19.05.14.
+//  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

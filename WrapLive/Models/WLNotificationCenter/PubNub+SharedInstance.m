@@ -1,8 +1,8 @@
 //
 //  PubNub+SharedInstance.m
-//  wrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 7/2/15.
+//  Created by Ravenpod on 7/2/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 

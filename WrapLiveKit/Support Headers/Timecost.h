@@ -1,8 +1,8 @@
 //
 //  WLSupportFunctions.h
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 17.01.14.
+//  Created by Ravenpod on 17.01.14.
 //
 
 #import <Foundation/Foundation.h>

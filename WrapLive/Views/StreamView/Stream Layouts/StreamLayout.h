@@ -2,8 +2,8 @@
 //  PICStreamLayout.h
 //  RIOT
 //
-//  Created by Sergey Maximenko on 09.10.13.
-//  Copyright (c) 2013 Mobidev. All rights reserved.
+//  Created by Ravenpod on 09.10.13.
+//  Copyright (c) 2013 Ravenpod. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

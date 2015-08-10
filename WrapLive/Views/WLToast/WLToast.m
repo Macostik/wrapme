@@ -1,8 +1,8 @@
 //
 //  WLToast.m
-//  wrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 22.01.14.
+//  Created by Ravenpod on 22.01.14.
 //  Copyright (c) 2014 yo, gg. All rights reserved.
 //
 

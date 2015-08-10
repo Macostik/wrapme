@@ -1,8 +1,8 @@
 //
 //  UIColor+CustomColors.m
-//  PressGram-iOS
+//  moji
 //
-//  Created by Sergey Maximenko on 13.08.13.
+//  Created by Ravenpod on 13.08.13.
 //  Copyright (c) 2013 Nickolay Rybalko. All rights reserved.
 //
 

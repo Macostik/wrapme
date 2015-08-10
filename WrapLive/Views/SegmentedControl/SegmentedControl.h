@@ -2,7 +2,7 @@
 //  SegmentedControl.h
 //  ProjectTemplate
 //
-//  Created by Sergey Maximenko on 10.08.12.
+//  Created by Ravenpod on 10.08.12.
 //
 //
 

@@ -1,8 +1,8 @@
 //
 //  NSObject+Extension.h
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 8/28/14.
+//  Created by Ravenpod on 8/28/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 

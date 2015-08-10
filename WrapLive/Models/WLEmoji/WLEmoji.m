@@ -1,9 +1,9 @@
 //
 //  WLEmoji.m
-//  WrapLive
+//  moji
 //
 //  Created by Oleg Vishnivetskiy on 6/5/14.
-//  Copyright (c) 2014 Mobidev. All rights reserved.
+//  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
 #import "WLEmoji.h"

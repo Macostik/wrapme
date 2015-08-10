@@ -1,6 +1,6 @@
 //
 //  WLRemoteObjectHandler.h
-//  WrapLive
+//  moji
 //
 //  Created by Yura Granchenko on 12/8/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.

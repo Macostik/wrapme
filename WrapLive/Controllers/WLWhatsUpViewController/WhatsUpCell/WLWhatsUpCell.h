@@ -1,8 +1,8 @@
 //
 //  WLWhatsUpCell.h
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 8/21/14.
+//  Created by Ravenpod on 8/21/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 

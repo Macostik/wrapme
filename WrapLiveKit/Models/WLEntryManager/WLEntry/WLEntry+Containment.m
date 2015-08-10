@@ -1,8 +1,8 @@
 //
 //  WLEntry+Containment.m
-//  wrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 6/5/15.
+//  Created by Ravenpod on 6/5/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 

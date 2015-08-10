@@ -2,7 +2,7 @@
 //  UIView+QuatzCoreAnimations.m
 //  Riot
 //
-//  Created by Sergey Maximenko on 24.01.13.
+//  Created by Ravenpod on 24.01.13.
 //
 //
 

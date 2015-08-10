@@ -1,8 +1,8 @@
 //
 //  WLAPIRequest.h
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 7/15/14.
+//  Created by Ravenpod on 7/15/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 

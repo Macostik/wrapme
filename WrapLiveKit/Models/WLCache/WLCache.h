@@ -1,9 +1,9 @@
 //
 //  WLCache.h
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 30.04.14.
-//  Copyright (c) 2014 Mobidev. All rights reserved.
+//  Created by Ravenpod on 30.04.14.
+//  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

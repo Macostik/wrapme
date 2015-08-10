@@ -1,9 +1,9 @@
 //
 //  UIView+GestureRecognizing.m
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 12.05.14.
-//  Copyright (c) 2014 Mobidev. All rights reserved.
+//  Created by Ravenpod on 12.05.14.
+//  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
 #import "UIView+GestureRecognizing.h"

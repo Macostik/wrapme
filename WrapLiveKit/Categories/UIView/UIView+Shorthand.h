@@ -2,7 +2,7 @@
 //  UIView+Shorthand.h
 //
 //  Created by Andrey Ivanov on 23.10.12.
-//  Copyright (c) 2012 Mobidev. All rights reserved.
+//  Copyright (c) 2012 Ravenpod. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

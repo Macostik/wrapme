@@ -1,8 +1,8 @@
 //
 //  WLOperation.h
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 3/10/15.
+//  Created by Ravenpod on 3/10/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 

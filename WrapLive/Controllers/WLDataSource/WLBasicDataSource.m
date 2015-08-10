@@ -1,8 +1,8 @@
 //
 //  WLBasicDataSource.m
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 1/8/15.
+//  Created by Ravenpod on 1/8/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 

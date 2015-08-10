@@ -1,8 +1,8 @@
 //
 //  NSURL+WLRemoteEntryHandler.m
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 12/30/14.
+//  Created by Ravenpod on 12/30/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 

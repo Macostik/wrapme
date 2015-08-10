@@ -1,8 +1,8 @@
 //
 //  WLCameraViewController.m
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 10.04.13.
+//  Created by Ravenpod on 10.04.13.
 //
 //
 

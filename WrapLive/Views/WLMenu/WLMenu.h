@@ -1,8 +1,8 @@
 //
 //  WLMenu.h
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 6/24/14.
+//  Created by Ravenpod on 6/24/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 

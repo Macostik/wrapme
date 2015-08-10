@@ -1,8 +1,8 @@
 //
 //  NSDate+PNTimetoken.m
-//  wrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 7/7/15.
+//  Created by Ravenpod on 7/7/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 

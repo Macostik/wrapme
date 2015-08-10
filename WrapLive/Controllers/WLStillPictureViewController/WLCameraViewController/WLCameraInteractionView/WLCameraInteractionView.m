@@ -1,8 +1,8 @@
 //
 //  PGCameraInteractionView.m
-//  Pressgram
+//  moji
 //
-//  Created by Sergey Maximenko on 13.02.14.
+//  Created by Ravenpod on 13.02.14.
 //  Copyright (c) 2014 yo, gg. All rights reserved.
 //
 

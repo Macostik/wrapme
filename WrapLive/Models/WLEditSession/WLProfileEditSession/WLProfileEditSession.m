@@ -1,6 +1,6 @@
 //
 //  WLProfileEditSession.m
-//  WrapLive
+//  moji
 //
 //  Created by Oleg Vishnivetskiy on 6/26/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.

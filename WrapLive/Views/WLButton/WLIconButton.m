@@ -1,6 +1,6 @@
 //
 //  WLIconButton.m
-//  WrapLive
+//  moji
 //
 //  Created by Yura Granchenko on 27/01/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.

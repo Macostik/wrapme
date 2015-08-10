@@ -1,8 +1,8 @@
 //
 //  WLAuthorizationRequest.h
-//  WrapLive
+//  moji
 //
-//  Created by Sergey Maximenko on 7/16/14.
+//  Created by Ravenpod on 7/16/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 

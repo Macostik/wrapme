@@ -2,7 +2,7 @@
 //  PICStreamView.h
 //  Riot
 //
-//  Created by Sergey Maximenko on 21.02.13.
+//  Created by Ravenpod on 21.02.13.
 //
 //
 

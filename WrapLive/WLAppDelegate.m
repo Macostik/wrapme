@@ -110,13 +110,12 @@
 
 - (void)initializeCrashlyticsAndLogging {
     run_release(^{
+        [NewRelicAgent enableCrashReporting:YES];
         WLAPIEnvironment *environment = [WLAPIEnvironment currentEnvironment];
         if ([environment.name isEqualToString:WLAPIEnvironmentProduction]) {
-            [NewRelicAgent enableCrashReporting:YES];
             [NewRelicAgent startWithApplicationToken:@"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8"];
             [[GAI sharedInstance] trackerWithTrackingId:@"UA-60538241-1"];
         } else {
-            [NewRelicAgent enableCrashReporting:YES];
             [NewRelicAgent startWithApplicationToken:@"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c"];
         }
     });

@@ -10,7 +10,7 @@
 #import "NSDate+Additions.h"
 #import "WLAuthorization.h"
 #import "WLEntryNotifier.h"
-#import "WLAPIManager.h"
+#import "WLEntry+WLAPIRequest.h"
 #import "WLEntryNotification.h"
 #import "WLUpdateNotification.h"
 

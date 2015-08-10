@@ -89,8 +89,7 @@
 }
 
 - (void)initializeAPIManager {
-    WLAPIManager *manager = [WLAPIManager manager];
-    [manager setUnauthorizedErrorBlock:^ (WLAPIRequest *request, NSError *error) {
+    [WLAPIRequest setUnauthorizedErrorBlock:^ (WLAPIRequest *request, NSError *error) {
         UIStoryboard *storyboard = [UIStoryboard storyboardNamed:WLSignUpStoryboard];
         if ([UIWindow mainWindow].rootViewController.storyboard != storyboard) {
             [WLAlertView confirmRedirectingToSignUp:^{
@@ -101,21 +100,18 @@
             }];
         }
     }];
-    
-    [manager setShowErrorBlock:^ (NSError *error) {
+    [NSError setShowingBlock:^ (NSError *error) {
         [WLToast showWithMessage:[error errorMessage]?:error.localizedDescription];
     }];
 }
 
 - (void)initializeCrashlyticsAndLogging {
     run_release(^{
-        WLAPIEnvironment *environment = [WLAPIManager manager].environment;
+        WLAPIEnvironment *environment = [WLAPIEnvironment currentEnvironment];
         if ([environment.name isEqualToString:WLAPIEnvironmentProduction]) {
             [NewRelicAgent enableCrashReporting:YES];
             [NewRelicAgent startWithApplicationToken:@"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8"];
             [[GAI sharedInstance] trackerWithTrackingId:@"UA-60538241-1"];
-        } else if ([environment.name isEqualToString:WLAPIEnvironmentDevelopment]) {
-            [NewRelicAgent startWithApplicationToken:@"AA55a96d2575ba2f5c16268eb56c94e91264d5236b"];
         } else {
             [NewRelicAgent enableCrashReporting:YES];
             [NewRelicAgent startWithApplicationToken:@"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c"];

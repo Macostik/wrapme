@@ -11,7 +11,6 @@
 #import "WLEntryNotifier.h"
 #import "WLSession.h"
 #import "UIDevice+SystemVersion.h"
-#import "WLAPIManager.h"
 #import "WLOperationQueue.h"
 #import "WLEntryNotification.h"
 #import "PubNub+SharedInstance.h"

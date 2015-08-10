@@ -39,6 +39,8 @@ typedef NS_ENUM(NSInteger, WLErrorCode) {
 - (void)show;
 - (void)showIgnoringNetworkError;
 
++ (void)setShowingBlock:(WLFailureBlock)showingBlock;
+
 - (NSString *)errorMessage;
 
 - (BOOL)isError:(WLErrorCode)code;

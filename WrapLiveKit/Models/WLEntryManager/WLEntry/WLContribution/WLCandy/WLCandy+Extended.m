@@ -17,7 +17,7 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "WLBlockImageFetching.h"
 #import "WLEditPicture.h"
-#import "WLAPIManager.h"
+#import "WLEntry+WLAPIRequest.h"
 
 @implementation WLCandy (Extended)
 

@@ -12,6 +12,7 @@
 #import "WLAuthorizationRequest.h"
 #import "WLOperationQueue.h"
 #import "WLEntryNotifier.h"
+#import "AFHTTPRequestOperation.h"
 
 @interface WLUploadingQueue () <WLEntryNotifyReceiver>
 

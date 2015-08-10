@@ -75,7 +75,7 @@ static BOOL authorized = NO;
         
         id pageSize = [response.data objectForKey:@"pagination_fetch_size"];
         if (pageSize) {
-            WLPageSize = [pageSize integerValue];
+            WLConstants.pageSize = [pageSize integerValue];
         }
         
         NSDictionary* userData = [response.data dictionaryForKey:@"user"];
@@ -132,7 +132,7 @@ static BOOL authorized = NO;
     
     NSMutableDictionary *testUsers = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:currentTestUsersPath]];
     
-    NSMutableArray *environmentTestUsers = [NSMutableArray arrayWithArray:[testUsers objectForKey:[WLAPIManager manager].environment.name]];
+    NSMutableArray *environmentTestUsers = [NSMutableArray arrayWithArray:[testUsers objectForKey:[WLAPIEnvironment currentEnvironment].name]];
     
     NSMutableArray *removedUsers = [NSMutableArray array];
     
@@ -150,7 +150,7 @@ static BOOL authorized = NO;
     
     [environmentTestUsers addObject:authorizationData];
     
-    testUsers[[WLAPIManager manager].environment.name] = environmentTestUsers;
+    testUsers[[WLAPIEnvironment currentEnvironment].name] = environmentTestUsers;
     
     [testUsers writeToFile:currentTestUsersPath atomically:YES];
 #endif

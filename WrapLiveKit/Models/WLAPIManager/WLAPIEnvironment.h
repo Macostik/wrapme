@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 
 static NSString* WLAPIEnvironmentLocal = @"local";
-static NSString* WLAPIEnvironmentDevelopment = @"development";
 static NSString* WLAPIEnvironmentQA = @"qa";
-static NSString* WLAPIEnvironmentBeta = @"beta";
 static NSString* WLAPIEnvironmentProduction = @"production";
 
 @interface WLAPIEnvironment : NSObject
@@ -27,5 +25,7 @@ static NSString* WLAPIEnvironmentProduction = @"production";
 @property (readonly, nonatomic) BOOL isProduction;
 
 + (instancetype)environmentNamed:(NSString*)name;
+
++ (instancetype)currentEnvironment;
 
 @end

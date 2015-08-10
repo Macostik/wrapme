@@ -11,6 +11,7 @@
 #import "WLWelcomeViewController.h"
 #import "NSDate+Formatting.h"
 #import "WLSession.h"
+#import "AFHTTPRequestOperationManager.h"
 
 static NSString* WLServerTimeDifference = @"WLServerTimeDifference";
 
@@ -43,6 +44,37 @@ static NSTimeInterval _difference = 0;
 
 + (instancetype)now:(NSTimeInterval)offset {
     return [self dateWithTimeIntervalSinceNow:[self serverTimeDifference] + offset];
+}
+
+@end
+
+@interface WLAPIManager : AFHTTPRequestOperationManager
+
++ (instancetype)manager;
+
+- (NSString*)urlWithPath:(NSString*)path;
+
+@end
+
+@implementation WLAPIManager
+
++ (instancetype)manager {
+    static WLAPIManager* instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        WLAPIEnvironment* environment = [WLAPIEnvironment currentEnvironment];
+        instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:environment.endpoint]];
+        instance.requestSerializer.timeoutInterval = 45;
+        NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", environment.version];
+        [instance.requestSerializer setValue:acceptHeader forHTTPHeaderField:@"Accept"];
+        [instance.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
+        instance.securityPolicy.allowInvalidCertificates = YES;
+    });
+    return instance;
+}
+
+- (NSString *)urlWithPath:(NSString *)path {
+    return [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
 }
 
 @end
@@ -93,6 +125,12 @@ static NSTimeInterval _difference = 0;
     return request;
 }
 
+static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
+
++ (void)setUnauthorizedErrorBlock:(WLAPIRequestUnauthorizedErrorBlock)unauthorizedErrorBlock {
+    _unauthorizedErrorBlock = unauthorizedErrorBlock;
+}
+
 - (instancetype)parse:(WLAPIRequestParser)parser {
     self.parser = parser;
     return self;
@@ -132,10 +170,6 @@ static NSTimeInterval _difference = 0;
     return self;
 }
 
-- (WLAPIManager *)manager {
-    return [WLAPIManager manager];
-}
-
 - (NSMutableDictionary *)parametrize {
     NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
     for (WLAPIRequestParametrizer parametrizer in self.parametrizers) {
@@ -145,7 +179,7 @@ static NSTimeInterval _difference = 0;
 }
 
 - (NSMutableURLRequest *)request:(NSMutableDictionary *)parameters url:(NSString *)url {
-    AFHTTPRequestSerializer <AFURLRequestSerialization> *serializer = self.manager.requestSerializer;
+    AFHTTPRequestSerializer <AFURLRequestSerialization> *serializer = [WLAPIManager manager].requestSerializer;
     NSString* file = self.file ? self.file(self) : nil;
     if (file) {
         void (^constructing) (id<AFMultipartFormData> formData) = ^(id<AFMultipartFormData> formData) {
@@ -177,14 +211,15 @@ static NSTimeInterval _difference = 0;
     if (!self.method) {
         self.method = @"GET";
     }
+    WLAPIManager *manager = [WLAPIManager manager];
     NSMutableDictionary* parameters = [self parametrize];
-    NSString* url = [self.manager urlWithPath:self.path];
+    NSString* url = [manager urlWithPath:self.path];
     NSMutableURLRequest *request = [self request:parameters url:url];
     request.timeoutInterval = self.timeout;
     WLLog(self.method, url, parameters);
     
     __strong typeof(self)strongSelf = self;
-    self.operation = [self.manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    self.operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         WLAPIResponse* response = [WLAPIResponse response:responseObject];
 		if (response.code == WLAPIResponseCodeSuccess) {
             WLLog(@"RESPONSE",[operation.request.URL relativeString], responseObject);
@@ -208,7 +243,7 @@ static NSTimeInterval _difference = 0;
         [strongSelf handleFailure:error];
     }];
     
-    [self.manager.operationQueue addOperation:self.operation];
+    [manager.operationQueue addOperation:self.operation];
     
     return self.operation;
 }
@@ -240,9 +275,8 @@ static NSTimeInterval _difference = 0;
             if ([error isNetworkError]) {
                 [strongSelf handleFailure:error];
             } else {
-                WLAPIManagerUnauthorizedErrorBlock unauthorizedErrorBlock = [WLAPIManager manager].unauthorizedErrorBlock;
-                if (unauthorizedErrorBlock) {
-                    unauthorizedErrorBlock(strongSelf, error);
+                if (_unauthorizedErrorBlock) {
+                    _unauthorizedErrorBlock(strongSelf, error);
                 } else {
                     [strongSelf handleFailure:error];
                 }

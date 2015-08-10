@@ -10,7 +10,6 @@
 #import "WLEntryManager.h"
 #import "WLAuthorization.h"
 #import "WLAPIEnvironment.h"
-#import "AFHTTPRequestOperationManager.h"
 
 @class WLUser;
 @class WLComment;
@@ -18,24 +17,6 @@
 @class WLDate;
 @class WLAuthorization;
 @class WLAPIRequest;
-
-static NSUInteger WLPageSize = 10;
-
-typedef void (^WLAPIManagerUnauthorizedErrorBlock) (WLAPIRequest *request, NSError *error);
-
-@interface WLAPIManager : AFHTTPRequestOperationManager
-
-@property (strong, nonatomic) WLAPIEnvironment* environment;
-
-@property (strong, nonatomic) WLAPIManagerUnauthorizedErrorBlock unauthorizedErrorBlock;
-
-@property (strong, nonatomic) WLFailureBlock showErrorBlock;
-
-+ (instancetype)manager;
-
-- (NSString*)urlWithPath:(NSString*)path;
-
-@end
 
 @interface WLEntry (WLAPIManager)
 

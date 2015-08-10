@@ -260,7 +260,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)loadMessages:(WLBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [self.wrap messages:^(NSSet *messages) {
-        weakSelf.chat.completed = messages.count < WLPageSize;
+        weakSelf.chat.completed = messages.count < WLConstants.pageSize;
 		[weakSelf.chat resetEntries:messages];
         if (success) success();
     } failure:failure];
@@ -276,7 +276,7 @@ CGFloat WLMaxTextViewWidth;
         return;
     }
 	self.operation = [self.wrap messagesOlder:olderMessage.createdAt newer:newerMessage.createdAt success:^(NSSet *messages) {
-		weakSelf.chat.completed = messages.count < WLPageSize;
+		weakSelf.chat.completed = messages.count < WLConstants.pageSize;
         [weakSelf.chat addEntries:messages];
         if (success) success();
 	} failure:failure];

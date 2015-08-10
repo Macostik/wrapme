@@ -12,7 +12,7 @@
 #import "NSString+Additions.h"
 #import "NSDate+Additions.h"
 #import "WLAPIResponse.h"
-#import "WLAPIManager.h"
+#import "WLEntry+WLAPIRequest.h"
 
 @class WLAPIRequest;
 
@@ -21,6 +21,8 @@ typedef void (^WLAPIRequestParser) (WLAPIResponse *response, WLObjectBlock succe
 typedef void (^WLAPIRequestParametrizer) (id request, NSMutableDictionary* parameters);
 
 typedef BOOL (^WLAPIRequestFailureValidator) (id request, NSError *error);
+
+typedef void (^WLAPIRequestUnauthorizedErrorBlock) (WLAPIRequest *request, NSError *error);
 
 typedef NSString *(^WLAPIRequestFile) (id request);
 
@@ -33,8 +35,6 @@ typedef NSString *(^WLAPIRequestFile) (id request);
 @property (strong, nonatomic) WLAPIRequestParser parser;
 
 @property (strong, nonatomic) NSMutableArray *parametrizers;
-
-@property (readonly, nonatomic) WLAPIManager* manager;
 
 @property (strong, nonatomic) WLObjectBlock successBlock;
 
@@ -67,6 +67,8 @@ typedef NSString *(^WLAPIRequestFile) (id request);
 + (instancetype)PUT:(NSString*)path, ...;
 
 + (instancetype)DELETE:(NSString*)path, ...;
+
++ (void)setUnauthorizedErrorBlock:(WLAPIRequestUnauthorizedErrorBlock)unauthorizedErrorBlock;
 
 - (instancetype)parse:(WLAPIRequestParser)parser;
 

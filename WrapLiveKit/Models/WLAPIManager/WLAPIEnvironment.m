@@ -11,6 +11,14 @@
 
 @implementation WLAPIEnvironment
 
++ (instancetype)currentEnvironment {
+    static id instance = nil;
+    if (instance == nil) {
+        instance = [self environmentNamed:ENV];
+    }
+    return instance;
+}
+
 + (NSDictionary*)environments {
     return @{WLAPIEnvironmentLocal:@{@"endpoint":@"http://0.0.0.0:3000/api",
                                            @"version":@"6",
@@ -33,6 +41,7 @@
     environment.version = dictionary[@"version"];
     environment.urlScheme = dictionary[@"url_scheme"];
     environment.name = name;
+    WLLog(@"MOJI", @"API environment initialized", dictionary);
     return environment;
 }
 

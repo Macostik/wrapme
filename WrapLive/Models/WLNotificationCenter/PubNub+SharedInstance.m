@@ -16,7 +16,7 @@
     if (instance == nil) {
         NSString* origin, *publishKey, *subscribeKey, *secretKey;
         
-        if ([WLAPIManager manager].environment.isProduction) {
+        if ([WLAPIEnvironment currentEnvironment].isProduction) {
             origin = @"pubsub.pubnub.com";
             publishKey = @"pub-c-87bbbc30-fc43-4f6b-b1f4-cedd5f30d5e8";
             subscribeKey = @"sub-c-6562fe64-4270-11e4-aed8-02ee2ddab7fe";

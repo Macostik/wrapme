@@ -7,7 +7,7 @@
 //
 
 #import "NSError+WLAPIManager.h"
-#import "WLAPIManager.h"
+#import "WLEntry+WLAPIRequest.h"
 #import "NSDictionary+Extended.h"
 
 @implementation NSError (WLAPIManager)
@@ -40,11 +40,16 @@ static NSDictionary *errorsToIgnore = nil;
 	return [[[NSError errorsToIgnore] objectForKey:self.domain] containsObject:@(self.code)];
 }
 
+static WLFailureBlock _showingBlock;
+
++ (void)setShowingBlock:(WLFailureBlock)showingBlock {
+    _showingBlock = showingBlock;
+}
+
 - (void)show {
 	if (![self ignore]) {
-        WLFailureBlock showErrorBlock = [WLAPIManager manager].showErrorBlock;
-        if (showErrorBlock) {
-            showErrorBlock(self);
+        if (_showingBlock) {
+            _showingBlock(self);
         }
 	}
 }

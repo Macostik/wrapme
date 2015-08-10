@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.hidden = [WLAPIManager manager].environment.isProduction;
+    self.hidden = [WLAPIEnvironment currentEnvironment].isProduction;
 }
 
 @end

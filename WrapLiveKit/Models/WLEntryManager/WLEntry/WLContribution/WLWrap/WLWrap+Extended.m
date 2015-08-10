@@ -13,7 +13,7 @@
 #import "WLEntryManager.h"
 #import "WLImageCache.h"
 #import "UIImage+Resize.h"
-#import "WLAPIManager.h"
+#import "WLEntry+WLAPIRequest.h"
 #import "WLAPIResponse.h"
 #import "WLNetwork.h"
 #import "NSDate+Additions.h"

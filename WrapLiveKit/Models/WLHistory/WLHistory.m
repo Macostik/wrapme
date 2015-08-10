@@ -80,7 +80,7 @@
         [entriesCopy removes:dayEntries];
         
         if  (self.checkCompletion) {
-            group.completed = group.entries.count < WLPageSize;
+            group.completed = group.entries.count < WLConstants.pageSize;
         }
     }
     if (added) {

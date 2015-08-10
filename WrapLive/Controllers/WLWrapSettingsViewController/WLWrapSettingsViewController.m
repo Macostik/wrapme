@@ -7,7 +7,6 @@
 //
 
 #import "WLWrapSettingsViewController.h"
-#import "WLAPIManager.h"
 #import "WLIconButton.h"
 #import "WLToast.h"
 #import "WLEditSession.h"

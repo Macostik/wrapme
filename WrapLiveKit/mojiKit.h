@@ -85,7 +85,7 @@ FOUNDATION_EXPORT const unsigned char mojiKitVersionString[];
 #import <mojiKit/WLNetwork.h>
 #import <mojiKit/WLPaginatedRequest+Defined.h>
 #import <mojiKit/WLAPIRequest+Defined.h>
-#import <mojiKit/WLAPIManager.h>
+#import <mojiKit/WLEntry+WLAPIRequest.h>
 #import <mojiKit/WLAPIResponse.h>
 #import <mojiKit/NSError+WLAPIManager.h>
 #import <mojiKit/WLAPIEnvironment.h>

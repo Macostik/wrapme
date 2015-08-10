@@ -8,7 +8,7 @@
 
 #import "WLPaginatedSet.h"
 #import "WLEntryManager.h"
-#import "WLAPIManager.h"
+#import "WLEntry+WLAPIRequest.h"
 #import "WLOperationQueue.h"
 #import "WLEntryNotifier.h"
 

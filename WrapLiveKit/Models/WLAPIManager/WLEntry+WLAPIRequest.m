@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mobidev. All rights reserved.
 //
 
-#import "WLAPIManager.h"
+#import "WLEntry+WLAPIRequest.h"
 #import "WLSession.h"
 #import "NSDate+Formatting.h"
 #import "WLCollections.h"
@@ -23,38 +23,6 @@
 #import "WLHistory.h"
 #import "NSUserDefaults+WLAppGroup.h"
 #import "WLAlertView.h"
-
-static NSString* WLAPILocalUrl = @"http://192.168.33.10:3000/api";
-
-typedef void (^WLAFNetworkingSuccessBlock) (AFHTTPRequestOperation *operation, id responseObject);
-typedef void (^WLAFNetworkingFailureBlock) (AFHTTPRequestOperation *operation, NSError *error);
-
-#define WLAPIEnvironmentDefault WLAPIEnvironmentDevelopment
-
-@implementation WLAPIManager
-
-+ (instancetype)manager {
-    static WLAPIManager* instance = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-        WLAPIEnvironment* environment = [WLAPIEnvironment environmentNamed:ENV];
-        WLLog(environment.endpoint, @"API environment initialized", environment.name);
-        instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:environment.endpoint]];
-        instance.environment = environment;
-		instance.requestSerializer.timeoutInterval = 45;
-        NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", environment.version];
-		[instance.requestSerializer setValue:acceptHeader forHTTPHeaderField:@"Accept"];
-        [instance.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
-        instance.securityPolicy.allowInvalidCertificates = YES;
-	});
-    return instance;
-}
-
-- (NSString *)urlWithPath:(NSString *)path {
-    return [[NSURL URLWithString:path relativeToURL:self.baseURL] absoluteString];
-}
-
-@end
 
 @implementation WLEntry (WLAPIManager)
 

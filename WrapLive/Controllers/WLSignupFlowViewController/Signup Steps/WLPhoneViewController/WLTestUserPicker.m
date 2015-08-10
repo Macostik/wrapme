@@ -33,7 +33,7 @@
         self.dataSource = self;
 		self.delegate = self;
         __weak typeof(self)weakSelf = self;
-        [[WLAPIManager manager].environment testUsers:^(NSArray *testUsers) {
+        [[WLAPIEnvironment currentEnvironment] testUsers:^(NSArray *testUsers) {
             weakSelf.authorizations = testUsers;
             [weakSelf performSelector:@selector(reloadData) withObject:nil afterDelay:0.0f];
         }];

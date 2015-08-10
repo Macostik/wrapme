@@ -9,9 +9,10 @@
 #import "WLNetwork.h"
 #import "WLToast.h"
 #import "WLUploading+Extended.h"
-#import "WLAPIManager.h"
+#import "WLEntry+WLAPIRequest.h"
 #import "WLAuthorizationRequest.h"
 #import "WLUploadingQueue.h"
+#import "AFNetworkReachabilityManager.h"
 
 @implementation WLNetwork
 

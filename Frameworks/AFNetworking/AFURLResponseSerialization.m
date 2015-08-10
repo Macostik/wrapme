@@ -1,6 +1,5 @@
 // AFURLResponseSerialization.m
-//
-// Copyright (c) 2013-2015 AFNetworking (http://afnetworking.com)
+// Copyright (c) 2011–2015 Alamofire Software Foundation (http://alamofire.org/)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -68,11 +67,11 @@ static id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJSONReadingO
     } else if ([JSONObject isKindOfClass:[NSDictionary class]]) {
         NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionaryWithDictionary:JSONObject];
         for (id <NSCopying> key in [(NSDictionary *)JSONObject allKeys]) {
-            id value = [(NSDictionary *)JSONObject objectForKey:key];
+            id value = (NSDictionary *)JSONObject[key];
             if (!value || [value isEqual:[NSNull null]]) {
                 [mutableDictionary removeObjectForKey:key];
             } else if ([value isKindOfClass:[NSArray class]] || [value isKindOfClass:[NSDictionary class]]) {
-                [mutableDictionary setObject:AFJSONObjectByRemovingKeysWithNullValues(value, readingOptions) forKey:key];
+                mutableDictionary[key] = AFJSONObjectByRemovingKeysWithNullValues(value, readingOptions);
             }
         }
 
@@ -530,8 +529,31 @@ static id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJSONReadingO
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 #import <CoreGraphics/CoreGraphics.h>
 
+@interface UIImage (AFNetworkingSafeImageLoading)
++ (UIImage *)af_safeImageWithData:(NSData *)data;
+@end
+
+static NSLock* imageLock = nil;
+
+@implementation UIImage (AFNetworkingSafeImageLoading)
+
++ (UIImage *)af_safeImageWithData:(NSData *)data {
+    UIImage* image = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        imageLock = [[NSLock alloc] init];
+    });
+    
+    [imageLock lock];
+    image = [UIImage imageWithData:data];
+    [imageLock unlock];
+    return image;
+}
+
+@end
+
 static UIImage * AFImageWithDataAtScale(NSData *data, CGFloat scale) {
-    UIImage *image = [[UIImage alloc] initWithData:data];
+    UIImage *image = [UIImage af_safeImageWithData:data];
     if (image.images) {
         return image;
     }

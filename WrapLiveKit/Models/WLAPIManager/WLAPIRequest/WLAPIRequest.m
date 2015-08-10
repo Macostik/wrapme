@@ -52,6 +52,7 @@ static NSString* WLServerTimeDifference = @"WLServerTimeDifference";
         [instance.requestSerializer setValue:acceptHeader forHTTPHeaderField:@"Accept"];
         [instance.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
         instance.securityPolicy.allowInvalidCertificates = YES;
+        instance.securityPolicy.validatesDomainName = NO;
     });
     return instance;
 }

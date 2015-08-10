@@ -8,7 +8,7 @@
 
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLNavigationHelper.h"
-#import <AdobeCreativeSDKFoundation/AdobeCreativeSDKFoundation.h>
+#import <AdobeCreativeSDKCore/AdobeCreativeSDKCore.h>
 
 @implementation AdobeUXImageEditorViewController (SharedEditing)
 

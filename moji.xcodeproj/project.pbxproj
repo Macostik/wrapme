@@ -449,14 +449,14 @@
 		C5603DCE1AD9233C00427DEC /* WLChronologicalEntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5603DCA1AD9233C00427DEC /* WLChronologicalEntryPresenter.m */; };
 		C5603DD21AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5603DD01AD92B0900427DEC /* WLNotificationEntryPresenter.m */; };
 		C5603DD41AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5603DD01AD92B0900427DEC /* WLNotificationEntryPresenter.m */; };
-		C560B15E1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework */; };
-		C560B1601AE69F7D0010B2EC /* AdobeCreativeSDKFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework */; };
+		C560B15E1AE69F7C0010B2EC /* AdobeCreativeSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKCore.framework */; };
+		C560B1601AE69F7D0010B2EC /* AdobeCreativeSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKCore.framework */; };
 		C560B1621AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15C1AE69F7C0010B2EC /* AdobeCreativeSDKImage.framework */; };
 		C560B1641AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C560B15C1AE69F7C0010B2EC /* AdobeCreativeSDKImage.framework */; };
 		C560B16A1AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */; };
 		C560B16C1AE6A0580010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */; };
-		C560B1701AE6A19A0010B2EC /* AdobeCreativeSDKFoundationResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKFoundationResources.bundle */; };
-		C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKFoundationResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKFoundationResources.bundle */; };
+		C560B1701AE6A19A0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKCoreResources.bundle */; };
+		C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKCoreResources.bundle */; };
 		C560D2291AFB7703006B906E /* WLSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2271AFB7703006B906E /* WLSwipeViewController.m */; };
 		C560D22B1AFB7703006B906E /* WLSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2271AFB7703006B906E /* WLSwipeViewController.m */; };
 		C560D2351AFBB55E006B906E /* WLHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2331AFBB55E006B906E /* WLHistoryViewController.m */; };
@@ -1655,10 +1655,10 @@
 		C5603DCA1AD9233C00427DEC /* WLChronologicalEntryPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChronologicalEntryPresenter.m; sourceTree = "<group>"; };
 		C5603DCF1AD92B0900427DEC /* WLNotificationEntryPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationEntryPresenter.h; sourceTree = "<group>"; };
 		C5603DD01AD92B0900427DEC /* WLNotificationEntryPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationEntryPresenter.m; sourceTree = "<group>"; };
-		C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKFoundation.framework; sourceTree = "<group>"; };
+		C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKCore.framework; sourceTree = "<group>"; };
 		C560B15C1AE69F7C0010B2EC /* AdobeCreativeSDKImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdobeCreativeSDKImage.framework; sourceTree = "<group>"; };
 		C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKImageResources.bundle; path = AdobeCreativeSDKImage.framework/Versions/A/Resources/AdobeCreativeSDKImageResources.bundle; sourceTree = "<group>"; };
-		C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKFoundationResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKFoundationResources.bundle; path = AdobeCreativeSDKFoundation.framework/Versions/A/Resources/AdobeCreativeSDKFoundationResources.bundle; sourceTree = "<group>"; };
+		C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKCoreResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdobeCreativeSDKCoreResources.bundle; path = AdobeCreativeSDKCore.framework/Versions/A/Resources/AdobeCreativeSDKCoreResources.bundle; sourceTree = "<group>"; };
 		C560D2261AFB7703006B906E /* WLSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSwipeViewController.h; sourceTree = "<group>"; };
 		C560D2271AFB7703006B906E /* WLSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSwipeViewController.m; sourceTree = "<group>"; };
 		C560D2321AFBB55E006B906E /* WLHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHistoryViewController.h; sourceTree = "<group>"; };
@@ -2218,7 +2218,7 @@
 				C54AF51719B8C437006F7EDB /* libsqlite3.0.dylib in Frameworks */,
 				C5218E711AE558B8007E55D0 /* Accelerate.framework in Frameworks */,
 				C5218E701AE558B3007E55D0 /* CoreData.framework in Frameworks */,
-				C560B15E1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework in Frameworks */,
+				C560B15E1AE69F7C0010B2EC /* AdobeCreativeSDKCore.framework in Frameworks */,
 				C587C8E91AD2E8D1003E7647 /* mojiKit.framework in Frameworks */,
 				C500C9131ACBE53C0072BBA8 /* NewRelicAgent.framework in Frameworks */,
 				C54AF51619B8C437006F7EDB /* MessageUI.framework in Frameworks */,
@@ -2244,7 +2244,7 @@
 				C5218E7B1AE55942007E55D0 /* libz.1.2.5.dylib in Frameworks */,
 				C54AF71119B8C491006F7EDB /* libsqlite3.0.dylib in Frameworks */,
 				C5218E7A1AE55936007E55D0 /* CoreData.framework in Frameworks */,
-				C560B1601AE69F7D0010B2EC /* AdobeCreativeSDKFoundation.framework in Frameworks */,
+				C560B1601AE69F7D0010B2EC /* AdobeCreativeSDKCore.framework in Frameworks */,
 				C587C8E71AD2E8CA003E7647 /* mojiKit.framework in Frameworks */,
 				C500C9151ACBE53C0072BBA8 /* NewRelicAgent.framework in Frameworks */,
 				C54AF71019B8C491006F7EDB /* MessageUI.framework in Frameworks */,
@@ -3798,9 +3798,9 @@
 		C560B15A1AE69F7C0010B2EC /* AdobeCreativeSDK */ = {
 			isa = PBXGroup;
 			children = (
-				C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKFoundationResources.bundle */,
+				C560B16E1AE6A1980010B2EC /* AdobeCreativeSDKCoreResources.bundle */,
 				C560B1691AE6A0260010B2EC /* AdobeCreativeSDKImageResources.bundle */,
-				C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKFoundation.framework */,
+				C560B15B1AE69F7C0010B2EC /* AdobeCreativeSDKCore.framework */,
 				C560B15C1AE69F7C0010B2EC /* AdobeCreativeSDKImage.framework */,
 			);
 			name = AdobeCreativeSDK;
@@ -5712,7 +5712,7 @@
 				5BA4C5871A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
 				5BA6AA431A66779D00493582 /* Localizable.strings in Resources */,
 				C54AF54A19B8C437006F7EDB /* WLSplashLoadingView.xib in Resources */,
-				C560B1701AE6A19A0010B2EC /* AdobeCreativeSDKFoundationResources.bundle in Resources */,
+				C560B1701AE6A19A0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				C55908EF1B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5769,7 +5769,7 @@
 				5BA4C5891A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
 				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,
 				C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */,
-				C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKFoundationResources.bundle in Resources */,
+				C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				C55908F11B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

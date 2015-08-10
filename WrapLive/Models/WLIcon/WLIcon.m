@@ -94,6 +94,7 @@
                   @"pencil":@"3",
                   @"chat":@"4",
                   @"chat-bables":@"6",
+                  @"draw-feather":@"7",
                   @"restore":@"Y"};
     }
     

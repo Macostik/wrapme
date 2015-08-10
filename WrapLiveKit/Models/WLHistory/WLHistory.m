@@ -12,8 +12,8 @@
 #import "NSDate+Formatting.h"
 #import "WLCollections.h"
 #import "NSDate+Additions.h"
-#import "WLWrapRequest.h"
 #import "WLEntryNotifier.h"
+#import "WLPaginatedRequest+Defined.h"
 
 @interface WLHistory () <WLEntryNotifyReceiver, WLBroadcastReceiver>
 
@@ -31,9 +31,7 @@
     WLHistory *history = [[self alloc] init];
     history.checkCompletion = checkCompletion;
     [history addEntries:wrap.candies];
-    WLWrapRequest* wrapRequest = [WLWrapRequest request:wrap];
-    wrapRequest.contentType = WLWrapContentTypePaginated;
-    history.request = wrapRequest;
+    history.request = [WLPaginatedRequest wrap:wrap contentType:WLWrapContentTypePaginated];
     history.wrap = wrap;
     return history;
 }

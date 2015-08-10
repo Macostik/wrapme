@@ -14,17 +14,37 @@
 #import "WLAPIResponse.h"
 #import "WLAPIManager.h"
 
+@class WLAPIRequest;
+
+typedef void (^WLAPIRequestParser) (WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure);
+
+typedef void (^WLAPIRequestParametrizer) (id request, NSMutableDictionary* parameters);
+
+typedef BOOL (^WLAPIRequestFailureValidator) (id request, NSError *error);
+
+typedef NSString *(^WLAPIRequestFile) (id request);
+
 @interface WLAPIRequest : NSObject
 
 @property (strong, nonatomic) NSString* method;
 
-@property (readonly, nonatomic) NSString* path;
+@property (strong, nonatomic) NSString* path;
+
+@property (strong, nonatomic) WLAPIRequestParser parser;
+
+@property (strong, nonatomic) NSMutableArray *parametrizers;
 
 @property (readonly, nonatomic) WLAPIManager* manager;
 
 @property (strong, nonatomic) WLObjectBlock successBlock;
 
+@property (strong, nonatomic) WLFailureBlock beforeFailure;
+
 @property (strong, nonatomic) WLFailureBlock failureBlock;
+
+@property (strong, nonatomic) WLFailureBlock afterFailure;
+
+@property (strong, nonatomic) WLAPIRequestFailureValidator failureValidator;
 
 @property (weak, nonatomic) AFHTTPRequestOperation *operation;
 
@@ -32,23 +52,41 @@
 
 @property (nonatomic) NSTimeInterval timeout;
 
-@property (readonly, nonatomic) BOOL reauthorizationEnabled;
+@property (nonatomic) BOOL skipReauthorizing;
+
+@property (strong, nonatomic) WLAPIRequestFile file;
 
 + (instancetype)request;
 
-+ (NSString*)defaultMethod;
-
 + (NSTimeInterval)timeout;
 
-- (NSMutableDictionary *)configure:(NSMutableDictionary*)parameters;
++ (instancetype)GET:(NSString*)path, ...;
+
++ (instancetype)POST:(NSString*)path, ...;
+
++ (instancetype)PUT:(NSString*)path, ...;
+
++ (instancetype)DELETE:(NSString*)path, ...;
+
+- (instancetype)parse:(WLAPIRequestParser)parser;
+
+- (instancetype)parametrize:(WLAPIRequestParametrizer)parametrizer;
+
+- (instancetype)file:(WLAPIRequestFile)file;
+
+- (instancetype)beforeFailure:(WLFailureBlock)beforeFailure;
+
+- (instancetype)afterFailure:(WLFailureBlock)afterFailure;
+
+- (instancetype)validateFailure:(WLAPIRequestFailureValidator)validateFailure;
+
+- (NSMutableDictionary *)parametrize;
 
 - (NSMutableURLRequest*)request:(NSMutableDictionary*)parameters url:(NSString*)url;
 
 - (id)send:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (id)send;
-
-- (id)objectInResponse:(WLAPIResponse*)response;
 
 - (void)handleSuccess:(id)object;
 

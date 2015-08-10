@@ -20,5 +20,6 @@
 @dynamic candies;
 @dynamic contributors;
 @dynamic messages;
+@dynamic isPublic;
 
 @end

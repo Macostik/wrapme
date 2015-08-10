@@ -9,7 +9,6 @@
 #import "WLAuthorizationRequest.h"
 #import "WLWelcomeViewController.h"
 #import "WLUploadingQueue.h"
-#import "WLWrapsRequest.h"
 #import "WLOperationQueue.h"
 
 @implementation WLAuthorizationRequest
@@ -28,77 +27,41 @@ static BOOL authorized = NO;
     return authorized;
 }
 
-+ (NSString *)defaultMethod {
-    return @"POST";
++ (instancetype)signUp:(WLAuthorization*)authorization {
+    return [[[self POST:@"users"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
+        [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
+        [parameters trySetObject:authorization.deviceName forKey:@"device_name"];
+        [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
+        [parameters trySetObject:authorization.phone forKey:@"phone_number"];
+        [parameters trySetObject:authorization.email forKey:@"email"];
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        success(authorization);
+    }];
 }
 
-+ (instancetype)request:(WLAuthorizationStep)step authorization:(WLAuthorization *)authorization {
-    WLAuthorizationRequest* request = [WLAuthorizationRequest request];
-    request.step = step;
-    request.authorization = authorization;
-    return request;
++ (instancetype)activation:(WLAuthorization*)authorization {
+    return [[[self POST:@"users/activate"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
+        [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
+        [parameters trySetObject:authorization.deviceName forKey:@"device_name"];
+        [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
+        [parameters trySetObject:authorization.phone forKey:@"phone_number"];
+        [parameters trySetObject:authorization.activationCode forKey:@"activation_code"];
+        [parameters trySetObject:authorization.email forKey:@"email"];
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
+        [authorization setCurrent];
+        success(authorization);
+    }];
 }
 
-+ (instancetype)request:(WLAuthorizationStep)step {
-    return [self request:step authorization:[WLAuthorization currentAuthorization]];
-}
-
-+ (instancetype)signUpRequest:(WLAuthorization*)authorization {
-    return [self request:WLAuthorizationStepSignUp authorization:authorization];
-}
-
-+ (instancetype)activationRequest:(WLAuthorization*)authorization {
-    return [self request:WLAuthorizationStepActivation authorization:authorization];
-}
-
-+ (instancetype)signInRequest:(WLAuthorization*)authorization {
-    return [self request:WLAuthorizationStepSignIn authorization:authorization];
-}
-
-+ (instancetype)signUpRequest {
-    return [self signUpRequest:[WLAuthorization currentAuthorization]];
-}
-
-+ (instancetype)activationRequest {
-    return [self activationRequest:[WLAuthorization currentAuthorization]];
-}
-
-+ (instancetype)signInRequest {
-    return [self signInRequest:[WLAuthorization currentAuthorization]];
-}
-
-- (NSString *)path {
-    if (self.step == WLAuthorizationStepSignUp) {
-        return @"users";
-    } else if (self.step == WLAuthorizationStepActivation) {
-        return @"users/activate";
-    } else if (self.step == WLAuthorizationStepSignIn) {
-        return @"users/sign_in";
-    }
-    return nil;
-}
-
-- (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
-    WLAuthorization* authorization = self.authorization;
-    if (!authorization) {
-        authorization = [WLAuthorization currentAuthorization];
-        self.authorization = authorization;
-    }
-    [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
-    [parameters trySetObject:authorization.deviceName forKey:@"device_name"];
-    [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
-	[parameters trySetObject:authorization.phone forKey:@"phone_number"];
-	[parameters trySetObject:authorization.password forKey:@"password"];
-    [parameters trySetObject:authorization.activationCode forKey:@"activation_code"];
-    [parameters trySetObject:self.tryUncorfirmedEmail ? authorization.unconfirmed_email : authorization.email forKey:@"email"];
-    return parameters;
-}
-
-- (id)objectInResponse:(WLAPIResponse *)response {
-    if (self.step == WLAuthorizationStepActivation) {
-        self.authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
-		[self.authorization setCurrent];
-    } else if (self.step == WLAuthorizationStepSignIn) {
++ (instancetype)signIn:(WLAuthorization*)authorization {
+    return [[[[self POST:@"users/sign_in"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
+        [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
+        [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
+        [parameters trySetObject:authorization.phone forKey:@"phone_number"];
+        [parameters trySetObject:authorization.password forKey:@"password"];
+        [parameters trySetObject:request.tryUncorfirmedEmail ? authorization.unconfirmed_email : authorization.email forKey:@"email"];
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (!authorized) {
             authorized = YES;
             [WLUploadingQueue start];
@@ -117,31 +80,50 @@ static BOOL authorized = NO;
         
         NSDictionary* userData = [response.data dictionaryForKey:@"user"];
         
-		WLUser* user = [WLUser API_entry:userData];
-        [self.authorization updateWithUserData:userData];
-		[user setCurrent];
+        WLUser* user = [WLUser API_entry:userData];
+        [authorization updateWithUserData:userData];
+        [user setCurrent];
         
         if (user.firstTimeUse) {
             [self preloadFirstWrapsWithUser:user];
         }
-
+        
         // code for easily saving test user data
 #if TARGET_IPHONE_SIMULATOR
-        [self saveTestUserData];
+        [WLAuthorizationRequest saveTestUserData:authorization];
 #endif
         
-		return user;
-    }
-    return self.authorization;
+        success(user);
+    }] validateFailure:^BOOL(WLAuthorizationRequest *request, NSError *error) {
+        if([error isError:WLErrorNotFoundEntry] && !request.tryUncorfirmedEmail && authorization.unconfirmed_email.nonempty)  {
+            request.tryUncorfirmedEmail = YES;
+            [request send];
+            return NO;
+        } else {
+            return YES;
+        }
+    }];
 }
 
-- (void)saveTestUserData {
++ (instancetype)signUp {
+    return [self signUp:[WLAuthorization currentAuthorization]];
+}
+
++ (instancetype)activation {
+    return [self activation:[WLAuthorization currentAuthorization]];
+}
+
++ (instancetype)signIn {
+    return [self signIn:[WLAuthorization currentAuthorization]];
+}
+
++ (void)saveTestUserData:(WLAuthorization*)auth {
 #ifdef WRAPLIVE_PROJECT_DIR
     NSDictionary *authorizationData = nil;
-    if (self.authorization.phone.nonempty && self.authorization.countryCode.nonempty) {
-        authorizationData = @{@"phone":self.authorization.phone,@"countryCode":self.authorization.countryCode,@"email":self.authorization.email,@"password":self.authorization.password,@"deviceUID":self.authorization.deviceUID};
+    if (auth.phone.nonempty && auth.countryCode.nonempty) {
+        authorizationData = @{@"phone":auth.phone,@"countryCode":auth.countryCode,@"email":auth.email,@"password":auth.password,@"deviceUID":auth.deviceUID};
     } else {
-        authorizationData = @{@"email":self.authorization.email,@"password":self.authorization.password,@"deviceUID":self.authorization.deviceUID};
+        authorizationData = @{@"email":auth.email,@"password":auth.password,@"deviceUID":auth.deviceUID};
     }
     
     // replace path to test users plist
@@ -174,11 +156,11 @@ static BOOL authorized = NO;
 #endif
 }
 
-- (void)preloadFirstWrapsWithUser:(WLUser*)user {
++ (void)preloadFirstWrapsWithUser:(WLUser*)user {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         runUnaryQueuedOperation(WLOperationFetchingDataQueue,^(WLOperation *operation) {
-            [[WLWrapsRequest request] fresh:^(NSSet *set) {
+            [[WLPaginatedRequest wraps:nil] fresh:^(NSSet *set) {
                 NSOrderedSet *wraps = [user sortedWraps];
                 if (wraps.count > 0) {
                     [wraps enumerateObjectsUsingBlock:^(WLWrap *wrap, NSUInteger idx, BOOL *stop) {
@@ -194,97 +176,57 @@ static BOOL authorized = NO;
     });
 }
 
-- (void)handleFailure:(NSError *)error {
-    if([error isError:WLErrorNotFoundEntry] && !self.tryUncorfirmedEmail && self.authorization.unconfirmed_email.nonempty)  {
-        self.tryUncorfirmedEmail = YES;
-        [self send];
-    } else {
-        [super handleFailure:error];
-    }
-}
-
-- (BOOL)reauthorizationEnabled {
-    return NO;
-}
-
-@end
-
-@implementation WLWhoIsRequest
-
-- (NSString *)path {
-    return @"users/whois";
-}
-
-- (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
-    [parameters trySetObject:self.email forKey:@"email"];
-    return [super configure:parameters];
-}
-
-- (id)objectInResponse:(WLAPIResponse *)response {
-    WLWhoIs* whoIs = [WLWhoIs sharedInstance];
-    NSDictionary *userInfo = [response.data dictionaryForKey:WLUserKey];
-    whoIs.found = [userInfo boolForKey:@"found"];
-    whoIs.confirmed = [userInfo boolForKey:@"confirmed_email"];
-    NSString* userUID = [WLUser API_identifier:userInfo];
-    if (userUID.nonempty) {
-        [[WLUser entry:userUID] setCurrent];
-    }
-    WLAuthorization* authorization = [[WLAuthorization alloc] init];
-    authorization.email = self.email;
-    if (!whoIs.confirmed) {
-        authorization.unconfirmed_email = self.email;
-    }
-    [authorization setCurrent];
-    NSString *deviceUID = authorization.deviceUID;
-    NSArray* devices = [userInfo arrayForKey:@"device_uids"];
-    if (devices.count == 0 || (devices.count == 1 && [devices[0][@"device_uid"] isEqualToString:deviceUID])) {
-        whoIs.requiresApproving = NO;
-    } else {
-        whoIs.requiresApproving = YES;
-        whoIs.containsPhoneDevice = NO;
-        for (NSDictionary *device in devices) {
-            if (![device[@"device_uid"] isEqualToString:deviceUID] && [device[@"full_phone_number"] nonempty]) {
-                whoIs.containsPhoneDevice = YES;
-                break;
++ (instancetype)whois:(NSString *)email {
+    return [[[self GET:@"users/whois"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
+        [parameters trySetObject:email forKey:@"email"];
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        WLWhoIs* whoIs = [WLWhoIs sharedInstance];
+        NSDictionary *userInfo = [response.data dictionaryForKey:WLUserKey];
+        whoIs.found = [userInfo boolForKey:@"found"];
+        whoIs.confirmed = [userInfo boolForKey:@"confirmed_email"];
+        NSString* userUID = [WLUser API_identifier:userInfo];
+        if (userUID.nonempty) {
+            [[WLUser entry:userUID] setCurrent];
+        }
+        WLAuthorization* authorization = [[WLAuthorization alloc] init];
+        authorization.email = email;
+        if (!whoIs.confirmed) {
+            authorization.unconfirmed_email = email;
+        }
+        [authorization setCurrent];
+        NSString *deviceUID = authorization.deviceUID;
+        NSArray* devices = [userInfo arrayForKey:@"device_uids"];
+        if (devices.count == 0 || (devices.count == 1 && [devices[0][@"device_uid"] isEqualToString:deviceUID])) {
+            whoIs.requiresApproving = NO;
+        } else {
+            whoIs.requiresApproving = YES;
+            whoIs.containsPhoneDevice = NO;
+            for (NSDictionary *device in devices) {
+                if (![device[@"device_uid"] isEqualToString:deviceUID] && [device[@"full_phone_number"] nonempty]) {
+                    whoIs.containsPhoneDevice = YES;
+                    break;
+                }
             }
         }
-    }
-    
-    return whoIs;
+        success(whoIs);
+    }];
 }
 
-- (BOOL)reauthorizationEnabled {
-    return NO;
++ (instancetype)linkDevice:(NSString*)passcode {
+    return [[[self POST:@"users/link_device"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
+        [parameters trySetObject:[WLAuthorization currentAuthorization].email forKey:WLEmailKey];
+        [parameters trySetObject:[WLAuthorization currentAuthorization].deviceUID forKey:@"device_uid"];
+        [parameters trySetObject:passcode forKey:@"approval_code"];
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+        authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
+        [authorization setCurrent];
+        success(authorization);
+    }];
 }
 
-@end
-
-@implementation WLLinkDeviceRequest
-
-+ (NSString *)defaultMethod {
-    return @"POST";
-}
-
-- (NSString *)path {
-    return @"users/link_device";
-}
-
-- (NSMutableDictionary *)configure:(NSMutableDictionary *)parameters {
-    [parameters trySetObject:self.email forKey:WLEmailKey];
-    [parameters trySetObject:self.deviceUID forKey:@"device_uid"];
-    [parameters trySetObject:self.approvalCode forKey:@"approval_code"];
-    return [super configure:parameters];
-}
-
-- (id)objectInResponse:(WLAPIResponse *)response {
-    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
-    authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
-    [authorization setCurrent];
-    return authorization;
-}
-
-- (BOOL)reauthorizationEnabled {
-    return NO;
+- (BOOL)skipReauthorizing {
+    return YES;
 }
 
 @end
@@ -292,15 +234,15 @@ static BOOL authorized = NO;
 @implementation WLAuthorization (WLAuthorizationRequest)
 
 - (id)signUp:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAuthorizationRequest signUpRequest:self] send:success failure:failure];
+    return [[WLAuthorizationRequest signUp:self] send:success failure:failure];
 }
 
 - (id)activate:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAuthorizationRequest activationRequest:self] send:success failure:failure];
+    return [[WLAuthorizationRequest activation:self] send:success failure:failure];
 }
 
 - (id)signIn:(WLUserBlock)success failure:(WLFailureBlock)failure {
-	return [[WLAuthorizationRequest signInRequest:self] send:success failure:failure];
+	return [[WLAuthorizationRequest signIn:self] send:success failure:failure];
 }
 
 @end

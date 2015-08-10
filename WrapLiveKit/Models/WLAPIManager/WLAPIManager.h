@@ -79,8 +79,6 @@ typedef void (^WLContributionUpdatePreparingBlock)(WLContribution *contribution,
 
 - (id)messages:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
-- (id)latestMessage:(WLMessageBlock)success failure:(WLFailureBlock)failure;
-
 - (void)preload;
 
 @end

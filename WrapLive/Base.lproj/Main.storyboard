@@ -927,9 +927,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y7O-GH-Q4Y" customClass="WLCollectionView">
-                                <rect key="frame" x="0.0" y="163" width="320" height="403"/>
+                                <rect key="frame" x="0.0" y="163" width="320" height="405"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="94"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="48"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="T0u-2f-ASf">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="320" height="111"/>
@@ -1322,8 +1322,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="nibNamePlaceholder" value="WLHomePlaceholderView"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="dataSource" destination="fHn-3G-fGW" id="QAw-6f-LlG"/>
-                                    <outlet property="delegate" destination="fHn-3G-fGW" id="TVy-PG-UqU"/>
+                                    <outlet property="dataSource" destination="gv8-Nb-wf7" id="bQW-sX-X3Y"/>
+                                    <outlet property="delegate" destination="gv8-Nb-wf7" id="vxX-wO-x1Y"/>
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcq-LH-ZNY">
@@ -1502,23 +1502,6 @@
                                     <constraint firstItem="Xeq-Fm-DeI" firstAttribute="leading" secondItem="9Rl-cW-5hv" secondAttribute="leading" constant="10" id="uE1-dg-urb"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eam-qO-REB">
-                                <rect key="frame" x="118" y="480" width="84" height="84"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="OAp-oR-yaY"/>
-                                    <constraint firstAttribute="width" constant="84" id="qVT-Iz-4au"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="61"/>
-                                <state key="normal" backgroundImage="btn_wrap_camera_enabled">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted" backgroundImage="btn_wrap_camera_pressed"/>
-                                <connections>
-                                    <action selector="addPhoto:" destination="L91-fZ-J9O" eventType="touchUpInside" id="3Ca-tV-RCv"/>
-                                </connections>
-                            </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWZ-KR-48g" customClass="WLUploadingView">
                                 <rect key="frame" x="278" y="529" width="34" height="34"/>
                                 <subviews>
@@ -1635,20 +1618,114 @@ Tap here to start.</string>
                                     <outlet property="delegate" destination="L91-fZ-J9O" id="5Ve-av-mgl"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xxr-1f-Jzb" customClass="SegmentedControl">
+                                <rect key="frame" x="0.0" y="520" width="320" height="48"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhi-C4-lKW" customClass="WLHomeSegmentButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="125" height="48"/>
+                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                        <state key="normal" title="Home" image="ic_home_normal">
+                                            <color key="titleColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="ic_home_selected">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                                <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="941-r6-Olj">
+                                        <rect key="frame" x="125" y="0.0" width="70" height="48"/>
+                                        <subviews>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eam-qO-REB" customClass="WLButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="48"/>
+                                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <state key="normal" image="bt_camera_normal">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="disabled" image="bt_camera_disabled">
+                                                    <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <state key="highlighted" image="bt_camera_pressed">
+                                                    <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="addPhoto:" destination="L91-fZ-J9O" eventType="touchUpInside" id="3Ca-tV-RCv"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="O9e-HT-fMf"/>
+                                            <constraint firstAttribute="trailing" secondItem="eam-qO-REB" secondAttribute="trailing" id="d6K-tU-Fja"/>
+                                            <constraint firstAttribute="bottom" secondItem="eam-qO-REB" secondAttribute="bottom" id="fKu-wu-yYS"/>
+                                            <constraint firstItem="eam-qO-REB" firstAttribute="top" secondItem="941-r6-Olj" secondAttribute="top" id="kIa-sU-bea"/>
+                                            <constraint firstItem="eam-qO-REB" firstAttribute="leading" secondItem="941-r6-Olj" secondAttribute="leading" id="wJ6-Bd-aqg"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xg-qz-q6g" customClass="WLHomeSegmentButton">
+                                        <rect key="frame" x="195" y="0.0" width="125" height="48"/>
+                                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                        <state key="normal" title="What's hot" image="ic_hot_normal">
+                                            <color key="titleColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="ic_hot_selected">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                                <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="941-r6-Olj" firstAttribute="top" secondItem="Xxr-1f-Jzb" secondAttribute="top" id="32H-YA-Irj"/>
+                                    <constraint firstAttribute="bottom" secondItem="3xg-qz-q6g" secondAttribute="bottom" id="7I2-jQ-Xz4"/>
+                                    <constraint firstAttribute="trailing" secondItem="3xg-qz-q6g" secondAttribute="trailing" id="8n2-yE-PId"/>
+                                    <constraint firstItem="941-r6-Olj" firstAttribute="leading" secondItem="mhi-C4-lKW" secondAttribute="trailing" id="9HZ-3j-yHL"/>
+                                    <constraint firstItem="mhi-C4-lKW" firstAttribute="leading" secondItem="Xxr-1f-Jzb" secondAttribute="leading" id="DXf-Ob-hS0"/>
+                                    <constraint firstItem="3xg-qz-q6g" firstAttribute="top" secondItem="Xxr-1f-Jzb" secondAttribute="top" id="I62-ex-DbV"/>
+                                    <constraint firstAttribute="bottom" secondItem="mhi-C4-lKW" secondAttribute="bottom" id="Lb7-xT-aFL"/>
+                                    <constraint firstAttribute="height" constant="48" id="QOa-Ms-g4O"/>
+                                    <constraint firstItem="3xg-qz-q6g" firstAttribute="leading" secondItem="941-r6-Olj" secondAttribute="trailing" id="RJV-kC-ewY"/>
+                                    <constraint firstAttribute="centerX" secondItem="941-r6-Olj" secondAttribute="centerX" id="bxK-Mn-hw9"/>
+                                    <constraint firstAttribute="bottom" secondItem="941-r6-Olj" secondAttribute="bottom" id="nPK-jU-F9m"/>
+                                    <constraint firstItem="mhi-C4-lKW" firstAttribute="top" secondItem="Xxr-1f-Jzb" secondAttribute="top" id="tU3-1e-ilg"/>
+                                    <constraint firstItem="mhi-C4-lKW" firstAttribute="width" secondItem="3xg-qz-q6g" secondAttribute="width" id="vjZ-EH-YcW"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="segmentValueChanged:" destination="gv8-Nb-wf7" eventType="valueChanged" id="DYu-AI-HHc"/>
+                                    <action selector="tabChanged:" destination="L91-fZ-J9O" eventType="valueChanged" id="zPj-cU-7Cg"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="IWZ-KR-48g" secondAttribute="trailing" constant="8" id="0dG-Xy-kS1"/>
-                            <constraint firstAttribute="centerX" secondItem="eam-qO-REB" secondAttribute="centerX" id="3hQ-KI-JoY"/>
                             <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="IWZ-KR-48g" secondAttribute="bottom" constant="5" id="5TZ-qZ-R7a"/>
-                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="eam-qO-REB" secondAttribute="top" priority="250" constant="-4" id="C8A-MS-PNZ"/>
-                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="eam-qO-REB" secondAttribute="bottom" priority="750" constant="4" id="EPw-hT-f3u"/>
+                            <constraint firstAttribute="trailing" secondItem="Xxr-1f-Jzb" secondAttribute="trailing" id="9eW-Gs-SU3"/>
+                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="Xxr-1f-Jzb" secondAttribute="bottom" priority="750" id="EBe-HF-XDG"/>
+                            <constraint firstItem="Xxr-1f-Jzb" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="EDo-sH-Bzd"/>
+                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="y7O-GH-Q4Y" secondAttribute="bottom" id="Oxr-IF-hrs"/>
                             <constraint firstAttribute="trailing" secondItem="rgB-qi-Gbh" secondAttribute="trailing" constant="4" id="Uwx-3x-MHV"/>
                             <constraint firstItem="rgB-qi-Gbh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L5N-Xm-IFu" secondAttribute="leadingMargin" constant="12" id="Xak-QO-3IX"/>
                             <constraint firstItem="Qcq-LH-ZNY" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" priority="750" id="ZK0-p3-ckA"/>
-                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="y7O-GH-Q4Y" secondAttribute="bottom" constant="2" id="ZdV-Xu-BQB"/>
                             <constraint firstAttribute="trailing" secondItem="9Rl-cW-5hv" secondAttribute="trailing" id="a0D-I9-wse"/>
                             <constraint firstItem="Qcq-LH-ZNY" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="aMO-Xl-sXk"/>
+                            <constraint firstItem="FgI-7k-v3i" firstAttribute="top" secondItem="Xxr-1f-Jzb" secondAttribute="top" priority="250" id="bOA-lw-YHv"/>
                             <constraint firstItem="9Rl-cW-5hv" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="iFH-7m-26c"/>
                             <constraint firstItem="y7O-GH-Q4Y" firstAttribute="leading" secondItem="L5N-Xm-IFu" secondAttribute="leading" id="inx-sR-OqM"/>
                             <constraint firstItem="rgB-qi-Gbh" firstAttribute="top" secondItem="9Rl-cW-5hv" secondAttribute="bottom" id="iuy-XQ-QmQ"/>
@@ -1665,16 +1742,27 @@ Tap here to start.</string>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="5cB-EH-3pL"/>
                         <outlet property="createWrapButton" destination="KxF-7g-Abs" id="DiP-hq-Kq1"/>
                         <outlet property="createWrapTipView" destination="rgB-qi-Gbh" id="lEh-RQ-itL"/>
-                        <outlet property="dataSource" destination="fHn-3G-fGW" id="mME-eD-7au"/>
+                        <outlet property="dataSource" destination="gv8-Nb-wf7" id="lbe-6L-ul4"/>
                         <outlet property="emailConfirmationLayoutPrioritizer" destination="LSq-pS-yid" id="Bin-aV-yY8"/>
                         <outlet property="emailConfirmationView" destination="Qcq-LH-ZNY" id="shZ-oR-vok"/>
+                        <outlet property="homeDataSource" destination="fHn-3G-fGW" id="PO3-jr-2b7"/>
                         <outlet property="navigationBar" destination="9Rl-cW-5hv" id="9kd-xs-4J2"/>
                         <outlet property="notificationsLabel" destination="2L6-nO-etl" id="5XW-mo-EXZ"/>
+                        <outlet property="photoButton" destination="eam-qO-REB" id="Tde-SP-8DF"/>
+                        <outlet property="publicDataSource" destination="uJJ-OA-ZDD" id="Pa2-yU-Ali"/>
                         <outlet property="uploadingView" destination="IWZ-KR-48g" id="KrJ-sE-ftu"/>
                         <outlet property="verificationEmailLabel" destination="UL6-dF-3Kj" id="nDG-MA-MkU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfT-C3-6mj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="gv8-Nb-wf7" customClass="WLSegmentedDataSource">
+                    <connections>
+                        <outlet property="collectionView" destination="y7O-GH-Q4Y" id="aim-EG-DAj"/>
+                        <outlet property="scrollDirectionLayoutPrioritizer" destination="qqw-Aq-nfs" id="XD7-NW-ICm"/>
+                        <outletCollection property="items" destination="fHn-3G-fGW" collectionClass="NSMutableArray" id="Hxr-cp-jFd"/>
+                        <outletCollection property="items" destination="uJJ-OA-ZDD" collectionClass="NSMutableArray" id="oqd-v8-Isl"/>
+                    </connections>
+                </customObject>
                 <customObject id="fHn-3G-fGW" customClass="WLHomeDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLWrapCell"/>
@@ -1685,7 +1773,14 @@ Tap here to start.</string>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="QUX-wt-D3B"/>
-                        <outlet property="scrollDirectionLayoutPrioritizer" destination="qqw-Aq-nfs" id="q6l-iD-6t9"/>
+                    </connections>
+                </customObject>
+                <customObject id="uJJ-OA-ZDD" customClass="WLPublicWrapsDataSource">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLWrapCell"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="collectionView" destination="y7O-GH-Q4Y" id="5NO-04-rHl"/>
                     </connections>
                 </customObject>
                 <customObject id="Qns-CC-AwC" userLabel="Notifications Transition" customClass="WLStoryboardTransition">
@@ -1722,9 +1817,9 @@ Tap here to start.</string>
                 </customObject>
                 <customObject id="qqw-Aq-nfs" customClass="WLLayoutPrioritizer">
                     <connections>
-                        <outletCollection property="defaultConstraints" destination="EPw-hT-f3u" id="VYy-JE-NAB"/>
-                        <outletCollection property="alternativeConstraints" destination="C8A-MS-PNZ" id="d83-Lv-sbu"/>
-                        <outletCollection property="parentViews" destination="eam-qO-REB" id="njb-VC-u4h"/>
+                        <outletCollection property="defaultConstraints" destination="EBe-HF-XDG" id="QJd-8T-txD"/>
+                        <outletCollection property="alternativeConstraints" destination="bOA-lw-YHv" id="A9r-dT-zne"/>
+                        <outletCollection property="parentViews" destination="Xxr-1f-Jzb" id="3CS-Vf-A6A"/>
                     </connections>
                 </customObject>
             </objects>
@@ -2388,6 +2483,24 @@ Tap here to start.</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xC-mH-huG">
+                                <rect key="frame" x="12" y="70" width="296" height="32"/>
+                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="Mdr-ut-23U"/>
+                                </constraints>
+                                <state key="normal" title="Follow">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="follow:" destination="hUj-RK-zkg" eventType="touchUpInside" id="KQu-9U-rz5"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b0w-IA-ZYu">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
@@ -2505,8 +2618,8 @@ Tap here to start.</string>
                                                     <constraint firstAttribute="trailing" secondItem="Exo-Pi-XRe" secondAttribute="trailing" id="vH0-l9-5Cv"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m01-Ic-fcZ" customClass="WLBadgeLabel">
-                                                <rect key="frame" x="12" y="7" width="16" height="16"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m01-Ic-fcZ" customClass="WLBadgeLabel">
+                                                <rect key="frame" x="79" y="7" width="22" height="16"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="m01-Ic-fcZ" secondAttribute="height" multiplier="1:1" id="Pts-7h-qNF"/>
@@ -2526,7 +2639,7 @@ Tap here to start.</string>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                     <userDefinedRuntimeAttribute type="size" keyPath="intrinsicContentSizeInsets">
-                                                        <size key="value" width="2" height="2"/>
+                                                        <size key="value" width="10" height="0.0"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
@@ -2534,9 +2647,9 @@ Tap here to start.</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="centerX" secondItem="qWI-hh-ZZb" secondAttribute="centerX" id="Ebf-7y-ZNY"/>
-                                            <constraint firstItem="m01-Ic-fcZ" firstAttribute="top" secondItem="qWI-hh-ZZb" secondAttribute="top" constant="-6" id="MNe-D8-52C"/>
+                                            <constraint firstItem="vBf-Om-hs7" firstAttribute="top" secondItem="m01-Ic-fcZ" secondAttribute="centerY" constant="-2" id="EqX-yN-Fj8"/>
                                             <constraint firstAttribute="centerY" secondItem="qWI-hh-ZZb" secondAttribute="centerY" id="Y6w-Vv-mm1"/>
-                                            <constraint firstItem="m01-Ic-fcZ" firstAttribute="leading" secondItem="qWI-hh-ZZb" secondAttribute="leading" constant="-6" id="dyX-Lc-b9d"/>
+                                            <constraint firstItem="Exo-Pi-XRe" firstAttribute="trailing" secondItem="m01-Ic-fcZ" secondAttribute="leading" constant="10" id="hBH-fb-EFG"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGo-lW-T9v" userLabel="PhotosButton" customClass="WLButton">
@@ -2588,8 +2701,8 @@ Tap here to start.</string>
                                                     <constraint firstItem="9sT-hL-fQk" firstAttribute="trailing" secondItem="nwc-oQ-LVZ" secondAttribute="leading" constant="-5" id="pfw-zL-hRw"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3d-ia-fy3" customClass="WLBadgeLabel">
-                                                <rect key="frame" x="20" y="7" width="16" height="16"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3d-ia-fy3" customClass="WLBadgeLabel">
+                                                <rect key="frame" x="71" y="7" width="22" height="16"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="z3d-ia-fy3" secondAttribute="height" multiplier="1:1" id="Hhe-6y-XJr"/>
@@ -2609,7 +2722,7 @@ Tap here to start.</string>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                                                     <userDefinedRuntimeAttribute type="size" keyPath="intrinsicContentSizeInsets">
-                                                        <size key="value" width="2" height="2"/>
+                                                        <size key="value" width="10" height="0.0"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
@@ -2618,8 +2731,8 @@ Tap here to start.</string>
                                         <constraints>
                                             <constraint firstAttribute="centerY" secondItem="e5n-YY-oV2" secondAttribute="centerY" id="5x1-Az-met"/>
                                             <constraint firstAttribute="centerX" secondItem="e5n-YY-oV2" secondAttribute="centerX" id="ZXa-Kw-wBc"/>
-                                            <constraint firstItem="z3d-ia-fy3" firstAttribute="leading" secondItem="e5n-YY-oV2" secondAttribute="leading" constant="-6" id="jul-1e-lZ2"/>
-                                            <constraint firstItem="z3d-ia-fy3" firstAttribute="top" secondItem="e5n-YY-oV2" secondAttribute="top" constant="-6" id="v8P-CS-fdF"/>
+                                            <constraint firstItem="z3d-ia-fy3" firstAttribute="centerY" secondItem="9sT-hL-fQk" secondAttribute="top" constant="2" id="fnH-tN-7K1"/>
+                                            <constraint firstItem="z3d-ia-fy3" firstAttribute="leading" secondItem="nwc-oQ-LVZ" secondAttribute="trailing" constant="-10" id="g9t-MM-Y0W"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RM4-Jg-HlY" userLabel="ChatButton" customClass="WLButton">
@@ -2740,14 +2853,17 @@ Tap here to start.</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="5xC-mH-huG" secondAttribute="trailing" constant="12" id="7TI-hc-HNh"/>
                             <constraint firstAttribute="trailing" secondItem="aqT-yE-MER" secondAttribute="trailing" id="BVR-P6-Zyc"/>
                             <constraint firstItem="aqT-yE-MER" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="bottom" id="MQg-Fb-Rad"/>
                             <constraint firstItem="b0w-IA-ZYu" firstAttribute="top" secondItem="Fgm-DM-Lps" secondAttribute="bottom" constant="-20" id="R2P-z6-Yyp"/>
                             <constraint firstItem="aqT-yE-MER" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" id="TxK-wP-QfJ"/>
                             <constraint firstAttribute="trailing" secondItem="rEr-of-cGm" secondAttribute="trailing" id="aqv-MO-djY"/>
                             <constraint firstItem="b0w-IA-ZYu" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" id="cit-wi-bUk"/>
+                            <constraint firstItem="5xC-mH-huG" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" constant="12" id="dMs-4d-OSq"/>
                             <constraint firstItem="rEr-of-cGm" firstAttribute="leading" secondItem="f6K-dz-2Hs" secondAttribute="leading" id="fzL-17-7NV"/>
                             <constraint firstItem="rEr-of-cGm" firstAttribute="height" secondItem="f6K-dz-2Hs" secondAttribute="height" constant="-108" id="g3A-em-iLk"/>
+                            <constraint firstItem="5xC-mH-huG" firstAttribute="centerY" secondItem="aqT-yE-MER" secondAttribute="centerY" id="iKm-uK-G4N"/>
                             <constraint firstAttribute="trailing" secondItem="b0w-IA-ZYu" secondAttribute="trailing" id="orp-vP-j89"/>
                             <constraint firstItem="rEr-of-cGm" firstAttribute="top" secondItem="aqT-yE-MER" secondAttribute="bottom" id="xRx-pe-7Zd"/>
                         </constraints>
@@ -2755,10 +2871,12 @@ Tap here to start.</string>
                     <connections>
                         <outlet property="candyCountLabel" destination="m01-Ic-fcZ" id="jaU-NF-20F"/>
                         <outlet property="containerView" destination="rEr-of-cGm" id="AcK-LX-CK0"/>
+                        <outlet property="followButton" destination="5xC-mH-huG" id="2bZ-Sa-Mwc"/>
                         <outlet property="messageCountLabel" destination="z3d-ia-fy3" id="Hpz-4E-8bd"/>
                         <outlet property="nameLabel" destination="ek2-Bn-UN6" id="85h-Ef-Vvk"/>
                         <outlet property="navigationBar" destination="b0w-IA-ZYu" id="iww-eD-owf"/>
                         <outlet property="segmentedControl" destination="aqT-yE-MER" id="XmX-dw-ROx"/>
+                        <outlet property="settingsButton" destination="8kR-VI-DgA" id="6h1-3i-TaZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUq-C2-qrY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2826,8 +2944,23 @@ Tap here to start.</string>
                                         </connections>
                                     </button>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="TL4-HZ-bti">
-                                        <rect key="frame" x="170" y="37" width="20" height="20"/>
+                                        <rect key="frame" x="130" y="37" width="20" height="20"/>
                                     </activityIndicatorView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U2n-dd-fSG" userLabel="DrawButton" customClass="WLIconButton">
+                                        <rect key="frame" x="160" y="30" width="30" height="34"/>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.91664922240000002" green="0.91662174460000001" blue="0.91663730139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="draw-feather"/>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                                <size key="value" width="10" height="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="draw:" destination="eto-O4-OHy" eventType="touchUpInside" id="vfA-mZ-Ffc"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4L-uu-XEd" userLabel="EditButton" customClass="WLIconButton">
                                         <rect key="frame" x="200" y="30" width="30" height="34"/>
                                         <state key="highlighted">
@@ -2879,14 +3012,16 @@ Tap here to start.</string>
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" constant="-10" id="0nd-cJ-KtR"/>
                                     <constraint firstItem="sPd-Ai-V8F" firstAttribute="leading" secondItem="P4L-uu-XEd" secondAttribute="trailing" constant="10" id="43c-hF-BQ1"/>
+                                    <constraint firstItem="P4L-uu-XEd" firstAttribute="leading" secondItem="U2n-dd-fSG" secondAttribute="trailing" constant="10" id="FUG-et-Tdl"/>
                                     <constraint firstItem="0rM-Ee-8of" firstAttribute="centerY" secondItem="sPd-Ai-V8F" secondAttribute="centerY" id="Mlp-zH-ksi"/>
                                     <constraint firstItem="sPd-Ai-V8F" firstAttribute="centerY" secondItem="J3S-jS-mvs" secondAttribute="centerY" id="Oe7-bB-r8N"/>
                                     <constraint firstAttribute="trailing" secondItem="J3S-jS-mvs" secondAttribute="trailing" constant="10" id="REl-9b-Ndz"/>
                                     <constraint firstItem="J3S-jS-mvs" firstAttribute="centerY" secondItem="TL4-HZ-bti" secondAttribute="centerY" id="Ydf-QF-dGl"/>
                                     <constraint firstItem="P4L-uu-XEd" firstAttribute="centerY" secondItem="J3S-jS-mvs" secondAttribute="centerY" id="hMk-bQ-Wwk"/>
                                     <constraint firstAttribute="height" secondItem="sPd-Ai-V8F" secondAttribute="height" constant="40" id="jJj-ki-Nzl"/>
-                                    <constraint firstItem="P4L-uu-XEd" firstAttribute="leading" secondItem="TL4-HZ-bti" secondAttribute="trailing" constant="10" id="jPY-mK-icI"/>
+                                    <constraint firstItem="J3S-jS-mvs" firstAttribute="centerY" secondItem="U2n-dd-fSG" secondAttribute="centerY" id="mQp-6J-3gF"/>
                                     <constraint firstItem="0rM-Ee-8of" firstAttribute="leading" secondItem="Wbg-W9-8Ie" secondAttribute="leading" constant="12" id="rw6-ky-DHO"/>
+                                    <constraint firstItem="U2n-dd-fSG" firstAttribute="leading" secondItem="TL4-HZ-bti" secondAttribute="trailing" constant="10" id="vih-pG-FOH"/>
                                     <constraint firstItem="J3S-jS-mvs" firstAttribute="leading" secondItem="sPd-Ai-V8F" secondAttribute="trailing" constant="10" id="wc4-UG-eZv"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -3091,6 +3226,8 @@ Tap here to start.</string>
                         <outlet property="candyIndicator" destination="7yS-IZ-1M1" id="4SO-xL-ie4"/>
                         <outlet property="commentButton" destination="2ai-CO-qH0" id="gaJ-nC-R6A"/>
                         <outlet property="commentIndicator" destination="U0A-o6-Hed" id="fn6-LQ-ijP"/>
+                        <outlet property="downloadButton" destination="sPd-Ai-V8F" id="xcQ-Js-zwj"/>
+                        <outlet property="drawButton" destination="U2n-dd-fSG" id="MpT-rX-G0x"/>
                         <outlet property="editButton" destination="P4L-uu-XEd" id="ZyM-nD-E5G"/>
                         <outlet property="lastCommentTextView" destination="G8T-0M-jNN" id="747-dx-mt6"/>
                         <outlet property="postLabel" destination="xGF-6q-Jgs" id="QRd-Pg-cNO"/>
@@ -4709,6 +4846,7 @@ QWRkEEZyaWVuZFZpZXc
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="addPhotoButton" destination="PNO-TY-VYu" id="m5b-cf-eyT"/>
                         <outlet property="collectionView" destination="a7y-ca-xlT" id="Fgn-6b-Eot"/>
                         <outlet property="dataSource" destination="R4B-e5-fki" id="nPm-NP-w5V"/>
                         <outlet property="primaryConstraint" destination="8F6-xd-Raa" id="idQ-bf-VUC"/>
@@ -5003,6 +5141,9 @@ QWRkEEZyaWVuZFZpZXc
     </scenes>
     <resources>
         <image name="add_by_phone_white" width="30" height="30"/>
+        <image name="bt_camera_disabled" width="40" height="40"/>
+        <image name="bt_camera_normal" width="40" height="40"/>
+        <image name="bt_camera_pressed" width="40" height="40"/>
         <image name="btn_wrap_camera_enabled" width="84" height="84"/>
         <image name="btn_wrap_camera_pressed" width="84" height="84"/>
         <image name="camera_medium" width="50" height="50"/>
@@ -5011,6 +5152,10 @@ QWRkEEZyaWVuZFZpZXc
         <image name="ic_back_in_circle_white" width="30" height="30"/>
         <image name="ic_emoji" width="26" height="26"/>
         <image name="ic_emoji_keyboard" width="30" height="18"/>
+        <image name="ic_home_normal" width="24" height="24"/>
+        <image name="ic_home_selected" width="24" height="24"/>
+        <image name="ic_hot_normal" width="24" height="24"/>
+        <image name="ic_hot_selected" width="24" height="24"/>
         <image name="ic_photo_placeholder" width="60" height="48"/>
         <image name="ic_search" width="16" height="16"/>
     </resources>

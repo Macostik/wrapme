@@ -14,6 +14,8 @@ static NSUInteger WLWrapNameLimit = 190;
 
 @property (nonatomic, readonly) BOOL isFirstCreated;
 
+@property (readonly, nonatomic) BOOL requiresFollowing;
+
 + (instancetype)wrap;
 
 - (NSString*)contributorNames;

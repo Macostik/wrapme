@@ -32,10 +32,8 @@
 - (IBAction)next:(WLButton*)sender {
     sender.loading = YES;
     [self.view endEditing:YES];
-    WLWhoIsRequest* request = [WLWhoIsRequest request];
-    request.email = self.emailField.text;
     __weak typeof(self)weakSelf = self;
-    [request send:^(WLWhoIs* whoIs) {
+    [[WLAuthorizationRequest whois:self.emailField.text] send:^(WLWhoIs* whoIs) {
         sender.loading = NO;
         if (whoIs.found && whoIs.requiresApproving) {
             if (whoIs.confirmed) {

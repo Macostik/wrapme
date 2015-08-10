@@ -11,8 +11,9 @@
 #import "WLDrawingCanvas.h"
 #import "WLDrawingSession.h"
 #import "WLColorPicker.h"
+#import "UIView+LayoutHelper.h"
 
-@interface WLDrawingView () <WLDrawingSessionDelegate, WLColorPickerDelegate>
+@interface WLDrawingView () <WLDrawingSessionDelegate, WLColorPickerDelegate, WLDrawingViewDelegate>
 
 @property (strong, nonatomic) WLDrawingSession *session;
 @property (weak, nonatomic) WLDrawingCanvas *canvas;
@@ -23,9 +24,19 @@
 
 @property (strong, nonatomic) NSArray* colors;
 
+@property (strong, nonatomic) WLImageBlock doneBlock;
+
+@property (strong, nonatomic) WLBlock cancelBlock;
+
 @end
 
 @implementation WLDrawingView
+
+- (void)showInView:(UIView *)view {
+    self.frame = view.bounds;
+    [view addSubview:self];
+    [view makeResizibleSubview:self];
+}
 
 - (void)setImage:(UIImage *)image {
     self.imageView.image = image;
@@ -45,6 +56,13 @@
     self.session.brush = [WLDrawingBrush brushWithColor:[UIColor redColor] width:10];
     
     [self updateBrushView];
+}
+
+- (void)setImage:(UIImage *)image done:(WLImageBlock)done cancel:(WLBlock)cancel {
+    [self setImage:image];
+    self.delegate = self;
+    self.doneBlock = done;
+    self.cancelBlock = cancel;
 }
 
 - (IBAction)cancel:(id)sender {
@@ -129,6 +147,20 @@
 - (void)colorPicker:(WLColorPicker *)picker pickedColor:(UIColor *)color {
     self.session.brush.color = color;
     [self updateBrushView];
+}
+
+// MARK: - WLDrawingViewDelegate
+
+- (void)drawingViewDidCancel:(WLDrawingView *)view {
+    if (self.cancelBlock) {
+        self.cancelBlock();
+    }
+}
+
+- (void)drawingView:(WLDrawingView *)view didFinishWithImage:(UIImage *)image {
+    if (self.doneBlock) {
+        self.doneBlock(image);
+    }
 }
 
 @end

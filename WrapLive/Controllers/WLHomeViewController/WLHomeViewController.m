@@ -40,10 +40,16 @@
 #import "WLHintView.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLMessagesCounter.h"
+#import "WLSegmentedDataSource.h"
+#import "WLPublicWrapsDataSource.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
-@property (strong, nonatomic) IBOutlet WLHomeDataSource *dataSource;
+@property (strong, nonatomic) IBOutlet WLSegmentedDataSource *dataSource;
+
+@property (strong, nonatomic) IBOutlet WLPublicWrapsDataSource *publicDataSource;
+
+@property (strong, nonatomic) IBOutlet WLHomeDataSource *homeDataSource;
 @property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
@@ -52,6 +58,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *emailConfirmationLayoutPrioritizer;
+@property (weak, nonatomic) IBOutlet UIButton *photoButton;
 
 @property (nonatomic) BOOL createWrapTipHidden;
 
@@ -66,6 +73,16 @@
 }
 
 - (void)viewDidLoad {
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:@"WLPublicWrapsHeaderView" bundle:nil] forSupplementaryViewOfKind:@"WLPublicWrapsHeaderView" withReuseIdentifier:@"WLPublicWrapsHeaderView"];
+    UICollectionView *collectionView = self.collectionView;
+    [self.dataSource setRefreshable];
+    WLCollectionViewLayout *layout = [[WLCollectionViewLayout alloc] init];
+    layout.sectionHeadingSupplementaryViewKinds = @[];
+    collectionView.collectionViewLayout = layout;
+    [layout registerItemFooterSupplementaryViewKind:UICollectionElementKindSectionHeader];
+    [layout registerItemHeaderSupplementaryViewKind:@"WLPublicWrapsHeaderView"];
+    
     [super viewDidLoad];
     
     self.createWrapTipHidden = YES;
@@ -76,17 +93,19 @@
     
     [self addNotifyReceivers];
     
-    __weak WLHomeDataSource *dataSource = self.dataSource;
+    __weak WLHomeDataSource *homeDataSource = self.homeDataSource;
+    __weak WLPublicWrapsDataSource *publicDataSource = self.publicDataSource;
     
     NSSet* wraps = [WLUser currentUser].wraps;
-    dataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLWrapsRequest new]];
+    homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:nil]];
+    publicDataSource.items = [WLPaginatedSet setWithEntries:[[WLWrap entriesWhere:@"isPublic == YES"] set] request:[WLPaginatedRequest wraps:@"public_not_following"]];
     
-    [dataSource setSelectionBlock:^(id entry) {
+    homeDataSource.selectionBlock = publicDataSource.selectionBlock = ^(id entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
-    }];
+    };
     
     if (wraps.nonempty) {
-        [dataSource refresh];
+        [homeDataSource refresh];
     }
     
     self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
@@ -209,7 +228,7 @@
 }
 
 - (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
-    [self openCameraForWrap:self.dataSource.wrap animated:animated startFromGallery:startFromGallery showWrapPicker:showPicker];
+    [self openCameraForWrap:self.homeDataSource.wrap animated:animated startFromGallery:startFromGallery showWrapPicker:showPicker];
 }
 
 - (void)openCameraForWrap:(WLWrap*)wrap animated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
@@ -263,17 +282,38 @@
     
     [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
         [receiver setDidAddBlock:^(WLWrap *wrap) {
-            WLPaginatedSet *wraps = [weakSelf.dataSource items];
-            [wraps addEntry:wrap];
+            if (wrap.requiresFollowing) {
+                [(WLPaginatedSet *)[weakSelf.publicDataSource items] addEntry:wrap];
+            } else {
+                [(WLPaginatedSet *)[weakSelf.homeDataSource items] addEntry:wrap];
+            }
             weakSelf.collectionView.contentOffset = CGPointZero;
         }];
         [receiver setDidUpdateBlock:^(WLWrap *wrap) {
-            WLPaginatedSet *wraps = [weakSelf.dataSource items];
-            [wraps resetEntries:[[WLUser currentUser] wraps]];
+            if (wrap.requiresFollowing) {
+                WLPaginatedSet *publicWraps = (WLPaginatedSet *)[weakSelf.publicDataSource items];
+                if ([publicWraps.entries containsObject:wrap]) {
+                    [publicWraps sort];
+                } else {
+                    [publicWraps addEntry:wrap];
+                    [(WLPaginatedSet *)[weakSelf.homeDataSource items] removeEntry:wrap];
+                }
+            } else {
+                WLPaginatedSet *wraps = (WLPaginatedSet *)[weakSelf.homeDataSource items];
+                if ([wraps.entries containsObject:wrap]) {
+                    [wraps sort];
+                } else {
+                    [wraps addEntry:wrap];
+                    [(WLPaginatedSet *)[weakSelf.publicDataSource items] removeEntry:wrap];
+                }
+            }
         }];
         [receiver setWillDeleteBlock:^(WLWrap *wrap) {
-            WLPaginatedSet *wraps = [weakSelf.dataSource items];
-            [wraps removeEntry:wrap];
+            if (wrap.requiresFollowing) {
+                [(WLPaginatedSet *)[weakSelf.publicDataSource items] removeEntry:wrap];
+            } else {
+                [(WLPaginatedSet *)[weakSelf.homeDataSource items] removeEntry:wrap];
+            }
         }];
     }];
     
@@ -289,7 +329,7 @@
 // MARK: - Actions
 
 - (IBAction)resendConfirmation:(id)sender {
-    [[WLResendConfirmationRequest request] send:^(id object) {
+    [[WLAPIRequest resendConfirmation:nil] send:^(id object) {
         [WLToast showWithMessage:WLLS(@"confirmation_resend")];
     } failure:^(NSError *error) {
     }];
@@ -304,6 +344,10 @@
 
 - (IBAction)addPhoto:(id)sender {
     [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:NO];
+}
+
+- (IBAction)tabChanged:(SegmentedControl*)sender {
+    self.photoButton.enabled = sender.selectedSegment == 0;
 }
 
 // MARK: - WLStillPictureViewControllerDelegate
@@ -373,7 +417,7 @@
 
 - (WLCandyCell *)presentedCandyCell:(WLCandy *)candy {
     [self.collectionView layoutIfNeeded];
-    WLRecentCandiesView *candiesView = self.dataSource.candiesView;
+    WLRecentCandiesView *candiesView = self.homeDataSource.candiesView;
     NSUInteger index = [(id)candiesView.dataSource.items indexOfObject:candy];
     if (index != NSNotFound && candiesView) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];

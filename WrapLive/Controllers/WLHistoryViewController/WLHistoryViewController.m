@@ -26,6 +26,9 @@
 #import "WLCommentsViewController.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLAlertView.h"
+#import "WLDrawingView.h"
+#import "UIView+LayoutHelper.h"
+#import "AdobeUXImageEditorViewController+SharedEditing.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -41,6 +44,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet WLButton *commentButton;
 @property (weak, nonatomic) IBOutlet WLIconButton *actionButton;
 @property (weak, nonatomic) IBOutlet WLIconButton *editButton;
+@property (weak, nonatomic) IBOutlet WLIconButton *downloadButton;
+@property (weak, nonatomic) IBOutlet WLIconButton *drawButton;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *commentIndicator;
@@ -82,6 +87,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     if (!_wrap) {
         _wrap = _candy.wrap;
     }
+    
+    self.editButton.hidden = self.downloadButton.hidden = self.actionButton.hidden = self.drawButton.hidden = self.commentButton.hidden = _wrap.requiresFollowing;
     
     if (!_history && _wrap) {
         _history = [WLHistory historyWithWrap:self.wrap];
@@ -445,15 +452,37 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (IBAction)editPhoto:(id)sender {
+    WLCandy *candy = self.candy;
+    [self downloadCandyOriginal:candy success:^(UIImage *image) {
+        [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
+            [candy editWithImage:image];
+        } cancel:nil];
+    } failure:^(NSError *error) {
+        [error show];
+    }];
+}
+
+- (IBAction)draw:(id)sender {
     __weak __typeof(self)weakSelf = self;
-    [self.candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
-        [WLDownloadingView downloadAndEditCandy:weakSelf.candy success:^(UIImage *image) {
-        } failure:^(NSError *error) {
-            [error show];
+    WLCandy *candy = self.candy;
+    [self downloadCandyOriginal:candy success:^(UIImage *image) {
+        __weak WLDrawingView *drawingView = [WLDrawingView loadFromNib];
+        [drawingView showInView:weakSelf.view];
+        [drawingView setImage:image done:^(UIImage *image) {
+            [candy editWithImage:image];
+            [drawingView removeFromSuperview];
+        } cancel:^{
+            [drawingView removeFromSuperview];
         }];
     } failure:^(NSError *error) {
         [error show];
     }];
+}
+
+- (void)downloadCandyOriginal:(WLCandy*)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
+    [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
+        [WLDownloadingView downloadCandy:candy success:success failure:failure];
+    } failure:failure];
 }
 
 - (IBAction)toggleBottomViewMode:(id)sender {

@@ -314,4 +314,8 @@
     [self addItemWithText:@"R" block:block];
 }
 
+- (void)addDrawPhotoItem:(WLObjectBlock)block {
+    [self addItemWithText:@"7" block:block];
+}
+
 @end

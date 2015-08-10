@@ -11,10 +11,10 @@
 @implementation UIView (LayoutHelper)
 
 - (void)makeResizibleSubview:(UIView *)view {
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    [view constraintToItem:self equal:NSLayoutAttributeCenterX];
+    [view constraintToItem:self equal:NSLayoutAttributeCenterY];
+    [view constraintToItem:self equal:NSLayoutAttributeWidth];
+    [view constraintToItem:self equal:NSLayoutAttributeHeight];
 }
 
 - (NSLayoutConstraint *)constraintToItem:(id)item equal:(NSLayoutAttribute)attribute {

@@ -31,12 +31,13 @@
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
-@interface WLPhotosViewController () <WLPresentingImageViewDelegate>
+@interface WLPhotosViewController () <WLPresentingImageViewDelegate, WLEntryNotifyReceiver>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *primaryConstraint;
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
+@property (weak, nonatomic) IBOutlet UIButton *addPhotoButton;
 
 @property (strong, nonatomic) WLHistory *history;
 
@@ -49,6 +50,8 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
     
     __weak typeof(self)weakSelf = self;
     [self.dataSource setItemSizeBlock:^CGSize(id entry, NSUInteger index) {
@@ -72,6 +75,9 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     if (self.wrap.candies.nonempty) {
         [self dropDownCollectionView];
     }
+    self.addPhotoButton.hidden = self.wrap.requiresFollowing;
+    
+    [[WLWrap notifier] addReceiver:self];
 }
 
 - (void)firstLoadRequest {
@@ -97,6 +103,16 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
         });
     }
     [self.uploadingView update];
+}
+
+// MARK: - WLEntryNotifyReceiver
+
+- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
+    self.addPhotoButton.hidden = self.wrap.requiresFollowing;
+}
+
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+    return self.wrap == entry;
 }
 
 // MARK: - User Actions

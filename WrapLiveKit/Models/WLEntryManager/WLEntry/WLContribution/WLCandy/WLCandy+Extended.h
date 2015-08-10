@@ -32,4 +32,6 @@ static NSInteger WLCandyTypeImage = 10;
 
 - (void)setEditedPictureIfNeeded:(WLPicture *)editedPicture;
 
+- (void)editWithImage:(UIImage*)image;
+
 @end

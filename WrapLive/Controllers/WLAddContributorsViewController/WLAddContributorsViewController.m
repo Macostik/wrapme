@@ -88,13 +88,10 @@
         [self.navigationController popViewControllerAnimated:NO];
         return;
     }
-    WLUpdateContributorsRequest *updateConributors = [WLUpdateContributorsRequest request:self.wrap];
-    updateConributors.contributors = self.addressBook.selectedPhoneNumbers;
-    updateConributors.isAddContirbutor = YES;
     sender.loading = YES;
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
-    [updateConributors send:^(id object) {
+    [[WLAPIRequest addContributors:self.addressBook.selectedPhoneNumbers wrap:self.wrap] send:^(id object) {
         [weakSelf.navigationController popViewControllerAnimated:NO];
     } failure:^(NSError *error) {
         sender.loading = NO;

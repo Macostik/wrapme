@@ -186,9 +186,6 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger index = [self indexFromIndexPath:indexPath];
-    if (index >= [self numberOfItems]) {
-        
-    }
     return  self.itemSizeBlock ? self.itemSizeBlock([self itemAtIndex:index], index) : self.itemSize;
 }
 
@@ -246,6 +243,41 @@
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
     [self reload];
+}
+
+// MARK: - WLCollectionViewLayout
+
+- (CGSize)collectionView:(UICollectionView*)collectionView sizeForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [self collectionView:collectionView layout:nil sizeForItemAtIndexPath:indexPath];
+}
+
+- (CGSize)collectionView:(UICollectionView*)collectionView sizeForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        return [self collectionView:collectionView layout:nil referenceSizeForHeaderInSection:indexPath.section];
+    } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
+        return [self collectionView:collectionView layout:nil referenceSizeForFooterInSection:indexPath.section];
+    }
+    return CGSizeZero;
+}
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView topSpacingForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView bottomSpacingForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView topSpacingForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
+    return 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView bottomSpacingForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
+    return 0;
+}
+
+- (BOOL)collectionView:(UICollectionView*)collectionView applyContentSizeInsetForAttributes:(UICollectionViewLayoutAttributes*)attributes {
+    return NO;
 }
 
 @end

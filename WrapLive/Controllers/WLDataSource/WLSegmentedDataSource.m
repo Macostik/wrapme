@@ -9,7 +9,7 @@
 #import "WLSegmentedDataSource.h"
 #import "SegmentedControl.h"
 
-@interface WLSegmentedDataSource () <SegmentedControlDelegate>
+@interface WLSegmentedDataSource () <SegmentedControlDelegate, WLCollectionViewLayoutDelegate>
 
 @end
 
@@ -75,6 +75,10 @@
         NSUInteger index = [collection indexOfObject:self.currentDataSource] + 1;
         self.currentDataSource = [collection objectAtIndex:(index < collection.count) ? index : 0];
     }
+}
+
+- (void)refresh:(WLObjectBlock)success failure:(WLFailureBlock)failure{
+    [self.currentDataSource refresh:success failure:failure];
 }
 
 // MARK: - SegmentedControlDelegate
@@ -148,6 +152,36 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [super scrollViewDidScroll:scrollView];
     [self.currentDataSource scrollViewDidScroll:scrollView];
+}
+
+// MARK: - WLCollectionViewLayoutDelegate
+
+- (CGSize)collectionView:(UICollectionView*)collectionView sizeForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.currentDataSource collectionView:collectionView sizeForItemAtIndexPath:indexPath];
+}
+
+- (CGSize)collectionView:(UICollectionView*)collectionView sizeForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
+    return [self.currentDataSource collectionView:collectionView sizeForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+}
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView topSpacingForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.currentDataSource collectionView:collectionView topSpacingForItemAtIndexPath:indexPath];
+}
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView bottomSpacingForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.currentDataSource collectionView:collectionView bottomSpacingForItemAtIndexPath:indexPath];
+}
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView topSpacingForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
+    return [self.currentDataSource collectionView:collectionView topSpacingForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+}
+
+- (CGFloat)collectionView:(UICollectionView*)collectionView bottomSpacingForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
+    return [self.currentDataSource collectionView:collectionView bottomSpacingForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+}
+
+- (BOOL)collectionView:(UICollectionView*)collectionView applyContentSizeInsetForAttributes:(UICollectionViewLayoutAttributes*)attributes {
+    return [self.currentDataSource collectionView:collectionView applyContentSizeInsetForAttributes:attributes];
 }
 
 @end

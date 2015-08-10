@@ -11,7 +11,6 @@
 #import "UIButton+Additions.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLButton.h"
-#import "WLContributorsRequest.h"
 #import "WLToast.h"
 
 @interface WLInviteViewController () <UITextFieldDelegate>
@@ -43,7 +42,7 @@
     person.name = self.userNameTextField.text;
 	contact.phoneNumbers = @[person];
 	__weak typeof(self)weakSelf = self;
-    [[WLContributorsRequest request:@[contact]] send:^(id object) {
+    [[WLAPIRequest contributorsFromContacts:@[contact]] send:^(id object) {
         sender.loading = NO;
 		if ([object count]) {
 			[weakSelf.delegate inviteViewController:weakSelf didInviteContact:contact];

@@ -15,6 +15,9 @@
 #import "WLDownloadingView.h"
 #import "WLUploadPhotoViewController.h"
 #import "WLAlertView.h"
+#import "AdobeUXImageEditorViewController+SharedEditing.h"
+#import "WLDrawingView.h"
+#import "WLNavigationHelper.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 
@@ -40,7 +43,25 @@
             
             if (candy.status != WLContributionStatusInProgress) {
                 [menu addEditPhotoItem:^(WLCandy *candy) {
-                    [WLDownloadingView downloadAndEditCandy:candy success:^(UIImage *image) {
+                    [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
+                        [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
+                            [candy editWithImage:image];
+                        } cancel:nil];
+                    } failure:^(NSError *error) {
+                        [error show];
+                    }];
+                }];
+                
+                [menu addDrawPhotoItem:^(WLCandy *candy) {
+                    [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
+                        __weak WLDrawingView *drawingView = [WLDrawingView loadFromNib];
+                        [drawingView showInView:[UIWindow mainWindow]];
+                        [drawingView setImage:image done:^(UIImage *image) {
+                            [candy editWithImage:image];
+                            [drawingView removeFromSuperview];
+                        } cancel:^{
+                            [drawingView removeFromSuperview];
+                        }];
                     } failure:^(NSError *error) {
                         [error show];
                     }];

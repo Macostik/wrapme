@@ -12,7 +12,6 @@
 #import "NSObject+AssociatedObjects.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLAddressBookRecord.h"
-#import "WLContributorsRequest.h"
 
 @interface WLAddressBook ()
 
@@ -62,7 +61,7 @@
 - (void)records:(ABAddressBookRef)addressBook success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     [self contacts:addressBook success:^(NSArray *array) {
         runUnaryQueuedOperation(@"wl_address_book_queue", ^(WLOperation *operation) {
-            [[WLContributorsRequest request:array] send:^(id object) {
+            [[WLAPIRequest contributorsFromContacts:array] send:^(id object) {
                 self.cachedRecords = object;
                 if (success) success(object);
                 [operation finish];

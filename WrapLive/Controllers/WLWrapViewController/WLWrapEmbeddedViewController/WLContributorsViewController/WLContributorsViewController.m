@@ -67,7 +67,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     self.dataSource.items = [self sortedContributors];
     
     __weak typeof(self)weakSelf = self;
-    [[WLWrapContributorsRequest request:self.wrap] send:^(id object) {
+    [[WLAPIRequest contributors:self.wrap] send:^(id object) {
         weakSelf.dataSource.footerSize = CGSizeZero;
         weakSelf.dataSource.items = [weakSelf sortedContributors];
     } failure:^(NSError *error) {
@@ -108,10 +108,8 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     [contributors removeObject:contributor];
     [self.dataSource reload];
     [self.removedContributors addObject:contributor];
-    WLUpdateContributorsRequest *updateContributot = [WLUpdateContributorsRequest request:self.wrap];
-    updateContributot.contributors = @[person];
     __weak typeof(self)weakSelf = self;
-    [updateContributot send:^(id object) {
+    [[WLAPIRequest removeContributors:@[person] wrap:self.wrap] send:^(id object) {
         [weakSelf.removedContributors removeObject:contributor];
         if (weakSelf.contributiorWithOpenedMenu == contributor) {
             weakSelf.contributiorWithOpenedMenu = nil;
@@ -136,10 +134,8 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 }
 
 - (void)contributorCell:(WLContributorCell *)cell didInviteContributor:(WLUser *)contributor completionHandler:(void (^)(BOOL))completionHandler {
-    WLResendInviteRequest *request = [WLResendInviteRequest request:self.wrap];
-    request.user = contributor;
     __weak typeof(self)weakSelf = self;
-    [request send:^(id object) {
+    [[WLAPIRequest resendInvite:self.wrap user:contributor] send:^(id object) {
         if (completionHandler) completionHandler(YES);
         [weakSelf.invitedContributors addObject:contributor];
         [weakSelf enqueueSelectorPerforming:@selector(hideMenuForContributor:) afterDelay:3.0f];

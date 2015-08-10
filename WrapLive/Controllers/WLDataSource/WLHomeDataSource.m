@@ -10,25 +10,14 @@
 #import "WLWrapCell.h"
 #import "WLOperationQueue.h"
 #import "UIView+Shorthand.h"
-#import "WLWrapRequest.h"
 #import "WLEntryCell.h"
-#import "WLCollectionViewLayout.h"
 #import "WLLoadingView.h"
 
-@interface WLHomeDataSource () <WLCollectionViewLayoutDelegate>
+@interface WLHomeDataSource ()
 
 @end
 
 @implementation WLHomeDataSource
-
-- (void)setCollectionView:(UICollectionView *)collectionView {
-    [super setCollectionView:collectionView];
-    [self setRefreshable];
-    WLCollectionViewLayout *layout = [[WLCollectionViewLayout alloc] init];
-    layout.sectionHeadingSupplementaryViewKinds = @[];
-    collectionView.collectionViewLayout = layout;
-    [layout registerItemFooterSupplementaryViewKind:UICollectionElementKindSectionHeader];
-}
 
 - (void)setItems:(id<WLBaseOrderedCollection>)items {
     if (items.count > 0) self.wrap = [items objectAtIndex:0];

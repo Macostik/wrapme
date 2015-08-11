@@ -9,28 +9,33 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="wrapliveicons.ttf">
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
+        <mutableArray key="AppleColorEmoji@2x.ttf">
+            <string>AppleColorEmoji</string>
+            <string>AppleColorEmoji</string>
+        </mutableArray>
+        <mutableArray key="icons.ttf">
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -458,7 +463,7 @@
                                     <constraint firstAttribute="height" constant="44" id="8v5-RJ-m1m"/>
                                     <constraint firstAttribute="width" constant="50" id="EqN-OG-ji0"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="38"/>
+                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="38"/>
                                 <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1008,8 +1013,8 @@
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDt-1T-mW3" customClass="WLButton">
                                                             <rect key="frame" x="249" y="9" width="30" height="42"/>
-                                                            <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="30"/>
-                                                            <state key="normal" title="5">
+                                                            <fontDescription key="fontDescription" name="icons" family="icons" pointSize="30"/>
+                                                            <state key="normal" title="4">
                                                                 <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
@@ -1080,7 +1085,7 @@
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="u" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdU-Ps-nCK" customClass="WLLabel">
                                                             <rect key="frame" x="278" y="22" width="17" height="17"/>
-                                                            <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
@@ -1118,7 +1123,7 @@
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIL-os-qUh" customClass="WLLabel">
                                                             <rect key="frame" x="25" y="22" width="17" height="17"/>
-                                                            <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
@@ -1450,9 +1455,9 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HmL-mc-hV3">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HmL-mc-hV3">
                                         <rect key="frame" x="142" y="20" width="36" height="36"/>
-                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="36"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1462,7 +1467,7 @@
                                             <constraint firstAttribute="width" constant="44" id="Gxm-zF-qHA"/>
                                             <constraint firstAttribute="height" constant="44" id="U0s-JZ-hYs"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="33"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="33"/>
                                         <state key="normal" title="P">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1477,6 +1482,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsz-UP-cFd">
                                         <rect key="frame" x="40" y="0.0" width="233" height="56"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="15"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1621,7 +1627,7 @@ Tap here to start.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xxr-1f-Jzb" customClass="SegmentedControl">
                                 <rect key="frame" x="0.0" y="520" width="320" height="48"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhi-C4-lKW" customClass="WLHomeSegmentButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhi-C4-lKW" customClass="WLButton">
                                         <rect key="frame" x="0.0" y="0.0" width="125" height="48"/>
                                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1670,7 +1676,7 @@ Tap here to start.</string>
                                             <constraint firstItem="eam-qO-REB" firstAttribute="leading" secondItem="941-r6-Olj" secondAttribute="leading" id="wJ6-Bd-aqg"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xg-qz-q6g" customClass="WLHomeSegmentButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xg-qz-q6g" customClass="WLButton">
                                         <rect key="frame" x="195" y="0.0" width="125" height="48"/>
                                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1931,7 +1937,7 @@ Tap here to start.</string>
                                                         <constraint firstAttribute="width" constant="18" id="EVe-zj-GV5"/>
                                                         <constraint firstAttribute="height" constant="18" id="e2A-Zl-rNC"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="16"/>
                                                     <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
@@ -1943,7 +1949,7 @@ Tap here to start.</string>
                                                 <button contentMode="scaleToFill" horizontalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Beb-Fv-Wfr" customClass="WLButton">
                                                     <rect key="frame" x="278" y="16" width="30" height="38"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="26"/>
+                                                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="26"/>
                                                     <state key="normal" title="G">
                                                         <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2018,7 +2024,7 @@ Tap here to start.</string>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kso-wd-VlQ">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
-                                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="18"/>
                                                     <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="17" maxY="0.0"/>
                                                     <state key="normal" title="y">
                                                         <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
@@ -2088,7 +2094,7 @@ Tap here to start.</string>
                                                                     <button contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8kJ-w2-piV" customClass="WLButton">
                                                                         <rect key="frame" x="278" y="6" width="30" height="38"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="26"/>
+                                                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="26"/>
                                                                         <state key="normal" title="G">
                                                                             <color key="titleColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2526,7 +2532,7 @@ Tap here to start.</string>
                                             <constraint firstAttribute="width" constant="54" id="Q56-uh-xVy"/>
                                             <constraint firstAttribute="height" constant="44" id="QPt-I9-sbS"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="26"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="26"/>
                                         <state key="normal" title="0">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2590,7 +2596,7 @@ Tap here to start.</string>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="u" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBf-Om-hs7" customClass="WLLabel">
                                                         <rect key="frame" x="0.0" y="0.0" width="17" height="18"/>
-                                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
                                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
@@ -2671,9 +2677,9 @@ Tap here to start.</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e5n-YY-oV2">
                                                 <rect key="frame" x="26" y="13" width="55" height="18"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sT-hL-fQk" customClass="WLLabel">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sT-hL-fQk" customClass="WLLabel">
                                                         <rect key="frame" x="0.0" y="0.0" width="17" height="18"/>
-                                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
                                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
@@ -2756,7 +2762,7 @@ Tap here to start.</string>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CKG-6V-WuA" customClass="WLLabel">
                                                         <rect key="frame" x="0.0" y="0.0" width="17" height="18"/>
-                                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
                                                         <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
@@ -3050,7 +3056,7 @@ Tap here to start.</string>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="16" id="MeQ-nf-zRz"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="13"/>
+                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="13"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                                 <connections>
@@ -3139,7 +3145,7 @@ Tap here to start.</string>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="XZo-Ke-EfN"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="13"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -3582,7 +3588,7 @@ Check your internet connection and try again.</string>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="16" id="q2d-Bj-QYn"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="13"/>
+                                                            <fontDescription key="fontDescription" name="icons" family="icons" pointSize="13"/>
                                                             <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                             <connections>
@@ -3802,7 +3808,7 @@ Check your internet connection and try again.</string>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dZ-BR-VPb" customClass="WLEntryStatusIndicator">
                                                             <rect key="frame" x="105" y="30" width="18" height="18"/>
-                                                            <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="13"/>
+                                                            <fontDescription key="fontDescription" name="icons" family="icons" pointSize="13"/>
                                                             <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -4153,7 +4159,7 @@ Check your internet connection and try again.</string>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zc-rd-P8J" customClass="WLLabel">
                                                 <rect key="frame" x="0.0" y="0.0" width="19" height="44"/>
-                                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="19"/>
+                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="19"/>
                                                 <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
@@ -4258,7 +4264,7 @@ QWRkEEZyaWVuZFZpZXc
                                                                                     <constraint firstAttribute="height" constant="18" id="Euq-me-dtg"/>
                                                                                     <constraint firstAttribute="width" constant="18" id="meQ-qY-nYP"/>
                                                                                 </constraints>
-                                                                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="14"/>
+                                                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="14"/>
                                                                                 <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                                 <userDefinedRuntimeAttributes>
@@ -4953,7 +4959,7 @@ QWRkEEZyaWVuZFZpZXc
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EbT-vV-AiD" customClass="WLButton">
                                         <rect key="frame" x="278" y="0.0" width="30" height="60"/>
-                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="24"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <state key="normal" title="3">
                                             <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

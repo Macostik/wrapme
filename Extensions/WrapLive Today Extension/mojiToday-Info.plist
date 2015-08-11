@@ -31,6 +31,10 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widget-extension</string>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>icons.ttf</string>
+	</array>
 	<key>URLScheme</key>
 	<string>moji</string>
 </dict>

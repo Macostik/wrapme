@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="wrapliveicons.ttf">
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
+        <mutableArray key="icons.ttf">
+            <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -19,7 +19,7 @@
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Z" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC1-xk-GUJ">
                     <rect key="frame" x="12" y="22" width="21" height="21"/>
-                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="21"/>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="21"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -35,7 +35,7 @@
                 </label>
                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xC6-zn-QY9">
                     <rect key="frame" x="355" y="7" width="45" height="50"/>
-                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="38"/>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="38"/>
                     <state key="normal" title="i">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>

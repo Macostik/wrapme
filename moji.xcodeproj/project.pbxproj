@@ -84,8 +84,6 @@
 		5BD3BDBF1B45348400A42EBB /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */; };
 		5BD552131B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD5520F1B3C13F700530566 /* WhatsUpPlaceholderView.xib */; };
 		5BD552151B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD5520F1B3C13F700530566 /* WhatsUpPlaceholderView.xib */; };
-		5BD552221B3C149A00530566 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD5521F1B3C149A00530566 /* wrapliveicons.ttf */; };
-		5BD552241B3C149A00530566 /* wrapliveicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BD5521F1B3C149A00530566 /* wrapliveicons.ttf */; };
 		5BD782C91A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782CD1A4EC56A0094BEE5 /* WLConfirmView.xib */; };
 		5BD782CB1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782CD1A4EC56A0094BEE5 /* WLConfirmView.xib */; };
 		5BDCA8801B394C2F00C4AB3E /* NoMessagePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDCA87D1B394C2F00C4AB3E /* NoMessagePlaceholderView.xib */; };
@@ -948,6 +946,12 @@
 		C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
 		C5C2DE781B725F6B006B47F6 /* WLAuthorizationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C2DE761B725F6B006B47F6 /* WLAuthorizationRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5C2DE791B725F6B006B47F6 /* WLAuthorizationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C2DE771B725F6B006B47F6 /* WLAuthorizationRequest.m */; };
+		C5C486031B79DEAD00A0A562 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5C486021B79DEAD00A0A562 /* icons.ttf */; };
+		C5C486041B79DEAD00A0A562 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5C486021B79DEAD00A0A562 /* icons.ttf */; };
+		C5C486051B79E16300A0A562 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5C486021B79DEAD00A0A562 /* icons.ttf */; };
+		C5C486061B79E16400A0A562 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5C486021B79DEAD00A0A562 /* icons.ttf */; };
+		C5C486071B79E16400A0A562 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5C486021B79DEAD00A0A562 /* icons.ttf */; };
+		C5C486081B79E16500A0A562 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5C486021B79DEAD00A0A562 /* icons.ttf */; };
 		C5CD95741B4D382E00F5932F /* WLExtensionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CD956F1B4D382E00F5932F /* WLExtensionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5CD95751B4D382E00F5932F /* WLExtensionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD95701B4D382E00F5932F /* WLExtensionRequest.m */; };
 		C5CD95761B4D382E00F5932F /* WLExtensionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CD95721B4D382E00F5932F /* WLExtensionResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1313,7 +1317,6 @@
 		5BD552101B3C13F700530566 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WhatsUpPlaceholderView.xib; sourceTree = "<group>"; };
 		5BD5521D1B3C142200530566 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WhatsUpPlaceholderView.strings; sourceTree = "<group>"; };
 		5BD5521E1B3C142500530566 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WhatsUpPlaceholderView.strings; sourceTree = "<group>"; };
-		5BD5521F1B3C149A00530566 /* wrapliveicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = wrapliveicons.ttf; sourceTree = "<group>"; };
 		5BD782CC1A4EC56A0094BEE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLConfirmView.xib; sourceTree = "<group>"; };
 		5BD782CF1A4EC56E0094BEE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLConfirmView.strings; sourceTree = "<group>"; };
 		5BD782D11A4EC56F0094BEE5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLConfirmView.strings; sourceTree = "<group>"; };
@@ -1944,6 +1947,9 @@
 		C587C77B1AD2E619003E7647 /* mojiKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mojiKit-Prefix.pch"; sourceTree = "<group>"; };
 		C587C8EF1AD2E980003E7647 /* NSUserDefaults+WLAppGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+WLAppGroup.h"; sourceTree = "<group>"; };
 		C587C8F01AD2E980003E7647 /* NSUserDefaults+WLAppGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+WLAppGroup.m"; sourceTree = "<group>"; };
+		C589A1661B79F0CA00AA2BAA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		C589A1681B79F17800AA2BAA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		C589A16A1B79F18B00AA2BAA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		C58AB9921B13422500932272 /* CoreData 1. 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 2.xcdatamodel"; sourceTree = "<group>"; };
 		C58AB9941B1384F300932272 /* WLWhatsUpSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWhatsUpSet.h; sourceTree = "<group>"; };
 		C58AB9951B1384F300932272 /* WLWhatsUpSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWhatsUpSet.m; sourceTree = "<group>"; };
@@ -2045,9 +2051,6 @@
 		C5BCF0431B551C3E00E4AD6D /* WLCandyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCandyCell.m; sourceTree = "<group>"; };
 		C5BEB3021B74D4AC000E170B /* WLHomeSegmentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLHomeSegmentButton.h; path = WLButton/WLHomeSegmentButton.h; sourceTree = "<group>"; };
 		C5BEB3031B74D4AC000E170B /* WLHomeSegmentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLHomeSegmentButton.m; path = WLButton/WLHomeSegmentButton.m; sourceTree = "<group>"; };
-		C5BEB30D1B74EA14000E170B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		C5BEB30F1B74F493000E170B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		C5BEB3111B74F4A4000E170B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		C5BEE0E21B2AC8C300D3CF70 /* WLNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationCenter.h; sourceTree = "<group>"; };
 		C5BEE0E31B2AC8C300D3CF70 /* WLNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationCenter.m; sourceTree = "<group>"; };
 		C5BEE0E41B2AC8C300D3CF70 /* WLNotificationSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationSubscription.h; sourceTree = "<group>"; };
@@ -2083,6 +2086,7 @@
 		C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignupFlowViewController.m; sourceTree = "<group>"; };
 		C5C2DE761B725F6B006B47F6 /* WLAuthorizationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAuthorizationRequest.h; sourceTree = "<group>"; };
 		C5C2DE771B725F6B006B47F6 /* WLAuthorizationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAuthorizationRequest.m; sourceTree = "<group>"; };
+		C5C486021B79DEAD00A0A562 /* icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.ttf; sourceTree = "<group>"; };
 		C5C6465319A6264300F8243A /* WLWhatsUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWhatsUpCell.h; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.h; sourceTree = "<group>"; };
 		C5C6465419A6264300F8243A /* WLWhatsUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWhatsUpCell.m; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.m; sourceTree = "<group>"; };
 		C5CD956F1B4D382E00F5932F /* WLExtensionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionRequest.h; sourceTree = "<group>"; };
@@ -3318,7 +3322,7 @@
 		C537E9ED1A8BBA7100EA450D /* WLIcon */ = {
 			isa = PBXGroup;
 			children = (
-				5BD5521F1B3C149A00530566 /* wrapliveicons.ttf */,
+				C5C486021B79DEAD00A0A562 /* icons.ttf */,
 				C537E9EE1A8BBA8100EA450D /* WLIcon.h */,
 				C537E9EF1A8BBA8100EA450D /* WLIcon.m */,
 			);
@@ -5524,6 +5528,7 @@
 				C506460F1ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */,
 				C54C56811B1E0B1400CA4B12 /* Localizable.strings in Resources */,
 				5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */,
+				C5C486051B79E16300A0A562 /* icons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5536,6 +5541,7 @@
 				C50646101ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */,
 				C54C56821B1E0B1400CA4B12 /* Localizable.strings in Resources */,
 				5BF1B2431A49A683000BB2C1 /* Images.xcassets in Resources */,
+				C5C486061B79E16400A0A562 /* icons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5548,6 +5554,7 @@
 				C5DB9F441ADD6CD800A21E42 /* CoreData.xcdatamodeld in Resources */,
 				C5B993C51B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */,
 				C50646371ABD815200CB4BE3 /* Images.xcassets in Resources */,
+				C5C486071B79E16400A0A562 /* icons.ttf in Resources */,
 				C54086991AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C54086971AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
 				C5B993C71B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */,
@@ -5597,6 +5604,7 @@
 				5BDCA8801B394C2F00C4AB3E /* NoMessagePlaceholderView.xib in Resources */,
 				5BA4F87A1A1CA08900DB1A25 /* s01.wav in Resources */,
 				C54AF53219B8C437006F7EDB /* Main.storyboard in Resources */,
+				C5C486031B79DEAD00A0A562 /* icons.ttf in Resources */,
 				5B36F4FD1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */,
 				C55908751B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
@@ -5616,7 +5624,6 @@
 				C518D79419E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				C55908D11B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BD782C91A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
-				5BD552221B3C149A00530566 /* wrapliveicons.ttf in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
 				C55908DB1B18B9E9001CB99F /* WLWrapPickerHintView.xib in Resources */,
 				5BA4C5871A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
@@ -5654,6 +5661,7 @@
 				5BDCA8821B394C2F00C4AB3E /* NoMessagePlaceholderView.xib in Resources */,
 				5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */,
 				C54AF72C19B8C491006F7EDB /* Main.storyboard in Resources */,
+				C5C486041B79DEAD00A0A562 /* icons.ttf in Resources */,
 				5B36F4FF1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */,
 				C55908771B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
@@ -5673,7 +5681,6 @@
 				C518D79619E7E480001A3F08 /* LaunchScreen.xib in Resources */,
 				C55908D31B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				5BD782CB1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
-				5BD552241B3C149A00530566 /* wrapliveicons.ttf in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				C55908DD1B18B9E9001CB99F /* WLWrapPickerHintView.xib in Resources */,
 				5BA4C5891A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
@@ -5700,6 +5707,7 @@
 				C5B993C61B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */,
 				C54086A11AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C5E54B471ACBF9B100444F7B /* Images.xcassets in Resources */,
+				C5C486081B79E16500A0A562 /* icons.ttf in Resources */,
 				C5B993C81B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */,
 				C540869F1AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
 				C54C56841B1E0B1500CA4B12 /* Localizable.strings in Resources */,
@@ -6567,9 +6575,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				12A7A71518DA0946008FF6F0 /* Base */,
-				C5BEB30D1B74EA14000E170B /* en */,
-				C5BEB30F1B74F493000E170B /* ru */,
-				C5BEB3111B74F4A4000E170B /* zh-Hant */,
+				C589A1661B79F0CA00AA2BAA /* en */,
+				C589A1681B79F17800AA2BAA /* ru */,
+				C589A16A1B79F18B00AA2BAA /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

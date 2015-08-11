@@ -5,8 +5,8 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="wrapliveicons.ttf">
-            <string>wrapliveicons</string>
+        <mutableArray key="icons.ttf">
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -39,7 +39,7 @@
                         <constraint firstAttribute="width" constant="60" id="2GH-W6-owX"/>
                         <constraint firstAttribute="height" constant="60" id="Xqo-qP-XaQ"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="60"/>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="60"/>
                     <state key="normal" title="a">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>

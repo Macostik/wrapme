@@ -95,8 +95,8 @@
 /* Class = "UILabel"; text = "成員"; ObjectID = "9qq-sb-7FD"; */
 "9qq-sb-7FD.text" = "成員";
 
-/* Class = "UILabel"; text = "5"; ObjectID = "9sT-hL-fQk"; */
-"9sT-hL-fQk.text" = "5";
+/* Class = "UILabel"; text = "4"; ObjectID = "9sT-hL-fQk"; */
+"9sT-hL-fQk.text" = "4";
 
 /* Class = "UILabel"; text = "11:32 PM"; ObjectID = "BDu-zS-cNB"; */
 "BDu-zS-cNB.text" = "11:32 PM";
@@ -155,8 +155,8 @@
 /* Class = "UILabel"; text = "name"; ObjectID = "HUe-Pv-h6W"; */
 "HUe-Pv-h6W.text" = "name";
 
-/* Class = "UILabel"; text = "!"; ObjectID = "HmL-mc-hV3"; */
-"HmL-mc-hV3.text" = "!";
+/* Class = "UILabel"; text = "\""; ObjectID = "HmL-mc-hV3"; */
+"HmL-mc-hV3.text" = "\"";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "JuD-N5-awC"; */
 "JuD-N5-awC.text" = "Label";
@@ -203,8 +203,8 @@
 /* Class = "UIButton"; normalTitle = "更改電郵地址"; ObjectID = "R9i-Mn-k3a"; */
 "R9i-Mn-k3a.normalTitle" = "更改電郵地址";
 
-/* Class = "UILabel"; text = "5"; ObjectID = "RIL-os-qUh"; */
-"RIL-os-qUh.text" = "5";
+/* Class = "UILabel"; text = "4"; ObjectID = "RIL-os-qUh"; */
+"RIL-os-qUh.text" = "4";
 
 /* Class = "UILabel"; text = "e"; ObjectID = "STC-13-brF"; */
 "STC-13-brF.text" = "e";
@@ -224,8 +224,8 @@
 /* Class = "UILabel"; text = "Confirm calvin@ravenpod.com as your email address to help secure your account."; ObjectID = "UL6-dF-3Kj"; */
 "UL6-dF-3Kj.text" = "Confirm calvin@ravenpod.com as your email address to help secure your account.";
 
-/* Class = "UIButton"; normalTitle = "5"; ObjectID = "VDt-1T-mW3"; */
-"VDt-1T-mW3.normalTitle" = "5";
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "VDt-1T-mW3"; */
+"VDt-1T-mW3.normalTitle" = "4";
 
 /* Class = "UITextView"; text = "Confirm calvin@ravenpod.com as your email address to help secure your account."; ObjectID = "VXa-Dq-6e9"; */
 "VXa-Dq-6e9.text" = "Confirm calvin@ravenpod.com as your email address to help secure your account.";

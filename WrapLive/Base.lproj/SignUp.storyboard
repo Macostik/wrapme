@@ -9,11 +9,11 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="wrapliveicons.ttf">
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
+        <mutableArray key="icons.ttf">
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -117,7 +117,7 @@
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrW-0Q-whc">
                                                                 <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
-                                                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="56"/>
+                                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="56"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -221,7 +221,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V11-Xl-ach">
                                 <rect key="frame" x="251" y="363" width="21" height="21"/>
-                                <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="21"/>
+                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="21"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -353,7 +353,7 @@
                                             <constraint firstAttribute="width" constant="44" id="857-jA-km8"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="VaK-LA-KSG"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="21"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="21"/>
                                         <state key="normal" title="w">
                                             <color key="titleColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -429,7 +429,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCC-0D-s50">
                                         <rect key="frame" x="12" y="27" width="30" height="30"/>
-                                        <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="30"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="30"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>

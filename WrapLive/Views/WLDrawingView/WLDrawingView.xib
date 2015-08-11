@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="wrapliveicons.ttf">
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
-            <string>wrapliveicons</string>
+        <mutableArray key="icons.ttf">
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -54,7 +54,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="auy-ty-v4b" customClass="WLButton">
                                     <rect key="frame" x="10" y="39" width="36" height="48"/>
-                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="36"/>
+                                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                     <state key="normal" title="L">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -64,7 +64,7 @@
                                 </button>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15e-Mn-MyZ" customClass="WLButton">
                                     <rect key="frame" x="281" y="39" width="36" height="48"/>
-                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="36"/>
+                                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                     <state key="normal" title="B">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -74,7 +74,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pN6-mR-8qR" customClass="WLButton">
                                     <rect key="frame" x="327" y="38" width="38" height="50"/>
-                                    <fontDescription key="fontDescription" name="wrapliveicons" family="wrapliveicons" pointSize="38"/>
+                                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="38"/>
                                     <state key="normal" title="N">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>

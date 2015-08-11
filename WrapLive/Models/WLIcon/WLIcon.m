@@ -93,15 +93,15 @@
                   @"addFriends":@"2",
                   @"pencil":@"3",
                   @"chat":@"4",
-                  @"chat-bables":@"6",
-                  @"draw-feather":@"7",
-                  @"restore":@"Y"};
+                  @"restore":@"5",
+                  @"chat-bables":@"7",
+                  @"draw-feather":@"8"};
     }
     
     NSString *code = [icons objectForKey:name];
     if (code) {
         CGFloat size = [self sizeWithPreset:preset ? : WLIconPresetBase];
-        UIFont *font = [UIFont fontWithName:@"wrapliveicons" size:size];
+        UIFont *font = [UIFont fontWithName:@"icons" size:size];
         if (font) {
             color = color ? : [UIColor whiteColor];
             return [[NSAttributedString alloc] initWithString:code attributes:@{NSFontAttributeName:font,NSForegroundColorAttributeName:color}];

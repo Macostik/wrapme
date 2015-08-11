@@ -38,8 +38,8 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "HfH-Bq-DQ2"; */
 "HfH-Bq-DQ2.text" = "Label";
 
-/* Class = "UIButton"; normalTitle = "Y"; ObjectID = "HzZ-19-wUA"; */
-"HzZ-19-wUA.normalTitle" = "Y";
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "HzZ-19-wUA"; */
+"HzZ-19-wUA.normalTitle" = "5";
 
 /* Class = "UIButton"; normalTitle = "L"; ObjectID = "ITP-VR-CiW"; */
 "ITP-VR-CiW.normalTitle" = "L";
@@ -68,8 +68,8 @@
 /* Class = "UIButton"; normalTitle = "w"; ObjectID = "X3H-5w-amr"; */
 "X3H-5w-amr.normalTitle" = "w";
 
-/* Class = "UIButton"; normalTitle = "4"; ObjectID = "agr-RC-KiU"; */
-"agr-RC-KiU.normalTitle" = "4";
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "agr-RC-KiU"; */
+"agr-RC-KiU.normalTitle" = "6";
 
 /* Class = "UILabel"; text = "TAP TO CHANGE"; ObjectID = "av4-g2-N6y"; */
 "av4-g2-N6y.text" = "НАЖМИТЕ ЧТОБЫ ИЗМЕНИТЬ";

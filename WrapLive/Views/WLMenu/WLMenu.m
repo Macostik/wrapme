@@ -36,7 +36,7 @@
     button.frame = CGRectMake(0, 0, 38, 38);
     button.clipsToBounds = NO;
     [button setBackgroundImage:[UIImage imageNamed:@"bg_menu_btn"] forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont fontWithName:@"wrapliveicons" size:21];
+    button.titleLabel.font = [UIFont fontWithName:@"icons" size:21];
     [button setTitle:item.text forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor WL_grayLight] forState:UIControlStateHighlighted];
@@ -315,7 +315,7 @@
 }
 
 - (void)addDrawPhotoItem:(WLObjectBlock)block {
-    [self addItemWithText:@"7" block:block];
+    [self addItemWithText:@"8" block:block];
 }
 
 @end

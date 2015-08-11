@@ -36,6 +36,10 @@
 	</dict>
 	<key>RemoteInterfacePrincipalClass</key>
 	<string>WLWKContributionsController</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>icons.ttf</string>
+	</array>
 	<key>URLScheme</key>
 	<string>moji</string>
 </dict>

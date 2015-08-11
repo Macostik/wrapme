@@ -56,12 +56,13 @@
     __weak __typeof(self)weakSelf = self;
     self.imageView.image = image;
     self.imageView.frame = CGRectThatFitsSize(weakSelf.size, image.size);
+    CGRect rect = [weakSelf.delegate dismissImageView:weakSelf getFrameCandyCell:candy];
     [UIView animateWithDuration:0.25
                           delay:.0
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          weakSelf.backgroundColor = [weakSelf.backgroundColor colorWithAlphaComponent:0];
-                         weakSelf.imageView.frame = [weakSelf.delegate dismissImageView:weakSelf getFrameCandyCell:candy];
+                         weakSelf.imageView.frame = rect;
                      } completion:^(BOOL finished) {
                          [weakSelf removeFromSuperview];
                      }];

@@ -19,7 +19,6 @@
 
 @interface WLPresentingImageView : UIView
 
-@property (weak, nonatomic, readonly) WLImageView *imageView;
 @property (weak, nonatomic) id <WLPresentingImageViewDelegate> delegate;
 
 + (instancetype)sharedPresenting;

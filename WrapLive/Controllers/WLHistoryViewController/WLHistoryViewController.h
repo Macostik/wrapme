@@ -23,8 +23,6 @@
 
 @property (strong, nonatomic) WLPresentingImageView *presentingImageView;
 
-- (IBAction)hideBars;
-
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
 
 - (void)showCommentView;

@@ -21,6 +21,8 @@
 #import "WLWhatsUpSet.h"
 #import "UIView+LayoutHelper.h"
 #import "WLMessagesCounter.h"
+#import "WLButton.h"
+#import "WLLayoutPrioritizer.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPhotosViewControllerDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
@@ -32,7 +34,12 @@
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) UIViewController *viewController;
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
+@property (weak, nonatomic) IBOutlet UIButton *unfollowButton;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
+@property (weak, nonatomic) IBOutlet UIView *publicWrapView;
+@property (weak, nonatomic) IBOutlet WLImageView *publicWrapImageView;
+@property (weak, nonatomic) IBOutlet WLLabel *publicWrapName;
+@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *publicWrapPrioritizer;
 
 @end
 
@@ -52,6 +59,10 @@
     if (!self.wrap.valid) {
         return;
     }
+    
+    [self.publicWrapImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
+    [self.publicWrapImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+    
     if (!self.selectedSegment) {
         [self photosTabSelected:nil];
     }
@@ -78,9 +89,22 @@
 - (void)updateWrapData {
     WLWrap *wrap = self.wrap;
     self.nameLabel.text = wrap.name;
-    BOOL requiresFollowing = wrap.requiresFollowing;
-    self.followButton.hidden = !requiresFollowing;
-    self.segmentedControl.hidden = self.settingsButton.hidden = requiresFollowing;
+    if (wrap.isPublic) {
+        self.publicWrapImageView.url = wrap.contributor.picture.small;
+        self.publicWrapName.text = wrap.name;
+        BOOL requiresFollowing = wrap.requiresFollowing;
+        self.segmentedControl.hidden = YES;
+        self.settingsButton.hidden = requiresFollowing;
+        self.publicWrapView.hidden = NO;
+        self.followButton.hidden = !requiresFollowing;
+        self.unfollowButton.hidden = requiresFollowing;
+        self.publicWrapPrioritizer.defaultState = YES;
+    } else {
+        self.segmentedControl.hidden = NO;
+        self.settingsButton.hidden = NO;
+        self.publicWrapView.hidden = YES;
+        self.publicWrapPrioritizer.defaultState = NO;
+    }
 }
 
 - (void)updateMessageCouter {
@@ -145,11 +169,23 @@
     [self updateCandyCounter];
 }
 
-- (IBAction)follow:(id)sender {
+- (IBAction)follow:(WLButton*)sender {
+    sender.loading = YES;
     [[WLAPIRequest followWrap:self.wrap] send:^(id object) {
-        
+        sender.loading = NO;
     } failure:^(NSError *error) {
-        
+        [error show];
+        sender.loading = NO;
+    }];
+}
+
+- (IBAction)unfollow:(WLButton*)sender {
+    sender.loading = YES;
+    [[WLAPIRequest unfollowWrap:self.wrap] send:^(id object) {
+        sender.loading = NO;
+    } failure:^(NSError *error) {
+        [error show];
+        sender.loading = NO;
     }];
 }
 

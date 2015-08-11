@@ -12,6 +12,4 @@
 
 @property (weak, nonatomic) WLCandy *candy;
 
-- (void)presentAsChildForParentViewController:(UIViewController *)parentViewContrller;
-
 @end

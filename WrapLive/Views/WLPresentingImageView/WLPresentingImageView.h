@@ -23,8 +23,9 @@
 @property (weak, nonatomic) id <WLPresentingImageViewDelegate> delegate;
 
 + (instancetype)sharedPresenting;
-- (instancetype)presentingCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion;
-- (void)dismissViewByCandy:(WLCandy *)candy completion:(WLBooleanBlock)competion;
-- (void)setImageUrl:(NSString *)url;
+
+- (void)presentCandy:(WLCandy *)candy success:(void (^) (WLPresentingImageView *presetingImageView))success failure:(WLFailureBlock)failure;
+
+- (void)dismissCandy:(WLCandy *)candy;
 
 @end

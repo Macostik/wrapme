@@ -209,6 +209,9 @@
 /* Class = "UILabel"; text = "e"; ObjectID = "STC-13-brF"; */
 "STC-13-brF.text" = "e";
 
+/* Class = "UIButton"; normalTitle = "Following"; ObjectID = "Tbf-RR-jf2"; */
+"Tbf-RR-jf2.normalTitle" = "Following";
+
 /* Class = "UILabel"; text = "最近更新"; ObjectID = "Te3-A9-g3F"; */
 "Te3-A9-g3F.text" = "最近更新";
 
@@ -343,6 +346,9 @@
 
 /* Class = "UILabel"; text = "Photo by S"; ObjectID = "xGF-6q-Jgs"; */
 "xGF-6q-Jgs.text" = "Photo by S";
+
+/* Class = "UILabel"; text = "Moji"; ObjectID = "xS9-IA-WOM"; */
+"xS9-IA-WOM.text" = "Moji";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "yxU-kB-7d8"; */
 "yxU-kB-7d8.normalTitle" = "Button";

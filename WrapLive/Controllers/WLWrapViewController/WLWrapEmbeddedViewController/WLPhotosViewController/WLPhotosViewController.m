@@ -28,6 +28,7 @@
 #import "WLNavigationHelper.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLUploadingView.h"
+#import "WLFollowingViewController.h"
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
@@ -75,9 +76,6 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     if (self.wrap.candies.nonempty) {
         [self dropDownCollectionView];
     }
-    self.addPhotoButton.hidden = self.wrap.requiresFollowing;
-    
-    [[WLWrap notifier] addReceiver:self];
 }
 
 - (void)firstLoadRequest {
@@ -105,22 +103,15 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     [self.uploadingView update];
 }
 
-// MARK: - WLEntryNotifyReceiver
-
-- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
-    self.addPhotoButton.hidden = self.wrap.requiresFollowing;
-}
-
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
-    return self.wrap == entry;
-}
-
 // MARK: - User Actions
 
 - (IBAction)addPhoto:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(photosViewControllerDidAddPhoto:)]) {
-        [self.delegate photosViewControllerDidAddPhoto:self];
-    }
+    __weak typeof(self)weakSelf = self;
+    [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
+        if ([weakSelf.delegate respondsToSelector:@selector(photosViewControllerDidAddPhoto:)]) {
+            [weakSelf.delegate photosViewControllerDidAddPhoto:weakSelf];
+        }
+    }];
 }
 
 // MARK: - Custom animation
@@ -146,8 +137,10 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
         WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
         presentingImageView.delegate = self;
         __weak __typeof(self)weakSelf = self;
-        [presentingImageView presentingCandy:candy completion:^(BOOL flag) {
+        [presentingImageView presentCandy:candy success:^(WLPresentingImageView *presetingImageView) {
             [weakSelf.navigationController pushViewController:historyViewController animated:NO];
+        } failure:^(NSError *error) {
+            [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
         }];
         historyViewController.presentingImageView = presentingImageView;
     }

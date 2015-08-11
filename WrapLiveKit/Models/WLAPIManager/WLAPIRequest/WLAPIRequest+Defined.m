@@ -82,10 +82,8 @@
 
 + (instancetype)followWrap:(WLWrap *)wrap {
     return [[[self POST:@"wraps/%@/follow", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        [wrap notifyOnAddition:^(id object) {
-            [wrap notifyOnUpdate:^(id object) {
-                [wrap addContributorsObject:[WLUser currentUser]];
-            }];
+        [wrap notifyOnUpdate:^(id object) {
+            [wrap addContributorsObject:[WLUser currentUser]];
         }];
         success(nil);
     }] beforeFailure:^(NSError *error) {
@@ -97,7 +95,7 @@
 
 + (instancetype)unfollowWrap:(WLWrap *)wrap {
     return [[[self DELETE:@"wraps/%@/unfollow", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        [wrap notifyOnDeleting:^(id object) {
+        [wrap notifyOnUpdate:^(id object) {
             [[WLUser currentUser] removeWrap:wrap];
         }];
         success(nil);

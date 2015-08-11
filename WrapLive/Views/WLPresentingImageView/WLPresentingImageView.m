@@ -13,8 +13,6 @@
 @interface WLPresentingImageView () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *aspectRatioConstraint;
-@property (assign, nonatomic) CGRect clearRect;
 
 @end
 
@@ -24,103 +22,56 @@
     return [WLPresentingImageView loadFromNib];
 }
 
-- (instancetype)presentingCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion {
+- (void)presentCandy:(WLCandy *)candy success:(void (^)(WLPresentingImageView *))success failure:(WLFailureBlock)failure {
     [self presentingAsMainWindowSubview];
-    self.clearRect = CGRectZero;
-    CGRect convertRect = CGRectZero;
-    if ([self.delegate respondsToSelector:@selector(presentImageView:getFrameCandyCell:)]) {
-        convertRect = [self.delegate presentImageView:self getFrameCandyCell:candy];
-    }
-    
-    run_after(.1,  ^{
-      self.imageView.frame = convertRect;
-    });
-    
-    [self performAnimationCandy:candy completion:completion];
-    
-    return self;
-}
-
-- (void)dismissViewByCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion {
-    [self presentingAsMainWindowSubview];
-    self.backgroundColor = [UIColor clearColor];
-    if ([self.delegate respondsToSelector:@selector(dismissImageView:getFrameCandyCell:)]) {
-       self.clearRect = [self.delegate dismissImageView:self getFrameCandyCell:candy];
-    }
-    
-    if(CGRectEqualToRect(self.clearRect, CGRectZero)) {
-        self.hidden = YES;
+    UIImage *image = [[WLImageCache cache] imageWithUrl:candy.picture.large];
+    if (!image) {
+        if (failure) failure(nil);
         [self removeFromSuperview];
-    } else {
-        __weak __typeof(self)weakSelf = self;
-        run_after(.1, ^{
-            [UIView animateWithDuration:0.25
-                                  delay:.0
-                                options:UIViewAnimationOptionCurveEaseIn
-                             animations:^{
-                                 self.imageView.frame = weakSelf.clearRect;
-                             } completion:^(BOOL finished) {
-                                 if  (completion) completion(finished);
-                                 [self removeFromSuperview];
-                             }];
-        });
-    }
-}
-
-- (void)drawRect:(CGRect)rect {
-    if (CGRectEqualToRect(self.clearRect, CGRectZero)) {
         return;
     }
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
-    CGContextFillRect (ctx, self.clearRect);
+    self.imageView.image = image;
+    self.imageView.frame = [self.delegate presentImageView:self getFrameCandyCell:candy];
+    
+    __weak typeof(self)weakSelf = self;
+    [UIView animateWithDuration:0.25
+                          delay:.0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         weakSelf.imageView.frame = CGRectThatFitsSize(weakSelf.size, weakSelf.imageView.image.size);
+                         weakSelf.backgroundColor = [weakSelf.backgroundColor colorWithAlphaComponent:1];
+                     } completion:^(BOOL finished) {
+                         if (success) success(weakSelf);
+                         [weakSelf removeFromSuperview];
+                     }];
+}
+
+- (void)dismissCandy:(WLCandy *)candy {
+    [self presentingAsMainWindowSubview];
+    UIImage *image = [[WLImageCache cache] imageWithUrl:candy.picture.large];
+    if (!image) {
+        [self removeFromSuperview];
+        return;
+    }
+    __weak __typeof(self)weakSelf = self;
+    self.imageView.image = image;
+    self.imageView.frame = CGRectThatFitsSize(weakSelf.size, image.size);
+    [UIView animateWithDuration:0.25
+                          delay:.0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         weakSelf.backgroundColor = [weakSelf.backgroundColor colorWithAlphaComponent:0];
+                         weakSelf.imageView.frame = [weakSelf.delegate dismissImageView:weakSelf getFrameCandyCell:candy];
+                     } completion:^(BOOL finished) {
+                         [weakSelf removeFromSuperview];
+                     }];
 }
 
 - (void)presentingAsMainWindowSubview {
     UIView *parentView = [UIWindow mainWindow].rootViewController.view;
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [self.backgroundColor colorWithAlphaComponent:0];
     self.frame = parentView.frame;
     [parentView addSubview:self];
-}
-
-- (void)performAnimationCandy:(WLCandy *)candy completion:(WLBooleanBlock)completion {
-    [self.imageView setUrl:candy.picture.large];
-    run_after(.1, ^{
-        [UIView animateWithDuration:0.25
-                              delay:.0
-                            options:UIViewAnimationOptionCurveEaseIn
-                         animations:^{
-                             self.imageView.hidden = NO;
-                             [self calculateScaleValues];
-                             [self.imageView layoutIfNeeded];
-                             self.backgroundColor = [UIColor blackColor];
-                         } completion:^(BOOL finished) {
-                             if (completion) {
-                                 completion(finished);
-                                 [self removeFromSuperview];
-                             }
-                         }];
-    });
-}
-
-- (void)setImageUrl:(NSString *)url {
-     [self.imageView setUrl:url];
-}
-
-- (void)calculateScaleValues {
-    UIImage *image = self.imageView.image;
-    if (image) {
-        NSLayoutConstraint *constraint = self.aspectRatioConstraint;
-        constraint = [NSLayoutConstraint constraintWithItem:constraint.firstItem
-                                                  attribute:constraint.firstAttribute
-                                                  relatedBy:constraint.relation
-                                                     toItem:constraint.secondItem
-                                                  attribute:constraint.secondAttribute
-                                                 multiplier:image.size.width/image.size.height constant:0];
-        [self.imageView removeConstraint:self.aspectRatioConstraint];
-        [self.imageView addConstraint:constraint];
-        self.aspectRatioConstraint = constraint;
-    }
 }
 
 @end

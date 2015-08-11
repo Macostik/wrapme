@@ -102,13 +102,6 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
     }
 }
 
-- (void)presentAsChildForParentViewController:(UIViewController *)parentViewContrller {
-    self.view.frame = parentViewContrller.view.bounds;
-    [parentViewContrller.view addSubview:self.view];
-    [parentViewContrller addChildViewController:self];
-    [self didMoveToParentViewController:parentViewContrller];
-}
-
 - (void)sendMessageWithText:(NSString*)text {
     if (self.candy.valid) {
         [WLSoundPlayer playSound:WLSound_s04];

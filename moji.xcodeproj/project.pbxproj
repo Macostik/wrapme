@@ -812,6 +812,10 @@
 		C5978BE81B396FB700D5043E /* WLDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5978BE51B396FB700D5043E /* WLDrawingView.m */; };
 		C5978BEA1B396FB700D5043E /* WLDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5978BE51B396FB700D5043E /* WLDrawingView.m */; };
 		C5994D8A1B78894A0066A597 /* WrapLiveToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* WrapLiveToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C59EF3BD1B7A1B5B00E777BC /* UIViewController+Container.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3BC1B7A1B5B00E777BC /* UIViewController+Container.m */; };
+		C59EF3BE1B7A1B5B00E777BC /* UIViewController+Container.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3BC1B7A1B5B00E777BC /* UIViewController+Container.m */; };
+		C59EF3C21B7A215700E777BC /* WLFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3C11B7A215700E777BC /* WLFollowingViewController.m */; };
+		C59EF3C31B7A215700E777BC /* WLFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3C11B7A215700E777BC /* WLFollowingViewController.m */; };
 		C5A28D631ACBEF1E00F0E8BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */; };
 		C5A28D651ACBEF2B00F0E8BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */; };
 		C5A82CD31ACD979B00336027 /* WLSignificantTimeBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCB1ACD979B00336027 /* WLSignificantTimeBroadcaster.m */; };
@@ -1947,9 +1951,6 @@
 		C587C77B1AD2E619003E7647 /* mojiKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mojiKit-Prefix.pch"; sourceTree = "<group>"; };
 		C587C8EF1AD2E980003E7647 /* NSUserDefaults+WLAppGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+WLAppGroup.h"; sourceTree = "<group>"; };
 		C587C8F01AD2E980003E7647 /* NSUserDefaults+WLAppGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+WLAppGroup.m"; sourceTree = "<group>"; };
-		C589A1661B79F0CA00AA2BAA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		C589A1681B79F17800AA2BAA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		C589A16A1B79F18B00AA2BAA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		C58AB9921B13422500932272 /* CoreData 1. 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 2.xcdatamodel"; sourceTree = "<group>"; };
 		C58AB9941B1384F300932272 /* WLWhatsUpSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWhatsUpSet.h; sourceTree = "<group>"; };
 		C58AB9951B1384F300932272 /* WLWhatsUpSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWhatsUpSet.m; sourceTree = "<group>"; };
@@ -1959,6 +1960,13 @@
 		C58D14211B170E2A005E30C6 /* UIView+QuatzCoreAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+QuatzCoreAnimations.m"; sourceTree = "<group>"; };
 		C5978BE41B396FB700D5043E /* WLDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingView.h; sourceTree = "<group>"; };
 		C5978BE51B396FB700D5043E /* WLDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingView.m; sourceTree = "<group>"; };
+		C59EF3B51B7A146E00E777BC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		C59EF3B71B7A147D00E777BC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		C59EF3B91B7A148D00E777BC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		C59EF3BB1B7A1B5B00E777BC /* UIViewController+Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Container.h"; sourceTree = "<group>"; };
+		C59EF3BC1B7A1B5B00E777BC /* UIViewController+Container.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Container.m"; sourceTree = "<group>"; };
+		C59EF3C01B7A215700E777BC /* WLFollowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLFollowingViewController.h; sourceTree = "<group>"; };
+		C59EF3C11B7A215700E777BC /* WLFollowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFollowingViewController.m; sourceTree = "<group>"; };
 		C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C5A82CCA1ACD979B00336027 /* WLSignificantTimeBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignificantTimeBroadcaster.h; sourceTree = "<group>"; };
 		C5A82CCB1ACD979B00336027 /* WLSignificantTimeBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignificantTimeBroadcaster.m; sourceTree = "<group>"; };
@@ -2424,6 +2432,7 @@
 		12A7A73718DA09A9008FF6F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C59EF3BF1B7A214000E777BC /* WLFollowingViewController */,
 				C560D2311AFBB53C006B906E /* WLHistoryViewController */,
 				C560D2251AFB76ED006B906E /* WLSwipeViewController */,
 				C50099421ADFCC250064CC7B /* WLDataSource */,
@@ -2757,6 +2766,7 @@
 		5BA60BF71A8257ED000F795C /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C59EF3BA1B7A1B4200E777BC /* UIViewController */,
 				C5B233771B29E692008A14D1 /* AdobeUXImageEditorViewController */,
 				5BA60BF81A8257ED000F795C /* ALAssetsLibrary */,
 				5BA60BFC1A8257ED000F795C /* MFMailComposeViewController */,
@@ -4557,6 +4567,24 @@
 			path = WLDrawingView;
 			sourceTree = "<group>";
 		};
+		C59EF3BA1B7A1B4200E777BC /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C59EF3BB1B7A1B5B00E777BC /* UIViewController+Container.h */,
+				C59EF3BC1B7A1B5B00E777BC /* UIViewController+Container.m */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
+		C59EF3BF1B7A214000E777BC /* WLFollowingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C59EF3C01B7A215700E777BC /* WLFollowingViewController.h */,
+				C59EF3C11B7A215700E777BC /* WLFollowingViewController.m */,
+			);
+			path = WLFollowingViewController;
+			sourceTree = "<group>";
+		};
 		C5A82CC91ACD979B00336027 /* WLSignificantTimeBroadcaster */ = {
 			isa = PBXGroup;
 			children = (
@@ -5845,6 +5873,7 @@
 				5BD121541B0250B500FF5FBF /* WLDownloadingView.m in Sources */,
 				C5603DD21AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C5AEE4421B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
+				C59EF3BD1B7A1B5B00E777BC /* UIViewController+Container.m in Sources */,
 				C53E5D751A851F71004F61B0 /* WLCameraViewController.m in Sources */,
 				C5603DCC1AD9233C00427DEC /* WLChronologicalEntryPresenter.m in Sources */,
 				C54186901B4560E300F83889 /* DDFileLogger.m in Sources */,
@@ -5862,6 +5891,7 @@
 				C54E4ADF1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C56F6A631B78D6EB00660DF1 /* PNChannelClientStateResult.m in Sources */,
 				C500994C1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
+				C59EF3C21B7A215700E777BC /* WLFollowingViewController.m in Sources */,
 				C55D77E91AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
 				C5D7FE861B501CD000746908 /* WLNotification.m in Sources */,
 				C54AF46919B8C437006F7EDB /* StreamLayout.m in Sources */,
@@ -6127,6 +6157,7 @@
 				C5603DD41AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C5AEE4441B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
 				C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */,
+				C59EF3BE1B7A1B5B00E777BC /* UIViewController+Container.m in Sources */,
 				C54186921B4560E300F83889 /* DDFileLogger.m in Sources */,
 				C5603DCE1AD9233C00427DEC /* WLChronologicalEntryPresenter.m in Sources */,
 				5B2B0C1F1A77A83900DADC9D /* WLIconButton.m in Sources */,
@@ -6144,6 +6175,7 @@
 				C54E4AE11A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */,
 				C56F6A641B78D6EB00660DF1 /* PNChannelClientStateResult.m in Sources */,
 				C500994E1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
+				C59EF3C31B7A215700E777BC /* WLFollowingViewController.m in Sources */,
 				C5D7FE881B501CD000746908 /* WLNotification.m in Sources */,
 				C55D77EB1AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
 				C54AF66319B8C491006F7EDB /* StreamLayout.m in Sources */,
@@ -6575,9 +6607,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				12A7A71518DA0946008FF6F0 /* Base */,
-				C589A1661B79F0CA00AA2BAA /* en */,
-				C589A1681B79F17800AA2BAA /* ru */,
-				C589A16A1B79F18B00AA2BAA /* zh-Hant */,
+				C59EF3B51B7A146E00E777BC /* en */,
+				C59EF3B71B7A147D00E777BC /* ru */,
+				C59EF3B91B7A148D00E777BC /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

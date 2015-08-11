@@ -42,7 +42,7 @@
 "4dZ-BR-VPb.text" = "D";
 
 /* Class = "UIButton"; normalTitle = "Follow"; ObjectID = "5xC-mH-huG"; */
-"5xC-mH-huG.normalTitle" = "Follow";
+"5xC-mH-huG.normalTitle" = "Подписаться";
 
 /* Class = "UILabel"; text = "Timestamp"; ObjectID = "641-7R-EdV"; */
 "641-7R-EdV.text" = "Timestamp";
@@ -209,6 +209,9 @@
 /* Class = "UILabel"; text = "e"; ObjectID = "STC-13-brF"; */
 "STC-13-brF.text" = "e";
 
+/* Class = "UIButton"; normalTitle = "Following"; ObjectID = "Tbf-RR-jf2"; */
+"Tbf-RR-jf2.normalTitle" = "Вы подписаны";
+
 /* Class = "UILabel"; text = "Что нового"; ObjectID = "Te3-A9-g3F"; */
 "Te3-A9-g3F.text" = "Что нового";
 
@@ -343,6 +346,9 @@
 
 /* Class = "UILabel"; text = "Photo by S"; ObjectID = "xGF-6q-Jgs"; */
 "xGF-6q-Jgs.text" = "Photo by S";
+
+/* Class = "UILabel"; text = "Moji"; ObjectID = "xS9-IA-WOM"; */
+"xS9-IA-WOM.text" = "Moji";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "yxU-kB-7d8"; */
 "yxU-kB-7d8.normalTitle" = "Button";

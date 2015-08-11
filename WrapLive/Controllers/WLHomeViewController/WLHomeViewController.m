@@ -391,8 +391,10 @@
         presentingImageView.delegate = self;
          historyViewController.presentingImageView = presentingImageView;
         __weak __typeof(self)weakSelf = self;
-        [presentingImageView presentingCandy:candy completion:^(BOOL flag) {
+        [presentingImageView presentCandy:candy success:^(WLPresentingImageView *presetingImageView) {
             [weakSelf.navigationController pushViewController:historyViewController animated:NO];
+        } failure:^(NSError *error) {
+            [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
         }];
     }
 }

@@ -56,6 +56,7 @@
                     [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
                         __weak WLDrawingView *drawingView = [WLDrawingView loadFromNib];
                         [drawingView showInView:[UIWindow mainWindow]];
+                        [drawingView layoutIfNeeded];
                         [drawingView setImage:image done:^(UIImage *image) {
                             [candy editWithImage:image];
                             [drawingView removeFromSuperview];
@@ -113,8 +114,7 @@
 }
 
 - (void)select:(WLCandy*)candy {
-    UIImage *largeImage = [[WLImageCache cache] imageWithUrl:candy.picture.large];
-    if (candy.valid && self.coverView.state == WLImageViewStateDefault && self.coverView.image != nil && largeImage != nil) {
+    if (candy.valid && self.coverView.state == WLImageViewStateDefault && self.coverView.image != nil) {
         if ([self.delegate respondsToSelector:@selector(candyCell:didSelectCandy:)]) {
             [self.delegate candyCell:self didSelectCandy:candy];
         }

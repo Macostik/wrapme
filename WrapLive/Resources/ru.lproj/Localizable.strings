@@ -314,3 +314,7 @@
 "authorization_error_try_again" = "Try Again";
 
 "authorization_error_sign_up" = "Sign Up";
+
+"follow_moji_suggestion" = "Подписаться на этот MOJI?";
+
+"followed_moji_suggestion" = "Вы подписаны";

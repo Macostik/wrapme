@@ -29,6 +29,8 @@
 #import "WLDrawingView.h"
 #import "UIView+LayoutHelper.h"
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
+#import "WLFollowingViewController.h"
+#import "UIViewController+Container.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -87,8 +89,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     if (!_wrap) {
         _wrap = _candy.wrap;
     }
-    
-    self.editButton.hidden = self.downloadButton.hidden = self.actionButton.hidden = self.drawButton.hidden = self.commentButton.hidden = _wrap.requiresFollowing;
     
     if (!_history && _wrap) {
         _history = [WLHistory historyWithWrap:self.wrap];
@@ -192,24 +192,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (void)showCommentView {
     [self.commentButton sendActionsForControlEvents:UIControlEventTouchUpInside];
     self.showCommentViewController = NO;
-}
-
-- (IBAction)hideBars {
-    [self setBarsHidden:YES animated:YES];
-}
-
-- (IBAction)embedAsChild:(id)sender {
-    WLCommentsViewController *commentViewController = nil;
-    for (UIViewController *controller in [self childViewControllers]) {
-        if ([controller isKindOfClass:WLCommentsViewController.class]) {
-            return;
-        }
-    }
-    if (!commentViewController) {
-        commentViewController = [WLCommentsViewController instantiate:self.storyboard];
-        commentViewController.candy = self.candy;
-        [commentViewController presentAsChildForParentViewController:self];
-    }
 }
 
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated {
@@ -411,9 +393,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLCandy* candy = self.candy;
     if (candy.valid) {
         if (self.presentingImageView != nil && animate) {
-            [self.presentingImageView setImageUrl:_candy.picture.large];
             [self.navigationController popViewControllerAnimated:NO];
-            [self.presentingImageView dismissViewByCandy:candy completion:nil];
+            [self.presentingImageView dismissCandy:candy];
         } else {
             [self.navigationController popViewControllerAnimated:animate];
         }
@@ -424,58 +405,84 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (IBAction)downloadCandy:(id)sender {
-    [self.candy download:^{
-        [WLToast showPhotoDownloadingMessage];
-    } failure:^(NSError *error) {
-        [error show];
+    __weak typeof(self)weakSelf = self;
+    [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
+        [weakSelf.candy download:^{
+            [WLToast showPhotoDownloadingMessage];
+        } failure:^(NSError *error) {
+            [error show];
+        }];
     }];
 }
 
 - (IBAction)navigationButtonClick:(WLIconButton *)sender {
-    WLCandy *candy = self.candy;
-    if (candy.deletable) {
-        __weak typeof(self)weakSelf = self;
-        [WLAlertView confirmCandyDeleting:candy success:^{
-            weakSelf.removedCandy = candy;
-            sender.loading = YES;
-            [candy remove:^(id object) {
-                sender.loading = NO;
-            } failure:^(NSError *error) {
-                weakSelf.removedCandy = nil;
-                [error show];
-                sender.loading = NO;
-            }];
-        } failure:nil];
-    } else {
-        [MFMailComposeViewController messageWithCandy:candy];
-    }
+    __weak typeof(self)weakSelf = self;
+    [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
+        WLCandy *candy = weakSelf.candy;
+        if (candy.deletable) {
+            [WLAlertView confirmCandyDeleting:candy success:^{
+                weakSelf.removedCandy = candy;
+                sender.loading = YES;
+                [candy remove:^(id object) {
+                    sender.loading = NO;
+                } failure:^(NSError *error) {
+                    weakSelf.removedCandy = nil;
+                    [error show];
+                    sender.loading = NO;
+                }];
+            } failure:nil];
+        } else {
+            [MFMailComposeViewController messageWithCandy:candy];
+        }
+    }];
 }
 
 - (IBAction)editPhoto:(id)sender {
-    WLCandy *candy = self.candy;
-    [self downloadCandyOriginal:candy success:^(UIImage *image) {
-        [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
-            [candy editWithImage:image];
-        } cancel:nil];
-    } failure:^(NSError *error) {
-        [error show];
+    __weak typeof(self)weakSelf = self;
+    [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
+        WLCandy *candy = weakSelf.candy;
+        [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
+            [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
+                [candy editWithImage:image];
+            } cancel:nil];
+        } failure:^(NSError *error) {
+            [error show];
+        }];
     }];
 }
 
 - (IBAction)draw:(id)sender {
     __weak __typeof(self)weakSelf = self;
-    WLCandy *candy = self.candy;
-    [self downloadCandyOriginal:candy success:^(UIImage *image) {
-        __weak WLDrawingView *drawingView = [WLDrawingView loadFromNib];
-        [drawingView showInView:weakSelf.view];
-        [drawingView setImage:image done:^(UIImage *image) {
-            [candy editWithImage:image];
-            [drawingView removeFromSuperview];
-        } cancel:^{
-            [drawingView removeFromSuperview];
+    [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
+        WLCandy *candy = weakSelf.candy;
+        [self downloadCandyOriginal:candy success:^(UIImage *image) {
+            __weak WLDrawingView *drawingView = [WLDrawingView loadFromNib];
+            [drawingView showInView:weakSelf.view];
+            [drawingView layoutIfNeeded];
+            [drawingView setImage:image done:^(UIImage *image) {
+                [candy editWithImage:image];
+                [drawingView removeFromSuperview];
+            } cancel:^{
+                [drawingView removeFromSuperview];
+            }];
+        } failure:^(NSError *error) {
+            [error show];
         }];
-    } failure:^(NSError *error) {
-        [error show];
+    }];
+}
+
+- (IBAction)comments:(id)sender {
+    __weak typeof(self)weakSelf = self;
+    [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
+        for (UIViewController *controller in [self childViewControllers]) {
+            if ([controller isKindOfClass:WLCommentsViewController.class]) {
+                return;
+            }
+        }
+        [weakSelf setBarsHidden:YES animated:YES];
+        WLCommentsViewController *controller = [WLCommentsViewController instantiate:weakSelf.storyboard];
+        controller.candy = weakSelf.candy;
+        [weakSelf addContainedViewController:controller animated:YES];
     }];
 }
 

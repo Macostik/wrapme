@@ -36,14 +36,14 @@
                     </userDefinedRuntimeAttributes>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="1" green="0.57647058819999997" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.99032074213027954" green="0.49772053956985474" blue="0.24937298893928528" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="fO9-Y4-A1S" firstAttribute="top" secondItem="tXO-NZ-tJ7" secondAttribute="bottom" constant="3" id="ZiC-TJ-WBl"/>
                 <constraint firstItem="tXO-NZ-tJ7" firstAttribute="top" secondItem="5az-Ek-2CM" secondAttribute="top" constant="20" id="gaF-Jo-ERX"/>
                 <constraint firstAttribute="centerX" secondItem="tXO-NZ-tJ7" secondAttribute="centerX" id="nbJ-Aj-kuc"/>
                 <constraint firstAttribute="centerX" secondItem="fO9-Y4-A1S" secondAttribute="centerX" id="pgm-uM-kpa"/>
             </constraints>
-            <point key="canvasLocation" x="474" y="383"/>
+            <point key="canvasLocation" x="412" y="383"/>
         </collectionReusableView>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

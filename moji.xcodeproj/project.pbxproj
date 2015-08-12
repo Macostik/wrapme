@@ -824,6 +824,8 @@
 		C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
 		C5AB7D741B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */; };
 		C5AB7D751B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */; };
+		C5AE8DA31B7B350D003CC6D4 /* WLHottestMojiHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5AE8DA61B7B350D003CC6D4 /* WLHottestMojiHeader.xib */; };
+		C5AE8DA41B7B350D003CC6D4 /* WLHottestMojiHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5AE8DA61B7B350D003CC6D4 /* WLHottestMojiHeader.xib */; };
 		C5AEE42D1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */; };
 		C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */; };
 		C5AEE4341B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4311B3AC9B4000C8CCF /* WLDrawingLine.m */; };
@@ -850,8 +852,6 @@
 		C5B2A1261B4BFED8004759F3 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1211B4BFED8004759F3 /* WLChat.m */; };
 		C5B2A12B1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */; };
 		C5B2A12D1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */; };
-		C5B531F31B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B531F11B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib */; };
-		C5B531F51B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B531F11B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib */; };
 		C5B531F91B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */; };
 		C5B531FB1B5FB70D00AA5088 /* WLPublicWrapsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */; };
 		C5B5F0A01B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B5F09E1B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1960,9 +1960,6 @@
 		C58D14211B170E2A005E30C6 /* UIView+QuatzCoreAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+QuatzCoreAnimations.m"; sourceTree = "<group>"; };
 		C5978BE41B396FB700D5043E /* WLDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingView.h; sourceTree = "<group>"; };
 		C5978BE51B396FB700D5043E /* WLDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingView.m; sourceTree = "<group>"; };
-		C59EF3B51B7A146E00E777BC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		C59EF3B71B7A147D00E777BC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		C59EF3B91B7A148D00E777BC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		C59EF3BB1B7A1B5B00E777BC /* UIViewController+Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Container.h"; sourceTree = "<group>"; };
 		C59EF3BC1B7A1B5B00E777BC /* UIViewController+Container.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Container.m"; sourceTree = "<group>"; };
 		C59EF3C01B7A215700E777BC /* WLFollowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLFollowingViewController.h; sourceTree = "<group>"; };
@@ -1974,6 +1971,13 @@
 		C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
 		C5AB7D721B318FDD0077F9F1 /* WLWKParentApplicationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKParentApplicationContext.h; sourceTree = "<group>"; };
 		C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKParentApplicationContext.m; sourceTree = "<group>"; };
+		C5AE8D9E1B7B30F9003CC6D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		C5AE8DA01B7B3109003CC6D4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		C5AE8DA21B7B3119003CC6D4 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		C5AE8DA51B7B350D003CC6D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLHottestMojiHeader.xib; sourceTree = "<group>"; };
+		C5AE8DA81B7B3510003CC6D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLHottestMojiHeader.strings; sourceTree = "<group>"; };
+		C5AE8DAA1B7B3513003CC6D4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLHottestMojiHeader.strings; sourceTree = "<group>"; };
+		C5AE8DAC1B7B3514003CC6D4 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLHottestMojiHeader.strings"; sourceTree = "<group>"; };
 		C5AEE4291B3AC9A7000C8CCF /* WLDrawingSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingSession.h; sourceTree = "<group>"; };
 		C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingSession.m; sourceTree = "<group>"; };
 		C5AEE4301B3AC9B4000C8CCF /* WLDrawingLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingLine.h; sourceTree = "<group>"; };
@@ -2000,7 +2004,6 @@
 		C5B2A1211B4BFED8004759F3 /* WLChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChat.m; sourceTree = "<group>"; };
 		C5B2A1271B4C07DF004759F3 /* NSDate+PNTimetoken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PNTimetoken.h"; sourceTree = "<group>"; };
 		C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PNTimetoken.m"; sourceTree = "<group>"; };
-		C5B531F11B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPublicWrapsHeaderView.xib; path = WLHomeViewController/WLPublicWrapsHeaderView.xib; sourceTree = "<group>"; };
 		C5B531F61B5FB70D00AA5088 /* WLPublicWrapsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPublicWrapsDataSource.h; sourceTree = "<group>"; };
 		C5B531F71B5FB70D00AA5088 /* WLPublicWrapsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPublicWrapsDataSource.m; sourceTree = "<group>"; };
 		C5B5F09E1B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLPaginatedRequest+Defined.h"; sourceTree = "<group>"; };
@@ -2537,7 +2540,7 @@
 		12A7A74218DA17F7008FF6F0 /* WLHomeViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C5B531F11B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib */,
+				C5AE8DA61B7B350D003CC6D4 /* WLHottestMojiHeader.xib */,
 				C5EE2CE31B567A850016889E /* WLRecentCandiesView */,
 				12DCBA7818DB17B000A4BC44 /* WLWrapCell */,
 				12A7A74318DA180C008FF6F0 /* WLHomeViewController.h */,
@@ -5637,7 +5640,7 @@
 				C55908751B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
-				C5B531F31B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib in Resources */,
+				C5AE8DA31B7B350D003CC6D4 /* WLHottestMojiHeader.xib in Resources */,
 				C54AF53619B8C437006F7EDB /* WLEmojiView.xib in Resources */,
 				5BBAB3A71AAA002400CE6252 /* Camera.storyboard in Resources */,
 				C54AF53D19B8C437006F7EDB /* rings.plist in Resources */,
@@ -5694,7 +5697,7 @@
 				C55908771B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
-				C5B531F51B5FADC500AA5088 /* WLPublicWrapsHeaderView.xib in Resources */,
+				C5AE8DA41B7B350D003CC6D4 /* WLHottestMojiHeader.xib in Resources */,
 				C54AF73019B8C491006F7EDB /* WLEmojiView.xib in Resources */,
 				5BBAB3A91AAA002400CE6252 /* Camera.storyboard in Resources */,
 				C54AF73719B8C491006F7EDB /* rings.plist in Resources */,
@@ -6607,9 +6610,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				12A7A71518DA0946008FF6F0 /* Base */,
-				C59EF3B51B7A146E00E777BC /* en */,
-				C59EF3B71B7A147D00E777BC /* ru */,
-				C59EF3B91B7A148D00E777BC /* zh-Hant */,
+				C5AE8D9E1B7B30F9003CC6D4 /* en */,
+				C5AE8DA01B7B3109003CC6D4 /* ru */,
+				C5AE8DA21B7B3119003CC6D4 /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -6787,6 +6790,18 @@
 				3E9E8B861B6FF4D70025974A /* zh-Hant */,
 			);
 			name = WLCandySwipeHintView.xib;
+			sourceTree = "<group>";
+		};
+		C5AE8DA61B7B350D003CC6D4 /* WLHottestMojiHeader.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5AE8DA51B7B350D003CC6D4 /* Base */,
+				C5AE8DA81B7B3510003CC6D4 /* en */,
+				C5AE8DAA1B7B3513003CC6D4 /* ru */,
+				C5AE8DAC1B7B3514003CC6D4 /* zh-Hant */,
+			);
+			name = WLHottestMojiHeader.xib;
+			path = WLHomeViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

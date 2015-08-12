@@ -37,6 +37,7 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1631,18 +1632,17 @@ Tap here to start.</string>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhi-C4-lKW" customClass="WLButton">
                                         <rect key="frame" x="0.0" y="0.0" width="125" height="48"/>
                                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" image="ic_home_normal">
-                                            <color key="titleColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
+                                        <state key="normal" title="#">
+                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
-                                        <state key="selected" image="ic_home_selected">
+                                        <state key="selected">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
                                                 <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="enableDefaultState:" destination="NoR-hF-JY8" eventType="touchDown" id="Tjc-Nv-j2g"/>
@@ -1682,19 +1682,18 @@ Tap here to start.</string>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xg-qz-q6g" customClass="WLButton">
                                         <rect key="frame" x="195" y="0.0" width="125" height="48"/>
                                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" image="ic_hot_normal">
-                                            <color key="titleColor" white="1" alpha="0.75" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
+                                        <state key="normal" title="$">
+                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" image="ic_hot_selected">
+                                        <state key="selected">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
                                                 <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="enableAlternativeState:" destination="NoR-hF-JY8" eventType="touchDown" id="CdO-IW-ccH"/>
@@ -3911,11 +3910,21 @@ Check your internet connection and try again.</string>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Jj-yT-5JM" customClass="WLButton">
-                                <rect key="frame" x="252" y="75" width="30" height="30"/>
-                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="18"/>
-                                <state key="normal" title="!">
+                                <rect key="frame" x="12" y="373" width="296" height="34"/>
+                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Continue">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="insets">
+                                        <size key="value" width="0.0" height="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="close:" destination="a5u-0V-k1F" eventType="touchUpInside" id="sqz-th-zW5"/>
                                 </connections>
@@ -3924,20 +3933,21 @@ Check your internet connection and try again.</string>
                         <color key="backgroundColor" white="0.10100000351667404" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wxe-oJ-t5C" firstAttribute="top" secondItem="TiZ-42-pcE" secondAttribute="bottom" constant="20" id="48W-Bs-K23"/>
+                            <constraint firstItem="5Jj-yT-5JM" firstAttribute="leading" secondItem="n24-ox-RXq" secondAttribute="leading" constant="12" id="59r-HJ-PQP"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8h1-Do-qBF" secondAttribute="trailing" constant="12" id="6Ef-7A-cQb"/>
                             <constraint firstAttribute="centerY" secondItem="8ai-37-t5q" secondAttribute="centerY" constant="-150.5" id="7XO-5h-paj"/>
                             <constraint firstItem="wxe-oJ-t5C" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="n24-ox-RXq" secondAttribute="leading" constant="12" id="DyH-oo-WOZ"/>
                             <constraint firstAttribute="trailing" secondItem="lnY-5L-6HL" secondAttribute="trailing" constant="12" id="Eta-I2-Tnl"/>
                             <constraint firstAttribute="centerX" secondItem="TiZ-42-pcE" secondAttribute="centerX" id="FCq-L0-Npe"/>
                             <constraint firstAttribute="centerX" secondItem="wxe-oJ-t5C" secondAttribute="centerX" id="GFB-ht-nwm"/>
+                            <constraint firstItem="5Jj-yT-5JM" firstAttribute="top" secondItem="8h1-Do-qBF" secondAttribute="bottom" constant="20" id="ILp-tp-KsI"/>
                             <constraint firstItem="8ai-37-t5q" firstAttribute="top" secondItem="lnY-5L-6HL" secondAttribute="bottom" constant="12" id="IQ5-Mb-TYs"/>
                             <constraint firstItem="lnY-5L-6HL" firstAttribute="top" secondItem="8h1-Do-qBF" secondAttribute="bottom" constant="20" id="LTo-Wg-e2f"/>
-                            <constraint firstItem="TiZ-42-pcE" firstAttribute="top" secondItem="5Jj-yT-5JM" secondAttribute="bottom" constant="12" id="UYz-MB-eqy"/>
                             <constraint firstAttribute="centerX" secondItem="8h1-Do-qBF" secondAttribute="centerX" id="WIe-pN-Uz1"/>
                             <constraint firstItem="lnY-5L-6HL" firstAttribute="leading" secondItem="n24-ox-RXq" secondAttribute="leading" constant="12" id="gob-d9-G6p"/>
+                            <constraint firstAttribute="trailing" secondItem="5Jj-yT-5JM" secondAttribute="trailing" constant="12" id="hYb-ph-ezh"/>
                             <constraint firstItem="8ai-37-t5q" firstAttribute="leading" secondItem="n24-ox-RXq" secondAttribute="leading" constant="12" id="jfc-et-Z32"/>
                             <constraint firstItem="8h1-Do-qBF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="n24-ox-RXq" secondAttribute="leading" constant="12" id="n8F-gK-oIm"/>
-                            <constraint firstItem="5Jj-yT-5JM" firstAttribute="leading" secondItem="TiZ-42-pcE" secondAttribute="trailing" constant="12" id="no0-UF-QUa"/>
                             <constraint firstAttribute="trailing" secondItem="8ai-37-t5q" secondAttribute="trailing" constant="12" id="s2Z-Pt-jQd"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wxe-oJ-t5C" secondAttribute="trailing" constant="12" id="sWU-32-jgP"/>
                             <constraint firstItem="8h1-Do-qBF" firstAttribute="top" secondItem="wxe-oJ-t5C" secondAttribute="bottom" constant="20" id="tKM-yY-D1B"/>
@@ -5381,10 +5391,6 @@ QWRkEEZyaWVuZFZpZXc
         <image name="ic_back_in_circle_white" width="30" height="30"/>
         <image name="ic_emoji" width="26" height="26"/>
         <image name="ic_emoji_keyboard" width="30" height="18"/>
-        <image name="ic_home_normal" width="24" height="24"/>
-        <image name="ic_home_selected" width="24" height="24"/>
-        <image name="ic_hot_normal" width="24" height="24"/>
-        <image name="ic_hot_selected" width="24" height="24"/>
         <image name="ic_photo_placeholder" width="60" height="48"/>
         <image name="ic_search" width="16" height="16"/>
     </resources>

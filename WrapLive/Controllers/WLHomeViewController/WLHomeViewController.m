@@ -74,14 +74,14 @@
 
 - (void)viewDidLoad {
     
-    [self.collectionView registerNib:[UINib nibWithNibName:@"WLPublicWrapsHeaderView" bundle:nil] forSupplementaryViewOfKind:@"WLPublicWrapsHeaderView" withReuseIdentifier:@"WLPublicWrapsHeaderView"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"WLHottestMojiHeader" bundle:nil] forSupplementaryViewOfKind:@"WLHottestMojiHeader" withReuseIdentifier:@"WLHottestMojiHeader"];
     UICollectionView *collectionView = self.collectionView;
     [self.dataSource setRefreshable];
     WLCollectionViewLayout *layout = [[WLCollectionViewLayout alloc] init];
     layout.sectionHeadingSupplementaryViewKinds = @[];
     collectionView.collectionViewLayout = layout;
     [layout registerItemFooterSupplementaryViewKind:UICollectionElementKindSectionHeader];
-    [layout registerItemHeaderSupplementaryViewKind:@"WLPublicWrapsHeaderView"];
+    [layout registerItemHeaderSupplementaryViewKind:@"WLHottestMojiHeader"];
     
     [super viewDidLoad];
     
@@ -98,7 +98,10 @@
     
     NSSet* wraps = [WLUser currentUser].wraps;
     homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:nil]];
-    publicDataSource.items = [WLPaginatedSet setWithEntries:[[WLWrap entriesWhere:@"isPublic == YES"] set] request:[WLPaginatedRequest wraps:@"public_not_following"]];
+    
+    publicDataSource.items = [WLPaginatedSet setWithEntries:[[[WLWrap entriesWhere:@"isPublic == YES"] selects:^BOOL(WLWrap *wrap) {
+        return ![wrap.contributors containsObject:[WLUser currentUser]];
+    }] set] request:[WLPaginatedRequest wraps:@"public_not_following"]];
     
     homeDataSource.selectionBlock = publicDataSource.selectionBlock = ^(id entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:NO];

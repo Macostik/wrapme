@@ -29,8 +29,8 @@
 /* Class = "UIButton"; normalTitle = "Close"; ObjectID = "2nE-rT-l31"; */
 "2nE-rT-l31.normalTitle" = "Close";
 
-/* Class = "UIButton"; normalTitle = "What's hot"; ObjectID = "3xg-qz-q6g"; */
-"3xg-qz-q6g.normalTitle" = "What's hot";
+/* Class = "UIButton"; normalTitle = "$"; ObjectID = "3xg-qz-q6g"; */
+"3xg-qz-q6g.normalTitle" = "$";
 
 /* Class = "UILabel"; text = "1"; ObjectID = "456-IP-xA6"; */
 "456-IP-xA6.text" = "1";
@@ -40,6 +40,9 @@
 
 /* Class = "UILabel"; text = "D"; ObjectID = "4dZ-BR-VPb"; */
 "4dZ-BR-VPb.text" = "D";
+
+/* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "5Jj-yT-5JM"; */
+"5Jj-yT-5JM.normalTitle" = "Continue";
 
 /* Class = "UIButton"; normalTitle = "Follow"; ObjectID = "5xC-mH-huG"; */
 "5xC-mH-huG.normalTitle" = "Follow";
@@ -79,6 +82,12 @@
 
 /* Class = "UITextField"; placeholder = "Email address"; ObjectID = "82E-k4-0WJ"; */
 "82E-k4-0WJ.placeholder" = "Email address";
+
+/* Class = "UIButton"; normalTitle = "MAY BE LATER"; ObjectID = "8ai-37-t5q"; */
+"8ai-37-t5q.normalTitle" = "MAY BE LATER";
+
+/* Class = "UILabel"; text = "MOJI NAME"; ObjectID = "8h1-Do-qBF"; */
+"8h1-Do-qBF.text" = "MOJI NAME";
 
 /* Class = "UIButton"; disabledTitle = "l"; ObjectID = "8kJ-w2-piV"; */
 "8kJ-w2-piV.disabledTitle" = "l";
@@ -308,11 +317,14 @@
 /* Class = "UIButton"; selectedTitle = "z"; ObjectID = "kso-wd-VlQ"; */
 "kso-wd-VlQ.selectedTitle" = "z";
 
+/* Class = "UIButton"; normalTitle = "FOLLOW"; ObjectID = "lnY-5L-6HL"; */
+"lnY-5L-6HL.normalTitle" = "FOLLOW";
+
 /* Class = "UILabel"; text = "10"; ObjectID = "m01-Ic-fcZ"; */
 "m01-Ic-fcZ.text" = "10";
 
-/* Class = "UIButton"; normalTitle = "Home"; ObjectID = "mhi-C4-lKW"; */
-"mhi-C4-lKW.normalTitle" = "Home";
+/* Class = "UIButton"; normalTitle = "#"; ObjectID = "mhi-C4-lKW"; */
+"mhi-C4-lKW.normalTitle" = "#";
 
 /* Class = "UILabel"; text = "Chat"; ObjectID = "nwc-oQ-LVZ"; */
 "nwc-oQ-LVZ.text" = "Chat";
@@ -343,6 +355,9 @@
 
 /* Class = "UILabel"; text = "100000"; ObjectID = "vhN-RG-jpt"; */
 "vhN-RG-jpt.text" = "100000";
+
+/* Class = "UILabel"; text = "FOLLOW & JOIN THIS MOJI?"; ObjectID = "wxe-oJ-t5C"; */
+"wxe-oJ-t5C.text" = "FOLLOW & JOIN THIS MOJI?";
 
 /* Class = "UILabel"; text = "Photo by S"; ObjectID = "xGF-6q-Jgs"; */
 "xGF-6q-Jgs.text" = "Photo by S";

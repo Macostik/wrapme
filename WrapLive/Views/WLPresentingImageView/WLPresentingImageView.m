@@ -24,7 +24,10 @@
 
 - (void)presentCandy:(WLCandy *)candy success:(void (^)(WLPresentingImageView *))success failure:(WLFailureBlock)failure {
     [self presentingAsMainWindowSubview];
-    UIImage *image = [[WLImageCache cache] imageWithUrl:candy.picture.large];
+    UIImage *image = [WLSystemImageCache imageWithIdentifier:candy.picture.large];
+    if (!image) {
+        image = [[WLImageCache cache] imageWithUrl:candy.picture.large];
+    }
     if (!image) {
         if (failure) failure(nil);
         [self removeFromSuperview];
@@ -48,7 +51,10 @@
 
 - (void)dismissCandy:(WLCandy *)candy {
     [self presentingAsMainWindowSubview];
-    UIImage *image = [[WLImageCache cache] imageWithUrl:candy.picture.large];
+    UIImage *image = [WLSystemImageCache imageWithIdentifier:candy.picture.large];
+    if (!image) {
+        image = [[WLImageCache cache] imageWithUrl:candy.picture.large];
+    }
     if (!image) {
         [self removeFromSuperview];
         return;

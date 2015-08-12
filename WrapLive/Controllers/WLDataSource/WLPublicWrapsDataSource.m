@@ -16,8 +16,8 @@
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
         return [super collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
-    } else if ([kind isEqualToString:@"WLPublicWrapsHeaderView"]) {
-        return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLPublicWrapsHeaderView" forIndexPath:indexPath];
+    } else if ([kind isEqualToString:@"WLHottestMojiHeader"]) {
+        return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLHottestMojiHeader" forIndexPath:indexPath];
     }
     return nil;
 }
@@ -29,7 +29,7 @@
 - (CGSize)collectionView:(UICollectionView*)collectionView sizeForSupplementaryViewOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
         return self.appendable ? CGSizeMake(collectionView.width, WLLoadingViewDefaultSize) : CGSizeZero;
-    } else if ([kind isEqualToString:@"WLPublicWrapsHeaderView"] && indexPath.item == 0) {
+    } else if ([kind isEqualToString:@"WLHottestMojiHeader"] && indexPath.item == 0) {
         return CGSizeMake(collectionView.width, 88);
     }
     return CGSizeZero;

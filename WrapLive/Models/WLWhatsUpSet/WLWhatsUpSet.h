@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import <mojiKit/mojiKit.h>
+#import <MojiKit/MojiKit.h>
 
 @class WLWhatsUpSet;
 @class WLBroadcaster;

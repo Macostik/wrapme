@@ -69,7 +69,7 @@
 		5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */; };
 		5BA7AC2D1A7939FB00BB922E /* WLTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC2B1A7939FA00BB922E /* WLTriangleView.m */; };
 		5BA7AC2F1A7939FB00BB922E /* WLTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC2B1A7939FA00BB922E /* WLTriangleView.m */; };
-		5BA7AF2E1A481A9500C586CA /* mojiTodayQA.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* mojiTodayQA.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5BA7AF2E1A481A9500C586CA /* MojiTodayQA.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* MojiTodayQA.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5BB04F2919D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
 		5BB04F2B19D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
 		5BBAB3A71AAA002400CE6252 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */; };
@@ -168,7 +168,7 @@
 		C52E1FEB1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */; };
 		C52E1FF01A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
 		C52E1FF21A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
-		C534D6721AF12BC900D51700 /* mojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* mojiKit.framework */; };
+		C534D6721AF12BC900D51700 /* MojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* MojiKit.framework */; };
 		C535F9CB1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
@@ -404,7 +404,7 @@
 		C5528A111B3425C600AF1311 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		C5568BDE1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
 		C5568BE01A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
-		C557B0F81AF8AF7B00F437D7 /* mojiWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C56498C71ACB00D2000F1E4B /* mojiWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C557B0F81AF8AF7B00F437D7 /* MojiWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C56498C71ACB00D2000F1E4B /* MojiWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C558E7C71A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
 		C558E7C91A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
 		C55908751B185F9D001CB99F /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55908791B185F9D001CB99F /* Introduction.storyboard */; };
@@ -459,8 +459,8 @@
 		C560D22B1AFB7703006B906E /* WLSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2271AFB7703006B906E /* WLSwipeViewController.m */; };
 		C560D2351AFBB55E006B906E /* WLHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2331AFBB55E006B906E /* WLHistoryViewController.m */; };
 		C560D2371AFBB55E006B906E /* WLHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2331AFBB55E006B906E /* WLHistoryViewController.m */; };
-		C56498D31ACB00D2000F1E4B /* mojiWatchApp.app in Resources */ = {isa = PBXBuildFile; fileRef = C56498D21ACB00D2000F1E4B /* mojiWatchApp.app */; };
-		C564B2B91ADE6DD5000C3DF1 /* mojiWatchAppQA.app in Resources */ = {isa = PBXBuildFile; fileRef = C50645931ABD7FD500CB4BE3 /* mojiWatchAppQA.app */; };
+		C56498D31ACB00D2000F1E4B /* MojiWatchApp.app in Resources */ = {isa = PBXBuildFile; fileRef = C56498D21ACB00D2000F1E4B /* MojiWatchApp.app */; };
+		C564B2B91ADE6DD5000C3DF1 /* MojiWatchAppQA.app in Resources */ = {isa = PBXBuildFile; fileRef = C50645931ABD7FD500CB4BE3 /* MojiWatchAppQA.app */; };
 		C568C7BC1B21F1D800308CBA /* WLEntry+Containment.h in Headers */ = {isa = PBXBuildFile; fileRef = C568C7BA1B21F1D800308CBA /* WLEntry+Containment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C568C7BD1B21F1D800308CBA /* WLEntry+Containment.m in Sources */ = {isa = PBXBuildFile; fileRef = C568C7BB1B21F1D800308CBA /* WLEntry+Containment.m */; };
 		C568D8D71A6D491800C2333B /* WLHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C568D8D51A6D491800C2333B /* WLHintView.m */; };
@@ -639,7 +639,7 @@
 		C583DC7C1B73B9C100F57DCA /* WLDrawingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C583DC7A1B73B9C100F57DCA /* WLDrawingView.xib */; };
 		C583DC7E1B73B9C100F57DCA /* WLDrawingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C583DC7A1B73B9C100F57DCA /* WLDrawingView.xib */; };
 		C587C7691AD2E5A9003E7647 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
-		C587C77F1AD2E619003E7647 /* mojiKit-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C587C77B1AD2E619003E7647 /* mojiKit-Prefix.pch */; };
+		C587C77F1AD2E619003E7647 /* MojiKit-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C587C77B1AD2E619003E7647 /* MojiKit-Prefix.pch */; };
 		C587C7811AD2E6A0003E7647 /* UIView+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = C5FE0A4F1ACD97F6007DBE95 /* UIView+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7831AD2E6A0003E7647 /* NSDate+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C7C1ACD968A0052578A /* NSDate+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7841AD2E6A0003E7647 /* NSDate+Formatting.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C7E1ACD968A0052578A /* NSDate+Formatting.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -713,7 +713,7 @@
 		C587C7E61AD2E6A0003E7647 /* SupportHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612D681ACD968B0052578A /* SupportHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7E71AD2E6A0003E7647 /* Timecost.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612D691ACD968B0052578A /* Timecost.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7E81AD2E6A0003E7647 /* WLConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612D6A1ACD968B0052578A /* WLConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C587C7E91AD2E6A0003E7647 /* mojiKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C50646ED1ABD844700CB4BE3 /* mojiKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C587C7E91AD2E6A0003E7647 /* MojiKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C50646ED1ABD844700CB4BE3 /* MojiKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C8491AD2E6DB003E7647 /* UIView+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FE0A501ACD97F6007DBE95 /* UIView+Shorthand.m */; };
 		C587C84B1AD2E6DB003E7647 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C7D1ACD968A0052578A /* NSDate+Additions.m */; };
 		C587C84C1AD2E6DB003E7647 /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C7F1ACD968A0052578A /* NSDate+Formatting.m */; };
@@ -795,12 +795,12 @@
 		C587C8DB1AD2E736003E7647 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C500C8D21ACBE37D0072BBA8 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C587C8DC1AD2E780003E7647 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */; };
 		C587C8DD1AD2E785003E7647 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70618DA0945008FF6F0 /* UIKit.framework */; };
-		C587C8E71AD2E8CA003E7647 /* mojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* mojiKit.framework */; };
-		C587C8E91AD2E8D1003E7647 /* mojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* mojiKit.framework */; };
-		C587C8EA1AD2E8D6003E7647 /* mojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* mojiKit.framework */; };
-		C587C8EB1AD2E8DA003E7647 /* mojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* mojiKit.framework */; };
-		C587C8EC1AD2E8DD003E7647 /* mojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* mojiKit.framework */; };
-		C587C8ED1AD2E8E1003E7647 /* mojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* mojiKit.framework */; };
+		C587C8E71AD2E8CA003E7647 /* MojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* MojiKit.framework */; };
+		C587C8E91AD2E8D1003E7647 /* MojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* MojiKit.framework */; };
+		C587C8EA1AD2E8D6003E7647 /* MojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* MojiKit.framework */; };
+		C587C8EB1AD2E8DA003E7647 /* MojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* MojiKit.framework */; };
+		C587C8EC1AD2E8DD003E7647 /* MojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* MojiKit.framework */; };
+		C587C8ED1AD2E8E1003E7647 /* MojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* MojiKit.framework */; };
 		C587C8F11AD2E980003E7647 /* NSUserDefaults+WLAppGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = C587C8EF1AD2E980003E7647 /* NSUserDefaults+WLAppGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C8F21AD2E980003E7647 /* NSUserDefaults+WLAppGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C587C8F01AD2E980003E7647 /* NSUserDefaults+WLAppGroup.m */; };
 		C58AB9971B1384F300932272 /* WLWhatsUpSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB9951B1384F300932272 /* WLWhatsUpSet.m */; };
@@ -811,7 +811,7 @@
 		C58D14231B170E2A005E30C6 /* UIView+QuatzCoreAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = C58D14211B170E2A005E30C6 /* UIView+QuatzCoreAnimations.m */; };
 		C5978BE81B396FB700D5043E /* WLDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5978BE51B396FB700D5043E /* WLDrawingView.m */; };
 		C5978BEA1B396FB700D5043E /* WLDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5978BE51B396FB700D5043E /* WLDrawingView.m */; };
-		C5994D8A1B78894A0066A597 /* WrapLiveToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* WrapLiveToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C5994D8A1B78894A0066A597 /* MojiToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* MojiToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C59EF3BD1B7A1B5B00E777BC /* UIViewController+Container.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3BC1B7A1B5B00E777BC /* UIViewController+Container.m */; };
 		C59EF3BE1B7A1B5B00E777BC /* UIViewController+Container.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3BC1B7A1B5B00E777BC /* UIViewController+Container.m */; };
 		C59EF3C21B7A215700E777BC /* WLFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3C11B7A215700E777BC /* WLFollowingViewController.m */; };
@@ -1077,7 +1077,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				5BA7AF2E1A481A9500C586CA /* mojiTodayQA.appex in Embed App Extensions */,
+				5BA7AF2E1A481A9500C586CA /* MojiTodayQA.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1148,8 +1148,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C557B0F81AF8AF7B00F437D7 /* mojiWatchExt.appex in Embed App Extensions */,
-				C5994D8A1B78894A0066A597 /* WrapLiveToday.appex in Embed App Extensions */,
+				C557B0F81AF8AF7B00F437D7 /* MojiWatchExt.appex in Embed App Extensions */,
+				C5994D8A1B78894A0066A597 /* MojiToday.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1176,7 +1176,7 @@
 		12A7A70418DA0945008FF6F0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		12A7A70618DA0945008FF6F0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		12A7A70E18DA0946008FF6F0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		12A7A71018DA0946008FF6F0 /* WrapLive-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WrapLive-Prefix.pch"; sourceTree = "<group>"; };
+		12A7A71018DA0946008FF6F0 /* Moji-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Moji-Prefix.pch"; sourceTree = "<group>"; };
 		12A7A71118DA0946008FF6F0 /* WLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLAppDelegate.h; sourceTree = "<group>"; };
 		12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLAppDelegate.m; sourceTree = "<group>"; };
 		12A7A71518DA0946008FF6F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -1246,7 +1246,7 @@
 		5B36F5031B668097009609C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLUnreadMessagesView.strings; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
 		5B5A8C6F1A4EB62F00F84529 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SignUp.storyboard; sourceTree = "<group>"; };
-		5B787D9B1A27876F004AE459 /* mojiTodayQA.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = mojiTodayQA.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B787D9B1A27876F004AE459 /* MojiTodayQA.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MojiTodayQA.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		5B954BAB1B44328B00D362B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLHomeSwipeTransitionView.xib; sourceTree = "<group>"; };
 		5B954BB11B4432A400D362B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
@@ -1320,7 +1320,7 @@
 		5BD782CF1A4EC56E0094BEE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLConfirmView.strings; sourceTree = "<group>"; };
 		5BD782D11A4EC56F0094BEE5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLConfirmView.strings; sourceTree = "<group>"; };
 		5BDCA87D1B394C2F00C4AB3E /* NoMessagePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoMessagePlaceholderView.xib; sourceTree = "<group>"; };
-		5BF1B2481A49A683000BB2C1 /* WrapLiveToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WrapLiveToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BF1B2481A49A683000BB2C1 /* MojiToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MojiToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
 		AC1A179C1937694B002B3737 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1368,15 +1368,15 @@
 		C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddContributorsViewController.m; sourceTree = "<group>"; };
 		C504177D19B9EE15000E55F3 /* WLContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLContactCell.h; sourceTree = "<group>"; };
 		C504177E19B9EE15000E55F3 /* WLContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLContactCell.m; sourceTree = "<group>"; };
-		C50645841ABD7FD400CB4BE3 /* mojiWatchExtQA.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = mojiWatchExtQA.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		C50645931ABD7FD500CB4BE3 /* mojiWatchAppQA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mojiWatchAppQA.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C50645B91ABD815100CB4BE3 /* mojiTodayQA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mojiTodayQA-Info.plist"; sourceTree = "<group>"; };
+		C50645841ABD7FD400CB4BE3 /* MojiWatchExtQA.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MojiWatchExtQA.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C50645931ABD7FD500CB4BE3 /* MojiWatchAppQA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MojiWatchAppQA.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C50645B91ABD815100CB4BE3 /* MojiTodayQA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiTodayQA-Info.plist"; sourceTree = "<group>"; };
 		C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WLTodayExtension.storyboard; sourceTree = "<group>"; };
-		C50645BB1ABD815100CB4BE3 /* mojiToday-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mojiToday-Info.plist"; sourceTree = "<group>"; };
+		C50645BB1ABD815100CB4BE3 /* MojiToday-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiToday-Info.plist"; sourceTree = "<group>"; };
 		C50645C01ABD815100CB4BE3 /* WLTodayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayViewController.h; sourceTree = "<group>"; };
 		C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayViewController.m; sourceTree = "<group>"; };
 		C50645C51ABD815100CB4BE3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C50645C61ABD815100CB4BE3 /* mojiWatchAppQA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mojiWatchAppQA-Info.plist"; sourceTree = "<group>"; };
+		C50645C61ABD815100CB4BE3 /* MojiWatchAppQA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiWatchAppQA-Info.plist"; sourceTree = "<group>"; };
 		C50645CB1ABD815100CB4BE3 /* WLWKNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKNotificationController.h; sourceTree = "<group>"; };
 		C50645CC1ABD815100CB4BE3 /* WLWKNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKNotificationController.m; sourceTree = "<group>"; };
 		C50645D41ABD815200CB4BE3 /* WLWKCandyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKCandyController.h; sourceTree = "<group>"; };
@@ -1391,11 +1391,11 @@
 		C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKEntryRow.m; sourceTree = "<group>"; };
 		C50645DF1ABD815200CB4BE3 /* WLWKContributionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKContributionsController.h; sourceTree = "<group>"; };
 		C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKContributionsController.m; sourceTree = "<group>"; };
-		C50645E21ABD815200CB4BE3 /* mojiWatchExtQA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mojiWatchExtQA-Info.plist"; sourceTree = "<group>"; };
+		C50645E21ABD815200CB4BE3 /* MojiWatchExtQA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiWatchExtQA-Info.plist"; sourceTree = "<group>"; };
 		C50645E61ABD815200CB4BE3 /* CommentAPNS.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CommentAPNS.apns; sourceTree = "<group>"; };
-		C50646A71ABD82D400CB4BE3 /* mojiWatchExt-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mojiWatchExt-Info.plist"; sourceTree = "<group>"; };
-		C50646A91ABD830C00CB4BE3 /* mojiWatchApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mojiWatchApp-Info.plist"; sourceTree = "<group>"; };
-		C50646ED1ABD844700CB4BE3 /* mojiKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mojiKit.h; sourceTree = "<group>"; };
+		C50646A71ABD82D400CB4BE3 /* MojiWatchExt-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiWatchExt-Info.plist"; sourceTree = "<group>"; };
+		C50646A91ABD830C00CB4BE3 /* MojiWatchApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiWatchApp-Info.plist"; sourceTree = "<group>"; };
+		C50646ED1ABD844700CB4BE3 /* MojiKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MojiKit.h; sourceTree = "<group>"; };
 		C50647601ABD868800CB4BE3 /* ExtensionsPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsPrefixHeader.pch; sourceTree = "<group>"; };
 		C50647681ABD889100CB4BE3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C5111D371AB345D10094275C /* WLIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIntroductionViewController.h; sourceTree = "<group>"; };
@@ -1416,8 +1416,8 @@
 		C5218E691AE554D4007E55D0 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		C525687A1B2B0CD90009300A /* WLWrapPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapPickerViewController.h; sourceTree = "<group>"; };
 		C525687B1B2B0CD90009300A /* WLWrapPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapPickerViewController.m; sourceTree = "<group>"; };
-		C5259D661ACC2333003D3317 /* wrapLive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = wrapLive.entitlements; sourceTree = "<group>"; };
-		C5259D671ACC2333003D3317 /* wrapLiveAdhoc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = wrapLiveAdhoc.entitlements; sourceTree = "<group>"; };
+		C5259D661ACC2333003D3317 /* Moji.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Moji.entitlements; sourceTree = "<group>"; };
+		C5259D671ACC2333003D3317 /* MojiAdhoc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MojiAdhoc.entitlements; sourceTree = "<group>"; };
 		C52E1FC81A41951300A2C370 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = WLButton/WLButton.h; sourceTree = "<group>"; };
 		C52E1FC91A41951300A2C370 /* WLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLButton.m; path = WLButton/WLButton.m; sourceTree = "<group>"; };
 		C52E1FCA1A41951300A2C370 /* WLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLabel.h; sourceTree = "<group>"; };
@@ -1536,9 +1536,9 @@
 		C54974561ABC1C34000E3F54 /* WLQAButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLQAButton.h; path = WLButton/WLQAButton.h; sourceTree = "<group>"; };
 		C54974571ABC1C34000E3F54 /* WLQAButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLQAButton.m; path = WLButton/WLQAButton.m; sourceTree = "<group>"; };
 		C54AF55019B8C437006F7EDB /* moji-QA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "moji-QA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C54AF74A19B8C491006F7EDB /* WrapLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WrapLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C54AF84919B8C5F0006F7EDB /* moji-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "moji-Info.plist"; sourceTree = "<group>"; };
-		C54AF84A19B8C5F0006F7EDB /* mojiQA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mojiQA-Info.plist"; sourceTree = "<group>"; };
+		C54AF74A19B8C491006F7EDB /* Moji.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moji.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C54AF84919B8C5F0006F7EDB /* Moji-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Moji-Info.plist"; sourceTree = "<group>"; };
+		C54AF84A19B8C5F0006F7EDB /* MojiQA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiQA-Info.plist"; sourceTree = "<group>"; };
 		C54C56711B1DBF5F00CA4B12 /* WLShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLShapeView.h; path = WLTriangleView/WLShapeView.h; sourceTree = "<group>"; };
 		C54C56721B1DBF5F00CA4B12 /* WLShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLShapeView.m; path = WLTriangleView/WLShapeView.m; sourceTree = "<group>"; };
 		C54C56771B1DC81100CA4B12 /* WLSwipeActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSwipeActionView.h; path = WLTriangleView/WLSwipeActionView.h; sourceTree = "<group>"; };
@@ -1581,7 +1581,7 @@
 		C559974F1A262BD8003D4B29 /* WLTelephony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTelephony.m; sourceTree = "<group>"; };
 		C55B91FF1AFA39FE006A3A55 /* WLEntryNotifyReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryNotifyReceiver.h; sourceTree = "<group>"; };
 		C55B92001AFA39FE006A3A55 /* WLEntryNotifyReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryNotifyReceiver.m; sourceTree = "<group>"; };
-		C55C36661ACEB7A800C614BD /* mojiKit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mojiKit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C55C36661ACEB7A800C614BD /* MojiKit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MojiKit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C55C36691ACEB7A900C614BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WrapLiveKit_Tests.m; sourceTree = "<group>"; };
 		C55C8DBE1B0CDB5E0085DB60 /* WLAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAnimation.h; sourceTree = "<group>"; };
@@ -1744,8 +1744,8 @@
 		C5612D681ACD968B0052578A /* SupportHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportHeaders.h; sourceTree = "<group>"; };
 		C5612D691ACD968B0052578A /* Timecost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timecost.h; sourceTree = "<group>"; };
 		C5612D6A1ACD968B0052578A /* WLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLConstants.h; sourceTree = "<group>"; };
-		C56498C71ACB00D2000F1E4B /* mojiWatchExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = mojiWatchExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		C56498D21ACB00D2000F1E4B /* mojiWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mojiWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C56498C71ACB00D2000F1E4B /* MojiWatchExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MojiWatchExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C56498D21ACB00D2000F1E4B /* MojiWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MojiWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C568C7BA1B21F1D800308CBA /* WLEntry+Containment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLEntry+Containment.h"; sourceTree = "<group>"; };
 		C568C7BB1B21F1D800308CBA /* WLEntry+Containment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLEntry+Containment.m"; sourceTree = "<group>"; };
 		C568D8D41A6D491800C2333B /* WLHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHintView.h; sourceTree = "<group>"; };
@@ -1941,9 +1941,9 @@
 		C583DC701B73738A00F57DCA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SignUp.strings; sourceTree = "<group>"; };
 		C583DC741B73743100F57DCA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SignUp.strings"; sourceTree = "<group>"; };
 		C583DC7A1B73B9C100F57DCA /* WLDrawingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLDrawingView.xib; sourceTree = "<group>"; };
-		C587C7681AD2E5A9003E7647 /* mojiKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = mojiKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C587C7791AD2E619003E7647 /* mojiKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mojiKit-Info.plist"; sourceTree = "<group>"; };
-		C587C77B1AD2E619003E7647 /* mojiKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mojiKit-Prefix.pch"; sourceTree = "<group>"; };
+		C587C7681AD2E5A9003E7647 /* MojiKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = MojiKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C587C7791AD2E619003E7647 /* MojiKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiKit-Info.plist"; sourceTree = "<group>"; };
+		C587C77B1AD2E619003E7647 /* MojiKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MojiKit-Prefix.pch"; sourceTree = "<group>"; };
 		C587C8EF1AD2E980003E7647 /* NSUserDefaults+WLAppGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+WLAppGroup.h"; sourceTree = "<group>"; };
 		C587C8F01AD2E980003E7647 /* NSUserDefaults+WLAppGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+WLAppGroup.m"; sourceTree = "<group>"; };
 		C58AB9921B13422500932272 /* CoreData 1. 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -2146,7 +2146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C55D77E11AE51230006FA19C /* libz.dylib in Frameworks */,
-				C587C8EA1AD2E8D6003E7647 /* mojiKit.framework in Frameworks */,
+				C587C8EA1AD2E8D6003E7647 /* MojiKit.framework in Frameworks */,
 				5B787D9D1A27876F004AE459 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2156,7 +2156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C55D77E21AE51237006FA19C /* libz.dylib in Frameworks */,
-				C587C8EB1AD2E8DA003E7647 /* mojiKit.framework in Frameworks */,
+				C587C8EB1AD2E8DA003E7647 /* MojiKit.framework in Frameworks */,
 				5BF1B23B1A49A683000BB2C1 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2166,7 +2166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C55D77E31AE51247006FA19C /* libz.dylib in Frameworks */,
-				C587C8EC1AD2E8DD003E7647 /* mojiKit.framework in Frameworks */,
+				C587C8EC1AD2E8DD003E7647 /* MojiKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2183,7 +2183,7 @@
 				C5218E711AE558B8007E55D0 /* Accelerate.framework in Frameworks */,
 				C5218E701AE558B3007E55D0 /* CoreData.framework in Frameworks */,
 				C560B15E1AE69F7C0010B2EC /* AdobeCreativeSDKCore.framework in Frameworks */,
-				C587C8E91AD2E8D1003E7647 /* mojiKit.framework in Frameworks */,
+				C587C8E91AD2E8D1003E7647 /* MojiKit.framework in Frameworks */,
 				C500C9131ACBE53C0072BBA8 /* NewRelicAgent.framework in Frameworks */,
 				C54AF51619B8C437006F7EDB /* MessageUI.framework in Frameworks */,
 				C54AF51819B8C437006F7EDB /* libz.dylib in Frameworks */,
@@ -2209,7 +2209,7 @@
 				C54AF71119B8C491006F7EDB /* libsqlite3.0.dylib in Frameworks */,
 				C5218E7A1AE55936007E55D0 /* CoreData.framework in Frameworks */,
 				C560B1601AE69F7D0010B2EC /* AdobeCreativeSDKCore.framework in Frameworks */,
-				C587C8E71AD2E8CA003E7647 /* mojiKit.framework in Frameworks */,
+				C587C8E71AD2E8CA003E7647 /* MojiKit.framework in Frameworks */,
 				C500C9151ACBE53C0072BBA8 /* NewRelicAgent.framework in Frameworks */,
 				C54AF71019B8C491006F7EDB /* MessageUI.framework in Frameworks */,
 				C54AF71219B8C491006F7EDB /* libz.dylib in Frameworks */,
@@ -2227,7 +2227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C534D6721AF12BC900D51700 /* mojiKit.framework in Frameworks */,
+				C534D6721AF12BC900D51700 /* MojiKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2236,7 +2236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C55D77E41AE5124D006FA19C /* libz.dylib in Frameworks */,
-				C587C8ED1AD2E8E1003E7647 /* mojiKit.framework in Frameworks */,
+				C587C8ED1AD2E8E1003E7647 /* MojiKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2349,15 +2349,15 @@
 			isa = PBXGroup;
 			children = (
 				C54AF55019B8C437006F7EDB /* moji-QA.app */,
-				C54AF74A19B8C491006F7EDB /* WrapLive.app */,
-				5B787D9B1A27876F004AE459 /* mojiTodayQA.appex */,
-				5BF1B2481A49A683000BB2C1 /* WrapLiveToday.appex */,
-				C50645841ABD7FD400CB4BE3 /* mojiWatchExtQA.appex */,
-				C50645931ABD7FD500CB4BE3 /* mojiWatchAppQA.app */,
-				C56498C71ACB00D2000F1E4B /* mojiWatchExt.appex */,
-				C56498D21ACB00D2000F1E4B /* mojiWatchApp.app */,
-				C55C36661ACEB7A800C614BD /* mojiKit Tests.xctest */,
-				C587C7681AD2E5A9003E7647 /* mojiKit.framework */,
+				C54AF74A19B8C491006F7EDB /* Moji.app */,
+				5B787D9B1A27876F004AE459 /* MojiTodayQA.appex */,
+				5BF1B2481A49A683000BB2C1 /* MojiToday.appex */,
+				C50645841ABD7FD400CB4BE3 /* MojiWatchExtQA.appex */,
+				C50645931ABD7FD500CB4BE3 /* MojiWatchAppQA.app */,
+				C56498C71ACB00D2000F1E4B /* MojiWatchExt.appex */,
+				C56498D21ACB00D2000F1E4B /* MojiWatchApp.app */,
+				C55C36661ACEB7A800C614BD /* MojiKit Tests.xctest */,
+				C587C7681AD2E5A9003E7647 /* MojiKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2416,10 +2416,10 @@
 		12A7A70918DA0946008FF6F0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C54AF84919B8C5F0006F7EDB /* moji-Info.plist */,
-				C54AF84A19B8C5F0006F7EDB /* mojiQA-Info.plist */,
+				C54AF84919B8C5F0006F7EDB /* Moji-Info.plist */,
+				C54AF84A19B8C5F0006F7EDB /* MojiQA-Info.plist */,
 				12A7A70E18DA0946008FF6F0 /* main.m */,
-				12A7A71018DA0946008FF6F0 /* WrapLive-Prefix.pch */,
+				12A7A71018DA0946008FF6F0 /* Moji-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -3104,8 +3104,8 @@
 		C50645B81ABD815100CB4BE3 /* WrapLive Today Extension */ = {
 			isa = PBXGroup;
 			children = (
-				C50645B91ABD815100CB4BE3 /* mojiTodayQA-Info.plist */,
-				C50645BB1ABD815100CB4BE3 /* mojiToday-Info.plist */,
+				C50645B91ABD815100CB4BE3 /* MojiTodayQA-Info.plist */,
+				C50645BB1ABD815100CB4BE3 /* MojiToday-Info.plist */,
 				C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */,
 				C50645BC1ABD815100CB4BE3 /* WLTodayViewController */,
 			);
@@ -3127,8 +3127,8 @@
 			children = (
 				C520C9D71B32FDBD00AC7351 /* Interface.storyboard */,
 				C50645C51ABD815100CB4BE3 /* Images.xcassets */,
-				C50645C61ABD815100CB4BE3 /* mojiWatchAppQA-Info.plist */,
-				C50646A91ABD830C00CB4BE3 /* mojiWatchApp-Info.plist */,
+				C50645C61ABD815100CB4BE3 /* MojiWatchAppQA-Info.plist */,
+				C50646A91ABD830C00CB4BE3 /* MojiWatchApp-Info.plist */,
 			);
 			path = "WrapLive WatchKit App";
 			sourceTree = "<group>";
@@ -3139,8 +3139,8 @@
 				C5AB7D701B318F8B0077F9F1 /* Models */,
 				C552329A1ACD475A00886437 /* Categories */,
 				C50645C81ABD815100CB4BE3 /* Controllers */,
-				C50645E21ABD815200CB4BE3 /* mojiWatchExtQA-Info.plist */,
-				C50646A71ABD82D400CB4BE3 /* mojiWatchExt-Info.plist */,
+				C50645E21ABD815200CB4BE3 /* MojiWatchExtQA-Info.plist */,
+				C50646A71ABD82D400CB4BE3 /* MojiWatchExt-Info.plist */,
 				C5B993C31B302E73002BCC8C /* WLWKChatReplyPresets.plist */,
 				C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */,
 				C55232931ACD3F4900886437 /* WrapAPNS.apns */,
@@ -3211,9 +3211,9 @@
 				C5612D641ACD968B0052578A /* Support Headers */,
 				C5612C771ACD968A0052578A /* Categories */,
 				C5612CB01ACD968A0052578A /* Models */,
-				C50646ED1ABD844700CB4BE3 /* mojiKit.h */,
-				C587C7791AD2E619003E7647 /* mojiKit-Info.plist */,
-				C587C77B1AD2E619003E7647 /* mojiKit-Prefix.pch */,
+				C50646ED1ABD844700CB4BE3 /* MojiKit.h */,
+				C587C7791AD2E619003E7647 /* MojiKit-Info.plist */,
+				C587C77B1AD2E619003E7647 /* MojiKit-Prefix.pch */,
 			);
 			path = WrapLiveKit;
 			sourceTree = "<group>";
@@ -3270,8 +3270,8 @@
 		C5259D651ACC2333003D3317 /* Entitlements */ = {
 			isa = PBXGroup;
 			children = (
-				C5259D671ACC2333003D3317 /* wrapLiveAdhoc.entitlements */,
-				C5259D661ACC2333003D3317 /* wrapLive.entitlements */,
+				C5259D671ACC2333003D3317 /* MojiAdhoc.entitlements */,
+				C5259D661ACC2333003D3317 /* Moji.entitlements */,
 			);
 			path = Entitlements;
 			sourceTree = "<group>";
@@ -5111,7 +5111,7 @@
 				C5B93D611B4E8C55005681DB /* WLCollections.h in Headers */,
 				C587C7C81AD2E6A0003E7647 /* WLMessage.h in Headers */,
 				C587C7BF1AD2E6A0003E7647 /* WLSystemImageCache.h in Headers */,
-				C587C77F1AD2E619003E7647 /* mojiKit-Prefix.pch in Headers */,
+				C587C77F1AD2E619003E7647 /* MojiKit-Prefix.pch in Headers */,
 				C587C8D81AD2E708003E7647 /* LogFiles.h in Headers */,
 				C587C7D41AD2E6A0003E7647 /* WLUser.h in Headers */,
 				C587C7C31AD2E6A0003E7647 /* WLComment+Extended.h in Headers */,
@@ -5191,7 +5191,7 @@
 				C587C7BE1AD2E6A0003E7647 /* WLImageCache.h in Headers */,
 				C587C79A1AD2E6A0003E7647 /* WLAPIRequest.h in Headers */,
 				C587C7BB1AD2E6A0003E7647 /* WLAuthorization.h in Headers */,
-				C587C7E91AD2E6A0003E7647 /* mojiKit.h in Headers */,
+				C587C7E91AD2E6A0003E7647 /* MojiKit.h in Headers */,
 				C587C7DB1AD2E6A0003E7647 /* WLNetwork.h in Headers */,
 				C587C7DA1AD2E6A0003E7647 /* WLImageView.h in Headers */,
 				C587C8D61AD2E708003E7647 /* LogFile.h in Headers */,
@@ -5212,26 +5212,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXLegacyTarget section */
-		C5953B6A19C8398B006DF1F3 /* copyProfiles */ = {
+		C5953B6A19C8398B006DF1F3 /* CopyProfiles */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "${SRCROOT}/cpprof.sh";
-			buildConfigurationList = C5953B6B19C8398C006DF1F3 /* Build configuration list for PBXLegacyTarget "copyProfiles" */;
+			buildConfigurationList = C5953B6B19C8398C006DF1F3 /* Build configuration list for PBXLegacyTarget "CopyProfiles" */;
 			buildPhases = (
 			);
 			buildToolPath = /bin/bash;
 			buildWorkingDirectory = "";
 			dependencies = (
 			);
-			name = copyProfiles;
+			name = CopyProfiles;
 			passBuildSettingsInEnvironment = 1;
 			productName = CopyProvisioningProfiles;
 		};
 /* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
-		5B787D9A1A27876F004AE459 /* mojiTodayQA */ = {
+		5B787D9A1A27876F004AE459 /* MojiTodayQA */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5B787DAB1A27876F004AE459 /* Build configuration list for PBXNativeTarget "mojiTodayQA" */;
+			buildConfigurationList = 5B787DAB1A27876F004AE459 /* Build configuration list for PBXNativeTarget "MojiTodayQA" */;
 			buildPhases = (
 				5B787D971A27876F004AE459 /* Sources */,
 				5B787D981A27876F004AE459 /* Frameworks */,
@@ -5242,14 +5242,14 @@
 			);
 			dependencies = (
 			);
-			name = mojiTodayQA;
+			name = MojiTodayQA;
 			productName = WLTodayExtension;
-			productReference = 5B787D9B1A27876F004AE459 /* mojiTodayQA.appex */;
+			productReference = 5B787D9B1A27876F004AE459 /* MojiTodayQA.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		5BF1B22F1A49A683000BB2C1 /* mojiToday */ = {
+		5BF1B22F1A49A683000BB2C1 /* MojiToday */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5BF1B2451A49A683000BB2C1 /* Build configuration list for PBXNativeTarget "mojiToday" */;
+			buildConfigurationList = 5BF1B2451A49A683000BB2C1 /* Build configuration list for PBXNativeTarget "MojiToday" */;
 			buildPhases = (
 				5BF1B2311A49A683000BB2C1 /* Sources */,
 				5BF1B23A1A49A683000BB2C1 /* Frameworks */,
@@ -5260,14 +5260,14 @@
 			);
 			dependencies = (
 			);
-			name = mojiToday;
+			name = MojiToday;
 			productName = WLTodayExtension;
-			productReference = 5BF1B2481A49A683000BB2C1 /* WrapLiveToday.appex */;
+			productReference = 5BF1B2481A49A683000BB2C1 /* MojiToday.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		C50645831ABD7FD400CB4BE3 /* mojiWatchExtQA */ = {
+		C50645831ABD7FD400CB4BE3 /* MojiWatchExtQA */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C50645A61ABD7FD500CB4BE3 /* Build configuration list for PBXNativeTarget "mojiWatchExtQA" */;
+			buildConfigurationList = C50645A61ABD7FD500CB4BE3 /* Build configuration list for PBXNativeTarget "MojiWatchExtQA" */;
 			buildPhases = (
 				C50645801ABD7FD400CB4BE3 /* Sources */,
 				C50645811ABD7FD400CB4BE3 /* Frameworks */,
@@ -5279,14 +5279,14 @@
 			dependencies = (
 				C50645961ABD7FD500CB4BE3 /* PBXTargetDependency */,
 			);
-			name = mojiWatchExtQA;
+			name = MojiWatchExtQA;
 			productName = "WrapLive-Development WatchKit Extension";
-			productReference = C50645841ABD7FD400CB4BE3 /* mojiWatchExtQA.appex */;
+			productReference = C50645841ABD7FD400CB4BE3 /* MojiWatchExtQA.appex */;
 			productType = "com.apple.product-type.watchkit-extension";
 		};
-		C50645921ABD7FD500CB4BE3 /* mojiWatchAppQA */ = {
+		C50645921ABD7FD500CB4BE3 /* MojiWatchAppQA */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C50645A21ABD7FD500CB4BE3 /* Build configuration list for PBXNativeTarget "mojiWatchAppQA" */;
+			buildConfigurationList = C50645A21ABD7FD500CB4BE3 /* Build configuration list for PBXNativeTarget "MojiWatchAppQA" */;
 			buildPhases = (
 				C50645911ABD7FD500CB4BE3 /* Resources */,
 			);
@@ -5294,14 +5294,14 @@
 			);
 			dependencies = (
 			);
-			name = mojiWatchAppQA;
+			name = MojiWatchAppQA;
 			productName = "WrapLive-Development WatchKit App";
-			productReference = C50645931ABD7FD500CB4BE3 /* mojiWatchAppQA.app */;
+			productReference = C50645931ABD7FD500CB4BE3 /* MojiWatchAppQA.app */;
 			productType = "com.apple.product-type.application.watchapp";
 		};
-		C54AF45519B8C437006F7EDB /* mojiQA */ = {
+		C54AF45519B8C437006F7EDB /* MojiQA */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C54AF54D19B8C437006F7EDB /* Build configuration list for PBXNativeTarget "mojiQA" */;
+			buildConfigurationList = C54AF54D19B8C437006F7EDB /* Build configuration list for PBXNativeTarget "MojiQA" */;
 			buildPhases = (
 				C54AF45719B8C437006F7EDB /* Sources */,
 				C54AF51519B8C437006F7EDB /* Frameworks */,
@@ -5317,14 +5317,14 @@
 				C587C8E21AD2E8B5003E7647 /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
 			);
-			name = mojiQA;
+			name = MojiQA;
 			productName = WrapLive;
 			productReference = C54AF55019B8C437006F7EDB /* moji-QA.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C54AF64F19B8C491006F7EDB /* moji */ = {
+		C54AF64F19B8C491006F7EDB /* Moji */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C54AF74719B8C491006F7EDB /* Build configuration list for PBXNativeTarget "moji" */;
+			buildConfigurationList = C54AF74719B8C491006F7EDB /* Build configuration list for PBXNativeTarget "Moji" */;
 			buildPhases = (
 				C54AF65119B8C491006F7EDB /* Sources */,
 				C54AF70F19B8C491006F7EDB /* Frameworks */,
@@ -5341,14 +5341,14 @@
 				C557B0FA1AF8AF7B00F437D7 /* PBXTargetDependency */,
 				C5994D8C1B78894A0066A597 /* PBXTargetDependency */,
 			);
-			name = moji;
+			name = Moji;
 			productName = WrapLive;
-			productReference = C54AF74A19B8C491006F7EDB /* WrapLive.app */;
+			productReference = C54AF74A19B8C491006F7EDB /* Moji.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C55C36651ACEB7A800C614BD /* mojiKit Tests */ = {
+		C55C36651ACEB7A800C614BD /* MojiKit Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C55C36721ACEB7A900C614BD /* Build configuration list for PBXNativeTarget "mojiKit Tests" */;
+			buildConfigurationList = C55C36721ACEB7A900C614BD /* Build configuration list for PBXNativeTarget "MojiKit Tests" */;
 			buildPhases = (
 				C55C36621ACEB7A800C614BD /* Sources */,
 				C55C36631ACEB7A800C614BD /* Frameworks */,
@@ -5358,14 +5358,14 @@
 			);
 			dependencies = (
 			);
-			name = "mojiKit Tests";
+			name = "MojiKit Tests";
 			productName = "WrapLiveKit Tests";
-			productReference = C55C36661ACEB7A800C614BD /* mojiKit Tests.xctest */;
+			productReference = C55C36661ACEB7A800C614BD /* MojiKit Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		C56498C61ACB00D2000F1E4B /* mojiWatchExt */ = {
+		C56498C61ACB00D2000F1E4B /* MojiWatchExt */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C56498E51ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "mojiWatchExt" */;
+			buildConfigurationList = C56498E51ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "MojiWatchExt" */;
 			buildPhases = (
 				C56498C31ACB00D2000F1E4B /* Sources */,
 				C56498C41ACB00D2000F1E4B /* Frameworks */,
@@ -5377,14 +5377,14 @@
 			dependencies = (
 				C56498D51ACB00D2000F1E4B /* PBXTargetDependency */,
 			);
-			name = mojiWatchExt;
+			name = MojiWatchExt;
 			productName = "WrapLive-Production WatchKit Extension";
-			productReference = C56498C71ACB00D2000F1E4B /* mojiWatchExt.appex */;
+			productReference = C56498C71ACB00D2000F1E4B /* MojiWatchExt.appex */;
 			productType = "com.apple.product-type.watchkit-extension";
 		};
-		C56498D11ACB00D2000F1E4B /* mojiWatchApp */ = {
+		C56498D11ACB00D2000F1E4B /* MojiWatchApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C56498E11ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "mojiWatchApp" */;
+			buildConfigurationList = C56498E11ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "MojiWatchApp" */;
 			buildPhases = (
 				C56498D01ACB00D2000F1E4B /* Resources */,
 			);
@@ -5392,14 +5392,14 @@
 			);
 			dependencies = (
 			);
-			name = mojiWatchApp;
+			name = MojiWatchApp;
 			productName = "WrapLive-Production WatchKit App";
-			productReference = C56498D21ACB00D2000F1E4B /* mojiWatchApp.app */;
+			productReference = C56498D21ACB00D2000F1E4B /* MojiWatchApp.app */;
 			productType = "com.apple.product-type.application.watchapp";
 		};
-		C587C7671AD2E5A9003E7647 /* mojiKit */ = {
+		C587C7671AD2E5A9003E7647 /* MojiKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C587C7751AD2E5A9003E7647 /* Build configuration list for PBXNativeTarget "mojiKit" */;
+			buildConfigurationList = C587C7751AD2E5A9003E7647 /* Build configuration list for PBXNativeTarget "MojiKit" */;
 			buildPhases = (
 				C587C7621AD2E5A9003E7647 /* Sources */,
 				C587C7631AD2E5A9003E7647 /* Frameworks */,
@@ -5411,9 +5411,9 @@
 			);
 			dependencies = (
 			);
-			name = mojiKit;
+			name = MojiKit;
 			productName = WrapLiveKit;
-			productReference = C587C7681AD2E5A9003E7647 /* mojiKit.framework */;
+			productReference = C587C7681AD2E5A9003E7647 /* MojiKit.framework */;
 			productType = "com.apple.product-type.framework.static";
 		};
 /* End PBXNativeTarget section */
@@ -5489,7 +5489,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "moji" */;
+			buildConfigurationList = 12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "Moji" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -5504,17 +5504,17 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C54AF45519B8C437006F7EDB /* mojiQA */,
-				C54AF64F19B8C491006F7EDB /* moji */,
-				C5953B6A19C8398B006DF1F3 /* copyProfiles */,
-				5B787D9A1A27876F004AE459 /* mojiTodayQA */,
-				5BF1B22F1A49A683000BB2C1 /* mojiToday */,
-				C50645831ABD7FD400CB4BE3 /* mojiWatchExtQA */,
-				C50645921ABD7FD500CB4BE3 /* mojiWatchAppQA */,
-				C56498C61ACB00D2000F1E4B /* mojiWatchExt */,
-				C56498D11ACB00D2000F1E4B /* mojiWatchApp */,
-				C587C7671AD2E5A9003E7647 /* mojiKit */,
-				C55C36651ACEB7A800C614BD /* mojiKit Tests */,
+				C54AF45519B8C437006F7EDB /* MojiQA */,
+				C54AF64F19B8C491006F7EDB /* Moji */,
+				C5953B6A19C8398B006DF1F3 /* CopyProfiles */,
+				5B787D9A1A27876F004AE459 /* MojiTodayQA */,
+				5BF1B22F1A49A683000BB2C1 /* MojiToday */,
+				C50645831ABD7FD400CB4BE3 /* MojiWatchExtQA */,
+				C50645921ABD7FD500CB4BE3 /* MojiWatchAppQA */,
+				C56498C61ACB00D2000F1E4B /* MojiWatchExt */,
+				C56498D11ACB00D2000F1E4B /* MojiWatchApp */,
+				C587C7671AD2E5A9003E7647 /* MojiKit */,
+				C55C36651ACEB7A800C614BD /* MojiKit Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -5550,7 +5550,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C564B2B91ADE6DD5000C3DF1 /* mojiWatchAppQA.app in Resources */,
+				C564B2B91ADE6DD5000C3DF1 /* MojiWatchAppQA.app in Resources */,
 				C5528A0E1B3425C500AF1311 /* (null) in Resources */,
 				C5DB9F441ADD6CD800A21E42 /* CoreData.xcdatamodeld in Resources */,
 				C5B993C51B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */,
@@ -5712,7 +5712,7 @@
 				C5B993C81B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */,
 				C540869F1AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
 				C54C56841B1E0B1500CA4B12 /* Localizable.strings in Resources */,
-				C56498D31ACB00D2000F1E4B /* mojiWatchApp.app in Resources */,
+				C56498D31ACB00D2000F1E4B /* MojiWatchApp.app in Resources */,
 				C54086A01AD29C77007E0D12 /* CandyAPNS.apns in Resources */,
 				C54086A21AD29C77007E0D12 /* ChatAPNS.apns in Resources */,
 			);
@@ -6524,47 +6524,47 @@
 /* Begin PBXTargetDependency section */
 		5BA7AF301A481A9500C586CA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5B787D9A1A27876F004AE459 /* mojiTodayQA */;
+			target = 5B787D9A1A27876F004AE459 /* MojiTodayQA */;
 			targetProxy = 5BA7AF2F1A481A9500C586CA /* PBXContainerItemProxy */;
 		};
 		C50645961ABD7FD500CB4BE3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C50645921ABD7FD500CB4BE3 /* mojiWatchAppQA */;
+			target = C50645921ABD7FD500CB4BE3 /* MojiWatchAppQA */;
 			targetProxy = C50645951ABD7FD500CB4BE3 /* PBXContainerItemProxy */;
 		};
 		C557B0FA1AF8AF7B00F437D7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C56498C61ACB00D2000F1E4B /* mojiWatchExt */;
+			target = C56498C61ACB00D2000F1E4B /* MojiWatchExt */;
 			targetProxy = C557B0F91AF8AF7B00F437D7 /* PBXContainerItemProxy */;
 		};
 		C559CB751AA0BB6200100B2C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C5953B6A19C8398B006DF1F3 /* copyProfiles */;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProfiles */;
 			targetProxy = C559CB741AA0BB6200100B2C /* PBXContainerItemProxy */;
 		};
 		C559CB791AA0BB6900100B2C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C5953B6A19C8398B006DF1F3 /* copyProfiles */;
+			target = C5953B6A19C8398B006DF1F3 /* CopyProfiles */;
 			targetProxy = C559CB781AA0BB6900100B2C /* PBXContainerItemProxy */;
 		};
 		C56498D51ACB00D2000F1E4B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C56498D11ACB00D2000F1E4B /* mojiWatchApp */;
+			target = C56498D11ACB00D2000F1E4B /* MojiWatchApp */;
 			targetProxy = C56498D41ACB00D2000F1E4B /* PBXContainerItemProxy */;
 		};
 		C587C8E21AD2E8B5003E7647 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C587C7671AD2E5A9003E7647 /* mojiKit */;
+			target = C587C7671AD2E5A9003E7647 /* MojiKit */;
 			targetProxy = C587C8E11AD2E8B5003E7647 /* PBXContainerItemProxy */;
 		};
 		C587C8E61AD2E8C0003E7647 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C587C7671AD2E5A9003E7647 /* mojiKit */;
+			target = C587C7671AD2E5A9003E7647 /* MojiKit */;
 			targetProxy = C587C8E51AD2E8C0003E7647 /* PBXContainerItemProxy */;
 		};
 		C5994D8C1B78894A0066A597 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5BF1B22F1A49A683000BB2C1 /* mojiToday */;
+			target = 5BF1B22F1A49A683000BB2C1 /* MojiToday */;
 			targetProxy = C5994D8B1B78894A0066A597 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -6856,7 +6856,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/MojiAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -6868,7 +6868,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/mojiTodayQA-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/MojiTodayQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -6888,7 +6888,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/MojiAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
@@ -6901,7 +6901,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/mojiTodayQA-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/MojiTodayQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -6921,7 +6921,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/Moji.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -6933,12 +6933,12 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/mojiToday-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/MojiToday-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = WrapLiveToday;
+				PRODUCT_NAME = MojiToday;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6952,7 +6952,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/Moji.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
@@ -6965,12 +6965,12 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/mojiToday-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/MojiToday-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = WrapLiveToday;
+				PRODUCT_NAME = MojiToday;
 				PROVISIONING_PROFILE = "4616bf2e-f126-40b9-a836-285b4f506cd7";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6990,8 +6990,8 @@
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				IBSC_MODULE = moji_Watch_Ext_QA;
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/mojiWatchAppQA-Info.plist";
+				IBSC_MODULE = Moji_Watch_Ext_QA;
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/MojiWatchAppQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7015,8 +7015,8 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IBSC_MODULE = moji_Watch_Ext_QA;
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/mojiWatchAppQA-Info.plist";
+				IBSC_MODULE = Moji_Watch_Ext_QA;
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/MojiWatchAppQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7040,8 +7040,8 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IBSC_MODULE = moji_Watch_Ext_QA;
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/mojiWatchAppQA-Info.plist";
+				IBSC_MODULE = Moji_Watch_Ext_QA;
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/MojiWatchAppQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7059,7 +7059,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/MojiAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -7071,7 +7071,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/mojiWatchExtQA-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/MojiWatchExtQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -7089,7 +7089,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/MojiAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
@@ -7102,7 +7102,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/mojiWatchExtQA-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/MojiWatchExtQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7120,7 +7120,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/MojiAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
@@ -7133,7 +7133,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/mojiWatchExtQA-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/MojiWatchExtQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7153,7 +7153,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/MojiAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -7165,10 +7165,10 @@
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREFIX_HEADER = "WrapLive/Moji-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WrapLive/mojiQA-Info.plist";
+				INFOPLIST_FILE = "WrapLive/MojiQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7195,7 +7195,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/MojiAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
@@ -7208,10 +7208,10 @@
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREFIX_HEADER = "WrapLive/Moji-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WrapLive/mojiQA-Info.plist";
+				INFOPLIST_FILE = "WrapLive/MojiQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7238,7 +7238,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/Moji.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -7250,10 +7250,10 @@
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREFIX_HEADER = "WrapLive/Moji-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WrapLive/moji-Info.plist";
+				INFOPLIST_FILE = "WrapLive/Moji-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7263,7 +7263,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = WrapLive;
+				PRODUCT_NAME = Moji;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -7280,7 +7280,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/Moji.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
@@ -7293,10 +7293,10 @@
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREFIX_HEADER = "WrapLive/Moji-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WrapLive/moji-Info.plist";
+				INFOPLIST_FILE = "WrapLive/Moji-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7306,7 +7306,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = WrapLive;
+				PRODUCT_NAME = Moji;
 				PROVISIONING_PROFILE = "56db280b-2ce7-4f9b-b1b6-e7c9c532a241";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -7413,8 +7413,8 @@
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				IBSC_MODULE = moji_Watch_Ext;
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/mojiWatchApp-Info.plist";
+				IBSC_MODULE = Moji_Watch_Ext;
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/MojiWatchApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7438,8 +7438,8 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IBSC_MODULE = moji_Watch_Ext;
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/mojiWatchApp-Info.plist";
+				IBSC_MODULE = Moji_Watch_Ext;
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/MojiWatchApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7463,8 +7463,8 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IBSC_MODULE = moji_Watch_Ext;
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/mojiWatchApp-Info.plist";
+				IBSC_MODULE = Moji_Watch_Ext;
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/MojiWatchApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7481,7 +7481,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/Moji.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -7493,7 +7493,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/mojiWatchExt-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/MojiWatchExt-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -7511,7 +7511,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/Moji.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
@@ -7524,7 +7524,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/mojiWatchExt-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/MojiWatchExt-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -7542,7 +7542,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/Moji.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
@@ -7555,7 +7555,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/mojiWatchExt-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/MojiWatchExt-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -7580,12 +7580,12 @@
 				ENV = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLiveKit/mojiKit-Prefix.pch";
+				GCC_PREFIX_HEADER = "WrapLiveKit/MojiKit-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WRAPLIVE_PROJECT_DIR=@\\\"\"$PROJECT_DIR\"\\\"\"",
 				);
-				INFOPLIST_FILE = "WrapLiveKit/mojiKit-Info.plist";
+				INFOPLIST_FILE = "WrapLiveKit/MojiKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -7613,12 +7613,12 @@
 				ENV = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLiveKit/mojiKit-Prefix.pch";
+				GCC_PREFIX_HEADER = "WrapLiveKit/MojiKit-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WRAPLIVE_PROJECT_DIR=@\\\"\"$PROJECT_DIR\"\\\"\"",
 				);
-				INFOPLIST_FILE = "WrapLiveKit/mojiKit-Info.plist";
+				INFOPLIST_FILE = "WrapLiveKit/MojiKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -7646,8 +7646,8 @@
 				ENV = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLiveKit/mojiKit-Prefix.pch";
-				INFOPLIST_FILE = "WrapLiveKit/mojiKit-Info.plist";
+				GCC_PREFIX_HEADER = "WrapLiveKit/MojiKit-Prefix.pch";
+				INFOPLIST_FILE = "WrapLiveKit/MojiKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -7711,7 +7711,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/MojiAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
@@ -7723,10 +7723,10 @@
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREFIX_HEADER = "WrapLive/Moji-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WrapLive/mojiQA-Info.plist";
+				INFOPLIST_FILE = "WrapLive/MojiQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7753,7 +7753,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/Moji.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
@@ -7765,10 +7765,10 @@
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLive/WrapLive-Prefix.pch";
+				GCC_PREFIX_HEADER = "WrapLive/Moji-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WrapLive/moji-Info.plist";
+				INFOPLIST_FILE = "WrapLive/Moji-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7778,7 +7778,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = WrapLive;
+				PRODUCT_NAME = Moji;
 				PROVISIONING_PROFILE = "08237be5-ca06-4442-a3fa-8cdbfaed6e4f";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -7804,7 +7804,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLiveAdhoc.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/MojiAdhoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
@@ -7816,7 +7816,7 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/mojiTodayQA-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/MojiTodayQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -7836,7 +7836,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/wrapLive.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/Moji.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
@@ -7848,12 +7848,12 @@
 					"$(inherited)",
 					"WRAPLIVE_EXTENSION_TERGET=1",
 				);
-				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/mojiToday-Info.plist";
+				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/MojiToday-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = WrapLiveToday;
+				PRODUCT_NAME = MojiToday;
 				PROVISIONING_PROFILE = "78469d0c-1d9b-4908-9115-dfc35de8c6d9";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -7863,7 +7863,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "moji" */ = {
+		12A7A6FA18DA0945008FF6F0 /* Build configuration list for PBXProject "Moji" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,
@@ -7873,7 +7873,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5B787DAB1A27876F004AE459 /* Build configuration list for PBXNativeTarget "mojiTodayQA" */ = {
+		5B787DAB1A27876F004AE459 /* Build configuration list for PBXNativeTarget "MojiTodayQA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5B787DA91A27876F004AE459 /* Debug */,
@@ -7883,7 +7883,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5BF1B2451A49A683000BB2C1 /* Build configuration list for PBXNativeTarget "mojiToday" */ = {
+		5BF1B2451A49A683000BB2C1 /* Build configuration list for PBXNativeTarget "MojiToday" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5BF1B2461A49A683000BB2C1 /* Debug */,
@@ -7893,7 +7893,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C50645A21ABD7FD500CB4BE3 /* Build configuration list for PBXNativeTarget "mojiWatchAppQA" */ = {
+		C50645A21ABD7FD500CB4BE3 /* Build configuration list for PBXNativeTarget "MojiWatchAppQA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C50645A31ABD7FD500CB4BE3 /* Debug */,
@@ -7903,7 +7903,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C50645A61ABD7FD500CB4BE3 /* Build configuration list for PBXNativeTarget "mojiWatchExtQA" */ = {
+		C50645A61ABD7FD500CB4BE3 /* Build configuration list for PBXNativeTarget "MojiWatchExtQA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C50645A71ABD7FD500CB4BE3 /* Debug */,
@@ -7913,7 +7913,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C54AF54D19B8C437006F7EDB /* Build configuration list for PBXNativeTarget "mojiQA" */ = {
+		C54AF54D19B8C437006F7EDB /* Build configuration list for PBXNativeTarget "MojiQA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54AF54E19B8C437006F7EDB /* Debug */,
@@ -7923,7 +7923,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C54AF74719B8C491006F7EDB /* Build configuration list for PBXNativeTarget "moji" */ = {
+		C54AF74719B8C491006F7EDB /* Build configuration list for PBXNativeTarget "Moji" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54AF74819B8C491006F7EDB /* Debug */,
@@ -7933,7 +7933,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C55C36721ACEB7A900C614BD /* Build configuration list for PBXNativeTarget "mojiKit Tests" */ = {
+		C55C36721ACEB7A900C614BD /* Build configuration list for PBXNativeTarget "MojiKit Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C55C366F1ACEB7A900C614BD /* Debug */,
@@ -7943,7 +7943,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C56498E11ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "mojiWatchApp" */ = {
+		C56498E11ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "MojiWatchApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C56498E21ACB00D3000F1E4B /* Debug */,
@@ -7953,7 +7953,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C56498E51ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "mojiWatchExt" */ = {
+		C56498E51ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "MojiWatchExt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C56498E61ACB00D3000F1E4B /* Debug */,
@@ -7963,7 +7963,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C587C7751AD2E5A9003E7647 /* Build configuration list for PBXNativeTarget "mojiKit" */ = {
+		C587C7751AD2E5A9003E7647 /* Build configuration list for PBXNativeTarget "MojiKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C587C7761AD2E5A9003E7647 /* Debug */,
@@ -7973,7 +7973,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C5953B6B19C8398C006DF1F3 /* Build configuration list for PBXLegacyTarget "copyProfiles" */ = {
+		C5953B6B19C8398C006DF1F3 /* Build configuration list for PBXLegacyTarget "CopyProfiles" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C559CB721AA0BB5D00100B2C /* Debug */,

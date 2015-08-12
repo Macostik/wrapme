@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C54AF64F19B8C491006F7EDB"
-               BuildableName = "WrapLive.app"
-               BlueprintName = "moji"
-               ReferencedContainer = "container:moji.xcodeproj">
+               BuildableName = "Moji.app"
+               BlueprintName = "Moji"
+               ReferencedContainer = "container:Moji.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C54AF64F19B8C491006F7EDB"
-            BuildableName = "WrapLive.app"
-            BlueprintName = "moji"
-            ReferencedContainer = "container:moji.xcodeproj">
+            BuildableName = "Moji.app"
+            BlueprintName = "Moji"
+            ReferencedContainer = "container:Moji.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C54AF64F19B8C491006F7EDB"
-            BuildableName = "WrapLive.app"
-            BlueprintName = "moji"
-            ReferencedContainer = "container:moji.xcodeproj">
+            BuildableName = "Moji.app"
+            BlueprintName = "Moji"
+            ReferencedContainer = "container:Moji.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C54AF64F19B8C491006F7EDB"
-            BuildableName = "WrapLive.app"
-            BlueprintName = "moji"
-            ReferencedContainer = "container:moji.xcodeproj">
+            BuildableName = "Moji.app"
+            BlueprintName = "Moji"
+            ReferencedContainer = "container:Moji.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

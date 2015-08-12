@@ -11,6 +11,6 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import <mojiKit/mojiKit.h>
+#import <MojiKit/MojiKit.h>
 
 #endif

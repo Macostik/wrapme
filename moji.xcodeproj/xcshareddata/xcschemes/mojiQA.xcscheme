@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C54AF45519B8C437006F7EDB"
                BuildableName = "moji-QA.app"
-               BlueprintName = "mojiQA"
-               ReferencedContainer = "container:moji.xcodeproj">
+               BlueprintName = "MojiQA"
+               ReferencedContainer = "container:Moji.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C54AF45519B8C437006F7EDB"
             BuildableName = "moji-QA.app"
-            BlueprintName = "mojiQA"
-            ReferencedContainer = "container:moji.xcodeproj">
+            BlueprintName = "MojiQA"
+            ReferencedContainer = "container:Moji.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -54,8 +54,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C54AF45519B8C437006F7EDB"
             BuildableName = "moji-QA.app"
-            BlueprintName = "mojiQA"
-            ReferencedContainer = "container:moji.xcodeproj">
+            BlueprintName = "MojiQA"
+            ReferencedContainer = "container:Moji.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -73,8 +73,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C54AF45519B8C437006F7EDB"
             BuildableName = "moji-QA.app"
-            BlueprintName = "mojiQA"
-            ReferencedContainer = "container:moji.xcodeproj">
+            BlueprintName = "MojiQA"
+            ReferencedContainer = "container:Moji.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <mojiKit/mojiKit.h>
+#import <MojiKit/MojiKit.h>
 
 @interface mojiKit_Tests : XCTestCase
 

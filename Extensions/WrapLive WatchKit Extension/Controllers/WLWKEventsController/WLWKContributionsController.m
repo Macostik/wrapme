@@ -56,27 +56,23 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 
 - (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)remoteNotification {
     __weak typeof(self)weakSelf = self;
-    [WLWKParentApplicationContext fetchNotification:remoteNotification success:^(NSDictionary *replyInfo) {
-        WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:replyInfo[@"entry"]];
-        if ([entry isKindOfClass:[WLComment class]]) {
-            [weakSelf pushControllerWithName:@"candy" context:entry.containingEntry];
-        } else if ([entry isKindOfClass:[WLCandy class]]) {
-            [weakSelf pushControllerWithName:@"candy" context:entry];
-        } else if ([identifier isEqualToString:@"reply"] && [entry isKindOfClass:[WLMessage class]]) {
-            run_after(0.2f,^{
-                [weakSelf presentTextInputControllerWithSuggestionsFromFileNamed:@"WLWKChatReplyPresets" completion:^(NSString *result) {
-                    WLWrap *wrap = [(WLMessage*)entry wrap];
-                    [WLWKParentApplicationContext postMessage:result wrap:wrap.identifier success:^(NSDictionary *replyInfo) {
-                        [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Message \"%@\" sent!", result]];
-                    } failure:^(NSError *error) {
-                        [weakSelf pushControllerWithName:@"alert" context:error];
-                    }];
+    WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:remoteNotification[@"entry"]];
+    if ([entry isKindOfClass:[WLComment class]]) {
+        [weakSelf pushControllerWithName:@"candy" context:entry.containingEntry];
+    } else if ([entry isKindOfClass:[WLCandy class]]) {
+        [weakSelf pushControllerWithName:@"candy" context:entry];
+    } else if ([identifier isEqualToString:@"reply"] && [entry isKindOfClass:[WLMessage class]]) {
+        run_after(0.2f,^{
+            [weakSelf presentTextInputControllerWithSuggestionsFromFileNamed:@"WLWKChatReplyPresets" completion:^(NSString *result) {
+                WLWrap *wrap = [(WLMessage*)entry wrap];
+                [WLWKParentApplicationContext postMessage:result wrap:wrap.identifier success:^(NSDictionary *replyInfo) {
+                    [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Message \"%@\" sent!", result]];
+                } failure:^(NSError *error) {
+                    [weakSelf pushControllerWithName:@"alert" context:error];
                 }];
-            });
-        }
-    } failure:^(NSError *error) {
-        [weakSelf pushControllerWithName:@"alert" context:error];
-    }];
+            }];
+        });
+    }
 }
 
 - (void)setEntries:(NSOrderedSet *)entries {

@@ -30,7 +30,7 @@
 }
 
 + (instancetype)messages:(WLWrap *)wrap {
-    return [[[self GET:@"wraps/%@/chats", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    return [[[[self GET:@"wraps/%@/chats", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
             NSSet* messages = [WLMessage API_entries:response.data[@"chats"] relatedEntry:wrap];
             if (messages.nonempty) {
@@ -44,12 +44,16 @@
         if ([error isError:WLErrorContentUnavaliable] && wrap.valid && wrap.uploaded) {
             [wrap remove];
         }
+    }] afterFailure:^(NSError *error) {
+        if (wrap.uploaded && error.isContentUnavaliable) {
+            [wrap remove];
+        }
     }];
 }
 
 - (instancetype)candies:(WLWrap *)wrap {
     self.path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
-    [[self parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
+    [[[self parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
@@ -58,6 +62,10 @@
             success(candies);
         } else {
             success(nil);
+        }
+    }] afterFailure:^(NSError *error) {
+        if (wrap.uploaded && error.isContentUnavaliable) {
+            [wrap remove];
         }
     }];
     return self;

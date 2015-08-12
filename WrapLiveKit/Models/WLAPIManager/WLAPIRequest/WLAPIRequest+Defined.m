@@ -149,7 +149,7 @@
 }
 
 + (instancetype)preferences:(WLWrap*)wrap {
-    return [[self GET:@"wraps/%@/preferences", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    return [[[self GET:@"wraps/%@/preferences", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
             [wrap notifyOnUpdate:^(id object) {
                 NSDictionary *preference = [response.data dictionaryForKey:WLPreferenceKey];
@@ -160,11 +160,15 @@
         } else {
             success(nil);
         }
+    }] afterFailure:^(NSError *error) {
+        if (wrap.uploaded && error.isContentUnavaliable) {
+            [wrap remove];
+        }
     }];
 }
 
 + (instancetype)changePreferences:(WLWrap*)wrap {
-    return [[[self PUT:@"wraps/%@/preferences", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
+    return [[[[self PUT:@"wraps/%@/preferences", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:@(wrap.isCandyNotifiable) forKey:WLCandyNotifiableKey];
         [parameters trySetObject:@(wrap.isChatNotifiable) forKey:WLChatNotifiableKey];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
@@ -173,16 +177,24 @@
         } else {
             success(nil);
         }
+    }] afterFailure:^(NSError *error) {
+        if (wrap.uploaded && error.isContentUnavaliable) {
+            [wrap remove];
+        }
     }];
 }
 
 + (instancetype)contributors:(WLWrap*)wrap {
-    return [[self GET:@"wraps/%@/contributors", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+    return [[[self GET:@"wraps/%@/contributors", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         NSSet *contributors = [WLUser API_entries:[response.data arrayForKey:WLContributorsKey]];
         if (wrap.valid && ![wrap.contributors isEqualToSet:contributors]) {
             wrap.contributors = contributors;
         }
         success(contributors);
+    }] afterFailure:^(NSError *error) {
+        if (wrap.uploaded && error.isContentUnavaliable) {
+            [wrap remove];
+        }
     }];
 }
 
@@ -194,7 +206,7 @@
 }
 
 + (instancetype)uploadMessage:(WLMessage*)message {
-    return [[[self POST:@"wraps/%@/chats", message.wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
+    return [[[[self POST:@"wraps/%@/chats", message.wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:message.text forKey:@"message"];
         [parameters trySetObject:message.uploadIdentifier forKey:WLUploadUIDKey];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
@@ -206,11 +218,16 @@
         } else {
             success(nil);
         }
+    }] beforeFailure:^(NSError *error) {
+        WLWrap *wrap = message.wrap;
+        if (wrap.uploaded && error.isContentUnavaliable) {
+            [wrap remove];
+        }
     }];
 }
 
 + (instancetype)addContributors:(NSArray*)contributors wrap:(WLWrap*)wrap {
-    return [[[self POST:@"wraps/%@/add_contributor", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
+    return [[[[self POST:@"wraps/%@/add_contributor", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         NSMutableArray *_contributors = [NSMutableArray arrayWithArray:contributors];
         
         NSArray* registeredContributors = [contributors where:@"user != nil"];
@@ -246,11 +263,15 @@
         } else {
             success(nil);
         }
+    }] afterFailure:^(NSError *error) {
+        if (wrap.uploaded && error.isContentUnavaliable) {
+            [wrap remove];
+        }
     }];
 }
 
 + (instancetype)removeContributors:(NSArray*)contributors wrap:(WLWrap*)wrap {
-    return [[[self POST:@"wraps/%@/remove_contributor", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
+    return [[[[self POST:@"wraps/%@/remove_contributor", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[[contributors where:@"user != nil"] valueForKeyPath:@"user.identifier"] forKey:@"user_uids"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
@@ -263,6 +284,10 @@
             success(wrap);
         } else {
             success(nil);
+        }
+    }] afterFailure:^(NSError *error) {
+        if (wrap.uploaded && error.isContentUnavaliable) {
+            [wrap remove];
         }
     }];
 }
@@ -325,6 +350,12 @@
     }] afterFailure:^(NSError *error) {
         if ([error isError:WLErrorUploadFileNotFound]) {
             [candy remove];
+        } else {
+            WLWrap *wrap = candy.wrap;
+            if (wrap.uploaded && error.isContentUnavaliable) {
+                [candy remove];
+                [wrap remove];
+            }
         }
     }];
 }

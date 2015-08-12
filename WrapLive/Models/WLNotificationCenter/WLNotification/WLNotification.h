@@ -20,7 +20,8 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
     WLNotificationUserUpdate            = 900,
     WLNotificationWrapUpdate            = 1000,
     WLNotificationUpdateAvailable       = 1100,
-    WLNotificationCandyUpdate           = 1200
+    WLNotificationCandyUpdate           = 1200,
+    WLNotificationEngagement            = 99
 };
 
 @interface WLNotification : NSObject {
@@ -31,6 +32,8 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 @property (strong, nonatomic) NSString* identifier;
 
 @property (nonatomic) WLNotificationType type;
+
+@property (nonatomic) BOOL containsEntry;
 
 @property (readonly, nonatomic) BOOL playSound;
 
@@ -44,11 +47,27 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @property (strong, nonatomic) NSDictionary *data;
 
+@property (nonatomic) WLEvent event;
+
+@property (strong, nonatomic) WLEntry* targetEntry;
+
+@property (strong, nonatomic) Class entryClass;
+
+@property (strong, nonatomic) NSString* entryIdentifier;
+
+@property (strong, nonatomic) NSDictionary* entryData;
+
+@property (strong, nonatomic) NSString* containingEntryIdentifier;
+
+@property (nonatomic) BOOL trimmed;
+
+@property (nonatomic) BOOL inserted;
+
++ (instancetype)notificationWithMessage:(id)message;
+
 + (instancetype)notificationWithData:(NSDictionary*)data;
 
-+ (NSMutableOrderedSet*)notificationsWithDataArray:(NSArray*)array;
-
-+ (BOOL)isSupportedType:(WLNotificationType)type;
+- (void)createTargetEntry;
 
 - (void)prepare;
 
@@ -60,7 +79,45 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 - (void)setup:(NSDictionary*)data;
 
-- (BOOL)supportsApplicationState:(UIApplicationState)state;
+@end
+
+@interface WLEntry (WLNotification)
+
+- (BOOL)notifiableForEvent:(WLEvent)event;
+
+- (void)markAsUnreadIfNeededForEvent:(WLEvent)event;
+
+- (void)prepareForAddNotification:(WLNotification *)notification;
+
+- (void)prepareForUpdateNotification:(WLNotification *)notification;
+
+- (void)prepareForDeleteNotification:(WLNotification *)notification;
+
+- (void)fetchAddNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure;
+
+- (void)fetchUpdateNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure;
+
+- (void)fetchDeleteNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure;
+
+- (void)finalizeAddNotification:(WLNotification *)notification;
+
+- (void)finalizeUpdateNotification:(WLNotification *)notification;
+
+- (void)finalizeDeleteNotification:(WLNotification *)notification;
 
 @end
+
+@interface WLContribution (WLNotification)
+
+@end
+
+@interface WLUser (WLNotification) @end
+
+@interface WLWrap (WLNotification) @end
+
+@interface WLCandy (WLNotification) @end
+
+@interface WLMessage (WLNotification) @end
+
+@interface WLComment (WLNotification) @end
 

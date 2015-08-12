@@ -12,26 +12,6 @@
 #import "WLNotification.h"
 #import "WLOperationQueue.h"
 
-static inline NSString *WLSoundFileName(WLSound sound) {
-    switch (sound) {
-        case WLSound_s01:
-            return @"s01";
-            break;
-        case WLSound_s02:
-            return @"s02";
-            break;
-        case WLSound_s03:
-            return @"s03";
-            break;
-        case WLSound_s04:
-            return @"s04";
-            break;
-        default:
-            return nil;
-            break;
-    }
-}
-
 @interface WLSoundPlayer()
 
 @end
@@ -86,7 +66,7 @@ void WLSoundPlayerCompletion (SystemSoundID ssID, void *clientData) {
         NSMapTable *sounds = [self sounds];
         SystemSoundID soundID = [[sounds objectForKey:soundFileName] intValue];
         if (soundID == 0) {
-            NSString *soundPath = [[NSBundle mainBundle] pathForResource:soundFileName ofType:@"wav"];
+            NSString *soundPath = [[NSBundle mainBundle] pathForResource:soundFileName ofType:nil];
             if (soundPath.nonempty) {
                 AudioServicesCreateSystemSoundID((__bridge CFURLRef)([NSURL fileURLWithPath:soundPath]), &soundID);
                 AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, WLSoundPlayerCompletion, NULL);

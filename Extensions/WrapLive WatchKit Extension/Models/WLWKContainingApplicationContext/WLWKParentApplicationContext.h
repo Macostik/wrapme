@@ -24,6 +24,4 @@
 
 + (void)postComment:(NSString*)text candy:(NSString*)candyIdentifier success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure;
 
-+ (void)fetchNotification:(NSDictionary*)notification success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure;
-
 @end

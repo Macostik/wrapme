@@ -11,7 +11,7 @@
 #import "WLNavigationHelper.h"
 #import "NSString+Additions.h"
 #import "WLNotificationEntryPresenter.h"
-#import "WLEntryNotification.h"
+#import "WLNotification.h"
 
 @interface WLRemoteEntryHandler ()
 
@@ -74,7 +74,7 @@
 
 @implementation WLRemoteEntryHandler (WLNotification)
 
-- (void)presentEntryFromNotification:(WLEntryNotification*)notification failure:(WLFailureBlock)failure {
+- (void)presentEntryFromNotification:(WLNotification*)notification failure:(WLFailureBlock)failure {
     if (notification.event != WLEventDelete) {
         if ([notification.entryClass entryExists:notification.entryIdentifier]) {
             if (![self presentEntry:notification.targetEntry]) {

@@ -10,8 +10,7 @@
 #import "WLNavigationHelper.h"
 #import "WLAlertView.h"
 #import "WLNotificationSubscription.h"
-#import "WLEntryNotification.h"
-#import "WLNotification+PNMessage.h"
+#import "WLNotification.h"
 #import "WLSoundPlayer.h"
 
 @interface WLEmailConfirmationViewController () <WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate>
@@ -57,7 +56,7 @@
 // MARK: - WLNotificationSubscriptionDelegate
 
 - (void)notificationSubscription:(WLNotificationSubscription *)subscription didReceiveMessage:(PNMessageData *)message {
-    WLEntryNotification *notification = [WLEntryNotification notificationWithMessage:message];
+    WLNotification *notification = [WLNotification notificationWithMessage:message];
     if (notification.type == WLNotificationUserUpdate) {
         [notification createTargetEntry];
         if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {

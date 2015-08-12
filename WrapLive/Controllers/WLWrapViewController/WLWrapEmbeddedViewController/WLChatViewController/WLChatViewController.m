@@ -19,7 +19,6 @@
 #import "WLLoadingView.h"
 #import "WLMessageCell.h"
 #import "WLRefresher.h"
-#import "WLSignificantTimeBroadcaster.h"
 #import "WLSoundPlayer.h"
 #import "WLTypingView.h"
 #import "WLFontPresetter.h"
@@ -34,7 +33,7 @@
 
 CGFloat WLMaxTextViewWidth;
 
-@interface WLChatViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLComposeBarDelegate, UICollectionViewDelegateFlowLayout, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate, WLCollectionViewLayoutDelegate>
+@interface WLChatViewController () <UICollectionViewDataSource, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate, WLCollectionViewLayoutDelegate>
 
 @property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
 
@@ -134,7 +133,6 @@ CGFloat WLMaxTextViewWidth;
     }
     
     [[WLMessage notifier] addReceiver:self];
-    [[WLSignificantTimeBroadcaster broadcaster] addReceiver:self];
     [[WLFontPresetter presetter] addReceiver:self];
     
     self.modalPresentationStyle = UIModalPresentationCurrentContext;
@@ -342,12 +340,6 @@ CGFloat WLMaxTextViewWidth;
 
 - (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
     return self.wrap == entry.containingEntry;
-}
-
-#pragma mark - WlSignificantTimeBroadcasterReceiver
-
-- (void)broadcaster:(WLSignificantTimeBroadcaster *)broadcaster didChangeSignificantTime:(id)object {
-    [self.chat resetEntries:[self.wrap messages]];
 }
 
 #pragma mark - Actions

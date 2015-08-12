@@ -12,17 +12,20 @@
 #import "WLSession.h"
 #import "UIDevice+SystemVersion.h"
 #import "WLOperationQueue.h"
-#import "WLEntryNotification.h"
 #import "PubNub+SharedInstance.h"
 #import "WLNotificationSubscription.h"
-#import "WLNotification+PNMessage.h"
+#import "WLNotification.h"
 #import "NSDate+PNTimetoken.h"
+#import <PushKit/PushKit.h>
+#import "WLEntry+LocalNotifications.h"
 
-@interface WLNotificationCenter () <PNObjectEventListener, WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate>
+@interface WLNotificationCenter () <PNObjectEventListener, WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate, PKPushRegistryDelegate>
 
 @property (strong, nonatomic) WLNotificationSubscription* userSubscription;
 
 @property (strong, nonatomic) NSMutableArray* enqueuedMessages;
+
+@property (strong, nonatomic) PKPushRegistry *pushRegistry;
 
 @end
 
@@ -52,12 +55,6 @@
     return self;
 }
 
-- (void)deviceToken:(WLDataBlock)completion {
-    if (self.gettingDeviceTokenBlock) {
-        self.gettingDeviceTokenBlock(completion);
-    }
-}
-
 - (void)configure {
     [[WLUser notifier] addReceiver:self];
 }
@@ -80,15 +77,77 @@
     if (![self.userSubscription.name isEqualToString:channelName]) {
         self.userSubscription = [WLNotificationSubscription subscription:channelName];
         self.userSubscription.delegate = self;
-        __weak typeof(self)weakSelf = self;
-        [self deviceToken:^(NSData *data) {
-			WLLog(@"PUBNUB", @"apns_device_token", [data description]);
-            [weakSelf.userSubscription enableAPNSWithData:data];
-        }];
+        [self registerForVoIPPushes];
     } else {
         [self.userSubscription subscribe];
     }
     [self requestHistory];
+}
+
+- (void)registerForVoIPPushes {
+    self.pushRegistry = [[PKPushRegistry alloc] initWithQueue:dispatch_get_main_queue()];
+    self.pushRegistry.delegate = self;
+    self.pushRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
+}
+
+// MARK: - PKPushRegistryDelegate
+
+- (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type {
+    NSData *token = credentials.token;
+    WLLog(@"PUBNUB", @"apns_device_token", token);
+    [self.userSubscription enableAPNSWithData:token];
+}
+
+- (void)pushRegistry:(PKPushRegistry *)registry didInvalidatePushTokenForType:(NSString *)type {
+    
+}
+
+- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type {
+    UIApplicationState state = [UIApplication sharedApplication].applicationState;
+    if (state == UIApplicationStateActive) {
+        return;
+    }
+    NSDictionary *userInfo = payload.dictionaryPayload;
+    [self handleRemoteNotification:userInfo success:^(WLNotification *notification) {
+        if (notification.presentable) {
+            WLEntry *entry = notification.targetEntry;
+            if ([entry locallyNotifiableNotification:notification] && [entry notifiableForEvent:notification.event]) {
+                UILocalNotification *localNotification = [entry localNotificationForNotification:notification];
+                [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+            }
+        }
+    } failure:^(NSError *error) {
+    }];
+}
+
+- (void)handleRemoteNotification:(NSDictionary *)data success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    if (!data)  {
+        if (failure) failure(nil);
+        return;
+    }
+    __weak typeof(self)weakSelf = self;
+    WLNotification* notification = [WLNotification notificationWithData:data];
+    WLLog(@"PUBNUB", @"received APNS", data);
+    if (notification) {
+        if ([self isAlreadyHandledNotification:notification]) {
+            if (success) success(notification);
+        } else {
+            runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+                [[WLEntryManager manager] assureSave:^{
+                    [notification handle:^ {
+                        [weakSelf addHandledNotifications:@[notification]];
+                        if (success) success(notification);
+                        [operation finish];
+                    } failure:^(NSError *error) {
+                        if (failure) failure(error);
+                        [operation finish];
+                    }];
+                }];
+            });
+        }
+    } else {
+        if (failure) failure([NSError errorWithDescription:@"Data in remote notification is not valid."]);
+    }
 }
 
 // MARK: - WLNotificationSubscriptionDelegate
@@ -105,11 +164,11 @@
     if (notifications.nonempty) {
         NSMutableIndexSet *playedSoundTypes = [NSMutableIndexSet indexSet];
         
-        for (WLEntryNotification *notification in notifications) {
+        for (WLNotification *notification in notifications) {
             [notification prepare];
         }
         
-        for (WLEntryNotification *notification in notifications) {
+        for (WLNotification *notification in notifications) {
             runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
                 if (!notification) {
                     [operation finish];
@@ -127,7 +186,7 @@
         }
         
         runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-            for (WLEntryNotification *notification in notifications) {
+            for (WLNotification *notification in notifications) {
                 [notification finalize];
             }
             [operation finish];
@@ -146,7 +205,7 @@
     return [WLSession.handledNotifications containsObject:notification.identifier];
 }
 
-- (void)handleNotification:(WLEntryNotification*)notification completion:(WLBlock)completion {
+- (void)handleNotification:(WLNotification*)notification completion:(WLBlock)completion {
     [notification handle:^{
         [WLSoundPlayer playSoundForNotification:notification];
         if (completion) completion();
@@ -171,6 +230,7 @@
 }
 
 - (void)requestHistory {
+    return;
     __weak typeof(self)weakSelf = self;
     runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
         NSDate *historyDate = WLSession.historyDate;
@@ -213,11 +273,11 @@
         
         NSMutableIndexSet *playedSoundTypes = [NSMutableIndexSet indexSet];
         
-        for (WLEntryNotification *notification in notifications) {
+        for (WLNotification *notification in notifications) {
             [notification prepare];
         }
         
-        for (WLEntryNotification *notification in notifications) {
+        for (WLNotification *notification in notifications) {
             runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
                 if (!notification) {
                     [operation finish];
@@ -235,7 +295,7 @@
         }
         
         runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-            for (WLEntryNotification *notification in notifications) {
+            for (WLNotification *notification in notifications) {
                 [notification finalize];
             }
             [operation finish];
@@ -247,7 +307,7 @@
     if (!messages.nonempty) return nil;
     __weak typeof(self)weakSelf = self;
     NSMutableArray *notifications = [[messages map:^id(PNMessageData *message) {
-        WLEntryNotification *notification = [WLEntryNotification notificationWithMessage:message];
+        WLNotification *notification = [WLNotification notificationWithMessage:message];
         return [weakSelf isAlreadyHandledNotification:notification] ? nil : notification;
     }] mutableCopy];
     
@@ -261,7 +321,7 @@
     
     NSArray *deleteNotifications = [notifications where:@"event == %d", WLEventDelete];
     
-    for (WLEntryNotification *notification in deleteNotifications) {
+    for (WLNotification *notification in deleteNotifications) {
         if (![notifications containsObject:notification]) {
             continue;
         }
@@ -278,11 +338,11 @@
     
     deleteNotifications = [notifications where:@"event == %d", WLEventDelete];
     
-    deleteNotifications = [deleteNotifications sortedArrayUsingComparator:^NSComparisonResult(WLEntryNotification* n1, WLEntryNotification* n2) {
+    deleteNotifications = [deleteNotifications sortedArrayUsingComparator:^NSComparisonResult(WLNotification* n1, WLNotification* n2) {
         return [[n1.entryClass uploadingOrder] compare:[n2.entryClass uploadingOrder]];
     }];
     
-    for (WLEntryNotification *deleteNotification in deleteNotifications) {
+    for (WLNotification *deleteNotification in deleteNotifications) {
         if (![notifications containsObject:deleteNotification]) {
             continue;
         }
@@ -303,47 +363,6 @@
     return [notifications copy];
 }
 
-- (void)handleRemoteNotification:(NSDictionary *)data success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if (!data)  {
-        if (failure) failure(nil);
-        return;
-    }
-    __weak typeof(self)weakSelf = self;
-    
-    UIApplicationState state = [UIApplication sharedApplication].applicationState;
-    
-    if (state == UIApplicationStateActive) {
-        if (failure) failure([NSError errorWithDescription:WLLS(@"remote_notification_when_app_is_active_error")]);
-    } else {
-        WLNotification* notification = [WLNotification notificationWithData:data];
-        WLLog(@"PUBNUB", @"received APNS", data);
-        if (notification) {
-            if ([notification supportsApplicationState:state]) {
-                if ([self isAlreadyHandledNotification:notification]) {
-                    if (success) success(notification);
-                } else {
-                    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-                        [[WLEntryManager manager] assureSave:^{
-                            [notification handle:^ {
-                                [weakSelf addHandledNotifications:@[notification]];
-                                if (success) success(notification);
-                                [operation finish];
-                            } failure:^(NSError *error) {
-                                if (failure) failure(error);
-                                [operation finish];
-                            }];
-                        }];
-                    });
-                }
-            } else {
-                if (failure) failure([NSError errorWithDescription:@"Cannot handle remote notification."]);
-            }
-        } else {
-            if (failure) failure([NSError errorWithDescription:@"Data in remote notification is not valid."]);
-        }
-    }
-}
-
 #pragma mark - PNObjectEventListener
 
 - (void)client:(PubNub *)client didReceiveMessage:(PNMessageResult *)message {
@@ -355,7 +374,7 @@
 }
 
 - (void)client:(PubNub *)client didReceiveStatus:(PNSubscribeStatus *)status {
-    WLLog(@"PUBNUB", @"did receive status", status.data.subscribedChannel);
+    WLLog(@"PUBNUB", @"did receive status", status.subscribedChannels);
 }
 
 // MARK: - WLEntryNotifyReceiver

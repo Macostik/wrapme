@@ -47,8 +47,4 @@
     [self performAction:@"post_comment" parameters:@{WLCandyUIDKey:candyIdentifier,@"text":text} success:success failure:failure];
 }
 
-+ (void)fetchNotification:(NSDictionary *)notification success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure {
-    [self performAction:@"fetch_notification" parameters:@{@"notification":notification} success:success failure:failure];
-}
-
 @end

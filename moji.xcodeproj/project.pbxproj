@@ -1535,7 +1535,7 @@
 		C547A4501A026B3E005061AB /* WLKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLKeyboard.m; sourceTree = "<group>"; };
 		C54974561ABC1C34000E3F54 /* WLQAButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLQAButton.h; path = WLButton/WLQAButton.h; sourceTree = "<group>"; };
 		C54974571ABC1C34000E3F54 /* WLQAButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLQAButton.m; path = WLButton/WLQAButton.m; sourceTree = "<group>"; };
-		C54AF55019B8C437006F7EDB /* moji-QA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "moji-QA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C54AF55019B8C437006F7EDB /* Moji-QA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Moji-QA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54AF74A19B8C491006F7EDB /* Moji.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moji.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54AF84919B8C5F0006F7EDB /* Moji-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Moji-Info.plist"; sourceTree = "<group>"; };
 		C54AF84A19B8C5F0006F7EDB /* MojiQA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiQA-Info.plist"; sourceTree = "<group>"; };
@@ -2348,7 +2348,7 @@
 		12A7A70018DA0945008FF6F0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C54AF55019B8C437006F7EDB /* moji-QA.app */,
+				C54AF55019B8C437006F7EDB /* Moji-QA.app */,
 				C54AF74A19B8C491006F7EDB /* Moji.app */,
 				5B787D9B1A27876F004AE459 /* MojiTodayQA.appex */,
 				5BF1B2481A49A683000BB2C1 /* MojiToday.appex */,
@@ -5319,7 +5319,7 @@
 			);
 			name = MojiQA;
 			productName = WrapLive;
-			productReference = C54AF55019B8C437006F7EDB /* moji-QA.app */;
+			productReference = C54AF55019B8C437006F7EDB /* Moji-QA.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C54AF64F19B8C491006F7EDB /* Moji */ = {
@@ -7178,7 +7178,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "moji-QA";
+				PRODUCT_NAME = "Moji-QA";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -7221,7 +7221,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "moji-QA";
+				PRODUCT_NAME = "Moji-QA";
 				PROVISIONING_PROFILE = "5dcdac67-bb6e-4ba9-9338-d6b43ed8833d";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -7736,7 +7736,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "moji-QA";
+				PRODUCT_NAME = "Moji-QA";
 				PROVISIONING_PROFILE = "189fa146-ee5e-4517-94e0-9aa8f6bd25f8";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";

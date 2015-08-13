@@ -29,12 +29,13 @@
 #import "WLLayoutPrioritizer.h"
 #import "WLUploadingView.h"
 #import "WLFollowingViewController.h"
+#import "WLCollectionView.h"
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 @interface WLPhotosViewController () <WLPresentingImageViewDelegate, WLEntryNotifyReceiver>
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *primaryConstraint;
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
@@ -88,7 +89,6 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     if (self.wrap.valid) {
         [self.wrap.candies all:^(WLCandy *candy) {
             [candy markAsRead];
@@ -148,14 +148,12 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 // MARK: - WLPresentingImageViewDelegate
 
-- (CGRect)presentImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy {
-    WLCandyCell *candyCell = [self presentedCandyCell:candy scrollToObject:NO];
-    return [[self parentViewController].view convertRect:candyCell.frame fromView:candyCell.superview];
+- (UIView *)presentingImageView:(WLPresentingImageView *)presentingImageView presentingViewForCandy:(WLCandy *)candy {
+    return [self presentedCandyCell:candy scrollToObject:NO];
 }
 
-- (CGRect)dismissImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy {
-    WLCandyCell *candyCell = [self presentedCandyCell:candy scrollToObject:YES];
-    return [[self parentViewController].view convertRect:candyCell.frame fromView:candyCell.superview];
+- (UIView *)presentingImageView:(WLPresentingImageView *)presentingImageView dismissingViewForCandy:(WLCandy *)candy {
+    return [self presentedCandyCell:candy scrollToObject:YES];
 }
 
 - (WLCandyCell *)presentedCandyCell:(WLCandy *)candy scrollToObject:(BOOL)scroll {

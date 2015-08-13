@@ -12,8 +12,9 @@
 
 @protocol WLPresentingImageViewDelegate <NSObject>
 
-- (CGRect)presentImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy;
-- (CGRect)dismissImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy;
+- (UIView*)presentingImageView:(WLPresentingImageView *)presentingImageView presentingViewForCandy:(WLCandy *)candy;
+
+- (UIView*)presentingImageView:(WLPresentingImageView *)presentingImageView dismissingViewForCandy:(WLCandy *)candy;
 
 @end
 

@@ -251,11 +251,11 @@
 // MARK: - WLWrapCellDelegate
 
 - (void)wrapCellDidBeginPanning:(WLWrapCell *)wrapCell {
-    [self.collectionView lockReloadingData];
+    [self.collectionView lock];
 }
 
 - (void)wrapCellDidEndPanning:(WLWrapCell *)wrapCell performedAction:(BOOL)performedAction {
-    [self.collectionView unlockReloadingData];
+    [self.collectionView unlock];
     self.collectionView.userInteractionEnabled = !performedAction;
 }
 
@@ -404,18 +404,17 @@
 
 // MARK: - WLPresentingImageViewDelegate
 
-- (CGRect)presentImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy {
+- (UIView *)presentingImageView:(WLPresentingImageView *)presentingImageView presentingViewForCandy:(WLCandy *)candy {
     presentingImageView.hidden = NO;
-    WLCandyCell *candyCell = [self presentedCandyCell:candy];
-    return [self.view convertRect:candyCell.frame fromView:candyCell.superview];
+    return [self presentedCandyCell:candy];
 }
 
-- (CGRect)dismissImageView:(WLPresentingImageView *)presentingImageView getFrameCandyCell:(WLCandy *)candy {
-    WLCandyCell *candyCell = [self presentedCandyCell:candy];
+- (UIView *)presentingImageView:(WLPresentingImageView *)presentingImageView dismissingViewForCandy:(WLCandy *)candy {
     if (self.collectionView.contentOffset.y > self.navigationBar.height) {
-        [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x, 70) animated:NO];
+        [self.collectionView setContentOffset:CGPointMake(0, 70) animated:NO];
     }
-    return [self.view convertRect:candyCell.frame fromView:candyCell.superview];
+    WLCandyCell *candyCell = [self presentedCandyCell:candy];
+    return candyCell;
 }
 
 - (WLCandyCell *)presentedCandyCell:(WLCandy *)candy {

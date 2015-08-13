@@ -17,15 +17,23 @@ typedef enum : NSUInteger {
 @interface WLCollectionView : UICollectionView
 
 @property (strong, nonatomic) IBInspectable NSString *nibNamePlaceholder;
+
 @property (strong, nonatomic) NSString *placeholderText;
 
++ (void)lock;
+
++ (void)unlock;
+
+- (void)lock;
+
+- (void)unlock;
+
 - (BOOL)isDefaultPlaceholder;
+
 - (void)setDefaulPlaceholder;
+
 - (void)addToCachePlaceholderWithName:(NSString *)placeholderName byType:(NSInteger)type;
+
 - (void)setPlaceholderByTupe:(NSInteger)type;
-
-- (void)lockReloadingData;
-
-- (void)unlockReloadingData;
 
 @end

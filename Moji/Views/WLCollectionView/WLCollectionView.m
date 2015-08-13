@@ -25,11 +25,24 @@ static CGFloat WLDefaultType = -1;
 
 @property (nonatomic) BOOL requestedReloadingData;
 
-@property (nonatomic) NSUInteger reloadingDataLocksCount;
+@property (nonatomic) NSUInteger locks;
 
 @end
 
 @implementation WLCollectionView
+
+static NSHashTable *collectionViews = nil;
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        if (!collectionViews) {
+            collectionViews = [NSHashTable weakObjectsHashTable];
+        }
+        [collectionViews addObject:self];
+    }
+    return self;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -41,22 +54,34 @@ static CGFloat WLDefaultType = -1;
 }
 
 - (void)reloadData {
-    if (self.reloadingDataLocksCount > 0) {
+    if (self.locks > 0) {
         self.requestedReloadingData = YES;
     } else {
         [super reloadData];
     }
 }
 
-- (void)lockReloadingData {
-    self.reloadingDataLocksCount = MAX(0, self.reloadingDataLocksCount + 1);
+- (void)lock {
+    self.locks = MAX(0, self.locks + 1);
 }
 
-- (void)unlockReloadingData {
-    if (self.reloadingDataLocksCount > 0) {
-        self.reloadingDataLocksCount = self.reloadingDataLocksCount - 1;
++ (void)lock {
+    for (WLCollectionView *collectionView in collectionViews) {
+        [collectionView lock];
     }
-    if (self.reloadingDataLocksCount == 0 && self.requestedReloadingData) {
+}
+
++ (void)unlock {
+    for (WLCollectionView *collectionView in collectionViews) {
+        [collectionView unlock];
+    }
+}
+
+- (void)unlock {
+    if (self.locks > 0) {
+        self.locks = self.locks - 1;
+    }
+    if (self.locks == 0 && self.requestedReloadingData) {
         self.requestedReloadingData = NO;
         [super reloadData];
     }

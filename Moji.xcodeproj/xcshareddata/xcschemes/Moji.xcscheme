@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C54AF45519B8C437006F7EDB"
-               BuildableName = "Moji-QA.app"
-               BlueprintName = "MojiQA"
+               BlueprintIdentifier = "C54AF64F19B8C491006F7EDB"
+               BuildableName = "Moji.app"
+               BlueprintName = "Moji"
                ReferencedContainer = "container:Moji.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C54AF45519B8C437006F7EDB"
-            BuildableName = "Moji-QA.app"
-            BlueprintName = "MojiQA"
+            BlueprintIdentifier = "C54AF64F19B8C491006F7EDB"
+            BuildableName = "Moji.app"
+            BlueprintName = "Moji"
             ReferencedContainer = "container:Moji.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -52,9 +52,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C54AF45519B8C437006F7EDB"
-            BuildableName = "Moji-QA.app"
-            BlueprintName = "MojiQA"
+            BlueprintIdentifier = "C54AF64F19B8C491006F7EDB"
+            BuildableName = "Moji.app"
+            BlueprintName = "Moji"
             ReferencedContainer = "container:Moji.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,9 +71,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C54AF45519B8C437006F7EDB"
-            BuildableName = "Moji-QA.app"
-            BlueprintName = "MojiQA"
+            BlueprintIdentifier = "C54AF64F19B8C491006F7EDB"
+            BuildableName = "Moji.app"
+            BlueprintName = "Moji"
             ReferencedContainer = "container:Moji.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

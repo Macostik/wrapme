@@ -60,7 +60,6 @@ void WLSoundPlayerCompletion (SystemSoundID ssID, void *clientData) {
 }
 
 + (void)playSound:(WLSound)sound completion:(WLBlock)completion {
-#ifndef WRAPLIVE_EXTENSION_TERGET
     NSString *soundFileName = WLSoundFileName(sound);
     if (soundFileName.nonempty) {
         NSMapTable *sounds = [self sounds];
@@ -79,7 +78,6 @@ void WLSoundPlayerCompletion (SystemSoundID ssID, void *clientData) {
         if (completion) completion();
         _completionBlock = nil;
     }
-#endif
 }
 
 @end

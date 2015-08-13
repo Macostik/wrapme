@@ -28,12 +28,7 @@
 + (void)log:(NSString *)label action:(NSString *)action object:(id)object {
     NSString *str = [NSString stringWithFormat:@"%@ - %@",label, action];
     [WLLogger systemLog:object ? [NSString stringWithFormat:@"%@: %@", str, object] : str];
-#ifndef WRAPLIVE_EXTENSION_TERGET
-    int state = (int)[UIApplication sharedApplication].applicationState;
-    [WLLogger LE_log:[NSString stringWithFormat:@"%@ >> (app state: %d) >> %@: %@", [WLUser combinedIdentifier], state, str, object]];
-#else
     [WLLogger LE_log:[NSString stringWithFormat:@"%@ >> extension >> %@: %@", [WLUser combinedIdentifier], str, object]];
-#endif
 }
 
 @end

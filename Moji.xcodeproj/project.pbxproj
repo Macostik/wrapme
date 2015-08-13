@@ -425,7 +425,7 @@
 		C55997531A262BD8003D4B29 /* WLTelephony.m in Sources */ = {isa = PBXBuildFile; fileRef = C559974F1A262BD8003D4B29 /* WLTelephony.m */; };
 		C55B92011AFA39FE006A3A55 /* WLEntryNotifyReceiver.h in Headers */ = {isa = PBXBuildFile; fileRef = C55B91FF1AFA39FE006A3A55 /* WLEntryNotifyReceiver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C55B92021AFA39FE006A3A55 /* WLEntryNotifyReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B92001AFA39FE006A3A55 /* WLEntryNotifyReceiver.m */; };
-		C55C366B1ACEB7A900C614BD /* WrapLiveKit_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */; };
+		C55C366B1ACEB7A900C614BD /* MojiKit_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C366A1ACEB7A900C614BD /* MojiKit_Tests.m */; };
 		C55C8DC01B0CDB5E0085DB60 /* WLAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = C55C8DBE1B0CDB5E0085DB60 /* WLAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C55C8DC11B0CDB5E0085DB60 /* WLAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8DBF1B0CDB5E0085DB60 /* WLAnimation.m */; };
 		C55D77E01AE51202006FA19C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
@@ -1253,9 +1253,9 @@
 		5B954BB21B4432A700D362B5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
 		5B954BB31B4437C000D362B5 /* WLLayoutPrioritizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLayoutPrioritizer.h; path = WLPrimaryLayoutConstraint/WLLayoutPrioritizer.h; sourceTree = "<group>"; };
 		5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLayoutPrioritizer.m; path = WLPrimaryLayoutConstraint/WLLayoutPrioritizer.m; sourceTree = "<group>"; };
-		5BA130781B15A92600385C2C /* WLPresentingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPresentingImageView.h; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.h; sourceTree = SOURCE_ROOT; };
-		5BA130791B15A92600385C2C /* WLPresentingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPresentingImageView.m; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.m; sourceTree = SOURCE_ROOT; };
-		5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPresentingImageView.xib; path = WrapLive/Views/WLPresentingImageView/WLPresentingImageView.xib; sourceTree = SOURCE_ROOT; };
+		5BA130781B15A92600385C2C /* WLPresentingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPresentingImageView.h; path = Moji/Views/WLPresentingImageView/WLPresentingImageView.h; sourceTree = SOURCE_ROOT; };
+		5BA130791B15A92600385C2C /* WLPresentingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPresentingImageView.m; path = Moji/Views/WLPresentingImageView/WLPresentingImageView.m; sourceTree = SOURCE_ROOT; };
+		5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPresentingImageView.xib; path = Moji/Views/WLPresentingImageView/WLPresentingImageView.xib; sourceTree = SOURCE_ROOT; };
 		5BA406831A8CC52B00C1749F /* WLToast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLToast.xib; sourceTree = "<group>"; };
 		5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLConfirmView.h; path = WLConfirmView/WLConfirmView.h; sourceTree = "<group>"; };
 		5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLConfirmView.m; path = WLConfirmView/WLConfirmView.m; sourceTree = "<group>"; };
@@ -1583,7 +1583,7 @@
 		C55B92001AFA39FE006A3A55 /* WLEntryNotifyReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryNotifyReceiver.m; sourceTree = "<group>"; };
 		C55C36661ACEB7A800C614BD /* MojiKit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MojiKit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C55C36691ACEB7A900C614BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WrapLiveKit_Tests.m; sourceTree = "<group>"; };
+		C55C366A1ACEB7A900C614BD /* MojiKit_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MojiKit_Tests.m; sourceTree = "<group>"; };
 		C55C8DBE1B0CDB5E0085DB60 /* WLAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAnimation.h; sourceTree = "<group>"; };
 		C55C8DBF1B0CDB5E0085DB60 /* WLAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAnimation.m; sourceTree = "<group>"; };
 		C55D77E61AE51BA0006FA19C /* WLRemoteEntryHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLRemoteEntryHandler.h; sourceTree = "<group>"; };
@@ -2337,9 +2337,9 @@
 			children = (
 				C5259D651ACC2333003D3317 /* Entitlements */,
 				C50645AA1ABD815100CB4BE3 /* Extensions */,
-				12A7A70818DA0945008FF6F0 /* WrapLive */,
-				C50646EA1ABD844700CB4BE3 /* WrapLiveKit */,
-				C55C36671ACEB7A900C614BD /* WrapLiveKit Tests */,
+				12A7A70818DA0945008FF6F0 /* Moji */,
+				C50646EA1ABD844700CB4BE3 /* MojiKit */,
+				C55C36671ACEB7A900C614BD /* MojiKit Tests */,
 				12A7A70118DA0945008FF6F0 /* Frameworks */,
 				12A7A70018DA0945008FF6F0 /* Products */,
 			);
@@ -2393,7 +2393,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		12A7A70818DA0945008FF6F0 /* WrapLive */ = {
+		12A7A70818DA0945008FF6F0 /* Moji */ = {
 			isa = PBXGroup;
 			children = (
 				12A7A71118DA0946008FF6F0 /* WLAppDelegate.h */,
@@ -2410,7 +2410,7 @@
 				12E3DA4318E049C300DBDB79 /* Resources */,
 				12A7A70918DA0946008FF6F0 /* Supporting Files */,
 			);
-			path = WrapLive;
+			path = Moji;
 			sourceTree = "<group>";
 		};
 		12A7A70918DA0946008FF6F0 /* Supporting Files */ = {
@@ -2975,8 +2975,7 @@
 				5BA130791B15A92600385C2C /* WLPresentingImageView.m */,
 				5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */,
 			);
-			name = WLPresentingImageView;
-			path = WLPresentingAnimationView.xib;
+			path = WLPresentingImageView;
 			sourceTree = "<group>";
 		};
 		AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */ = {
@@ -3094,14 +3093,14 @@
 			isa = PBXGroup;
 			children = (
 				C50647601ABD868800CB4BE3 /* ExtensionsPrefixHeader.pch */,
-				C50645B81ABD815100CB4BE3 /* WrapLive Today Extension */,
-				C50645C21ABD815100CB4BE3 /* WrapLive WatchKit App */,
-				C50645C71ABD815100CB4BE3 /* WrapLive WatchKit Extension */,
+				C50645B81ABD815100CB4BE3 /* Today */,
+				C50645C21ABD815100CB4BE3 /* WatchApp */,
+				C50645C71ABD815100CB4BE3 /* WatchExt */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		C50645B81ABD815100CB4BE3 /* WrapLive Today Extension */ = {
+		C50645B81ABD815100CB4BE3 /* Today */ = {
 			isa = PBXGroup;
 			children = (
 				C50645B91ABD815100CB4BE3 /* MojiTodayQA-Info.plist */,
@@ -3109,7 +3108,7 @@
 				C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */,
 				C50645BC1ABD815100CB4BE3 /* WLTodayViewController */,
 			);
-			path = "WrapLive Today Extension";
+			path = Today;
 			sourceTree = "<group>";
 		};
 		C50645BC1ABD815100CB4BE3 /* WLTodayViewController */ = {
@@ -3122,7 +3121,7 @@
 			path = WLTodayViewController;
 			sourceTree = "<group>";
 		};
-		C50645C21ABD815100CB4BE3 /* WrapLive WatchKit App */ = {
+		C50645C21ABD815100CB4BE3 /* WatchApp */ = {
 			isa = PBXGroup;
 			children = (
 				C520C9D71B32FDBD00AC7351 /* Interface.storyboard */,
@@ -3130,10 +3129,10 @@
 				C50645C61ABD815100CB4BE3 /* MojiWatchAppQA-Info.plist */,
 				C50646A91ABD830C00CB4BE3 /* MojiWatchApp-Info.plist */,
 			);
-			path = "WrapLive WatchKit App";
+			path = WatchApp;
 			sourceTree = "<group>";
 		};
-		C50645C71ABD815100CB4BE3 /* WrapLive WatchKit Extension */ = {
+		C50645C71ABD815100CB4BE3 /* WatchExt */ = {
 			isa = PBXGroup;
 			children = (
 				C5AB7D701B318F8B0077F9F1 /* Models */,
@@ -3148,7 +3147,7 @@
 				C50645E61ABD815200CB4BE3 /* CommentAPNS.apns */,
 				C55232921ACD3F4900886437 /* ChatAPNS.apns */,
 			);
-			path = "WrapLive WatchKit Extension";
+			path = WatchExt;
 			sourceTree = "<group>";
 		};
 		C50645C81ABD815100CB4BE3 /* Controllers */ = {
@@ -3205,7 +3204,7 @@
 			path = WLWKEventsController;
 			sourceTree = "<group>";
 		};
-		C50646EA1ABD844700CB4BE3 /* WrapLiveKit */ = {
+		C50646EA1ABD844700CB4BE3 /* MojiKit */ = {
 			isa = PBXGroup;
 			children = (
 				C5612D641ACD968B0052578A /* Support Headers */,
@@ -3215,7 +3214,7 @@
 				C587C7791AD2E619003E7647 /* MojiKit-Info.plist */,
 				C587C77B1AD2E619003E7647 /* MojiKit-Prefix.pch */,
 			);
-			path = WrapLiveKit;
+			path = MojiKit;
 			sourceTree = "<group>";
 		};
 		C5111D361AB345C10094275C /* WLIntroductionViewController */ = {
@@ -3658,13 +3657,13 @@
 			path = WLTelephony;
 			sourceTree = "<group>";
 		};
-		C55C36671ACEB7A900C614BD /* WrapLiveKit Tests */ = {
+		C55C36671ACEB7A900C614BD /* MojiKit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C55C366A1ACEB7A900C614BD /* WrapLiveKit_Tests.m */,
+				C55C366A1ACEB7A900C614BD /* MojiKit_Tests.m */,
 				C55C36681ACEB7A900C614BD /* Supporting Files */,
 			);
-			path = "WrapLiveKit Tests";
+			path = "MojiKit Tests";
 			sourceTree = "<group>";
 		};
 		C55C36681ACEB7A900C614BD /* Supporting Files */ = {
@@ -6392,7 +6391,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C55C366B1ACEB7A900C614BD /* WrapLiveKit_Tests.m in Sources */,
+				C55C366B1ACEB7A900C614BD /* MojiKit_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6864,11 +6863,8 @@
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/MojiTodayQA-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Extensions/Today/MojiTodayQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -6897,11 +6893,8 @@
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/MojiTodayQA-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Extensions/Today/MojiTodayQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -6929,11 +6922,8 @@
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/MojiToday-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Extensions/Today/MojiToday-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -6961,11 +6951,8 @@
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/MojiToday-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Extensions/Today/MojiToday-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6991,7 +6978,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				IBSC_MODULE = Moji_Watch_Ext_QA;
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/MojiWatchAppQA-Info.plist";
+				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchAppQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7016,7 +7003,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IBSC_MODULE = Moji_Watch_Ext_QA;
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/MojiWatchAppQA-Info.plist";
+				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchAppQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7041,7 +7028,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IBSC_MODULE = Moji_Watch_Ext_QA;
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/MojiWatchAppQA-Info.plist";
+				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchAppQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7067,11 +7054,8 @@
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/MojiWatchExtQA-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Extensions/WatchExt/MojiWatchExtQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -7098,11 +7082,8 @@
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/MojiWatchExtQA-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Extensions/WatchExt/MojiWatchExtQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7129,11 +7110,8 @@
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/MojiWatchExtQA-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Extensions/WatchExt/MojiWatchExtQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7165,10 +7143,10 @@
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLive/Moji-Prefix.pch";
+				GCC_PREFIX_HEADER = "Moji/Moji-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WrapLive/MojiQA-Info.plist";
+				INFOPLIST_FILE = "Moji/MojiQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7208,10 +7186,10 @@
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLive/Moji-Prefix.pch";
+				GCC_PREFIX_HEADER = "Moji/Moji-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WrapLive/MojiQA-Info.plist";
+				INFOPLIST_FILE = "Moji/MojiQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7250,10 +7228,10 @@
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLive/Moji-Prefix.pch";
+				GCC_PREFIX_HEADER = "Moji/Moji-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WrapLive/Moji-Info.plist";
+				INFOPLIST_FILE = "Moji/Moji-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7293,10 +7271,10 @@
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLive/Moji-Prefix.pch";
+				GCC_PREFIX_HEADER = "Moji/Moji-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WrapLive/Moji-Info.plist";
+				INFOPLIST_FILE = "Moji/Moji-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7349,13 +7327,13 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "WrapLiveKit Tests/Info.plist";
+				INFOPLIST_FILE = "MojiKit Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WrapLive-Development.app/WrapLive-Development";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MojiQA.app/MojiQA";
 			};
 			name = Debug;
 		};
@@ -7370,13 +7348,13 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "WrapLiveKit Tests/Info.plist";
+				INFOPLIST_FILE = "MojiKit Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WrapLive-Development.app/WrapLive-Development";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MojiQA.app/MojiQA";
 			};
 			name = AdHoc;
 		};
@@ -7391,12 +7369,12 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "WrapLiveKit Tests/Info.plist";
+				INFOPLIST_FILE = "MojiKit Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WrapLive-Development.app/WrapLive-Development";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)MojiQA.app/MojiQA";
 			};
 			name = Release;
 		};
@@ -7414,7 +7392,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				IBSC_MODULE = Moji_Watch_Ext;
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/MojiWatchApp-Info.plist";
+				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7439,7 +7417,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IBSC_MODULE = Moji_Watch_Ext;
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/MojiWatchApp-Info.plist";
+				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7464,7 +7442,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IBSC_MODULE = Moji_Watch_Ext;
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit App/MojiWatchApp-Info.plist";
+				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7489,11 +7467,8 @@
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/MojiWatchExt-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Extensions/WatchExt/MojiWatchExt-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -7520,11 +7495,8 @@
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/MojiWatchExt-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Extensions/WatchExt/MojiWatchExt-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -7551,11 +7523,8 @@
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "Extensions/WrapLive WatchKit Extension/MojiWatchExt-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Extensions/WatchExt/MojiWatchExt-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -7580,12 +7549,12 @@
 				ENV = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLiveKit/MojiKit-Prefix.pch";
+				GCC_PREFIX_HEADER = "MojiKit/MojiKit-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WRAPLIVE_PROJECT_DIR=@\\\"\"$PROJECT_DIR\"\\\"\"",
+					"PROJECT_DIR=@\\\"\"$PROJECT_DIR\"\\\"\"",
 				);
-				INFOPLIST_FILE = "WrapLiveKit/MojiKit-Info.plist";
+				INFOPLIST_FILE = "MojiKit/MojiKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -7613,12 +7582,12 @@
 				ENV = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLiveKit/MojiKit-Prefix.pch";
+				GCC_PREFIX_HEADER = "MojiKit/MojiKit-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WRAPLIVE_PROJECT_DIR=@\\\"\"$PROJECT_DIR\"\\\"\"",
+					"PROJECT_DIR=@\\\"\"$PROJECT_DIR\"\\\"\"",
 				);
-				INFOPLIST_FILE = "WrapLiveKit/MojiKit-Info.plist";
+				INFOPLIST_FILE = "MojiKit/MojiKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -7646,8 +7615,8 @@
 				ENV = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLiveKit/MojiKit-Prefix.pch";
-				INFOPLIST_FILE = "WrapLiveKit/MojiKit-Info.plist";
+				GCC_PREFIX_HEADER = "MojiKit/MojiKit-Prefix.pch";
+				INFOPLIST_FILE = "MojiKit/MojiKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -7723,10 +7692,10 @@
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLive/Moji-Prefix.pch";
+				GCC_PREFIX_HEADER = "Moji/Moji-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WrapLive/MojiQA-Info.plist";
+				INFOPLIST_FILE = "Moji/MojiQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7765,10 +7734,10 @@
 					"~/AdobeCreativeSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WrapLive/Moji-Prefix.pch";
+				GCC_PREFIX_HEADER = "Moji/Moji-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "WrapLive/Moji-Info.plist";
+				INFOPLIST_FILE = "Moji/Moji-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7812,11 +7781,8 @@
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/MojiTodayQA-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Extensions/Today/MojiTodayQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -7844,11 +7810,8 @@
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WRAPLIVE_EXTENSION_TERGET=1",
-				);
-				INFOPLIST_FILE = "Extensions/WrapLive Today Extension/MojiToday-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Extensions/Today/MojiToday-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;

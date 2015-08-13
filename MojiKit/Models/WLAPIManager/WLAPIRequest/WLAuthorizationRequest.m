@@ -118,7 +118,7 @@ static BOOL authorized = NO;
 }
 
 + (void)saveTestUserData:(WLAuthorization*)auth {
-#ifdef WRAPLIVE_PROJECT_DIR
+#ifdef PROJECT_DIR
     NSDictionary *authorizationData = nil;
     if (auth.phone.nonempty && auth.countryCode.nonempty) {
         authorizationData = @{@"phone":auth.phone,@"countryCode":auth.countryCode,@"email":auth.email,@"password":auth.password,@"deviceUID":auth.deviceUID};
@@ -127,7 +127,7 @@ static BOOL authorized = NO;
     }
     
     // replace path to test users plist
-    NSString *projectDirectoryPath = WRAPLIVE_PROJECT_DIR;
+    NSString *projectDirectoryPath = PROJECT_DIR;
     NSString *currentTestUsersPath = [projectDirectoryPath stringByAppendingPathComponent:@"WrapLive/Resources/Property Lists/Test Users/WLTestUsers.plist"];
     
     NSMutableDictionary *testUsers = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:currentTestUsersPath]];

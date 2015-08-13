@@ -126,11 +126,6 @@
     NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     documentsURL = [documentsURL URLByAppendingPathComponent:@"CoreData.sqlite"];
     if (sharedURL) {
-#ifndef WRAPLIVE_EXTENSION_TERGET
-        if (![fileManager fileExistsAtPath:[sharedURL absoluteString]] && [fileManager fileExistsAtPath:[documentsURL absoluteString]]) {
-            [fileManager moveItemAtURL:documentsURL toURL:sharedURL error:NULL];
-        }
-#endif
         url = sharedURL;
     } else {
         url = documentsURL;

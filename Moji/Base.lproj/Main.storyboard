@@ -1729,7 +1729,6 @@ Tap here to start.</string>
                                 </constraints>
                                 <connections>
                                     <action selector="segmentValueChanged:" destination="gv8-Nb-wf7" eventType="valueChanged" id="DYu-AI-HHc"/>
-                                    <action selector="tabChanged:" destination="L91-fZ-J9O" eventType="valueChanged" id="zPj-cU-7Cg"/>
                                 </connections>
                             </view>
                         </subviews>

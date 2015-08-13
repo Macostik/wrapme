@@ -347,10 +347,6 @@
     [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:NO];
 }
 
-- (IBAction)tabChanged:(SegmentedControl*)sender {
-    self.photoButton.enabled = sender.selectedSegment == 0;
-}
-
 // MARK: - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {

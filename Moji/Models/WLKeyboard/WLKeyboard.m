@@ -39,10 +39,7 @@
 - (void)keyboardWillShow:(NSNotification*)notification {
     NSDictionary *userInfo = [notification userInfo];
     CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    UIViewController *controller = [UIWindow mainWindow].rootViewController;
-    BOOL landscape = controller.interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
-    controller.interfaceOrientation == UIInterfaceOrientationLandscapeRight;
-    self.height = (!SystemVersionGreaterThanOrEqualTo8() && landscape) ? keyboardSize.width : keyboardSize.height;
+    self.height = keyboardSize.height;
     self.duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     self.curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
     self.isShow = self.height != 0;
@@ -52,10 +49,7 @@
 - (void)keyboardDidShow:(NSNotification*)notification {
     NSDictionary *userInfo = [notification userInfo];
     CGSize keyboardSize = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    UIViewController *controller = [UIWindow mainWindow].rootViewController;
-    BOOL landscape = controller.interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
-    controller.interfaceOrientation == UIInterfaceOrientationLandscapeRight;
-    self.height = (!SystemVersionGreaterThanOrEqualTo8() && landscape) ? keyboardSize.width : keyboardSize.height;
+    self.height = keyboardSize.height;
     self.duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     self.curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
 	[self broadcast:@selector(keyboardDidShow:)];

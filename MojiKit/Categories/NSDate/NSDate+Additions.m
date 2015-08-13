@@ -67,55 +67,32 @@ static NSInteger WLDaySeconds = 24*60*60;
 }
 
 - (NSDateComponents *)dayComponents {
-    return [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self];
+    return [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self];
 }
 
 - (BOOL)isSameDay:(NSDate *)date {
     if (ABS([self timeIntervalSinceDate:date]) > WLTimeIntervalDay) return NO;
-    if (SystemVersionGreaterThanOrEqualTo8()) {
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        if ([calendar component:NSDayCalendarUnit fromDate:self] != [calendar component:NSDayCalendarUnit fromDate:date]) return NO;
-        if ([calendar component:NSMonthCalendarUnit fromDate:self] != [calendar component:NSMonthCalendarUnit fromDate:date]) return NO;
-        if ([calendar component:NSYearCalendarUnit fromDate:self] != [calendar component:NSYearCalendarUnit fromDate:date]) return NO;
-        return YES;
-    } else {
-        return [self isSameDayComponents:[date dayComponents]];
-    }
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    if ([calendar component:NSCalendarUnitDay fromDate:self] != [calendar component:NSCalendarUnitDay fromDate:date]) return NO;
+    if ([calendar component:NSCalendarUnitMonth fromDate:self] != [calendar component:NSCalendarUnitMonth fromDate:date]) return NO;
+    if ([calendar component:NSCalendarUnitYear fromDate:self] != [calendar component:NSCalendarUnitYear fromDate:date]) return NO;
+    return YES;
 }
 
 - (BOOL)isSameDayComponents:(NSDateComponents *)c {
-    if (SystemVersionGreaterThanOrEqualTo8()) {
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        if ([calendar component:NSDayCalendarUnit fromDate:self] != c.day) return NO;
-        if ([calendar component:NSMonthCalendarUnit fromDate:self] != c.month) return NO;
-        if ([calendar component:NSYearCalendarUnit fromDate:self] != c.year) return NO;
-    } else {
-        NSDateComponents* c1 = [self dayComponents];
-        if (c1.day != c.day) return NO;
-        if (c1.month != c.month) return NO;
-        if (c1.year != c.year) return NO;
-    }
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    if ([calendar component:NSCalendarUnitDay fromDate:self] != c.day) return NO;
+    if ([calendar component:NSCalendarUnitMonth fromDate:self] != c.month) return NO;
+    if ([calendar component:NSCalendarUnitYear fromDate:self] != c.year) return NO;
     return YES;
 }
 
 - (BOOL)isSameHour:(NSDate *)date {
-    if (SystemVersionGreaterThanOrEqualTo8()) {
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        if ([calendar component:NSHourCalendarUnit fromDate:self] != [calendar component:NSHourCalendarUnit fromDate:date]) return NO;
-        if ([calendar component:NSDayCalendarUnit fromDate:self] != [calendar component:NSDayCalendarUnit fromDate:date]) return NO;
-        if ([calendar component:NSMonthCalendarUnit fromDate:self] != [calendar component:NSMonthCalendarUnit fromDate:date]) return NO;
-        if ([calendar component:NSYearCalendarUnit fromDate:self] != [calendar component:NSYearCalendarUnit fromDate:date]) return NO;
-    } else {
-        NSCalendarUnit units = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit;
-        ;
-        NSCalendar* calendar = [NSCalendar currentCalendar];
-        NSDateComponents* c1 = [calendar components:units fromDate:self];
-        NSDateComponents* c2 = [calendar components:units fromDate:date];
-        if (c1.hour != c2.hour) return NO;
-        if (c1.day != c2.day) return NO;
-        if (c1.month != c2.month) return NO;
-        if (c1.year != c2.year) return NO;
-    }
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    if ([calendar component:NSCalendarUnitHour fromDate:self] != [calendar component:NSCalendarUnitHour fromDate:date]) return NO;
+    if ([calendar component:NSCalendarUnitDay fromDate:self] != [calendar component:NSCalendarUnitDay fromDate:date]) return NO;
+    if ([calendar component:NSCalendarUnitMonth fromDate:self] != [calendar component:NSCalendarUnitMonth fromDate:date]) return NO;
+    if ([calendar component:NSCalendarUnitYear fromDate:self] != [calendar component:NSCalendarUnitYear fromDate:date]) return NO;
     return YES;
 }
 

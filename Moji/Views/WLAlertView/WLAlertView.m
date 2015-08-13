@@ -14,7 +14,7 @@
 @implementation WLAlertView
 
 + (Class <WLAlertView>)alertViewClass {
-    return SystemVersionGreaterThanOrEqualTo8() ? [UIAlertController class] : [UIAlertView class];
+    return [UIAlertController class];
 }
 
 + (void)showWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completion:(WLAlertViewCompletion)completion {

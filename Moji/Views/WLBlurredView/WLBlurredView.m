@@ -24,14 +24,7 @@
 }
 
 - (void)setup {
-    UIView *view = nil;
-    if (SystemVersionGreaterThanOrEqualTo8()) {
-        view = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-    } else {
-        UIToolbar* toolbar = [[UIToolbar alloc] init];
-        toolbar.translucent = YES;
-        view = toolbar;
-    }
+    UIView *view = view = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     view.backgroundColor = [UIColor clearColor];
     view.tintColor = [UIColor whiteColor];
     [view setFullFlexible];

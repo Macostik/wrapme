@@ -51,15 +51,6 @@
     _isEmbedded = isEmbedded;
     self.modalPresentationStyle = isEmbedded ? UIModalPresentationCustom : UIModalPresentationFullScreen;
     self.transitioningDelegate = isEmbedded ? self : nil;
-    
-    if (!SystemVersionGreaterThanOrEqualTo8()) {
-        UINavigationController *navigationController = (id)[UIWindow mainWindow].rootViewController;
-        UIViewController *presentedViewController = navigationController.presentedViewController != nil ?
-        navigationController.presentedViewController : navigationController;
-        presentedViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
-        presentedViewController.modalPresentationCapturesStatusBarAppearance = YES;
-        [presentedViewController setNeedsStatusBarAppearanceUpdate];
-    }
 }
 
 - (void)loadView {

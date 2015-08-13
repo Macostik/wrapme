@@ -388,8 +388,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 #pragma mark - Actions
 
 - (IBAction)back:(id)sender {
-    BOOL animate = self.interfaceOrientation == UIInterfaceOrientationPortrait ||
-    self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown;
+    BOOL animate = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
     WLCandy* candy = self.candy;
     if (candy.valid) {
         if (self.presentingImageView != nil && animate) {

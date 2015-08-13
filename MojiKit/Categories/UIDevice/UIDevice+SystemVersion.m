@@ -10,34 +10,20 @@
 
 @implementation UIDevice (SystemVersion)
 
-- (NSComparisonResult)compareSystemVersion:(NSString*)version
-{
+- (NSComparisonResult)compareSystemVersion:(NSString*)version {
     return [[self systemVersion] compare:version options:NSNumericSearch];
 }
 
-- (BOOL)systemVersionEqualTo:(NSString*)version
-{
+- (BOOL)systemVersionEqualTo:(NSString*)version {
     return ([self compareSystemVersion:version] == NSOrderedSame);
 }
 
-- (BOOL)systemVersionGreaterThan:(NSString*)version
-{
-    return ([self compareSystemVersion:version] == NSOrderedDescending);
-}
-
-- (BOOL)systemVersionGreaterThanOrEqualTo:(NSString*)version
-{
+- (BOOL)systemVersionSince:(NSString*)version {
     return ([self compareSystemVersion:version] != NSOrderedAscending);
 }
 
-- (BOOL)systemVersionLessThan:(NSString*)version
-{
+- (BOOL)systemVersionBefore:(NSString*)version {
     return ([self compareSystemVersion:version] == NSOrderedAscending);
-}
-
-- (BOOL)systemVersionLessThanOrEqualTo:(NSString*)version
-{
-    return ([self compareSystemVersion:version] != NSOrderedDescending);
 }
 
 @end

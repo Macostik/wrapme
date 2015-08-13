@@ -23,6 +23,7 @@
 #import "WLMessagesCounter.h"
 #import "WLButton.h"
 #import "WLLayoutPrioritizer.h"
+#import "WLWrapStatusImageView.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPhotosViewControllerDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
@@ -37,7 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *unfollowButton;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *publicWrapView;
-@property (weak, nonatomic) IBOutlet WLImageView *publicWrapImageView;
+@property (weak, nonatomic) IBOutlet WLWrapStatusImageView *publicWrapImageView;
 @property (weak, nonatomic) IBOutlet WLLabel *publicWrapName;
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *publicWrapPrioritizer;
 
@@ -91,6 +92,7 @@
     self.nameLabel.text = wrap.name;
     if (wrap.isPublic) {
         self.publicWrapImageView.url = wrap.contributor.picture.small;
+        self.publicWrapImageView.followed = [wrap.contributors containsObject:[WLUser currentUser]];
         self.publicWrapName.text = wrap.name;
         BOOL requiresFollowing = wrap.requiresFollowing;
         self.segmentedControl.hidden = YES;

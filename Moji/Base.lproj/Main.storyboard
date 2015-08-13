@@ -38,6 +38,9 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -966,14 +969,28 @@
                                                                 <action selector="select" destination="N5C-9U-WOe" eventType="touchUpInside" id="Ug9-aO-oGc"/>
                                                             </connections>
                                                         </button>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HLY-EW-9Wa" customClass="WLCircleImageView">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HLY-EW-9Wa" customClass="WLWrapStatusImageView">
                                                             <rect key="frame" x="10" y="5" width="50" height="50"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="bN0-F8-DiZ"/>
                                                                 <constraint firstAttribute="width" constant="50" id="fw7-Ys-M5O"/>
                                                             </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="25"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <outlet property="statusView" destination="JTl-uI-0al" id="k5Y-jn-7hZ"/>
+                                                            </connections>
                                                         </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTl-uI-0al">
+                                                            <rect key="frame" x="9" y="4" width="17" height="17"/>
+                                                            <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
+                                                            <color key="textColor" red="0.85098039215686272" green="0.32549019607843138" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Moji Name Moji Name Moji Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8I-t6-aKU" customClass="WLLabel">
                                                             <rect key="frame" x="85" y="6" width="164" height="24"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1058,11 +1075,13 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="ctG-Sd-jmI" firstAttribute="top" secondItem="Vul-aG-hE6" secondAttribute="top" id="9f8-sn-DQc"/>
+                                                        <constraint firstItem="JTl-uI-0al" firstAttribute="centerY" secondItem="HLY-EW-9Wa" secondAttribute="centerY" constant="-18" id="DJy-Dh-aqZ"/>
                                                         <constraint firstItem="HLY-EW-9Wa" firstAttribute="leading" secondItem="Vul-aG-hE6" secondAttribute="leading" constant="10" id="E3T-ms-nVZ"/>
                                                         <constraint firstAttribute="centerY" secondItem="VDt-1T-mW3" secondAttribute="centerY" id="FzG-fb-p87"/>
                                                         <constraint firstItem="ctG-Sd-jmI" firstAttribute="leading" secondItem="Vul-aG-hE6" secondAttribute="leading" id="HKg-3L-R6z"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="71z-7i-OMc" secondAttribute="trailing" constant="44" id="Hib-Sf-kM5"/>
                                                         <constraint firstItem="N8I-t6-aKU" firstAttribute="bottom" secondItem="HLY-EW-9Wa" secondAttribute="centerY" id="IDW-co-7uy"/>
+                                                        <constraint firstItem="JTl-uI-0al" firstAttribute="centerX" secondItem="HLY-EW-9Wa" secondAttribute="centerX" constant="-18" id="IF5-pV-eb5"/>
                                                         <constraint firstItem="vhN-RG-jpt" firstAttribute="leading" secondItem="VDt-1T-mW3" secondAttribute="centerX" id="L9Q-K6-Kfi"/>
                                                         <constraint firstAttribute="trailing" secondItem="vhN-RG-jpt" secondAttribute="trailing" constant="12" id="Sck-76-UPw"/>
                                                         <constraint firstAttribute="bottom" secondItem="ctG-Sd-jmI" secondAttribute="bottom" id="Wa4-d4-L8e"/>
@@ -2859,13 +2878,27 @@ Tap here to start.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mah-wL-Ybq">
                                 <rect key="frame" x="0.0" y="64" width="320" height="88"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qM0-BJ-a8I" customClass="WLCircleImageView">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qM0-BJ-a8I" customClass="WLWrapStatusImageView">
                                         <rect key="frame" x="12" y="12" width="64" height="64"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="64" id="IMY-JT-S7i"/>
                                             <constraint firstAttribute="height" constant="64" id="QPH-9e-8eT"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="32"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="statusView" destination="ikS-PH-qcY" id="b9M-bh-MBK"/>
+                                        </connections>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikS-PH-qcY">
+                                        <rect key="frame" x="13" y="13" width="17" height="17"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
+                                        <color key="textColor" red="0.85098039219999999" green="0.32549019610000002" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xS9-IA-WOM" customClass="WLLabel">
                                         <rect key="frame" x="88" y="12" width="33" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2924,7 +2957,9 @@ Tap here to start.</string>
                                     <constraint firstAttribute="trailing" secondItem="5xC-mH-huG" secondAttribute="trailing" constant="12" id="5Vt-Nr-MXI"/>
                                     <constraint firstItem="qM0-BJ-a8I" firstAttribute="leading" secondItem="mah-wL-Ybq" secondAttribute="leading" constant="12" id="A4h-Kp-ZJG"/>
                                     <constraint firstItem="qM0-BJ-a8I" firstAttribute="top" secondItem="mah-wL-Ybq" secondAttribute="top" constant="12" id="Ah3-Zg-zwU"/>
+                                    <constraint firstItem="ikS-PH-qcY" firstAttribute="centerX" secondItem="qM0-BJ-a8I" secondAttribute="centerX" constant="-23" id="Coq-ZL-GEM"/>
                                     <constraint firstItem="Tbf-RR-jf2" firstAttribute="leading" secondItem="qM0-BJ-a8I" secondAttribute="trailing" constant="12" id="GIB-vg-ZeK"/>
+                                    <constraint firstItem="ikS-PH-qcY" firstAttribute="centerY" secondItem="qM0-BJ-a8I" secondAttribute="centerY" constant="-23" id="GlR-4v-2fm"/>
                                     <constraint firstItem="qM0-BJ-a8I" firstAttribute="top" secondItem="xS9-IA-WOM" secondAttribute="top" id="K86-g8-bo5"/>
                                     <constraint firstAttribute="trailing" secondItem="Tbf-RR-jf2" secondAttribute="trailing" constant="12" id="Ljw-an-rPG"/>
                                     <constraint firstAttribute="height" constant="88" id="TgL-9W-etc"/>
@@ -3890,7 +3925,7 @@ Check your internet connection and try again.</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TiZ-42-pcE" customClass="WLImageView">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TiZ-42-pcE" customClass="WLWrapStatusImageView">
                                 <rect key="frame" x="80" y="117" width="160" height="160"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="MnR-Cc-ZNi"/>
@@ -3907,7 +3942,16 @@ Check your internet connection and try again.</string>
                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="statusView" destination="qLD-cF-aDZ" id="jAZ-V9-kk5"/>
+                                </connections>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qLD-cF-aDZ">
+                                <rect key="frame" x="94" y="131" width="17" height="17"/>
+                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
+                                <color key="textColor" red="0.85098039219999999" green="0.32549019610000002" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Jj-yT-5JM" customClass="WLButton">
                                 <rect key="frame" x="12" y="373" width="296" height="34"/>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
@@ -3931,6 +3975,7 @@ Check your internet connection and try again.</string>
                         </subviews>
                         <color key="backgroundColor" white="0.10100000351667404" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="TiZ-42-pcE" firstAttribute="centerX" secondItem="qLD-cF-aDZ" secondAttribute="centerX" constant="58" id="3Mq-Zl-aQy"/>
                             <constraint firstItem="wxe-oJ-t5C" firstAttribute="top" secondItem="TiZ-42-pcE" secondAttribute="bottom" constant="20" id="48W-Bs-K23"/>
                             <constraint firstItem="5Jj-yT-5JM" firstAttribute="leading" secondItem="n24-ox-RXq" secondAttribute="leading" constant="12" id="59r-HJ-PQP"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8h1-Do-qBF" secondAttribute="trailing" constant="12" id="6Ef-7A-cQb"/>
@@ -3942,6 +3987,7 @@ Check your internet connection and try again.</string>
                             <constraint firstItem="5Jj-yT-5JM" firstAttribute="top" secondItem="8h1-Do-qBF" secondAttribute="bottom" constant="20" id="ILp-tp-KsI"/>
                             <constraint firstItem="8ai-37-t5q" firstAttribute="top" secondItem="lnY-5L-6HL" secondAttribute="bottom" constant="12" id="IQ5-Mb-TYs"/>
                             <constraint firstItem="lnY-5L-6HL" firstAttribute="top" secondItem="8h1-Do-qBF" secondAttribute="bottom" constant="20" id="LTo-Wg-e2f"/>
+                            <constraint firstItem="TiZ-42-pcE" firstAttribute="centerY" secondItem="qLD-cF-aDZ" secondAttribute="centerY" constant="58" id="Ubh-Oj-yD0"/>
                             <constraint firstAttribute="centerX" secondItem="8h1-Do-qBF" secondAttribute="centerX" id="WIe-pN-Uz1"/>
                             <constraint firstItem="lnY-5L-6HL" firstAttribute="leading" secondItem="n24-ox-RXq" secondAttribute="leading" constant="12" id="gob-d9-G6p"/>
                             <constraint firstAttribute="trailing" secondItem="5Jj-yT-5JM" secondAttribute="trailing" constant="12" id="hYb-ph-ezh"/>

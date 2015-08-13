@@ -18,12 +18,13 @@
 #import "WLWhatsUpSet.h"
 #import "UIView+LayoutHelper.h"
 #import "WLMessagesCounter.h"
+#import "WLWrapStatusImageView.h"
 
 static CGFloat WLWrapCellSwipeActionWidth = 125;
 
 @interface WLWrapCell () <UIGestureRecognizerDelegate>
 
-@property (weak, nonatomic) IBOutlet WLImageView *coverView;
+@property (weak, nonatomic) IBOutlet WLWrapStatusImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
@@ -65,7 +66,6 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 }
 
 - (void)setup:(WLWrap*)wrap {
-    self.swipeActionGestureRecognizer.enabled = !(wrap.isPublic && ![wrap.contributors containsObject:[WLUser currentUser]]);
 	self.nameLabel.text = wrap.name;
     self.dateLabel.text = WLString(wrap.updatedAt.timeAgoStringAtAMPM);
     self.coverView.url = [wrap.picture anyUrl];
@@ -77,6 +77,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     self.nameLabel.horizontallyResistible = !hasUnreadMessages;
     self.chatButton.horizontallyResistible = hasUnreadMessages;
     self.chatNotificationLabel.horizontallyResistible = hasUnreadMessages;
+    self.coverView.followed = wrap.isPublic && [wrap.contributors containsObject:[WLUser currentUser]];
 }
 
 - (IBAction)notifyChatClick:(id)sender {
@@ -88,7 +89,11 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer {
     if (self.swipeActionGestureRecognizer == panGestureRecognizer) {
         CGPoint velocity = [panGestureRecognizer velocityInView:panGestureRecognizer.view];
-        return fabs(velocity.x) > fabs(velocity.y);
+        BOOL shouldBegin = fabs(velocity.x) > fabs(velocity.y);
+        if (shouldBegin) {
+            return [self checkIfActionAllowed:velocity.x < 0];
+        }
+        return shouldBegin;
     }
     return YES;
 }
@@ -96,6 +101,13 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 - (void)setIsRightSwipeAction:(BOOL)isRightSwipeAction {
     _isRightSwipeAction = isRightSwipeAction;
     self.swipeActionConstraint = isRightSwipeAction ? self.rightSwipeActionConstraint : self.leftSwipeActionConstraint;
+}
+
+- (BOOL)checkIfActionAllowed:(BOOL)isRightSwipeAction {
+    WLWrap *wrap = self.entry;
+    if (!wrap.isPublic) return YES;
+    if ([wrap.contributors containsObject:[WLUser currentUser]]) return !isRightSwipeAction;
+    return NO;
 }
 
 - (void)panning:(UIPanGestureRecognizer*)sender {
@@ -118,7 +130,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         [self layoutIfNeeded];
         [sender setTranslation:CGPointZero inView:sender.view];
         
-    } else if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
+    } else if ((sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled)) {
         BOOL performedAction = ABS(self.swipeActionConstraint.constant) >= WLWrapCellSwipeActionWidth;
         [self.delegate wrapCellDidEndPanning:self performedAction:performedAction];
         if (performedAction) {

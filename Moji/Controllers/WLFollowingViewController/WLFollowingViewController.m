@@ -10,12 +10,13 @@
 #import "UIViewController+Container.h"
 #import "WLButton.h"
 #import "WLNavigationHelper.h"
+#import "WLWrapStatusImageView.h"
 
 @interface WLFollowingViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 @property (weak, nonatomic) IBOutlet UIButton *laterButton;
-@property (weak, nonatomic) IBOutlet WLImageView *imageView;
+@property (weak, nonatomic) IBOutlet WLWrapStatusImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameButton;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
@@ -47,6 +48,7 @@
     self.closeButton.hidden = requiresFollowing;
     self.nameButton.text = self.wrap.name;
     self.imageView.url = self.wrap.contributor.picture.small;
+    self.imageView.followed = self.wrap.isPublic && [self.wrap.contributors containsObject:[WLUser currentUser]];
     self.messageLabel.text = requiresFollowing ? WLLS(@"follow_moji_suggestion") : WLLS(@"followed_moji_suggestion");
 }
 

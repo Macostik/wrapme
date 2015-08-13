@@ -99,9 +99,7 @@
     NSSet* wraps = [WLUser currentUser].wraps;
     homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:nil]];
     
-    publicDataSource.items = [WLPaginatedSet setWithEntries:[[[WLWrap entriesWhere:@"isPublic == YES"] selects:^BOOL(WLWrap *wrap) {
-        return ![wrap.contributors containsObject:[WLUser currentUser]];
-    }] set] request:[WLPaginatedRequest wraps:@"public_not_following"]];
+    publicDataSource.items = [WLPaginatedSet setWithEntries:[[WLWrap entriesWhere:@"isPublic == YES"] set] request:[WLPaginatedRequest wraps:@"public_not_following"]];
     
     homeDataSource.selectionBlock = publicDataSource.selectionBlock = ^(id entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
@@ -229,7 +227,19 @@
 }
 
 - (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
-    [self openCameraForWrap:self.homeDataSource.wrap animated:animated startFromGallery:startFromGallery showWrapPicker:showPicker];
+    WLWrap *wrap = nil;
+    if (self.dataSource.currentDataSource == self.publicDataSource) {
+        for (WLWrap *_wrap in [(WLPaginatedSet *)[self.publicDataSource items] entries]) {
+            if ([_wrap.contributors containsObject:[WLUser currentUser]]) {
+                wrap = _wrap;
+                break;
+            }
+        }
+    }
+    if (!wrap) {
+        wrap = self.homeDataSource.wrap;
+    }
+    [self openCameraForWrap:wrap animated:animated startFromGallery:startFromGallery showWrapPicker:showPicker];
 }
 
 - (void)openCameraForWrap:(WLWrap*)wrap animated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
@@ -283,36 +293,37 @@
     
     [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
         [receiver setDidAddBlock:^(WLWrap *wrap) {
-            if (wrap.requiresFollowing) {
+            if (wrap.isPublic) {
                 [(WLPaginatedSet *)[weakSelf.publicDataSource items] addEntry:wrap];
-            } else {
+            }
+            if ([wrap.contributors containsObject:[WLUser currentUser]]) {
                 [(WLPaginatedSet *)[weakSelf.homeDataSource items] addEntry:wrap];
             }
             weakSelf.collectionView.contentOffset = CGPointZero;
         }];
         [receiver setDidUpdateBlock:^(WLWrap *wrap) {
-            if (wrap.requiresFollowing) {
+            if (wrap.isPublic) {
                 WLPaginatedSet *publicWraps = (WLPaginatedSet *)[weakSelf.publicDataSource items];
                 if ([publicWraps.entries containsObject:wrap]) {
                     [publicWraps sort];
                 } else {
                     [publicWraps addEntry:wrap];
-                    [(WLPaginatedSet *)[weakSelf.homeDataSource items] removeEntry:wrap];
                 }
-            } else {
+            }
+            if ([wrap.contributors containsObject:[WLUser currentUser]]) {
                 WLPaginatedSet *wraps = (WLPaginatedSet *)[weakSelf.homeDataSource items];
                 if ([wraps.entries containsObject:wrap]) {
                     [wraps sort];
                 } else {
                     [wraps addEntry:wrap];
-                    [(WLPaginatedSet *)[weakSelf.publicDataSource items] removeEntry:wrap];
                 }
             }
         }];
         [receiver setWillDeleteBlock:^(WLWrap *wrap) {
-            if (wrap.requiresFollowing) {
+            if (wrap.isPublic) {
                 [(WLPaginatedSet *)[weakSelf.publicDataSource items] removeEntry:wrap];
-            } else {
+            }
+            if ([wrap.contributors containsObject:[WLUser currentUser]]) {
                 [(WLPaginatedSet *)[weakSelf.homeDataSource items] removeEntry:wrap];
             }
         }];

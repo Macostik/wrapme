@@ -10,40 +10,42 @@
 
 @interface UIColor (CustomColors)
 
-+ (UIColor*)r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b a:(CGFloat)a;
++ (instancetype)r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b a:(CGFloat)a;
 
-+ (UIColor*)r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b;
++ (instancetype)r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b;
 
-+ (UIColor*)gray:(CGFloat)value;
++ (instancetype)gray:(CGFloat)value;
 
-+ (UIColor*)WL_grayDarker;
++ (instancetype)WL_grayDarker;
 
-+ (UIColor*)WL_grayDark;
++ (instancetype)WL_grayDark;
 
-+ (UIColor*)WL_gray;
++ (instancetype)WL_gray;
 
-+ (UIColor*)WL_grayLight;
++ (instancetype)WL_grayLight;
 
-+ (UIColor*)WL_grayLighter;
++ (instancetype)WL_grayLighter;
 
-+ (UIColor*)WL_grayLightest;
++ (instancetype)WL_grayLightest;
 
-+ (UIColor*)WL_orangeDarker;
++ (instancetype)WL_orangeDarker;
 
-+ (UIColor*)WL_orangeDark;
++ (instancetype)WL_orangeDark;
 
-+ (UIColor*)WL_orange;
++ (instancetype)WL_orange;
 
-+ (UIColor*)WL_orangeLight;
++ (instancetype)WL_orangeLight;
 
-+ (UIColor*)WL_orangeLighter;
++ (instancetype)WL_orangeLighter;
 
-+ (UIColor *)colorWithHexString:(NSString *)str;
++ (instancetype)WL_dangerRed;
 
-- (UIColor *)colorByAddingValue:(CGFloat)value;
++ (instancetype)colorWithHexString:(NSString *)str;
 
-- (UIColor *)lighterColor;
+- (instancetype)colorByAddingValue:(CGFloat)value;
 
-- (UIColor *)darkerColor;
+- (instancetype)lighterColor;
+
+- (instancetype)darkerColor;
 
 @end

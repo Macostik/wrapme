@@ -195,7 +195,7 @@
     [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
     [self.uploadingView update];
     if (WLSession.numberOfLaunches >= 3 && [WLUser currentUser].wraps.count >= 3) {
-          [WLHintView showHomeSwipeTransitionHintViewInView:[UIWindow mainWindow]];
+        [WLHintView showHomeSwipeTransitionHintViewInView:[UIWindow mainWindow]];
     }
 }
 

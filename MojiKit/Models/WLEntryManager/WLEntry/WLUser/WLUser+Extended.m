@@ -20,16 +20,25 @@
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
-    BOOL firstTimeUse = [dictionary integerForKey:WLSignInCountKey] == 1;
-	if (self.firstTimeUse != firstTimeUse) self.firstTimeUse = firstTimeUse;
-    NSString* name = [dictionary stringForKey:WLNameKey];
-	if (!NSStringEqual(self.name, name)) self.name = name;
-    [self editPicture:[dictionary stringForKey:WLLargeAvatarKey]
-               medium:[dictionary stringForKey:WLMediumAvatarKey]
-                small:[dictionary stringForKey:WLSmallAvatarKey]];
     
-    if (dictionary[@"devices"]) {
-        NSSet* devices = [WLDevice API_entries:[dictionary arrayForKey:@"devices"] relatedEntry:self];
+    if (dictionary[WLSignInCountKey]) {
+        BOOL firstTimeUse = [dictionary integerForKey:WLSignInCountKey] == 1;
+        if (self.firstTimeUse != firstTimeUse) self.firstTimeUse = firstTimeUse;
+    }
+    
+    if (dictionary[WLNameKey]) {
+        NSString* name = [dictionary stringForKey:WLNameKey];
+        if (!NSStringEqual(self.name, name)) self.name = name;
+    }
+    
+    if (dictionary[WLSmallAvatarKey]) {
+        [self editPicture:[dictionary stringForKey:WLLargeAvatarKey]
+                   medium:[dictionary stringForKey:WLMediumAvatarKey]
+                    small:[dictionary stringForKey:WLSmallAvatarKey]];
+    }
+    
+    if (dictionary[WLDevicesKey]) {
+        NSSet* devices = [WLDevice API_entries:[dictionary arrayForKey:WLDevicesKey] relatedEntry:self];
         if (![self.devices isEqualToSet:devices]) {
             self.devices = devices;
             self.phones = nil;

@@ -22,28 +22,24 @@
 
 - (WLPicture *)edit:(NSString *)original large:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
     
-    WLPicture *(^changeBlock)(void) = ^WLPicture *{
-        WLPicture *picture = [self copy];
-        picture.small = small;
-        picture.original = original;
-        picture.medium = medium;
-        picture.large = large;
-        return picture;
-    };
-    
+    WLPicture *picture = self;
     if (original.nonempty && !NSStringEqual(self.original, original)) {
-        return changeBlock();
+        if (picture == self) picture = [self copy];
+        picture.original = original;
     }
     if (large.nonempty && !NSStringEqual(self.large, large)) {
-        return changeBlock();
+        if (picture == self) picture = [self copy];
+        picture.large = large;
     }
     if (medium.nonempty && !NSStringEqual(self.medium, medium)) {
-        return changeBlock();
+        if (picture == self) picture = [self copy];
+        picture.medium = medium;
     }
     if (small.nonempty && !NSStringEqual(self.small, small)) {
-        return changeBlock();
+        if (picture == self) picture = [self copy];
+        picture.small = small;
     }
-    return self;
+    return picture;
 }
 
 - (NSString *)original {

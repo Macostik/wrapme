@@ -97,41 +97,22 @@
 
 - (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
     
-    NSString* uploadIdentifier = [dictionary stringForKey:WLUploadUIDKey];
-    if (!NSStringEqual(self.uploadIdentifier, uploadIdentifier)) self.uploadIdentifier = uploadIdentifier;
+    if (dictionary[WLUploadUIDKey]) {
+        NSString* uploadIdentifier = [dictionary stringForKey:WLUploadUIDKey];
+        if (!NSStringEqual(self.uploadIdentifier, uploadIdentifier)) self.uploadIdentifier = uploadIdentifier;
+    }
     
-    [self parseContributor:dictionary];
+    if (dictionary[WLContributorKey]) {
+        WLUser *contributor = [WLUser API_entry:dictionary[WLContributorKey]];
+        if (self.contributor != contributor) self.contributor = contributor;
+    }
     
-    [self parseEditor:dictionary];
+    if (dictionary[WLEditorKey]) {
+        WLUser *editor = [WLUser API_entry:dictionary[WLEditorKey]];
+        if (self.editor != editor) self.editor = editor;
+    }
     
     return [super API_setup:dictionary relatedEntry:relatedEntry];
-}
-
-- (void)parseContributor:(NSDictionary*)dictionary {
-    NSString* identifier = [dictionary stringForKey:WLContributorUIDKey];
-    if (!identifier.nonempty) return;
-    WLUser* contributor = self.contributor;
-    if (!NSStringEqual(contributor.identifier, identifier)) {
-        contributor = [WLUser entry:identifier];
-        self.contributor = contributor;
-    }
-    NSString* name = [dictionary stringForKey:WLContributorNameKey];
-    if (!NSStringEqual(contributor.name, name)) contributor.name = name;
-    [contributor editPicture:[dictionary stringForKey:WLContributorLargeAvatarKey]
-                      medium:[dictionary stringForKey:WLContributorMediumAvatarKey]
-                       small:[dictionary stringForKey:WLContributorSmallAvatarKey]];
-}
-
-- (void)parseEditor:(NSDictionary*)dictionary {
-    NSString* identifier = [dictionary stringForKey:WLEditorUIDKey];
-    if (!identifier.nonempty) return;
-    WLUser* editor = self.editor;
-    if (!NSStringEqual(editor.identifier, identifier)) {
-        editor = [WLUser entry:identifier];
-        self.editor = editor;
-    }
-    NSDate* editedAt = [dictionary timestampDateForKey:WLEditedAtKey];
-    if (!NSDateEqual(self.editedAt, editedAt)) self.editedAt = editedAt;
 }
 
 - (BOOL)canBeUploaded {

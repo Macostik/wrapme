@@ -41,6 +41,7 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -2219,7 +2220,7 @@ Tap here to start.</string>
                                         <rect key="frame" x="15" y="0.0" width="290" height="44"/>
                                         <subviews>
                                             <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search contacts" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KDf-WU-v2H" customClass="WLTextField">
-                                                <rect key="frame" x="5" y="0.0" width="255" height="44"/>
+                                                <rect key="frame" x="5" y="0.0" width="258" height="44"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
@@ -2232,23 +2233,21 @@ Tap here to start.</string>
                                                     <outlet property="delegate" destination="2bk-UF-zkR" id="YuN-OU-bRE"/>
                                                 </connections>
                                             </textField>
-                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="Och-Dy-UMZ">
-                                                <rect key="frame" x="265" y="7" width="16" height="30"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="16" id="rW1-o1-eLh"/>
-                                                </constraints>
-                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwf-nR-0BI">
+                                                <rect key="frame" x="268" y="14" width="17" height="17"/>
+                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
+                                                <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="Och-Dy-UMZ" firstAttribute="top" secondItem="o6V-Vs-4xH" secondAttribute="top" constant="7" id="8ja-K3-VSu"/>
-                                            <constraint firstAttribute="bottom" secondItem="Och-Dy-UMZ" secondAttribute="bottom" constant="7" id="VKU-wM-qFI"/>
+                                            <constraint firstItem="qwf-nR-0BI" firstAttribute="leading" secondItem="KDf-WU-v2H" secondAttribute="trailing" constant="5" id="5Cp-ob-wjd"/>
+                                            <constraint firstAttribute="trailing" secondItem="qwf-nR-0BI" secondAttribute="trailing" constant="5" id="Tnf-vu-Cxd"/>
                                             <constraint firstItem="KDf-WU-v2H" firstAttribute="leading" secondItem="o6V-Vs-4xH" secondAttribute="leading" constant="5" id="ZLM-61-OS3"/>
-                                            <constraint firstAttribute="trailing" secondItem="Och-Dy-UMZ" secondAttribute="trailing" constant="9" id="dnO-9f-prS"/>
+                                            <constraint firstAttribute="centerY" secondItem="qwf-nR-0BI" secondAttribute="centerY" id="aTq-3D-Hxc"/>
                                             <constraint firstItem="KDf-WU-v2H" firstAttribute="top" secondItem="o6V-Vs-4xH" secondAttribute="top" id="f5H-br-LEn"/>
                                             <constraint firstAttribute="bottom" secondItem="KDf-WU-v2H" secondAttribute="bottom" id="gsI-EB-4uD"/>
-                                            <constraint firstAttribute="trailing" secondItem="KDf-WU-v2H" secondAttribute="trailing" constant="30" id="mag-61-JMa"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="Xap-NR-w7P" customClass="WLSeparatorView">
@@ -5437,7 +5436,6 @@ QWRkEEZyaWVuZFZpZXc
         <image name="ic_emoji" width="26" height="26"/>
         <image name="ic_emoji_keyboard" width="30" height="18"/>
         <image name="ic_photo_placeholder" width="60" height="48"/>
-        <image name="ic_search" width="16" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

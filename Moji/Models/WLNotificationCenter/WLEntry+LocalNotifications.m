@@ -21,7 +21,9 @@
     if (entry) {
         localNotification.userInfo = @{@"type":@(notification.type),@"entry":entry};
     }
-    localNotification.alertTitle = [self localNotificationAlertTitleForNotification:notification];
+    if ([localNotification respondsToSelector:@selector(setAlertTitle:)]) {
+        localNotification.alertTitle = [self localNotificationAlertTitleForNotification:notification];
+    }
     localNotification.alertBody = [self localNotificationAlertBodyForNotification:notification];
     localNotification.soundName = WLSoundFileName([self localNotificationSoundNameForNotification:notification]);
     localNotification.category = [self localNotificationCategoryForNotification:notification];

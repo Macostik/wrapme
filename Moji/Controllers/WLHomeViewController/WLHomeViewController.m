@@ -317,6 +317,11 @@
                 } else {
                     [wraps addEntry:wrap];
                 }
+            } else {
+                WLPaginatedSet *wraps = (WLPaginatedSet *)[weakSelf.homeDataSource items];
+                if ([wraps.entries containsObject:wrap]) {
+                    [wraps removeEntry:wrap];
+                }
             }
         }];
         [receiver setWillDeleteBlock:^(WLWrap *wrap) {

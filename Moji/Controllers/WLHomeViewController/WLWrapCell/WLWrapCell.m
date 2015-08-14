@@ -70,14 +70,23 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     self.dateLabel.text = WLString(wrap.updatedAt.timeAgoStringAtAMPM);
     self.coverView.url = [wrap.picture anyUrl];
     self.wrapNotificationLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:wrap];
-    NSUInteger messageConter = [[WLMessagesCounter instance] countForWrap:wrap];
-    self.chatNotificationLabel.intValue = messageConter;
-    BOOL hasUnreadMessages = messageConter > 0;
-    self.chatButton.hidden = !hasUnreadMessages;
-    self.nameLabel.horizontallyResistible = !hasUnreadMessages;
-    self.chatButton.horizontallyResistible = hasUnreadMessages;
-    self.chatNotificationLabel.horizontallyResistible = hasUnreadMessages;
-    self.coverView.followed = wrap.isPublic && [wrap.contributors containsObject:[WLUser currentUser]];
+    if (wrap.isPublic) {
+        self.chatNotificationLabel.intValue = 0;
+        self.chatButton.hidden = YES;
+        self.nameLabel.horizontallyResistible = YES;
+        self.chatButton.horizontallyResistible = NO;
+        self.chatNotificationLabel.horizontallyResistible = NO;
+        self.coverView.followed = [wrap.contributors containsObject:[WLUser currentUser]];
+    } else {
+        NSUInteger messageConter = [[WLMessagesCounter instance] countForWrap:wrap];
+        self.chatNotificationLabel.intValue = messageConter;
+        BOOL hasUnreadMessages = messageConter > 0;
+        self.chatButton.hidden = !hasUnreadMessages;
+        self.nameLabel.horizontallyResistible = !hasUnreadMessages;
+        self.chatButton.horizontallyResistible = hasUnreadMessages;
+        self.chatNotificationLabel.horizontallyResistible = hasUnreadMessages;
+        self.coverView.followed = NO;
+    }
 }
 
 - (IBAction)notifyChatClick:(id)sender {

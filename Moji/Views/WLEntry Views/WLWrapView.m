@@ -7,6 +7,7 @@
 //
 
 #import "WLWrapView.h"
+#import "UIView+QuartzCoreHelper.h"
 
 @implementation WLWrapView
 

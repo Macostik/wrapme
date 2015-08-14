@@ -7,10 +7,10 @@
 //
 
 #import "WLWrapSettingsViewController.h"
-#import "WLIconButton.h"
 #import "WLToast.h"
 #import "WLEditSession.h"
 #import "WLAlertView.h"
+#import "WLButton.h"
 
 static NSInteger WLIndent = 12.0;
 
@@ -18,8 +18,8 @@ static NSInteger WLIndent = 12.0;
 
 @property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *wrapNameTextField;
-@property (weak, nonatomic) IBOutlet WLIconButton *editButton;
-@property (weak, nonatomic) IBOutlet WLButton *actionButton;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (weak, nonatomic) IBOutlet UIButton *actionButton;
 @property (weak, nonatomic) IBOutlet UISwitch *candyNotifyTrigger;
 @property (weak, nonatomic) IBOutlet UISwitch *chatNotifyTrigger;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthTextFieldConstraint;
@@ -46,15 +46,15 @@ static NSInteger WLIndent = 12.0;
     self.chatNotifyTrigger.userInteractionEnabled = NO;
     
     __weak __typeof(self)weakSelf = self;
-        [[WLAPIRequest preferences:self.wrap] send:^(WLWrap *wrap) {
-            [weakSelf.candyNotifyTrigger setOn:wrap.isCandyNotifiable];
-            [weakSelf.chatNotifyTrigger setOn:wrap.isChatNotifiable];
-            weakSelf.candyNotifyTrigger.userInteractionEnabled = YES;
-            weakSelf.chatNotifyTrigger.userInteractionEnabled = YES;
-        } failure:^(NSError *error) {
-            weakSelf.candyNotifyTrigger.userInteractionEnabled = YES;
-            weakSelf.chatNotifyTrigger.userInteractionEnabled = YES;
-        }];
+    [[WLAPIRequest preferences:self.wrap] send:^(WLWrap *wrap) {
+        [weakSelf.candyNotifyTrigger setOn:wrap.isCandyNotifiable];
+        [weakSelf.chatNotifyTrigger setOn:wrap.isChatNotifiable];
+        weakSelf.candyNotifyTrigger.userInteractionEnabled = YES;
+        weakSelf.chatNotifyTrigger.userInteractionEnabled = YES;
+    } failure:^(NSError *error) {
+        weakSelf.candyNotifyTrigger.userInteractionEnabled = YES;
+        weakSelf.chatNotifyTrigger.userInteractionEnabled = YES;
+    }];
 }
 
 - (IBAction)handleAction:(WLButton *)sender {

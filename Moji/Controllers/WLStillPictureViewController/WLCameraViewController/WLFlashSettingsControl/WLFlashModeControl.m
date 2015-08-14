@@ -10,7 +10,6 @@
 #import "UIFont+CustomFonts.h"
 #import "UIColor+CustomColors.h"
 #import "WLButton.h"
-#import "WLIcon.h"
 
 @interface WLFlashModeControl ()
 
@@ -24,20 +23,20 @@
 
 @implementation WLFlashModeControl
 
-static inline NSAttributedString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
-    NSAttributedString *icon = nil;
+static inline NSString *WLFlashModeStringValue(AVCaptureFlashMode mode) {
+    NSString *icon = nil;
     switch (mode) {
         case AVCaptureFlashModeOn:
-            icon = [WLIcon iconWithName:@"flash-on"];
+            icon = @"d";
             break;
         case AVCaptureFlashModeOff:
-            icon = [WLIcon iconWithName:@"flash-off"];
+            icon = @"c";
             break;
         case AVCaptureFlashModeAuto:
-            icon = [WLIcon iconWithName:@"flash-auto"];
+            icon = @"b";
             break;
         default:
-            icon = [WLIcon iconWithName:@"flash-on"];
+            icon = @"d";
             break;
     }
     return icon;
@@ -56,12 +55,13 @@ static inline NSAttributedString *WLFlashModeStringValue(AVCaptureFlashMode mode
 	self.selecting = NO;
 }
 
-- (UIButton*)initializeButton:(NSAttributedString*)title action:(SEL)action {
+- (UIButton*)initializeButton:(NSString*)title action:(SEL)action {
 	CGRect frame = CGRectMake(0, 0, self.height, self.height);
 	WLButton* button = [WLButton buttonWithType:UIButtonTypeCustom];
+    button.titleLabel.font = [UIFont fontWithName:@"icons" size:24];
 	[button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
 	button.frame = frame;
-	[button setAttributedTitle:title forState:UIControlStateNormal];
+	[button setTitle:title forState:UIControlStateNormal];
 	[self addSubview:button];
 	return button;
 }
@@ -72,7 +72,7 @@ static inline NSAttributedString *WLFlashModeStringValue(AVCaptureFlashMode mode
 
 - (void)setMode:(AVCaptureFlashMode)mode animated:(BOOL)animated {
 	_mode = mode;
-	[self.currentModeButton setAttributedTitle:WLFlashModeStringValue(mode) forState:UIControlStateNormal];
+	[self.currentModeButton setTitle:WLFlashModeStringValue(mode) forState:UIControlStateNormal];
 }
 
 - (void)setSelecting:(BOOL)selecting {

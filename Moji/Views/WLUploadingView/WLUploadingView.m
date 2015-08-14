@@ -9,12 +9,11 @@
 #import "WLUploadingView.h"
 #import "WLUploadingQueue.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLIconButton.h"
 
 @interface WLUploadingView () <WLUploadingQueueReceiver, WLNetworkReceiver>
 
 @property (weak, nonatomic) IBOutlet UILabel* countLabel;
-@property (weak, nonatomic) IBOutlet WLIconButton* arrowIcon;
+@property (weak, nonatomic) IBOutlet UIButton* arrowIcon;
 
 @property (strong, nonatomic) CABasicAnimation* animation;
 
@@ -45,7 +44,7 @@
         self.countLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)queue.count];
         BOOL networkReachable = [WLNetwork network].reachable;
         self.backgroundColor = [(networkReachable ? WLColors.orange : WLColors.grayLight) colorWithAlphaComponent:0.8f];
-        self.arrowIcon.iconColor = self.backgroundColor;
+        [self.arrowIcon setTitleColor:self.backgroundColor forState:UIControlStateNormal];
         [self startAnimating];
     } else {
         [self stopAnimating];

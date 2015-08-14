@@ -7,6 +7,7 @@
 //
 
 #import "WLUserView.h"
+#import "UIView+QuartzCoreHelper.h"
 
 @implementation WLUserView
 

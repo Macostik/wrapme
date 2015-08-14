@@ -10,7 +10,6 @@
 #import "WLNavigationAnimator.h"
 #import "WLHintView.h"
 #import "WLNavigationHelper.h"
-#import "WLIconButton.h"
 #import "WLComposeBar.h"
 #import "WLAlertView.h"
 #import "WLToast.h"
@@ -20,7 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (weak, nonatomic) IBOutlet WLIconButton *editButton;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 

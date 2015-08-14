@@ -17,7 +17,6 @@
 #import "WLCircleImageView.h"
 #import "WLProgressBar+WLContribution.h"
 #import "NSString+Additions.h"
-#import "WLIconButton.h"
 #import "WLTextView.h"
 #import "WLFontPresetter.h"
 #import "WLWhatsUpEvent.h"

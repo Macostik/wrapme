@@ -16,4 +16,6 @@
 
 @property (nonatomic) IBInspectable CGFloat borderWidth;
 
+@property (nonatomic) IBInspectable BOOL circled;
+
 @end

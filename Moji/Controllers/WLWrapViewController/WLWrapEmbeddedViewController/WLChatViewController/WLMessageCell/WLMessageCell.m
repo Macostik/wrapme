@@ -13,7 +13,6 @@
 #import "UIFont+CustomFonts.h"
 #import "WLTextView.h"
 #import "UIImage+Drawing.h"
-#import "WLIconView.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLEntryStatusIndicator.h"
 #import "WLMenu.h"

@@ -10,6 +10,7 @@
 #import "WLAddressBook.h"
 #import "WLAddressBookPhoneNumberCell.h"
 #import "WLAddressBookPhoneNumber.h"
+#import "UIView+QuartzCoreHelper.h"
 
 @interface WLContactCell () <UITableViewDataSource, UITableViewDelegate, WLAddressBookPhoneNumberCellDelegate>
 

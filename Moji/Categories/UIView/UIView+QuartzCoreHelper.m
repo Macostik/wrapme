@@ -34,4 +34,12 @@
     self.layer.borderWidth = borderWidth;
 }
 
+- (void)setCircled:(BOOL)circled {
+    self.cornerRadius = circled ? self.bounds.size.height/2.0f : 0;
+}
+
+- (BOOL)circled {
+    return (self.cornerRadius == self.bounds.size.height/2.0f);
+}
+
 @end

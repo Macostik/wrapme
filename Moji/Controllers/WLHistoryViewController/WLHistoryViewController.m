@@ -10,7 +10,6 @@
 #import "WLButton.h"
 #import "WLTextView.h"
 #import "WLLabel.h"
-#import "WLIconButton.h"
 #import "WLEntryStatusIndicator.h"
 #import "WLHintView.h"
 #import "UIView+AnimationHelper.h"
@@ -44,10 +43,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLButton *commentButton;
-@property (weak, nonatomic) IBOutlet WLIconButton *actionButton;
-@property (weak, nonatomic) IBOutlet WLIconButton *editButton;
-@property (weak, nonatomic) IBOutlet WLIconButton *downloadButton;
-@property (weak, nonatomic) IBOutlet WLIconButton *drawButton;
+@property (weak, nonatomic) IBOutlet UIButton *actionButton;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (weak, nonatomic) IBOutlet UIButton *downloadButton;
+@property (weak, nonatomic) IBOutlet UIButton *drawButton;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *commentIndicator;
@@ -280,7 +279,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLCandy *candy = _candy;
     [candy markAsRead];
     [self.candyIndicator updateStatusIndicator:candy];
-    self.actionButton.iconName = candy.deletable ? @"trash" : @"warning";
+    [self.actionButton setTitle:candy.deletable ? @"n" : @"s" forState:UIControlStateNormal];
     [self setCommentButtonTitle:candy];
     [self setupBottomViewModeRelatedData:self.bottomViewMode candy:candy];
     self.lastComment = [candy latestComment];
@@ -414,7 +413,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     }];
 }
 
-- (IBAction)navigationButtonClick:(WLIconButton *)sender {
+- (IBAction)navigationButtonClick:(WLButton *)sender {
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         WLCandy *candy = weakSelf.candy;

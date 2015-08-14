@@ -36,10 +36,6 @@
 @property (nonatomic, readonly) CGPoint rightBottomBoundary;
 @property (nonatomic, readonly) CGPoint centerBoundary;
 
-@property (nonatomic) CGFloat cornerRadius;
-
-@property (nonatomic) BOOL circled;
-
 - (void)setY:(CGFloat)y height:(CGFloat)height;
 
 - (void)setX:(CGFloat)x width:(CGFloat)width;

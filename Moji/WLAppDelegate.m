@@ -35,10 +35,6 @@
 
 @implementation WLAppDelegate
 
-+ (void)initialize {
-    WLInitializeConstants();
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self registerUserNotificationSettings];

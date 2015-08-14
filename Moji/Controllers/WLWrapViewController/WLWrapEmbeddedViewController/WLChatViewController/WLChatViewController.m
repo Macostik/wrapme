@@ -407,7 +407,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)setBackgroundColorForView:(UIView*)view atIndexPath:(NSIndexPath*)indexPath {
     if (self.layout.unreadMessagesViewIndexPath) {
-        view.backgroundColor = indexPath.item <= self.layout.unreadMessagesViewIndexPath.item ? [UIColor WL_grayLightest] : [UIColor whiteColor];
+        view.backgroundColor = indexPath.item <= self.layout.unreadMessagesViewIndexPath.item ? WLColors.grayLightest : [UIColor whiteColor];
     } else {
         view.backgroundColor = [UIColor whiteColor];
     }
@@ -447,7 +447,7 @@ CGFloat WLMaxTextViewWidth;
         [self setBackgroundColorForView:view atIndexPath:indexPath];
     } else if ([kind isEqualToString:@"unreadMessagesView"]) {
         supplementaryView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"unreadMessagesView" forIndexPath:indexPath];
-        supplementaryView.backgroundColor = [UIColor WL_grayLightest];
+        supplementaryView.backgroundColor = WLColors.grayLightest;
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
          WLLoadingView *loadingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:WLLoadingViewIdentifier forIndexPath:indexPath];
         if (self.chat.wrap) {

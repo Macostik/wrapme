@@ -48,7 +48,7 @@
 - (void)hightlightAttributedViewsForControl:(UIControl *)control byColor:(UIColor *)color {
     for (UIView *attributedView in self.attributedViews) {
          [attributedView.subviews setValue:attributedView.superview.x == control.x ?
-                                            color : [UIColor WL_grayLighter] forKey:@"textColor"];
+                                            color : WLColors.grayLighter forKey:@"textColor"];
     }
 }
 
@@ -68,7 +68,7 @@ CGFloat beganTouchPointX = .0;
         case UIGestureRecognizerStateChanged: {
             CGPoint changePoint = [recognizer translationInView:self];
             [UIView performAnimated:YES animation:^{
-                [self hightlightAttributedViewsForControl:nil byColor:[UIColor WL_grayLighter]];
+                [self hightlightAttributedViewsForControl:nil byColor:WLColors.grayLighter];
                 self.leadingSliceViewConstraint.constant = beganTouchPointX + changePoint.x - self.sliceView.width/2;
                 [self.sliceView layoutIfNeeded];
             }];

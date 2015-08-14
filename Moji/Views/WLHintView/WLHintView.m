@@ -41,7 +41,7 @@
     
     hintView.frame = view.frame;
     
-    hintView.gotItButton.layer.borderColor = [UIColor WL_grayDark].CGColor;
+    hintView.gotItButton.layer.borderColor = WLColors.grayDark.CGColor;
     
     [view addSubview:hintView];
     

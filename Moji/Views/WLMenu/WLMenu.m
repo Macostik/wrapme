@@ -39,7 +39,7 @@
     button.titleLabel.font = [UIFont fontWithName:@"icons" size:21];
     [button setTitle:item.text forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor WL_grayLight] forState:UIControlStateHighlighted];
+    [button setTitleColor:WLColors.grayLight forState:UIControlStateHighlighted];
     button.layer.cornerRadius = button.bounds.size.width/2;
     return button;
 }

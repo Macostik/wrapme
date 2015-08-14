@@ -38,7 +38,7 @@
     UIColor* color = nil;
     
     if (_type == WLCameraAdjustmentTypeCombined) {
-        color = [[UIColor WL_orange] colorWithAlphaComponent:0.5f];
+        color = [WLColors.orange colorWithAlphaComponent:0.5f];
     } else if (_type == WLCameraAdjustmentTypeFocus) {
         color = [[UIColor greenColor] colorWithAlphaComponent:0.5f];
     } else {

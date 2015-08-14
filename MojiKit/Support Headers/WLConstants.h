@@ -16,7 +16,8 @@ typedef struct {
 
 WLConstantsStruct WLConstants;
 
-static inline void WLInitializeConstants (void) {
+__attribute__((constructor))
+static void WLInitializeConstants (void) {
     WLConstants = (WLConstantsStruct) {
         .pixelSize = 1.0f / ([UIScreen mainScreen].scale < 2 ? : 2),
         .screenWidth = [UIScreen mainScreen].bounds.size.width,

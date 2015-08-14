@@ -9,6 +9,28 @@
 #import "UIColor+CustomColors.h"
 #import "NSString+Additions.h"
 
+WLColorCollection *WLColors = nil;
+
+__attribute__((constructor))
+static void WLCreateColors() {
+    WLColorCollection *collection = [[WLColorCollection alloc] init];
+    collection.grayDarker = [UIColor colorWithHex:0x222222];
+    collection.grayDark = [UIColor colorWithHex:0x333333];
+    collection.gray = [UIColor colorWithHex:0x555555];
+    collection.grayLight = [UIColor colorWithHex:0x777777];
+    collection.grayLighter = [UIColor colorWithHex:0x999999];
+    collection.grayLightest = [UIColor colorWithHex:0xeeeeee];
+    collection.orangeDarker = [UIColor colorWithHex:0xa13e00];
+    collection.orangeDark = [UIColor colorWithHex:0xcb5309];
+    collection.orange = [UIColor colorWithHex:0xf37526];
+    collection.orangeLight = [UIColor colorWithHex:0xff9350];
+    collection.orangeLighter = [UIColor colorWithHex:0xffac79];
+    collection.dangerRed = [UIColor colorWithHex:0xd9534f];
+    WLColors = collection;
+}
+
+@implementation WLColorCollection @end
+
 @implementation UIColor (CustomColors)
 
 + (instancetype)r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b a:(CGFloat)a {
@@ -21,54 +43,6 @@
 
 + (instancetype)gray:(CGFloat)value {
     return [self r:value g:value b:value];
-}
-
-+ (instancetype)WL_grayDarker {
-    return [self colorWithHex:0x222222];
-}
-
-+ (instancetype)WL_grayDark {
-    return [self colorWithHex:0x333333];
-}
-
-+ (instancetype)WL_gray {
-    return [self colorWithHex:0x555555];
-}
-
-+ (instancetype)WL_grayLight {
-    return [self colorWithHex:0x777777];
-}
-
-+ (instancetype)WL_grayLighter {
-    return [self colorWithHex:0x999999];
-}
-
-+ (instancetype)WL_grayLightest {
-    return [self colorWithHex:0xeeeeee];
-}
-
-+ (instancetype)WL_orangeDarker {
-    return [self colorWithHex:0xa13e00];
-}
-
-+ (instancetype)WL_orangeDark {
-    return [self colorWithHex:0xcb5309];
-}
-
-+ (instancetype)WL_orange {
-    return [self colorWithHex:0xf37526];
-}
-
-+ (instancetype)WL_orangeLight {
-    return [self colorWithHex:0xff9350];
-}
-
-+ (instancetype)WL_orangeLighter {
-    return [self colorWithHex:0xffac79];
-}
-
-+ (instancetype)WL_dangerRed {
-    return [self colorWithHex:0xd9534f];
 }
 
 + (instancetype)colorWithHexString:(NSString *)str {
@@ -84,7 +58,7 @@
     unsigned char b = col & 0xFF;
     unsigned char g = (col >> 8) & 0xFF;
     unsigned char r = (col >> 16) & 0xFF;
-    return [self colorWithRed:(float)r/255.0f green:(float)g/255.0f blue:(float)b/255.0f alpha:1];
+    return [self r:(float)r g:(float)g b:(float)b];
 }
 
 - (instancetype)colorByAddingValue:(CGFloat)value {

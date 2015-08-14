@@ -40,7 +40,7 @@
     layer.rasterizationScale = [UIScreen mainScreen].scale;
     layer.shouldRasterize = YES;
     layer.fillColor = [UIColor clearColor].CGColor;
-    layer.strokeColor = [UIColor WL_orange].CGColor;
+    layer.strokeColor = WLColors.orange.CGColor;
     layer.strokeStart = layer.strokeEnd = 0.0f;
     CGSize size = self.bounds.size;
     UIBezierPath *path = [UIBezierPath bezierPath];

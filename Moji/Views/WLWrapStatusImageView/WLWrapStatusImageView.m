@@ -15,7 +15,7 @@
     _followed = followed;
     self.statusView.hidden = !followed;
     self.borderWidth = followed ? 2 : 0;
-    self.borderColor = followed ? [UIColor WL_dangerRed] : nil;
+    self.borderColor = followed ? WLColors.dangerRed : nil;
 }
 
 @end

@@ -73,7 +73,6 @@
 }
 
 - (void)viewDidLoad {
-    
     [self.collectionView registerNib:[UINib nibWithNibName:@"WLHottestMojiHeader" bundle:nil] forSupplementaryViewOfKind:@"WLHottestMojiHeader" withReuseIdentifier:@"WLHottestMojiHeader"];
     UICollectionView *collectionView = self.collectionView;
     [self.dataSource setRefreshable];

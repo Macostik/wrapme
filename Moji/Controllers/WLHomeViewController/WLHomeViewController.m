@@ -273,7 +273,7 @@
     WLWrapViewController *wrapViewController = [WLWrapViewController instantiate:self.storyboard];
     if (wrapViewController && wrap.valid) {
         wrapViewController.wrap = wrap;
-        wrapViewController.selectedSegment = WLSegmentControlStateChat;
+        wrapViewController.segment = WLWrapSegmentChat;
         [self.navigationController pushViewController:wrapViewController animated:YES];
     }
 }

@@ -61,12 +61,10 @@
         return;
     }
     
+    [self.segmentedControl deselect];
+    
     [self.publicWrapImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     [self.publicWrapImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
-    
-    if (!self.selectedSegment) {
-        [self photosTabSelected:nil];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -75,15 +73,14 @@
         [self updateWrapData];
         [self updateMessageCouter];
         [self updateCandyCounter];
-        [self viewShowed];
+        [self updateSegmentIfNeeded];
     }
 }
 
-- (void)viewShowed {
-    if (self.selectedSegment != self.segmentedControl.selectedSegment) {
-        [self.segmentedControl setSelectedSegment:self.selectedSegment];
-        id segment = [self.segmentedControl controlForSegment:self.selectedSegment];
-        [segment sendActionsForControlEvents:UIControlEventTouchUpInside];
+- (void)updateSegmentIfNeeded {
+    if (self.segment != self.segmentedControl.selectedSegment) {
+        self.segmentedControl.selectedSegment = self.segment;
+        [self segmentChanged:self.segmentedControl];
     }
 }
 
@@ -143,7 +140,7 @@
             return weakSelf.wrap;
         }];
         [receiver setDidAddBlock:^(WLCandy *candy) {
-            if ([weakSelf isViewLoaded] && weakSelf.selectedSegment == WLSegmentControlStatePhotos) {
+            if ([weakSelf isViewLoaded] && weakSelf.segment == WLWrapSegmentPhotos) {
                 [candy markAsRead];
             }
         }];
@@ -154,21 +151,16 @@
     [[WLMessagesCounter instance] addReceiver:self];
 }
 
-- (IBAction)photosTabSelected:(id)sender {
-    self.selectedSegment = WLSegmentControlStatePhotos;
-    self.viewController = [self controllerForClass:[WLPhotosViewController class] badge:self.candyCountLabel];
-}
-
-- (IBAction)chatTabSelected:(id)sender {
-    self.selectedSegment = WLSegmentControlStateChat;
-    self.viewController = [self controllerForClass:[WLChatViewController class] badge:self.messageCountLabel];
-    [self updateCandyCounter];
-}
-
-- (IBAction)friendsTabSelected:(id)sender {
-    self.selectedSegment = WLSegmentControlStateFriend;
-    self.viewController = [self controllerForClass:[WLContributorsViewController class] badge:nil];
-    [self updateCandyCounter];
+- (IBAction)segmentChanged:(WLSegmentedControl*)sender {
+    NSUInteger selectedSegment = self.segment = sender.selectedSegment;
+    if (selectedSegment == WLWrapSegmentPhotos) {
+        self.viewController = [self controllerForClass:[WLPhotosViewController class] badge:self.candyCountLabel];
+    } else if (selectedSegment == WLWrapSegmentChat) {
+        self.viewController = [self controllerForClass:[WLChatViewController class] badge:self.messageCountLabel];
+    } else {
+        self.viewController = [self controllerForClass:[WLContributorsViewController class] badge:nil];
+        [self updateCandyCounter];
+    }
 }
 
 - (IBAction)follow:(WLButton*)sender {
@@ -219,17 +211,13 @@
 }
 
 - (WLWrapEmbeddedViewController *)controllerForClass:(Class)class badge:(WLBadgeLabel*)badge {
-    WLWrapEmbeddedViewController *viewController = nil;
-    for (WLWrapEmbeddedViewController *createdViewController in self.childViewControllers) {
-        if ([createdViewController.class isEqual:class]) {
-            viewController = createdViewController;
-        }
-    }
+    WLWrapEmbeddedViewController *viewController = [self.childViewControllers select:^BOOL(WLWrapEmbeddedViewController *controller) {
+        return controller.class == class;
+    }];
     if (viewController == nil) {
         viewController = [class instantiate:self.storyboard];
         viewController.wrap = self.wrap;
         viewController.delegate = self;
-        viewController.view.frame = self.containerView.bounds;
         [self addChildViewController:viewController];
         [viewController didMoveToParentViewController:self];
     }
@@ -259,7 +247,7 @@
 // MARK: - WLMessagesCounterReceiver
 
 - (void)counterDidChange:(WLMessagesCounter *)counter {
-    if (self.selectedSegment != WLSegmentControlStateChat) {
+    if (self.segment != WLWrapSegmentChat) {
         self.messageCountLabel.intValue = [counter countForWrap:self.wrap];
     }
 }

@@ -8,9 +8,16 @@
 
 #import "WLBaseViewController.h"
 
+typedef NS_OPTIONS(NSUInteger, WLWrapSegment) {
+    WLWrapSegmentPhotos,
+    WLWrapSegmentChat,
+    WLWrapSegmentFriend
+};
+
 @interface WLWrapViewController : WLBaseViewController
 
 @property (weak, nonatomic) WLWrap* wrap;
-@property (assign, nonatomic) NSUInteger selectedSegment;
+
+@property (nonatomic) WLWrapSegment segment;
 
 @end

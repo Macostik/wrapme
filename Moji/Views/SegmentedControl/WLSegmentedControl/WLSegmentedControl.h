@@ -8,12 +8,6 @@
 
 #import "SegmentedControl.h"
 
-typedef NS_OPTIONS(NSUInteger, WLSegmentControlState) {
-    WLSegmentControlStatePhotos,
-    WLSegmentControlStateChat,
-    WLSegmentControlStateFriend
-};
-
 @interface WLSegmentedControl : SegmentedControl
 
 @end

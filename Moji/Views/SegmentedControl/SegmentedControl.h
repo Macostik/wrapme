@@ -26,14 +26,12 @@
 
 @property (nonatomic) NSInteger selectedSegment;
 
-@property (nonatomic) BOOL selectionOnTouchUp;
+@property (nonatomic) UIControlEvents selectionEvent;
 
 - (void)deselect;
 
 - (void)setEnabled:(BOOL)enabled segment:(NSInteger)segment;
 
 - (UIControl*)controlForSegment:(NSInteger)segment;
-
-- (void)setSelectedControl:(UIControl*)control;
 
 @end

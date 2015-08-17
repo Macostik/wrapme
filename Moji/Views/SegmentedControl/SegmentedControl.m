@@ -13,12 +13,17 @@
 @interface SegmentedControl ()
 
 @property (nonatomic, strong) NSArray* controls;
-@property (nonatomic, weak) IBOutlet UIView* selectionView;
 
 @end
 
 @implementation SegmentedControl {
 	BOOL _horizontal;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.selectionEvent = UIControlEventTouchDown;
+    [self setup];
 }
 
 - (NSArray*)controls {
@@ -44,8 +49,7 @@
 	UIControl* previousControl = nil;
 	
 	for (UIControl* control in controls) {
-		[control addTarget:self action:@selector(selectSegmentTap:) forControlEvents:UIControlEventTouchDown];
-		[control addTarget:self action:@selector(selectSegmentTouchUp:) forControlEvents:UIControlEventTouchUpInside];
+		[control addTarget:self action:@selector(selectSegmentTap:) forControlEvents:self.selectionEvent];
 		
 		dx += (control.frame.origin.x - previousControl.frame.origin.x);
 		dy += (control.frame.origin.y - previousControl.frame.origin.y);
@@ -58,33 +62,21 @@
 	self.selectedSegment = 0;
 }
 
+- (void)setSelectionEvent:(UIControlEvents)selectionEvent {
+    for (UIControl* control in self.controls) {
+        [control removeTarget:self action:@selector(selectSegmentTap:) forControlEvents:_selectionEvent];
+        [control addTarget:self action:@selector(selectSegmentTap:) forControlEvents:selectionEvent];
+    }
+    _selectionEvent = selectionEvent;
+}
+
 - (void)setSelectedSegment:(NSInteger)selectedSegment {
 	[self setSelectedControl:[self controlForSegment:selectedSegment]];
 }
 
 - (void)setSelectedControl:(UIControl*)control {
-	
-	[self.selectionView fadeWithDuration:0.2 delegate:nil];
-	
-	self.selectionView.hidden = YES;
-	
 	for (UIControl* _control in self.controls) {
 		_control.selected = (_control == control);
-		
-		if (self.selectionView != nil && _control.selected) {
-			
-			self.selectionView.hidden = NO;
-			
-			CGRect frame = self.selectionView.frame;
-			
-			if (_horizontal) {
-				frame.origin.x = (CGRectGetMidX(_control.frame) - frame.size.width/2.0f);
-			} else {
-				frame.origin.y = (CGRectGetMidY(_control.frame) - frame.size.height/2.0f);
-			}
-			
-			self.selectionView.frame = frame;
-		}
 	}
 }
 
@@ -94,15 +86,11 @@
 	}];
 }
 
-- (void)awakeFromNib {
-	[self setup];
-}
-
 - (void)handleTap:(UIControl*)sender {
 	NSArray* controls = self.controls;
 	NSUInteger index = [controls indexOfObject:sender];
 	
-	if (index != NSNotFound) {
+	if (index != NSNotFound && !sender.selected) {
 
 		if ([self.delegate respondsToSelector:@selector(segmentedControl:shouldSelectSegment:)]) {
 			if (![self.delegate segmentedControl:self shouldSelectSegment:index]) {
@@ -121,15 +109,7 @@
 }
 
 - (void)selectSegmentTap:(UIControl*)sender {
-	if (!self.selectionOnTouchUp) {
-		[self handleTap:sender];
-	}
-}
-
-- (void)selectSegmentTouchUp:(UIControl*)sender {
-	if (self.selectionOnTouchUp) {
-		[self handleTap:sender];
-	}
+	[self handleTap:sender];
 }
 
 - (void)setEnabled:(BOOL)enabled segment:(NSInteger)segment {

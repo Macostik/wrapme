@@ -116,7 +116,7 @@
     if (wrap) {
         WLWrapViewController* controller = [WLWrapViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
         controller.wrap = wrap;
-        controller.selectedSegment = WLSegmentControlStateChat;
+        controller.segment = WLWrapSegmentChat;
         return controller;
     }
     return nil;
@@ -125,7 +125,7 @@
 - (BOOL)isValidViewController:(UIViewController *)controller {
     if (![controller isKindOfClass:[WLWrapViewController class]]) return NO;
     if ([(WLWrapViewController*)controller wrap] != self.wrap) return NO;
-    if (([(id)controller selectedSegment] != WLSegmentControlStateChat)) return NO;
+    if (([(WLWrapViewController*)controller segment] != WLWrapSegmentChat)) return NO;
     return YES;
 }
 

@@ -1,26 +1,29 @@
 //
-//  WLDrawingView.m
-//  moji
+//  WLDrawingViewController.m
+//  Moji
 //
-//  Created by Ravenpod on 6/23/15.
+//  Created by Sergey Maximenko on 8/17/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLDrawingView.h"
+#import "WLDrawingViewController.h"
 #import "WLButton.h"
 #import "WLDrawingCanvas.h"
 #import "WLDrawingSession.h"
 #import "WLColorPicker.h"
 #import "UIView+LayoutHelper.h"
+#import "WLNavigationHelper.h"
 
-@interface WLDrawingView () <WLDrawingSessionDelegate, WLColorPickerDelegate, WLDrawingViewDelegate>
+@interface WLDrawingViewController () <WLDrawingSessionDelegate, WLColorPickerDelegate, WLDrawingViewControllerDelegate>
 
 @property (strong, nonatomic) WLDrawingSession *session;
-@property (weak, nonatomic) WLDrawingCanvas *canvas;
+@property (weak, nonatomic) IBOutlet WLDrawingCanvas *canvas;
 @property (weak, nonatomic) IBOutlet UIButton *undoButton;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet WLDrawingCanvas *brushCanvas;
 @property (weak, nonatomic) IBOutlet UIView *colorsView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *canvasHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *canvasWidth;
 
 @property (strong, nonatomic) NSArray* colors;
 
@@ -30,25 +33,37 @@
 
 @end
 
-@implementation WLDrawingView
+@implementation WLDrawingViewController
 
-- (void)showInView:(UIView *)view {
-    self.frame = view.bounds;
-    [view addSubview:self];
-    [view makeResizibleSubview:self];
++ (instancetype)draw:(UIImage *)image inViewController:(UIViewController *)controller finish:(WLImageBlock)finish {
+    WLDrawingViewController *drawingViewController = [[WLDrawingViewController alloc] init];
+    [drawingViewController setImage:image done:^(UIImage *image) {
+        if (finish) finish(image);
+        [controller dismissViewControllerAnimated:NO completion:nil];
+    } cancel:^{
+        [controller dismissViewControllerAnimated:NO completion:nil];
+    }];
+    [controller presentViewController:drawingViewController animated:NO completion:nil];
+    return drawingViewController;
 }
 
-- (void)setImage:(UIImage *)image {
-    self.imageView.image = image;
+- (instancetype)init {
+    return [self initWithNibName:@"WLDrawingViewController" bundle:nil];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.imageView.image = self.image;
     self.imageView.userInteractionEnabled = YES;
-    CGRect drawingRect = CGRectThatFitsSize(self.imageView.size, self.imageView.image.size);
-    WLDrawingCanvas* canvas = [[WLDrawingCanvas alloc] initWithFrame:drawingRect];
-    self.canvas = canvas;
-    canvas.opaque = NO;
-    canvas.backgroundColor = [UIColor clearColor];
-    [self.imageView addSubview:canvas];
-    [self.imageView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:canvas action:@selector(panning:)]];
-    [canvas addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:canvas action:@selector(panning:)]];
+    CGSize drawingSize = CGSizeThatFitsSize(self.imageView.size, self.image.size);
+    self.canvasWidth.constant = drawingSize.width;
+    self.canvasHeight.constant = drawingSize.height;
+    [self.canvas setNeedsLayout];
     
     self.session = self.canvas.session;
     self.session.delegate = self;
@@ -66,8 +81,8 @@
 }
 
 - (IBAction)cancel:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(drawingViewDidCancel:)]) {
-        [self.delegate drawingViewDidCancel:self];
+    if ([self.delegate respondsToSelector:@selector(drawingViewControllerDidCancel:)]) {
+        [self.delegate drawingViewControllerDidCancel:self];
     }
 }
 
@@ -95,6 +110,11 @@
     }
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self updateBrushView];
+}
+
 - (void)updateBrushView {
     WLDrawingSession *session = self.brushCanvas.session;
     [session erase];
@@ -111,13 +131,13 @@
 }
 
 - (IBAction)finish:(WLButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(drawingView:didFinishWithImage:)]) {
+    if ([self.delegate respondsToSelector:@selector(drawingViewController:didFinishWithImage:)]) {
         __weak typeof(self)weakSelf = self;
         
         UIImage *image = self.imageView.image;
         
         if (self.session.empty) {
-            [self.delegate drawingViewDidCancel:self];
+            [self.delegate drawingViewControllerDidCancel:self];
             return;
         }
         
@@ -127,7 +147,7 @@
             CGContextScaleCTM(UIGraphicsGetCurrentContext(), size.width / weakSelf.canvas.width, size.height / weakSelf.canvas.height);
             [weakSelf.session render];
         }];
-        [self.delegate drawingView:self didFinishWithImage:image];
+        [self.delegate drawingViewController:self didFinishWithImage:image];
     }
 }
 
@@ -151,13 +171,13 @@
 
 // MARK: - WLDrawingViewDelegate
 
-- (void)drawingViewDidCancel:(WLDrawingView *)view {
+- (void)drawingViewControllerDidCancel:(WLDrawingViewController *)controller {
     if (self.cancelBlock) {
         self.cancelBlock();
     }
 }
 
-- (void)drawingView:(WLDrawingView *)view didFinishWithImage:(UIImage *)image {
+- (void)drawingViewController:(WLDrawingViewController *)controller didFinishWithImage:(UIImage *)image {
     if (self.doneBlock) {
         self.doneBlock(image);
     }

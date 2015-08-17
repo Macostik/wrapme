@@ -47,6 +47,7 @@
 - (UIImageView *)imageView {
     if (!_imageView) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.frame];
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
         [self.superview insertSubview:imageView belowSubview:self];
         [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
         [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];

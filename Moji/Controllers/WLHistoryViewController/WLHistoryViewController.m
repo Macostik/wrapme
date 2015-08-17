@@ -25,7 +25,7 @@
 #import "WLCommentsViewController.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLAlertView.h"
-#import "WLDrawingView.h"
+#import "WLDrawingViewController.h"
 #import "UIView+LayoutHelper.h"
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLFollowingViewController.h"
@@ -70,6 +70,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) WLCandy* removedCandy;
 
 @property (nonatomic) WLHistoryBottomViewMode bottomViewMode;
+
+@property (nonatomic) BOOL disableRotation;
 
 @end
 
@@ -454,14 +456,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         WLCandy *candy = weakSelf.candy;
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
-            __weak WLDrawingView *drawingView = [WLDrawingView loadFromNib];
-            [drawingView showInView:weakSelf.view];
-            [drawingView layoutIfNeeded];
-            [drawingView setImage:image done:^(UIImage *image) {
+            [WLDrawingViewController draw:image inViewController:weakSelf finish:^(UIImage *image) {
                 [candy editWithImage:image];
-                [drawingView removeFromSuperview];
-            } cancel:^{
-                [drawingView removeFromSuperview];
             }];
         } failure:^(NSError *error) {
             [error show];
@@ -581,7 +577,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 #pragma mark - WLDeviceOrientationBroadcastReceiver
 
 - (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAll;
+    return self.disableRotation ? [super supportedInterfaceOrientations] : UIInterfaceOrientationMaskAll;
 }
 
 @end

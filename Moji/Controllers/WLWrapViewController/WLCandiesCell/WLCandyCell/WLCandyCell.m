@@ -16,8 +16,8 @@
 #import "WLUploadPhotoViewController.h"
 #import "WLAlertView.h"
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
-#import "WLDrawingView.h"
 #import "WLNavigationHelper.h"
+#import "WLDrawingViewController.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 
@@ -54,14 +54,8 @@
                 
                 [menu addDrawPhotoItem:^(WLCandy *candy) {
                     [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
-                        __weak WLDrawingView *drawingView = [WLDrawingView loadFromNib];
-                        [drawingView showInView:[UIWindow mainWindow]];
-                        [drawingView layoutIfNeeded];
-                        [drawingView setImage:image done:^(UIImage *image) {
+                        [WLDrawingViewController draw:image inViewController:[UIWindow mainWindow].rootViewController finish:^(UIImage *image) {
                             [candy editWithImage:image];
-                            [drawingView removeFromSuperview];
-                        } cancel:^{
-                            [drawingView removeFromSuperview];
                         }];
                     } failure:^(NSError *error) {
                         [error show];

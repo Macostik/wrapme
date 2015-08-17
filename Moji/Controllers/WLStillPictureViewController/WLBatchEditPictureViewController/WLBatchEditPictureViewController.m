@@ -17,11 +17,11 @@
 #import "WLToast.h"
 #import "WLHintView.h"
 #import "UIButton+Additions.h"
-#import "WLDrawingView.h"
+#import "WLDrawingViewController.h"
 #import "UIView+LayoutHelper.h"
 #import "UIScrollView+Additions.h"
 
-@interface WLBatchEditPictureViewController () <WLComposeBarDelegate, WLDrawingViewDelegate>
+@interface WLBatchEditPictureViewController () <WLComposeBarDelegate>
 
 @property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
 
@@ -258,12 +258,16 @@
     [self.composeBar resignFirstResponder];
     UIImage *image = [(WLEditPictureViewController*)self.viewController imageView].image;
     if (image) {
-        WLDrawingView *drawingView = [WLDrawingView loadFromNib];
-        [drawingView showInView:self.view];
-        drawingView.bottomViewHeightConstraint.constant = self.bottomView.height;
-        [drawingView layoutIfNeeded];
-        drawingView.delegate = self;
-        [drawingView setImage:image];
+        __weak typeof(self)weakSelf = self;
+        WLDrawingViewController *drawingViewController = [[WLDrawingViewController alloc] init];
+        drawingViewController.bottomViewHeightConstraint.constant = self.bottomView.height;
+        [drawingViewController setImage:image done:^(UIImage *image) {
+            [weakSelf editCurrentPictureWithImage:image];
+            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+        } cancel:^{
+            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+        }];
+        [weakSelf presentViewController:drawingViewController animated:NO completion:nil];
     }
 }
 
@@ -280,17 +284,6 @@
 
 - (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
     return (keyboardHeight - self.bottomView.height);
-}
-
-// MARK: - WLDrawingViewDelegate
-
-- (void)drawingViewDidCancel:(WLDrawingView *)view {
-    [view removeFromSuperview];
-}
-
-- (void)drawingView:(WLDrawingView *)view didFinishWithImage:(UIImage *)image {
-    [view removeFromSuperview];
-    [self editCurrentPictureWithImage:image];
 }
 
 @end

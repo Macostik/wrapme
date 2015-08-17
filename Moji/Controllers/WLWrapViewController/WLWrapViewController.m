@@ -206,8 +206,12 @@
         [_viewController.view removeFromSuperview];
     }
     _viewController = viewController;
-    [self.containerView addSubview:viewController.view];
-    [self.containerView makeResizibleSubview:viewController.view];
+    UIView *view = viewController.view;
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    view.frame = self.containerView.bounds;
+    [self.containerView addSubview:view];
+    [self.containerView makeResizibleSubview:view];
+    [self.view setNeedsLayout];
 }
 
 - (WLWrapEmbeddedViewController *)controllerForClass:(Class)class badge:(WLBadgeLabel*)badge {

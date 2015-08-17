@@ -453,7 +453,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     __weak __typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         WLCandy *candy = weakSelf.candy;
-        [self downloadCandyOriginal:candy success:^(UIImage *image) {
+        [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
             __weak WLDrawingView *drawingView = [WLDrawingView loadFromNib];
             [drawingView showInView:weakSelf.view];
             [drawingView layoutIfNeeded];

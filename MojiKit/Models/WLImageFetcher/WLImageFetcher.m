@@ -125,7 +125,9 @@
         completion(image, YES);
     } else {
         run_getting_object(^id{
-            return [UIImage imageWithContentsOfFile:url];
+            NSData *data = [NSData dataWithContentsOfFile:url];
+            UIImage *image = [UIImage imageWithData:data];
+            return image;
         }, ^ (UIImage* image) {
             [WLSystemImageCache setImage:image withIdentifier:url];
             completion(image, NO);

@@ -142,7 +142,7 @@
             return YES;
             break;
         case WLContributionStatusInProgress: {
-            if (failure) failure(WLError(WLLS(@"Upload in progress. Please edit the photo after upload is complete.")));
+            if (failure) failure(WLError(WLLS(@"photo_is_uploading")));
             return NO;
         } break;
         case WLContributionStatusFinished: {

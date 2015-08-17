@@ -39,6 +39,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.imageView setImageName:@"default-large-avatar" forState:WLImageViewStateEmpty];
+    [self.imageView setImageName:@"default-large-avatar" forState:WLImageViewStateFailed];
     [self updateState];
 }
 

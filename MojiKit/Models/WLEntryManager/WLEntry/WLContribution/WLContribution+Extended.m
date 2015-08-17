@@ -112,6 +112,9 @@
         if (self.editor != editor) self.editor = editor;
     }
     
+    NSDate* editedAt = [dictionary timestampDateForKey:WLEditedAtKey];
+    if (!NSDateEqual(self.editedAt, editedAt)) self.editedAt = editedAt;
+    
     return [super API_setup:dictionary relatedEntry:relatedEntry];
 }
 

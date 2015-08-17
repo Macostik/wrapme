@@ -24,11 +24,11 @@
 
 + (NSDictionary*)environments {
     return @{WLAPIEnvironmentLocal:@{@"endpoint":@"http://0.0.0.0:3000/api",
-                                           @"version":@"6"},
+                                           @"version":@"7"},
              WLAPIEnvironmentQA:@{@"endpoint":@"https://qa-api.mojimojiapp.com/api",
-                                  @"version":@"6"},
+                                  @"version":@"7"},
              WLAPIEnvironmentProduction:@{@"endpoint":@"https://prd-api.mojimojiapp.com/api",
-                                          @"version":@"6"}};
+                                          @"version":@"7"}};
 }
 
 + (instancetype)environmentNamed:(NSString *)name {

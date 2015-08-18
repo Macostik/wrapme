@@ -8,7 +8,6 @@
 
 #import "WLOperationQueue.h"
 #import "UIFont+CustomFonts.h"
-#import "UILabel+Additions.h"
 #import "UIView+AnimationHelper.h"
 #import "WLCandyViewController.h"
 #import "WLHomeDataSource.h"

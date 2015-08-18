@@ -481,12 +481,12 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ok-gy-eVo">
-                                <rect key="frame" x="8" y="108" width="50" height="44"/>
+                                <rect key="frame" x="12" y="108" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="8v5-RJ-m1m"/>
-                                    <constraint firstAttribute="width" constant="50" id="EqN-OG-ji0"/>
+                                    <constraint firstAttribute="width" constant="44" id="EqN-OG-ji0"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="38"/>
+                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
                                 <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -596,7 +596,7 @@
                             <constraint firstItem="cRK-Tr-qQy" firstAttribute="top" secondItem="7C1-yc-O8X" secondAttribute="bottom" constant="15" id="Det-Z5-xqw"/>
                             <constraint firstItem="hNJ-iN-ANg" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="15" id="DqZ-ak-FZI"/>
                             <constraint firstItem="xod-QW-gum" firstAttribute="top" secondItem="Lq0-rh-5bS" secondAttribute="bottom" id="EIk-hi-aeH"/>
-                            <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="7Ok-gy-eVo" secondAttribute="leading" constant="4" id="ENs-zQ-ALk"/>
+                            <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="7Ok-gy-eVo" secondAttribute="leading" id="ENs-zQ-ALk"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="G9j-4K-lq1"/>
                             <constraint firstItem="MDJ-Nd-sbY" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="HA9-f5-7Ud"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="HdV-Pv-jgs"/>

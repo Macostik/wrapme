@@ -7,7 +7,6 @@
 //
 
 #import "WLMessageCell.h"
-#import "UILabel+Additions.h"
 #import "UIFont+CustomFonts.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"

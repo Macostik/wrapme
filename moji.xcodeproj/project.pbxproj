@@ -41,8 +41,6 @@
 		5BA60CB21A8257ED000F795C /* UIButton+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C2D1A8257ED000F795C /* UIButton+Additions.m */; };
 		5BA60CB41A8257ED000F795C /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C301A8257ED000F795C /* UICollectionViewCell+Autoresizing.m */; };
 		5BA60CB61A8257ED000F795C /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C301A8257ED000F795C /* UICollectionViewCell+Autoresizing.m */; };
-		5BA60CD41A8257ED000F795C /* UILabel+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C441A8257ED000F795C /* UILabel+Additions.m */; };
-		5BA60CD61A8257ED000F795C /* UILabel+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C441A8257ED000F795C /* UILabel+Additions.m */; };
 		5BA60CD81A8257ED000F795C /* UINavigationController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C471A8257ED000F795C /* UINavigationController+InterfaceOrientation.m */; };
 		5BA60CDA1A8257ED000F795C /* UINavigationController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C471A8257ED000F795C /* UINavigationController+InterfaceOrientation.m */; };
 		5BA60CDC1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C4A1A8257ED000F795C /* UIScreen+Diagonal.m */; };
@@ -1262,8 +1260,6 @@
 		5BA60C2D1A8257ED000F795C /* UIButton+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Additions.m"; sourceTree = "<group>"; };
 		5BA60C2F1A8257ED000F795C /* UICollectionViewCell+Autoresizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+Autoresizing.h"; sourceTree = "<group>"; };
 		5BA60C301A8257ED000F795C /* UICollectionViewCell+Autoresizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewCell+Autoresizing.m"; sourceTree = "<group>"; };
-		5BA60C431A8257ED000F795C /* UILabel+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Additions.h"; sourceTree = "<group>"; };
-		5BA60C441A8257ED000F795C /* UILabel+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Additions.m"; sourceTree = "<group>"; };
 		5BA60C461A8257ED000F795C /* UINavigationController+InterfaceOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+InterfaceOrientation.h"; sourceTree = "<group>"; };
 		5BA60C471A8257ED000F795C /* UINavigationController+InterfaceOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+InterfaceOrientation.m"; sourceTree = "<group>"; };
 		5BA60C491A8257ED000F795C /* UIScreen+Diagonal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+Diagonal.h"; sourceTree = "<group>"; };
@@ -2754,7 +2750,6 @@
 				5BA60BFC1A8257ED000F795C /* MFMailComposeViewController */,
 				5BA60C2B1A8257ED000F795C /* UIButton */,
 				5BA60C2E1A8257ED000F795C /* UICollectionViewCell */,
-				5BA60C421A8257ED000F795C /* UILabel */,
 				5BA60C451A8257ED000F795C /* UINavigationController */,
 				5BA60C481A8257ED000F795C /* UIScreen */,
 				5BA60C4B1A8257ED000F795C /* UIScrollView */,
@@ -2798,15 +2793,6 @@
 				5BA60C301A8257ED000F795C /* UICollectionViewCell+Autoresizing.m */,
 			);
 			path = UICollectionViewCell;
-			sourceTree = "<group>";
-		};
-		5BA60C421A8257ED000F795C /* UILabel */ = {
-			isa = PBXGroup;
-			children = (
-				5BA60C431A8257ED000F795C /* UILabel+Additions.h */,
-				5BA60C441A8257ED000F795C /* UILabel+Additions.m */,
-			);
-			path = UILabel;
 			sourceTree = "<group>";
 		};
 		5BA60C451A8257ED000F795C /* UINavigationController */ = {
@@ -6026,7 +6012,6 @@
 				5BA60CE81A8257ED000F795C /* UIView+AnimationHelper.m in Sources */,
 				C5603DC01AD921EE00427DEC /* WLEntryPresenter.m in Sources */,
 				5BA60CD81A8257ED000F795C /* UINavigationController+InterfaceOrientation.m in Sources */,
-				5BA60CD41A8257ED000F795C /* UILabel+Additions.m in Sources */,
 				C55997511A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C53E5CE91A84D876004F61B0 /* WLUserView.m in Sources */,
 				C5AEE4491B3AE770000C8CCF /* WLColorPicker.m in Sources */,
@@ -6306,7 +6291,6 @@
 				5BA60CEA1A8257ED000F795C /* UIView+AnimationHelper.m in Sources */,
 				C5603DC21AD921EE00427DEC /* WLEntryPresenter.m in Sources */,
 				5BA60CDA1A8257ED000F795C /* UINavigationController+InterfaceOrientation.m in Sources */,
-				5BA60CD61A8257ED000F795C /* UILabel+Additions.m in Sources */,
 				C55997531A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C53E5CEB1A84D876004F61B0 /* WLUserView.m in Sources */,
 				C5AEE44B1B3AE770000C8CCF /* WLColorPicker.m in Sources */,

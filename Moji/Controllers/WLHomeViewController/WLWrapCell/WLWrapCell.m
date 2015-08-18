@@ -7,7 +7,6 @@
 //
 
 #import "NSObject+NibAdditions.h"
-#import "UILabel+Additions.h"
 #import "WLCandyCell.h"
 #import "WLBasicDataSource.h"
 #import "WLNotificationCenter.h"

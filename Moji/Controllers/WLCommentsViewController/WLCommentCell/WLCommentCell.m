@@ -8,7 +8,6 @@
 
 #import "WLCommentCell.h"
 #import "UIFont+CustomFonts.h"
-#import "UILabel+Additions.h"
 #import "WLToast.h"
 #import "WLMenu.h"
 #import "UITextView+Aditions.h"

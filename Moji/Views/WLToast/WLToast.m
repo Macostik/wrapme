@@ -8,7 +8,6 @@
 
 #import "WLToast.h"
 #import "UIFont+CustomFonts.h"
-#import "UILabel+Additions.h"
 #import "WLNavigationHelper.h"
 #import "WLLabel.h"
 #import "NSObject+NibAdditions.h"

@@ -11,7 +11,6 @@
 #import "WLComposeBar.h"
 #import "WLRefresher.h"
 #import "WLLoadingView.h"
-#import "UILabel+Additions.h"
 #import "WLWrapCell.h"
 #import "UIView+AnimationHelper.h"
 #import "WLCandyCell.h"

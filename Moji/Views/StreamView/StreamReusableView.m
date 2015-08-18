@@ -1,14 +1,14 @@
 //
-//  WLEntryReusableView.m
-//  moji
+//  StreamCell.m
+//  Moji
 //
-//  Created by Ravenpod on 1/14/15.
+//  Created by Sergey Maximenko on 8/18/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLEntryReusableView.h"
+#import "StreamReusableView.h"
 
-@implementation WLEntryReusableView
+@implementation StreamReusableView
 
 @synthesize entry = _entry;
 @synthesize selectionBlock = _selectionBlock;

@@ -14,10 +14,6 @@
 
 @property (strong, nonatomic) WLObjectBlock selectionBlock;
 
-+ (CGSize)sizeInCollectionView:(UICollectionView*)collectionView index:(NSUInteger)index entry:(id)entry;
-
-+ (CGSize)sizeInCollectionView:(UICollectionView*)collectionView index:(NSUInteger)index entry:(id)entry defaultSize:(CGSize)defaultSize;
-
 - (void)setup:(id)entry;
 
 - (void)resetup;

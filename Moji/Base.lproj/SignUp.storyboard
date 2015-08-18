@@ -277,63 +277,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="D8n-r4-fYw">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LAr-Vi-79j" customClass="StreamView">
                                 <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Aax-2T-YWJ">
-                                    <size key="itemSize" width="320" height="44"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCountryCell" id="KsX-t7-UkA" customClass="WLCountryCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKx-Py-m2B" customClass="WLLabel">
-                                                    <rect key="frame" x="10" y="0.0" width="300" height="44"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray" translatesAutoresizingMaskIntoConstraints="NO" id="MOx-ID-iMT">
-                                                    <rect key="frame" x="0.0" y="43" width="320" height="1"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="kxa-hx-Pex"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="cKx-Py-m2B" firstAttribute="leading" secondItem="KsX-t7-UkA" secondAttribute="leading" constant="10" id="B8a-tC-QCf"/>
-                                            <constraint firstAttribute="bottom" secondItem="MOx-ID-iMT" secondAttribute="bottom" id="HBn-px-jol"/>
-                                            <constraint firstItem="cKx-Py-m2B" firstAttribute="top" secondItem="KsX-t7-UkA" secondAttribute="top" id="JWo-sz-Xle"/>
-                                            <constraint firstAttribute="trailing" secondItem="cKx-Py-m2B" secondAttribute="trailing" constant="10" id="ZNO-Uu-prB"/>
-                                            <constraint firstAttribute="trailing" secondItem="MOx-ID-iMT" secondAttribute="trailing" id="b4f-hJ-WRF"/>
-                                            <constraint firstAttribute="bottom" secondItem="cKx-Py-m2B" secondAttribute="bottom" id="yaD-sg-iAm"/>
-                                            <constraint firstItem="MOx-ID-iMT" firstAttribute="leading" secondItem="KsX-t7-UkA" secondAttribute="leading" id="yjL-hL-eHP"/>
-                                        </constraints>
-                                        <size key="customSize" width="320" height="44"/>
-                                        <connections>
-                                            <outlet property="countryNameLabel" destination="cKx-Py-m2B" id="OAT-Qc-qkk"/>
-                                            <segue destination="hnT-Xe-eEw" kind="unwind" unwindAction="countrySelected:" id="xOR-pm-Db3"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="ENX-FT-MZw" id="I6N-tG-1gT"/>
-                                    <outlet property="delegate" destination="ENX-FT-MZw" id="gZj-vv-ePW"/>
+                                    <outlet property="delegate" destination="vON-Tw-u2H" id="46i-cm-ws1"/>
                                 </connections>
-                            </collectionView>
+                            </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ClO-WV-xXp">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
@@ -380,33 +329,33 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="D8n-r4-fYw" firstAttribute="leading" secondItem="e2I-dM-DNp" secondAttribute="leading" id="6Zr-Nt-LBP"/>
-                            <constraint firstItem="sKU-M0-Mdi" firstAttribute="top" secondItem="D8n-r4-fYw" secondAttribute="bottom" id="BZr-Tb-Z8G"/>
-                            <constraint firstItem="D8n-r4-fYw" firstAttribute="top" secondItem="f94-vb-CBy" secondAttribute="bottom" constant="44" id="C6E-Tg-WhP"/>
+                            <constraint firstAttribute="trailing" secondItem="LAr-Vi-79j" secondAttribute="trailing" id="93D-qa-SN0"/>
+                            <constraint firstItem="LAr-Vi-79j" firstAttribute="leading" secondItem="e2I-dM-DNp" secondAttribute="leading" id="GKv-Hn-I5A"/>
+                            <constraint firstItem="LAr-Vi-79j" firstAttribute="top" secondItem="ClO-WV-xXp" secondAttribute="bottom" id="Jsl-Xn-FKb"/>
                             <constraint firstItem="ClO-WV-xXp" firstAttribute="leading" secondItem="e2I-dM-DNp" secondAttribute="leading" id="NX4-i3-tE1"/>
-                            <constraint firstAttribute="trailing" secondItem="D8n-r4-fYw" secondAttribute="trailing" id="gph-k0-GhQ"/>
                             <constraint firstItem="ClO-WV-xXp" firstAttribute="top" secondItem="f94-vb-CBy" secondAttribute="bottom" constant="-20" id="x0y-yf-NFa"/>
                             <constraint firstAttribute="trailing" secondItem="ClO-WV-xXp" secondAttribute="trailing" id="yEE-hv-0A6"/>
+                            <constraint firstItem="sKU-M0-Mdi" firstAttribute="top" secondItem="LAr-Vi-79j" secondAttribute="bottom" id="zA9-1J-Ufd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="d7K-bB-fdh"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="dataSource" destination="ENX-FT-MZw" id="lw3-ey-47I"/>
+                        <outlet property="dataSource" destination="vON-Tw-u2H" id="qHS-FZ-uSk"/>
                     </connections>
                 </viewController>
-                <customObject id="ENX-FT-MZw" customClass="WLBasicDataSource">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1fA-WY-1QF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="vON-Tw-u2H" customClass="StreamViewDataSource">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLCountryCell"/>
-                        <userDefinedRuntimeAttribute type="size" keyPath="itemSize">
-                            <size key="value" width="0.0" height="44"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLCountryCell"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="itemSize">
+                            <real key="value" value="50"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="collectionView" destination="D8n-r4-fYw" id="ryU-nQ-3tF"/>
+                        <outlet property="streamView" destination="LAr-Vi-79j" id="VoL-Qp-gEi"/>
                     </connections>
                 </customObject>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1fA-WY-1QF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="hnT-Xe-eEw" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2782" y="-510"/>
@@ -1814,7 +1763,6 @@
     <resources>
         <image name="1st_screen_bg" width="320" height="1500"/>
         <image name="Moji" width="46" height="22"/>
-        <image name="horizontal_separator_gray" width="1" height="1"/>
         <image name="logo_and_caption" width="215" height="165"/>
         <image name="sg_Device_Added" width="183" height="183"/>
         <image name="sg_Email" width="183" height="183"/>

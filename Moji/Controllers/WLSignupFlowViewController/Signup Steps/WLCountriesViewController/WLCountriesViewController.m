@@ -10,11 +10,11 @@
 #import "WLCountry.h"
 #import "WLCountryCell.h"
 #import "NSObject+NibAdditions.h"
-#import "WLBasicDataSource.h"
+#import "StreamViewDataSource.h"
 
 @interface WLCountriesViewController ()
 
-@property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
+@property (strong, nonatomic) IBOutlet StreamViewDataSource *dataSource;
 
 @end
 
@@ -33,16 +33,17 @@
 				return [obj.code isEqualToString:selectedCountry.code];
 			}];
 			if (index != NSNotFound) {
-				[weakSelf.dataSource.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+#warning implement scrolling to item
+//				[weakSelf.dataSource.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredVertically];
 			}
 		}
     });
 }
 
 - (WLCountry *)selectedCountry {
-    NSIndexPath* indexPath = [[self.dataSource.collectionView indexPathsForSelectedItems] lastObject];
-    if (indexPath) {
-        return [(NSArray*)self.dataSource.items tryAt:indexPath.item];
+    StreamItem* item = self.dataSource.streamView.selectedItem;
+    if (item) {
+        return [(NSArray*)self.dataSource.items tryAt:item.index.next.value];
     }
     return nil;
 }

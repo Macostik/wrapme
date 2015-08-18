@@ -13,14 +13,6 @@
 @synthesize entry = _entry;
 @synthesize selectionBlock = _selectionBlock;
 
-+ (CGSize)sizeInCollectionView:(UICollectionView *)collectionView index:(NSUInteger)index entry:(id)entry defaultSize:(CGSize)defaultSize {
-    return defaultSize;
-}
-
-+ (CGSize)sizeInCollectionView:(UICollectionView *)collectionView index:(NSUInteger)index entry:(id)entry {
-    return [self sizeInCollectionView:collectionView index:index entry:entry defaultSize:CGSizeZero];
-}
-
 - (void)setEntry:(id)entry {
     _entry = entry;
     [self setup:entry];

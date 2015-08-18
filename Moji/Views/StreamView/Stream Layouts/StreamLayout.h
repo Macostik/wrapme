@@ -9,40 +9,28 @@
 #import <Foundation/Foundation.h>
 #import "StreamView.h"
 
-@class StreamLayoutItem;
+@class StreamItem, StreamLayout;
+
+@protocol StreamLayoutDelegate <StreamViewDelegate>
+
+@optional
+
+- (CGFloat)streamView:(StreamView*)streamView layoutOffset:(StreamLayout*)layout;
+
+@end
 
 @interface StreamLayout : NSObject
 
 @property (nonatomic, weak) StreamView* streamView;
 
-@property (nonatomic) NSInteger numberOfColumns;
-
-@property (nonatomic) CGFloat* ranges;
-
-@property (nonatomic) CGFloat* sizes;
-
-- (NSSet*)layoutItems:(NSUInteger)numberOfItems ratio:(CGFloat (^)(StreamLayoutItem* item, NSUInteger itemIndex))ratio;
-
-- (CGRect)frameForItemWithRatio:(CGFloat)ratio;
-
 @property (nonatomic, readonly) CGSize contentSize;
 
-- (void)setSize:(CGFloat)size;
+- (void)prepare;
 
-- (void)setSize:(CGFloat)size atIndex:(NSInteger)index;
+- (StreamItem*)layout:(StreamItem*)item;
 
-- (CGFloat)offset:(NSInteger)column;
+- (void)prepareForNextSection;
 
-- (void)setRange:(CGFloat)range;
-
-- (void)setRange:(CGFloat)range atIndex:(NSInteger)index;
-
-- (void)updateRange:(CGFloat)range;
-
-- (CGFloat)minimumRange:(NSInteger*)column;
-
-- (CGFloat)maximumRange:(NSInteger*)column;
+- (void)finalize;
 
 @end
-
-CGRect CGRectScale(CGRect rect, CGFloat xScale, CGFloat yScale);

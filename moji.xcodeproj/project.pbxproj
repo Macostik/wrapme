@@ -286,7 +286,6 @@
 		C54AF4CF19B8C437006F7EDB /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		C54AF4D119B8C437006F7EDB /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
 		C54AF4D519B8C437006F7EDB /* WLEmojiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC79ED371934791600D7031F /* WLEmojiCell.m */; };
-		C54AF4E119B8C437006F7EDB /* VerticalStreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */; };
 		C54AF4E319B8C437006F7EDB /* WLStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */; };
 		C54AF4E619B8C437006F7EDB /* WLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */; };
 		C54AF4EB19B8C437006F7EDB /* WLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */; };
@@ -339,7 +338,6 @@
 		C54AF6C919B8C491006F7EDB /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		C54AF6CB19B8C491006F7EDB /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
 		C54AF6CF19B8C491006F7EDB /* WLEmojiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC79ED371934791600D7031F /* WLEmojiCell.m */; };
-		C54AF6DB19B8C491006F7EDB /* VerticalStreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */; };
 		C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */; };
 		C54AF6E019B8C491006F7EDB /* WLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */; };
 		C54AF6E519B8C491006F7EDB /* WLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */; };
@@ -835,6 +833,22 @@
 		C5B5F0A11B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B5F09F1B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.m */; };
 		C5B5F0A41B5D43AA00B1FF17 /* WLAPIRequest+Defined.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B5F0A21B5D43AA00B1FF17 /* WLAPIRequest+Defined.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5B5F0A51B5D43AA00B1FF17 /* WLAPIRequest+Defined.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B5F0A31B5D43AA00B1FF17 /* WLAPIRequest+Defined.m */; };
+		C5B6810A1B83388B00BEE613 /* StreamMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681091B83388B00BEE613 /* StreamMetrics.m */; };
+		C5B6810B1B83388B00BEE613 /* StreamMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681091B83388B00BEE613 /* StreamMetrics.m */; };
+		C5B6810E1B833A1100BEE613 /* StreamIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6810D1B833A1100BEE613 /* StreamIndex.m */; };
+		C5B6810F1B833A1100BEE613 /* StreamIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6810D1B833A1100BEE613 /* StreamIndex.m */; };
+		C5B681121B833D2900BEE613 /* GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681111B833D2900BEE613 /* GridLayout.m */; };
+		C5B681131B833D2900BEE613 /* GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681111B833D2900BEE613 /* GridLayout.m */; };
+		C5B681161B833DC800BEE613 /* GridMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681151B833DC800BEE613 /* GridMetrics.m */; };
+		C5B681171B833DC800BEE613 /* GridMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681151B833DC800BEE613 /* GridMetrics.m */; };
+		C5B6811A1B83401C00BEE613 /* StreamItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681191B83401C00BEE613 /* StreamItem.m */; };
+		C5B6811B1B83401C00BEE613 /* StreamItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681191B83401C00BEE613 /* StreamItem.m */; };
+		C5B6811E1B8352E000BEE613 /* StreamReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6811D1B8352E000BEE613 /* StreamReusableView.m */; };
+		C5B6811F1B8352E000BEE613 /* StreamReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6811D1B8352E000BEE613 /* StreamReusableView.m */; };
+		C5B681221B83566B00BEE613 /* StreamViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681211B83566B00BEE613 /* StreamViewDataSource.m */; };
+		C5B681231B83566B00BEE613 /* StreamViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681211B83566B00BEE613 /* StreamViewDataSource.m */; };
+		C5B681251B835ABD00BEE613 /* WLCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B681241B835ABD00BEE613 /* WLCountryCell.xib */; };
+		C5B681261B835ABD00BEE613 /* WLCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B681241B835ABD00BEE613 /* WLCountryCell.xib */; };
 		C5B8F7191B82161500A5E541 /* WLDrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B8F7181B82161500A5E541 /* WLDrawingViewController.m */; };
 		C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B8F7181B82161500A5E541 /* WLDrawingViewController.m */; };
 		C5B8F71F1B82172D00A5E541 /* WLDrawingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B8F71E1B82172D00A5E541 /* WLDrawingViewController.xib */; };
@@ -1182,8 +1196,6 @@
 		12E3DA5018E049C300DBDB79 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		12E8FF0B18E960E000BF1B96 /* StreamLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamLayout.h; sourceTree = "<group>"; };
 		12E8FF0C18E960E000BF1B96 /* StreamLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamLayout.m; sourceTree = "<group>"; };
-		12E8FF0F18E960E000BF1B96 /* VerticalStreamLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerticalStreamLayout.h; sourceTree = "<group>"; };
-		12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerticalStreamLayout.m; sourceTree = "<group>"; };
 		12E8FF1118E960E000BF1B96 /* StreamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamView.h; sourceTree = "<group>"; };
 		12E8FF1218E960E000BF1B96 /* StreamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamView.m; sourceTree = "<group>"; };
 		12E8FF1D18E9885100BF1B96 /* WLComposeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposeBar.h; path = WLComposeBar/WLComposeBar.h; sourceTree = "<group>"; };
@@ -1960,6 +1972,21 @@
 		C5B5F09F1B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLPaginatedRequest+Defined.m"; sourceTree = "<group>"; };
 		C5B5F0A21B5D43AA00B1FF17 /* WLAPIRequest+Defined.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLAPIRequest+Defined.h"; sourceTree = "<group>"; };
 		C5B5F0A31B5D43AA00B1FF17 /* WLAPIRequest+Defined.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLAPIRequest+Defined.m"; sourceTree = "<group>"; };
+		C5B681081B83388B00BEE613 /* StreamMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamMetrics.h; sourceTree = "<group>"; };
+		C5B681091B83388B00BEE613 /* StreamMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamMetrics.m; sourceTree = "<group>"; };
+		C5B6810C1B833A1100BEE613 /* StreamIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamIndex.h; sourceTree = "<group>"; };
+		C5B6810D1B833A1100BEE613 /* StreamIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamIndex.m; sourceTree = "<group>"; };
+		C5B681101B833D2900BEE613 /* GridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridLayout.h; sourceTree = "<group>"; };
+		C5B681111B833D2900BEE613 /* GridLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridLayout.m; sourceTree = "<group>"; };
+		C5B681141B833DC800BEE613 /* GridMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridMetrics.h; sourceTree = "<group>"; };
+		C5B681151B833DC800BEE613 /* GridMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridMetrics.m; sourceTree = "<group>"; };
+		C5B681181B83401C00BEE613 /* StreamItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamItem.h; sourceTree = "<group>"; };
+		C5B681191B83401C00BEE613 /* StreamItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamItem.m; sourceTree = "<group>"; };
+		C5B6811C1B8352E000BEE613 /* StreamReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamReusableView.h; sourceTree = "<group>"; };
+		C5B6811D1B8352E000BEE613 /* StreamReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamReusableView.m; sourceTree = "<group>"; };
+		C5B681201B83566B00BEE613 /* StreamViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamViewDataSource.h; sourceTree = "<group>"; };
+		C5B681211B83566B00BEE613 /* StreamViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamViewDataSource.m; sourceTree = "<group>"; };
+		C5B681241B835ABD00BEE613 /* WLCountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCountryCell.xib; sourceTree = "<group>"; };
 		C5B8F7171B82161500A5E541 /* WLDrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingViewController.h; sourceTree = "<group>"; };
 		C5B8F7181B82161500A5E541 /* WLDrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingViewController.m; sourceTree = "<group>"; };
 		C5B8F71E1B82172D00A5E541 /* WLDrawingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLDrawingViewController.xib; sourceTree = "<group>"; };
@@ -2590,6 +2617,14 @@
 				12E8FF0818E960E000BF1B96 /* Stream Layouts */,
 				12E8FF1118E960E000BF1B96 /* StreamView.h */,
 				12E8FF1218E960E000BF1B96 /* StreamView.m */,
+				C5B681181B83401C00BEE613 /* StreamItem.h */,
+				C5B681191B83401C00BEE613 /* StreamItem.m */,
+				C5B6810C1B833A1100BEE613 /* StreamIndex.h */,
+				C5B6810D1B833A1100BEE613 /* StreamIndex.m */,
+				C5B6811C1B8352E000BEE613 /* StreamReusableView.h */,
+				C5B6811D1B8352E000BEE613 /* StreamReusableView.m */,
+				C5B681201B83566B00BEE613 /* StreamViewDataSource.h */,
+				C5B681211B83566B00BEE613 /* StreamViewDataSource.m */,
 			);
 			path = StreamView;
 			sourceTree = "<group>";
@@ -2597,10 +2632,14 @@
 		12E8FF0818E960E000BF1B96 /* Stream Layouts */ = {
 			isa = PBXGroup;
 			children = (
+				C5B681081B83388B00BEE613 /* StreamMetrics.h */,
+				C5B681091B83388B00BEE613 /* StreamMetrics.m */,
 				12E8FF0B18E960E000BF1B96 /* StreamLayout.h */,
 				12E8FF0C18E960E000BF1B96 /* StreamLayout.m */,
-				12E8FF0F18E960E000BF1B96 /* VerticalStreamLayout.h */,
-				12E8FF1018E960E000BF1B96 /* VerticalStreamLayout.m */,
+				C5B681141B833DC800BEE613 /* GridMetrics.h */,
+				C5B681151B833DC800BEE613 /* GridMetrics.m */,
+				C5B681101B833D2900BEE613 /* GridLayout.h */,
+				C5B681111B833D2900BEE613 /* GridLayout.m */,
 			);
 			path = "Stream Layouts";
 			sourceTree = "<group>";
@@ -3426,6 +3465,7 @@
 			children = (
 				C54531281A24A1F20048A677 /* WLCountryCell.h */,
 				C54531291A24A1F20048A677 /* WLCountryCell.m */,
+				C5B681241B835ABD00BEE613 /* WLCountryCell.xib */,
 			);
 			path = WLCountryCell;
 			sourceTree = "<group>";
@@ -5489,6 +5529,7 @@
 				5BA4F87A1A1CA08900DB1A25 /* s01.wav in Resources */,
 				C54AF53219B8C437006F7EDB /* Main.storyboard in Resources */,
 				5B36F4FD1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */,
+				C5B681251B835ABD00BEE613 /* WLCountryCell.xib in Resources */,
 				C55908751B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
@@ -5546,6 +5587,7 @@
 				5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */,
 				C54AF72C19B8C491006F7EDB /* Main.storyboard in Resources */,
 				5B36F4FF1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */,
+				C5B681261B835ABD00BEE613 /* WLCountryCell.xib in Resources */,
 				C55908771B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
@@ -5724,8 +5766,10 @@
 				C56F6A991B78D6EB00660DF1 /* PNLog.m in Sources */,
 				C53E5CEF1A84D886004F61B0 /* WLWrapView.m in Sources */,
 				C5BCF00E1B551B7B00E4AD6D /* WLMessageCell.m in Sources */,
+				C5B681161B833DC800BEE613 /* GridMetrics.m in Sources */,
 				C54AF45C19B8C437006F7EDB /* WLRefresher.m in Sources */,
 				C56F6A8B1B78D6EB00660DF1 /* PNClass.m in Sources */,
+				C5B6810A1B83388B00BEE613 /* StreamMetrics.m in Sources */,
 				5BD121541B0250B500FF5FBF /* WLDownloadingView.m in Sources */,
 				C5603DD21AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C5AEE4421B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
@@ -5749,6 +5793,7 @@
 				C59EF3C21B7A215700E777BC /* WLFollowingViewController.m in Sources */,
 				C55D77E91AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
 				C5D7FE861B501CD000746908 /* WLNotification.m in Sources */,
+				C5B6811A1B83401C00BEE613 /* StreamItem.m in Sources */,
 				C54AF46919B8C437006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCA1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
 				C56F6AAD1B78D6EB00660DF1 /* PNMessagePublishParser.m in Sources */,
@@ -5847,10 +5892,13 @@
 				C5B233431B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */,
 				C560D2291AFB7703006B906E /* WLSwipeViewController.m in Sources */,
 				C54AF4AD19B8C437006F7EDB /* WLEmoji.m in Sources */,
+				C5B681121B833D2900BEE613 /* GridLayout.m in Sources */,
+				C5B6810E1B833A1100BEE613 /* StreamIndex.m in Sources */,
 				C54AF4B119B8C437006F7EDB /* WLHomeViewController.m in Sources */,
 				C56F6A5D1B78D6EB00660DF1 /* PNConfiguration.m in Sources */,
 				C5BCF0461B551C3E00E4AD6D /* WLCandiesCell.m in Sources */,
 				C54AF4B419B8C437006F7EDB /* WLProgressBar.m in Sources */,
+				C5B6811E1B8352E000BEE613 /* StreamReusableView.m in Sources */,
 				C52E1FD91A41951300A2C370 /* WLBadgeLabel.m in Sources */,
 				5BA60CF01A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */,
 				C5C20BCE1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
@@ -5915,7 +5963,6 @@
 				C5AEE4491B3AE770000C8CCF /* WLColorPicker.m in Sources */,
 				C5747A161B273DC7001AB8C0 /* WLNewStillPictureViewController.m in Sources */,
 				5BA60C681A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
-				C54AF4E119B8C437006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C56F6A591B78D6EB00660DF1 /* PNSubscriber.m in Sources */,
 				C56F6A611B78D6EB00660DF1 /* PNAPNSEnabledChannelsResult.m in Sources */,
 				C52E1FE31A41952400A2C370 /* WLTextView.m in Sources */,
@@ -5968,6 +6015,7 @@
 				C54AF50D19B8C437006F7EDB /* WLToast.m in Sources */,
 				C56F6A871B78D6EB00660DF1 /* PNArray.m in Sources */,
 				C545312F1A24A1F20048A677 /* WLCountryCell.m in Sources */,
+				C5B681221B83566B00BEE613 /* StreamViewDataSource.m in Sources */,
 				C56F6A7F1B78D6EB00660DF1 /* PNStatus.m in Sources */,
 				C5BCF0131B551B7B00E4AD6D /* WLMessageDateView.m in Sources */,
 				C54531361A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
@@ -5994,8 +6042,10 @@
 				C56F6A9A1B78D6EB00660DF1 /* PNLog.m in Sources */,
 				C54AF65619B8C491006F7EDB /* WLRefresher.m in Sources */,
 				C5BCF0101B551B7B00E4AD6D /* WLMessageCell.m in Sources */,
+				C5B681171B833DC800BEE613 /* GridMetrics.m in Sources */,
 				5BD121561B0250B500FF5FBF /* WLDownloadingView.m in Sources */,
 				C56F6A8C1B78D6EB00660DF1 /* PNClass.m in Sources */,
+				C5B6810B1B83388B00BEE613 /* StreamMetrics.m in Sources */,
 				C5603DD41AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C5AEE4441B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
 				C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */,
@@ -6019,6 +6069,7 @@
 				C59EF3C31B7A215700E777BC /* WLFollowingViewController.m in Sources */,
 				C5D7FE881B501CD000746908 /* WLNotification.m in Sources */,
 				C55D77EB1AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
+				C5B6811B1B83401C00BEE613 /* StreamItem.m in Sources */,
 				C54AF66319B8C491006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCC1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
 				C56F6AAE1B78D6EB00660DF1 /* PNMessagePublishParser.m in Sources */,
@@ -6117,10 +6168,13 @@
 				C5B233451B298B3F008A14D1 /* WLQuickAssetsViewController.m in Sources */,
 				C560D22B1AFB7703006B906E /* WLSwipeViewController.m in Sources */,
 				C54AF6A719B8C491006F7EDB /* WLEmoji.m in Sources */,
+				C5B681131B833D2900BEE613 /* GridLayout.m in Sources */,
+				C5B6810F1B833A1100BEE613 /* StreamIndex.m in Sources */,
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
 				C56F6A5E1B78D6EB00660DF1 /* PNConfiguration.m in Sources */,
 				C5BCF0481B551C3E00E4AD6D /* WLCandiesCell.m in Sources */,
 				C54AF6AE19B8C491006F7EDB /* WLProgressBar.m in Sources */,
+				C5B6811F1B8352E000BEE613 /* StreamReusableView.m in Sources */,
 				C52E1FDB1A41951300A2C370 /* WLBadgeLabel.m in Sources */,
 				5BA60CF21A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */,
 				C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
@@ -6188,7 +6242,6 @@
 				5BA60C6A1A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C56F6A5A1B78D6EB00660DF1 /* PNSubscriber.m in Sources */,
 				C56F6A621B78D6EB00660DF1 /* PNAPNSEnabledChannelsResult.m in Sources */,
-				C54AF6DB19B8C491006F7EDB /* VerticalStreamLayout.m in Sources */,
 				C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */,
 				C56F6AA01B78D6EB00660DF1 /* PNChannelGroupAuditionParser.m in Sources */,
 				C52568801B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
@@ -6238,6 +6291,7 @@
 				C54AF70719B8C491006F7EDB /* WLToast.m in Sources */,
 				C56F6A881B78D6EB00660DF1 /* PNArray.m in Sources */,
 				C54531311A24A1F20048A677 /* WLCountryCell.m in Sources */,
+				C5B681231B83566B00BEE613 /* StreamViewDataSource.m in Sources */,
 				C56F6A801B78D6EB00660DF1 /* PNStatus.m in Sources */,
 				C5BCF0151B551B7B00E4AD6D /* WLMessageDateView.m in Sources */,
 				C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,

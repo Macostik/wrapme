@@ -8,8 +8,8 @@
 
 #import "WLEntryCell.h"
 
-static NSString* WLMessageCellIdentifier = @"WLMessageCell";
-static NSString* WLMyMessageCellIdentifier = @"WLMyMessageCell";
+static NSString* WLMessageitemIdentifier = @"WLMessageCell";
+static NSString* WLMyMessageitemIdentifier = @"WLMyMessageCell";
 
 static CGFloat WLMessageVerticalInset = 5.0f;
 static CGFloat WLMessageHorizontalInset = 5.0f;

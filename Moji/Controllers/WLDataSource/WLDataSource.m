@@ -149,19 +149,19 @@
     return [self numberOfItems];
 }
 
-- (NSString*)cellIdentifierForItem:(id)item atIndex:(NSUInteger)index {
-    NSString *cellIdentifier = self.cellIdentifier;
-    if (self.cellIdentifierForItemBlock) {
-        cellIdentifier = self.cellIdentifierForItemBlock(item, index);
+- (NSString*)itemIdentifierForItem:(id)item atIndex:(NSUInteger)index {
+    NSString *itemIdentifier = self.itemIdentifier;
+    if (self.itemIdentifierForItemBlock) {
+        itemIdentifier = self.itemIdentifierForItemBlock(item, index);
     }
-    return cellIdentifier;
+    return itemIdentifier;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger index = [self indexFromIndexPath:indexPath];
     id item = [self itemAtIndex:index];
-    NSString *cellIdentifier = [self cellIdentifierForItem:item atIndex:index];
-    WLEntryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    NSString *itemIdentifier = [self itemIdentifierForItem:item atIndex:index];
+    WLEntryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:itemIdentifier forIndexPath:indexPath];
     cell.entry = item;
     if (self.configureCellForItemBlock) self.configureCellForItemBlock(cell, cell.entry);
     cell.selectionBlock = self.selectionBlock;

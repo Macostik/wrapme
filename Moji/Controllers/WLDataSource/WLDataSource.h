@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, WLDataSourceScrollDirection) {
 
 @property (nonatomic) WLDataSourceScrollDirection direction;
 
-@property (strong, nonatomic) IBInspectable NSString* cellIdentifier;
+@property (strong, nonatomic) IBInspectable NSString* itemIdentifier;
 
 @property (strong, nonatomic) IBInspectable NSString* headerIdentifier;
 
@@ -51,7 +51,7 @@ typedef NS_ENUM(NSUInteger, WLDataSourceScrollDirection) {
 
 @property (strong, nonatomic) NSUInteger (^numberOfItemsBlock) (void);
 
-@property (strong, nonatomic) NSString* (^cellIdentifierForItemBlock) (id item, NSUInteger index);
+@property (strong, nonatomic) NSString* (^itemIdentifierForItemBlock) (id item, NSUInteger index);
 
 @property (strong, nonatomic) void (^configureCellForItemBlock) (id cell, id item);
 
@@ -73,7 +73,7 @@ typedef NS_ENUM(NSUInteger, WLDataSourceScrollDirection) {
 
 - (NSUInteger)indexFromIndexPath:(NSIndexPath*)indexPath;
 
-- (NSString*)cellIdentifierForItem:(id)item atIndex:(NSUInteger)index;
+- (NSString*)itemIdentifierForItem:(id)item atIndex:(NSUInteger)index;
 
 - (void)reload;
 

@@ -7,6 +7,7 @@
 //
 
 #import "StreamMetrics.h"
+#import "StreamView.h"
 
 @implementation StreamMetricsFloatProperty
 
@@ -29,6 +30,14 @@
 - (NSString*)valueAt:(StreamIndex*)index {
     return self.block ? self.block(index) : self.value;
 }
+
+@end
+
+@interface StreamMetrics ()
+
+@property (strong, nonatomic) StreamMetricsViewBeforeSetupBlock viewBeforeSetupBlock;
+
+@property (strong, nonatomic) StreamMetricsViewAfterSetupBlock viewAfterSetupBlock;
 
 @end
 
@@ -61,6 +70,14 @@
     StreamMetrics *metrics = [[self class] metrics:block];
     [self.footers addObject:metrics];
     return metrics;
+}
+
+- (id)viewForItem:(StreamItem *)item inStreamView:(StreamView *)streamView entry:(id)entry {
+    StreamReusableView *view = [streamView viewForItem:item];
+    if (self.viewBeforeSetupBlock) self.viewBeforeSetupBlock(item, view, entry);
+    view.entry = entry;
+    if (self.viewAfterSetupBlock) self.viewAfterSetupBlock(item, view, entry);
+    return view;
 }
 
 @end

@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.dataSource setCellIdentifierForItemBlock:^NSString *(WLWhatsUpEvent *event, NSUInteger index) {
+    [self.dataSource setItemIdentifierForItemBlock:^NSString *(WLWhatsUpEvent *event, NSUInteger index) {
         return [event.contribution isKindOfClass:[WLComment class]] ? @"WLCommentWhatsUpCell" : @"WLCandyWhatsUpCell";
     }];
     

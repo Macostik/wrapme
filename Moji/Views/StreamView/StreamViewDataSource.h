@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "StreamView.h"
 
+typedef NS_ENUM(NSUInteger, StreamViewDataSourceScrollDirection) {
+    StreamViewDataSourceScrollDirectionUnknown,
+    StreamViewDataSourceScrollDirectionUp,
+    StreamViewDataSourceScrollDirectionDown
+};
+
 @interface StreamViewDataSource : NSObject <StreamViewDelegate>
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;

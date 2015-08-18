@@ -1804,7 +1804,7 @@ Tap here to start.</string>
                 </customObject>
                 <customObject id="fHn-3G-fGW" customClass="WLHomeDataSource">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLWrapCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLWrapCell"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="minimumLineSpacing">
                             <real key="value" value="10"/>
                         </userDefinedRuntimeAttribute>
@@ -1816,7 +1816,7 @@ Tap here to start.</string>
                 </customObject>
                 <customObject id="uJJ-OA-ZDD" customClass="WLPublicWrapsDataSource">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLWrapCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLWrapCell"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="5NO-04-rHl"/>
@@ -3635,7 +3635,7 @@ Check your internet connection and try again.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kjg-TD-Vmm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="RbC-xy-dkj" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLCommentCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLCommentCell"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="Cwv-Gt-Vjm" id="Wa0-u1-TJN"/>
@@ -4656,7 +4656,7 @@ QWRkEEZyaWVuZFZpZXc
                 </customObject>
                 <customObject id="zjC-7P-9tZ" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLContributorCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLContributorCell"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="DO8-0B-bff" id="I3n-J1-jFa"/>
@@ -4926,7 +4926,7 @@ QWRkEEZyaWVuZFZpZXc
                 </viewController>
                 <customObject id="R4B-e5-fki" customClass="WLBasicDataSource">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLCandiesCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLCandiesCell"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="a7y-ca-xlT" id="Kqj-20-dlF"/>

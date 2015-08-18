@@ -8,7 +8,7 @@
 
 #import "WLEntryCell.h"
 
-static NSString* WLCandyCellIdentifier = @"WLCandyCell";
+static NSString* WLCandyitemIdentifier = @"WLCandyCell";
 static CGFloat WLCandyCellSpacing = 0.5f;
 static CGFloat WLCandyCellSpacingNotRetina = 1.0f;
 

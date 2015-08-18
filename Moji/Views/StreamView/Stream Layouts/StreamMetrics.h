@@ -10,17 +10,24 @@
 
 @class StreamIndex;
 @class StreamMetrics;
+@class StreamItem;
+@class StreamView;
+@class StreamReusableView;
 
 typedef CGFloat(^StreamMetricsFloatBlock)(StreamIndex *index);
 typedef BOOL(^StreamMetricsBoolBlock)(StreamIndex *index);
 typedef NSString*(^StreamMetricsStringBlock)(StreamIndex *index);
 typedef void(^StreamMetricsBlock)(StreamMetrics *metrics);
+typedef void(^StreamMetricsViewBeforeSetupBlock)(StreamItem *item, id view, id entry);
+typedef void(^StreamMetricsViewAfterSetupBlock)(StreamItem *item, id view, id entry);
 
 @interface StreamMetricsFloatProperty : NSObject
 
 @property (nonatomic) CGFloat value;
 
 @property (strong, nonatomic) StreamMetricsFloatBlock block;
+
+- (void)setBlock:(StreamMetricsFloatBlock)block;
 
 - (CGFloat)valueAt:(StreamIndex*)index;
 
@@ -32,6 +39,8 @@ typedef void(^StreamMetricsBlock)(StreamMetrics *metrics);
 
 @property (strong, nonatomic) StreamMetricsBoolBlock block;
 
+- (void)setBlock:(StreamMetricsBoolBlock)block;
+
 - (BOOL)valueAt:(StreamIndex*)index;
 
 @end
@@ -41,6 +50,8 @@ typedef void(^StreamMetricsBlock)(StreamMetrics *metrics);
 @property (strong, nonatomic) NSString *value;
 
 @property (strong, nonatomic) StreamMetricsStringBlock block;
+
+- (void)setBlock:(StreamMetricsStringBlock)block;
 
 - (NSString*)valueAt:(StreamIndex*)index;
 
@@ -65,5 +76,11 @@ typedef void(^StreamMetricsBlock)(StreamMetrics *metrics);
 - (instancetype)addHeader:(StreamMetricsBlock)block;
 
 - (instancetype)addFooter:(StreamMetricsBlock)block;
+
+- (id)viewForItem:(StreamItem*)item inStreamView:(StreamView*)streamView entry:(id)entry;
+
+- (void)setViewBeforeSetupBlock:(StreamMetricsViewBeforeSetupBlock)viewBeforeSetupBlock;
+
+- (void)setViewAfterSetupBlock:(StreamMetricsViewAfterSetupBlock)viewAfterSetupBlock;
 
 @end

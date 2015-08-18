@@ -13,7 +13,7 @@ static CGFloat WLAuthorLabelHeight = 20.0f;
 static CGFloat WLMinimumCellHeight = 50.0f;
 static CGFloat WLLineHeadIndent =    16.0f;
 
-static NSString* WLCommentCellIdentifier = @"WLCommentCell";
+static NSString* WLCommentitemIdentifier = @"WLCommentCell";
 
 @interface WLCommentCell : WLEntryCell
 

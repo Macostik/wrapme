@@ -29,7 +29,7 @@
 	[super awakeFromNib];
     WLHistoryItemDataSource* dataSource = [WLHistoryItemDataSource dataSource:self.collectionView];
     dataSource.minimumLineSpacing = dataSource.sectionLeftInset = dataSource.sectionRightInset = WLConstants.pixelSize;
-    dataSource.cellIdentifier = WLCandyCellIdentifier;
+    dataSource.itemIdentifier = WLCandyitemIdentifier;
     __weak typeof(self)weakSelf = self;
     [dataSource setItemSizeBlock:^CGSize(WLCandy *candy, NSUInteger index) {
         CGFloat size = weakSelf.collectionView.width/2.5;

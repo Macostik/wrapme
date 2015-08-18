@@ -423,8 +423,8 @@ CGFloat WLMaxTextViewWidth;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WLMessage* message = [self.chat.entries tryAt:indexPath.item];
-    NSString *cellIdentifier = cellIdentifier = message.contributedByCurrentUser ? WLMyMessageCellIdentifier : WLMessageCellIdentifier;
-    WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    NSString *itemIdentifier = itemIdentifier = message.contributedByCurrentUser ? WLMyMessageitemIdentifier : WLMessageitemIdentifier;
+    WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:itemIdentifier forIndexPath:indexPath];
     [cell setShowName:[self.chat.messagesWithName containsObject:message]];
     cell.entry = message;
     cell.layer.geometryFlipped = [self geometryFlipped];

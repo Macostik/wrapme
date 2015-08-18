@@ -11,8 +11,8 @@
 #import "WLTodayCandyCell.h"
 #import "WLTodayCommentCell.h"
 
-static NSString *const WLTodayCandyCellIdentifier = @"WLTodayCandyCell";
-static NSString *const WLTodayCommentCellIdentifier = @"WLTodayCommentCell";
+static NSString *const WLTodayCandyitemIdentifier = @"WLTodayCandyCell";
+static NSString *const WLTodayCommentitemIdentifier = @"WLTodayCommentCell";
 static NSString *const WLLessButtonKey = @"Less MOJI stories";
 static NSString *const WLMoreButtonKey = @"More MOJI stories";
 static CGFloat WLMaxRow = 6;
@@ -157,11 +157,11 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WLContribution *contribution = self.contributions[indexPath.row];
     if ([contribution isKindOfClass:[WLComment class]]) {
-        WLTodayContributionCell *cell = [tableView dequeueReusableCellWithIdentifier:WLTodayCommentCellIdentifier forIndexPath:indexPath];
+        WLTodayContributionCell *cell = [tableView dequeueReusableCellWithIdentifier:WLTodayCommentitemIdentifier forIndexPath:indexPath];
         cell.contribution = contribution;
         return cell;
     } else {
-        WLTodayContributionCell *cell = [tableView dequeueReusableCellWithIdentifier:WLTodayCandyCellIdentifier forIndexPath:indexPath];
+        WLTodayContributionCell *cell = [tableView dequeueReusableCellWithIdentifier:WLTodayCandyitemIdentifier forIndexPath:indexPath];
         cell.contribution = contribution;
         return cell;
     }

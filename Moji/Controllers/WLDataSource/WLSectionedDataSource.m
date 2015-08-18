@@ -34,7 +34,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLEntryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.cellIdentifier forIndexPath:indexPath];
+    WLEntryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.itemIdentifier forIndexPath:indexPath];
     if (self.descendantAtIndexBlock) {
         cell.entry = self.descendantAtIndexBlock(indexPath.item, [self itemAtIndex:indexPath.section]);
     } else {

@@ -65,6 +65,8 @@
     
     [self.publicWrapImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     [self.publicWrapImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+    
+    self.settingsButton.exclusiveTouch = self.followButton.exclusiveTouch = self.unfollowButton.exclusiveTouch = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -174,12 +176,16 @@
 }
 
 - (IBAction)unfollow:(WLButton*)sender {
+    self.settingsButton.userInteractionEnabled = NO;
     sender.loading = YES;
+    __weak typeof(self)weakSelf = self;
     [[WLAPIRequest unfollowWrap:self.wrap] send:^(id object) {
         sender.loading = NO;
+        weakSelf.settingsButton.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
         [error show];
         sender.loading = NO;
+        weakSelf.settingsButton.userInteractionEnabled = YES;
     }];
 }
 

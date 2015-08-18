@@ -2479,7 +2479,7 @@
 			children = (
 				C5177C381B7CE55E008102C7 /* WLWrapStatusImageView */,
 				C5BAD12F1B53F9C60028FCEB /* WLAlertView */,
-				C5978BE31B396FA500D5043E /* WLDrawingView */,
+				C5978BE31B396FA500D5043E /* WLDrawingSession */,
 				5BD121571B0250E000FF5FBF /* WLDownloadingView */,
 				C5FE0A5A1ACD98F3007DBE95 /* WLCircleImageView */,
 				C573FB8A1AB84ADD00F1098C /* WLTouchView */,
@@ -4517,7 +4517,7 @@
 			path = WLAddressBook/WLAddressBookRecord;
 			sourceTree = "<group>";
 		};
-		C5978BE31B396FA500D5043E /* WLDrawingView */ = {
+		C5978BE31B396FA500D5043E /* WLDrawingSession */ = {
 			isa = PBXGroup;
 			children = (
 				C5AEE4291B3AC9A7000C8CCF /* WLDrawingSession.h */,
@@ -4535,7 +4535,6 @@
 				C55E10A11B3C0E1F0032DFDA /* CGPointExtension.h */,
 				C55E10A21B3C0E1F0032DFDA /* CGPointExtension.m */,
 			);
-			name = WLDrawingView;
 			path = WLDrawingSession;
 			sourceTree = "<group>";
 		};

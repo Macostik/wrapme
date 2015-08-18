@@ -56,6 +56,9 @@
     if (dictionary[WLCreatorKey] != nil) {
         WLUser *contributor = [WLUser API_entry:dictionary[WLCreatorKey]];
         if (self.contributor != contributor) self.contributor = contributor;
+    } else if (dictionary[WLCreatorUIDKey] != nil) {
+        WLUser *contributor = [WLUser entry:dictionary[WLCreatorUIDKey]];
+        if (self.contributor != contributor) self.contributor = contributor;
     }
     
     if (!self.isPublic && ![self.contributors containsObject:[WLUser currentUser]]) {

@@ -105,17 +105,46 @@
     if (dictionary[WLContributorKey]) {
         WLUser *contributor = [WLUser API_entry:dictionary[WLContributorKey]];
         if (self.contributor != contributor) self.contributor = contributor;
+    } else {
+        [self parseContributor:dictionary];
     }
     
     if (dictionary[WLEditorKey]) {
         WLUser *editor = [WLUser API_entry:dictionary[WLEditorKey]];
         if (self.editor != editor) self.editor = editor;
+    } else {
+        [self parseEditor:dictionary];
     }
     
     NSDate* editedAt = [dictionary timestampDateForKey:WLEditedAtKey];
     if (!NSDateEqual(self.editedAt, editedAt)) self.editedAt = editedAt;
     
     return [super API_setup:dictionary relatedEntry:relatedEntry];
+}
+
+- (void)parseContributor:(NSDictionary*)dictionary {
+    NSString* identifier = [dictionary stringForKey:WLContributorUIDKey];
+    if (!identifier.nonempty) return;
+    WLUser* contributor = self.contributor;
+    if (!NSStringEqual(contributor.identifier, identifier)) {
+        contributor = [WLUser entry:identifier];
+        self.contributor = contributor;
+    }
+    NSString* name = [dictionary stringForKey:WLContributorNameKey];
+    if (!NSStringEqual(contributor.name, name)) contributor.name = name;
+    [contributor editPicture:[dictionary stringForKey:WLContributorLargeAvatarKey]
+                      medium:[dictionary stringForKey:WLContributorMediumAvatarKey]
+                       small:[dictionary stringForKey:WLContributorSmallAvatarKey]];
+}
+
+- (void)parseEditor:(NSDictionary*)dictionary {
+    NSString* identifier = [dictionary stringForKey:WLEditorUIDKey];
+    if (!identifier.nonempty) return;
+    WLUser* editor = self.editor;
+    if (!NSStringEqual(editor.identifier, identifier)) {
+        editor = [WLUser entry:identifier];
+        self.editor = editor;
+    }
 }
 
 - (BOOL)canBeUploaded {

@@ -6,11 +6,7 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLItemCell.h"
-
-@class WLAddressBookRecord;
-@class WLContactCell;
-@class WLAddressBookPhoneNumber;
+@class WLAddressBookRecord, WLAddressBookRecordCell, WLAddressBookPhoneNumber;
 
 typedef NS_ENUM(NSUInteger, WLContactCellState) {
     WLContactCellStateDefault,
@@ -20,15 +16,15 @@ typedef NS_ENUM(NSUInteger, WLContactCellState) {
 
 @protocol WLContactCellDelegate <NSObject>
 
-- (void)contactCell:(WLContactCell*)cell didSelectPerson:(WLAddressBookPhoneNumber*)person;
+- (void)contactCell:(WLAddressBookRecordCell*)cell didSelectPerson:(WLAddressBookPhoneNumber*)person;
 
-- (WLContactCellState)contactCell:(WLContactCell*)cell phoneNumberState:(WLAddressBookPhoneNumber*)phoneNumber;
+- (WLContactCellState)contactCell:(WLAddressBookRecordCell*)cell phoneNumberState:(WLAddressBookPhoneNumber*)phoneNumber;
 
-- (void)contactCellDidToggle:(WLContactCell*)cell;
+- (void)contactCellDidToggle:(WLAddressBookRecordCell*)cell;
 
 @end
 
-@interface WLContactCell : WLItemCell
+@interface WLAddressBookRecordCell : UITableViewCell
 
 + (instancetype)cellWithContact:(WLAddressBookRecord*)contact inTableView:(UITableView*)tableView indexPath:(NSIndexPath*)indexPath;
 
@@ -37,6 +33,8 @@ typedef NS_ENUM(NSUInteger, WLContactCellState) {
 @property (nonatomic) WLContactCellState state;
 
 @property (nonatomic) BOOL opened;
+
+@property (strong, nonatomic) WLAddressBookRecord *record;
 
 + (NSString *)collectionPersonsStringFromContact:(WLAddressBookRecord *)contact;
 

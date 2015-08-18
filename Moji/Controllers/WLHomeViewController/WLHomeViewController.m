@@ -34,7 +34,7 @@
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
 #import "WLWhatsUpSet.h"
-#import "WLSegmentedControl.h"
+#import "SegmentedControl.h"
 #import "WLNavigationHelper.h"
 #import "WLHintView.h"
 #import "WLLayoutPrioritizer.h"

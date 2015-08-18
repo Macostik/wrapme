@@ -20,9 +20,10 @@
 
 @implementation WLAddressBookPhoneNumberCell
 
-- (void)setupItemData:(WLAddressBookPhoneNumber *)person {
-	self.typeLabel.text = [NSString stringWithFormat:@"%@:", WLString(person.phone.label)];
-	self.phoneLabel.text = person.phone;
+- (void)setPhoneNumber:(WLAddressBookPhoneNumber *)phoneNumber {
+    _phoneNumber = phoneNumber;
+	self.typeLabel.text = [NSString stringWithFormat:@"%@:", WLString(phoneNumber.phone.label)];
+	self.phoneLabel.text = phoneNumber.phone;
 }
 
 - (void)setChecked:(BOOL)checked {
@@ -33,7 +34,7 @@
 }
 
 - (IBAction)select:(id)sender {
-    WLAddressBookPhoneNumber *person = self.item;
+    WLAddressBookPhoneNumber *person = self.phoneNumber;
 	[self.delegate personCell:self didSelectPerson:person];
 }
 

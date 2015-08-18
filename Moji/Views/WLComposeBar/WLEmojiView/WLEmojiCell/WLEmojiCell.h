@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLCollectionItemCell.h"
+#import "WLEntryCell.h"
 
-@interface WLEmojiCell : WLCollectionItemCell
+@interface WLEmojiCell : WLEntryCell
 
 
 @end

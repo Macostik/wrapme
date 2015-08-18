@@ -66,8 +66,8 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLEmojiCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WLEmojiCell reuseIdentifier] forIndexPath:indexPath];
-	cell.item = [self.emojis objectAtIndex:indexPath.item];
+	WLEmojiCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLEmojiCell" forIndexPath:indexPath];
+	cell.entry = [self.emojis objectAtIndex:indexPath.item];
 	return cell;
 }
 

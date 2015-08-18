@@ -8,7 +8,7 @@
 
 #import "WLAddContributorsViewController.h"
 #import "WLAddressBook.h"
-#import "WLContactCell.h"
+#import "WLAddressBookRecordCell.h"
 #import "UIFont+CustomFonts.h"
 #import "WLInviteViewController.h"
 #import "WLAddressBookPhoneNumber.h"
@@ -114,7 +114,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[indexPath.section];
     WLAddressBookRecord* contact = group.records[indexPath.row];
-    WLContactCell* cell = [WLContactCell cellWithContact:contact inTableView:tableView indexPath:indexPath];
+    WLAddressBookRecordCell* cell = [WLAddressBookRecordCell cellWithContact:contact inTableView:tableView indexPath:indexPath];
 	cell.opened = ([contact.phoneNumbers count] > 1 && [self openedIndexPath:indexPath] != nil);
     
     if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
@@ -140,7 +140,7 @@ const static CGFloat WLDefaultHeight = 72.0f;
             return WLDefaultHeight;
         }
     } else {
-        NSString *phoneString = [WLContactCell collectionPersonsStringFromContact:contact];
+        NSString *phoneString = [WLAddressBookRecordCell collectionPersonsStringFromContact:contact];
         CGFloat height = [phoneString heightWithFont:[UIFont preferredDefaultFontWithPreset:WLFontPresetSmall]
                                        width:self.tableView.width - 142.0f];
         return height + 54.0;
@@ -164,14 +164,14 @@ const static CGFloat WLDefaultHeight = 72.0f;
 
 #pragma mark - WLContactCellDelegate
 
-- (WLContactCellState)contactCell:(WLContactCell *)cell phoneNumberState:(WLAddressBookPhoneNumber *)phoneNumber {
+- (WLContactCellState)contactCell:(WLAddressBookRecordCell *)cell phoneNumberState:(WLAddressBookPhoneNumber *)phoneNumber {
     if ([self.wrap.contributors containsObject:phoneNumber.user]) {
         return WLContactCellStateAdded;
     }
     return [self.addressBook selectedPhoneNumber:phoneNumber] != nil ? WLContactCellStateSelected : WLContactCellStateDefault;
 }
 
-- (void)contactCell:(WLContactCell *)cell didSelectPerson:(WLAddressBookPhoneNumber *)person {
+- (void)contactCell:(WLAddressBookRecordCell *)cell didSelectPerson:(WLAddressBookPhoneNumber *)person {
     
     [self.addressBook selectPhoneNumber:person];
 	
@@ -190,7 +190,7 @@ const static CGFloat WLDefaultHeight = 72.0f;
     return nil;
 }
 
-- (void)contactCellDidToggle:(WLContactCell *)cell {
+- (void)contactCellDidToggle:(WLAddressBookRecordCell *)cell {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (indexPath) {
         NSIndexPath *existingIndexPath = [self openedIndexPath:indexPath];

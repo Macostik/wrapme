@@ -39,8 +39,6 @@
 		5BA60C6A1A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */; };
 		5BA60CB01A8257ED000F795C /* UIButton+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C2D1A8257ED000F795C /* UIButton+Additions.m */; };
 		5BA60CB21A8257ED000F795C /* UIButton+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C2D1A8257ED000F795C /* UIButton+Additions.m */; };
-		5BA60CB41A8257ED000F795C /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C301A8257ED000F795C /* UICollectionViewCell+Autoresizing.m */; };
-		5BA60CB61A8257ED000F795C /* UICollectionViewCell+Autoresizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C301A8257ED000F795C /* UICollectionViewCell+Autoresizing.m */; };
 		5BA60CD81A8257ED000F795C /* UINavigationController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C471A8257ED000F795C /* UINavigationController+InterfaceOrientation.m */; };
 		5BA60CDA1A8257ED000F795C /* UINavigationController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C471A8257ED000F795C /* UINavigationController+InterfaceOrientation.m */; };
 		5BA60CDC1A8257ED000F795C /* UIScreen+Diagonal.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C4A1A8257ED000F795C /* UIScreen+Diagonal.m */; };
@@ -59,8 +57,6 @@
 		5BA6AA451A66779E00493582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		5BA6AA511A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6AA551A66805E00493582 /* WLWrapPlaceholderViewHistory.xib */; };
 		5BA6AA531A66805E00493582 /* WLWrapPlaceholderViewHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6AA551A66805E00493582 /* WLWrapPlaceholderViewHistory.xib */; };
-		5BA755F61A7641890037D51E /* WLScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA755F41A7641890037D51E /* WLScrollView.m */; };
-		5BA755F81A7641890037D51E /* WLScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA755F41A7641890037D51E /* WLScrollView.m */; };
 		5BA7AC221A7916AB00BB922E /* WLCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */; };
 		5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC201A7916AB00BB922E /* WLCommentsViewController.m */; };
 		5BA7AC2D1A7939FB00BB922E /* WLTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7AC2B1A7939FA00BB922E /* WLTriangleView.m */; };
@@ -76,8 +72,6 @@
 		5BD121561B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
 		5BD303431B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
 		5BD303451B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */; };
-		5BD3BDBD1B45348400A42EBB /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */; };
-		5BD3BDBF1B45348400A42EBB /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */; };
 		5BD552131B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD5520F1B3C13F700530566 /* WhatsUpPlaceholderView.xib */; };
 		5BD552151B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD5520F1B3C13F700530566 /* WhatsUpPlaceholderView.xib */; };
 		5BD782C91A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD782CD1A4EC56A0094BEE5 /* WLConfirmView.xib */; };
@@ -112,8 +106,8 @@
 		C500C9151ACBE53C0072BBA8 /* NewRelicAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C500C9111ACBE53C0072BBA8 /* NewRelicAgent.framework */; };
 		C504178319B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
 		C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
-		C504178719B9EE15000E55F3 /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLContactCell.m */; };
-		C504178919B9EE15000E55F3 /* WLContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLContactCell.m */; };
+		C504178719B9EE15000E55F3 /* WLAddressBookRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */; };
+		C504178919B9EE15000E55F3 /* WLAddressBookRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */; };
 		C506460F1ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */; };
 		C50646101ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */; };
 		C50646261ABD815200CB4BE3 /* WLTodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */; };
@@ -166,8 +160,6 @@
 		C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE11A41952400A2C370 /* WLTextView.m */; };
 		C52E1FE91A41957800A2C370 /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */; };
 		C52E1FEB1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */; };
-		C52E1FF01A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
-		C52E1FF21A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */; };
 		C534D6721AF12BC900D51700 /* MojiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C587C7681AD2E5A9003E7647 /* MojiKit.framework */; };
 		C535F9CB1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
@@ -277,7 +269,6 @@
 		C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		C54AF46919B8C437006F7EDB /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
 		C54AF46F19B8C437006F7EDB /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
-		C54AF47119B8C437006F7EDB /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
 		C54AF47319B8C437006F7EDB /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C54AF48019B8C437006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
 		C54AF48219B8C437006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
@@ -301,7 +292,6 @@
 		C54AF4EB19B8C437006F7EDB /* WLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */; };
 		C54AF4ED19B8C437006F7EDB /* SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F0DAEF19338C9100F9D898 /* SegmentedControl.m */; };
 		C54AF4F219B8C437006F7EDB /* WLAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E218E197ED00FF43F6 /* WLAddressBook.m */; };
-		C54AF50519B8C437006F7EDB /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
 		C54AF50B19B8C437006F7EDB /* WLWhatsUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLWhatsUpCell.m */; };
 		C54AF50D19B8C437006F7EDB /* WLToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3EE1920F7E0007BE6CC /* WLToast.m */; };
 		C54AF51619B8C437006F7EDB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A179C1937694B002B3737 /* MessageUI.framework */; };
@@ -332,7 +322,6 @@
 		C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		C54AF66319B8C491006F7EDB /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
 		C54AF66919B8C491006F7EDB /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
-		C54AF66B19B8C491006F7EDB /* WLCollectionItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */; };
 		C54AF66D19B8C491006F7EDB /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C54AF67A19B8C491006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
 		C54AF67C19B8C491006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
@@ -356,7 +345,6 @@
 		C54AF6E519B8C491006F7EDB /* WLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */; };
 		C54AF6E719B8C491006F7EDB /* SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F0DAEF19338C9100F9D898 /* SegmentedControl.m */; };
 		C54AF6EC19B8C491006F7EDB /* WLAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E218E197ED00FF43F6 /* WLAddressBook.m */; };
-		C54AF6FF19B8C491006F7EDB /* WLItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8218DB18F400A4BC44 /* WLItemCell.m */; };
 		C54AF70519B8C491006F7EDB /* WLWhatsUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLWhatsUpCell.m */; };
 		C54AF70719B8C491006F7EDB /* WLToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3EE1920F7E0007BE6CC /* WLToast.m */; };
 		C54AF71019B8C491006F7EDB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A179C1937694B002B3737 /* MessageUI.framework */; };
@@ -392,8 +380,6 @@
 		C54E4AE11A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */; };
 		C54FC7641A160C2000623FC1 /* WLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54FC7621A160C2000623FC1 /* WLCollectionView.m */; };
 		C54FC7661A160C2000623FC1 /* WLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54FC7621A160C2000623FC1 /* WLCollectionView.m */; };
-		C55037861A2C828A007F2C2C /* WLNavigationAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C55037841A2C828A007F2C2C /* WLNavigationAnimator.m */; };
-		C55037881A2C828A007F2C2C /* WLNavigationAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = C55037841A2C828A007F2C2C /* WLNavigationAnimator.m */; };
 		C552329E1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C552329D1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m */; };
 		C552329F1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C552329D1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m */; };
 		C5528A0E1B3425C500AF1311 /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -626,8 +612,6 @@
 		C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C2621A4C427100ECC7E5 /* iVersion.m */; };
 		C577DA5E1AE1033400DBC3D4 /* WLPaginatedSet+WLBaseOrderedCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C577DA5C1AE1033400DBC3D4 /* WLPaginatedSet+WLBaseOrderedCollection.m */; };
 		C577DA601AE1033400DBC3D4 /* WLPaginatedSet+WLBaseOrderedCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C577DA5C1AE1033400DBC3D4 /* WLPaginatedSet+WLBaseOrderedCollection.m */; };
-		C57BDDB819FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */; };
-		C57BDDBA19FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */; };
 		C581680319F169D90081F350 /* WLBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C581680119F169D90081F350 /* WLBaseViewController.m */; };
 		C581680519F169D90081F350 /* WLBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C581680119F169D90081F350 /* WLBaseViewController.m */; };
 		C583A40D1AE79DCE0024003F /* WLTestUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = C583A4051AE79DCE0024003F /* WLTestUsers.plist */; };
@@ -1188,11 +1172,6 @@
 		12D653DC18E4329F009CE64C /* WLSeparatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSeparatorView.m; sourceTree = "<group>"; };
 		12DCBA7918DB17D000A4BC44 /* WLWrapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapCell.h; path = WLHomeViewController/WLWrapCell/WLWrapCell.h; sourceTree = "<group>"; };
 		12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapCell.m; path = WLHomeViewController/WLWrapCell/WLWrapCell.m; sourceTree = "<group>"; };
-		12DCBA7F18DB18F400A4BC44 /* WLCollectionItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCollectionItemCell.h; sourceTree = "<group>"; };
-		12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCollectionItemCell.m; sourceTree = "<group>"; };
-		12DCBA8118DB18F400A4BC44 /* WLItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLItemCell.h; sourceTree = "<group>"; };
-		12DCBA8218DB18F400A4BC44 /* WLItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLItemCell.m; sourceTree = "<group>"; };
-		12DCBA8318DB18F400A4BC44 /* WLItemCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLItemCellProtocol.h; sourceTree = "<group>"; };
 		12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapViewController.h; path = WLWrapViewController/WLWrapViewController.h; sourceTree = "<group>"; };
 		12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapViewController.m; path = WLWrapViewController/WLWrapViewController.m; sourceTree = "<group>"; };
 		12DE698E192E4C6B007580AD /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
@@ -1243,8 +1222,8 @@
 		5B954BAB1B44328B00D362B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLHomeSwipeTransitionView.xib; sourceTree = "<group>"; };
 		5B954BB11B4432A400D362B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
 		5B954BB21B4432A700D362B5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
-		5B954BB31B4437C000D362B5 /* WLLayoutPrioritizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLayoutPrioritizer.h; path = WLPrimaryLayoutConstraint/WLLayoutPrioritizer.h; sourceTree = "<group>"; };
-		5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLayoutPrioritizer.m; path = WLPrimaryLayoutConstraint/WLLayoutPrioritizer.m; sourceTree = "<group>"; };
+		5B954BB31B4437C000D362B5 /* WLLayoutPrioritizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLayoutPrioritizer.h; sourceTree = "<group>"; };
+		5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLLayoutPrioritizer.m; sourceTree = "<group>"; };
 		5BA130781B15A92600385C2C /* WLPresentingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPresentingImageView.h; path = Moji/Views/WLPresentingImageView/WLPresentingImageView.h; sourceTree = SOURCE_ROOT; };
 		5BA130791B15A92600385C2C /* WLPresentingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPresentingImageView.m; path = Moji/Views/WLPresentingImageView/WLPresentingImageView.m; sourceTree = SOURCE_ROOT; };
 		5BA1307A1B15A92600385C2C /* WLPresentingImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLPresentingImageView.xib; path = Moji/Views/WLPresentingImageView/WLPresentingImageView.xib; sourceTree = SOURCE_ROOT; };
@@ -1258,8 +1237,6 @@
 		5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MFMailComposeViewController+Additions.m"; sourceTree = "<group>"; };
 		5BA60C2C1A8257ED000F795C /* UIButton+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Additions.h"; sourceTree = "<group>"; };
 		5BA60C2D1A8257ED000F795C /* UIButton+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Additions.m"; sourceTree = "<group>"; };
-		5BA60C2F1A8257ED000F795C /* UICollectionViewCell+Autoresizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+Autoresizing.h"; sourceTree = "<group>"; };
-		5BA60C301A8257ED000F795C /* UICollectionViewCell+Autoresizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewCell+Autoresizing.m"; sourceTree = "<group>"; };
 		5BA60C461A8257ED000F795C /* UINavigationController+InterfaceOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+InterfaceOrientation.h"; sourceTree = "<group>"; };
 		5BA60C471A8257ED000F795C /* UINavigationController+InterfaceOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+InterfaceOrientation.m"; sourceTree = "<group>"; };
 		5BA60C491A8257ED000F795C /* UIScreen+Diagonal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+Diagonal.h"; sourceTree = "<group>"; };
@@ -1281,8 +1258,6 @@
 		5BA6CAEF1A10E51B004AD41C /* s02.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s02.wav; path = Sounds/s02.wav; sourceTree = "<group>"; };
 		5BA6CAF01A10E51B004AD41C /* s03.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s03.wav; path = Sounds/s03.wav; sourceTree = "<group>"; };
 		5BA6CAF11A10E51B004AD41C /* s04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = s04.wav; path = Sounds/s04.wav; sourceTree = "<group>"; };
-		5BA755F31A7641890037D51E /* WLScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLScrollView.h; path = WLScrollView/WLScrollView.h; sourceTree = "<group>"; };
-		5BA755F41A7641890037D51E /* WLScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLScrollView.m; path = WLScrollView/WLScrollView.m; sourceTree = "<group>"; };
 		5BA7A10D1A4D879A002B1D63 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5BA7A1101A4D8863002B1D63 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5BA7AC1F1A7916AB00BB922E /* WLCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCommentsViewController.h; path = Controllers/WLCommentsViewController/WLCommentsViewController.h; sourceTree = "<group>"; };
@@ -1300,8 +1275,6 @@
 		5BD121521B0250B500FF5FBF /* WLDownloadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDownloadingView.m; path = WLDownloadingView/WLDownloadingView.m; sourceTree = "<group>"; };
 		5BD3033F1B2971D2002EA8D7 /* WLWrapSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapSettingsViewController.h; path = WLWrapSettingsViewController/WLWrapSettingsViewController.h; sourceTree = "<group>"; };
 		5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapSettingsViewController.m; path = WLWrapSettingsViewController/WLWrapSettingsViewController.m; sourceTree = "<group>"; };
-		5BD3BDB91B45348400A42EBB /* WLSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSegmentedControl.h; path = WLSegmentedControl/WLSegmentedControl.h; sourceTree = "<group>"; };
-		5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSegmentedControl.m; path = WLSegmentedControl/WLSegmentedControl.m; sourceTree = "<group>"; };
 		5BD459111B4EB07000C90FD9 /* CoreData 1. 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 3.xcdatamodel"; sourceTree = "<group>"; };
 		5BD552101B3C13F700530566 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WhatsUpPlaceholderView.xib; sourceTree = "<group>"; };
 		5BD5521D1B3C142200530566 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WhatsUpPlaceholderView.strings; sourceTree = "<group>"; };
@@ -1356,8 +1329,8 @@
 		C5032EAF1940C04900753D07 /* WLSplashLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLSplashLoadingView.xib; path = WLLoadingView/WLSplashLoadingView.xib; sourceTree = "<group>"; };
 		C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddContributorsViewController.h; sourceTree = "<group>"; };
 		C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddContributorsViewController.m; sourceTree = "<group>"; };
-		C504177D19B9EE15000E55F3 /* WLContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLContactCell.h; sourceTree = "<group>"; };
-		C504177E19B9EE15000E55F3 /* WLContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLContactCell.m; sourceTree = "<group>"; };
+		C504177D19B9EE15000E55F3 /* WLAddressBookRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookRecordCell.h; sourceTree = "<group>"; };
+		C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookRecordCell.m; sourceTree = "<group>"; };
 		C50645841ABD7FD400CB4BE3 /* MojiWatchExtQA.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MojiWatchExtQA.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50645931ABD7FD500CB4BE3 /* MojiWatchAppQA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MojiWatchAppQA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50645B91ABD815100CB4BE3 /* MojiTodayQA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiTodayQA-Info.plist"; sourceTree = "<group>"; };
@@ -1424,8 +1397,6 @@
 		C52E1FE11A41952400A2C370 /* WLTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTextView.m; sourceTree = "<group>"; };
 		C52E1FE61A41957800A2C370 /* UIFont+CustomFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CustomFonts.h"; sourceTree = "<group>"; };
 		C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CustomFonts.m"; sourceTree = "<group>"; };
-		C52E1FED1A41ABBC00A2C370 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
-		C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		C535F9C81AA0923D00FF641E /* WLAddressBookGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookGroupView.h; sourceTree = "<group>"; };
 		C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookGroupView.m; sourceTree = "<group>"; };
 		C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAddressBookGroupView.xib; sourceTree = "<group>"; };
@@ -1539,8 +1510,6 @@
 		C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLLaunchScreenViewController.m; sourceTree = "<group>"; };
 		C54FC7611A160C2000623FC1 /* WLCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionView.h; path = WLCollectionView/WLCollectionView.h; sourceTree = "<group>"; };
 		C54FC7621A160C2000623FC1 /* WLCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionView.m; path = WLCollectionView/WLCollectionView.m; sourceTree = "<group>"; };
-		C55037831A2C828A007F2C2C /* WLNavigationAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNavigationAnimator.h; sourceTree = "<group>"; };
-		C55037841A2C828A007F2C2C /* WLNavigationAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNavigationAnimator.m; sourceTree = "<group>"; };
 		C55232911ACD3F4900886437 /* CandyAPNS.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = CandyAPNS.apns; sourceTree = "<group>"; };
 		C55232921ACD3F4900886437 /* ChatAPNS.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChatAPNS.apns; sourceTree = "<group>"; };
 		C55232931ACD3F4900886437 /* WrapAPNS.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = WrapAPNS.apns; sourceTree = "<group>"; };
@@ -1742,8 +1711,8 @@
 		C568C7BB1B21F1D800308CBA /* WLEntry+Containment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLEntry+Containment.m"; sourceTree = "<group>"; };
 		C568D8D41A6D491800C2333B /* WLHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHintView.h; sourceTree = "<group>"; };
 		C568D8D51A6D491800C2333B /* WLHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHintView.m; sourceTree = "<group>"; };
-		C56A760C1A640F1900D1FBED /* WLStoryboardTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStoryboardTransition.h; path = WLStoryboardSegue/WLStoryboardTransition.h; sourceTree = "<group>"; };
-		C56A760D1A640F1900D1FBED /* WLStoryboardTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLStoryboardTransition.m; path = WLStoryboardSegue/WLStoryboardTransition.m; sourceTree = "<group>"; };
+		C56A760C1A640F1900D1FBED /* WLStoryboardTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLStoryboardTransition.h; sourceTree = "<group>"; };
+		C56A760D1A640F1900D1FBED /* WLStoryboardTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLStoryboardTransition.m; sourceTree = "<group>"; };
 		C56F69A21B78D6EB00660DF1 /* PubNub+APNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PubNub+APNS.h"; sourceTree = "<group>"; };
 		C56F69A31B78D6EB00660DF1 /* PubNub+APNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PubNub+APNS.m"; sourceTree = "<group>"; };
 		C56F69A41B78D6EB00660DF1 /* PubNub+ChannelGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PubNub+ChannelGroup.h"; sourceTree = "<group>"; };
@@ -1922,8 +1891,6 @@
 		C577DA5C1AE1033400DBC3D4 /* WLPaginatedSet+WLBaseOrderedCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLPaginatedSet+WLBaseOrderedCollection.m"; sourceTree = "<group>"; };
 		C57B2FA21B3D69DF0065EEDF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Camera.strings; sourceTree = "<group>"; };
 		C57B2FA41B3D6A230065EEDF /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Camera.strings; sourceTree = "<group>"; };
-		C57BDDB519FA5ED3003593F1 /* WLStoryboardSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStoryboardSegue.h; path = WLStoryboardSegue/WLStoryboardSegue.h; sourceTree = "<group>"; };
-		C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLStoryboardSegue.m; path = WLStoryboardSegue/WLStoryboardSegue.m; sourceTree = "<group>"; };
 		C581680019F169D90081F350 /* WLBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBaseViewController.h; path = WLBaseViewController/WLBaseViewController.h; sourceTree = "<group>"; };
 		C581680119F169D90081F350 /* WLBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBaseViewController.m; path = WLBaseViewController/WLBaseViewController.m; sourceTree = "<group>"; };
 		C583A4051AE79DCE0024003F /* WLTestUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLTestUsers.plist; sourceTree = "<group>"; };
@@ -2455,17 +2422,16 @@
 				C5A82CCC1ACD979B00336027 /* WLDeviceOrientationBroadcaster */,
 				C577C2601A4C426300ECC7E5 /* iVersion */,
 				C54773101A41910E004C5826 /* WLFontPresetter */,
-				C55037821A2C827C007F2C2C /* WLNavigationAnimator */,
 				C559974D1A262BC2003D4B29 /* WLTelephony */,
 				C5C20B8C1A238ACC008B2E2E /* WLValidation */,
 				C547A44E1A026B3E005061AB /* WLKeyboard */,
-				C57BDDB419FA5E9E003593F1 /* WLStoryboardSegue */,
+				C57BDDB419FA5E9E003593F1 /* WLStoryboardTransition */,
 				C5B2A11F1B4BFED8004759F3 /* WLChat */,
 				14B2429A195C4CBC00C5D208 /* WLEditSession */,
 				129654E018E197D700FF43F6 /* WLAddressBook */,
 				121B1B2B18E0741A001F585C /* WLCountry */,
 				14A04F851940CAFF005DA4CE /* WLEmoji */,
-				5BD3BDC01B45370B00A42EBB /* WLPrimaryLayoutConstraint */,
+				5BD3BDC01B45370B00A42EBB /* WLLayoutPrioritizer */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2500,9 +2466,7 @@
 				12D653D718E4329F009CE64C /* WLProgressBar */,
 				12D653DA18E4329F009CE64C /* WLSeparatorView */,
 				129654F018E1CACB00FF43F6 /* WLInputAccessoryView */,
-				12DCBA7E18DB18F400A4BC44 /* Reusing Views */,
 				5BA432AE1A3F3F5200B53BC7 /* WLConfirmView */,
-				5BA755F91A7641A90037D51E /* WLScrollView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2567,18 +2531,6 @@
 				12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */,
 			);
 			name = WLWrapCell;
-			sourceTree = "<group>";
-		};
-		12DCBA7E18DB18F400A4BC44 /* Reusing Views */ = {
-			isa = PBXGroup;
-			children = (
-				12DCBA7F18DB18F400A4BC44 /* WLCollectionItemCell.h */,
-				12DCBA8018DB18F400A4BC44 /* WLCollectionItemCell.m */,
-				12DCBA8118DB18F400A4BC44 /* WLItemCell.h */,
-				12DCBA8218DB18F400A4BC44 /* WLItemCell.m */,
-				12DCBA8318DB18F400A4BC44 /* WLItemCellProtocol.h */,
-			);
-			path = "Reusing Views";
 			sourceTree = "<group>";
 		};
 		12DCBA8818DB399B00A4BC44 /* WLWrapViewController */ = {
@@ -2666,7 +2618,6 @@
 		12F0DAED19338C9100F9D898 /* SegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
-				5BD3BDC11B45378100A42EBB /* WLSegmentedControl */,
 				12F0DAEE19338C9100F9D898 /* SegmentedControl.h */,
 				12F0DAEF19338C9100F9D898 /* SegmentedControl.m */,
 			);
@@ -2749,7 +2700,6 @@
 				5BA60BF81A8257ED000F795C /* ALAssetsLibrary */,
 				5BA60BFC1A8257ED000F795C /* MFMailComposeViewController */,
 				5BA60C2B1A8257ED000F795C /* UIButton */,
-				5BA60C2E1A8257ED000F795C /* UICollectionViewCell */,
 				5BA60C451A8257ED000F795C /* UINavigationController */,
 				5BA60C481A8257ED000F795C /* UIScreen */,
 				5BA60C4B1A8257ED000F795C /* UIScrollView */,
@@ -2784,15 +2734,6 @@
 				5BA60C2D1A8257ED000F795C /* UIButton+Additions.m */,
 			);
 			path = UIButton;
-			sourceTree = "<group>";
-		};
-		5BA60C2E1A8257ED000F795C /* UICollectionViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				5BA60C2F1A8257ED000F795C /* UICollectionViewCell+Autoresizing.h */,
-				5BA60C301A8257ED000F795C /* UICollectionViewCell+Autoresizing.m */,
-			);
-			path = UICollectionViewCell;
 			sourceTree = "<group>";
 		};
 		5BA60C451A8257ED000F795C /* UINavigationController */ = {
@@ -2846,15 +2787,6 @@
 				C5177C3E1B7CE65C008102C7 /* UIView+QuartzCoreHelper.m */,
 			);
 			path = UIView;
-			sourceTree = "<group>";
-		};
-		5BA755F91A7641A90037D51E /* WLScrollView */ = {
-			isa = PBXGroup;
-			children = (
-				5BA755F31A7641890037D51E /* WLScrollView.h */,
-				5BA755F41A7641890037D51E /* WLScrollView.m */,
-			);
-			name = WLScrollView;
 			sourceTree = "<group>";
 		};
 		5BA7A1081A4D8745002B1D63 /* Localizable */ = {
@@ -2926,22 +2858,13 @@
 			name = WLWrapSettingsViewController;
 			sourceTree = "<group>";
 		};
-		5BD3BDC01B45370B00A42EBB /* WLPrimaryLayoutConstraint */ = {
+		5BD3BDC01B45370B00A42EBB /* WLLayoutPrioritizer */ = {
 			isa = PBXGroup;
 			children = (
 				5B954BB31B4437C000D362B5 /* WLLayoutPrioritizer.h */,
 				5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */,
 			);
-			name = WLPrimaryLayoutConstraint;
-			sourceTree = "<group>";
-		};
-		5BD3BDC11B45378100A42EBB /* WLSegmentedControl */ = {
-			isa = PBXGroup;
-			children = (
-				5BD3BDB91B45348400A42EBB /* WLSegmentedControl.h */,
-				5BD3BDBA1B45348400A42EBB /* WLSegmentedControl.m */,
-			);
-			name = WLSegmentedControl;
+			path = WLLayoutPrioritizer;
 			sourceTree = "<group>";
 		};
 		5BD58FBE1B145A4C00B67A3F /* WLPresentingImageView */ = {
@@ -3050,19 +2973,19 @@
 				C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */,
 				C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */,
 				C535F9C71AA0921C00FF641E /* WLAddressBookGroupView */,
-				C504177C19B9EE15000E55F3 /* WLContactCell */,
+				C504177C19B9EE15000E55F3 /* WLAddressBookRecordCell */,
 			);
 			path = WLAddContributorsViewController;
 			sourceTree = "<group>";
 		};
-		C504177C19B9EE15000E55F3 /* WLContactCell */ = {
+		C504177C19B9EE15000E55F3 /* WLAddressBookRecordCell */ = {
 			isa = PBXGroup;
 			children = (
-				C504177D19B9EE15000E55F3 /* WLContactCell.h */,
-				C504177E19B9EE15000E55F3 /* WLContactCell.m */,
+				C504177D19B9EE15000E55F3 /* WLAddressBookRecordCell.h */,
+				C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */,
 				C5D051BE1A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell */,
 			);
-			path = WLContactCell;
+			path = WLAddressBookRecordCell;
 			sourceTree = "<group>";
 		};
 		C50645AA1ABD815100CB4BE3 /* Extensions */ = {
@@ -3263,7 +3186,6 @@
 		C52E1FC71A41947D00A2C370 /* Text Views */ = {
 			isa = PBXGroup;
 			children = (
-				C52E1FEC1A41ABBC00A2C370 /* TTTAttributedLabel */,
 				C52E1FE61A41957800A2C370 /* UIFont+CustomFonts.h */,
 				C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */,
 				C52E1FCA1A41951300A2C370 /* WLLabel.h */,
@@ -3276,15 +3198,6 @@
 				C52E1FE11A41952400A2C370 /* WLTextView.m */,
 			);
 			path = "Text Views";
-			sourceTree = "<group>";
-		};
-		C52E1FEC1A41ABBC00A2C370 /* TTTAttributedLabel */ = {
-			isa = PBXGroup;
-			children = (
-				C52E1FED1A41ABBC00A2C370 /* TTTAttributedLabel.h */,
-				C52E1FEE1A41ABBC00A2C370 /* TTTAttributedLabel.m */,
-			);
-			path = TTTAttributedLabel;
 			sourceTree = "<group>";
 		};
 		C535F9C71AA0921C00FF641E /* WLAddressBookGroupView */ = {
@@ -3585,15 +3498,6 @@
 				5BD5520F1B3C13F700530566 /* WhatsUpPlaceholderView.xib */,
 			);
 			path = "Placeholder Views";
-			sourceTree = "<group>";
-		};
-		C55037821A2C827C007F2C2C /* WLNavigationAnimator */ = {
-			isa = PBXGroup;
-			children = (
-				C55037831A2C828A007F2C2C /* WLNavigationAnimator.h */,
-				C55037841A2C828A007F2C2C /* WLNavigationAnimator.m */,
-			);
-			path = WLNavigationAnimator;
 			sourceTree = "<group>";
 		};
 		C552329A1ACD475A00886437 /* Categories */ = {
@@ -4443,15 +4347,13 @@
 			path = iVersion;
 			sourceTree = "<group>";
 		};
-		C57BDDB419FA5E9E003593F1 /* WLStoryboardSegue */ = {
+		C57BDDB419FA5E9E003593F1 /* WLStoryboardTransition */ = {
 			isa = PBXGroup;
 			children = (
-				C57BDDB519FA5ED3003593F1 /* WLStoryboardSegue.h */,
-				C57BDDB619FA5ED3003593F1 /* WLStoryboardSegue.m */,
 				C56A760C1A640F1900D1FBED /* WLStoryboardTransition.h */,
 				C56A760D1A640F1900D1FBED /* WLStoryboardTransition.m */,
 			);
-			name = WLStoryboardSegue;
+			path = WLStoryboardTransition;
 			sourceTree = "<group>";
 		};
 		C58167FF19F169BD0081F350 /* WLBaseViewController */ = {
@@ -5864,9 +5766,7 @@
 				C500983F1AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
 				C56F6ABB1B78D6EB00660DF1 /* PNTimeParser.m in Sources */,
 				C55E109E1B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
-				5BD3BDBD1B45348400A42EBB /* WLSegmentedControl.m in Sources */,
 				C54AF46F19B8C437006F7EDB /* WLCountry.m in Sources */,
-				C54AF47119B8C437006F7EDB /* WLCollectionItemCell.m in Sources */,
 				C54AF47319B8C437006F7EDB /* WLEmojiView.m in Sources */,
 				C52E1FDD1A41951300A2C370 /* WLTextField.m in Sources */,
 				C5B8F7191B82161500A5E541 /* WLDrawingViewController.m in Sources */,
@@ -5958,7 +5858,6 @@
 				C5C20B961A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C54974591ABC1C34000E3F54 /* WLQAButton.m in Sources */,
 				C5EE2CE01B5658F90016889E /* WLMessagesCounter.m in Sources */,
-				5BA755F61A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178319B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				5BA1307C1B15A92600385C2C /* WLPresentingImageView.m in Sources */,
 				C5A82CD71ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */,
@@ -5975,7 +5874,7 @@
 				C54AF4CA19B8C437006F7EDB /* WLWrapViewController.m in Sources */,
 				C53E5D791A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
 				5B954BB71B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */,
-				C504178719B9EE15000E55F3 /* WLContactCell.m in Sources */,
+				C504178719B9EE15000E55F3 /* WLAddressBookRecordCell.m in Sources */,
 				C577DA5E1AE1033400DBC3D4 /* WLPaginatedSet+WLBaseOrderedCollection.m in Sources */,
 				C54186771B4560E300F83889 /* CLIColor.m in Sources */,
 				C56F6AB31B78D6EB00660DF1 /* PNPushNotificationsAuditParser.m in Sources */,
@@ -5988,7 +5887,6 @@
 				C56F6ABD1B78D6EB00660DF1 /* PNNetwork.m in Sources */,
 				C54AF4CF19B8C437006F7EDB /* WLEditSession.m in Sources */,
 				C5BCF0041B551B7B00E4AD6D /* WLCollectionViewFlowLayout.m in Sources */,
-				C55037861A2C828A007F2C2C /* WLNavigationAnimator.m in Sources */,
 				C56F6A7B1B78D6EB00660DF1 /* PNResult.m in Sources */,
 				C56F6A8D1B78D6EB00660DF1 /* PNData.m in Sources */,
 				C54186B01B4561A700F83889 /* PubNub+SharedInstance.m in Sources */,
@@ -6024,7 +5922,6 @@
 				C525687E1B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
 				C56F6A9F1B78D6EB00660DF1 /* PNChannelGroupAuditionParser.m in Sources */,
 				C54AF4E319B8C437006F7EDB /* WLStillPictureViewController.m in Sources */,
-				C57BDDB819FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
 				C500997B1ADFCC940064CC7B /* WLSectionedDataSource.m in Sources */,
 				C5BCF01D1B551B7B00E4AD6D /* WLTypingView.m in Sources */,
 				C5EE2CE81B567A970016889E /* WLRecentCandiesView.m in Sources */,
@@ -6058,13 +5955,11 @@
 				C515055819F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C5D051C21A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				C5C20BDA1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
-				5BA60CB41A8257ED000F795C /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C56F6AA31B78D6EB00660DF1 /* PNClientStateParser.m in Sources */,
 				C5D7FE931B501CDE00746908 /* WLSoundPlayer.m in Sources */,
 				C56F6A811B78D6EB00660DF1 /* PNSubscriberResults.m in Sources */,
 				C53DC22A1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
 				C5BEE0E81B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */,
-				C54AF50519B8C437006F7EDB /* WLItemCell.m in Sources */,
 				C5B2337C1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */,
 				C53F2CE51A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				C54C567A1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
@@ -6076,7 +5971,6 @@
 				C56F6A7F1B78D6EB00660DF1 /* PNStatus.m in Sources */,
 				C5BCF0131B551B7B00E4AD6D /* WLMessageDateView.m in Sources */,
 				C54531361A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
-				C52E1FF01A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */,
 				C56F6A7D1B78D6EB00660DF1 /* PNServiceData.m in Sources */,
 				C560D2351AFBB55E006B906E /* WLHistoryViewController.m in Sources */,
 				C53E5D6D1A851F71004F61B0 /* WLCameraAdjustmentView.m in Sources */,
@@ -6141,10 +6035,8 @@
 				C56F6A4A1B78D6EB00660DF1 /* PubNub+Presence.m in Sources */,
 				C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
 				C56F6ABC1B78D6EB00660DF1 /* PNTimeParser.m in Sources */,
-				5BD3BDBF1B45348400A42EBB /* WLSegmentedControl.m in Sources */,
 				C55E10A01B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				C54AF66919B8C491006F7EDB /* WLCountry.m in Sources */,
-				C54AF66B19B8C491006F7EDB /* WLCollectionItemCell.m in Sources */,
 				C54AF66D19B8C491006F7EDB /* WLEmojiView.m in Sources */,
 				C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */,
 				C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */,
@@ -6236,7 +6128,6 @@
 				C5C20B981A238B3D008B2E2E /* WLValidationGroup.m in Sources */,
 				C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */,
 				C5EE2CE21B5658F90016889E /* WLMessagesCounter.m in Sources */,
-				5BA755F81A7641890037D51E /* WLScrollView.m in Sources */,
 				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				5BA1307E1B15A92600385C2C /* WLPresentingImageView.m in Sources */,
 				C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */,
@@ -6253,7 +6144,7 @@
 				C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */,
 				C53E5D7B1A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
 				5B954BB91B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */,
-				C504178919B9EE15000E55F3 /* WLContactCell.m in Sources */,
+				C504178919B9EE15000E55F3 /* WLAddressBookRecordCell.m in Sources */,
 				C577DA601AE1033400DBC3D4 /* WLPaginatedSet+WLBaseOrderedCollection.m in Sources */,
 				C54186791B4560E300F83889 /* CLIColor.m in Sources */,
 				C56F6AB41B78D6EB00660DF1 /* PNPushNotificationsAuditParser.m in Sources */,
@@ -6266,7 +6157,6 @@
 				C56F6ABE1B78D6EB00660DF1 /* PNNetwork.m in Sources */,
 				C54AF6C919B8C491006F7EDB /* WLEditSession.m in Sources */,
 				C5BCF0061B551B7B00E4AD6D /* WLCollectionViewFlowLayout.m in Sources */,
-				C55037881A2C828A007F2C2C /* WLNavigationAnimator.m in Sources */,
 				C56F6A7C1B78D6EB00660DF1 /* PNResult.m in Sources */,
 				C56F6A8E1B78D6EB00660DF1 /* PNData.m in Sources */,
 				C54186B21B4561A700F83889 /* PubNub+SharedInstance.m in Sources */,
@@ -6303,7 +6193,6 @@
 				C56F6AA01B78D6EB00660DF1 /* PNChannelGroupAuditionParser.m in Sources */,
 				C52568801B2B0CD90009300A /* WLWrapPickerViewController.m in Sources */,
 				C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */,
-				C57BDDBA19FA5ED3003593F1 /* WLStoryboardSegue.m in Sources */,
 				C5BCF01F1B551B7B00E4AD6D /* WLTypingView.m in Sources */,
 				C5EE2CEA1B567A970016889E /* WLRecentCandiesView.m in Sources */,
 				C500997D1ADFCC940064CC7B /* WLSectionedDataSource.m in Sources */,
@@ -6336,13 +6225,11 @@
 				C515055A19F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C5D051C41A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
-				5BA60CB61A8257ED000F795C /* UICollectionViewCell+Autoresizing.m in Sources */,
 				C56F6AA41B78D6EB00660DF1 /* PNClientStateParser.m in Sources */,
 				C5D7FE951B501CDE00746908 /* WLSoundPlayer.m in Sources */,
 				C56F6A821B78D6EB00660DF1 /* PNSubscriberResults.m in Sources */,
 				C53DC22C1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
 				C5BEE0EA1B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */,
-				C54AF6FF19B8C491006F7EDB /* WLItemCell.m in Sources */,
 				C5B2337E1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */,
 				C53F2CE71A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				C54C567C1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
@@ -6354,7 +6241,6 @@
 				C56F6A801B78D6EB00660DF1 /* PNStatus.m in Sources */,
 				C5BCF0151B551B7B00E4AD6D /* WLMessageDateView.m in Sources */,
 				C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
-				C52E1FF21A41ABBC00A2C370 /* TTTAttributedLabel.m in Sources */,
 				C56F6A7E1B78D6EB00660DF1 /* PNServiceData.m in Sources */,
 				C560D2371AFBB55E006B906E /* WLHistoryViewController.m in Sources */,
 				C53E5D6F1A851F71004F61B0 /* WLCameraAdjustmentView.m in Sources */,

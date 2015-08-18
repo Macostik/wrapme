@@ -10,7 +10,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLHintView.h"
 #import "WLWrapView.h"
-#import "WLNavigationAnimator.h"
 #import "WLSoundPlayer.h"
 #import "WLToast.h"
 #import "ALAssetsLibrary+Additions.h"

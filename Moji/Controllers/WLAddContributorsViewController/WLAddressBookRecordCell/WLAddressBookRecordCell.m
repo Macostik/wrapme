@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLContactCell.h"
+#import "WLAddressBookRecordCell.h"
 #import "WLAddressBook.h"
 #import "WLAddressBookPhoneNumberCell.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "UIView+QuartzCoreHelper.h"
 
-@interface WLContactCell () <UITableViewDataSource, UITableViewDelegate, WLAddressBookPhoneNumberCellDelegate>
+@interface WLAddressBookRecordCell () <UITableViewDataSource, UITableViewDelegate, WLAddressBookPhoneNumberCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation WLContactCell
+@implementation WLAddressBookRecordCell
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
@@ -34,19 +34,20 @@
     self.signUpView.layer.borderColor = self.signUpView.textColor.CGColor;
 }
 
-+ (instancetype)cellWithContact:(WLAddressBookRecord *)contact inTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
-	WLContactCell* cell = nil;
-	if ([contact.phoneNumbers count] > 1) {
-		cell = [tableView dequeueReusableCellWithIdentifier:@"WLMultipleContactCell" forIndexPath:indexPath];
++ (instancetype)cellWithContact:(WLAddressBookRecord *)record inTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
+	WLAddressBookRecordCell* cell = nil;
+	if ([record.phoneNumbers count] > 1) {
+		cell = [tableView dequeueReusableCellWithIdentifier:@"WLMultipleAddressBookRecordCell" forIndexPath:indexPath];
 	} else {
-		cell = [tableView dequeueReusableCellWithIdentifier:@"WLContactCell" forIndexPath:indexPath];
+		cell = [tableView dequeueReusableCellWithIdentifier:@"WLAddressBookRecordCell" forIndexPath:indexPath];
 	}
-	cell.item = contact;
+	cell.record = record;
 	return cell;
 }
 
-- (void)setupItemData:(WLAddressBookRecord*)contact {
-	WLAddressBookPhoneNumber* phoneNumber = [contact.phoneNumbers lastObject];
+- (void)setRecord:(WLAddressBookRecord *)record {
+    _record = record;
+	WLAddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
     
     self.signUpView.hidden = (phoneNumber.user && phoneNumber.activated) ? NO : YES;
 	self.nameLabel.text = [phoneNumber priorityName];
@@ -63,7 +64,7 @@
 	if (self.tableView) {
 		[self.tableView reloadData];
 	} else {
-        self.phoneLabel.text = [WLContactCell collectionPersonsStringFromContact:contact];
+        self.phoneLabel.text = [WLAddressBookRecordCell collectionPersonsStringFromContact:record];
 		self.state = [self.delegate contactCell:self phoneNumberState:phoneNumber];
 	}
 }
@@ -101,8 +102,7 @@
 #pragma mark - Actions
 
 - (IBAction)select:(id)sender {
-	WLAddressBookRecord* contact = self.item;
-    WLAddressBookPhoneNumber *person = [contact.phoneNumbers lastObject];
+    WLAddressBookPhoneNumber *person = [self.record.phoneNumbers lastObject];
 	[self.delegate contactCell:self didSelectPerson:person];
 }
 
@@ -114,15 +114,15 @@
 #pragma mark - UITableViewDataSource, UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	WLAddressBookRecord* contact = self.item;
+	WLAddressBookRecord* contact = self.record;
 	return [contact.phoneNumbers count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	WLAddressBookPhoneNumberCell* cell = [tableView dequeueReusableCellWithIdentifier:@"WLAddressBookPhoneNumberCell" forIndexPath:indexPath];
-	WLAddressBookRecord* contact = self.item;
-	cell.item = contact.phoneNumbers[indexPath.row];
-	cell.checked = [self.delegate contactCell:self phoneNumberState:cell.item];
+	WLAddressBookRecord* contact = self.record;
+	cell.phoneNumber = contact.phoneNumbers[indexPath.row];
+	cell.checked = [self.delegate contactCell:self phoneNumberState:cell.phoneNumber];
 	return cell;
 }
 

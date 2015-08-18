@@ -16,7 +16,6 @@
 #import "WLLinkDeviceViewController.h"
 #import "WLTelephony.h"
 #import "WLActivationViewController.h"
-#import "WLNavigationAnimator.h"
 #import "UIView+AnimationHelper.h"
 #import "UIView+QuatzCoreAnimations.h"
 
@@ -184,12 +183,6 @@
 }
 
 #pragma mark - UINavigationControllerDelegate
-
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
-    WLNavigationAnimator *animator = [WLNavigationAnimator new];
-    animator.presenting = (operation == UINavigationControllerOperationPush);
-    return animator;
-}
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     __weak typeof(self)weakSelf = self;

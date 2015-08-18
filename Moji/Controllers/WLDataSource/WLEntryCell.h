@@ -11,6 +11,4 @@
 
 @interface WLEntryCell : UICollectionViewCell <WLEntrySetup>
 
-+ (BOOL)isEmbeddedLongPress;
-
 @end

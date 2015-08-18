@@ -11,7 +11,6 @@
 #import "WLCountryCell.h"
 #import "NSObject+NibAdditions.h"
 #import "WLBasicDataSource.h"
-#import "WLNavigationAnimator.h"
 
 @interface WLCountriesViewController ()
 
@@ -20,14 +19,6 @@
 @end
 
 @implementation WLCountriesViewController
-
-- (instancetype)initWithCoder:(NSCoder *)coder {
-    self = [super initWithCoder:coder];
-    if (self) {
-        self.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
 	[super viewDidLoad];

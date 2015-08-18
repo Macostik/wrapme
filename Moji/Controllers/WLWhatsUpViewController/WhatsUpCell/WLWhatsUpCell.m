@@ -9,7 +9,7 @@
 #import "WLWhatsUpCell.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
-#import "TTTAttributedLabel.h"
+#import "WLLabel.h"
 #import "WLComposeBar.h"
 #import "WLSoundPlayer.h"
 #import "WLProgressBar.h"

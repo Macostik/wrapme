@@ -11,7 +11,6 @@
 #import "WLHintView.h"
 #import "WLWrapView.h"
 #import "WLUploadPhotoViewController.h"
-#import "WLNavigationAnimator.h"
 #import "WLHomeViewController.h"
 #import "WLSoundPlayer.h"
 #import "WLToast.h"

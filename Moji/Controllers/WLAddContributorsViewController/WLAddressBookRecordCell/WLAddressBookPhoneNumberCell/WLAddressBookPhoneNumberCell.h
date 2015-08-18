@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLItemCell.h"
-
 @class WLAddressBookPhoneNumberCell;
 @class WLAddressBookPhoneNumber;
 
@@ -17,9 +15,11 @@
 
 @end
 
-@interface WLAddressBookPhoneNumberCell : WLItemCell
+@interface WLAddressBookPhoneNumberCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet id <WLAddressBookPhoneNumberCellDelegate> delegate;
+
+@property (strong, nonatomic) WLAddressBookPhoneNumber *phoneNumber;
 
 @property (nonatomic) BOOL checked;
 

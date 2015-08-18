@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) NSArray* controls;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectionConstraint;
+
 @end
 
 @implementation SegmentedControl {
@@ -77,6 +79,10 @@
 - (void)setSelectedControl:(UIControl*)control {
 	for (UIControl* _control in self.controls) {
 		_control.selected = (_control == control);
+        if (_control.selected) {
+            self.selectionConstraint.constant = _control.x;
+            [self setNeedsLayout];
+        }
 	}
 }
 

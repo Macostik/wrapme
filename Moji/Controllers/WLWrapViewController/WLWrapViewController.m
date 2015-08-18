@@ -13,7 +13,7 @@
 #import "WLPhotosViewController.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
-#import "WLSegmentedControl.h"
+#import "SegmentedControl.h"
 #import "WLBasicDataSource.h"
 #import "WLEntryPresenter.h"
 #import "WLChatViewController.h"
@@ -30,7 +30,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *candyCountLabel;
-@property (weak, nonatomic) IBOutlet WLSegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) UIViewController *viewController;
@@ -151,7 +151,7 @@
     [[WLMessagesCounter instance] addReceiver:self];
 }
 
-- (IBAction)segmentChanged:(WLSegmentedControl*)sender {
+- (IBAction)segmentChanged:(SegmentedControl*)sender {
     NSUInteger selectedSegment = self.segment = sender.selectedSegment;
     if (selectedSegment == WLWrapSegmentPhotos) {
         self.viewController = [self controllerForClass:[WLPhotosViewController class] badge:self.candyCountLabel];

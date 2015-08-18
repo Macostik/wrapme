@@ -13,7 +13,6 @@
 #import "WLStillPictureViewController.h"
 #import "WLProfileEditSession.h"
 #import "WLButton.h"
-#import "WLNavigationAnimator.h"
 #import "WLEditPicture.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
@@ -76,7 +75,6 @@
 	WLStillPictureViewController* cameraNavigation = [WLStillPictureViewController instantiate:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
     cameraNavigation.delegate = self;
     cameraNavigation.mode = WLStillPictureModeSquare;
-    cameraNavigation.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
     [self presentViewController:cameraNavigation animated:NO completion:nil];
 }
 

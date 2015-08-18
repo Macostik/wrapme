@@ -7,7 +7,6 @@
 //
 
 #import "WLUploadPhotoViewController.h"
-#import "WLNavigationAnimator.h"
 #import "WLHintView.h"
 #import "WLNavigationHelper.h"
 #import "WLComposeBar.h"
@@ -68,7 +67,6 @@
     } cancel:^(AdobeUXImageEditorViewController *controller) {
         [weakSelf.navigationController popViewControllerAnimated:NO];
     }];
-    aviaryController.animatorPresentationType = WLNavigationAnimatorPresentationTypeModal;
     [self.navigationController pushViewController:aviaryController animated:NO];
 }
 

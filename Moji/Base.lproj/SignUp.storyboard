@@ -727,7 +727,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="Raz-QX-I3L" kind="custom" identifier="country-&gt;selectedCountry" customClass="WLSetValueSegue" id="fZy-mH-djC"/>
+                                            <action selector="push:" destination="BSg-d6-eqT" eventType="touchUpInside" id="Fxq-0h-dN4"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -782,6 +782,16 @@
                     <connections>
                         <outlet property="inputView" destination="2Sj-7d-nda" id="7qZ-H6-H5U"/>
                         <outlet property="statusView" destination="sze-nv-qGE" id="HdU-6P-504"/>
+                    </connections>
+                </customObject>
+                <customObject id="BSg-d6-eqT" customClass="WLStoryboardTransition">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLCountriesViewController"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="country"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="selectedCountry"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="sourceViewController" destination="Jh0-1l-1TK" id="PZs-92-xfA"/>
                     </connections>
                 </customObject>
             </objects>

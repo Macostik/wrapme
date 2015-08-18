@@ -29,7 +29,7 @@
 	return _emojiLabel;
 }
 
-- (void)setupItemData:(NSString*)item {
+- (void)setup:(NSString*)item {
 	self.emojiLabel.text = item;
 }
 

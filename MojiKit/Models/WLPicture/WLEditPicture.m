@@ -23,9 +23,7 @@
 @implementation WLEditPicture
 
 - (void)dealloc {
-    NSLog(@"WLEditPicture dealloc");
     if (!self.uploaded) {
-        NSLog(@"WLEditPicture removing photos");
         [[NSFileManager defaultManager] removeItemAtPath:self.original error:NULL];
         if (![self.original isEqualToString:self.large]) {
             [[NSFileManager defaultManager] removeItemAtPath:self.large error:NULL];

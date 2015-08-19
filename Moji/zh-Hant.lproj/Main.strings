@@ -365,8 +365,8 @@
 /* Class = "UILabel"; text = "Moji"; ObjectID = "xS9-IA-WOM"; */
 "xS9-IA-WOM.text" = "Moji";
 
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "yxU-kB-7d8"; */
-"yxU-kB-7d8.normalTitle" = "Button";
+/* Class = "UIButton"; normalTitle = "l"; ObjectID = "yxU-kB-7d8"; */
+"yxU-kB-7d8.normalTitle" = "l";
 
 /* Class = "UILabel"; text = "10"; ObjectID = "z3d-ia-fy3"; */
 "z3d-ia-fy3.text" = "10";

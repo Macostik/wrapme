@@ -104,4 +104,6 @@ typedef NSString *(^WLAPIRequestFile) (id request);
 
 + (instancetype)now:(NSTimeInterval)offset;
 
++ (instancetype)dateWithTimestamp:(NSTimeInterval)timestamp;
+
 @end

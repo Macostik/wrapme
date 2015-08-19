@@ -167,6 +167,7 @@
 		C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
 		C535F9D61AD4321F000C81B4 /* NSData+CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = C535F9D41AD4321F000C81B4 /* NSData+CommonCrypto.h */; };
 		C535F9D71AD4321F000C81B4 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9D51AD4321F000C81B4 /* NSData+CommonCrypto.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C5390BF41B849A3C00027D8B /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AE8DAD1B7B4F32003CC6D4 /* PushKit.framework */; };
 		C53CA3C51A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
 		C53CA3C71A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
 		C53DC22A1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53DC2281AA7637C00D2E4C0 /* WLUploadingView.m */; };
@@ -2156,6 +2157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5390BF41B849A3C00027D8B /* PushKit.framework in Frameworks */,
 				C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */,
 				C5A28D651ACBEF2B00F0E8BA /* StoreKit.framework in Frameworks */,
 				C5218E7D1AE5594E007E55D0 /* OpenGLES.framework in Frameworks */,
@@ -5650,7 +5652,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" != \"Debug\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c\"\nfi";
+			shellScript = "if [ \"$USE_NEWRELIC\" == \"1\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c\"\nfi";
 		};
 		C5D41CF91AB1FD6400990944 /* NewRelic upload dSym */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5664,7 +5666,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" != \"Debug\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8\"\nfi";
+			shellScript = "if [ \"$USE_NEWRELIC\" == \"1\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -6671,6 +6673,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				USE_NEWRELIC = 0;
 			};
 			name = Debug;
 		};
@@ -6694,7 +6697,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
-				ENV = production;
+				ENV = qa;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "ENV=\\@\\\"$ENV\\\"";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -6706,6 +6709,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				USE_NEWRELIC = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -6736,6 +6740,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -6766,6 +6771,7 @@
 				PROVISIONING_PROFILE = "5ac09444-1592-43a6-bd8e-9527a54bdf67";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Release;
 		};
@@ -6794,6 +6800,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -6823,6 +6830,7 @@
 				PROVISIONING_PROFILE = "4616bf2e-f126-40b9-a836-285b4f506cd7";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Release;
 		};
@@ -6838,6 +6846,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				IBSC_MODULE = Moji_Watch_Ext_QA;
 				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchAppQA-Info.plist";
@@ -6848,6 +6857,7 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -6864,6 +6874,7 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
 				IBSC_MODULE = Moji_Watch_Ext_QA;
 				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchAppQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -6873,6 +6884,7 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Release;
 		};
@@ -6900,6 +6912,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -6928,6 +6941,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "de91e72c-1c11-4c7b-90b7-78da35c14324";
 				SKIP_INSTALL = YES;
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Release;
 		};
@@ -6968,6 +6982,7 @@
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
+				USE_NEWRELIC = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7010,6 +7025,7 @@
 				PROVISIONING_PROFILE = "5dcdac67-bb6e-4ba9-9338-d6b43ed8833d";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
+				USE_NEWRELIC = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -7051,6 +7067,7 @@
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
+				USE_NEWRELIC = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7093,6 +7110,7 @@
 				PROVISIONING_PROFILE = "56db280b-2ce7-4f9b-b1b6-e7c9c532a241";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
+				USE_NEWRELIC = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -7174,6 +7192,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				IBSC_MODULE = Moji_Watch_Ext;
 				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchApp-Info.plist";
@@ -7184,6 +7203,7 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -7200,6 +7220,7 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
 				IBSC_MODULE = Moji_Watch_Ext;
 				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -7209,6 +7230,7 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Release;
 		};
@@ -7236,6 +7258,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -7264,6 +7287,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "eda489e0-a1d1-4d0a-8d4d-bac6df98e993";
 				SKIP_INSTALL = YES;
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Release;
 		};

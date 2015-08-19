@@ -53,8 +53,7 @@
 }
 
 - (WLValidationStatus)validate {
-    WLValidationStatus status = self.status;
-    status = [self defineCurrentStatus:self.inputView];
+    WLValidationStatus status = [self defineCurrentStatus:self.inputView];
     self.status = status;
     return status;
 }

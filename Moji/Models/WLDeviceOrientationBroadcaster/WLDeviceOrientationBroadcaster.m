@@ -66,7 +66,7 @@
                                             float xx = -acceleration.x;
                                             float yy = acceleration.y;
                                             float angle = atan2(yy, xx);
-                                            UIDeviceOrientation orientation;
+                                            UIDeviceOrientation orientation = lastOrientation;
                                             if(angle >= -2.25 && angle <= -0.25) {
                                                 orientation = UIDeviceOrientationPortrait;
                                             } else if(angle >= -1.75 && angle <= 0.75) {
@@ -78,7 +78,6 @@
                                             }
                                             
                                             if(lastOrientation != orientation) {
-                                                lastOrientation = orientation;
                                                 weakSelf.orientationFromAccelerometer = @(orientation);
                                                 run_in_main_queue(^{
                                                     [weakSelf broadcast:@selector(broadcaster:didChangeOrientation:) object:weakSelf.orientationFromAccelerometer];

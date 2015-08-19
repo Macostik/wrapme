@@ -29,6 +29,10 @@ static NSString* WLServerTimeDifference = @"WLServerTimeDifference";
     return [self dateWithTimeIntervalSinceNow:WLSession.serverTimeDifference + offset];
 }
 
++ (instancetype)dateWithTimestamp:(NSTimeInterval)timestamp {
+    return [self dateWithTimeIntervalSince1970:WLSession.serverTimeDifference + timestamp];
+}
+
 @end
 
 @interface WLAPIManager : AFHTTPRequestOperationManager
@@ -293,8 +297,13 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
     NSDictionary* headers = [response allHeaderFields];
     NSString* serverTimeString = [headers objectForKey:@"Date"];
     if (serverTimeString) {
-        static NSString *WLServerTimeFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'";
-        NSDate* serverTime = [serverTimeString GMTDateWithFormat:WLServerTimeFormat];
+        static NSDateFormatter *formatter = nil;
+        if (!formatter) {
+            formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"];
+            [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+        }
+        NSDate* serverTime = [formatter dateFromString:serverTimeString];
         if (serverTime) {
             [NSDate trackServerTime:serverTime];
         }

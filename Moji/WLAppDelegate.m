@@ -194,7 +194,7 @@
         completionHandler(UIBackgroundFetchResultFailed);
         return;
     }
-    
+    NSLog(@"performFetchWithCompletionHandler");
     runUnaryQueuedOperations(@"background_fetch", ^(WLOperation *operation) {
         [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
             if (hasChanges) {

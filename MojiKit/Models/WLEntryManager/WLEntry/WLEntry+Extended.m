@@ -105,16 +105,10 @@
     return [NSString stringWithFormat:@"%@: %@", [self class], self.identifier];
 }
 
-- (void)editPicture:(NSString*)original large:(NSString*)large medium:(NSString*)medium small:(NSString*)small {
-    WLPicture *picture = self.picture;
-    WLPicture *editedPicture = [picture edit:original large:large medium:medium small:small];
-    if (picture != editedPicture) {
+- (void)editPicture:(WLPicture*)editedPicture {
+    if (self.picture != editedPicture) {
         self.picture = editedPicture;
     }
-}
-
-- (void)editPicture:(NSString *)large medium:(NSString *)medium small:(NSString *)small {
-    [self editPicture:large large:large medium:medium small:small];
 }
 
 - (void)markAsRead {

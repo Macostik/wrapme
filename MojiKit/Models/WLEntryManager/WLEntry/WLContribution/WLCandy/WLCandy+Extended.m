@@ -44,17 +44,7 @@
     if (![comments isSubsetOfSet:self.comments]) {
         [self addComments:comments];
     }
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [self editPicture:[dictionary stringForKey:WLCandyOriginalURLKey]
-                    large:[dictionary stringForKey:WLCandyXLargeURLKey]
-                   medium:[dictionary stringForKey:WLCandyXMediumURLKey]
-                    small:[dictionary stringForKey:WLCandyXSmallURLKey]];
-    } else {
-        [self editPicture:[dictionary stringForKey:WLCandyOriginalURLKey]
-                    large:[dictionary stringForKey:WLCandyLargeURLKey]
-                   medium:[dictionary stringForKey:WLCandyMediumURLKey]
-                    small:[dictionary stringForKey:WLCandySmallURLKey]];
-    }
+    [self editPicture:[self.picture editWithCandyDictionary:dictionary]];
     NSInteger commentCount = [dictionary integerForKey:WLCommentCountKey];
     if (self.commentCount < commentCount) self.commentCount = commentCount;
     WLWrap* currentWrap = self.wrap;

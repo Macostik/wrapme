@@ -10,6 +10,18 @@
 #import "WLButton.h"
 #import "UIScrollView+Additions.h"
 
+@interface WLContributorCellLayout : UICollectionViewFlowLayout
+
+@end
+
+@implementation WLContributorCellLayout
+
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    return YES;
+}
+
+@end
+
 @interface WLContributorInnerCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -138,7 +150,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return (indexPath.item == 0) ? collectionView.size : CGSizeMake(76, collectionView.height);
+    return (indexPath.item == 0) ? collectionView.frame.size : CGSizeMake(76, collectionView.height);
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {

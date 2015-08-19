@@ -132,9 +132,7 @@
     }
     NSString* name = [dictionary stringForKey:WLContributorNameKey];
     if (!NSStringEqual(contributor.name, name)) contributor.name = name;
-    [contributor editPicture:[dictionary stringForKey:WLContributorLargeAvatarKey]
-                      medium:[dictionary stringForKey:WLContributorMediumAvatarKey]
-                       small:[dictionary stringForKey:WLContributorSmallAvatarKey]];
+    [contributor editPicture:[contributor.picture editWithContributorDictionary:dictionary]];
 }
 
 - (void)parseEditor:(NSDictionary*)dictionary {

@@ -31,11 +31,7 @@
         if (!NSStringEqual(self.name, name)) self.name = name;
     }
     
-    if (dictionary[WLSmallAvatarKey]) {
-        [self editPicture:[dictionary stringForKey:WLLargeAvatarKey]
-                   medium:[dictionary stringForKey:WLMediumAvatarKey]
-                    small:[dictionary stringForKey:WLSmallAvatarKey]];
-    }
+    [self editPicture:[self.picture editWithUserDictionary:dictionary]];
     
     if (dictionary[WLDevicesKey]) {
         NSSet* devices = [WLDevice API_entries:[dictionary arrayForKey:WLDevicesKey] relatedEntry:self];

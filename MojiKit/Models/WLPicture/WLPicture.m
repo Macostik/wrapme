@@ -13,6 +13,7 @@
 #import "NSDictionary+Extended.h"
 #import "WLBlockImageFetching.h"
 #import "WLImageFetcher.h"
+#import "WLEntryKeys.h"
 
 @implementation WLPicture
 
@@ -40,6 +41,81 @@
         picture.small = small;
     }
     return picture;
+}
+
+- (WLPicture *)editWithCandyDictionary:(NSDictionary *)dictionary {
+    NSString *original = nil;
+    NSString *large = nil;
+    NSString *medium = nil;
+    NSString *small = nil;
+    
+    if (dictionary[WLCandyURLsKey]) {
+        NSDictionary *urls = dictionary[WLCandyURLsKey];
+        original = [dictionary stringForKey:WLURLOriginalKey];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            large = [urls stringForKey:WLURLXLargeKey];
+            medium = [urls stringForKey:WLURLLargeSQKey];
+            small = [urls stringForKey:WLURLMediumSQKey];
+        } else {
+            large = [urls stringForKey:WLURLLargeKey];
+            medium = [urls stringForKey:WLURLMediumSQKey];
+            small = [urls stringForKey:WLURLSmallSQKey];
+        }
+    } else {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            large = [dictionary stringForKey:WLCandyXLargeURLKey];
+            medium = [dictionary stringForKey:WLCandyXMediumURLKey];
+            small = [dictionary stringForKey:WLCandyXSmallURLKey];
+        } else {
+            large = [dictionary stringForKey:WLCandyLargeURLKey];
+            medium = [dictionary stringForKey:WLCandyMediumURLKey];
+            small = [dictionary stringForKey:WLCandySmallURLKey];
+        }
+    }
+    
+    return [self edit:original large:large medium:medium small:small];
+}
+
+- (WLPicture *)editWithUserDictionary:(NSDictionary *)dictionary {
+    NSString *original = nil;
+    NSString *large = nil;
+    NSString *medium = nil;
+    NSString *small = nil;
+    if (dictionary[WLAvatarURLsKey]) {
+        NSDictionary *urls = dictionary[WLAvatarURLsKey];
+        large = [urls stringForKey:WLURLLargeKey];
+        medium = [urls stringForKey:WLURLMediumKey];
+        small = [urls stringForKey:WLURLSmallKey];
+    } else {
+        large = [dictionary stringForKey:WLLargeAvatarKey];
+        medium = [dictionary stringForKey:WLMediumAvatarKey];
+        small = [dictionary stringForKey:WLSmallAvatarKey];
+    }
+    
+    original = large;
+    
+    return [self edit:original large:large medium:medium small:small];
+}
+
+- (WLPicture *)editWithContributorDictionary:(NSDictionary *)dictionary {
+    NSString *original = nil;
+    NSString *large = nil;
+    NSString *medium = nil;
+    NSString *small = nil;
+    if (dictionary[WLAvatarURLsKey]) {
+        NSDictionary *urls = dictionary[WLAvatarURLsKey];
+        large = [urls stringForKey:WLURLLargeKey];
+        medium = [urls stringForKey:WLURLMediumKey];
+        small = [urls stringForKey:WLURLSmallKey];
+    } else {
+        large = [dictionary stringForKey:WLContributorLargeAvatarKey];
+        medium = [dictionary stringForKey:WLContributorMediumAvatarKey];
+        small = [dictionary stringForKey:WLContributorSmallAvatarKey];
+    }
+    
+    original = large;
+    
+    return [self edit:original large:large medium:medium small:small];
 }
 
 - (NSString *)original {

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="icons.ttf">
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="10A-rr-xxe" customClass="WLWrapCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Piy-ZG-Wjc">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="select" destination="10A-rr-xxe" eventType="touchUpInside" id="PWX-LC-H3e"/>
+                    </connections>
+                </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cov-Wb-wlk" customClass="WLWrapStatusImageView">
+                    <rect key="frame" x="10" y="5" width="50" height="50"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="hro-YB-49A"/>
+                        <constraint firstAttribute="height" constant="50" id="n0c-m6-INN"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="25"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="statusView" destination="Jbz-I0-JYz" id="Ifd-FK-4sM"/>
+                    </connections>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbz-I0-JYz">
+                    <rect key="frame" x="9" y="4" width="17" height="17"/>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
+                    <color key="textColor" red="0.85098039219999999" green="0.32549019610000002" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Moji Name Moji Name Moji Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZq-rH-3Re" customClass="WLLabel">
+                    <rect key="frame" x="85" y="6" width="164" height="24"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                    <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="206" translatesAutoresizingMaskIntoConstraints="NO" id="gCG-7i-tcM" customClass="WLLabel">
+                    <rect key="frame" x="85" y="30" width="72" height="18"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                    <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="10000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="22" translatesAutoresizingMaskIntoConstraints="NO" id="yWc-qt-cbm" customClass="WLBadgeLabel">
+                    <rect key="frame" x="41" y="5" width="37" height="16"/>
+                    <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="yWc-qt-cbm" secondAttribute="height" multiplier="1:1" id="gt9-26-pRG"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="9"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="size" keyPath="intrinsicContentSizeInsets">
+                            <size key="value" width="2" height="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhU-Hx-yj0" customClass="WLButton">
+                    <rect key="frame" x="249" y="9" width="30" height="42"/>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="30"/>
+                    <state key="normal" title="4">
+                        <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="size" keyPath="touchArea">
+                            <size key="value" width="60" height="50"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="100000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8t-he-XIo" customClass="WLBadgeLabel">
+                    <rect key="frame" x="264" y="14" width="44" height="16"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="Q8t-he-XIo" secondAttribute="height" multiplier="1:1" priority="750" id="F4X-FG-i3L"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                    <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="9"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                        <userDefinedRuntimeAttribute type="size" keyPath="intrinsicContentSizeInsets">
+                            <size key="value" width="2" height="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="jUk-B2-fHW">
+                    <rect key="frame" x="-320" y="0.0" width="320" height="60"/>
+                    <subviews>
+                        <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="2LS-Ob-pie" customClass="WLSwipeActionView">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                            <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="u" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0F-dg-bId" customClass="WLLabel">
+                            <rect key="frame" x="278" y="22" width="17" height="17"/>
+                            <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to open camera" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dW0-OA-3Fr" customClass="WLLabel">
+                            <rect key="frame" x="121" y="21" width="147" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="2LS-Ob-pie" secondAttribute="trailing" id="0NC-OR-NVd"/>
+                        <constraint firstItem="2LS-Ob-pie" firstAttribute="top" secondItem="jUk-B2-fHW" secondAttribute="top" id="5c3-uP-TyK"/>
+                        <constraint firstItem="dW0-OA-3Fr" firstAttribute="centerY" secondItem="Z0F-dg-bId" secondAttribute="centerY" id="7XU-bD-WI0"/>
+                        <constraint firstAttribute="centerY" secondItem="dW0-OA-3Fr" secondAttribute="centerY" id="Mcq-Dy-v4e"/>
+                        <constraint firstItem="2LS-Ob-pie" firstAttribute="trailing" secondItem="Z0F-dg-bId" secondAttribute="trailing" constant="25" id="Pf9-Ck-T6h"/>
+                        <constraint firstItem="Z0F-dg-bId" firstAttribute="leading" secondItem="dW0-OA-3Fr" secondAttribute="trailing" constant="10" id="nBo-jB-VYe"/>
+                        <constraint firstAttribute="bottom" secondItem="2LS-Ob-pie" secondAttribute="bottom" id="nwL-YY-op9"/>
+                        <constraint firstItem="2LS-Ob-pie" firstAttribute="leading" secondItem="jUk-B2-fHW" secondAttribute="leading" id="uF0-hg-N5o"/>
+                    </constraints>
+                </view>
+                <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="ZnF-pj-5f0">
+                    <rect key="frame" x="320" y="0.0" width="320" height="60"/>
+                    <subviews>
+                        <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="2rm-i9-AmY" customClass="WLSwipeActionView">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                            <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tKA-QR-HJA" customClass="WLLabel">
+                            <rect key="frame" x="25" y="22" width="17" height="17"/>
+                            <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SpN-k4-uJP" customClass="WLLabel">
+                            <rect key="frame" x="52" y="21" width="87" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="SpN-k4-uJP" firstAttribute="leading" secondItem="tKA-QR-HJA" secondAttribute="trailing" constant="10" id="1wr-0M-wWM"/>
+                        <constraint firstAttribute="bottom" secondItem="2rm-i9-AmY" secondAttribute="bottom" id="BLf-nM-I4H"/>
+                        <constraint firstItem="SpN-k4-uJP" firstAttribute="centerY" secondItem="tKA-QR-HJA" secondAttribute="centerY" id="G8w-wO-Zbf"/>
+                        <constraint firstAttribute="centerY" secondItem="SpN-k4-uJP" secondAttribute="centerY" id="H3j-Ub-ra1"/>
+                        <constraint firstItem="tKA-QR-HJA" firstAttribute="leading" secondItem="2rm-i9-AmY" secondAttribute="leading" constant="25" id="XLK-JD-YrQ"/>
+                        <constraint firstItem="2rm-i9-AmY" firstAttribute="leading" secondItem="ZnF-pj-5f0" secondAttribute="leading" id="beA-kL-sI8"/>
+                        <constraint firstAttribute="trailing" secondItem="2rm-i9-AmY" secondAttribute="trailing" id="buR-qX-k6V"/>
+                        <constraint firstItem="2rm-i9-AmY" firstAttribute="top" secondItem="ZnF-pj-5f0" secondAttribute="top" id="lfa-V4-5Bq"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="jUk-B2-fHW" secondAttribute="centerY" id="3Qb-cT-rar"/>
+                <constraint firstItem="cov-Wb-wlk" firstAttribute="leading" secondItem="10A-rr-xxe" secondAttribute="leading" constant="10" id="3VF-IH-2Ep"/>
+                <constraint firstItem="gZq-rH-3Re" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cov-Wb-wlk" secondAttribute="trailing" constant="12" id="3hK-af-MlE"/>
+                <constraint firstItem="gCG-7i-tcM" firstAttribute="top" secondItem="cov-Wb-wlk" secondAttribute="centerY" id="4Lh-D6-aQ8"/>
+                <constraint firstAttribute="bottom" secondItem="Piy-ZG-Wjc" secondAttribute="bottom" id="8eL-zn-utE"/>
+                <constraint firstItem="cov-Wb-wlk" firstAttribute="top" secondItem="yWc-qt-cbm" secondAttribute="top" id="AMH-Ws-hRy"/>
+                <constraint firstItem="uhU-Hx-yj0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gZq-rH-3Re" secondAttribute="trailing" id="AWU-PQ-J14"/>
+                <constraint firstAttribute="centerY" secondItem="cov-Wb-wlk" secondAttribute="centerY" id="CN9-Ho-U2v"/>
+                <constraint firstItem="ZnF-pj-5f0" firstAttribute="leading" secondItem="10A-rr-xxe" secondAttribute="trailing" id="IGc-Nc-TX2"/>
+                <constraint firstItem="Jbz-I0-JYz" firstAttribute="centerY" secondItem="cov-Wb-wlk" secondAttribute="centerY" constant="-18" id="NN1-sw-LfI"/>
+                <constraint firstItem="jUk-B2-fHW" firstAttribute="height" secondItem="Piy-ZG-Wjc" secondAttribute="height" id="Nzu-9K-dTX"/>
+                <constraint firstItem="gZq-rH-3Re" firstAttribute="bottom" secondItem="cov-Wb-wlk" secondAttribute="centerY" id="PNe-df-2DF"/>
+                <constraint firstAttribute="trailing" secondItem="Q8t-he-XIo" secondAttribute="trailing" constant="12" id="RHs-yE-JeZ"/>
+                <constraint firstItem="gZq-rH-3Re" firstAttribute="leading" secondItem="gCG-7i-tcM" secondAttribute="leading" id="TAS-KW-BWJ"/>
+                <constraint firstAttribute="centerY" secondItem="uhU-Hx-yj0" secondAttribute="centerY" id="UkQ-Fz-5s8"/>
+                <constraint firstAttribute="trailing" secondItem="Piy-ZG-Wjc" secondAttribute="trailing" id="VMg-2V-6L6"/>
+                <constraint firstItem="yWc-qt-cbm" firstAttribute="leading" secondItem="cov-Wb-wlk" secondAttribute="trailing" constant="-19" id="c3x-XK-9jg"/>
+                <constraint firstItem="Piy-ZG-Wjc" firstAttribute="leading" secondItem="10A-rr-xxe" secondAttribute="leading" id="fht-bq-OOt"/>
+                <constraint firstAttribute="centerY" secondItem="ZnF-pj-5f0" secondAttribute="centerY" id="foO-ir-4Dc"/>
+                <constraint firstItem="Q8t-he-XIo" firstAttribute="leading" secondItem="uhU-Hx-yj0" secondAttribute="centerX" id="ftW-1L-a1Z"/>
+                <constraint firstItem="ZnF-pj-5f0" firstAttribute="width" secondItem="Piy-ZG-Wjc" secondAttribute="width" id="gks-MX-Tc6"/>
+                <constraint firstItem="ZnF-pj-5f0" firstAttribute="height" secondItem="Piy-ZG-Wjc" secondAttribute="height" id="huc-mx-OLb"/>
+                <constraint firstItem="Q8t-he-XIo" firstAttribute="bottom" secondItem="uhU-Hx-yj0" secondAttribute="centerY" id="ot9-vb-qe1"/>
+                <constraint firstItem="Jbz-I0-JYz" firstAttribute="centerX" secondItem="cov-Wb-wlk" secondAttribute="centerX" constant="-18" id="r5d-gR-dG9"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gCG-7i-tcM" secondAttribute="trailing" constant="44" id="stf-fl-vKk"/>
+                <constraint firstItem="gZq-rH-3Re" firstAttribute="leading" secondItem="yWc-qt-cbm" secondAttribute="trailing" constant="7" id="thh-gO-7S9"/>
+                <constraint firstItem="Piy-ZG-Wjc" firstAttribute="top" secondItem="10A-rr-xxe" secondAttribute="top" id="wRp-Ol-usG"/>
+                <constraint firstAttribute="leading" secondItem="jUk-B2-fHW" secondAttribute="trailing" id="yjR-5e-tmQ"/>
+                <constraint firstItem="jUk-B2-fHW" firstAttribute="width" secondItem="Piy-ZG-Wjc" secondAttribute="width" id="z1S-Mf-G8M"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="chatButton" destination="uhU-Hx-yj0" id="GAx-Ol-IWM"/>
+                <outlet property="chatNotificationLabel" destination="Q8t-he-XIo" id="DGw-aE-G7v"/>
+                <outlet property="coverView" destination="cov-Wb-wlk" id="Xaj-O5-Jt0"/>
+                <outlet property="dateLabel" destination="gCG-7i-tcM" id="gfX-RL-Pj6"/>
+                <outlet property="leftSwipeActionConstraint" destination="yjR-5e-tmQ" id="wXf-3l-5Yi"/>
+                <outlet property="nameLabel" destination="gZq-rH-3Re" id="wZu-ez-wf0"/>
+                <outlet property="rightSwipeActionConstraint" destination="IGc-Nc-TX2" id="BPK-Yg-fSC"/>
+                <outlet property="wrapNotificationLabel" destination="yWc-qt-cbm" id="aTB-3g-5IJ"/>
+            </connections>
+            <point key="canvasLocation" x="509" y="654"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

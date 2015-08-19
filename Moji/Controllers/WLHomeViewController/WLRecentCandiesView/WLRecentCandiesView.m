@@ -7,14 +7,15 @@
 //
 
 #import "WLRecentCandiesView.h"
-#import "WLBasicDataSource.h"
+#import "StreamDataSource.h"
 #import "WLCandyCell.h"
+#import "GridMetrics.h"
 
 @interface WLRecentCandiesView ()
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet StreamView *streamView;
 
-@property (strong, nonatomic) WLBasicDataSource* dataSource;
+@property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 
 @end
 
@@ -23,21 +24,14 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    WLBasicDataSource* dataSource = [WLBasicDataSource dataSource:self.collectionView];
-    dataSource.itemIdentifier = WLCandyitemIdentifier;
-    dataSource.minimumLineSpacing = WLCandyCellSpacing;
-    dataSource.sectionLeftInset = dataSource.sectionRightInset = WLCandyCellSpacing;
-    [dataSource setNumberOfItemsBlock:^NSUInteger {
+//    dataSource.minimumLineSpacing = WLCandyCellSpacing;
+//    dataSource.sectionLeftInset = dataSource.sectionRightInset = WLCandyCellSpacing;
+    [self.dataSource setNumberOfItemsBlock:^NSUInteger (StreamDataSource *dataSource) {
         return ([dataSource.items count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
     }];
-    [dataSource setItemIdentifierForItemBlock:^NSString *(id item, NSUInteger index) {
-        return (index < [dataSource.items count]) ? WLCandyitemIdentifier : @"WLCandyPlaceholderCell";
+    [[(GridMetrics*)self.dataSource.metrics ratio] setBlock:^CGFloat(StreamIndex *index) {
+        return 1;
     }];
-    [dataSource setItemSizeBlock:^CGSize(id item, NSUInteger index) {
-        int size = (WLConstants.screenWidth - 2.0f)/3.0f;
-        return CGSizeMake(size, size);
-    }];
-    self.dataSource = dataSource;
 }
 
 - (void)setup:(WLWrap*)wrap {

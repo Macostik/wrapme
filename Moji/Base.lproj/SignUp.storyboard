@@ -345,7 +345,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fA-WY-1QF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="vON-Tw-u2H" customClass="StreamViewDataSource">
+                <customObject id="vON-Tw-u2H" customClass="StreamDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLCountryCell"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="itemSize">

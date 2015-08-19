@@ -18,8 +18,6 @@
 
 @property (strong, nonatomic) BOOL (^appendableBlock) (id <WLBaseOrderedCollection> items);
 
-@property (strong, nonatomic) void (^changeBlock) (id <WLBaseOrderedCollection> items);
-
 - (void)append:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 @end

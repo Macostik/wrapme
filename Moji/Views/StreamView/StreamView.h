@@ -35,11 +35,19 @@
 
 @property (nonatomic, weak) IBOutlet id <StreamViewDelegate> delegate;
 
-@property (nonatomic, strong) StreamLayout* layout;
+@property (nonatomic, strong) IBOutlet StreamLayout* layout;
 
 @property (weak, nonatomic) StreamItem *selectedItem;
 
 - (StreamItem*)visibleItemAtPoint:(CGPoint)point;
+
++ (void)lock;
+
++ (void)unlock;
+
+- (void)lock;
+
+- (void)unlock;
 
 - (void)reload;
 

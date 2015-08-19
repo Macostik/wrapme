@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLEntryCell.h"
+#import "StreamReusableView.h"
 
 static NSString* WLCandyitemIdentifier = @"WLCandyCell";
 static CGFloat WLCandyCellSpacing = 0.5f;
@@ -22,7 +22,7 @@ static CGFloat WLCandyCellSpacingNotRetina = 1.0f;
 
 @end
 
-@interface WLCandyCell : WLEntryCell
+@interface WLCandyCell : StreamReusableView
 
 @property (nonatomic) IBInspectable BOOL disableMenu;
 @property (assign, nonatomic) IBOutlet id <WLCandyCellDelegate> delegate;

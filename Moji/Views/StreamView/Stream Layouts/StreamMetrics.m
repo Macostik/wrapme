@@ -55,6 +55,8 @@
         self.headers = [NSMutableArray array];
         self.footers = [NSMutableArray array];
         self.size = [[StreamMetricsFloatProperty alloc] init];
+        self.topSpacing = [[StreamMetricsFloatProperty alloc] init];
+        self.bottomSpacing = [[StreamMetricsFloatProperty alloc] init];
         self.hidden = [[StreamMetricsBoolProperty alloc] init];
     }
     return self;

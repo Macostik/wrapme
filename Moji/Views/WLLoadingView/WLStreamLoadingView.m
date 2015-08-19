@@ -24,4 +24,16 @@
     self.spinner.hidden = error;
 }
 
+- (BOOL)animating {
+    return self.spinner.isAnimating;
+}
+
+- (void)setAnimating:(BOOL)animating {
+    if (self.animating) {
+        [self.spinner stopAnimating];
+    } else {
+        [self.spinner startAnimating];
+    }
+}
+
 @end

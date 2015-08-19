@@ -38,7 +38,6 @@
         paginatedSet.delegate = self;
     }
     [self reload];
-    if (self.changeBlock) self.changeBlock(items);
 }
 
 - (void)refresh:(WLObjectBlock)success failure:(WLFailureBlock)failure {
@@ -99,7 +98,6 @@
 
 - (void)paginatedSetChanged:(WLPaginatedSet *)group {
     [self reload];
-    if (self.changeBlock) self.changeBlock(self.items);
 }
 
 - (void)paginatedSetCompleted:(WLPaginatedSet *)group {

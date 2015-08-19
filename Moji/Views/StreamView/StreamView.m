@@ -19,6 +19,10 @@ static NSString *contentOffsetPath = @"contentOffset";
 
 @property (strong, nonatomic) NSMutableSet *items;
 
+@property (nonatomic) BOOL reloadAfterUnlock;
+
+@property (nonatomic) NSUInteger locks;
+
 @end
 
 @implementation StreamView
@@ -58,10 +62,16 @@ static NSString *contentOffsetPath = @"contentOffset";
 	return self;
 }
 
+static NSHashTable *streamViews = nil;
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
         [self setup];
+        if (!streamViews) {
+            streamViews = [NSHashTable weakObjectsHashTable];
+        }
+        [streamViews addObject:self];
     }
     return self;
 }
@@ -113,7 +123,38 @@ static NSString *contentOffsetPath = @"contentOffset";
 	[_items removeAllObjects];
 }
 
+- (void)lock {
+    self.locks = MAX(0, self.locks + 1);
+}
+
++ (void)lock {
+    for (StreamView *streamView in streamViews) {
+        [streamView lock];
+    }
+}
+
++ (void)unlock {
+    for (StreamView *streamView in streamViews) {
+        [streamView unlock];
+    }
+}
+
+- (void)unlock {
+    if (self.locks > 0) {
+        self.locks = self.locks - 1;
+    }
+    if (self.locks == 0 && self.reloadAfterUnlock) {
+        self.reloadAfterUnlock = NO;
+        [self reload];
+    }
+}
+
 - (void)reload {
+    
+    if (self.locks > 0) {
+        self.reloadAfterUnlock = YES;
+        return;
+    }
 	
 	[self clear];
 	
@@ -145,11 +186,15 @@ static NSString *contentOffsetPath = @"contentOffset";
                     item.delegate = self;
                     item.index = headerIndex;
                     item.metrics = header;
+                    [layout layout:item];
                     [_items addObject:item];
                 }
             }
             
-            [layout layout:item];
+            if (![metrics.hidden valueAt:index]) {
+                [layout layout:item];
+                [_items addObject:item];
+            }
             
             for (StreamMetrics *footer in metrics.footers) {
                 StreamIndex *footerIndex = [[(StreamIndex*)[index copy] add:1] add:[metrics.footers indexOfObject:footer]];
@@ -158,11 +203,12 @@ static NSString *contentOffsetPath = @"contentOffset";
                     item.delegate = self;
                     item.index = footerIndex;
                     item.metrics = footer;
+                    [layout layout:item];
                     [_items addObject:item];
                 }
             }
             
-            if (![metrics.hidden valueAt:index]) [_items addObject:item];
+            
         }
         
         [layout prepareForNextSection];
@@ -181,6 +227,7 @@ static NSString *contentOffsetPath = @"contentOffset";
     
 	for (StreamReusableView *view in _views) {
 		if (!view.superview && view.metrics == metrics) {
+            [view prepareForReuse];
 			return view;
 		}
 	}

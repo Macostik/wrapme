@@ -35,4 +35,8 @@
     [self select:self.entry];
 }
 
+- (void)prepareForReuse {
+    
+}
+
 @end

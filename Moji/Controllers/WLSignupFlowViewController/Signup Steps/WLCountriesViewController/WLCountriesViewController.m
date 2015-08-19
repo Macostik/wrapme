@@ -10,11 +10,11 @@
 #import "WLCountry.h"
 #import "WLCountryCell.h"
 #import "NSObject+NibAdditions.h"
-#import "StreamViewDataSource.h"
+#import "StreamDataSource.h"
 
 @interface WLCountriesViewController ()
 
-@property (strong, nonatomic) IBOutlet StreamViewDataSource *dataSource;
+@property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 
 @end
 

@@ -59,7 +59,7 @@ typedef void(^StreamMetricsViewAfterSetupBlock)(StreamItem *item, id view, id en
 
 @interface StreamMetrics : NSObject
 
-@property (strong, nonatomic) NSString *identifier;
+@property (strong, nonatomic) IBInspectable NSString *identifier;
 
 @property (strong, nonatomic) UINib *nib;
 
@@ -67,9 +67,15 @@ typedef void(^StreamMetricsViewAfterSetupBlock)(StreamItem *item, id view, id en
 
 @property (strong, nonatomic) StreamMetricsFloatProperty *size;
 
+@property (strong, nonatomic) StreamMetricsFloatProperty *topSpacing;
+
+@property (strong, nonatomic) StreamMetricsFloatProperty *bottomSpacing;
+
 @property (strong, nonatomic) NSMutableArray *headers;
 
 @property (strong, nonatomic) NSMutableArray *footers;
+
+@property (strong, nonatomic) WLObjectBlock selectionBlock;
 
 + (instancetype)metrics:(StreamMetricsBlock)block;
 

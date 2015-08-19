@@ -96,6 +96,13 @@
 
 - (void)setup:(WLCandy*)candy {
 	self.userInteractionEnabled = YES;
+    if (!candy) {
+        self.coverView.url = nil;
+        if (self.commentLabel) {
+            self.commentLabel.superview.hidden = YES;
+        }
+        return;
+    }
     if (self.commentLabel) {
         WLComment* comment = [candy latestComment];
         self.commentLabel.text = comment.text;
@@ -104,7 +111,9 @@
 	self.coverView.animatingPicture = candy.picture;
     self.coverView.url = candy.picture.small;
 
-    [[WLMenu sharedMenu] hide];
+    if (!self.disableMenu) {
+        [[WLMenu sharedMenu] hide];
+    }
 }
 
 - (void)select:(WLCandy*)candy {

@@ -17,4 +17,6 @@
 
 @property (nonatomic) BOOL selected;
 
+- (void)prepareForReuse;
+
 @end

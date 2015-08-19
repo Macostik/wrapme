@@ -39,17 +39,17 @@
 #import "WLHintView.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLMessagesCounter.h"
-#import "WLSegmentedDataSource.h"
-#import "WLPublicWrapsDataSource.h"
+#import "SegmentedStreamDataSource.h"
+#import "WLBasicDataSource.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
-@property (strong, nonatomic) IBOutlet WLSegmentedDataSource *dataSource;
+@property (strong, nonatomic) IBOutlet SegmentedStreamDataSource *dataSource;
 
-@property (strong, nonatomic) IBOutlet WLPublicWrapsDataSource *publicDataSource;
+@property (strong, nonatomic) IBOutlet PaginatedStreamDataSource *publicDataSource;
 
 @property (strong, nonatomic) IBOutlet WLHomeDataSource *homeDataSource;
-@property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
@@ -58,6 +58,8 @@
 @property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *emailConfirmationLayoutPrioritizer;
 @property (weak, nonatomic) IBOutlet UIButton *photoButton;
+
+@property (weak, nonatomic) WLRecentCandiesView *candiesView;
 
 @property (nonatomic) BOOL createWrapTipHidden;
 
@@ -72,14 +74,42 @@
 }
 
 - (void)viewDidLoad {
-    [self.collectionView registerNib:[UINib nibWithNibName:@"WLHottestMojiHeader" bundle:nil] forSupplementaryViewOfKind:@"WLHottestMojiHeader" withReuseIdentifier:@"WLHottestMojiHeader"];
-    UICollectionView *collectionView = self.collectionView;
+    
+    StreamView *streamView = self.streamView;
+    
+    streamView.contentInset = streamView.scrollIndicatorInsets;
+    
+    __weak typeof(self)weakSelf = self;
+    
+    [self.homeDataSource.metrics.size setBlock:^CGFloat(StreamIndex *index) {
+        return index.item == 0 ? 70 : 60;
+    }];
+    
+    [self.homeDataSource.metrics.topSpacing setBlock:^CGFloat(StreamIndex *index) {
+        return index.item == 1 ? 5 : 0;
+    }];
+    
+    [self.homeDataSource.metrics addFooter:^(StreamMetrics *metrics) {
+        metrics.identifier = @"WLRecentCandiesView";
+        [metrics.size setBlock:^CGFloat(StreamIndex *index) {
+            int size = (streamView.width - 2.0f)/3.0f;;
+            return ([weakSelf.homeDataSource.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size) + 5;
+        }];
+        [metrics setViewAfterSetupBlock:^(StreamItem *item, id view, id entry) {
+            weakSelf.candiesView = view;
+        }];
+    }];
+    
+    [self.publicDataSource.metrics.topSpacing setBlock:^CGFloat(StreamIndex *index) {
+        return index.item == 0 ? 5 : 0;
+    }];
+    
+    [self.homeDataSource.metrics addFooter:^(StreamMetrics *metrics) {
+        metrics.identifier = @"WLHottestMojiHeader";
+        metrics.size.value = 88;
+    }];
+    
     [self.dataSource setRefreshable];
-    WLCollectionViewLayout *layout = [[WLCollectionViewLayout alloc] init];
-    layout.sectionHeadingSupplementaryViewKinds = @[];
-    collectionView.collectionViewLayout = layout;
-    [layout registerItemFooterSupplementaryViewKind:UICollectionElementKindSectionHeader];
-    [layout registerItemHeaderSupplementaryViewKind:@"WLHottestMojiHeader"];
     
     [super viewDidLoad];
     
@@ -87,19 +117,17 @@
     
     [[WLAddressBook addressBook] beginCaching];
     
-    self.collectionView.contentInset = self.collectionView.scrollIndicatorInsets;
-    
     [self addNotifyReceivers];
     
     __weak WLHomeDataSource *homeDataSource = self.homeDataSource;
-    __weak WLPublicWrapsDataSource *publicDataSource = self.publicDataSource;
+    __weak PaginatedStreamDataSource *publicDataSource = self.publicDataSource;
     
     NSSet* wraps = [WLUser currentUser].wraps;
     homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:nil]];
     
     publicDataSource.items = [WLPaginatedSet setWithEntries:[[WLWrap entriesWhere:@"isPublic == YES"] set] request:[WLPaginatedRequest wraps:@"public_not_following"]];
     
-    homeDataSource.selectionBlock = publicDataSource.selectionBlock = ^(id entry) {
+    homeDataSource.metrics.selectionBlock = publicDataSource.metrics.selectionBlock = ^(id entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
     };
     
@@ -259,16 +287,16 @@
 // MARK: - WLWrapCellDelegate
 
 - (void)wrapCellDidBeginPanning:(WLWrapCell *)wrapCell {
-    [self.collectionView lock];
+    [self.streamView lock];
 }
 
 - (void)wrapCellDidEndPanning:(WLWrapCell *)wrapCell performedAction:(BOOL)performedAction {
-    [self.collectionView unlock];
-    self.collectionView.userInteractionEnabled = !performedAction;
+    [self.streamView unlock];
+    self.streamView.userInteractionEnabled = !performedAction;
 }
 
 - (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(WLWrap *)wrap {
-    self.collectionView.userInteractionEnabled = YES;
+    self.streamView.userInteractionEnabled = YES;
     WLWrapViewController *wrapViewController = [WLWrapViewController instantiate:self.storyboard];
     if (wrapViewController && wrap.valid) {
         wrapViewController.wrap = wrap;
@@ -277,7 +305,7 @@
     }
 }
 - (void)wrapCell:(WLWrapCell *)wrapCell presentCameraViewControllerForWrap:(WLWrap *)wrap {
-    self.collectionView.userInteractionEnabled = YES;
+    self.streamView.userInteractionEnabled = YES;
     if (wrap.valid) {
         [self openCameraForWrap:wrap animated:YES startFromGallery:NO showWrapPicker:NO];
     }
@@ -297,7 +325,7 @@
             if ([wrap.contributors containsObject:[WLUser currentUser]]) {
                 [(WLPaginatedSet *)[weakSelf.homeDataSource items] addEntry:wrap];
             }
-            weakSelf.collectionView.contentOffset = CGPointZero;
+            weakSelf.streamView.contentOffset = CGPointZero;
         }];
         [receiver setDidUpdateBlock:^(WLWrap *wrap) {
             if (wrap.isPublic) {
@@ -420,23 +448,24 @@
 }
 
 - (UIView *)presentingImageView:(WLPresentingImageView *)presentingImageView dismissingViewForCandy:(WLCandy *)candy {
-    if (self.collectionView.contentOffset.y > self.navigationBar.height) {
-        [self.collectionView setContentOffset:CGPointMake(0, 70) animated:NO];
+    if (self.streamView.contentOffset.y > self.navigationBar.height) {
+        [self.streamView setContentOffset:CGPointMake(0, 70) animated:NO];
     }
     WLCandyCell *candyCell = [self presentedCandyCell:candy];
     return candyCell;
 }
 
 - (WLCandyCell *)presentedCandyCell:(WLCandy *)candy {
-    [self.collectionView layoutIfNeeded];
-    WLRecentCandiesView *candiesView = self.homeDataSource.candiesView;
+    [self.streamView layoutIfNeeded];
+    WLRecentCandiesView *candiesView = self.candiesView;
     NSUInteger index = [(id)candiesView.dataSource.items indexOfObject:candy];
     if (index != NSNotFound && candiesView) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        WLCandyCell *candyCell = (id)[candiesView.collectionView cellForItemAtIndexPath:indexPath];
-        if (candyCell) {
-            return candyCell;
-        }
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+#warning implement getting reusable view
+//        WLCandyCell *candyCell = (id)[candiesView.streamView cellForItemAtIndexPath:indexPath];
+//        if (candyCell) {
+//            return candyCell;
+//        }
     }
     return nil;
 }

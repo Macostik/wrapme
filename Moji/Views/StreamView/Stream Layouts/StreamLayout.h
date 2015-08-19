@@ -25,6 +25,8 @@
 
 @property (nonatomic, readonly) CGSize contentSize;
 
+@property (nonatomic) IBInspectable BOOL horizontal;
+
 - (void)prepare;
 
 - (StreamItem*)layout:(StreamItem*)item;

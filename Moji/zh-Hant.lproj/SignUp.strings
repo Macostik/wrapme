@@ -50,8 +50,8 @@
 /* Class = "UILabel"; text = "編輯個人資料"; ObjectID = "JDb-jD-Zkt"; */
 "JDb-jD-Zkt.text" = "編輯個人資料";
 
-/* Class = "UILabel"; text = "Moji"; ObjectID = "QHb-k1-ref"; */
-"QHb-k1-ref.text" = "Moji";
+/* Class = "UILabel"; text = "\""; ObjectID = "QHb-k1-ref"; */
+"QHb-k1-ref.text" = "\"";
 
 /* Class = "UILabel"; text = "a"; ObjectID = "RCC-0D-s50"; */
 "RCC-0D-s50.text" = "a";

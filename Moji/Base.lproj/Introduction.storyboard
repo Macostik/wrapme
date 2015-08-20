@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1ip-WU-dPb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1ip-WU-dPb">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="icons.ttf">
@@ -94,54 +94,64 @@
             <objects>
                 <viewController storyboardIdentifier="WLIntroductionViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="1ip-WU-dPb" customClass="WLIntroductionViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="eWP-44-poM"/>
-                        <viewControllerLayoutGuide type="bottom" id="PKR-QA-I9q"/>
+                        <viewControllerLayoutGuide type="top" id="DQ3-ra-9NH"/>
+                        <viewControllerLayoutGuide type="bottom" id="6pc-QQ-fzI"/>
                     </layoutGuides>
-                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="8mK-FB-Tgj">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="360"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <view key="view" contentMode="scaleToFill" id="JoF-JM-Gq1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Jd-mB-7pd">
-                                <rect key="frame" x="0.0" y="316" width="280" height="44"/>
-                                <color key="backgroundColor" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNU-rB-lIO">
+                                <rect key="frame" x="160" y="120" width="280" height="360"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AP3-YR-9Ed">
+                                        <rect key="frame" x="0.0" y="316" width="280" height="44"/>
+                                        <color key="backgroundColor" red="0.74208140369999998" green="0.2443449795" blue="0.04564923421" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="qWa-kY-FRU"/>
+                                        </constraints>
+                                    </view>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="74e-DV-KEm">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="360"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </scrollView>
+                                    <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="UC9-MR-8fR">
+                                        <rect key="frame" x="129" y="279" width="23" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="37" id="L41-uk-4yb"/>
+                                        </constraints>
+                                    </pageControl>
+                                </subviews>
+                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="m47-B8-x41"/>
+                                    <constraint firstItem="74e-DV-KEm" firstAttribute="centerX" secondItem="UC9-MR-8fR" secondAttribute="centerX" id="3qx-aW-knh"/>
+                                    <constraint firstItem="74e-DV-KEm" firstAttribute="bottom" secondItem="AP3-YR-9Ed" secondAttribute="bottom" id="CpT-Tt-j9y"/>
+                                    <constraint firstItem="74e-DV-KEm" firstAttribute="top" secondItem="NNU-rB-lIO" secondAttribute="top" id="EOt-g9-zN5"/>
+                                    <constraint firstAttribute="bottom" secondItem="74e-DV-KEm" secondAttribute="bottom" id="JBj-AR-Lz1"/>
+                                    <constraint firstAttribute="trailing" secondItem="74e-DV-KEm" secondAttribute="trailing" id="Rwy-fY-UJ2"/>
+                                    <constraint firstItem="74e-DV-KEm" firstAttribute="trailing" secondItem="AP3-YR-9Ed" secondAttribute="trailing" id="eFs-FT-m5v"/>
+                                    <constraint firstItem="74e-DV-KEm" firstAttribute="bottom" secondItem="UC9-MR-8fR" secondAttribute="bottom" constant="44" id="ful-qS-WJp"/>
+                                    <constraint firstItem="74e-DV-KEm" firstAttribute="leading" secondItem="AP3-YR-9Ed" secondAttribute="leading" id="mJH-9k-2Ro"/>
+                                    <constraint firstAttribute="width" constant="280" id="p5n-Ex-kgc"/>
+                                    <constraint firstItem="74e-DV-KEm" firstAttribute="leading" secondItem="NNU-rB-lIO" secondAttribute="leading" id="pBP-fJ-iL3"/>
+                                    <constraint firstAttribute="height" constant="360" id="u3U-WC-H6L"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uhf-dF-tjj">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="360"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </scrollView>
-                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="7c1-IC-Zb4">
-                                <rect key="frame" x="129" y="279" width="23" height="37"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="37" id="KLA-Hd-dzp"/>
-                                </constraints>
-                            </pageControl>
                         </subviews>
-                        <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Uhf-dF-tjj" firstAttribute="leading" secondItem="8mK-FB-Tgj" secondAttribute="leading" id="755-En-9dQ"/>
-                            <constraint firstItem="Uhf-dF-tjj" firstAttribute="bottom" secondItem="7c1-IC-Zb4" secondAttribute="bottom" constant="44" id="9dq-OS-GPK"/>
-                            <constraint firstItem="Uhf-dF-tjj" firstAttribute="centerX" secondItem="7c1-IC-Zb4" secondAttribute="centerX" id="GER-co-TpF"/>
-                            <constraint firstItem="Uhf-dF-tjj" firstAttribute="top" secondItem="8mK-FB-Tgj" secondAttribute="top" id="HWk-Lw-g5l"/>
-                            <constraint firstAttribute="trailing" secondItem="Uhf-dF-tjj" secondAttribute="trailing" id="Q8M-QX-UD5"/>
-                            <constraint firstAttribute="bottom" secondItem="Uhf-dF-tjj" secondAttribute="bottom" id="X0e-1T-gaI"/>
-                            <constraint firstItem="Uhf-dF-tjj" firstAttribute="bottom" secondItem="7Jd-mB-7pd" secondAttribute="bottom" id="lzo-Gt-Ba1"/>
-                            <constraint firstItem="Uhf-dF-tjj" firstAttribute="trailing" secondItem="7Jd-mB-7pd" secondAttribute="trailing" id="oT3-GS-8QR"/>
-                            <constraint firstItem="Uhf-dF-tjj" firstAttribute="leading" secondItem="7Jd-mB-7pd" secondAttribute="leading" id="pbu-t1-uPd"/>
+                            <constraint firstAttribute="centerX" secondItem="NNU-rB-lIO" secondAttribute="centerX" id="ABs-oE-UmM"/>
+                            <constraint firstAttribute="centerY" secondItem="NNU-rB-lIO" secondAttribute="centerY" id="HT1-Dd-yxe"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="10"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="280" height="360"/>
                     <connections>
-                        <outlet property="pageControl" destination="7c1-IC-Zb4" id="Iqo-Qm-AQB"/>
-                        <outlet property="scrollView" destination="Uhf-dF-tjj" id="4G8-pg-Jsg"/>
+                        <outlet property="pageControl" destination="UC9-MR-8fR" id="Q2a-Yc-XCd"/>
+                        <outlet property="scrollView" destination="74e-DV-KEm" id="KuG-Kx-5lv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RQm-2r-1SZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

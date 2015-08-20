@@ -7,7 +7,6 @@
 //
 
 #import "WLTestUserPicker.h"
-#import "NSPropertyListSerialization+Shorthand.h"
 #import "WLTestUserCell.h"
 #import "NSObject+NibAdditions.h"
 

@@ -11,8 +11,7 @@
 @implementation WKInterfaceController (SimplifiedTextInput)
 
 - (void)presentTextInputControllerWithSuggestionsFromFileNamed:(NSString *)fileName completion:(void (^)(NSString *result))completion {
-    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
-    NSArray *presets = [NSArray arrayWithContentsOfFile:path];
+    NSArray *presets = [NSArray plist:fileName];
     [self presentTextInputControllerWithSuggestions:presets allowedInputMode:WKTextInputModeAllowEmoji completion:^(NSArray *results) {
         for (NSString *result in results) {
             if ([result isKindOfClass:[NSString class]]) {

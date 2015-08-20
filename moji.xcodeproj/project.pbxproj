@@ -625,7 +625,7 @@
 		C587C7871AD2E6A0003E7647 /* NSObject+AssociatedObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C861ACD968A0052578A /* NSObject+AssociatedObjects.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7881AD2E6A0003E7647 /* NSObject+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C881ACD968A0052578A /* NSObject+Extension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7891AD2E6A0003E7647 /* NSObject+NibAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C8A1ACD968A0052578A /* NSObject+NibAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C587C78C1AD2E6A0003E7647 /* NSPropertyListSerialization+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C921ACD968A0052578A /* NSPropertyListSerialization+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C587C78C1AD2E6A0003E7647 /* NSBundle+Extended.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C921ACD968A0052578A /* NSBundle+Extended.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C78D1AD2E6A0003E7647 /* NSString+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C951ACD968A0052578A /* NSString+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C78E1AD2E6A0003E7647 /* NSString+Documents.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C971ACD968A0052578A /* NSString+Documents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C78F1AD2E6A0003E7647 /* NSString+MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C991ACD968A0052578A /* NSString+MD5.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -699,7 +699,7 @@
 		C587C84F1AD2E6DB003E7647 /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C871ACD968A0052578A /* NSObject+AssociatedObjects.m */; };
 		C587C8501AD2E6DB003E7647 /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C891ACD968A0052578A /* NSObject+Extension.m */; };
 		C587C8511AD2E6DB003E7647 /* NSObject+NibAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C8B1ACD968A0052578A /* NSObject+NibAdditions.m */; };
-		C587C8541AD2E6DB003E7647 /* NSPropertyListSerialization+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C931ACD968A0052578A /* NSPropertyListSerialization+Shorthand.m */; };
+		C587C8541AD2E6DB003E7647 /* NSBundle+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C931ACD968A0052578A /* NSBundle+Extended.m */; };
 		C587C8551AD2E6DB003E7647 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C961ACD968A0052578A /* NSString+Additions.m */; };
 		C587C8561AD2E6DB003E7647 /* NSString+Documents.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C981ACD968A0052578A /* NSString+Documents.m */; };
 		C587C8571AD2E6DB003E7647 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C9A1ACD968A0052578A /* NSString+MD5.m */; };
@@ -1580,8 +1580,8 @@
 		C5612C891ACD968A0052578A /* NSObject+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extension.m"; sourceTree = "<group>"; };
 		C5612C8A1ACD968A0052578A /* NSObject+NibAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+NibAdditions.h"; sourceTree = "<group>"; };
 		C5612C8B1ACD968A0052578A /* NSObject+NibAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+NibAdditions.m"; sourceTree = "<group>"; };
-		C5612C921ACD968A0052578A /* NSPropertyListSerialization+Shorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPropertyListSerialization+Shorthand.h"; sourceTree = "<group>"; };
-		C5612C931ACD968A0052578A /* NSPropertyListSerialization+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPropertyListSerialization+Shorthand.m"; sourceTree = "<group>"; };
+		C5612C921ACD968A0052578A /* NSBundle+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Extended.h"; sourceTree = "<group>"; };
+		C5612C931ACD968A0052578A /* NSBundle+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Extended.m"; sourceTree = "<group>"; };
 		C5612C951ACD968A0052578A /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
 		C5612C961ACD968A0052578A /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
 		C5612C971ACD968A0052578A /* NSString+Documents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Documents.h"; sourceTree = "<group>"; };
@@ -3612,7 +3612,7 @@
 				C5FE0A4E1ACD97F6007DBE95 /* UIView */,
 				C5612C7B1ACD968A0052578A /* NSDate */,
 				C5612C851ACD968A0052578A /* NSObject */,
-				C5612C911ACD968A0052578A /* NSPropertyListSerialization */,
+				C5612C911ACD968A0052578A /* NSBundle */,
 				C5612C941ACD968A0052578A /* NSString */,
 				C5612C9C1ACD968A0052578A /* NSURL */,
 				C5612C9F1ACD968A0052578A /* UIColor */,
@@ -3646,13 +3646,13 @@
 			path = NSObject;
 			sourceTree = "<group>";
 		};
-		C5612C911ACD968A0052578A /* NSPropertyListSerialization */ = {
+		C5612C911ACD968A0052578A /* NSBundle */ = {
 			isa = PBXGroup;
 			children = (
-				C5612C921ACD968A0052578A /* NSPropertyListSerialization+Shorthand.h */,
-				C5612C931ACD968A0052578A /* NSPropertyListSerialization+Shorthand.m */,
+				C5612C921ACD968A0052578A /* NSBundle+Extended.h */,
+				C5612C931ACD968A0052578A /* NSBundle+Extended.m */,
 			);
-			path = NSPropertyListSerialization;
+			path = NSBundle;
 			sourceTree = "<group>";
 		};
 		C5612C941ACD968A0052578A /* NSString */ = {
@@ -5030,7 +5030,7 @@
 				C5C2DE781B725F6B006B47F6 /* WLAuthorizationRequest.h in Headers */,
 				C587C7B51AD2E6A0003E7647 /* WLAPIEnvironment.h in Headers */,
 				C587C7DD1AD2E6A0003E7647 /* WLOperation.h in Headers */,
-				C587C78C1AD2E6A0003E7647 /* NSPropertyListSerialization+Shorthand.h in Headers */,
+				C587C78C1AD2E6A0003E7647 /* NSBundle+Extended.h in Headers */,
 				C587C7CA1AD2E6A0003E7647 /* WLWrap.h in Headers */,
 				C587C7C01AD2E6A0003E7647 /* WLCryptographer.h in Headers */,
 				C5B93D451B4E7BE8005681DB /* NSDictionary+Extended.h in Headers */,
@@ -6338,7 +6338,7 @@
 				C587C85D1AD2E6DB003E7647 /* UIImage+Drawing.m in Sources */,
 				C587C88C1AD2E6DB003E7647 /* WLContribution.m in Sources */,
 				C587C8971AD2E6DB003E7647 /* WLUploadingData.m in Sources */,
-				C587C8541AD2E6DB003E7647 /* NSPropertyListSerialization+Shorthand.m in Sources */,
+				C587C8541AD2E6DB003E7647 /* NSBundle+Extended.m in Sources */,
 				C587C86C1AD2E6DB003E7647 /* WLPaginatedRequest.m in Sources */,
 				C587C85A1AD2E6DB003E7647 /* UIDevice+SystemVersion.m in Sources */,
 				C587C85C1AD2E6DB003E7647 /* UIImage+Alpha.m in Sources */,

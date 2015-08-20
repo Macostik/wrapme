@@ -27,7 +27,7 @@ FOUNDATION_EXPORT const unsigned char mojiKitVersionString[];
 #import <mojiKit/NSDictionary+Extended.h>
 #import <mojiKit/NSObject+AssociatedObjects.h>
 #import <mojiKit/WLCollections.h>
-#import <mojiKit/NSPropertyListSerialization+Shorthand.h>
+#import <mojiKit/NSBundle+Extended.h>
 #import <mojiKit/NSString+Additions.h>
 #import <mojiKit/NSString+Documents.h>
 #import <mojiKit/NSString+MD5.h>

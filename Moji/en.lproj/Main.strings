@@ -251,8 +251,8 @@
 /* Class = "UIButton"; normalTitle = "Following"; ObjectID = "Tbf-RR-jf2"; */
 "Tbf-RR-jf2.normalTitle" = "Following";
 
-/* Class = "UILabel"; text = "What's up"; ObjectID = "Te3-A9-g3F"; */
-"Te3-A9-g3F.text" = "What's up";
+/* Class = "UILabel"; text = "WHAT'S UP"; ObjectID = "Te3-A9-g3F"; */
+"Te3-A9-g3F.text" = "WHAT'S UP";
 
 /* Class = "UILabel"; text = "Enter your friend's name and phone number"; ObjectID = "TlS-f9-yyB"; */
 "TlS-f9-yyB.text" = "Enter your friend's name and phone number";
@@ -379,6 +379,9 @@
 
 /* Class = "UIButton"; normalTitle = "Resend invite"; ObjectID = "phJ-P1-MdW"; */
 "phJ-P1-MdW.normalTitle" = "Resend invite";
+
+/* Class = "UILabel"; text = "Yesterday at 11:25pm"; ObjectID = "q95-rD-NQ9"; */
+"q95-rD-NQ9.text" = "Yesterday at 11:25pm";
 
 /* Class = "UILabel"; text = "%"; ObjectID = "qLD-cF-aDZ"; */
 "qLD-cF-aDZ.text" = "%";

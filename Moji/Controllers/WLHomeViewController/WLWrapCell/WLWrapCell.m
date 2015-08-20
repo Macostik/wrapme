@@ -18,6 +18,7 @@
 #import "UIView+LayoutHelper.h"
 #import "WLMessagesCounter.h"
 #import "WLWrapStatusImageView.h"
+#import "WLLayoutPrioritizer.h"
 
 static CGFloat WLWrapCellSwipeActionWidth = 125;
 
@@ -35,6 +36,11 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightSwipeActionConstraint;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *leftSwipeIndicationViews;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rightSwipeIndicationViews;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *publicWrapDateLeading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *privateWrapDateLeading;
+@property (weak, nonatomic) IBOutlet UILabel *creatorName;
+
+@property (strong, nonatomic) WLLayoutPrioritizer *datePrioritizer;
 
 @property (nonatomic) BOOL isRightSwipeAction;
 
@@ -56,6 +62,14 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     panGestureRecognizer.delegate = self;
     [self.nameLabel.superview addGestureRecognizer:panGestureRecognizer];
     self.swipeActionGestureRecognizer = panGestureRecognizer;
+    
+    if (self.publicWrapDateLeading && self.privateWrapDateLeading) {
+        WLLayoutPrioritizer *datePrioritizer = [[WLLayoutPrioritizer alloc] init];
+        datePrioritizer.defaultConstraints = @[self.publicWrapDateLeading];
+        datePrioritizer.alternativeConstraints = @[self.privateWrapDateLeading];
+        datePrioritizer.asynchronous = YES;
+        self.datePrioritizer = datePrioritizer;
+    }
 }
 
 - (void)prepareForReuse {
@@ -76,6 +90,8 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         self.chatButton.horizontallyResistible = NO;
         self.chatNotificationLabel.horizontallyResistible = NO;
         self.coverView.followed = wrap.isContributing;
+        self.datePrioritizer.defaultState = YES;
+        self.creatorName.text = wrap.contributor.name;
     } else {
         NSUInteger messageConter = [[WLMessagesCounter instance] countForWrap:wrap];
         self.chatNotificationLabel.intValue = messageConter;
@@ -85,6 +101,8 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         self.chatButton.horizontallyResistible = hasUnreadMessages;
         self.chatNotificationLabel.horizontallyResistible = hasUnreadMessages;
         self.coverView.followed = NO;
+        self.datePrioritizer.defaultState = NO;
+        self.creatorName.text = nil;
     }
 }
 

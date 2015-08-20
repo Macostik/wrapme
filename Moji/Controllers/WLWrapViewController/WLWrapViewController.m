@@ -39,7 +39,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *publicWrapView;
 @property (weak, nonatomic) IBOutlet WLWrapStatusImageView *publicWrapImageView;
-@property (weak, nonatomic) IBOutlet WLLabel *publicWrapName;
+@property (weak, nonatomic) IBOutlet UILabel *creatorName;
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *publicWrapPrioritizer;
 
 @end
@@ -92,7 +92,7 @@
     if (wrap.isPublic) {
         self.publicWrapImageView.url = wrap.contributor.picture.small;
         self.publicWrapImageView.followed = wrap.isContributing;
-        self.publicWrapName.text = wrap.name;
+        self.creatorName.text = wrap.contributor.name;
         BOOL requiresFollowing = wrap.requiresFollowing;
         self.segmentedControl.hidden = YES;
         self.settingsButton.hidden = requiresFollowing;

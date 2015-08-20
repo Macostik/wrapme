@@ -8,19 +8,19 @@
 /* Class = "UITextView"; text = "message text"; ObjectID = "0OD-Cn-Lp6"; */
 "0OD-Cn-Lp6.text" = "message text";
 
-/* Class = "UILabel"; text = "Chat"; ObjectID = "0SW-P4-yg3"; */
+/* Class = "UILabel"; text = "Чат"; ObjectID = "0SW-P4-yg3"; */
 "0SW-P4-yg3.text" = "Чат";
 
 /* Class = "UILabel"; text = "Moji"; ObjectID = "0YA-Wt-D43"; */
 "0YA-Wt-D43.text" = "Moji";
 
-/* Class = "UILabel"; text = "Create Moji is easy!\nTap here to start."; ObjectID = "0ka-0F-dc5"; */
+/* Class = "UILabel"; text = "Создать Moji легко!\nНажми кнопку."; ObjectID = "0ka-0F-dc5"; */
 "0ka-0F-dc5.text" = "Создать Moji легко!\nНажми кнопку.";
 
 /* Class = "UIButton"; normalTitle = "m"; ObjectID = "0rM-Ee-8of"; */
 "0rM-Ee-8of.normalTitle" = "m";
 
-/* Class = "UILabel"; text = "Slide to open camera"; ObjectID = "0rs-Jv-qhC"; */
+/* Class = "UILabel"; text = "Открыть камеру"; ObjectID = "0rs-Jv-qhC"; */
 "0rs-Jv-qhC.text" = "Открыть камеру";
 
 /* Class = "UIButton"; normalTitle = "k"; ObjectID = "1RC-4W-wDl"; */
@@ -56,7 +56,7 @@
 /* Class = "UIButton"; normalTitle = "Продолжить"; ObjectID = "5Jj-yT-5JM"; */
 "5Jj-yT-5JM.normalTitle" = "Продолжить";
 
-/* Class = "UIButton"; normalTitle = "Follow"; ObjectID = "5xC-mH-huG"; */
+/* Class = "UIButton"; normalTitle = "Подписаться"; ObjectID = "5xC-mH-huG"; */
 "5xC-mH-huG.normalTitle" = "Подписаться";
 
 /* Class = "UILabel"; text = "Timestamp"; ObjectID = "641-7R-EdV"; */
@@ -71,7 +71,7 @@
 /* Class = "UILabel"; text = "3 days ago"; ObjectID = "71z-7i-OMc"; */
 "71z-7i-OMc.text" = "3 days ago";
 
-/* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "7Bf-ro-UFC"; */
+/* Class = "UIButton"; normalTitle = "Продолжить"; ObjectID = "7Bf-ro-UFC"; */
 "7Bf-ro-UFC.normalTitle" = "Продолжить";
 
 /* Class = "UIButton"; normalTitle = "Выход"; ObjectID = "7C1-yc-O8X"; */
@@ -95,10 +95,10 @@
 /* Class = "UILabel"; text = "2"; ObjectID = "7zc-rd-P8J"; */
 "7zc-rd-P8J.text" = "2";
 
-/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "82E-k4-0WJ"; */
+/* Class = "UITextField"; placeholder = "Ваш E-mail"; ObjectID = "82E-k4-0WJ"; */
 "82E-k4-0WJ.placeholder" = "Ваш E-mail";
 
-/* Class = "UIButton"; normalTitle = "MAY BE LATER"; ObjectID = "8ai-37-t5q"; */
+/* Class = "UIButton"; normalTitle = "ПОЗЖЕ"; ObjectID = "8ai-37-t5q"; */
 "8ai-37-t5q.normalTitle" = "ПОЗЖЕ";
 
 /* Class = "UILabel"; text = "MOJI NAME"; ObjectID = "8h1-Do-qBF"; */
@@ -131,16 +131,16 @@
 /* Class = "UIButton"; selectedTitle = "H"; ObjectID = "Beb-Fv-Wfr"; */
 "Beb-Fv-Wfr.selectedTitle" = "H";
 
-/* Class = "UILabel"; text = "Invite your friends!"; ObjectID = "BgE-ku-qap"; */
+/* Class = "UILabel"; text = "Пригласите друзей!"; ObjectID = "BgE-ku-qap"; */
 "BgE-ku-qap.text" = "Пригласите друзей!";
 
-/* Class = "UILabel"; text = "Add friends"; ObjectID = "Bop-dI-sMz"; */
+/* Class = "UILabel"; text = "Добавить друзей"; ObjectID = "Bop-dI-sMz"; */
 "Bop-dI-sMz.text" = "Добавить друзей";
 
-/* Class = "UILabel"; text = "Help secure your account"; ObjectID = "CSs-OC-vDg"; */
+/* Class = "UILabel"; text = "Помогите обезопасить Ваш аккаунт"; ObjectID = "CSs-OC-vDg"; */
 "CSs-OC-vDg.text" = "Помогите обезопасить Ваш аккаунт";
 
-/* Class = "UITextField"; placeholder = "Your name"; ObjectID = "D1N-1e-psu"; */
+/* Class = "UITextField"; placeholder = "Ваше имя"; ObjectID = "D1N-1e-psu"; */
 "D1N-1e-psu.placeholder" = "Ваше имя";
 
 /* Class = "UILabel"; text = "+380951383026"; ObjectID = "Dxm-Es-Lwk"; */
@@ -152,7 +152,7 @@
 /* Class = "UIButton"; selectedTitle = "i"; ObjectID = "EbT-vV-AiD"; */
 "EbT-vV-AiD.selectedTitle" = "i";
 
-/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "Efj-27-0UK"; */
+/* Class = "UIButton"; normalTitle = "Отмена"; ObjectID = "Efj-27-0UK"; */
 "Efj-27-0UK.normalTitle" = "Отмена";
 
 /* Class = "UIButton"; normalTitle = "j"; ObjectID = "Efs-bl-JlE"; */
@@ -164,13 +164,13 @@
 /* Class = "UITextView"; text = "Отличное фото!"; ObjectID = "FgB-22-MIB"; */
 "FgB-22-MIB.text" = "Отличное фото!";
 
-/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "GkU-w3-rTK"; */
+/* Class = "UIButton"; normalTitle = "Готово"; ObjectID = "GkU-w3-rTK"; */
 "GkU-w3-rTK.normalTitle" = "Готово";
 
 /* Class = "UITextView"; text = "Text"; ObjectID = "H8X-L5-O9h"; */
 "H8X-L5-O9h.text" = "Text";
 
-/* Class = "UILabel"; text = "Photos"; ObjectID = "HGi-g8-MYV"; */
+/* Class = "UILabel"; text = "Фото"; ObjectID = "HGi-g8-MYV"; */
 "HGi-g8-MYV.text" = "Фото";
 
 /* Class = "UILabel"; text = "name"; ObjectID = "HUe-Pv-h6W"; */
@@ -194,7 +194,7 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "JuD-N5-awC"; */
 "JuD-N5-awC.text" = "Label";
 
-/* Class = "UITextField"; placeholder = "Search contacts"; ObjectID = "KDf-WU-v2H"; */
+/* Class = "UITextField"; placeholder = "Поиск контактов"; ObjectID = "KDf-WU-v2H"; */
 "KDf-WU-v2H.placeholder" = "Поиск контактов";
 
 /* Class = "UITextField"; placeholder = "555-555-5555"; ObjectID = "KIX-5W-ASY"; */
@@ -215,16 +215,16 @@
 /* Class = "UILabel"; text = "11:32 PM"; ObjectID = "Lc4-Kr-oEr"; */
 "Lc4-Kr-oEr.text" = "11:32 PM";
 
-/* Class = "UIButton"; normalTitle = "About MOJI"; ObjectID = "Lq0-rh-5bS"; */
+/* Class = "UIButton"; normalTitle = "О приложении"; ObjectID = "Lq0-rh-5bS"; */
 "Lq0-rh-5bS.normalTitle" = "О приложении";
 
-/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "MJV-nQ-gRy"; */
+/* Class = "UIButton"; normalTitle = "Отмена"; ObjectID = "MJV-nQ-gRy"; */
 "MJV-nQ-gRy.normalTitle" = "Отмена";
 
 /* Class = "UILabel"; text = "Moji Name Moji Name Moji Name"; ObjectID = "N8I-t6-aKU"; */
 "N8I-t6-aKU.text" = "Moji Name Moji Name Moji Name";
 
-/* Class = "UILabel"; text = "Help secure your account"; ObjectID = "Nim-LA-uPS"; */
+/* Class = "UILabel"; text = "Помогите обезопасить Ваш аккаунт"; ObjectID = "Nim-LA-uPS"; */
 "Nim-LA-uPS.text" = "Помогите обезопасить Ваш аккаунт";
 
 /* Class = "UILabel"; text = "Yesterday at"; ObjectID = "OBg-6r-k4s"; */
@@ -233,13 +233,13 @@
 /* Class = "UIButton"; normalTitle = "R"; ObjectID = "P4L-uu-XEd"; */
 "P4L-uu-XEd.normalTitle" = "R";
 
-/* Class = "UILabel"; text = "Edit your profile"; ObjectID = "QO2-SC-TvX"; */
+/* Class = "UILabel"; text = "Редактировать профиль"; ObjectID = "QO2-SC-TvX"; */
 "QO2-SC-TvX.text" = "Редактировать профиль";
 
 /* Class = "UILabel"; text = "e"; ObjectID = "Qjg-nF-pTh"; */
 "Qjg-nF-pTh.text" = "e";
 
-/* Class = "UIButton"; normalTitle = "Change e-mail"; ObjectID = "R9i-Mn-k3a"; */
+/* Class = "UIButton"; normalTitle = "Изменить e-mail"; ObjectID = "R9i-Mn-k3a"; */
 "R9i-Mn-k3a.normalTitle" = "Изменить e-mail";
 
 /* Class = "UILabel"; text = "5"; ObjectID = "RIL-os-qUh"; */
@@ -248,16 +248,16 @@
 /* Class = "UILabel"; text = "e"; ObjectID = "STC-13-brF"; */
 "STC-13-brF.text" = "e";
 
-/* Class = "UIButton"; normalTitle = "Following"; ObjectID = "Tbf-RR-jf2"; */
+/* Class = "UIButton"; normalTitle = "Вы подписаны"; ObjectID = "Tbf-RR-jf2"; */
 "Tbf-RR-jf2.normalTitle" = "Вы подписаны";
 
-/* Class = "UILabel"; text = "What's up"; ObjectID = "Te3-A9-g3F"; */
-"Te3-A9-g3F.text" = "Что нового";
+/* Class = "UILabel"; text = "ЧТО НОВОГО"; ObjectID = "Te3-A9-g3F"; */
+"Te3-A9-g3F.text" = "ЧТО НОВОГО";
 
-/* Class = "UILabel"; text = "Enter your friend's name and phone number"; ObjectID = "TlS-f9-yyB"; */
+/* Class = "UILabel"; text = "Введите имя и телефон Вашего друга"; ObjectID = "TlS-f9-yyB"; */
 "TlS-f9-yyB.text" = "Введите имя и телефон Вашего друга";
 
-/* Class = "UILabel"; text = "There was a problem connecting with MOJI.\nCheck your internet connection and try again."; ObjectID = "TvM-gd-tcr"; */
+/* Class = "UILabel"; text = "Проблемы соединения с MOJI. Проверте интернет соединение и попытайтесь снова."; ObjectID = "TvM-gd-tcr"; */
 "TvM-gd-tcr.text" = "Проблемы соединения с MOJI. Проверте интернет соединение и попытайтесь снова.";
 
 /* Class = "UILabel"; text = "D"; ObjectID = "U0A-o6-Hed"; */
@@ -275,7 +275,7 @@
 /* Class = "UITextView"; text = "Confirm calvin@ravenpod.com as your email address to help secure your account."; ObjectID = "VXa-Dq-6e9"; */
 "VXa-Dq-6e9.text" = "Confirm calvin@ravenpod.com as your email address to help secure your account.";
 
-/* Class = "UILabel"; text = "Notifications"; ObjectID = "Vtf-da-c8a"; */
+/* Class = "UILabel"; text = "Уведомления"; ObjectID = "Vtf-da-c8a"; */
 "Vtf-da-c8a.text" = "Уведомления";
 
 /* Class = "UIButton"; normalTitle = "A"; ObjectID = "Xeq-Fm-DeI"; */
@@ -284,7 +284,7 @@
 /* Class = "UITextField"; placeholder = "Name"; ObjectID = "Xmt-yf-g7R"; */
 "Xmt-yf-g7R.placeholder" = "Name";
 
-/* Class = "UIButton"; normalTitle = "Resend"; ObjectID = "Yk6-tb-7gb"; */
+/* Class = "UIButton"; normalTitle = "Пов. отправка"; ObjectID = "Yk6-tb-7gb"; */
 "Yk6-tb-7gb.normalTitle" = "Пов. отправка";
 
 /* Class = "UILabel"; text = "Moji"; ObjectID = "ZL1-Bm-SmI"; */
@@ -296,13 +296,13 @@
 /* Class = "UIButton"; normalTitle = "j"; ObjectID = "Zzu-qX-c4N"; */
 "Zzu-qX-c4N.normalTitle" = "j";
 
-/* Class = "UILabel"; text = "Notify me when new photo is added to the Moji."; ObjectID = "bHL-LP-6Kt"; */
+/* Class = "UILabel"; text = "Напомнить когда будет добавлено новое фото."; ObjectID = "bHL-LP-6Kt"; */
 "bHL-LP-6Kt.text" = "Напомнить когда будет добавлено новое фото.";
 
-/* Class = "UILabel"; text = "Add friend..."; ObjectID = "bgl-Nc-aZ0"; */
+/* Class = "UILabel"; text = "Добавить друга..."; ObjectID = "bgl-Nc-aZ0"; */
 "bgl-Nc-aZ0.text" = "Добавить друга...";
 
-/* Class = "UILabel"; text = "Photo"; ObjectID = "bsu-Ad-ILe"; */
+/* Class = "UILabel"; text = "Фото"; ObjectID = "bsu-Ad-ILe"; */
 "bsu-Ad-ILe.text" = "Фото";
 
 /* Class = "UIButton"; normalTitle = "g"; ObjectID = "cKy-OZ-m8E"; */
@@ -311,13 +311,13 @@
 /* Class = "UITextView"; text = "message text"; ObjectID = "cMC-ND-b5t"; */
 "cMC-ND-b5t.text" = "message text";
 
-/* Class = "UILabel"; text = "Notify me when new chat is posted to the Moji."; ObjectID = "cUR-VV-aaK"; */
+/* Class = "UILabel"; text = "Напомнить когда будет добавлено новое сообщение."; ObjectID = "cUR-VV-aaK"; */
 "cUR-VV-aaK.text" = "Напомнить когда будет добавлено новое сообщение.";
 
-/* Class = "UILabel"; text = "Slide to chat"; ObjectID = "cgx-nY-B3d"; */
+/* Class = "UILabel"; text = "Открыть чат"; ObjectID = "cgx-nY-B3d"; */
 "cgx-nY-B3d.text" = "Открыть чат";
 
-/* Class = "UIButton"; normalTitle = "Account"; ObjectID = "co2-D4-XAH"; */
+/* Class = "UIButton"; normalTitle = "Аккаунт"; ObjectID = "co2-D4-XAH"; */
 "co2-D4-XAH.normalTitle" = "Аккаунт";
 
 /* Class = "UILabel"; text = "Moji"; ObjectID = "ek2-Bn-UN6"; */
@@ -329,13 +329,13 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "fw4-o4-768"; */
 "fw4-o4-768.text" = "Label";
 
-/* Class = "UIButton"; normalTitle = "Resend"; ObjectID = "gpG-be-cvC"; */
+/* Class = "UIButton"; normalTitle = "Пов. отправка"; ObjectID = "gpG-be-cvC"; */
 "gpG-be-cvC.normalTitle" = "Пов. отправка";
 
 /* Class = "UILabel"; text = "Yestarday at 2:34pm"; ObjectID = "gs3-em-Muh"; */
 "gs3-em-Muh.text" = "Yestarday at 2:34pm";
 
-/* Class = "UILabel"; text = "Photos"; ObjectID = "h8h-Ah-t4O"; */
+/* Class = "UILabel"; text = "Фото"; ObjectID = "h8h-Ah-t4O"; */
 "h8h-Ah-t4O.text" = "Фото";
 
 /* Class = "UIButton"; normalTitle = "Clean Cache"; ObjectID = "hNJ-iN-ANg"; */
@@ -359,7 +359,7 @@
 /* Class = "UILabel"; text = "u"; ObjectID = "kdU-Ps-nCK"; */
 "kdU-Ps-nCK.text" = "u";
 
-/* Class = "UIButton"; normalTitle = "Send invite"; ObjectID = "kdg-Ph-jY5"; */
+/* Class = "UIButton"; normalTitle = "Отправить приглашение"; ObjectID = "kdg-Ph-jY5"; */
 "kdg-Ph-jY5.normalTitle" = "Отправить приглашение";
 
 /* Class = "UIButton"; normalTitle = "y"; ObjectID = "kso-wd-VlQ"; */
@@ -368,7 +368,7 @@
 /* Class = "UIButton"; selectedTitle = "z"; ObjectID = "kso-wd-VlQ"; */
 "kso-wd-VlQ.selectedTitle" = "z";
 
-/* Class = "UIButton"; normalTitle = "FOLLOW"; ObjectID = "lnY-5L-6HL"; */
+/* Class = "UIButton"; normalTitle = "ПОДПИСАТЬСЯ"; ObjectID = "lnY-5L-6HL"; */
 "lnY-5L-6HL.normalTitle" = "ПОДПИСАТЬСЯ";
 
 /* Class = "UILabel"; text = "100"; ObjectID = "m01-Ic-fcZ"; */
@@ -377,8 +377,11 @@
 /* Class = "UIButton"; normalTitle = "#"; ObjectID = "mhi-C4-lKW"; */
 "mhi-C4-lKW.normalTitle" = "#";
 
-/* Class = "UIButton"; normalTitle = "Resend invite"; ObjectID = "phJ-P1-MdW"; */
+/* Class = "UIButton"; normalTitle = "Пригласить"; ObjectID = "phJ-P1-MdW"; */
 "phJ-P1-MdW.normalTitle" = "Пригласить";
+
+/* Class = "UILabel"; text = "Yesterday at 11:25pm"; ObjectID = "q95-rD-NQ9"; */
+"q95-rD-NQ9.text" = "Yesterday at 11:25pm";
 
 /* Class = "UILabel"; text = "%"; ObjectID = "qLD-cF-aDZ"; */
 "qLD-cF-aDZ.text" = "%";
@@ -401,7 +404,7 @@
 /* Class = "UILabel"; text = "Write text..."; ObjectID = "uda-Ra-Xj8"; */
 "uda-Ra-Xj8.text" = "Write text...";
 
-/* Class = "UILabel"; text = "Settings"; ObjectID = "ueu-Q3-dgA"; */
+/* Class = "UILabel"; text = "Настройки"; ObjectID = "ueu-Q3-dgA"; */
 "ueu-Q3-dgA.text" = "Настройки";
 
 /* Class = "UILabel"; text = "name"; ObjectID = "v2z-k0-EKs"; */
@@ -422,8 +425,8 @@
 /* Class = "UIButton"; normalTitle = "l"; ObjectID = "yxU-kB-7d8"; */
 "yxU-kB-7d8.normalTitle" = "l";
 
-/* Class = "UIButton"; normalTitle = "LEAVE MOJI"; ObjectID = "zBK-OX-573"; */
+/* Class = "UIButton"; normalTitle = "ПОКИНУТЬ MOJI"; ObjectID = "zBK-OX-573"; */
 "zBK-OX-573.normalTitle" = "ПОКИНУТЬ MOJI";
 
-/* Class = "UILabel"; text = "Chat"; ObjectID = "zet-Ls-5CH"; */
+/* Class = "UILabel"; text = "Чат"; ObjectID = "zet-Ls-5CH"; */
 "zet-Ls-5CH.text" = "Чат";

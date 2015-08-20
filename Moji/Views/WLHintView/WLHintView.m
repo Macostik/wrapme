@@ -105,13 +105,6 @@
     return [self showHintViewFromNibNamed:@"WLCandySwipeHintView"];
 }
 
-+ (BOOL)showWrapPickerHintViewInView:(UIView *)view withFocusPoint:(CGPoint)focusPoint {
-    return [self showHintViewFromNibNamed:@"WLWrapPickerHintView" inView:view drawing:^(CGContextRef ctx, CGRect rect) {
-        CGFloat size = 196;
-        [self toDrawOvalInRect:CGRectMake(focusPoint.x - size/2.0f, focusPoint.y - size/2.0f, size, size)];
-    }];
-}
-
 + (BOOL)showInviteHintViewInView:(UIView *)view withFocusToView:(UIView *)target {
     return [self showHintViewFromNibNamed:@"WLInviteHintView" inView:view drawing:^(CGContextRef ctx, CGRect rect) {
         CGFloat size = MAX(target.width, target.height);

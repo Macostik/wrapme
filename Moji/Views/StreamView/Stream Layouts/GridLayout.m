@@ -11,7 +11,7 @@
 
 @interface GridLayout ()
 
-@property (nonatomic) CGFloat* ranges;
+@property (nonatomic) CGFloat* offsets;
 
 @property (nonatomic) CGFloat* sizes;
 
@@ -20,7 +20,7 @@
 @implementation GridLayout
 
 - (void)dealloc {
-    self.ranges = NULL;
+    self.offsets = NULL;
     self.sizes = NULL;
 }
 
@@ -32,48 +32,48 @@
     _sizes = sizes;
 }
 
-- (void)setRanges:(CGFloat *)ranges {
-    if (_ranges != NULL) {
-        free(_ranges);
-        _ranges = NULL;
+- (void)setOffsets:(CGFloat *)offsets {
+    if (_offsets != NULL) {
+        free(_offsets);
+        _offsets = NULL;
     }
-    _ranges = ranges;
+    _offsets = offsets;
 }
 
-- (CGFloat)offset:(NSInteger)column {
-    CGFloat offset = 0;
+- (CGFloat)position:(NSInteger)column {
+    CGFloat position = 0;
     for (NSInteger index = 1; index <= column; ++index) {
-        offset += self.sizes[index-1];
+        position += self.sizes[index-1];
+    }
+    return position;
+}
+
+- (CGFloat)minimumOffset:(NSInteger *)column {
+    CGFloat offset = CGFLOAT_MAX;
+    for (int i = 0; i < _numberOfColumns; i++) {
+        CGFloat r = self.offsets[i];
+        if (r < offset) {
+            if (column != NULL) {
+                *column = i;
+            }
+            offset = r;
+        }
     }
     return offset;
 }
 
-- (CGFloat)minimumRange:(NSInteger *)column {
-    CGFloat range = CGFLOAT_MAX;
+- (CGFloat)maximumOffset:(NSInteger *)column {
+    CGFloat offset = 0;
     for (int i = 0; i < _numberOfColumns; i++) {
-        CGFloat r = self.ranges[i];
-        if (r < range) {
+        CGFloat r = self.offsets[i];
+        if (r > offset) {
             if (column != NULL) {
                 *column = i;
             }
-            range = r;
+            offset = r;
         }
     }
-    return range;
-}
-
-- (CGFloat)maximumRange:(NSInteger *)column {
-    CGFloat range = 0;
-    for (int i = 0; i < _numberOfColumns; i++) {
-        CGFloat r = self.ranges[i];
-        if (r > range) {
-            if (column != NULL) {
-                *column = i;
-            }
-            range = r;
-        }
-    }
-    return range;
+    return offset;
 }
 
 - (void)prepare {
@@ -84,7 +84,7 @@
     }
     self.numberOfColumns = numberOfColumns;
     self.sizes = calloc(numberOfColumns, sizeof(CGFloat));
-    self.ranges = calloc(numberOfColumns, sizeof(CGFloat));
+    self.offsets = calloc(numberOfColumns, sizeof(CGFloat));
     
     for (NSInteger column = 0; column < numberOfColumns; ++column) {
         
@@ -94,29 +94,29 @@
         }
         self.sizes[column] = size;
         
-        CGFloat range = 0;
-        if ([delegate respondsToSelector:@selector(streamView:layout:rangeForColumn:)]) {
-            range = [delegate streamView:self.streamView layout:self rangeForColumn:column];
+        CGFloat offset = 0;
+        if ([delegate respondsToSelector:@selector(streamView:layout:offsetForColumn:)]) {
+            offset = [delegate streamView:self.streamView layout:self offsetForColumn:column];
         }
-        self.ranges[column] = range;
+        self.offsets[column] = offset;
     }
 }
 
 - (StreamItem *)layout:(StreamItem *)item {
     NSInteger column = 0;
-    CGFloat range = [self minimumRange:&column];
+    CGFloat offset = [self minimumOffset:&column];
     CGFloat size = self.sizes[column];
     CGFloat ratio = [[(GridMetrics*)item.metrics ratio] valueAt:item.index];
-    CGRect frame = CGRectMake([self offset:column], range, size, size / ratio);
-    self.ranges[column] = CGRectGetMaxY(frame);
+    CGRect frame = CGRectMake([self position:column], offset, size, size / ratio);
+    self.offsets[column] = CGRectGetMaxY(frame);
     item.frame = frame;
     return item;
 }
 
 - (void)flatten {
-    CGFloat range = [self maximumRange:NULL];
+    CGFloat offset = [self maximumOffset:NULL];
     for (NSInteger column = 0; column < _numberOfColumns; ++column) {
-        self.ranges[column] = range;
+        self.offsets[column] = offset;
     }
 }
 
@@ -125,7 +125,7 @@
 }
 
 - (CGSize)contentSize {
-    return CGSizeMake(self.streamView.frame.size.width, [self maximumRange:NULL]);
+    return CGSizeMake(self.streamView.frame.size.width, [self maximumOffset:NULL]);
 }
 
 @end

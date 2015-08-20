@@ -10,7 +10,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="111"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iF2-2y-bMn" customClass="StreamView">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iF2-2y-bMn" customClass="StreamView">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="106"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -39,8 +39,8 @@
                 <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLCandyCell"/>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="metrics" destination="NX1-5E-Aty" id="Hjy-6h-iZ3"/>
                 <outlet property="streamView" destination="iF2-2y-bMn" id="1cB-iH-48U"/>
+                <outletCollection property="metrics" destination="NX1-5E-Aty" collectionClass="NSMutableArray" id="MR9-3g-B2p"/>
             </connections>
         </customObject>
         <customObject id="NX1-5E-Aty" customClass="GridMetrics">

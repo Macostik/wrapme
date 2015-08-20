@@ -21,6 +21,27 @@
 
 @dynamic items;
 
+- (void)didAwake {
+    [super didAwake];
+    
+    __weak typeof(self)weakSelf = self;
+    [self addFooterMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
+        metrics.identifier = @"WLStreamLoadingView";
+        metrics.size.value = 60;
+        [metrics.hidden setBlock:^BOOL(StreamIndex *index) {
+            return ![weakSelf appendable];
+        }];
+        [metrics setViewAfterSetupBlock:^(StreamItem *item, WLStreamLoadingView *view, id entry) {
+            weakSelf.loadingView = view;
+            view.error = NO;
+            [weakSelf append:nil failure:^(NSError *error) {
+                [error showIgnoringNetworkError];
+                if (error) view.error = YES;
+            }];
+        }];
+    }]];
+}
+
 - (void)setItems:(WLPaginatedSet *)items {
     [super setItems:items];
     items.delegate = self;
@@ -43,26 +64,6 @@
 
 - (void)append:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     [self.items older:success failure:failure];
-}
-
-- (void)setMetrics:(StreamMetrics *)metrics {
-    [super setMetrics:metrics];
-    __weak typeof(self)weakSelf = self;
-    [metrics addFooter:^(StreamMetrics *metrics) {
-        metrics.identifier = @"WLStreamLoadingView";
-        metrics.size.value = 60;
-        [metrics.hidden setBlock:^BOOL(StreamIndex *index) {
-            return index.item != ([weakSelf.items count] - 1) || ![weakSelf appendable];
-        }];
-        [metrics setViewAfterSetupBlock:^(StreamItem *item, WLStreamLoadingView *view, id entry) {
-            weakSelf.loadingView = view;
-            view.error = NO;
-            [weakSelf append:nil failure:^(NSError *error) {
-                [error showIgnoringNetworkError];
-                if (error) view.error = YES;
-            }];
-        }];
-    }];
 }
 
 // MARK: - WLPaginatedSetDelegate

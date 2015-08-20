@@ -13,17 +13,6 @@
 
 @synthesize selected = _selected;
 
-- (void)setVisible:(BOOL)visible {
-    if (_visible != visible) {
-        if (visible) {
-            [self.delegate streamItemWillBecomeVisible:self];
-        } else {
-            [self.delegate streamItemWillBecomeInvisible:self];
-        }
-        _visible = visible;
-    }
-}
-
 - (void)setSelected:(BOOL)selected {
     _selected = selected;
     if (_view) {

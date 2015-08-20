@@ -21,9 +21,13 @@
 
 - (id)streamView:(StreamView*)streamView viewForItem:(StreamItem*)item;
 
-- (StreamMetrics*)streamView:(StreamView*)streamView metricsAt:(StreamIndex*)index;
+- (NSArray*)streamView:(StreamView*)streamView metricsAt:(StreamIndex*)index;
 
 @optional
+
+- (NSArray*)streamView:(StreamView*)streamView headerMetricsInSection:(NSUInteger)section;
+
+- (NSArray*)streamView:(StreamView*)streamView footerMetricsInSection:(NSUInteger)section;
 
 - (NSInteger)streamViewNumberOfSections:(StreamView*)streamView;
 

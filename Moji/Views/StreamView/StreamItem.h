@@ -8,19 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class StreamItem, StreamMetrics, StreamIndex, StreamReusableView;
-
-@protocol StreamItemDelegate <NSObject>
-
-- (void)streamItemWillBecomeInvisible:(StreamItem*)item;
-
-- (void)streamItemWillBecomeVisible:(StreamItem*)item;
-
-@end
+@class StreamMetrics, StreamIndex, StreamReusableView;
 
 @interface StreamItem : NSObject
-
-@property (nonatomic, weak) id <StreamItemDelegate> delegate;
 
 @property (weak, nonatomic) StreamReusableView* view;
 

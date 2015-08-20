@@ -17,13 +17,17 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
     ScrollDirectionDown
 };
 
-@interface StreamDataSource : NSObject <GridLayoutDelegate>
+@interface StreamDataSource : NSObject <GridLayoutDelegate, StreamLayoutDelegate>
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 
 @property (strong, nonatomic) id <WLBaseOrderedCollection> items;
 
-@property (strong, nonatomic) IBOutlet StreamMetrics *metrics;
+@property (strong, nonatomic) IBOutletCollection(StreamMetrics) NSMutableArray *metrics;
+
+@property (strong, nonatomic) IBOutletCollection(StreamMetrics) NSMutableArray *headerMetrics;
+
+@property (strong, nonatomic) IBOutletCollection(StreamMetrics) NSMutableArray *footerMetrics;
 
 @property (strong, nonatomic) IBInspectable NSString *itemIdentifier;
 
@@ -33,9 +37,13 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
 
 @property (strong, nonatomic) NSUInteger (^numberOfItemsBlock) (id dataSource);
 
+- (void)didAwake;
+
 - (void)reload;
 
 - (void)refresh;
+
+- (void)refresh:(WLRefresher*)sender;
 
 - (void)refresh:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
@@ -46,5 +54,11 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
 - (void)setRefreshableWithContentMode:(UIViewContentMode)contentMode;
 
 - (void)setRefreshableWithStyle:(WLRefresherStyle)style;
+
+- (StreamMetrics*)addHeaderMetrics:(StreamMetrics*)block;
+
+- (StreamMetrics*)addMetrics:(StreamMetrics*)block;
+
+- (StreamMetrics*)addFooterMetrics:(StreamMetrics*)block;
 
 @end

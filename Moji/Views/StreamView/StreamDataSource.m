@@ -17,6 +17,44 @@
 
 @implementation StreamDataSource
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self didAwake];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    if (self) {
+        [self didAwake];
+    }
+    return self;
+}
+
+- (void)didAwake {
+    
+}
+
+- (StreamMetrics*)addHeaderMetrics:(StreamMetrics*)metrics {
+    if (!self.headerMetrics) self.headerMetrics = [NSMutableArray array];
+    [self.headerMetrics addObject:metrics];
+    return metrics;
+}
+
+- (StreamMetrics*)addMetrics:(StreamMetrics*)metrics {
+    if (!self.metrics) self.metrics = [NSMutableArray array];
+    [self.metrics addObject:metrics];
+    return metrics;
+}
+
+- (StreamMetrics*)addFooterMetrics:(StreamMetrics*)metrics {
+    if (!self.footerMetrics) self.footerMetrics = [NSMutableArray array];
+    [self.footerMetrics addObject:metrics];
+    return metrics;
+}
+
 - (void)setItems:(id<WLBaseOrderedCollection>)items {
     _items = items;
     [self reload];
@@ -29,25 +67,37 @@
 }
 
 - (void)setItemIdentifier:(NSString *)itemIdentifier {
-    if (!self.metrics) self.metrics = [[StreamMetrics alloc] init];
-    self.metrics.identifier = itemIdentifier;
+    if (!self.metrics.nonempty) [self addMetrics:[[StreamMetrics alloc] init]];
+    StreamMetrics *metrics = [self.metrics firstObject];
+    metrics.identifier = itemIdentifier;
 }
 
 - (NSString *)itemIdentifier {
-    return self.metrics.identifier;
+    StreamMetrics *metrics = [self.metrics firstObject];
+    return metrics.identifier;
 }
 
 - (void)setItemSize:(CGFloat)itemSize {
-    if (!self.metrics) self.metrics = [[StreamMetrics alloc] init];
-    self.metrics.size.value = itemSize;
+    if (!self.metrics.nonempty) [self addMetrics:[[StreamMetrics alloc] init]];
+    StreamMetrics *metrics = [self.metrics firstObject];
+    metrics.size.value = itemSize;
 }
 
 - (CGFloat)itemSize {
-    return self.metrics.size.value;
+    StreamMetrics *metrics = [self.metrics firstObject];
+    return metrics.size.value;
+}
+
+- (void)refresh:(WLRefresher*)sender {
+    [self refresh:^(id object) {
+        [sender setRefreshing:NO animated:YES];
+    } failure:^(NSError *error) {
+        [sender setRefreshing:NO animated:YES];
+    }];
 }
 
 - (void)refresh {
-    
+    [self refresh:nil failure:nil];
 }
 
 - (void)refresh:(WLObjectBlock)success failure:(WLFailureBlock)failure {
@@ -69,7 +119,7 @@
 - (void)setRefreshableWithStyle:(WLRefresherStyle)style {
     __weak typeof(self)weakSelf = self;
     run_after_asap(^{
-        [WLRefresher refresher:weakSelf.streamView target:weakSelf action:@selector(refresh) style:style];
+        [WLRefresher refresher:weakSelf.streamView target:weakSelf action:@selector(refresh:) style:style];
     });
 }
 
@@ -84,8 +134,16 @@
     return [item.metrics viewForItem:item inStreamView:streamView entry:entry];
 }
 
-- (StreamMetrics*)streamView:(StreamView*)streamView metricsAt:(StreamIndex*)index {
+- (NSArray *)streamView:(StreamView *)streamView headerMetricsInSection:(NSUInteger)section {
+    return self.headerMetrics;
+}
+
+- (NSArray *)streamView:(StreamView *)streamView metricsAt:(StreamIndex *)index {
     return self.metrics;
+}
+
+- (NSArray *)streamView:(StreamView *)streamView footerMetricsInSection:(NSUInteger)section {
+    return self.footerMetrics;
 }
 
 - (NSInteger)streamViewNumberOfSections:(StreamView*)streamView {
@@ -99,11 +157,15 @@
     }
 }
 
+- (CGFloat)streamView:(StreamView*)streamView layoutOffset:(StreamLayout*)layout {
+    return 0;
+}
+
 - (NSInteger)streamView:(StreamView*)streamView layoutNumberOfColumns:(GridLayout*)layout {
     return 3;
 }
 
-- (CGFloat)streamView:(StreamView*)streamView layout:(GridLayout*)layout rangeForColumn:(NSInteger)column {
+- (CGFloat)streamView:(StreamView*)streamView layout:(GridLayout*)layout offsetForColumn:(NSInteger)column {
     return 0;
 }
 

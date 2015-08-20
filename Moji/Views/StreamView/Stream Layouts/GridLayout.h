@@ -16,7 +16,7 @@
 
 - (NSInteger)streamView:(StreamView*)streamView layoutNumberOfColumns:(GridLayout*)layout;
 
-- (CGFloat)streamView:(StreamView*)streamView layout:(GridLayout*)layout rangeForColumn:(NSInteger)column;
+- (CGFloat)streamView:(StreamView*)streamView layout:(GridLayout*)layout offsetForColumn:(NSInteger)column;
 
 - (CGFloat)streamView:(StreamView*)streamView layout:(GridLayout*)layout sizeForColumn:(NSInteger)column;
 

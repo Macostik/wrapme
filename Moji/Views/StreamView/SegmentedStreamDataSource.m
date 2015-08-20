@@ -39,7 +39,12 @@
 
 - (void)setCurrentDataSource:(StreamDataSource *)currentDataSource {
     _currentDataSource = currentDataSource;
-    [self reload];
+    self.streamView.delegate = currentDataSource;
+    [currentDataSource reload];
+}
+
+- (void)reload {
+    [self.currentDataSource reload];
 }
 
 - (void)setCurrentDataSourceAtIndex:(NSUInteger)index {
@@ -72,44 +77,6 @@
 
 - (IBAction)segmentValueChanged:(SegmentedControl*)sender {
     [self setCurrentDataSourceAtIndex:sender.selectedSegment];
-}
-
-// MARK: - StreamViewDelegate
-
-- (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section {
-    return [self.currentDataSource streamView:streamView numberOfItemsInSection:section];
-}
-
-- (id)streamView:(StreamView*)streamView viewForItem:(StreamItem*)item {
-    return [self.currentDataSource streamView:streamView viewForItem:item];
-}
-
-- (StreamMetrics*)streamView:(StreamView*)streamView metricsAt:(StreamIndex*)index {
-    return [self.currentDataSource streamView:streamView metricsAt:index];
-}
-
-- (NSInteger)streamViewNumberOfSections:(StreamView*)streamView {
-    return [self.currentDataSource streamViewNumberOfSections:streamView];
-}
-
-- (void)streamView:(StreamView*)streamView didSelectItem:(StreamItem*)item {
-    [self.currentDataSource streamView:streamView didSelectItem:item];
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    [self.currentDataSource scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    [self.currentDataSource scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self.currentDataSource scrollViewDidEndDecelerating:scrollView];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.currentDataSource scrollViewDidScroll:scrollView];
 }
 
 @end

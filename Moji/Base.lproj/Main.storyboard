@@ -949,7 +949,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGg-7M-ebG" customClass="StreamView">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uGg-7M-ebG" customClass="StreamView">
                                 <rect key="frame" x="0.0" y="156" width="600" height="444"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="48"/>
                                 <connections>
@@ -1401,6 +1401,9 @@ Tap here to start.</string>
                 <customObject id="uJJ-OA-ZDD" customClass="PaginatedStreamDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLWrapCell"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="itemSize">
+                            <real key="value" value="60"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </customObject>
                 <customObject id="Qns-CC-AwC" userLabel="Notifications Transition" customClass="WLStoryboardTransition">

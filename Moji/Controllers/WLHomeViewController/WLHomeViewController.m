@@ -77,19 +77,28 @@
     
     StreamView *streamView = self.streamView;
     
+    __weak WLHomeDataSource *homeDataSource = self.homeDataSource;
+    __weak PaginatedStreamDataSource *publicDataSource = self.publicDataSource;
+    
     streamView.contentInset = streamView.scrollIndicatorInsets;
     
     __weak typeof(self)weakSelf = self;
     
-    [self.homeDataSource.metrics.size setBlock:^CGFloat(StreamIndex *index) {
-        return index.item == 0 ? 70 : 60;
+    [[homeDataSource.metrics lastObject] change:^(StreamMetrics *metrics) {
+        [metrics.size setBlock:^CGFloat(StreamIndex *index) {
+            return index.item == 0 ? 70 : 60;
+        }];
+        
+        [metrics.topInset setBlock:^CGFloat(StreamIndex *index) {
+            return index.item == 1 ? 5 : 0;
+        }];
+        
+        metrics.selectionBlock = ^(id entry) {
+            [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
+        };
     }];
     
-    [self.homeDataSource.metrics.topSpacing setBlock:^CGFloat(StreamIndex *index) {
-        return index.item == 1 ? 5 : 0;
-    }];
-    
-    [self.homeDataSource.metrics addFooter:^(StreamMetrics *metrics) {
+    [homeDataSource addMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLRecentCandiesView";
         [metrics.size setBlock:^CGFloat(StreamIndex *index) {
             int size = (streamView.width - 2.0f)/3.0f;;
@@ -98,16 +107,24 @@
         [metrics setViewAfterSetupBlock:^(StreamItem *item, id view, id entry) {
             weakSelf.candiesView = view;
         }];
+        [metrics.hidden setBlock:^BOOL(StreamIndex *index) {
+            return index.item != 0;
+        }];
+    }]];
+    
+    [[publicDataSource.metrics lastObject] change:^(StreamMetrics *metrics) {
+        [metrics.topInset setBlock:^CGFloat(StreamIndex *index) {
+            return index.item == 0 ? 5 : 0;
+        }];
+        metrics.selectionBlock = ^(id entry) {
+            [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
+        };
     }];
     
-    [self.publicDataSource.metrics.topSpacing setBlock:^CGFloat(StreamIndex *index) {
-        return index.item == 0 ? 5 : 0;
-    }];
-    
-    [self.homeDataSource.metrics addFooter:^(StreamMetrics *metrics) {
+    [publicDataSource addHeaderMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLHottestMojiHeader";
         metrics.size.value = 88;
-    }];
+    }]];
     
     [self.dataSource setRefreshable];
     
@@ -119,17 +136,9 @@
     
     [self addNotifyReceivers];
     
-    __weak WLHomeDataSource *homeDataSource = self.homeDataSource;
-    __weak PaginatedStreamDataSource *publicDataSource = self.publicDataSource;
-    
     NSSet* wraps = [WLUser currentUser].wraps;
     homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:nil]];
-    
     publicDataSource.items = [WLPaginatedSet setWithEntries:[[WLWrap entriesWhere:@"isPublic == YES"] set] request:[WLPaginatedRequest wraps:@"public_not_following"]];
-    
-    homeDataSource.metrics.selectionBlock = publicDataSource.metrics.selectionBlock = ^(id entry) {
-        [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
-    };
     
     if (wraps.nonempty) {
         [homeDataSource refresh];

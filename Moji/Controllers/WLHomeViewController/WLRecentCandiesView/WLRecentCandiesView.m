@@ -29,12 +29,14 @@
     [self.dataSource setNumberOfItemsBlock:^NSUInteger (StreamDataSource *dataSource) {
         return ([dataSource.items count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
     }];
-    [[(GridMetrics*)self.dataSource.metrics ratio] setBlock:^CGFloat(StreamIndex *index) {
+    GridMetrics *metrics = [self.dataSource.metrics lastObject];
+    [metrics.ratio setBlock:^CGFloat(StreamIndex *index) {
         return 1;
     }];
 }
 
 - (void)setup:(WLWrap*)wrap {
+    [self layoutIfNeeded];
     self.dataSource.items = [[NSMutableOrderedSet orderedSetWithSet:wrap.candies] sortByUpdatedAt];
 }
 

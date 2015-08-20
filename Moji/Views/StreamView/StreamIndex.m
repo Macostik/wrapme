@@ -33,6 +33,10 @@
     return self.next.value;
 }
 
+- (instancetype)copy {
+    return [super copy];
+}
+
 - (id)copyWithZone:(NSZone *)zone {
     StreamIndex *index = [[StreamIndex allocWithZone:zone] init];
     index.value = self.value;

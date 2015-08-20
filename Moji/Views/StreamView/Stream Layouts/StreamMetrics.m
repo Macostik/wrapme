@@ -25,9 +25,9 @@
 
 @end
 
-@implementation StreamMetricsStringProperty
+@implementation StreamMetricsProperty
 
-- (NSString*)valueAt:(StreamIndex*)index {
+- (id)valueAt:(StreamIndex*)index {
     return self.block ? self.block(index) : self.value;
 }
 
@@ -44,34 +44,25 @@
 @implementation StreamMetrics
 
 + (instancetype)metrics:(StreamMetricsBlock)block {
-    StreamMetrics *metrics = [[self alloc] init];
-    if (block) block(metrics);
-    return metrics;
+    return [[[self alloc] init] change:block];
+}
+
+- (instancetype)change:(StreamMetricsBlock)block {
+    if (block) block(self);
+    return self;
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.headers = [NSMutableArray array];
-        self.footers = [NSMutableArray array];
         self.size = [[StreamMetricsFloatProperty alloc] init];
-        self.topSpacing = [[StreamMetricsFloatProperty alloc] init];
-        self.bottomSpacing = [[StreamMetricsFloatProperty alloc] init];
+        self.topInset = [[StreamMetricsFloatProperty alloc] init];
+        self.bottomInset = [[StreamMetricsFloatProperty alloc] init];
+        self.leftInset = [[StreamMetricsFloatProperty alloc] init];
+        self.rightInset = [[StreamMetricsFloatProperty alloc] init];
         self.hidden = [[StreamMetricsBoolProperty alloc] init];
     }
     return self;
-}
-
-- (instancetype)addHeader:(StreamMetricsBlock)block {
-    StreamMetrics *metrics = [[self class] metrics:block];
-    [self.headers addObject:metrics];
-    return metrics;
-}
-
-- (instancetype)addFooter:(StreamMetricsBlock)block {
-    StreamMetrics *metrics = [[self class] metrics:block];
-    [self.footers addObject:metrics];
-    return metrics;
 }
 
 - (id)viewForItem:(StreamItem *)item inStreamView:(StreamView *)streamView entry:(id)entry {

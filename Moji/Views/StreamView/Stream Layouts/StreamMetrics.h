@@ -45,15 +45,15 @@ typedef void(^StreamMetricsViewAfterSetupBlock)(StreamItem *item, id view, id en
 
 @end
 
-@interface StreamMetricsStringProperty : NSObject
+@interface StreamMetricsProperty : NSObject
 
-@property (strong, nonatomic) NSString *value;
+@property (strong, nonatomic) id value;
 
 @property (strong, nonatomic) StreamMetricsStringBlock block;
 
 - (void)setBlock:(StreamMetricsStringBlock)block;
 
-- (NSString*)valueAt:(StreamIndex*)index;
+- (id)valueAt:(StreamIndex*)index;
 
 @end
 
@@ -67,21 +67,19 @@ typedef void(^StreamMetricsViewAfterSetupBlock)(StreamItem *item, id view, id en
 
 @property (strong, nonatomic) StreamMetricsFloatProperty *size;
 
-@property (strong, nonatomic) StreamMetricsFloatProperty *topSpacing;
+@property (strong, nonatomic) StreamMetricsFloatProperty *topInset;
 
-@property (strong, nonatomic) StreamMetricsFloatProperty *bottomSpacing;
+@property (strong, nonatomic) StreamMetricsFloatProperty *bottomInset;
 
-@property (strong, nonatomic) NSMutableArray *headers;
+@property (strong, nonatomic) StreamMetricsFloatProperty *leftInset;
 
-@property (strong, nonatomic) NSMutableArray *footers;
+@property (strong, nonatomic) StreamMetricsFloatProperty *rightInset;
 
 @property (strong, nonatomic) WLObjectBlock selectionBlock;
 
 + (instancetype)metrics:(StreamMetricsBlock)block;
 
-- (instancetype)addHeader:(StreamMetricsBlock)block;
-
-- (instancetype)addFooter:(StreamMetricsBlock)block;
+- (instancetype)change:(StreamMetricsBlock)block;
 
 - (id)viewForItem:(StreamItem*)item inStreamView:(StreamView*)streamView entry:(id)entry;
 

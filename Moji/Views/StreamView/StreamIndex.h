@@ -22,4 +22,6 @@
 
 - (instancetype)add:(NSUInteger)value;
 
+- (instancetype)copy;
+
 @end

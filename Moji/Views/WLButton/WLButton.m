@@ -17,6 +17,8 @@
 
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *highlightings;
 
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *selectings;
+
 @end
 
 @implementation WLButton
@@ -45,6 +47,13 @@
 - (void)setSelected:(BOOL)selected {
 	[super setSelected:selected];
 	[self update];
+    for (UIControl *selecting in self.selectings) {
+        if ([selecting respondsToSelector:@selector(setSelected:)]) {
+            selecting.selected = selected;
+        } else if ([selecting respondsToSelector:@selector(setHighlighted:)]) {
+            selecting.highlighted = selected;
+        }
+    }
 }
 
 - (void)setEnabled:(BOOL)enabled {

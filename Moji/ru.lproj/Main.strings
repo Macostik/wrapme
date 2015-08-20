@@ -170,8 +170,8 @@
 /* Class = "UITextView"; text = "Text"; ObjectID = "H8X-L5-O9h"; */
 "H8X-L5-O9h.text" = "Text";
 
-/* Class = "UILabel"; text = "Фото"; ObjectID = "HGi-g8-MYV"; */
-"HGi-g8-MYV.text" = "Фото";
+/* Class = "UILabel"; text = "Друзья"; ObjectID = "HGi-g8-MYV"; */
+"HGi-g8-MYV.text" = "Друзья";
 
 /* Class = "UILabel"; text = "name"; ObjectID = "HUe-Pv-h6W"; */
 "HUe-Pv-h6W.text" = "name";

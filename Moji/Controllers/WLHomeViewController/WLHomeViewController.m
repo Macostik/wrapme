@@ -228,7 +228,7 @@
     WLWrap *wrap = nil;
     if (self.dataSource.currentDataSource == self.publicDataSource) {
         for (WLWrap *_wrap in [(WLPaginatedSet *)[self.publicDataSource items] entries]) {
-            if ([_wrap.contributors containsObject:[WLUser currentUser]]) {
+            if (_wrap.isContributing) {
                 wrap = _wrap;
                 break;
             }
@@ -294,7 +294,7 @@
             if (wrap.isPublic) {
                 [(WLPaginatedSet *)[weakSelf.publicDataSource items] addEntry:wrap];
             }
-            if ([wrap.contributors containsObject:[WLUser currentUser]]) {
+            if (wrap.isContributing) {
                 [(WLPaginatedSet *)[weakSelf.homeDataSource items] addEntry:wrap];
             }
             weakSelf.collectionView.contentOffset = CGPointZero;
@@ -308,7 +308,7 @@
                     [publicWraps addEntry:wrap];
                 }
             }
-            if ([wrap.contributors containsObject:[WLUser currentUser]]) {
+            if (wrap.isContributing) {
                 WLPaginatedSet *wraps = (WLPaginatedSet *)[weakSelf.homeDataSource items];
                 if ([wraps.entries containsObject:wrap]) {
                     [wraps sort];
@@ -326,7 +326,7 @@
             if (wrap.isPublic) {
                 [(WLPaginatedSet *)[weakSelf.publicDataSource items] removeEntry:wrap];
             }
-            if ([wrap.contributors containsObject:[WLUser currentUser]]) {
+            if (wrap.isContributing) {
                 [(WLPaginatedSet *)[weakSelf.homeDataSource items] removeEntry:wrap];
             }
         }];

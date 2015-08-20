@@ -50,7 +50,7 @@
     self.closeButton.hidden = requiresFollowing;
     self.nameButton.text = self.wrap.name;
     self.imageView.url = self.wrap.contributor.picture.small;
-    self.imageView.followed = self.wrap.isPublic && [self.wrap.contributors containsObject:[WLUser currentUser]];
+    self.imageView.followed = self.wrap.isPublic && self.wrap.isContributing;
     self.messageLabel.text = requiresFollowing ? WLLS(@"follow_moji_suggestion") : WLLS(@"followed_moji_suggestion");
 }
 

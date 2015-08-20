@@ -75,7 +75,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         self.nameLabel.horizontallyResistible = YES;
         self.chatButton.horizontallyResistible = NO;
         self.chatNotificationLabel.horizontallyResistible = NO;
-        self.coverView.followed = [wrap.contributors containsObject:[WLUser currentUser]];
+        self.coverView.followed = wrap.isContributing;
     } else {
         NSUInteger messageConter = [[WLMessagesCounter instance] countForWrap:wrap];
         self.chatNotificationLabel.intValue = messageConter;
@@ -114,7 +114,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 - (BOOL)checkIfActionAllowed:(BOOL)isRightSwipeAction {
     WLWrap *wrap = self.entry;
     if (!wrap.isPublic) return YES;
-    if ([wrap.contributors containsObject:[WLUser currentUser]]) return !isRightSwipeAction;
+    if (wrap.isContributing) return !isRightSwipeAction;
     return NO;
 }
 

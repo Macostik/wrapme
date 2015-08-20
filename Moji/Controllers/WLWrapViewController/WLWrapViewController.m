@@ -91,7 +91,7 @@
     self.nameLabel.text = wrap.name;
     if (wrap.isPublic) {
         self.publicWrapImageView.url = wrap.contributor.picture.small;
-        self.publicWrapImageView.followed = [wrap.contributors containsObject:[WLUser currentUser]];
+        self.publicWrapImageView.followed = wrap.isContributing;
         self.publicWrapName.text = wrap.name;
         BOOL requiresFollowing = wrap.requiresFollowing;
         self.segmentedControl.hidden = YES;

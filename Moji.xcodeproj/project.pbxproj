@@ -112,8 +112,8 @@
 		C50646101ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */; };
 		C50646261ABD815200CB4BE3 /* WLTodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */; };
 		C50646271ABD815200CB4BE3 /* WLTodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */; };
-		C50646371ABD815200CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
-		C50646381ABD815200CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
+		C50646371ABD815200CB4BE3 /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; };
+		C50646381ABD815200CB4BE3 /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; };
 		C50646471ABD815200CB4BE3 /* WLWKNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645CC1ABD815100CB4BE3 /* WLWKNotificationController.m */; };
 		C50646641ABD815200CB4BE3 /* WLWKCandyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D51ABD815200CB4BE3 /* WLWKCandyController.m */; };
 		C506466B1ABD815200CB4BE3 /* WLWKCommentRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D71ABD815200CB4BE3 /* WLWKCommentRow.m */; };
@@ -964,8 +964,8 @@
 		C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
 		C5E4CCF91A1BA38B00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
 		C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
-		C5E54B471ACBF9B100444F7B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
-		C5E54B481ACBF9B200444F7B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
+		C5E54B471ACBF9B100444F7B /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; };
+		C5E54B481ACBF9B200444F7B /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; };
 		C5E54B491ACBF9CE00444F7B /* WLWKNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645CC1ABD815100CB4BE3 /* WLWKNotificationController.m */; };
 		C5E54B4D1ACBF9CE00444F7B /* WLWKCandyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D51ABD815200CB4BE3 /* WLWKCandyController.m */; };
 		C5E54B4E1ACBF9CE00444F7B /* WLWKCommentRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D71ABD815200CB4BE3 /* WLWKCommentRow.m */; };
@@ -1339,7 +1339,7 @@
 		C50645BB1ABD815100CB4BE3 /* MojiToday-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiToday-Info.plist"; sourceTree = "<group>"; };
 		C50645C01ABD815100CB4BE3 /* WLTodayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayViewController.h; sourceTree = "<group>"; };
 		C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayViewController.m; sourceTree = "<group>"; };
-		C50645C51ABD815100CB4BE3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WatchImages.xcassets; sourceTree = "<group>"; };
 		C50645C61ABD815100CB4BE3 /* MojiWatchAppQA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiWatchAppQA-Info.plist"; sourceTree = "<group>"; };
 		C50645CB1ABD815100CB4BE3 /* WLWKNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKNotificationController.h; sourceTree = "<group>"; };
 		C50645CC1ABD815100CB4BE3 /* WLWKNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKNotificationController.m; sourceTree = "<group>"; };
@@ -3026,7 +3026,7 @@
 			isa = PBXGroup;
 			children = (
 				C520C9D71B32FDBD00AC7351 /* Interface.storyboard */,
-				C50645C51ABD815100CB4BE3 /* Images.xcassets */,
+				C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */,
 				C50645C61ABD815100CB4BE3 /* MojiWatchAppQA-Info.plist */,
 				C50646A91ABD830C00CB4BE3 /* MojiWatchApp-Info.plist */,
 			);
@@ -5439,7 +5439,7 @@
 				C5528A0E1B3425C500AF1311 /* (null) in Resources */,
 				C5DB9F441ADD6CD800A21E42 /* CoreData.xcdatamodeld in Resources */,
 				C5B993C51B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */,
-				C50646371ABD815200CB4BE3 /* Images.xcassets in Resources */,
+				C50646371ABD815200CB4BE3 /* WatchImages.xcassets in Resources */,
 				C5BBA1B31B7E220300451128 /* icons.ttf in Resources */,
 				C54086991AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C54086971AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
@@ -5456,7 +5456,7 @@
 			files = (
 				C540869E1AD29C77007E0D12 /* ChatAPNS.apns in Resources */,
 				C540869B1AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
-				C50646381ABD815200CB4BE3 /* Images.xcassets in Resources */,
+				C50646381ABD815200CB4BE3 /* WatchImages.xcassets in Resources */,
 				C540869C1AD29C77007E0D12 /* CandyAPNS.apns in Resources */,
 				C540869D1AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C520C9D91B32FDBD00AC7351 /* Interface.storyboard in Resources */,
@@ -5592,7 +5592,7 @@
 				C5528A111B3425C600AF1311 /* (null) in Resources */,
 				C5B993C61B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */,
 				C54086A11AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
-				C5E54B471ACBF9B100444F7B /* Images.xcassets in Resources */,
+				C5E54B471ACBF9B100444F7B /* WatchImages.xcassets in Resources */,
 				C5BBA1B41B7E220300451128 /* icons.ttf in Resources */,
 				C5B993C81B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */,
 				C540869F1AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
@@ -5610,7 +5610,7 @@
 				C54086A61AD29C78007E0D12 /* ChatAPNS.apns in Resources */,
 				C54086A51AD29C78007E0D12 /* CommentAPNS.apns in Resources */,
 				C54086A31AD29C78007E0D12 /* WrapAPNS.apns in Resources */,
-				C5E54B481ACBF9B200444F7B /* Images.xcassets in Resources */,
+				C5E54B481ACBF9B200444F7B /* WatchImages.xcassets in Resources */,
 				C520C9DA1B32FDBD00AC7351 /* Interface.storyboard in Resources */,
 				C54086A41AD29C78007E0D12 /* CandyAPNS.apns in Resources */,
 			);
@@ -6837,7 +6837,7 @@
 		C50645A31ABD7FD500CB4BE3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -6864,7 +6864,7 @@
 		C50645A51ABD7FD500CB4BE3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -7183,7 +7183,7 @@
 		C56498E21ACB00D3000F1E4B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -7210,7 +7210,7 @@
 		C56498E41ACB00D3000F1E4B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;

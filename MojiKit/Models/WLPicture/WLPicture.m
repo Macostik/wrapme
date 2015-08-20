@@ -51,7 +51,7 @@
     
     if (dictionary[WLCandyURLsKey]) {
         NSDictionary *urls = dictionary[WLCandyURLsKey];
-        original = [dictionary stringForKey:WLURLOriginalKey];
+        original = [urls stringForKey:WLURLOriginalKey];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             large = [urls stringForKey:WLURLXLargeKey];
             medium = [urls stringForKey:WLURLLargeSQKey];
@@ -62,6 +62,7 @@
             small = [urls stringForKey:WLURLSmallSQKey];
         }
     } else {
+        original = [dictionary stringForKey:WLCandyOriginalURLKey];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             large = [dictionary stringForKey:WLCandyXLargeURLKey];
             medium = [dictionary stringForKey:WLCandyXMediumURLKey];

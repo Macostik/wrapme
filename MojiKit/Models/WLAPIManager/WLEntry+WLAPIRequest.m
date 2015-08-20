@@ -119,14 +119,14 @@
 
 @implementation WLContribution (WLAPIManager)
 
-- (BOOL)enqueueUpdate:(WLFailureBlock)failure {
-    [self notifyOnUpdate:nil];
-    return [self prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
+- (void)enqueueUpdate:(WLFailureBlock)failure {
+    __weak typeof(self)weakSelf = self;
+    [self prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
         switch (status) {
-            case WLContributionStatusReady:
-            case WLContributionStatusInProgress: break;
+            case WLContributionStatusReady: break;
             case WLContributionStatusFinished: {
-                [WLUploadingQueue upload:[WLUploading uploading:self type:WLEventUpdate] success:nil failure:nil];
+                [weakSelf notifyOnUpdate:nil];
+                [WLUploadingQueue upload:[WLUploading uploading:weakSelf type:WLEventUpdate] success:nil failure:nil];
             } break;
             default:
                 break;
@@ -134,24 +134,12 @@
     } failure:failure];
 }
 
-- (BOOL)prepareForUpdate:(WLContributionUpdatePreparingBlock)success failure:(WLFailureBlock)failure {
-    WLContributionStatus status = self.status;
-    switch (status) {
-        case WLContributionStatusReady:
-            if (success) success(self, status);
-            return YES;
-            break;
-        case WLContributionStatusInProgress: {
-            if (failure) failure(WLError(WLLS(@"photo_is_uploading")));
-            return NO;
-        } break;
-        case WLContributionStatusFinished: {
-            if (success) success(self, status);
-            return YES;
-        } break;
-        default:
-            return NO;
-            break;
+- (void)prepareForUpdate:(WLContributionUpdatePreparingBlock)success failure:(WLFailureBlock)failure {
+    WLContributionStatus status = [self statusOfAnyUploadingType];
+    if (status == WLContributionStatusInProgress) {
+        if (failure) failure(WLError(WLLS(@"photo_is_uploading")));
+    } else {
+        if (success) success(self, status);
     }
 }
 

@@ -158,9 +158,10 @@
 
 - (void)editWithImage:(UIImage*)image {
     if (self.valid) {
+        __weak typeof(self)weakSelf = self;
         __block WLEditPicture *picture = [WLEditPicture picture:image completion:^(id object) {
-            [self setEditedPictureIfNeeded:[picture uploadablePictureWithAnimation:NO]];
-            [self enqueueUpdate:^(NSError *error) {
+            [weakSelf setEditedPictureIfNeeded:[picture uploadablePictureWithAnimation:NO]];
+            [weakSelf enqueueUpdate:^(NSError *error) {
                 [error show];
             }];
         }];

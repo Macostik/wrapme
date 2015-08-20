@@ -23,7 +23,11 @@
 
 - (NSString*)anyUrl;
 
-- (WLPicture *)edit:(NSString*)original large:(NSString*)large medium:(NSString*)medium small:(NSString*)small;
+- (WLPicture *)editWithCandyDictionary:(NSDictionary*)dictionary;
+
+- (WLPicture *)editWithUserDictionary:(NSDictionary*)dictionary;
+
+- (WLPicture *)editWithContributorDictionary:(NSDictionary *)dictionary;
 
 - (void)fetch:(WLBlock)completion;
 

@@ -25,7 +25,7 @@ static CGFloat WLCandyCellSpacingNotRetina = 1.0f;
 @interface WLCandyCell : StreamReusableView
 
 @property (nonatomic) IBInspectable BOOL disableMenu;
-@property (assign, nonatomic) IBOutlet id <WLCandyCellDelegate> delegate;
 
+@property (assign, nonatomic) IBOutlet id <WLCandyCellDelegate> delegate;
 
 @end

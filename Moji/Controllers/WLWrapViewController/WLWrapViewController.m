@@ -39,7 +39,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *publicWrapView;
 @property (weak, nonatomic) IBOutlet WLWrapStatusImageView *publicWrapImageView;
-@property (weak, nonatomic) IBOutlet WLLabel *publicWrapName;
+@property (weak, nonatomic) IBOutlet UILabel *creatorName;
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *publicWrapPrioritizer;
 
 @end
@@ -65,6 +65,8 @@
     
     [self.publicWrapImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     [self.publicWrapImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+    
+    self.settingsButton.exclusiveTouch = self.followButton.exclusiveTouch = self.unfollowButton.exclusiveTouch = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,8 +91,8 @@
     self.nameLabel.text = wrap.name;
     if (wrap.isPublic) {
         self.publicWrapImageView.url = wrap.contributor.picture.small;
-        self.publicWrapImageView.followed = [wrap.contributors containsObject:[WLUser currentUser]];
-        self.publicWrapName.text = wrap.name;
+        self.publicWrapImageView.followed = wrap.isContributing;
+        self.creatorName.text = wrap.contributor.name;
         BOOL requiresFollowing = wrap.requiresFollowing;
         self.segmentedControl.hidden = YES;
         self.settingsButton.hidden = requiresFollowing;
@@ -174,12 +176,16 @@
 }
 
 - (IBAction)unfollow:(WLButton*)sender {
+    self.settingsButton.userInteractionEnabled = NO;
     sender.loading = YES;
+    __weak typeof(self)weakSelf = self;
     [[WLAPIRequest unfollowWrap:self.wrap] send:^(id object) {
         sender.loading = NO;
+        weakSelf.settingsButton.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
         [error show];
         sender.loading = NO;
+        weakSelf.settingsButton.userInteractionEnabled = YES;
     }];
 }
 

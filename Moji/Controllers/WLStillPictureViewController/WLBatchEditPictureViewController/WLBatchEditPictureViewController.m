@@ -88,8 +88,7 @@
 
 - (void)updateUploadButtonPosition {
     UICollectionView *collectionView = self.dataSource.collectionView;
-    CGFloat constant = Smoothstep(-30, 30, (collectionView.contentOffset.x - collectionView.maximumContentOffset.x) + 30);
-    constant = (collectionView.contentOffset.x - collectionView.maximumContentOffset.x) + 30;
+    CGFloat constant = (collectionView.contentOffset.x - collectionView.maximumContentOffset.x) + 30;
     if (self.uploadButtonXConstraint.constant != constant) {
         self.uploadButtonXConstraint.constant = constant;
         [self.uploadButton setNeedsLayout];

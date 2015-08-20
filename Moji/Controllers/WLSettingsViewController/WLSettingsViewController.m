@@ -23,10 +23,9 @@
 @implementation WLSettingsViewController
 
 - (IBAction)about:(id)sender {
-    NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
-    NSString* appName = [info objectForKey:@"CFBundleDisplayName"]?:@"wrapLive";
-    NSString* version = [info objectForKey:@"CFBundleShortVersionString"];
-    NSString* build = [info objectForKey:(id)kCFBundleVersionKey];
+    NSString* appName = NSMainBundle.displayName;
+    NSString* version = NSMainBundle.buildVersion;
+    NSString* build = NSMainBundle.buildNumber;
     NSString *message = [NSString stringWithFormat:WLLS(@"formatted_about_message"), appName, version, build];
     [WLAlertView showWithMessage:message];
 }

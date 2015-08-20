@@ -35,4 +35,10 @@
     [self select:self.entry];
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.contentView.frame = self.bounds;
+    self.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+}
+
 @end

@@ -85,9 +85,7 @@
         if (!status.isError) {
             NSArray *channels = [[result.data.channels mutableCopy] remove:weakSelf.name];
             [[PubNub sharedInstance] removePushNotificationsFromChannels:channels withDevicePushToken:data andCompletion:nil];
-            if (![result.data.channels containsObject:weakSelf.name]) {
-                [[PubNub sharedInstance] addPushNotificationsOnChannels:@[weakSelf.name] withDevicePushToken:data andCompletion:nil];
-            }
+            [[PubNub sharedInstance] addPushNotificationsOnChannels:@[weakSelf.name] withDevicePushToken:data andCompletion:nil];
         }
     }];
 }

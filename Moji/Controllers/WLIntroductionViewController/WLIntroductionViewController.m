@@ -19,6 +19,14 @@
 
 @implementation WLIntroductionViewController
 
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.modalPresentationStyle = UIModalPresentationCustom;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -28,10 +36,6 @@
     self.pageControl.numberOfPages = self.stepViewControllers.count;
     self.pageControl.currentPage = 0;
     [self setViewController:[self.stepViewControllers firstObject] direction:0 animated:NO];
-}
-
-+ (BOOL)isEmbeddedDefaultValue {
-    return YES;
 }
 
 // MARK: - <UIPageViewControllerDataSource, UIPageViewControllerDelegate>

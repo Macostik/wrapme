@@ -44,17 +44,7 @@
     if (![comments isSubsetOfSet:self.comments]) {
         [self addComments:comments];
     }
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [self editPicture:[dictionary stringForKey:WLCandyOriginalURLKey]
-                    large:[dictionary stringForKey:WLCandyXLargeURLKey]
-                   medium:[dictionary stringForKey:WLCandyXMediumURLKey]
-                    small:[dictionary stringForKey:WLCandyXSmallURLKey]];
-    } else {
-        [self editPicture:[dictionary stringForKey:WLCandyOriginalURLKey]
-                    large:[dictionary stringForKey:WLCandyLargeURLKey]
-                   medium:[dictionary stringForKey:WLCandyMediumURLKey]
-                    small:[dictionary stringForKey:WLCandySmallURLKey]];
-    }
+    [self editPicture:[self.picture editWithCandyDictionary:dictionary]];
     NSInteger commentCount = [dictionary integerForKey:WLCommentCountKey];
     if (self.commentCount < commentCount) self.commentCount = commentCount;
     WLWrap* currentWrap = self.wrap;
@@ -168,9 +158,10 @@
 
 - (void)editWithImage:(UIImage*)image {
     if (self.valid) {
+        __weak typeof(self)weakSelf = self;
         __block WLEditPicture *picture = [WLEditPicture picture:image completion:^(id object) {
-            [self setEditedPictureIfNeeded:[picture uploadablePictureWithAnimation:NO]];
-            [self enqueueUpdate:^(NSError *error) {
+            [weakSelf setEditedPictureIfNeeded:[picture uploadablePictureWithAnimation:NO]];
+            [weakSelf enqueueUpdate:^(NSError *error) {
                 [error show];
             }];
         }];

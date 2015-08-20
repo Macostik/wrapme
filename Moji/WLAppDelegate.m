@@ -12,7 +12,6 @@
 #import "WLEntryManager.h"
 #import "WLMenu.h"
 #import "WLNavigationHelper.h"
-#import "NSPropertyListSerialization+Shorthand.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "NSObject+NibAdditions.h"
 #import "ALAssetsLibrary+Additions.h"
@@ -194,7 +193,7 @@
         completionHandler(UIBackgroundFetchResultFailed);
         return;
     }
-    
+    NSLog(@"performFetchWithCompletionHandler");
     runUnaryQueuedOperations(@"background_fetch", ^(WLOperation *operation) {
         [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
             if (hasChanges) {

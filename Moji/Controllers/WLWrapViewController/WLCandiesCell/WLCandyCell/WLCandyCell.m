@@ -41,7 +41,7 @@
         [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu, BOOL *vibrate) {
             WLCandy* candy = weakSelf.entry;
             
-            if (candy.status != WLContributionStatusInProgress) {
+            [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
                 [menu addEditPhotoItem:^(WLCandy *candy) {
                     [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
                         [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
@@ -61,7 +61,7 @@
                         [error show];
                     }];
                 }];
-            }
+            } failure:nil];
             
             [menu addDownloadItem:^(WLCandy *candy) {
                 [candy download:^{

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RQW-An-MfJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RQW-An-MfJ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -9,6 +9,8 @@
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="icons.ttf">
+            <string>icons</string>
+            <string>icons</string>
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
@@ -112,7 +114,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="75"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Cq-cU-Kci">
-                                                        <rect key="frame" x="69" y="10" width="143" height="56"/>
+                                                        <rect key="frame" x="74" y="10" width="132" height="56"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrW-0Q-whc">
                                                                 <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
@@ -120,10 +122,10 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="QHb-k1-ref">
-                                                                <rect key="frame" x="76" y="7" width="67" height="43"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="QHb-k1-ref">
+                                                                <rect key="frame" x="68" y="-4" width="64" height="64"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="64"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -135,7 +137,7 @@
                                                             <constraint firstItem="QHb-k1-ref" firstAttribute="centerY" secondItem="yrW-0Q-whc" secondAttribute="centerY" id="bog-pe-L7h"/>
                                                             <constraint firstItem="yrW-0Q-whc" firstAttribute="top" secondItem="5Cq-cU-Kci" secondAttribute="top" id="gCC-72-VZm"/>
                                                             <constraint firstAttribute="bottom" secondItem="yrW-0Q-whc" secondAttribute="bottom" id="iTP-Iy-MJB"/>
-                                                            <constraint firstItem="QHb-k1-ref" firstAttribute="leading" secondItem="yrW-0Q-whc" secondAttribute="trailing" constant="20" id="iwd-IE-COD"/>
+                                                            <constraint firstItem="QHb-k1-ref" firstAttribute="leading" secondItem="yrW-0Q-whc" secondAttribute="trailing" constant="12" id="iwd-IE-COD"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -381,20 +383,20 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Moji" translatesAutoresizingMaskIntoConstraints="NO" id="hfS-yc-0EB">
-                                        <rect key="frame" x="54" y="36" width="34" height="17"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="17" id="Wix-pN-KdC"/>
-                                            <constraint firstAttribute="width" constant="34" id="Woa-oM-6sm"/>
-                                        </constraints>
-                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="DAz-0E-aDC">
+                                        <rect key="frame" x="54" y="24" width="36" height="36"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="hfS-yc-0EB" firstAttribute="leading" secondItem="RCC-0D-s50" secondAttribute="trailing" constant="12" id="8uf-kK-HFz"/>
                                     <constraint firstAttribute="centerY" secondItem="RCC-0D-s50" secondAttribute="centerY" constant="-10" id="Xet-At-VId"/>
+                                    <constraint firstItem="DAz-0E-aDC" firstAttribute="centerY" secondItem="RCC-0D-s50" secondAttribute="centerY" id="Z5b-f3-a5z"/>
                                     <constraint firstItem="RCC-0D-s50" firstAttribute="leading" secondItem="mJg-XG-GUq" secondAttribute="leading" constant="12" id="aal-4g-Bjn"/>
-                                    <constraint firstItem="hfS-yc-0EB" firstAttribute="centerY" secondItem="RCC-0D-s50" secondAttribute="centerY" constant="3" id="dtC-X6-B7t"/>
+                                    <constraint firstItem="DAz-0E-aDC" firstAttribute="leading" secondItem="RCC-0D-s50" secondAttribute="trailing" constant="12" id="h4h-8D-1Gf"/>
                                     <constraint firstAttribute="height" constant="64" id="j0f-6f-6Pt"/>
                                 </constraints>
                             </view>
@@ -1762,7 +1764,7 @@
     </scenes>
     <resources>
         <image name="1st_screen_bg" width="320" height="1500"/>
-        <image name="Moji" width="46" height="22"/>
+        <image name="horizontal_separator_gray" width="1" height="1"/>
         <image name="logo_and_caption" width="215" height="165"/>
         <image name="sg_Device_Added" width="183" height="183"/>
         <image name="sg_Email" width="183" height="183"/>

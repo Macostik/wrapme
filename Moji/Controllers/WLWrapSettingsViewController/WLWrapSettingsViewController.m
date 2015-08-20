@@ -63,6 +63,7 @@ static NSInteger WLIndent = 12.0;
     BOOL deletable = wrap.deletable;
     [WLAlertView confirmWrapDeleting:wrap success:^{
         sender.loading = YES;
+        weakSelf.view.userInteractionEnabled = NO;
         [wrap remove:^(id object) {
             if (wrap.isPublic) {
                 [weakSelf.navigationController popViewControllerAnimated:NO];
@@ -74,6 +75,7 @@ static NSInteger WLIndent = 12.0;
         } failure:^(NSError *error) {
             [error show];
             sender.loading = NO;
+            weakSelf.view.userInteractionEnabled = YES;
         }];
     } failure:nil];
 }

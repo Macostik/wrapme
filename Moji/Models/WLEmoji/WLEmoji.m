@@ -7,7 +7,6 @@
 //
 
 #import "WLEmoji.h"
-#import "NSPropertyListSerialization+Shorthand.h"
 
 static NSInteger WLMaxRecentEmojiCount = 21;
 static NSArray *_recentEmoji = nil;
@@ -24,7 +23,7 @@ static NSArray *_recentEmoji = nil;
 }
 
 + (NSArray *)emojiByType:(NSString *)type {
-    return [NSArray resourcePropertyListNamed:type];
+    return [NSArray plist:type];
 }
 
 + (void)saveAsRecent:(NSString *)emoji {

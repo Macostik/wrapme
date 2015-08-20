@@ -17,6 +17,7 @@
 #import "WLCryptographer.h"
 #import "NSUserDefaults+WLAppGroup.h"
 #import "NSObject+Extension.h"
+#import "NSBundle+Extended.h"
 
 static NSString* WLSessionAuthorizationKey = @"WrapLiveAuthorization";
 static NSString* WLSessionPhoneNumberKey = @"WrapLivePhoneNumber";
@@ -247,7 +248,7 @@ static NSOrderedSet *_handledNotifications;
 // MARK: - methods
 
 - (void)setCurrentAppVersion {
-    self.appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    self.appVersion = NSMainBundle.buildVersion;
 }
 
 - (void)clear {

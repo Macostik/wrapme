@@ -56,10 +56,16 @@
     if (dictionary[WLCreatorKey] != nil) {
         WLUser *contributor = [WLUser API_entry:dictionary[WLCreatorKey]];
         if (self.contributor != contributor) self.contributor = contributor;
+    } else if (dictionary[WLCreatorUIDKey] != nil) {
+        WLUser *contributor = [WLUser entry:dictionary[WLCreatorUIDKey]];
+        if (self.contributor != contributor) self.contributor = contributor;
     }
     
-    if (!self.isPublic && ![self.contributors containsObject:[WLUser currentUser]]) {
-        [self addContributorsObject:[WLUser currentUser]];
+    if (self.isPublic) {
+        BOOL isFollowing = [dictionary boolForKey:@"is_following"];
+        if (!self.isContributing && isFollowing) [self addContributorsObject:[WLUser currentUser]];
+    } else {
+        if (!self.isContributing) [self addContributorsObject:[WLUser currentUser]];
     }
     
     NSSet* candies = [WLCandy API_entries:[dictionary arrayForKey:WLCandiesKey] relatedEntry:self];
@@ -68,6 +74,10 @@
     }
     
     return self;
+}
+
+- (BOOL)isContributing {
+    return [self.contributors containsObject:[WLUser currentUser]];
 }
 
 - (NSString *)contributorNamesWithYouAndAmount:(NSInteger)numberOfUsers {
@@ -166,7 +176,7 @@
 }
 
 - (BOOL)requiresFollowing {
-    return self.isPublic && ![self.contributors containsObject:[WLUser currentUser]];
+    return self.isPublic && !self.isContributing;
 }
 
 @end

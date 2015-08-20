@@ -38,8 +38,6 @@
 
 - (void)showWrapPickerWithController:(BOOL)animated;
 
-- (void)showHintView;
-
 - (id<WLStillPictureViewControllerDelegate>)getValidDelegate;
 
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion;

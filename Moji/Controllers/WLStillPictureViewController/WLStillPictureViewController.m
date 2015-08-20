@@ -58,11 +58,6 @@
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self showHintView];
-}
-
 - (void)setWrap:(WLWrap *)wrap {
     _wrap = wrap;
     for (id <WLStillPictureBaseViewController> controller in self.viewControllers) {
@@ -139,23 +134,6 @@
 - (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
     [self.topViewController requestAuthorizationForPresentingEntry:entry completion:completion];
 }
-
-- (void)showHintView {
-    if (!self.wrap || [WLUser currentUser].wraps.count <= 1) return;
-    
-    for (id controller in self.childViewControllers) {
-        if ([controller isKindOfClass:[WLWrapPickerViewController class]]) {
-            return;
-        }
-    }
-    
-    WLStillPictureBaseViewController *controller = [(id)self.viewControllers lastObject];
-    if ([controller isKindOfClass:[WLStillPictureBaseViewController class]] && controller.wrapView) {
-        CGPoint wrapNameCenter = [self.view convertPoint:controller.wrapView.nameLabel.center fromView:controller.wrapView];
-        [WLHintView showWrapPickerHintViewInView:[UIWindow mainWindow] withFocusPoint:CGPointMake(74, wrapNameCenter.y)];
-    }
-}
-
 
 - (CGSize)imageSizeForCurrentMode {
     if (self.mode == WLStillPictureModeDefault) {
@@ -258,7 +236,6 @@
 - (void)wrapPickerViewControllerDidCancel:(WLWrapPickerViewController *)controller {
     if (self.wrap) {
         [controller hide];
-        [self showHintView];
     } else {
         [self.delegate stillPictureViewControllerDidCancel:self];
     }
@@ -266,7 +243,6 @@
 
 - (void)wrapPickerViewControllerDidFinish:(WLWrapPickerViewController *)controller {
     [controller hide];
-    [self showHintView];
 }
 
 // MARK: - WLEntryNotifyReceiver

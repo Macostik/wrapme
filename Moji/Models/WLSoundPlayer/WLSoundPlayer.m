@@ -44,7 +44,7 @@ void WLSoundPlayerCompletion (SystemSoundID ssID, void *clientData) {
 }
 
 + (void)playSound:(WLSound)sound {
-    if (currentSound == sound) {
+    if (currentSound == sound || [UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
         return;
     }
     if (currentSound == WLSound_Off) {

@@ -50,7 +50,7 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [super viewDidLoad:NO];
     
     CGFloat itemHeight = self.dataSource.itemSize.height;
     
@@ -106,10 +106,6 @@
             }
         }
     }
-}
-
-- (BOOL)shouldResizeUsingScreenBounds {
-    return NO;
 }
 
 - (void)showInViewController:(UIViewController*)controller animated:(BOOL)animated {

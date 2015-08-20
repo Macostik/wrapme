@@ -223,6 +223,7 @@
     if (entry) {
         [self.cachedEntries removeObjectForKey:entry.identifier];
         [self.context deleteObject:entry];
+        [self.context save:NULL];
     }
 }
 

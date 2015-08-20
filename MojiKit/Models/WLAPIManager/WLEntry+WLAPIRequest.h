@@ -42,9 +42,9 @@ typedef void (^WLContributionUpdatePreparingBlock)(WLContribution *contribution,
 
 @interface WLContribution (WLAPIManager)
 
-- (BOOL)enqueueUpdate:(WLFailureBlock)failure;
+- (void)enqueueUpdate:(WLFailureBlock)failure;
 
-- (BOOL)prepareForUpdate:(WLContributionUpdatePreparingBlock)success failure:(WLFailureBlock)failure;
+- (void)prepareForUpdate:(WLContributionUpdatePreparingBlock)success failure:(WLFailureBlock)failure;
 
 @end
 

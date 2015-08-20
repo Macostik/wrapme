@@ -9,11 +9,12 @@
 #import "NSURL+WLRemoteEntryHandler.h"
 #import "WLEntryKeys.h"
 #import "WLAPIEnvironment.h"
+#import "NSBundle+Extended.h"
 
 @implementation NSURL (WLRemoteEntryHandler)
 
 + (instancetype)WLURLWithPath:(NSString *)path {
-    NSString *urlScheme = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"URLScheme"] ? : WLURLScheme;
+    NSString *urlScheme = NSMainBundle.URLScheme ? : WLURLScheme;
     return [[self alloc] initWithScheme:urlScheme host:nil path:path];
 }
 

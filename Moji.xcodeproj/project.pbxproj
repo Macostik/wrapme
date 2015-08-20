@@ -112,8 +112,8 @@
 		C50646101ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */; };
 		C50646261ABD815200CB4BE3 /* WLTodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */; };
 		C50646271ABD815200CB4BE3 /* WLTodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */; };
-		C50646371ABD815200CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
-		C50646381ABD815200CB4BE3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
+		C50646371ABD815200CB4BE3 /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; };
+		C50646381ABD815200CB4BE3 /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; };
 		C50646471ABD815200CB4BE3 /* WLWKNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645CC1ABD815100CB4BE3 /* WLWKNotificationController.m */; };
 		C50646641ABD815200CB4BE3 /* WLWKCandyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D51ABD815200CB4BE3 /* WLWKCandyController.m */; };
 		C506466B1ABD815200CB4BE3 /* WLWKCommentRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D71ABD815200CB4BE3 /* WLWKCommentRow.m */; };
@@ -167,6 +167,7 @@
 		C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
 		C535F9D61AD4321F000C81B4 /* NSData+CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = C535F9D41AD4321F000C81B4 /* NSData+CommonCrypto.h */; };
 		C535F9D71AD4321F000C81B4 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9D51AD4321F000C81B4 /* NSData+CommonCrypto.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C5390BF41B849A3C00027D8B /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AE8DAD1B7B4F32003CC6D4 /* PushKit.framework */; };
 		C5390BEC1B84544C00027D8B /* WLWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEB1B84544C00027D8B /* WLWrapCell.xib */; };
 		C5390BED1B84544C00027D8B /* WLWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEB1B84544C00027D8B /* WLWrapCell.xib */; };
 		C5390BEF1B845A6200027D8B /* WLCandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEE1B845A6200027D8B /* WLCandyCell.xib */; };
@@ -399,8 +400,6 @@
 		C55908771B185F9D001CB99F /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55908791B185F9D001CB99F /* Introduction.storyboard */; };
 		C55908D11B18995D001CB99F /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908D51B18995D001CB99F /* WLDownloadingView.xib */; };
 		C55908D31B18995D001CB99F /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908D51B18995D001CB99F /* WLDownloadingView.xib */; };
-		C55908DB1B18B9E9001CB99F /* WLWrapPickerHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908DF1B18B9E9001CB99F /* WLWrapPickerHintView.xib */; };
-		C55908DD1B18B9E9001CB99F /* WLWrapPickerHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908DF1B18B9E9001CB99F /* WLWrapPickerHintView.xib */; };
 		C55908E51B18B9FA001CB99F /* WLInviteHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908E91B18B9FA001CB99F /* WLInviteHintView.xib */; };
 		C55908E71B18B9FA001CB99F /* WLInviteHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908E91B18B9FA001CB99F /* WLInviteHintView.xib */; };
 		C55908EF1B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908F31B18BA01001CB99F /* WLEditWrapHintView.xib */; };
@@ -628,7 +627,7 @@
 		C587C7871AD2E6A0003E7647 /* NSObject+AssociatedObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C861ACD968A0052578A /* NSObject+AssociatedObjects.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7881AD2E6A0003E7647 /* NSObject+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C881ACD968A0052578A /* NSObject+Extension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C7891AD2E6A0003E7647 /* NSObject+NibAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C8A1ACD968A0052578A /* NSObject+NibAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C587C78C1AD2E6A0003E7647 /* NSPropertyListSerialization+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C921ACD968A0052578A /* NSPropertyListSerialization+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C587C78C1AD2E6A0003E7647 /* NSBundle+Extended.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C921ACD968A0052578A /* NSBundle+Extended.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C78D1AD2E6A0003E7647 /* NSString+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C951ACD968A0052578A /* NSString+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C78E1AD2E6A0003E7647 /* NSString+Documents.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C971ACD968A0052578A /* NSString+Documents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C587C78F1AD2E6A0003E7647 /* NSString+MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = C5612C991ACD968A0052578A /* NSString+MD5.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -702,7 +701,7 @@
 		C587C84F1AD2E6DB003E7647 /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C871ACD968A0052578A /* NSObject+AssociatedObjects.m */; };
 		C587C8501AD2E6DB003E7647 /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C891ACD968A0052578A /* NSObject+Extension.m */; };
 		C587C8511AD2E6DB003E7647 /* NSObject+NibAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C8B1ACD968A0052578A /* NSObject+NibAdditions.m */; };
-		C587C8541AD2E6DB003E7647 /* NSPropertyListSerialization+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C931ACD968A0052578A /* NSPropertyListSerialization+Shorthand.m */; };
+		C587C8541AD2E6DB003E7647 /* NSBundle+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C931ACD968A0052578A /* NSBundle+Extended.m */; };
 		C587C8551AD2E6DB003E7647 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C961ACD968A0052578A /* NSString+Additions.m */; };
 		C587C8561AD2E6DB003E7647 /* NSString+Documents.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C981ACD968A0052578A /* NSString+Documents.m */; };
 		C587C8571AD2E6DB003E7647 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C5612C9A1ACD968A0052578A /* NSString+MD5.m */; };
@@ -989,8 +988,8 @@
 		C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
 		C5E4CCF91A1BA38B00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
 		C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
-		C5E54B471ACBF9B100444F7B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
-		C5E54B481ACBF9B200444F7B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* Images.xcassets */; };
+		C5E54B471ACBF9B100444F7B /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; };
+		C5E54B481ACBF9B200444F7B /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; };
 		C5E54B491ACBF9CE00444F7B /* WLWKNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645CC1ABD815100CB4BE3 /* WLWKNotificationController.m */; };
 		C5E54B4D1ACBF9CE00444F7B /* WLWKCandyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D51ABD815200CB4BE3 /* WLWKCandyController.m */; };
 		C5E54B4E1ACBF9CE00444F7B /* WLWKCommentRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D71ABD815200CB4BE3 /* WLWKCommentRow.m */; };
@@ -1226,7 +1225,6 @@
 		3E9E8B801B6FF4D60025974A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Introduction.strings"; sourceTree = "<group>"; };
 		3E9E8B811B6FF4D60025974A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLUnreadMessagesView.strings"; sourceTree = "<group>"; };
 		3E9E8B821B6FF4D60025974A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLDownloadingView.strings"; sourceTree = "<group>"; };
-		3E9E8B831B6FF4D60025974A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLWrapPickerHintView.strings"; sourceTree = "<group>"; };
 		3E9E8B841B6FF4D70025974A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLInviteHintView.strings"; sourceTree = "<group>"; };
 		3E9E8B851B6FF4D70025974A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLEditWrapHintView.strings"; sourceTree = "<group>"; };
 		3E9E8B861B6FF4D70025974A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLCandySwipeHintView.strings"; sourceTree = "<group>"; };
@@ -1362,7 +1360,7 @@
 		C50645BB1ABD815100CB4BE3 /* MojiToday-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiToday-Info.plist"; sourceTree = "<group>"; };
 		C50645C01ABD815100CB4BE3 /* WLTodayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayViewController.h; sourceTree = "<group>"; };
 		C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayViewController.m; sourceTree = "<group>"; };
-		C50645C51ABD815100CB4BE3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WatchImages.xcassets; sourceTree = "<group>"; };
 		C50645C61ABD815100CB4BE3 /* MojiWatchAppQA-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MojiWatchAppQA-Info.plist"; sourceTree = "<group>"; };
 		C50645CB1ABD815100CB4BE3 /* WLWKNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKNotificationController.h; sourceTree = "<group>"; };
 		C50645CC1ABD815100CB4BE3 /* WLWKNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKNotificationController.m; sourceTree = "<group>"; };
@@ -1551,9 +1549,6 @@
 		C55908D41B18995D001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLDownloadingView.xib; sourceTree = "<group>"; };
 		C55908D71B189962001CB99F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLDownloadingView.strings; sourceTree = "<group>"; };
 		C55908D91B189967001CB99F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLDownloadingView.strings; sourceTree = "<group>"; };
-		C55908DE1B18B9E9001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLWrapPickerHintView.xib; sourceTree = "<group>"; };
-		C55908E11B18B9EF001CB99F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLWrapPickerHintView.strings; sourceTree = "<group>"; };
-		C55908E31B18B9F4001CB99F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLWrapPickerHintView.strings; sourceTree = "<group>"; };
 		C55908E81B18B9FA001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLInviteHintView.xib; sourceTree = "<group>"; };
 		C55908EB1B18B9FC001CB99F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLInviteHintView.strings; sourceTree = "<group>"; };
 		C55908ED1B18B9FE001CB99F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLInviteHintView.strings; sourceTree = "<group>"; };
@@ -1606,8 +1601,8 @@
 		C5612C891ACD968A0052578A /* NSObject+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extension.m"; sourceTree = "<group>"; };
 		C5612C8A1ACD968A0052578A /* NSObject+NibAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+NibAdditions.h"; sourceTree = "<group>"; };
 		C5612C8B1ACD968A0052578A /* NSObject+NibAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+NibAdditions.m"; sourceTree = "<group>"; };
-		C5612C921ACD968A0052578A /* NSPropertyListSerialization+Shorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPropertyListSerialization+Shorthand.h"; sourceTree = "<group>"; };
-		C5612C931ACD968A0052578A /* NSPropertyListSerialization+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPropertyListSerialization+Shorthand.m"; sourceTree = "<group>"; };
+		C5612C921ACD968A0052578A /* NSBundle+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Extended.h"; sourceTree = "<group>"; };
+		C5612C931ACD968A0052578A /* NSBundle+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Extended.m"; sourceTree = "<group>"; };
 		C5612C951ACD968A0052578A /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
 		C5612C961ACD968A0052578A /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
 		C5612C971ACD968A0052578A /* NSString+Documents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Documents.h"; sourceTree = "<group>"; };
@@ -1945,9 +1940,6 @@
 		C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
 		C5AB7D721B318FDD0077F9F1 /* WLWKParentApplicationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKParentApplicationContext.h; sourceTree = "<group>"; };
 		C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKParentApplicationContext.m; sourceTree = "<group>"; };
-		C5AE8D9E1B7B30F9003CC6D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		C5AE8DA01B7B3109003CC6D4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		C5AE8DA21B7B3119003CC6D4 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		C5AE8DA51B7B350D003CC6D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLHottestMojiHeader.xib; sourceTree = "<group>"; };
 		C5AE8DA81B7B3510003CC6D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLHottestMojiHeader.strings; sourceTree = "<group>"; };
 		C5AE8DAA1B7B3513003CC6D4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLHottestMojiHeader.strings; sourceTree = "<group>"; };
@@ -2061,6 +2053,9 @@
 		C5BCF0401B551C3E00E4AD6D /* WLCandiesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCandiesCell.m; sourceTree = "<group>"; };
 		C5BCF0421B551C3E00E4AD6D /* WLCandyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCandyCell.h; sourceTree = "<group>"; };
 		C5BCF0431B551C3E00E4AD6D /* WLCandyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCandyCell.m; sourceTree = "<group>"; };
+		C5BDA3EA1B85D9990037CC28 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		C5BDA3EC1B85D9A80037CC28 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		C5BDA3EE1B85D9C10037CC28 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		C5BEE0E21B2AC8C300D3CF70 /* WLNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationCenter.h; sourceTree = "<group>"; };
 		C5BEE0E31B2AC8C300D3CF70 /* WLNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationCenter.m; sourceTree = "<group>"; };
 		C5BEE0E41B2AC8C300D3CF70 /* WLNotificationSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationSubscription.h; sourceTree = "<group>"; };
@@ -2203,6 +2198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5390BF41B849A3C00027D8B /* PushKit.framework in Frameworks */,
 				C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */,
 				C5A28D651ACBEF2B00F0E8BA /* StoreKit.framework in Frameworks */,
 				C5218E7D1AE5594E007E55D0 /* OpenGLES.framework in Frameworks */,
@@ -3089,7 +3085,7 @@
 			isa = PBXGroup;
 			children = (
 				C520C9D71B32FDBD00AC7351 /* Interface.storyboard */,
-				C50645C51ABD815100CB4BE3 /* Images.xcassets */,
+				C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */,
 				C50645C61ABD815100CB4BE3 /* MojiWatchAppQA-Info.plist */,
 				C50646A91ABD830C00CB4BE3 /* MojiWatchApp-Info.plist */,
 			);
@@ -3676,7 +3672,7 @@
 				C5FE0A4E1ACD97F6007DBE95 /* UIView */,
 				C5612C7B1ACD968A0052578A /* NSDate */,
 				C5612C851ACD968A0052578A /* NSObject */,
-				C5612C911ACD968A0052578A /* NSPropertyListSerialization */,
+				C5612C911ACD968A0052578A /* NSBundle */,
 				C5612C941ACD968A0052578A /* NSString */,
 				C5612C9C1ACD968A0052578A /* NSURL */,
 				C5612C9F1ACD968A0052578A /* UIColor */,
@@ -3710,13 +3706,13 @@
 			path = NSObject;
 			sourceTree = "<group>";
 		};
-		C5612C911ACD968A0052578A /* NSPropertyListSerialization */ = {
+		C5612C911ACD968A0052578A /* NSBundle */ = {
 			isa = PBXGroup;
 			children = (
-				C5612C921ACD968A0052578A /* NSPropertyListSerialization+Shorthand.h */,
-				C5612C931ACD968A0052578A /* NSPropertyListSerialization+Shorthand.m */,
+				C5612C921ACD968A0052578A /* NSBundle+Extended.h */,
+				C5612C931ACD968A0052578A /* NSBundle+Extended.m */,
 			);
-			path = NSPropertyListSerialization;
+			path = NSBundle;
 			sourceTree = "<group>";
 		};
 		C5612C941ACD968A0052578A /* NSString */ = {
@@ -4129,7 +4125,6 @@
 			children = (
 				C568D8D41A6D491800C2333B /* WLHintView.h */,
 				C568D8D51A6D491800C2333B /* WLHintView.m */,
-				C55908DF1B18B9E9001CB99F /* WLWrapPickerHintView.xib */,
 				C55908E91B18B9FA001CB99F /* WLInviteHintView.xib */,
 				C55908F31B18BA01001CB99F /* WLEditWrapHintView.xib */,
 				C55908FD1B18BA0B001CB99F /* WLCandySwipeHintView.xib */,
@@ -5096,7 +5091,7 @@
 				C5C2DE781B725F6B006B47F6 /* WLAuthorizationRequest.h in Headers */,
 				C587C7B51AD2E6A0003E7647 /* WLAPIEnvironment.h in Headers */,
 				C587C7DD1AD2E6A0003E7647 /* WLOperation.h in Headers */,
-				C587C78C1AD2E6A0003E7647 /* NSPropertyListSerialization+Shorthand.h in Headers */,
+				C587C78C1AD2E6A0003E7647 /* NSBundle+Extended.h in Headers */,
 				C587C7CA1AD2E6A0003E7647 /* WLWrap.h in Headers */,
 				C587C7C01AD2E6A0003E7647 /* WLCryptographer.h in Headers */,
 				C5B93D451B4E7BE8005681DB /* NSDictionary+Extended.h in Headers */,
@@ -5505,7 +5500,7 @@
 				C5528A0E1B3425C500AF1311 /* (null) in Resources */,
 				C5DB9F441ADD6CD800A21E42 /* CoreData.xcdatamodeld in Resources */,
 				C5B993C51B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */,
-				C50646371ABD815200CB4BE3 /* Images.xcassets in Resources */,
+				C50646371ABD815200CB4BE3 /* WatchImages.xcassets in Resources */,
 				C5BBA1B31B7E220300451128 /* icons.ttf in Resources */,
 				C54086991AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C54086971AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
@@ -5522,7 +5517,7 @@
 			files = (
 				C540869E1AD29C77007E0D12 /* ChatAPNS.apns in Resources */,
 				C540869B1AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
-				C50646381ABD815200CB4BE3 /* Images.xcassets in Resources */,
+				C50646381ABD815200CB4BE3 /* WatchImages.xcassets in Resources */,
 				C540869C1AD29C77007E0D12 /* CandyAPNS.apns in Resources */,
 				C540869D1AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C520C9D91B32FDBD00AC7351 /* Interface.storyboard in Resources */,
@@ -5582,7 +5577,6 @@
 				C5390BEC1B84544C00027D8B /* WLWrapCell.xib in Resources */,
 				5BD782C91A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
-				C55908DB1B18B9E9001CB99F /* WLWrapPickerHintView.xib in Resources */,
 				5BA4C5871A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
 				5BA6AA431A66779D00493582 /* Localizable.strings in Resources */,
 				C54AF54A19B8C437006F7EDB /* WLSplashLoadingView.xib in Resources */,
@@ -5644,7 +5638,6 @@
 				C5390BED1B84544C00027D8B /* WLWrapCell.xib in Resources */,
 				5BD782CB1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
-				C55908DD1B18B9E9001CB99F /* WLWrapPickerHintView.xib in Resources */,
 				5BA4C5891A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
 				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,
 				C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */,
@@ -5668,7 +5661,7 @@
 				C5528A111B3425C600AF1311 /* (null) in Resources */,
 				C5B993C61B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */,
 				C54086A11AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
-				C5E54B471ACBF9B100444F7B /* Images.xcassets in Resources */,
+				C5E54B471ACBF9B100444F7B /* WatchImages.xcassets in Resources */,
 				C5BBA1B41B7E220300451128 /* icons.ttf in Resources */,
 				C5B993C81B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */,
 				C540869F1AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
@@ -5686,7 +5679,7 @@
 				C54086A61AD29C78007E0D12 /* ChatAPNS.apns in Resources */,
 				C54086A51AD29C78007E0D12 /* CommentAPNS.apns in Resources */,
 				C54086A31AD29C78007E0D12 /* WrapAPNS.apns in Resources */,
-				C5E54B481ACBF9B200444F7B /* Images.xcassets in Resources */,
+				C5E54B481ACBF9B200444F7B /* WatchImages.xcassets in Resources */,
 				C520C9DA1B32FDBD00AC7351 /* Interface.storyboard in Resources */,
 				C54086A41AD29C78007E0D12 /* CandyAPNS.apns in Resources */,
 			);
@@ -5728,7 +5721,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" != \"Debug\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c\"\nfi";
+			shellScript = "if [ \"$USE_NEWRELIC\" == \"1\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AA0d33ab51ad09e9b52f556149e4a7292c6d4c480c\"\nfi";
 		};
 		C5D41CF91AB1FD6400990944 /* NewRelic upload dSym */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5742,7 +5735,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" != \"Debug\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8\"\nfi";
+			shellScript = "if [ \"$USE_NEWRELIC\" == \"1\" ]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AAd46869ec0b3558fb5890343d895b3acdd40ebaa8\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -6430,7 +6423,7 @@
 				C587C85D1AD2E6DB003E7647 /* UIImage+Drawing.m in Sources */,
 				C587C88C1AD2E6DB003E7647 /* WLContribution.m in Sources */,
 				C587C8971AD2E6DB003E7647 /* WLUploadingData.m in Sources */,
-				C587C8541AD2E6DB003E7647 /* NSPropertyListSerialization+Shorthand.m in Sources */,
+				C587C8541AD2E6DB003E7647 /* NSBundle+Extended.m in Sources */,
 				C587C86C1AD2E6DB003E7647 /* WLPaginatedRequest.m in Sources */,
 				C587C85A1AD2E6DB003E7647 /* UIDevice+SystemVersion.m in Sources */,
 				C587C85C1AD2E6DB003E7647 /* UIImage+Alpha.m in Sources */,
@@ -6529,9 +6522,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				12A7A71518DA0946008FF6F0 /* Base */,
-				C5AE8D9E1B7B30F9003CC6D4 /* en */,
-				C5AE8DA01B7B3109003CC6D4 /* ru */,
-				C5AE8DA21B7B3119003CC6D4 /* zh-Hant */,
+				C5BDA3EA1B85D9990037CC28 /* en */,
+				C5BDA3EC1B85D9A80037CC28 /* ru */,
+				C5BDA3EE1B85D9C10037CC28 /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -6667,17 +6660,6 @@
 			path = WLDownloadingView;
 			sourceTree = "<group>";
 		};
-		C55908DF1B18B9E9001CB99F /* WLWrapPickerHintView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C55908DE1B18B9E9001CB99F /* Base */,
-				C55908E11B18B9EF001CB99F /* en */,
-				C55908E31B18B9F4001CB99F /* ru */,
-				3E9E8B831B6FF4D60025974A /* zh-Hant */,
-			);
-			name = WLWrapPickerHintView.xib;
-			sourceTree = "<group>";
-		};
 		C55908E91B18B9FA001CB99F /* WLInviteHintView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -6761,10 +6743,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				USE_NEWRELIC = 0;
 			};
 			name = Debug;
 		};
@@ -6788,7 +6771,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
-				ENV = production;
+				ENV = qa;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "ENV=\\@\\\"$ENV\\\"";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -6797,9 +6780,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				USE_NEWRELIC = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -6821,7 +6805,7 @@
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Extensions/Today/MojiTodayQA-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -6830,6 +6814,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -6851,7 +6836,7 @@
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Extensions/Today/MojiTodayQA-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6860,6 +6845,7 @@
 				PROVISIONING_PROFILE = "5ac09444-1592-43a6-bd8e-9527a54bdf67";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Release;
 		};
@@ -6880,7 +6866,7 @@
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Extensions/Today/MojiToday-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
@@ -6888,6 +6874,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -6909,7 +6896,7 @@
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Extensions/Today/MojiToday-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
@@ -6917,13 +6904,14 @@
 				PROVISIONING_PROFILE = "4616bf2e-f126-40b9-a836-285b4f506cd7";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Release;
 		};
 		C50645A31ABD7FD500CB4BE3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -6932,23 +6920,25 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				IBSC_MODULE = Moji_Watch_Ext_QA;
 				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchAppQA-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Debug;
 		};
 		C50645A51ABD7FD500CB4BE3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -6958,15 +6948,17 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
 				IBSC_MODULE = Moji_Watch_Ext_QA;
 				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchAppQA-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "bf3e3c03-112d-47e0-85e6-aaea8a2cf2b0";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Release;
 		};
@@ -6987,13 +6979,14 @@
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Extensions/WatchExt/MojiWatchExtQA-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -7015,13 +7008,14 @@
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Extensions/WatchExt/MojiWatchExtQA-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "de91e72c-1c11-4c7b-90b7-78da35c14324";
 				SKIP_INSTALL = YES;
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Release;
 		};
@@ -7049,7 +7043,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Moji/MojiQA-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7062,6 +7056,7 @@
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
+				USE_NEWRELIC = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7091,7 +7086,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Moji/MojiQA-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7104,6 +7099,7 @@
 				PROVISIONING_PROFILE = "5dcdac67-bb6e-4ba9-9338-d6b43ed8833d";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
+				USE_NEWRELIC = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -7132,7 +7128,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Moji/Moji-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7145,6 +7141,7 @@
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
+				USE_NEWRELIC = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7174,7 +7171,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Moji/Moji-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7187,6 +7184,7 @@
 				PROVISIONING_PROFILE = "56db280b-2ce7-4f9b-b1b6-e7c9c532a241";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
+				USE_NEWRELIC = "$(inherited)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -7259,7 +7257,7 @@
 		C56498E21ACB00D3000F1E4B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -7268,23 +7266,25 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				IBSC_MODULE = Moji_Watch_Ext;
 				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Debug;
 		};
 		C56498E41ACB00D3000F1E4B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -7294,15 +7294,17 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
 				IBSC_MODULE = Moji_Watch_Ext;
 				INFOPLIST_FILE = "Extensions/WatchApp/MojiWatchApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "000d1813-8e39-4a0c-bcc0-1c7851289cb4";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Release;
 		};
@@ -7322,7 +7324,7 @@
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Extensions/WatchExt/MojiWatchExt-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -7330,6 +7332,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -7350,7 +7353,7 @@
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Extensions/WatchExt/MojiWatchExt-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7358,6 +7361,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "eda489e0-a1d1-4d0a-8d4d-bac6df98e993";
 				SKIP_INSTALL = YES;
+				USE_NEWRELIC = "$(inherited)";
 			};
 			name = Release;
 		};

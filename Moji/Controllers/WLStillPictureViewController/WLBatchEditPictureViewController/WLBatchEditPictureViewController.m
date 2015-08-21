@@ -274,6 +274,7 @@
 
 - (IBAction)composeBarDidFinish:(id)sender {
     [self.composeBar resignFirstResponder];
+    self.picture.comment = self.composeBar.text;
 }
 
 - (void)composeBarDidChangeText:(WLComposeBar *)composeBar {

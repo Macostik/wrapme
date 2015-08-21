@@ -50,7 +50,7 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad:NO];
+    [super viewDidLoad];
     
     CGFloat itemHeight = self.dataSource.itemSize.height;
     
@@ -91,6 +91,10 @@
     [self.view addGestureRecognizer:self.dataSource.collectionView.panGestureRecognizer];
     
     [self.dataSource.collectionView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+- (BOOL)shouldResizeViewWithScreenBounds {
+    return NO;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

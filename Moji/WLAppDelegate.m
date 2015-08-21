@@ -63,9 +63,9 @@
     }];
 	[[WLKeyboard keyboard] configure];
 	
-    NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    UILocalNotification *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (notification) {
-        [self presentNotification:notification];
+        [self presentNotification:notification.userInfo];
     }
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];

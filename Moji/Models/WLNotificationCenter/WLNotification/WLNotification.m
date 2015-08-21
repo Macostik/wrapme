@@ -482,16 +482,20 @@
         return [super notifiableForEvent:event];
     }
     
-    if (self.contributedByCurrentUser) return NO;
+    WLUser *currentUser = [WLUser currentUser];
+    
+    if (self.contributor == currentUser) {
+        return NO;
+    }
     WLCandy *candy = self.candy;
-    if (candy.contributedByCurrentUser) {
+    if (candy.contributor == currentUser) {
         return YES;
     } else {
-        NSUInteger index = [[candy.comments orderedSet] indexOfObjectPassingTest:^BOOL(WLComment* comment, NSUInteger idx, BOOL *stop) {
-            return comment.contributedByCurrentUser;
-        }];
-        if (index != NSNotFound && [[candy.comments orderedSet] indexOfObject:self] > index) {
-            return YES;
+        for (WLComment *comment in candy.comments) {
+            if (comment.contributor == currentUser) {
+                return YES;
+                break;
+            }
         }
     }
     return NO;

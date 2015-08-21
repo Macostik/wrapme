@@ -48,8 +48,6 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     self.avatarView.hidden = self.nameLabel.hidden = YES;
-    [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateEmpty];
-    [self.avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateFailed];
     self.textView.textContainerInset = UIEdgeInsetsZero;
     self.textView.textContainer.lineFragmentPadding = .0;
     

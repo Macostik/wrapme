@@ -34,9 +34,6 @@
     self.commenttextView.textContainerInset = UIEdgeInsetsZero;
     self.commenttextView.textContainer.lineFragmentPadding = .0f;
     
-    [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
-    [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
-    
     [[WLMenu sharedMenu] addView:self configuration:^WLEntry *(WLMenu *menu, BOOL *vibrate) {
         WLComment* comment = weakSelf.entry;
         if (comment.deletable) {

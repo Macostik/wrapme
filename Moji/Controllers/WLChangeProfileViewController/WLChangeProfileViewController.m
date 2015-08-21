@@ -40,8 +40,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.imageView setImageName:@"default-large-avatar" forState:WLImageViewStateEmpty];
-    [self.imageView setImageName:@"default-large-avatar" forState:WLImageViewStateFailed];
     self.editSession = [[WLProfileEditSession alloc] initWithUser:[WLUser currentUser]];
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
     self.verificationEmailTextView.textContainerInset = UIEdgeInsetsZero;

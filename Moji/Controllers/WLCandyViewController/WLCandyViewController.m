@@ -27,10 +27,6 @@
 	
     self.scrollView.userInteractionEnabled = NO;
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
-    [self.imageView setContentMode:UIViewContentModeCenter forState:WLImageViewStateFailed];
-    [self.imageView setContentMode:UIViewContentModeCenter forState:WLImageViewStateEmpty];
-    [self.imageView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateFailed];
-    [self.imageView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateEmpty];
     self.scrollView.minimumZoomScale = 1;
     self.scrollView.maximumZoomScale = 2;
     

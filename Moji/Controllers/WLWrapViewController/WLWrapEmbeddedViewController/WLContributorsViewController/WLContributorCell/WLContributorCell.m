@@ -119,11 +119,9 @@
         
         NSString *url = user.picture.small;
         if (!cell.signUpView.hidden && !url.nonempty) {
-            [cell.avatarView setImageName:@"default-medium-avatar-orange" forState:WLImageViewStateEmpty];
-            [cell.avatarView setImageName:@"default-medium-avatar-orange" forState:WLImageViewStateFailed];
+            cell.avatarView.defaultBackgroundColor = WLColors.orange;
         } else {
-            [cell.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
-            [cell.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+            cell.avatarView.defaultBackgroundColor = WLColors.grayLighter;
         }
         cell.avatarView.url = url;
         

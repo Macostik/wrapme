@@ -6677,7 +6677,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
-				ENV = qa;
+				ENV = production;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "ENV=\\@\\\"$ENV\\\"";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -6689,7 +6689,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				USE_NEWRELIC = 0;
+				USE_NEWRELIC = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

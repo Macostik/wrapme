@@ -137,6 +137,12 @@
                                                         <constraint firstAttribute="width" constant="48" id="fra-ny-yXO"/>
                                                         <constraint firstAttribute="height" constant="48" id="hNf-jG-9I6"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                            <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo by Calvin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="08S-52-GIh" customClass="WLLabel">
                                                     <rect key="frame" x="72" y="12" width="176" height="23"/>
@@ -235,6 +241,12 @@
                                                         <constraint firstAttribute="width" constant="48" id="4Bk-Zj-THE"/>
                                                         <constraint firstAttribute="height" constant="48" id="YAl-Gw-cqH"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                            <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="qxv-Cb-5DK" customClass="WLLabel">
                                                     <rect key="frame" x="72" y="12" width="176" height="23"/>
@@ -455,6 +467,15 @@
                                             <constraint firstAttribute="width" constant="32" id="Bt9-cB-Ce2"/>
                                             <constraint firstAttribute="height" constant="32" id="EQe-xS-HRp"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
+                                                <real key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -649,8 +670,20 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJq-9P-McW">
                                 <rect key="frame" x="180" y="165" width="240" height="240"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-large-avatar" translatesAutoresizingMaskIntoConstraints="NO" id="AYn-Zt-xUG" customClass="WLImageView">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AYn-Zt-xUG" customClass="WLImageView">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="240"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="defaultIconColor">
+                                                <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
+                                                <real key="value" value="96"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="aDm-0w-Vn8" customClass="WLGradientView">
                                         <rect key="frame" x="0.0" y="179" width="240" height="61"/>
@@ -997,6 +1030,10 @@
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                     <real key="value" value="25"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                                    <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <outlet property="statusView" destination="JTl-uI-0al" id="k5Y-jn-7hZ"/>
@@ -1278,6 +1315,15 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <gestureRecognizers/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="defaultIconColor">
+                                                                        <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
+                                                                        <real key="value" value="96"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                             </imageView>
                                                             <view userInteractionEnabled="NO" contentMode="bottom" placeholderIntrinsicWidth="106" placeholderIntrinsicHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="c6B-Y1-0z3" customClass="WLGradientView">
                                                                 <rect key="frame" x="0.0" y="61" width="106" height="45"/>
@@ -1977,6 +2023,12 @@ Tap here to start.</string>
                                                         <constraint firstAttribute="height" constant="48" id="TEV-z3-RR4"/>
                                                         <constraint firstAttribute="width" constant="48" id="Wyt-Xe-Qwg"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                            <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="e" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STC-13-brF" customClass="WLLabel">
                                                     <rect key="frame" x="12" y="42" width="18" height="18"/>
@@ -2091,6 +2143,12 @@ Tap here to start.</string>
                                                         <constraint firstAttribute="height" constant="48" id="SW3-6A-w4Q"/>
                                                         <constraint firstAttribute="width" constant="48" id="YOP-Rh-kqV"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                            <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="194" translatesAutoresizingMaskIntoConstraints="NO" id="fw4-o4-768" customClass="WLLabel">
                                                     <rect key="frame" x="72" y="12" width="458" height="50"/>
@@ -2835,6 +2893,10 @@ Tap here to start.</string>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="32"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="statusView" destination="ikS-PH-qcY" id="b9M-bh-MBK"/>
@@ -3199,6 +3261,10 @@ Tap here to start.</string>
                                                 <integer key="value" value="24"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <textView hidden="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8T-0M-jNN" customClass="WLTextView">
@@ -3350,6 +3416,15 @@ Tap here to start.</string>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cn8-Rl-m4g" customClass="WLImageView">
                                                 <rect key="frame" x="0.0" y="0.0" width="450" height="600"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
+                                                        <real key="value" value="96"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="defaultIconColor">
+                                                        <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3612,6 +3687,10 @@ Check your internet connection and try again.</string>
                                                                     <integer key="value" value="24"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                                    <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="749" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70w-oo-mtg" customClass="WLLabel">
@@ -3878,6 +3957,13 @@ Check your internet connection and try again.</string>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
+                                        <real key="value" value="96"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                        <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="statusView" destination="qLD-cF-aDZ" id="jAZ-V9-kk5"/>
@@ -3982,6 +4068,10 @@ Check your internet connection and try again.</string>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="22"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                            <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
@@ -4100,6 +4190,10 @@ Check your internet connection and try again.</string>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="24"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                            <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G61-oI-Ifc">
@@ -4467,6 +4561,9 @@ QWRkEEZyaWVuZFZpZXc
                                                                                     <constraint firstAttribute="width" constant="48" id="0PA-Bw-bZl"/>
                                                                                     <constraint firstAttribute="height" constant="48" id="7p1-G0-BRY"/>
                                                                                 </constraints>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                                                                </userDefinedRuntimeAttributes>
                                                                             </imageView>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="e" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qjg-nF-pTh" customClass="WLLabel">
                                                                                 <rect key="frame" x="12" y="42" width="18" height="18"/>
@@ -4872,6 +4969,15 @@ QWRkEEZyaWVuZFZpZXc
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kCk-M5-0U0" customClass="WLImageView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
+                                                                                <real key="value" value="96"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="defaultIconColor">
+                                                                                <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
                                                                     </imageView>
                                                                     <view userInteractionEnabled="NO" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="uh1-Fu-k4L" customClass="WLGradientView">
                                                                         <rect key="frame" x="0.0" y="61" width="106" height="45"/>
@@ -5350,7 +5456,6 @@ QWRkEEZyaWVuZFZpZXc
         <image name="btn_wrap_camera_enabled" width="84" height="84"/>
         <image name="btn_wrap_camera_pressed" width="84" height="84"/>
         <image name="camera_medium" width="50" height="50"/>
-        <image name="default-large-avatar" width="100" height="100"/>
         <image name="horizontal_separator_gray" width="1" height="1"/>
         <image name="ic_back_in_circle_white" width="30" height="30"/>
         <image name="ic_emoji" width="26" height="26"/>

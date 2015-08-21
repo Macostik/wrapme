@@ -63,9 +63,6 @@
     
     [self.segmentedControl deselect];
     
-    [self.publicWrapImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
-    [self.publicWrapImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
-    
     self.settingsButton.exclusiveTouch = self.followButton.exclusiveTouch = self.unfollowButton.exclusiveTouch = YES;
 }
 

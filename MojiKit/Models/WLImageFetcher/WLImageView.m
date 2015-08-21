@@ -15,17 +15,36 @@
 
 @interface WLImageView () <WLImageFetching>
 
-@property (strong, nonatomic) NSMutableDictionary* states;
+@property (strong, nonatomic) UIColor *originalBackgroundColor;
 
 @end
 
 @implementation WLImageView
 
-- (NSMutableDictionary *)states {
-    if (!_states) {
-        _states = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSMutableDictionary dictionary],@(WLImageViewStateFailed),[NSMutableDictionary dictionary],@(WLImageViewStateEmpty), nil];
+- (UIColor *)defaultIconColor {
+    if (!_defaultIconColor) _defaultIconColor = [UIColor whiteColor];
+    return _defaultIconColor;
+}
+
+- (CGFloat)defaultIconSize {
+    if (_defaultIconSize == 0) _defaultIconSize = 24;
+    return _defaultIconSize;
+}
+
+- (UILabel *)defaultIconView {
+    if (!_defaultIconView) {
+        _defaultIconView = [[UILabel alloc] init];
+        _defaultIconView.translatesAutoresizingMaskIntoConstraints = NO;
+        _defaultIconView.hidden = YES;
+        _defaultIconView.font = [UIFont fontWithName:@"icons" size:self.defaultIconSize];
+        _defaultIconView.textAlignment = NSTextAlignmentCenter;
+        _defaultIconView.textColor = self.defaultIconColor;
+        _defaultIconView.text = self.defaultIconText;
+        [self addSubview:_defaultIconView];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:_defaultIconView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:_defaultIconView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
-    return _states;
+    return _defaultIconView;
 }
 
 - (void)setUrl:(NSString *)url {
@@ -37,11 +56,27 @@
     _url = url;
     self.success = success;
     self.failure = failure;
-    self.state = WLImageViewStateDefault;
     if (url.nonempty) {
+        [self setDefaultIconViewHidden:YES];
         [[WLImageFetcher fetcher] enqueueImageWithUrl:url receiver:self];
     } else {
-        self.state = WLImageViewStateEmpty;
+        [self setDefaultIconViewHidden:NO];
+    }
+}
+
+- (void)setDefaultIconViewHidden:(BOOL)defaultIconViewHidden {
+    if (self.defaultIconView.hidden != defaultIconViewHidden) {
+        self.defaultIconView.hidden = defaultIconViewHidden;
+        if (defaultIconViewHidden) {
+            if (self.originalBackgroundColor) {
+                self.backgroundColor = self.originalBackgroundColor;
+            }
+        } else {
+            if (self.defaultBackgroundColor) {
+                self.originalBackgroundColor = self.backgroundColor;
+                self.backgroundColor = self.defaultBackgroundColor;
+            }
+        }
     }
 }
 
@@ -68,39 +103,6 @@
 	self.image = image;
 }
 
-- (void)setState:(WLImageViewState)state {
-    if (_state != state) {
-        _state = state;
-        if (state == WLImageViewStateDefault) {
-            self.alpha = 0.0f;
-            self.contentMode = UIViewContentModeScaleAspectFill;
-        } else {
-            self.alpha = 1.0f;
-            NSMutableDictionary *stateInfo = self.states[@(state)];
-            if (stateInfo[@"contentMode"] != nil) {
-                self.contentMode = [stateInfo[@"contentMode"] integerValue];
-            }
-            if (stateInfo[@"imageName"] != nil) {
-                self.image = [UIImage imageNamed:stateInfo[@"imageName"]];
-            }
-        }
-    }
-}
-
-- (void)setContentMode:(UIViewContentMode)contentMode forState:(WLImageViewState)state {
-    NSMutableDictionary *stateInfo = self.states[@(state)];
-    stateInfo[@"contentMode"] = @(contentMode);
-}
-
-- (void)setImageName:(NSString *)imageName forState:(WLImageViewState)state {
-    NSMutableDictionary *stateInfo = self.states[@(state)];
-    if (imageName) {
-        stateInfo[@"imageName"] = imageName;
-    } else {
-        [stateInfo removeObjectForKey:@"imageName"];
-    }
-}
-
 #pragma mark - WLImageFetching
 
 - (NSString *)fetcherTargetUrl:(WLImageFetcher *)fetcher {
@@ -108,7 +110,7 @@
 }
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
-    self.state = WLImageViewStateDefault;
+    [self setDefaultIconViewHidden:YES];
 	[self setImage:image animated:!cached];
 	WLImageFetcherBlock success = self.success;
 	if (success) {
@@ -119,7 +121,7 @@
 }
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
-    self.state = WLImageViewStateFailed;
+    [self setDefaultIconViewHidden:NO];
 	WLFailureBlock failure = self.failure;
 	if (failure) {
 		failure(error);

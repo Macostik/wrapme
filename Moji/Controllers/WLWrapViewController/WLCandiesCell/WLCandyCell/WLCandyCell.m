@@ -30,10 +30,6 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    [self.coverView setContentMode:UIViewContentModeCenter forState:WLImageViewStateFailed];
-    [self.coverView setContentMode:UIViewContentModeCenter forState:WLImageViewStateEmpty];
-    [self.coverView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateFailed];
-    [self.coverView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateEmpty];
     
 	[[WLCandy notifier] addReceiver:self];
     __weak typeof(self)weakSelf = self;
@@ -108,7 +104,7 @@
 }
 
 - (void)select:(WLCandy*)candy {
-    if (candy.valid && self.coverView.state == WLImageViewStateDefault && self.coverView.image != nil) {
+    if (candy.valid && self.coverView.image != nil) {
         if ([self.delegate respondsToSelector:@selector(candyCell:didSelectCandy:)]) {
             [self.delegate candyCell:self didSelectCandy:candy];
         }

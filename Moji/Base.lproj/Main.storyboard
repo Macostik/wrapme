@@ -60,6 +60,13 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -88,15 +95,15 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQU-Uj-mtX">
-                                        <rect key="frame" x="0.0" y="20" width="54" height="44"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQU-Uj-mtX" customClass="WLButton">
+                                        <rect key="frame" x="12" y="20" width="32" height="44"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="Xjm-tU-zPG"/>
-                                            <constraint firstAttribute="width" constant="54" id="ahU-Bc-nfP"/>
-                                        </constraints>
-                                        <state key="normal" image="ic_back_in_circle_white">
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
+                                        <state key="normal" title="L">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="back:" destination="vgz-ev-iSR" eventType="touchUpInside" id="OTM-mw-gcA"/>
@@ -106,11 +113,11 @@
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="1fm-op-0Uu"/>
+                                    <constraint firstAttribute="centerY" secondItem="aQU-Uj-mtX" secondAttribute="centerY" constant="-10" id="8xU-H8-fxM"/>
                                     <constraint firstAttribute="bottom" secondItem="Te3-A9-g3F" secondAttribute="bottom" id="IrC-zI-iOA"/>
                                     <constraint firstItem="Te3-A9-g3F" firstAttribute="leading" secondItem="DTt-7g-SnC" secondAttribute="leading" id="JcY-8y-slQ"/>
                                     <constraint firstItem="Te3-A9-g3F" firstAttribute="top" secondItem="DTt-7g-SnC" secondAttribute="top" constant="20" id="Pre-6Y-cW6"/>
-                                    <constraint firstItem="aQU-Uj-mtX" firstAttribute="leading" secondItem="DTt-7g-SnC" secondAttribute="leading" id="cLX-4m-Oxd"/>
-                                    <constraint firstItem="aQU-Uj-mtX" firstAttribute="top" secondItem="DTt-7g-SnC" secondAttribute="top" constant="20" id="ceJ-4R-Xjx"/>
+                                    <constraint firstItem="aQU-Uj-mtX" firstAttribute="leading" secondItem="DTt-7g-SnC" secondAttribute="leading" constant="12" id="cLX-4m-Oxd"/>
                                     <constraint firstAttribute="trailing" secondItem="Te3-A9-g3F" secondAttribute="trailing" id="jXp-p8-dF9"/>
                                 </constraints>
                             </view>
@@ -366,7 +373,7 @@
                             <constraint firstItem="DTt-7g-SnC" firstAttribute="top" secondItem="EuS-QU-6xz" secondAttribute="bottom" constant="-20" id="Txy-bB-Cfg"/>
                             <constraint firstItem="JgE-vY-HrZ" firstAttribute="top" secondItem="VLc-fp-pTh" secondAttribute="bottom" id="XyY-4e-Wfg"/>
                             <constraint firstAttribute="trailing" secondItem="VLc-fp-pTh" secondAttribute="trailing" id="hE9-WG-16v"/>
-                            <constraint firstItem="VLc-fp-pTh" firstAttribute="top" secondItem="EuS-QU-6xz" secondAttribute="bottom" constant="44" id="tIA-Hw-FbM"/>
+                            <constraint firstItem="VLc-fp-pTh" firstAttribute="top" secondItem="DTt-7g-SnC" secondAttribute="bottom" id="vdO-23-yX6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="D4X-S5-GBc"/>
@@ -414,15 +421,16 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vSX-H6-ha3">
-                                        <rect key="frame" x="0.0" y="20" width="54" height="44"/>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vSX-H6-ha3" customClass="WLButton">
+                                        <rect key="frame" x="12" y="20" width="32" height="44"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="54" id="bzS-m8-AIo"/>
-                                        </constraints>
-                                        <state key="normal" image="ic_back_in_circle_white">
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
+                                        <state key="normal" title="L">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="back:" destination="zBt-TT-rM7" eventType="touchUpInside" id="1RC-xg-CH9"/>
@@ -434,10 +442,9 @@
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="ueu-Q3-dgA" secondAttribute="centerY" constant="-10" id="IQF-AU-FGj"/>
                                     <constraint firstAttribute="height" constant="64" id="MdH-bI-9fk"/>
-                                    <constraint firstItem="vSX-H6-ha3" firstAttribute="leading" secondItem="qU7-Ez-lna" secondAttribute="leading" id="UuD-1X-EZs"/>
+                                    <constraint firstItem="vSX-H6-ha3" firstAttribute="leading" secondItem="qU7-Ez-lna" secondAttribute="leading" constant="12" id="UuD-1X-EZs"/>
                                     <constraint firstAttribute="centerX" secondItem="ueu-Q3-dgA" secondAttribute="centerX" id="mqV-K4-dGX"/>
-                                    <constraint firstAttribute="bottom" secondItem="vSX-H6-ha3" secondAttribute="bottom" id="nJh-5d-MAn"/>
-                                    <constraint firstItem="vSX-H6-ha3" firstAttribute="top" secondItem="qU7-Ez-lna" secondAttribute="top" constant="20" id="oyl-ad-ROR"/>
+                                    <constraint firstAttribute="centerY" secondItem="vSX-H6-ha3" secondAttribute="centerY" constant="-10" id="zts-ku-Ck8"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="co2-D4-XAH" customClass="WLButton">
@@ -878,15 +885,16 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7C-nT-Tr1">
-                                        <rect key="frame" x="0.0" y="20" width="54" height="44"/>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7C-nT-Tr1" customClass="WLButton">
+                                        <rect key="frame" x="12" y="20" width="32" height="44"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="54" id="b0x-qW-8KB"/>
-                                        </constraints>
-                                        <state key="normal" image="ic_back_in_circle_white">
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
+                                        <state key="normal" title="L">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="back:" destination="7FG-gC-kPg" eventType="touchUpInside" id="Tw7-rg-uaO"/>
@@ -897,9 +905,8 @@
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="QO2-SC-TvX" secondAttribute="centerX" id="03c-tW-GCX"/>
                                     <constraint firstAttribute="height" constant="64" id="IhS-CF-VMP"/>
-                                    <constraint firstItem="T7C-nT-Tr1" firstAttribute="top" secondItem="ant-6l-Vag" secondAttribute="top" constant="20" id="JA9-EF-MZ2"/>
-                                    <constraint firstItem="T7C-nT-Tr1" firstAttribute="leading" secondItem="ant-6l-Vag" secondAttribute="leading" id="bQb-n1-R9l"/>
-                                    <constraint firstAttribute="bottom" secondItem="T7C-nT-Tr1" secondAttribute="bottom" id="nzZ-jX-8LQ"/>
+                                    <constraint firstItem="T7C-nT-Tr1" firstAttribute="leading" secondItem="ant-6l-Vag" secondAttribute="leading" constant="12" id="bQb-n1-R9l"/>
+                                    <constraint firstAttribute="centerY" secondItem="T7C-nT-Tr1" secondAttribute="centerY" constant="-10" id="eIz-yu-hrE"/>
                                     <constraint firstAttribute="centerY" secondItem="QO2-SC-TvX" secondAttribute="centerY" constant="-10" id="zdg-Sg-jX3"/>
                                 </constraints>
                             </view>
@@ -1946,16 +1953,15 @@ Tap here to start.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bvm-fO-3Iz">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <button tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="khD-F3-MeT">
-                                        <rect key="frame" x="0.0" y="20" width="54" height="44"/>
+                                    <button tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="khD-F3-MeT" customClass="WLButton">
+                                        <rect key="frame" x="12" y="20" width="32" height="44"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="54" id="huS-Ba-ku6"/>
-                                            <constraint firstAttribute="height" constant="44" id="w2m-EZ-CNK"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="32"/>
-                                        <state key="normal" image="ic_back_in_circle_white">
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
+                                        <state key="normal" title="L">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
@@ -1999,9 +2005,9 @@ Tap here to start.</string>
                                     <constraint firstItem="Bop-dI-sMz" firstAttribute="leading" secondItem="Bvm-fO-3Iz" secondAttribute="leading" constant="75" id="NTl-Tt-QHs"/>
                                     <constraint firstItem="1Mp-6R-mE3" firstAttribute="top" secondItem="Bvm-fO-3Iz" secondAttribute="top" constant="20" id="QA0-uS-Zhx"/>
                                     <constraint firstAttribute="trailing" secondItem="Bop-dI-sMz" secondAttribute="trailing" constant="75" id="esB-Qq-K9f"/>
-                                    <constraint firstItem="khD-F3-MeT" firstAttribute="top" secondItem="Bvm-fO-3Iz" secondAttribute="top" constant="20" id="nsq-Nw-t0O"/>
+                                    <constraint firstAttribute="centerY" secondItem="khD-F3-MeT" secondAttribute="centerY" constant="-10" id="mV9-C1-n3Y"/>
                                     <constraint firstItem="Bop-dI-sMz" firstAttribute="top" secondItem="Bvm-fO-3Iz" secondAttribute="top" constant="20" id="xuq-u1-RkS"/>
-                                    <constraint firstItem="khD-F3-MeT" firstAttribute="leading" secondItem="Bvm-fO-3Iz" secondAttribute="leading" id="zWR-F8-v5m"/>
+                                    <constraint firstItem="khD-F3-MeT" firstAttribute="leading" secondItem="Bvm-fO-3Iz" secondAttribute="leading" constant="12" id="zWR-F8-v5m"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="VJP-b5-s4a">
@@ -2456,15 +2462,15 @@ Tap here to start.</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vPv-49-SfA">
-                                        <rect key="frame" x="0.0" y="20" width="54" height="44"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vPv-49-SfA" customClass="WLButton">
+                                        <rect key="frame" x="12" y="20" width="32" height="44"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="54" id="AaC-Qa-E9O"/>
-                                            <constraint firstAttribute="height" constant="44" id="Unh-yU-epj"/>
-                                        </constraints>
-                                        <state key="normal" image="ic_back_in_circle_white">
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
+                                        <state key="normal" title="L">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="back:" destination="ro7-vm-AlA" eventType="touchUpInside" id="nNL-OF-4pK"/>
@@ -2475,9 +2481,9 @@ Tap here to start.</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="Fuk-ox-iEr"/>
                                     <constraint firstItem="BgE-ku-qap" firstAttribute="leading" secondItem="ntu-B6-9gu" secondAttribute="leading" id="IpK-L2-Z3F"/>
-                                    <constraint firstItem="vPv-49-SfA" firstAttribute="top" secondItem="ntu-B6-9gu" secondAttribute="top" constant="20" id="Nqm-VP-ZHF"/>
                                     <constraint firstAttribute="bottom" secondItem="BgE-ku-qap" secondAttribute="bottom" id="QL8-Ax-JNH"/>
-                                    <constraint firstItem="vPv-49-SfA" firstAttribute="leading" secondItem="ntu-B6-9gu" secondAttribute="leading" id="Zec-BP-D2r"/>
+                                    <constraint firstItem="vPv-49-SfA" firstAttribute="leading" secondItem="ntu-B6-9gu" secondAttribute="leading" constant="12" id="Zec-BP-D2r"/>
+                                    <constraint firstAttribute="centerY" secondItem="vPv-49-SfA" secondAttribute="centerY" constant="-10" id="eVF-Xe-R4C"/>
                                     <constraint firstAttribute="trailing" secondItem="BgE-ku-qap" secondAttribute="trailing" id="oCA-12-Hb9"/>
                                     <constraint firstItem="BgE-ku-qap" firstAttribute="top" secondItem="ntu-B6-9gu" secondAttribute="top" constant="20" id="uph-VR-R5X"/>
                                 </constraints>
@@ -2602,16 +2608,16 @@ Tap here to start.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b0w-IA-ZYu">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <button tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fzq-yp-f3W">
-                                        <rect key="frame" x="0.0" y="20" width="54" height="44"/>
+                                    <button tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fzq-yp-f3W" customClass="WLButton">
+                                        <rect key="frame" x="12" y="20" width="32" height="44"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="4kd-Wl-E4F"/>
-                                            <constraint firstAttribute="width" constant="54" id="bCE-Mp-06x"/>
-                                        </constraints>
-                                        <state key="normal" image="ic_back_in_circle_white">
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
+                                        <state key="normal" title="L">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="back:" destination="hUj-RK-zkg" eventType="touchUpInside" id="eAj-Wm-pms"/>
@@ -2633,8 +2639,8 @@ Tap here to start.</string>
                                             <action selector="push:" destination="xXv-P7-bPX" eventType="touchUpInside" id="rEF-sE-VBS"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ek2-Bn-UN6" customClass="WLLabel">
-                                        <rect key="frame" x="54" y="19" width="492" height="44"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Moji" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ek2-Bn-UN6" customClass="WLLabel">
+                                        <rect key="frame" x="44" y="32" width="502" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -2645,14 +2651,13 @@ Tap here to start.</string>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="Fzq-yp-f3W" secondAttribute="centerY" constant="-10" id="4WO-5j-9Dn"/>
                                     <constraint firstAttribute="trailing" secondItem="8kR-VI-DgA" secondAttribute="trailing" id="CZJ-45-RCL"/>
-                                    <constraint firstItem="ek2-Bn-UN6" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="top" constant="19" id="I5I-9v-pm6"/>
-                                    <constraint firstItem="Fzq-yp-f3W" firstAttribute="leading" secondItem="b0w-IA-ZYu" secondAttribute="leading" id="NJ8-X8-rDk"/>
-                                    <constraint firstItem="Fzq-yp-f3W" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="top" constant="20" id="OyJ-WK-In4"/>
+                                    <constraint firstItem="Fzq-yp-f3W" firstAttribute="leading" secondItem="b0w-IA-ZYu" secondAttribute="leading" constant="12" id="NJ8-X8-rDk"/>
                                     <constraint firstItem="8kR-VI-DgA" firstAttribute="top" secondItem="b0w-IA-ZYu" secondAttribute="top" constant="20" id="Z5M-36-JYc"/>
+                                    <constraint firstAttribute="centerY" secondItem="ek2-Bn-UN6" secondAttribute="centerY" constant="-10" id="a9V-nG-ltC"/>
                                     <constraint firstItem="8kR-VI-DgA" firstAttribute="leading" secondItem="ek2-Bn-UN6" secondAttribute="trailing" id="aNy-sc-Fps"/>
                                     <constraint firstItem="ek2-Bn-UN6" firstAttribute="leading" secondItem="Fzq-yp-f3W" secondAttribute="trailing" id="i6f-fR-TwQ"/>
-                                    <constraint firstAttribute="bottom" secondItem="ek2-Bn-UN6" secondAttribute="bottom" constant="1" id="jvH-Ef-mjZ"/>
                                     <constraint firstAttribute="height" constant="64" id="oKU-xM-Q0m"/>
                                 </constraints>
                             </view>
@@ -5212,23 +5217,23 @@ QWRkEEZyaWVuZFZpZXc
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GMA-8i-bdS">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <button tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0X-J5-pFk">
-                                        <rect key="frame" x="0.0" y="20" width="54" height="44"/>
+                                    <button tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0X-J5-pFk" customClass="WLButton">
+                                        <rect key="frame" x="12" y="20" width="32" height="44"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="54" id="4wL-nO-r9i"/>
-                                            <constraint firstAttribute="height" constant="44" id="BtJ-UV-G5C"/>
-                                        </constraints>
-                                        <state key="normal" image="ic_back_in_circle_white">
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
+                                        <state key="normal" title="L">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="back:" destination="TKE-mx-bkQ" eventType="touchUpInside" id="4Rc-Ww-Zpa"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZL1-Bm-SmI" customClass="WLLabel">
-                                        <rect key="frame" x="54" y="19" width="492" height="44"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Moji" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZL1-Bm-SmI" customClass="WLLabel">
+                                        <rect key="frame" x="44" y="32" width="512" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -5239,13 +5244,12 @@ QWRkEEZyaWVuZFZpZXc
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="X0X-J5-pFk" firstAttribute="top" secondItem="GMA-8i-bdS" secondAttribute="top" constant="20" id="1W5-oe-iSD"/>
                                     <constraint firstAttribute="centerX" secondItem="ZL1-Bm-SmI" secondAttribute="centerX" id="AN7-p9-NCr"/>
                                     <constraint firstAttribute="height" constant="64" id="bXo-mQ-lI9"/>
-                                    <constraint firstItem="ZL1-Bm-SmI" firstAttribute="top" secondItem="GMA-8i-bdS" secondAttribute="top" constant="19" id="fOw-HO-3hq"/>
-                                    <constraint firstAttribute="bottom" secondItem="ZL1-Bm-SmI" secondAttribute="bottom" constant="1" id="jVS-Uq-htO"/>
-                                    <constraint firstItem="X0X-J5-pFk" firstAttribute="leading" secondItem="GMA-8i-bdS" secondAttribute="leading" id="sep-ye-8Sg"/>
+                                    <constraint firstAttribute="centerY" secondItem="X0X-J5-pFk" secondAttribute="centerY" constant="-10" id="rUW-61-z41"/>
+                                    <constraint firstItem="X0X-J5-pFk" firstAttribute="leading" secondItem="GMA-8i-bdS" secondAttribute="leading" constant="12" id="sep-ye-8Sg"/>
                                     <constraint firstItem="ZL1-Bm-SmI" firstAttribute="leading" secondItem="X0X-J5-pFk" secondAttribute="trailing" id="uVl-o8-pdD"/>
+                                    <constraint firstAttribute="centerY" secondItem="ZL1-Bm-SmI" secondAttribute="centerY" constant="-10" id="wwz-9A-O7P"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" restorationIdentifier="WLSettingsView" translatesAutoresizingMaskIntoConstraints="NO" id="NbD-y4-9Ou" userLabel="Settings View">
@@ -5463,7 +5467,6 @@ QWRkEEZyaWVuZFZpZXc
         <image name="btn_wrap_camera_pressed" width="84" height="84"/>
         <image name="camera_medium" width="50" height="50"/>
         <image name="horizontal_separator_gray" width="1" height="1"/>
-        <image name="ic_back_in_circle_white" width="30" height="30"/>
         <image name="ic_emoji" width="26" height="26"/>
         <image name="ic_emoji_keyboard" width="30" height="18"/>
     </resources>

@@ -38,7 +38,7 @@
     
     UIView *presentingView = [self.delegate presentingImageView:self presentingViewForCandy:candy];
     [WLCollectionView lock];
-    self.imageView.frame = [self.superview convertRect:presentingView.frame fromView:presentingView.superview];
+    self.imageView.frame = [self.superview convertRect:presentingView.bounds fromCoordinateSpace:presentingView];
     presentingView.hidden = YES;
     __weak typeof(self)weakSelf = self;
     [UIView animateWithDuration:0.25
@@ -70,8 +70,7 @@
     self.imageView.frame = CGRectThatFitsSize(weakSelf.size, image.size);
     UIView *dismissingView = [self.delegate presentingImageView:self dismissingViewForCandy:candy];
     [WLCollectionView lock];
-    CGRect rect = [self convertRect:dismissingView.bounds fromView:dismissingView];
-    rect = CGRectMake(rect.origin.x*2.0f, rect.origin.y*2.0f, rect.size.width*2.0f, rect.size.height*2.0f);
+    CGRect rect = [self.superview convertRect:dismissingView.bounds fromCoordinateSpace:dismissingView];
     dismissingView.hidden = YES;
     [UIView animateWithDuration:0.25
                           delay:.0

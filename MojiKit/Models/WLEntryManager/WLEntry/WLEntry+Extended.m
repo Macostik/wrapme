@@ -95,6 +95,9 @@
 }
 
 - (void)touch:(NSDate *)date {
+    if (self.containingEntry) {
+        [self.containingEntry touch:date];
+    }
     self.updatedAt = date;
     if (self.createdAt == nil) {
         self.createdAt = date;

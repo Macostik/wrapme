@@ -83,6 +83,7 @@
 + (instancetype)followWrap:(WLWrap *)wrap {
     return [[[self POST:@"wraps/%@/follow", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         [wrap notifyOnUpdate:^(id object) {
+            [wrap touch];
             [wrap addContributorsObject:[WLUser currentUser]];
         }];
         success(nil);

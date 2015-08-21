@@ -10,12 +10,8 @@
 
 @implementation GridMetrics
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.ratio = [[StreamMetricsFloatProperty alloc] init];
-    }
-    return self;
+- (CGFloat)ratioAt:(StreamIndex *)index {
+    return self.ratioBlock ? self.ratioBlock(index) : self.ratio;
 }
 
 @end

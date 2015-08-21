@@ -30,9 +30,7 @@
         return ([dataSource.items count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
     }];
     GridMetrics *metrics = [self.dataSource.metrics lastObject];
-    [metrics.ratio setBlock:^CGFloat(StreamIndex *index) {
-        return 1;
-    }];
+    metrics.ratio = 1;
 }
 
 - (void)setup:(WLWrap*)wrap {

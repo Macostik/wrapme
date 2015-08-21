@@ -168,12 +168,19 @@ static NSHashTable *streamViews = nil;
 		self.numberOfSections = 1;
 	}
     
+    if ([delegate respondsToSelector:@selector(streamViewHeaderMetrics:)]) {
+        NSArray *headers = [delegate streamViewHeaderMetrics:self];
+        for (StreamMetrics *header in headers) {
+            [self layout:layout metrics:header index:nil];
+        }
+    }
+    
     for (NSUInteger section = 0; section < self.numberOfSections; ++section) {
         
         StreamIndex *sectionIndex = [StreamIndex index:section];
         
-        if ([delegate respondsToSelector:@selector(streamView:headerMetricsInSection:)]) {
-            NSArray *headers = [delegate streamView:self headerMetricsInSection:section];
+        if ([delegate respondsToSelector:@selector(streamView:sectionHeaderMetricsInSection:)]) {
+            NSArray *headers = [delegate streamView:self sectionHeaderMetricsInSection:section];
             for (StreamMetrics *header in headers) {
                 [self layout:layout metrics:header index:sectionIndex];
             }
@@ -188,14 +195,21 @@ static NSHashTable *streamViews = nil;
             }
         }
         
-        if ([delegate respondsToSelector:@selector(streamView:footerMetricsInSection:)]) {
-            NSArray *footers = [delegate streamView:self footerMetricsInSection:section];
+        if ([delegate respondsToSelector:@selector(streamView:sectionFooterMetricsInSection:)]) {
+            NSArray *footers = [delegate streamView:self sectionFooterMetricsInSection:section];
             for (StreamMetrics *footer in footers) {
                 [self layout:layout metrics:footer index:sectionIndex];
             }
         }
         
         [layout prepareForNextSection];
+    }
+    
+    if ([delegate respondsToSelector:@selector(streamViewFooterMetrics:)]) {
+        NSArray *footers = [delegate streamViewFooterMetrics:self];
+        for (StreamMetrics *footer in footers) {
+            [self layout:layout metrics:footer index:nil];
+        }
     }
     
     [layout finalize];
@@ -206,7 +220,7 @@ static NSHashTable *streamViews = nil;
 }
 
 - (void)layout:(StreamLayout*)layout metrics:(StreamMetrics*)metrics index:(StreamIndex*)index {
-    if (![metrics.hidden valueAt:index]) {
+    if (![metrics hiddenAt:index]) {
         StreamItem *item = [[StreamItem alloc] init];
         item.index = index;
         item.metrics = metrics;
@@ -263,7 +277,7 @@ static NSHashTable *streamViews = nil;
                     [UIView setAnimationsEnabled:YES];
                     
                     if (view.superview != self) {
-                        [self addSubview:view];
+                        [self insertSubview:view atIndex:0];
                     }
                     
                     [_views addObject:view];

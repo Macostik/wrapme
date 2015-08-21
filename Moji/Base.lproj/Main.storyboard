@@ -1405,6 +1405,17 @@ Tap here to start.</string>
                             <real key="value" value="60"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outletCollection property="headerMetrics" destination="LBy-GY-uOH" collectionClass="NSMutableArray" id="61v-pl-Xvr"/>
+                    </connections>
+                </customObject>
+                <customObject id="LBy-GY-uOH" customClass="StreamMetrics">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLHottestMojiHeader"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="size">
+                            <real key="value" value="88"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </customObject>
                 <customObject id="Qns-CC-AwC" userLabel="Notifications Transition" customClass="WLStoryboardTransition">
                     <userDefinedRuntimeAttributes>

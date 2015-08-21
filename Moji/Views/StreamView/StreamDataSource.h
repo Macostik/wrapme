@@ -23,15 +23,21 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
 
 @property (strong, nonatomic) id <WLBaseOrderedCollection> items;
 
+@property (strong, nonatomic) IBOutletCollection(StreamMetrics) NSMutableArray *headerMetrics;
+
+@property (strong, nonatomic) IBOutletCollection(StreamMetrics) NSMutableArray *sectionHeaderMetrics;
+
 @property (strong, nonatomic) IBOutletCollection(StreamMetrics) NSMutableArray *metrics;
 
-@property (strong, nonatomic) IBOutletCollection(StreamMetrics) NSMutableArray *headerMetrics;
+@property (strong, nonatomic) IBOutletCollection(StreamMetrics) NSMutableArray *sectionFooterMetrics;
 
 @property (strong, nonatomic) IBOutletCollection(StreamMetrics) NSMutableArray *footerMetrics;
 
 @property (strong, nonatomic) IBInspectable NSString *itemIdentifier;
 
 @property (nonatomic) IBInspectable CGFloat itemSize;
+
+@property (nonatomic) IBInspectable UIEdgeInsets itemInsets;
 
 @property (nonatomic) ScrollDirection direction;
 
@@ -55,10 +61,14 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
 
 - (void)setRefreshableWithStyle:(WLRefresherStyle)style;
 
-- (StreamMetrics*)addHeaderMetrics:(StreamMetrics*)block;
+- (StreamMetrics*)addHeaderMetrics:(StreamMetrics*)metrics;
 
-- (StreamMetrics*)addMetrics:(StreamMetrics*)block;
+- (StreamMetrics*)addSectionHeaderMetrics:(StreamMetrics*)metrics;
 
-- (StreamMetrics*)addFooterMetrics:(StreamMetrics*)block;
+- (StreamMetrics*)addMetrics:(StreamMetrics*)metrics;
+
+- (StreamMetrics*)addSectionFooterMetrics:(StreamMetrics*)metrics;
+
+- (StreamMetrics*)addFooterMetrics:(StreamMetrics*)metrics;
 
 @end

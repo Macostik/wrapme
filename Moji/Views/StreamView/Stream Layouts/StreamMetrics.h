@@ -14,48 +14,9 @@
 @class StreamView;
 @class StreamReusableView;
 
-typedef CGFloat(^StreamMetricsFloatBlock)(StreamIndex *index);
-typedef BOOL(^StreamMetricsBoolBlock)(StreamIndex *index);
-typedef NSString*(^StreamMetricsStringBlock)(StreamIndex *index);
 typedef void(^StreamMetricsBlock)(StreamMetrics *metrics);
 typedef void(^StreamMetricsViewBeforeSetupBlock)(StreamItem *item, id view, id entry);
 typedef void(^StreamMetricsViewAfterSetupBlock)(StreamItem *item, id view, id entry);
-
-@interface StreamMetricsFloatProperty : NSObject
-
-@property (nonatomic) CGFloat value;
-
-@property (strong, nonatomic) StreamMetricsFloatBlock block;
-
-- (void)setBlock:(StreamMetricsFloatBlock)block;
-
-- (CGFloat)valueAt:(StreamIndex*)index;
-
-@end
-
-@interface StreamMetricsBoolProperty : NSObject
-
-@property (nonatomic) BOOL value;
-
-@property (strong, nonatomic) StreamMetricsBoolBlock block;
-
-- (void)setBlock:(StreamMetricsBoolBlock)block;
-
-- (BOOL)valueAt:(StreamIndex*)index;
-
-@end
-
-@interface StreamMetricsProperty : NSObject
-
-@property (strong, nonatomic) id value;
-
-@property (strong, nonatomic) StreamMetricsStringBlock block;
-
-- (void)setBlock:(StreamMetricsStringBlock)block;
-
-- (id)valueAt:(StreamIndex*)index;
-
-@end
 
 @interface StreamMetrics : NSObject
 
@@ -63,17 +24,17 @@ typedef void(^StreamMetricsViewAfterSetupBlock)(StreamItem *item, id view, id en
 
 @property (strong, nonatomic) UINib *nib;
 
-@property (strong, nonatomic) StreamMetricsBoolProperty *hidden;
+@property (nonatomic) BOOL hidden;
 
-@property (strong, nonatomic) StreamMetricsFloatProperty *size;
+@property (strong, nonatomic) BOOL(^hiddenBlock)(StreamIndex *index);
 
-@property (strong, nonatomic) StreamMetricsFloatProperty *topInset;
+@property (nonatomic) IBInspectable CGFloat size;
 
-@property (strong, nonatomic) StreamMetricsFloatProperty *bottomInset;
+@property (strong, nonatomic) CGFloat(^sizeBlock)(StreamIndex *index);
 
-@property (strong, nonatomic) StreamMetricsFloatProperty *leftInset;
+@property (nonatomic) IBInspectable UIEdgeInsets insets;
 
-@property (strong, nonatomic) StreamMetricsFloatProperty *rightInset;
+@property (strong, nonatomic) UIEdgeInsets(^insetsBlock)(StreamIndex *index);
 
 @property (strong, nonatomic) WLObjectBlock selectionBlock;
 
@@ -86,5 +47,17 @@ typedef void(^StreamMetricsViewAfterSetupBlock)(StreamItem *item, id view, id en
 - (void)setViewBeforeSetupBlock:(StreamMetricsViewBeforeSetupBlock)viewBeforeSetupBlock;
 
 - (void)setViewAfterSetupBlock:(StreamMetricsViewAfterSetupBlock)viewAfterSetupBlock;
+
+- (void)setHiddenBlock:(BOOL (^)(StreamIndex *index))hiddenBlock;
+
+- (BOOL)hiddenAt:(StreamIndex*)index;
+
+- (void)setSizeBlock:(CGFloat (^)(StreamIndex *index))sizeBlock;
+
+- (CGFloat)sizeAt:(StreamIndex*)index;
+
+- (void)setInsetsBlock:(UIEdgeInsets (^)(StreamIndex *index))insetsBlock;
+
+- (UIEdgeInsets)insetsAt:(StreamIndex*)index;
 
 @end

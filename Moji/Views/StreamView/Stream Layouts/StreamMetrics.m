@@ -9,30 +9,6 @@
 #import "StreamMetrics.h"
 #import "StreamView.h"
 
-@implementation StreamMetricsFloatProperty
-
-- (CGFloat)valueAt:(StreamIndex *)index {
-    return self.block ? self.block(index) : self.value;
-}
-
-@end
-
-@implementation StreamMetricsBoolProperty
-
-- (BOOL)valueAt:(StreamIndex*)index {
-    return self.block ? self.block(index) : self.value;
-}
-
-@end
-
-@implementation StreamMetricsProperty
-
-- (id)valueAt:(StreamIndex*)index {
-    return self.block ? self.block(index) : self.value;
-}
-
-@end
-
 @interface StreamMetrics ()
 
 @property (strong, nonatomic) StreamMetricsViewBeforeSetupBlock viewBeforeSetupBlock;
@@ -52,17 +28,16 @@
     return self;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.size = [[StreamMetricsFloatProperty alloc] init];
-        self.topInset = [[StreamMetricsFloatProperty alloc] init];
-        self.bottomInset = [[StreamMetricsFloatProperty alloc] init];
-        self.leftInset = [[StreamMetricsFloatProperty alloc] init];
-        self.rightInset = [[StreamMetricsFloatProperty alloc] init];
-        self.hidden = [[StreamMetricsBoolProperty alloc] init];
-    }
-    return self;
+- (BOOL)hiddenAt:(StreamIndex *)index {
+    return self.hiddenBlock ? self.hiddenBlock(index) : self.hidden;
+}
+
+- (CGFloat)sizeAt:(StreamIndex *)index {
+    return self.sizeBlock ? self.sizeBlock(index) : self.size;
+}
+
+- (UIEdgeInsets)insetsAt:(StreamIndex *)index {
+    return self.insetsBlock ? self.insetsBlock(index) : self.insets;
 }
 
 - (id)viewForItem:(StreamItem *)item inStreamView:(StreamView *)streamView entry:(id)entry {

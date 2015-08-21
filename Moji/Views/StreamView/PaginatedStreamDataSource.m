@@ -15,6 +15,8 @@
 
 @property (weak, nonatomic) WLStreamLoadingView *loadingView;
 
+@property (weak, nonatomic) StreamMetrics *loaderMetrics;
+
 @end
 
 @implementation PaginatedStreamDataSource
@@ -25,10 +27,10 @@
     [super didAwake];
     
     __weak typeof(self)weakSelf = self;
-    [self addFooterMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
+    self.loaderMetrics = [self addFooterMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLStreamLoadingView";
-        metrics.size.value = 60;
-        [metrics.hidden setBlock:^BOOL(StreamIndex *index) {
+        metrics.size = WLStreamLoadingViewDefaultSize;
+        [metrics setHiddenBlock:^BOOL(StreamIndex *index) {
             return ![weakSelf appendable];
         }];
         [metrics setViewAfterSetupBlock:^(StreamItem *item, WLStreamLoadingView *view, id entry) {
@@ -73,19 +75,15 @@
 }
 
 - (void)paginatedSetCompleted:(WLPaginatedSet *)group {
-    if (self.headerAnimated && self.streamView.scrollable) {
-        StreamLayout *layout = self.streamView.layout;
-        CGPoint offset = layout.horizontal ?
-        CGPointMake(self.streamView.contentOffset.x - WLStreamLoadingViewDefaultSize, 0) :
-        CGPointMake(0, self.streamView.contentOffset.y - WLStreamLoadingViewDefaultSize);
-        [self.streamView trySetContentOffset:offset animated:YES];
-        self.loadingView.animating = NO;
-        run_after(0.5, ^{
-            [self reload];
-        });
-    } else {
-        [self paginatedSetChanged:group];
-    }
+    StreamLayout *layout = self.streamView.layout;
+    CGPoint offset = layout.horizontal ?
+    CGPointMake(self.streamView.contentOffset.x - self.loaderMetrics.size, 0) :
+    CGPointMake(0, self.streamView.contentOffset.y - self.loaderMetrics.size);
+    [self.streamView trySetContentOffset:offset animated:YES];
+    self.loadingView.animating = NO;
+    run_after(0.5, ^{
+        [self reload];
+    });
 }
 
 @end

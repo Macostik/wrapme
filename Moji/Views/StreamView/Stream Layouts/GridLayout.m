@@ -106,7 +106,7 @@
     NSInteger column = 0;
     CGFloat offset = [self minimumOffset:&column];
     CGFloat size = self.sizes[column];
-    CGFloat ratio = [[(GridMetrics*)item.metrics ratio] valueAt:item.index];
+    CGFloat ratio = [(GridMetrics*)item.metrics ratioAt:item.index];
     CGRect frame = CGRectMake([self position:column], offset, size, size / ratio);
     self.offsets[column] = CGRectGetMaxY(frame);
     item.frame = frame;

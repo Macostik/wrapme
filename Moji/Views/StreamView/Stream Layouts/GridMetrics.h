@@ -10,6 +10,10 @@
 
 @interface GridMetrics : StreamMetrics
 
-@property (strong, nonatomic) StreamMetricsFloatProperty *ratio;
+@property (nonatomic) IBInspectable CGFloat ratio;
+
+@property (strong, nonatomic) CGFloat(^ratioBlock)(StreamIndex *index);
+
+- (CGFloat)ratioAt:(StreamIndex*)index;
 
 @end

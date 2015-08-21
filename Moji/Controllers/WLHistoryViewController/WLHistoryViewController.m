@@ -150,9 +150,11 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (void)setupBottomViewModeRelatedData:(WLHistoryBottomViewMode)bottomViewMode candy:(WLCandy*)candy {
     if (bottomViewMode == WLHistoryBottomViewModeEditing && candy.editor != nil) {
+        _bottomViewMode = WLHistoryBottomViewModeEditing;
         self.postLabel.text = [NSString stringWithFormat:WLLS(@"formatted_edited_by"), candy.editor.name];
         self.timeLabel.text = candy.editedAt.timeAgoStringAtAMPM;
     } else {
+        _bottomViewMode = WLHistoryBottomViewModeCreating;
         self.postLabel.text = [NSString stringWithFormat:WLLS(@"formatted_photo_by"), candy.contributor.name];
         self.timeLabel.text = candy.createdAt.timeAgoStringAtAMPM;
     }

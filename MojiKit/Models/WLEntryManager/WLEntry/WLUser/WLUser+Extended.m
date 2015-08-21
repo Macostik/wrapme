@@ -53,7 +53,7 @@
 }
 
 - (NSMutableOrderedSet *)sortedWraps {
-    return [[NSMutableOrderedSet orderedSetWithSet:self.wraps] sortByCreatedAt];
+    return [[NSMutableOrderedSet orderedSetWithSet:self.wraps] sortByUpdatedAt];
 }
 
 - (BOOL)isSignupCompleted {

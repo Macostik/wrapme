@@ -59,6 +59,7 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1032,7 +1033,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
                                                                 <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
-                                                                    <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
@@ -1321,7 +1322,7 @@
                                                                         <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
-                                                                        <real key="value" value="96"/>
+                                                                        <real key="value" value="58"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
@@ -1390,8 +1391,13 @@
                                                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgM-hO-gXD">
                                                                 <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <state key="normal" image="ic_photo_placeholder">
+                                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="58"/>
+                                                                <state key="normal" title="t">
+                                                                    <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <state key="highlighted">
+                                                                    <color key="titleColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
                                                                 </state>
                                                                 <connections>
                                                                     <action selector="addPhoto:" destination="L91-fZ-J9O" eventType="touchUpInside" id="9kd-Se-r58"/>
@@ -3418,7 +3424,7 @@ Tap here to start.</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="450" height="600"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
-                                                        <real key="value" value="96"/>
+                                                        <real key="value" value="58"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="defaultIconColor">
@@ -4972,7 +4978,7 @@ QWRkEEZyaWVuZFZpZXc
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
-                                                                                <real key="value" value="96"/>
+                                                                                <real key="value" value="58"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="color" keyPath="defaultIconColor">
                                                                                 <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
@@ -5460,6 +5466,5 @@ QWRkEEZyaWVuZFZpZXc
         <image name="ic_back_in_circle_white" width="30" height="30"/>
         <image name="ic_emoji" width="26" height="26"/>
         <image name="ic_emoji_keyboard" width="30" height="18"/>
-        <image name="ic_photo_placeholder" width="60" height="48"/>
     </resources>
 </document>

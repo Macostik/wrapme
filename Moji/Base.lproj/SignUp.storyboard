@@ -230,6 +230,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="3MH-ja-zjo" firstAttribute="leading" secondItem="v1s-iQ-mYF" secondAttribute="leading" constant="20" id="015-z1-T7z"/>
+                            <constraint firstItem="cYB-ha-wWW" firstAttribute="bottom" secondItem="tCy-Jw-JNH" secondAttribute="bottom" priority="250" id="5B1-T9-0l7"/>
                             <constraint firstItem="fA2-25-iSn" firstAttribute="centerX" secondItem="yjh-go-sqL" secondAttribute="centerX" id="5YQ-hg-eJW"/>
                             <constraint firstAttribute="centerY" secondItem="3MH-ja-zjo" secondAttribute="centerY" constant="38" id="8lp-Jq-8vl"/>
                             <constraint firstItem="DPQ-8Y-05U" firstAttribute="height" secondItem="3MH-ja-zjo" secondAttribute="height" constant="76" id="AmN-28-fQW"/>
@@ -247,7 +248,7 @@
                             <constraint firstItem="yjh-go-sqL" firstAttribute="trailing" secondItem="V11-Xl-ach" secondAttribute="trailing" constant="8" id="dux-df-hP7"/>
                             <constraint firstItem="V11-Xl-ach" firstAttribute="leading" relation="lessThanOrEqual" secondItem="fA2-25-iSn" secondAttribute="trailing" constant="12" id="e9C-Xa-9V3"/>
                             <constraint firstItem="yjh-go-sqL" firstAttribute="bottom" secondItem="DPQ-8Y-05U" secondAttribute="bottom" constant="-20" id="gEu-NE-Oae"/>
-                            <constraint firstItem="cYB-ha-wWW" firstAttribute="top" secondItem="uY6-5G-NXW" secondAttribute="bottom" constant="-20" id="mTX-gn-s6e"/>
+                            <constraint firstItem="cYB-ha-wWW" firstAttribute="top" secondItem="uY6-5G-NXW" secondAttribute="bottom" priority="750" constant="-20" id="mTX-gn-s6e"/>
                             <constraint firstItem="DPQ-8Y-05U" firstAttribute="leading" secondItem="yjh-go-sqL" secondAttribute="leading" constant="-20" id="vfe-qo-l30"/>
                             <constraint firstItem="DPQ-8Y-05U" firstAttribute="top" secondItem="3MH-ja-zjo" secondAttribute="top" id="xQ2-E1-49f"/>
                         </constraints>
@@ -255,7 +256,7 @@
                     <navigationItem key="navigationItem" id="HZb-wB-zXD"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="backgroundTopConstraint" destination="mTX-gn-s6e" id="Hmh-Of-BBI"/>
+                        <outlet property="backgroundAnimationPrioritizer" destination="ZcZ-hW-bGa" id="MTn-cc-fOh"/>
                         <outlet property="backgroundView" destination="cYB-ha-wWW" id="CXE-7b-FjC"/>
                         <outlet property="licenseButton" destination="YBa-zu-GaJ" id="xt7-BX-nBS"/>
                         <outlet property="placeholderView" destination="KJl-bw-KDb" id="VGv-4O-4bc"/>
@@ -264,6 +265,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RZe-hx-2bQ" sceneMemberID="firstResponder"/>
+                <customObject id="ZcZ-hW-bGa" customClass="WLLayoutPrioritizer">
+                    <connections>
+                        <outletCollection property="defaultConstraints" destination="mTX-gn-s6e" id="mp1-1E-k24"/>
+                        <outletCollection property="alternativeConstraints" destination="5B1-T9-0l7" id="GE3-eO-2X8"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="624" y="149"/>
         </scene>

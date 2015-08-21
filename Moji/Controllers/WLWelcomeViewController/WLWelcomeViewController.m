@@ -12,6 +12,7 @@
 #import "WLNavigationHelper.h"
 #import "WLSignupFlowViewController.h"
 #import "WLWelcomeViewController.h"
+#import "WLLayoutPrioritizer.h"
 
 typedef enum : NSUInteger {
     WLFlipDirectionLeft,
@@ -25,7 +26,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
 @property (strong, nonatomic) IBOutlet UIView *placeholderView;
 @property (weak, nonatomic) IBOutlet UITextView *termsAndConditionsTextView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *backgroundTopConstraint;
+@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *backgroundAnimationPrioritizer;
 
 @end
 
@@ -36,23 +37,23 @@ typedef enum : NSUInteger {
     
     [self underlineLicenseButton];
     
-    [self animateBackgroundView:-(self.backgroundView.height - self.view.height + 20) nextOffset:-20];
-    
     [self wrapIntoAttributedString];
     __weak typeof(self)weakSelf = self;
     [UITapGestureRecognizer recognizerWithView:self.termsAndConditionsTextView block:^(UIGestureRecognizer *recognizer) {
         [weakSelf flipAnimationView:WLFlipDirectionLeft];
     }];
+    
+    [weakSelf animateBackgroundView];
 }
 
-- (void)animateBackgroundView:(CGFloat)offset nextOffset:(CGFloat)nextOffset {
+- (void)animateBackgroundView {
     __weak typeof(self)weakSelf = self;
-    weakSelf.backgroundTopConstraint.constant = offset;
-    [UIView animateWithDuration:30 * (self.backgroundView.height / 1500.0f) delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
-        [weakSelf.backgroundView layoutIfNeeded];
+    NSTimeInterval duration = 30 * (self.backgroundView.height / 1500.0f);
+    [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+        weakSelf.backgroundAnimationPrioritizer.defaultState = !weakSelf.backgroundAnimationPrioritizer.defaultState;
     } completion:^(BOOL finished) {
-        if (weakSelf.isTopViewController) {
-            [weakSelf animateBackgroundView:nextOffset nextOffset:offset];
+        if (weakSelf.isTopViewController && finished) {
+            [weakSelf animateBackgroundView];
         }
     }];
 }

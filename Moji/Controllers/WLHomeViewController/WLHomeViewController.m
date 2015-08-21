@@ -89,8 +89,8 @@
             return index.item == 0 ? 70 : 60;
         }];
         
-        [metrics setInsetsBlock:^UIEdgeInsets(StreamIndex *index) {
-            return UIEdgeInsetsMake(index.item == 1 ? 5 : 0, 0, 0, 0);
+        [metrics setInsetsBlock:^CGRect(StreamIndex *index) {
+            return CGRectMake(0, index.item == 1 ? 5 : 0, 0, 0);
         }];
         
         metrics.selectionBlock = ^(id entry) {
@@ -104,7 +104,7 @@
             int size = (streamView.width - 2.0f)/3.0f;;
             return ([weakSelf.homeDataSource.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size) + 5;
         }];
-        [metrics setViewAfterSetupBlock:^(StreamItem *item, id view, id entry) {
+        [metrics setViewWillAppearBlock:^(StreamItem *item, id view, id entry) {
             weakSelf.candiesView = view;
         }];
         [metrics setHiddenBlock:^BOOL(StreamIndex *index) {
@@ -113,8 +113,8 @@
     }]];
     
     [[publicDataSource.metrics lastObject] change:^(StreamMetrics *metrics) {
-        [metrics setInsetsBlock:^UIEdgeInsets(StreamIndex *index) {
-            return UIEdgeInsetsMake(index.item == 0 ? 5 : 0, 0, 0, 0);
+        [metrics setInsetsBlock:^CGRect(StreamIndex *index) {
+            return CGRectMake(0, index.item == 0 ? 5 : 0, 0, 0);
         }];
         metrics.selectionBlock = ^(id entry) {
             [WLChronologicalEntryPresenter presentEntry:entry animated:NO];

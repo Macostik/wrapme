@@ -20,6 +20,8 @@
 
 - (CGFloat)streamView:(StreamView*)streamView layout:(GridLayout*)layout sizeForColumn:(NSInteger)column;
 
+- (CGFloat)streamView:(StreamView*)streamView layoutSpacing:(GridLayout*)layout;
+
 @end
 
 @interface GridLayout : StreamLayout

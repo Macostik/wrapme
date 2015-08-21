@@ -15,8 +15,7 @@
 @class StreamReusableView;
 
 typedef void(^StreamMetricsBlock)(StreamMetrics *metrics);
-typedef void(^StreamMetricsViewBeforeSetupBlock)(StreamItem *item, id view, id entry);
-typedef void(^StreamMetricsViewAfterSetupBlock)(StreamItem *item, id view, id entry);
+typedef void(^StreamMetricsViewWillAppearBlock)(StreamItem *item, id view, id entry);
 
 @interface StreamMetrics : NSObject
 
@@ -32,9 +31,9 @@ typedef void(^StreamMetricsViewAfterSetupBlock)(StreamItem *item, id view, id en
 
 @property (strong, nonatomic) CGFloat(^sizeBlock)(StreamIndex *index);
 
-@property (nonatomic) IBInspectable UIEdgeInsets insets;
+@property (nonatomic) IBInspectable CGRect insets;
 
-@property (strong, nonatomic) UIEdgeInsets(^insetsBlock)(StreamIndex *index);
+@property (strong, nonatomic) CGRect(^insetsBlock)(StreamIndex *index);
 
 @property (strong, nonatomic) WLObjectBlock selectionBlock;
 
@@ -44,9 +43,7 @@ typedef void(^StreamMetricsViewAfterSetupBlock)(StreamItem *item, id view, id en
 
 - (id)viewForItem:(StreamItem*)item inStreamView:(StreamView*)streamView entry:(id)entry;
 
-- (void)setViewBeforeSetupBlock:(StreamMetricsViewBeforeSetupBlock)viewBeforeSetupBlock;
-
-- (void)setViewAfterSetupBlock:(StreamMetricsViewAfterSetupBlock)viewAfterSetupBlock;
+- (void)setViewWillAppearBlock:(StreamMetricsViewWillAppearBlock)viewWillAppearBlock;
 
 - (void)setHiddenBlock:(BOOL (^)(StreamIndex *index))hiddenBlock;
 
@@ -56,8 +53,8 @@ typedef void(^StreamMetricsViewAfterSetupBlock)(StreamItem *item, id view, id en
 
 - (CGFloat)sizeAt:(StreamIndex*)index;
 
-- (void)setInsetsBlock:(UIEdgeInsets (^)(StreamIndex *index))insetsBlock;
+- (void)setInsetsBlock:(CGRect (^)(StreamIndex *index))insetsBlock;
 
-- (UIEdgeInsets)insetsAt:(StreamIndex*)index;
+- (CGRect)insetsAt:(StreamIndex*)index;
 
 @end

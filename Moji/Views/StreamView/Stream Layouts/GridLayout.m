@@ -15,6 +15,8 @@
 
 @property (nonatomic) CGFloat* sizes;
 
+@property (nonatomic) CGFloat spacing;
+
 @end
 
 @implementation GridLayout
@@ -45,7 +47,7 @@
     for (NSInteger index = 1; index <= column; ++index) {
         position += self.sizes[index-1];
     }
-    return position;
+    return position * (self.horizontal ? self.streamView.height : self.streamView.width);
 }
 
 - (CGFloat)minimumOffset:(NSInteger *)column {
@@ -100,15 +102,34 @@
         }
         self.offsets[column] = offset;
     }
+    
+    if ([delegate respondsToSelector:@selector(streamView:layoutSpacing:)]) {
+        self.spacing = [delegate streamView:self.streamView layoutSpacing:self];
+    }
 }
 
 - (StreamItem *)layout:(StreamItem *)item {
     NSInteger column = 0;
     CGFloat offset = [self minimumOffset:&column];
-    CGFloat size = self.sizes[column];
+    CGFloat size = self.sizes[column] * (self.horizontal ? self.streamView.height : self.streamView.width);
     CGFloat ratio = [(GridMetrics*)item.metrics ratioAt:item.index];
+    CGFloat spacing = self.spacing;
+    CGFloat spacing_2 = spacing/2.0f;
     CGRect frame = CGRectMake([self position:column], offset, size, size / ratio);
-    self.offsets[column] = CGRectGetMaxY(frame);
+    if (column == 0) {
+        frame.origin.x += spacing;
+        frame.size.width -= spacing + spacing_2;
+        frame.size.height -= spacing;
+    } else if (column == _numberOfColumns - 1) {
+        frame.origin.x += spacing_2;
+        frame.size.width -= spacing + spacing_2;
+        frame.size.height -= spacing;
+    } else {
+        frame.origin.x += spacing_2;
+        frame.size.width -= spacing;
+        frame.size.height -= spacing;
+    }
+    self.offsets[column] = CGRectGetMaxY(frame) + spacing;
     item.frame = frame;
     return item;
 }

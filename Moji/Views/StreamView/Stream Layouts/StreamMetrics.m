@@ -11,9 +11,7 @@
 
 @interface StreamMetrics ()
 
-@property (strong, nonatomic) StreamMetricsViewBeforeSetupBlock viewBeforeSetupBlock;
-
-@property (strong, nonatomic) StreamMetricsViewAfterSetupBlock viewAfterSetupBlock;
+@property (strong, nonatomic) StreamMetricsViewWillAppearBlock viewWillAppearBlock;
 
 @end
 
@@ -36,15 +34,14 @@
     return self.sizeBlock ? self.sizeBlock(index) : self.size;
 }
 
-- (UIEdgeInsets)insetsAt:(StreamIndex *)index {
+- (CGRect)insetsAt:(StreamIndex *)index {
     return self.insetsBlock ? self.insetsBlock(index) : self.insets;
 }
 
 - (id)viewForItem:(StreamItem *)item inStreamView:(StreamView *)streamView entry:(id)entry {
     StreamReusableView *view = [streamView viewForItem:item];
-    if (self.viewBeforeSetupBlock) self.viewBeforeSetupBlock(item, view, entry);
     view.entry = entry;
-    if (self.viewAfterSetupBlock) self.viewAfterSetupBlock(item, view, entry);
+    if (self.viewWillAppearBlock) self.viewWillAppearBlock(item, view, entry);
     return view;
 }
 

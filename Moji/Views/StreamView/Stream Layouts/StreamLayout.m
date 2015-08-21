@@ -27,7 +27,8 @@
 
 - (StreamItem *)layout:(StreamItem *)item {
     CGFloat size = [item.metrics sizeAt:item.index];
-    item.frame = CGRectMake(0, offset, self.streamView.width, size);
+    CGRect insets = [item.metrics insetsAt:item.index];
+    item.frame = CGRectMake(0 + insets.origin.x, offset + insets.origin.y, self.streamView.width - 2*insets.size.width, size + insets.size.height);
     offset += size;
     return item;
 }

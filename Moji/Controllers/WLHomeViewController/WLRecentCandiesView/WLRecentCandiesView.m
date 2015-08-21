@@ -24,13 +24,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-//    dataSource.minimumLineSpacing = WLCandyCellSpacing;
-//    dataSource.sectionLeftInset = dataSource.sectionRightInset = WLCandyCellSpacing;
     [self.dataSource setNumberOfItemsBlock:^NSUInteger (StreamDataSource *dataSource) {
         return ([dataSource.items count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
     }];
-    GridMetrics *metrics = [self.dataSource.metrics lastObject];
-    metrics.ratio = 1;
+    self.dataSource.layoutSpacing = WLConstants.pixelSize;
 }
 
 - (void)setup:(WLWrap*)wrap {

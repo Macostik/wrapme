@@ -36,7 +36,12 @@
         </view>
         <customObject id="ULh-98-vJk" customClass="StreamDataSource">
             <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLCandyCell"/>
+                <userDefinedRuntimeAttribute type="number" keyPath="numberOfGridColumns">
+                    <integer key="value" value="3"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="sizeForGridColumns">
+                    <real key="value" value="0.33333333300000001"/>
+                </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="streamView" destination="iF2-2y-bMn" id="1cB-iH-48U"/>
@@ -46,6 +51,9 @@
         <customObject id="NX1-5E-Aty" customClass="GridMetrics">
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLCandyCell"/>
+                <userDefinedRuntimeAttribute type="number" keyPath="ratio">
+                    <real key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
         </customObject>
         <customObject id="s9F-j0-NHU" customClass="GridLayout"/>

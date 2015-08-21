@@ -11,8 +11,6 @@
 
 @interface PaginatedStreamDataSource : StreamDataSource
 
-@property (nonatomic) IBInspectable BOOL headerAnimated;
-
 @property (strong, nonatomic) WLPaginatedSet *items;
 
 @property (strong, nonatomic) BOOL (^appendableBlock) (PaginatedStreamDataSource *dataSource);

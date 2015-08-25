@@ -2762,44 +2762,6 @@ Tap here to start.</string>
                                             <constraint firstItem="0SW-P4-yg3" firstAttribute="leading" secondItem="Jsx-br-jyZ" secondAttribute="trailing" constant="5" id="xLH-lp-KZj"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m01-Ic-fcZ" customClass="WLBadgeLabel">
-                                        <rect key="frame" x="136" y="6" width="22" height="16"/>
-                                        <color key="backgroundColor" red="0.79607843137254897" green="0.32549019607843138" blue="0.035294117647058823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="m01-Ic-fcZ" secondAttribute="height" multiplier="1:1" id="Pts-7h-qNF"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="9"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                            <userDefinedRuntimeAttribute type="size" keyPath="intrinsicContentSizeInsets">
-                                                <size key="value" width="10" height="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hbe-14-d1d" customClass="WLBadgeLabel">
-                                        <rect key="frame" x="331" y="6" width="22" height="16"/>
-                                        <color key="backgroundColor" red="0.79607843137254897" green="0.32549019607843138" blue="0.035294117647058823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="Hbe-14-d1d" secondAttribute="height" multiplier="1:1" id="rNy-Bm-L0i"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="9"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                            <userDefinedRuntimeAttribute type="size" keyPath="intrinsicContentSizeInsets">
-                                                <size key="value" width="10" height="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p00-Ic-UNa" userLabel="FriendButton" customClass="WLButton">
                                         <rect key="frame" x="400" y="0.0" width="200" height="44"/>
                                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
@@ -2856,6 +2818,44 @@ Tap here to start.</string>
                                             <constraint firstAttribute="height" constant="4" id="nHt-zD-59m"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m01-Ic-fcZ" customClass="WLBadgeLabel">
+                                        <rect key="frame" x="136" y="6" width="22" height="16"/>
+                                        <color key="backgroundColor" red="0.79607843137254897" green="0.32549019607843138" blue="0.035294117647058823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="m01-Ic-fcZ" secondAttribute="height" multiplier="1:1" id="Pts-7h-qNF"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="9"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="intrinsicContentSizeInsets">
+                                                <size key="value" width="10" height="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hbe-14-d1d" customClass="WLBadgeLabel">
+                                        <rect key="frame" x="331" y="6" width="22" height="16"/>
+                                        <color key="backgroundColor" red="0.79607843137254897" green="0.32549019607843138" blue="0.035294117647058823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="Hbe-14-d1d" secondAttribute="height" multiplier="1:1" id="rNy-Bm-L0i"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="9"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="intrinsicContentSizeInsets">
+                                                <size key="value" width="10" height="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>

@@ -440,7 +440,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (IBAction)editPhoto:(id)sender {
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
-        WLCandy *candy = weakSelf.candy;
+        __weak WLCandy *candy = weakSelf.candy;
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
             [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
                 [candy editWithImage:image];
@@ -454,7 +454,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (IBAction)draw:(id)sender {
     __weak __typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
-        WLCandy *candy = weakSelf.candy;
+        __weak WLCandy *candy = weakSelf.candy;
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
             [WLDrawingViewController draw:image inViewController:weakSelf finish:^(UIImage *image) {
                 [candy editWithImage:image];

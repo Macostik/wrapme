@@ -35,7 +35,7 @@
     __weak typeof(self)weakSelf = self;
     if (!self.disableMenu) {
         [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu, BOOL *vibrate) {
-            WLCandy* candy = weakSelf.entry;
+            __weak WLCandy* candy = weakSelf.entry;
             
             [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
                 [menu addEditPhotoItem:^(WLCandy *candy) {

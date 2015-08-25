@@ -437,7 +437,7 @@
 /* Class = "UIButton"; normalTitle = "L"; ObjectID = "vPv-49-SfA"; */
 "vPv-49-SfA.normalTitle" = "L";
 
-/* Class = "UILabel"; text = "Public - followers can see all content"; ObjectID = "vRa-xU-fCg"; */
+/* Class = "UILabel"; text = "Публичный - подписчики могут видеть все содержимое"; ObjectID = "vRa-xU-fCg"; */
 "vRa-xU-fCg.text" = "Публичный - подписчики могут видеть все содержимое";
 
 /* Class = "UIButton"; normalTitle = "L"; ObjectID = "vSX-H6-ha3"; */

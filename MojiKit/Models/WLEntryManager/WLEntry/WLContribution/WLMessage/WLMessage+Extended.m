@@ -31,7 +31,7 @@
 }
 
 - (void)prepareForDeletion {
-    [self.wrap removeMessage:self];
+    [self.wrap removeMessagesObject:self];
     [super prepareForDeletion];
 }
 

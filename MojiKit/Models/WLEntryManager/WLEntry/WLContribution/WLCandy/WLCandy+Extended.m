@@ -28,7 +28,6 @@
 + (instancetype)candyWithType:(NSInteger)type wrap:(WLWrap*)wrap {
     WLCandy* candy = [self contribution];
     candy.type = type;
-    [wrap addCandy:candy];
     return candy;
 }
 
@@ -80,16 +79,8 @@
     }
 }
 
-- (BOOL)isCandyOfType:(NSInteger)type {
-    return self.type == type;
-}
-
-- (BOOL)belongsToWrap:(WLWrap *)wrap {
-    return self.wrap == wrap;
-}
-
 - (void)prepareForDeletion {
-    [self.wrap removeCandy:self];
+    [self.wrap removeCandiesObject:self];
     [super prepareForDeletion];
 }
 
@@ -102,7 +93,6 @@
     [self addCommentsObject:comment];
     [self touch];
     [comment notifyOnAddition:^(id object) {
-        
     }];
 }
 

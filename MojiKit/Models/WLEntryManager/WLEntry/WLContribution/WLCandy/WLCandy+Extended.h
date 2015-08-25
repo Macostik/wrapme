@@ -14,10 +14,6 @@ static NSInteger WLCandyTypeImage = 10;
 
 + (instancetype)candyWithType:(NSInteger)type wrap:(WLWrap*)wrap;
 
-- (BOOL)isCandyOfType:(NSInteger)type;
-
-- (BOOL)belongsToWrap:(WLWrap *)wrap;
-
 - (void)addComment:(WLComment *)comment;
 
 - (void)removeComment:(WLComment *)comment;

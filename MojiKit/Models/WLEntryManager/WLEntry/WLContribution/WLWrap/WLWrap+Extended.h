@@ -22,15 +22,7 @@ static NSUInteger WLWrapNameLimit = 190;
 
 - (NSString*)contributorNames;
 
-- (void)addCandy:(WLCandy *)candy;
-
-- (void)removeCandy:(WLCandy *)candy;
-
-- (void)removeMessage:(WLMessage *)message;
-
-- (BOOL)containsCandy:(WLCandy *)candy;
-
-- (id)uploadMessage:(NSString*)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure;
+- (void)uploadMessage:(NSString*)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure;
 
 - (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 

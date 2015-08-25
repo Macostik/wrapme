@@ -104,35 +104,11 @@
     return [self contributorNamesWithYouAndAmount:3];
 }
 
-- (void)addCandy:(WLCandy *)candy {
-    NSSet *candies = self.candies;
-    if (!candy || [candies containsObject:candy]) {
-        return;
-    }
-    __weak typeof(self)weakSelf = self;
-	[candy notifyOnAddition:^(id object) {
-        [weakSelf addCandiesObject:candy];
-        [weakSelf touch];
-    }];
-}
-
-- (BOOL)containsCandy:(WLCandy *)candy {
-    return [candy belongsToWrap:self];
-}
-
 - (WLPicture *)picture {
     return [[[[self.candies allObjects] sortByUpdatedAt] firstObject] picture];
 }
 
-- (void)removeCandy:(WLCandy *)candy {
-    [self removeCandiesObject:candy];
-}
-
-- (void)removeMessage:(WLMessage *)message {
-    [self removeMessagesObject:message];
-}
-
-- (id)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
+- (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
 	__weak WLMessage* message = [WLMessage contribution];
     __weak typeof(self)weakSelf = self;
     [message notifyOnAddition:^(id object) {
@@ -141,16 +117,19 @@
         message.text = text;
     }];
     [WLUploadingQueue upload:[WLUploading uploading:message] success:success failure:failure];
-    return message;
 }
 
 - (void)uploadPicture:(WLEditPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     WLCandy* candy = [WLCandy candyWithType:WLCandyTypeImage wrap:self];
     candy.picture = [picture uploadablePictureWithAnimation:YES];
     if (picture.comment.nonempty) {
-        WLComment *comment = [WLComment comment:picture.comment];
-        [candy addComment:comment];
+        [candy addCommentsObject:[WLComment comment:picture.comment]];
     }
+    __weak typeof(self)weakSelf = self;
+    [candy notifyOnAddition:^(id object) {
+        [weakSelf addCandiesObject:candy];
+        [weakSelf touch];
+    }];
     [WLUploadingQueue upload:[WLUploading uploading:candy] success:success failure:failure];
 }
 

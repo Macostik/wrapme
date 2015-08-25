@@ -1802,8 +1802,8 @@ Tap here to start.</string>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HmL-mc-hV3">
-                                        <rect key="frame" x="282" y="23" width="36" height="36"/>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
+                                        <rect key="frame" x="276" y="17" width="48" height="48"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="48"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -3785,31 +3785,37 @@ Check your internet connection and try again.</string>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray" translatesAutoresizingMaskIntoConstraints="NO" id="4K2-SA-FYq">
-                                                            <rect key="frame" x="12" y="101" width="272" height="1"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XG0-vr-N1L" customClass="WLSeparatorView">
+                                                            <rect key="frame" x="0.0" y="101" width="296" height="1"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="1" id="IHU-Ba-od9"/>
+                                                                <constraint firstAttribute="height" constant="1" id="CsA-9a-L8Z"/>
                                                             </constraints>
-                                                        </imageView>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                                    <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstItem="4K2-SA-FYq" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="12" id="5Gh-XL-j2K"/>
+                                                    <constraint firstAttribute="bottom" secondItem="XG0-vr-N1L" secondAttribute="bottom" id="6DH-Fh-XnW"/>
                                                     <constraint firstAttribute="trailing" secondItem="H8X-L5-O9h" secondAttribute="trailing" constant="12" id="CNV-oI-Sfh"/>
                                                     <constraint firstItem="B1Y-FB-4KE" firstAttribute="top" secondItem="Qr8-ly-WYg" secondAttribute="top" constant="12" id="EgV-ho-Zxa"/>
                                                     <constraint firstItem="70w-oo-mtg" firstAttribute="top" secondItem="Qr8-ly-WYg" secondAttribute="top" constant="12" id="Img-6Q-XwW"/>
                                                     <constraint firstItem="H8X-L5-O9h" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="72" id="K45-U1-frf"/>
                                                     <constraint firstItem="641-7R-EdV" firstAttribute="top" secondItem="H8X-L5-O9h" secondAttribute="bottom" id="NPc-wH-8EA"/>
+                                                    <constraint firstAttribute="trailing" secondItem="XG0-vr-N1L" secondAttribute="trailing" id="SY5-cy-BKd"/>
                                                     <constraint firstAttribute="trailing" secondItem="641-7R-EdV" secondAttribute="trailing" constant="12" id="UYB-jE-VJx"/>
-                                                    <constraint firstAttribute="trailing" secondItem="4K2-SA-FYq" secondAttribute="trailing" constant="12" id="WaU-1f-lXv"/>
                                                     <constraint firstItem="i2e-Xd-doh" firstAttribute="leading" secondItem="B1Y-FB-4KE" secondAttribute="trailing" constant="12" id="Z22-zx-Uxq"/>
-                                                    <constraint firstAttribute="bottom" secondItem="4K2-SA-FYq" secondAttribute="bottom" id="Zo1-1J-4ds"/>
                                                     <constraint firstItem="H8X-L5-O9h" firstAttribute="top" secondItem="70w-oo-mtg" secondAttribute="bottom" id="Zsw-c0-xVS"/>
                                                     <constraint firstAttribute="trailing" secondItem="70w-oo-mtg" secondAttribute="trailing" constant="12" id="e3g-Ha-fD3"/>
                                                     <constraint firstItem="B1Y-FB-4KE" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="12" id="iPj-za-Rp2"/>
                                                     <constraint firstItem="H8X-L5-O9h" firstAttribute="top" secondItem="i2e-Xd-doh" secondAttribute="top" constant="-7" id="oUU-T4-ZqE"/>
+                                                    <constraint firstItem="XG0-vr-N1L" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" id="qul-pN-SF6"/>
                                                     <constraint firstItem="70w-oo-mtg" firstAttribute="leading" secondItem="B1Y-FB-4KE" secondAttribute="trailing" constant="12" id="rZv-rQ-i2q"/>
                                                     <constraint firstAttribute="bottom" secondItem="641-7R-EdV" secondAttribute="bottom" constant="12" id="rlL-fj-Z6w"/>
                                                     <constraint firstItem="641-7R-EdV" firstAttribute="leading" secondItem="Qr8-ly-WYg" secondAttribute="leading" constant="72" id="rqn-ad-t4E"/>
@@ -5496,7 +5502,6 @@ QWRkEEZyaWVuZFZpZXc
         <image name="btn_wrap_camera_enabled" width="84" height="84"/>
         <image name="btn_wrap_camera_pressed" width="84" height="84"/>
         <image name="camera_medium" width="50" height="50"/>
-        <image name="horizontal_separator_gray" width="1" height="1"/>
         <image name="ic_emoji" width="26" height="26"/>
         <image name="ic_emoji_keyboard" width="30" height="18"/>
     </resources>

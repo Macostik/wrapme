@@ -12,7 +12,7 @@
 @interface WLAssetCell()
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIImageView *acceptView;
+@property (weak, nonatomic) IBOutlet UIView *acceptView;
 
 @end
 

@@ -16,19 +16,19 @@
 
 - (void)drawRect:(CGRect)rect {
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
-	
+    CGSize size = self.frame.size;
 	if (self.contentMode == UIViewContentModeTop) {
 		CGContextMoveToPoint(ctx, 0, 0);
-		CGContextAddLineToPoint(ctx, self.frame.size.width, 0);
+		CGContextAddLineToPoint(ctx, size.width, 0);
 	} else if (self.contentMode == UIViewContentModeLeft) {
 		CGContextMoveToPoint(ctx, 0, 0);
-		CGContextAddLineToPoint(ctx, 0, self.frame.size.height);
+		CGContextAddLineToPoint(ctx, 0, size.height);
 	} else if (self.contentMode == UIViewContentModeRight) {
-		CGContextMoveToPoint(ctx, self.frame.size.width, 0);
-		CGContextAddLineToPoint(ctx, self.frame.size.width, self.frame.size.height);
+		CGContextMoveToPoint(ctx, size.width, 0);
+		CGContextAddLineToPoint(ctx, size.width, size.height);
 	} else {
-		CGContextMoveToPoint(ctx, 0, self.frame.size.height);
-		CGContextAddLineToPoint(ctx, self.frame.size.width, self.frame.size.height);
+		CGContextMoveToPoint(ctx, 0, size.height);
+		CGContextAddLineToPoint(ctx, size.width, self.frame.size.height);
 	}
 	
 	CGContextSetStrokeColorWithColor(ctx, self.color.CGColor);

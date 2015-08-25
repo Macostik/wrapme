@@ -210,11 +210,9 @@ static NSDate *_historyDate;
 }
 
 - (void)setHistoryDate:(NSDate *)historyDate {
-    if (historyDate) {
-        _historyDate = historyDate;
-        [self setObject:historyDate forKey:@"historyDate"];
-        [self enqueueSynchronize];
-    }
+    _historyDate = historyDate;
+    [self setObject:historyDate forKey:@"historyDate"];
+    [self enqueueSynchronize];
 }
 
 // MARK: - handledNotifications

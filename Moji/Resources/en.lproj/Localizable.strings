@@ -106,7 +106,7 @@
 
 "sign_out" = "Sign out";
 
-"sign_out_confirmation" = "Are you sure you want to sign out?";
+"sign_out_confirmation" = "Are you sure you want to erase all content and sign out?";
 
 "downloading_photo" = "Downloading the photo now. It'll be in \"%@\" album momentarily.";
 

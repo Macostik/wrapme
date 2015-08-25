@@ -80,6 +80,8 @@
 		5BDCA8821B394C2F00C4AB3E /* NoMessagePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDCA87D1B394C2F00C4AB3E /* NoMessagePlaceholderView.xib */; };
 		5BF1B23B1A49A683000BB2C1 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
 		5BF1B2431A49A683000BB2C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
+		5BF85BAF1B8C774C000215C9 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF85BAE1B8C774C000215C9 /* icons.ttf */; };
+		5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BF85BAE1B8C774C000215C9 /* icons.ttf */; };
 		C500983F1AFCCC6400729DA4 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C500983D1AFCCC6400729DA4 /* WLCommentCell.m */; };
 		C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C500983D1AFCCC6400729DA4 /* WLCommentCell.m */; };
 		C50099481ADFCC250064CC7B /* WLHistoryItemDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C50099441ADFCC250064CC7B /* WLHistoryItemDataSource.m */; };
@@ -862,12 +864,6 @@
 		C5B993CD1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B993CB1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m */; };
 		C5BAD1341B53F9C60028FCEB /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BAD1311B53F9C60028FCEB /* WLAlertView.m */; };
 		C5BAD1361B53F9C60028FCEB /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BAD1311B53F9C60028FCEB /* WLAlertView.m */; };
-		C5BBA1AF1B7E220300451128 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5BBA1AE1B7E220300451128 /* icons.ttf */; };
-		C5BBA1B01B7E220300451128 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5BBA1AE1B7E220300451128 /* icons.ttf */; };
-		C5BBA1B11B7E220300451128 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5BBA1AE1B7E220300451128 /* icons.ttf */; };
-		C5BBA1B21B7E220300451128 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5BBA1AE1B7E220300451128 /* icons.ttf */; };
-		C5BBA1B31B7E220300451128 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5BBA1AE1B7E220300451128 /* icons.ttf */; };
-		C5BBA1B41B7E220300451128 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5BBA1AE1B7E220300451128 /* icons.ttf */; };
 		C5BCAC401B2EDF2300080650 /* WLWKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */; };
 		C5BCAC411B2EDF2300080650 /* WLWKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */; };
 		C5BCEFFA1B551B7B00E4AD6D /* WLChatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFD71B551B7B00E4AD6D /* WLChatLayout.m */; };
@@ -1282,6 +1278,7 @@
 		5BD782D11A4EC56F0094BEE5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLConfirmView.strings; sourceTree = "<group>"; };
 		5BDCA87D1B394C2F00C4AB3E /* NoMessagePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoMessagePlaceholderView.xib; sourceTree = "<group>"; };
 		5BF1B2481A49A683000BB2C1 /* MojiToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MojiToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BF85BAE1B8C774C000215C9 /* icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.ttf; sourceTree = "<group>"; };
 		AC00A4C519095E9800EE6EDA /* WLChangeProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLChangeProfileViewController.h; path = WLChangeProfileViewController/WLChangeProfileViewController.h; sourceTree = "<group>"; };
 		AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLChangeProfileViewController.m; path = WLChangeProfileViewController/WLChangeProfileViewController.m; sourceTree = "<group>"; };
 		AC1A179C1937694B002B3737 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1977,7 +1974,6 @@
 		C5B993CB1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKInterfaceController+SimplifiedTextInput.m"; sourceTree = "<group>"; };
 		C5BAD1301B53F9C60028FCEB /* WLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAlertView.h; sourceTree = "<group>"; };
 		C5BAD1311B53F9C60028FCEB /* WLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAlertView.m; sourceTree = "<group>"; };
-		C5BBA1AE1B7E220300451128 /* icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.ttf; sourceTree = "<group>"; };
 		C5BCAC3E1B2EDF2300080650 /* WLWKAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKAlertController.h; sourceTree = "<group>"; };
 		C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKAlertController.m; sourceTree = "<group>"; };
 		C5BCEFD61B551B7B00E4AD6D /* WLChatLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChatLayout.h; sourceTree = "<group>"; };
@@ -2562,7 +2558,7 @@
 		12E3DA4318E049C300DBDB79 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C5BBA1AE1B7E220300451128 /* icons.ttf */,
+				5BF85BAE1B8C774C000215C9 /* icons.ttf */,
 				14AE4FEE19700B23002EEF3F /* Sounds */,
 				12D578C619178C3400586995 /* iTunesArtwork */,
 				121B1B2F18E0749F001F585C /* Property Lists */,
@@ -5407,7 +5403,6 @@
 				C506460F1ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */,
 				C54C56811B1E0B1400CA4B12 /* Localizable.strings in Resources */,
 				5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */,
-				C5BBA1B11B7E220300451128 /* icons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5420,7 +5415,6 @@
 				C50646101ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */,
 				C54C56821B1E0B1400CA4B12 /* Localizable.strings in Resources */,
 				5BF1B2431A49A683000BB2C1 /* Images.xcassets in Resources */,
-				C5BBA1B21B7E220300451128 /* icons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5433,7 +5427,6 @@
 				C5DB9F441ADD6CD800A21E42 /* CoreData.xcdatamodeld in Resources */,
 				C5B993C51B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */,
 				C50646371ABD815200CB4BE3 /* WatchImages.xcassets in Resources */,
-				C5BBA1B31B7E220300451128 /* icons.ttf in Resources */,
 				C54086991AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C54086971AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
 				C5B993C71B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */,
@@ -5487,7 +5480,6 @@
 				C55908751B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
-				C5BBA1AF1B7E220300451128 /* icons.ttf in Resources */,
 				C5AE8DA31B7B350D003CC6D4 /* WLHottestMojiHeader.xib in Resources */,
 				C54AF53619B8C437006F7EDB /* WLEmojiView.xib in Resources */,
 				5BBAB3A71AAA002400CE6252 /* Camera.storyboard in Resources */,
@@ -5508,6 +5500,7 @@
 				5BA6AA431A66779D00493582 /* Localizable.strings in Resources */,
 				C54AF54A19B8C437006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C560B1701AE6A19A0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
+				5BF85BAF1B8C774C000215C9 /* icons.ttf in Resources */,
 				C55908EF1B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5543,7 +5536,6 @@
 				C55908771B185F9D001CB99F /* Introduction.storyboard in Resources */,
 				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
-				C5BBA1B01B7E220300451128 /* icons.ttf in Resources */,
 				C5AE8DA41B7B350D003CC6D4 /* WLHottestMojiHeader.xib in Resources */,
 				C54AF73019B8C491006F7EDB /* WLEmojiView.xib in Resources */,
 				5BBAB3A91AAA002400CE6252 /* Camera.storyboard in Resources */,
@@ -5564,6 +5556,7 @@
 				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,
 				C54AF74419B8C491006F7EDB /* WLSplashLoadingView.xib in Resources */,
 				C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
+				5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */,
 				C55908F11B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5584,7 +5577,6 @@
 				C5B993C61B302E73002BCC8C /* WLWKChatReplyPresets.plist in Resources */,
 				C54086A11AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
 				C5E54B471ACBF9B100444F7B /* WatchImages.xcassets in Resources */,
-				C5BBA1B41B7E220300451128 /* icons.ttf in Resources */,
 				C5B993C81B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */,
 				C540869F1AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
 				C54C56841B1E0B1500CA4B12 /* Localizable.strings in Resources */,

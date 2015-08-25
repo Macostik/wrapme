@@ -178,7 +178,7 @@
 "sign_out" = "Выход";
 
 /* (No Commment) */
-"sign_out_confirmation" = "Вы уверены, что хотите выйти?";
+"sign_out_confirmation" = "Вы уверены, что хотите очистить кеш и выйти?";
 
 /* (No Commment) */
 "terms_and_conditions" = "Сроки и условия";

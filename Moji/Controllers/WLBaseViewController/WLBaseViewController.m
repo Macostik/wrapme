@@ -34,18 +34,18 @@
 }
 
 - (void)viewDidLoad {
-    [self viewDidLoad:YES];
-}
-
-- (void)viewDidLoad:(BOOL)resize {
     [super viewDidLoad];
     self.screenName = NSStringFromClass([self class]);
     self.keyboardAdjustmentAnimated = YES;
-    if (resize) {
+    if ([self shouldResizeViewWithScreenBounds]) {
         self.view.frame = [UIWindow mainWindow].bounds;
         [self.view layoutIfNeeded];
     }
     [[WLKeyboard keyboard] addReceiver:self];
+}
+
+- (BOOL)shouldResizeViewWithScreenBounds {
+    return YES;
 }
 
 - (NSMapTable *)keyboardAdjustmentDefaultConstants {

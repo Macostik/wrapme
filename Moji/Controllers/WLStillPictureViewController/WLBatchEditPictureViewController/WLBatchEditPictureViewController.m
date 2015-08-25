@@ -205,6 +205,7 @@
 // MARK: - Actions
 
 - (IBAction)upload:(id)sender {
+    self.picture.comment = self.composeBar.text;
     NSArray *pictures = [self.pictures selects:^BOOL(WLEditPicture *picture) {
         return ![picture deleted];
     }];
@@ -279,6 +280,10 @@
 - (void)composeBarDidChangeText:(WLComposeBar *)composeBar {
     self.picture.comment = composeBar.text;
     [self.dataSource reload];
+}
+
+- (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
+    self.picture.comment = composeBar.text;
 }
 
 - (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {

@@ -13,46 +13,33 @@
 #import "WLButton.h"
 #import "WLDeviceOrientationBroadcaster.h"
 
-@implementation WLMenuItem @end
+@class WLMenuItem;
 
-@interface WlMenuItemButton : WLButton
+@interface WLMenuItem : WLButton
 
-@property (weak, nonatomic) WLMenuItem* item;
-
-+ (WlMenuItemButton*)buttonWithItem:(WLMenuItem*)item;
+@property (strong, nonatomic) WLObjectBlock block;
 
 @end
 
-@implementation WlMenuItemButton
+@implementation WLMenuItem
 
-+ (id)buttonWithType:(UIButtonType)buttonType {
-    WlMenuItemButton *button = [super buttonWithType:buttonType];
-    return button;
-}
-
-+ (WlMenuItemButton *)buttonWithItem:(WLMenuItem *)item {
-    WlMenuItemButton* button = [WlMenuItemButton buttonWithType:UIButtonTypeCustom];
-    button.item = item;
-    button.frame = CGRectMake(0, 0, 38, 38);
-    button.clipsToBounds = NO;
-    [button setBackgroundImage:[UIImage imageNamed:@"bg_menu_btn"] forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont fontWithName:@"icons" size:21];
-    [button setTitle:item.text forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleColor:WLColors.grayLight forState:UIControlStateHighlighted];
-    button.layer.cornerRadius = button.bounds.size.width/2;
-    return button;
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.frame = CGRectMake(0, 0, 38, 38);
+        self.clipsToBounds = NO;
+        [self setBackgroundImage:[UIImage imageNamed:@"bg_menu_btn"] forState:UIControlStateNormal];
+        self.titleLabel.font = [UIFont fontWithName:@"icons" size:21];
+        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self setTitleColor:WLColors.grayLight forState:UIControlStateHighlighted];
+        self.layer.cornerRadius = self.bounds.size.width/2;
+    }
+    return self;
 }
 
 @end
 
 @interface WLMenu ()
-
-@property (strong, nonatomic) NSMutableArray* items;
-
-@property (strong, nonatomic) NSArray* buttons;
-
-@property (weak, nonatomic) UILongPressGestureRecognizer* longPressGestureRecognizer;
 
 @property (nonatomic) CGPoint centerPoint;
 
@@ -76,7 +63,6 @@
     self = [super init];
     if (self) {
         self.views = [NSMapTable strongToWeakObjectsMapTable];
-        self.items = [NSMutableArray array];
         self.backgroundColor = [UIColor clearColor];
         self.alpha = 0.0f;
         [self setFullFlexible];
@@ -138,28 +124,19 @@
     
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
     self.currentView = view;
-    [self.items removeAllObjects];
-    [self.buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     WLMenuConfiguration configuration = [self configurationForView:view];
     
     self.entry = nil;
+    self.vibrate = YES;
+    
     if (configuration) {
-        BOOL vibrate = YES;
-        self.entry = configuration(self, &vibrate);
+        configuration(self);
         
-        if (!self.items.nonempty) return;
+        if (!self.subviews.nonempty) return;
         
-        if (vibrate) AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        
-        __weak typeof(self)weakSelf = self;
-        self.buttons = [self.items map:^id(WLMenuItem* item) {
-            WlMenuItemButton* button = [WlMenuItemButton buttonWithItem:item];
-            [self addSubview:button];
-            [button addTarget:self action:@selector(selectedItem:) forControlEvents:UIControlEventTouchUpInside];
-            button.center = weakSelf.centerPoint;
-            return button;
-        }];
+        if (self.vibrate) AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         
         [self setHidden:NO animated:animated];
     }
@@ -169,7 +146,7 @@
     __weak typeof(self)weakSelf = self;
 
     void (^showBlock)(void) = ^{
-        CGFloat count = [weakSelf.items count];
+        CGFloat count = [weakSelf.subviews count];
         CGFloat range = (M_PI_4)*count;
         CGFloat delta = -M_PI_2;
         if (weakSelf.centerPoint.x >= 2*self.width/3) {
@@ -178,7 +155,8 @@
             delta -= range/2;
         }
         CGFloat radius = 60;
-        [weakSelf.buttons enumerateObjectsUsingBlock:^(UIView* subview, NSUInteger idx, BOOL *stop) {
+        
+        [weakSelf.subviews enumerateObjectsUsingBlock:^(WLMenuItem* item, NSUInteger idx, BOOL *stop) {
             CGFloat angle = 0;
             if (count > 1) {
                 angle = range*((float)idx/(count - 1)) + delta;
@@ -186,24 +164,23 @@
                 angle = delta;
             }
             
-            CGPoint center = subview.center;
+            CGPoint center = item.center;
 //          center.x = Smoothstep(subview.width/2, superview.width - subview.width/2, center.x + radius*cosf(angle));;
 //          center.y = Smoothstep(subview.height/2, superview.height - subview.height/2, center.y + radius*sinf(angle));
             center.x = center.x + radius*cosf(angle);
             center.y = center.y + radius*sinf(angle);
-            subview.center = center;
+            item.center = center;
         }];
     };
     
     void (^hideBlock)(void) = ^{
-        [weakSelf.buttons enumerateObjectsUsingBlock:^(UIView* subview, NSUInteger idx, BOOL *stop) {
-            subview.center = weakSelf.centerPoint;
-        }];
+        for (WLMenuItem *item in weakSelf.subviews) {
+            item.center = weakSelf.centerPoint;
+        }
     };
     
     void (^hideCompletionBlock)(BOOL) = ^(BOOL finished){
-        [weakSelf.items removeAllObjects];
-        [weakSelf.buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [weakSelf.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         [weakSelf removeFromSuperview];
     };
     
@@ -238,16 +215,13 @@
     }
 }
 
-- (WLMenuItem *)addItem:(WLObjectBlock)block {
-    if (!self.items) self.items = [NSMutableArray array];
+- (void)addItemWithText:(NSString*)text block:(WLObjectBlock)block {
     WLMenuItem* item = [[WLMenuItem alloc] init];
+    [item setTitle:text forState:UIControlStateNormal];
+    [self addSubview:item];
+    [item addTarget:self action:@selector(selectedItem:) forControlEvents:UIControlEventTouchUpInside];
+    item.center = self.centerPoint;
     item.block = block;
-    [self.items addObject:item];
-    return item;
-}
-
-- (void)addItemWithText:(NSString*)text block:(WLObjectBlock)block; {
-    [self addItem:block].text = text;
 }
 
 - (void)present:(UILongPressGestureRecognizer*)sender {
@@ -256,8 +230,8 @@
 	}
 }
 
-- (void)selectedItem:(WlMenuItemButton*)sender {
-    WLObjectBlock block = sender.item.block;
+- (void)selectedItem:(WLMenuItem*)sender {
+    WLObjectBlock block = sender.block;
     if (self.entry) {
         if (block) block(self.entry);
     }

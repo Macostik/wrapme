@@ -76,5 +76,10 @@
 	<true/>
 	<key>URLScheme</key>
 	<string>moji</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 </dict>
 </plist>

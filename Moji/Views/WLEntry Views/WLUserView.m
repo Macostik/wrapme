@@ -17,8 +17,6 @@
     avatarView.layer.borderWidth = WLConstants.pixelSize * 2.0f;
     avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
     avatarView.circled = YES;
-    [avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateEmpty];
-    [avatarView setImageName:@"default-small-avatar" forState:WLImageViewStateFailed];
     self.entry = [WLUser currentUser];
     [[WLUser notifier] addReceiver:self];
 }

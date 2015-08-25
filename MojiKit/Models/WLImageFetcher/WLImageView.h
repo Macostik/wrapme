@@ -10,13 +10,17 @@
 
 @class WLPicture;
 
-typedef NS_ENUM(NSUInteger, WLImageViewState) {
-    WLImageViewStateDefault,
-    WLImageViewStateFailed,
-    WLImageViewStateEmpty
-};
-
 @interface WLImageView : UIImageView
+
+@property (strong, nonatomic) IBOutlet UILabel *defaultIconView;
+
+@property (nonatomic) IBInspectable CGFloat defaultIconSize;
+
+@property (strong, nonatomic) IBInspectable NSString *defaultIconText;
+
+@property (strong, nonatomic) IBInspectable UIColor *defaultIconColor;
+
+@property (strong, nonatomic) IBInspectable UIColor *defaultBackgroundColor;
 
 @property (nonatomic) NSString* url;
 
@@ -25,12 +29,6 @@ typedef NS_ENUM(NSUInteger, WLImageViewState) {
 @property (strong, nonatomic) WLImageFetcherBlock success;
 
 @property (strong, nonatomic) WLFailureBlock failure;
-
-@property (nonatomic) WLImageViewState state;
-
-- (void)setContentMode:(UIViewContentMode)contentMode forState:(WLImageViewState)state;
-
-- (void)setImageName:(NSString *)imageName forState:(WLImageViewState)state;
 
 - (void)setUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure;
 

@@ -53,11 +53,9 @@
 	self.nameLabel.text = [phoneNumber priorityName];
     NSString *url = phoneNumber.priorityPicture.small;
     if (self.signUpView && !self.signUpView.hidden && !url.nonempty) {
-        [self.avatarView setImageName:@"default-medium-avatar-orange" forState:WLImageViewStateEmpty];
-        [self.avatarView setImageName:@"default-medium-avatar-orange" forState:WLImageViewStateFailed];
+        self.avatarView.defaultBackgroundColor = WLColors.orange;
     } else {
-        [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
-        [self.avatarView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
+        self.avatarView.defaultBackgroundColor = WLColors.grayLighter;
     }
     self.avatarView.url = url;
 	

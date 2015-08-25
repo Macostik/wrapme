@@ -55,9 +55,6 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 - (void)awakeFromNib {
 	[super awakeFromNib];
     
-    [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
-    [self.coverView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
-    
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panning:)];
     panGestureRecognizer.delegate = self;
     [self.nameLabel.superview addGestureRecognizer:panGestureRecognizer];

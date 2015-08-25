@@ -80,12 +80,6 @@
     }
 }
 
-- (void)touch:(NSDate *)date {
-    [super touch:date];
-    WLWrap* wrap = self.wrap;
-    [wrap touch:date];
-}
-
 - (BOOL)isCandyOfType:(NSInteger)type {
     return self.type == type;
 }

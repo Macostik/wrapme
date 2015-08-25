@@ -13,12 +13,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    WLImageView *avatarView = self.coverView;
-    avatarView.layer.borderWidth = WLConstants.pixelSize * 2.0f;
-    avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
-    avatarView.circled = YES;
-    [avatarView setImageName:@"default-small-cover" forState:WLImageViewStateEmpty];
-    [avatarView setImageName:@"default-small-cover" forState:WLImageViewStateFailed];
+    self.coverView.circled = YES;
     [[WLWrap notifier] addReceiver:self];
 }
 

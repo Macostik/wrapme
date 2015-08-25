@@ -34,10 +34,7 @@
     self.commenttextView.textContainerInset = UIEdgeInsetsZero;
     self.commenttextView.textContainer.lineFragmentPadding = .0f;
     
-    [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
-    [self.authorImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
-    
-    [[WLMenu sharedMenu] addView:self configuration:^WLEntry *(WLMenu *menu, BOOL *vibrate) {
+    [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
         WLComment* comment = weakSelf.entry;
         if (comment.deletable) {
             [menu addDeleteItem:^(WLComment *comment) {
@@ -55,7 +52,7 @@
                 [[UIPasteboard generalPasteboard] setValue:comment.text forPasteboardType:(id)kUTTypeText];
             }
         }];
-        return comment;
+        menu.entry = comment;
     }];
 }
 

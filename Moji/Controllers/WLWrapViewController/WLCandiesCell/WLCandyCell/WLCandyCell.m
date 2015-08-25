@@ -30,16 +30,16 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    [self.coverView setContentMode:UIViewContentModeCenter forState:WLImageViewStateFailed];
-    [self.coverView setContentMode:UIViewContentModeCenter forState:WLImageViewStateEmpty];
-    [self.coverView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateFailed];
-    [self.coverView setImageName:@"ic_photo_placeholder" forState:WLImageViewStateEmpty];
     
 	[[WLCandy notifier] addReceiver:self];
     __weak typeof(self)weakSelf = self;
     if (!self.disableMenu) {
-        [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu, BOOL *vibrate) {
-            WLCandy* candy = weakSelf.entry;
+        [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
+            __weak WLCandy* candy = weakSelf.entry;
+            
+            if (candy.wrap.requiresFollowing) {
+                return;
+            }
             
             [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
                 [menu addEditPhotoItem:^(WLCandy *candy) {
@@ -88,8 +88,7 @@
                     [MFMailComposeViewController messageWithCandy:candy];
                 }];
             }
-            
-            return candy;
+            menu.entry = candy;
         }];
     }
 }
@@ -117,7 +116,7 @@
 }
 
 - (void)select:(WLCandy*)candy {
-    if (candy.valid && self.coverView.state == WLImageViewStateDefault && self.coverView.image != nil) {
+    if (candy.valid && self.coverView.image != nil) {
         if ([self.delegate respondsToSelector:@selector(candyCell:didSelectCandy:)]) {
             [self.delegate candyCell:self didSelectCandy:candy];
         }

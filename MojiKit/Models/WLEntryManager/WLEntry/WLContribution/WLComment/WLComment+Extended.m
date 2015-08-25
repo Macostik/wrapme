@@ -52,11 +52,6 @@
     return self.candy.uploaded && self.uploading;
 }
 
-- (void)touch:(NSDate *)date {
-    [self.candy touch:date];
-    [super touch:date];
-}
-
 - (WLPicture *)picture {
     return self.candy.picture;
 }

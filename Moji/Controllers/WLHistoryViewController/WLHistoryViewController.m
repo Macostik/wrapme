@@ -84,8 +84,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.lastCommentTextView.textContainer.maximumNumberOfLines = 2;
     self.lastCommentTextView.textContainerInset = UIEdgeInsetsZero;
     self.lastCommentTextView.textContainer.lineFragmentPadding = .0;
-    [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateFailed];
-    [self.avatarImageView setImageName:@"default-medium-avatar" forState:WLImageViewStateEmpty];
     
     if (!_wrap) {
         _wrap = _candy.wrap;
@@ -152,9 +150,11 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (void)setupBottomViewModeRelatedData:(WLHistoryBottomViewMode)bottomViewMode candy:(WLCandy*)candy {
     if (bottomViewMode == WLHistoryBottomViewModeEditing && candy.editor != nil) {
+        _bottomViewMode = WLHistoryBottomViewModeEditing;
         self.postLabel.text = [NSString stringWithFormat:WLLS(@"formatted_edited_by"), candy.editor.name];
         self.timeLabel.text = candy.editedAt.timeAgoStringAtAMPM;
     } else {
+        _bottomViewMode = WLHistoryBottomViewModeCreating;
         self.postLabel.text = [NSString stringWithFormat:WLLS(@"formatted_photo_by"), candy.contributor.name];
         self.timeLabel.text = candy.createdAt.timeAgoStringAtAMPM;
     }
@@ -440,7 +440,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (IBAction)editPhoto:(id)sender {
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
-        WLCandy *candy = weakSelf.candy;
+        __weak WLCandy *candy = weakSelf.candy;
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
             [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
                 [candy editWithImage:image];
@@ -454,7 +454,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (IBAction)draw:(id)sender {
     __weak __typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
-        WLCandy *candy = weakSelf.candy;
+        __weak WLCandy *candy = weakSelf.candy;
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
             [WLDrawingViewController draw:image inViewController:weakSelf finish:^(UIImage *image) {
                 [candy editWithImage:image];

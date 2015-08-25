@@ -25,7 +25,7 @@
 
 @property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *keyboardAdjustmentTopConstraints;
 
-- (void)viewDidLoad:(BOOL)resize;
+- (BOOL)shouldResizeViewWithScreenBounds;
 
 - (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight;
 

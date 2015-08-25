@@ -10,15 +10,7 @@
 
 @class WLMenu;
 
-typedef WLEntry *(^WLMenuConfiguration)(WLMenu* menu, BOOL *vibrate);
-
-@interface WLMenuItem : NSObject
-
-@property (strong, nonatomic) NSString* text;
-
-@property (strong, nonatomic) WLObjectBlock block;
-
-@end
+typedef void(^WLMenuConfiguration)(WLMenu* menu);
 
 @interface WLMenu : UIView
 
@@ -26,13 +18,13 @@ typedef WLEntry *(^WLMenuConfiguration)(WLMenu* menu, BOOL *vibrate);
 
 @property (weak, nonatomic) WLEntry* entry;
 
+@property (nonatomic) BOOL vibrate;
+
 + (instancetype)sharedMenu;
 
 - (void)addView:(UIView*)view configuration:(WLMenuConfiguration)configuration;
 
 - (void)hide;
-
-- (WLMenuItem*)addItem:(WLObjectBlock)block;
 
 - (void)addItemWithText:(NSString*)text block:(WLObjectBlock)block;
 

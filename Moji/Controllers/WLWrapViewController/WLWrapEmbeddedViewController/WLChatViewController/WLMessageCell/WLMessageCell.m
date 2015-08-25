@@ -52,13 +52,13 @@
     self.textView.textContainer.lineFragmentPadding = .0;
     
     __weak typeof(self)weakSelf = self;
-    [[WLMenu sharedMenu] addView:self configuration:^WLEntry *(WLMenu *menu, BOOL *vibrate) {
+    [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
         [menu addCopyItem:^(WLMessage *message) {
             if (message.text.nonempty) {
                 [[UIPasteboard generalPasteboard] setValue:message.text forPasteboardType:(id)kUTTypeText];
             }
         }];
-        return weakSelf.entry;
+        menu.entry = weakSelf.entry;
     }];
     
     UIColor *color = self.textView.superview.backgroundColor;

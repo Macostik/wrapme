@@ -34,8 +34,12 @@
 	[[WLCandy notifier] addReceiver:self];
     __weak typeof(self)weakSelf = self;
     if (!self.disableMenu) {
-        [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu, BOOL *vibrate) {
+        [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
             __weak WLCandy* candy = weakSelf.entry;
+            
+            if (candy.wrap.requiresFollowing) {
+                return;
+            }
             
             [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
                 [menu addEditPhotoItem:^(WLCandy *candy) {
@@ -84,8 +88,7 @@
                     [MFMailComposeViewController messageWithCandy:candy];
                 }];
             }
-            
-            return candy;
+            menu.entry = candy;
         }];
     }
 }

@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WLEntrySetup.h"
-
-@class StreamMetrics;
+#import "StreamMetrics.h"
 
 @interface StreamReusableView : UIView <WLEntrySetup>
 

@@ -109,27 +109,58 @@
 }
 
 - (StreamItem *)layout:(StreamItem *)item {
+    
+    StreamView *streamView = self.streamView;
+    GridMetrics *metrics = (GridMetrics*)item.metrics;
+    
+    CGFloat ratio = 1;
+    if ([metrics isKindOfClass:[GridMetrics class]]) {
+        ratio = [metrics ratioAt:item.index];
+    } else {
+        ratio = (self.horizontal ? streamView.height : streamView.width) / [metrics sizeAt:item.index];
+    }
+    
     NSInteger column = 0;
     CGFloat offset = [self minimumOffset:&column];
-    CGFloat size = self.sizes[column] * (self.horizontal ? self.streamView.height : self.streamView.width);
-    CGFloat ratio = [(GridMetrics*)item.metrics ratioAt:item.index];
+    CGFloat size = self.sizes[column] * (self.horizontal ? streamView.height : streamView.width);
+    
     CGFloat spacing = self.spacing;
     CGFloat spacing_2 = spacing/2.0f;
-    CGRect frame = CGRectMake([self position:column], offset, size, size / ratio);
-    if (column == 0) {
-        frame.origin.x += spacing;
-        frame.size.width -= spacing + spacing_2;
-        frame.size.height -= spacing;
-    } else if (column == _numberOfColumns - 1) {
-        frame.origin.x += spacing_2;
-        frame.size.width -= spacing + spacing_2;
-        frame.size.height -= spacing;
+    CGRect frame = CGRectZero;
+    if (self.horizontal) {
+        frame = CGRectMake(offset, [self position:column], size / ratio, size);
+        if (column == 0) {
+            frame.origin.y += spacing;
+            frame.size.height -= spacing + spacing_2;
+            frame.size.width -= spacing;
+        } else if (column == _numberOfColumns - 1) {
+            frame.origin.y += spacing_2;
+            frame.size.height -= spacing + spacing_2;
+            frame.size.width -= spacing;
+        } else {
+            frame.origin.y += spacing_2;
+            frame.size.height -= spacing;
+            frame.size.width -= spacing;
+        }
+        self.offsets[column] = CGRectGetMaxX(frame) + spacing;
     } else {
-        frame.origin.x += spacing_2;
-        frame.size.width -= spacing;
-        frame.size.height -= spacing;
+        frame = CGRectMake([self position:column], offset, size, size / ratio);
+        if (column == 0) {
+            frame.origin.x += spacing;
+            frame.size.width -= spacing + spacing_2;
+            frame.size.height -= spacing;
+        } else if (column == _numberOfColumns - 1) {
+            frame.origin.x += spacing_2;
+            frame.size.width -= spacing + spacing_2;
+            frame.size.height -= spacing;
+        } else {
+            frame.origin.x += spacing_2;
+            frame.size.width -= spacing;
+            frame.size.height -= spacing;
+        }
+        self.offsets[column] = CGRectGetMaxY(frame) + spacing;
     }
-    self.offsets[column] = CGRectGetMaxY(frame) + spacing;
+    
     item.frame = frame;
     return item;
 }
@@ -146,7 +177,11 @@
 }
 
 - (CGSize)contentSize {
-    return CGSizeMake(self.streamView.frame.size.width, [self maximumOffset:NULL]);
+    if (self.horizontal) {
+        return CGSizeMake([self maximumOffset:NULL], self.streamView.bounds.size.height);
+    } else {
+        return CGSizeMake(self.streamView.bounds.size.width, [self maximumOffset:NULL]);
+    }
 }
 
 @end

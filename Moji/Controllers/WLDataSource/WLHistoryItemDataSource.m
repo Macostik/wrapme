@@ -9,13 +9,13 @@
 #import "WLHistoryItemDataSource.h"
 #import "UIScrollView+Additions.h"
 #import "WLCandyCell.h"
-#import "WLHistory.h"
+#import "WLHistoryItem.h"
 
 @implementation WLHistoryItemDataSource
 
 - (CGFloat)fixedContentOffset:(CGFloat)offset {
-    CGFloat size = self.collectionView.bounds.size.width/2.5 + WLCandyCellSpacing;
-    return Smoothstep(0, self.collectionView.maximumContentOffset.x, roundf(offset/size)*size);
+    CGFloat size = self.streamView.bounds.size.width/2.5 + self.layoutSpacing;
+    return Smoothstep(0, self.streamView.maximumContentOffset.x, roundf(offset/size)*size);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

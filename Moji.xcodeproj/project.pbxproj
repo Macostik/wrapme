@@ -167,13 +167,13 @@
 		C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
 		C535F9D61AD4321F000C81B4 /* NSData+CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = C535F9D41AD4321F000C81B4 /* NSData+CommonCrypto.h */; };
 		C535F9D71AD4321F000C81B4 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9D51AD4321F000C81B4 /* NSData+CommonCrypto.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C5390BF41B849A3C00027D8B /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AE8DAD1B7B4F32003CC6D4 /* PushKit.framework */; };
 		C5390BEC1B84544C00027D8B /* WLWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEB1B84544C00027D8B /* WLWrapCell.xib */; };
 		C5390BED1B84544C00027D8B /* WLWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEB1B84544C00027D8B /* WLWrapCell.xib */; };
 		C5390BEF1B845A6200027D8B /* WLCandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEE1B845A6200027D8B /* WLCandyCell.xib */; };
 		C5390BF01B845A6200027D8B /* WLCandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEE1B845A6200027D8B /* WLCandyCell.xib */; };
 		C5390BF21B845C5700027D8B /* WLRecentCandiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BF11B845C5700027D8B /* WLRecentCandiesView.xib */; };
 		C5390BF31B845C5700027D8B /* WLRecentCandiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BF11B845C5700027D8B /* WLRecentCandiesView.xib */; };
+		C5390BF41B849A3C00027D8B /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AE8DAD1B7B4F32003CC6D4 /* PushKit.framework */; };
 		C53CA3C51A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
 		C53CA3C71A97412C00E9234F /* WLUploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53CA3C31A97412C00E9234F /* WLUploadPhotoViewController.m */; };
 		C53DC22A1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53DC2281AA7637C00D2E4C0 /* WLUploadingView.m */; };
@@ -383,6 +383,8 @@
 		C54C56841B1E0B1500CA4B12 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		C54E4ADF1A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */; };
 		C54E4AE11A4C52C900C6B990 /* WLLaunchScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */; };
+		C54EFF161B8C7A9400F1BBF8 /* WLCandiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54EFF151B8C7A9400F1BBF8 /* WLCandiesCell.xib */; };
+		C54EFF171B8C7A9400F1BBF8 /* WLCandiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54EFF151B8C7A9400F1BBF8 /* WLCandiesCell.xib */; };
 		C54FC7641A160C2000623FC1 /* WLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54FC7621A160C2000623FC1 /* WLCollectionView.m */; };
 		C54FC7661A160C2000623FC1 /* WLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54FC7621A160C2000623FC1 /* WLCollectionView.m */; };
 		C552329E1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C552329D1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m */; };
@@ -1533,6 +1535,7 @@
 		C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSwipeActionView.m; path = WLTriangleView/WLSwipeActionView.m; sourceTree = "<group>"; };
 		C54E4ADC1A4C52C900C6B990 /* WLLaunchScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLaunchScreenViewController.h; sourceTree = "<group>"; };
 		C54E4ADD1A4C52C900C6B990 /* WLLaunchScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLLaunchScreenViewController.m; sourceTree = "<group>"; };
+		C54EFF151B8C7A9400F1BBF8 /* WLCandiesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCandiesCell.xib; sourceTree = "<group>"; };
 		C54FC7611A160C2000623FC1 /* WLCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionView.h; path = WLCollectionView/WLCollectionView.h; sourceTree = "<group>"; };
 		C54FC7621A160C2000623FC1 /* WLCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionView.m; path = WLCollectionView/WLCollectionView.m; sourceTree = "<group>"; };
 		C55232911ACD3F4900886437 /* CandyAPNS.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = CandyAPNS.apns; sourceTree = "<group>"; };
@@ -4737,6 +4740,7 @@
 				C5BCF0411B551C3E00E4AD6D /* WLCandyCell */,
 				C5BCF03F1B551C3E00E4AD6D /* WLCandiesCell.h */,
 				C5BCF0401B551C3E00E4AD6D /* WLCandiesCell.m */,
+				C54EFF151B8C7A9400F1BBF8 /* WLCandiesCell.xib */,
 			);
 			name = WLCandiesCell;
 			path = WLWrapViewController/WLCandiesCell;
@@ -5576,6 +5580,7 @@
 				C55908D11B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				C5390BEC1B84544C00027D8B /* WLWrapCell.xib in Resources */,
 				5BD782C91A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
+				C54EFF161B8C7A9400F1BBF8 /* WLCandiesCell.xib in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
 				5BA4C5871A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
 				5BA6AA431A66779D00493582 /* Localizable.strings in Resources */,
@@ -5637,6 +5642,7 @@
 				C55908D31B18995D001CB99F /* WLDownloadingView.xib in Resources */,
 				C5390BED1B84544C00027D8B /* WLWrapCell.xib in Resources */,
 				5BD782CB1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
+				C54EFF171B8C7A9400F1BBF8 /* WLCandiesCell.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				5BA4C5891A8BA0F600251B6D /* NoCommentsPlaceholderView.xib in Resources */,
 				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,

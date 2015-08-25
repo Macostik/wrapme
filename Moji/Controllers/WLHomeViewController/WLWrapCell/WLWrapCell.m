@@ -77,6 +77,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 
 - (void)setup:(WLWrap*)wrap {
 #warning implement creator label
+#warning implement public wrap indicator
 	self.nameLabel.text = wrap.name;
     self.dateLabel.text = WLString(wrap.updatedAt.timeAgoStringAtAMPM);
     self.coverView.url = [wrap.picture anyUrl];

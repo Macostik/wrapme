@@ -17,9 +17,9 @@
 @interface WLCandiesCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet StreamView *streamView;
 
-@property (strong, nonatomic) WLHistoryItemDataSource* dataSource;
+@property (strong, nonatomic) IBOutlet WLHistoryItemDataSource* dataSource;
 
 @end
 
@@ -27,23 +27,13 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    WLHistoryItemDataSource* dataSource = [WLHistoryItemDataSource dataSource:self.collectionView];
-    dataSource.minimumLineSpacing = dataSource.sectionLeftInset = dataSource.sectionRightInset = WLConstants.pixelSize;
-    dataSource.itemIdentifier = WLCandyitemIdentifier;
-    __weak typeof(self)weakSelf = self;
-    [dataSource setItemSizeBlock:^CGSize(WLCandy *candy, NSUInteger index) {
-        CGFloat size = weakSelf.collectionView.width/2.5;
-        return CGSizeMake(size, weakSelf.collectionView.height);
-    }];
-    self.dataSource = dataSource;
-    self.dataSource.headerAnimated = YES;
+    self.dataSource.layoutSpacing = WLConstants.pixelSize;
 }
 
 - (void)setup:(WLHistoryItem*)item {
     self.dataSource.items = item;
 	self.dateLabel.text = [item.date stringWithDateStyle:NSDateFormatterMediumStyle];
-    [self.collectionView layoutIfNeeded];
-    [self.collectionView trySetContentOffset:item.offset];
+    [self.streamView trySetContentOffset:item.offset];
 }
 
 @end

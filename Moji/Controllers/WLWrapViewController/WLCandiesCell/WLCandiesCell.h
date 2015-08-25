@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLEntryCell.h"
+#import "StreamReusableView.h"
 
-@interface WLCandiesCell : WLEntryCell
+@interface WLCandiesCell : StreamReusableView
 
-@property (weak, nonatomic, readonly) UICollectionView *collectionView;
+@property (weak, nonatomic, readonly) StreamView *streamView;
 
 @end

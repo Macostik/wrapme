@@ -164,6 +164,9 @@
 /* Class = "UITextView"; text = "很精彩的相片！"; ObjectID = "FgB-22-MIB"; */
 "FgB-22-MIB.text" = "很精彩的相片！";
 
+/* Class = "UIButton"; normalTitle = "L"; ObjectID = "Fzq-yp-f3W"; */
+"Fzq-yp-f3W.normalTitle" = "L";
+
 /* Class = "UIButton"; normalTitle = "完成"; ObjectID = "GkU-w3-rTK"; */
 "GkU-w3-rTK.normalTitle" = "完成";
 
@@ -248,6 +251,9 @@
 /* Class = "UILabel"; text = "e"; ObjectID = "STC-13-brF"; */
 "STC-13-brF.text" = "e";
 
+/* Class = "UIButton"; normalTitle = "L"; ObjectID = "T7C-nT-Tr1"; */
+"T7C-nT-Tr1.normalTitle" = "L";
+
 /* Class = "UIButton"; normalTitle = "Following"; ObjectID = "Tbf-RR-jf2"; */
 "Tbf-RR-jf2.normalTitle" = "Following";
 
@@ -278,6 +284,9 @@
 /* Class = "UILabel"; text = "通知"; ObjectID = "Vtf-da-c8a"; */
 "Vtf-da-c8a.text" = "通知";
 
+/* Class = "UIButton"; normalTitle = "L"; ObjectID = "X0X-J5-pFk"; */
+"X0X-J5-pFk.normalTitle" = "L";
+
 /* Class = "UIButton"; normalTitle = "A"; ObjectID = "Xeq-Fm-DeI"; */
 "Xeq-Fm-DeI.normalTitle" = "A";
 
@@ -296,8 +305,14 @@
 /* Class = "UIButton"; normalTitle = "j"; ObjectID = "Zzu-qX-c4N"; */
 "Zzu-qX-c4N.normalTitle" = "j";
 
+/* Class = "UIButton"; normalTitle = "L"; ObjectID = "aQU-Uj-mtX"; */
+"aQU-Uj-mtX.normalTitle" = "L";
+
 /* Class = "UILabel"; text = "當有新相片時通知我"; ObjectID = "bHL-LP-6Kt"; */
 "bHL-LP-6Kt.text" = "當有新相片時通知我";
+
+/* Class = "UILabel"; text = "("; ObjectID = "bUo-1c-0rp"; */
+"bUo-1c-0rp.text" = "(";
 
 /* Class = "UILabel"; text = "新增成員..."; ObjectID = "bgl-Nc-aZ0"; */
 "bgl-Nc-aZ0.text" = "新增成員...";
@@ -362,6 +377,9 @@
 /* Class = "UIButton"; normalTitle = "傳送邀請"; ObjectID = "kdg-Ph-jY5"; */
 "kdg-Ph-jY5.normalTitle" = "傳送邀請";
 
+/* Class = "UIButton"; normalTitle = "L"; ObjectID = "khD-F3-MeT"; */
+"khD-F3-MeT.normalTitle" = "L";
+
 /* Class = "UIButton"; normalTitle = "y"; ObjectID = "kso-wd-VlQ"; */
 "kso-wd-VlQ.normalTitle" = "y";
 
@@ -389,6 +407,9 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "qYc-F7-Wsy"; */
 "qYc-F7-Wsy.text" = "Label";
 
+/* Class = "UIButton"; normalTitle = "t"; ObjectID = "qgM-hO-gXD"; */
+"qgM-hO-gXD.normalTitle" = "t";
+
 /* Class = "UILabel"; text = "I"; ObjectID = "qwf-nR-0BI"; */
 "qwf-nR-0BI.text" = "I";
 
@@ -409,6 +430,12 @@
 
 /* Class = "UILabel"; text = "name"; ObjectID = "v2z-k0-EKs"; */
 "v2z-k0-EKs.text" = "name";
+
+/* Class = "UIButton"; normalTitle = "L"; ObjectID = "vPv-49-SfA"; */
+"vPv-49-SfA.normalTitle" = "L";
+
+/* Class = "UIButton"; normalTitle = "L"; ObjectID = "vSX-H6-ha3"; */
+"vSX-H6-ha3.normalTitle" = "L";
 
 /* Class = "UILabel"; text = "100000"; ObjectID = "vhN-RG-jpt"; */
 "vhN-RG-jpt.text" = "100000";

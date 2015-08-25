@@ -14,6 +14,7 @@
 #import "WLBlockImageFetching.h"
 #import "WLImageFetcher.h"
 #import "WLEntryKeys.h"
+#import "WLAPIEnvironment.h"
 
 @implementation WLPicture
 
@@ -51,15 +52,15 @@
     
     if (dictionary[WLCandyURLsKey]) {
         NSDictionary *urls = dictionary[WLCandyURLsKey];
-        original = [urls stringForKey:WLURLOriginalKey];
+        original = [WLImageURI stringByAppendingString:[urls stringForKey:WLURLOriginalKey]];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            large = [urls stringForKey:WLURLXLargeKey];
-            medium = [urls stringForKey:WLURLLargeSQKey];
-            small = [urls stringForKey:WLURLMediumSQKey];
+            large = [WLImageURI stringByAppendingString:[urls stringForKey:WLURLXLargeKey]];
+            medium = [WLImageURI stringByAppendingString:[urls stringForKey:WLURLLargeSQKey]];
+            small = [WLImageURI stringByAppendingString:[urls stringForKey:WLURLMediumSQKey]];
         } else {
-            large = [urls stringForKey:WLURLLargeKey];
-            medium = [urls stringForKey:WLURLMediumSQKey];
-            small = [urls stringForKey:WLURLSmallSQKey];
+            large = [WLImageURI stringByAppendingString:[urls stringForKey:WLURLLargeKey]];
+            medium = [WLImageURI stringByAppendingString:[urls stringForKey:WLURLMediumSQKey]];
+            small = [WLImageURI stringByAppendingString:[urls stringForKey:WLURLSmallSQKey]];
         }
     } else {
         original = [dictionary stringForKey:WLCandyOriginalURLKey];
@@ -84,9 +85,9 @@
     NSString *small = nil;
     if (dictionary[WLAvatarURLsKey]) {
         NSDictionary *urls = dictionary[WLAvatarURLsKey];
-        large = [urls stringForKey:WLURLLargeKey];
-        medium = [urls stringForKey:WLURLMediumKey];
-        small = [urls stringForKey:WLURLSmallKey];
+        large = [WLAvatarURI stringByAppendingString:[urls stringForKey:WLURLLargeKey]];
+        medium = [WLAvatarURI stringByAppendingString:[urls stringForKey:WLURLMediumKey]];
+        small = [WLAvatarURI stringByAppendingString:[urls stringForKey:WLURLSmallKey]];
     } else {
         large = [dictionary stringForKey:WLLargeAvatarKey];
         medium = [dictionary stringForKey:WLMediumAvatarKey];
@@ -105,9 +106,9 @@
     NSString *small = nil;
     if (dictionary[WLAvatarURLsKey]) {
         NSDictionary *urls = dictionary[WLAvatarURLsKey];
-        large = [urls stringForKey:WLURLLargeKey];
-        medium = [urls stringForKey:WLURLMediumKey];
-        small = [urls stringForKey:WLURLSmallKey];
+        large = [WLAvatarURI stringByAppendingString:[urls stringForKey:WLURLLargeKey]];
+        medium = [WLAvatarURI stringByAppendingString:[urls stringForKey:WLURLMediumKey]];
+        small = [WLAvatarURI stringByAppendingString:[urls stringForKey:WLURLSmallKey]];
     } else {
         large = [dictionary stringForKey:WLContributorLargeAvatarKey];
         medium = [dictionary stringForKey:WLContributorMediumAvatarKey];

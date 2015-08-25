@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import <mojiKit/WLPicture.h>
+#import "WLPicture.h"
 
 @interface WLEditPicture : WLPicture
 

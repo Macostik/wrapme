@@ -9,7 +9,7 @@
 static NSString* WLCandyTypeKey = @"candy_type";
 static NSString* WLCommentsKey = @"comments";
 
-static NSString* WLCandyURLsKey = @"image_attachment_urls";
+static NSString* WLCandyURLsKey = @"image_urls";
 static NSString* WLURLOriginalKey = @"original";
 static NSString* WLURLLargeKey = @"large";
 static NSString* WLURLMediumKey = @"medium";

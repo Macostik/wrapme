@@ -12,6 +12,10 @@
 #import "NSBundle+Extended.h"
 #import "NSDictionary+Extended.h"
 
+NSString *WLImageURI = @"https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments";
+
+NSString *WLAvatarURI = @"https://d2rojtzyvje8rl.cloudfront.net/users/avatars";
+
 @implementation WLAPIEnvironment
 
 + (instancetype)currentEnvironment {

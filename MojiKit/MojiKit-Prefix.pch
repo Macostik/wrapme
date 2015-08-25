@@ -1,6 +1,6 @@
 
-#ifndef WrapLive_mojiKitPrefixHeader_pch
-#define WrapLive_mojiKitPrefixHeader_pch
+#ifndef WrapLive_MojiKitPrefixHeader_pch
+#define WrapLive_MojiKitPrefixHeader_pch
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>

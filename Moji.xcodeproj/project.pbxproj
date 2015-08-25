@@ -3559,7 +3559,7 @@
 				C560B15C1AE69F7C0010B2EC /* AdobeCreativeSDKImage.framework */,
 			);
 			name = AdobeCreativeSDK;
-			path = ../../AdobeCreativeSDK;
+			path = "~/AdobeCreativeSDK";
 			sourceTree = "<group>";
 		};
 		C560D2251AFB76ED006B906E /* WLSwipeViewController */ = {

@@ -344,6 +344,9 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "fw4-o4-768"; */
 "fw4-o4-768.text" = "Label";
 
+/* Class = "UILabel"; text = "Owner"; ObjectID = "goi-9S-32d"; */
+"goi-9S-32d.text" = "Owner";
+
 /* Class = "UIButton"; normalTitle = "Пов. отправка"; ObjectID = "gpG-be-cvC"; */
 "gpG-be-cvC.normalTitle" = "Пов. отправка";
 
@@ -434,6 +437,9 @@
 /* Class = "UIButton"; normalTitle = "L"; ObjectID = "vPv-49-SfA"; */
 "vPv-49-SfA.normalTitle" = "L";
 
+/* Class = "UILabel"; text = "Public - followers can see all content"; ObjectID = "vRa-xU-fCg"; */
+"vRa-xU-fCg.text" = "Публичный - подписчики могут видеть все содержимое";
+
 /* Class = "UIButton"; normalTitle = "L"; ObjectID = "vSX-H6-ha3"; */
 "vSX-H6-ha3.normalTitle" = "L";
 
@@ -454,6 +460,9 @@
 
 /* Class = "UIButton"; normalTitle = "ПОКИНУТЬ MOJI"; ObjectID = "zBK-OX-573"; */
 "zBK-OX-573.normalTitle" = "ПОКИНУТЬ MOJI";
+
+/* Class = "UILabel"; text = "MOJI OWNER"; ObjectID = "zd5-1Z-u2u"; */
+"zd5-1Z-u2u.text" = "MOJI OWNER";
 
 /* Class = "UILabel"; text = "Чат"; ObjectID = "zet-Ls-5CH"; */
 "zet-Ls-5CH.text" = "Чат";

@@ -18,6 +18,7 @@
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLNavigationHelper.h"
 #import "WLDrawingViewController.h"
+#import "WLCollectionView.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 
@@ -93,6 +94,11 @@
     }
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    [self.coverView setImage:nil];
+}
+
 - (void)setup:(WLCandy*)candy {
 	self.userInteractionEnabled = YES;
     if (self.commentLabel) {
@@ -100,8 +106,27 @@
         self.commentLabel.text = comment.text;
         self.commentLabel.superview.hidden = !self.commentLabel.text.nonempty;
     }
-	self.coverView.animatingPicture = candy.picture;
-    self.coverView.url = candy.picture.small;
+    
+    WLPicture *picture = candy.picture;
+    
+    if (picture.justUploaded) {
+        [self.coverView setImageSetter:^(WLImageView *imageView, UIImage *image, BOOL animated) {
+            picture.justUploaded = NO;
+            [WLCollectionView lock];
+            run_after_asap(^{
+                imageView.image = image;
+                NSTimeInterval duration = 0.5f;
+                [imageView fadeWithDuration:duration delegate:nil];
+                run_after(duration, ^{
+                    [WLCollectionView unlock];
+                });
+            });
+        }];
+    } else {
+        self.coverView.imageSetter = nil;
+    }
+    
+    self.coverView.url = picture.small;
 
     [[WLMenu sharedMenu] hide];
 }

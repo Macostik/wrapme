@@ -411,8 +411,6 @@
 		C55B92011AFA39FE006A3A55 /* WLEntryNotifyReceiver.h in Headers */ = {isa = PBXBuildFile; fileRef = C55B91FF1AFA39FE006A3A55 /* WLEntryNotifyReceiver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C55B92021AFA39FE006A3A55 /* WLEntryNotifyReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B92001AFA39FE006A3A55 /* WLEntryNotifyReceiver.m */; };
 		C55C366B1ACEB7A900C614BD /* MojiKit_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C366A1ACEB7A900C614BD /* MojiKit_Tests.m */; };
-		C55C8DC01B0CDB5E0085DB60 /* WLAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = C55C8DBE1B0CDB5E0085DB60 /* WLAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C55C8DC11B0CDB5E0085DB60 /* WLAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C8DBF1B0CDB5E0085DB60 /* WLAnimation.m */; };
 		C55D77E01AE51202006FA19C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
 		C55D77E11AE51230006FA19C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E6190A93EF0034486D /* libz.dylib */; };
 		C55D77E21AE51237006FA19C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E6190A93EF0034486D /* libz.dylib */; };
@@ -1537,8 +1535,6 @@
 		C55C36661ACEB7A800C614BD /* MojiKit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MojiKit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C55C36691ACEB7A900C614BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C55C366A1ACEB7A900C614BD /* MojiKit_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MojiKit_Tests.m; sourceTree = "<group>"; };
-		C55C8DBE1B0CDB5E0085DB60 /* WLAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAnimation.h; sourceTree = "<group>"; };
-		C55C8DBF1B0CDB5E0085DB60 /* WLAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAnimation.m; sourceTree = "<group>"; };
 		C55D77E61AE51BA0006FA19C /* WLRemoteEntryHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLRemoteEntryHandler.h; sourceTree = "<group>"; };
 		C55D77E71AE51BA0006FA19C /* WLRemoteEntryHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLRemoteEntryHandler.m; sourceTree = "<group>"; };
 		C55E109A1B3C0DE50032DFDA /* UIBezierPath+Interpolation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Interpolation.h"; sourceTree = "<group>"; };
@@ -3545,15 +3541,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C55C8DBD1B0CDB5E0085DB60 /* WLAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				C55C8DBE1B0CDB5E0085DB60 /* WLAnimation.h */,
-				C55C8DBF1B0CDB5E0085DB60 /* WLAnimation.m */,
-			);
-			path = WLAnimation;
-			sourceTree = "<group>";
-		};
 		C55D77E51AE51BA0006FA19C /* WLRemoteEntryHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -3706,7 +3693,6 @@
 			isa = PBXGroup;
 			children = (
 				C5CD956D1B4D382E00F5932F /* WLExtensionMessage */,
-				C55C8DBD1B0CDB5E0085DB60 /* WLAnimation */,
 				C5FE0A611ACD9FA9007DBE95 /* WLCommonEnums.h */,
 				C5612CB11ACD968A0052578A /* WLAPIManager */,
 				C5612CF61ACD968B0052578A /* WLArchivingObject */,
@@ -5041,7 +5027,6 @@
 				C5CD957A1B4D383F00F5932F /* WLExtensionMessage.h in Headers */,
 				C587C78F1AD2E6A0003E7647 /* NSString+MD5.h in Headers */,
 				C587C7E61AD2E6A0003E7647 /* SupportHeaders.h in Headers */,
-				C55C8DC01B0CDB5E0085DB60 /* WLAnimation.h in Headers */,
 				C5B93D471B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.h in Headers */,
 				C587C7971AD2E6A0003E7647 /* UIImage+RoundedCorner.h in Headers */,
 				C5B93D5E1B4E8B7F005681DB /* NSOrderedSet+WLCollection.h in Headers */,
@@ -6305,7 +6290,6 @@
 				C587C8931AD2E6DB003E7647 /* WLEntry+Extended.m in Sources */,
 				C587C85F1AD2E6DB003E7647 /* UIImage+RoundedCorner.m in Sources */,
 				C535F9D71AD4321F000C81B4 /* NSData+CommonCrypto.m in Sources */,
-				C55C8DC11B0CDB5E0085DB60 /* WLAnimation.m in Sources */,
 				C587C8921AD2E6DB003E7647 /* WLDevice.m in Sources */,
 				C587C8811AD2E6DB003E7647 /* WLAuthorization.m in Sources */,
 				C5B93D571B4E87B0005681DB /* NSSet+WLCollection.m in Sources */,

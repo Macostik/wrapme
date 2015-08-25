@@ -160,14 +160,6 @@
     }
 }
 
-- (void)setAnimation:(WLAnimation *)animation {
-    _animation = animation;
-    __weak typeof(self)weakSelf = self;
-    [animation setCompletionBlock:^{
-        weakSelf.animation = nil;
-    }];
-}
-
 - (void)cacheForPicture:(WLPicture *)picture {
     WLImageCache *cache = [WLImageCache cache];
     [cache setImageAtPath:self.original withUrl:picture.original];
@@ -185,7 +177,7 @@
     picture.small = self.small;
     picture.medium = self.medium;
     picture.large = self.large;
-    picture.animation = self.animation;
+    picture.justUploaded = self.justUploaded;
     return picture;
 }
 

@@ -44,7 +44,7 @@
 
 - (void)setImage:(UIImage *)image completion:(WLObjectBlock)completion;
 
-- (WLPicture*)uploadablePictureWithAnimation:(BOOL)withAnimation;
+- (WLPicture*)uploadablePicture:(BOOL)justUploaded;
 
 - (void)saveToAssets;
 

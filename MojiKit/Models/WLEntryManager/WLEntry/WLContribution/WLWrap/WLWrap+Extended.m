@@ -121,7 +121,7 @@
 
 - (void)uploadPicture:(WLEditPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
     WLCandy* candy = [WLCandy candyWithType:WLCandyTypeImage wrap:self];
-    candy.picture = [picture uploadablePictureWithAnimation:YES];
+    candy.picture = [picture uploadablePicture:YES];
     if (picture.comment.nonempty) {
         [candy addCommentsObject:[WLComment comment:picture.comment]];
     }
@@ -137,16 +137,22 @@
     [self uploadPicture:picture success:^(WLCandy *candy) { } failure:^(NSError *error) { }];
 }
 
-- (void)uploadPictures:(NSArray *)pictures {
+- (void)uploadPictures:(NSArray *)pictures start:(WLBlock)start finish:(WLBlock)finish {
     __weak typeof(self)weakSelf = self;
     for (WLPicture *picture in pictures) {
         runUnaryQueuedOperation(@"wl_upload_candies_queue", ^(WLOperation *operation) {
             [weakSelf uploadPicture:picture];
+            if (start) start();
             run_after(0.6f, ^{
+                if (finish) finish();
                 [operation finish];
             });
         });
     }
+}
+
+- (void)uploadPictures:(NSArray *)pictures {
+    [self uploadPictures:pictures start:nil finish:nil];
 }
 
 - (BOOL)isFirstCreated {

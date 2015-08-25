@@ -144,7 +144,7 @@
     if (self.valid) {
         __weak typeof(self)weakSelf = self;
         __block WLEditPicture *picture = [WLEditPicture picture:image completion:^(id object) {
-            [weakSelf setEditedPictureIfNeeded:[picture uploadablePictureWithAnimation:NO]];
+            [weakSelf setEditedPictureIfNeeded:[picture uploadablePicture:NO]];
             [weakSelf enqueueUpdate:^(NSError *error) {
                 [error show];
             }];

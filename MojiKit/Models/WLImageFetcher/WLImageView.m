@@ -81,26 +81,14 @@
 }
 
 - (void)setImage:(UIImage *)image animated:(BOOL)animated {
-    WLAnimation *animation = self.animatingPicture.animation;
-	if (animation) {
-        self.alpha = 0.0f;
-        __weak typeof(self)weakSelf = self;
-        [animation setAnimationBlock:^ (WLAnimation *animation, UIView *view) {
-            if (view == weakSelf) {
-                view.alpha = animation.progressRatio;
-            }
-        }];
-        animation.view = self;
-        [animation start];
-    } else if (animated) {
-        self.hidden = YES;
-        self.alpha = 1.0f;
-        [self fade];
-        self.hidden = NO;
+    if (self.imageSetter) {
+        self.imageSetter(self, image, animated);
     } else {
-        self.alpha = 1.0f;
+        self.image = image;
+        if (animated) {
+            [self fade];
+        }
     }
-	self.image = image;
 }
 
 #pragma mark - WLImageFetching

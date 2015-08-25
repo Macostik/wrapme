@@ -118,16 +118,14 @@
     [super setSmall:small];
 }
 
-- (WLPicture *)uploadablePictureWithAnimation:(BOOL)withAnimation {
+- (WLPicture *)uploadablePicture:(BOOL)justUploaded {
     self.uploaded = YES;
     WLPicture *picture = [[WLPicture alloc] init];
     picture.original = self.original;
     picture.large = self.large;
     picture.medium = self.medium;
     picture.small = self.small;
-    if (withAnimation) {
-        picture.animation = [WLAnimation animationWithDuration:0.5f];
-    }
+    picture.justUploaded = justUploaded;
     return picture;
 }
 

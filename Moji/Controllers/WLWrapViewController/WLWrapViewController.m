@@ -24,6 +24,7 @@
 #import "WLButton.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLWrapStatusImageView.h"
+#import "WLCollectionView.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPhotosViewControllerDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
@@ -194,7 +195,11 @@
         self.view = nil;
         self.wrap = wrap;
     }
-    [wrap uploadPictures:pictures];
+    [wrap uploadPictures:pictures start:^{
+//        [WLCollectionView lock];
+    } finish:^{
+//        [WLCollectionView unlock];
+    }];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 

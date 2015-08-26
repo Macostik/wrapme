@@ -4065,7 +4065,7 @@ Check your internet connection and try again.</string>
                                     <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
                                         <real key="value" value="96"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
                                     <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
                                         <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>

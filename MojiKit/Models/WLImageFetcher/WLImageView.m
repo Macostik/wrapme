@@ -21,6 +21,11 @@
 
 @implementation WLImageView
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.originalBackgroundColor = self.backgroundColor;
+}
+
 - (UIColor *)defaultIconColor {
     if (!_defaultIconColor) _defaultIconColor = [UIColor whiteColor];
     return _defaultIconColor;
@@ -65,17 +70,12 @@
 }
 
 - (void)setDefaultIconViewHidden:(BOOL)defaultIconViewHidden {
-    if (self.defaultIconView.hidden != defaultIconViewHidden) {
-        self.defaultIconView.hidden = defaultIconViewHidden;
-        if (defaultIconViewHidden) {
-            if (self.originalBackgroundColor) {
-                self.backgroundColor = self.originalBackgroundColor;
-            }
-        } else {
-            if (self.defaultBackgroundColor) {
-                self.originalBackgroundColor = self.backgroundColor;
-                self.backgroundColor = self.defaultBackgroundColor;
-            }
+    self.defaultIconView.hidden = defaultIconViewHidden;
+    if (defaultIconViewHidden) {
+        self.backgroundColor = self.originalBackgroundColor;
+    } else {
+        if (self.defaultBackgroundColor) {
+            self.backgroundColor = self.defaultBackgroundColor;
         }
     }
 }

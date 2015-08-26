@@ -114,8 +114,10 @@
         if (notification.presentable) {
             WLEntry *entry = notification.targetEntry;
             if ([entry locallyNotifiableNotification:notification] && [entry notifiableForEvent:notification.event]) {
-                UILocalNotification *localNotification = [entry localNotificationForNotification:notification];
-                [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+                if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
+                    UILocalNotification *localNotification = [entry localNotificationForNotification:notification];
+                    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+                }
             }
         }
     } failure:^(NSError *error) {

@@ -8,12 +8,14 @@
 
 #import "WLEntryView.h"
 
-@class WLImageView;
+@class WLWrapStatusImageView;
 
 @interface WLWrapView : WLEntryView
 
-@property (weak, nonatomic) IBOutlet WLImageView *coverView;
+@property (weak, nonatomic) IBOutlet WLWrapStatusImageView *coverView;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
+- (void)update:(WLWrap*)wrap;
 
 @end

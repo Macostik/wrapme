@@ -75,6 +75,8 @@
 
 @implementation WLCameraViewController
 
+@synthesize wrapView = _wrapView;
+
 @dynamic delegate;
 
 - (void)dealloc {

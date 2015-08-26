@@ -30,6 +30,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 
+@property (weak, nonatomic) IBOutlet WLWrapView *wrapView;
+
 @property (nonatomic, weak) id <WLCameraViewControllerDelegate> delegate;
 
 @property (nonatomic) AVCaptureDevicePosition position;

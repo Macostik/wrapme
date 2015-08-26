@@ -20,22 +20,23 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizontal_separator_gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ayh-Cf-cM6">
+                <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="6fq-gi-FJ3" customClass="WLSeparatorView">
                     <rect key="frame" x="0.0" y="43" width="320" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="Q8k-Ho-8Ri"/>
+                        <constraint firstAttribute="height" constant="1" id="cRQ-4l-6RN"/>
                     </constraints>
-                </imageView>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="sPf-TX-QIC" secondAttribute="trailing" constant="10" id="B5K-N6-qW5"/>
+                <constraint firstAttribute="trailing" secondItem="6fq-gi-FJ3" secondAttribute="trailing" id="IBh-rT-s0v"/>
+                <constraint firstAttribute="bottom" secondItem="6fq-gi-FJ3" secondAttribute="bottom" id="NFF-dH-tzd"/>
+                <constraint firstItem="6fq-gi-FJ3" firstAttribute="leading" secondItem="GnK-kd-4TX" secondAttribute="leading" id="PVz-Tj-wwd"/>
                 <constraint firstItem="sPf-TX-QIC" firstAttribute="leading" secondItem="GnK-kd-4TX" secondAttribute="leading" constant="10" id="fjh-kY-9XZ"/>
                 <constraint firstAttribute="bottom" secondItem="sPf-TX-QIC" secondAttribute="bottom" id="k4o-Wf-DMG"/>
-                <constraint firstAttribute="bottom" secondItem="Ayh-Cf-cM6" secondAttribute="bottom" id="mjP-wi-bOM"/>
                 <constraint firstItem="sPf-TX-QIC" firstAttribute="top" secondItem="GnK-kd-4TX" secondAttribute="top" id="onP-BB-a2w"/>
-                <constraint firstItem="Ayh-Cf-cM6" firstAttribute="leading" secondItem="GnK-kd-4TX" secondAttribute="leading" id="q7h-Zi-AlT"/>
-                <constraint firstAttribute="trailing" secondItem="Ayh-Cf-cM6" secondAttribute="trailing" id="vGL-iy-Dos"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -45,7 +46,4 @@
             <point key="canvasLocation" x="457" y="609"/>
         </view>
     </objects>
-    <resources>
-        <image name="horizontal_separator_gray" width="1" height="1"/>
-    </resources>
 </document>

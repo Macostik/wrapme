@@ -27,6 +27,8 @@
 
 @property (strong, nonatomic) PKPushRegistry *pushRegistry;
 
+@property (strong, nonatomic) NSData *pushToken;
+
 @end
 
 @implementation WLNotificationCenter
@@ -93,9 +95,9 @@
 // MARK: - PKPushRegistryDelegate
 
 - (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type {
-    NSData *token = credentials.token;
-    WLLog(@"PUBNUB", @"apns_device_token", token);
-    [self.userSubscription enableAPNSWithData:token];
+    self.pushToken = credentials.token;
+    WLLog(@"PUBNUB", @"apns_device_token", self.pushToken);
+    [self.userSubscription enableAPNSWithData:self.pushToken];
 }
 
 - (void)pushRegistry:(PKPushRegistry *)registry didInvalidatePushTokenForType:(NSString *)type {
@@ -112,8 +114,10 @@
         if (notification.presentable) {
             WLEntry *entry = notification.targetEntry;
             if ([entry locallyNotifiableNotification:notification] && [entry notifiableForEvent:notification.event]) {
-                UILocalNotification *localNotification = [entry localNotificationForNotification:notification];
-                [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+                if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
+                    UILocalNotification *localNotification = [entry localNotificationForNotification:notification];
+                    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+                }
             }
         }
     } failure:^(NSError *error) {
@@ -199,6 +203,7 @@
     WLSession.handledNotifications = nil;
     WLSession.historyDate = nil;
     [[[PubNub sharedInstance] currentConfiguration] setUUID:nil];
+    [[PubNub sharedInstance] removeAllPushNotificationsFromDeviceWithPushToken:self.pushToken andCompletion:nil];
 }
 
 - (BOOL)isAlreadyHandledNotification:(WLNotification*)notification {

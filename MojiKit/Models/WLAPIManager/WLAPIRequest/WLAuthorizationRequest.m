@@ -72,12 +72,20 @@ static BOOL authorized = NO;
                 [WLSession setAuthorizationCookie:cookie];
             }
         }
-        
-        id pageSize = [response.data objectForKey:@"pagination_fetch_size"];
+		
+        id pageSize = response.data[@"pagination_fetch_size"];
         if (pageSize) {
             WLConstants.pageSize = [pageSize integerValue];
         }
-        
+		
+		if (response.data[@"image_uri"]) {
+			WLImageURI = response.data[@"image_uri"];
+		}
+		
+		if (response.data[@"avatar_uri"]) {
+			WLAvatarURI = response.data[@"avatar_uri"];
+		}
+		
         NSDictionary* userData = [response.data dictionaryForKey:@"user"];
         
         WLUser* user = [WLUser API_entry:userData];

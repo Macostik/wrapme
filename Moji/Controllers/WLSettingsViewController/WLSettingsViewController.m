@@ -31,7 +31,7 @@
 }
 
 - (IBAction)signOut:(id)sender {
-    [WLAlertView showWithTitle:WLLS(@"sign_out") message:WLLS(@"sign_out_confirmation") action:WLLS(@"uppercase_yes") cancel:WLLS(@"uppercase_no") completion:^{
+    [WLAlertView showWithTitle:WLLS(@"sign_out") message:WLLS(@"sign_out_confirmation") cancel:WLLS(@"cancel") action:WLLS(@"sign_out") completion:^{
         [[WLNotificationCenter defaultCenter] clear];
         [WLSession clear];
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];

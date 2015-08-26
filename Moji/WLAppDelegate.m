@@ -240,6 +240,21 @@
     }
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    BOOL presentable = [UIApplication sharedApplication].applicationState == UIApplicationStateInactive;
+    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
+        if (presentable) {
+            NSDictionary *entry = [notification.targetEntry dictionaryRepresentation];
+            if (entry) {
+                [self presentNotification:@{@"type":@(notification.type),@"entry":entry}];
+            }
+        }
+        completionHandler(UIBackgroundFetchResultNewData);
+    } failure:^(NSError *error) {
+        completionHandler(UIBackgroundFetchResultFailed);
+    }];
+}
+
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     [self presentNotification:notification.userInfo];
 }

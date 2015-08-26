@@ -1,6 +1,6 @@
 //
-//  mojiKit_Tests.m
-//  mojiKit Tests
+//  MojiKit_Tests.m
+//  MojiKit Tests
 //
 //  Created by Ravenpod on 4/3/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
@@ -10,11 +10,11 @@
 #import <XCTest/XCTest.h>
 #import <MojiKit/MojiKit.h>
 
-@interface mojiKit_Tests : XCTestCase
+@interface MojiKit_Tests : XCTestCase
 
 @end
 
-@implementation mojiKit_Tests
+@implementation MojiKit_Tests
 
 - (void)testNewMethod {
     // This is an example of a functional test case.

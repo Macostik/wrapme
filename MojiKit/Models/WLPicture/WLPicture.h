@@ -8,7 +8,6 @@
 
 #import "WLArchivingObject.h"
 #import "WLCommonEnums.h"
-#import "WLAnimation.h"
 
 @class WLImageCache;
 
@@ -19,7 +18,7 @@
 @property (strong, nonatomic) NSString* medium;
 @property (strong, nonatomic) NSString* small;
 
-@property (nonatomic, strong) WLAnimation *animation;
+@property (nonatomic) BOOL justUploaded;
 
 - (NSString*)anyUrl;
 

@@ -17,7 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 @property (weak, nonatomic) IBOutlet UIButton *laterButton;
 @property (weak, nonatomic) IBOutlet WLWrapStatusImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *nameButton;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ownerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
@@ -46,9 +47,11 @@
     BOOL requiresFollowing = self.wrap.requiresFollowing;
     self.followButton.hidden = self.laterButton.hidden = !requiresFollowing;
     self.closeButton.hidden = requiresFollowing;
-    self.nameButton.text = self.wrap.name;
-    self.imageView.url = self.wrap.contributor.picture.small;
-    self.imageView.followed = self.wrap.isPublic && self.wrap.isContributing;
+    self.nameLabel.text = self.wrap.name;
+    self.ownerLabel.text = self.wrap.contributor.name;
+    self.imageView.url = self.wrap.picture.small;
+    self.imageView.isFollowed = self.wrap.isPublic && self.wrap.isContributing;
+    self.imageView.isOwner = [self.wrap.contributor isCurrentUser];
     self.messageLabel.text = requiresFollowing ? WLLS(@"follow_moji_suggestion") : WLLS(@"followed_moji_suggestion");
 }
 

@@ -24,6 +24,7 @@
 #import "WLButton.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLWrapStatusImageView.h"
+#import "WLCollectionView.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPhotosViewControllerDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
@@ -40,6 +41,8 @@
 @property (weak, nonatomic) IBOutlet UIView *publicWrapView;
 @property (weak, nonatomic) IBOutlet WLWrapStatusImageView *publicWrapImageView;
 @property (weak, nonatomic) IBOutlet UILabel *creatorName;
+@property (weak, nonatomic) IBOutlet UILabel *publicWrapNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ownerDescriptionLabel;
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *publicWrapPrioritizer;
 
 @end
@@ -87,16 +90,20 @@
     WLWrap *wrap = self.wrap;
     self.nameLabel.text = wrap.name;
     if (wrap.isPublic) {
+        BOOL contributedByCurrentUser = wrap.contributedByCurrentUser;
         self.publicWrapImageView.url = wrap.contributor.picture.small;
-        self.publicWrapImageView.followed = wrap.isContributing;
+        self.publicWrapImageView.isFollowed = wrap.isContributing;
+        self.publicWrapImageView.isOwner = contributedByCurrentUser;
         self.creatorName.text = wrap.contributor.name;
         BOOL requiresFollowing = wrap.requiresFollowing;
         self.segmentedControl.hidden = YES;
-        self.settingsButton.hidden = requiresFollowing;
+        self.settingsButton.hidden = requiresFollowing || !contributedByCurrentUser;
         self.publicWrapView.hidden = NO;
-        self.followButton.hidden = !requiresFollowing;
-        self.unfollowButton.hidden = requiresFollowing;
+        self.followButton.hidden = !requiresFollowing || contributedByCurrentUser;
+        self.unfollowButton.hidden = requiresFollowing || contributedByCurrentUser;
         self.publicWrapPrioritizer.defaultState = YES;
+        self.publicWrapNameLabel.text = wrap.name;
+        self.ownerDescriptionLabel.hidden = !contributedByCurrentUser;
     } else {
         self.segmentedControl.hidden = NO;
         self.settingsButton.hidden = NO;
@@ -194,7 +201,11 @@
         self.view = nil;
         self.wrap = wrap;
     }
-    [wrap uploadPictures:pictures];
+    [wrap uploadPictures:pictures start:^{
+//        [WLCollectionView lock];
+    } finish:^{
+//        [WLCollectionView unlock];
+    }];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 

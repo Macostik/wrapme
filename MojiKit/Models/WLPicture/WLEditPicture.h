@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import <mojiKit/WLPicture.h>
+#import "WLPicture.h"
 
 @interface WLEditPicture : WLPicture
 
@@ -44,7 +44,7 @@
 
 - (void)setImage:(UIImage *)image completion:(WLObjectBlock)completion;
 
-- (WLPicture*)uploadablePictureWithAnimation:(BOOL)withAnimation;
+- (WLPicture*)uploadablePicture:(BOOL)justUploaded;
 
 - (void)saveToAssets;
 

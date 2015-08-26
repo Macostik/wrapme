@@ -311,7 +311,6 @@
 }
 
 - (IBAction)getSamplePhoto:(id)sender {
-    self.view.userInteractionEnabled = NO;
     self.takePhotoButton.active = NO;
     __weak typeof(self)weakSelf = self;
     run_getting_object(^id{
@@ -324,7 +323,6 @@
             [weakSelf.delegate cameraViewController:weakSelf didFinishWithImage:image metadata:nil saveToAlbum:NO];
         }
         weakSelf.takePhotoButton.active = YES;
-        weakSelf.view.userInteractionEnabled = YES;
     });
 }
 

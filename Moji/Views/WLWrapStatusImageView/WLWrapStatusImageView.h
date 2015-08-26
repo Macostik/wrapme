@@ -8,10 +8,15 @@
 
 #import "WLCircleImageView.h"
 
+static NSString *WLWrapStatusFollowerImage = @"%";
+static NSString *WLWrapStatusOwnerImage = @"'";
+
 @interface WLWrapStatusImageView : WLImageView
 
-@property (weak, nonatomic) IBOutlet UIView *statusView;
+@property (weak, nonatomic) IBOutlet UILabel *statusView;
 
-@property (nonatomic) BOOL followed;
+@property (nonatomic) BOOL isFollowed;
+
+@property (nonatomic) BOOL isOwner;
 
 @end

@@ -89,7 +89,7 @@
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-	WLPicture *picture = [[pictures lastObject] uploadablePictureWithAnimation:NO];
+	WLPicture *picture = [[pictures lastObject] uploadablePicture:NO];
 	self.profileImageView.url = picture.large;
     self.editSession.url = picture.large;
     [self verifyContinueButton];

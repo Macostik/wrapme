@@ -88,7 +88,8 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         self.nameLabel.horizontallyResistible = YES;
         self.chatButton.horizontallyResistible = NO;
         self.chatNotificationLabel.horizontallyResistible = NO;
-        self.coverView.followed = wrap.isContributing;
+        self.coverView.isFollowed = wrap.isContributing;
+        self.coverView.isOwner = [wrap.contributor isCurrentUser];
         self.datePrioritizer.defaultState = YES;
         self.creatorName.text = wrap.contributor.name;
     } else {
@@ -99,7 +100,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         self.nameLabel.horizontallyResistible = !hasUnreadMessages;
         self.chatButton.horizontallyResistible = hasUnreadMessages;
         self.chatNotificationLabel.horizontallyResistible = hasUnreadMessages;
-        self.coverView.followed = NO;
+        self.coverView.isFollowed = NO;
         self.datePrioritizer.defaultState = NO;
         self.creatorName.text = nil;
     }

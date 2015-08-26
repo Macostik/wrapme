@@ -208,19 +208,18 @@ static CGFloat WLRefresherContentSize = 44.0f;
 
 - (void)setStyle:(WLRefresherStyle)style {
 	_style = style;
+    UIColor *color = nil;
 	if (style == WLRefresherStyleOrange) {
-		self.candyView.textColor = WLColors.orange;
-		self.backgroundColor = [UIColor whiteColor];;
-		self.spinner.color = WLColors.orange;
-        self.strokeLayer.strokeColor = WLColors.orange.CGColor;
-        self.candyView.layer.borderColor = WLColors.orange.CGColor;
+        color = WLColors.orange;
+        self.backgroundColor = [UIColor whiteColor];
 	} else {
-        self.candyView.textColor = [UIColor whiteColor];
-        self.backgroundColor = style == WLRefresherStyleWhite ? WLColors.orange : [UIColor clearColor];
-        self.spinner.color = [UIColor whiteColor];
-        self.strokeLayer.strokeColor = [UIColor whiteColor].CGColor;
-        self.candyView.layer.borderColor = [UIColor whiteColor].CGColor;
+        color = [UIColor whiteColor];
+        self.backgroundColor = WLColors.orange;
     }
+    self.candyView.textColor = color;
+    self.spinner.color = color;
+    self.strokeLayer.strokeColor = color.CGColor;
+    self.candyView.layer.borderColor = color.CGColor;
 }
 
 @end

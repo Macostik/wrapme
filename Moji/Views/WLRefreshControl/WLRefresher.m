@@ -16,7 +16,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
 
 @property (readonly, nonatomic) UIScrollView* scrollView;
 @property (weak, nonatomic) UIActivityIndicatorView* spinner;
-@property (weak, nonatomic) UIImageView* arrowView;
+@property (weak, nonatomic) UILabel* candyView;
 @property (weak, nonatomic) UIView* contentView;
 @property (weak, nonatomic) CAShapeLayer* strokeLayer;
 
@@ -70,7 +70,7 @@ static CGFloat WLRefresherContentSize = 44.0f;
 
 - (void)setContentMode:(UIViewContentMode)contentMode {
 	[super setContentMode:contentMode];
-	self.spinner.center = self.arrowView.center = self.contentView.centerBoundary;
+	self.spinner.center = self.candyView.center = self.contentView.centerBoundary;
 }
 
 - (UIActivityIndicatorView *)spinner {
@@ -83,26 +83,28 @@ static CGFloat WLRefresherContentSize = 44.0f;
 	return _spinner;
 }
 
-- (UIImageView *)arrowView {
-	if (!_arrowView) {
-        UIImageView* arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];
-        arrowView.contentMode = UIViewContentModeCenter;
-        arrowView.clipsToBounds = YES;
-        arrowView.layer.cornerRadius = arrowView.width/2;
-        arrowView.layer.borderWidth = 1;
-        arrowView.alpha = 0.25f;
-		[self.contentView addSubview:arrowView];
-        arrowView.hidden = YES;
-		_arrowView = arrowView;
+- (UILabel *)candyView {
+	if (!_candyView) {
+        UILabel* candyView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];
+        candyView.font = [UIFont fontWithName:@"icons" size:24];
+        candyView.text = @"e";
+        candyView.textAlignment = NSTextAlignmentCenter;
+        candyView.clipsToBounds = YES;
+        candyView.layer.cornerRadius = candyView.width/2;
+        candyView.layer.borderWidth = 1;
+        candyView.alpha = 0.25f;
+		[self.contentView addSubview:candyView];
+        candyView.hidden = YES;
+		_candyView = candyView;
 	}
-	return _arrowView;
+	return _candyView;
 }
 
 - (CAShapeLayer *)strokeLayer {
     if (!_strokeLayer) {
         CAShapeLayer* layer = [CAShapeLayer layer];
 
-        layer.frame = self.arrowView.frame;
+        layer.frame = self.candyView.frame;
         CGFloat size = layer.bounds.size.width/2;
         layer.path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(size, size) radius:size - 1 startAngle:-M_PI_2 endAngle:2*M_PI - M_PI_2 clockwise:YES].CGPath;
         layer.strokeEnd = 0.0f;
@@ -192,32 +194,32 @@ static CGFloat WLRefresherContentSize = 44.0f;
         });
     }
     
-    if (hidden != self.arrowView.hidden) {
-        self.arrowView.hidden = self.strokeLayer.hidden = hidden;
+    if (hidden != self.candyView.hidden) {
+        self.candyView.hidden = self.strokeLayer.hidden = hidden;
     }
 }
 
 - (void)setRefreshable:(BOOL)refreshable {
     if (_refreshable != refreshable) {
         _refreshable = refreshable;
-        self.arrowView.alpha = refreshable ? 1.0f : 0.25f;
+        self.candyView.alpha = refreshable ? 1.0f : 0.25f;
     }
 }
 
 - (void)setStyle:(WLRefresherStyle)style {
 	_style = style;
 	if (style == WLRefresherStyleOrange) {
-		self.arrowView.image = [UIImage imageNamed:@"ic_middle_candy"];
+		self.candyView.textColor = WLColors.orange;
 		self.backgroundColor = [UIColor whiteColor];;
 		self.spinner.color = WLColors.orange;
         self.strokeLayer.strokeColor = WLColors.orange.CGColor;
-        self.arrowView.layer.borderColor = WLColors.orange.CGColor;
+        self.candyView.layer.borderColor = WLColors.orange.CGColor;
 	} else {
-        self.arrowView.image = [UIImage imageNamed:@"ic_refresh_candy_white"];
+        self.candyView.textColor = [UIColor whiteColor];
         self.backgroundColor = style == WLRefresherStyleWhite ? WLColors.orange : [UIColor clearColor];
         self.spinner.color = [UIColor whiteColor];
         self.strokeLayer.strokeColor = [UIColor whiteColor].CGColor;
-        self.arrowView.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.candyView.layer.borderColor = [UIColor whiteColor].CGColor;
     }
 }
 

@@ -1,6 +1,6 @@
 
-/* Class = "UILabel"; text = "Swipe to see next photo"; ObjectID = "LpS-0e-hFu"; */
+/* Class = "UILabel"; text = "Проведите по экрану, чтобы увидеть следующее фото"; ObjectID = "LpS-0e-hFu"; */
 "LpS-0e-hFu.text" = "Проведите по экрану, чтобы увидеть следующее фото";
 
-/* Class = "UIButton"; normalTitle = "Got it"; ObjectID = "nVZ-f0-I5Z"; */
+/* Class = "UIButton"; normalTitle = "Понял"; ObjectID = "nVZ-f0-I5Z"; */
 "nVZ-f0-I5Z.normalTitle" = "Понял";

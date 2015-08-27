@@ -27,7 +27,7 @@
 
 @property (strong, nonatomic) UIImage *image;
 
-+ (instancetype)draw:(UIImage*)image inViewController:(UIViewController*)controller finish:(WLImageBlock)finish;
++ (instancetype)draw:(UIImage*)image finish:(WLImageBlock)finish;
 
 - (void)setImage:(UIImage*)image done:(WLImageBlock)done cancel:(WLBlock)cancel;
 

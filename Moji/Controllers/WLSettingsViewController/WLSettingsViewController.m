@@ -47,9 +47,11 @@
     WLUser *currentUser = [WLUser currentUser];
     [[WLEntry entries] all:^(WLEntry *entry) {
         if (entry != currentUser) {
-            [[WLEntryManager manager] deleteEntry:entry];
+            [[WLEntryManager manager] uncacheEntry:entry];
+            [[WLEntryManager manager].context deleteObject:entry];
         }
     }];
+    [[WLEntryManager manager].context save:NULL];
     currentUser.wraps = [NSSet set];
     [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
 }

@@ -204,6 +204,15 @@
 
 // MARK: - Actions
 
+- (void)back:(UIButton *)sender {
+    __weak typeof(self)weakSelf = self;
+    runBySystemVersion(^{
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    }, ^{
+        [weakSelf.navigationController popViewControllerAnimated:NO];
+    });
+}
+
 - (IBAction)upload:(id)sender {
     self.picture.comment = self.composeBar.text;
     NSArray *pictures = [self.pictures selects:^BOOL(WLEditPicture *picture) {

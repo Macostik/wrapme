@@ -113,8 +113,8 @@
     [self handleRemoteNotification:userInfo success:^(WLNotification *notification) {
         if (notification.presentable) {
             WLEntry *entry = notification.targetEntry;
-            if ([entry locallyNotifiableNotification:notification] && [entry notifiableForEvent:notification.event]) {
-                if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
+            if ([entry locallyNotifiableNotification:notification] && [entry notifiableForNotification:notification]) {
+                if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
                     UILocalNotification *localNotification = [entry localNotificationForNotification:notification];
                     [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
                 }

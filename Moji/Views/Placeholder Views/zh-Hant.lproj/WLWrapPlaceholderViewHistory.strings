@@ -1,3 +1,6 @@
 
-/* Class = "IBUILabel"; text = "No upload in this Moji"; ObjectID = "Zod-d7-1MU"; */
+/* Class = "UIButton"; normalTitle = "C"; ObjectID = "Nll-EC-OTb"; */
+"Nll-EC-OTb.normalTitle" = "C";
+
+/* Class = "UILabel"; text = "未有上傳"; ObjectID = "Zod-d7-1MU"; */
 "Zod-d7-1MU.text" = "未有上傳";

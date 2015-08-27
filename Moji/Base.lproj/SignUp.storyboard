@@ -78,7 +78,7 @@
                                                     <action selector="termsAndConditions:" destination="DOj-fu-IIy" eventType="touchUpInside" id="dAV-Gs-UI4"/>
                                                 </connections>
                                             </button>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_and_caption" translatesAutoresizingMaskIntoConstraints="NO" id="YpE-az-8rW">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_and_caption_orange.png" translatesAutoresizingMaskIntoConstraints="NO" id="YpE-az-8rW">
                                                 <rect key="frame" x="33" y="63" width="215" height="165"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="165" id="Nnw-QX-O7c"/>
@@ -1772,7 +1772,7 @@
     </scenes>
     <resources>
         <image name="1st_screen_bg" width="320" height="1500"/>
-        <image name="logo_and_caption" width="215" height="165"/>
+        <image name="logo_and_caption_orange.png" width="215" height="165"/>
         <image name="sg_Device_Added" width="183" height="183"/>
         <image name="sg_Email" width="183" height="183"/>
         <image name="sg_Email_Sended" width="183" height="183"/>

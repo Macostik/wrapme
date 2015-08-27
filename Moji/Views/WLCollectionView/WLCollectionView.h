@@ -12,13 +12,15 @@
 typedef enum : NSUInteger {
     WLDefaultPlaceholderMode,
     WLManualPlaceholderMode,
-} WLPlacehoderMode;
+} WLPlaceholderMode;
 
 @interface WLCollectionView : UICollectionView
 
 @property (strong, nonatomic) IBInspectable NSString *nibNamePlaceholder;
 
 @property (strong, nonatomic) NSString *placeholderText;
+
+@property (assign, nonatomic) WLPlaceholderMode mode;
 
 + (void)lock;
 
@@ -34,6 +36,6 @@ typedef enum : NSUInteger {
 
 - (void)addToCachePlaceholderWithName:(NSString *)placeholderName byType:(NSInteger)type;
 
-- (void)setPlaceholderByTupe:(NSInteger)type;
+- (void)setPlaceholderByType:(NSInteger)type;
 
 @end

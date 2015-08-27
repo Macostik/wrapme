@@ -8,6 +8,7 @@
 
 #import "WLSegmentedDataSource.h"
 #import "SegmentedControl.h"
+#import "WLCollectionView.h"
 
 @interface WLSegmentedDataSource () <SegmentedControlDelegate, WLCollectionViewLayoutDelegate>
 
@@ -17,12 +18,26 @@
 
 @dynamic items;
 
+static BOOL isSupportCustomPlaceholder = NO;
+
 - (void)setCollectionView:(UICollectionView *)collectionView {
     [super setCollectionView:collectionView];
     if (collectionView) {
         for (WLDataSource *dataSource in self.items) {
             dataSource.collectionView = collectionView;
         }
+    }
+    isSupportCustomPlaceholder = [collectionView isKindOfClass:[WLCollectionView class]] &&
+                                 ([self.nameSecondSegmentPlaceholder nonempty] ||
+                                 ([self.nameSecondSegmentPlaceholder nonempty]));
+    
+    if (isSupportCustomPlaceholder) {
+        WLCollectionView *_collectionView = (id)collectionView;
+        _collectionView.mode = WLManualPlaceholderMode;
+        [_collectionView addToCachePlaceholderWithName:self.nameFirstSegmentPlaceholder
+                                                byType:[self.items indexOfObject:self.items.firstObject]];
+        [_collectionView addToCachePlaceholderWithName:self.nameSecondSegmentPlaceholder
+                                                byType:[self.items indexOfObject:self.items.lastObject]];
     }
     
     self.currentDataSource = self.currentDataSource ? : [self.items firstObject];
@@ -56,6 +71,8 @@
 
 - (void)setCurrentDataSource:(WLDataSource *)currentDataSource {
     _currentDataSource = currentDataSource;
+    NSInteger type = [self.items indexOfObject:currentDataSource];
+    if (isSupportCustomPlaceholder)[(id)self.collectionView setPlaceholderByType:type];
     [self reload];
 }
 

@@ -55,7 +55,7 @@
                 
                 [menu addDrawPhotoItem:^(WLCandy *candy) {
                     [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
-                        [WLDrawingViewController draw:image inViewController:[UIWindow mainWindow].rootViewController finish:^(UIImage *image) {
+                        [WLDrawingViewController draw:image finish:^(UIImage *image) {
                             [candy editWithImage:image];
                         }];
                     } failure:^(NSError *error) {

@@ -259,14 +259,18 @@
 }
 
 - (void)clear {
-    for (NSPersistentStore* store in self.coordinator.persistentStores) {
-        NSError *error;
-        NSURL *storeURL = store.URL;
-        [self.coordinator removePersistentStore:store error:&error];
-        [[NSFileManager defaultManager] removeItemAtPath:storeURL.path error:&error];
-    }
-    self.coordinator = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
+
+    __weak __typeof(self)weakSelf = self;
+    [[WLEntry entries] all:^(WLEntry *entry) {
+        [weakSelf uncacheEntry:entry];
+        [weakSelf.context deleteObject:entry];
+    }];
+    [self.context save:NULL];
+    
     self.context = nil;
+    self.coordinator = nil;
     [self.cachedEntries removeAllObjects];
 }
 

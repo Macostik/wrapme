@@ -74,7 +74,7 @@
 }
 
 - (void)viewDidLoad {
-    
+#warning implement placeholders for stream view
     StreamView *streamView = self.streamView;
     
     __weak WLHomeDataSource *homeDataSource = self.homeDataSource;

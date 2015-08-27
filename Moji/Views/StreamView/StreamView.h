@@ -47,6 +47,8 @@
 
 @property (weak, nonatomic) StreamItem *selectedItem;
 
+@property (nonatomic) IBInspectable BOOL horizontal;
+
 - (StreamItem*)visibleItemAtPoint:(CGPoint)point;
 
 + (void)lock;

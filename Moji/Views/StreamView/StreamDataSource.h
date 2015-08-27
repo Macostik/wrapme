@@ -37,6 +37,8 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
 
 @property (strong, nonatomic) IBInspectable NSString *itemIdentifier;
 
+@property (weak, nonatomic) IBOutlet id itemNibOwner;
+
 @property (nonatomic) IBInspectable CGFloat itemSize;
 
 @property (nonatomic) IBInspectable CGRect itemInsets;

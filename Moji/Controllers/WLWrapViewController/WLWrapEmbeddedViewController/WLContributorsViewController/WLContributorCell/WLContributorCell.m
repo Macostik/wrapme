@@ -9,8 +9,15 @@
 #import "WLContributorCell.h"
 #import "WLButton.h"
 #import "UIScrollView+Additions.h"
+#import "StreamDataSource.h"
 
-@interface WLContributorInnerCell : UICollectionViewCell
+@interface WLContributorCell ()
+
+@property (strong, nonatomic) NSArray *cells;
+
+@property (nonatomic) BOOL deletable;
+
+@property (nonatomic) BOOL canBeInvited;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
@@ -19,23 +26,32 @@
 @property (weak, nonatomic) IBOutlet UILabel *signUpView;
 @property (weak, nonatomic) IBOutlet UILabel *inviteLabel;
 
-@end
-
-@implementation WLContributorInnerCell @end
-
-@interface WLContributorCell () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
-
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-
-@property (strong, nonatomic) NSArray *cells;
-
-@property (nonatomic) BOOL deletable;
-
-@property (nonatomic) BOOL canBeInvited;
+@property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
+@property (weak, nonatomic) IBOutlet StreamMetrics *removeMetrics;
+@property (weak, nonatomic) IBOutlet StreamMetrics *resendMetrics;
+@property (weak, nonatomic) IBOutlet StreamMetrics *spinnerMetrics;
+@property (weak, nonatomic) IBOutlet StreamMetrics *resendDoneMetrics;
 
 @end
 
 @implementation WLContributorCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    __weak typeof(self)weakSelf = self;
+    self.removeMetrics.hiddenBlock = ^BOOL(StreamIndex *index) {
+        return ![weakSelf.cells containsObject:weakSelf.removeMetrics.identifier];
+    };
+    self.resendMetrics.hiddenBlock = ^BOOL(StreamIndex *index) {
+        return ![weakSelf.cells containsObject:weakSelf.resendMetrics.identifier];
+    };
+    self.spinnerMetrics.hiddenBlock = ^BOOL(StreamIndex *index) {
+        return ![weakSelf.cells containsObject:weakSelf.spinnerMetrics.identifier];
+    };
+    self.resendDoneMetrics.hiddenBlock = ^BOOL(StreamIndex *index) {
+        return ![weakSelf.cells containsObject:weakSelf.resendDoneMetrics.identifier];
+    };
+}
 
 - (void)setup:(WLUser*)user {
 	
@@ -46,19 +62,41 @@
         self.deletable = NO;
     }
     
-    NSMutableArray *cells = [NSMutableArray arrayWithObject:@"contributorInfo"];
+    NSMutableArray *cells = [NSMutableArray array];
     
     if (self.deletable) {
-        [cells addObject:@"removeAction"];
+        [cells addObject:@"WLContributorRemoveCell"];
     }
     self.canBeInvited = user.isInvited;
     
     if (self.canBeInvited) {
         BOOL invited = [self.delegate contributorCell:self isInvitedContributor:user];
-        [cells addObject:invited ? @"resendDone" : @"resendInviteAction"];
+        [cells addObject:invited ? @"WLContributorResendDoneCell" : @"WLContributorResendCell"];
     }
     
     self.cells = [cells copy];
+    
+    BOOL isCreator = [self.delegate contributorCell:self isCreator:user];
+    NSString * userNameText = [user isCurrentUser] ? WLLS(@"you") : user.name;
+    self.nameLabel.text = isCreator ? [NSString stringWithFormat:WLLS(@"formatted_owner"), userNameText] : userNameText;
+    self.phoneLabel.text = user.securePhones;
+    
+    self.inviteLabel.hidden = !self.canBeInvited;
+    self.signUpView.hidden = self.canBeInvited;
+    
+    NSString *url = user.picture.small;
+    if (!self.signUpView.hidden && !url.nonempty) {
+        self.avatarView.defaultBackgroundColor = WLColors.orange;
+    } else {
+        self.avatarView.defaultBackgroundColor = WLColors.grayLighter;
+    }
+    self.avatarView.url = url;
+    
+    if (self.canBeInvited) {
+        self.inviteLabel.text = user.invitationHintText;
+    }
+    
+    self.slideMenuButton.hidden = !self.deletable && !self.canBeInvited;
     
     run_after_asap(^{
         [self setMenuHidden:![self.delegate contributorCell:self showMenu:user] animated:NO];
@@ -67,19 +105,23 @@
 
 - (void)setCells:(NSArray *)cells {
     _cells = cells;
-    [self.collectionView reloadData];
+    if (self.entry) {
+        self.dataSource.layoutOffset = self.width;
+        [self layoutIfNeeded];
+        self.dataSource.items = @[self.entry];
+    }
 }
 
 - (IBAction)toggleSideMenu:(id)sender {
-    [self setMenuHidden:self.collectionView.contentOffset.x != 0 animated:YES];
+    [self setMenuHidden:self.dataSource.streamView.contentOffset.x != 0 animated:YES];
     [self.delegate contributorCell:self didToggleMenu:self.entry];
 }
 
 - (void)setMenuHidden:(BOOL)hidden animated:(BOOL)animated {
     if (hidden) {
-        [self.collectionView setMinimumContentOffsetAnimated:animated];
+        [self.dataSource.streamView setMinimumContentOffsetAnimated:animated];
     } else {
-        [self.collectionView setMaximumContentOffsetAnimated:animated];
+        [self.dataSource.streamView setMaximumContentOffsetAnimated:animated];
     }
 }
 
@@ -90,62 +132,13 @@
 }
 
 - (IBAction)resendInvite:(WLButton*)sender {
-    self.cells = [self.cells replace:@"resendInviteAction" with:@"resendingSpinner"];
+    self.cells = [self.cells replace:@"WLContributorResendCell" with:@"WLContributorSpinnerCell"];
     __weak typeof(self)weakSelf = self;
     sender.userInteractionEnabled = NO;
     [self.delegate contributorCell:self didInviteContributor:self.entry completionHandler:^(BOOL success) {
         sender.userInteractionEnabled = NO;
-        weakSelf.cells = [weakSelf.cells replace:@"resendingSpinner" with:success ? @"resendDone" : @"resendInviteAction"];
+        weakSelf.cells = [weakSelf.cells replace:@"WLContributorSpinnerCell" with:success ? @"WLContributorResendDoneCell" : @"WLContributorResendCell"];
     }];
-}
-
-// MARK: - UICollectionViewDataSource
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.cells.count;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLContributorInnerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.cells[indexPath.item] forIndexPath:indexPath];
-    if (indexPath.item == 0) {
-        WLUser *user = self.entry;
-        BOOL isCreator = [self.delegate contributorCell:self isCreator:user];
-        NSString * userNameText = [user isCurrentUser] ? WLLS(@"you") : user.name;
-        cell.nameLabel.text = isCreator ? [NSString stringWithFormat:WLLS(@"formatted_owner"), userNameText] : userNameText;
-        cell.phoneLabel.text = user.securePhones;
-        
-        cell.inviteLabel.hidden = !self.canBeInvited;
-        cell.signUpView.hidden = self.canBeInvited;
-        
-        NSString *url = user.picture.small;
-        if (!cell.signUpView.hidden && !url.nonempty) {
-            cell.avatarView.defaultBackgroundColor = WLColors.orange;
-        } else {
-            cell.avatarView.defaultBackgroundColor = WLColors.grayLighter;
-        }
-        cell.avatarView.url = url;
-        
-        if (self.canBeInvited) {
-            cell.inviteLabel.text = user.invitationHintText;
-        }
-        
-        cell.slideMenuButton.hidden = !self.deletable && !self.canBeInvited;
-        
-    }
-    return cell;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return (indexPath.item == 0) ? collectionView.size : CGSizeMake(76, collectionView.height);
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    CGPoint maximumContentOffset = scrollView.maximumContentOffset;
-    if (targetContentOffset->x > maximumContentOffset.x/2) {
-        targetContentOffset->x = maximumContentOffset.x;
-    } else {
-        targetContentOffset->x = 0;
-    }
 }
 
 @end

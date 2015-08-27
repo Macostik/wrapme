@@ -86,6 +86,14 @@ static NSHashTable *streamViews = nil;
 	layout.streamView = self;
 }
 
+- (BOOL)horizontal {
+    return self.layout.horizontal;
+}
+
+- (void)setHorizontal:(BOOL)horizontal {
+    self.layout.horizontal = horizontal;
+}
+
 #pragma mark - User Actions
 
 - (void)tap:(UITapGestureRecognizer *)recognizer {
@@ -244,10 +252,10 @@ static NSHashTable *streamViews = nil;
     
     UINib *nib = metrics.nib;
     if (!nib && metrics.identifier) {
-        nib = [UINib nibWithNibName:metrics.identifier bundle:nil];
+        nib = [UINib nibWithNibName:metrics.identifier bundle:metrics.nibOwner];
     }
     if (nib) {
-        NSArray *objects = [nib instantiateWithOwner:nil options:nil];
+        NSArray *objects = [nib instantiateWithOwner:metrics.nibOwner options:nil];
         for (StreamReusableView *object in objects) {
             if ([object isKindOfClass:[StreamReusableView class]]) {
                 object.metrics = metrics;

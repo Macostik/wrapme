@@ -23,6 +23,8 @@ typedef void(^StreamMetricsViewWillAppearBlock)(StreamItem *item, id view, id en
 
 @property (strong, nonatomic) UINib *nib;
 
+@property (weak, nonatomic) IBOutlet id nibOwner;
+
 @property (nonatomic) BOOL hidden;
 
 @property (strong, nonatomic) BOOL(^hiddenBlock)(StreamIndex *index);

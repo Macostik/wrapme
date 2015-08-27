@@ -28,8 +28,13 @@
 - (StreamItem *)layout:(StreamItem *)item {
     CGFloat size = [item.metrics sizeAt:item.index];
     CGRect insets = [item.metrics insetsAt:item.index];
-    item.frame = CGRectMake(0 + insets.origin.x, offset + insets.origin.y, self.streamView.width - 2*insets.size.width, size + insets.size.height);
+    if (self.horizontal) {
+        item.frame = CGRectMake(offset + insets.origin.x, insets.origin.y, size + insets.size.width, self.streamView.height - 2*insets.size.height);
+    } else {
+        item.frame = CGRectMake(insets.origin.x, offset + insets.origin.y, self.streamView.width - 2*insets.size.width, size + insets.size.height);
+    }
     offset += size;
+    NSLog(@"%@", NSStringFromCGRect(item.frame));
     return item;
 }
 
@@ -42,7 +47,11 @@
 }
 
 - (CGSize)contentSize {
-    return CGSizeMake(self.streamView.frame.size.width, offset);
+    if (self.horizontal) {
+        return CGSizeMake(offset, self.streamView.frame.size.height);
+    } else {
+        return CGSizeMake(self.streamView.frame.size.width, offset);
+    }
 }
 
 @end

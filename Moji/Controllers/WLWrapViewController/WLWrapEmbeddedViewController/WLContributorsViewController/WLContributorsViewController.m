@@ -31,19 +31,12 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 
 @property (weak, nonatomic) WLUser* contributiorWithOpenedMenu;
 
-@property (weak, nonatomic) StreamMetrics *loadingMetrics;
-
 @end
 
 @implementation WLContributorsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.loadingMetrics = [self.dataSource addFooterMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
-        metrics.identifier = @"WLStreamLoadingView";
-        metrics.size = WLLoadingViewDefaultSize;
-    }]];
     
     self.invitedContributors = [NSMutableSet set];
     
@@ -67,13 +60,18 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     
     [[WLWrap notifier] addReceiver:self];
     
+    StreamMetrics *loadingMetrics = [self.dataSource addFooterMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
+        metrics.identifier = @"WLStreamLoadingView";
+        metrics.size = WLLoadingViewDefaultSize;
+    }]];
+    
     self.dataSource.items = [self sortedContributors];
     
     [[WLAPIRequest contributors:self.wrap] send:^(id object) {
-        weakSelf.loadingMetrics.hidden = YES;
+        loadingMetrics.hidden = YES;
         weakSelf.dataSource.items = [weakSelf sortedContributors];
     } failure:^(NSError *error) {
-        weakSelf.loadingMetrics.hidden = YES;
+        loadingMetrics.hidden = YES;
         [weakSelf.dataSource reload];
         [error showIgnoringNetworkError];
     }];

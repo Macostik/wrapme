@@ -7,224 +7,16 @@
         <mutableArray key="icons.ttf">
             <string>icons</string>
             <string>icons</string>
-            <string>icons</string>
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLContributorsViewController"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLContributorCell" id="9cN-UJ-nYv" customClass="WLContributorCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="87r-6a-EGq">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
-                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="fDL-kA-AbA">
-                            <size key="itemSize" width="320" height="120"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="contributorInfo" id="zoY-ok-dpv" customClass="WLContributorInnerCell">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <size key="customSize" width="320" height="120"/>
-                                <connections>
-                                    <outlet property="avatarView" destination="IZ7-8e-1ob" id="Ka3-1q-ouk"/>
-                                    <outlet property="inviteLabel" destination="ZuV-DA-CsE" id="ABO-nV-DW3"/>
-                                    <outlet property="nameLabel" destination="j5r-kg-fkz" id="eja-mo-UUc"/>
-                                    <outlet property="phoneLabel" destination="f1g-Ue-RDF" id="JoB-aa-g4M"/>
-                                    <outlet property="signUpView" destination="eE6-93-dk7" id="9qC-Ju-JPQ"/>
-                                    <outlet property="slideMenuButton" destination="Ntb-38-h4F" id="GXj-4I-zfY"/>
-                                </connections>
-                            </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="removeAction" id="Pw1-t3-FjB">
-                                <rect key="frame" x="320" y="0.0" width="76" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="76" height="120"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dL-5x-Ytu" customClass="WLPressButton">
-                                            <rect key="frame" x="0.0" y="0.0" width="76" height="120"/>
-                                            <color key="backgroundColor" red="0.85098039219999999" green="0.32549019610000002" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                            <state key="normal" title="Remove">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
-                                                    <color key="value" red="0.85098039219999999" green="0.32549019610000002" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
-                                                    <color key="value" red="0.65538802600000001" green="0.19191142219999999" blue="0.19638185150000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="remove:" destination="9cN-UJ-nYv" eventType="touchUpInside" id="fWb-xZ-oDK"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstItem="6dL-5x-Ytu" firstAttribute="leading" secondItem="Pw1-t3-FjB" secondAttribute="leading" id="2po-uM-hoA"/>
-                                    <constraint firstAttribute="bottom" secondItem="6dL-5x-Ytu" secondAttribute="bottom" id="Iug-br-kkN"/>
-                                    <constraint firstAttribute="trailing" secondItem="6dL-5x-Ytu" secondAttribute="trailing" id="KDP-kf-8Rb"/>
-                                    <constraint firstItem="6dL-5x-Ytu" firstAttribute="top" secondItem="Pw1-t3-FjB" secondAttribute="top" id="l6h-3L-Can"/>
-                                </constraints>
-                                <size key="customSize" width="76" height="120"/>
-                            </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="resendInviteAction" id="GMq-2i-iT1">
-                                <rect key="frame" x="396" y="0.0" width="76" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="76" height="120"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IaV-3M-H2D" customClass="WLPressButton">
-                                            <rect key="frame" x="0.0" y="0.0" width="76" height="120"/>
-                                            <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                            <state key="normal" title="Resend invite">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
-                                                    <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
-                                                    <color key="value" red="0.74208140369999998" green="0.2443449795" blue="0.04564923421" alpha="1" colorSpace="calibratedRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="titleLabel.numberOfLines">
-                                                    <integer key="value" value="2"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="titleLabel.textAlignment">
-                                                    <integer key="value" value="1"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="resendInvite:" destination="9cN-UJ-nYv" eventType="touchUpInside" id="WwY-bR-GGM"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="IaV-3M-H2D" firstAttribute="top" secondItem="GMq-2i-iT1" secondAttribute="top" id="2yf-i0-Jwh"/>
-                                    <constraint firstAttribute="bottom" secondItem="IaV-3M-H2D" secondAttribute="bottom" id="IU6-Dj-4RY"/>
-                                    <constraint firstAttribute="trailing" secondItem="IaV-3M-H2D" secondAttribute="trailing" id="enE-0r-cje"/>
-                                    <constraint firstItem="IaV-3M-H2D" firstAttribute="leading" secondItem="GMq-2i-iT1" secondAttribute="leading" id="s85-nS-c5Y"/>
-                                </constraints>
-                                <size key="customSize" width="76" height="120"/>
-                            </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="resendingSpinner" id="9m0-re-Xkb">
-                                <rect key="frame" x="472" y="0.0" width="76" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="76" height="120"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="QNm-5T-KsM">
-                                            <rect key="frame" x="28" y="50" width="20" height="20"/>
-                                            <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </activityIndicatorView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="QNm-5T-KsM" secondAttribute="centerX" id="ewc-iF-srf"/>
-                                    <constraint firstAttribute="centerY" secondItem="QNm-5T-KsM" secondAttribute="centerY" id="zXn-XU-xul"/>
-                                </constraints>
-                                <size key="customSize" width="76" height="120"/>
-                            </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="resendDone" id="WP1-PL-UGl">
-                                <rect key="frame" x="548" y="0.0" width="76" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="76" height="120"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJG-MF-qTk" customClass="WLButton">
-                                            <rect key="frame" x="20" y="36" width="36" height="48"/>
-                                            <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
-                                            <state key="normal" title="l">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerY" secondItem="iJG-MF-qTk" secondAttribute="centerY" id="aTH-Up-K3v"/>
-                                    <constraint firstAttribute="centerX" secondItem="iJG-MF-qTk" secondAttribute="centerX" id="f93-b3-FoS"/>
-                                </constraints>
-                                <size key="customSize" width="76" height="120"/>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="9cN-UJ-nYv" id="L9G-Om-J6v"/>
-                            <outlet property="delegate" destination="9cN-UJ-nYv" id="9H8-2d-Xpy"/>
-                        </connections>
-                    </collectionView>
-                    <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="MFg-Wa-I9f" customClass="WLSeparatorView">
-                        <rect key="frame" x="0.0" y="119" width="320" height="1"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="GtP-6d-YdN"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                <color key="value" red="0.91664922240000002" green="0.91662174460000001" blue="0.91663730139999999" alpha="1" colorSpace="calibratedRGB"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </view>
-                </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            </view>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="87r-6a-EGq" firstAttribute="top" secondItem="9cN-UJ-nYv" secondAttribute="top" id="7dw-DS-yim"/>
-                <constraint firstAttribute="bottom" secondItem="MFg-Wa-I9f" secondAttribute="bottom" id="FYl-82-GRC"/>
-                <constraint firstItem="87r-6a-EGq" firstAttribute="leading" secondItem="9cN-UJ-nYv" secondAttribute="leading" id="MYc-gp-F0o"/>
-                <constraint firstAttribute="trailing" secondItem="MFg-Wa-I9f" secondAttribute="trailing" id="Tc2-9H-xbt"/>
-                <constraint firstAttribute="bottom" secondItem="87r-6a-EGq" secondAttribute="bottom" id="gMT-3n-Luz"/>
-                <constraint firstAttribute="trailing" secondItem="87r-6a-EGq" secondAttribute="trailing" id="khJ-Fe-JAO"/>
-                <constraint firstItem="MFg-Wa-I9f" firstAttribute="leading" secondItem="9cN-UJ-nYv" secondAttribute="leading" id="z1T-ln-oA8"/>
-            </constraints>
-            <size key="customSize" width="320" height="120"/>
-            <connections>
-                <outlet property="collectionView" destination="87r-6a-EGq" id="wX7-S7-Q2U"/>
-            </connections>
-        </collectionViewCell>
         <view contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="120" id="aov-0F-b5J" customClass="WLContributorCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="120" translatesAutoresizingMaskIntoConstraints="NO" id="Jjm-eG-ydL" customClass="StreamView">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="120" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jjm-eG-ydL" customClass="StreamView">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZm-d8-zP0">
@@ -307,7 +99,7 @@
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="toggleSideMenu:" destination="9cN-UJ-nYv" eventType="touchUpInside" id="v4g-4R-P2t"/>
+                                        <action selector="toggleSideMenu:" destination="aov-0F-b5J" eventType="touchUpInside" id="3uF-XQ-Gue"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -339,7 +131,25 @@
                         <constraint firstItem="fZm-d8-zP0" firstAttribute="leading" secondItem="Jjm-eG-ydL" secondAttribute="leading" id="WP6-0C-7dn"/>
                         <constraint firstItem="fZm-d8-zP0" firstAttribute="top" secondItem="Jjm-eG-ydL" secondAttribute="top" id="zAq-yf-6UJ"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="delegate" destination="oc1-Uw-4dm" id="bjG-od-bYk"/>
+                    </connections>
                 </scrollView>
+                <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="MFg-Wa-I9f" customClass="WLSeparatorView">
+                    <rect key="frame" x="0.0" y="119" width="320" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="GtP-6d-YdN"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                            <color key="value" red="0.91664922240000002" green="0.91662174460000001" blue="0.91663730139999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -347,10 +157,80 @@
                 <constraint firstAttribute="trailing" secondItem="Jjm-eG-ydL" secondAttribute="trailing" id="Adj-XJ-vTd"/>
                 <constraint firstItem="Jjm-eG-ydL" firstAttribute="leading" secondItem="aov-0F-b5J" secondAttribute="leading" id="HNO-Zr-he9"/>
                 <constraint firstAttribute="bottom" secondItem="Jjm-eG-ydL" secondAttribute="bottom" id="gUy-fX-OKE"/>
+                <constraint firstAttribute="bottom" secondItem="MFg-Wa-I9f" secondAttribute="bottom" id="hwt-2W-hbT"/>
+                <constraint firstItem="MFg-Wa-I9f" firstAttribute="leading" secondItem="aov-0F-b5J" secondAttribute="leading" id="jRL-iH-YOf"/>
+                <constraint firstAttribute="trailing" secondItem="MFg-Wa-I9f" secondAttribute="trailing" id="q5B-hz-xvD"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="avatarView" destination="IZ7-8e-1ob" id="RLg-wO-LU2"/>
+                <outlet property="dataSource" destination="oc1-Uw-4dm" id="u8j-eE-v3K"/>
+                <outlet property="delegate" destination="-1" id="cwk-mV-Ed9"/>
+                <outlet property="inviteLabel" destination="ZuV-DA-CsE" id="hyh-B0-pxC"/>
+                <outlet property="nameLabel" destination="j5r-kg-fkz" id="weT-Ch-7Dw"/>
+                <outlet property="phoneLabel" destination="f1g-Ue-RDF" id="2Ii-7a-CpF"/>
+                <outlet property="removeMetrics" destination="9vK-5x-d9d" id="zsC-pt-L3U"/>
+                <outlet property="resendDoneMetrics" destination="gwS-zd-53z" id="LhD-f2-nJb"/>
+                <outlet property="resendMetrics" destination="RZX-eF-B7y" id="gVU-WP-hM8"/>
+                <outlet property="signUpView" destination="eE6-93-dk7" id="fRx-ma-L0S"/>
+                <outlet property="slideMenuButton" destination="Ntb-38-h4F" id="IuS-GH-FA3"/>
+                <outlet property="spinnerMetrics" destination="ZVc-pZ-hWd" id="KVt-pa-Sqe"/>
+            </connections>
             <point key="canvasLocation" x="565" y="655"/>
         </view>
+        <customObject id="oc1-Uw-4dm" customClass="StreamDataSource">
+            <connections>
+                <outlet property="streamView" destination="Jjm-eG-ydL" id="BfB-Jx-FUz"/>
+                <outletCollection property="metrics" destination="9vK-5x-d9d" collectionClass="NSMutableArray" id="7fl-UO-DPd"/>
+                <outletCollection property="metrics" destination="RZX-eF-B7y" collectionClass="NSMutableArray" id="Uwi-MB-YYy"/>
+                <outletCollection property="metrics" destination="ZVc-pZ-hWd" collectionClass="NSMutableArray" id="cXH-Qh-uvM"/>
+                <outletCollection property="metrics" destination="gwS-zd-53z" collectionClass="NSMutableArray" id="6rH-e5-EUU"/>
+            </connections>
+        </customObject>
+        <customObject id="9vK-5x-d9d" customClass="StreamMetrics">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLContributorRemoveCell"/>
+                <userDefinedRuntimeAttribute type="number" keyPath="size">
+                    <real key="value" value="76"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="nibOwner" destination="aov-0F-b5J" id="Ggc-zX-cz3"/>
+            </connections>
+        </customObject>
+        <customObject id="RZX-eF-B7y" customClass="StreamMetrics">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLContributorResendCell"/>
+                <userDefinedRuntimeAttribute type="number" keyPath="size">
+                    <real key="value" value="76"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="nibOwner" destination="aov-0F-b5J" id="vzt-Wi-Qzw"/>
+            </connections>
+        </customObject>
+        <customObject id="ZVc-pZ-hWd" customClass="StreamMetrics">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLContributorSpinnerCell"/>
+                <userDefinedRuntimeAttribute type="number" keyPath="size">
+                    <real key="value" value="76"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="nibOwner" destination="aov-0F-b5J" id="6h9-Ys-zng"/>
+            </connections>
+        </customObject>
+        <customObject id="gwS-zd-53z" customClass="StreamMetrics">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLContributorResendDoneCell"/>
+                <userDefinedRuntimeAttribute type="number" keyPath="size">
+                    <real key="value" value="76"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="nibOwner" destination="aov-0F-b5J" id="bxI-ft-P9u"/>
+            </connections>
+        </customObject>
     </objects>
 </document>

@@ -117,273 +117,49 @@
                                     <constraint firstAttribute="trailing" secondItem="Te3-A9-g3F" secondAttribute="trailing" id="jXp-p8-dF9"/>
                                 </constraints>
                             </view>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VLc-fp-pTh" customClass="WLCollectionView">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70e-p4-rQV" customClass="StreamView">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="cJG-dT-H8J">
-                                    <size key="itemSize" width="320" height="80"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCandyWhatsUpCell" id="iF1-u8-BW0" customClass="WLCandyWhatsUpCell">
-                                        <rect key="frame" x="140" y="0.0" width="320" height="89"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NnN-ec-DhQ" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="12" y="12" width="48" height="48"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="48" id="fra-ny-yXO"/>
-                                                        <constraint firstAttribute="height" constant="48" id="hNf-jG-9I6"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
-                                                            <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo by Calvin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="08S-52-GIh" customClass="WLLabel">
-                                                    <rect key="frame" x="72" y="12" width="176" height="23"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="23" id="pJP-oT-v42"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                    <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="61" translatesAutoresizingMaskIntoConstraints="NO" id="FBj-ps-Q2W" customClass="WLLabel">
-                                                    <rect key="frame" x="72" y="35" width="176" height="21"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                    <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Yestarday at 2:34pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="7nH-rK-CBH" customClass="WLLabel">
-                                                    <rect key="frame" x="72" y="56" width="176" height="18"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                                    <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6CB-K2-Qsx" customClass="WLSeparatorView">
-                                                    <rect key="frame" x="0.0" y="88" width="320" height="1"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="Wxd-K7-JyN"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                            <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sbj-Wd-1e2" customClass="WLImageView">
-                                                    <rect key="frame" x="260" y="12" width="48" height="48"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="48" id="JJr-P1-muq"/>
-                                                        <constraint firstAttribute="height" constant="48" id="h71-jg-rne"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="FBj-ps-Q2W" firstAttribute="top" secondItem="08S-52-GIh" secondAttribute="bottom" id="DZp-13-a0m"/>
-                                            <constraint firstItem="sbj-Wd-1e2" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="12" id="F30-gx-RnX"/>
-                                            <constraint firstItem="FBj-ps-Q2W" firstAttribute="trailing" secondItem="7nH-rK-CBH" secondAttribute="trailing" id="N4e-Av-aoz"/>
-                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="top" secondItem="08S-52-GIh" secondAttribute="top" id="Rjg-0s-zib"/>
-                                            <constraint firstAttribute="bottom" secondItem="6CB-K2-Qsx" secondAttribute="bottom" id="TJQ-pd-p3n"/>
-                                            <constraint firstItem="7nH-rK-CBH" firstAttribute="top" secondItem="FBj-ps-Q2W" secondAttribute="bottom" id="UDV-Ze-Ils"/>
-                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" constant="12" id="UFU-3j-eIN"/>
-                                            <constraint firstItem="6CB-K2-Qsx" firstAttribute="leading" secondItem="iF1-u8-BW0" secondAttribute="leading" id="bD8-80-C7b"/>
-                                            <constraint firstAttribute="trailing" secondItem="6CB-K2-Qsx" secondAttribute="trailing" id="dyM-HW-YVT"/>
-                                            <constraint firstItem="sbj-Wd-1e2" firstAttribute="leading" secondItem="08S-52-GIh" secondAttribute="trailing" constant="12" id="iYI-wM-gRv"/>
-                                            <constraint firstItem="NnN-ec-DhQ" firstAttribute="top" secondItem="iF1-u8-BW0" secondAttribute="top" constant="12" id="keT-Yd-72L"/>
-                                            <constraint firstItem="FBj-ps-Q2W" firstAttribute="leading" secondItem="7nH-rK-CBH" secondAttribute="leading" id="nMN-IN-znJ"/>
-                                            <constraint firstItem="08S-52-GIh" firstAttribute="leading" secondItem="NnN-ec-DhQ" secondAttribute="trailing" constant="12" id="rCQ-4K-idx"/>
-                                            <constraint firstItem="FBj-ps-Q2W" firstAttribute="trailing" secondItem="08S-52-GIh" secondAttribute="trailing" id="rqm-w6-uly"/>
-                                            <constraint firstAttribute="trailing" secondItem="sbj-Wd-1e2" secondAttribute="trailing" constant="12" id="umO-rv-Cw3"/>
-                                            <constraint firstItem="FBj-ps-Q2W" firstAttribute="leading" secondItem="08S-52-GIh" secondAttribute="leading" id="y7v-uA-9eB"/>
-                                        </constraints>
-                                        <size key="customSize" width="320" height="89"/>
-                                        <connections>
-                                            <outlet property="inWrapLabel" destination="FBj-ps-Q2W" id="8nR-Un-Hzr"/>
-                                            <outlet property="pictureView" destination="NnN-ec-DhQ" id="R4C-Gl-Cm1"/>
-                                            <outlet property="timeLabel" destination="7nH-rK-CBH" id="ldI-MY-JrI"/>
-                                            <outlet property="userNameLabel" destination="08S-52-GIh" id="gZS-ei-gOV"/>
-                                            <outlet property="wrapImageView" destination="sbj-Wd-1e2" id="Bjx-9O-I1H"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLCommentWhatsUpCell" id="RuV-Ws-o8X" customClass="WLCommentWhatsUpCell">
-                                        <rect key="frame" x="140" y="89" width="320" height="126"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="126"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yQ5-Zl-CQt" customClass="WLCircleImageView">
-                                                    <rect key="frame" x="12" y="12" width="48" height="48"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="48" id="4Bk-Zj-THE"/>
-                                                        <constraint firstAttribute="height" constant="48" id="YAl-Gw-cqH"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
-                                                            <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="qxv-Cb-5DK" customClass="WLLabel">
-                                                    <rect key="frame" x="72" y="12" width="176" height="23"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="23" id="hAZ-ZG-bq9"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                    <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <textView clipsSubviews="YES" contentMode="left" scrollEnabled="NO" editable="NO" text="Awesome photo!" translatesAutoresizingMaskIntoConstraints="NO" id="FgB-22-MIB" customClass="WLTextView">
-                                                    <rect key="frame" x="72" y="35" width="176" height="37"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES"/>
-                                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </textView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="61" translatesAutoresizingMaskIntoConstraints="NO" id="0YA-Wt-D43" customClass="WLLabel">
-                                                    <rect key="frame" x="72" y="72" width="176" height="21"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                    <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Yestarday at 2:34pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="gs3-em-Muh" customClass="WLLabel">
-                                                    <rect key="frame" x="72" y="93" width="176" height="18"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                                    <color key="textColor" red="0.39101129770278931" green="0.39099958539009094" blue="0.3910062313079834" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AVI-Rd-s9l" customClass="WLSeparatorView">
-                                                    <rect key="frame" x="0.0" y="125" width="320" height="1"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="Grg-k0-f3y"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                            <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="syJ-Pe-nvd" customClass="WLImageView">
-                                                    <rect key="frame" x="260" y="12" width="48" height="48"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="48" id="NnC-uv-Bqa"/>
-                                                        <constraint firstAttribute="height" constant="48" id="OEo-TI-15h"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="0YA-Wt-D43" firstAttribute="trailing" secondItem="gs3-em-Muh" secondAttribute="trailing" id="2CO-eF-88R"/>
-                                            <constraint firstItem="syJ-Pe-nvd" firstAttribute="top" secondItem="RuV-Ws-o8X" secondAttribute="top" constant="12" id="3NR-tR-i4b"/>
-                                            <constraint firstItem="FgB-22-MIB" firstAttribute="top" secondItem="qxv-Cb-5DK" secondAttribute="bottom" id="4Pc-7l-jOB"/>
-                                            <constraint firstItem="yQ5-Zl-CQt" firstAttribute="top" secondItem="qxv-Cb-5DK" secondAttribute="top" id="7Id-ym-Q24"/>
-                                            <constraint firstItem="FgB-22-MIB" firstAttribute="trailing" secondItem="0YA-Wt-D43" secondAttribute="trailing" id="DB2-8J-b3Z"/>
-                                            <constraint firstAttribute="trailing" secondItem="syJ-Pe-nvd" secondAttribute="trailing" constant="12" id="Iap-Dp-CyH"/>
-                                            <constraint firstItem="FgB-22-MIB" firstAttribute="leading" secondItem="qxv-Cb-5DK" secondAttribute="leading" id="PjL-PD-qac"/>
-                                            <constraint firstItem="qxv-Cb-5DK" firstAttribute="leading" secondItem="yQ5-Zl-CQt" secondAttribute="trailing" constant="12" id="RLW-B8-IvS"/>
-                                            <constraint firstAttribute="trailing" secondItem="AVI-Rd-s9l" secondAttribute="trailing" id="Z6u-IO-s8O"/>
-                                            <constraint firstItem="FgB-22-MIB" firstAttribute="trailing" secondItem="qxv-Cb-5DK" secondAttribute="trailing" id="cMa-kq-AaS"/>
-                                            <constraint firstItem="gs3-em-Muh" firstAttribute="top" secondItem="0YA-Wt-D43" secondAttribute="bottom" id="dIV-ag-aL4"/>
-                                            <constraint firstItem="yQ5-Zl-CQt" firstAttribute="top" secondItem="RuV-Ws-o8X" secondAttribute="top" constant="12" id="ei8-Ve-kWU"/>
-                                            <constraint firstItem="FgB-22-MIB" firstAttribute="leading" secondItem="0YA-Wt-D43" secondAttribute="leading" id="haq-w0-u7y"/>
-                                            <constraint firstItem="0YA-Wt-D43" firstAttribute="leading" secondItem="gs3-em-Muh" secondAttribute="leading" id="nLj-Yq-byc"/>
-                                            <constraint firstItem="AVI-Rd-s9l" firstAttribute="leading" secondItem="RuV-Ws-o8X" secondAttribute="leading" id="pJL-li-agT"/>
-                                            <constraint firstItem="syJ-Pe-nvd" firstAttribute="leading" secondItem="qxv-Cb-5DK" secondAttribute="trailing" constant="12" id="ra8-Ht-xvW"/>
-                                            <constraint firstAttribute="bottom" secondItem="AVI-Rd-s9l" secondAttribute="bottom" id="sb8-hF-oBw"/>
-                                            <constraint firstItem="0YA-Wt-D43" firstAttribute="top" secondItem="FgB-22-MIB" secondAttribute="bottom" id="x0F-07-IiC"/>
-                                            <constraint firstItem="yQ5-Zl-CQt" firstAttribute="leading" secondItem="RuV-Ws-o8X" secondAttribute="leading" constant="12" id="zsd-Gh-BUz"/>
-                                        </constraints>
-                                        <size key="customSize" width="320" height="126"/>
-                                        <connections>
-                                            <outlet property="inWrapLabel" destination="0YA-Wt-D43" id="zFN-ci-Nhc"/>
-                                            <outlet property="pictureView" destination="yQ5-Zl-CQt" id="BuL-oQ-0F9"/>
-                                            <outlet property="textView" destination="FgB-22-MIB" id="Qhn-GP-HCf"/>
-                                            <outlet property="timeLabel" destination="gs3-em-Muh" id="k04-EN-O8r"/>
-                                            <outlet property="userNameLabel" destination="qxv-Cb-5DK" id="H7e-yu-SSf"/>
-                                            <outlet property="wrapImageView" destination="syJ-Pe-nvd" id="OBH-Yg-EbI"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="nibNamePlaceholder" value="WhatsUpPlaceholderView"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="dataSource" destination="Sb9-ms-INl" id="erB-Ap-ktR"/>
-                                    <outlet property="delegate" destination="Sb9-ms-INl" id="kGL-a2-Hwc"/>
+                                    <outlet property="delegate" destination="Sb9-ms-INl" id="pS2-vh-DCt"/>
                                 </connections>
-                            </collectionView>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="DTt-7g-SnC" secondAttribute="trailing" id="3zf-To-T9R"/>
-                            <constraint firstItem="VLc-fp-pTh" firstAttribute="leading" secondItem="Akg-VQ-Wem" secondAttribute="leading" id="KBn-xe-F0x"/>
+                            <constraint firstAttribute="trailing" secondItem="70e-p4-rQV" secondAttribute="trailing" id="JdF-NU-luk"/>
+                            <constraint firstItem="JgE-vY-HrZ" firstAttribute="top" secondItem="70e-p4-rQV" secondAttribute="bottom" id="LCR-Zg-2sl"/>
                             <constraint firstItem="DTt-7g-SnC" firstAttribute="leading" secondItem="Akg-VQ-Wem" secondAttribute="leading" id="TfQ-r3-mYK"/>
                             <constraint firstItem="DTt-7g-SnC" firstAttribute="top" secondItem="EuS-QU-6xz" secondAttribute="bottom" constant="-20" id="Txy-bB-Cfg"/>
-                            <constraint firstItem="JgE-vY-HrZ" firstAttribute="top" secondItem="VLc-fp-pTh" secondAttribute="bottom" id="XyY-4e-Wfg"/>
-                            <constraint firstAttribute="trailing" secondItem="VLc-fp-pTh" secondAttribute="trailing" id="hE9-WG-16v"/>
-                            <constraint firstItem="VLc-fp-pTh" firstAttribute="top" secondItem="DTt-7g-SnC" secondAttribute="bottom" id="vdO-23-yX6"/>
+                            <constraint firstItem="70e-p4-rQV" firstAttribute="leading" secondItem="Akg-VQ-Wem" secondAttribute="leading" id="Vyg-Kg-E5Y"/>
+                            <constraint firstItem="70e-p4-rQV" firstAttribute="top" secondItem="DTt-7g-SnC" secondAttribute="bottom" id="biL-sx-VFn"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="D4X-S5-GBc"/>
                     <connections>
+                        <outlet property="candyMetrics" destination="8QA-Fh-1aJ" id="Nlb-nQ-AM3"/>
+                        <outlet property="commentMetrics" destination="Bpc-ed-wIr" id="dVf-O3-hu3"/>
                         <outlet property="dataSource" destination="Sb9-ms-INl" id="IUo-5V-S9X"/>
                         <outlet property="navigationBar" destination="DTt-7g-SnC" id="gAn-U2-agD"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="XyY-4e-Wfg" id="TIc-cZ-AzT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Aj-Ix-LHp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="Sb9-ms-INl" customClass="WLBasicDataSource">
+                <customObject id="Sb9-ms-INl" customClass="StreamDataSource">
                     <connections>
-                        <outlet property="collectionView" destination="VLc-fp-pTh" id="1DH-Zb-qvo"/>
+                        <outlet property="streamView" destination="70e-p4-rQV" id="Upz-nx-oCK"/>
+                        <outletCollection property="metrics" destination="Bpc-ed-wIr" collectionClass="NSMutableArray" id="mX5-99-Xsb"/>
+                        <outletCollection property="metrics" destination="8QA-Fh-1aJ" collectionClass="NSMutableArray" id="XWi-KS-mWn"/>
                     </connections>
+                </customObject>
+                <customObject id="Bpc-ed-wIr" customClass="StreamMetrics">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLCommentWhatsUpCell"/>
+                    </userDefinedRuntimeAttributes>
+                </customObject>
+                <customObject id="8QA-Fh-1aJ" customClass="StreamMetrics">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLCandyWhatsUpCell"/>
+                    </userDefinedRuntimeAttributes>
                 </customObject>
             </objects>
             <point key="canvasLocation" x="997.5" y="-531.33802816901402"/>
@@ -1462,10 +1238,6 @@ Tap here to start.</string>
                 <customObject id="fHn-3G-fGW" customClass="WLHomeDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLWrapCell"/>
-                        <userDefinedRuntimeAttribute type="number" keyPath="minimumLineSpacing">
-                            <real key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="headerAnimated" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </customObject>
                 <customObject id="uJJ-OA-ZDD" customClass="PaginatedStreamDataSource">

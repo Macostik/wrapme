@@ -17,7 +17,7 @@
 
 @end
 
-@interface WLWhatsUpSet : WLPaginatedSet
+@interface WLWhatsUpSet : WLSet
 
 @property (nonatomic) NSUInteger unreadEntriesCount;
 

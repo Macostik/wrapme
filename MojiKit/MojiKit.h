@@ -43,6 +43,7 @@ FOUNDATION_EXPORT const unsigned char MojiKitVersionString[];
 #import <MojiKit/WLCryptographer.h>
 #import <MojiKit/WLEntryNotifier.h>
 #import <MojiKit/WLPaginatedSet.h>
+#import <MojiKit/WLSet.h>
 #import <MojiKit/WLHistory.h>
 #import <MojiKit/WLHistoryItem.h>
 #import <MojiKit/WLDevice.h>

@@ -35,7 +35,6 @@
         self.broadcaster = [[WLBroadcaster alloc] init];
         self.wrapCounters = [NSDictionary dictionary];
         self.sortComparator = comparatorByDate;
-        self.completed = YES;
         [[WLComment notifier] addReceiver:self];
         [[WLCandy notifier] addReceiver:self];
         [[WLWrap notifier] addReceiver:self];

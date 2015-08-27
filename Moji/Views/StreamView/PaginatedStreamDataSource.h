@@ -7,7 +7,6 @@
 //
 
 #import "StreamDataSource.h"
-#import "WLPaginatedSet+WLBaseOrderedCollection.h"
 
 @interface PaginatedStreamDataSource : StreamDataSource
 

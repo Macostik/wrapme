@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="ryM-kf-2CQ" customClass="WLCandyWhatsUpCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p1Y-Hq-npi" customClass="WLCircleImageView">
+                    <rect key="frame" x="12" y="12" width="48" height="48"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="48" id="97b-Hx-vzU"/>
+                        <constraint firstAttribute="height" constant="48" id="DvC-tf-LK8"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                            <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo by Calvin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="Tjr-1F-etl" customClass="WLLabel">
+                    <rect key="frame" x="72" y="12" width="116" height="21"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                    <color key="textColor" red="0.1505631506" green="0.1505586505" blue="0.15056121350000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="61" translatesAutoresizingMaskIntoConstraints="NO" id="PNd-pp-bGo" customClass="WLLabel">
+                    <rect key="frame" x="72" y="33" width="30" height="21"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                    <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Yestarday at 2:34pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="5Vz-1D-cZM" customClass="WLLabel">
+                    <rect key="frame" x="72" y="54" width="135" height="18"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                    <color key="textColor" red="0.39101129769999998" green="0.39099958540000002" blue="0.39100623130000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzt-d1-cyM" customClass="WLSeparatorView">
+                    <rect key="frame" x="0.0" y="88" width="320" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="BEu-aG-RsW"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                            <color key="value" red="0.91664922240000002" green="0.91662174460000001" blue="0.91663730139999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ODU-dp-Jks" customClass="WLImageView">
+                    <rect key="frame" x="260" y="12" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="48" id="8kd-S1-ZkB"/>
+                        <constraint firstAttribute="height" constant="48" id="n19-CA-JdU"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="p1Y-Hq-npi" firstAttribute="top" secondItem="Tjr-1F-etl" secondAttribute="top" id="5hh-nq-WJU"/>
+                <constraint firstItem="ODU-dp-Jks" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5Vz-1D-cZM" secondAttribute="trailing" constant="12" id="6k9-on-xJS"/>
+                <constraint firstItem="ODU-dp-Jks" firstAttribute="top" secondItem="ryM-kf-2CQ" secondAttribute="top" constant="12" id="JPX-6G-fAJ"/>
+                <constraint firstAttribute="bottom" secondItem="yzt-d1-cyM" secondAttribute="bottom" id="L9M-s9-3a5"/>
+                <constraint firstItem="PNd-pp-bGo" firstAttribute="leading" secondItem="p1Y-Hq-npi" secondAttribute="trailing" constant="12" id="Lq6-bu-qJE"/>
+                <constraint firstItem="PNd-pp-bGo" firstAttribute="top" secondItem="Tjr-1F-etl" secondAttribute="bottom" id="SM9-XW-1EU"/>
+                <constraint firstItem="yzt-d1-cyM" firstAttribute="leading" secondItem="ryM-kf-2CQ" secondAttribute="leading" id="YOw-aA-gk2"/>
+                <constraint firstItem="p1Y-Hq-npi" firstAttribute="leading" secondItem="ryM-kf-2CQ" secondAttribute="leading" constant="12" id="aNX-W6-WUo"/>
+                <constraint firstItem="ODU-dp-Jks" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Tjr-1F-etl" secondAttribute="trailing" constant="12" id="f1j-bs-VrE"/>
+                <constraint firstItem="Tjr-1F-etl" firstAttribute="leading" secondItem="p1Y-Hq-npi" secondAttribute="trailing" constant="12" id="fDf-Qt-0ak"/>
+                <constraint firstItem="5Vz-1D-cZM" firstAttribute="leading" secondItem="p1Y-Hq-npi" secondAttribute="trailing" constant="12" id="jWG-av-c8C"/>
+                <constraint firstAttribute="trailing" secondItem="yzt-d1-cyM" secondAttribute="trailing" id="p8O-fW-BsH"/>
+                <constraint firstItem="5Vz-1D-cZM" firstAttribute="top" secondItem="PNd-pp-bGo" secondAttribute="bottom" id="qzZ-kZ-htd"/>
+                <constraint firstItem="ODU-dp-Jks" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PNd-pp-bGo" secondAttribute="trailing" constant="12" id="tv6-Jh-4ZC"/>
+                <constraint firstItem="p1Y-Hq-npi" firstAttribute="top" secondItem="ryM-kf-2CQ" secondAttribute="top" constant="12" id="ug7-eO-Boa"/>
+                <constraint firstAttribute="trailing" secondItem="ODU-dp-Jks" secondAttribute="trailing" constant="12" id="vlh-su-SuQ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="inWrapLabel" destination="PNd-pp-bGo" id="Zse-7J-22R"/>
+                <outlet property="pictureView" destination="p1Y-Hq-npi" id="OQx-bH-QeV"/>
+                <outlet property="timeLabel" destination="5Vz-1D-cZM" id="xIR-fD-eVO"/>
+                <outlet property="userNameLabel" destination="Tjr-1F-etl" id="ouo-SV-bhM"/>
+                <outlet property="wrapImageView" destination="ODU-dp-Jks" id="Ben-r2-17M"/>
+            </connections>
+        </view>
+    </objects>
+</document>

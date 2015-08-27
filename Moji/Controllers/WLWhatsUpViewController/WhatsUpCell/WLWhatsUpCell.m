@@ -33,12 +33,6 @@
 
 @implementation WLWhatsUpCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.textView.textContainerInset = UIEdgeInsetsZero;
-    self.textView.textContainer.lineFragmentPadding = .0;
-}
-
 - (void)setup:(WLWhatsUpEvent*)event {
     WLContribution *contribution = event.contribution;
     [contribution markAsRead];
@@ -46,15 +40,15 @@
     self.wrapImageView.url = contribution.picture.small;
 }
 
-+ (CGFloat)additionalHeightCell:(WLWhatsUpEvent *)event {
-    if (![event.contribution respondsToSelector:@selector(text)]) return .0f;
-    UIFont *font = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
-    return [[event.contribution text] heightWithFont:font width:WLConstants.screenWidth - WLWhatsUpCommentHorizontalSpacing];
-}
-
 @end
 
 @implementation WLCommentWhatsUpCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.textView.textContainerInset = UIEdgeInsetsZero;
+    self.textView.textContainer.lineFragmentPadding = .0;
+}
 
 - (void)setup:(WLWhatsUpEvent*)event {
     [super setup:event];

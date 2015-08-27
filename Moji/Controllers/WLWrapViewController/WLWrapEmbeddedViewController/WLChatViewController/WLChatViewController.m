@@ -286,11 +286,11 @@ CGFloat WLMaxTextViewWidth;
     [self.cachedMessageHeights removeAllObjects];
 }
 
-- (void)paginatedSetChanged:(WLPaginatedSet *)group {
+- (void)setDidChange:(WLPaginatedSet *)group {
     [self reloadDataSynchronously:NO];
 }
 
-- (void)paginatedSetCompleted:(WLPaginatedSet *)group {
+- (void)paginatedSetDidComplete:(WLPaginatedSet *)group {
     [self reloadDataSynchronously:NO];
 }
 

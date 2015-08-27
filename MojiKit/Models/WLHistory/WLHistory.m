@@ -185,7 +185,7 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLCandy *)candy {
     [self addEntry:candy];
-    if  ([candy.contributor isCurrentUser]) [self.delegate paginatedSetChanged:self];
+    if  ([candy.contributor isCurrentUser]) [self didChange];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLCandy *)candy {

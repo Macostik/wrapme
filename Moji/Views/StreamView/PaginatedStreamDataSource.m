@@ -70,11 +70,11 @@
 
 // MARK: - WLPaginatedSetDelegate
 
-- (void)paginatedSetChanged:(WLPaginatedSet *)group {
+- (void)setDidChange:(WLPaginatedSet *)group {
     [self reload];
 }
 
-- (void)paginatedSetCompleted:(WLPaginatedSet *)group {
+- (void)paginatedSetDidComplete:(WLPaginatedSet *)group {
     StreamLayout *layout = self.streamView.layout;
     CGPoint offset = layout.horizontal ?
     CGPointMake(self.streamView.contentOffset.x - self.loaderMetrics.size, 0) :

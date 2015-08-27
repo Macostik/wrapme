@@ -96,11 +96,11 @@
 
 #pragma mark - WLPaginatedSetDelegate
 
-- (void)paginatedSetChanged:(WLPaginatedSet *)group {
+- (void)setDidChange:(WLPaginatedSet *)group {
     [self reload];
 }
 
-- (void)paginatedSetCompleted:(WLPaginatedSet *)group {
+- (void)paginatedSetDidComplete:(WLPaginatedSet *)group {
     if (self.headerAnimated && self.collectionView.scrollable) {
         UICollectionViewFlowLayout *layout = (id)self.collectionView.collectionViewLayout;
         CGPoint offset = layout.scrollDirection == UICollectionViewScrollDirectionHorizontal ?
@@ -112,7 +112,7 @@
             [self reload];
         });
     } else {
-        [self paginatedSetChanged:group];
+        [self setDidChange:group];
     }
 }
 

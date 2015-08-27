@@ -76,9 +76,7 @@
             }];
         });
     });
-    
-    [UIImage allImagesSizeOfLaunchScreenView];
-    
+        
 	return YES;
 }
 

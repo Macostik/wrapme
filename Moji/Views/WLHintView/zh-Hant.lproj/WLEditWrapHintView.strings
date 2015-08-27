@@ -1,6 +1,6 @@
 
-/* Class = "UIButton"; normalTitle = "Got it"; ObjectID = "Kaw-xl-FOm"; */
+/* Class = "UIButton"; normalTitle = "知道"; ObjectID = "Kaw-xl-FOm"; */
 "Kaw-xl-FOm.normalTitle" = "知道";
 
-/* Class = "UILabel"; text = "Great shot! Enrich your amazing photo with filters and stickers."; ObjectID = "zei-81-22N"; */
+/* Class = "UILabel"; text = "按此加入相片特效"; ObjectID = "zei-81-22N"; */
 "zei-81-22N.text" = "按此加入相片特效";

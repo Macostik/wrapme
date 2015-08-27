@@ -32,7 +32,10 @@
     // Do any additional setup after loading the view.
     
     self.stepViewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"introduction_step_1"],[self.storyboard instantiateViewControllerWithIdentifier:@"introduction_step_2"]];
-    [self.stepViewControllers makeObjectsPerformSelector:@selector(setDelegate:) withObject:self];
+    for (WLIntroductionBaseViewController *controller in self.stepViewControllers) {
+        controller.delegate = self;
+        controller.view.backgroundColor = [UIColor clearColor];
+    }
     self.pageControl.numberOfPages = self.stepViewControllers.count;
     self.pageControl.currentPage = 0;
     [self setViewController:[self.stepViewControllers firstObject] direction:0 animated:NO];

@@ -1,18 +1,18 @@
 
-/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "76D-bl-W0K"; */
+/* Class = "UIButton"; normalTitle = "取消"; ObjectID = "76D-bl-W0K"; */
 "76D-bl-W0K.normalTitle" = "取消";
 
-/* Class = "IBUILabel"; text = "Is this correct?"; ObjectID = "CeK-FC-xMs"; */
+/* Class = "UILabel"; text = "正確嗎？"; ObjectID = "CeK-FC-xMs"; */
 "CeK-FC-xMs.text" = "正確嗎？";
 
-/* Class = "IBUILabel"; text = "+1 (925) 980 8866"; ObjectID = "MpF-fi-jIi"; */
+/* Class = "UILabel"; text = "+1 (925) 980 8866"; ObjectID = "MpF-fi-jIi"; */
 "MpF-fi-jIi.text" = "+1 (925) 980 8866";
 
-/* Class = "IBUILabel"; text = "Confirm your details"; ObjectID = "Yo3-sx-jNh"; */
+/* Class = "UILabel"; text = "確認個人資料"; ObjectID = "Yo3-sx-jNh"; */
 "Yo3-sx-jNh.text" = "確認個人資料";
 
-/* Class = "IBUIButton"; normalTitle = "OK"; ObjectID = "anc-0k-7cc"; */
+/* Class = "UIButton"; normalTitle = "確定"; ObjectID = "anc-0k-7cc"; */
 "anc-0k-7cc.normalTitle" = "確定";
 
-/* Class = "IBUILabel"; text = "calvin@ravenpod.com"; ObjectID = "edD-kw-Hyg"; */
+/* Class = "UILabel"; text = "calvin@ravenpod.com"; ObjectID = "edD-kw-Hyg"; */
 "edD-kw-Hyg.text" = "calvin@ravenpod.com";

@@ -18,7 +18,6 @@
 #import "WLRemoteEntryHandler.h"
 #import "WLHomeViewController.h"
 #import "iVersion.h"
-#import "WLLaunchScreenViewController.h"
 #import "WLSignupFlowViewController.h"
 #import "GAI.h"
 #import <NewRelicAgent/NewRelic.h>
@@ -78,6 +77,8 @@
         });
     });
     
+    [UIImage allImagesSizeOfLaunchScreenView];
+    
 	return YES;
 }
 
@@ -133,7 +134,6 @@
 }
 
 - (void)presentInitialViewController {
-    
     void (^successBlock) (WLUser *user) = ^(WLUser *user) {
         if (user.isSignupCompleted) {
             [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
@@ -156,7 +156,7 @@
                 return;
             }
         }
-        self.window.rootViewController = [[WLLaunchScreenViewController alloc] init];
+        self.window.rootViewController = [[UIViewController alloc] initWithNibName:@"WLLaunchScreenViewController" bundle:nil];
         __weak typeof(self)weakSelf = self;
         [authorization signIn:successBlock failure:^(NSError *error) {
             WLUser *currentUser = [WLUser currentUser];

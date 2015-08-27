@@ -303,7 +303,7 @@
         case WLNotificationContributorAdd:
         case WLNotificationMessageAdd:
         case WLNotificationCommentAdd:
-            return [self.targetEntry notifiableForEvent:self.event];
+            return [self.targetEntry notifiableForNotification:self];
             break;
         default:
             return NO;
@@ -323,12 +323,12 @@
 
 @implementation WLEntry (WLNotification)
 
-- (BOOL)notifiableForEvent:(WLEvent)event {
+- (BOOL)notifiableForNotification:(WLNotification*)notification {
     return NO;
 }
 
-- (void)markAsUnreadIfNeededForEvent:(WLEvent)event {
-    if ([self notifiableForEvent:event]) [self markAsUnread];
+- (void)markAsUnreadIfNeededForNotification:(WLNotification*)notification {
+    if ([self notifiableForNotification:notification]) [self markAsUnread];
 }
 
 - (void)prepareForAddNotification:(WLNotification *)notification {
@@ -377,7 +377,8 @@
 
 @implementation WLContribution (WLNotification)
 
-- (BOOL)notifiableForEvent:(WLEvent)event {
+- (BOOL)notifiableForNotification:(WLNotification*)notification {
+    WLEvent event = notification.event;
     if (event == WLEventAdd) {
         return !self.contributedByCurrentUser;
     } else if (event == WLEventUpdate) {
@@ -393,6 +394,15 @@
 @end
 
 @implementation WLWrap (WLNotification)
+
+- (BOOL)notifiableForNotification:(WLNotification *)notification {
+    if (notification.event == WLEventAdd) {
+        NSString *userIdentifier = notification.data[WLUserUIDKey] ? : notification.data[WLUserKey][WLUserUIDKey];
+        return !self.contributedByCurrentUser && ![userIdentifier isEqualToString:[WLUser currentUser].identifier];
+    } else {
+        return [super notifiableForNotification:notification];
+    }
+}
 
 - (void)fetchAddNotification:(WLNotification *)notification success:(WLBlock)success failure:(WLFailureBlock)failure {
     NSString *userIdentifier = notification.data[WLUserUIDKey];
@@ -440,12 +450,12 @@
 }
 
 - (void)finalizeAddNotification:(WLNotification *)notification {
-    if (notification.inserted) [self markAsUnreadIfNeededForEvent:notification.event];
+    if (notification.inserted) [self markAsUnreadIfNeededForNotification:notification];
     [super finalizeAddNotification:notification];
 }
 
 - (void)finalizeUpdateNotification:(WLNotification *)notification {
-    [self markAsUnreadIfNeededForEvent:notification.event];
+    [self markAsUnreadIfNeededForNotification:notification];
     [super finalizeUpdateNotification:notification];
 }
 
@@ -462,7 +472,7 @@
 @implementation WLMessage (WLNotification)
 
 - (void)finalizeAddNotification:(WLNotification *)notification {
-    if (notification.inserted) [self markAsUnreadIfNeededForEvent:notification.event];
+    if (notification.inserted) [self markAsUnreadIfNeededForNotification:notification];
     [super finalizeAddNotification:notification];
 }
 
@@ -473,13 +483,13 @@
 - (void)finalizeAddNotification:(WLNotification *)notification {
     WLCandy *candy = self.candy;
     if (candy.valid) candy.commentCount = candy.comments.count;
-    if (notification.inserted) [self markAsUnreadIfNeededForEvent:notification.event];
+    if (notification.inserted) [self markAsUnreadIfNeededForNotification:notification];
     [super finalizeAddNotification:notification];
 }
 
-- (BOOL)notifiableForEvent:(WLEvent)event {
-    if (event != WLEventAdd) {
-        return [super notifiableForEvent:event];
+- (BOOL)notifiableForNotification:(WLNotification*)notification {
+    if (notification.event != WLEventAdd) {
+        return [super notifiableForNotification:notification];
     }
     
     WLUser *currentUser = [WLUser currentUser];

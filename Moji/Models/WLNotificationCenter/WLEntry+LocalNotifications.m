@@ -57,7 +57,8 @@
 }
 
 - (NSString *)localNotificationAlertBodyForNotification:(WLNotification *)notification {
-    return [NSString stringWithFormat:WLLS(@"APNS_MSG01"), self.contributor.name, self.name];
+    NSString *name = notification.data[@"invited_by_name"] ? : self.contributor.name;
+    return [NSString stringWithFormat:WLLS(@"APNS_MSG01"), name, self.name];
 }
 
 @end

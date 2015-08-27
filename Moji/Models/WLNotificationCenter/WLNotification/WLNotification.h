@@ -83,9 +83,9 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @interface WLEntry (WLNotification)
 
-- (BOOL)notifiableForEvent:(WLEvent)event;
+- (BOOL)notifiableForNotification:(WLNotification*)notification;
 
-- (void)markAsUnreadIfNeededForEvent:(WLEvent)event;
+- (void)markAsUnreadIfNeededForNotification:(WLNotification*)notification;
 
 - (void)prepareForAddNotification:(WLNotification *)notification;
 

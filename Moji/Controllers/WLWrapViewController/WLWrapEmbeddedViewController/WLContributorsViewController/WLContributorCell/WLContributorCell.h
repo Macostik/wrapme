@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLEntryCell.h"
+#import "StreamReusableView.h"
 
 @class WLContributorCell;
 @class WLUser;
@@ -22,7 +22,7 @@
 
 @end
 
-@interface WLContributorCell : WLEntryCell
+@interface WLContributorCell : StreamReusableView
 
 @property (nonatomic, weak) IBOutlet id <WLContributorCellDelegate> delegate;
 

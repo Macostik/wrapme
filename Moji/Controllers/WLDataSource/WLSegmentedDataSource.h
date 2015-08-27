@@ -12,6 +12,9 @@
 
 @property (strong, nonatomic) IBOutletCollection(WLDataSource) NSMutableArray *items;
 
+@property (strong, nonatomic) IBInspectable NSString *nameFirstSegmentPlaceholder;
+@property (strong, nonatomic) IBInspectable NSString *nameSecondSegmentPlaceholder;
+
 @property (strong, nonatomic) WLDataSource* currentDataSource;
 
 - (void)addDataSource:(WLDataSource*)dataSource;

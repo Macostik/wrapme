@@ -16,18 +16,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="scy-jh-Nrg">
-                    <rect key="frame" x="63" y="212" width="195" height="144"/>
+                    <rect key="frame" x="60" y="212" width="201" height="144"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nll-EC-OTb" customClass="WLButton">
-                            <rect key="frame" x="49" y="0.0" width="96" height="108"/>
+                            <rect key="frame" x="53" y="0.0" width="96" height="108"/>
                             <fontDescription key="fontDescription" name="icons" family="icons" pointSize="96"/>
                             <state key="normal" title="C">
                                 <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No upload in this Moji" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zod-d7-1MU" customClass="WLLabel">
-                            <rect key="frame" x="0.0" y="118" width="195" height="26"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No upload in this Moji." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zod-d7-1MU" customClass="WLLabel">
+                            <rect key="frame" x="0.0" y="118" width="201" height="26"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
                             <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>

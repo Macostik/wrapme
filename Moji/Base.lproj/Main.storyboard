@@ -1482,9 +1482,6 @@
                                         <outlet property="collectionView" destination="68L-hz-4uC" id="EV4-0O-TZy"/>
                                     </connections>
                                 </collectionReusableView>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="nibNamePlaceholder" value="WLHomePlaceholderView"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="gv8-Nb-wf7" id="bQW-sX-X3Y"/>
                                     <outlet property="delegate" destination="gv8-Nb-wf7" id="vxX-wO-x1Y"/>
@@ -1916,6 +1913,10 @@ Tap here to start.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfT-C3-6mj" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="gv8-Nb-wf7" customClass="WLSegmentedDataSource">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="nameFirstSegmentPlaceholder" value="WLHomePlaceholderView"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="nameSecondSegmentPlaceholder" value="PablicWrapPlaceholder"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="aim-EG-DAj"/>
                         <outlet property="scrollDirectionLayoutPrioritizer" destination="qqw-Aq-nfs" id="XD7-NW-ICm"/>

@@ -39,6 +39,7 @@ static NSHashTable *collectionViews = nil;
         if (!collectionViews) {
             collectionViews = [NSHashTable weakObjectsHashTable];
         }
+        _placeholderMap = [NSMapTable strongToStrongObjectsMapTable];
         [collectionViews addObject:self];
     }
     return self;
@@ -47,9 +48,10 @@ static NSHashTable *collectionViews = nil;
 - (void)awakeFromNib {
     [super awakeFromNib];
     [WLLoadingView registerInCollectionView:self];
-    self.placeholderMap = [NSMapTable strongToStrongObjectsMapTable];
-    [self addToCachePlaceholderWithName:self.nibNamePlaceholder byType:WLDefaultType];
-    [self setPlaceholderByTupe:WLDefaultType];
+    if (self.mode == WLDefaultPlaceholderMode) {
+        [self addToCachePlaceholderWithName:self.nibNamePlaceholder byType:WLDefaultType];
+        [self setPlaceholderByType:WLDefaultType];
+    }
     [self addObserver:self forKeyPath:WLContentSize options:NSKeyValueObservingOptionNew context:NULL];
 }
 
@@ -90,7 +92,16 @@ static NSHashTable *collectionViews = nil;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:WLContentSize]) {
         if (self.contentSize.width == 0 || self.contentSize.height == 0) {
-            if (self.placeholderView != nil) return;
+            if (self.placeholderView != nil) {
+                switch (self.mode) {
+                    case WLDefaultPlaceholderMode:
+                        return;
+                        break;
+                    case WLManualPlaceholderMode:
+                        [self.placeholderView removeFromSuperview];
+                        break;
+                }
+            };
             [self setBackgroundPlaceholderByType:self.currentType];
         } else {
             if (self.placeholderView != nil) {
@@ -101,7 +112,7 @@ static NSHashTable *collectionViews = nil;
     }
 }
 
-- (void)setPlaceholderByTupe:(NSInteger)type {
+- (void)setPlaceholderByType:(NSInteger)type {
     self.currentType = type;
 }
 

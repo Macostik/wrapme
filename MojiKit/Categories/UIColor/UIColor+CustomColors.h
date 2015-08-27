@@ -32,6 +32,8 @@
 
 @property (strong, nonatomic) UIColor *orangeLighter;
 
+@property (strong, nonatomic) UIColor *orangeLightest;
+
 @property (strong, nonatomic) UIColor *dangerRed;
 
 @end

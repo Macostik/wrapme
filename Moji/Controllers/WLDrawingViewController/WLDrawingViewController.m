@@ -35,15 +35,16 @@
 
 @implementation WLDrawingViewController
 
-+ (instancetype)draw:(UIImage *)image inViewController:(UIViewController *)controller finish:(WLImageBlock)finish {
++ (instancetype)draw:(UIImage *)image finish:(WLImageBlock)finish {
+    UIViewController *presentingViewController = [UIWindow mainWindow].rootViewController;
     WLDrawingViewController *drawingViewController = [[WLDrawingViewController alloc] init];
     [drawingViewController setImage:image done:^(UIImage *image) {
         if (finish) finish(image);
-        [controller dismissViewControllerAnimated:NO completion:nil];
+        [presentingViewController dismissViewControllerAnimated:NO completion:nil];
     } cancel:^{
-        [controller dismissViewControllerAnimated:NO completion:nil];
+        [presentingViewController dismissViewControllerAnimated:NO completion:nil];
     }];
-    [controller presentViewController:drawingViewController animated:NO completion:nil];
+    [presentingViewController presentViewController:drawingViewController animated:NO completion:nil];
     return drawingViewController;
 }
 

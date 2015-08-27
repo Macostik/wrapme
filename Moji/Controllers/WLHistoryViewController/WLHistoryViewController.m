@@ -456,7 +456,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         __weak WLCandy *candy = weakSelf.candy;
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
-            [WLDrawingViewController draw:image inViewController:weakSelf finish:^(UIImage *image) {
+            [WLDrawingViewController draw:image finish:^(UIImage *image) {
                 [candy editWithImage:image];
             }];
         } failure:^(NSError *error) {
@@ -481,9 +481,13 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)downloadCandyOriginal:(WLCandy*)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
-    [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
-        [WLDownloadingView downloadCandy:candy success:success failure:failure];
-    } failure:failure];
+    if (candy) {
+        [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
+            [WLDownloadingView downloadCandy:candy success:success failure:failure];
+        } failure:failure];
+    } else {
+        if (failure) failure(nil);
+    }
 }
 
 - (IBAction)toggleBottomViewMode:(id)sender {

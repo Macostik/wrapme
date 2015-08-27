@@ -119,8 +119,18 @@
     [self dissmis];
 }
 
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteContainingEntry:(WLEntry *)entry {
+    self.candy = nil;
+    if (self.failureBlock) self.failureBlock(nil);
+    [self dissmis];
+}
+
 - (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
     return self.candy == entry;
+}
+
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnContainingEntry:(WLEntry *)entry {
+    return self.candy.wrap == entry;
 }
 
 @end

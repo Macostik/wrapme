@@ -9,7 +9,6 @@
 #import "WLStillPictureBaseViewController.h"
 #import <AVFoundation/AVCaptureDevice.h>
 #import "WLCameraViewController.h"
-#import "WLAssetsGroupViewController.h"
 
 @class WLStillPictureViewController;
 @class ALAsset;
@@ -26,7 +25,7 @@
 
 @end
 
-@interface WLStillPictureViewController : UINavigationController <WLStillPictureBaseViewController, WLCameraViewControllerDelegate, WLAssetsViewControllerDelegate>
+@interface WLStillPictureViewController : UINavigationController <WLStillPictureBaseViewController, WLCameraViewControllerDelegate>
 
 @property (nonatomic, weak) id <WLStillPictureViewControllerDelegate> delegate;
 
@@ -45,8 +44,6 @@
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion;
 
 - (void)cropAsset:(ALAsset*)asset completion:(void (^)(UIImage *croppedImage))completion;
-
-- (void)openGallery:(BOOL)openCameraRoll animated:(BOOL)animated;
 
 - (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum;
 

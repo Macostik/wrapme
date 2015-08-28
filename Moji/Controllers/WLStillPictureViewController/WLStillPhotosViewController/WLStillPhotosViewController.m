@@ -15,13 +15,12 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIView+AnimationHelper.h"
-#import "WLAssetsGroupViewController.h"
 #import "WLNavigationHelper.h"
 #import "UIButton+Additions.h"
 #import "WLBatchEditPictureViewController.h"
 #import "WLCollections.h"
 
-@interface WLStillPhotosViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate, WLBatchEditPictureViewControllerDelegate>
+@interface WLStillPhotosViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLBatchEditPictureViewControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray* pictures;
 

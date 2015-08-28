@@ -16,7 +16,6 @@
 
 - (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image metadata:(NSMutableDictionary*)metadata saveToAlbum:(BOOL)saveToAlbum;
 - (void)cameraViewControllerDidCancel:(WLCameraViewController*)controller;
-- (void)cameraViewControllerDidSelectGallery:(WLCameraViewController*)controller;
 
 @optional
 - (void)cameraViewControllerDidFinish:(WLCameraViewController*)controller sender:(id)sender;

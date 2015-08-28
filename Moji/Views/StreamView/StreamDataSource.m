@@ -148,10 +148,7 @@
 }
 
 - (void)setRefreshableWithStyle:(WLRefresherStyle)style {
-    __weak typeof(self)weakSelf = self;
-    run_after_asap(^{
-        [WLRefresher refresher:weakSelf.streamView target:weakSelf action:@selector(refresh:) style:style];
-    });
+    [WLRefresher refresher:self.streamView target:self action:@selector(refresh:) style:style];
 }
 
 // MARK: - StreamViewDelegate
@@ -160,9 +157,8 @@
     return self.numberOfItemsBlock ? self.numberOfItemsBlock(self) : [self.items count];
 }
 
-- (id)streamView:(StreamView*)streamView viewForItem:(StreamItem*)item {
-    id entry = [self.items tryAt:item.index.next.value];
-    return [item.metrics viewForItem:item inStreamView:streamView entry:entry];
+- (id)streamView:(StreamView*)streamView entryAt:(StreamIndex *)index {
+    return [self.items tryAt:index.item];
 }
 
 - (NSArray *)streamViewHeaderMetrics:(StreamView *)streamView {
@@ -187,13 +183,6 @@
 
 - (NSInteger)streamViewNumberOfSections:(StreamView*)streamView {
     return 1;
-}
-
-- (void)streamView:(StreamView*)streamView didSelectItem:(StreamItem*)item {
-    id entry = [self.items tryAt:item.index.next.value];
-    if (item.metrics.selectionBlock && entry) {
-        item.metrics.selectionBlock(entry);
-    }
 }
 
 - (CGFloat)streamView:(StreamView*)streamView layoutOffset:(StreamLayout*)layout {

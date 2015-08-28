@@ -31,6 +31,7 @@
 }
 
 - (void)setup:(WLHistoryItem*)item {
+    [self layoutIfNeeded];
     self.dataSource.items = item;
 	self.dateLabel.text = [item.date stringWithDateStyle:NSDateFormatterMediumStyle];
     [self.streamView trySetContentOffset:item.offset];

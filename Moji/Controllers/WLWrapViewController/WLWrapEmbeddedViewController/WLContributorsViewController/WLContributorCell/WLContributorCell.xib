@@ -194,6 +194,7 @@
                 <userDefinedRuntimeAttribute type="number" keyPath="size">
                     <real key="value" value="76"/>
                 </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="nibOwner" destination="aov-0F-b5J" id="Ggc-zX-cz3"/>
@@ -205,6 +206,7 @@
                 <userDefinedRuntimeAttribute type="number" keyPath="size">
                     <real key="value" value="76"/>
                 </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="nibOwner" destination="aov-0F-b5J" id="vzt-Wi-Qzw"/>
@@ -216,6 +218,7 @@
                 <userDefinedRuntimeAttribute type="number" keyPath="size">
                     <real key="value" value="76"/>
                 </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="nibOwner" destination="aov-0F-b5J" id="6h9-Ys-zng"/>
@@ -227,6 +230,7 @@
                 <userDefinedRuntimeAttribute type="number" keyPath="size">
                     <real key="value" value="76"/>
                 </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="nibOwner" destination="aov-0F-b5J" id="bxI-ft-P9u"/>

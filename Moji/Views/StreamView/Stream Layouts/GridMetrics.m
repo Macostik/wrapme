@@ -11,7 +11,7 @@
 @implementation GridMetrics
 
 - (CGFloat)ratioAt:(StreamIndex *)index {
-    return self.ratioBlock ? self.ratioBlock(index) : self.ratio;
+    return self.ratioBlock ? self.ratioBlock(index, self) : self.ratio;
 }
 
 @end

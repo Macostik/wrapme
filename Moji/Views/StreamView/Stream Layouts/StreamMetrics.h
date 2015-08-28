@@ -15,7 +15,7 @@
 @class StreamReusableView;
 
 typedef void(^StreamMetricsBlock)(StreamMetrics *metrics);
-typedef void(^StreamMetricsViewWillAppearBlock)(StreamItem *item, id view, id entry);
+typedef void(^StreamMetricsEntryBlock)(StreamItem *item, id entry);
 
 @interface StreamMetrics : NSObject
 
@@ -25,38 +25,44 @@ typedef void(^StreamMetricsViewWillAppearBlock)(StreamItem *item, id view, id en
 
 @property (weak, nonatomic) IBOutlet id nibOwner;
 
-@property (nonatomic) BOOL hidden;
+@property (nonatomic) IBInspectable BOOL hidden;
 
-@property (strong, nonatomic) BOOL(^hiddenBlock)(StreamIndex *index);
+@property (strong, nonatomic) BOOL(^hiddenBlock)(StreamIndex *index, StreamMetrics *metrics);
 
 @property (nonatomic) IBInspectable CGFloat size;
 
-@property (strong, nonatomic) CGFloat(^sizeBlock)(StreamIndex *index);
+@property (strong, nonatomic) CGFloat(^sizeBlock)(StreamIndex *index, StreamMetrics *metrics);
 
 @property (nonatomic) IBInspectable CGRect insets;
 
-@property (strong, nonatomic) CGRect(^insetsBlock)(StreamIndex *index);
+@property (strong, nonatomic) CGRect(^insetsBlock)(StreamIndex *index, StreamMetrics *metrics);
 
-@property (strong, nonatomic) WLObjectBlock selectionBlock;
+@property (strong, nonatomic) StreamMetricsEntryBlock selectionBlock;
+
+@property (strong, nonatomic) StreamMetricsEntryBlock viewWillAppearBlock;
+
+@property (strong, nonatomic) NSMutableSet *reusableViews;
 
 + (instancetype)metrics:(StreamMetricsBlock)block;
 
 - (instancetype)change:(StreamMetricsBlock)block;
 
-- (id)viewForItem:(StreamItem*)item inStreamView:(StreamView*)streamView entry:(id)entry;
+- (void)setViewWillAppearBlock:(StreamMetricsEntryBlock)viewWillAppearBlock;
 
-- (void)setViewWillAppearBlock:(StreamMetricsViewWillAppearBlock)viewWillAppearBlock;
-
-- (void)setHiddenBlock:(BOOL (^)(StreamIndex *index))hiddenBlock;
+- (void)setHiddenBlock:(BOOL (^)(StreamIndex *index, StreamMetrics *metrics))hiddenBlock;
 
 - (BOOL)hiddenAt:(StreamIndex*)index;
 
-- (void)setSizeBlock:(CGFloat (^)(StreamIndex *index))sizeBlock;
+- (void)setSizeBlock:(CGFloat (^)(StreamIndex *index, StreamMetrics *metrics))sizeBlock;
 
 - (CGFloat)sizeAt:(StreamIndex*)index;
 
-- (void)setInsetsBlock:(CGRect (^)(StreamIndex *index))insetsBlock;
+- (void)setInsetsBlock:(CGRect (^)(StreamIndex *index, StreamMetrics *metrics))insetsBlock;
 
 - (CGRect)insetsAt:(StreamIndex*)index;
+
+- (StreamReusableView*)loadView;
+
+- (void)select:(StreamItem*)item entry:(id)entry;
 
 @end

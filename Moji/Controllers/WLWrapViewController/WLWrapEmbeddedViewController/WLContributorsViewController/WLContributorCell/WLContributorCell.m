@@ -13,8 +13,6 @@
 
 @interface WLContributorCell ()
 
-@property (strong, nonatomic) NSArray *cells;
-
 @property (nonatomic) BOOL deletable;
 
 @property (nonatomic) BOOL canBeInvited;
@@ -36,21 +34,12 @@
 
 @implementation WLContributorCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    __weak typeof(self)weakSelf = self;
-    self.removeMetrics.hiddenBlock = ^BOOL(StreamIndex *index) {
-        return ![weakSelf.cells containsObject:weakSelf.removeMetrics.identifier];
-    };
-    self.resendMetrics.hiddenBlock = ^BOOL(StreamIndex *index) {
-        return ![weakSelf.cells containsObject:weakSelf.resendMetrics.identifier];
-    };
-    self.spinnerMetrics.hiddenBlock = ^BOOL(StreamIndex *index) {
-        return ![weakSelf.cells containsObject:weakSelf.spinnerMetrics.identifier];
-    };
-    self.resendDoneMetrics.hiddenBlock = ^BOOL(StreamIndex *index) {
-        return ![weakSelf.cells containsObject:weakSelf.resendDoneMetrics.identifier];
-    };
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.removeMetrics.hidden = YES;
+    self.resendMetrics.hidden = YES;
+    self.resendDoneMetrics.hidden = YES;
+    self.spinnerMetrics.hidden = YES;
 }
 
 - (void)setup:(WLUser*)user {
@@ -62,19 +51,20 @@
         self.deletable = NO;
     }
     
-    NSMutableArray *cells = [NSMutableArray array];
-    
     if (self.deletable) {
-        [cells addObject:@"WLContributorRemoveCell"];
+        self.removeMetrics.hidden = NO;
     }
     self.canBeInvited = user.isInvited;
     
     if (self.canBeInvited) {
         BOOL invited = [self.delegate contributorCell:self isInvitedContributor:user];
-        [cells addObject:invited ? @"WLContributorResendDoneCell" : @"WLContributorResendCell"];
+        self.resendDoneMetrics.hidden = !invited;
+        self.resendMetrics.hidden = invited;
     }
     
-    self.cells = [cells copy];
+    [self layoutIfNeeded];
+    self.dataSource.layoutOffset = self.width;
+    self.dataSource.items = @[user];
     
     BOOL isCreator = [self.delegate contributorCell:self isCreator:user];
     NSString * userNameText = [user isCurrentUser] ? WLLS(@"you") : user.name;
@@ -98,18 +88,7 @@
     
     self.slideMenuButton.hidden = !self.deletable && !self.canBeInvited;
     
-    run_after_asap(^{
-        [self setMenuHidden:![self.delegate contributorCell:self showMenu:user] animated:NO];
-    });
-}
-
-- (void)setCells:(NSArray *)cells {
-    _cells = cells;
-    if (self.entry) {
-        self.dataSource.layoutOffset = self.width;
-        [self layoutIfNeeded];
-        self.dataSource.items = @[self.entry];
-    }
+    [self setMenuHidden:![self.delegate contributorCell:self showMenu:user] animated:NO];
 }
 
 - (IBAction)toggleSideMenu:(id)sender {
@@ -132,12 +111,17 @@
 }
 
 - (IBAction)resendInvite:(WLButton*)sender {
-    self.cells = [self.cells replace:@"WLContributorResendCell" with:@"WLContributorSpinnerCell"];
+    self.resendMetrics.hidden = YES;
+    self.spinnerMetrics.hidden = NO;
+    [self.dataSource reload];
     __weak typeof(self)weakSelf = self;
     sender.userInteractionEnabled = NO;
     [self.delegate contributorCell:self didInviteContributor:self.entry completionHandler:^(BOOL success) {
         sender.userInteractionEnabled = NO;
-        weakSelf.cells = [weakSelf.cells replace:@"WLContributorSpinnerCell" with:success ? @"WLContributorResendDoneCell" : @"WLContributorResendCell"];
+        weakSelf.resendMetrics.hidden = success;
+        weakSelf.resendDoneMetrics.hidden = !success;
+        weakSelf.spinnerMetrics.hidden = YES;
+        [weakSelf.dataSource reload];
     }];
 }
 

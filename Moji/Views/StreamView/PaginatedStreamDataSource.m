@@ -30,15 +30,15 @@
     self.loaderMetrics = [self addFooterMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLStreamLoadingView";
         metrics.size = WLStreamLoadingViewDefaultSize;
-        [metrics setHiddenBlock:^BOOL(StreamIndex *index) {
+        [metrics setHiddenBlock:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
             return ![weakSelf appendable];
         }];
-        [metrics setViewWillAppearBlock:^(StreamItem *item, WLStreamLoadingView *view, id entry) {
-            weakSelf.loadingView = view;
-            view.error = NO;
+        [metrics setViewWillAppearBlock:^(StreamItem *item, id entry) {
+            weakSelf.loadingView = (id)item.view;
+            weakSelf.loadingView.error = NO;
             [weakSelf append:nil failure:^(NSError *error) {
                 [error showIgnoringNetworkError];
-                if (error) view.error = YES;
+                if (error) weakSelf.loadingView.error = YES;
             }];
         }];
     }]];

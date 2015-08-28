@@ -8,22 +8,17 @@
 
 #import "StreamView.h"
 #import "StreamLayout.h"
-
-static NSString *contentOffsetPath = @"contentOffset";
+#import "StreamMetrics.h"
 
 @interface StreamView ()
 
 @property (nonatomic) NSInteger numberOfSections;
-
-@property (strong, nonatomic) NSMutableSet *views;
 
 @property (strong, nonatomic) NSMutableSet *items;
 
 @property (nonatomic) BOOL reloadAfterUnlock;
 
 @property (nonatomic) NSUInteger locks;
-
-@property (strong, nonatomic) NSArray *updatingRunLoopModes;
 
 @end
 
@@ -34,22 +29,18 @@ static NSString *contentOffsetPath = @"contentOffset";
 @dynamic delegate;
 
 - (void)dealloc {
-	[self removeObserver:self forKeyPath:contentOffsetPath];
+	[self removeObserver:self forKeyPath:@"contentOffset"];
 }
 
 - (void)setup {
-    self.updatingRunLoopModes = @[NSRunLoopCommonModes];
     _items = [NSMutableSet set];
-    _views = [NSMutableSet set];
 	UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
 	[self addGestureRecognizer:tapRecognizer];
-	[self addObserver:self forKeyPath:contentOffsetPath options:NSKeyValueObservingOptionNew context:NULL];
+	[self addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (keyPath == contentOffsetPath) {
-        [self performSelector:@selector(updateVisibility) withObject:nil afterDelay:0.0f inModes:self.updatingRunLoopModes];
-	}
+	[self updateVisibility];
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -97,20 +88,21 @@ static NSHashTable *streamViews = nil;
 #pragma mark - User Actions
 
 - (void)tap:(UITapGestureRecognizer *)recognizer {
-	if ([self.delegate respondsToSelector:@selector(streamView:didSelectItem:)]) {
-        StreamItem *item = [self visibleItemAtPoint:[recognizer locationInView:self]];
-		if (item) {
-            if (item.selected) {
-                item.selected = NO;
-                self.selectedItem = nil;
-            } else {
-                item.selected = YES;
-                self.selectedItem.selected = NO;
-                self.selectedItem = item;
-            }
-			[self.delegate streamView:self didSelectItem:item];
-		}
-	}
+    StreamItem *item = [self visibleItemAtPoint:[recognizer locationInView:self]];
+    if (item) {
+        if (item.selected) {
+            item.selected = NO;
+            self.selectedItem = nil;
+        } else {
+            item.selected = YES;
+            self.selectedItem.selected = NO;
+            self.selectedItem = item;
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(streamView:entryAt:)]) {
+            [item.metrics select:item entry:[self.delegate streamView:self entryAt:item.index]];
+        }
+    }
 }
 
 - (StreamItem *)visibleItemAtPoint:(CGPoint)point {
@@ -241,29 +233,21 @@ static NSHashTable *streamViews = nil;
 
 - (id)viewForItem:(StreamItem *)item {
     
-    StreamMetrics *metrics = item.metrics;
+    StreamReusableView *view = [item.metrics loadView];
     
-	for (StreamReusableView *view in _views) {
-		if (!view.superview && view.metrics == metrics) {
-            [view prepareForReuse];
-			return view;
-		}
-	}
-    
-    UINib *nib = metrics.nib;
-    if (!nib && metrics.identifier) {
-        nib = [UINib nibWithNibName:metrics.identifier bundle:metrics.nibOwner];
-    }
-    if (nib) {
-        NSArray *objects = [nib instantiateWithOwner:metrics.nibOwner options:nil];
-        for (StreamReusableView *object in objects) {
-            if ([object isKindOfClass:[StreamReusableView class]]) {
-                object.metrics = metrics;
-                return object;
-            }
+    if (view) {
+        view.frame = item.frame;
+        item.view = view;
+        id entry = nil;
+        if ([self.delegate respondsToSelector:@selector(streamView:entryAt:)]) {
+            entry = [self.delegate streamView:self entryAt:item.index];
         }
+        view.entry = entry;
+        if (item.metrics.viewWillAppearBlock) item.metrics.viewWillAppearBlock(item, entry);
+        view.frame = item.frame;
     }
-	return nil;
+    
+	return view;
 }
 
 - (void)updateVisibility {
@@ -273,51 +257,20 @@ static NSHashTable *streamViews = nil;
         
 		BOOL visible = CGRectIntersectsRect(item.frame, rect);
         if (item.visible != visible) {
-            
-            if (visible) {
-                
-                StreamReusableView *view = [self.delegate streamView:self viewForItem:item];
-                
-                if (view) {
-                    item.view = view;
-                    [UIView setAnimationsEnabled:NO];
-                    view.frame = item.frame;
-                    [UIView setAnimationsEnabled:YES];
-                    
-                    if (view.superview != self) {
-                        [self insertSubview:view atIndex:0];
-                    }
-                    
-                    [_views addObject:view];
-                }
-                
-            } else {
-                
-                [item.view removeFromSuperview];
-                
-            }
             item.visible = visible;
+            if (visible) {
+                StreamReusableView *view = [self viewForItem:item];
+                if (view) {
+                    [self insertSubview:view atIndex:0];
+                }
+            } else {
+                StreamReusableView *view = item.view;
+                if (view) {
+                    [view removeFromSuperview];
+                    [item.metrics.reusableViews addObject:view];
+                }
+            }
         }
-	}
-}
-
-- (void)clearReusingViews {
-	NSInteger count = 0;
-	
-	NSMutableSet *viewsToRemove = [NSMutableSet set];
-	
-	for (UIView *view in _views) {
-		if (!view.superview) {
-			if (count < 5) {
-				count++;
-			} else {
-				[viewsToRemove addObject:view];
-			}
-		}
-	}
-	
-	for (UIView *view in viewsToRemove) {
-		[_views removeObject:view];
 	}
 }
 

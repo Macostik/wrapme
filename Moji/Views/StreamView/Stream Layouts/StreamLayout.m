@@ -34,7 +34,6 @@
         item.frame = CGRectMake(insets.origin.x, offset + insets.origin.y, self.streamView.width - 2*insets.size.width, size + insets.size.height);
     }
     offset += size;
-    NSLog(@"%@", NSStringFromCGRect(item.frame));
     return item;
 }
 

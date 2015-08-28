@@ -27,8 +27,7 @@
 }
 
 - (void)select:(id)entry {
-    WLObjectBlock selectionBlock = self.metrics.selectionBlock;
-    if (selectionBlock) selectionBlock(entry);
+    [self.metrics select:nil entry:entry];
 }
 
 - (IBAction)select {

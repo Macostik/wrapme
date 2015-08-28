@@ -32,30 +32,30 @@
     [super viewDidLoad];
     __weak typeof(self)weakSelf = self;
     
-    [self.candyMetrics setSizeBlock:^CGFloat(StreamIndex *index) {
+    [self.candyMetrics setSizeBlock:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
         UIFont *fontNormal = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
         UIFont *fontSmall = [UIFont preferredDefaultFontWithPreset:WLFontPresetSmall];
         return 2*floorf(fontNormal.lineHeight) + floorf(fontSmall.lineHeight) + WLPaddingCell;
     }];
     
-    [self.candyMetrics setHiddenBlock:^BOOL(StreamIndex *index) {
+    [self.candyMetrics setHiddenBlock:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
         WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:index.item];
         return ![event.contribution isKindOfClass:[WLCandy class]];
     }];
     
-    [self.commentMetrics setSizeBlock:^CGFloat(StreamIndex *index) {
+    [self.commentMetrics setSizeBlock:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
         WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:index.item];
         UIFont *font = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
         CGFloat textHeight = [[event.contribution text] heightWithFont:font width:WLConstants.screenWidth - WLWhatsUpCommentHorizontalSpacing];
-        return textHeight + weakSelf.candyMetrics.sizeBlock(index);
+        return textHeight + [weakSelf.candyMetrics sizeAt:index];
     }];
     
-    [self.commentMetrics setHiddenBlock:^BOOL(StreamIndex *index) {
+    [self.commentMetrics setHiddenBlock:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
         WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:index.item];
         return ![event.contribution isKindOfClass:[WLComment class]];
     }];
     
-    self.commentMetrics.selectionBlock = self.candyMetrics.selectionBlock = ^(WLWhatsUpEvent *event) {
+    self.commentMetrics.selectionBlock = self.candyMetrics.selectionBlock = ^(StreamItem *item, WLWhatsUpEvent *event) {
         [WLChronologicalEntryPresenter presentEntry:event.contribution animated:YES];
     };
  

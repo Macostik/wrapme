@@ -12,7 +12,9 @@
 
 @property (nonatomic) IBInspectable CGFloat ratio;
 
-@property (strong, nonatomic) CGFloat(^ratioBlock)(StreamIndex *index);
+@property (strong, nonatomic) CGFloat(^ratioBlock)(StreamIndex *index, StreamMetrics *metrics);
+
+- (void)setRatioBlock:(CGFloat (^)(StreamIndex *index, StreamMetrics *metrics))ratioBlock;
 
 - (CGFloat)ratioAt:(StreamIndex*)index;
 

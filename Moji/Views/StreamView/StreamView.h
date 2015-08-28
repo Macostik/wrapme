@@ -19,7 +19,7 @@
 
 - (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section;
 
-- (id)streamView:(StreamView*)streamView viewForItem:(StreamItem*)item;
+- (id)streamView:(StreamView*)streamView entryAt:(StreamIndex*)index;
 
 - (NSArray*)streamView:(StreamView*)streamView metricsAt:(StreamIndex*)index;
 
@@ -34,8 +34,6 @@
 - (NSArray*)streamView:(StreamView*)streamView sectionFooterMetricsInSection:(NSUInteger)section;
 
 - (NSInteger)streamViewNumberOfSections:(StreamView*)streamView;
-
-- (void)streamView:(StreamView*)streamView didSelectItem:(StreamItem*)item;
 
 @end
 

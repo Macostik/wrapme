@@ -85,38 +85,38 @@
     __weak typeof(self)weakSelf = self;
     
     [[homeDataSource.metrics lastObject] change:^(StreamMetrics *metrics) {
-        [metrics setSizeBlock:^CGFloat(StreamIndex *index) {
+        [metrics setSizeBlock:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
             return index.item == 0 ? 70 : 60;
         }];
         
-        [metrics setInsetsBlock:^CGRect(StreamIndex *index) {
+        [metrics setInsetsBlock:^CGRect(StreamIndex *index, StreamMetrics *metrics) {
             return CGRectMake(0, index.item == 1 ? 5 : 0, 0, 0);
         }];
         
-        metrics.selectionBlock = ^(id entry) {
+        metrics.selectionBlock = ^(StreamItem *item, id entry) {
             [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
         };
     }];
     
     [homeDataSource addMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLRecentCandiesView";
-        [metrics setSizeBlock:^CGFloat(StreamIndex *index) {
+        [metrics setSizeBlock:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
             int size = (streamView.width - 2.0f)/3.0f;;
             return ([weakSelf.homeDataSource.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size) + 5;
         }];
-        [metrics setViewWillAppearBlock:^(StreamItem *item, id view, id entry) {
-            weakSelf.candiesView = view;
+        [metrics setViewWillAppearBlock:^(StreamItem *item, id entry) {
+            weakSelf.candiesView = (id)item.view;
         }];
-        [metrics setHiddenBlock:^BOOL(StreamIndex *index) {
+        [metrics setHiddenBlock:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
             return index.item != 0;
         }];
     }]];
     
     [[publicDataSource.metrics lastObject] change:^(StreamMetrics *metrics) {
-        [metrics setInsetsBlock:^CGRect(StreamIndex *index) {
+        [metrics setInsetsBlock:^CGRect(StreamIndex *index, StreamMetrics *metrics) {
             return CGRectMake(0, index.item == 0 ? 5 : 0, 0, 0);
         }];
-        metrics.selectionBlock = ^(id entry) {
+        metrics.selectionBlock = ^(StreamItem *item, id entry) {
             [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
         };
     }];

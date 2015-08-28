@@ -9,16 +9,26 @@
 #import "StreamMetrics.h"
 #import "StreamView.h"
 
-@interface StreamMetrics ()
-
-@property (strong, nonatomic) StreamMetricsViewWillAppearBlock viewWillAppearBlock;
-
-@end
-
 @implementation StreamMetrics
 
 + (instancetype)metrics:(StreamMetricsBlock)block {
     return [[[self alloc] init] change:block];
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.reusableViews = [NSMutableSet set];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    if (self) {
+        self.reusableViews = [NSMutableSet set];
+    }
+    return self;
 }
 
 - (instancetype)change:(StreamMetricsBlock)block {
@@ -27,22 +37,48 @@
 }
 
 - (BOOL)hiddenAt:(StreamIndex *)index {
-    return self.hiddenBlock ? self.hiddenBlock(index) : self.hidden;
+    return self.hiddenBlock ? self.hiddenBlock(index, self) : self.hidden;
 }
 
 - (CGFloat)sizeAt:(StreamIndex *)index {
-    return self.sizeBlock ? self.sizeBlock(index) : self.size;
+    return self.sizeBlock ? self.sizeBlock(index, self) : self.size;
 }
 
 - (CGRect)insetsAt:(StreamIndex *)index {
-    return self.insetsBlock ? self.insetsBlock(index) : self.insets;
+    return self.insetsBlock ? self.insetsBlock(index, self) : self.insets;
 }
 
-- (id)viewForItem:(StreamItem *)item inStreamView:(StreamView *)streamView entry:(id)entry {
-    StreamReusableView *view = [streamView viewForItem:item];
-    view.entry = entry;
-    if (self.viewWillAppearBlock) self.viewWillAppearBlock(item, view, entry);
-    return view;
+- (StreamReusableView*)loadView {
+    
+    NSMutableSet *views = _reusableViews;
+    
+    if (views.count > 0) {
+        StreamReusableView *view = [views anyObject];
+        [views removeObject:view];
+        [view prepareForReuse];
+        return view;
+    }
+    
+    UINib *nib = self.nib;
+    if (!nib && self.identifier) {
+        nib = [UINib nibWithNibName:self.identifier bundle:nil];
+    }
+    if (nib) {
+        NSArray *objects = [nib instantiateWithOwner:self.nibOwner options:nil];
+        for (StreamReusableView *object in objects) {
+            if ([object isKindOfClass:[StreamReusableView class]]) {
+                object.metrics = self;
+                return object;
+            }
+        }
+    }
+    return nil;
+}
+
+- (void)select:(StreamItem *)item entry:(id)entry {
+    if (self.selectionBlock && entry) {
+        self.selectionBlock(item, entry);
+    }
 }
 
 @end

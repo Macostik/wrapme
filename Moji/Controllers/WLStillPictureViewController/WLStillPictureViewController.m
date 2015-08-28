@@ -97,15 +97,6 @@
     [pickerController showInViewController:self animated:NO];
 }
 
-- (void)openGallery:(BOOL)openCameraRoll animated:(BOOL)animated {
-    WLAssetsGroupViewController* gallery = [WLAssetsGroupViewController instantiate:self.storyboard];
-    gallery.mode = self.mode;
-    gallery.openCameraRoll = openCameraRoll;
-    gallery.wrap = self.wrap;
-    gallery.delegate = self;
-    [self pushViewController:gallery animated:animated];
-}
-
 - (UIViewController *)toastAppearanceViewController:(WLToast *)toast {
     for (UIViewController *controller in self.childViewControllers) {
         if ([controller isKindOfClass:[WLWrapPickerViewController class]]) {
@@ -219,16 +210,6 @@
     } else {
         [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
     }
-}
-
-- (void)cameraViewControllerDidSelectGallery:(WLCameraViewController*)controller {
-    [self openGallery:NO animated:NO];
-}
-
-// MARK: - WLAssetsViewControllerDelegate
-
-- (void)assetsViewController:(id)controller didSelectAssets:(NSArray*)assets {
-    
 }
 
 // MARK: - WLWrapPickerViewControllerDelegate

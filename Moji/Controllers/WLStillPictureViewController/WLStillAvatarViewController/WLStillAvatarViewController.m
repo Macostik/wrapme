@@ -16,23 +16,15 @@
 #import "ALAssetsLibrary+Additions.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import "UIView+AnimationHelper.h"
-#import "WLAssetsGroupViewController.h"
 #import "WLNavigationHelper.h"
 
-@interface WLStillAvatarViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
+@interface WLStillAvatarViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) WLEditPicture* picture;
 
 @end
 
 @implementation WLStillAvatarViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    if (self.startFromGallery) {
-        [self openGallery:YES animated:NO];
-    }
-}
 
 - (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
     __weak typeof(self)weakSelf = self;
@@ -66,37 +58,11 @@
     }];
 }
 
-- (void)handleAssets:(NSArray*)assets {
-    __weak typeof(self)weakSelf = self;
-    self.view.userInteractionEnabled = NO;
-    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
-    queue.maxConcurrentOperationCount = 3;
-    NSMutableArray* pictures = [NSMutableArray array];
-    for (ALAsset* asset in assets) {
-        runQueuedOperation(@"wl_still_picture_queue",3,^(WLOperation *operation) {
-            [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
-                [WLEditPicture picture:croppedImage mode:weakSelf.mode completion:^(WLEditPicture *picture) {
-                    [pictures addObject:picture];
-                    [operation finish];
-                    if (pictures.count == assets.count) {
-                        weakSelf.view.userInteractionEnabled = YES;
-                        [weakSelf finishWithPictures:pictures];
-                    }
-                }];
-            }];
-        });
-    }
-}
+#pragma mark - WLQuickAssetsViewControllerDelegate
 
-#pragma mark - WLAssetsViewControllerDelegate
-
-- (void)assetsViewController:(id)controller didSelectAssets:(NSArray *)assets {
-    if ([assets count] == 1) {
-        [self handleAsset:[assets firstObject]];
-    } else {
-        self.viewControllers = @[self.topViewController];
-        [self handleAssets:assets];
-    }
+- (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(ALAsset *)asset {
+    [self handleAsset:asset];
+    return NO;
 }
 
 @end

@@ -195,10 +195,6 @@
     }];
 }
 
-- (IBAction)gallery:(id)sender {
-	[self.delegate cameraViewControllerDidSelectGallery:self];
-}
-
 - (IBAction)finish:(id)sender {
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:sender:)]) {
         [self.delegate cameraViewControllerDidFinish:self sender:sender];

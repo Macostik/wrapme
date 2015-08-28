@@ -65,4 +65,6 @@ typedef void(^StreamMetricsEntryBlock)(StreamItem *item, id entry);
 
 - (void)select:(StreamItem*)item entry:(id)entry;
 
+- (void)setSelectionBlock:(StreamMetricsEntryBlock)selectionBlock;
+
 @end

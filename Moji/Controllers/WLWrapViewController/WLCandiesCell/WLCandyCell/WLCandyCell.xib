@@ -10,18 +10,6 @@
             <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Alh-rC-gMu">
-                    <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
-                    <state key="normal">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="select" destination="gY8-XM-Izy" eventType="touchUpInside" id="8xv-2d-g4p"/>
-                    </connections>
-                </button>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cEC-tD-bY9" customClass="WLImageView">
                     <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,15 +46,11 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="cEC-tD-bY9" secondAttribute="bottom" id="3lk-hb-Gkg"/>
-                <constraint firstItem="Alh-rC-gMu" firstAttribute="top" secondItem="gY8-XM-Izy" secondAttribute="top" id="6tO-Nv-tgP"/>
                 <constraint firstAttribute="trailing" secondItem="cEC-tD-bY9" secondAttribute="trailing" id="9YT-Vm-Isl"/>
                 <constraint firstAttribute="bottom" secondItem="7sc-OX-fm7" secondAttribute="bottom" id="Ase-Iq-aOR"/>
-                <constraint firstAttribute="bottom" secondItem="Alh-rC-gMu" secondAttribute="bottom" id="PQk-8K-YJd"/>
                 <constraint firstAttribute="trailing" secondItem="7sc-OX-fm7" secondAttribute="trailing" id="XSF-sa-u4E"/>
-                <constraint firstItem="Alh-rC-gMu" firstAttribute="leading" secondItem="gY8-XM-Izy" secondAttribute="leading" id="ZiV-UP-XsI"/>
                 <constraint firstItem="cEC-tD-bY9" firstAttribute="top" secondItem="gY8-XM-Izy" secondAttribute="top" id="clx-xB-72F"/>
                 <constraint firstItem="cEC-tD-bY9" firstAttribute="leading" secondItem="gY8-XM-Izy" secondAttribute="leading" id="kFl-bO-5n4"/>
-                <constraint firstAttribute="trailing" secondItem="Alh-rC-gMu" secondAttribute="trailing" id="l2k-bG-EJz"/>
                 <constraint firstItem="7sc-OX-fm7" firstAttribute="leading" secondItem="gY8-XM-Izy" secondAttribute="leading" id="ygM-rN-uv1"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

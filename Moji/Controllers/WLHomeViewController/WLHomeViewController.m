@@ -106,6 +106,26 @@
         }];
         [metrics setViewWillAppearBlock:^(StreamItem *item, id entry) {
             weakSelf.candiesView = (id)item.view;
+            StreamMetrics *metrics = [weakSelf.candiesView.dataSource.metrics firstObject];
+            [metrics setSelectionBlock:^(StreamItem *candyItem, WLCandy *candy) {
+                WLCandyCell *cell = (id)candyItem.view;
+                if (candy.valid && cell.coverView.image != nil) {
+                    WLHistoryViewController *historyViewController = (id)[candy viewController];
+                    if (historyViewController) {
+                        WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
+                        presentingImageView.delegate = self;
+                        __weak __typeof(self)weakSelf = self;
+                        historyViewController.presentingImageView = presentingImageView;
+                        [presentingImageView presentCandy:candy success:^(WLPresentingImageView *presetingImageView) {
+                            [weakSelf.navigationController pushViewController:historyViewController animated:NO];
+                        } failure:^(NSError *error) {
+                            [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
+                        }];
+                    }
+                } else {
+                    [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
+                }
+            }];
         }];
         [metrics setHiddenBlock:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
             return index.item != 0;
@@ -425,23 +445,6 @@
 
 - (NSSet *)touchViewExclusionRects:(WLTouchView *)touchView {
     return [NSSet setWithObject:[NSValue valueWithCGRect:[touchView convertRect:self.createWrapButton.bounds fromView:self.createWrapButton]]];
-}
-
-// MARK: - WLCandyCellDelegate
-
-- (void)candyCell:(WLCandyCell *)cell didSelectCandy:(WLCandy *)candy {
-    WLHistoryViewController *historyViewController = (id)[candy viewController];
-    if (historyViewController) {
-        WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
-        presentingImageView.delegate = self;
-        __weak __typeof(self)weakSelf = self;
-        historyViewController.presentingImageView = presentingImageView;
-        [presentingImageView presentCandy:candy success:^(WLPresentingImageView *presetingImageView) {
-            [weakSelf.navigationController pushViewController:historyViewController animated:NO];
-        } failure:^(NSError *error) {
-            [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
-        }];
-    }
 }
 
 // MARK: - WLPresentingImageViewDelegate

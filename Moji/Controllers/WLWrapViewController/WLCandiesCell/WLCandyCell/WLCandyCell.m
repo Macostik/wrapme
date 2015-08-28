@@ -139,16 +139,6 @@
     }
 }
 
-- (void)select:(WLCandy*)candy {
-    if (candy.valid && self.coverView.image != nil) {
-        if ([self.delegate respondsToSelector:@selector(candyCell:didSelectCandy:)]) {
-            [self.delegate candyCell:self didSelectCandy:candy];
-        }
-    } else {
-        [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
-    }
-}
-
 #pragma mark - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {

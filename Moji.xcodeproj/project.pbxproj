@@ -268,6 +268,8 @@
 		C54731BE1B906A7400B583FD /* WLWrapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731A61B906A7400B583FD /* WLWrapPickerViewController.m */; };
 		C54731C21B906AFA00B583FD /* WLCameraAdjustmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731C11B906AFA00B583FD /* WLCameraAdjustmentView.m */; };
 		C54731C31B906AFA00B583FD /* WLCameraAdjustmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731C11B906AFA00B583FD /* WLCameraAdjustmentView.m */; };
+		C54731C51B9086DB00B583FD /* WLCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54731C41B9086DB00B583FD /* WLCommentCell.xib */; };
+		C54731C61B9086DB00B583FD /* WLCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54731C41B9086DB00B583FD /* WLCommentCell.xib */; };
 		C5475B4F1AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */; };
 		C5475B501AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */; };
 		C5475B531AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B521AC59ABC00F9E8B3 /* WLTodayCommentCell.m */; };
@@ -1532,6 +1534,7 @@
 		C54731A61B906A7400B583FD /* WLWrapPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapPickerViewController.m; sourceTree = "<group>"; };
 		C54731C01B906AFA00B583FD /* WLCameraAdjustmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCameraAdjustmentView.h; sourceTree = "<group>"; };
 		C54731C11B906AFA00B583FD /* WLCameraAdjustmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraAdjustmentView.m; sourceTree = "<group>"; };
+		C54731C41B9086DB00B583FD /* WLCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCommentCell.xib; sourceTree = "<group>"; };
 		C5475B4D1AC596C500F9E8B3 /* WLTodayContributionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayContributionCell.h; sourceTree = "<group>"; };
 		C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayContributionCell.m; sourceTree = "<group>"; };
 		C5475B511AC59ABC00F9E8B3 /* WLTodayCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayCommentCell.h; sourceTree = "<group>"; };
@@ -1555,6 +1558,10 @@
 		C54EFF151B8C7A9400F1BBF8 /* WLCandiesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCandiesCell.xib; sourceTree = "<group>"; };
 		C54FC7611A160C2000623FC1 /* WLCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionView.h; path = WLCollectionView/WLCollectionView.h; sourceTree = "<group>"; };
 		C54FC7621A160C2000623FC1 /* WLCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionView.m; path = WLCollectionView/WLCollectionView.m; sourceTree = "<group>"; };
+		C55189071B8F46C000D1327E /* WLContributorRemoveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorRemoveCell.xib; sourceTree = "<group>"; };
+		C55189081B8F46C000D1327E /* WLContributorResendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorResendCell.xib; sourceTree = "<group>"; };
+		C55189091B8F46C000D1327E /* WLContributorResendDoneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorResendDoneCell.xib; sourceTree = "<group>"; };
+		C551890A1B8F46C000D1327E /* WLContributorSpinnerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorSpinnerCell.xib; sourceTree = "<group>"; };
 		C55189131B8F5E2000D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
 		C55189141B8F5E2300D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
 		C55189151B8F5E2600D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-736h@3x.png"; sourceTree = "<group>"; };
@@ -1562,10 +1569,6 @@
 		C55189171B8F5E2B00D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default@2x.png"; sourceTree = "<group>"; };
 		C55189181B8F5E2E00D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-Portrait.png"; sourceTree = "<group>"; };
 		C55189191B8F5E3000D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
-		C55189071B8F46C000D1327E /* WLContributorRemoveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorRemoveCell.xib; sourceTree = "<group>"; };
-		C55189081B8F46C000D1327E /* WLContributorResendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorResendCell.xib; sourceTree = "<group>"; };
-		C55189091B8F46C000D1327E /* WLContributorResendDoneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorResendDoneCell.xib; sourceTree = "<group>"; };
-		C551890A1B8F46C000D1327E /* WLContributorSpinnerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorSpinnerCell.xib; sourceTree = "<group>"; };
 		C55232911ACD3F4900886437 /* CandyAPNS.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = CandyAPNS.apns; sourceTree = "<group>"; };
 		C55232921ACD3F4900886437 /* ChatAPNS.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChatAPNS.apns; sourceTree = "<group>"; };
 		C55232931ACD3F4900886437 /* WrapAPNS.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = WrapAPNS.apns; sourceTree = "<group>"; };
@@ -3079,6 +3082,7 @@
 			children = (
 				C500983C1AFCCC6400729DA4 /* WLCommentCell.h */,
 				C500983D1AFCCC6400729DA4 /* WLCommentCell.m */,
+				C54731C41B9086DB00B583FD /* WLCommentCell.xib */,
 			);
 			name = WLCommentCell;
 			path = Controllers/WLCommentsViewController/WLCommentCell;
@@ -5692,6 +5696,7 @@
 				C5BEC3A41B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */,
 				C5390BEC1B84544C00027D8B /* WLWrapCell.xib in Resources */,
 				5BD782C91A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
+				C54731C51B9086DB00B583FD /* WLCommentCell.xib in Resources */,
 				C54EFF161B8C7A9400F1BBF8 /* WLCandiesCell.xib in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
 				C5C3FEAF1B8F311500F177EC /* Default.png in Resources */,
@@ -5774,6 +5779,7 @@
 				C5BEC3A51B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */,
 				C5390BED1B84544C00027D8B /* WLWrapCell.xib in Resources */,
 				5BD782CB1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
+				C54731C61B9086DB00B583FD /* WLCommentCell.xib in Resources */,
 				C54EFF171B8C7A9400F1BBF8 /* WLCandiesCell.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				C5C3FEB01B8F311500F177EC /* Default.png in Resources */,

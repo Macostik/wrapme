@@ -20,7 +20,6 @@
 #import "WLNavigationHelper.h"
 #import "WLDownloadingView.h"
 #import "WLImageCache.h"
-#import "WLUploadPhotoViewController.h"
 #import "WLPresentingImageView.h"
 #import "WLCommentsViewController.h"
 #import "WLLayoutPrioritizer.h"
@@ -61,7 +60,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;
-@property (strong, nonatomic) WLUploadPhotoCompletionBlock completionBlock;
 
 @property (nonatomic) NSUInteger currentCandyIndex;
 

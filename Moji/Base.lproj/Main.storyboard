@@ -1003,6 +1003,7 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="storyboard" value="Camera"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="sourceIsDelegate" value="YES"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLStillAvatarViewController"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="7FG-gC-kPg" id="Spn-ib-Szr"/>

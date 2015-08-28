@@ -11,7 +11,6 @@
 #import "WLProgressBar+WLContribution.h"
 #import "WLCandy+Extended.h"
 #import "WLNavigationHelper.h"
-#import "WLUploadPhotoViewController.h"
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 
 @interface WLDownloadingView () <WLImageFetching, WLEntryNotifyReceiver>

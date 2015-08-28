@@ -248,7 +248,7 @@
 // MARK: - WLPhotoViewControllerDelegate
 
 - (void)photosViewControllerDidAddPhoto:(WLPhotosViewController *)controller {
-    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPictureViewController];
+    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController];
     stillPictureViewController.wrap = self.wrap;
     stillPictureViewController.mode = WLStillPictureModeDefault;
     stillPictureViewController.delegate = self;

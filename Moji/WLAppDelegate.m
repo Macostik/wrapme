@@ -86,6 +86,8 @@
         if ([UIWindow mainWindow].rootViewController.storyboard != storyboard) {
             [WLAlertView confirmRedirectingToSignUp:^{
                 WLLog(@"ERROR", @"redirection to welcome screen, sign in failed", error);
+                [[WLNotificationCenter defaultCenter] clear];
+                [WLSession clear];
                 [storyboard present:YES];
             } tryAgain:^{
                 [request send];

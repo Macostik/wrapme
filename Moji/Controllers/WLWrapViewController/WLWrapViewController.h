@@ -20,4 +20,6 @@ typedef NS_OPTIONS(NSUInteger, WLWrapSegment) {
 
 @property (nonatomic) WLWrapSegment segment;
 
+@property (nonatomic) BOOL showKeyboard;
+
 @end

@@ -144,6 +144,9 @@ CGFloat WLMaxTextViewWidth;
     [self.chat sort];
     [self scrollToLastUnreadMessage];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChatAfterApplicationBecameActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+    if (self.showKeyboard) {
+        [self.composeBar becomeFirstResponder];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -161,6 +164,13 @@ CGFloat WLMaxTextViewWidth;
 - (void)scrollToLastUnreadMessage {
     self.layout.scrollToUnreadMessages = YES;
     [self reloadDataSynchronously:NO];
+}
+
+- (void)setShowKeyboard:(BOOL)showKeyboard {
+    _showKeyboard = showKeyboard;
+    if (self.isViewLoaded && showKeyboard) {
+        [self.composeBar becomeFirstResponder];
+    }
 }
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {

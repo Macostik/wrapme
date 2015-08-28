@@ -210,11 +210,28 @@
 
 // MARK: - Custom animation
 
+- (void)setShowKeyboard:(BOOL)showKeyboard {
+    _showKeyboard = showKeyboard;
+    if (self.segment == WLWrapSegmentChat && showKeyboard) {
+        WLChatViewController *viewController = (id)_viewController;
+        viewController.showKeyboard = showKeyboard;
+        if ([viewController isViewLoaded]) {
+            _showKeyboard = NO;
+        }
+    }
+}
+
 - (void)setViewController:(UIViewController *)viewController {
     if (_viewController) {
         [_viewController.view removeFromSuperview];
     }
     _viewController = viewController;
+    if (self.segment == WLWrapSegmentChat) {
+        WLChatViewController *viewController = (id)_viewController;
+        viewController.showKeyboard = self.showKeyboard;
+        self.showKeyboard = NO;
+    }
+    
     UIView *view = viewController.view;
     view.translatesAutoresizingMaskIntoConstraints = NO;
     view.frame = self.containerView.bounds;

@@ -26,6 +26,8 @@
 #import "WLNotification.h"
 #import "WLAlertView.h"
 #import "UIFont+CustomFonts.h"
+#import "WLEntryPresenter.h"
+#import "WLWrapViewController.h"
 
 @interface WLAppDelegate () <iVersionDelegate>
 
@@ -234,9 +236,20 @@
             }
             [homeViewController openCameraAnimated:NO startFromGallery:YES showWrapPicker:YES];
         }
-    }else {
+    } else {
         WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:[notification dictionaryForKey:@"entry"]];
         [[WLRemoteEntryHandler sharedHandler] presentEntry:entry];
+    }
+}
+
+- (void)presentNotification:(NSDictionary *)notification handleActionWithIdentifier:(NSString *)identifier {
+    if ([identifier isEqualToString:@"reply"]) {
+        WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:[notification dictionaryForKey:@"entry"]];
+        [[WLRemoteEntryHandler sharedHandler] presentEntry:entry];
+        id wrapViewController = [entry viewControllerWithNavigationController:[UINavigationController mainNavigationController]];
+        [wrapViewController setShowKeyboard:YES];
+    } else {
+        [self presentNotification:notification];
     }
 }
 
@@ -276,7 +289,7 @@
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)())completionHandler {
-    [self presentNotification:notification.userInfo];
+    [self presentNotification:notification.userInfo handleActionWithIdentifier:identifier];
     if (completionHandler) completionHandler();
 }
 

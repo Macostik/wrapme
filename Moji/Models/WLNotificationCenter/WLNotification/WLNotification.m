@@ -398,7 +398,7 @@
 - (BOOL)notifiableForNotification:(WLNotification *)notification {
     if (notification.event == WLEventAdd) {
         NSString *userIdentifier = notification.data[WLUserUIDKey] ? : notification.data[WLUserKey][WLUserUIDKey];
-        return !self.contributedByCurrentUser && ![userIdentifier isEqualToString:[WLUser currentUser].identifier];
+        return !self.contributedByCurrentUser && [userIdentifier isEqualToString:[WLUser currentUser].identifier];
     } else {
         return [super notifiableForNotification:notification];
     }

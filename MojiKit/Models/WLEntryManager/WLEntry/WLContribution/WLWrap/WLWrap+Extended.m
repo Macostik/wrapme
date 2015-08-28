@@ -137,22 +137,16 @@
     [self uploadPicture:picture success:^(WLCandy *candy) { } failure:^(NSError *error) { }];
 }
 
-- (void)uploadPictures:(NSArray *)pictures start:(WLBlock)start finish:(WLBlock)finish {
+- (void)uploadPictures:(NSArray *)pictures {
     __weak typeof(self)weakSelf = self;
     for (WLPicture *picture in pictures) {
         runUnaryQueuedOperation(@"wl_upload_candies_queue", ^(WLOperation *operation) {
             [weakSelf uploadPicture:picture];
-            if (start) start();
             run_after(0.6f, ^{
-                if (finish) finish();
                 [operation finish];
             });
         });
     }
-}
-
-- (void)uploadPictures:(NSArray *)pictures {
-    [self uploadPictures:pictures start:nil finish:nil];
 }
 
 - (BOOL)isFirstCreated {

@@ -29,6 +29,8 @@
 #import "WLUploadingView.h"
 #import "WLFollowingViewController.h"
 #import "WLCollectionView.h"
+#import "WLWhatsUpSet.h"
+#import "WLBadgeLabel.h"
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
@@ -88,13 +90,23 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    __weak typeof(self)weakSelf = self;
     if (self.wrap.valid) {
+        __block BOOL readStateChanged = NO;
         [self.wrap.candies all:^(WLCandy *candy) {
-            [candy markAsRead];
+            if (candy.valid && candy.unread) {
+                readStateChanged = YES;
+                candy.unread = NO;
+            }
         }];
+        if (readStateChanged) {
+            [[WLWhatsUpSet sharedSet] refreshCount:^(NSUInteger count) {
+                weakSelf.badge.intValue = count;
+            } failure:^(NSError *error) {
+            }];
+        }
         [self.dataSource reload];
     } else {
-        __weak typeof(self)weakSelf = self;
         run_after(0.5f, ^{
             [weakSelf.navigationController popViewControllerAnimated:NO];
         });

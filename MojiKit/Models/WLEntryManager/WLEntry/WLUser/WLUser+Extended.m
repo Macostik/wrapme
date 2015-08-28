@@ -19,7 +19,7 @@
 	return [dictionary stringForKey:WLUserUIDKey];
 }
 
-- (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
+- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
     
     if (dictionary[WLSignInCountKey]) {
         BOOL firstTimeUse = [dictionary integerForKey:WLSignInCountKey] == 1;
@@ -34,14 +34,14 @@
     [self editPicture:[self.picture editWithUserDictionary:dictionary]];
     
     if (dictionary[WLDevicesKey]) {
-        NSSet* devices = [WLDevice API_entries:[dictionary arrayForKey:WLDevicesKey] relatedEntry:self];
+        NSSet* devices = [WLDevice API_entries:[dictionary arrayForKey:WLDevicesKey] container:self];
         if (![self.devices isEqualToSet:devices]) {
             self.devices = devices;
             self.phones = nil;
         }
     }
     
-    return [super API_setup:dictionary relatedEntry:relatedEntry];
+    return [super API_setup:dictionary container:container];
 }
 
 - (void)addWrap:(WLWrap *)wrap {

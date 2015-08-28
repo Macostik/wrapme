@@ -35,14 +35,11 @@
     return instance;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.urls = [NSMutableSet set];
-        self.fetchingQueue = [[NSOperationQueue alloc] init];
-        self.imageResponseSerializer = [AFImageResponseSerializer serializer];
-    }
-    return self;
+- (void)setup {
+    [super setup];
+    self.urls = [NSMutableSet set];
+    self.fetchingQueue = [[NSOperationQueue alloc] init];
+    self.imageResponseSerializer = [AFImageResponseSerializer serializer];
 }
 
 - (id)enqueueImageWithUrl:(NSString *)url receiver:(id)receiver {

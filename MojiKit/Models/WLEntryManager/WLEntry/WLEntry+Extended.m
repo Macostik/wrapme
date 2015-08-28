@@ -21,40 +21,34 @@
     return entry;
 }
 
-+ (instancetype)entry:(NSString *)identifier containingEntry:(WLEntry*)containingEntry {
++ (instancetype)entry:(NSString *)identifier container:(WLEntry*)container {
     WLEntry* entry = [self entry:identifier];
-    entry.containingEntry = containingEntry;
+    entry.container = container;
     return entry;
 }
 
 + (NSSet*)API_entries:(NSArray*)array {
-	return [self API_entries:array relatedEntry:nil];
+	return [self API_entries:array container:nil];
 }
 
-+ (NSSet *)API_entries:(NSArray *)array relatedEntry:(id)relatedEntry {
-	return [self API_entries:array relatedEntry:relatedEntry container:[NSMutableSet setWithCapacity:[array count]]];
-}
-
-+ (NSSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry container:(NSMutableSet*)container {
-    if (!container) {
-        container = [NSMutableSet setWithCapacity:[array count]];
-    }
++ (NSSet*)API_entries:(NSArray*)array container:(id)container {
+    NSMutableSet *set = [NSMutableSet setWithCapacity:[array count]];
     for (NSDictionary* dictionary in array) {
-		WLEntry* entry = [self API_entry:dictionary relatedEntry:relatedEntry];
+		WLEntry* entry = [self API_entry:dictionary container:container];
 		if (entry) {
-            [container addObject:entry];
+            [set addObject:entry];
 		}
 	}
-    return container;
+    return set;
 }
 
 + (instancetype)API_entry:(NSDictionary*)dictionary {
-	return [self API_entry:dictionary relatedEntry:nil];
+	return [self API_entry:dictionary container:nil];
 }
 
-+ (instancetype)API_entry:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
++ (instancetype)API_entry:(NSDictionary *)dictionary container:(id)container {
 	NSString* identifier = [self API_identifier:dictionary];
-	return [[self entry:identifier] API_setup:dictionary relatedEntry:relatedEntry];
+	return [[self entry:identifier] API_setup:dictionary container:container];
 }
 
 + (NSString *)API_identifier:(NSDictionary *)dictionary {
@@ -63,12 +57,12 @@
 
 - (instancetype)API_setup:(NSDictionary *)dictionary {
     if (dictionary) {
-        return [self API_setup:dictionary relatedEntry:nil];
+        return [self API_setup:dictionary container:nil];
     }
 	return self;
 }
 
-- (instancetype)API_setup:(NSDictionary*)dictionary relatedEntry:(id)relatedEntry {
+- (instancetype)API_setup:(NSDictionary*)dictionary container:(id)container {
     NSDate* createdAt = [dictionary timestampDateForKey:WLContributedAtKey];
     if (!NSDateEqual(self.createdAt, createdAt)) self.createdAt = createdAt;
     NSDate* updatedAt = [dictionary timestampDateForKey:WLLastTouchedAtKey];
@@ -95,8 +89,8 @@
 }
 
 - (void)touch:(NSDate *)date {
-    if (self.containingEntry) {
-        [self.containingEntry touch:date];
+    if (self.container) {
+        [self.container touch:date];
     }
     self.updatedAt = date;
     if (self.createdAt == nil) {

@@ -11,11 +11,11 @@
 
 @implementation WLEntry (Containment)
 
-+ (Class)containingEntryClass {
++ (Class)containerClass {
     return nil;
 }
 
-+ (NSSet*)containedEntryClasses {
++ (NSSet*)contentClasses {
     return nil;
 }
 
@@ -53,11 +53,11 @@
     return nil;
 }
 
-- (WLEntry*)containingEntry {
+- (WLEntry*)container {
     return nil;
 }
 
-- (void)setContainingEntry:(WLEntry *)containingEntry {
+- (void)setContainer:(WLEntry *)container {
     
 }
 
@@ -91,7 +91,7 @@
 
 @implementation WLCandy (Containment)
 
-+ (Class)containingEntryClass {
++ (Class)containerClass {
     return [WLWrap class];
 }
 
@@ -107,13 +107,13 @@
     return WLLS(@"photo");
 }
 
-- (WLEntry *)containingEntry {
+- (WLEntry *)container {
     return self.wrap;
 }
 
-- (void)setContainingEntry:(WLEntry *)containingEntry {
-    if (containingEntry && self.wrap != containingEntry) {
-        self.wrap = (id)containingEntry;
+- (void)setContainer:(WLEntry *)container {
+    if (container && self.wrap != container) {
+        self.wrap = (id)container;
     }
 }
 
@@ -121,7 +121,7 @@
 
 @implementation WLMessage (Containment)
 
-+ (Class)containingEntryClass {
++ (Class)containerClass {
     return [WLWrap class];
 }
 
@@ -133,13 +133,13 @@
     return WLLS(@"message");
 }
 
-- (WLEntry *)containingEntry {
+- (WLEntry *)container {
     return self.wrap;
 }
 
-- (void)setContainingEntry:(WLEntry *)containingEntry {
-    if (containingEntry && self.wrap != containingEntry) {
-        self.wrap = (id)containingEntry;
+- (void)setContainer:(WLEntry *)container {
+    if (container && self.wrap != container) {
+        self.wrap = (id)container;
     }
 }
 
@@ -147,7 +147,7 @@
 
 @implementation WLComment (Containment)
 
-+ (Class)containingEntryClass {
++ (Class)containerClass {
     return [WLCandy class];
 }
 
@@ -159,13 +159,13 @@
     return WLLS(@"comment");
 }
 
-- (WLEntry *)containingEntry {
+- (WLEntry *)container {
     return self.candy;
 }
 
-- (void)setContainingEntry:(WLEntry *)containingEntry {
-    if (containingEntry && self.candy != containingEntry) {
-        self.candy = (id)containingEntry;
+- (void)setContainer:(WLEntry *)container {
+    if (container && self.candy != container) {
+        self.candy = (id)container;
     }
 }
 

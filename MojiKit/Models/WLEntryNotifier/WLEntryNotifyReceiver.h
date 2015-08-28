@@ -11,11 +11,11 @@
 
 @interface WLEntryNotifyReceiver : NSObject <WLEntryNotifyReceiver>
 
-@property (weak, nonatomic) WLEntry *containingEntry;
+@property (weak, nonatomic) WLEntry *container;
 
 @property (weak, nonatomic) WLEntry *entry;
 
-@property (strong, nonatomic) WLEntry *(^containingEntryBlock) (void);
+@property (strong, nonatomic) WLEntry *(^containerBlock) (void);
 
 @property (strong, nonatomic) WLEntry *(^entryBlock) (void);
 

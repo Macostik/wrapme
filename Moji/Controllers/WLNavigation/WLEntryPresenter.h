@@ -37,7 +37,7 @@
 
 - (BOOL)isValidViewController:(UIViewController*)controller;
 
-- (void)configureViewController:(UIViewController*)controller fromContainingEntry:(WLEntry*)containingEntry;
+- (void)configureViewController:(UIViewController*)controller fromContainer:(WLEntry*)container;
 
 @end
 

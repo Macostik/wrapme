@@ -17,23 +17,21 @@
 
 + (instancetype)entry;
 
-+ (instancetype)entry:(NSString *)identifier containingEntry:(WLEntry*)containingEntry;
++ (instancetype)entry:(NSString *)identifier container:(WLEntry*)container;
 
 + (NSSet*)API_entries:(NSArray*)array;
 
 + (instancetype)API_entry:(NSDictionary*)dictionary;
 
-+ (NSSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry;
++ (NSSet*)API_entries:(NSArray*)array container:(id)container;
 
-+ (NSSet*)API_entries:(NSArray*)array relatedEntry:(id)relatedEntry container:(NSMutableSet*)container;
-
-+ (instancetype)API_entry:(NSDictionary*)dictionary relatedEntry:(id)relatedEntry;
++ (instancetype)API_entry:(NSDictionary*)dictionary container:(id)container;
 
 + (NSString*)API_identifier:(NSDictionary*)dictionary;
 
 - (instancetype)API_setup:(NSDictionary*)dictionary;
 
-- (instancetype)API_setup:(NSDictionary*)dictionary relatedEntry:(id)relatedEntry;
+- (instancetype)API_setup:(NSDictionary*)dictionary container:(id)container;
 
 - (BOOL)isEqualToEntry:(WLEntry*)entry;
 

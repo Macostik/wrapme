@@ -73,11 +73,11 @@
         controller = [currentEntry viewControllerWithNavigationController:navigationController];
         if (controller) {
             if (currentEntry != self) {
-                [self configureViewController:controller fromContainingEntry:currentEntry];
+                [self configureViewController:controller fromContainer:currentEntry];
             }
             currentEntry = nil;
         } else {
-            currentEntry = currentEntry.containingEntry;
+            currentEntry = currentEntry.container;
         }
     }
     return controller;
@@ -87,7 +87,7 @@
     return NO;
 }
 
-- (void)configureViewController:(UIViewController*)controller fromContainingEntry:(WLEntry*)containingEntry {
+- (void)configureViewController:(UIViewController*)controller fromContainer:(WLEntry*)container {
 }
 
 @end
@@ -148,8 +148,8 @@
 
 @implementation WLComment (WLEntryPresenter)
 
-- (void)configureViewController:(UIViewController *)controller fromContainingEntry:(WLEntry *)containingEntry {
-    if (containingEntry == self.candy) {
+- (void)configureViewController:(UIViewController *)controller fromContainer:(WLEntry *)container {
+    if (container == self.candy) {
         WLHistoryViewController *candyViewController = (WLHistoryViewController *)controller;
         if (candyViewController.isViewLoaded) {
             [candyViewController showCommentView];

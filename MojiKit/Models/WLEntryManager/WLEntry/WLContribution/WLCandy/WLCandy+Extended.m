@@ -35,21 +35,18 @@
 	return [dictionary stringForKey:WLCandyUIDKey];
 }
 
-- (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
-    [super API_setup:dictionary relatedEntry:relatedEntry];
+- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
+    [super API_setup:dictionary container:container];
     NSInteger type = [dictionary integerForKey:WLCandyTypeKey];
     if (self.type != type) self.type = type;
-    NSSet *comments = [WLComment API_entries:[dictionary arrayForKey:WLCommentsKey] relatedEntry:self];
+    NSSet *comments = [WLComment API_entries:[dictionary arrayForKey:WLCommentsKey] container:self];
     if (![comments isSubsetOfSet:self.comments]) {
         [self addComments:comments];
     }
     [self editPicture:[self.picture editWithCandyDictionary:dictionary]];
     NSInteger commentCount = [dictionary integerForKey:WLCommentCountKey];
     if (self.commentCount < commentCount) self.commentCount = commentCount;
-    WLWrap* currentWrap = self.wrap;
-    WLWrap* wrap = relatedEntry ? : (currentWrap ? : [WLWrap entry:[dictionary stringForKey:WLWrapUIDKey]]);
-    if (wrap != currentWrap) self.wrap = wrap;
-    
+    self.container = container ? : (self.wrap ? : [WLWrap entry:[dictionary stringForKey:WLWrapUIDKey]]);
     return self;
 }
 

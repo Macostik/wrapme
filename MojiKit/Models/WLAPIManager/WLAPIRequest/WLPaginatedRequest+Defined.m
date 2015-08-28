@@ -32,7 +32,7 @@
 + (instancetype)messages:(WLWrap *)wrap {
     return [[[[self GET:@"wraps/%@/chats", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet* messages = [WLMessage API_entries:response.data[@"chats"] relatedEntry:wrap];
+            NSSet* messages = [WLMessage API_entries:response.data[@"chats"] container:wrap];
             if (messages.nonempty) {
                 [wrap notifyOnUpdate:nil];
             }
@@ -57,7 +57,7 @@
         [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet* candies = [WLCandy API_entries:response.data[WLCandiesKey] relatedEntry:wrap];
+            NSSet* candies = [WLCandy API_entries:response.data[WLCandiesKey] container:wrap];
             [wrap addCandies:candies];
             success(candies);
         } else {

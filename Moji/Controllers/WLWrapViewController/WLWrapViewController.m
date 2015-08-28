@@ -142,7 +142,7 @@
     }];
     
     [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setContainingEntryBlock:^WLEntry *{
+        [receiver setContainerBlock:^WLEntry *{
             return weakSelf.wrap;
         }];
         [receiver setDidAddBlock:^(WLCandy *candy) {

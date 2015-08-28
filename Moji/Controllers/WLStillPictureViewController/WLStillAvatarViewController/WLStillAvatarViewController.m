@@ -6,11 +6,10 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLOldStillPictureViewController.h"
+#import "WLStillAvatarViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLHintView.h"
-#import "WLWrapView.h"
-#import "WLUploadPhotoViewController.h"
+#import "WLEditAvatarViewController.h"
 #import "WLHomeViewController.h"
 #import "WLSoundPlayer.h"
 #import "WLToast.h"
@@ -20,13 +19,13 @@
 #import "WLAssetsGroupViewController.h"
 #import "WLNavigationHelper.h"
 
-@interface WLOldStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
+@interface WLStillAvatarViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate>
 
 @property (strong, nonatomic) WLEditPicture* picture;
 
 @end
 
-@implementation WLOldStillPictureViewController
+@implementation WLStillAvatarViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,7 +40,6 @@
         if (saveToAlbum) [resultImage save:nil];
         weakSelf.view.userInteractionEnabled = NO;
         self.picture = [WLEditPicture picture:resultImage mode:weakSelf.mode completion:^(id object) {
-            weakSelf.picture.comment = comment;
             [weakSelf finishWithPictures:@[weakSelf.picture]];
             weakSelf.view.userInteractionEnabled = YES;
         }];
@@ -49,8 +47,7 @@
 }
 
 - (void)editImage:(UIImage*)image completion:(WLUploadPhotoCompletionBlock)completion {
-    WLUploadPhotoViewController *controller = [WLUploadPhotoViewController instantiate:self.storyboard];
-    controller.wrap = self.wrap;
+    WLEditAvatarViewController *controller = [WLEditAvatarViewController instantiate:self.storyboard];
     controller.mode = self.mode;
     controller.image = image;
     controller.delegate = self;

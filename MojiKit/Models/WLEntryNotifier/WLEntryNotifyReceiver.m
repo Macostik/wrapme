@@ -20,11 +20,11 @@
     return receiver;
 }
 
-- (WLEntry *)containingEntry {
-    if (self.containingEntryBlock) {
-        return self.containingEntryBlock();
+- (WLEntry *)container {
+    if (self.containerBlock) {
+        return self.containerBlock();
     }
-    return _containingEntry;
+    return _container;
 }
 
 - (WLEntry *)entry {
@@ -38,9 +38,9 @@
     if (self.shouldNotifyBlock) {
         return self.shouldNotifyBlock(entry);
     }
-    WLEntry *currentContainingEntry = self.containingEntry;
+    WLEntry *currentContainer = self.container;
     WLEntry *currentEntry = self.entry;
-    if (currentContainingEntry && currentContainingEntry != entry.containingEntry) {
+    if (currentContainer && currentContainer != entry.container) {
         return NO;
     }
     return currentEntry ? (currentEntry == entry) : YES;
@@ -70,11 +70,11 @@
     if (_didDeleteBlock) _didDeleteBlock(entry);
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier willDeleteContainingEntry:(WLEntry *)entry {
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteContainer:(WLEntry *)entry {
     if (_willDeleteContainingBlock) _willDeleteContainingBlock(entry);
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier didDeleteContainingEntry:(WLEntry *)entry {
+- (void)notifier:(WLEntryNotifier *)notifier didDeleteContainer:(WLEntry *)entry {
     if (_didDeleteContainingBlock) _didDeleteContainingBlock(entry);
 }
 
@@ -82,9 +82,9 @@
     return [self shouldNotifyOnEntry:entry];
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnContainingEntry:(WLEntry *)entry {
-    WLEntry *currentContainingEntry = self.containingEntry;
-    if (currentContainingEntry && currentContainingEntry != entry) {
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnContainer:(WLEntry *)entry {
+    WLEntry *currentContainer = self.container;
+    if (currentContainer && currentContainer != entry) {
         return NO;
     }
     return YES;

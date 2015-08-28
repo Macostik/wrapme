@@ -77,7 +77,7 @@
 - (void)presentEntryFromNotification:(WLNotification*)notification failure:(WLFailureBlock)failure {
     if (notification.event != WLEventDelete) {
         if ([notification.entryClass entryExists:notification.entryIdentifier]) {
-            if (![self presentEntry:notification.targetEntry]) {
+            if (![self presentEntry:notification.entry]) {
                 self.entryClass = notification.entryClass;
                 self.entryIdentifier = notification.entryIdentifier;
                 self.failureBlock = failure;

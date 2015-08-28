@@ -19,10 +19,10 @@
     return (id)[[WLEntryManager manager] entryOfClass:self identifier:identifier uploadIdentifier:uploadIdentifier];
 }
 
-+ (instancetype)API_entry:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
++ (instancetype)API_entry:(NSDictionary *)dictionary container:(id)container {
     NSString *identifier = [self API_identifier:dictionary];
     NSString *uploadIdentifier = [self API_uploadIdentifier:dictionary];
-    return [[self entry:identifier uploadIdentifier:uploadIdentifier] API_setup:dictionary relatedEntry:relatedEntry];
+    return [[self entry:identifier uploadIdentifier:uploadIdentifier] API_setup:dictionary container:container];
 }
 
 + (NSString *)API_uploadIdentifier:(NSDictionary *)dictionary {
@@ -95,7 +95,7 @@
     return self.contributedByCurrentUser;
 }
 
-- (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
+- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
     
     if (dictionary[WLUploadUIDKey]) {
         NSString* uploadIdentifier = [dictionary stringForKey:WLUploadUIDKey];
@@ -119,7 +119,7 @@
     NSDate* editedAt = [dictionary timestampDateForKey:WLEditedAtKey];
     if (!NSDateEqual(self.editedAt, editedAt)) self.editedAt = editedAt;
     
-    return [super API_setup:dictionary relatedEntry:relatedEntry];
+    return [super API_setup:dictionary container:container];
 }
 
 - (void)parseContributor:(NSDictionary*)dictionary {

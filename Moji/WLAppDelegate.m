@@ -86,6 +86,8 @@
         if ([UIWindow mainWindow].rootViewController.storyboard != storyboard) {
             [WLAlertView confirmRedirectingToSignUp:^{
                 WLLog(@"ERROR", @"redirection to welcome screen, sign in failed", error);
+                [[WLNotificationCenter defaultCenter] clear];
+                [WLSession clear];
                 [storyboard present:YES];
             } tryAgain:^{
                 [request send];
@@ -246,7 +248,7 @@
     BOOL presentable = state == UIApplicationStateInactive;
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
         if (presentable) {
-            NSDictionary *entry = [notification.targetEntry dictionaryRepresentation];
+            NSDictionary *entry = [notification.entry dictionaryRepresentation];
             if (entry) {
                 [self presentNotification:@{@"type":@(notification.type),@"entry":entry}];
             }
@@ -259,7 +261,7 @@
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
-        NSDictionary *entry = [notification.targetEntry dictionaryRepresentation];
+        NSDictionary *entry = [notification.entry dictionaryRepresentation];
         if (entry) {
             [self presentNotification:@{@"type":@(notification.type),@"entry":entry}];
         }

@@ -207,7 +207,7 @@ static NSMapTable *queues = nil;
 - (void)didRemoveParentQueueContribution:(WLContribution*)contribution {
     NSMutableSet *removedUploadins = [NSMutableSet set];
     for (WLUploading *_uploading in self.uploadings) {
-        if (_uploading.contribution.containingEntry == contribution) {
+        if (_uploading.contribution.container == contribution) {
             if (_uploading.data.operation) {
                 [_uploading.data.operation cancel];
             }

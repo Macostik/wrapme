@@ -13,7 +13,7 @@
 static NSInteger WLIndicatorWidth = 16.0;
 
 inline static NSString* iconNameByContribution(WLContribution *contribution) {
-    if (![(id)contribution.containingEntry uploaded]) {
+    if (![(id)contribution.container uploaded]) {
         return @"D";
     }
     switch ([contribution statusOfAnyUploadingType]) {

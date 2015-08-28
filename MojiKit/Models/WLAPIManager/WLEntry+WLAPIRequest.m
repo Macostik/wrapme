@@ -36,7 +36,7 @@
         if (!entry.fetched) {
             return NO;
         }
-        entry = entry.containingEntry;
+        entry = entry.container;
     }
     return YES;
 }
@@ -48,9 +48,9 @@
     } else {
         __weak typeof(self)weakSelf = self;
         [self fetchIfNeeded:^ (WLEntry *entry) {
-            WLEntry *containingEntry = weakSelf.containingEntry;
-            if (containingEntry) {
-                [containingEntry recursivelyFetchIfNeeded:success failure:failure];
+            WLEntry *container = weakSelf.container;
+            if (container) {
+                [container recursivelyFetchIfNeeded:success failure:failure];
             } else {
                 if (success) success();
             }

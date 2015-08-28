@@ -259,18 +259,12 @@
 }
 
 - (void)clear {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
-
     __weak __typeof(self)weakSelf = self;
     [[WLEntry entries] all:^(WLEntry *entry) {
         [weakSelf uncacheEntry:entry];
         [weakSelf.context deleteObject:entry];
     }];
     [self.context save:NULL];
-    
-    self.context = nil;
-    self.coordinator = nil;
     [self.cachedEntries removeAllObjects];
 }
 
@@ -453,11 +447,11 @@
 }
 
 - (BOOL)valid {
-    return self.managedObjectContext != nil && !self.deleted && (self.containingEntry ? self.containingEntry.valid : YES);
+    return self.managedObjectContext != nil && !self.deleted && (self.container ? self.container.valid : YES);
 }
 
 - (BOOL)invalid {
-    return self.managedObjectContext == nil || self.deleted || (self.containingEntry ? self.containingEntry.invalid : NO);
+    return self.managedObjectContext == nil || self.deleted || (self.container ? self.container.invalid : NO);
 }
 
 @end

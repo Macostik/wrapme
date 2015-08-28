@@ -16,13 +16,11 @@
 	return [dictionary stringForKey:@"chat_uid"];
 }
 
-- (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
-    [super API_setup:dictionary relatedEntry:relatedEntry];
+- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
+    [super API_setup:dictionary container:container];
     NSString* text = [dictionary stringForKey:WLContentKey];
     if (!NSStringEqual(self.text, text)) self.text = text;
-    WLWrap* currentWrap = self.wrap;
-    WLWrap* wrap = relatedEntry ? : (currentWrap ? : [WLWrap entry:[dictionary stringForKey:WLWrapUIDKey]]);
-    if (wrap != currentWrap) self.wrap = wrap;
+    self.container = container ? : (self.wrap ? : [WLWrap entry:[dictionary stringForKey:WLWrapUIDKey]]);
     return self;
 }
 

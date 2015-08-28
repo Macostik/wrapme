@@ -15,19 +15,19 @@
     return [dictionary stringForKey:@"device_uid"];
 }
 
-- (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
+- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
     NSString* name = [dictionary stringForKey:@"device_name"];
     if (!NSStringEqual(self.name, name)) self.name = name;
     NSString* phone = [dictionary stringForKey:WLFullPhoneNumberKey];
     if (!NSStringEqual(self.phone, phone)) self.phone = phone;
     BOOL activated = [dictionary boolForKey:@"activated"];
     if (self.activated != activated) self.activated = activated;
-    if (relatedEntry && self.owner != relatedEntry) self.owner = relatedEntry;
+    if (container && self.owner != container) self.owner = container;
     NSDate* invitedAt = [dictionary timestampDateForKey:@"invited_at_in_epoch"];
     if (!NSDateEqual(self.invitedAt, invitedAt)) self.invitedAt = invitedAt;
     NSString* invitedBy = [dictionary stringForKey:@"invited_by_user_uid"];
     if (!NSStringEqual(self.invitedBy, invitedBy)) self.invitedBy = invitedBy;
-    return [super API_setup:dictionary relatedEntry:relatedEntry];
+    return [super API_setup:dictionary container:container];
 }
 
 @end

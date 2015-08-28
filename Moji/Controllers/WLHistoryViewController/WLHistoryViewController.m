@@ -20,7 +20,6 @@
 #import "WLNavigationHelper.h"
 #import "WLDownloadingView.h"
 #import "WLImageCache.h"
-#import "WLUploadPhotoViewController.h"
 #import "WLPresentingImageView.h"
 #import "WLCommentsViewController.h"
 #import "WLLayoutPrioritizer.h"
@@ -61,7 +60,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;
-@property (strong, nonatomic) WLUploadPhotoCompletionBlock completionBlock;
 
 @property (nonatomic) NSUInteger currentCandyIndex;
 
@@ -373,16 +371,16 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [self removedCachedViewControllerForCandy:candy];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier willDeleteContainingEntry:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteContainer:(WLWrap *)wrap {
     [WLToast showMessageForUnavailableWrap:wrap];
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 - (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
-    return entry.containingEntry == self.wrap;
+    return entry.container == self.wrap;
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnContainingEntry:(WLEntry *)entry {
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnContainer:(WLEntry *)entry {
     return self.wrap == entry;
 }
 

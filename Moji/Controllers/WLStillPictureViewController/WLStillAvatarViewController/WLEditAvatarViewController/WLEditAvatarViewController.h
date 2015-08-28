@@ -10,7 +10,7 @@
 
 typedef void (^WLUploadPhotoCompletionBlock) (UIImage *image, NSString *comment);
 
-@interface WLUploadPhotoViewController : WLStillPictureBaseViewController
+@interface WLEditAvatarViewController : WLStillPictureBaseViewController
 
 @property (strong, nonatomic) UIImage* image;
 

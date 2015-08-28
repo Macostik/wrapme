@@ -13,7 +13,6 @@
 #import "UIFont+CustomFonts.h"
 #import "WLChronologicalEntryPresenter.h"
 #import "WLDownloadingView.h"
-#import "WLUploadPhotoViewController.h"
 #import "WLAlertView.h"
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLNavigationHelper.h"

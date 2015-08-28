@@ -1,5 +1,5 @@
 //
-//  WLNewStillPictureViewController.h
+//  WLStillPhotosViewController.h
 //  moji
 //
 //  Created by Ravenpod on 6/9/15.
@@ -8,6 +8,6 @@
 
 #import "WLStillPictureViewController.h"
 
-@interface WLNewStillPictureViewController : WLStillPictureViewController
+@interface WLStillPhotosViewController : WLStillPictureViewController
 
 @end

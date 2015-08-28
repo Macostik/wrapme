@@ -34,7 +34,9 @@
 
 @property (weak, nonatomic) WLCameraViewController *cameraViewController;
 
-+ (instancetype)stillPictureViewController;
++ (instancetype)stillPhotosViewController;
+
++ (instancetype)stillAvatarViewController;
 
 - (void)showWrapPickerWithController:(BOOL)animated;
 

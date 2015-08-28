@@ -150,7 +150,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 69.0f;
         [receiver setEntryBlock:^WLEntry *{
             return weakSelf.candy;
         }];
-        [receiver setContainingEntryBlock:^WLEntry *{
+        [receiver setContainerBlock:^WLEntry *{
             return weakSelf.candy.wrap;
         }];
         receiver.willDeleteContainingBlock = receiver.willDeleteBlock = ^(WLCandy *candy) {

@@ -73,9 +73,8 @@
     [super viewWillAppear:animated];
     if (self.wrap.valid) {
         [self updateWrapData];
-        [self updateMessageCouter];
-        [self updateCandyCounter];
         [self updateSegmentIfNeeded];
+        [self updateMessageCouter];
     }
 }
 
@@ -142,7 +141,7 @@
     }];
     
     [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setContainingEntryBlock:^WLEntry *{
+        [receiver setContainerBlock:^WLEntry *{
             return weakSelf.wrap;
         }];
         [receiver setDidAddBlock:^(WLCandy *candy) {
@@ -165,8 +164,8 @@
         self.viewController = [self controllerForClass:[WLChatViewController class] badge:self.messageCountLabel];
     } else {
         self.viewController = [self controllerForClass:[WLContributorsViewController class] badge:nil];
-        [self updateCandyCounter];
     }
+    [self updateCandyCounter];
 }
 
 - (IBAction)follow:(WLButton*)sender {
@@ -201,11 +200,7 @@
         self.view = nil;
         self.wrap = wrap;
     }
-    [wrap uploadPictures:pictures start:^{
-//        [WLCollectionView lock];
-    } finish:^{
-//        [WLCollectionView unlock];
-    }];
+    [wrap uploadPictures:pictures];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
@@ -248,7 +243,7 @@
 // MARK: - WLPhotoViewControllerDelegate
 
 - (void)photosViewControllerDidAddPhoto:(WLPhotosViewController *)controller {
-    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPictureViewController];
+    WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController];
     stillPictureViewController.wrap = self.wrap;
     stillPictureViewController.mode = WLStillPictureModeDefault;
     stillPictureViewController.delegate = self;

@@ -197,7 +197,7 @@
 }
 
 - (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
-    return self.wrap == entry.containingEntry;
+    return self.wrap == entry.container;
 }
 
 - (NSInteger)broadcasterOrderPriority:(WLBroadcaster *)broadcaster {

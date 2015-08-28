@@ -26,6 +26,8 @@ typedef BOOL (^WLBroadcastSelectReceiver)(id receiver, id object);
 
 @property (strong, nonatomic, readonly) NSHashTable* receivers;
 
+@property (nonatomic) BOOL prioritize;
+
 + (instancetype)broadcaster;
 
 - (instancetype)initWithReceiver:(id)receiver;

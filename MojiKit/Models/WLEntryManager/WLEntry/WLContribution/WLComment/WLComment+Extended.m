@@ -39,13 +39,11 @@
     return self.contributedByCurrentUser || self.candy.deletable;
 }
 
-- (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
+- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
     NSString* text = [dictionary stringForKey:WLContentKey];
     if (!NSStringEqual(self.text, text)) self.text = text;
-    WLCandy* currentCandy = self.candy;
-    WLCandy *candy = relatedEntry ? : (currentCandy ? : [WLCandy entry:[dictionary stringForKey:WLCandyUIDKey]]);
-    if (currentCandy != candy) self.candy = candy;
-    return [super API_setup:dictionary relatedEntry:relatedEntry];
+    self.container = container ? : (self.candy ? : [WLCandy entry:[dictionary stringForKey:WLCandyUIDKey]]);
+    return [super API_setup:dictionary container:container];
 }
 
 - (BOOL)canBeUploaded {

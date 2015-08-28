@@ -17,7 +17,7 @@
 
 - (UILocalNotification *)localNotificationForNotification:(WLNotification *)notification {
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    NSDictionary *entry = [notification.targetEntry dictionaryRepresentation];
+    NSDictionary *entry = [notification.entry dictionaryRepresentation];
     if (entry) {
         localNotification.userInfo = @{@"type":@(notification.type),@"entry":entry};
     }
@@ -52,13 +52,17 @@
 
 @implementation WLWrap (LocalNotifications)
 
+- (BOOL)locallyNotifiableNotification:(WLNotification *)notification {
+    return notification.requester != [WLUser currentUser];
+}
+
 - (NSString *)localNotificationAlertTitleForNotification:(WLNotification *)notification {
     return WLLS(@"APNS_TT01");
 }
 
 - (NSString *)localNotificationAlertBodyForNotification:(WLNotification *)notification {
-    NSString *name = notification.data[@"invited_by_name"] ? : self.contributor.name;
-    return [NSString stringWithFormat:WLLS(@"APNS_MSG01"), name, self.name];
+    NSString *name = notification.requester.name ? : notification.data[@"invited_by_name"];
+    return [NSString stringWithFormat:WLLS(@"APNS_MSG01"), name ? : self.contributor.name, self.name];
 }
 
 @end

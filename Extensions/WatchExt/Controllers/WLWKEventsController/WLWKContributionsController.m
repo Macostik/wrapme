@@ -58,7 +58,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     __weak typeof(self)weakSelf = self;
     WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:remoteNotification[@"entry"]];
     if ([entry isKindOfClass:[WLComment class]]) {
-        [weakSelf pushControllerWithName:@"candy" context:entry.containingEntry];
+        [weakSelf pushControllerWithName:@"candy" context:entry.container];
     } else if ([entry isKindOfClass:[WLCandy class]]) {
         [weakSelf pushControllerWithName:@"candy" context:entry];
     } else if ([identifier isEqualToString:@"reply"] && [entry isKindOfClass:[WLMessage class]]) {

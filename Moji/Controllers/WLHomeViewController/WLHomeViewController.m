@@ -274,7 +274,7 @@
 
 - (void)openCameraForWrap:(WLWrap*)wrap animated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
     if (wrap) {
-        WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPictureViewController];
+        WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController];
         stillPictureViewController.wrap = wrap;
         stillPictureViewController.mode = WLStillPictureModeDefault;
         stillPictureViewController.delegate = self;
@@ -383,7 +383,7 @@
 }
 
 - (IBAction)createWrap:(id)sender {
-    WLStillPictureViewController *controller = [WLStillPictureViewController stillPictureViewController];
+    WLStillPictureViewController *controller = [WLStillPictureViewController stillPhotosViewController];
     controller.mode = WLStillPictureModeDefault;
     controller.delegate = self;
     [self presentViewController:controller animated:NO completion:nil];

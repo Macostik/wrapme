@@ -49,7 +49,9 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @property (nonatomic) WLEvent event;
 
-@property (strong, nonatomic) WLEntry* targetEntry;
+@property (strong, nonatomic) WLEntry* entry;
+
+@property (strong, nonatomic) WLUser* requester;
 
 @property (strong, nonatomic) Class entryClass;
 
@@ -57,7 +59,7 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @property (strong, nonatomic) NSDictionary* entryData;
 
-@property (strong, nonatomic) NSString* containingEntryIdentifier;
+@property (strong, nonatomic) NSString* containerIdentifier;
 
 @property (nonatomic) BOOL trimmed;
 

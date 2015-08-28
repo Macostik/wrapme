@@ -28,9 +28,9 @@
     if (_contribution != contribution) {
         _contribution = contribution;
         [[[contribution class] notifier] addReceiver:self];
-        WLContribution *containingEntry = (id)[contribution containingEntry];
-        if (![containingEntry uploaded]) {
-            [[[containingEntry class] notifier] addReceiver:self];
+        WLContribution *container = (id)[contribution container];
+        if (![container uploaded]) {
+            [[[container class] notifier] addReceiver:self];
         }
     }
     [self setIconNameByCotribution:contribution];
@@ -46,7 +46,7 @@
 
 - (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
     WLContribution *contribution = self.contribution;
-    return contribution == entry || (contribution.containingEntry && entry == contribution.containingEntry);
+    return contribution == entry || (contribution.container && entry == contribution.container);
 }
 
 @end

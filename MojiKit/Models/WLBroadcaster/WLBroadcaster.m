@@ -47,6 +47,9 @@
 
 - (void)addReceiver:(id)receiver {
     [self.receivers addObject:receiver];
+    if ([receiver respondsToSelector:@selector(broadcasterOrderPriority:)]) {
+        self.prioritize = YES;
+    }
 }
 
 - (void)removeReceiver:(id)receiver {
@@ -87,7 +90,12 @@
 - (void)broadcast:(SEL)selector object:(id)object select:(WLBroadcastSelectReceiver)select {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    NSArray *receivers = [self sortedReceivers];
+    NSArray *receivers = nil;
+    if (self.prioritize) {
+        receivers = [self sortedReceivers];
+    } else {
+        receivers = [self.receivers copy];
+    }
     for (id receiver in receivers) {
         if ((select ? select(receiver, object) : YES) && [receiver respondsToSelector:selector]) {
             [receiver performSelector:selector withObject:self withObject:object];

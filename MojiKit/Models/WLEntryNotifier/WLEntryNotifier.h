@@ -20,7 +20,7 @@ typedef void (^WLEntryNotifyReceiverSetupBlock) (WLEntryNotifyReceiver *receiver
 
 - (BOOL)notifier:(WLEntryNotifier*)notifier shouldNotifyOnEntry:(WLEntry*)entry;
 
-- (BOOL)notifier:(WLEntryNotifier*)notifier shouldNotifyOnContainingEntry:(WLEntry*)entry;
+- (BOOL)notifier:(WLEntryNotifier*)notifier shouldNotifyOnContainer:(WLEntry*)entry;
 
 - (void)notifier:(WLEntryNotifier*)notifier willAddEntry:(WLEntry*)entry;
 
@@ -34,9 +34,9 @@ typedef void (^WLEntryNotifyReceiverSetupBlock) (WLEntryNotifyReceiver *receiver
 
 - (void)notifier:(WLEntryNotifier*)notifier didDeleteEntry:(WLEntry*)entry;
 
-- (void)notifier:(WLEntryNotifier*)notifier willDeleteContainingEntry:(WLEntry*)entry;
+- (void)notifier:(WLEntryNotifier*)notifier willDeleteContainer:(WLEntry*)entry;
 
-- (void)notifier:(WLEntryNotifier*)notifier didDeleteContainingEntry:(WLEntry*)entry;
+- (void)notifier:(WLEntryNotifier*)notifier didDeleteContainer:(WLEntry*)entry;
 
 @end
 

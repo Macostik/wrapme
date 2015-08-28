@@ -28,8 +28,6 @@ static NSUInteger WLWrapNameLimit = 190;
 
 - (void)uploadPicture:(WLPicture *)picture;
 
-- (void)uploadPictures:(NSArray *)pictures start:(WLBlock)start finish:(WLBlock)finish;
-
 - (void)uploadPictures:(NSArray *)pictures;
 
 - (BOOL)isFirstCreated;

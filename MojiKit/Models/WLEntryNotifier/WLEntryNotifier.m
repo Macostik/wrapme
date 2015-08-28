@@ -19,7 +19,7 @@
 
 @property (strong, nonatomic) WLBroadcastSelectReceiver selectEntryBlock;
 
-@property (strong, nonatomic) WLBroadcastSelectReceiver selectContainingEntryBlock;
+@property (strong, nonatomic) WLBroadcastSelectReceiver selectContainerBlock;
 
 @end
 
@@ -57,9 +57,9 @@ static NSMapTable* notifiers = nil;
             }
             return YES;
         };
-        self.selectContainingEntryBlock = ^BOOL(NSObject <WLEntryNotifyReceiver> *receiver, WLEntry *entry) {
-            if ([receiver respondsToSelector:@selector(notifier:shouldNotifyOnContainingEntry:)]) {
-                return [receiver notifier:weakSelf shouldNotifyOnContainingEntry:entry];
+        self.selectContainerBlock = ^BOOL(NSObject <WLEntryNotifyReceiver> *receiver, WLEntry *entry) {
+            if ([receiver respondsToSelector:@selector(notifier:shouldNotifyOnContainer:)]) {
+                return [receiver notifier:weakSelf shouldNotifyOnContainer:entry];
             }
             return YES;
         };
@@ -81,18 +81,18 @@ static NSMapTable* notifiers = nil;
 
 - (void)notifyOnDeleting:(WLEntry *)entry block:(WLObjectBlock)block {
     
-    NSSet *containedEntryClasses = [self.entryClass containedEntryClasses];
+    NSSet *contentClasses = [self.entryClass contentClasses];
     
-    for (Class containedEntryClass in containedEntryClasses) {
-        [[containedEntryClass notifier] broadcast:@selector(notifier:willDeleteContainingEntry:) object:entry select:self.selectContainingEntryBlock];
+    for (Class contentClass in contentClasses) {
+        [[contentClass notifier] broadcast:@selector(notifier:willDeleteContainer:) object:entry select:self.selectContainerBlock];
     }
     
     [self broadcast:@selector(notifier:willDeleteEntry:) object:entry select:self.selectEntryBlock];
     if (block) block(entry);
     [self broadcast:@selector(notifier:didDeleteEntry:) object:entry select:self.selectEntryBlock];
     
-    for (Class containedEntryClass in containedEntryClasses) {
-        [[containedEntryClass notifier] broadcast:@selector(notifier:didDeleteContainingEntry:) object:entry select:self.selectContainingEntryBlock];
+    for (Class contentClass in contentClasses) {
+        [[contentClass notifier] broadcast:@selector(notifier:didDeleteContainer:) object:entry select:self.selectContainerBlock];
     }
 }
 
@@ -129,25 +129,25 @@ static NSMapTable* notifiers = nil;
 
 - (instancetype)notifyOnAddition:(WLObjectBlock)block {
 	[[WLEntryNotifier notifier:[self class]] notifyOnAddition:self block:block];
-	[self touchContainingEntry];
+	[self touchContainer];
     return self;
 }
 
 - (instancetype)notifyOnUpdate:(WLObjectBlock)block {
 	[[WLEntryNotifier notifier:[self class]] notifyOnUpdate:self block:block];
-	[self touchContainingEntry];
+	[self touchContainer];
     return self;
 }
 
 - (instancetype)notifyOnDeleting:(WLObjectBlock)block {
-    WLEntry *containingEntry = self.containingEntry;
+    WLEntry *container = self.container;
     [[WLEntryNotifier notifier:[self class]] notifyOnDeleting:self block:block];
-	[containingEntry notifyOnUpdate:nil];
+	[container notifyOnUpdate:nil];
     return self;
 }
 
-- (void)touchContainingEntry {
-	WLEntry* entry = self.containingEntry;
+- (void)touchContainer {
+	WLEntry* entry = self.container;
 	if (entry) {
 		if ([entry.updatedAt earlier:self.updatedAt]) entry.updatedAt = self.updatedAt;
 		[entry notifyOnUpdate:nil];

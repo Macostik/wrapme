@@ -11,7 +11,6 @@
 #import "WLProgressBar+WLContribution.h"
 #import "WLCandy+Extended.h"
 #import "WLNavigationHelper.h"
-#import "WLUploadPhotoViewController.h"
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 
 @interface WLDownloadingView () <WLImageFetching, WLEntryNotifyReceiver>
@@ -119,7 +118,7 @@
     [self dissmis];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier willDeleteContainingEntry:(WLEntry *)entry {
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteContainer:(WLEntry *)entry {
     self.candy = nil;
     if (self.failureBlock) self.failureBlock(nil);
     [self dissmis];
@@ -129,7 +128,7 @@
     return self.candy == entry;
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnContainingEntry:(WLEntry *)entry {
+- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnContainer:(WLEntry *)entry {
     return self.candy.wrap == entry;
 }
 

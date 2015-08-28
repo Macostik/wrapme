@@ -40,8 +40,8 @@
 	return [dictionary stringForKey:WLWrapUIDKey];
 }
 
-- (instancetype)API_setup:(NSDictionary *)dictionary relatedEntry:(id)relatedEntry {
-    [super API_setup:dictionary relatedEntry:relatedEntry];
+- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
+    [super API_setup:dictionary container:container];
     NSString* name = [dictionary stringForKey:WLNameKey];
     if (!NSStringEqual(self.name, name)) self.name = name;
     
@@ -68,7 +68,7 @@
         if (!self.isContributing) [self addContributorsObject:[WLUser currentUser]];
     }
     
-    NSSet* candies = [WLCandy API_entries:[dictionary arrayForKey:WLCandiesKey] relatedEntry:self];
+    NSSet* candies = [WLCandy API_entries:[dictionary arrayForKey:WLCandiesKey] container:self];
     if (candies.nonempty && ![candies isSubsetOfSet:self.candies]) {
         [self addCandies:candies];
     }
@@ -137,22 +137,16 @@
     [self uploadPicture:picture success:^(WLCandy *candy) { } failure:^(NSError *error) { }];
 }
 
-- (void)uploadPictures:(NSArray *)pictures start:(WLBlock)start finish:(WLBlock)finish {
+- (void)uploadPictures:(NSArray *)pictures {
     __weak typeof(self)weakSelf = self;
     for (WLPicture *picture in pictures) {
         runUnaryQueuedOperation(@"wl_upload_candies_queue", ^(WLOperation *operation) {
             [weakSelf uploadPicture:picture];
-            if (start) start();
             run_after(0.6f, ^{
-                if (finish) finish();
                 [operation finish];
             });
         });
     }
-}
-
-- (void)uploadPictures:(NSArray *)pictures {
-    [self uploadPictures:pictures start:nil finish:nil];
 }
 
 - (BOOL)isFirstCreated {

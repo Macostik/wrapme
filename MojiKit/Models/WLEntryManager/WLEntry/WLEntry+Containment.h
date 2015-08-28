@@ -18,11 +18,11 @@
 
 @interface WLEntry (Containment)
 
-@property (nonatomic) WLEntry* containingEntry;
+@property (nonatomic) WLEntry* container;
 
-+ (Class)containingEntryClass;
++ (Class)containerClass;
 
-+ (NSSet*)containedEntryClasses;
++ (NSSet*)contentClasses;
 
 + (Class)entryClassByName:(NSString*)entryName;
 

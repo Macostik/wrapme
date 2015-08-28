@@ -8,6 +8,6 @@
 
 #import "WLStillPictureViewController.h"
 
-@interface WLOldStillPictureViewController : WLStillPictureViewController
+@interface WLStillAvatarViewController : WLStillPictureViewController
 
 @end

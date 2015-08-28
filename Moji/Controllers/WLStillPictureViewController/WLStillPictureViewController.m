@@ -31,8 +31,12 @@
 
 @synthesize mode = _mode;
 
-+ (instancetype)stillPictureViewController {
-    return [self instantiateWithIdentifier:@"WLNewStillPictureViewController" storyboard:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
++ (instancetype)stillPhotosViewController {
+    return [self instantiateWithIdentifier:@"WLStillPhotosViewController" storyboard:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
+}
+
++ (instancetype)stillAvatarViewController {
+    return [self instantiateWithIdentifier:@"WLStillAvatarViewController" storyboard:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
 }
 
 - (void)viewDidLoad {

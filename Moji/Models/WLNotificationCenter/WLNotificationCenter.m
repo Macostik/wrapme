@@ -112,7 +112,7 @@
     NSDictionary *userInfo = payload.dictionaryPayload;
     [self handleRemoteNotification:userInfo success:^(WLNotification *notification) {
         if (notification.presentable) {
-            WLEntry *entry = notification.targetEntry;
+            WLEntry *entry = notification.entry;
             if ([entry locallyNotifiableNotification:notification] && [entry notifiableForNotification:notification]) {
                 if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
                     UILocalNotification *localNotification = [entry localNotificationForNotification:notification];
@@ -353,7 +353,7 @@
         }
         NSString *entryIdentifier = deleteNotification.entryIdentifier;
         if (entryIdentifier.nonempty) {
-            NSArray *discardedNotifications = [notifications where:@"SELF != %@ AND (entryIdentifier == %@ OR containingEntryIdentifier == %@)",deleteNotification, entryIdentifier, entryIdentifier];
+            NSArray *discardedNotifications = [notifications where:@"SELF != %@ AND (entryIdentifier == %@ OR containerIdentifier == %@)",deleteNotification, entryIdentifier, entryIdentifier];
             [notifications removeObjectsInArray:discardedNotifications];
             if (![deleteNotification.entryClass entryExists:entryIdentifier]) {
                 [notifications removeObject:deleteNotification];

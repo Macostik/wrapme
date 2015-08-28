@@ -1,12 +1,12 @@
 //
-//  WLNewStillPictureViewController.m
+//  WLStillPhotosViewController.m
 //  moji
 //
 //  Created by Ravenpod on 6/9/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLNewStillPictureViewController.h"
+#import "WLStillPhotosViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLHintView.h"
 #import "WLWrapView.h"
@@ -21,13 +21,13 @@
 #import "WLBatchEditPictureViewController.h"
 #import "WLCollections.h"
 
-@interface WLNewStillPictureViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate, WLBatchEditPictureViewControllerDelegate>
+@interface WLStillPhotosViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLAssetsViewControllerDelegate, WLBatchEditPictureViewControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray* pictures;
 
 @end
 
-@implementation WLNewStillPictureViewController
+@implementation WLStillPhotosViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

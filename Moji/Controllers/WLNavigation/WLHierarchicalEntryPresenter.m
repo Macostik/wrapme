@@ -25,10 +25,10 @@
         if (viewController) {
             [viewControllers addObject:viewController];
             if (currentEntry != entry) {
-                [entry configureViewController:viewController fromContainingEntry:currentEntry];
+                [entry configureViewController:viewController fromContainer:currentEntry];
             }
         }
-        currentEntry = currentEntry.containingEntry;
+        currentEntry = currentEntry.container;
     }
     
     if (![viewControllers count]) {

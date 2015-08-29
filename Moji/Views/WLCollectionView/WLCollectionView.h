@@ -9,18 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "WLLabel.h"
 
-typedef enum : NSUInteger {
-    WLDefaultPlaceholderMode,
-    WLManualPlaceholderMode,
-} WLPlaceholderMode;
-
 @interface WLCollectionView : UICollectionView
 
 @property (strong, nonatomic) IBInspectable NSString *nibNamePlaceholder;
 
 @property (strong, nonatomic) NSString *placeholderText;
 
-@property (assign, nonatomic) WLPlaceholderMode mode;
+@property (assign, nonatomic) NSInteger index;
 
 + (void)lock;
 
@@ -29,13 +24,5 @@ typedef enum : NSUInteger {
 - (void)lock;
 
 - (void)unlock;
-
-- (BOOL)isDefaultPlaceholder;
-
-- (void)setDefaulPlaceholder;
-
-- (void)addToCachePlaceholderWithName:(NSString *)placeholderName byType:(NSInteger)type;
-
-- (void)setPlaceholderByType:(NSInteger)type;
 
 @end

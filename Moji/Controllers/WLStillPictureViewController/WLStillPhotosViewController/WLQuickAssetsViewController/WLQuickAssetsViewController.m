@@ -121,4 +121,8 @@
     return [self.selectedAssets containsObject:asset.ID];
 }
 
+- (BOOL)assetCellAllowsMultipleSelection:(WLAssetCell *)cell {
+    return self.allowsMultipleSelection;
+}
+
 @end

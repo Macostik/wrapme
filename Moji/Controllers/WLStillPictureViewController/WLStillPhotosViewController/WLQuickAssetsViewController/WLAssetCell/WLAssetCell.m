@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *acceptView;
+@property (weak, nonatomic) IBOutlet UIButton *selectButton;
 
 @end
 
@@ -24,6 +25,12 @@
         BOOL selected = [self.delegate assetCell:self isSelectedAsset:asset];
         self.acceptView.hidden = !selected;
         self.imageView.alpha = selected ? 0.5f : 1.0f;
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(assetCellAllowsMultipleSelection:)]) {
+        self.selectButton.exclusiveTouch = ![self.delegate assetCellAllowsMultipleSelection:self];
+    } else {
+        self.selectButton.exclusiveTouch = YES;
     }
 }
 

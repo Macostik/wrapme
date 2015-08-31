@@ -9,13 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "WLLabel.h"
 
+@class WLCollectionView;
+
+@protocol WLCollectionViewPlaceholder <UICollectionViewDataSource>
+
+@optional
+
+- (NSString *)placeholderNameOfCollectionView:(WLCollectionView *)collectioinView;
+
+@end
+
 @interface WLCollectionView : UICollectionView
 
 @property (strong, nonatomic) IBInspectable NSString *nibNamePlaceholder;
 
 @property (strong, nonatomic) NSString *placeholderText;
 
-@property (assign, nonatomic) NSInteger index;
+@property (weak, nonatomic) IBOutlet id <WLCollectionViewPlaceholder> dataSource;
 
 + (void)lock;
 

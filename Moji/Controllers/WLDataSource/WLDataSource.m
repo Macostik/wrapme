@@ -239,6 +239,10 @@
     }
 }
 
+- (NSString *)placeholderNameOfCollectionView:(WLCollectionView *)collectioinView {
+    return self.nibNamePlaceholder;
+}
+
 #pragma mark - WLFontPresetterReceiver
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {

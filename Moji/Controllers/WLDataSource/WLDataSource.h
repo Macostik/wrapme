@@ -10,6 +10,7 @@
 #import "WLRefresher.h"
 #import "WLPaginatedSet+WLBaseOrderedCollection.h"
 #import "WLCollectionViewLayout.h"
+#import "WLCollectionView.h"
 
 typedef NS_ENUM(NSUInteger, WLDataSourceScrollDirection) {
     WLDataSourceScrollDirectionUnknown,
@@ -17,7 +18,7 @@ typedef NS_ENUM(NSUInteger, WLDataSourceScrollDirection) {
     WLDataSourceScrollDirectionDown
 };
 
-@interface WLDataSource : NSObject <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLCollectionViewLayoutDelegate>
+@interface WLDataSource : NSObject <WLCollectionViewPlaceholder, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, WLCollectionViewLayoutDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView* collectionView;
 
@@ -28,6 +29,8 @@ typedef NS_ENUM(NSUInteger, WLDataSourceScrollDirection) {
 @property (strong, nonatomic) IBInspectable NSString* headerIdentifier;
 
 @property (strong, nonatomic) IBInspectable NSString* footerIdentifier;
+
+@property (strong, nonatomic) IBInspectable NSString *nibNamePlaceholder;
 
 @property (nonatomic) IBInspectable CGSize itemSize;
 

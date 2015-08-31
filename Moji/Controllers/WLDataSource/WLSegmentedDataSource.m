@@ -154,6 +154,10 @@
     [self.currentDataSource scrollViewDidScroll:scrollView];
 }
 
+- (NSString *)placeholderNameOfCollectionView:(WLCollectionView *)collectioinView {
+    return [self.currentDataSource placeholderNameOfCollectionView:collectioinView];
+}
+
 // MARK: - WLCollectionViewLayoutDelegate
 
 - (CGSize)collectionView:(UICollectionView*)collectionView sizeForItemAtIndexPath:(NSIndexPath*)indexPath {

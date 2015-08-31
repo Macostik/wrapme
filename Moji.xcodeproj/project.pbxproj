@@ -795,6 +795,8 @@
 		C5A9CC841B9450660084D0F5 /* WLEditPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC821B9450660084D0F5 /* WLEditPictureCell.xib */; };
 		C5A9CC861B945DE00084D0F5 /* WLWrapPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC851B945DE00084D0F5 /* WLWrapPickerCell.xib */; };
 		C5A9CC871B945DE00084D0F5 /* WLWrapPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC851B945DE00084D0F5 /* WLWrapPickerCell.xib */; };
+		C5A9CC891B946F9C0084D0F5 /* WLEmojiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC881B946F9C0084D0F5 /* WLEmojiCell.xib */; };
+		C5A9CC8A1B946F9C0084D0F5 /* WLEmojiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC881B946F9C0084D0F5 /* WLEmojiCell.xib */; };
 		C5AB7D741B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */; };
 		C5AB7D751B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */; };
 		C5AE6B5E1B8E014400EE41FB /* WLCommentWhatsUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5AE6B5D1B8E014400EE41FB /* WLCommentWhatsUpCell.xib */; };
@@ -1918,6 +1920,7 @@
 		C5A9CC7F1B9439F50084D0F5 /* WLAssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAssetCell.xib; sourceTree = "<group>"; };
 		C5A9CC821B9450660084D0F5 /* WLEditPictureCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLEditPictureCell.xib; sourceTree = "<group>"; };
 		C5A9CC851B945DE00084D0F5 /* WLWrapPickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLWrapPickerCell.xib; sourceTree = "<group>"; };
+		C5A9CC881B946F9C0084D0F5 /* WLEmojiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEmojiCell.xib; path = WLComposeBar/WLEmojiView/WLEmojiCell/WLEmojiCell.xib; sourceTree = "<group>"; };
 		C5AB7D721B318FDD0077F9F1 /* WLWKParentApplicationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKParentApplicationContext.h; sourceTree = "<group>"; };
 		C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKParentApplicationContext.m; sourceTree = "<group>"; };
 		C5AE6B5D1B8E014400EE41FB /* WLCommentWhatsUpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCommentWhatsUpCell.xib; path = WLWhatsUpViewController/WhatsUpCell/WLCommentWhatsUpCell.xib; sourceTree = "<group>"; };
@@ -3027,6 +3030,7 @@
 			children = (
 				AC79ED361934791600D7031F /* WLEmojiCell.h */,
 				AC79ED371934791600D7031F /* WLEmojiCell.m */,
+				C5A9CC881B946F9C0084D0F5 /* WLEmojiCell.xib */,
 			);
 			name = WLEmojiCell;
 			sourceTree = "<group>";
@@ -5606,6 +5610,7 @@
 				5BD552131B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */,
 				C5BCF0181B551B7B00E4AD6D /* WLMessageDateView.xib in Resources */,
 				C55908E51B18B9FA001CB99F /* WLInviteHintView.xib in Resources */,
+				C5A9CC891B946F9C0084D0F5 /* WLEmojiCell.xib in Resources */,
 				C55908F91B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */,
 				C54AF54119B8C437006F7EDB /* CountryCodes.json in Resources */,
 				5BB41F8E1B8EEF26007DB7A2 /* PablicWrapPlaceholder.xib in Resources */,
@@ -5692,6 +5697,7 @@
 				5BD552151B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */,
 				C5BCF01A1B551B7B00E4AD6D /* WLMessageDateView.xib in Resources */,
 				C55908E71B18B9FA001CB99F /* WLInviteHintView.xib in Resources */,
+				C5A9CC8A1B946F9C0084D0F5 /* WLEmojiCell.xib in Resources */,
 				C55908FB1B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */,
 				C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */,
 				5BB41F8F1B8EEF26007DB7A2 /* PablicWrapPlaceholder.xib in Resources */,

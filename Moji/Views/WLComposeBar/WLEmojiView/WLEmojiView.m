@@ -14,65 +14,52 @@
 #import "NSObject+NibAdditions.h"
 #import "WLCollections.h"
 #import "WLEmoji.h"
+#import "StreamDataSource.h"
+#import "GridMetrics.h"
 
-@interface WLEmojiView () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SegmentedControlDelegate>
+@interface WLEmojiView () <SegmentedControlDelegate>
 
 @property (strong, nonatomic) UIView * emojiView;
 @property (strong, nonatomic) NSArray * emojis;
-@property (strong, nonatomic) IBOutlet UICollectionView * collectionView;
 @property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
-@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 @property (weak, nonatomic) UITextView* textView;
+@property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
+@property (strong, nonatomic) IBOutlet GridMetrics *metrics;
 
 @end
 
 @implementation WLEmojiView
 
-- (instancetype)initWithTextView:(UITextView *)textView {
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 216)];
-    if (self) {
-		self.textView = textView;
-		self.emojiView = [UIView loadFromNibNamed:@"WLEmojiView" ownedBy:self];
-		self.emojiView.frame = self.bounds;
-		[self addSubview:self.emojiView];
-		[self.collectionView registerClass:[WLEmojiCell class] forCellWithReuseIdentifier:@"WLEmojiCell"];
-        if ([[WLEmoji recentEmoji] nonempty]) {
-            self.emojis = [WLEmoji recentEmoji];
-        } else {
-            self.emojis = [WLEmoji emojiByType:WLEmojiTypeSmiles];
-            self.segmentedControl.selectedSegment = 1;
-        }
-        [self setScrollDirection];
++ (instancetype)emojiViewWithTextView:(UITextView *)textView {
+    WLEmojiView *view = [self loadFromNib];
+    view.textView = textView;
+    return view;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    if ([[WLEmoji recentEmoji] nonempty]) {
+        self.emojis = [WLEmoji recentEmoji];
+    } else {
+        self.segmentedControl.selectedSegment = 1;
+        self.emojis = [WLEmoji emojiByType:WLEmojiTypeSmiles];
     }
-    return self;
+    __weak typeof(self)weakSelf = self;
+    
+    StreamView *streamView = self.dataSource.streamView;
+    [self.metrics setRatioBlock:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+        return (streamView.frame.size.width/7) / (streamView.frame.size.height/3);
+    }];
+    
+    [self.metrics setSelectionBlock:^(StreamItem *item, NSString *emoji) {
+        [WLEmoji saveAsRecent:emoji];
+        [weakSelf.textView insertText:emoji];
+    }];
 }
 
 - (IBAction)returnClicked:(UIButton *)sender {
     [self.textView deleteBackward];
-}
-
-- (void)setScrollDirection {
-    if (self.segmentedControl.selectedSegment == 0) {
-        self.flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    } else {
-        self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    }
-}
-
-#pragma mark - UICollectionViewDataSource
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	return self.emojis.count;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	WLEmojiCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WLEmojiCell" forIndexPath:indexPath];
-	cell.entry = [self.emojis objectAtIndex:indexPath.item];
-	return cell;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return CGSizeMake(collectionView.frame.size.width/7, collectionView.frame.size.height/3);
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -83,9 +70,15 @@
     [self.textView insertText:selectedEmoji];
 }
 
+- (void)setEmojis:(NSArray *)emojis {
+    _emojis = emojis;
+    self.dataSource.items = emojis;
+}
+
 #pragma mark - SegmentedControlDelegate
 
 - (void)segmentedControl:(SegmentedControl*)control didSelectSegment:(NSInteger)segment {
+    [self.dataSource.streamView setContentOffset:CGPointZero];
 	if (segment == 0) {
 		self.emojis = [WLEmoji recentEmoji];
 	} else if (segment == 1) {
@@ -99,9 +92,6 @@
     } else {
 		self.emojis = [WLEmoji emojiByType:WLEmojiTypeNumbers];
 	}
-    [self setScrollDirection];
-	[self.collectionView setContentOffset:CGPointZero];
-	[self.collectionView reloadData];
 }
 
 @end

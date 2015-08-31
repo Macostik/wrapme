@@ -10,6 +10,6 @@
 
 @interface WLEmojiView : UIView
 
-- (instancetype)initWithTextView:(UITextView*)textView;
++ (instancetype)emojiViewWithTextView:(UITextView*)textView;
 
 @end

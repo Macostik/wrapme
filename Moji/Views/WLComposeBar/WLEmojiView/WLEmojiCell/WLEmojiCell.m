@@ -11,23 +11,11 @@
 
 @interface WLEmojiCell ()
 
-@property (weak, nonatomic) UILabel *emojiLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emojiLabel;
 
 @end
 
 @implementation WLEmojiCell
-
-- (UILabel *)emojiLabel {
-	if (!_emojiLabel) {
-		UILabel *emojiLabel = [[UILabel alloc] initWithFrame:self.bounds];
-		emojiLabel.font = [UIFont fontWithName:WLDefaultSystemLightFont size:34];
-		emojiLabel.textAlignment = NSTextAlignmentCenter;
-		[self addSubview:emojiLabel];
-		[emojiLabel setFullFlexible];
-		_emojiLabel = emojiLabel;
-	}
-	return _emojiLabel;
-}
 
 - (void)setup:(NSString*)item {
 	self.emojiLabel.text = item;

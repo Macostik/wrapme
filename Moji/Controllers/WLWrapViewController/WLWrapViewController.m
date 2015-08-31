@@ -14,7 +14,6 @@
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
 #import "SegmentedControl.h"
-#import "WLBasicDataSource.h"
 #import "WLEntryPresenter.h"
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"

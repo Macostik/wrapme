@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLEntryCell.h"
+#import "StreamReusableView.h"
 
 static NSString* WLMessageitemIdentifier = @"WLMessageCell";
 static NSString* WLMyMessageitemIdentifier = @"WLMyMessageCell";
@@ -23,7 +23,7 @@ static CGFloat WLMessageGroupSpacing = 14.0f;
 
 extern CGFloat WLMaxTextViewWidth;
 
-@interface WLMessageCell : WLEntryCell
+@interface WLMessageCell : StreamReusableView
 
 @property (nonatomic) BOOL showName;
 

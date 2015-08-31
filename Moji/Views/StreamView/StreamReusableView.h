@@ -7,15 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLEntrySetup.h"
 #import "StreamMetrics.h"
 
-@interface StreamReusableView : UIView <WLEntrySetup>
+@interface StreamReusableView : UIView
+
+@property (strong, nonatomic) id entry;
+
+@property (strong, nonatomic) WLObjectBlock selectionBlock;
 
 @property (strong, nonatomic) StreamMetrics *metrics;
 
 @property (nonatomic) BOOL selected;
 
 - (void)prepareForReuse;
+
+- (void)setup:(id)entry;
+
+- (void)resetup;
+
+- (void)select:(id)entry;
 
 @end

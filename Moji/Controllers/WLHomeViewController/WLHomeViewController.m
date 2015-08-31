@@ -40,7 +40,6 @@
 #import "WLLayoutPrioritizer.h"
 #import "WLMessagesCounter.h"
 #import "SegmentedStreamDataSource.h"
-#import "WLBasicDataSource.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 

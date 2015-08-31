@@ -90,7 +90,7 @@
     
     for (NSInteger column = 0; column < numberOfColumns; ++column) {
         
-        CGFloat size = ceilf(self.streamView.frame.size.width / numberOfColumns);
+        CGFloat size = (self.streamView.frame.size.width / numberOfColumns) / self.streamView.frame.size.width;
         if ([delegate respondsToSelector:@selector(streamView:layout:sizeForColumn:)]) {
             size = [delegate streamView:self.streamView layout:self sizeForColumn:column];
         }

@@ -8,7 +8,6 @@
 
 #import "NSObject+NibAdditions.h"
 #import "WLCandyCell.h"
-#import "WLBasicDataSource.h"
 #import "WLNotificationCenter.h"
 #import "WLBadgeLabel.h"
 #import "WLWrapCell.h"

@@ -105,6 +105,8 @@
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
 	AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
 	operation.responseSerializer = [self imageResponseSerializer];
+    operation.securityPolicy.allowInvalidCertificates = YES;
+    operation.securityPolicy.validatesDomainName = NO;
 	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
 		[[WLImageCache cache] setImage:responseObject withUrl:url];
 		if (success) success(responseObject, NO);

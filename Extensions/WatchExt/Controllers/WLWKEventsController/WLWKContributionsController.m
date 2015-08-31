@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *errorGroup;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *errorLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *placeholderGroup;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *noUpdatesLabel;
 
 @property (nonatomic) WLWKContributionsState state;
 
@@ -32,6 +33,11 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 
 
 @implementation WLWKContributionsController
+
+- (void)awakeWithContext:(id)context {
+    [super awakeWithContext:context];
+    [self.noUpdatesLabel setText:WLLS(@"no_recent_updates")];
+}
 
 - (void)setState:(WLWKContributionsState)state {
     _state = state;

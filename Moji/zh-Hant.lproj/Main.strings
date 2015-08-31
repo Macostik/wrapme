@@ -174,7 +174,7 @@
 "H8X-L5-O9h.text" = "Text";
 
 /* Class = "UILabel"; text = "Friends"; ObjectID = "HGi-g8-MYV"; */
-"HGi-g8-MYV.text" = "Friends";
+"HGi-g8-MYV.text" = "成員";
 
 /* Class = "UILabel"; text = "name"; ObjectID = "HUe-Pv-h6W"; */
 "HUe-Pv-h6W.text" = "name";
@@ -318,7 +318,7 @@
 "bgl-Nc-aZ0.text" = "新增成員...";
 
 /* Class = "UILabel"; text = "Photo"; ObjectID = "bsu-Ad-ILe"; */
-"bsu-Ad-ILe.text" = "Photo";
+"bsu-Ad-ILe.text" = "相片";
 
 /* Class = "UIButton"; normalTitle = "g"; ObjectID = "cKy-OZ-m8E"; */
 "cKy-OZ-m8E.normalTitle" = "g";
@@ -354,7 +354,7 @@
 "gs3-em-Muh.text" = "Yestarday at 2:34pm";
 
 /* Class = "UILabel"; text = "Photos"; ObjectID = "h8h-Ah-t4O"; */
-"h8h-Ah-t4O.text" = "Photos";
+"h8h-Ah-t4O.text" = "相片";
 
 /* Class = "UIButton"; normalTitle = "清除緩存"; ObjectID = "hNJ-iN-ANg"; */
 "hNJ-iN-ANg.normalTitle" = "清除緩存";

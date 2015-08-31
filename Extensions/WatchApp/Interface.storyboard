@@ -127,6 +127,7 @@
                     <connections>
                         <outlet property="errorGroup" destination="AW5-IN-BKT" id="EQw-CK-K1l"/>
                         <outlet property="errorLabel" destination="ZOa-1m-kLy" id="I4u-rH-mhN"/>
+                        <outlet property="noUpdatesLabel" destination="jYA-WL-ubk" id="ctz-f9-zhD"/>
                         <outlet property="placeholderGroup" destination="v9h-EG-Qd1" id="n8Z-vf-gDb"/>
                         <outlet property="table" destination="iyS-2n-l0O" id="0uf-Qt-re4"/>
                     </connections>
@@ -229,6 +230,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
+                        <outlet property="commentButton" destination="55e-NG-3Tc" id="uQQ-cd-xmo"/>
                         <outlet property="dateLabel" destination="ilC-YI-lqm" id="kKe-LL-53v"/>
                         <outlet property="image" destination="71N-Sr-K5h" id="kLG-fq-qLF"/>
                         <outlet property="photoByLabel" destination="99U-ca-OFF" id="u9z-Hs-goQ"/>

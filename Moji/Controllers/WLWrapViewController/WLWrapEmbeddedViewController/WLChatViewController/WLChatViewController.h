@@ -10,4 +10,6 @@
 
 @interface WLChatViewController : WLWrapEmbeddedViewController
 
+@property (nonatomic) BOOL showKeyboard;
+
 @end

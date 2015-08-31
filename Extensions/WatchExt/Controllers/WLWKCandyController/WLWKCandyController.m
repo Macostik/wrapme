@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *photoByLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *wrapNameLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *dateLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceButton *commentButton;
 
 @property (weak, nonatomic) WLCandy* candy;
 
@@ -32,6 +33,7 @@
     [super awakeWithContext:candy];
     [[WLEntryManager manager].context refreshObject:candy mergeChanges:NO];
     self.candy = candy;
+    [self.commentButton setTitle:WLLS(@"comment")];
 }
 
 - (void)update {

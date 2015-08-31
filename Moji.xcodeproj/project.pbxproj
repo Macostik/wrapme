@@ -136,8 +136,6 @@
 		C5177C401B7CE65C008102C7 /* UIView+QuartzCoreHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5177C3E1B7CE65C008102C7 /* UIView+QuartzCoreHelper.m */; };
 		C51A521C1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
 		C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
-		C520C9D91B32FDBD00AC7351 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C520C9D71B32FDBD00AC7351 /* Interface.storyboard */; };
-		C520C9DA1B32FDBD00AC7351 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C520C9D71B32FDBD00AC7351 /* Interface.storyboard */; };
 		C5218E701AE558B3007E55D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
 		C5218E711AE558B8007E55D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E621AE5547D007E55D0 /* Accelerate.framework */; };
 		C5218E721AE558C8007E55D0 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E691AE554D4007E55D0 /* libc++.dylib */; };
@@ -805,6 +803,8 @@
 		C5A28D651ACBEF2B00F0E8BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */; };
 		C5A82CD71ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
 		C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
+		C5A9CC7D1B9432920084D0F5 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */; };
+		C5A9CC7E1B9432920084D0F5 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */; };
 		C5AB7D741B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */; };
 		C5AB7D751B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */; };
 		C5AE6B5E1B8E014400EE41FB /* WLCommentWhatsUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5AE6B5D1B8E014400EE41FB /* WLCommentWhatsUpCell.xib */; };
@@ -1405,7 +1405,6 @@
 		C5177C3E1B7CE65C008102C7 /* UIView+QuartzCoreHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+QuartzCoreHelper.m"; sourceTree = "<group>"; };
 		C51A52191A24DCED00558BF3 /* WLPasscodeValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPasscodeValidation.h; path = WLValidation/WLPasscodeValidation.h; sourceTree = "<group>"; };
 		C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPasscodeValidation.m; path = WLValidation/WLPasscodeValidation.m; sourceTree = "<group>"; };
-		C520C9D81B32FDBD00AC7351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		C5218E621AE5547D007E55D0 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C5218E651AE554A2007E55D0 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		C5218E671AE554B7007E55D0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1942,6 +1941,7 @@
 		C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C5A82CCD1ACD979B00336027 /* WLDeviceOrientationBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDeviceOrientationBroadcaster.h; sourceTree = "<group>"; };
 		C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
+		C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		C5AB7D721B318FDD0077F9F1 /* WLWKParentApplicationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKParentApplicationContext.h; sourceTree = "<group>"; };
 		C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKParentApplicationContext.m; sourceTree = "<group>"; };
 		C5AE6B5D1B8E014400EE41FB /* WLCommentWhatsUpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCommentWhatsUpCell.xib; path = WLWhatsUpViewController/WhatsUpCell/WLCommentWhatsUpCell.xib; sourceTree = "<group>"; };
@@ -2076,7 +2076,6 @@
 		C5BEC3B51B8F170D00499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_white@2x.png"; sourceTree = "<group>"; };
 		C5BEC3B61B8F17B300499EEA /* WLLaunchScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLLaunchScreenViewController.xib; sourceTree = "<group>"; };
 		C5BEC4171B8F1E9800499EEA /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
-		C5BEC41A1B8F2C7C00499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hant"; path = "zh-Hant.lproj/Interface.storyboard"; sourceTree = "<group>"; };
 		C5BEE0E21B2AC8C300D3CF70 /* WLNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationCenter.h; sourceTree = "<group>"; };
 		C5BEE0E31B2AC8C300D3CF70 /* WLNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationCenter.m; sourceTree = "<group>"; };
 		C5BEE0E41B2AC8C300D3CF70 /* WLNotificationSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotificationSubscription.h; sourceTree = "<group>"; };
@@ -3170,7 +3169,7 @@
 		C50645C21ABD815100CB4BE3 /* WatchApp */ = {
 			isa = PBXGroup;
 			children = (
-				C520C9D71B32FDBD00AC7351 /* Interface.storyboard */,
+				C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */,
 				C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */,
 				C50645C61ABD815100CB4BE3 /* MojiWatchAppQA-Info.plist */,
 				C50646A91ABD830C00CB4BE3 /* MojiWatchApp-Info.plist */,
@@ -5581,8 +5580,8 @@
 				C540869B1AD29C77007E0D12 /* WrapAPNS.apns in Resources */,
 				C50646381ABD815200CB4BE3 /* WatchImages.xcassets in Resources */,
 				C540869C1AD29C77007E0D12 /* CandyAPNS.apns in Resources */,
+				C5A9CC7D1B9432920084D0F5 /* Interface.storyboard in Resources */,
 				C540869D1AD29C77007E0D12 /* CommentAPNS.apns in Resources */,
-				C520C9D91B32FDBD00AC7351 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5785,7 +5784,7 @@
 				C54086A51AD29C78007E0D12 /* CommentAPNS.apns in Resources */,
 				C54086A31AD29C78007E0D12 /* WrapAPNS.apns in Resources */,
 				C5E54B481ACBF9B200444F7B /* WatchImages.xcassets in Resources */,
-				C520C9DA1B32FDBD00AC7351 /* Interface.storyboard in Resources */,
+				C5A9CC7E1B9432920084D0F5 /* Interface.storyboard in Resources */,
 				C54086A41AD29C78007E0D12 /* CandyAPNS.apns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6730,15 +6729,6 @@
 			);
 			name = WLConfirmView.xib;
 			path = WLConfirmView;
-			sourceTree = "<group>";
-		};
-		C520C9D71B32FDBD00AC7351 /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C520C9D81B32FDBD00AC7351 /* Base */,
-				C5BEC41A1B8F2C7C00499EEA /* zh-Hant */,
-			);
-			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		C55908791B185F9D001CB99F /* Introduction.storyboard */ = {

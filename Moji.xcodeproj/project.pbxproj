@@ -793,6 +793,8 @@
 		C5A9CC811B9439F50084D0F5 /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC7F1B9439F50084D0F5 /* WLAssetCell.xib */; };
 		C5A9CC831B9450660084D0F5 /* WLEditPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC821B9450660084D0F5 /* WLEditPictureCell.xib */; };
 		C5A9CC841B9450660084D0F5 /* WLEditPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC821B9450660084D0F5 /* WLEditPictureCell.xib */; };
+		C5A9CC861B945DE00084D0F5 /* WLWrapPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC851B945DE00084D0F5 /* WLWrapPickerCell.xib */; };
+		C5A9CC871B945DE00084D0F5 /* WLWrapPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC851B945DE00084D0F5 /* WLWrapPickerCell.xib */; };
 		C5AB7D741B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */; };
 		C5AB7D751B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */; };
 		C5AE6B5E1B8E014400EE41FB /* WLCommentWhatsUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5AE6B5D1B8E014400EE41FB /* WLCommentWhatsUpCell.xib */; };
@@ -1915,6 +1917,7 @@
 		C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		C5A9CC7F1B9439F50084D0F5 /* WLAssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAssetCell.xib; sourceTree = "<group>"; };
 		C5A9CC821B9450660084D0F5 /* WLEditPictureCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLEditPictureCell.xib; sourceTree = "<group>"; };
+		C5A9CC851B945DE00084D0F5 /* WLWrapPickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLWrapPickerCell.xib; sourceTree = "<group>"; };
 		C5AB7D721B318FDD0077F9F1 /* WLWKParentApplicationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKParentApplicationContext.h; sourceTree = "<group>"; };
 		C5AB7D731B318FDD0077F9F1 /* WLWKParentApplicationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKParentApplicationContext.m; sourceTree = "<group>"; };
 		C5AE6B5D1B8E014400EE41FB /* WLCommentWhatsUpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCommentWhatsUpCell.xib; path = WLWhatsUpViewController/WhatsUpCell/WLCommentWhatsUpCell.xib; sourceTree = "<group>"; };
@@ -3534,6 +3537,7 @@
 			children = (
 				C54731A51B906A7400B583FD /* WLWrapPickerViewController.h */,
 				C54731A61B906A7400B583FD /* WLWrapPickerViewController.m */,
+				C5A9CC851B945DE00084D0F5 /* WLWrapPickerCell.xib */,
 			);
 			path = WLWrapPickerViewController;
 			sourceTree = "<group>";
@@ -5605,6 +5609,7 @@
 				C55908F91B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */,
 				C54AF54119B8C437006F7EDB /* CountryCodes.json in Resources */,
 				5BB41F8E1B8EEF26007DB7A2 /* PablicWrapPlaceholder.xib in Resources */,
+				C5A9CC861B945DE00084D0F5 /* WLWrapPickerCell.xib in Resources */,
 				C5C3FEAB1B8F311500F177EC /* Default-Portrait.png in Resources */,
 				C551890D1B8F46C000D1327E /* WLContributorResendCell.xib in Resources */,
 				5BA130801B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
@@ -5690,6 +5695,7 @@
 				C55908FB1B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */,
 				C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */,
 				5BB41F8F1B8EEF26007DB7A2 /* PablicWrapPlaceholder.xib in Resources */,
+				C5A9CC871B945DE00084D0F5 /* WLWrapPickerCell.xib in Resources */,
 				C5C3FEAC1B8F311500F177EC /* Default-Portrait.png in Resources */,
 				C551890E1B8F46C000D1327E /* WLContributorResendCell.xib in Resources */,
 				5BA130821B15A92600385C2C /* WLPresentingImageView.xib in Resources */,

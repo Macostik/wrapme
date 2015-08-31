@@ -33,7 +33,6 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
-            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1605,274 +1604,160 @@
                                     <outletCollection property="gestureRecognizers" destination="W2D-by-Qd2" appends="YES" id="Ih7-gV-tgx"/>
                                 </connections>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4My-FT-RPa" customClass="WLBlurredView">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ILu-Xn-X2e" customClass="StreamView">
                                 <rect key="frame" x="10" y="202" width="300" height="165"/>
-                                <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rre-N1-ooI">
-                                <rect key="frame" x="10" y="202" width="300" height="165"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="165" id="yZS-Ui-vAD"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PY2-Kj-0eh" customClass="WLWrapPickerCollectionViewLayout">
-                                    <size key="itemSize" width="300" height="55"/>
-                                    <size key="headerReferenceSize" width="300" height="55"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLWrapCell" id="iH1-0d-2Mo" customClass="WLWrapCell">
-                                        <rect key="frame" x="0.0" y="55" width="300" height="55"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W13-r5-ci7" customClass="WLWrapStatusImageView">
-                                                    <rect key="frame" x="80" y="10" width="36" height="36"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="36" id="Jp6-Za-4Z2"/>
-                                                        <constraint firstAttribute="height" constant="36" id="Q1M-1r-muj"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="18"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
-                                                            <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
-                                                            <real key="value" value="16"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <outlet property="statusView" destination="Ahe-Tv-JP2" id="kqu-cv-A8u"/>
-                                                    </connections>
-                                                </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ahe-Tv-JP2">
-                                                    <rect key="frame" x="80" y="10" width="14" height="14"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="14" id="W4P-lE-m5Q"/>
-                                                        <constraint firstAttribute="height" constant="14" id="rh7-mY-kq2"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="8"/>
-                                                    <color key="textColor" red="0.85098039219999999" green="0.32549019610000002" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <integer key="value" value="7"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                            <integer key="value" value="2"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" red="0.85098040100000005" green="0.32549020649999999" blue="0.30980393290000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgt-p9-lfD" customClass="WLLabel">
-                                                    <rect key="frame" x="124" y="17" width="168" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                    <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="nUR-5d-YtW" customClass="WLSeparatorView">
-                                                    <rect key="frame" x="0.0" y="54" width="300" height="1"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="wMj-Jl-Mrk"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                            <color key="value" white="0.10100000351667404" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhU-V1-DHc">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Moji" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Caa-Xm-Qlw" customClass="WLTextField">
+                                                <rect key="frame" x="128" y="6" width="160" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="jhO-z9-ga9"/>
+                                                </constraints>
+                                                <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="disableSeparator" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="textFieldDidChange:" destination="c77-hp-0nQ" eventType="editingChanged" id="6vD-3J-BiH"/>
+                                                    <outlet property="delegate" destination="c77-hp-0nQ" id="U7Y-2I-i4W"/>
+                                                </connections>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQs-5i-dNx" customClass="WLButton">
+                                                <rect key="frame" x="80" y="10" width="36" height="36"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="JlU-fe-vsp"/>
+                                                    <constraint firstAttribute="width" constant="36" id="zu8-3l-6PG"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
+                                                <state key="normal" title="P">
+                                                    <color key="titleColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="createNewWrap:" destination="c77-hp-0nQ" eventType="touchUpInside" id="Uba-VQ-Tq2"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mRj-Yl-hQH" customClass="WLButton">
+                                                <rect key="frame" x="300" y="10" width="36" height="36"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="36" id="eBm-Qy-KdO"/>
+                                                    <constraint firstAttribute="height" constant="36" id="sgm-Pv-UDx"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
+                                                <state key="normal" title="N">
+                                                    <color key="titleColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="saveNewWrap:" destination="c77-hp-0nQ" eventType="touchUpInside" id="mrA-eh-G9P"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="TYl-t6-Q4W" customClass="WLSeparatorView">
+                                                <rect key="frame" x="0.0" y="54" width="300" height="1"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="5g1-xB-Avb"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                        <color key="value" white="0.10100000351667404" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="centerY" secondItem="W13-r5-ci7" secondAttribute="centerY" id="3KH-Pr-sHn"/>
-                                            <constraint firstItem="W13-r5-ci7" firstAttribute="leading" secondItem="Ahe-Tv-JP2" secondAttribute="leading" id="7ko-SK-mH0"/>
-                                            <constraint firstAttribute="trailing" secondItem="nUR-5d-YtW" secondAttribute="trailing" id="Ah2-kv-YAJ"/>
-                                            <constraint firstItem="Kgt-p9-lfD" firstAttribute="leading" secondItem="W13-r5-ci7" secondAttribute="trailing" constant="8" id="BmY-8D-TVR"/>
-                                            <constraint firstItem="W13-r5-ci7" firstAttribute="centerX" secondItem="iH1-0d-2Mo" secondAttribute="leading" constant="98" id="Tmc-N6-YQ5"/>
-                                            <constraint firstItem="nUR-5d-YtW" firstAttribute="leading" secondItem="iH1-0d-2Mo" secondAttribute="leading" id="Uhm-Lh-oCf"/>
-                                            <constraint firstAttribute="centerY" secondItem="Kgt-p9-lfD" secondAttribute="centerY" id="cEl-EK-t76"/>
-                                            <constraint firstAttribute="bottom" secondItem="nUR-5d-YtW" secondAttribute="bottom" id="eeR-ih-j8N"/>
-                                            <constraint firstAttribute="trailing" secondItem="Kgt-p9-lfD" secondAttribute="trailing" constant="8" id="f30-rl-rge"/>
-                                            <constraint firstItem="W13-r5-ci7" firstAttribute="top" secondItem="Ahe-Tv-JP2" secondAttribute="top" id="vb4-XN-MQH"/>
+                                            <constraint firstAttribute="centerY" secondItem="mRj-Yl-hQH" secondAttribute="centerY" id="AzU-SC-PTn"/>
+                                            <constraint firstAttribute="centerY" secondItem="Caa-Xm-Qlw" secondAttribute="centerY" id="BtV-Lg-PoT"/>
+                                            <constraint firstItem="mRj-Yl-hQH" firstAttribute="leading" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" constant="12" id="DSE-K6-Pbk"/>
+                                            <constraint firstAttribute="trailing" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" priority="250" constant="52" id="K3r-jg-BZe"/>
+                                            <constraint firstAttribute="trailing" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" priority="750" constant="12" id="TdA-lm-5DH"/>
+                                            <constraint firstItem="TYl-t6-Q4W" firstAttribute="leading" secondItem="QhU-V1-DHc" secondAttribute="leading" id="WWO-Cv-8W1"/>
+                                            <constraint firstAttribute="trailing" secondItem="TYl-t6-Q4W" secondAttribute="trailing" id="Xh6-oW-Ehu"/>
+                                            <constraint firstAttribute="centerY" secondItem="EQs-5i-dNx" secondAttribute="centerY" id="cXV-ga-InL"/>
+                                            <constraint firstItem="EQs-5i-dNx" firstAttribute="centerX" secondItem="QhU-V1-DHc" secondAttribute="leading" priority="750" constant="98" id="hdI-og-UWa"/>
+                                            <constraint firstItem="Caa-Xm-Qlw" firstAttribute="leading" secondItem="EQs-5i-dNx" secondAttribute="trailing" constant="12" id="ida-n6-O1c"/>
+                                            <constraint firstAttribute="bottom" secondItem="TYl-t6-Q4W" secondAttribute="bottom" id="oLB-EO-2t3"/>
+                                            <constraint firstAttribute="height" constant="55" id="wvq-Eg-tZf"/>
+                                            <constraint firstItem="EQs-5i-dNx" firstAttribute="leading" secondItem="QhU-V1-DHc" secondAttribute="leading" priority="250" constant="12" id="y4S-ui-54d"/>
                                         </constraints>
-                                        <size key="customSize" width="300" height="55"/>
-                                        <connections>
-                                            <outlet property="coverView" destination="W13-r5-ci7" id="Zuh-Rg-gwB"/>
-                                            <outlet property="nameLabel" destination="Kgt-p9-lfD" id="WsE-K4-lXa"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLAddWrapPickerView" id="xBC-wJ-TuQ" customClass="WLAddWrapPickerView">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhU-V1-DHc">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Moji" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Caa-Xm-Qlw" customClass="WLTextField">
-                                                    <rect key="frame" x="124" y="6" width="168" height="44"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="44" id="jhO-z9-ga9"/>
-                                                    </constraints>
-                                                    <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="disableSeparator" value="YES"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="textFieldDidChange:" destination="xBC-wJ-TuQ" eventType="editingChanged" id="dSu-D3-P6h"/>
-                                                        <outlet property="delegate" destination="xBC-wJ-TuQ" id="CSt-FU-akk"/>
-                                                    </connections>
-                                                </textField>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQs-5i-dNx" customClass="WLButton">
-                                                    <rect key="frame" x="80" y="10" width="36" height="36"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="36" id="JlU-fe-vsp"/>
-                                                        <constraint firstAttribute="width" constant="36" id="zu8-3l-6PG"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
-                                                    <state key="normal" title="P">
-                                                        <color key="titleColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="createNewWrap:" destination="xBC-wJ-TuQ" eventType="touchUpInside" id="18M-tL-Br4"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mRj-Yl-hQH" customClass="WLButton">
-                                                    <rect key="frame" x="300" y="10" width="36" height="36"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="36" id="eBm-Qy-KdO"/>
-                                                        <constraint firstAttribute="height" constant="36" id="sgm-Pv-UDx"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
-                                                    <state key="normal" title="N">
-                                                        <color key="titleColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="saveNewWrap:" destination="xBC-wJ-TuQ" eventType="touchUpInside" id="Wdt-QU-tOv"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="mRj-Yl-hQH" secondAttribute="centerY" id="AzU-SC-PTn"/>
-                                                <constraint firstAttribute="centerY" secondItem="Caa-Xm-Qlw" secondAttribute="centerY" id="BtV-Lg-PoT"/>
-                                                <constraint firstItem="mRj-Yl-hQH" firstAttribute="leading" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" constant="8" id="DSE-K6-Pbk"/>
-                                                <constraint firstAttribute="trailing" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" constant="8" id="TdA-lm-5DH"/>
-                                                <constraint firstAttribute="centerY" secondItem="EQs-5i-dNx" secondAttribute="centerY" id="cXV-ga-InL"/>
-                                                <constraint firstItem="EQs-5i-dNx" firstAttribute="centerX" secondItem="QhU-V1-DHc" secondAttribute="leading" priority="750" constant="98" id="hdI-og-UWa"/>
-                                                <constraint firstItem="Caa-Xm-Qlw" firstAttribute="leading" secondItem="EQs-5i-dNx" secondAttribute="trailing" constant="8" id="ida-n6-O1c"/>
-                                                <constraint firstItem="EQs-5i-dNx" firstAttribute="centerX" secondItem="QhU-V1-DHc" secondAttribute="leading" priority="250" constant="54" id="y4S-ui-54d"/>
-                                            </constraints>
-                                        </view>
-                                        <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="TYl-t6-Q4W" customClass="WLSeparatorView">
-                                            <rect key="frame" x="0.0" y="54" width="300" height="1"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="1" id="5g1-xB-Avb"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                    <color key="value" white="0.10100000351667404" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="QhU-V1-DHc" firstAttribute="top" secondItem="xBC-wJ-TuQ" secondAttribute="top" id="FAv-fD-ZiW"/>
-                                        <constraint firstItem="QhU-V1-DHc" firstAttribute="leading" secondItem="xBC-wJ-TuQ" secondAttribute="leading" id="Mkq-i8-1fG"/>
-                                        <constraint firstAttribute="bottom" secondItem="QhU-V1-DHc" secondAttribute="bottom" id="esI-dh-whg"/>
-                                        <constraint firstAttribute="bottom" secondItem="TYl-t6-Q4W" secondAttribute="bottom" id="hqS-tf-w9E"/>
-                                        <constraint firstAttribute="trailing" secondItem="QhU-V1-DHc" secondAttribute="trailing" id="ica-IU-TtM"/>
-                                        <constraint firstItem="TYl-t6-Q4W" firstAttribute="leading" secondItem="xBC-wJ-TuQ" secondAttribute="leading" id="pVI-Ra-kKU"/>
-                                        <constraint firstAttribute="trailing" secondItem="TYl-t6-Q4W" secondAttribute="trailing" id="uNM-62-ScT"/>
-                                    </constraints>
-                                    <connections>
-                                        <outlet property="createButtonCenterConstraint" destination="hdI-og-UWa" id="Z7P-28-L9I"/>
-                                        <outlet property="createButtonLeadingConstraint" destination="y4S-ui-54d" id="hM4-IT-zta"/>
-                                        <outlet property="delegate" destination="c77-hp-0nQ" id="iIy-v9-DFp"/>
-                                        <outlet property="trailingTextFieldConstraint" destination="TdA-lm-5DH" id="SjC-4k-nEG"/>
-                                        <outlet property="wrapNameTextField" destination="Caa-Xm-Qlw" id="SFM-UY-VCn"/>
-                                    </connections>
-                                </collectionReusableView>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.83999999999999997" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="QhU-V1-DHc" firstAttribute="width" secondItem="ILu-Xn-X2e" secondAttribute="width" id="9Lb-Um-uQW"/>
+                                    <constraint firstAttribute="height" constant="165" id="9RM-jM-fiH"/>
+                                    <constraint firstItem="QhU-V1-DHc" firstAttribute="top" secondItem="ILu-Xn-X2e" secondAttribute="top" id="EV3-Oy-lLU"/>
+                                    <constraint firstAttribute="centerX" secondItem="QhU-V1-DHc" secondAttribute="centerX" id="dnZ-og-NC3"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="10"/>
+                                        <real key="value" value="6"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="dataSource" destination="0yt-I4-bE6" id="pmo-FF-OXG"/>
-                                    <outlet property="delegate" destination="0yt-I4-bE6" id="LTT-Cq-Uvv"/>
+                                    <outlet property="delegate" destination="0yt-I4-bE6" id="YJl-Kc-sMZ"/>
                                 </connections>
-                            </collectionView>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="rre-N1-ooI" secondAttribute="trailing" constant="10" id="8gy-G5-wTr"/>
-                            <constraint firstAttribute="centerY" secondItem="rre-N1-ooI" secondAttribute="centerY" id="FVW-LV-dTu"/>
                             <constraint firstItem="XIp-Cr-51w" firstAttribute="top" secondItem="2Td-FD-O3V" secondAttribute="bottom" id="OjM-DN-5SD"/>
                             <constraint firstItem="cGC-n9-Dox" firstAttribute="top" secondItem="XIp-Cr-51w" secondAttribute="bottom" id="Qcw-cu-SPa"/>
-                            <constraint firstItem="4My-FT-RPa" firstAttribute="height" secondItem="rre-N1-ooI" secondAttribute="height" id="RSL-aF-KVb"/>
-                            <constraint firstItem="rre-N1-ooI" firstAttribute="leading" secondItem="gFv-uU-r5Z" secondAttribute="leading" constant="10" id="YJP-Ls-1ho"/>
-                            <constraint firstItem="4My-FT-RPa" firstAttribute="centerX" secondItem="rre-N1-ooI" secondAttribute="centerX" id="Yle-7F-kFR"/>
+                            <constraint firstItem="ILu-Xn-X2e" firstAttribute="leading" secondItem="gFv-uU-r5Z" secondAttribute="leading" constant="10" id="ZlL-4r-6ba"/>
                             <constraint firstAttribute="trailing" secondItem="XIp-Cr-51w" secondAttribute="trailing" id="bHQ-XZ-B2f"/>
-                            <constraint firstItem="4My-FT-RPa" firstAttribute="centerY" secondItem="rre-N1-ooI" secondAttribute="centerY" id="cuq-oG-yaE"/>
                             <constraint firstItem="XIp-Cr-51w" firstAttribute="leading" secondItem="gFv-uU-r5Z" secondAttribute="leading" id="e3l-Kh-0LI"/>
-                            <constraint firstItem="4My-FT-RPa" firstAttribute="width" secondItem="rre-N1-ooI" secondAttribute="width" id="rUj-nZ-lB5"/>
+                            <constraint firstAttribute="trailing" secondItem="ILu-Xn-X2e" secondAttribute="trailing" constant="10" id="hbg-Eg-LZG"/>
+                            <constraint firstAttribute="centerY" secondItem="ILu-Xn-X2e" secondAttribute="centerY" id="yUW-OR-QOp"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="dataSource" destination="0yt-I4-bE6" id="62b-B2-H5G"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="FVW-LV-dTu" id="B6h-Ph-e9k"/>
+                        <outlet property="editingPrioritizer" destination="9tn-uH-4kd" id="Vgj-2J-sUA"/>
+                        <outlet property="savingPrioritizer" destination="ezd-SB-189" id="lsQ-9H-rv7"/>
+                        <outlet property="wrapNameTextField" destination="Caa-Xm-Qlw" id="jMV-YT-Ixg"/>
+                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="yUW-OR-QOp" id="2hS-5z-STp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E26-2U-hXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="0yt-I4-bE6" customClass="WLWrapPickerDataSource">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLWrapCell"/>
-                        <userDefinedRuntimeAttribute type="size" keyPath="itemSize">
-                            <size key="value" width="0.0" height="55"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLWrapPickerCell"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="itemSize">
+                            <real key="value" value="55"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="headerIdentifier" value="WLAddWrapPickerView"/>
-                        <userDefinedRuntimeAttribute type="size" keyPath="headerSize">
-                            <size key="value" width="0.0" height="55"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layoutOffset">
+                            <real key="value" value="55"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="collectionView" destination="rre-N1-ooI" id="axb-IB-UKh"/>
+                        <outlet property="streamView" destination="ILu-Xn-X2e" id="3KG-2y-mi9"/>
+                    </connections>
+                </customObject>
+                <customObject id="9tn-uH-4kd" customClass="WLLayoutPrioritizer">
+                    <connections>
+                        <outletCollection property="defaultConstraints" destination="hdI-og-UWa" id="lai-dK-Ndi"/>
+                        <outletCollection property="alternativeConstraints" destination="y4S-ui-54d" id="IrX-Ol-8CO"/>
+                    </connections>
+                </customObject>
+                <customObject id="ezd-SB-189" customClass="WLLayoutPrioritizer">
+                    <connections>
+                        <outletCollection property="alternativeConstraints" destination="K3r-jg-BZe" id="rSs-NJ-IiM"/>
+                        <outletCollection property="defaultConstraints" destination="TdA-lm-5DH" id="Qdl-Ps-QlL"/>
                     </connections>
                 </customObject>
                 <tapGestureRecognizer id="W2D-by-Qd2">

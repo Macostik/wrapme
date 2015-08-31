@@ -127,6 +127,7 @@
         if ([assetsViewController isKindOfClass:[WLQuickAssetsViewController class]]) {
             self.assetsViewController = assetsViewController;
             self.assetsViewController.delegate = self.delegate;
+            assetsViewController.allowsMultipleSelection = self.mode == WLStillPictureModeDefault;
             break;
         }
     }

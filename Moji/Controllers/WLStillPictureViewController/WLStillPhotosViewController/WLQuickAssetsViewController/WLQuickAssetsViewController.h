@@ -26,6 +26,8 @@
 
 @interface WLQuickAssetsViewController : UIViewController
 
+@property (nonatomic) BOOL allowsMultipleSelection;
+
 @property (weak, nonatomic) id <WLQuickAssetsViewControllerDelegate> delegate;
 
 @end

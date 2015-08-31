@@ -19,6 +19,8 @@
 
 - (BOOL)assetCell:(WLAssetCell*)cell isSelectedAsset:(ALAsset*)asset;
 
+- (BOOL)assetCellAllowsMultipleSelection:(WLAssetCell*)cell;
+
 @end
 
 @interface WLAssetCell : WLEntryCell

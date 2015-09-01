@@ -242,8 +242,9 @@ static NSHashTable *streamViews = nil;
         if ([self.delegate respondsToSelector:@selector(streamView:entryAt:)]) {
             entry = [self.delegate streamView:self entryAt:item.index];
         }
+        if (item.metrics.prepareAppearingBlock) item.metrics.prepareAppearingBlock(item, entry);
         view.entry = entry;
-        if (item.metrics.viewWillAppearBlock) item.metrics.viewWillAppearBlock(item, entry);
+        if (item.metrics.finalizeAppearingBlock) item.metrics.finalizeAppearingBlock(item, entry);
         view.frame = item.frame;
     }
     

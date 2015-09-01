@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "StreamReusableView.h"
 
 @class WLMessage;
 
-@interface WLMessageDateView : UICollectionReusableView
+@interface WLMessageDateView : StreamReusableView
 
 @property (strong, nonatomic) WLMessage* message;
 

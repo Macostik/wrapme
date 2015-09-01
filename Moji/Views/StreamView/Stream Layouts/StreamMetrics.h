@@ -39,7 +39,9 @@ typedef void(^StreamMetricsEntryBlock)(StreamItem *item, id entry);
 
 @property (strong, nonatomic) StreamMetricsEntryBlock selectionBlock;
 
-@property (strong, nonatomic) StreamMetricsEntryBlock viewWillAppearBlock;
+@property (strong, nonatomic) StreamMetricsEntryBlock prepareAppearingBlock;
+
+@property (strong, nonatomic) StreamMetricsEntryBlock finalizeAppearingBlock;
 
 @property (strong, nonatomic) NSMutableSet *reusableViews;
 
@@ -47,7 +49,9 @@ typedef void(^StreamMetricsEntryBlock)(StreamItem *item, id entry);
 
 - (instancetype)change:(StreamMetricsBlock)block;
 
-- (void)setViewWillAppearBlock:(StreamMetricsEntryBlock)viewWillAppearBlock;
+- (void)setPrepareAppearingBlock:(StreamMetricsEntryBlock)prepareAppearingBlock;
+
+- (void)setFinalizeAppearingBlock:(StreamMetricsEntryBlock)finalizeAppearingBlock;
 
 - (void)setHiddenBlock:(BOOL (^)(StreamIndex *index, StreamMetrics *metrics))hiddenBlock;
 

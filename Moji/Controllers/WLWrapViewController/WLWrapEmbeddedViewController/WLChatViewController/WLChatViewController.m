@@ -30,16 +30,14 @@
 #import "WLChatLayout.h"
 #import "WLBadgeLabel.h"
 #import "WLMessagesCounter.h"
+#import "StreamView.h"
 
 CGFloat WLMaxTextViewWidth;
 
-@interface WLChatViewController () <UICollectionViewDataSource, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate, WLCollectionViewLayoutDelegate>
+@interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate, WLCollectionViewLayoutDelegate>
 
-@property (weak, nonatomic) IBOutlet WLCollectionView *collectionView;
-
+@property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
-
-@property (nonatomic, readonly) WLChatLayout* layout;
 
 @property (weak, nonatomic) id operation;
 
@@ -58,6 +56,12 @@ CGFloat WLMaxTextViewWidth;
 @property (strong, nonatomic) NSMapTable* cachedMessageHeights;
 
 @property (weak, nonatomic) WLTypingView *typingView;
+@property (strong, nonatomic) IBOutlet StreamMetrics *messageMetrics;
+@property (strong, nonatomic) IBOutlet StreamMetrics *myMessageMetrics;
+@property (strong, nonatomic) IBOutlet StreamMetrics *dateMetrics;
+@property (strong, nonatomic) IBOutlet StreamMetrics *unreadMessagesMetrics;
+@property (strong, nonatomic) IBOutlet StreamMetrics *typingViewMetrics;
+@property (strong, nonatomic) IBOutlet StreamMetrics *loadingViewMetrics;
 
 @end
 
@@ -66,14 +70,7 @@ CGFloat WLMaxTextViewWidth;
 @dynamic delegate;
 
 - (void)dealloc {
-    self.collectionView.delegate = nil;
-    self.collectionView.dataSource = nil;
-    self.collectionView = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
-}
-
-- (WLCollectionViewFlowLayout *)layout {
-	return (WLCollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
 }
 
 - (void)reloadChatAfterApplicationBecameActive {
@@ -81,11 +78,9 @@ CGFloat WLMaxTextViewWidth;
     [self scrollToLastUnreadMessage];
 }
 
-- (BOOL)geometryFlipped {
-    return YES;
-}
-
 - (void)viewDidLoad {
+    
+    [super viewDidLoad];
     
     if (!self.wrap) {
         __weak typeof(self)weakSelf = self;
@@ -101,25 +96,64 @@ CGFloat WLMaxTextViewWidth;
     self.nameFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetNormal];
     self.timeFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmall];
     
-    [self.collectionView registerNib:[WLLoadingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WLLoadingViewIdentifier];
-    [self.collectionView registerNib:[WLTypingView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"WLTypingViewCell"];
-    [self.collectionView registerNib:[WLMessageDateView nib] forSupplementaryViewOfKind:@"date" withReuseIdentifier:@"WLMessageDateView"];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"WLUnreadMessagesView" bundle:nil] forSupplementaryViewOfKind:@"unreadMessagesView" withReuseIdentifier:@"unreadMessagesView"];
-    [self.layout registerItemFooterSupplementaryViewKind:@"date"];
-    [self.layout registerItemFooterSupplementaryViewKind:@"unreadMessagesView"];
-    self.collectionView.placeholderText = [NSString stringWithFormat:WLLS(@"no_chat_message"), self.wrap.name];
+#warning implement placeholder
+//    self.collectionView.placeholderText = [NSString stringWithFormat:WLLS(@"no_chat_message"), self.wrap.name];
     
-	[super viewDidLoad];
+    __weak StreamView *streamView = self.streamView;
     
-    UICollectionView *collectionView = self.collectionView;
+    __weak typeof(self)weakSelf = self;
     
-    self.refresher = [WLRefresher refresher:collectionView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
+    self.refresher = [WLRefresher refresher:streamView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
     
-    collectionView.contentOffset = CGPointMake(0, -self.composeBar.height);
+    streamView.layer.geometryFlipped = YES;
     
-    collectionView.layer.geometryFlipped = [self geometryFlipped];
+    self.typingViewMetrics.finalizeAppearingBlock = self.unreadMessagesMetrics.finalizeAppearingBlock = self.dateMetrics.finalizeAppearingBlock = ^(StreamItem *item, WLMessage *message) {
+        [[item.view layer] setGeometryFlipped:streamView.layer.geometryFlipped];
+        item.view.backgroundColor = [weakSelf backgroundColorForMessage:message];
+    };
+    
+    self.myMessageMetrics.prepareAppearingBlock = self.messageMetrics.prepareAppearingBlock = ^(StreamItem *item, WLMessage *message) {
+        [(WLMessageCell*)item.view setShowName:[weakSelf.chat.messagesWithName containsObject:message]];
+    };
+    
+    self.myMessageMetrics.finalizeAppearingBlock = self.messageMetrics.finalizeAppearingBlock = ^(StreamItem *item, WLMessage *message) {
+        [[item.view layer] setGeometryFlipped:streamView.layer.geometryFlipped];
+        if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
+            [weakSelf.chat.readMessages addObject:message];
+        }
+        item.view.backgroundColor = [weakSelf backgroundColorForMessage:message];
+    };
+    
+    [self.loadingViewMetrics setHiddenBlock:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
+        return weakSelf.chat.completed;
+    }];
+    
+    [self.loadingViewMetrics setFinalizeAppearingBlock:^(StreamItem *item, id entry) {
+        WLLoadingView *loadingView = (id)item.view;
+        if (weakSelf.chat.wrap) {
+            loadingView.error = NO;
+            [weakSelf appendMessages:^{
+            } failure:^(NSError *error) {
+                [error showIgnoringNetworkError];
+                loadingView.error = YES;
+            }];
+        }
+    }];
+    
+    [self.typingViewMetrics setSizeBlock:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+        return [weakSelf heightOfTypingCell:weakSelf.chat];
+    }];
+    
+    [self.typingViewMetrics setFinalizeAppearingBlock:^(StreamItem *item, id entry) {
+        [(WLTypingView*)item.view updateWithChat:weakSelf.chat];
+    }];
     
     WLMaxTextViewWidth = WLConstants.screenWidth - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
+    
+    self.messageMetrics.sizeBlock = self.myMessageMetrics.sizeBlock = ^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+        WLMessage *message = [weakSelf.chat.entries tryAt:index.item];
+        return [weakSelf heightOfMessageCell:message];
+    };
 	
 	self.composeBar.placeholder = WLLS(@"message_placeholder");
     self.chat = [WLChat chatWithWrap:self.wrap];
@@ -162,7 +196,8 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)scrollToLastUnreadMessage {
-    self.layout.scrollToUnreadMessages = YES;
+#warning implement scrolling to unread message
+//    self.layout.scrollToUnreadMessages = YES;
     [self reloadDataSynchronously:NO];
 }
 
@@ -198,40 +233,40 @@ CGFloat WLMaxTextViewWidth;
     __weak typeof(self)weakSelf = self;
     runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
         
-        UICollectionView *collectionView = weakSelf.collectionView;
+        StreamView *streamView = weakSelf.streamView;
         
         if ([weakSelf.chat.entries containsObject:message]) {
             
             [operation finish];
             
-        } else if (!collectionView.scrollable) {
+        } else if (!streamView.scrollable) {
             
             [weakSelf.chat addEntry:message];
             [operation finish];
             
-        } else if (collectionView.contentOffset.y > collectionView.minimumContentOffset.y || !chatVisible) {
+        } else if (streamView.contentOffset.y > streamView.minimumContentOffset.y || !chatVisible) {
             
-            CGFloat offset = collectionView.contentOffset.y;
-            CGFloat contentHeight = collectionView.contentSize.height;
+            CGFloat offset = streamView.contentOffset.y;
+            CGFloat contentHeight = streamView.contentSize.height;
             [weakSelf.chat addEntry:message];
-            [weakSelf.collectionView reloadData];
-            [collectionView layoutIfNeeded];
-            offset += collectionView.contentSize.height - contentHeight;
-            [collectionView trySetContentOffset:CGPointMake(0, offset) animated:NO];
+            [streamView reload];
+            [streamView layoutIfNeeded];
+            offset += streamView.contentSize.height - contentHeight;
+            [streamView trySetContentOffset:CGPointMake(0, offset) animated:NO];
             [operation finish];
             
         } else {
             
             [weakSelf.chat addEntry:message];
             
-            if (self.collectionView.height/2 < [weakSelf heightOfMessageCell:message] &&
+            if (streamView.height/2 < [weakSelf heightOfMessageCell:message] &&
                 [self.chat.unreadMessages count] == 1) {
-                self.layout.scrollToUnreadMessages = YES;
+//                self.layout.scrollToUnreadMessages = YES;
             } else {
-                [weakSelf.collectionView reloadData];
-                [collectionView layoutIfNeeded];
-                collectionView.contentOffset = CGPointOffset(collectionView.minimumContentOffset, 0, [weakSelf heightOfMessageCell:message]);
-                [collectionView setMinimumContentOffsetAnimated:YES];
+                [streamView reload];
+                [streamView layoutIfNeeded];
+                streamView.contentOffset = CGPointOffset(streamView.minimumContentOffset, 0, [weakSelf heightOfMessageCell:message]);
+                [streamView setMinimumContentOffsetAnimated:YES];
             }
             
             run_after(0.5, ^{
@@ -320,8 +355,7 @@ CGFloat WLMaxTextViewWidth;
     }
     reloading = YES;
     runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
-        [weakSelf.collectionView reloadData];
-        if (synchronously) [weakSelf.collectionView layoutIfNeeded];
+        [weakSelf.streamView reload];
         [operation finish];
         reloading = NO;
     });
@@ -370,11 +404,11 @@ CGFloat WLMaxTextViewWidth;
     if (self.wrap.valid) {
         __weak typeof(self)weakSelf = self;
         [self.wrap uploadMessage:text success:^(WLMessage *message) {
-            [weakSelf.collectionView setMinimumContentOffsetAnimated:YES];
+            [weakSelf.streamView setMinimumContentOffsetAnimated:YES];
         } failure:^(NSError *error) {
         }];
         [WLSoundPlayer playSound:WLSound_s04];
-        [self.collectionView setMinimumContentOffsetAnimated:YES];
+        [self.streamView setMinimumContentOffsetAnimated:YES];
         [self.chat.readMessages all:^(WLMessage *message) {
             [message markAsRead];
         }];
@@ -389,8 +423,8 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
-    if (self.collectionView.scrollable) {
-        [self.collectionView setMinimumContentOffsetAnimated:self.viewAppeared];
+    if (self.streamView.scrollable) {
+        [self.streamView setMinimumContentOffsetAnimated:self.viewAppeared];
     }
 }
 
@@ -413,70 +447,53 @@ CGFloat WLMaxTextViewWidth;
     self.typing = composeBar.text.nonempty;
 }
 
-#pragma mark - UICollectionViewDataSource
+// MARK: - StreamViewDelegate
 
-- (void)setBackgroundColorForView:(UIView*)view atIndexPath:(NSIndexPath*)indexPath {
-    if (self.layout.unreadMessagesViewIndexPath) {
-        view.backgroundColor = indexPath.item <= self.layout.unreadMessagesViewIndexPath.item ? WLColors.grayLightest : [UIColor whiteColor];
-    } else {
-        view.backgroundColor = [UIColor whiteColor];
-    }
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+- (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section {
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground || !self.view.superview) {
         return 0;
     }
     [self updateBadge];
     return [self.chat.entries count];
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLMessage* message = [self.chat.entries tryAt:indexPath.item];
-    NSString *itemIdentifier = itemIdentifier = message.contributedByCurrentUser ? WLMyMessageitemIdentifier : WLMessageitemIdentifier;
-    WLMessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:itemIdentifier forIndexPath:indexPath];
-    [cell setShowName:[self.chat.messagesWithName containsObject:message]];
-    cell.entry = message;
-    cell.layer.geometryFlipped = [self geometryFlipped];
-    
-    if (message.unread && self.view.superview && ![self.chat.readMessages containsObject:message]) {
-        [self.chat.readMessages addObject:message];
-    }
-    
-    [self setBackgroundColorForView:cell atIndexPath:indexPath];
-    
-    return cell;
+- (id)streamView:(StreamView*)streamView entryAt:(StreamIndex*)index {
+    return [self.chat.entries tryAt:index.item];
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    UICollectionReusableView *supplementaryView = nil;
-    if ([kind isEqualToString:@"date"]) {
-        WLMessageDateView* view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLMessageDateView" forIndexPath:indexPath];
-        view.message = [self.chat.entries tryAt:indexPath.item];
-        supplementaryView = view;
-        [self setBackgroundColorForView:view atIndexPath:indexPath];
-    } else if ([kind isEqualToString:@"unreadMessagesView"]) {
-        supplementaryView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"unreadMessagesView" forIndexPath:indexPath];
-        supplementaryView.backgroundColor = WLColors.grayLightest;
-    } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-         WLLoadingView *loadingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:WLLoadingViewIdentifier forIndexPath:indexPath];
-        if (self.chat.wrap) {
-            loadingView.error = NO;
-            [self appendMessages:^{
-            } failure:^(NSError *error) {
-                [error showIgnoringNetworkError];
-                loadingView.error = YES;
-            }];
-        }
-        supplementaryView = loadingView;
+- (NSArray*)streamView:(StreamView*)streamView metricsAt:(StreamIndex*)index {
+    NSMutableArray *metrics = [NSMutableArray array];
+    WLMessage *message = [self.chat.entries tryAt:index.item];
+    if (message.contributedByCurrentUser) {
+        [metrics addObject:self.myMessageMetrics];
     } else {
-        WLTypingView *typingView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"WLTypingViewCell" forIndexPath:indexPath];
-        [typingView updateWithChat:self.chat];
-        supplementaryView = typingView;
-        self.typingView = typingView;
+        [metrics addObject:self.messageMetrics];
     }
-    supplementaryView.layer.geometryFlipped = [self geometryFlipped];
-    return supplementaryView;
+    if ([self.chat.messagesWithDay containsObject:message]) {
+        [metrics addObject:self.dateMetrics];
+    }
+    if ([self.chat.unreadMessages lastObject] == message) {
+        [metrics addObject:self.unreadMessagesMetrics];
+    }
+    return metrics;
+}
+
+- (NSArray *)streamViewFooterMetrics:(StreamView *)streamView {
+    return @[self.loadingViewMetrics];
+}
+
+- (NSArray*)streamViewHeaderMetrics:(StreamView*)streamView {
+    return @[self.typingViewMetrics];
+}
+
+- (UIColor*)backgroundColorForMessage:(WLMessage*)message {
+    if (self.chat.unreadMessages.nonempty) {
+        NSUInteger index = [self.chat.entries indexOfObject:message];
+        NSUInteger index1 = [self.chat.entries indexOfObject:[self.chat unreadMessages]];
+        return index <= index1 ? WLColors.grayLightest : [UIColor whiteColor];
+    } else {
+        return [UIColor whiteColor];
+    }
 }
 
 - (CGFloat)heightOfMessageCell:(WLMessage *)message {
@@ -506,30 +523,7 @@ CGFloat WLMaxTextViewWidth;
     }
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WLMessage *message = [self.chat.entries tryAt:indexPath.item];
-    return CGSizeMake(collectionView.width, [self heightOfMessageCell:message]);
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView sizeForSupplementaryViewOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    if ([kind isEqualToString:@"date"]) {
-        WLMessage *message = [self.chat.entries tryAt:indexPath.item];
-        return [self.chat.messagesWithDay containsObject:message] ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
-    } else if ([kind isEqualToString:@"unreadMessagesView"]) {
-        WLMessage *message = [self.chat.entries tryAt:indexPath.item];
-        return message == self.chat.unreadMessages.lastObject ? CGSizeMake(collectionView.width, WLMessageDayLabelHeight) : CGSizeZero;
-    } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-        if (self.chat.completed) return CGSizeZero;
-        return CGSizeMake(collectionView.width, WLLoadingViewDefaultSize);
-    } else {
-        return CGSizeMake(collectionView.width, [self heightOfTypingCell:self.chat]);
-    }
-    
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView applyContentSizeInsetForAttributes:(UICollectionViewLayoutAttributes *)attributes {
-    return ![attributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader];
-}
+#warning implement adjusting content inset
 
 - (void)refreshUnreadMessagesAfterDragging {
     if (self.chat.unreadMessages.count == 0) {

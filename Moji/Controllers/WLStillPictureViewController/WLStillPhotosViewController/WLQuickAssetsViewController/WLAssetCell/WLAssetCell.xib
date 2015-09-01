@@ -70,6 +70,7 @@
                 <outlet property="acceptView" destination="KUi-bn-6yb" id="J4J-Yf-8Zn"/>
                 <outlet property="delegate" destination="-1" id="Nu1-8g-18N"/>
                 <outlet property="imageView" destination="iWj-SH-g7d" id="rjN-OK-FjA"/>
+                <outlet property="selectButton" destination="nvc-pD-GDb" id="XSc-eb-ZzJ"/>
             </connections>
             <point key="canvasLocation" x="632" y="606"/>
         </view>

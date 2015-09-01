@@ -103,7 +103,7 @@
             int size = (streamView.width - 2.0f)/3.0f;;
             return ([weakSelf.homeDataSource.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size) + 5;
         }];
-        [metrics setViewWillAppearBlock:^(StreamItem *item, id entry) {
+        [metrics setFinalizeAppearingBlock:^(StreamItem *item, id entry) {
             weakSelf.candiesView = (id)item.view;
             StreamMetrics *metrics = [weakSelf.candiesView.dataSource.metrics firstObject];
             [metrics setSelectionBlock:^(StreamItem *candyItem, WLCandy *candy) {

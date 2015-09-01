@@ -33,7 +33,7 @@
         [metrics setHiddenBlock:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
             return ![weakSelf appendable];
         }];
-        [metrics setViewWillAppearBlock:^(StreamItem *item, id entry) {
+        [metrics setFinalizeAppearingBlock:^(StreamItem *item, id entry) {
             weakSelf.loadingView = (id)item.view;
             weakSelf.loadingView.error = NO;
             [weakSelf append:nil failure:^(NSError *error) {

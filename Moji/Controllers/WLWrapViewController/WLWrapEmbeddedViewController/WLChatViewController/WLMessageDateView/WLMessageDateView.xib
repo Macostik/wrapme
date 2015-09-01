@@ -1,45 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WLMessageDateView" id="U6b-Vx-4bR" customClass="WLMessageDateView">
+        <view contentMode="scaleToFill" id="F58-zb-XqD" customClass="WLMessageDateView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="34"/>
-            <autoresizingMask key="autoresizingMask"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nov 17, 2014" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="160" translatesAutoresizingMaskIntoConstraints="NO" id="X1d-7n-ZUH" customClass="WLLabel">
                     <rect key="frame" x="114" y="8" width="92" height="18"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="160" id="acx-ix-f32"/>
-                        <constraint firstAttribute="height" constant="34" id="qhE-Ie-WAu"/>
-                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                     </userDefinedRuntimeAttributes>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="acx-ix-f32"/>
-                            <exclude reference="qhE-Ie-WAu"/>
-                        </mask>
-                    </variation>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="X1d-7n-ZUH" secondAttribute="centerX" id="Elf-YW-gjn"/>
-                <constraint firstAttribute="centerY" secondItem="X1d-7n-ZUH" secondAttribute="centerY" id="h8Z-cx-Jbo"/>
+                <constraint firstAttribute="centerY" secondItem="X1d-7n-ZUH" secondAttribute="centerY" id="3GE-jT-YUn"/>
+                <constraint firstAttribute="centerX" secondItem="X1d-7n-ZUH" secondAttribute="centerX" id="NGG-Rs-Qpr"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="dateLabel" destination="X1d-7n-ZUH" id="O7D-2R-60e"/>
+                <outlet property="dateLabel" destination="X1d-7n-ZUH" id="qAB-NL-Mna"/>
             </connections>
-        </collectionReusableView>
+            <point key="canvasLocation" x="703" y="549"/>
+        </view>
     </objects>
 </document>

@@ -55,6 +55,20 @@ static NSInteger WLIndent = 12.0;
         weakSelf.candyNotifyTrigger.userInteractionEnabled = YES;
         weakSelf.chatNotifyTrigger.userInteractionEnabled = YES;
     }];
+    [self addNotifyReceivers];
+}
+
+- (void)addNotifyReceivers {
+    __weak typeof(self)weakSelf = self;
+    
+    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
+        receiver.willDeleteBlock = ^(WLWrap *wrap) {
+            if (weakSelf.viewAppeared) {
+                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                [WLToast showMessageForUnavailableWrap:wrap];
+            }
+        };
+    }];
 }
 
 - (IBAction)handleAction:(WLButton *)sender {

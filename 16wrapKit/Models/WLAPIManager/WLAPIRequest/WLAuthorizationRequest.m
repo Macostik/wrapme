@@ -79,11 +79,11 @@ static BOOL authorized = NO;
         }
 		
 		if (response.data[@"image_uri"]) {
-			WLImageURI = response.data[@"image_uri"];
+			WLSession.imageURI = response.data[@"image_uri"];
 		}
 		
 		if (response.data[@"avatar_uri"]) {
-			WLAvatarURI = response.data[@"avatar_uri"];
+			WLSession.avatarURI = response.data[@"avatar_uri"];
 		}
 		
         NSDictionary* userData = [response.data dictionaryForKey:@"user"];

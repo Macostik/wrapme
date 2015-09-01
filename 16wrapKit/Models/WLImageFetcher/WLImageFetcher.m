@@ -14,6 +14,7 @@
 #import "NSString+Additions.h"
 #import "AFURLResponseSerialization.h"
 #import "AFHTTPRequestOperation.h"
+#import "NSError+WLAPIManager.h"
 
 @interface WLImageFetcher ()
 
@@ -109,6 +110,9 @@
 		[[WLImageCache cache] setImage:responseObject withUrl:url];
 		if (success) success(responseObject, NO);
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (!error.isNetworkError) {
+            WLLog(@"16wrap", @"image_loading_fail", error);
+        }
 		if (error.code != NSURLErrorCancelled && failure) failure(error);
 	}];
 	[[self fetchingQueue] addOperation:operation];

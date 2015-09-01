@@ -1,0 +1,156 @@
+
+/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "0Rx-X7-5Up"; */
+"0Rx-X7-5Up.normalTitle" = "下一步";
+
+/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "2Lq-nT-Bu5"; */
+"2Lq-nT-Bu5.normalTitle" = "下一步";
+
+/* Class = "UITextField"; placeholder = "555-555-5555"; ObjectID = "2Sj-7d-nda"; */
+"2Sj-7d-nda.placeholder" = "555-555-5555";
+
+/* Class = "UILabel"; text = "現正傳送連結密碼到你的電郵。"; ObjectID = "3SS-8p-5Y2"; */
+"3SS-8p-5Y2.text" = "現正傳送連結密碼到你的電郵。";
+
+/* Class = "UILabel"; text = "+1 925-682-1888"; ObjectID = "4lQ-Tq-xhb"; */
+"4lQ-Tq-xhb.text" = "+1 925-682-1888";
+
+/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "59A-fh-MwM"; */
+"59A-fh-MwM.normalTitle" = "下一步";
+
+/* Class = "UILabel"; text = "選擇國家"; ObjectID = "5MV-3s-wuD"; */
+"5MV-3s-wuD.text" = "選擇國家";
+
+/* Class = "UITextField"; placeholder = "輸入你的姓名"; ObjectID = "7e9-qT-sff"; */
+"7e9-qT-sff.placeholder" = "輸入你的姓名";
+
+/* Class = "UILabel"; text = "你已成功確認電話號碼！"; ObjectID = "8j1-H5-7Co"; */
+"8j1-H5-7Co.text" = "你已成功確認電話號碼！";
+
+/* Class = "UIButton"; normalTitle = "更改電話號碼"; ObjectID = "Bx6-G7-X4j"; */
+"Bx6-G7-X4j.normalTitle" = "更改電話號碼";
+
+/* Class = "UILabel"; text = "calvin@ravenpod.com"; ObjectID = "CYI-Om-Lg8"; */
+"CYI-Om-Lg8.text" = "calvin@ravenpod.com";
+
+/* Class = "UILabel"; text = "\""; ObjectID = "DAz-0E-aDC"; */
+"DAz-0E-aDC.text" = "\"";
+
+/* Class = "UILabel"; text = "calvin@ravenpod.com"; ObjectID = "Fab-q9-FLD"; */
+"Fab-q9-FLD.text" = "calvin@ravenpod.com";
+
+/* Class = "UIButton"; normalTitle = "w"; ObjectID = "G9D-jx-LtI"; */
+"G9D-jx-LtI.normalTitle" = "w";
+
+/* Class = "UILabel"; text = "你可以利用連結密碼將此流動裝置連接到你現有的16wrap帳戶。當你收到連結密碼後，請輸入到以上空格內。"; ObjectID = "HrT-ph-Lnj"; */
+"HrT-ph-Lnj.text" = "你可以利用連結密碼將此流動裝置連接到你現有的16wrap帳戶。當你收到連結密碼後，請輸入到以上空格內。";
+
+/* Class = "UITextField"; placeholder = "john@example.com"; ObjectID = "HvP-Ka-9z4"; */
+"HvP-Ka-9z4.placeholder" = "john@example.com";
+
+/* Class = "UILabel"; text = "你已成功連接此流動裝置到你的16wrap帳戶！"; ObjectID = "Itw-PI-Mz8"; */
+"Itw-PI-Mz8.text" = "你已成功連接此流動裝置到你的16wrap帳戶！";
+
+/* Class = "UILabel"; text = "編輯個人資料"; ObjectID = "JDb-jD-Zkt"; */
+"JDb-jD-Zkt.text" = "編輯個人資料";
+
+/* Class = "UILabel"; text = "\""; ObjectID = "QHb-k1-ref"; */
+"QHb-k1-ref.text" = "\"";
+
+/* Class = "UILabel"; text = "a"; ObjectID = "RCC-0D-s50"; */
+"RCC-0D-s50.text" = "a";
+
+/* Class = "UIButton"; normalTitle = "使用語音通知"; ObjectID = "Rvs-HT-UrH"; */
+"Rvs-HT-UrH.normalTitle" = "使用語音通知";
+
+/* Class = "UILabel"; text = "x"; ObjectID = "V11-Xl-ach"; */
+"V11-Xl-ach.text" = "x";
+
+/* Class = "UILabel"; text = "確認成功！"; ObjectID = "Vxz-ag-TOf"; */
+"Vxz-ag-TOf.text" = "確認成功！";
+
+/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "X8h-Le-1RA"; */
+"X8h-Le-1RA.normalTitle" = "下一步";
+
+/* Class = "UIButton"; normalTitle = "條款與使用規則"; ObjectID = "YBa-zu-GaJ"; */
+"YBa-zu-GaJ.normalTitle" = "條款與使用規則";
+
+/* Class = "UITextField"; placeholder = "連結密碼"; ObjectID = "YRq-AS-iKU"; */
+"YRq-AS-iKU.placeholder" = "連結密碼";
+
+/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "Zwb-OE-87q"; */
+"Zwb-OE-87q.normalTitle" = "下一步";
+
+/* Class = "UILabel"; text = "現正發送驗證碼以便確認閣下的手機號碼。當你收到驗證碼後，請輸入到以上空格內。"; ObjectID = "a1z-Vo-fE0"; */
+"a1z-Vo-fE0.text" = "現正發送驗證碼以便確認閣下的手機號碼。當你收到驗證碼後，請輸入到以上空格內。";
+
+/* Class = "UILabel"; text = "你的手機號碼是什麼？"; ObjectID = "b75-OF-Awx"; */
+"b75-OF-Awx.text" = "你的手機號碼是什麼？";
+
+/* Class = "UILabel"; text = "國家"; ObjectID = "cKx-Py-m2B"; */
+"cKx-Py-m2B.text" = "國家";
+
+/* Class = "UIButton"; normalTitle = "完成"; ObjectID = "cr9-5f-gle"; */
+"cr9-5f-gle.normalTitle" = "完成";
+
+/* Class = "UIButton"; normalTitle = "更改電郵地址"; ObjectID = "dM9-5p-U8h"; */
+"dM9-5p-U8h.normalTitle" = "更改電郵地址";
+
+/* Class = "UILabel"; text = "要加入其他流動電子產品到你的帳戶，請先確認你的電郵帳號。請點擊確認電郵內的連結。"; ObjectID = "dRx-kr-5xI"; */
+"dRx-kr-5xI.text" = "要加入其他流動電子產品到你的帳戶，請先確認你的電郵帳號。請點擊確認電郵內的連結。";
+
+/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "e0l-0g-x0j"; */
+"e0l-0g-x0j.normalTitle" = "下一步";
+
+/* Class = "UILabel"; text = "+1 925-682-1888"; ObjectID = "f59-g6-xEE"; */
+"f59-g6-xEE.text" = "+1 925-682-1888";
+
+/* Class = "UILabel"; text = "同意並繼續"; ObjectID = "fA2-25-iSn"; */
+"fA2-25-iSn.text" = "同意並繼續";
+
+/* Class = "UILabel"; text = "你的電郵地址是什麼？"; ObjectID = "fKc-pu-juY"; */
+"fKc-pu-juY.text" = "你的電郵地址是什麼？";
+
+/* Class = "UILabel"; text = "我們將會向閣下手機發送一個確認短訊，電訊網絡商或會徵收短訊費用。"; ObjectID = "jGq-WB-mde"; */
+"jGq-WB-mde.text" = "我們將會向閣下手機發送一個確認短訊，電訊網絡商或會徵收短訊費用。";
+
+/* Class = "UITextField"; placeholder = "輸入驗證碼"; ObjectID = "lc0-Sk-CJb"; */
+"lc0-Sk-CJb.placeholder" = "輸入驗證碼";
+
+/* Class = "UIButton"; normalTitle = "重發確認電郵"; ObjectID = "oIH-Zc-2Z8"; */
+"oIH-Zc-2Z8.normalTitle" = "重發確認電郵";
+
+/* Class = "UILabel"; text = "+1"; ObjectID = "py0-IZ-HZq"; */
+"py0-IZ-HZq.text" = "+1";
+
+/* Class = "UILabel"; text = "成功！"; ObjectID = "qCY-vc-S18"; */
+"qCY-vc-S18.text" = "成功！";
+
+/* Class = "UILabel"; text = "還未收到短訊？"; ObjectID = "r04-q5-jeO"; */
+"r04-q5-jeO.text" = "還未收到短訊？";
+
+/* Class = "UILabel"; text = "+1 925-682-1888"; ObjectID = "s7C-hv-ivf"; */
+"s7C-hv-ivf.text" = "+1 925-682-1888";
+
+/* Class = "UILabel"; text = "驗證碼無效。"; ObjectID = "sFh-WJ-4GR"; */
+"sFh-WJ-4GR.text" = "驗證碼無效。";
+
+/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "sze-nv-qGE"; */
+"sze-nv-qGE.normalTitle" = "下一步";
+
+/* Class = "UIButton"; normalTitle = "選擇國家"; ObjectID = "tHE-KW-9HQ"; */
+"tHE-KW-9HQ.normalTitle" = "選擇國家";
+
+/* Class = "UIButton"; normalTitle = "更改電話號碼"; ObjectID = "uIo-Dt-OO6"; */
+"uIo-Dt-OO6.normalTitle" = "更改電話號碼";
+
+/* Class = "UILabel"; text = "添加個人相片"; ObjectID = "w5f-mm-zRg"; */
+"w5f-mm-zRg.text" = "添加個人相片";
+
+/* Class = "UIButton"; normalTitle = "使用測試帳號"; ObjectID = "xlM-wc-LL0"; */
+"xlM-wc-LL0.normalTitle" = "使用測試帳號";
+
+/* Class = "UIButton"; normalTitle = "重試"; ObjectID = "xte-7W-F0S"; */
+"xte-7W-F0S.normalTitle" = "重試";
+
+/* Class = "UILabel"; text = "a"; ObjectID = "yrW-0Q-whc"; */
+"yrW-0Q-whc.text" = "a";

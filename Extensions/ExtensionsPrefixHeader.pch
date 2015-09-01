@@ -11,6 +11,6 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import <MojiKit/MojiKit.h>
+#import <16wrapKit/16wrapKit.h>
 
 #endif

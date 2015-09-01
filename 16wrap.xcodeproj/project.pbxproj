@@ -132,6 +132,8 @@
 		C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E621AE5547D007E55D0 /* Accelerate.framework */; };
 		C5284C901B95A5C9006455FB /* WLHottestWrapHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5284C8E1B95A5C9006455FB /* WLHottestWrapHeader.xib */; };
 		C5284C911B95A5C9006455FB /* WLHottestWrapHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5284C8E1B95A5C9006455FB /* WLHottestWrapHeader.xib */; };
+		C5284C971B95A8B0006455FB /* PlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5284C961B95A8B0006455FB /* PlaceholderView.m */; };
+		C5284C981B95A8B0006455FB /* PlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5284C961B95A8B0006455FB /* PlaceholderView.m */; };
 		C52E1FD11A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
 		C52E1FD31A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
 		C52E1FD51A41951300A2C370 /* WLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FCB1A41951300A2C370 /* WLLabel.m */; };
@@ -373,8 +375,6 @@
 		C54C56841B1E0B1500CA4B12 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7A10E1A4D879A002B1D63 /* Localizable.strings */; };
 		C54EFF161B8C7A9400F1BBF8 /* WLCandiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54EFF151B8C7A9400F1BBF8 /* WLCandiesCell.xib */; };
 		C54EFF171B8C7A9400F1BBF8 /* WLCandiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54EFF151B8C7A9400F1BBF8 /* WLCandiesCell.xib */; };
-		C54FC7641A160C2000623FC1 /* WLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54FC7621A160C2000623FC1 /* WLCollectionView.m */; };
-		C54FC7661A160C2000623FC1 /* WLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54FC7621A160C2000623FC1 /* WLCollectionView.m */; };
 		C551890B1B8F46C000D1327E /* WLContributorRemoveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55189071B8F46C000D1327E /* WLContributorRemoveCell.xib */; };
 		C551890C1B8F46C000D1327E /* WLContributorRemoveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55189071B8F46C000D1327E /* WLContributorRemoveCell.xib */; };
 		C551890D1B8F46C000D1327E /* WLContributorResendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55189081B8F46C000D1327E /* WLContributorResendCell.xib */; };
@@ -1382,6 +1382,8 @@
 		C5284C921B95A5D7006455FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = WLHomeViewController/en.lproj/WLHottestWrapHeader.strings; sourceTree = "<group>"; };
 		C5284C931B95A5D9006455FB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = WLHomeViewController/ru.lproj/WLHottestWrapHeader.strings; sourceTree = "<group>"; };
 		C5284C941B95A5DA006455FB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "WLHomeViewController/zh-Hant.lproj/WLHottestWrapHeader.strings"; sourceTree = "<group>"; };
+		C5284C951B95A8B0006455FB /* PlaceholderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderView.h; sourceTree = "<group>"; };
+		C5284C961B95A8B0006455FB /* PlaceholderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderView.m; sourceTree = "<group>"; };
 		C52E1FC81A41951300A2C370 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = WLButton/WLButton.h; sourceTree = "<group>"; };
 		C52E1FC91A41951300A2C370 /* WLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLButton.m; path = WLButton/WLButton.m; sourceTree = "<group>"; };
 		C52E1FCA1A41951300A2C370 /* WLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLabel.h; sourceTree = "<group>"; };
@@ -1512,8 +1514,6 @@
 		C54C56771B1DC81100CA4B12 /* WLSwipeActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLSwipeActionView.h; path = WLTriangleView/WLSwipeActionView.h; sourceTree = "<group>"; };
 		C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSwipeActionView.m; path = WLTriangleView/WLSwipeActionView.m; sourceTree = "<group>"; };
 		C54EFF151B8C7A9400F1BBF8 /* WLCandiesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCandiesCell.xib; sourceTree = "<group>"; };
-		C54FC7611A160C2000623FC1 /* WLCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionView.h; path = WLCollectionView/WLCollectionView.h; sourceTree = "<group>"; };
-		C54FC7621A160C2000623FC1 /* WLCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionView.m; path = WLCollectionView/WLCollectionView.m; sourceTree = "<group>"; };
 		C55189071B8F46C000D1327E /* WLContributorRemoveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorRemoveCell.xib; sourceTree = "<group>"; };
 		C55189081B8F46C000D1327E /* WLContributorResendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorResendCell.xib; sourceTree = "<group>"; };
 		C55189091B8F46C000D1327E /* WLContributorResendDoneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLContributorResendDoneCell.xib; sourceTree = "<group>"; };
@@ -2541,7 +2541,6 @@
 				C52E1FC71A41947D00A2C370 /* Text Views */,
 				5BD58FBE1B145A4C00B67A3F /* WLPresentingImageView */,
 				C54FC76E1A16549700623FC1 /* Placeholder Views */,
-				C54FC7601A160C0200623FC1 /* WLCollectionView */,
 				C515055419F0195400BF4D82 /* WLBlurredView */,
 				C5F99B6C196BEB0C00A3FB19 /* WLMenu */,
 				12F0DAED19338C9100F9D898 /* SegmentedControl */,
@@ -3590,15 +3589,6 @@
 			path = WLLaunchScreenViewController;
 			sourceTree = "<group>";
 		};
-		C54FC7601A160C0200623FC1 /* WLCollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				C54FC7611A160C2000623FC1 /* WLCollectionView.h */,
-				C54FC7621A160C2000623FC1 /* WLCollectionView.m */,
-			);
-			name = WLCollectionView;
-			sourceTree = "<group>";
-		};
 		C54FC76E1A16549700623FC1 /* Placeholder Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -3608,6 +3598,8 @@
 				5BDCA87D1B394C2F00C4AB3E /* NoMessagePlaceholderView.xib */,
 				5BB41F8C1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib */,
 				5BD5520F1B3C13F700530566 /* WhatsUpPlaceholderView.xib */,
+				C5284C951B95A8B0006455FB /* PlaceholderView.h */,
+				C5284C961B95A8B0006455FB /* PlaceholderView.m */,
 			);
 			path = "Placeholder Views";
 			sourceTree = "<group>";
@@ -5874,6 +5866,7 @@
 				C56F6A6F1B78D6EB00660DF1 /* PNHistoryResult.m in Sources */,
 				5BA60CE01A8257ED000F795C /* UIScrollView+Additions.m in Sources */,
 				C56F6A791B78D6EB00660DF1 /* PNPublishStatus.m in Sources */,
+				C5284C971B95A8B0006455FB /* PlaceholderView.m in Sources */,
 				C56F6A991B78D6EB00660DF1 /* PNLog.m in Sources */,
 				C53E5CEF1A84D886004F61B0 /* WLWrapView.m in Sources */,
 				C5BCF00E1B551B7B00E4AD6D /* WLMessageCell.m in Sources */,
@@ -5942,7 +5935,6 @@
 				C57005A31A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
 				C541869F1B4560E300F83889 /* DDContextFilterLogFormatter.m in Sources */,
 				C5BFE4D11B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */,
-				C54FC7641A160C2000623FC1 /* WLCollectionView.m in Sources */,
 				C577C2641A4C427100ECC7E5 /* iVersion.m in Sources */,
 				C56F6A691B78D6EB00660DF1 /* PNChannelGroupsResult.m in Sources */,
 				C56F6A5B1B78D6EB00660DF1 /* PNAES.m in Sources */,
@@ -6135,6 +6127,7 @@
 				C56F6A701B78D6EB00660DF1 /* PNHistoryResult.m in Sources */,
 				C53E5CF11A84D886004F61B0 /* WLWrapView.m in Sources */,
 				C56F6A7A1B78D6EB00660DF1 /* PNPublishStatus.m in Sources */,
+				C5284C981B95A8B0006455FB /* PlaceholderView.m in Sources */,
 				C56F6A9A1B78D6EB00660DF1 /* PNLog.m in Sources */,
 				C54AF65619B8C491006F7EDB /* WLRefresher.m in Sources */,
 				C5BCF0101B551B7B00E4AD6D /* WLMessageCell.m in Sources */,
@@ -6203,7 +6196,6 @@
 				C56F6A841B78D6EB00660DF1 /* PNSubscribeStatus.m in Sources */,
 				C54186A11B4560E300F83889 /* DDContextFilterLogFormatter.m in Sources */,
 				C57005A51A1F9642007257A6 /* WLSettingsViewController.m in Sources */,
-				C54FC7661A160C2000623FC1 /* WLCollectionView.m in Sources */,
 				C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */,
 				C56F6A6A1B78D6EB00660DF1 /* PNChannelGroupsResult.m in Sources */,
 				C56F6A5C1B78D6EB00660DF1 /* PNAES.m in Sources */,

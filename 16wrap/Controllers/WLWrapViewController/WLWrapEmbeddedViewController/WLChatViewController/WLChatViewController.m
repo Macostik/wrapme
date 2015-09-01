@@ -25,10 +25,10 @@
 #import "WLWrapViewController.h"
 #import "WLEntryPresenter.h"
 #import "WLToast.h"
-#import "WLCollectionView.h"
 #import "WLBadgeLabel.h"
 #import "WLMessagesCounter.h"
 #import "StreamView.h"
+#import "PlaceholderView.h"
 
 CGFloat WLMaxTextViewWidth;
 
@@ -60,6 +60,8 @@ CGFloat WLMaxTextViewWidth;
 @property (strong, nonatomic) IBOutlet StreamMetrics *unreadMessagesMetrics;
 @property (strong, nonatomic) IBOutlet StreamMetrics *typingViewMetrics;
 @property (strong, nonatomic) IBOutlet StreamMetrics *loadingViewMetrics;
+
+@property (strong, nonatomic) StreamMetrics *placeholderMetrics;
 
 @end
 
@@ -94,9 +96,6 @@ CGFloat WLMaxTextViewWidth;
     self.nameFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetNormal];
     self.timeFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmall];
     
-#warning implement placeholder
-//    self.collectionView.placeholderText = [NSString stringWithFormat:WLLS(@"no_chat_message"), self.wrap.name];
-    
     __weak StreamView *streamView = self.streamView;
     
     __weak typeof(self)weakSelf = self;
@@ -104,6 +103,17 @@ CGFloat WLMaxTextViewWidth;
     self.refresher = [WLRefresher refresher:streamView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
     
     streamView.layer.geometryFlipped = YES;
+    
+    self.placeholderMetrics = [StreamMetrics metrics:^(StreamMetrics *metrics) {
+        metrics.identifier = @"NoMessagePlaceholderView";
+        [metrics setPrepareAppearingBlock:^(StreamItem *item, id entry) {
+            PlaceholderView *placeholderView = (id)item.view;
+            placeholderView.textLabel.text = [NSString stringWithFormat:WLLS(@"no_chat_message"), weakSelf.wrap.name];
+        }];
+        metrics.finalizeAppearingBlock = ^(StreamItem *item, WLMessage *message) {
+            [[item.view layer] setGeometryFlipped:streamView.layer.geometryFlipped];
+        };
+    }];
     
     self.typingViewMetrics.finalizeAppearingBlock = self.unreadMessagesMetrics.finalizeAppearingBlock = self.dateMetrics.finalizeAppearingBlock = ^(StreamItem *item, WLMessage *message) {
         [[item.view layer] setGeometryFlipped:streamView.layer.geometryFlipped];
@@ -482,6 +492,10 @@ CGFloat WLMaxTextViewWidth;
 
 - (NSArray*)streamViewHeaderMetrics:(StreamView*)streamView {
     return @[self.typingViewMetrics];
+}
+
+- (StreamMetrics *)streamViewPlaceholderMetrics:(StreamView *)streamView {
+    return self.placeholderMetrics;
 }
 
 - (UIColor*)backgroundColorForMessage:(WLMessage*)message {

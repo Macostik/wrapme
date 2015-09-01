@@ -88,7 +88,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="DdO-ad-OSY" firstAttribute="leading" secondItem="UO8-1m-BoE" secondAttribute="leading" id="7uW-pz-u0g"/>
                 <constraint firstItem="QTr-oh-YKY" firstAttribute="leading" secondItem="CfT-Xm-rkb" secondAttribute="trailing" constant="12" id="97i-4h-S4z"/>

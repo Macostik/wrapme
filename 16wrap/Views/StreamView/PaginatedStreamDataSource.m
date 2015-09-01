@@ -61,7 +61,7 @@
     if (self.appendableBlock && !self.appendableBlock(self)) {
         return NO;
     }
-    return !self.items.completed;
+    return self.items && !self.items.completed;
 }
 
 - (void)append:(WLObjectBlock)success failure:(WLFailureBlock)failure {

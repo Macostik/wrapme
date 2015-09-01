@@ -28,7 +28,6 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLTouchView.h"
 #import "WLChronologicalEntryPresenter.h"
-#import "WLCollectionView.h"
 #import "WLGradientView.h"
 #import "WLCandyCell.h"
 #import "WLPresentingImageView.h"
@@ -73,7 +72,6 @@
 }
 
 - (void)viewDidLoad {
-#warning implement placeholders for stream view
     StreamView *streamView = self.streamView;
     
     __weak WLHomeDataSource *homeDataSource = self.homeDataSource;
@@ -466,12 +464,12 @@
     WLRecentCandiesView *candiesView = self.candiesView;
     NSUInteger index = [(id)candiesView.dataSource.items indexOfObject:candy];
     if (index != NSNotFound && candiesView) {
-//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-#warning implement getting reusable view
-//        WLCandyCell *candyCell = (id)[candiesView.streamView cellForItemAtIndexPath:indexPath];
-//        if (candyCell) {
-//            return candyCell;
-//        }
+        WLCandyCell *candyCell = (id)[[candiesView.streamView itemPassingTest:^BOOL(StreamItem *item) {
+            return item.index.item == index;
+        }] view];
+        if (candyCell) {
+            return candyCell;
+        }
     }
     return nil;
 }

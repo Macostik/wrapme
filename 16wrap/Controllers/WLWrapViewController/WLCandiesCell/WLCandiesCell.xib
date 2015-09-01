@@ -44,9 +44,9 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="candyMetrics" destination="YAB-b5-OEH" id="4J1-FX-E8Q"/>
                 <outlet property="dataSource" destination="QI5-mP-o5y" id="7xX-m8-DwP"/>
                 <outlet property="dateLabel" destination="nY2-aj-pJr" id="1H6-ST-96B"/>
-                <outlet property="streamView" destination="UzK-MR-YWi" id="ix3-cf-JxK"/>
             </connections>
             <point key="canvasLocation" x="488" y="748"/>
         </view>

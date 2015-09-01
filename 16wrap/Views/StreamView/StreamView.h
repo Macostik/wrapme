@@ -33,6 +33,8 @@
 
 - (NSArray*)streamView:(StreamView*)streamView sectionFooterMetricsInSection:(NSUInteger)section;
 
+- (StreamMetrics*)streamViewPlaceholderMetrics:(StreamView*)streamView;
+
 - (NSInteger)streamViewNumberOfSections:(StreamView*)streamView;
 
 @end
@@ -47,8 +49,6 @@
 
 @property (nonatomic) IBInspectable BOOL horizontal;
 
-- (StreamItem*)visibleItemAtPoint:(CGPoint)point;
-
 + (void)lock;
 
 + (void)unlock;
@@ -62,5 +62,11 @@
 - (void)clear;
 
 - (id)viewForItem:(StreamItem*)item;
+
+- (StreamItem*)visibleItemAtPoint:(CGPoint)point;
+
+- (StreamItem*)itemPassingTest:(BOOL(^)(StreamItem *item))test;
+
+- (void)scrollToItem:(StreamItem*)item animated:(BOOL)animated;
 
 @end

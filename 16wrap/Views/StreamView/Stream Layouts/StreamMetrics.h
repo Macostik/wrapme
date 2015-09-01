@@ -45,6 +45,8 @@ typedef void(^StreamMetricsEntryBlock)(StreamItem *item, id entry);
 
 @property (strong, nonatomic) NSMutableSet *reusableViews;
 
+@property (nonatomic) BOOL adjustFrame;
+
 + (instancetype)metrics:(StreamMetricsBlock)block;
 
 - (instancetype)change:(StreamMetricsBlock)block;

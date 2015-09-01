@@ -17,7 +17,7 @@
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLNavigationHelper.h"
 #import "WLDrawingViewController.h"
-#import "WLCollectionView.h"
+#import "StreamView.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 
@@ -118,13 +118,13 @@
     if (picture.justUploaded) {
         [self.coverView setImageSetter:^(WLImageView *imageView, UIImage *image, BOOL animated) {
             picture.justUploaded = NO;
-            [WLCollectionView lock];
+            [StreamView lock];
             run_after_asap(^{
                 imageView.image = image;
                 NSTimeInterval duration = 0.5f;
                 [imageView fadeWithDuration:duration delegate:nil];
                 run_after(duration, ^{
-                    [WLCollectionView unlock];
+                    [StreamView unlock];
                 });
             });
         }];

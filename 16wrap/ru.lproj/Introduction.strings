@@ -1,0 +1,18 @@
+/* Class = "UILabel"; text = "A Wrap is an album where you and the people you want can contribute pictures and share memories."; ObjectID = "YFX-em-iVo"; */
+"YFX-em-iVo.text" = "Wrap - это альбом, в котором Вы и указанные Вами люди могут добавлять картинки и делится воспоминаниями.";
+
+/* Class = "UILabel"; text = "A new way to communicate. Capture your life stories in a Wrap."; ObjectID = "duP-DA-GDK"; */
+"duP-DA-GDK.text" = "Новый способ общения. Сохряняйте истории своей жизни в Wrap.";
+
+/* Class = "UILabel"; text = "Welcome to 16wrap!"; ObjectID = "iaE-LB-F5N"; */
+"iaE-LB-F5N.text" = "Добро пожаловать в 16wrap!";
+
+/* Class = "UILabel"; text = "What's a Wrap?"; ObjectID = "mNA-4e-bin"; */
+"mNA-4e-bin.text" = "Что такое Wrap?";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "tBR-r4-GbY"; */
+"tBR-r4-GbY.normalTitle" = "Далее";
+
+/* Class = "UIButton"; normalTitle = "Let's get started!"; ObjectID = "vow-Fx-tbk"; */
+"vow-Fx-tbk.normalTitle" = "Начнем!";
+

@@ -13,8 +13,8 @@
 
 static NSString *const WLTodayCandyCellIdentifier = @"WLTodayCandyCell";
 static NSString *const WLTodayCommentCellIdentifier = @"WLTodayCommentCell";
-static NSString *const WLLessButtonKey = @"Less MOJI stories";
-static NSString *const WLMoreButtonKey = @"More MOJI stories";
+static NSString *const WLLessButtonKey = @"Less 16wrap stories";
+static NSString *const WLMoreButtonKey = @"More 16wrap stories";
 static CGFloat WLMaxRow = 6;
 static CGFloat WLMinRow = 3;
 

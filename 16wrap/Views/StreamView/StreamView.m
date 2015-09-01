@@ -144,12 +144,10 @@ static NSUInteger commonLocks = 0;
     
     if ([delegate respondsToSelector:@selector(streamViewHeaderMetrics:)]) {
         NSArray *headers = [delegate streamViewHeaderMetrics:self];
-        for (StreamMetrics *header in headers) {
-            [self layout:layout metrics:header index:nil];
-        }
+        [self layoutMetrics:headers layout:layout at:nil];
     }
     
-    BOOL empty = YES;
+    NSUInteger count = _items.count;
     
     for (NSUInteger section = 0; section < self.numberOfSections; ++section) {
         
@@ -157,51 +155,45 @@ static NSUInteger commonLocks = 0;
         
         if ([delegate respondsToSelector:@selector(streamView:sectionHeaderMetricsInSection:)]) {
             NSArray *headers = [delegate streamView:self sectionHeaderMetricsInSection:section];
-            for (StreamMetrics *header in headers) {
-                empty = NO;
-                [self layout:layout metrics:header index:sectionIndex];
-            }
+            [self layoutMetrics:headers layout:layout at:sectionIndex];
         }
         
         NSInteger numberOfItems = [delegate streamView:self numberOfItemsInSection:section];
         
         for (NSUInteger i = 0; i < numberOfItems; ++i) {
-            empty = NO;
             StreamIndex *index = [[sectionIndex copy] add:i];
-            for (StreamMetrics *metrics in [delegate streamView:self metricsAt:index]) {
-                [self layout:layout metrics:metrics index:index];
-            }
+            NSArray *metrics = [delegate streamView:self metricsAt:index];
+            [self layoutMetrics:metrics layout:layout at:index];
         }
         
         if ([delegate respondsToSelector:@selector(streamView:sectionFooterMetricsInSection:)]) {
             NSArray *footers = [delegate streamView:self sectionFooterMetricsInSection:section];
-            for (StreamMetrics *footer in footers) {
-                empty = NO;
-                [self layout:layout metrics:footer index:sectionIndex];
-            }
+            [self layoutMetrics:footers layout:layout at:sectionIndex];
         }
         
         [layout prepareForNextSection];
     }
     
+    BOOL empty = _items.count == count;
+    
     if ([delegate respondsToSelector:@selector(streamViewFooterMetrics:)]) {
         NSArray *footers = [delegate streamViewFooterMetrics:self];
-        for (StreamMetrics *footer in footers) {
-            [self layout:layout metrics:footer index:nil];
-        }
+        [self layoutMetrics:footers layout:layout at:nil];
     }
     
     if (empty) {
         if ([delegate respondsToSelector:@selector(streamViewPlaceholderMetrics:)]) {
             StreamMetrics *placeholder = [delegate streamViewPlaceholderMetrics:self];
-            CGSize size = self.frame.size;
-            UIEdgeInsets insets = self.contentInset;
-            if (self.horizontal) {
-                placeholder.size = size.width - insets.left - insets.right - layout.contentSize.width;
-            } else {
-                placeholder.size = size.height - insets.top - insets.bottom - layout.contentSize.height;
+            if (placeholder) {
+                CGSize size = self.frame.size;
+                UIEdgeInsets insets = self.contentInset;
+                if (self.horizontal) {
+                    placeholder.size = size.width - insets.left - insets.right - layout.contentSize.width;
+                } else {
+                    placeholder.size = size.height - insets.top - insets.bottom - layout.contentSize.height;
+                }
+                [self layout:layout metrics:placeholder at:nil];
             }
-            [self layout:layout metrics:placeholder index:nil];
         }
     }
     
@@ -212,7 +204,13 @@ static NSUInteger commonLocks = 0;
     [self updateVisibility];
 }
 
-- (void)layout:(StreamLayout*)layout metrics:(StreamMetrics*)metrics index:(StreamIndex*)index {
+- (void)layoutMetrics:(NSArray*)metrics layout:(StreamLayout*)layout at:(StreamIndex*)index {
+    for (StreamMetrics *m in metrics) {
+        [self layout:layout metrics:m at:index];
+    }
+}
+
+- (void)layout:(StreamLayout*)layout metrics:(StreamMetrics*)metrics at:(StreamIndex*)index {
     if (![metrics hiddenAt:index]) {
         StreamItem *item = [[StreamItem alloc] init];
         item.index = index;

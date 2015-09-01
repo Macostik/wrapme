@@ -56,6 +56,13 @@
 }
 
 - (void)dismissCandy:(WLCandy *)candy {
+    
+    UIView *dismissingView = [self.delegate presentingImageView:self dismissingViewForCandy:candy];
+    if (!dismissingView) {
+        [self removeFromSuperview];
+        return;
+    }
+    
     [self presentingAsMainWindowSubview];
     UIImage *image = [WLSystemImageCache imageWithIdentifier:candy.picture.large];
     if (!image) {
@@ -65,10 +72,10 @@
         [self removeFromSuperview];
         return;
     }
-    __weak __typeof(self)weakSelf = self;
+    
     self.imageView.image = image;
-    self.imageView.frame = CGRectThatFitsSize(weakSelf.size, image.size);
-    UIView *dismissingView = [self.delegate presentingImageView:self dismissingViewForCandy:candy];
+    self.imageView.frame = CGRectThatFitsSize(self.size, image.size);
+    __weak __typeof(self)weakSelf = self;
     [WLCollectionView lock];
     CGRect rect = [self.superview convertRect:dismissingView.bounds fromCoordinateSpace:dismissingView];
     dismissingView.hidden = YES;

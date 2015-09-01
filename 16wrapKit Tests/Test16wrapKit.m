@@ -10,11 +10,11 @@
 #import <XCTest/XCTest.h>
 #import <16wrapKit/16wrapKit.h>
 
-@interface 16wrapKit_Tests : XCTestCase
+@interface Test16wrapKit : XCTestCase
 
 @end
 
-@implementation 16wrapKit_Tests
+@implementation Test16wrapKit
 
 - (void)testNewMethod {
     // This is an example of a functional test case.

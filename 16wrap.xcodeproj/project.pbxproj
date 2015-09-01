@@ -408,7 +408,7 @@
 		C55997531A262BD8003D4B29 /* WLTelephony.m in Sources */ = {isa = PBXBuildFile; fileRef = C559974F1A262BD8003D4B29 /* WLTelephony.m */; };
 		C55B92011AFA39FE006A3A55 /* WLEntryNotifyReceiver.h in Headers */ = {isa = PBXBuildFile; fileRef = C55B91FF1AFA39FE006A3A55 /* WLEntryNotifyReceiver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C55B92021AFA39FE006A3A55 /* WLEntryNotifyReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B92001AFA39FE006A3A55 /* WLEntryNotifyReceiver.m */; };
-		C55C366B1ACEB7A900C614BD /* 16wrapKit_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C366A1ACEB7A900C614BD /* 16wrapKit_Tests.m */; };
+		C55C366B1ACEB7A900C614BD /* Test16wrapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C366A1ACEB7A900C614BD /* Test16wrapKit.m */; };
 		C55D77E01AE51202006FA19C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
 		C55D77E11AE51230006FA19C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E6190A93EF0034486D /* libz.dylib */; };
 		C55D77E21AE51237006FA19C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E6190A93EF0034486D /* libz.dylib */; };
@@ -1521,7 +1521,7 @@
 		C55B92001AFA39FE006A3A55 /* WLEntryNotifyReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryNotifyReceiver.m; sourceTree = "<group>"; };
 		C55C36661ACEB7A800C614BD /* 16wrapKit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "16wrapKit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C55C36691ACEB7A900C614BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C55C366A1ACEB7A900C614BD /* 16wrapKit_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = 16wrapKit_Tests.m; sourceTree = "<group>"; };
+		C55C366A1ACEB7A900C614BD /* Test16wrapKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Test16wrapKit.m; sourceTree = "<group>"; };
 		C55D77E61AE51BA0006FA19C /* WLRemoteEntryHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLRemoteEntryHandler.h; sourceTree = "<group>"; };
 		C55D77E71AE51BA0006FA19C /* WLRemoteEntryHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLRemoteEntryHandler.m; sourceTree = "<group>"; };
 		C55E109A1B3C0DE50032DFDA /* UIBezierPath+Interpolation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Interpolation.h"; sourceTree = "<group>"; };
@@ -3597,7 +3597,7 @@
 		C55C36671ACEB7A900C614BD /* 16wrapKit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C55C366A1ACEB7A900C614BD /* 16wrapKit_Tests.m */,
+				C55C366A1ACEB7A900C614BD /* Test16wrapKit.m */,
 				C55C36681ACEB7A900C614BD /* Supporting Files */,
 			);
 			path = "16wrapKit Tests";
@@ -6293,7 +6293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C55C366B1ACEB7A900C614BD /* 16wrapKit_Tests.m in Sources */,
+				C55C366B1ACEB7A900C614BD /* Test16wrapKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

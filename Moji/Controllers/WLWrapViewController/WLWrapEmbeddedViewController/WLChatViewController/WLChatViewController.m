@@ -13,7 +13,6 @@
 #import "UIView+AnimationHelper.h"
 #import "WLChat.h"
 #import "WLChatViewController.h"
-#import "WLCollectionViewFlowLayout.h"
 #import "WLComposeBar.h"
 #import "WLKeyboard.h"
 #import "WLLoadingView.h"
@@ -27,14 +26,13 @@
 #import "WLEntryPresenter.h"
 #import "WLToast.h"
 #import "WLCollectionView.h"
-#import "WLChatLayout.h"
 #import "WLBadgeLabel.h"
 #import "WLMessagesCounter.h"
 #import "StreamView.h"
 
 CGFloat WLMaxTextViewWidth;
 
-@interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate, WLCollectionViewLayoutDelegate>
+@interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate>
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;

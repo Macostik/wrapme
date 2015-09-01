@@ -888,14 +888,8 @@
 		C5BAD1361B53F9C60028FCEB /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BAD1311B53F9C60028FCEB /* WLAlertView.m */; };
 		C5BCAC401B2EDF2300080650 /* WLWKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */; };
 		C5BCAC411B2EDF2300080650 /* WLWKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */; };
-		C5BCEFFA1B551B7B00E4AD6D /* WLChatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFD71B551B7B00E4AD6D /* WLChatLayout.m */; };
-		C5BCEFFC1B551B7B00E4AD6D /* WLChatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFD71B551B7B00E4AD6D /* WLChatLayout.m */; };
 		C5BCEFFF1B551B7B00E4AD6D /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFD91B551B7B00E4AD6D /* WLChatViewController.m */; };
 		C5BCF0011B551B7B00E4AD6D /* WLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFD91B551B7B00E4AD6D /* WLChatViewController.m */; };
-		C5BCF0041B551B7B00E4AD6D /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFDB1B551B7B00E4AD6D /* WLCollectionViewFlowLayout.m */; };
-		C5BCF0061B551B7B00E4AD6D /* WLCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFDB1B551B7B00E4AD6D /* WLCollectionViewFlowLayout.m */; };
-		C5BCF0091B551B7B00E4AD6D /* WLCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFDD1B551B7B00E4AD6D /* WLCollectionViewLayout.m */; };
-		C5BCF00B1B551B7B00E4AD6D /* WLCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFDD1B551B7B00E4AD6D /* WLCollectionViewLayout.m */; };
 		C5BCF00E1B551B7B00E4AD6D /* WLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFE01B551B7B00E4AD6D /* WLMessageCell.m */; };
 		C5BCF0101B551B7B00E4AD6D /* WLMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFE01B551B7B00E4AD6D /* WLMessageCell.m */; };
 		C5BCF0131B551B7B00E4AD6D /* WLMessageDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFE31B551B7B00E4AD6D /* WLMessageDateView.m */; };
@@ -2007,14 +2001,8 @@
 		C5BAD1311B53F9C60028FCEB /* WLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAlertView.m; sourceTree = "<group>"; };
 		C5BCAC3E1B2EDF2300080650 /* WLWKAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKAlertController.h; sourceTree = "<group>"; };
 		C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKAlertController.m; sourceTree = "<group>"; };
-		C5BCEFD61B551B7B00E4AD6D /* WLChatLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChatLayout.h; sourceTree = "<group>"; };
-		C5BCEFD71B551B7B00E4AD6D /* WLChatLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChatLayout.m; sourceTree = "<group>"; };
 		C5BCEFD81B551B7B00E4AD6D /* WLChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChatViewController.h; sourceTree = "<group>"; };
 		C5BCEFD91B551B7B00E4AD6D /* WLChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChatViewController.m; sourceTree = "<group>"; };
-		C5BCEFDA1B551B7B00E4AD6D /* WLCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCollectionViewFlowLayout.h; sourceTree = "<group>"; };
-		C5BCEFDB1B551B7B00E4AD6D /* WLCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCollectionViewFlowLayout.m; sourceTree = "<group>"; };
-		C5BCEFDC1B551B7B00E4AD6D /* WLCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCollectionViewLayout.h; sourceTree = "<group>"; };
-		C5BCEFDD1B551B7B00E4AD6D /* WLCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCollectionViewLayout.m; sourceTree = "<group>"; };
 		C5BCEFDF1B551B7B00E4AD6D /* WLMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessageCell.h; sourceTree = "<group>"; };
 		C5BCEFE01B551B7B00E4AD6D /* WLMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMessageCell.m; sourceTree = "<group>"; };
 		C5BCEFE21B551B7B00E4AD6D /* WLMessageDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessageDateView.h; sourceTree = "<group>"; };
@@ -4686,12 +4674,6 @@
 				C5BCEFE91B551B7B00E4AD6D /* WLUnreadMessagesView */,
 				C5BCEFD81B551B7B00E4AD6D /* WLChatViewController.h */,
 				C5BCEFD91B551B7B00E4AD6D /* WLChatViewController.m */,
-				C5BCEFD61B551B7B00E4AD6D /* WLChatLayout.h */,
-				C5BCEFD71B551B7B00E4AD6D /* WLChatLayout.m */,
-				C5BCEFDA1B551B7B00E4AD6D /* WLCollectionViewFlowLayout.h */,
-				C5BCEFDB1B551B7B00E4AD6D /* WLCollectionViewFlowLayout.m */,
-				C5BCEFDC1B551B7B00E4AD6D /* WLCollectionViewLayout.h */,
-				C5BCEFDD1B551B7B00E4AD6D /* WLCollectionViewLayout.m */,
 			);
 			path = WLChatViewController;
 			sourceTree = "<group>";
@@ -5982,7 +5964,6 @@
 				C5C20B901A238AE7008B2E2E /* WLValidation.m in Sources */,
 				C5BAD1341B53F9C60028FCEB /* WLAlertView.m in Sources */,
 				C56F6AAB1B78D6EB00660DF1 /* PNLeaveParser.m in Sources */,
-				C5BCEFFA1B551B7B00E4AD6D /* WLChatLayout.m in Sources */,
 				5BA7AC221A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD51A41951300A2C370 /* WLLabel.m in Sources */,
 				C5B681291B83689100BEE613 /* PaginatedStreamDataSource.m in Sources */,
@@ -6042,14 +6023,12 @@
 				C54186771B4560E300F83889 /* CLIColor.m in Sources */,
 				C56F6AB31B78D6EB00660DF1 /* PNPushNotificationsAuditParser.m in Sources */,
 				C56F6A751B78D6EB00660DF1 /* PNPresenceGlobalHereNowResult.m in Sources */,
-				C5BCF0091B551B7B00E4AD6D /* WLCollectionViewLayout.m in Sources */,
 				C559974A1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */,
 				C56F6A431B78D6EB00660DF1 /* PubNub+ChannelGroup.m in Sources */,
 				C541869A1B4560E300F83889 /* DDTTYLogger.m in Sources */,
 				C56F6A8F1B78D6EB00660DF1 /* PNDictionary.m in Sources */,
 				C56F6ABD1B78D6EB00660DF1 /* PNNetwork.m in Sources */,
 				C54AF4CF19B8C437006F7EDB /* WLEditSession.m in Sources */,
-				C5BCF0041B551B7B00E4AD6D /* WLCollectionViewFlowLayout.m in Sources */,
 				C56F6A7B1B78D6EB00660DF1 /* PNResult.m in Sources */,
 				C56F6A8D1B78D6EB00660DF1 /* PNData.m in Sources */,
 				C54186B01B4561A700F83889 /* PubNub+SharedInstance.m in Sources */,
@@ -6246,7 +6225,6 @@
 				C5BAD1361B53F9C60028FCEB /* WLAlertView.m in Sources */,
 				C5C20B921A238AE7008B2E2E /* WLValidation.m in Sources */,
 				C56F6AAC1B78D6EB00660DF1 /* PNLeaveParser.m in Sources */,
-				C5BCEFFC1B551B7B00E4AD6D /* WLChatLayout.m in Sources */,
 				5BA7AC241A7916AB00BB922E /* WLCommentsViewController.m in Sources */,
 				C52E1FD71A41951300A2C370 /* WLLabel.m in Sources */,
 				C5B6812A1B83689100BEE613 /* PaginatedStreamDataSource.m in Sources */,
@@ -6306,14 +6284,12 @@
 				C54186791B4560E300F83889 /* CLIColor.m in Sources */,
 				C56F6AB41B78D6EB00660DF1 /* PNPushNotificationsAuditParser.m in Sources */,
 				C56F6A761B78D6EB00660DF1 /* PNPresenceGlobalHereNowResult.m in Sources */,
-				C5BCF00B1B551B7B00E4AD6D /* WLCollectionViewLayout.m in Sources */,
 				C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */,
 				C56F6A441B78D6EB00660DF1 /* PubNub+ChannelGroup.m in Sources */,
 				C541869C1B4560E300F83889 /* DDTTYLogger.m in Sources */,
 				C56F6A901B78D6EB00660DF1 /* PNDictionary.m in Sources */,
 				C56F6ABE1B78D6EB00660DF1 /* PNNetwork.m in Sources */,
 				C54AF6C919B8C491006F7EDB /* WLEditSession.m in Sources */,
-				C5BCF0061B551B7B00E4AD6D /* WLCollectionViewFlowLayout.m in Sources */,
 				C56F6A7C1B78D6EB00660DF1 /* PNResult.m in Sources */,
 				C56F6A8E1B78D6EB00660DF1 /* PNData.m in Sources */,
 				C54186B21B4561A700F83889 /* PubNub+SharedInstance.m in Sources */,

@@ -53,6 +53,8 @@
     }];
     [[WLEntryManager manager].context save:NULL];
     currentUser.wraps = [NSSet set];
+    [[WLImageCache cache] clear];
+    [[WLImageCache uploadingCache] clear];
     [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
 }
 

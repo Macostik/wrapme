@@ -133,9 +133,10 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                         }
                         if (done == count) {
                             CFRelease(records);
+                            NSArray *result = [contacts copy];
                             run_in_main_queue(^{
-                                if (contacts.nonempty) {
-                                    if (success) success([contacts copy]);
+                                if (result.nonempty) {
+                                    if (success) success(result);
                                 } else {
                                     if (failure) failure([NSError errorWithDescription:WLLS(@"no_contacts_with_phone_number")]);
                                 }

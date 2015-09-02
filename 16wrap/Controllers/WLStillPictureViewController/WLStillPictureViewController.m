@@ -130,44 +130,23 @@
     [self.topViewController requestAuthorizationForPresentingEntry:entry completion:completion];
 }
 
-- (CGSize)imageSizeForCurrentMode {
+- (CGFloat)imageWidthForCurrentMode {
     if (self.mode == WLStillPictureModeDefault) {
-        return CGSizeMake(1200, 1600);
+        return 1200;
     } else {
-        return CGSizeMake(600, 800);
+        return 600;
     }
 }
 
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion {
     __weak typeof(self)weakSelf = self;
     run_getting_object(^id{
-        CGSize resultSize = [weakSelf imageSizeForCurrentMode];
-        CGFloat resultAspectRatio = 0.75;
-        UIImage *result = nil;
+        CGFloat resultWidth = [weakSelf imageWidthForCurrentMode];
         if (image.size.width > image.size.height) {
-            CGFloat aspectRatio = image.size.height / image.size.width;
-            if (aspectRatio == resultAspectRatio) {
-                result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(1, resultSize.width)];
-            } else if (aspectRatio < resultAspectRatio) {
-                result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(1, resultSize.width)];
-                result = [result croppedImage:CGRectThatFitsSize(result.size, CGSizeMake(resultSize.height, resultSize.width))];
-            } else {
-                result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultSize.width, 1)];
-                result = [result croppedImage:CGRectThatFitsSize(result.size, CGSizeMake(resultSize.height, resultSize.width))];
-            }
+            return [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(1, resultWidth)];
         } else {
-            CGFloat aspectRatio = image.size.width / image.size.height;
-            if (aspectRatio == resultAspectRatio) {
-                result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultSize.width, 1)];
-            } else if (aspectRatio < resultAspectRatio) {
-                result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultSize.width, 1)];
-                result = [result croppedImage:CGRectThatFitsSize(result.size, resultSize)];
-            } else {
-                result = [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(1, resultSize.width)];
-                result = [result croppedImage:CGRectThatFitsSize(result.size, resultSize)];
-            }
+            return [image resizedImageWithContentModeScaleAspectFill:CGSizeMake(resultWidth, 1)];
         }
-        return result;
     }, completion);
 }
 

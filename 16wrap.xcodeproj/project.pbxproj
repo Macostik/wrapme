@@ -7151,7 +7151,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 2.4;
+				DYLIB_CURRENT_VERSION = 612;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_VERSION = A;
@@ -7161,7 +7161,7 @@
 					"$(inherited)",
 					"PROJECT_DIR=@\\\"\"$PROJECT_DIR\"\\\"\"",
 				);
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -7784,7 +7784,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 2.4;
+				DYLIB_CURRENT_VERSION = 612;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_VERSION = A;
@@ -7794,7 +7794,7 @@
 					"$(inherited)",
 					"PROJECT_DIR=@\\\"\"$PROJECT_DIR\"\\\"\"",
 				);
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -7817,13 +7817,13 @@
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 2.4;
+				DYLIB_CURRENT_VERSION = 612;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "16wrapKit/16wrapKit-Prefix.pch";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",

@@ -182,8 +182,8 @@
 /* Class = "UILabel"; text = "100"; ObjectID = "Hbe-14-d1d"; */
 "Hbe-14-d1d.text" = "100";
 
-/* Class = "UILabel"; text = "\""; ObjectID = "HmL-mc-hV3"; */
-"HmL-mc-hV3.text" = "\"";
+/* Class = "UILabel"; text = "M"; ObjectID = "HmL-mc-hV3"; */
+"HmL-mc-hV3.text" = "M";
 
 /* Class = "UIButton"; normalTitle = "s"; ObjectID = "J3S-jS-mvs"; */
 "J3S-jS-mvs.normalTitle" = "s";

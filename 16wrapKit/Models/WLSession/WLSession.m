@@ -250,9 +250,6 @@ static NSString *_imageURI = nil;
 - (NSString *)imageURI {
     if (!_imageURI) {
         _imageURI = [self stringForKey:@"imageURI"];
-        if (!_imageURI) {
-            _imageURI = @"https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments";
-        }
     }
     return _imageURI;
 }
@@ -270,9 +267,6 @@ static NSString *_avatarURI = nil;
 - (NSString *)avatarURI {
     if (!_avatarURI) {
         _avatarURI = [self stringForKey:@"avatarURI"];
-        if (!_avatarURI) {
-            _avatarURI = @"https://d2rojtzyvje8rl.cloudfront.net/users/avatars";
-        }
     }
     return _avatarURI;
 }

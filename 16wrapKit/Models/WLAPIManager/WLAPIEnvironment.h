@@ -20,6 +20,10 @@ static NSString* WLAPIEnvironmentProduction = @"production";
 
 @property (strong, nonatomic) NSString* version;
 
+@property (strong, nonatomic) NSString* defaultImageURI;
+
+@property (strong, nonatomic) NSString* defaultAvatarURI;
+
 @property (readonly, nonatomic) BOOL isProduction;
 
 + (instancetype)environmentNamed:(NSString*)name;

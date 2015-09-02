@@ -12,13 +12,13 @@
 #import "WLWrapView.h"
 #import "WLSoundPlayer.h"
 #import "WLToast.h"
-#import "ALAssetsLibrary+Additions.h"
-#import "NSMutableDictionary+ImageMetadata.h"
 #import "UIView+AnimationHelper.h"
 #import "WLNavigationHelper.h"
 #import "UIButton+Additions.h"
 #import "WLBatchEditPictureViewController.h"
 #import "WLCollections.h"
+
+@import Photos;
 
 @interface WLStillPhotosViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLBatchEditPictureViewControllerDelegate>
 
@@ -34,7 +34,7 @@
     [self performSelector:@selector(updatePicturesCountLabel) withObject:nil afterDelay:0.0f];
 }
 
-- (void)handleImage:(UIImage *)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
+- (void)handleImage:(UIImage *)image saveToAlbum:(BOOL)saveToAlbum {
     __weak typeof(self)weakSelf = self;
     self.view.userInteractionEnabled = NO;
     WLEditPicture *picture = [WLEditPicture picture:self.mode];
@@ -92,20 +92,20 @@
 
 #pragma mark - WLQuickAssetsViewControllerDelegate
 
-- (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(ALAsset *)asset {
+- (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
     return [self shouldAddPicture:^{
     } failure:^(NSError *error) {
         [error show];
     }];
 }
 
-- (void)quickAssetsViewController:(WLQuickAssetsViewController *)controller didSelectAsset:(ALAsset *)asset {
+- (void)quickAssetsViewController:(WLQuickAssetsViewController *)controller didSelectAsset:(PHAsset *)asset {
     [self handleAssets:@[asset]];
 }
 
-- (void)quickAssetsViewController:(WLQuickAssetsViewController *)controller didDeselectAsset:(ALAsset *)asset {
+- (void)quickAssetsViewController:(WLQuickAssetsViewController *)controller didDeselectAsset:(PHAsset *)asset {
     [self.pictures removeSelectively:^BOOL(WLEditPicture* picture) {
-        return [picture.assetID isEqualToString:asset.ID];
+        return [picture.assetID isEqualToString:asset.localIdentifier];
     }];
     [self updatePicturesCountLabel];
 }
@@ -116,10 +116,10 @@
 
 - (void)handleAssets:(NSArray*)assets {
     __weak typeof(self)weakSelf = self;
-    for (ALAsset* asset in assets) {
+    for (PHAsset* asset in assets) {
         WLEditPicture *picture = [WLEditPicture picture:weakSelf.mode];
-        picture.assetID = asset.ID;
-        picture.date = asset.date;
+        picture.assetID = asset.localIdentifier;
+        picture.date = asset.creationDate;
         [self addPicture:picture success:^{
             runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
                 [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {

@@ -8,8 +8,7 @@
 
 #import "UIImage+Drawing.h"
 #import "NSString+Documents.h"
-#import "ALAssetsLibrary+Additions.h"
-#import "NSMutableDictionary+ImageMetadata.h"
+#import "PHPhotoLibrary+Helper.h"
 
 @implementation UIImage (Drawing)
 
@@ -53,26 +52,13 @@
 }
 
 - (void)save:(NSMutableDictionary *)metadata completion:(void (^)(void))completion failure:(void (^)(NSError *))failure {
-    [metadata setImageOrientation:self.imageOrientation];
-    run_in_default_queue(^{
-        ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
-        [library saveImage:self
-                   toAlbum:WLAlbumName
-                  metadata:metadata
-                completion:^(NSURL *assetURL, NSError *error) {
-                    run_in_main_queue(^{
-                        if (error) {
-                            if (failure) failure(error);
-                        } else {
-                            if (completion) completion();
-                        }
-                    });
-                } failure:^(NSError *error) {
-                    run_in_main_queue(^{
-                        if (failure) failure(error);
-                    });
-                }];
-    });
+    [PHPhotoLibrary addNewAssetWithImage:self toAssetCollectionWithTitle:WLAlbumName completionHandler:^(BOOL success, NSError *error) {
+        if (error) {
+            if (failure) failure(error);
+        } else {
+            if (completion) completion();
+        }
+    }];
 }
 
 - (void)writeToPNGFile:(NSString *)path atomically:(BOOL)atomically {

@@ -11,7 +11,6 @@
 #import "WLCameraViewController.h"
 
 @class WLStillPictureViewController;
-@class ALAsset;
 
 @protocol WLStillPictureViewControllerDelegate <WLStillPictureBaseViewControllerDelegate, UINavigationControllerDelegate>
 
@@ -43,9 +42,9 @@
 
 - (void)cropImage:(UIImage*)image completion:(void (^)(UIImage *croppedImage))completion;
 
-- (void)cropAsset:(ALAsset*)asset completion:(void (^)(UIImage *croppedImage))completion;
+- (void)cropAsset:(PHAsset*)asset completion:(void (^)(UIImage *croppedImage))completion;
 
-- (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum;
+- (void)handleImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum;
 
 - (void)finishWithPictures:(NSArray*)pictures;
 

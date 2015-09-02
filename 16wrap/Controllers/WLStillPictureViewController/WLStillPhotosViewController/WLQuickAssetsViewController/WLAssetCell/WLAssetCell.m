@@ -19,8 +19,16 @@
 
 @implementation WLAssetCell
 
-- (void)setup:(ALAsset *)asset {
-    self.imageView.image = [UIImage imageWithCGImage:asset.aspectRatioThumbnail];
+- (void)setup:(PHAsset *)asset {
+    __weak __typeof(self)weakSelf = self;
+    CGSize thumbnail = CGSizeMake(100, 100);
+    [[PHImageManager defaultManager] requestImageForAsset:asset
+                                               targetSize:thumbnail
+                                              contentMode:PHImageContentModeAspectFill
+                                                  options:nil
+                                            resultHandler:^(UIImage *result, NSDictionary *info) {
+                                                  weakSelf.imageView.image = result;
+                                              }];
     if ([self.delegate respondsToSelector:@selector(assetCell:isSelectedAsset:)]) {
         BOOL selected = [self.delegate assetCell:self isSelectedAsset:asset];
         self.acceptView.hidden = !selected;

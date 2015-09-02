@@ -88,7 +88,6 @@
 #import <16wrapKit/AFNetworking.h>
 #import <16wrapKit/NSObject+NibAdditions.h>
 #import <16wrapKit/NSObject+Extension.h>
-#import <16wrapKit/NSMutableDictionary+ImageMetadata.h>
 #import <16wrapKit/WLCommonEnums.h>
 #import <16wrapKit/WLEntryNotifyReceiver.h>
 #import <16wrapKit/UIView+QuatzCoreAnimations.h>

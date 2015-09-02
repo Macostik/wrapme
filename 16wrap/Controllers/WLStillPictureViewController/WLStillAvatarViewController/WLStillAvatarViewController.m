@@ -13,8 +13,6 @@
 #import "WLHomeViewController.h"
 #import "WLSoundPlayer.h"
 #import "WLToast.h"
-#import "ALAssetsLibrary+Additions.h"
-#import "NSMutableDictionary+ImageMetadata.h"
 #import "UIView+AnimationHelper.h"
 #import "WLNavigationHelper.h"
 
@@ -26,7 +24,7 @@
 
 @implementation WLStillAvatarViewController
 
-- (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
+- (void)handleImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum {
     __weak typeof(self)weakSelf = self;
     [self editImage:image completion:^ (UIImage *resultImage, NSString *comment) {
         if (saveToAlbum) [resultImage save:nil];
@@ -49,18 +47,18 @@
 
 #pragma mark - WLCameraViewControllerDelegate
 
-- (void)handleAsset:(ALAsset*)asset {
+- (void)handleAsset:(PHAsset*)asset {
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
     [self cropAsset:asset completion:^(UIImage *croppedImage) {
-        [weakSelf handleImage:croppedImage metadata:nil saveToAlbum:NO];
+        [weakSelf handleImage:croppedImage saveToAlbum:NO];
         weakSelf.view.userInteractionEnabled = YES;
     }];
 }
 
 #pragma mark - WLQuickAssetsViewControllerDelegate
 
-- (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(ALAsset *)asset {
+- (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
     [self handleAsset:asset];
     return NO;
 }

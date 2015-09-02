@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class ALAsset, WLQuickAssetsViewController;
+@class PHAsset, WLQuickAssetsViewController;
 
 @protocol WLQuickAssetsViewControllerDelegate <NSObject>
 
@@ -16,11 +16,11 @@
 
 - (BOOL)quickAssetsViewControllerShouldPreselectFirstAsset:(WLQuickAssetsViewController*)controller;
 
-- (BOOL)quickAssetsViewController:(WLQuickAssetsViewController*)controller shouldSelectAsset:(ALAsset*)asset;
+- (BOOL)quickAssetsViewController:(WLQuickAssetsViewController*)controller shouldSelectAsset:(PHAsset*)asset;
 
-- (void)quickAssetsViewController:(WLQuickAssetsViewController*)controller didSelectAsset:(ALAsset*)asset;
+- (void)quickAssetsViewController:(WLQuickAssetsViewController*)controller didSelectAsset:(PHAsset*)asset;
 
-- (void)quickAssetsViewController:(WLQuickAssetsViewController*)controller didDeselectAsset:(ALAsset*)asset;
+- (void)quickAssetsViewController:(WLQuickAssetsViewController*)controller didDeselectAsset:(PHAsset*)asset;
 
 @end
 

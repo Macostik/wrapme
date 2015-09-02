@@ -33,8 +33,6 @@
 		5BA4F87B1A1CA08900DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
 		5BA4F8821A1CA08A00DB1A25 /* s01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEE1A10E51B004AD41C /* s01.wav */; };
 		5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAEF1A10E51B004AD41C /* s02.wav */; };
-		5BA60C601A8257ED000F795C /* ALAssetsLibrary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFA1A8257ED000F795C /* ALAssetsLibrary+Additions.m */; };
-		5BA60C621A8257ED000F795C /* ALAssetsLibrary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFA1A8257ED000F795C /* ALAssetsLibrary+Additions.m */; };
 		5BA60C681A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */; };
 		5BA60C6A1A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */; };
 		5BA60CB01A8257ED000F795C /* UIButton+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA60C2D1A8257ED000F795C /* UIButton+Additions.m */; };
@@ -68,6 +66,10 @@
 		5BB41F8F1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB41F8C1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib */; };
 		5BBAB3A71AAA002400CE6252 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */; };
 		5BBAB3A91AAA002400CE6252 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */; };
+		5BBF6F621B95B77D004A79BF /* PHPhotoLibrary+Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BBF6F601B95B77D004A79BF /* PHPhotoLibrary+Helper.h */; };
+		5BBF6F631B95B77D004A79BF /* PHPhotoLibrary+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBF6F611B95B77D004A79BF /* PHPhotoLibrary+Helper.m */; };
+		5BBF6F641B95B77D004A79BF /* PHPhotoLibrary+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBF6F611B95B77D004A79BF /* PHPhotoLibrary+Helper.m */; };
+		5BBF6F651B95B77D004A79BF /* PHPhotoLibrary+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBF6F611B95B77D004A79BF /* PHPhotoLibrary+Helper.m */; };
 		5BD104F31AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
 		5BD104F51AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
 		5BD121541B0250B500FF5FBF /* WLDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD121521B0250B500FF5FBF /* WLDownloadingView.m */; };
@@ -830,8 +832,6 @@
 		C5B93D281B4E6CC0005681DB /* WLBlockImageFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B93D261B4E6CC0005681DB /* WLBlockImageFetching.m */; };
 		C5B93D451B4E7BE8005681DB /* NSDictionary+Extended.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D3A1B4E7BE8005681DB /* NSDictionary+Extended.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5B93D461B4E7BE8005681DB /* NSDictionary+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B93D3B1B4E7BE8005681DB /* NSDictionary+Extended.m */; };
-		C5B93D471B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D3C1B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C5B93D481B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B93D3D1B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.m */; };
 		C5B93D4E1B4E7C30005681DB /* WLCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D4D1B4E7C30005681DB /* WLCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5B93D561B4E87B0005681DB /* NSSet+WLCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B93D541B4E87B0005681DB /* NSSet+WLCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5B93D571B4E87B0005681DB /* NSSet+WLCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B93D551B4E87B0005681DB /* NSSet+WLCollection.m */; };
@@ -1224,8 +1224,6 @@
 		5BA432A81A3F3F3D00B53BC7 /* WLConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLConfirmView.h; path = WLConfirmView/WLConfirmView.h; sourceTree = "<group>"; };
 		5BA432A91A3F3F3D00B53BC7 /* WLConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLConfirmView.m; path = WLConfirmView/WLConfirmView.m; sourceTree = "<group>"; };
 		5BA4C58A1A8BA0F600251B6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NoCommentsPlaceholderView.xib; sourceTree = "<group>"; };
-		5BA60BF91A8257ED000F795C /* ALAssetsLibrary+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+Additions.h"; sourceTree = "<group>"; };
-		5BA60BFA1A8257ED000F795C /* ALAssetsLibrary+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+Additions.m"; sourceTree = "<group>"; };
 		5BA60BFD1A8257ED000F795C /* MFMailComposeViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMailComposeViewController+Additions.h"; sourceTree = "<group>"; };
 		5BA60BFE1A8257ED000F795C /* MFMailComposeViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MFMailComposeViewController+Additions.m"; sourceTree = "<group>"; };
 		5BA60C2C1A8257ED000F795C /* UIButton+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Additions.h"; sourceTree = "<group>"; };
@@ -1262,6 +1260,8 @@
 		5BB41F931B8F1C7C007DB7A2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/PablicWrapPlaceholderView.strings"; sourceTree = "<group>"; };
 		5BB41F951B8F1C91007DB7A2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/PablicWrapPlaceholderView.strings; sourceTree = "<group>"; };
 		5BBAB3AA1AAA002400CE6252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Camera.storyboard; sourceTree = "<group>"; };
+		5BBF6F601B95B77D004A79BF /* PHPhotoLibrary+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PHPhotoLibrary+Helper.h"; path = "Photo/PHPhotoLibrary+Helper.h"; sourceTree = "<group>"; };
+		5BBF6F611B95B77D004A79BF /* PHPhotoLibrary+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PHPhotoLibrary+Helper.m"; path = "Photo/PHPhotoLibrary+Helper.m"; sourceTree = "<group>"; };
 		5BD104F01AE7C066008794F5 /* WLEntryStatusIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntryStatusIndicator.h; path = WLEntryStatusIndicator/WLEntryStatusIndicator.h; sourceTree = "<group>"; };
 		5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEntryStatusIndicator.m; path = WLEntryStatusIndicator/WLEntryStatusIndicator.m; sourceTree = "<group>"; };
 		5BD121511B0250B400FF5FBF /* WLDownloadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLDownloadingView.h; path = WLDownloadingView/WLDownloadingView.h; sourceTree = "<group>"; };
@@ -1930,8 +1930,6 @@
 		C5B93D261B4E6CC0005681DB /* WLBlockImageFetching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLBlockImageFetching.m; sourceTree = "<group>"; };
 		C5B93D3A1B4E7BE8005681DB /* NSDictionary+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extended.h"; sourceTree = "<group>"; };
 		C5B93D3B1B4E7BE8005681DB /* NSDictionary+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extended.m"; sourceTree = "<group>"; };
-		C5B93D3C1B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+ImageMetadata.h"; sourceTree = "<group>"; };
-		C5B93D3D1B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+ImageMetadata.m"; sourceTree = "<group>"; };
 		C5B93D4D1B4E7C30005681DB /* WLCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCollection.h; sourceTree = "<group>"; };
 		C5B93D541B4E87B0005681DB /* NSSet+WLCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSSet+WLCollection.h"; sourceTree = "<group>"; };
 		C5B93D551B4E87B0005681DB /* NSSet+WLCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSet+WLCollection.m"; sourceTree = "<group>"; };
@@ -2749,7 +2747,6 @@
 			children = (
 				C59EF3BA1B7A1B4200E777BC /* UIViewController */,
 				C5B233771B29E692008A14D1 /* AdobeUXImageEditorViewController */,
-				5BA60BF81A8257ED000F795C /* ALAssetsLibrary */,
 				5BA60BFC1A8257ED000F795C /* MFMailComposeViewController */,
 				5BA60C2B1A8257ED000F795C /* UIButton */,
 				5BA60C451A8257ED000F795C /* UINavigationController */,
@@ -2759,15 +2756,6 @@
 				5BA60C511A8257ED000F795C /* UIView */,
 			);
 			path = Categories;
-			sourceTree = "<group>";
-		};
-		5BA60BF81A8257ED000F795C /* ALAssetsLibrary */ = {
-			isa = PBXGroup;
-			children = (
-				5BA60BF91A8257ED000F795C /* ALAssetsLibrary+Additions.h */,
-				5BA60BFA1A8257ED000F795C /* ALAssetsLibrary+Additions.m */,
-			);
-			path = ALAssetsLibrary;
 			sourceTree = "<group>";
 		};
 		5BA60BFC1A8257ED000F795C /* MFMailComposeViewController */ = {
@@ -2908,6 +2896,15 @@
 				5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */,
 			);
 			name = WLWrapSettingsViewController;
+			sourceTree = "<group>";
+		};
+		5BD313A31B959EC900E0C837 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				5BBF6F601B95B77D004A79BF /* PHPhotoLibrary+Helper.h */,
+				5BBF6F611B95B77D004A79BF /* PHPhotoLibrary+Helper.m */,
+			);
+			name = Photo;
 			sourceTree = "<group>";
 		};
 		5BD3BDC01B45370B00A42EBB /* WLLayoutPrioritizer */ = {
@@ -3653,6 +3650,7 @@
 		C5612C771ACD968A0052578A /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				5BD313A31B959EC900E0C837 /* Photo */,
 				C5B93D351B4E7BE8005681DB /* Collections */,
 				C535F9D31AD4321F000C81B4 /* NSData */,
 				C587C8EE1AD2E980003E7647 /* NSUserDefaults */,
@@ -4584,8 +4582,6 @@
 			children = (
 				C5B93D3A1B4E7BE8005681DB /* NSDictionary+Extended.h */,
 				C5B93D3B1B4E7BE8005681DB /* NSDictionary+Extended.m */,
-				C5B93D3C1B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.h */,
-				C5B93D3D1B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.m */,
 			);
 			path = NSDictionary;
 			sourceTree = "<group>";
@@ -5059,6 +5055,7 @@
 				C5C2DE781B725F6B006B47F6 /* WLAuthorizationRequest.h in Headers */,
 				C587C7B51AD2E6A0003E7647 /* WLAPIEnvironment.h in Headers */,
 				C587C7DD1AD2E6A0003E7647 /* WLOperation.h in Headers */,
+				5BBF6F621B95B77D004A79BF /* PHPhotoLibrary+Helper.h in Headers */,
 				C587C78C1AD2E6A0003E7647 /* NSBundle+Extended.h in Headers */,
 				C587C7CA1AD2E6A0003E7647 /* WLWrap.h in Headers */,
 				C587C7C01AD2E6A0003E7647 /* WLCryptographer.h in Headers */,
@@ -5081,7 +5078,6 @@
 				C5CD957A1B4D383F00F5932F /* WLExtensionMessage.h in Headers */,
 				C587C78F1AD2E6A0003E7647 /* NSString+MD5.h in Headers */,
 				C587C7E61AD2E6A0003E7647 /* SupportHeaders.h in Headers */,
-				C5B93D471B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.h in Headers */,
 				C587C7971AD2E6A0003E7647 /* UIImage+RoundedCorner.h in Headers */,
 				C5B93D5E1B4E8B7F005681DB /* NSOrderedSet+WLCollection.h in Headers */,
 				C587C7E11AD2E6A0003E7647 /* WLSession.h in Headers */,
@@ -5940,7 +5936,6 @@
 				C56F6A8D1B78D6EB00660DF1 /* PNData.m in Sources */,
 				C54186B01B4561A700F83889 /* PubNub+SharedInstance.m in Sources */,
 				C54AF4D119B8C437006F7EDB /* WLSeparatorView.m in Sources */,
-				5BA60C601A8257ED000F795C /* ALAssetsLibrary+Additions.m in Sources */,
 				C5177C3B1B7CE578008102C7 /* WLWrapStatusImageView.m in Sources */,
 				C5AE8DB41B7B6ADA003CC6D4 /* WLEntry+LocalNotifications.m in Sources */,
 				C56F6A4D1B78D6EB00660DF1 /* PubNub+State.m in Sources */,
@@ -5997,6 +5992,7 @@
 				C56F6A5F1B78D6EB00660DF1 /* PNAcknowledgmentStatus.m in Sources */,
 				C54731AF1B906A7400B583FD /* WLEditAvatarViewController.m in Sources */,
 				5BA60CE41A8257ED000F795C /* UITextView+Aditions.m in Sources */,
+				5BBF6F631B95B77D004A79BF /* PHPhotoLibrary+Helper.m in Sources */,
 				C56F6AAF1B78D6EB00660DF1 /* PNPresenceHereNowParser.m in Sources */,
 				C515055819F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C5D051C21A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
@@ -6209,7 +6205,6 @@
 				C5177C3C1B7CE578008102C7 /* WLWrapStatusImageView.m in Sources */,
 				C5AE8DB51B7B6ADA003CC6D4 /* WLEntry+LocalNotifications.m in Sources */,
 				C56F6A4E1B78D6EB00660DF1 /* PubNub+State.m in Sources */,
-				5BA60C621A8257ED000F795C /* ALAssetsLibrary+Additions.m in Sources */,
 				5BD303451B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */,
 				C541868D1B4560E300F83889 /* DDASLLogger.m in Sources */,
 				C56F6A741B78D6EB00660DF1 /* PNPresenceChannelHereNowResult.m in Sources */,
@@ -6262,6 +6257,7 @@
 				C56F6A601B78D6EB00660DF1 /* PNAcknowledgmentStatus.m in Sources */,
 				C54731B01B906A7400B583FD /* WLEditAvatarViewController.m in Sources */,
 				5BA60CE61A8257ED000F795C /* UITextView+Aditions.m in Sources */,
+				5BBF6F641B95B77D004A79BF /* PHPhotoLibrary+Helper.m in Sources */,
 				C56F6AB01B78D6EB00660DF1 /* PNPresenceHereNowParser.m in Sources */,
 				C515055A19F0195400BF4D82 /* WLBlurredView.m in Sources */,
 				C5D051C41A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
@@ -6323,6 +6319,7 @@
 				C587C8D71AD2E708003E7647 /* LogFile.m in Sources */,
 				C587C88E1AD2E6DB003E7647 /* WLMessage.m in Sources */,
 				C587C89A1AD2E6DB003E7647 /* WLEntryManager.m in Sources */,
+				5BBF6F651B95B77D004A79BF /* PHPhotoLibrary+Helper.m in Sources */,
 				C56F6AF71B78F0C000660DF1 /* AFNetworkReachabilityManager.m in Sources */,
 				C587C8D01AD2E708003E7647 /* lecore.m in Sources */,
 				C587C8A31AD2E6DB003E7647 /* WLOperationQueue.m in Sources */,
@@ -6367,7 +6364,6 @@
 				C55B92021AFA39FE006A3A55 /* WLEntryNotifyReceiver.m in Sources */,
 				C56F6AF81B78F0C000660DF1 /* AFSecurityPolicy.m in Sources */,
 				C5CD95751B4D382E00F5932F /* WLExtensionRequest.m in Sources */,
-				C5B93D481B4E7BE8005681DB /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				C587C8581AD2E6DB003E7647 /* NSURL+WLRemoteEntryHandler.m in Sources */,
 				C5CD957B1B4D383F00F5932F /* WLExtensionMessage.m in Sources */,
 				C56F6AF51B78F0C000660DF1 /* AFHTTPRequestOperation.m in Sources */,

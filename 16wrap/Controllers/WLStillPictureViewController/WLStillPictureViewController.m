@@ -14,8 +14,9 @@
 #import "WLHintView.h"
 #import "WLWrapView.h"
 #import "WLCameraViewController.h"
-#import "ALAssetsLibrary+Additions.h"
 #import "WLSoundPlayer.h"
+
+@import Photos;
 
 @interface WLStillPictureViewController () <WLWrapPickerViewControllerDelegate, WLEntryNotifyReceiver>
 
@@ -171,13 +172,18 @@
     }, completion);
 }
 
-- (void)cropAsset:(ALAsset*)asset completion:(void (^)(UIImage *croppedImage))completion {
-    ALAssetRepresentation* r = asset.defaultRepresentation;
-    UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:(UIImageOrientation)r.orientation];
-    [self cropImage:image completion:completion];
+- (void)cropAsset:(PHAsset*)asset completion:(void (^)(UIImage *croppedImage))completion {
+    __weak __typeof(self)weakSelf = self;
+    [[PHImageManager defaultManager] requestImageForAsset:asset
+                                               targetSize:PHImageManagerMaximumSize
+                                              contentMode:PHImageContentModeAspectFill 
+                                                  options:nil
+                                            resultHandler:^(UIImage *image, NSDictionary *info) {
+        [weakSelf cropImage:image completion:completion];
+    }];
 }
 
-- (void)handleImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum{
+- (void)handleImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum{
     
 }
 
@@ -195,11 +201,11 @@
 
 // MARK: - WLCameraViewControllerDelegate
 
-- (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image metadata:(NSMutableDictionary *)metadata saveToAlbum:(BOOL)saveToAlbum {
+- (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum {
     self.view.userInteractionEnabled = NO;
     __weak typeof(self)weakSelf = self;
     [self cropImage:image completion:^(UIImage *croppedImage) {
-        [weakSelf handleImage:croppedImage metadata:metadata saveToAlbum:saveToAlbum];
+        [weakSelf handleImage:croppedImage saveToAlbum:saveToAlbum];
         weakSelf.view.userInteractionEnabled = YES;
     }];
 }

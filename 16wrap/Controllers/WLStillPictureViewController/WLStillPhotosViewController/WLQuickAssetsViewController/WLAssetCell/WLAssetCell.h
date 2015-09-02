@@ -8,16 +8,17 @@
 
 #import "WLEntryCell.h"
 
-@class ALAsset;
+@import Photos;
+
 @class WLAssetCell;
 
 @protocol WLAssetCellDelegate <NSObject>
 
-- (void)assetCell:(WLAssetCell*)cell didSelectAsset:(ALAsset*)asset;
+- (void)assetCell:(WLAssetCell*)cell didSelectAsset:(PHAsset*)asset;
 
 @optional
 
-- (BOOL)assetCell:(WLAssetCell*)cell isSelectedAsset:(ALAsset*)asset;
+- (BOOL)assetCell:(WLAssetCell*)cell isSelectedAsset:(PHAsset*)asset;
 
 - (BOOL)assetCellAllowsMultipleSelection:(WLAssetCell*)cell;
 

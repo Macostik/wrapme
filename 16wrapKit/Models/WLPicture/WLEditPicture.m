@@ -9,7 +9,6 @@
 #import "WLEditPicture.h"
 #import "WLImageCache.h"
 #import "UIImage+Resize.h"
-#import "ALAssetsLibrary+Additions.h"
 #import "WLImageFetcher.h"
 #import "UIImage+Drawing.h"
 #import "WLAPIRequest.h"

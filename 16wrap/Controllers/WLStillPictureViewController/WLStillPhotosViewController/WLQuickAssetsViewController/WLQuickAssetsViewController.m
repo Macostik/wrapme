@@ -9,13 +9,14 @@
 #import "WLQuickAssetsViewController.h"
 #import "WLBasicDataSource.h"
 #import "WLAssetCell.h"
-#import "ALAssetsLibrary+Additions.h"
 #import "WLToast.h"
 #import "UIButton+Additions.h"
 #import "WLCollections.h"
 #import "WLWrapView.h"
 
-@interface WLQuickAssetsViewController () <WLAssetCellDelegate>
+@import Photos;
+
+@interface WLQuickAssetsViewController () <WLAssetCellDelegate, PHPhotoLibraryChangeObserver>
 
 @property (strong, nonatomic) NSArray *assets;
 @property (strong, nonatomic) NSMutableArray *selectedAssets;
@@ -29,6 +30,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
 }
 
 - (void)viewDidLoad {
@@ -51,11 +53,7 @@
         return CGSizeMake(size, size);
     }];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(assetsLibraryChanged:)
-                                                 name:ALAssetsLibraryChangedNotification
-                                               object:nil];
+    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self]; 
 }
 
 - (NSMutableArray *)selectedAssets {
@@ -70,34 +68,26 @@
     self.dataSource.items = assets;
 }
 
-- (void)assetsLibraryChanged:(NSNotification*)notifiection {
-    [self performSelectorOnMainThread:@selector(loadAssets:) withObject:nil waitUntilDone:NO];
+- (void)loadAssets:(WLBlock)success {
+    NSMutableArray *assets = [NSMutableArray array];
+    PHFetchResult *fetchResult = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
+    for (PHAsset *asset in fetchResult) {
+        [assets addObject:asset];
+    }
+    self.assets = assets;
+    if (success) success();
 }
 
-- (void)loadAssets:(WLBlock)success {
-    __weak typeof(self)weakSelf = self;
-    [[ALAssetsLibrary library] enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        if (group) {
-            if (weakSelf) {
-                [group assets:^(NSArray *assets) {
-                    weakSelf.assets = assets;
-                    if (success) success();
-                }];
-            }
-            *stop = YES;
-        }
-    } failureBlock:^(NSError *error) {
-        if (error.code == ALAssetsLibraryAccessUserDeniedError ||
-            error.code == ALAssetsLibraryAccessGloballyDeniedError) {
-            weakSelf.accessErrorLabel.hidden = NO;
-        }
-    }];
+// MARK: - PHPhotoLibraryChangeObserver
+
+- (void)photoLibraryDidChange:(PHChange *)changeInstance {
+    [self performSelectorOnMainThread:@selector(loadAssets:) withObject:nil waitUntilDone:NO];
 }
 
 #pragma mark - PGAssetCellDelegate
 
-- (void)selectAsset:(ALAsset *)asset {
-    NSString *identifier = asset.ID;
+- (void)selectAsset:(PHAsset *)asset {
+    NSString *identifier = asset.localIdentifier;
     if ([self.selectedAssets containsObject:identifier]) {
         [self.selectedAssets removeObject:identifier];
         if ([self.delegate respondsToSelector:@selector(quickAssetsViewController:didDeselectAsset:)]) {
@@ -110,7 +100,7 @@
             shouldSelect = [self.delegate quickAssetsViewController:self shouldSelectAsset:asset];
         }
         if (shouldSelect) {
-            [self.selectedAssets addObject:asset.ID];
+            [self.selectedAssets addObject:asset.localIdentifier];
             if ([self.delegate respondsToSelector:@selector(quickAssetsViewController:didSelectAsset:)]) {
                 [self.delegate quickAssetsViewController:self didSelectAsset:asset];
             }
@@ -119,12 +109,12 @@
     }
 }
 
-- (void)assetCell:(WLAssetCell *)cell didSelectAsset:(ALAsset *)asset {
+- (void)assetCell:(WLAssetCell *)cell didSelectAsset:(PHAsset *)asset {
     [self selectAsset:asset];
 }
 
-- (BOOL)assetCell:(WLAssetCell *)cell isSelectedAsset:(ALAsset *)asset {
-    return [self.selectedAssets containsObject:asset.ID];
+- (BOOL)assetCell:(WLAssetCell *)cell isSelectedAsset:(PHAsset *)asset {
+    return [self.selectedAssets containsObject:asset.localIdentifier];
 }
 
 - (BOOL)assetCellAllowsMultipleSelection:(WLAssetCell *)cell {

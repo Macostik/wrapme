@@ -14,10 +14,11 @@
 #import "UIImage+Drawing.h"
 #import "WLUploadingQueue.h"
 #import "NSError+WLAPIManager.h"
-#import "ALAssetsLibrary+Additions.h"
 #import "WLBlockImageFetching.h"
 #import "WLEditPicture.h"
 #import "WLEntry+WLAPIRequest.h"
+
+@import Photos;
 
 @implementation WLCandy (Extended)
 
@@ -121,8 +122,8 @@
 
 - (void)download:(WLBlock)success failure:(WLFailureBlock)failure {
     
-    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
-    if (status == ALAuthorizationStatusDenied) {
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusDenied) {
         if (failure) failure(WLError(WLLS(@"downloading_privacy_settings")));
         return;
     }

@@ -8,11 +8,11 @@
 
 #import "WLSettingsViewController.h"
 #import "WLNavigationHelper.h"
-#import "ALAssetsLibrary+Additions.h"
 #import "WLToast.h"
 #import "WLButton.h"
 #import "WLAlertView.h"
 #import "WLNotificationCenter.h"
+#import "PHPhotoLibrary+Helper.h"
 
 @interface WLSettingsViewController ()
 
@@ -39,7 +39,7 @@
 }
 
 - (IBAction)addDemoImages:(id)sender {
-    [ALAssetsLibrary addDemoImages:5];
+    [self addDemoImageWithCount:5];
     [WLToast showWithMessage:@"5 demo images will be added to Photos"];
 }
 
@@ -55,5 +55,20 @@
     currentUser.wraps = [NSSet set];
     [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
 }
+
+- (void)addDemoImageWithCount:(NSUInteger)count {
+    if (count == 0) return;
+    
+    NSString* stringUrl = count % 2 == 0 ? @"https://placeimg.com/640/1136/any" : @"https://placeimg.com/1136/640/any";
+    __weak __typeof(self)weakSelf = self;
+    NSString *titleAlbum = @"test album";
+    NSURL *url = [NSURL URLWithString:stringUrl];
+    [PHPhotoLibrary addNewAssetWithImageAtFileUrl:url
+                       toAssetCollectionWithTitle:titleAlbum
+                                completionHandler:^(BOOL success, NSError *error) {
+                                    if  (success) [weakSelf addDemoImageWithCount:count - 1];
+                                }];
+}
+
 
 @end

@@ -10,13 +10,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Resize.h"
-#import "NSMutableDictionary+ImageMetadata.h"
 #import "UIButton+Additions.h"
 #import "WLFlashModeControl.h"
 #import "WLCameraAdjustmentView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceOrientationBroadcaster.h"
-#import "ALAssetsLibrary+Additions.h"
 #import "WLToast.h"
 #import "WLWrapView.h"
 #import "WLQuickAssetsViewController.h"
@@ -183,8 +181,8 @@
     }];
     
     [self captureImage:^{
-    } result:^(UIImage *image, NSMutableDictionary *metadata) {
-        [weakSelf finishWithImage:image metadata:metadata];
+    } result:^(UIImage *image) {
+        [weakSelf finishWithImage:image];
         weakSelf.view.userInteractionEnabled = YES;
         run_after(0.5f, ^{
             sender.active = YES;
@@ -250,8 +248,8 @@
     }];
 }
 
-- (void)finishWithImage:(UIImage*)image metadata:(NSMutableDictionary*)metadata {
-    [self.delegate cameraViewController:self didFinishWithImage:image metadata:metadata saveToAlbum:YES];
+- (void)finishWithImage:(UIImage*)image {
+    [self.delegate cameraViewController:self didFinishWithImage:image saveToAlbum:YES];
 }
 
 - (IBAction)flashModeChanged:(WLFlashModeControl *)sender {
@@ -319,7 +317,7 @@
         return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
     }, ^ (UIImage* image) {
         if (image) {
-            [weakSelf.delegate cameraViewController:weakSelf didFinishWithImage:image metadata:nil saveToAlbum:NO];
+            [weakSelf.delegate cameraViewController:weakSelf didFinishWithImage:image saveToAlbum:NO];
         }
         weakSelf.takePhotoButton.active = YES;
     });
@@ -426,7 +424,7 @@
     return _connection;
 }
 
-- (void)captureImage:(WLBlock)completion result:(void (^)(UIImage*image, NSMutableDictionary* metadata))result failure:(WLFailureBlock)failure {
+- (void)captureImage:(WLBlock)completion result:(void (^)(UIImage*image))result failure:(WLFailureBlock)failure {
 #if TARGET_IPHONE_SIMULATOR
 	run_getting_object(^id{
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
@@ -436,7 +434,7 @@
 	}, ^ (UIImage* image) {
         if (image) {
             if (completion) completion();
-            if (result) result(image, nil);
+            if (result) result(image);
         } else {
             if (failure) failure(nil);
         }
@@ -448,9 +446,8 @@
 		if (!error) {
             if (completion) completion();
             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
-            NSMutableDictionary* metadata = [[NSMutableDictionary alloc] initWithImageSampleBuffer:buffer];
             UIImage* image = [[UIImage alloc] initWithData:imageData];
-            if (result) result(image, metadata);
+            if (result) result(image);
         } else {
             if (failure) failure(error);
         }

@@ -1345,7 +1345,6 @@
 		C50647601ABD868800CB4BE3 /* ExtensionsPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsPrefixHeader.pch; sourceTree = "<group>"; };
 		C50647681ABD889100CB4BE3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C509E2B81B96F46A003F6C21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
-		C509E2BB1B96F4B6003F6C21 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
 		C509E2BC1B96F4B8003F6C21 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
 		C5111D371AB345D10094275C /* WLIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIntroductionViewController.h; sourceTree = "<group>"; };
 		C5111D381AB345D10094275C /* WLIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIntroductionViewController.m; sourceTree = "<group>"; };
@@ -1973,22 +1972,16 @@
 		C5BCF0421B551C3E00E4AD6D /* WLCandyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCandyCell.h; sourceTree = "<group>"; };
 		C5BCF0431B551C3E00E4AD6D /* WLCandyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCandyCell.m; sourceTree = "<group>"; };
 		C5BEC38E1B8F129100499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
-		C5BEC3901B8F129300499EEA /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
 		C5BEC3911B8F129400499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
 		C5BEC3951B8F129B00499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/logo_and_caption_white@3x.png"; sourceTree = "<group>"; };
-		C5BEC3971B8F129D00499EEA /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/logo_and_caption_white@3x.png"; sourceTree = "<group>"; };
 		C5BEC3991B8F129F00499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_white@3x.png"; sourceTree = "<group>"; };
 		C5BEC39B1B8F16E800499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/logo_and_caption_orange.png; sourceTree = "<group>"; };
 		C5BEC39D1B8F16E800499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/logo_and_caption_orange@2x.png"; sourceTree = "<group>"; };
 		C5BEC39F1B8F16E800499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/logo_and_caption_white.png; sourceTree = "<group>"; };
 		C5BEC3A11B8F16E800499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/logo_and_caption_white@2x.png"; sourceTree = "<group>"; };
-		C5BEC3AA1B8F16F400499EEA /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/logo_and_caption_orange.png; sourceTree = "<group>"; };
 		C5BEC3AC1B8F16F900499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_orange.png"; sourceTree = "<group>"; };
-		C5BEC3AD1B8F16FC00499EEA /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/logo_and_caption_orange@2x.png"; sourceTree = "<group>"; };
 		C5BEC3AF1B8F170000499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_orange@2x.png"; sourceTree = "<group>"; };
-		C5BEC3B01B8F170300499EEA /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/logo_and_caption_white.png; sourceTree = "<group>"; };
 		C5BEC3B21B8F170700499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_white.png"; sourceTree = "<group>"; };
-		C5BEC3B31B8F170900499EEA /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/logo_and_caption_white@2x.png"; sourceTree = "<group>"; };
 		C5BEC3B51B8F170D00499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_white@2x.png"; sourceTree = "<group>"; };
 		C5BEC3B61B8F17B300499EEA /* WLLaunchScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLLaunchScreenViewController.xib; sourceTree = "<group>"; };
 		C5BEC4171B8F1E9800499EEA /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -2070,17 +2063,11 @@
 		C5C3FE9E1B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-Portrait.png"; sourceTree = "<group>"; };
 		C5C3FEA01B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		C5C3FEA21B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/Default.png; sourceTree = "<group>"; };
-		C5C3FEB11B8F311B00F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5C3FEB21B8F311D00F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
-		C5C3FEB51B8F312400F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-736h@3x.png"; sourceTree = "<group>"; };
 		C5C3FEB61B8F312400F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-736h@3x.png"; sourceTree = "<group>"; };
-		C5C3FEB71B8F312800F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default@2x.png"; sourceTree = "<group>"; };
 		C5C3FEB81B8F312900F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default@2x.png"; sourceTree = "<group>"; };
-		C5C3FEB91B8F312C00F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-Portrait.png"; sourceTree = "<group>"; };
 		C5C3FEBA1B8F312D00F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-Portrait.png"; sourceTree = "<group>"; };
-		C5C3FEBB1B8F313000F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		C5C3FEBC1B8F313100F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
-		C5C3FEBD1B8F313500F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/Default.png; sourceTree = "<group>"; };
 		C5C3FEBE1B8F313600F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default.png"; sourceTree = "<group>"; };
 		C5C6465319A6264300F8243A /* WLWhatsUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWhatsUpCell.h; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.h; sourceTree = "<group>"; };
 		C5C6465419A6264300F8243A /* WLWhatsUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWhatsUpCell.m; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.m; sourceTree = "<group>"; };
@@ -6582,7 +6569,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C509E2B81B96F46A003F6C21 /* Base */,
-				C509E2BB1B96F4B6003F6C21 /* en */,
 				C509E2BC1B96F4B8003F6C21 /* zh-Hant */,
 			);
 			name = "Default-667h@2x.png";
@@ -6660,7 +6646,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5BEC38E1B8F129100499EEA /* Base */,
-				C5BEC3901B8F129300499EEA /* en */,
 				C5BEC3911B8F129400499EEA /* zh-Hant */,
 			);
 			name = "logo_and_caption_orange@3x.png";
@@ -6670,7 +6655,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5BEC3951B8F129B00499EEA /* Base */,
-				C5BEC3971B8F129D00499EEA /* en */,
 				C5BEC3991B8F129F00499EEA /* zh-Hant */,
 			);
 			name = "logo_and_caption_white@3x.png";
@@ -6680,7 +6664,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5BEC39B1B8F16E800499EEA /* Base */,
-				C5BEC3AA1B8F16F400499EEA /* en */,
 				C5BEC3AC1B8F16F900499EEA /* zh-Hant */,
 			);
 			name = logo_and_caption_orange.png;
@@ -6690,7 +6673,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5BEC39D1B8F16E800499EEA /* Base */,
-				C5BEC3AD1B8F16FC00499EEA /* en */,
 				C5BEC3AF1B8F170000499EEA /* zh-Hant */,
 			);
 			name = "logo_and_caption_orange@2x.png";
@@ -6700,7 +6682,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5BEC39F1B8F16E800499EEA /* Base */,
-				C5BEC3B01B8F170300499EEA /* en */,
 				C5BEC3B21B8F170700499EEA /* zh-Hant */,
 			);
 			name = logo_and_caption_white.png;
@@ -6710,7 +6691,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5BEC3A11B8F16E800499EEA /* Base */,
-				C5BEC3B31B8F170900499EEA /* en */,
 				C5BEC3B51B8F170D00499EEA /* zh-Hant */,
 			);
 			name = "logo_and_caption_white@2x.png";
@@ -6720,7 +6700,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5C3FE961B8F311500F177EC /* Base */,
-				C5C3FEB11B8F311B00F177EC /* en */,
 				C5C3FEB21B8F311D00F177EC /* zh-Hant */,
 			);
 			name = "Default-568h@2x.png";
@@ -6730,7 +6709,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5C3FE9A1B8F311500F177EC /* Base */,
-				C5C3FEB51B8F312400F177EC /* en */,
 				C5C3FEB61B8F312400F177EC /* zh-Hant */,
 			);
 			name = "Default-736h@3x.png";
@@ -6740,7 +6718,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5C3FE9C1B8F311500F177EC /* Base */,
-				C5C3FEB71B8F312800F177EC /* en */,
 				C5C3FEB81B8F312900F177EC /* zh-Hant */,
 			);
 			name = "Default@2x.png";
@@ -6750,7 +6727,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5C3FE9E1B8F311500F177EC /* Base */,
-				C5C3FEB91B8F312C00F177EC /* en */,
 				C5C3FEBA1B8F312D00F177EC /* zh-Hant */,
 			);
 			name = "Default-Portrait.png";
@@ -6760,7 +6736,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5C3FEA01B8F311500F177EC /* Base */,
-				C5C3FEBB1B8F313000F177EC /* en */,
 				C5C3FEBC1B8F313100F177EC /* zh-Hant */,
 			);
 			name = "Default-Portrait@2x.png";
@@ -6770,7 +6745,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5C3FEA21B8F311500F177EC /* Base */,
-				C5C3FEBD1B8F313500F177EC /* en */,
 				C5C3FEBE1B8F313600F177EC /* zh-Hant */,
 			);
 			name = Default.png;

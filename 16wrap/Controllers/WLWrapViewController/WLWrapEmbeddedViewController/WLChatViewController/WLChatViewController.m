@@ -181,6 +181,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)keyboardWillHide:(WLKeyboard *)keyboard {
     [super keyboardWillHide:keyboard];
     self.refresher.enabled = YES;
+    [self.layout invalidateLayout];
 }
 
 - (void)insertMessage:(WLMessage*)message {

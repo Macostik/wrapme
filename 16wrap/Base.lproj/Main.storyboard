@@ -5107,7 +5107,7 @@ QWRkEEZyaWVuZFZpZXc
                                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oLK-n9-nkS" customClass="WLCollectionView">
+                                                <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oLK-n9-nkS" customClass="WLCollectionView">
                                                     <rect key="frame" x="0.0" y="42" width="320" height="122"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.5" id="vzS-wW-abF">

@@ -400,10 +400,6 @@
 		C55908D31B18995D001CB99F /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908D51B18995D001CB99F /* WLDownloadingView.xib */; };
 		C55908E51B18B9FA001CB99F /* WLInviteHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908E91B18B9FA001CB99F /* WLInviteHintView.xib */; };
 		C55908E71B18B9FA001CB99F /* WLInviteHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908E91B18B9FA001CB99F /* WLInviteHintView.xib */; };
-		C55908EF1B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908F31B18BA01001CB99F /* WLEditWrapHintView.xib */; };
-		C55908F11B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908F31B18BA01001CB99F /* WLEditWrapHintView.xib */; };
-		C55908F91B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908FD1B18BA0B001CB99F /* WLCandySwipeHintView.xib */; };
-		C55908FB1B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908FD1B18BA0B001CB99F /* WLCandySwipeHintView.xib */; };
 		C559974A1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C55997511A262BD8003D4B29 /* WLTelephony.m in Sources */ = {isa = PBXBuildFile; fileRef = C559974F1A262BD8003D4B29 /* WLTelephony.m */; };
@@ -1506,8 +1502,6 @@
 		C559087D1B185FAC001CB99F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Introduction.strings; sourceTree = "<group>"; };
 		C55908D41B18995D001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLDownloadingView.xib; sourceTree = "<group>"; };
 		C55908E81B18B9FA001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLInviteHintView.xib; sourceTree = "<group>"; };
-		C55908F21B18BA01001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLEditWrapHintView.xib; sourceTree = "<group>"; };
-		C55908FC1B18BA0B001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLCandySwipeHintView.xib; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
 		C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		C559974E1A262BD8003D4B29 /* WLTelephony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTelephony.h; sourceTree = "<group>"; };
@@ -2036,12 +2030,6 @@
 		C5C3FE611B8F2DF500F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLInviteHintView.strings; sourceTree = "<group>"; };
 		C5C3FE621B8F2DF800F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLInviteHintView.strings; sourceTree = "<group>"; };
 		C5C3FE631B8F2DFB00F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLInviteHintView.strings"; sourceTree = "<group>"; };
-		C5C3FE641B8F2E0400F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLEditWrapHintView.strings; sourceTree = "<group>"; };
-		C5C3FE651B8F2E0600F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLEditWrapHintView.strings; sourceTree = "<group>"; };
-		C5C3FE661B8F2E0900F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLEditWrapHintView.strings"; sourceTree = "<group>"; };
-		C5C3FE671B8F2E0E00F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLCandySwipeHintView.strings; sourceTree = "<group>"; };
-		C5C3FE681B8F2E1300F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLCandySwipeHintView.strings; sourceTree = "<group>"; };
-		C5C3FE691B8F2E1600F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLCandySwipeHintView.strings"; sourceTree = "<group>"; };
 		C5C3FE6A1B8F2E1D00F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
 		C5C3FE6B1B8F2E2000F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
 		C5C3FE6C1B8F2E2300F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLHomeSwipeTransitionView.strings"; sourceTree = "<group>"; };
@@ -4086,8 +4074,6 @@
 				C568D8D41A6D491800C2333B /* WLHintView.h */,
 				C568D8D51A6D491800C2333B /* WLHintView.m */,
 				C55908E91B18B9FA001CB99F /* WLInviteHintView.xib */,
-				C55908F31B18BA01001CB99F /* WLEditWrapHintView.xib */,
-				C55908FD1B18BA0B001CB99F /* WLCandySwipeHintView.xib */,
 				5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */,
 			);
 			path = WLHintView;
@@ -5509,7 +5495,6 @@
 				5BD552131B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */,
 				C5BCF0181B551B7B00E4AD6D /* WLMessageDateView.xib in Resources */,
 				C55908E51B18B9FA001CB99F /* WLInviteHintView.xib in Resources */,
-				C55908F91B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */,
 				C54AF54119B8C437006F7EDB /* CountryCodes.json in Resources */,
 				C509E2B91B96F46A003F6C21 /* Default-667h@2x.png in Resources */,
 				5BB41F8E1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib in Resources */,
@@ -5527,7 +5512,6 @@
 				C560B1701AE6A19A0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				C5C3FEAD1B8F311500F177EC /* Default-Portrait@2x.png in Resources */,
 				5BF85BAF1B8C774C000215C9 /* icons.ttf in Resources */,
-				C55908EF1B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5578,7 +5562,6 @@
 				5BD552151B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */,
 				C5BCF01A1B551B7B00E4AD6D /* WLMessageDateView.xib in Resources */,
 				C55908E71B18B9FA001CB99F /* WLInviteHintView.xib in Resources */,
-				C55908FB1B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */,
 				C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */,
 				C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */,
 				5BB41F8F1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib in Resources */,
@@ -5596,7 +5579,6 @@
 				C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				C5C3FEAE1B8F311500F177EC /* Default-Portrait@2x.png in Resources */,
 				5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */,
-				C55908F11B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6606,28 +6588,6 @@
 				C5C3FE631B8F2DFB00F177EC /* zh-Hant */,
 			);
 			name = WLInviteHintView.xib;
-			sourceTree = "<group>";
-		};
-		C55908F31B18BA01001CB99F /* WLEditWrapHintView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C55908F21B18BA01001CB99F /* Base */,
-				C5C3FE641B8F2E0400F177EC /* en */,
-				C5C3FE651B8F2E0600F177EC /* ru */,
-				C5C3FE661B8F2E0900F177EC /* zh-Hant */,
-			);
-			name = WLEditWrapHintView.xib;
-			sourceTree = "<group>";
-		};
-		C55908FD1B18BA0B001CB99F /* WLCandySwipeHintView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C55908FC1B18BA0B001CB99F /* Base */,
-				C5C3FE671B8F2E0E00F177EC /* en */,
-				C5C3FE681B8F2E1300F177EC /* ru */,
-				C5C3FE691B8F2E1600F177EC /* zh-Hant */,
-			);
-			name = WLCandySwipeHintView.xib;
 			sourceTree = "<group>";
 		};
 		C5AE8DA61B7B350D003CC6D4 /* WLHottestWrapHeader.xib */ = {

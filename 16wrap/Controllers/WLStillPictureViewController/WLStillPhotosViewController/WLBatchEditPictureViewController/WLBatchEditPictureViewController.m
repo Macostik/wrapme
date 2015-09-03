@@ -95,13 +95,6 @@
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    if ([self.wrap isFirstCreated]) {
-        [WLHintView showEditWrapHintViewInView:[UIWindow mainWindow] withFocusToView:self.editButton];
-    }
-}
-
 - (void)setPicture:(WLEditPicture *)picture {
     _picture = picture;
     [self updatePictureData:picture];

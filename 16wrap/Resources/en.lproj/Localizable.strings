@@ -85,8 +85,8 @@
 "formatted_calendar_units_ago" = "%.f %@%@ ago";
 "at" = "at";
 "plural_ending" = "s";
-"friends_on_16wrap" = "FRIENDS ON 16wrap";
-"invite_to_16wrap" = "INVITE TO 16wrap";
+"friends_on_16wrap" = "FRIENDS ON 16WRAP";
+"invite_to_16wrap" = "INVITE TO 16WRAP";
 "APNS_TT01" = "You're invited!";
 "APNS_MSG01" = "%@ invited you to '%@'. Add your photos and watch the fun unfold!";
 "APNS_TT02" = "New photo";

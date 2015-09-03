@@ -47,8 +47,8 @@
 /* Class = "UITextField"; placeholder = "john@example.com"; ObjectID = "HvP-Ka-9z4"; */
 "HvP-Ka-9z4.placeholder" = "john@example.com";
 
-/* Class = "UILabel"; text = "You have linked this device to your 16wrap account. Enjoy!"; ObjectID = "Itw-PI-Mz8"; */
-"Itw-PI-Mz8.text" = "You have linked this device to your 16wrap account. Enjoy!";
+/* Class = "UILabel"; text = "You have linked this device to your 16wrap account."; ObjectID = "Itw-PI-Mz8"; */
+"Itw-PI-Mz8.text" = "You have linked this device to your 16wrap account.";
 
 /* Class = "UILabel"; text = "Edit your profile"; ObjectID = "JDb-jD-Zkt"; */
 "JDb-jD-Zkt.text" = "Edit your profile";

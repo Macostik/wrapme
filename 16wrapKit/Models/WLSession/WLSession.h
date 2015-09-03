@@ -42,6 +42,10 @@
 
 @property NSArray *recentEmojis;
 
+@property NSString *imageURI;
+
+@property NSString *avatarURI;
+
 - (void)setCurrentAppVersion;
 
 - (void)clear;

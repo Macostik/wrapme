@@ -35,7 +35,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    self.layer.videoGravity = AVLayerVideoGravityResizeAspect;
 }
 
 @end

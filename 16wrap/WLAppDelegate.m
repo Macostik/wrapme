@@ -149,7 +149,7 @@ static PHFetchResult *fetchResult;
     
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
     if ([authorization canAuthorize]) {
-        if ([WLAuthorizationRequest authorized]) {
+        if (![WLAuthorizationRequest requiresSignIn]) {
             WLUser *currentUser = [WLUser currentUser];
             if (currentUser) {
                 successBlock(currentUser);

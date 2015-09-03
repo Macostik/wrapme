@@ -31,11 +31,7 @@ typedef void (^WLHintViewDrawing)(CGContextRef ctx, CGRect rect);
 
 @interface WLHintView (DefinedHintViews)
 
-+ (BOOL)showCandySwipeHintView;
-
 + (BOOL)showInviteHintViewInView:(UIView *)view withFocusToView:(UIView *)target;
-
-+ (BOOL)showEditWrapHintViewInView:(UIView *)view withFocusToView:(UIView *)target;
 
 + (BOOL)showHomeSwipeTransitionHintViewInView:(UIView *)view;
 

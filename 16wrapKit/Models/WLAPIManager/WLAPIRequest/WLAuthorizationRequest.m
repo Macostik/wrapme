@@ -27,6 +27,10 @@ static BOOL authorized = NO;
     return authorized;
 }
 
++ (BOOL)requiresSignIn {
+    return !authorized || !WLSession.imageURI || !WLSession.avatarURI;
+}
+
 + (instancetype)signUp:(WLAuthorization*)authorization {
     return [[[self POST:@"users"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
@@ -79,12 +83,16 @@ static BOOL authorized = NO;
         }
 		
 		if (response.data[@"image_uri"]) {
-			WLImageURI = response.data[@"image_uri"];
-		}
+			WLSession.imageURI = response.data[@"image_uri"];
+        } else {
+            WLSession.imageURI = [WLAPIEnvironment currentEnvironment].defaultImageURI;
+        }
 		
 		if (response.data[@"avatar_uri"]) {
-			WLAvatarURI = response.data[@"avatar_uri"];
-		}
+			WLSession.avatarURI = response.data[@"avatar_uri"];
+        } else {
+            WLSession.avatarURI = [WLAPIEnvironment currentEnvironment].defaultAvatarURI;
+        }
 		
         NSDictionary* userData = [response.data dictionaryForKey:@"user"];
         

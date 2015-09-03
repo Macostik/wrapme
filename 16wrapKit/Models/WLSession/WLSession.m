@@ -243,6 +243,40 @@ static NSOrderedSet *_handledNotifications;
     [self enqueueSynchronize];
 }
 
+// MARK: - imageURI
+
+static NSString *_imageURI = nil;
+
+- (NSString *)imageURI {
+    if (!_imageURI) {
+        _imageURI = [self stringForKey:@"imageURI"];
+    }
+    return _imageURI;
+}
+
+- (void)setImageURI:(NSString *)imageURI {
+    _imageURI = imageURI;
+    [self setObject:imageURI forKey:@"imageURI"];
+    [self enqueueSynchronize];
+}
+
+// MARK: - avatarURI
+
+static NSString *_avatarURI = nil;
+
+- (NSString *)avatarURI {
+    if (!_avatarURI) {
+        _avatarURI = [self stringForKey:@"avatarURI"];
+    }
+    return _avatarURI;
+}
+
+- (void)setAvatarURI:(NSString *)avatarURI {
+    _avatarURI = avatarURI;
+    [self setObject:avatarURI forKey:@"avatarURI"];
+    [self enqueueSynchronize];
+}
+
 // MARK: - methods
 
 - (void)setCurrentAppVersion {

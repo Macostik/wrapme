@@ -126,6 +126,8 @@
 		C50646791ABD815200CB4BE3 /* WLWKCommentEventRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DC1ABD815200CB4BE3 /* WLWKCommentEventRow.m */; };
 		C50646801ABD815200CB4BE3 /* WLWKEntryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */; };
 		C50646871ABD815200CB4BE3 /* WLWKContributionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */; };
+		C509E2B91B96F46A003F6C21 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C509E2B71B96F46A003F6C21 /* Default-667h@2x.png */; };
+		C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C509E2B71B96F46A003F6C21 /* Default-667h@2x.png */; };
 		C5111D3A1AB345D10094275C /* WLIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5111D381AB345D10094275C /* WLIntroductionViewController.m */; };
 		C5111D3C1AB345D10094275C /* WLIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5111D381AB345D10094275C /* WLIntroductionViewController.m */; };
 		C514AA621A6D624900A562CE /* WLGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = C514AA601A6D624900A562CE /* WLGradientView.m */; };
@@ -400,10 +402,6 @@
 		C55908D31B18995D001CB99F /* WLDownloadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908D51B18995D001CB99F /* WLDownloadingView.xib */; };
 		C55908E51B18B9FA001CB99F /* WLInviteHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908E91B18B9FA001CB99F /* WLInviteHintView.xib */; };
 		C55908E71B18B9FA001CB99F /* WLInviteHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908E91B18B9FA001CB99F /* WLInviteHintView.xib */; };
-		C55908EF1B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908F31B18BA01001CB99F /* WLEditWrapHintView.xib */; };
-		C55908F11B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908F31B18BA01001CB99F /* WLEditWrapHintView.xib */; };
-		C55908F91B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908FD1B18BA0B001CB99F /* WLCandySwipeHintView.xib */; };
-		C55908FB1B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55908FD1B18BA0B001CB99F /* WLCandySwipeHintView.xib */; };
 		C559974A1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C55997511A262BD8003D4B29 /* WLTelephony.m in Sources */ = {isa = PBXBuildFile; fileRef = C559974F1A262BD8003D4B29 /* WLTelephony.m */; };
@@ -930,8 +928,6 @@
 		C5C2DE791B725F6B006B47F6 /* WLAuthorizationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C2DE771B725F6B006B47F6 /* WLAuthorizationRequest.m */; };
 		C5C3FEA31B8F311500F177EC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE951B8F311500F177EC /* Default-568h@2x.png */; };
 		C5C3FEA41B8F311500F177EC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE951B8F311500F177EC /* Default-568h@2x.png */; };
-		C5C3FEA51B8F311500F177EC /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE971B8F311500F177EC /* Default-667h@2x.png */; };
-		C5C3FEA61B8F311500F177EC /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE971B8F311500F177EC /* Default-667h@2x.png */; };
 		C5C3FEA71B8F311500F177EC /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE991B8F311500F177EC /* Default-736h@3x.png */; };
 		C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE991B8F311500F177EC /* Default-736h@3x.png */; };
 		C5C3FEA91B8F311500F177EC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE9B1B8F311500F177EC /* Default@2x.png */; };
@@ -1344,6 +1340,8 @@
 		C50646ED1ABD844700CB4BE3 /* 16wrapKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = 16wrapKit.h; sourceTree = "<group>"; };
 		C50647601ABD868800CB4BE3 /* ExtensionsPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsPrefixHeader.pch; sourceTree = "<group>"; };
 		C50647681ABD889100CB4BE3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C509E2B81B96F46A003F6C21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
+		C509E2BC1B96F4B8003F6C21 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
 		C5111D371AB345D10094275C /* WLIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIntroductionViewController.h; sourceTree = "<group>"; };
 		C5111D381AB345D10094275C /* WLIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIntroductionViewController.m; sourceTree = "<group>"; };
 		C51383CE19A4AB3300D23257 /* WLWhatsUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWhatsUpViewController.h; path = WLWhatsUpViewController/WLWhatsUpViewController.h; sourceTree = "<group>"; };
@@ -1491,13 +1489,6 @@
 		C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLSwipeActionView.m; path = WLTriangleView/WLSwipeActionView.m; sourceTree = "<group>"; };
 		C54FC7611A160C2000623FC1 /* WLCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLCollectionView.h; path = WLCollectionView/WLCollectionView.h; sourceTree = "<group>"; };
 		C54FC7621A160C2000623FC1 /* WLCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLCollectionView.m; path = WLCollectionView/WLCollectionView.m; sourceTree = "<group>"; };
-		C55189131B8F5E2000D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
-		C55189141B8F5E2300D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
-		C55189151B8F5E2600D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-736h@3x.png"; sourceTree = "<group>"; };
-		C55189161B8F5E2800D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = ru.lproj/Default.png; sourceTree = "<group>"; };
-		C55189171B8F5E2B00D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default@2x.png"; sourceTree = "<group>"; };
-		C55189181B8F5E2E00D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-Portrait.png"; sourceTree = "<group>"; };
-		C55189191B8F5E3000D1327E /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		C55232911ACD3F4900886437 /* CandyAPNS.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = CandyAPNS.apns; sourceTree = "<group>"; };
 		C55232921ACD3F4900886437 /* ChatAPNS.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChatAPNS.apns; sourceTree = "<group>"; };
 		C55232931ACD3F4900886437 /* WrapAPNS.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = WrapAPNS.apns; sourceTree = "<group>"; };
@@ -1511,8 +1502,6 @@
 		C559087D1B185FAC001CB99F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Introduction.strings; sourceTree = "<group>"; };
 		C55908D41B18995D001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLDownloadingView.xib; sourceTree = "<group>"; };
 		C55908E81B18B9FA001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLInviteHintView.xib; sourceTree = "<group>"; };
-		C55908F21B18BA01001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLEditWrapHintView.xib; sourceTree = "<group>"; };
-		C55908FC1B18BA0B001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLCandySwipeHintView.xib; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
 		C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		C559974E1A262BD8003D4B29 /* WLTelephony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTelephony.h; sourceTree = "<group>"; };
@@ -1975,28 +1964,16 @@
 		C5BCF0421B551C3E00E4AD6D /* WLCandyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCandyCell.h; sourceTree = "<group>"; };
 		C5BCF0431B551C3E00E4AD6D /* WLCandyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCandyCell.m; sourceTree = "<group>"; };
 		C5BEC38E1B8F129100499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
-		C5BEC3901B8F129300499EEA /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
 		C5BEC3911B8F129400499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
-		C5BEC3921B8F129700499EEA /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/logo_and_caption_orange@3x.png"; sourceTree = "<group>"; };
 		C5BEC3951B8F129B00499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/logo_and_caption_white@3x.png"; sourceTree = "<group>"; };
-		C5BEC3971B8F129D00499EEA /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/logo_and_caption_white@3x.png"; sourceTree = "<group>"; };
-		C5BEC3981B8F129E00499EEA /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/logo_and_caption_white@3x.png"; sourceTree = "<group>"; };
 		C5BEC3991B8F129F00499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_white@3x.png"; sourceTree = "<group>"; };
 		C5BEC39B1B8F16E800499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/logo_and_caption_orange.png; sourceTree = "<group>"; };
 		C5BEC39D1B8F16E800499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/logo_and_caption_orange@2x.png"; sourceTree = "<group>"; };
 		C5BEC39F1B8F16E800499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/logo_and_caption_white.png; sourceTree = "<group>"; };
 		C5BEC3A11B8F16E800499EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/logo_and_caption_white@2x.png"; sourceTree = "<group>"; };
-		C5BEC3AA1B8F16F400499EEA /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/logo_and_caption_orange.png; sourceTree = "<group>"; };
-		C5BEC3AB1B8F16F700499EEA /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = ru.lproj/logo_and_caption_orange.png; sourceTree = "<group>"; };
 		C5BEC3AC1B8F16F900499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_orange.png"; sourceTree = "<group>"; };
-		C5BEC3AD1B8F16FC00499EEA /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/logo_and_caption_orange@2x.png"; sourceTree = "<group>"; };
-		C5BEC3AE1B8F16FE00499EEA /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/logo_and_caption_orange@2x.png"; sourceTree = "<group>"; };
 		C5BEC3AF1B8F170000499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_orange@2x.png"; sourceTree = "<group>"; };
-		C5BEC3B01B8F170300499EEA /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/logo_and_caption_white.png; sourceTree = "<group>"; };
-		C5BEC3B11B8F170500499EEA /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = ru.lproj/logo_and_caption_white.png; sourceTree = "<group>"; };
 		C5BEC3B21B8F170700499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_white.png"; sourceTree = "<group>"; };
-		C5BEC3B31B8F170900499EEA /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/logo_and_caption_white@2x.png"; sourceTree = "<group>"; };
-		C5BEC3B41B8F170B00499EEA /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/logo_and_caption_white@2x.png"; sourceTree = "<group>"; };
 		C5BEC3B51B8F170D00499EEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/logo_and_caption_white@2x.png"; sourceTree = "<group>"; };
 		C5BEC3B61B8F17B300499EEA /* WLLaunchScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLLaunchScreenViewController.xib; sourceTree = "<group>"; };
 		C5BEC4171B8F1E9800499EEA /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -2051,12 +2028,6 @@
 		C5C3FE611B8F2DF500F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLInviteHintView.strings; sourceTree = "<group>"; };
 		C5C3FE621B8F2DF800F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLInviteHintView.strings; sourceTree = "<group>"; };
 		C5C3FE631B8F2DFB00F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLInviteHintView.strings"; sourceTree = "<group>"; };
-		C5C3FE641B8F2E0400F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLEditWrapHintView.strings; sourceTree = "<group>"; };
-		C5C3FE651B8F2E0600F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLEditWrapHintView.strings; sourceTree = "<group>"; };
-		C5C3FE661B8F2E0900F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLEditWrapHintView.strings"; sourceTree = "<group>"; };
-		C5C3FE671B8F2E0E00F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLCandySwipeHintView.strings; sourceTree = "<group>"; };
-		C5C3FE681B8F2E1300F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLCandySwipeHintView.strings; sourceTree = "<group>"; };
-		C5C3FE691B8F2E1600F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLCandySwipeHintView.strings"; sourceTree = "<group>"; };
 		C5C3FE6A1B8F2E1D00F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
 		C5C3FE6B1B8F2E2000F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
 		C5C3FE6C1B8F2E2300F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLHomeSwipeTransitionView.strings"; sourceTree = "<group>"; };
@@ -2073,25 +2044,16 @@
 		C5C3FE771B8F2EE300F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLConfirmView.strings; sourceTree = "<group>"; };
 		C5C3FE781B8F2EE700F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLConfirmView.strings"; sourceTree = "<group>"; };
 		C5C3FE961B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
-		C5C3FE981B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
 		C5C3FE9A1B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-736h@3x.png"; sourceTree = "<group>"; };
 		C5C3FE9C1B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default@2x.png"; sourceTree = "<group>"; };
 		C5C3FE9E1B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-Portrait.png"; sourceTree = "<group>"; };
 		C5C3FEA01B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		C5C3FEA21B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/Default.png; sourceTree = "<group>"; };
-		C5C3FEB11B8F311B00F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5C3FEB21B8F311D00F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
-		C5C3FEB31B8F312000F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
-		C5C3FEB41B8F312100F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
-		C5C3FEB51B8F312400F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-736h@3x.png"; sourceTree = "<group>"; };
 		C5C3FEB61B8F312400F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-736h@3x.png"; sourceTree = "<group>"; };
-		C5C3FEB71B8F312800F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default@2x.png"; sourceTree = "<group>"; };
 		C5C3FEB81B8F312900F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default@2x.png"; sourceTree = "<group>"; };
-		C5C3FEB91B8F312C00F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-Portrait.png"; sourceTree = "<group>"; };
 		C5C3FEBA1B8F312D00F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-Portrait.png"; sourceTree = "<group>"; };
-		C5C3FEBB1B8F313000F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		C5C3FEBC1B8F313100F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
-		C5C3FEBD1B8F313500F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/Default.png; sourceTree = "<group>"; };
 		C5C3FEBE1B8F313600F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default.png"; sourceTree = "<group>"; };
 		C5C6465319A6264300F8243A /* WLWhatsUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWhatsUpCell.h; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.h; sourceTree = "<group>"; };
 		C5C6465419A6264300F8243A /* WLWhatsUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWhatsUpCell.m; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.m; sourceTree = "<group>"; };
@@ -2605,12 +2567,12 @@
 			children = (
 				5BF85BAE1B8C774C000215C9 /* icons.ttf */,
 				C5C3FE951B8F311500F177EC /* Default-568h@2x.png */,
-				C5C3FE971B8F311500F177EC /* Default-667h@2x.png */,
 				C5C3FE991B8F311500F177EC /* Default-736h@3x.png */,
 				C5C3FEA11B8F311500F177EC /* Default.png */,
 				C5C3FE9B1B8F311500F177EC /* Default@2x.png */,
 				C5C3FE9D1B8F311500F177EC /* Default-Portrait.png */,
 				C5C3FE9F1B8F311500F177EC /* Default-Portrait@2x.png */,
+				C509E2B71B96F46A003F6C21 /* Default-667h@2x.png */,
 				C5BEC39A1B8F16E800499EEA /* logo_and_caption_orange.png */,
 				C5BEC39C1B8F16E800499EEA /* logo_and_caption_orange@2x.png */,
 				C5BEC39E1B8F16E800499EEA /* logo_and_caption_white.png */,
@@ -4110,8 +4072,6 @@
 				C568D8D41A6D491800C2333B /* WLHintView.h */,
 				C568D8D51A6D491800C2333B /* WLHintView.m */,
 				C55908E91B18B9FA001CB99F /* WLInviteHintView.xib */,
-				C55908F31B18BA01001CB99F /* WLEditWrapHintView.xib */,
-				C55908FD1B18BA0B001CB99F /* WLCandySwipeHintView.xib */,
 				5B954BAA1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib */,
 			);
 			path = WLHintView;
@@ -5493,7 +5453,6 @@
 				C5E4CCF91A1BA38B00B449F8 /* s04.wav in Resources */,
 				C5C20BDE1A239D6F008B2E2E /* WLTestUserCell.xib in Resources */,
 				5B954BAE1B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */,
-				C5C3FEA51B8F311500F177EC /* Default-667h@2x.png in Resources */,
 				C5E4CCF61A1BA38800B449F8 /* s03.wav in Resources */,
 				5BA406851A8CC52B00C1749F /* WLToast.xib in Resources */,
 				C5B8F71F1B82172D00A5E541 /* WLDrawingViewController.xib in Resources */,
@@ -5532,8 +5491,8 @@
 				5BD552131B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */,
 				C5BCF0181B551B7B00E4AD6D /* WLMessageDateView.xib in Resources */,
 				C55908E51B18B9FA001CB99F /* WLInviteHintView.xib in Resources */,
-				C55908F91B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */,
 				C54AF54119B8C437006F7EDB /* CountryCodes.json in Resources */,
+				C509E2B91B96F46A003F6C21 /* Default-667h@2x.png in Resources */,
 				5BB41F8E1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib in Resources */,
 				C5C3FEAB1B8F311500F177EC /* Default-Portrait.png in Resources */,
 				5BA130801B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
@@ -5549,7 +5508,6 @@
 				C560B1701AE6A19A0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				C5C3FEAD1B8F311500F177EC /* Default-Portrait@2x.png in Resources */,
 				5BF85BAF1B8C774C000215C9 /* icons.ttf in Resources */,
-				C55908EF1B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5562,7 +5520,6 @@
 				C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */,
 				C5C20BE01A239D6F008B2E2E /* WLTestUserCell.xib in Resources */,
 				5B954BB01B44328B00D362B5 /* WLHomeSwipeTransitionView.xib in Resources */,
-				C5C3FEA61B8F311500F177EC /* Default-667h@2x.png in Resources */,
 				C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */,
 				5BA406871A8CC52B00C1749F /* WLToast.xib in Resources */,
 				C5B8F7201B82172D00A5E541 /* WLDrawingViewController.xib in Resources */,
@@ -5601,8 +5558,8 @@
 				5BD552151B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */,
 				C5BCF01A1B551B7B00E4AD6D /* WLMessageDateView.xib in Resources */,
 				C55908E71B18B9FA001CB99F /* WLInviteHintView.xib in Resources */,
-				C55908FB1B18BA0B001CB99F /* WLCandySwipeHintView.xib in Resources */,
 				C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */,
+				C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */,
 				5BB41F8F1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib in Resources */,
 				C5C3FEAC1B8F311500F177EC /* Default-Portrait.png in Resources */,
 				5BA130821B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
@@ -5618,7 +5575,6 @@
 				C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				C5C3FEAE1B8F311500F177EC /* Default-Portrait@2x.png in Resources */,
 				5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */,
-				C55908F11B18BA01001CB99F /* WLEditWrapHintView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6587,6 +6543,15 @@
 			path = WLConfirmView;
 			sourceTree = "<group>";
 		};
+		C509E2B71B96F46A003F6C21 /* Default-667h@2x.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C509E2B81B96F46A003F6C21 /* Base */,
+				C509E2BC1B96F4B8003F6C21 /* zh-Hant */,
+			);
+			name = "Default-667h@2x.png";
+			sourceTree = "<group>";
+		};
 		C55908791B185F9D001CB99F /* Introduction.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -6621,28 +6586,6 @@
 			name = WLInviteHintView.xib;
 			sourceTree = "<group>";
 		};
-		C55908F31B18BA01001CB99F /* WLEditWrapHintView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C55908F21B18BA01001CB99F /* Base */,
-				C5C3FE641B8F2E0400F177EC /* en */,
-				C5C3FE651B8F2E0600F177EC /* ru */,
-				C5C3FE661B8F2E0900F177EC /* zh-Hant */,
-			);
-			name = WLEditWrapHintView.xib;
-			sourceTree = "<group>";
-		};
-		C55908FD1B18BA0B001CB99F /* WLCandySwipeHintView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C55908FC1B18BA0B001CB99F /* Base */,
-				C5C3FE671B8F2E0E00F177EC /* en */,
-				C5C3FE681B8F2E1300F177EC /* ru */,
-				C5C3FE691B8F2E1600F177EC /* zh-Hant */,
-			);
-			name = WLCandySwipeHintView.xib;
-			sourceTree = "<group>";
-		};
 		C5AE8DA61B7B350D003CC6D4 /* WLHottestWrapHeader.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -6659,9 +6602,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5BEC38E1B8F129100499EEA /* Base */,
-				C5BEC3901B8F129300499EEA /* en */,
 				C5BEC3911B8F129400499EEA /* zh-Hant */,
-				C5BEC3921B8F129700499EEA /* ru */,
 			);
 			name = "logo_and_caption_orange@3x.png";
 			sourceTree = "<group>";
@@ -6670,8 +6611,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5BEC3951B8F129B00499EEA /* Base */,
-				C5BEC3971B8F129D00499EEA /* en */,
-				C5BEC3981B8F129E00499EEA /* ru */,
 				C5BEC3991B8F129F00499EEA /* zh-Hant */,
 			);
 			name = "logo_and_caption_white@3x.png";
@@ -6681,8 +6620,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5BEC39B1B8F16E800499EEA /* Base */,
-				C5BEC3AA1B8F16F400499EEA /* en */,
-				C5BEC3AB1B8F16F700499EEA /* ru */,
 				C5BEC3AC1B8F16F900499EEA /* zh-Hant */,
 			);
 			name = logo_and_caption_orange.png;
@@ -6692,8 +6629,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5BEC39D1B8F16E800499EEA /* Base */,
-				C5BEC3AD1B8F16FC00499EEA /* en */,
-				C5BEC3AE1B8F16FE00499EEA /* ru */,
 				C5BEC3AF1B8F170000499EEA /* zh-Hant */,
 			);
 			name = "logo_and_caption_orange@2x.png";
@@ -6703,8 +6638,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5BEC39F1B8F16E800499EEA /* Base */,
-				C5BEC3B01B8F170300499EEA /* en */,
-				C5BEC3B11B8F170500499EEA /* ru */,
 				C5BEC3B21B8F170700499EEA /* zh-Hant */,
 			);
 			name = logo_and_caption_white.png;
@@ -6714,8 +6647,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5BEC3A11B8F16E800499EEA /* Base */,
-				C5BEC3B31B8F170900499EEA /* en */,
-				C5BEC3B41B8F170B00499EEA /* ru */,
 				C5BEC3B51B8F170D00499EEA /* zh-Hant */,
 			);
 			name = "logo_and_caption_white@2x.png";
@@ -6725,31 +6656,16 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5C3FE961B8F311500F177EC /* Base */,
-				C5C3FEB11B8F311B00F177EC /* en */,
 				C5C3FEB21B8F311D00F177EC /* zh-Hant */,
-				C55189131B8F5E2000D1327E /* ru */,
 			);
 			name = "Default-568h@2x.png";
-			sourceTree = "<group>";
-		};
-		C5C3FE971B8F311500F177EC /* Default-667h@2x.png */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C5C3FE981B8F311500F177EC /* Base */,
-				C5C3FEB31B8F312000F177EC /* en */,
-				C5C3FEB41B8F312100F177EC /* zh-Hant */,
-				C55189141B8F5E2300D1327E /* ru */,
-			);
-			name = "Default-667h@2x.png";
 			sourceTree = "<group>";
 		};
 		C5C3FE991B8F311500F177EC /* Default-736h@3x.png */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C5C3FE9A1B8F311500F177EC /* Base */,
-				C5C3FEB51B8F312400F177EC /* en */,
 				C5C3FEB61B8F312400F177EC /* zh-Hant */,
-				C55189151B8F5E2600D1327E /* ru */,
 			);
 			name = "Default-736h@3x.png";
 			sourceTree = "<group>";
@@ -6758,9 +6674,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5C3FE9C1B8F311500F177EC /* Base */,
-				C5C3FEB71B8F312800F177EC /* en */,
 				C5C3FEB81B8F312900F177EC /* zh-Hant */,
-				C55189171B8F5E2B00D1327E /* ru */,
 			);
 			name = "Default@2x.png";
 			sourceTree = "<group>";
@@ -6769,9 +6683,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5C3FE9E1B8F311500F177EC /* Base */,
-				C5C3FEB91B8F312C00F177EC /* en */,
 				C5C3FEBA1B8F312D00F177EC /* zh-Hant */,
-				C55189181B8F5E2E00D1327E /* ru */,
 			);
 			name = "Default-Portrait.png";
 			sourceTree = "<group>";
@@ -6780,9 +6692,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5C3FEA01B8F311500F177EC /* Base */,
-				C5C3FEBB1B8F313000F177EC /* en */,
 				C5C3FEBC1B8F313100F177EC /* zh-Hant */,
-				C55189191B8F5E3000D1327E /* ru */,
 			);
 			name = "Default-Portrait@2x.png";
 			sourceTree = "<group>";
@@ -6791,9 +6701,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5C3FEA21B8F311500F177EC /* Base */,
-				C5C3FEBD1B8F313500F177EC /* en */,
 				C5C3FEBE1B8F313600F177EC /* zh-Hant */,
-				C55189161B8F5E2800D1327E /* ru */,
 			);
 			name = Default.png;
 			sourceTree = "<group>";
@@ -6836,7 +6744,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Info/$(TARGET_NAME)-Info.plist";
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
@@ -6861,11 +6769,11 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
-				ENV = production;
+				ENV = qa;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "ENV=\\@\\\"$ENV\\\"";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -6874,7 +6782,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Info/$(TARGET_NAME)-Info.plist";
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -6882,370 +6790,6 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
-		};
-		5B35FF551B903FA00015FCBF /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				ENV = qa;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-					"ENV=\\@\\\"$ENV\\\"",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Info/$(TARGET_NAME)-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos;
-				USE_NEWRELIC = 0;
-			};
-			name = AdHoc;
-		};
-		5B35FF561B903FA00015FCBF /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrapQA.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				COMPRESS_PNG_FILES = NO;
-				ENV = "$(inherited)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks",
-					"~/AdobeCreativeSDK",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "16wrap/16wrap-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
-				);
-				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = 16wrapQA;
-				PROVISIONING_PROFILE = "9c76634b-87ad-4a7b-a944-b158b7fd0593";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "";
-				USE_NEWRELIC = "$(inherited)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = AdHoc;
-		};
-		5B35FF571B903FA00015FCBF /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrap.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				COMPRESS_PNG_FILES = NO;
-				ENV = "$(inherited)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks",
-					"~/AdobeCreativeSDK",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "16wrap/16wrap-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
-				);
-				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b286e308-c695-4cbd-86cd-9d87a5569689";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "";
-				USE_NEWRELIC = "$(inherited)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = AdHoc;
-		};
-		5B35FF581B903FA00015FCBF /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_USE_OPTIMIZATION_PROFILE = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = CopyProvisioningProfiles;
-			};
-			name = AdHoc;
-		};
-		5B35FF591B903FA00015FCBF /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrapQA.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				COMPRESS_PNG_FILES = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENV = "$(inherited)";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6bd2e019-f96c-4eee-80e5-62e0c8255e65";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				USE_NEWRELIC = "$(inherited)";
-			};
-			name = AdHoc;
-		};
-		5B35FF5A1B903FA00015FCBF /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrap.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				COMPRESS_PNG_FILES = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENV = "$(inherited)";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bf115a80-41a0-43a3-8b78-521b032d879b";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				USE_NEWRELIC = "$(inherited)";
-			};
-			name = AdHoc;
-		};
-		5B35FF5B1B903FA00015FCBF /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrapQA.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				COMPRESS_PNG_FILES = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENV = "$(inherited)";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "bf05bed4-2ef0-4bd8-9578-cdde499617a1";
-				SKIP_INSTALL = YES;
-				USE_NEWRELIC = "$(inherited)";
-			};
-			name = AdHoc;
-		};
-		5B35FF5C1B903FA00015FCBF /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
-				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				COMPRESS_PNG_FILES = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENV = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				IBSC_MODULE = 16wrap_Watch_Ext_QA;
-				INFOPLIST_FILE = $inherited;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c7ba02ea-dd4a-47e0-9beb-b5e20f470a73";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-				USE_NEWRELIC = "$(inherited)";
-			};
-			name = AdHoc;
-		};
-		5B35FF5D1B903FA00015FCBF /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrap.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				COMPRESS_PNG_FILES = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENV = "$(inherited)";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "d0653399-ee94-4e6d-99bf-8036b72e19e2";
-				SKIP_INSTALL = YES;
-				USE_NEWRELIC = "$(inherited)";
-			};
-			name = AdHoc;
-		};
-		5B35FF5E1B903FA00015FCBF /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
-				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
-				COMPRESS_PNG_FILES = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENV = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				IBSC_MODULE = 16wrap_Watch_Ext;
-				INFOPLIST_FILE = $inherited;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4a4e64e0-58a0-4a3f-9bdb-80b7f90a64bd";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-				USE_NEWRELIC = "$(inherited)";
-			};
-			name = AdHoc;
-		};
-		5B35FF5F1B903FA00015FCBF /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 2.4;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENV = "$(inherited)";
-				FRAMEWORK_VERSION = A;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "16wrapKit/16wrapKit-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"PROJECT_DIR=@\\\"\"$PROJECT_DIR\"\\\"\"",
-				);
-				INFOPLIST_FILE = $inherited;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = framework;
-			};
-			name = AdHoc;
-		};
-		5B35FF601B903FA00015FCBF /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "16wrapKit Tests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/16wrapQA.app/16wrap";
-			};
-			name = AdHoc;
 		};
 		5B787DA91A27876F004AE459 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -7263,7 +6807,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapTodayQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -7294,7 +6838,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapTodayQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -7324,7 +6868,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapToday-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -7354,7 +6898,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapToday-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7382,7 +6926,7 @@
 				ENV = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				IBSC_MODULE = 16wrap_Watch_Ext_QA;
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapWatchAppQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7409,7 +6953,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
 				IBSC_MODULE = 16wrap_Watch_Ext_QA;
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapWatchAppQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7437,7 +6981,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapWatchExtQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -7466,7 +7010,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapWatchExtQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7501,7 +7045,7 @@
 				GCC_PREFIX_HEADER = "16wrap/16wrap-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7544,7 +7088,7 @@
 				GCC_PREFIX_HEADER = "16wrap/16wrap-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7586,7 +7130,7 @@
 				GCC_PREFIX_HEADER = "16wrap/16wrap-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrap-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7629,7 +7173,7 @@
 				GCC_PREFIX_HEADER = "16wrap/16wrap-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrap-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -7728,7 +7272,7 @@
 				ENV = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				IBSC_MODULE = 16wrap_Watch_Ext;
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapWatchApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7755,7 +7299,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
 				IBSC_MODULE = 16wrap_Watch_Ext;
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapWatchApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7782,7 +7326,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapWatchExt-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -7811,7 +7355,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapWatchExt-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -7832,7 +7376,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 2.4;
+				DYLIB_CURRENT_VERSION = 612;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_VERSION = A;
@@ -7842,7 +7386,7 @@
 					"$(inherited)",
 					"PROJECT_DIR=@\\\"\"$PROJECT_DIR\"\\\"\"",
 				);
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -7865,13 +7409,13 @@
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 2.4;
+				DYLIB_CURRENT_VERSION = 612;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "16wrapKit/16wrapKit-Prefix.pch";
-				INFOPLIST_FILE = $inherited;
+				INFOPLIST_FILE = "Info/16wrapKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -7885,6 +7429,362 @@
 			};
 			name = Release;
 		};
+		C5C991031B9836F10006F534 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENV = qa;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "ENV=\\@\\\"$ENV\\\"";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				USE_NEWRELIC = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = AdHoc;
+		};
+		C5C991041B9836F10006F534 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrapQA.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENV = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+					"~/AdobeCreativeSDK",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "16wrap/16wrap-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "Info/16wrapQA-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
+				);
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_NAME = 16wrapQA;
+				PROVISIONING_PROFILE = "189fa146-ee5e-4517-94e0-9aa8f6bd25f8";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
+				USE_NEWRELIC = "$(inherited)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AdHoc;
+		};
+		C5C991051B9836F10006F534 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrap.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENV = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+					"~/AdobeCreativeSDK",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "16wrap/16wrap-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "Info/16wrap-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
+				);
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "08237be5-ca06-4442-a3fa-8cdbfaed6e4f";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
+				USE_NEWRELIC = "$(inherited)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AdHoc;
+		};
+		C5C991061B9836F10006F534 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				PRODUCT_NAME = CopyProvisioningProfiles;
+			};
+			name = AdHoc;
+		};
+		C5C991071B9836F10006F534 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrapQA.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Info/16wrapTodayQA-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "37012950-d853-4fbf-9c33-12dcb909bf9c";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USE_NEWRELIC = "$(inherited)";
+			};
+			name = AdHoc;
+		};
+		C5C991081B9836F10006F534 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrap.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Info/16wrapToday-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "78469d0c-1d9b-4908-9115-dfc35de8c6d9";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USE_NEWRELIC = "$(inherited)";
+			};
+			name = AdHoc;
+		};
+		C5C991091B9836F10006F534 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrapQA.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Info/16wrapWatchExtQA-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "efea2529-e3aa-4605-adc2-9312b1cd690e";
+				SKIP_INSTALL = YES;
+				USE_NEWRELIC = "$(inherited)";
+			};
+			name = AdHoc;
+		};
+		C5C9910A1B9836F10006F534 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
+				IBSC_MODULE = 16wrap_Watch_Ext_QA;
+				INFOPLIST_FILE = "Info/16wrapWatchAppQA-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "eb383f74-b6e6-4dc7-95dd-2646233918df";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				USE_NEWRELIC = "$(inherited)";
+			};
+			name = AdHoc;
+		};
+		C5C9910B1B9836F10006F534 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrap.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "Info/16wrapWatchExt-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "ad5598e1-0326-4535-9f5e-7b1d78e6f355";
+				SKIP_INSTALL = YES;
+				USE_NEWRELIC = "$(inherited)";
+			};
+			name = AdHoc;
+		};
+		C5C9910C1B9836F10006F534 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
+				COMPRESS_PNG_FILES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
+				IBSC_MODULE = 16wrap_Watch_Ext;
+				INFOPLIST_FILE = "Info/16wrapWatchApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b3795d16-85c7-491b-b7e8-276e71f86ce3";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				USE_NEWRELIC = "$(inherited)";
+			};
+			name = AdHoc;
+		};
+		C5C9910D1B9836F10006F534 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 612;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENV = "$(inherited)";
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "16wrapKit/16wrapKit-Prefix.pch";
+				INFOPLIST_FILE = "Info/16wrapKit-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = AdHoc;
+		};
+		C5C9910E1B9836F10006F534 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "16wrapKit Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)16wrap.app/16wrap";
+			};
+			name = AdHoc;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -7892,8 +7792,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				12A7A72F18DA0946008FF6F0 /* Debug */,
-				5B35FF551B903FA00015FCBF /* AdHoc */,
 				12A7A73018DA0946008FF6F0 /* Release */,
+				C5C991031B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -7902,8 +7802,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5B787DA91A27876F004AE459 /* Debug */,
-				5B35FF591B903FA00015FCBF /* AdHoc */,
 				5B787DAA1A27876F004AE459 /* Release */,
+				C5C991071B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -7912,8 +7812,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5BF1B2461A49A683000BB2C1 /* Debug */,
-				5B35FF5A1B903FA00015FCBF /* AdHoc */,
 				5BF1B2471A49A683000BB2C1 /* Release */,
+				C5C991081B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -7922,8 +7822,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C50645A31ABD7FD500CB4BE3 /* Debug */,
-				5B35FF5C1B903FA00015FCBF /* AdHoc */,
 				C50645A51ABD7FD500CB4BE3 /* Release */,
+				C5C9910A1B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -7932,8 +7832,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C50645A71ABD7FD500CB4BE3 /* Debug */,
-				5B35FF5B1B903FA00015FCBF /* AdHoc */,
 				C50645A91ABD7FD500CB4BE3 /* Release */,
+				C5C991091B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -7942,8 +7842,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54AF54E19B8C437006F7EDB /* Debug */,
-				5B35FF561B903FA00015FCBF /* AdHoc */,
 				C54AF54F19B8C437006F7EDB /* Release */,
+				C5C991041B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -7952,8 +7852,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C54AF74819B8C491006F7EDB /* Debug */,
-				5B35FF571B903FA00015FCBF /* AdHoc */,
 				C54AF74919B8C491006F7EDB /* Release */,
+				C5C991051B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -7962,8 +7862,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C55C366F1ACEB7A900C614BD /* Debug */,
-				5B35FF601B903FA00015FCBF /* AdHoc */,
 				C55C36711ACEB7A900C614BD /* Release */,
+				C5C9910E1B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -7972,8 +7872,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C56498E21ACB00D3000F1E4B /* Debug */,
-				5B35FF5E1B903FA00015FCBF /* AdHoc */,
 				C56498E41ACB00D3000F1E4B /* Release */,
+				C5C9910C1B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -7982,8 +7882,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C56498E61ACB00D3000F1E4B /* Debug */,
-				5B35FF5D1B903FA00015FCBF /* AdHoc */,
 				C56498E81ACB00D3000F1E4B /* Release */,
+				C5C9910B1B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -7992,8 +7892,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C587C7761AD2E5A9003E7647 /* Debug */,
-				5B35FF5F1B903FA00015FCBF /* AdHoc */,
 				C587C7781AD2E5A9003E7647 /* Release */,
+				C5C9910D1B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -8002,8 +7902,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C559CB721AA0BB5D00100B2C /* Debug */,
-				5B35FF581B903FA00015FCBF /* AdHoc */,
 				C559CB731AA0BB5D00100B2C /* Release */,
+				C5C991061B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

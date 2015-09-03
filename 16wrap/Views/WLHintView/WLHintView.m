@@ -101,22 +101,11 @@
 
 @implementation WLHintView (DefinedHintViews)
 
-+ (BOOL)showCandySwipeHintView {
-    return [self showHintViewFromNibNamed:@"WLCandySwipeHintView"];
-}
-
 + (BOOL)showInviteHintViewInView:(UIView *)view withFocusToView:(UIView *)target {
     return [self showHintViewFromNibNamed:@"WLInviteHintView" inView:view drawing:^(CGContextRef ctx, CGRect rect) {
         CGFloat size = MAX(target.width, target.height);
         CGRect focusRect = [view convertRect:target.bounds fromView:target];
         [self toDrawOvalInRect:CGRectMake(CGRectGetMidX(focusRect) - size/2.0f, CGRectGetMidY(focusRect) - size/2, size, size)];
-    }];
-}
-
-+ (BOOL)showEditWrapHintViewInView:(UIView *)view withFocusToView:(UIView *)target {
-    return [self showHintViewFromNibNamed:@"WLEditWrapHintView" inView:view drawing:^(CGContextRef ctx, CGRect rect) {
-        CGFloat size = MAX(target.width, target.height) + 20;
-        [self toDrawOvalInRect:CGRectMake(target.center.x - size/2.0f, target.center.y - size/2.0f, size, size)];
     }];
 }
 

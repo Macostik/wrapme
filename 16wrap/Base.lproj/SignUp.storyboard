@@ -122,7 +122,7 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="QHb-k1-ref">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="QHb-k1-ref">
                                                                 <rect key="frame" x="68" y="-4" width="64" height="64"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="64"/>
@@ -448,10 +448,10 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="DAz-0E-aDC">
-                                        <rect key="frame" x="54" y="24" width="36" height="36"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="DAz-0E-aDC">
+                                        <rect key="frame" x="42" y="15" width="55" height="55"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="55"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -461,7 +461,7 @@
                                     <constraint firstAttribute="centerY" secondItem="RCC-0D-s50" secondAttribute="centerY" constant="-10" id="Xet-At-VId"/>
                                     <constraint firstItem="DAz-0E-aDC" firstAttribute="centerY" secondItem="RCC-0D-s50" secondAttribute="centerY" id="Z5b-f3-a5z"/>
                                     <constraint firstItem="RCC-0D-s50" firstAttribute="leading" secondItem="mJg-XG-GUq" secondAttribute="leading" constant="12" id="aal-4g-Bjn"/>
-                                    <constraint firstItem="DAz-0E-aDC" firstAttribute="leading" secondItem="RCC-0D-s50" secondAttribute="trailing" constant="12" id="h4h-8D-1Gf"/>
+                                    <constraint firstItem="DAz-0E-aDC" firstAttribute="leading" secondItem="RCC-0D-s50" secondAttribute="trailing" id="h4h-8D-1Gf"/>
                                     <constraint firstAttribute="height" constant="64" id="j0f-6f-6Pt"/>
                                 </constraints>
                             </view>
@@ -717,7 +717,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16wrap will send one time SMS message to verify your phone number. Carrier SMS charges may apply." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="jGq-WB-mde" customClass="WLLabel">
-                                        <rect key="frame" x="13" y="288" width="291" height="47"/>
+                                        <rect key="frame" x="14" y="288" width="289" height="47"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -1088,7 +1088,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The passcode is required to link this device to your 16wrap account. Enter it above when you receive it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="HrT-ph-Lnj" customClass="WLLabel">
-                                        <rect key="frame" x="20" y="278" width="280" height="47"/>
+                                        <rect key="frame" x="18" y="278" width="284" height="47"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -1399,7 +1399,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have linked this device to your 16wrap account. Enjoy!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Itw-PI-Mz8" customClass="WLLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have linked this device to your 16wrap account." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Itw-PI-Mz8" customClass="WLLabel">
                                 <rect key="frame" x="12" y="271" width="296" height="46"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>

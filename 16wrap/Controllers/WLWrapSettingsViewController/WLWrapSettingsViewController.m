@@ -60,12 +60,13 @@ static NSInteger WLIndent = 12.0;
 
 - (void)addNotifyReceivers {
     __weak typeof(self)weakSelf = self;
-    
     [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
         receiver.willDeleteBlock = ^(WLWrap *wrap) {
             if (weakSelf.viewAppeared) {
                 [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-                [WLToast showMessageForUnavailableWrap:wrap];
+                if (!wrap.deletable) {
+                    [WLToast showMessageForUnavailableWrap:wrap];
+                }
             }
         };
     }];

@@ -12,10 +12,6 @@
 #import "NSBundle+Extended.h"
 #import "NSDictionary+Extended.h"
 
-NSString *WLImageURI = @"https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments";
-
-NSString *WLAvatarURI = @"https://d2rojtzyvje8rl.cloudfront.net/users/avatars";
-
 @implementation WLAPIEnvironment
 
 + (instancetype)currentEnvironment {
@@ -28,11 +24,17 @@ NSString *WLAvatarURI = @"https://d2rojtzyvje8rl.cloudfront.net/users/avatars";
 
 + (NSDictionary*)environments {
     return @{WLAPIEnvironmentLocal:@{@"endpoint":@"http://0.0.0.0:3000/api",
-                                           @"version":@"7"},
+                                     @"version":@"7",
+                                     @"default_image_uri":@"https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
+                                     @"default_avatar_uri":@"https://d2rojtzyvje8rl.cloudfront.net/users/avatars"},
              WLAPIEnvironmentQA:@{@"endpoint":@"https://qa-api.mojimojiapp.com/api",
-                                  @"version":@"7"},
+                                  @"version":@"7",
+                                  @"default_image_uri":@"https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
+                                  @"default_avatar_uri":@"https://d2rojtzyvje8rl.cloudfront.net/users/avatars"},
              WLAPIEnvironmentProduction:@{@"endpoint":@"https://prd-api.mojimojiapp.com/api",
-                                          @"version":@"7"}};
+                                          @"version":@"7",
+                                          @"default_image_uri":@"https://dhtwvi2qvu3d7.cloudfront.net/candies/image_attachments",
+                                          @"default_avatar_uri":@"https://dhtwvi2qvu3d7.cloudfront.net/users/avatars"}};
 }
 
 + (instancetype)environmentNamed:(NSString *)name {
@@ -44,6 +46,8 @@ NSString *WLAvatarURI = @"https://d2rojtzyvje8rl.cloudfront.net/users/avatars";
     environment.endpoint = dictionary[@"endpoint"];
     environment.version = dictionary[@"version"];
     environment.name = name;
+    environment.defaultImageURI = dictionary[@"default_image_uri"];
+    environment.defaultAvatarURI = dictionary[@"default_avatar_uri"];
     WLLog(@"16wrap", @"API environment initialized", dictionary);
     return environment;
 }

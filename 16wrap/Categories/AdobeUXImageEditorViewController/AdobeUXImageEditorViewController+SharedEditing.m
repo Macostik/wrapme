@@ -14,11 +14,15 @@
 
 + (void)editImage:(UIImage *)image completion:(WLImageBlock)completion cancel:(WLBlock)cancel {
     AFPhotoEditorController* aviaryController = [AdobeUXImageEditorViewController editControllerWithImage:image completion:^(UIImage *image, AdobeUXImageEditorViewController *controller) {
-        if (completion) completion(image);
         [controller.presentingViewController dismissViewControllerAnimated:NO completion:nil];
     } cancel:^(AdobeUXImageEditorViewController *controller) {
         if (cancel) cancel();
         [controller.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+    }];
+    [aviaryController enqueueHighResolutionRenderWithImage:image completion:^(UIImage *result, NSError *error) {
+        if (result) {
+            if (completion) completion(result);
+        }
     }];
     [[UIWindow mainWindow].rootViewController presentViewController:aviaryController animated:NO completion:nil];
 }

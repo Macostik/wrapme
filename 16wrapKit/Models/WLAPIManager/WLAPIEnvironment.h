@@ -12,10 +12,6 @@ static NSString* WLAPIEnvironmentLocal = @"local";
 static NSString* WLAPIEnvironmentQA = @"qa";
 static NSString* WLAPIEnvironmentProduction = @"production";
 
-extern NSString *WLImageURI;
-
-extern NSString *WLAvatarURI;
-
 @interface WLAPIEnvironment : NSObject
 
 @property (strong, nonatomic) NSString* name;
@@ -23,6 +19,10 @@ extern NSString *WLAvatarURI;
 @property (strong, nonatomic) NSString* endpoint;
 
 @property (strong, nonatomic) NSString* version;
+
+@property (strong, nonatomic) NSString* defaultImageURI;
+
+@property (strong, nonatomic) NSString* defaultAvatarURI;
 
 @property (readonly, nonatomic) BOOL isProduction;
 

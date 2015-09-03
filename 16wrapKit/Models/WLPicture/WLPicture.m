@@ -15,6 +15,7 @@
 #import "WLImageFetcher.h"
 #import "WLEntryKeys.h"
 #import "WLAPIEnvironment.h"
+#import "WLSession.h"
 
 @implementation WLPicture
 
@@ -51,16 +52,17 @@
     NSString *small = nil;
     
     if (dictionary[WLCandyURLsKey]) {
+        NSString *imageURI = WLSession.imageURI;
         NSDictionary *urls = dictionary[WLCandyURLsKey];
-        original = [self prependUrl:[urls stringForKey:WLURLOriginalKey] withUri:WLImageURI];
+        original = [self prependUrl:[urls stringForKey:WLURLOriginalKey] withUri:imageURI];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            large = [self prependUrl:[urls stringForKey:WLURLXLargeKey] withUri:WLImageURI];
-            medium = [self prependUrl:[urls stringForKey:WLURLLargeSQKey] withUri:WLImageURI];
-            small = [self prependUrl:[urls stringForKey:WLURLMediumSQKey] withUri:WLImageURI];
+            large = [self prependUrl:[urls stringForKey:WLURLXLargeKey] withUri:imageURI];
+            medium = [self prependUrl:[urls stringForKey:WLURLLargeSQKey] withUri:imageURI];
+            small = [self prependUrl:[urls stringForKey:WLURLMediumSQKey] withUri:imageURI];
         } else {
-            large = [self prependUrl:[urls stringForKey:WLURLLargeKey] withUri:WLImageURI];
-            medium = [self prependUrl:[urls stringForKey:WLURLMediumSQKey] withUri:WLImageURI];
-            small = [self prependUrl:[urls stringForKey:WLURLSmallSQKey] withUri:WLImageURI];
+            large = [self prependUrl:[urls stringForKey:WLURLLargeKey] withUri:imageURI];
+            medium = [self prependUrl:[urls stringForKey:WLURLMediumSQKey] withUri:imageURI];
+            small = [self prependUrl:[urls stringForKey:WLURLSmallSQKey] withUri:imageURI];
         }
     } else {
         original = [dictionary stringForKey:WLCandyOriginalURLKey];
@@ -88,10 +90,11 @@
     NSString *medium = nil;
     NSString *small = nil;
     if (dictionary[WLAvatarURLsKey]) {
+        NSString *avatarURI = WLSession.avatarURI;
         NSDictionary *urls = dictionary[WLAvatarURLsKey];
-        large = [self prependUrl:[urls stringForKey:WLURLLargeKey] withUri:WLAvatarURI];
-        medium = [self prependUrl:[urls stringForKey:WLURLMediumKey] withUri:WLAvatarURI];
-        small = [self prependUrl:[urls stringForKey:WLURLSmallKey] withUri:WLAvatarURI];
+        large = [self prependUrl:[urls stringForKey:WLURLLargeKey] withUri:avatarURI];
+        medium = [self prependUrl:[urls stringForKey:WLURLMediumKey] withUri:avatarURI];
+        small = [self prependUrl:[urls stringForKey:WLURLSmallKey] withUri:avatarURI];
     } else {
         large = [dictionary stringForKey:WLLargeAvatarKey];
         medium = [dictionary stringForKey:WLMediumAvatarKey];
@@ -109,10 +112,11 @@
     NSString *medium = nil;
     NSString *small = nil;
     if (dictionary[WLAvatarURLsKey]) {
+        NSString *avatarURI = WLSession.avatarURI;
         NSDictionary *urls = dictionary[WLAvatarURLsKey];
-        large = [self prependUrl:[urls stringForKey:WLURLLargeKey] withUri:WLAvatarURI];
-        medium = [self prependUrl:[urls stringForKey:WLURLMediumKey] withUri:WLAvatarURI];
-        small = [self prependUrl:[urls stringForKey:WLURLSmallKey] withUri:WLAvatarURI];
+        large = [self prependUrl:[urls stringForKey:WLURLLargeKey] withUri:avatarURI];
+        medium = [self prependUrl:[urls stringForKey:WLURLMediumKey] withUri:avatarURI];
+        small = [self prependUrl:[urls stringForKey:WLURLSmallKey] withUri:avatarURI];
     } else {
         large = [dictionary stringForKey:WLContributorLargeAvatarKey];
         medium = [dictionary stringForKey:WLContributorMediumAvatarKey];

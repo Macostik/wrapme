@@ -14,6 +14,8 @@
 
 + (BOOL)authorized;
 
++ (BOOL)requiresSignIn;
+
 + (instancetype)signUp:(WLAuthorization*)authorization;
 
 + (instancetype)activation:(WLAuthorization*)authorization;

@@ -1985,6 +1985,8 @@
 		C5BEE0E51B2AC8C300D3CF70 /* WLNotificationSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationSubscription.m; sourceTree = "<group>"; };
 		C5BFE4CD1B4FD930004B655E /* WLWrapEmbeddedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapEmbeddedViewController.h; sourceTree = "<group>"; };
 		C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapEmbeddedViewController.m; sourceTree = "<group>"; };
+		C5C0AF9B1B997D2000B8B242 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
+		C5C0AF9C1B997D2100B8B242 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5C20B8D1A238AE7008B2E2E /* WLValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLValidation.h; path = WLValidation/WLValidation.h; sourceTree = "<group>"; };
 		C5C20B8E1A238AE7008B2E2E /* WLValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLValidation.m; path = WLValidation/WLValidation.m; sourceTree = "<group>"; };
 		C5C20B931A238B3D008B2E2E /* WLValidationGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLValidationGroup.h; path = WLValidation/WLValidationGroup.h; sourceTree = "<group>"; };
@@ -6661,6 +6663,8 @@
 			children = (
 				C5C3FE961B8F311500F177EC /* Base */,
 				C5C3FEB21B8F311D00F177EC /* zh-Hant */,
+				C5C0AF9B1B997D2000B8B242 /* en */,
+				C5C0AF9C1B997D2100B8B242 /* ru */,
 			);
 			name = "Default-568h@2x.png";
 			sourceTree = "<group>";

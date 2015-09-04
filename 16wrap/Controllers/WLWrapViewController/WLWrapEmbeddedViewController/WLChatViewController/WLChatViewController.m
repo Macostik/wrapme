@@ -27,7 +27,6 @@
 #import "WLToast.h"
 #import "WLBadgeLabel.h"
 #import "WLMessagesCounter.h"
-#import "StreamView.h"
 #import "PlaceholderView.h"
 
 CGFloat WLMaxTextViewWidth;
@@ -106,25 +105,25 @@ CGFloat WLMaxTextViewWidth;
     
     self.placeholderMetrics = [StreamMetrics metrics:^(StreamMetrics *metrics) {
         metrics.identifier = @"NoMessagePlaceholderView";
-        [metrics setPrepareAppearingBlock:^(StreamItem *item, id entry) {
+        [metrics setPrepareAppearing:^(StreamItem *item, id entry) {
             PlaceholderView *placeholderView = (id)item.view;
             placeholderView.textLabel.text = [NSString stringWithFormat:WLLS(@"no_chat_message"), weakSelf.wrap.name];
         }];
-        metrics.finalizeAppearingBlock = ^(StreamItem *item, WLMessage *message) {
+        metrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
             [[item.view layer] setGeometryFlipped:streamView.layer.geometryFlipped];
         };
     }];
     
-    self.typingViewMetrics.finalizeAppearingBlock = self.unreadMessagesMetrics.finalizeAppearingBlock = self.dateMetrics.finalizeAppearingBlock = ^(StreamItem *item, WLMessage *message) {
+    self.typingViewMetrics.finalizeAppearing = self.unreadMessagesMetrics.finalizeAppearing = self.dateMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
         [[item.view layer] setGeometryFlipped:streamView.layer.geometryFlipped];
         item.view.backgroundColor = [weakSelf backgroundColorForMessage:message];
     };
     
-    self.myMessageMetrics.prepareAppearingBlock = self.messageMetrics.prepareAppearingBlock = ^(StreamItem *item, WLMessage *message) {
+    self.myMessageMetrics.prepareAppearing = self.messageMetrics.prepareAppearing = ^(StreamItem *item, WLMessage *message) {
         [(WLMessageCell*)item.view setShowName:[weakSelf.chat.messagesWithName containsObject:message]];
     };
     
-    self.myMessageMetrics.finalizeAppearingBlock = self.messageMetrics.finalizeAppearingBlock = ^(StreamItem *item, WLMessage *message) {
+    self.myMessageMetrics.finalizeAppearing = self.messageMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
         [[item.view layer] setGeometryFlipped:streamView.layer.geometryFlipped];
         if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
             [weakSelf.chat.readMessages addObject:message];
@@ -132,11 +131,11 @@ CGFloat WLMaxTextViewWidth;
         item.view.backgroundColor = [weakSelf backgroundColorForMessage:message];
     };
     
-    [self.loadingViewMetrics setHiddenBlock:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
+    [self.loadingViewMetrics setHiddenAt:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
         return weakSelf.chat.completed;
     }];
     
-    [self.loadingViewMetrics setFinalizeAppearingBlock:^(StreamItem *item, id entry) {
+    [self.loadingViewMetrics setFinalizeAppearing:^(StreamItem *item, id entry) {
         WLLoadingView *loadingView = (id)item.view;
         if (weakSelf.chat.wrap) {
             loadingView.error = NO;
@@ -148,17 +147,17 @@ CGFloat WLMaxTextViewWidth;
         }
     }];
     
-    [self.typingViewMetrics setSizeBlock:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+    [self.typingViewMetrics setSizeAt:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
         return [weakSelf heightOfTypingCell:weakSelf.chat];
     }];
     
-    [self.typingViewMetrics setFinalizeAppearingBlock:^(StreamItem *item, id entry) {
+    [self.typingViewMetrics setFinalizeAppearing:^(StreamItem *item, id entry) {
         [(WLTypingView*)item.view updateWithChat:weakSelf.chat];
     }];
     
     WLMaxTextViewWidth = WLConstants.screenWidth - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
     
-    self.messageMetrics.sizeBlock = self.myMessageMetrics.sizeBlock = ^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+    self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
         WLMessage *message = [weakSelf.chat.entries tryAt:index.item];
         return [weakSelf heightOfMessageCell:message];
     };

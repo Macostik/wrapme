@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StreamMetrics.h"
+
+@class StreamMetrics;
 
 @interface StreamReusableView : UIView
 
 @property (strong, nonatomic) id entry;
-
-@property (strong, nonatomic) WLObjectBlock selectionBlock;
 
 @property (strong, nonatomic) StreamMetrics *metrics;
 

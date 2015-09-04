@@ -23,7 +23,7 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UzK-MR-YWi" customClass="StreamView">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UzK-MR-YWi" customClass="StreamView" customModule="wrap">
                     <rect key="frame" x="0.0" y="42" width="320" height="122"/>
                     <connections>
                         <outlet property="delegate" destination="QI5-mP-o5y" id="ORf-EP-vDW"/>
@@ -64,12 +64,12 @@
                 <outletCollection property="metrics" destination="YAB-b5-OEH" collectionClass="NSMutableArray" id="mNw-JF-rXs"/>
             </connections>
         </customObject>
-        <customObject id="Qco-WM-l1J" customClass="GridLayout">
+        <customObject id="Qco-WM-l1J" customClass="GridLayout" customModule="wrap">
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="YES"/>
             </userDefinedRuntimeAttributes>
         </customObject>
-        <customObject id="YAB-b5-OEH" customClass="GridMetrics">
+        <customObject id="YAB-b5-OEH" customClass="GridMetrics" customModule="wrap">
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLCandyCell"/>
                 <userDefinedRuntimeAttribute type="number" keyPath="ratio">

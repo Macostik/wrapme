@@ -11,7 +11,6 @@
 @implementation StreamReusableView
 
 @synthesize entry = _entry;
-@synthesize selectionBlock = _selectionBlock;
 
 - (void)setEntry:(id)entry {
     _entry = entry;

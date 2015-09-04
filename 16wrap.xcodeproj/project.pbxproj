@@ -196,6 +196,10 @@
 		C54086A41AD29C78007E0D12 /* CandyAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232911ACD3F4900886437 /* CandyAPNS.apns */; };
 		C54086A51AD29C78007E0D12 /* CommentAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C50645E61ABD815200CB4BE3 /* CommentAPNS.apns */; };
 		C54086A61AD29C78007E0D12 /* ChatAPNS.apns in Resources */ = {isa = PBXBuildFile; fileRef = C55232921ACD3F4900886437 /* ChatAPNS.apns */; };
+		C540C0EF1B988BF700F880C9 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0EE1B988BF700F880C9 /* GridLayout.swift */; };
+		C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0EE1B988BF700F880C9 /* GridLayout.swift */; };
+		C540C0F21B988BFD00F880C9 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0F11B988BFD00F880C9 /* StreamItem.swift */; };
+		C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0F11B988BFD00F880C9 /* StreamItem.swift */; };
 		C54186771B4560E300F83889 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C541865B1B4560E300F83889 /* CLIColor.m */; };
 		C54186791B4560E300F83889 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C541865B1B4560E300F83889 /* CLIColor.m */; };
 		C54186811B4560E300F83889 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C541865F1B4560E300F83889 /* DDAbstractDatabaseLogger.m */; };
@@ -268,7 +272,6 @@
 		C54AF45C19B8C437006F7EDB /* WLRefresher.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A6BFAB18F2AE7700AE3B62 /* WLRefresher.m */; };
 		C54AF46119B8C437006F7EDB /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
 		C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
-		C54AF46919B8C437006F7EDB /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
 		C54AF46F19B8C437006F7EDB /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		C54AF47319B8C437006F7EDB /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C54AF48019B8C437006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
@@ -276,7 +279,6 @@
 		C54AF48A19B8C437006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
 		C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */; };
-		C54AF49D19B8C437006F7EDB /* StreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1218E960E000BF1B96 /* StreamView.m */; };
 		C54AF4AA19B8C437006F7EDB /* WLWrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */; };
 		C54AF4AD19B8C437006F7EDB /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
 		C54AF4B119B8C437006F7EDB /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
@@ -319,7 +321,6 @@
 		C54AF65619B8C491006F7EDB /* WLRefresher.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A6BFAB18F2AE7700AE3B62 /* WLRefresher.m */; };
 		C54AF65B19B8C491006F7EDB /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
 		C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
-		C54AF66319B8C491006F7EDB /* StreamLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF0C18E960E000BF1B96 /* StreamLayout.m */; };
 		C54AF66919B8C491006F7EDB /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		C54AF66D19B8C491006F7EDB /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C54AF67A19B8C491006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
@@ -327,7 +328,6 @@
 		C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
 		C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */; };
-		C54AF69719B8C491006F7EDB /* StreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1218E960E000BF1B96 /* StreamView.m */; };
 		C54AF6A419B8C491006F7EDB /* WLWrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */; };
 		C54AF6A719B8C491006F7EDB /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
 		C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
@@ -605,6 +605,8 @@
 		C573FB901AB84AF400F1098C /* WLTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C573FB8C1AB84AF400F1098C /* WLTouchView.m */; };
 		C577C2641A4C427100ECC7E5 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C2621A4C427100ECC7E5 /* iVersion.m */; };
 		C577C2661A4C427100ECC7E5 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C577C2621A4C427100ECC7E5 /* iVersion.m */; };
+		C57E1CCA1B98930900E2303B /* StreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57E1CC91B98930900E2303B /* StreamView.swift */; };
+		C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57E1CC91B98930900E2303B /* StreamView.swift */; };
 		C581680319F169D90081F350 /* WLBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C581680119F169D90081F350 /* WLBaseViewController.m */; };
 		C581680519F169D90081F350 /* WLBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C581680119F169D90081F350 /* WLBaseViewController.m */; };
 		C583A40D1AE79DCE0024003F /* WLTestUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = C583A4051AE79DCE0024003F /* WLTestUsers.plist */; };
@@ -789,6 +791,10 @@
 		C5A28D651ACBEF2B00F0E8BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */; };
 		C5A82CD71ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
 		C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
+		C5A877C71B985814006C5226 /* GridMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A877C61B985814006C5226 /* GridMetrics.swift */; };
+		C5A877C81B985814006C5226 /* GridMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A877C61B985814006C5226 /* GridMetrics.swift */; };
+		C5A877CA1B985E8B006C5226 /* StreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A877C91B985E8B006C5226 /* StreamLayout.swift */; };
+		C5A877CB1B985E8B006C5226 /* StreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A877C91B985E8B006C5226 /* StreamLayout.swift */; };
 		C5A9CC7D1B9432920084D0F5 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */; };
 		C5A9CC7E1B9432920084D0F5 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */; };
 		C5A9CC801B9439F50084D0F5 /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC7F1B9439F50084D0F5 /* WLAssetCell.xib */; };
@@ -834,18 +840,6 @@
 		C5B5F0A11B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B5F09F1B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.m */; };
 		C5B5F0A41B5D43AA00B1FF17 /* WLAPIRequest+Defined.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B5F0A21B5D43AA00B1FF17 /* WLAPIRequest+Defined.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5B5F0A51B5D43AA00B1FF17 /* WLAPIRequest+Defined.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B5F0A31B5D43AA00B1FF17 /* WLAPIRequest+Defined.m */; };
-		C5B6810A1B83388B00BEE613 /* StreamMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681091B83388B00BEE613 /* StreamMetrics.m */; };
-		C5B6810B1B83388B00BEE613 /* StreamMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681091B83388B00BEE613 /* StreamMetrics.m */; };
-		C5B6810E1B833A1100BEE613 /* StreamIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6810D1B833A1100BEE613 /* StreamIndex.m */; };
-		C5B6810F1B833A1100BEE613 /* StreamIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6810D1B833A1100BEE613 /* StreamIndex.m */; };
-		C5B681121B833D2900BEE613 /* GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681111B833D2900BEE613 /* GridLayout.m */; };
-		C5B681131B833D2900BEE613 /* GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681111B833D2900BEE613 /* GridLayout.m */; };
-		C5B681161B833DC800BEE613 /* GridMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681151B833DC800BEE613 /* GridMetrics.m */; };
-		C5B681171B833DC800BEE613 /* GridMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681151B833DC800BEE613 /* GridMetrics.m */; };
-		C5B6811A1B83401C00BEE613 /* StreamItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681191B83401C00BEE613 /* StreamItem.m */; };
-		C5B6811B1B83401C00BEE613 /* StreamItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681191B83401C00BEE613 /* StreamItem.m */; };
-		C5B6811E1B8352E000BEE613 /* StreamReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6811D1B8352E000BEE613 /* StreamReusableView.m */; };
-		C5B6811F1B8352E000BEE613 /* StreamReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6811D1B8352E000BEE613 /* StreamReusableView.m */; };
 		C5B681221B83566B00BEE613 /* StreamDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681211B83566B00BEE613 /* StreamDataSource.m */; };
 		C5B681231B83566B00BEE613 /* StreamDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681211B83566B00BEE613 /* StreamDataSource.m */; };
 		C5B681251B835ABD00BEE613 /* WLCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B681241B835ABD00BEE613 /* WLCountryCell.xib */; };
@@ -934,6 +928,8 @@
 		C5BEE0EF1B2AC8C300D3CF70 /* WLNotificationSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BEE0E51B2AC8C300D3CF70 /* WLNotificationSubscription.m */; };
 		C5BFE4D11B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */; };
 		C5BFE4D31B4FD930004B655E /* WLWrapEmbeddedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */; };
+		C5C0AFA21B99CF1F00B8B242 /* StreamReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C0AFA11B99CF1F00B8B242 /* StreamReusableView.m */; };
+		C5C0AFA31B99CF1F00B8B242 /* StreamReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C0AFA11B99CF1F00B8B242 /* StreamReusableView.m */; };
 		C5C20B901A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
 		C5C20B921A238AE7008B2E2E /* WLValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B8E1A238AE7008B2E2E /* WLValidation.m */; };
 		C5C20B961A238B3D008B2E2E /* WLValidationGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20B941A238B3D008B2E2E /* WLValidationGroup.m */; };
@@ -976,6 +972,8 @@
 		C5C3FEAE1B8F311500F177EC /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE9F1B8F311500F177EC /* Default-Portrait@2x.png */; };
 		C5C3FEAF1B8F311500F177EC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FEA11B8F311500F177EC /* Default.png */; };
 		C5C3FEB01B8F311500F177EC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FEA11B8F311500F177EC /* Default.png */; };
+		C5C991121B9845CF0006F534 /* StreamMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C991111B9845CF0006F534 /* StreamMetrics.swift */; };
+		C5C991131B9845CF0006F534 /* StreamMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C991111B9845CF0006F534 /* StreamMetrics.swift */; };
 		C5CD95741B4D382E00F5932F /* WLExtensionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CD956F1B4D382E00F5932F /* WLExtensionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5CD95751B4D382E00F5932F /* WLExtensionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CD95701B4D382E00F5932F /* WLExtensionRequest.m */; };
 		C5CD95761B4D382E00F5932F /* WLExtensionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C5CD95721B4D382E00F5932F /* WLExtensionResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1223,10 +1221,6 @@
 		12E1104719067095007DB4AC /* WLCandyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCandyViewController.h; sourceTree = "<group>"; };
 		12E1104819067095007DB4AC /* WLCandyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCandyViewController.m; sourceTree = "<group>"; };
 		12E3DA5018E049C300DBDB79 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		12E8FF0B18E960E000BF1B96 /* StreamLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamLayout.h; sourceTree = "<group>"; };
-		12E8FF0C18E960E000BF1B96 /* StreamLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamLayout.m; sourceTree = "<group>"; };
-		12E8FF1118E960E000BF1B96 /* StreamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamView.h; sourceTree = "<group>"; };
-		12E8FF1218E960E000BF1B96 /* StreamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamView.m; sourceTree = "<group>"; };
 		12E8FF1D18E9885100BF1B96 /* WLComposeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposeBar.h; path = WLComposeBar/WLComposeBar.h; sourceTree = "<group>"; };
 		12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposeBar.m; path = WLComposeBar/WLComposeBar.m; sourceTree = "<group>"; };
 		12E8FF2518E9B33E00BF1B96 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -1437,6 +1431,8 @@
 		C53F2CB91A6EB5FA00D99741 /* PhoneFormats.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = PhoneFormats.dat; sourceTree = "<group>"; };
 		C53F2CBA1A6EB5FA00D99741 /* RMPhoneFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPhoneFormat.h; sourceTree = "<group>"; };
 		C53F2CBB1A6EB5FA00D99741 /* RMPhoneFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMPhoneFormat.m; sourceTree = "<group>"; };
+		C540C0EE1B988BF700F880C9 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
+		C540C0F11B988BFD00F880C9 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
 		C541865A1B4560E300F83889 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
 		C541865B1B4560E300F83889 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
 		C541865C1B4560E300F83889 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
@@ -1888,6 +1884,7 @@
 		C577C2621A4C427100ECC7E5 /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
 		C57B2FA21B3D69DF0065EEDF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Camera.strings; sourceTree = "<group>"; };
 		C57B2FA41B3D6A230065EEDF /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Camera.strings; sourceTree = "<group>"; };
+		C57E1CC91B98930900E2303B /* StreamView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamView.swift; sourceTree = "<group>"; };
 		C581680019F169D90081F350 /* WLBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLBaseViewController.h; path = WLBaseViewController/WLBaseViewController.h; sourceTree = "<group>"; };
 		C581680119F169D90081F350 /* WLBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBaseViewController.m; path = WLBaseViewController/WLBaseViewController.m; sourceTree = "<group>"; };
 		C583A4051AE79DCE0024003F /* WLTestUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLTestUsers.plist; sourceTree = "<group>"; };
@@ -1918,6 +1915,8 @@
 		C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C5A82CCD1ACD979B00336027 /* WLDeviceOrientationBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDeviceOrientationBroadcaster.h; sourceTree = "<group>"; };
 		C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
+		C5A877C61B985814006C5226 /* GridMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridMetrics.swift; sourceTree = "<group>"; };
+		C5A877C91B985E8B006C5226 /* StreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLayout.swift; sourceTree = "<group>"; };
 		C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		C5A9CC7F1B9439F50084D0F5 /* WLAssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAssetCell.xib; sourceTree = "<group>"; };
 		C5A9CC821B9450660084D0F5 /* WLEditPictureCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLEditPictureCell.xib; sourceTree = "<group>"; };
@@ -1955,18 +1954,6 @@
 		C5B5F09F1B5D2AF100B1FF17 /* WLPaginatedRequest+Defined.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLPaginatedRequest+Defined.m"; sourceTree = "<group>"; };
 		C5B5F0A21B5D43AA00B1FF17 /* WLAPIRequest+Defined.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLAPIRequest+Defined.h"; sourceTree = "<group>"; };
 		C5B5F0A31B5D43AA00B1FF17 /* WLAPIRequest+Defined.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLAPIRequest+Defined.m"; sourceTree = "<group>"; };
-		C5B681081B83388B00BEE613 /* StreamMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamMetrics.h; sourceTree = "<group>"; };
-		C5B681091B83388B00BEE613 /* StreamMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamMetrics.m; sourceTree = "<group>"; };
-		C5B6810C1B833A1100BEE613 /* StreamIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamIndex.h; sourceTree = "<group>"; };
-		C5B6810D1B833A1100BEE613 /* StreamIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamIndex.m; sourceTree = "<group>"; };
-		C5B681101B833D2900BEE613 /* GridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridLayout.h; sourceTree = "<group>"; };
-		C5B681111B833D2900BEE613 /* GridLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridLayout.m; sourceTree = "<group>"; };
-		C5B681141B833DC800BEE613 /* GridMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridMetrics.h; sourceTree = "<group>"; };
-		C5B681151B833DC800BEE613 /* GridMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridMetrics.m; sourceTree = "<group>"; };
-		C5B681181B83401C00BEE613 /* StreamItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamItem.h; sourceTree = "<group>"; };
-		C5B681191B83401C00BEE613 /* StreamItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamItem.m; sourceTree = "<group>"; };
-		C5B6811C1B8352E000BEE613 /* StreamReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamReusableView.h; sourceTree = "<group>"; };
-		C5B6811D1B8352E000BEE613 /* StreamReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamReusableView.m; sourceTree = "<group>"; };
 		C5B681201B83566B00BEE613 /* StreamDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamDataSource.h; sourceTree = "<group>"; };
 		C5B681211B83566B00BEE613 /* StreamDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamDataSource.m; sourceTree = "<group>"; };
 		C5B681241B835ABD00BEE613 /* WLCountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCountryCell.xib; sourceTree = "<group>"; };
@@ -2059,6 +2046,8 @@
 		C5BEE0E51B2AC8C300D3CF70 /* WLNotificationSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationSubscription.m; sourceTree = "<group>"; };
 		C5BFE4CD1B4FD930004B655E /* WLWrapEmbeddedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapEmbeddedViewController.h; sourceTree = "<group>"; };
 		C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapEmbeddedViewController.m; sourceTree = "<group>"; };
+		C5C0AFA01B99CF1F00B8B242 /* StreamReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamReusableView.h; sourceTree = "<group>"; };
+		C5C0AFA11B99CF1F00B8B242 /* StreamReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamReusableView.m; sourceTree = "<group>"; };
 		C5C20B8D1A238AE7008B2E2E /* WLValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLValidation.h; path = WLValidation/WLValidation.h; sourceTree = "<group>"; };
 		C5C20B8E1A238AE7008B2E2E /* WLValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLValidation.m; path = WLValidation/WLValidation.m; sourceTree = "<group>"; };
 		C5C20B931A238B3D008B2E2E /* WLValidationGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLValidationGroup.h; path = WLValidation/WLValidationGroup.h; sourceTree = "<group>"; };
@@ -2144,6 +2133,8 @@
 		C5C3FEBE1B8F313600F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default.png"; sourceTree = "<group>"; };
 		C5C6465319A6264300F8243A /* WLWhatsUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWhatsUpCell.h; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.h; sourceTree = "<group>"; };
 		C5C6465419A6264300F8243A /* WLWhatsUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWhatsUpCell.m; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.m; sourceTree = "<group>"; };
+		C5C991111B9845CF0006F534 /* StreamMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamMetrics.swift; sourceTree = "<group>"; };
+		C5C991141B9846110006F534 /* 16wrap-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "16wrap-Bridging-Header.h"; sourceTree = "<group>"; };
 		C5CD956F1B4D382E00F5932F /* WLExtensionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionRequest.h; sourceTree = "<group>"; };
 		C5CD95701B4D382E00F5932F /* WLExtensionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLExtensionRequest.m; sourceTree = "<group>"; };
 		C5CD95721B4D382E00F5932F /* WLExtensionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionResponse.h; sourceTree = "<group>"; };
@@ -2462,6 +2453,7 @@
 			children = (
 				12A7A70E18DA0946008FF6F0 /* main.m */,
 				12A7A71018DA0946008FF6F0 /* 16wrap-Prefix.pch */,
+				C5C991141B9846110006F534 /* 16wrap-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2690,14 +2682,10 @@
 			isa = PBXGroup;
 			children = (
 				12E8FF0818E960E000BF1B96 /* Stream Layouts */,
-				12E8FF1118E960E000BF1B96 /* StreamView.h */,
-				12E8FF1218E960E000BF1B96 /* StreamView.m */,
-				C5B681181B83401C00BEE613 /* StreamItem.h */,
-				C5B681191B83401C00BEE613 /* StreamItem.m */,
-				C5B6810C1B833A1100BEE613 /* StreamIndex.h */,
-				C5B6810D1B833A1100BEE613 /* StreamIndex.m */,
-				C5B6811C1B8352E000BEE613 /* StreamReusableView.h */,
-				C5B6811D1B8352E000BEE613 /* StreamReusableView.m */,
+				C57E1CC91B98930900E2303B /* StreamView.swift */,
+				C540C0F11B988BFD00F880C9 /* StreamItem.swift */,
+				C5C0AFA01B99CF1F00B8B242 /* StreamReusableView.h */,
+				C5C0AFA11B99CF1F00B8B242 /* StreamReusableView.m */,
 				C5B681201B83566B00BEE613 /* StreamDataSource.h */,
 				C5B681211B83566B00BEE613 /* StreamDataSource.m */,
 				C5B681271B83689100BEE613 /* PaginatedStreamDataSource.h */,
@@ -2711,14 +2699,10 @@
 		12E8FF0818E960E000BF1B96 /* Stream Layouts */ = {
 			isa = PBXGroup;
 			children = (
-				C5B681081B83388B00BEE613 /* StreamMetrics.h */,
-				C5B681091B83388B00BEE613 /* StreamMetrics.m */,
-				12E8FF0B18E960E000BF1B96 /* StreamLayout.h */,
-				12E8FF0C18E960E000BF1B96 /* StreamLayout.m */,
-				C5B681141B833DC800BEE613 /* GridMetrics.h */,
-				C5B681151B833DC800BEE613 /* GridMetrics.m */,
-				C5B681101B833D2900BEE613 /* GridLayout.h */,
-				C5B681111B833D2900BEE613 /* GridLayout.m */,
+				C5C991111B9845CF0006F534 /* StreamMetrics.swift */,
+				C5A877C61B985814006C5226 /* GridMetrics.swift */,
+				C5A877C91B985E8B006C5226 /* StreamLayout.swift */,
+				C540C0EE1B988BF700F880C9 /* GridLayout.swift */,
 			);
 			path = "Stream Layouts";
 			sourceTree = "<group>";
@@ -5389,6 +5373,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = WL;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = Ravenpod;
 				TargetAttributes = {
@@ -5870,10 +5855,8 @@
 				C56F6A991B78D6EB00660DF1 /* PNLog.m in Sources */,
 				C53E5CEF1A84D886004F61B0 /* WLWrapView.m in Sources */,
 				C5BCF00E1B551B7B00E4AD6D /* WLMessageCell.m in Sources */,
-				C5B681161B833DC800BEE613 /* GridMetrics.m in Sources */,
 				C54AF45C19B8C437006F7EDB /* WLRefresher.m in Sources */,
 				C56F6A8B1B78D6EB00660DF1 /* PNClass.m in Sources */,
-				C5B6810A1B83388B00BEE613 /* StreamMetrics.m in Sources */,
 				5BD121541B0250B500FF5FBF /* WLDownloadingView.m in Sources */,
 				C5603DD21AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C5AEE4421B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
@@ -5898,8 +5881,6 @@
 				C59EF3C21B7A215700E777BC /* WLFollowingViewController.m in Sources */,
 				C55D77E91AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
 				C5D7FE861B501CD000746908 /* WLNotification.m in Sources */,
-				C5B6811A1B83401C00BEE613 /* StreamItem.m in Sources */,
-				C54AF46919B8C437006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCA1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
 				C56F6AAD1B78D6EB00660DF1 /* PNMessagePublishParser.m in Sources */,
 				C54C56741B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
@@ -5951,6 +5932,7 @@
 				C5D051B51A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				C54AF48219B8C437006F7EDB /* main.m in Sources */,
 				C56F6A951B78D6EB00660DF1 /* PNString.m in Sources */,
+				C57E1CCA1B98930900E2303B /* StreamView.swift in Sources */,
 				C5C20BE61A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
 				C54AF48A19B8C437006F7EDB /* WLCandyViewController.m in Sources */,
 				C5C20BD61A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
@@ -5974,7 +5956,6 @@
 				C56F6AC51B78D6EB00660DF1 /* PNURLBuilder.m in Sources */,
 				C54773141A41911F004C5826 /* WLFontPresetter.m in Sources */,
 				C573FB8E1AB84AF400F1098C /* WLTouchView.m in Sources */,
-				C54AF49D19B8C437006F7EDB /* StreamView.m in Sources */,
 				C56F6A511B78D6EB00660DF1 /* PubNub+Time.m in Sources */,
 				C54186A41B4560E300F83889 /* DDDispatchQueueLogFormatter.m in Sources */,
 				C56F6ABF1B78D6EB00660DF1 /* PNNetworkResponseSerializer.m in Sources */,
@@ -5990,15 +5971,14 @@
 				C5D051C81A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
 				C560D2291AFB7703006B906E /* WLSwipeViewController.m in Sources */,
 				C54731B11B906A7400B583FD /* WLStillAvatarViewController.m in Sources */,
+				C5C0AFA21B99CF1F00B8B242 /* StreamReusableView.m in Sources */,
 				C54AF4AD19B8C437006F7EDB /* WLEmoji.m in Sources */,
 				C54731B91B906A7400B583FD /* WLQuickAssetsViewController.m in Sources */,
-				C5B681121B833D2900BEE613 /* GridLayout.m in Sources */,
-				C5B6810E1B833A1100BEE613 /* StreamIndex.m in Sources */,
 				C54AF4B119B8C437006F7EDB /* WLHomeViewController.m in Sources */,
 				C56F6A5D1B78D6EB00660DF1 /* PNConfiguration.m in Sources */,
 				C5BCF0461B551C3E00E4AD6D /* WLCandiesCell.m in Sources */,
+				C5C991121B9845CF0006F534 /* StreamMetrics.swift in Sources */,
 				C54AF4B419B8C437006F7EDB /* WLProgressBar.m in Sources */,
-				C5B6811E1B8352E000BEE613 /* StreamReusableView.m in Sources */,
 				C52E1FD91A41951300A2C370 /* WLBadgeLabel.m in Sources */,
 				5BA60CF01A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */,
 				C5C20BCE1A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
@@ -6019,14 +5999,17 @@
 				C54AF4CA19B8C437006F7EDB /* WLWrapViewController.m in Sources */,
 				C53E5D791A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
 				5B954BB71B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */,
+				C5A877C71B985814006C5226 /* GridMetrics.swift in Sources */,
 				C504178719B9EE15000E55F3 /* WLAddressBookRecordCell.m in Sources */,
 				C54186771B4560E300F83889 /* CLIColor.m in Sources */,
+				C540C0EF1B988BF700F880C9 /* GridLayout.swift in Sources */,
 				C56F6AB31B78D6EB00660DF1 /* PNPushNotificationsAuditParser.m in Sources */,
 				C56F6A751B78D6EB00660DF1 /* PNPresenceGlobalHereNowResult.m in Sources */,
 				C559974A1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */,
 				C56F6A431B78D6EB00660DF1 /* PubNub+ChannelGroup.m in Sources */,
 				C541869A1B4560E300F83889 /* DDTTYLogger.m in Sources */,
 				C56F6A8F1B78D6EB00660DF1 /* PNDictionary.m in Sources */,
+				C540C0F21B988BFD00F880C9 /* StreamItem.swift in Sources */,
 				C56F6ABD1B78D6EB00660DF1 /* PNNetwork.m in Sources */,
 				C54AF4CF19B8C437006F7EDB /* WLEditSession.m in Sources */,
 				C56F6A7B1B78D6EB00660DF1 /* PNResult.m in Sources */,
@@ -6060,6 +6043,7 @@
 				C56F6A611B78D6EB00660DF1 /* PNAPNSEnabledChannelsResult.m in Sources */,
 				C52E1FE31A41952400A2C370 /* WLTextView.m in Sources */,
 				C56F6A9F1B78D6EB00660DF1 /* PNChannelGroupAuditionParser.m in Sources */,
+				C5A877CA1B985E8B006C5226 /* StreamLayout.swift in Sources */,
 				C54AF4E319B8C437006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C5BCF01D1B551B7B00E4AD6D /* WLTypingView.m in Sources */,
 				C5EE2CE81B567A970016889E /* WLRecentCandiesView.m in Sources */,
@@ -6131,10 +6115,8 @@
 				C56F6A9A1B78D6EB00660DF1 /* PNLog.m in Sources */,
 				C54AF65619B8C491006F7EDB /* WLRefresher.m in Sources */,
 				C5BCF0101B551B7B00E4AD6D /* WLMessageCell.m in Sources */,
-				C5B681171B833DC800BEE613 /* GridMetrics.m in Sources */,
 				5BD121561B0250B500FF5FBF /* WLDownloadingView.m in Sources */,
 				C56F6A8C1B78D6EB00660DF1 /* PNClass.m in Sources */,
-				C5B6810B1B83388B00BEE613 /* StreamMetrics.m in Sources */,
 				C5603DD41AD92B0900427DEC /* WLNotificationEntryPresenter.m in Sources */,
 				C5AEE4441B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */,
 				C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */,
@@ -6159,8 +6141,6 @@
 				C59EF3C31B7A215700E777BC /* WLFollowingViewController.m in Sources */,
 				C5D7FE881B501CD000746908 /* WLNotification.m in Sources */,
 				C55D77EB1AE51BA0006FA19C /* WLRemoteEntryHandler.m in Sources */,
-				C5B6811B1B83401C00BEE613 /* StreamItem.m in Sources */,
-				C54AF66319B8C491006F7EDB /* StreamLayout.m in Sources */,
 				C5C20BCC1A239D6F008B2E2E /* WLActivationViewController.m in Sources */,
 				C56F6AAE1B78D6EB00660DF1 /* PNMessagePublishParser.m in Sources */,
 				C54C56761B1DBF5F00CA4B12 /* WLShapeView.m in Sources */,
@@ -6212,6 +6192,7 @@
 				C5D051B71A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				C54AF67C19B8C491006F7EDB /* main.m in Sources */,
 				C56F6A961B78D6EB00660DF1 /* PNString.m in Sources */,
+				C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */,
 				C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
 				C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */,
 				C5C20BD81A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
@@ -6237,7 +6218,6 @@
 				C573FB901AB84AF400F1098C /* WLTouchView.m in Sources */,
 				C54186A61B4560E300F83889 /* DDDispatchQueueLogFormatter.m in Sources */,
 				C56F6A521B78D6EB00660DF1 /* PubNub+Time.m in Sources */,
-				C54AF69719B8C491006F7EDB /* StreamView.m in Sources */,
 				C56F6AC01B78D6EB00660DF1 /* PNNetworkResponseSerializer.m in Sources */,
 				C52E1FD31A41951300A2C370 /* WLButton.m in Sources */,
 				C581680519F169D90081F350 /* WLBaseViewController.m in Sources */,
@@ -6251,15 +6231,14 @@
 				C5D051CA1A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
 				C560D22B1AFB7703006B906E /* WLSwipeViewController.m in Sources */,
 				C54731B21B906A7400B583FD /* WLStillAvatarViewController.m in Sources */,
+				C5C0AFA31B99CF1F00B8B242 /* StreamReusableView.m in Sources */,
 				C54AF6A719B8C491006F7EDB /* WLEmoji.m in Sources */,
 				C54731BA1B906A7400B583FD /* WLQuickAssetsViewController.m in Sources */,
-				C5B681131B833D2900BEE613 /* GridLayout.m in Sources */,
-				C5B6810F1B833A1100BEE613 /* StreamIndex.m in Sources */,
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
 				C56F6A5E1B78D6EB00660DF1 /* PNConfiguration.m in Sources */,
 				C5BCF0481B551C3E00E4AD6D /* WLCandiesCell.m in Sources */,
+				C5C991131B9845CF0006F534 /* StreamMetrics.swift in Sources */,
 				C54AF6AE19B8C491006F7EDB /* WLProgressBar.m in Sources */,
-				C5B6811F1B8352E000BEE613 /* StreamReusableView.m in Sources */,
 				C52E1FDB1A41951300A2C370 /* WLBadgeLabel.m in Sources */,
 				5BA60CF21A8257ED000F795C /* UIView+GestureRecognizing.m in Sources */,
 				C5C20BD01A239D6F008B2E2E /* WLSignupStepViewController.m in Sources */,
@@ -6280,14 +6259,17 @@
 				C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */,
 				C53E5D7B1A851F71004F61B0 /* WLFlashModeControl.m in Sources */,
 				5B954BB91B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */,
+				C5A877C81B985814006C5226 /* GridMetrics.swift in Sources */,
 				C504178919B9EE15000E55F3 /* WLAddressBookRecordCell.m in Sources */,
 				C54186791B4560E300F83889 /* CLIColor.m in Sources */,
+				C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */,
 				C56F6AB41B78D6EB00660DF1 /* PNPushNotificationsAuditParser.m in Sources */,
 				C56F6A761B78D6EB00660DF1 /* PNPresenceGlobalHereNowResult.m in Sources */,
 				C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */,
 				C56F6A441B78D6EB00660DF1 /* PubNub+ChannelGroup.m in Sources */,
 				C541869C1B4560E300F83889 /* DDTTYLogger.m in Sources */,
 				C56F6A901B78D6EB00660DF1 /* PNDictionary.m in Sources */,
+				C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */,
 				C56F6ABE1B78D6EB00660DF1 /* PNNetwork.m in Sources */,
 				C54AF6C919B8C491006F7EDB /* WLEditSession.m in Sources */,
 				C56F6A7C1B78D6EB00660DF1 /* PNResult.m in Sources */,
@@ -6321,6 +6303,7 @@
 				C56F6A5A1B78D6EB00660DF1 /* PNSubscriber.m in Sources */,
 				C56F6A621B78D6EB00660DF1 /* PNAPNSEnabledChannelsResult.m in Sources */,
 				C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */,
+				C5A877CB1B985E8B006C5226 /* StreamLayout.swift in Sources */,
 				C56F6AA01B78D6EB00660DF1 /* PNChannelGroupAuditionParser.m in Sources */,
 				C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C5BCF01F1B551B7B00E4AD6D /* WLTypingView.m in Sources */,
@@ -7024,12 +7007,15 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrapQA.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7051,8 +7037,12 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_MODULE_NAME = wrap;
 				PRODUCT_NAME = 16wrapQA;
 				PROVISIONING_PROFILE = "9c76634b-87ad-4a7b-a944-b158b7fd0593";
+				SWIFT_OBJC_BRIDGING_HEADER = "16wrap/16wrap-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "16wrap-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				USE_NEWRELIC = "$(inherited)";
@@ -7066,12 +7056,15 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrap.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = NO;
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7093,8 +7086,12 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_MODULE_NAME = wrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "b286e308-c695-4cbd-86cd-9d87a5569689";
+				SWIFT_OBJC_BRIDGING_HEADER = "16wrap/16wrap-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "16wrap-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				USE_NEWRELIC = "$(inherited)";
@@ -7575,12 +7572,15 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrapQA.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7602,8 +7602,12 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_MODULE_NAME = wrap;
 				PRODUCT_NAME = 16wrapQA;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "16wrap/16wrap-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "16wrap-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				USE_NEWRELIC = "$(inherited)";
@@ -7617,6 +7621,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrapQA.entitlements;
@@ -7624,6 +7629,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7645,8 +7652,11 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_MODULE_NAME = wrap;
 				PRODUCT_NAME = 16wrapQA;
 				PROVISIONING_PROFILE = "5dcdac67-bb6e-4ba9-9338-d6b43ed8833d";
+				SWIFT_OBJC_BRIDGING_HEADER = "16wrap/16wrap-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "16wrap-Swift.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				USE_NEWRELIC = "$(inherited)";
@@ -7660,12 +7670,15 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrap.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7687,8 +7700,12 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_MODULE_NAME = wrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "16wrap/16wrap-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "16wrap-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				USE_NEWRELIC = "$(inherited)";
@@ -7702,6 +7719,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/16wrap.entitlements;
@@ -7709,6 +7727,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7730,8 +7750,11 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_MODULE_NAME = wrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "56db280b-2ce7-4f9b-b1b6-e7c9c532a241";
+				SWIFT_OBJC_BRIDGING_HEADER = "16wrap/16wrap-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "16wrap-Swift.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				USE_NEWRELIC = "$(inherited)";

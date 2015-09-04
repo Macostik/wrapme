@@ -9,7 +9,6 @@
 #import "WLPresentingImageView.h"
 #import "WLNavigationHelper.h"
 #import "WLCandyCell.h"
-#import "StreamView.h"
 
 @interface WLPresentingImageView () <UIScrollViewDelegate>
 

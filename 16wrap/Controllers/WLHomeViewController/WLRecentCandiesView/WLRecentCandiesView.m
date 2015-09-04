@@ -9,7 +9,6 @@
 #import "WLRecentCandiesView.h"
 #import "StreamDataSource.h"
 #import "WLCandyCell.h"
-#import "GridMetrics.h"
 
 @interface WLRecentCandiesView ()
 

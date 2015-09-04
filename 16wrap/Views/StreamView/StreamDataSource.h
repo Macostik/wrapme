@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "StreamView.h"
-#import "GridLayout.h"
 #import "WLRefresher.h"
 
 typedef NS_ENUM(NSUInteger, ScrollDirection) {

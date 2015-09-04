@@ -23,7 +23,6 @@
 #import "WLButton.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLWrapStatusImageView.h"
-#import "StreamView.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPhotosViewControllerDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 

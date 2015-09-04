@@ -9,7 +9,6 @@
 #import "PaginatedStreamDataSource.h"
 #import "WLStreamLoadingView.h"
 #import "UIScrollView+Additions.h"
-#import "StreamLayout.h"
 
 @interface PaginatedStreamDataSource () <WLPaginatedSetDelegate>
 
@@ -30,10 +29,10 @@
     self.loaderMetrics = [self addFooterMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLStreamLoadingView";
         metrics.size = WLStreamLoadingViewDefaultSize;
-        [metrics setHiddenBlock:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
+        [metrics setHiddenAt:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
             return ![weakSelf appendable];
         }];
-        [metrics setFinalizeAppearingBlock:^(StreamItem *item, id entry) {
+        [metrics setFinalizeAppearing:^(StreamItem *item, id entry) {
             weakSelf.loadingView = (id)item.view;
             weakSelf.loadingView.error = NO;
             [weakSelf append:nil failure:^(NSError *error) {

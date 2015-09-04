@@ -82,29 +82,29 @@
     __weak typeof(self)weakSelf = self;
     
     [[homeDataSource.metrics lastObject] change:^(StreamMetrics *metrics) {
-        [metrics setSizeBlock:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+        [metrics setSizeAt:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
             return index.item == 0 ? 70 : 60;
         }];
         
-        [metrics setInsetsBlock:^CGRect(StreamIndex *index, StreamMetrics *metrics) {
+        [metrics setInsetsAt:^CGRect(StreamIndex *index, StreamMetrics *metrics) {
             return CGRectMake(0, index.item == 1 ? 5 : 0, 0, 0);
         }];
         
-        metrics.selectionBlock = ^(StreamItem *item, id entry) {
+        metrics.selection = ^(StreamItem *item, id entry) {
             [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
         };
     }];
     
     [homeDataSource addMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLRecentCandiesView";
-        [metrics setSizeBlock:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+        [metrics setSizeAt:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
             int size = (streamView.width - 2.0f)/3.0f;;
             return ([weakSelf.homeDataSource.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size) + 5;
         }];
-        [metrics setFinalizeAppearingBlock:^(StreamItem *item, id entry) {
+        [metrics setFinalizeAppearing:^(StreamItem *item, id entry) {
             weakSelf.candiesView = (id)item.view;
             StreamMetrics *metrics = [weakSelf.candiesView.dataSource.metrics firstObject];
-            [metrics setSelectionBlock:^(StreamItem *candyItem, WLCandy *candy) {
+            [metrics setSelection:^(StreamItem *candyItem, WLCandy *candy) {
                 WLCandyCell *cell = (id)candyItem.view;
                 if (candy.valid && cell.coverView.image != nil) {
                     WLHistoryViewController *historyViewController = (id)[candy viewController];
@@ -124,16 +124,16 @@
                 }
             }];
         }];
-        [metrics setHiddenBlock:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
+        [metrics setHiddenAt:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
             return index.item != 0;
         }];
     }]];
     
     [[publicDataSource.metrics lastObject] change:^(StreamMetrics *metrics) {
-        [metrics setInsetsBlock:^CGRect(StreamIndex *index, StreamMetrics *metrics) {
+        [metrics setInsetsAt:^CGRect(StreamIndex *index, StreamMetrics *metrics) {
             return CGRectMake(0, index.item == 0 ? 5 : 0, 0, 0);
         }];
-        metrics.selectionBlock = ^(StreamItem *item, id entry) {
+        metrics.selection = ^(StreamItem *item, id entry) {
             [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
         };
     }];

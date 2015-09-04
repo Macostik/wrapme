@@ -15,7 +15,6 @@
 #import "WLCollections.h"
 #import "WLEmoji.h"
 #import "StreamDataSource.h"
-#import "GridMetrics.h"
 
 @interface WLEmojiView () <SegmentedControlDelegate>
 
@@ -48,11 +47,11 @@
     __weak typeof(self)weakSelf = self;
     
     StreamView *streamView = self.dataSource.streamView;
-    [self.metrics setRatioBlock:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+    [self.metrics setRatioAt:^CGFloat(StreamIndex * __nonnull index, GridMetrics * __nonnull metrics) {
         return (streamView.frame.size.width/7) / (streamView.frame.size.height/3);
     }];
     
-    [self.metrics setSelectionBlock:^(StreamItem *item, NSString *emoji) {
+    [self.metrics setSelection:^(StreamItem * __nonnull item, NSString * __nonnull emoji) {
         [WLEmoji saveAsRecent:emoji];
         [weakSelf.textView insertText:emoji];
     }];

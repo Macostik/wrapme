@@ -182,7 +182,7 @@
     return self.headerMetrics;
 }
 
-- (NSArray *)streamView:(StreamView *)streamView sectionHeaderMetricsInSection:(NSUInteger)section {
+- (NSArray *)streamView:(StreamView *)streamView sectionHeaderMetricsInSection:(NSInteger)section {
     return self.sectionHeaderMetrics;
 }
 
@@ -190,7 +190,7 @@
     return self.metrics;
 }
 
-- (NSArray *)streamView:(StreamView *)streamView sectionFooterMetricsInSection:(NSUInteger)section {
+- (NSArray *)streamView:(StreamView *)streamView sectionFooterMetricsInSection:(NSInteger)section {
     return self.sectionFooterMetrics;
 }
 

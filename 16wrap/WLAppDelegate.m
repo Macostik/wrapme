@@ -86,13 +86,26 @@
     [WLAPIRequest setUnauthorizedErrorBlock:^ (WLAPIRequest *request, NSError *error) {
         UIStoryboard *storyboard = [UIStoryboard storyboardNamed:WLSignUpStoryboard];
         if ([UIWindow mainWindow].rootViewController.storyboard != storyboard) {
+            UIViewController *rootViewController = [UIWindow mainWindow].rootViewController.presentedViewController ? : [UIWindow mainWindow].rootViewController;
+            UIView *topView = rootViewController.view;
+            topView.userInteractionEnabled = YES;
             [WLAlertView confirmRedirectingToSignUp:^{
                 WLLog(@"ERROR", @"redirection to welcome screen, sign in failed", error);
                 [[WLNotificationCenter defaultCenter] clear];
                 [WLSession clear];
                 [storyboard present:YES];
+                topView.userInteractionEnabled = YES;
             } tryAgain:^{
-                [request send];
+                topView.userInteractionEnabled = NO;
+                WLObjectBlock successBlock = request.successBlock;
+                WLFailureBlock failureBlock = request.failureBlock;
+                [request send:^(id object) {
+                    if (successBlock) successBlock(object);
+                    topView.userInteractionEnabled = YES;
+                } failure:^(NSError *error) {
+                     topView.userInteractionEnabled = YES;
+                    if (failureBlock) failureBlock(error);
+                }];
             }];
         }
     }];

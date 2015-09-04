@@ -272,7 +272,7 @@
 }
 
 + (instancetype)removeContributors:(NSArray*)contributors wrap:(WLWrap*)wrap {
-    return [[[[self POST:@"wraps/%@/remove_contributor", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
+    return [[[[self DELETE:@"wraps/%@/remove_contributor", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[[contributors where:@"user != nil"] valueForKeyPath:@"user.identifier"] forKey:@"user_uids"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {

@@ -13,6 +13,7 @@
 #import "WLColorPicker.h"
 #import "UIView+LayoutHelper.h"
 #import "WLNavigationHelper.h"
+#import "UIView+LayoutHelper.h"
 
 @interface WLDrawingViewController () <WLDrawingSessionDelegate, WLColorPickerDelegate, WLDrawingViewControllerDelegate>
 
@@ -22,8 +23,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet WLDrawingCanvas *brushCanvas;
 @property (weak, nonatomic) IBOutlet UIView *colorsView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *canvasHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *canvasWidth;
 
 @property (strong, nonatomic) NSArray* colors;
 
@@ -59,12 +58,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.imageView.image = self.image;
-    self.imageView.userInteractionEnabled = YES;
-    CGSize drawingSize = CGSizeThatFitsSize(self.imageView.size, self.image.size);
-    self.canvasWidth.constant = drawingSize.width;
-    self.canvasHeight.constant = drawingSize.height;
-    [self.canvas setNeedsLayout];
+    if (self.image) {
+        [self.imageView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.imageView attribute:NSLayoutAttributeHeight multiplier:self.image.size.width/self.image.size.height constant:0]];
+        self.imageView.image = self.image;
+    }
+    [self.view layoutIfNeeded];
     
     self.session = self.canvas.session;
     self.session.delegate = self;

@@ -1,0 +1,126 @@
+
+/* Class = "UILabel"; text = "8x"; ObjectID = "1L4-qs-BZC"; */
+"1L4-qs-BZC.text" = "8x";
+
+/* Class = "UILabel"; text = "Add a comment..."; ObjectID = "2ag-My-O3m"; */
+"2ag-My-O3m.text" = "Add a comment...";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "3U9-GT-8sz"; */
+"3U9-GT-8sz.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "R"; ObjectID = "3yq-a6-Fsm"; */
+"3yq-a6-Fsm.normalTitle" = "R";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "4e8-Qt-lNv"; */
+"4e8-Qt-lNv.text" = "Label";
+
+/* Class = "UILabel"; text = "Photos"; ObjectID = "6BU-Ee-6ek"; */
+"6BU-Ee-6ek.text" = "Photos";
+
+/* Class = "UIButton"; normalTitle = "L"; ObjectID = "8l4-7n-9vU"; */
+"8l4-7n-9vU.normalTitle" = "L";
+
+/* Class = "UITextField"; placeholder = "New Wrap"; ObjectID = "Caa-Xm-Qlw"; */
+"Caa-Xm-Qlw.placeholder" = "New wrap";
+
+/* Class = "UILabel"; text = "Add a comment..."; ObjectID = "CtH-sR-dzA"; */
+"CtH-sR-dzA.text" = "Add a comment...";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "DHt-ol-7Ct"; */
+"DHt-ol-7Ct.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "P"; ObjectID = "EQs-5i-dNx"; */
+"EQs-5i-dNx.normalTitle" = "P";
+
+/* Class = "UIButton"; normalTitle = "w"; ObjectID = "Ev7-5b-huj"; */
+"Ev7-5b-huj.normalTitle" = "w";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "HfH-Bq-DQ2"; */
+"HfH-Bq-DQ2.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "HzZ-19-wUA"; */
+"HzZ-19-wUA.normalTitle" = "5";
+
+/* Class = "UIButton"; normalTitle = "L"; ObjectID = "ITP-VR-CiW"; */
+"ITP-VR-CiW.normalTitle" = "L";
+
+/* Class = "UILabel"; text = "Please go to Settings > meWrap to allow Wrap access the camera on this device."; ObjectID = "Jwv-dz-I8C"; */
+"Jwv-dz-I8C.text" = "Please go to Settings > meWrap to allow Wrap access the camera.";
+
+/* Class = "UILabel"; text = "Wrap name"; ObjectID = "Kgt-p9-lfD"; */
+"Kgt-p9-lfD.text" = "Wrap name";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "N3t-xp-O3A"; */
+"N3t-xp-O3A.normalTitle" = "Done";
+
+/* Class = "UILabel"; text = "x"; ObjectID = "P0y-gx-usX"; */
+"P0y-gx-usX.text" = "x";
+
+/* Class = "UILabel"; text = "n"; ObjectID = "ReO-Te-eJI"; */
+"ReO-Te-eJI.text" = "n";
+
+/* Class = "UIButton"; normalTitle = "t"; ObjectID = "Rg7-He-e6G"; */
+"Rg7-He-e6G.normalTitle" = "t";
+
+/* Class = "UILabel"; text = "To allow access to the camera go to the Settings > Privacy > Camera"; ObjectID = "SVW-IT-Sr6"; */
+"SVW-IT-Sr6.text" = "To allow meWrap access the camera, please go to Settings > Privacy > Camera";
+
+/* Class = "UIButton"; normalTitle = "w"; ObjectID = "X3H-5w-amr"; */
+"X3H-5w-amr.normalTitle" = "w";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "agr-RC-KiU"; */
+"agr-RC-KiU.normalTitle" = "6";
+
+/* Class = "UILabel"; text = "TAP TO CHANGE"; ObjectID = "av4-g2-N6y"; */
+"av4-g2-N6y.text" = "TAP TO CHANGE";
+
+/* Class = "UILabel"; text = "Please go to Settings > meWrap to allow Wrap access the photos on this device."; ObjectID = "bvQ-XE-Vmc"; */
+"bvQ-XE-Vmc.text" = "Please go to Settings > meWrap to allow Wrap access the photos.";
+
+/* Class = "UILabel"; text = "Photos"; ObjectID = "dGM-vI-GSH"; */
+"dGM-vI-GSH.text" = "Photos";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "dM8-hb-sBn"; */
+"dM8-hb-sBn.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "iHd-sT-PMV"; */
+"iHd-sT-PMV.normalTitle" = "0";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "kFf-Hj-CxU"; */
+"kFf-Hj-CxU.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "w"; ObjectID = "kbA-29-h7e"; */
+"kbA-29-h7e.normalTitle" = "w";
+
+/* Class = "UIButton"; normalTitle = "N"; ObjectID = "mRj-Yl-hQH"; */
+"mRj-Yl-hQH.normalTitle" = "N";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "ojC-8r-fOh"; */
+"ojC-8r-fOh.normalTitle" = "8";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "ovx-WR-Sdy"; */
+"ovx-WR-Sdy.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "n"; ObjectID = "oyu-cu-lw1"; */
+"oyu-cu-lw1.normalTitle" = "n";
+
+/* Class = "UILabel"; text = "8x"; ObjectID = "q4z-2J-r1c"; */
+"q4z-2J-r1c.text" = "8x";
+
+/* Class = "UILabel"; text = "5R"; ObjectID = "sjU-uH-nDN"; */
+"sjU-uH-nDN.text" = "5R";
+
+/* Class = "UILabel"; text = "y"; ObjectID = "t2i-cM-gaQ"; */
+"t2i-cM-gaQ.text" = "y";
+
+/* Class = "UIButton"; normalTitle = "g"; ObjectID = "taU-aO-Oxc"; */
+"taU-aO-Oxc.normalTitle" = "g";
+
+/* Class = "UILabel"; text = "TAP TO CHANGE"; ObjectID = "upJ-Du-Uru"; */
+"upJ-Du-Uru.text" = "TAP TO CHANGE";
+
+/* Class = "UILabel"; text = "To allow access to the photos go to the Settings > Privacy > Photos"; ObjectID = "uud-iT-GCw"; */
+"uud-iT-GCw.text" = "To allow meWrap access the photos, please go to Settings > Privacy > Photos";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "zto-LL-FxR"; */
+"zto-LL-FxR.text" = "Label";

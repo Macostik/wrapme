@@ -1,0 +1,156 @@
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "0Rx-X7-5Up"; */
+"0Rx-X7-5Up.normalTitle" = "Next";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "2Lq-nT-Bu5"; */
+"2Lq-nT-Bu5.normalTitle" = "Next";
+
+/* Class = "UITextField"; placeholder = "555-555-5555"; ObjectID = "2Sj-7d-nda"; */
+"2Sj-7d-nda.placeholder" = "555-555-5555";
+
+/* Class = "UILabel"; text = "We're sending you a passcode to your e-mail..."; ObjectID = "3SS-8p-5Y2"; */
+"3SS-8p-5Y2.text" = "We're sending you a passcode to your e-mail...";
+
+/* Class = "UILabel"; text = "+1 925-682-1888"; ObjectID = "4lQ-Tq-xhb"; */
+"4lQ-Tq-xhb.text" = "+1 925-682-1888";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "59A-fh-MwM"; */
+"59A-fh-MwM.normalTitle" = "Next";
+
+/* Class = "UILabel"; text = "Select your country"; ObjectID = "5MV-3s-wuD"; */
+"5MV-3s-wuD.text" = "Select your country";
+
+/* Class = "UITextField"; placeholder = "Your name"; ObjectID = "7e9-qT-sff"; */
+"7e9-qT-sff.placeholder" = "Your name";
+
+/* Class = "UILabel"; text = "The phone number is verified successfully!"; ObjectID = "8j1-H5-7Co"; */
+"8j1-H5-7Co.text" = "The phone number is verified successfully!";
+
+/* Class = "UIButton"; normalTitle = "Use another phone number"; ObjectID = "Bx6-G7-X4j"; */
+"Bx6-G7-X4j.normalTitle" = "Use another phone number";
+
+/* Class = "UILabel"; text = "calvin@ravenpod.com"; ObjectID = "CYI-Om-Lg8"; */
+"CYI-Om-Lg8.text" = "calvin@ravenpod.com";
+
+/* Class = "UILabel"; text = "M"; ObjectID = "DAz-0E-aDC"; */
+"DAz-0E-aDC.text" = "M";
+
+/* Class = "UILabel"; text = "calvin@ravenpod.com"; ObjectID = "Fab-q9-FLD"; */
+"Fab-q9-FLD.text" = "calvin@ravenpod.com";
+
+/* Class = "UIButton"; normalTitle = "w"; ObjectID = "G9D-jx-LtI"; */
+"G9D-jx-LtI.normalTitle" = "w";
+
+/* Class = "UILabel"; text = "The passcode is required to link this device to your meWrap account. Enter it above when you receive it."; ObjectID = "HrT-ph-Lnj"; */
+"HrT-ph-Lnj.text" = "The passcode is required to link this device to your meWrap account. Enter it above when you receive it.";
+
+/* Class = "UITextField"; placeholder = "john@example.com"; ObjectID = "HvP-Ka-9z4"; */
+"HvP-Ka-9z4.placeholder" = "john@example.com";
+
+/* Class = "UILabel"; text = "You have linked this device to your meWrap account."; ObjectID = "Itw-PI-Mz8"; */
+"Itw-PI-Mz8.text" = "You have linked this device to your meWrap account.";
+
+/* Class = "UILabel"; text = "Edit your profile"; ObjectID = "JDb-jD-Zkt"; */
+"JDb-jD-Zkt.text" = "Edit your profile";
+
+/* Class = "UILabel"; text = "M"; ObjectID = "QHb-k1-ref"; */
+"QHb-k1-ref.text" = "M";
+
+/* Class = "UILabel"; text = "a"; ObjectID = "RCC-0D-s50"; */
+"RCC-0D-s50.text" = "a";
+
+/* Class = "UIButton"; normalTitle = "Try the voice call option"; ObjectID = "Rvs-HT-UrH"; */
+"Rvs-HT-UrH.normalTitle" = "Try the voice call option";
+
+/* Class = "UILabel"; text = "x"; ObjectID = "V11-Xl-ach"; */
+"V11-Xl-ach.text" = "x";
+
+/* Class = "UILabel"; text = "is confirmed successfully!"; ObjectID = "Vxz-ag-TOf"; */
+"Vxz-ag-TOf.text" = "is confirmed successfully!";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "X8h-Le-1RA"; */
+"X8h-Le-1RA.normalTitle" = "Next";
+
+/* Class = "UIButton"; normalTitle = "Terms and Conditions"; ObjectID = "YBa-zu-GaJ"; */
+"YBa-zu-GaJ.normalTitle" = "Terms and Conditions";
+
+/* Class = "UITextField"; placeholder = "Passcode"; ObjectID = "YRq-AS-iKU"; */
+"YRq-AS-iKU.placeholder" = "Passcode";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "Zwb-OE-87q"; */
+"Zwb-OE-87q.normalTitle" = "Next";
+
+/* Class = "UILabel"; text = "We're sending you a 4-digit code. Enter it above to verify your phone number."; ObjectID = "a1z-Vo-fE0"; */
+"a1z-Vo-fE0.text" = "We're sending you a 4-digit code. Enter it above to verify your phone number.";
+
+/* Class = "UILabel"; text = "What is your phone number?"; ObjectID = "b75-OF-Awx"; */
+"b75-OF-Awx.text" = "What's your phone number?";
+
+/* Class = "UILabel"; text = "Country"; ObjectID = "cKx-Py-m2B"; */
+"cKx-Py-m2B.text" = "Country";
+
+/* Class = "UIButton"; normalTitle = "Finish"; ObjectID = "cr9-5f-gle"; */
+"cr9-5f-gle.normalTitle" = "Finish";
+
+/* Class = "UIButton"; normalTitle = "Use another e-mail"; ObjectID = "dM9-5p-U8h"; */
+"dM9-5p-U8h.normalTitle" = "Use another e-mail";
+
+/* Class = "UILabel"; text = "We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue"; ObjectID = "dRx-kr-5xI"; */
+"dRx-kr-5xI.text" = "We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "e0l-0g-x0j"; */
+"e0l-0g-x0j.normalTitle" = "Next";
+
+/* Class = "UILabel"; text = "+1 925-682-1888"; ObjectID = "f59-g6-xEE"; */
+"f59-g6-xEE.text" = "+1 925-682-1888";
+
+/* Class = "UILabel"; text = "Agree and Continue"; ObjectID = "fA2-25-iSn"; */
+"fA2-25-iSn.text" = "Agree and Continue";
+
+/* Class = "UILabel"; text = "What is your email?"; ObjectID = "fKc-pu-juY"; */
+"fKc-pu-juY.text" = "What's your e-mail?";
+
+/* Class = "UILabel"; text = "meWrap will send one time SMS message to verify your phone number. Carrier SMS charges may apply."; ObjectID = "jGq-WB-mde"; */
+"jGq-WB-mde.text" = "We'll send one time SMS message to verify your phone number. Carrier SMS charges may apply.";
+
+/* Class = "UITextField"; placeholder = "Verification code"; ObjectID = "lc0-Sk-CJb"; */
+"lc0-Sk-CJb.placeholder" = "Verification code";
+
+/* Class = "UIButton"; normalTitle = "Resend the e-mail"; ObjectID = "oIH-Zc-2Z8"; */
+"oIH-Zc-2Z8.normalTitle" = "Resend the e-mail";
+
+/* Class = "UILabel"; text = "+1"; ObjectID = "py0-IZ-HZq"; */
+"py0-IZ-HZq.text" = "+1";
+
+/* Class = "UILabel"; text = "Successful!"; ObjectID = "qCY-vc-S18"; */
+"qCY-vc-S18.text" = "Successful!";
+
+/* Class = "UILabel"; text = "Haven't received the SMS?"; ObjectID = "r04-q5-jeO"; */
+"r04-q5-jeO.text" = "Haven't received the SMS?";
+
+/* Class = "UILabel"; text = "+1 925-682-1888"; ObjectID = "s7C-hv-ivf"; */
+"s7C-hv-ivf.text" = "+1 925-682-1888";
+
+/* Class = "UILabel"; text = "The verification code is not valid."; ObjectID = "sFh-WJ-4GR"; */
+"sFh-WJ-4GR.text" = "The verification code is not valid.";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "sze-nv-qGE"; */
+"sze-nv-qGE.normalTitle" = "Next";
+
+/* Class = "UIButton"; normalTitle = "Select Country"; ObjectID = "tHE-KW-9HQ"; */
+"tHE-KW-9HQ.normalTitle" = "Select country";
+
+/* Class = "UIButton"; normalTitle = "Edit phone number"; ObjectID = "uIo-Dt-OO6"; */
+"uIo-Dt-OO6.normalTitle" = "Edit phone number";
+
+/* Class = "UILabel"; text = "Add your photo"; ObjectID = "w5f-mm-zRg"; */
+"w5f-mm-zRg.text" = "Add your photo";
+
+/* Class = "UIButton"; normalTitle = "Use test account"; ObjectID = "xlM-wc-LL0"; */
+"xlM-wc-LL0.normalTitle" = "Use test account";
+
+/* Class = "UIButton"; normalTitle = "Try again"; ObjectID = "xte-7W-F0S"; */
+"xte-7W-F0S.normalTitle" = "Try again";
+
+/* Class = "UILabel"; text = "a"; ObjectID = "yrW-0Q-whc"; */
+"yrW-0Q-whc.text" = "a";

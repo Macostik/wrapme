@@ -209,7 +209,7 @@
     
     NSDictionary *images = @{@"Default.png" : @[[NSValue valueWithCGSize:CGSizeMake(320, 480)], @(1)],
                              @"Default@2x.png" : @[[NSValue valueWithCGSize:CGSizeMake(320, 480)], @(2)],
-                             @"Default-667h@3x.png" : @[[NSValue valueWithCGSize:CGSizeMake(375, 667)], @(2)],
+                             @"Default-667h@2x.png" : @[[NSValue valueWithCGSize:CGSizeMake(375, 667)], @(2)],
                              @"Default-736h@3x.png" : @[[NSValue valueWithCGSize:CGSizeMake(414, 736)], @(3)],
                              @"Default-568h@2x.png" : @[[NSValue valueWithCGSize:CGSizeMake(320, 568)], @(2)],
                              @"Default-Portrait.png" : @[[NSValue valueWithCGSize:CGSizeMake(768, 1024)], @(1)],

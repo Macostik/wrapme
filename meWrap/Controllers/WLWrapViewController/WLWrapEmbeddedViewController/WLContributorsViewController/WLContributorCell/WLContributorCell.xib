@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="120" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jjm-eG-ydL" customClass="StreamView">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="120" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jjm-eG-ydL" customClass="StreamView" customModule="meWrap">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZm-d8-zP0">
@@ -188,7 +188,7 @@
                 <outletCollection property="metrics" destination="gwS-zd-53z" collectionClass="NSMutableArray" id="6rH-e5-EUU"/>
             </connections>
         </customObject>
-        <customObject id="9vK-5x-d9d" customClass="StreamMetrics">
+        <customObject id="9vK-5x-d9d" customClass="StreamMetrics" customModule="meWrap">
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLContributorRemoveCell"/>
                 <userDefinedRuntimeAttribute type="number" keyPath="size">
@@ -200,7 +200,7 @@
                 <outlet property="nibOwner" destination="aov-0F-b5J" id="Ggc-zX-cz3"/>
             </connections>
         </customObject>
-        <customObject id="RZX-eF-B7y" customClass="StreamMetrics">
+        <customObject id="RZX-eF-B7y" customClass="StreamMetrics" customModule="meWrap">
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLContributorResendCell"/>
                 <userDefinedRuntimeAttribute type="number" keyPath="size">
@@ -212,7 +212,7 @@
                 <outlet property="nibOwner" destination="aov-0F-b5J" id="vzt-Wi-Qzw"/>
             </connections>
         </customObject>
-        <customObject id="ZVc-pZ-hWd" customClass="StreamMetrics">
+        <customObject id="ZVc-pZ-hWd" customClass="StreamMetrics" customModule="meWrap">
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLContributorSpinnerCell"/>
                 <userDefinedRuntimeAttribute type="number" keyPath="size">
@@ -224,7 +224,7 @@
                 <outlet property="nibOwner" destination="aov-0F-b5J" id="6h9-Ys-zng"/>
             </connections>
         </customObject>
-        <customObject id="gwS-zd-53z" customClass="StreamMetrics">
+        <customObject id="gwS-zd-53z" customClass="StreamMetrics" customModule="meWrap">
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLContributorResendDoneCell"/>
                 <userDefinedRuntimeAttribute type="number" keyPath="size">

@@ -18,9 +18,9 @@
 #import "WLAddressBookGroupView.h"
 #import "NSObject+NibAdditions.h"
 
-@interface WLAddContributorsViewController () <UITableViewDataSource, UITableViewDelegate, WLContactCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate, WLFontPresetterReceiver, WLAddressBookReceiver>
+@interface WLAddContributorsViewController () <StreamViewDelegate, WLAddressBookRecordCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate, WLFontPresetterReceiver, WLAddressBookReceiver>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -59,7 +59,7 @@
 
 - (void)filterContacts {
     self.filteredAddressBook  = [self.addressBook filteredAddressBookWithText:self.searchField.text];
-    [self.tableView reloadData];
+    [self.streamView reload];
 }
 
 // MARK: - WLAddressBookReceiver
@@ -100,50 +100,50 @@
     }];
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - StreamViewDelegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)streamViewNumberOfSections:(StreamView * __nonnull)streamView {
 	return [self.filteredAddressBook.groups count];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)streamView:(StreamView * __nonnull)streamView numberOfItemsInSection:(NSInteger)section {
     WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[section];
 	return [group.records count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[indexPath.section];
-    WLAddressBookRecord* contact = group.records[indexPath.row];
-    WLAddressBookRecordCell* cell = [WLAddressBookRecordCell cellWithContact:contact inTableView:tableView indexPath:indexPath];
-	cell.opened = ([contact.phoneNumbers count] > 1 && [self openedIndexPath:indexPath] != nil);
-    
-    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
-        cell.preservesSuperviewLayoutMargins = NO;
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
-    return cell;
+- (NSArray *)streamView:(StreamView * __nonnull)streamView sectionHeaderMetricsInSection:(NSInteger)section {
+    return @[[[StreamMetrics alloc] initWithIdentifier:@"WLAddressBookGroupView" initializer:^(StreamMetrics *metrics) {
+        
+    }]];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[indexPath.section];
-	WLAddressBookRecord* contact = group.records[indexPath.row];
-    return [self heightForRowWithContact:contact indexPath:indexPath];
+- (id)streamView:(StreamView * __nonnull)streamView entryAt:(StreamIndex * __nonnull)index {
+    WLArrangedAddressBookGroup *group = [self.filteredAddressBook.groups tryAt:index.section];
+    return [group.records tryAt:index.item];
 }
 
-const static CGFloat WLDefaultHeight = 72.0f;
-
-- (CGFloat)heightForRowWithContact:(WLAddressBookRecord *)contact indexPath:(NSIndexPath*)indexPath {
-    if ([contact.phoneNumbers count] > 1) {
-        if ([self openedIndexPath:indexPath] != nil) {
-            return WLDefaultHeight + [contact.phoneNumbers count] * 50.0f;
-        } else {
-            return WLDefaultHeight;
-        }
+- (NSArray * __nonnull)streamView:(StreamView * __nonnull)streamView metricsAt:(StreamIndex * __nonnull)index {
+    WLArrangedAddressBookGroup *group = [self.filteredAddressBook.groups tryAt:index.section];
+    WLAddressBookRecord* record = [group.records tryAt:index.item];
+    __weak typeof(self)weakSelf = self;
+    if ([record.phoneNumbers count] > 1) {
+        return @[[[StreamMetrics alloc] initWithIdentifier:@"WLMultipleAddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
+            metrics.nibOwner = weakSelf;
+            [metrics setSizeAt:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+                return [weakSelf openedIndex:index] ? (72.0f + [record.phoneNumbers count] * 50.0f) : 72.0f;
+            }];
+            [metrics setFinalizeAppearing:^(StreamItem *item, WLAddressBookRecord *record) {
+                WLAddressBookRecordCell *cell = (id)item.view;
+                cell.opened = ([record.phoneNumbers count] > 1 && [weakSelf openedIndex:item.index] != nil);
+            }];
+        }]];
     } else {
-        NSString *phoneString = [WLAddressBookRecordCell collectionPersonsStringFromContact:contact];
-        CGFloat height = [phoneString heightWithFont:[UIFont preferredDefaultFontWithPreset:WLFontPresetSmall]
-                                       width:self.tableView.width - 142.0f];
-        return height + 54.0;
+        return @[[[StreamMetrics alloc] initWithIdentifier:@"WLAddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
+            metrics.nibOwner = weakSelf;
+            [metrics setSizeAt:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+                return [record.phoneStrings heightWithFont:[UIFont preferredDefaultFontWithPreset:WLFontPresetSmall] width:weakSelf.streamView.width - 142.0f] + 54;
+            }];
+        }]];
     }
 }
 
@@ -162,45 +162,39 @@ const static CGFloat WLDefaultHeight = 72.0f;
     return nil;
 }
 
-#pragma mark - WLContactCellDelegate
+#pragma mark - WLAddressBookRecordCellDelegate
 
-- (WLContactCellState)contactCell:(WLAddressBookRecordCell *)cell phoneNumberState:(WLAddressBookPhoneNumber *)phoneNumber {
+- (WLAddressBookPhoneNumberState)recordCell:(WLAddressBookRecordCell *)cell phoneNumberState:(WLAddressBookPhoneNumber *)phoneNumber {
     if ([self.wrap.contributors containsObject:phoneNumber.user]) {
-        return WLContactCellStateAdded;
+        return WLAddressBookPhoneNumberStateAdded;
     }
-    return [self.addressBook selectedPhoneNumber:phoneNumber] != nil ? WLContactCellStateSelected : WLContactCellStateDefault;
+    return [self.addressBook selectedPhoneNumber:phoneNumber] != nil ? WLAddressBookPhoneNumberStateSelected : WLAddressBookPhoneNumberStateDefault;
 }
 
-- (void)contactCell:(WLAddressBookRecordCell *)cell didSelectPerson:(WLAddressBookPhoneNumber *)person {
-    
+- (void)recordCell:(WLAddressBookRecordCell *)cell didSelectPhoneNumber:(WLAddressBookPhoneNumber *)person {
     [self.addressBook selectPhoneNumber:person];
-	
-	NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
-	if (indexPath) {
-		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-	}
+    [cell resetup];
 }
 
-- (NSIndexPath*)openedIndexPath:(NSIndexPath*)indexPath {
-    for (NSIndexPath* _indexPath in self.openedRows) {
-        if ([_indexPath compare:indexPath] == NSOrderedSame) {
-            return _indexPath;
-        }
-    }
-    return nil;
+- (StreamIndex*)openedIndex:(StreamIndex*)index {
+    return [self.openedRows select:^BOOL(StreamIndex* _index) {
+        return [_index isEqualToIndex:index];
+    }];
 }
 
-- (void)contactCellDidToggle:(WLAddressBookRecordCell *)cell {
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    if (indexPath) {
-        NSIndexPath *existingIndexPath = [self openedIndexPath:indexPath];
-        if (existingIndexPath) {
-            [self.openedRows removeObject:existingIndexPath];
+- (void)recordCellDidToggle:(WLAddressBookRecordCell *)cell {
+    StreamIndex *index = [self.streamView itemPassingTest:^BOOL(StreamItem *item) {
+        return item.view == cell;
+    }].index;
+    if (index) {
+        StreamIndex *existingIndex = [self openedIndex:index];
+        if (existingIndex) {
+            [self.openedRows removeObject:existingIndex];
         } else {
-            [self.openedRows addObject:indexPath];
+            [self.openedRows addObject:index];
         }
-        [self.tableView beginUpdates];
-        [self.tableView endUpdates];
+#warning  implement animated layout uopdate
+        [self.streamView reload];
     }
 }
 
@@ -237,11 +231,9 @@ const static CGFloat WLDefaultHeight = 72.0f;
         [weakSelf filterContacts];
         NSUInteger section = [weakSelf.addressBook.groups indexOfObject:group];
         NSUInteger row = [group.records indexOfObject:record];
-        if (row != NSNotFound && section != NSNotFound) {
-            [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]
-                                      atScrollPosition:UITableViewScrollPositionMiddle
-                                              animated:NO];
-        }
+        [weakSelf.streamView scrollToItem:[weakSelf.streamView itemPassingTest:^BOOL(StreamItem *item) {
+            return item.index.section == section && item.index.item == row;
+        }] animated:NO];
         [weakSelf.navigationController popToViewController:weakSelf animated:NO];
     } failure:^(NSError *error) {
         [error show];
@@ -251,7 +243,7 @@ const static CGFloat WLDefaultHeight = 72.0f;
 #pragma mark - WLFontPresetterReceiver
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
-    [self.tableView reloadData];
+    [self.streamView reload];
 }
 
 @end

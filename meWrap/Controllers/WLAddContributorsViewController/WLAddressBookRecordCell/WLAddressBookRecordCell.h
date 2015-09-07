@@ -1,41 +1,37 @@
 //
-//  WLContactCell.h
+//  WLrecordCell.h
 //  meWrap
 //
 //  Created by Ravenpod on 09.05.14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
+#import "StreamReusableView.h"
+
 @class WLAddressBookRecord, WLAddressBookRecordCell, WLAddressBookPhoneNumber;
 
-typedef NS_ENUM(NSUInteger, WLContactCellState) {
-    WLContactCellStateDefault,
-    WLContactCellStateSelected,
-    WLContactCellStateAdded
+typedef NS_ENUM(NSUInteger, WLAddressBookPhoneNumberState) {
+    WLAddressBookPhoneNumberStateDefault,
+    WLAddressBookPhoneNumberStateSelected,
+    WLAddressBookPhoneNumberStateAdded
 };
 
-@protocol WLContactCellDelegate <NSObject>
+@protocol WLAddressBookRecordCellDelegate <NSObject>
 
-- (void)contactCell:(WLAddressBookRecordCell*)cell didSelectPerson:(WLAddressBookPhoneNumber*)person;
+- (void)recordCell:(WLAddressBookRecordCell*)cell didSelectPhoneNumber:(WLAddressBookPhoneNumber*)person;
 
-- (WLContactCellState)contactCell:(WLAddressBookRecordCell*)cell phoneNumberState:(WLAddressBookPhoneNumber*)phoneNumber;
+- (WLAddressBookPhoneNumberState)recordCell:(WLAddressBookRecordCell*)cell phoneNumberState:(WLAddressBookPhoneNumber*)phoneNumber;
 
-- (void)contactCellDidToggle:(WLAddressBookRecordCell*)cell;
+- (void)recordCellDidToggle:(WLAddressBookRecordCell*)cell;
 
 @end
 
-@interface WLAddressBookRecordCell : UITableViewCell
+@interface WLAddressBookRecordCell : StreamReusableView
 
-+ (instancetype)cellWithContact:(WLAddressBookRecord*)contact inTableView:(UITableView*)tableView indexPath:(NSIndexPath*)indexPath;
+@property (nonatomic, weak) IBOutlet id <WLAddressBookRecordCellDelegate> delegate;
 
-@property (nonatomic, weak) IBOutlet id <WLContactCellDelegate> delegate;
-
-@property (nonatomic) WLContactCellState state;
+@property (nonatomic) WLAddressBookPhoneNumberState state;
 
 @property (nonatomic) BOOL opened;
-
-@property (strong, nonatomic) WLAddressBookRecord *record;
-
-+ (NSString *)collectionPersonsStringFromContact:(WLAddressBookRecord *)contact;
 
 @end

@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "StreamReusableView.h"
 
 @class WLArrangedAddressBookGroup;
 
-@interface WLAddressBookGroupView : UIView
+@interface WLAddressBookGroupView : StreamReusableView
 
 @property (strong, nonatomic) WLArrangedAddressBookGroup *group;
 

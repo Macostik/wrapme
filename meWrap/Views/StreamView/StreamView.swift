@@ -345,8 +345,10 @@ class StreamView: UIScrollView {
         return _items
     }
     
-    func scrollToItem(item: StreamItem, animated: Bool)  {
-        scrollRectToVisible(item.frame, animated:animated)
+    func scrollToItem(item: StreamItem?, animated: Bool)  {
+        if let _item = item {
+            scrollRectToVisible(_item.frame, animated:animated)
+        }
     }
     
 }

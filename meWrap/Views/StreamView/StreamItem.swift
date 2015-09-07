@@ -73,4 +73,8 @@ class StreamIndex: NSObject, NSCopying {
         }
         return newInstance;
     }
+    
+    func isEqualToIndex(index: StreamIndex) -> Bool {
+        return self.section == index.section && self.item == index.item
+    }
 }

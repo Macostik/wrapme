@@ -787,6 +787,12 @@
 		C59EF3C31B7A215700E777BC /* WLFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3C11B7A215700E777BC /* WLFollowingViewController.m */; };
 		C5A28D631ACBEF1E00F0E8BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */; };
 		C5A28D651ACBEF2B00F0E8BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */; };
+		C5A6150A1B9DC5C8009B92EF /* WLAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A615091B9DC5C8009B92EF /* WLAddressBookRecordCell.xib */; };
+		C5A6150B1B9DC5C8009B92EF /* WLAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A615091B9DC5C8009B92EF /* WLAddressBookRecordCell.xib */; };
+		C5A6150D1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A6150C1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib */; };
+		C5A6150E1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A6150C1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib */; };
+		C5A615101B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A6150F1B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib */; };
+		C5A615111B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A6150F1B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib */; };
 		C5A82CD71ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
 		C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
 		C5A877C71B985814006C5226 /* GridMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A877C61B985814006C5226 /* GridMetrics.swift */; };
@@ -1909,6 +1915,9 @@
 		C5A278CC1B9598DF00D5C969 /* meWrapWatchExtQA-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapWatchExtQA-Info.plist"; sourceTree = "<group>"; };
 		C5A278CD1B959B8F00D5C969 /* meWrapKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapKit-Info.plist"; sourceTree = "<group>"; };
 		C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		C5A615091B9DC5C8009B92EF /* WLAddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAddressBookRecordCell.xib; sourceTree = "<group>"; };
+		C5A6150C1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLMultipleAddressBookRecordCell.xib; sourceTree = "<group>"; };
+		C5A6150F1B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAddressBookPhoneNumberCell.xib; sourceTree = "<group>"; };
 		C5A82CCD1ACD979B00336027 /* WLDeviceOrientationBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDeviceOrientationBroadcaster.h; sourceTree = "<group>"; };
 		C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
 		C5A877C61B985814006C5226 /* GridMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridMetrics.swift; sourceTree = "<group>"; };
@@ -3039,6 +3048,8 @@
 			children = (
 				C504177D19B9EE15000E55F3 /* WLAddressBookRecordCell.h */,
 				C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */,
+				C5A615091B9DC5C8009B92EF /* WLAddressBookRecordCell.xib */,
+				C5A6150C1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib */,
 				C5D051BE1A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell */,
 			);
 			path = WLAddressBookRecordCell;
@@ -4889,6 +4900,7 @@
 			children = (
 				C5D051BF1A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.h */,
 				C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */,
+				C5A6150F1B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib */,
 			);
 			path = WLAddressBookPhoneNumberCell;
 			sourceTree = "<group>";
@@ -5524,6 +5536,7 @@
 				C5BEC3931B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
 				5B5A8C6C1A4EB62F00F84529 /* SignUp.storyboard in Resources */,
 				C54AF52E19B8C437006F7EDB /* WLLoadingView.xib in Resources */,
+				C5A615101B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib in Resources */,
 				C5C3FEA71B8F311500F177EC /* Default-736h@3x.png in Resources */,
 				C551890F1B8F46C000D1327E /* WLContributorResendDoneCell.xib in Resources */,
 				C53F2CE11A6EB5FB00D99741 /* PhoneFormats.dat in Resources */,
@@ -5534,6 +5547,7 @@
 				5B36F4FD1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */,
 				C5B681251B835ABD00BEE613 /* WLCountryCell.xib in Resources */,
 				C55908751B185F9D001CB99F /* Introduction.storyboard in Resources */,
+				C5A6150D1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib in Resources */,
 				C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				C5BEC38C1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */,
 				C5A9CC8E1B9482C30084D0F5 /* WLMessageCell.xib in Resources */,
@@ -5569,6 +5583,7 @@
 				C5BEC3A41B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */,
 				C5390BEC1B84544C00027D8B /* WLWrapCell.xib in Resources */,
 				5BD782C91A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
+				C5A6150A1B9DC5C8009B92EF /* WLAddressBookRecordCell.xib in Resources */,
 				C54731C51B9086DB00B583FD /* WLCommentCell.xib in Resources */,
 				C54EFF161B8C7A9400F1BBF8 /* WLCandiesCell.xib in Resources */,
 				C54AF54719B8C437006F7EDB /* iTunesArtwork in Resources */,
@@ -5612,6 +5627,7 @@
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
 				5B5A8C6E1A4EB62F00F84529 /* SignUp.storyboard in Resources */,
 				C54AF72819B8C491006F7EDB /* WLLoadingView.xib in Resources */,
+				C5A615111B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
 				C55189101B8F46C000D1327E /* WLContributorResendDoneCell.xib in Resources */,
 				C53F2CE31A6EB5FB00D99741 /* PhoneFormats.dat in Resources */,
@@ -5622,6 +5638,7 @@
 				5B36F4FF1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */,
 				C5B681261B835ABD00BEE613 /* WLCountryCell.xib in Resources */,
 				C55908771B185F9D001CB99F /* Introduction.storyboard in Resources */,
+				C5A6150E1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib in Resources */,
 				C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */,
 				C5BEC38D1B8F129100499EEA /* logo_and_caption_orange@3x.png in Resources */,
 				C5A9CC8F1B9482C30084D0F5 /* WLMessageCell.xib in Resources */,
@@ -5657,6 +5674,7 @@
 				C5BEC3A51B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */,
 				C5390BED1B84544C00027D8B /* WLWrapCell.xib in Resources */,
 				5BD782CB1A4EC56A0094BEE5 /* WLConfirmView.xib in Resources */,
+				C5A6150B1B9DC5C8009B92EF /* WLAddressBookRecordCell.xib in Resources */,
 				C54731C61B9086DB00B583FD /* WLCommentCell.xib in Resources */,
 				C54EFF171B8C7A9400F1BBF8 /* WLCandiesCell.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,

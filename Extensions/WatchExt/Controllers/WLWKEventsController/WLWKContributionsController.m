@@ -1,6 +1,6 @@
 //
 //  InterfaceController.m
-//  moji-Development WatchKit Extension
+//  meWrap-Development WatchKit Extension
 //
 //  Created by Ravenpod on 12/26/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
@@ -141,7 +141,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     if ([WLSession.authorization canAuthorize]) {
         self.entries = [WLContribution recentContributions:10];
     } else {
-        [self showError:WLError(@"No data for authorization. Please, check 16wrap app on you iPhone.")];
+        [self showError:WLError(@"No data for authorization. Please, check meWrap app on you iPhone.")];
     }
 }
 

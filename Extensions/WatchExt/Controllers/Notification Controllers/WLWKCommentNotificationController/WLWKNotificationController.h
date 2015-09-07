@@ -1,6 +1,6 @@
 //
 //  NotificationController.h
-//  moji-Development WatchKit Extension
+//  meWrap-Development WatchKit Extension
 //
 //  Created by Ravenpod on 12/26/14.
 //  Copyright (c) 2014 Ravenpod. All rights reserved.

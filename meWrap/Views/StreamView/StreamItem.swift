@@ -35,7 +35,6 @@ class StreamItem: NSObject {
     }
 }
 
-
 class StreamIndex: NSObject, NSCopying {
     var value: Int = 0
     

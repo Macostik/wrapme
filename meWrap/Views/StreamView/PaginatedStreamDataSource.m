@@ -26,7 +26,7 @@
     [super didAwake];
     
     __weak typeof(self)weakSelf = self;
-    self.loaderMetrics = [self addFooterMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
+    self.loaderMetrics = [self addFooterMetrics:[[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLStreamLoadingView";
         metrics.size = WLStreamLoadingViewDefaultSize;
         [metrics setHiddenAt:^BOOL(StreamIndex *index, StreamMetrics *metrics) {

@@ -3544,60 +3544,12 @@ Check your internet connection and try again.</string>
                     <navigationItem key="navigationItem" id="aUD-yq-Ejy"/>
                     <connections>
                         <outlet property="composeBar" destination="dQp-Lx-kpC" id="cly-mG-GSx"/>
-                        <outlet property="dateMetrics" destination="SKz-K5-3cC" id="e2N-M7-USh"/>
-                        <outlet property="loadingViewMetrics" destination="flq-VZ-9aE" id="MJS-qE-OOX"/>
-                        <outlet property="messageMetrics" destination="moD-Ny-FBS" id="Hk9-Nm-06w"/>
-                        <outlet property="myMessageMetrics" destination="AEg-mF-1gU" id="kNL-dY-DnO"/>
                         <outlet property="streamView" destination="Q8b-PD-zug" id="rWf-Td-0mg"/>
-                        <outlet property="typingViewMetrics" destination="cxT-I7-wqx" id="cuN-Db-8a8"/>
-                        <outlet property="unreadMessagesMetrics" destination="4jb-eJ-y24" id="E5d-yz-cNn"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="RiC-ww-QNg" id="Agn-Oe-QGL"/>
                         <outletCollection property="keyboardAdjustmentLayoutViews" destination="hIQ-pE-cV8" id="9iD-vI-4hQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nVG-1G-xkC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="moD-Ny-FBS" customClass="StreamMetrics" customModule="meWrap">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLMessageCell"/>
-                    </userDefinedRuntimeAttributes>
-                </customObject>
-                <customObject id="AEg-mF-1gU" customClass="StreamMetrics" customModule="meWrap">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLMyMessageCell"/>
-                    </userDefinedRuntimeAttributes>
-                </customObject>
-                <customObject id="SKz-K5-3cC" customClass="StreamMetrics" customModule="meWrap">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLMessageDateView"/>
-                        <userDefinedRuntimeAttribute type="number" keyPath="size">
-                            <real key="value" value="34"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </customObject>
-                <customObject id="4jb-eJ-y24" customClass="StreamMetrics" customModule="meWrap">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLUnreadMessagesView"/>
-                        <userDefinedRuntimeAttribute type="number" keyPath="size">
-                            <real key="value" value="34"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </customObject>
-                <customObject id="cxT-I7-wqx" customClass="StreamMetrics" customModule="meWrap">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLTypingView"/>
-                        <userDefinedRuntimeAttribute type="number" keyPath="size">
-                            <real key="value" value="52"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </customObject>
-                <customObject id="flq-VZ-9aE" customClass="StreamMetrics" customModule="meWrap">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLStreamLoadingView"/>
-                        <userDefinedRuntimeAttribute type="number" keyPath="size">
-                            <real key="value" value="60"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </customObject>
             </objects>
             <point key="canvasLocation" x="2388.75" y="789.08450704225345"/>
         </scene>

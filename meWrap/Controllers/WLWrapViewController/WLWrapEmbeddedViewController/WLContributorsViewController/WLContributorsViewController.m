@@ -60,7 +60,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     
     [[WLWrap notifier] addReceiver:self];
     
-    StreamMetrics *loadingMetrics = [self.dataSource addFooterMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
+    StreamMetrics *loadingMetrics = [self.dataSource addFooterMetrics:[[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLStreamLoadingView";
         metrics.size = WLLoadingViewDefaultSize;
     }]];

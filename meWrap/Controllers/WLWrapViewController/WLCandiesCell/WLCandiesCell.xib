@@ -27,7 +27,6 @@
                     <rect key="frame" x="0.0" y="42" width="320" height="122"/>
                     <connections>
                         <outlet property="delegate" destination="QI5-mP-o5y" id="ORf-EP-vDW"/>
-                        <outlet property="layout" destination="Qco-WM-l1J" id="AyW-OB-Gqj"/>
                     </connections>
                 </scrollView>
             </subviews>
@@ -44,7 +43,6 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="candyMetrics" destination="YAB-b5-OEH" id="4J1-FX-E8Q"/>
                 <outlet property="dataSource" destination="QI5-mP-o5y" id="7xX-m8-DwP"/>
                 <outlet property="dateLabel" destination="nY2-aj-pJr" id="1H6-ST-96B"/>
             </connections>
@@ -61,21 +59,7 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="streamView" destination="UzK-MR-YWi" id="7ZQ-pZ-osL"/>
-                <outletCollection property="metrics" destination="YAB-b5-OEH" collectionClass="NSMutableArray" id="mNw-JF-rXs"/>
             </connections>
-        </customObject>
-        <customObject id="Qco-WM-l1J" customClass="GridLayout" customModule="meWrap">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="YES"/>
-            </userDefinedRuntimeAttributes>
-        </customObject>
-        <customObject id="YAB-b5-OEH" customClass="GridMetrics" customModule="meWrap">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLCandyCell"/>
-                <userDefinedRuntimeAttribute type="number" keyPath="ratio">
-                    <real key="value" value="1"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
         </customObject>
     </objects>
 </document>

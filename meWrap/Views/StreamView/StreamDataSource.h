@@ -67,6 +67,8 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
 
 @property (strong, nonatomic) CGFloat(^offsetForGridColumnBlock)(NSUInteger column);
 
++ (instancetype)dataSourceWithStreamView:(StreamView*)streamView;
+
 - (void)setLayoutOffsetBlock:(CGFloat (^)(void))layoutOffsetBlock;
 
 - (void)setNumberOfGridColumns:(NSUInteger)numberOfGridColumns;

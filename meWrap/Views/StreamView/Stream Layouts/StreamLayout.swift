@@ -11,7 +11,7 @@ import UIKit
 
 @objc protocol StreamLayoutDelegate: StreamViewDelegate {
 
-    optional func streamView(streamView:StreamView, offsetForlayout:StreamLayout) -> CGFloat
+    optional func streamView(streamView:StreamView, offsetForLayout:StreamLayout) -> CGFloat
 
 }
 
@@ -20,6 +20,11 @@ class StreamLayout: NSObject {
     var streamView: StreamView?
     
     @IBInspectable var horizontal: Bool = false
+    
+    convenience init(horizontal: Bool) {
+        self.init()
+        self.horizontal = horizontal
+    }
     
     var contentSize: CGSize {
         if (horizontal) {
@@ -33,11 +38,13 @@ class StreamLayout: NSObject {
     
     func prepareLayout() {
         if let delegate = streamView?.delegate as? StreamLayoutDelegate {
-            if let offset = delegate.streamView?(streamView!, offsetForlayout: self) {
+            if let offset = delegate.streamView?(streamView!, offsetForLayout: self) {
                 self.offset = offset
             } else {
                 self.offset = 0
             }
+        } else {
+            self.offset = 0
         }
     }
     

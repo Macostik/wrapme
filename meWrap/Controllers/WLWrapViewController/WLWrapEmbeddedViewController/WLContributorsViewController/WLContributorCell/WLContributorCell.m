@@ -24,15 +24,25 @@
 @property (weak, nonatomic) IBOutlet UILabel *signUpView;
 @property (weak, nonatomic) IBOutlet UILabel *inviteLabel;
 
-@property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
-@property (weak, nonatomic) IBOutlet StreamMetrics *removeMetrics;
-@property (weak, nonatomic) IBOutlet StreamMetrics *resendMetrics;
-@property (weak, nonatomic) IBOutlet StreamMetrics *spinnerMetrics;
-@property (weak, nonatomic) IBOutlet StreamMetrics *resendDoneMetrics;
+@property (weak, nonatomic) IBOutlet StreamView *streamView;
+@property (strong, nonatomic) StreamDataSource *dataSource;
+@property (strong, nonatomic) StreamMetrics *removeMetrics;
+@property (strong, nonatomic) StreamMetrics *resendMetrics;
+@property (strong, nonatomic) StreamMetrics *spinnerMetrics;
+@property (strong, nonatomic) StreamMetrics *resendDoneMetrics;
 
 @end
 
 @implementation WLContributorCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
+    self.removeMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLContributorRemoveCell" size:76];
+    self.resendMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLContributorResendCell" size:76];
+    self.spinnerMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLContributorSpinnerCell" size:76];
+    self.resendDoneMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLContributorResendDoneCell" size:76];
+}
 
 - (void)prepareForReuse {
     [super prepareForReuse];

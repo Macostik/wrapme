@@ -13,10 +13,6 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iF2-2y-bMn" customClass="StreamView" customModule="meWrap">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="106"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="delegate" destination="ULh-98-vJk" id="Les-Ip-ebR"/>
-                        <outlet property="layout" destination="s9F-j0-NHU" id="uHs-IM-YLG"/>
-                    </connections>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
@@ -29,34 +25,10 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="dataSource" destination="ULh-98-vJk" id="d5z-1v-6eB"/>
                 <outlet property="streamView" destination="iF2-2y-bMn" id="vg2-qB-sSm"/>
             </connections>
             <point key="canvasLocation" x="506" y="616"/>
         </view>
-        <customObject id="ULh-98-vJk" customClass="StreamDataSource">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="number" keyPath="numberOfGridColumns">
-                    <integer key="value" value="3"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="number" keyPath="sizeForGridColumns">
-                    <real key="value" value="0.33333333300000001"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="streamView" destination="iF2-2y-bMn" id="1cB-iH-48U"/>
-                <outletCollection property="metrics" destination="NX1-5E-Aty" collectionClass="NSMutableArray" id="MR9-3g-B2p"/>
-            </connections>
-        </customObject>
-        <customObject id="NX1-5E-Aty" customClass="GridMetrics" customModule="meWrap">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLCandyCell"/>
-                <userDefinedRuntimeAttribute type="number" keyPath="ratio">
-                    <real key="value" value="1"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
-        </customObject>
-        <customObject id="s9F-j0-NHU" customClass="GridLayout" customModule="meWrap"/>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

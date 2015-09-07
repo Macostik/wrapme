@@ -10,9 +10,15 @@ import Foundation
 import UIKit
 
 class GridMetrics: StreamMetrics {
+    
     @IBInspectable var ratio: CGFloat = 0
     
     var ratioAt: (StreamIndex, GridMetrics) -> CGFloat = { index, metrics in
         return metrics.ratio;
+    }
+    
+    convenience init(identifier: String, ratio: CGFloat) {
+        self.init(identifier: identifier)
+        self.ratio = ratio
     }
 }

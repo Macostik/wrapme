@@ -95,7 +95,7 @@
         };
     }];
     
-    [homeDataSource addMetrics:[StreamMetrics metrics:^(StreamMetrics *metrics) {
+    [homeDataSource addMetrics:[[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLRecentCandiesView";
         [metrics setSizeAt:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
             int size = (streamView.width - 2.0f)/3.0f;;

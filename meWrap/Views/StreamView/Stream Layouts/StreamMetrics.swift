@@ -11,10 +11,24 @@ import UIKit
 
 class StreamMetrics: NSObject {
     
-    class func metrics(initializer: (StreamMetrics) -> Void) -> StreamMetrics {
-        let metrics = self.init()
-        metrics.change(initializer)
-        return metrics
+    convenience init(initializer: (StreamMetrics) -> Void) {
+        self.init()
+        self.change(initializer)
+    }
+    
+    convenience init(identifier: String) {
+        self.init()
+        self.identifier = identifier
+    }
+    
+    convenience init(identifier: String, initializer: (StreamMetrics) -> Void) {
+        self.init(identifier: identifier)
+        self.change(initializer)
+    }
+    
+    convenience init(identifier: String, size: CGFloat) {
+        self.init(identifier: identifier)
+        self.size = size
     }
     
     func change(initializer: (StreamMetrics) -> Void) -> StreamMetrics {

@@ -21,6 +21,13 @@
 
 @implementation StreamDataSource
 
++ (instancetype)dataSourceWithStreamView:(StreamView *)streamView {
+    StreamDataSource *dataSource = [[StreamDataSource alloc] init];
+    dataSource.streamView = streamView;
+    streamView.delegate = dataSource;
+    return dataSource;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -206,7 +213,7 @@
     return 1;
 }
 
-- (CGFloat)streamView:(StreamView*)streamView layoutOffset:(StreamLayout*)layout {
+- (CGFloat)streamView:(StreamView*)streamView offsetForLayout:(StreamLayout * __nonnull)offsetForLayout {
     return self.layoutOffsetBlock ? self.layoutOffsetBlock() : self.layoutOffset;
 }
 

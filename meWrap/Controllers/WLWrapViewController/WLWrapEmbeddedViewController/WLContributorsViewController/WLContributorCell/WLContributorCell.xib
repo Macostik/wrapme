@@ -134,9 +134,6 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="YES"/>
                     </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="delegate" destination="oc1-Uw-4dm" id="bjG-od-bYk"/>
-                    </connections>
                 </scrollView>
                 <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="MFg-Wa-I9f" customClass="WLSeparatorView">
                     <rect key="frame" x="0.0" y="119" width="320" height="1"/>
@@ -165,76 +162,15 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="avatarView" destination="IZ7-8e-1ob" id="RLg-wO-LU2"/>
-                <outlet property="dataSource" destination="oc1-Uw-4dm" id="u8j-eE-v3K"/>
                 <outlet property="delegate" destination="-1" id="cwk-mV-Ed9"/>
                 <outlet property="inviteLabel" destination="ZuV-DA-CsE" id="hyh-B0-pxC"/>
                 <outlet property="nameLabel" destination="j5r-kg-fkz" id="weT-Ch-7Dw"/>
                 <outlet property="phoneLabel" destination="f1g-Ue-RDF" id="2Ii-7a-CpF"/>
-                <outlet property="removeMetrics" destination="9vK-5x-d9d" id="zsC-pt-L3U"/>
-                <outlet property="resendDoneMetrics" destination="gwS-zd-53z" id="LhD-f2-nJb"/>
-                <outlet property="resendMetrics" destination="RZX-eF-B7y" id="gVU-WP-hM8"/>
                 <outlet property="signUpView" destination="eE6-93-dk7" id="fRx-ma-L0S"/>
                 <outlet property="slideMenuButton" destination="Ntb-38-h4F" id="IuS-GH-FA3"/>
-                <outlet property="spinnerMetrics" destination="ZVc-pZ-hWd" id="KVt-pa-Sqe"/>
+                <outlet property="streamView" destination="Jjm-eG-ydL" id="Lx5-w7-M5D"/>
             </connections>
             <point key="canvasLocation" x="565" y="655"/>
         </view>
-        <customObject id="oc1-Uw-4dm" customClass="StreamDataSource">
-            <connections>
-                <outlet property="streamView" destination="Jjm-eG-ydL" id="BfB-Jx-FUz"/>
-                <outletCollection property="metrics" destination="9vK-5x-d9d" collectionClass="NSMutableArray" id="7fl-UO-DPd"/>
-                <outletCollection property="metrics" destination="RZX-eF-B7y" collectionClass="NSMutableArray" id="Uwi-MB-YYy"/>
-                <outletCollection property="metrics" destination="ZVc-pZ-hWd" collectionClass="NSMutableArray" id="cXH-Qh-uvM"/>
-                <outletCollection property="metrics" destination="gwS-zd-53z" collectionClass="NSMutableArray" id="6rH-e5-EUU"/>
-            </connections>
-        </customObject>
-        <customObject id="9vK-5x-d9d" customClass="StreamMetrics" customModule="meWrap">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLContributorRemoveCell"/>
-                <userDefinedRuntimeAttribute type="number" keyPath="size">
-                    <real key="value" value="76"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
-            </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="nibOwner" destination="aov-0F-b5J" id="Ggc-zX-cz3"/>
-            </connections>
-        </customObject>
-        <customObject id="RZX-eF-B7y" customClass="StreamMetrics" customModule="meWrap">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLContributorResendCell"/>
-                <userDefinedRuntimeAttribute type="number" keyPath="size">
-                    <real key="value" value="76"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
-            </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="nibOwner" destination="aov-0F-b5J" id="vzt-Wi-Qzw"/>
-            </connections>
-        </customObject>
-        <customObject id="ZVc-pZ-hWd" customClass="StreamMetrics" customModule="meWrap">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLContributorSpinnerCell"/>
-                <userDefinedRuntimeAttribute type="number" keyPath="size">
-                    <real key="value" value="76"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
-            </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="nibOwner" destination="aov-0F-b5J" id="6h9-Ys-zng"/>
-            </connections>
-        </customObject>
-        <customObject id="gwS-zd-53z" customClass="StreamMetrics" customModule="meWrap">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLContributorResendDoneCell"/>
-                <userDefinedRuntimeAttribute type="number" keyPath="size">
-                    <real key="value" value="76"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
-            </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="nibOwner" destination="aov-0F-b5J" id="bxI-ft-P9u"/>
-            </connections>
-        </customObject>
     </objects>
 </document>

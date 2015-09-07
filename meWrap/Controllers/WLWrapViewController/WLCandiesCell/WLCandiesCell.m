@@ -27,6 +27,8 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
+    self.dataSource.streamView.layout = [[GridLayout alloc] initWithHorizontal:YES];
+    [self.dataSource addMetrics:[[GridMetrics alloc] initWithIdentifier:@"WLCandyCell" ratio:1]];
     self.dataSource.layoutSpacing = WLConstants.pixelSize;
 }
 

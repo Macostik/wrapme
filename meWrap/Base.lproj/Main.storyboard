@@ -2705,8 +2705,14 @@ Tap here to start.</string>
                                     <constraint firstAttribute="centerY" secondItem="ek2-Bn-UN6" secondAttribute="centerY" constant="-10" id="a9V-nG-ltC"/>
                                     <constraint firstItem="8kR-VI-DgA" firstAttribute="leading" secondItem="ek2-Bn-UN6" secondAttribute="trailing" id="aNy-sc-Fps"/>
                                     <constraint firstItem="ek2-Bn-UN6" firstAttribute="leading" secondItem="Fzq-yp-f3W" secondAttribute="trailing" id="i6f-fR-TwQ"/>
+                                    <constraint firstAttribute="centerX" secondItem="ek2-Bn-UN6" secondAttribute="centerX" constant="5" id="kUa-fZ-VbW"/>
                                     <constraint firstAttribute="height" constant="64" id="oKU-xM-Q0m"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="kUa-fZ-VbW"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEr-of-cGm">
                                 <rect key="frame" x="0.0" y="168" width="600" height="432"/>
@@ -5390,7 +5396,7 @@ QWRkEEZyaWVuZFZpZXc
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Wrap" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZL1-Bm-SmI" customClass="WLLabel">
-                                        <rect key="frame" x="44" y="32" width="512" height="21"/>
+                                        <rect key="frame" x="44" y="32" width="502" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -5401,7 +5407,7 @@ QWRkEEZyaWVuZFZpZXc
                                 </subviews>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="ZL1-Bm-SmI" secondAttribute="centerX" id="AN7-p9-NCr"/>
+                                    <constraint firstAttribute="centerX" secondItem="ZL1-Bm-SmI" secondAttribute="centerX" constant="5" id="AN7-p9-NCr"/>
                                     <constraint firstAttribute="height" constant="64" id="bXo-mQ-lI9"/>
                                     <constraint firstAttribute="centerY" secondItem="X0X-J5-pFk" secondAttribute="centerY" constant="-10" id="rUW-61-z41"/>
                                     <constraint firstItem="X0X-J5-pFk" firstAttribute="leading" secondItem="GMA-8i-bdS" secondAttribute="leading" constant="12" id="sep-ye-8Sg"/>

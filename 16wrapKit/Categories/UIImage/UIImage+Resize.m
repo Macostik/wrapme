@@ -207,20 +207,13 @@
 
 + (void)allImagesSizeOfScreenView:(UIView *)view {
     
-//    320x480(2x) ->   640x960: Default@2x~iphone.png
-//    320x568(2x) ->  640x1136: Default-568h@2x~iphone.png
-//    375x667(2x) ->  750x1334: Default-667h@2x~iphone.png
-//    414x736(3x) -> 1242x2208: Default-736h@3x~iphone.png
-//    768x1024(1x) ->  768x1024: Default-Portrait~ipad.png
-//    768x1024(2x) -> 1536x2048: Default-Portrait@2x~ipad.png
-    
-    NSDictionary *images = @{@"Default~iphone" : @[[NSValue valueWithCGSize:CGSizeMake(320, 480)], @(1)],
-                             @"Default@2x~iphone" : @[[NSValue valueWithCGSize:CGSizeMake(320, 480)], @(2)],
-                             @"Default-568h@2x~iphone.png" : @[[NSValue valueWithCGSize:CGSizeMake(320, 568)], @(2)],
-                             @"Default-667h@2x~iphone.png" : @[[NSValue valueWithCGSize:CGSizeMake(375, 667)], @(2)],
-                             @"Default-736h@3x~iphone.png" : @[[NSValue valueWithCGSize:CGSizeMake(414, 736)], @(3)],
-                             @"Default~ipad.png" : @[[NSValue valueWithCGSize:CGSizeMake(768, 1024)], @(1)],
-                             @"Default~ipad@2x.png" : @[[NSValue valueWithCGSize:CGSizeMake(768, 1024)], @(2)]};
+    NSDictionary *images = @{@"Default.png" : @[[NSValue valueWithCGSize:CGSizeMake(320, 480)], @(1)],
+                             @"Default@2x.png" : @[[NSValue valueWithCGSize:CGSizeMake(320, 480)], @(2)],
+                             @"Default-667h@3x.png" : @[[NSValue valueWithCGSize:CGSizeMake(375, 667)], @(2)],
+                             @"Default-736h@3x.png" : @[[NSValue valueWithCGSize:CGSizeMake(414, 736)], @(3)],
+                             @"Default-568h@2x.png" : @[[NSValue valueWithCGSize:CGSizeMake(320, 568)], @(2)],
+                             @"Default-Portrait.png" : @[[NSValue valueWithCGSize:CGSizeMake(768, 1024)], @(1)],
+                             @"Default-Portrait@2x.png" : @[[NSValue valueWithCGSize:CGSizeMake(768, 1024)], @(2)]};
     
     
     [images enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray *value, BOOL *stop) {

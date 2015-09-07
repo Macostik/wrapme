@@ -64,8 +64,8 @@
 		5BA7AF2E1A481A9500C586CA /* meWrapTodayQA.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B787D9B1A27876F004AE459 /* meWrapTodayQA.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5BB04F2919D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
 		5BB04F2B19D9822300B5C6EE /* WLEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04F2719D9822300B5C6EE /* WLEditViewController.m */; };
-		5BB41F8E1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB41F8C1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib */; };
-		5BB41F8F1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB41F8C1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib */; };
+		5BB41F8E1B8EEF26007DB7A2 /* PublicWrapPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB41F8C1B8EEF26007DB7A2 /* PublicWrapPlaceholderView.xib */; };
+		5BB41F8F1B8EEF26007DB7A2 /* PublicWrapPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB41F8C1B8EEF26007DB7A2 /* PublicWrapPlaceholderView.xib */; };
 		5BBAB3A71AAA002400CE6252 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */; };
 		5BBAB3A91AAA002400CE6252 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */; };
 		5BD104F31AE7C066008794F5 /* WLEntryStatusIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */; };
@@ -1260,10 +1260,10 @@
 		5BA7AC2B1A7939FA00BB922E /* WLTriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLTriangleView.m; path = WLTriangleView/WLTriangleView.m; sourceTree = "<group>"; };
 		5BB04F2619D9822300B5C6EE /* WLEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditViewController.h; path = WLEditViewController/WLEditViewController.h; sourceTree = "<group>"; };
 		5BB04F2719D9822300B5C6EE /* WLEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditViewController.m; path = WLEditViewController/WLEditViewController.m; sourceTree = "<group>"; };
-		5BB41F8D1B8EEF26007DB7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PablicWrapPlaceholderView.xib; sourceTree = "<group>"; };
-		5BB41F911B8F1C7B007DB7A2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PablicWrapPlaceholderView.strings; sourceTree = "<group>"; };
-		5BB41F931B8F1C7C007DB7A2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/PablicWrapPlaceholderView.strings"; sourceTree = "<group>"; };
-		5BB41F951B8F1C91007DB7A2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/PablicWrapPlaceholderView.strings; sourceTree = "<group>"; };
+		5BB41F8D1B8EEF26007DB7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PublicWrapPlaceholderView.xib; sourceTree = "<group>"; };
+		5BB41F911B8F1C7B007DB7A2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PublicWrapPlaceholderView.strings; sourceTree = "<group>"; };
+		5BB41F931B8F1C7C007DB7A2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/PublicWrapPlaceholderView.strings"; sourceTree = "<group>"; };
+		5BB41F951B8F1C91007DB7A2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/PublicWrapPlaceholderView.strings; sourceTree = "<group>"; };
 		5BBAB3AA1AAA002400CE6252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Camera.storyboard; sourceTree = "<group>"; };
 		5BD104F01AE7C066008794F5 /* WLEntryStatusIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntryStatusIndicator.h; path = WLEntryStatusIndicator/WLEntryStatusIndicator.h; sourceTree = "<group>"; };
 		5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEntryStatusIndicator.m; path = WLEntryStatusIndicator/WLEntryStatusIndicator.m; sourceTree = "<group>"; };
@@ -3523,7 +3523,7 @@
 				5BA6AA551A66805E00493582 /* WLWrapPlaceholderViewHistory.xib */,
 				5BA4C58B1A8BA0F600251B6D /* NoCommentsPlaceholderView.xib */,
 				5BDCA87D1B394C2F00C4AB3E /* NoMessagePlaceholderView.xib */,
-				5BB41F8C1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib */,
+				5BB41F8C1B8EEF26007DB7A2 /* PublicWrapPlaceholderView.xib */,
 				5BD5520F1B3C13F700530566 /* WhatsUpPlaceholderView.xib */,
 			);
 			path = "Placeholder Views";
@@ -5507,7 +5507,7 @@
 				C55908E51B18B9FA001CB99F /* WLInviteHintView.xib in Resources */,
 				C54AF54119B8C437006F7EDB /* CountryCodes.json in Resources */,
 				C509E2B91B96F46A003F6C21 /* Default-667h@2x.png in Resources */,
-				5BB41F8E1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib in Resources */,
+				5BB41F8E1B8EEF26007DB7A2 /* PublicWrapPlaceholderView.xib in Resources */,
 				C5C3FEAB1B8F311500F177EC /* Default-Portrait.png in Resources */,
 				5BA130801B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
 				C5C3FEA91B8F311500F177EC /* Default@2x.png in Resources */,
@@ -5574,7 +5574,7 @@
 				C55908E71B18B9FA001CB99F /* WLInviteHintView.xib in Resources */,
 				C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */,
 				C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */,
-				5BB41F8F1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib in Resources */,
+				5BB41F8F1B8EEF26007DB7A2 /* PublicWrapPlaceholderView.xib in Resources */,
 				C5C3FEAC1B8F311500F177EC /* Default-Portrait.png in Resources */,
 				5BA130821B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
 				C5C3FEAA1B8F311500F177EC /* Default@2x.png in Resources */,
@@ -6517,7 +6517,7 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		5BB41F8C1B8EEF26007DB7A2 /* PablicWrapPlaceholderView.xib */ = {
+		5BB41F8C1B8EEF26007DB7A2 /* PublicWrapPlaceholderView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				5BB41F8D1B8EEF26007DB7A2 /* Base */,
@@ -6525,7 +6525,7 @@
 				5BB41F931B8F1C7C007DB7A2 /* zh-Hant */,
 				5BB41F951B8F1C91007DB7A2 /* ru */,
 			);
-			name = PablicWrapPlaceholderView.xib;
+			name = PublicWrapPlaceholderView.xib;
 			sourceTree = "<group>";
 		};
 		5BBAB3AB1AAA002400CE6252 /* Camera.storyboard */ = {

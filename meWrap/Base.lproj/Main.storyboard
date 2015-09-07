@@ -1937,7 +1937,7 @@ Tap here to start.</string>
                 <customObject id="uJJ-OA-ZDD" customClass="WLPublicWrapsDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="WLWrapCell"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="nibNamePlaceholder" value="PablicWrapPlaceholderView"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="nibNamePlaceholder" value="PublicWrapPlaceholderView"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="y7O-GH-Q4Y" id="5NO-04-rHl"/>

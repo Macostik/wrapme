@@ -1051,6 +1051,13 @@
 			remoteGlobalIDString = 5BF1B22F1A49A683000BB2C1;
 			remoteInfo = WrapLiveToday;
 		};
+		C5A13F7A1B9D90D500CE4899 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C54AF45519B8C437006F7EDB;
+			remoteInfo = meWrapQA;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1508,7 +1515,7 @@
 		C559974F1A262BD8003D4B29 /* WLTelephony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTelephony.m; sourceTree = "<group>"; };
 		C55B91FF1AFA39FE006A3A55 /* WLEntryNotifyReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryNotifyReceiver.h; sourceTree = "<group>"; };
 		C55B92001AFA39FE006A3A55 /* WLEntryNotifyReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryNotifyReceiver.m; sourceTree = "<group>"; };
-		C55C36661ACEB7A800C614BD /* meWrapKit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "meWrapKit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C55C36661ACEB7A800C614BD /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C55C36691ACEB7A900C614BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C55C366A1ACEB7A900C614BD /* meWrapKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = meWrapKit.m; sourceTree = "<group>"; };
 		C55D77E61AE51BA0006FA19C /* WLRemoteEntryHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLRemoteEntryHandler.h; sourceTree = "<group>"; };
@@ -2300,7 +2307,7 @@
 				C50645AA1ABD815100CB4BE3 /* Extensions */,
 				12A7A70818DA0945008FF6F0 /* meWrap */,
 				C50646EA1ABD844700CB4BE3 /* meWrapKit */,
-				C55C36671ACEB7A900C614BD /* meWrapKit Tests */,
+				C55C36671ACEB7A900C614BD /* Tests */,
 				12A7A70118DA0945008FF6F0 /* Frameworks */,
 				12A7A70018DA0945008FF6F0 /* Products */,
 			);
@@ -2317,7 +2324,7 @@
 				C50645931ABD7FD500CB4BE3 /* meWrapWatchAppQA.app */,
 				C56498C71ACB00D2000F1E4B /* meWrapWatchExt.appex */,
 				C56498D21ACB00D2000F1E4B /* meWrapWatchApp.app */,
-				C55C36661ACEB7A800C614BD /* meWrapKit Tests.xctest */,
+				C55C36661ACEB7A800C614BD /* Tests.xctest */,
 				C587C7681AD2E5A9003E7647 /* meWrapKit.framework */,
 			);
 			name = Products;
@@ -3558,13 +3565,13 @@
 			path = WLTelephony;
 			sourceTree = "<group>";
 		};
-		C55C36671ACEB7A900C614BD /* meWrapKit Tests */ = {
+		C55C36671ACEB7A900C614BD /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				C55C366A1ACEB7A900C614BD /* meWrapKit.m */,
 				C55C36681ACEB7A900C614BD /* Supporting Files */,
 			);
-			path = "meWrapKit Tests";
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		C55C36681ACEB7A900C614BD /* Supporting Files */ = {
@@ -5221,9 +5228,9 @@
 			productReference = C54AF74A19B8C491006F7EDB /* meWrap.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C55C36651ACEB7A800C614BD /* meWrapKit Tests */ = {
+		C55C36651ACEB7A800C614BD /* Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C55C36721ACEB7A900C614BD /* Build configuration list for PBXNativeTarget "meWrapKit Tests" */;
+			buildConfigurationList = C55C36721ACEB7A900C614BD /* Build configuration list for PBXNativeTarget "Tests" */;
 			buildPhases = (
 				C55C36621ACEB7A800C614BD /* Sources */,
 				C55C36631ACEB7A800C614BD /* Frameworks */,
@@ -5232,10 +5239,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				C5A13F7B1B9D90D500CE4899 /* PBXTargetDependency */,
 			);
-			name = "meWrapKit Tests";
+			name = Tests;
 			productName = "WrapLiveKit Tests";
-			productReference = C55C36661ACEB7A800C614BD /* meWrapKit Tests.xctest */;
+			productReference = C55C36661ACEB7A800C614BD /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		C56498C61ACB00D2000F1E4B /* meWrapWatchExt */ = {
@@ -5349,7 +5357,7 @@
 					};
 					C55C36651ACEB7A800C614BD = {
 						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 12A7A6FE18DA0945008FF6F0;
+						TestTargetID = C54AF45519B8C437006F7EDB;
 					};
 					C56498C61ACB00D2000F1E4B = {
 						CreatedOnToolsVersion = 6.2;
@@ -5389,7 +5397,7 @@
 				C56498C61ACB00D2000F1E4B /* meWrapWatchExt */,
 				C56498D11ACB00D2000F1E4B /* meWrapWatchApp */,
 				C587C7671AD2E5A9003E7647 /* meWrapKit */,
-				C55C36651ACEB7A800C614BD /* meWrapKit Tests */,
+				C55C36651ACEB7A800C614BD /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -6425,6 +6433,11 @@
 			target = 5BF1B22F1A49A683000BB2C1 /* meWrapToday */;
 			targetProxy = C5994D8B1B78894A0066A597 /* PBXContainerItemProxy */;
 		};
+		C5A13F7B1B9D90D500CE4899 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C54AF45519B8C437006F7EDB /* meWrapQA */;
+			targetProxy = C5A13F7A1B9D90D500CE4899 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -7235,13 +7248,13 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "meWrapKit Tests/Info.plist";
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/meWrap.app/meWrap";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/meWrapQA.app/meWrapQA";
 			};
 			name = Debug;
 		};
@@ -7256,12 +7269,12 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "meWrapKit Tests/Info.plist";
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)meWrap.app/meWrap";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/meWrapQA.app/meWrapQA";
 			};
 			name = Release;
 		};
@@ -7784,12 +7797,12 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "meWrapKit Tests/Info.plist";
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)meWrap.app/meWrap";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/meWrapQA.app/meWrapQA";
 			};
 			name = AdHoc;
 		};
@@ -7866,7 +7879,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C55C36721ACEB7A900C614BD /* Build configuration list for PBXNativeTarget "meWrapKit Tests" */ = {
+		C55C36721ACEB7A900C614BD /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C55C366F1ACEB7A900C614BD /* Debug */,

@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C55C36651ACEB7A800C614BD"
-               BuildableName = "meWrapKit Tests.xctest"
-               BlueprintName = "meWrapKit Tests"
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
                ReferencedContainer = "container:meWrap.xcodeproj">
             </BuildableReference>
          </TestableReference>

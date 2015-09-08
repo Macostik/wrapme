@@ -1,3 +1,4 @@
-
-/* Class = "UILabel"; text = "未讀訊息"; ObjectID = "P3J-PO-D05"; */
+/* Class = "UILabel"; text = "UNREAD MESSAGES"; ObjectID = "P3J-PO-D05"; */
 "P3J-PO-D05.text" = "未讀訊息";
+/* Google Translator Toolkit requires the file contains more than one message */
+"dummy" = "假人";

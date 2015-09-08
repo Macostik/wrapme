@@ -28,10 +28,10 @@
 "HzZ-19-wUA.normalTitle" = "5";
 /* Class = "UIButton"; normalTitle = "L"; ObjectID = "ITP-VR-CiW"; */
 "ITP-VR-CiW.normalTitle" = "L";
-/* Class = "UILabel"; text = "Please go to Settings > MeWrap to allow Wrap access the camera on this device."; ObjectID = "Jwv-dz-I8C"; */
+/* Class = "UILabel"; text = "Please go to Settings > meWrap to allow Wrap access the camera on this device."; ObjectID = "Jwv-dz-I8C"; */
 "Jwv-dz-I8C.text" = "請前往「設定」> meWrap，並允許meWrap使用相機。";
 /* Class = "UILabel"; text = "Wrap name"; ObjectID = "Kgt-p9-lfD"; */
-"Kgt-p9-lfD.text" = "Wrap名稱";
+"Kgt-p9-lfD.text" = "圍拍名稱";
 /* Class = "UIButton"; normalTitle = "Done"; ObjectID = "N3t-xp-O3A"; */
 "N3t-xp-O3A.normalTitle" = "完成";
 /* Class = "UILabel"; text = "x"; ObjectID = "P0y-gx-usX"; */
@@ -48,8 +48,8 @@
 "agr-RC-KiU.normalTitle" = "6";
 /* Class = "UILabel"; text = "TAP TO CHANGE"; ObjectID = "av4-g2-N6y"; */
 "av4-g2-N6y.text" = "按此更改";
-/* Class = "UILabel"; text = "Please go to Settings > meWrap to allow meWrap access the photos on this device."; ObjectID = "bvQ-XE-Vmc"; */
-"bvQ-XE-Vmc.text" = "請前往「設定」> meWrap，並允許meWrap使用相機。";
+/* Class = "UILabel"; text = "Please go to Settings > meWrap to allow Wrap access the photos on this device."; ObjectID = "bvQ-XE-Vmc"; */
+"bvQ-XE-Vmc.text" = "請前往「設定」> meWrap，並允許meWrap取用相片。";
 /* Class = "UILabel"; text = "Photos"; ObjectID = "dGM-vI-GSH"; */
 "dGM-vI-GSH.text" = "相片";
 /* Class = "UILabel"; text = "Label"; ObjectID = "dM8-hb-sBn"; */
@@ -79,6 +79,6 @@
 /* Class = "UILabel"; text = "TAP TO CHANGE"; ObjectID = "upJ-Du-Uru"; */
 "upJ-Du-Uru.text" = "按此更改";
 /* Class = "UILabel"; text = "To allow access to the photos go to the Settings > Privacy > Photos"; ObjectID = "uud-iT-GCw"; */
-"uud-iT-GCw.text" = "請前往「設定」>「私隱」>「相機」，並允許meWrap使用相機。";
+"uud-iT-GCw.text" = "請前往「設定」>「私隱」>「相機」，並允許meWrap取用相片。";
 /* Class = "UILabel"; text = "Label"; ObjectID = "zto-LL-FxR"; */
 "zto-LL-FxR.text" = "Label";

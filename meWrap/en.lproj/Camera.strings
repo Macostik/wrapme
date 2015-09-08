@@ -45,7 +45,7 @@
 "ITP-VR-CiW.normalTitle" = "L";
 
 /* Class = "UILabel"; text = "Please go to Settings > meWrap to allow Wrap access the camera on this device."; ObjectID = "Jwv-dz-I8C"; */
-"Jwv-dz-I8C.text" = "Please go to Settings > meWrap to allow Wrap access the camera.";
+"Jwv-dz-I8C.text" = "Please go to Settings > meWrap to allow meWrap access the camera.";
 
 /* Class = "UILabel"; text = "Wrap name"; ObjectID = "Kgt-p9-lfD"; */
 "Kgt-p9-lfD.text" = "Wrap name";
@@ -75,7 +75,7 @@
 "av4-g2-N6y.text" = "TAP TO CHANGE";
 
 /* Class = "UILabel"; text = "Please go to Settings > meWrap to allow Wrap access the photos on this device."; ObjectID = "bvQ-XE-Vmc"; */
-"bvQ-XE-Vmc.text" = "Please go to Settings > meWrap to allow Wrap access the photos.";
+"bvQ-XE-Vmc.text" = "Please go to Settings > meWrap to allow meWrap access the photos.";
 
 /* Class = "UILabel"; text = "Photos"; ObjectID = "dGM-vI-GSH"; */
 "dGM-vI-GSH.text" = "Photos";

@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+
 typedef NS_ENUM(int16_t, WLEvent) {
     WLEventAdd,
     WLEventUpdate,

@@ -1242,7 +1242,7 @@ Tap here to start.</string>
                         <userDefinedRuntimeAttribute type="number" keyPath="itemSize">
                             <real key="value" value="60"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="PablicWrapPlaceholderView"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="PublicWrapPlaceholderView"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outletCollection property="headerMetrics" destination="LBy-GY-uOH" collectionClass="NSMutableArray" id="61v-pl-Xvr"/>

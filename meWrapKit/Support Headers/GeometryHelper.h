@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+
 struct CGLine {
     CGPoint a;
     CGPoint b;
@@ -25,10 +27,6 @@ static inline CGFloat CGAngleBetweenLines(CGLine l1, CGLine l2) {
     CGFloat degs = acosf(((a*c) + (b*d)) / ((sqrt(a*a + b*b)) * (sqrt(c*c + d*d))));
     
     return (s1 > s2) ? degs : -degs;
-}
-
-static inline CGSize CGRetinaSize(CGSize size) {
-    return CGSizeMake(size.width*2, size.height*2);
 }
 
 static inline CGFloat CGSizeScaleToFitSize(CGSize sizeToFit, CGSize originalSize) {

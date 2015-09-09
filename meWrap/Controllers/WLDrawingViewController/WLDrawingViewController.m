@@ -140,7 +140,7 @@
             return;
         }
         
-        CGSize size = image.size;
+        CGSize size = CGSizeMake(image.size.width * image.scale, image.size.height * image.scale);
         image = [UIImage draw:size opaque:NO scale:1 drawing:^(CGSize size) {
             [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
             CGContextScaleCTM(UIGraphicsGetCurrentContext(), size.width / weakSelf.canvas.width, size.height / weakSelf.canvas.height);

@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 typedef NS_ENUM(NSInteger, WLAPIResponseCode) {
 	WLAPIResponseCodeSuccess = 0,
 	WLAPIResponseCodeFailure = -1

@@ -7,6 +7,7 @@
 //
 
 #import "NSOrderedSet+WLCollection.h"
+#import "GeometryHelper.h"
 
 @implementation NSOrderedSet (WLCollection)
 

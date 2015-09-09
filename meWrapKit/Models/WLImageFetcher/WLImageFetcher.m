@@ -15,6 +15,8 @@
 #import "AFURLResponseSerialization.h"
 #import "AFHTTPRequestOperation.h"
 #import "NSError+WLAPIManager.h"
+#import "GCDHelper.h"
+#import "WLLogger.h"
 
 @interface WLImageFetcher ()
 

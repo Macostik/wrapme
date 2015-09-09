@@ -20,6 +20,8 @@
 #import "WLUploadingQueue.h"
 #import "WLOperationQueue.h"
 #import "WLEditPicture.h"
+#import "WLLocalization.h"
+#import "GCDHelper.h"
 
 @implementation WLWrap (Extended)
 

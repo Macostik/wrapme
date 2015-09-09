@@ -79,7 +79,7 @@ static BOOL authorized = NO;
 		
         id pageSize = response.data[@"pagination_fetch_size"];
         if (pageSize) {
-            WLConstants.pageSize = [pageSize integerValue];
+            WLSession.pageSize = [pageSize integerValue];
         }
 		
 		if (response.data[@"image_uri"]) {

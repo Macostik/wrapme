@@ -12,6 +12,7 @@
 #import "UIDevice+SystemVersion.h"
 #import "NSObject+Extension.h"
 #import "NSUserDefaults+WLAppGroup.h"
+#import "GCDHelper.h"
 
 @interface WLCacheItem : NSObject
 

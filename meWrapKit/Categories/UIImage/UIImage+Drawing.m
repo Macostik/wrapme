@@ -10,6 +10,7 @@
 #import "NSString+Documents.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "NSMutableDictionary+ImageMetadata.h"
+#import "GCDHelper.h"
 
 @implementation UIImage (Drawing)
 

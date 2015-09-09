@@ -11,6 +11,7 @@
 #import <objc/runtime.h>
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
+#import "WLLocalization.h"
 
 static NSInteger WLDaySeconds = 24*60*60;
 

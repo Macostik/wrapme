@@ -85,10 +85,6 @@
 	self.frame = frame;
 }
 
-- (CGSize)retinaSize {
-	return CGRetinaSize(self.size);
-}
-
 - (CGFloat)right {
     return CGRectGetMaxX(self.frame);
 }

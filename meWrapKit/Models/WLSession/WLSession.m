@@ -277,6 +277,28 @@ static NSString *_avatarURI = nil;
     [self enqueueSynchronize];
 }
 
+
+// MARK: - pageSize
+
+static NSInteger _pageSize = -1;
+
+- (NSInteger)pageSize {
+    if (_pageSize == -1) {
+        if ([self objectForKey:@"pageSize"]) {
+            _pageSize = [self integerForKey:@"pageSize"];
+        } else {
+            _pageSize = 30;
+        }
+    }
+    return _pageSize;
+}
+
+- (void)setPageSize:(NSInteger)pageSize {
+    _pageSize = pageSize;
+    [self setInteger:pageSize forKey:@"pageSize"];
+    [self enqueueSynchronize];
+}
+
 // MARK: - methods
 
 - (void)setCurrentAppVersion {

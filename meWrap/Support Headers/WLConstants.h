@@ -11,7 +11,6 @@ typedef struct {
     CGFloat screenWidth;
     BOOL iPhone;
     NSUInteger appStoreID;
-    NSUInteger pageSize;
 } WLConstantsStruct;
 
 WLConstantsStruct WLConstants;
@@ -23,7 +22,6 @@ static void WLInitializeConstants (void) {
         .screenWidth = [UIScreen mainScreen].bounds.size.width,
         .iPhone = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone,
         .appStoreID = 879908578,
-        .pageSize = 10
     };
 }
 

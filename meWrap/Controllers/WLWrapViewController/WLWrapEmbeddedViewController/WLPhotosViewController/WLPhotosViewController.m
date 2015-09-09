@@ -102,7 +102,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 }
 
 - (void)firstLoadRequest {
-    if (self.history.entries.count > WLConstants.pageSize) {
+    if (self.history.entries.count > WLSession.pageSize) {
         [self.history newer:nil failure:nil];
     } else {
         [self.history fresh:nil failure:nil];

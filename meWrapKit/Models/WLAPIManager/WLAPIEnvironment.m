@@ -11,6 +11,7 @@
 #import "WLAuthorization.h"
 #import "NSBundle+Extended.h"
 #import "NSDictionary+Extended.h"
+#import "WLLogger.h"
 
 @implementation WLAPIEnvironment
 

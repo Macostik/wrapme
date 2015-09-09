@@ -5,7 +5,7 @@
 /* Class = "UILabel"; text = "Chat"; ObjectID = "0SW-P4-yg3"; */
 "0SW-P4-yg3.text" = "Chat";
 
-/* Class = "UILabel"; text = "Create wrap is easy!\nTap here to start."; ObjectID = "0ka-0F-dc5"; */
+/* Class = "UILabel"; text = "Create Wrap is easy!\nTap here to start."; ObjectID = "0ka-0F-dc5"; */
 "0ka-0F-dc5.text" = "Create wrap is easy!\nTap here to start.";
 
 /* Class = "UIButton"; normalTitle = "m"; ObjectID = "0rM-Ee-8of"; */
@@ -48,7 +48,7 @@
 "7Bf-ro-UFC.normalTitle" = "Continue";
 
 /* Class = "UIButton"; normalTitle = "Sign Out"; ObjectID = "7C1-yc-O8X"; */
-"7C1-yc-O8X.normalTitle" = "Sign Out";
+"7C1-yc-O8X.normalTitle" = "Sign out";
 
 /* Class = "UILabel"; text = "a"; ObjectID = "7Ok-gy-eVo"; */
 "7Ok-gy-eVo.text" = "a";
@@ -63,7 +63,7 @@
 "7zc-rd-P8J.text" = "2";
 
 /* Class = "UITextField"; placeholder = "Email address"; ObjectID = "82E-k4-0WJ"; */
-"82E-k4-0WJ.placeholder" = "Email address";
+"82E-k4-0WJ.placeholder" = "E-mail address";
 
 /* Class = "UIButton"; normalTitle = "MAY BE LATER"; ObjectID = "8ai-37-t5q"; */
 "8ai-37-t5q.normalTitle" = "MAY BE LATER";
@@ -201,7 +201,7 @@
 "TlS-f9-yyB.text" = "Enter your friend's name & phone number";
 
 /* Class = "UILabel"; text = "There was a problem connecting with meWrap.\nCheck your internet connection and try again."; ObjectID = "TvM-gd-tcr"; */
-"TvM-gd-tcr.text" = "There was a problem connecting with meWrap.\nCheck your internet connection and try again.";
+"TvM-gd-tcr.text" = "No internet connection. Please try again later.";
 
 /* Class = "UILabel"; text = "D"; ObjectID = "U0A-o6-Hed"; */
 "U0A-o6-Hed.text" = "D";
@@ -243,7 +243,7 @@
 "aQU-Uj-mtX.normalTitle" = "L";
 
 /* Class = "UILabel"; text = "Notify me when new photo is added to the Wrap."; ObjectID = "bHL-LP-6Kt"; */
-"bHL-LP-6Kt.text" = "Notify me when new photo is added to the Wrap.";
+"bHL-LP-6Kt.text" = "Notify me when new photo is added.";
 
 /* Class = "UILabel"; text = "("; ObjectID = "bUo-1c-0rp"; */
 "bUo-1c-0rp.text" = "(";
@@ -261,7 +261,7 @@
 "cMC-ND-b5t.text" = "message text";
 
 /* Class = "UILabel"; text = "Notify me when new chat is posted to the Wrap."; ObjectID = "cUR-VV-aaK"; */
-"cUR-VV-aaK.text" = "Notify me when new chat is posted to the Wrap.";
+"cUR-VV-aaK.text" = "Notify me when new chat is posted.";
 
 /* Class = "UIButton"; normalTitle = "Account"; ObjectID = "co2-D4-XAH"; */
 "co2-D4-XAH.normalTitle" = "Account";
@@ -270,7 +270,7 @@
 "ek2-Bn-UN6.text" = "Wrap";
 
 /* Class = "UIButton"; normalTitle = "Add Demo Images"; ObjectID = "fos-MI-VJD"; */
-"fos-MI-VJD.normalTitle" = "Add Demo Images";
+"fos-MI-VJD.normalTitle" = "Add demo images";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "fw4-o4-768"; */
 "fw4-o4-768.text" = "Label";
@@ -285,7 +285,7 @@
 "h8h-Ah-t4O.text" = "Photos";
 
 /* Class = "UIButton"; normalTitle = "Clean Cache"; ObjectID = "hNJ-iN-ANg"; */
-"hNJ-iN-ANg.normalTitle" = "Clean Cache";
+"hNJ-iN-ANg.normalTitle" = "Clean cache";
 
 /* Class = "UILabel"; text = "1"; ObjectID = "hw2-sP-LBk"; */
 "hw2-sP-LBk.text" = "1";

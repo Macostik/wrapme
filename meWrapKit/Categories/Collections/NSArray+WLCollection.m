@@ -7,6 +7,7 @@
 //
 
 #import "NSArray+WLCollection.h"
+#import "GeometryHelper.h"
 
 @implementation NSArray (WLCollection)
 

@@ -8,6 +8,7 @@
 
 #import "WLEntry+Containment.h"
 #import "WLEntryManager.h"
+#import "WLLocalization.h"
 
 @implementation WLEntry (Containment)
 

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WLDefinedComparators.h"
+#import "DefinedBlocks.h"
 
 @protocol WLCollection <NSObject>
 

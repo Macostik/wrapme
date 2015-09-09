@@ -1,9 +1,6 @@
-
-/* Class = "UILabel"; text = "三五知己令Wrap增添色彩"; ObjectID = "H0z-j3-IR4"; */
+/* Class = "UILabel"; text = "Wrap is better with friends."; ObjectID = "H0z-j3-IR4"; */
 "H0z-j3-IR4.text" = "三五知己令圍拍增添色彩";
-
-/* Class = "UILabel"; text = "邀請摯友。\n上載照片。\n緊扣一起。"; ObjectID = "alp-kS-BQe"; */
-"alp-kS-BQe.text" = "邀請摯友。\n上載照片。\n緊扣一起。";
-
-/* Class = "UIButton"; normalTitle = "知道"; ObjectID = "wy3-57-sV0"; */
+/* Class = "UILabel"; text = "Add friends.\nChip in photos.\nStay connected."; ObjectID = "alp-kS-BQe"; */
+"alp-kS-BQe.text" = "邀請摯友。\\n上載照片。\\n緊扣一起。";
+/* Class = "UIButton"; normalTitle = "Got it"; ObjectID = "wy3-57-sV0"; */
 "wy3-57-sV0.normalTitle" = "知道";

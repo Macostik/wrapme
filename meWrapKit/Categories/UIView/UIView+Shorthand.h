@@ -11,7 +11,6 @@
 
 @property (nonatomic) CGPoint origin;
 @property (nonatomic) CGSize size;
-@property (nonatomic, readonly) CGSize retinaSize;
 
 @property (nonatomic) CGFloat centerX;
 @property (nonatomic) CGFloat centerY;

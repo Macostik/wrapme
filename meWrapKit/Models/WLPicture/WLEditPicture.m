@@ -13,6 +13,7 @@
 #import "WLImageFetcher.h"
 #import "UIImage+Drawing.h"
 #import "WLAPIRequest.h"
+#import "GCDHelper.h"
 
 @interface WLEditPicture () <WLImageFetching>
 

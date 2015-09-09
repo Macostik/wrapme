@@ -14,6 +14,7 @@
 #import "NSDate+Additions.h"
 #import "WLEntryNotifier.h"
 #import "WLPaginatedRequest+Defined.h"
+#import "WLSession.h"
 
 @interface WLHistory () <WLEntryNotifyReceiver, WLBroadcastReceiver>
 
@@ -80,7 +81,7 @@
         [entriesCopy removes:dayEntries];
         
         if  (self.checkCompletion) {
-            group.completed = group.entries.count < WLConstants.pageSize;
+            group.completed = group.entries.count < WLSession.pageSize;
         }
     }
     if (added) {

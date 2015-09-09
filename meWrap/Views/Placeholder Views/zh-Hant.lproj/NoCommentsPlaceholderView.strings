@@ -1,6 +1,4 @@
-
 /* Class = "UIButton"; normalTitle = "q"; ObjectID = "0fJ-4z-4DY"; */
 "0fJ-4z-4DY.normalTitle" = "q";
-
-/* Class = "UILabel"; text = "未有任何回應"; ObjectID = "c1h-W3-cED"; */
+/* Class = "UILabel"; text = "No comments yet."; ObjectID = "c1h-W3-cED"; */
 "c1h-W3-cED.text" = "未有任何回應";

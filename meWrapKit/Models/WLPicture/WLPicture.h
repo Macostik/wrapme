@@ -8,6 +8,7 @@
 
 #import "WLArchivingObject.h"
 #import "WLCommonEnums.h"
+#import "DefinedBlocks.h"
 
 @class WLImageCache;
 

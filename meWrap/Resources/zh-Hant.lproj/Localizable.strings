@@ -49,7 +49,7 @@
 "formatted_and_are_typing" = "%@與%@輸入中...";
 "sending_confirming_email" = "現正傳送確認電郵。";
 "remote_notification_when_app_is_active_error" = "無法處理遠程通知。";
-"formatted_about_message" = "你正在使用%@\\nv%@\\n版本號 %@";
+"formatted_about_message" = "你正在使用%@\nv%@\n版本號 %@";
 "sign_out" = "登出";
 "sign_out_confirmation" = "確定要清除所有內容，並重設meWrap嗎？";
 "downloading_photo" = "下載相片中。相片將會保存到此裝置的\"%@\"資料夾內。";

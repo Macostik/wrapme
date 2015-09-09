@@ -9,7 +9,7 @@
 /* Class = "UILabel"; text = "Wrap"; ObjectID = "0YA-Wt-D43"; */
 "0YA-Wt-D43.text" = "圍拍";
 /* Class = "UILabel"; text = "Create Wrap is easy!\nTap here to start."; ObjectID = "0ka-0F-dc5"; */
-"0ka-0F-dc5.text" = "按此即可建立圍拍，\\n簡易又輕鬆！";
+"0ka-0F-dc5.text" = "按此即可建立圍拍，\n簡易又輕鬆！";
 /* Class = "UIButton"; normalTitle = "m"; ObjectID = "0rM-Ee-8of"; */
 "0rM-Ee-8of.normalTitle" = "m";
 /* Class = "UILabel"; text = "Slide to open camera"; ObjectID = "0rs-Jv-qhC"; */

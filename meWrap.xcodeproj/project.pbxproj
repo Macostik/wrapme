@@ -1923,7 +1923,6 @@
 		C5A278CA1B9598DF00D5C969 /* meWrapWatchAppQA-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapWatchAppQA-Info.plist"; sourceTree = "<group>"; };
 		C5A278CB1B9598DF00D5C969 /* meWrapWatchExt-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapWatchExt-Info.plist"; sourceTree = "<group>"; };
 		C5A278CC1B9598DF00D5C969 /* meWrapWatchExtQA-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapWatchExtQA-Info.plist"; sourceTree = "<group>"; };
-		C5A278CD1B959B8F00D5C969 /* meWrapKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrapKit-Info.plist"; sourceTree = "<group>"; };
 		C5A28D611ACBEF0B00F0E8BA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C5A82CCD1ACD979B00336027 /* WLDeviceOrientationBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDeviceOrientationBroadcaster.h; sourceTree = "<group>"; };
 		C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
@@ -4544,7 +4543,6 @@
 		C5A278C41B9598DF00D5C969 /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				C5A278CD1B959B8F00D5C969 /* meWrapKit-Info.plist */,
 				C5A278C51B9598DF00D5C969 /* meWrap-Info.plist */,
 				C5A278C61B9598DF00D5C969 /* meWrapQA-Info.plist */,
 				C5A278C71B9598DF00D5C969 /* meWrapToday-Info.plist */,

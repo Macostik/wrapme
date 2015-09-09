@@ -213,7 +213,7 @@
 /* Class = "UILabel"; text = "Photo"; ObjectID = "bsu-Ad-ILe"; */
 "bsu-Ad-ILe.text" = "相片";
 /* Class = "UIButton"; normalTitle = "g"; ObjectID = "cKy-OZ-m8E"; */
-"cKy-OZ-m8E.normalTitle" = "g";
+"cKy-OZ-m8E.normalTitle" = "\"\";
 /* Class = "UITextView"; text = "message text"; ObjectID = "cMC-ND-b5t"; */
 "cMC-ND-b5t.text" = "message text";
 /* Class = "UILabel"; text = "Notify me when new chat is posted to the Wrap."; ObjectID = "cUR-VV-aaK"; */
@@ -310,3 +310,5 @@
 "zd5-1Z-u2u.text" = "圍拍管理員";
 /* Class = "UILabel"; text = "Chat"; ObjectID = "zet-Ls-5CH"; */
 "zet-Ls-5CH.text" = "對話";
+/* Class = "UIButton"; normalTitle = "*"; ObjectID = "W2G-E9-yFD"; */
+"W2G-E9-yFD.normalTitle" = "*";

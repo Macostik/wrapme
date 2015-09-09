@@ -9,8 +9,8 @@
 #import "StreamReusableView.h"
 #import "WLChat.h"
 
-static CGFloat WLTypingViewMinHeight = 52.0;
-static CGFloat WLTypingViewTopIndent = 4.0;
+static CGFloat WLTypingViewMinHeight = 56.0;
+static CGFloat WLTypingViewTopIndent = 8.0;
 static NSString *WLFriendsTypingImage = @"friends";
 
 @interface WLTypingView : StreamReusableView

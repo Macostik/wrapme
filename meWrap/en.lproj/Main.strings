@@ -255,7 +255,7 @@
 "bsu-Ad-ILe.text" = "Photo";
 
 /* Class = "UIButton"; normalTitle = "g"; ObjectID = "cKy-OZ-m8E"; */
-"cKy-OZ-m8E.normalTitle" = "g";
+"cKy-OZ-m8E.normalTitle" = "\"\";
 
 /* Class = "UITextView"; text = "message text"; ObjectID = "cMC-ND-b5t"; */
 "cMC-ND-b5t.text" = "message text";
@@ -364,3 +364,6 @@
 
 /* Class = "UILabel"; text = "Chat"; ObjectID = "zet-Ls-5CH"; */
 "zet-Ls-5CH.text" = "Chat";
+
+/* Class = "UIButton"; normalTitle = "*"; ObjectID = "W2G-E9-yFD"; */
+"W2G-E9-yFD.normalTitle" = "*";

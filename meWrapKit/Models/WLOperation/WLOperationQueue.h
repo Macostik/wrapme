@@ -29,6 +29,8 @@ static NSString* WLOperationFetchingDataQueue = @"wl_fetching_data_queue";
 
 + (instancetype)queueNamed:(NSString*)name capacity:(NSUInteger)capacity;
 
++ (void)removeQueue:(WLOperationQueue*)queue;
+
 - (void)addOperation:(WLOperation*)operation;
 
 - (WLOperation*)addOperationWithBlock:(WLOperationBlock)block;

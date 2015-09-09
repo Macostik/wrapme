@@ -71,12 +71,27 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 @property (nonatomic) BOOL disableRotation;
 
+@property (weak, nonatomic) WLOperationQueue *paginationQueue;
+
 @end
 
 @implementation WLHistoryViewController
 
+- (void)dealloc {
+    [WLOperationQueue removeQueue:self.paginationQueue];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    __weak typeof(self)weakSelf = self;
+    self.paginationQueue = [WLOperationQueue queueNamed:GUID() capacity:1];
+    [self.paginationQueue setStartQueueBlock:^{
+        [weakSelf.spinner startAnimating];
+    }];
+    [self.paginationQueue setFinishQueueBlock:^{
+        [weakSelf.spinner stopAnimating];
+    }];
     
     self.lastCommentTextView.textContainer.lineBreakMode = NSLineBreakByTruncatingTail;
     self.lastCommentTextView.textContainer.maximumNumberOfLines = 2;
@@ -103,15 +118,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [[WLCandy notifier] addReceiver:self];
     
     self.commentButton.layer.borderColor = [UIColor whiteColor].CGColor;
-
-    __weak typeof(self)weakSelf = self;
-    WLOperationQueue *paginationQueue = [WLOperationQueue queueNamed:@"wl_candy_pagination_queue"];
-    [paginationQueue setStartQueueBlock:^{
-        [weakSelf.spinner startAnimating];
-    }];
-    [paginationQueue setFinishQueueBlock:^{
-        [weakSelf.spinner stopAnimating];
-    }];
 
     [self setCandy:_candy direction:0 animated:NO];
     
@@ -214,41 +220,31 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (void)fetchCandiesOlderThen:(WLCandy*)candy {
     WLHistoryItem *historyItem = self.historyItem;
     if (historyItem.completed || historyItem.request.loading || !candy) return;
-    NSUInteger count = [historyItem.entries count];
-    NSUInteger index = [historyItem.entries indexOfObject:candy];
-    BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
-    if (shouldAppendCandies) {
-        runUnaryQueuedOperation(@"wl_candy_pagination_queue", ^(WLOperation *operation) {
-            [historyItem older:^(NSSet *candies) {
-                [operation finish];
-            } failure:^(NSError *error) {
-                if (error.isNetworkError) {
-                    historyItem.completed = YES;
-                }
-                [operation finish];
-            }];
-        });
-    }
+    [self.paginationQueue addOperationWithBlock:^(WLOperation *operation) {
+        [historyItem older:^(NSSet *candies) {
+            [operation finish];
+        } failure:^(NSError *error) {
+            if (error.isNetworkError) {
+                historyItem.completed = YES;
+            }
+            [operation finish];
+        }];
+    }];
 }
 
 - (void)fetchHistoryItemsOlderThen:(WLHistoryItem*)historyItem {
     WLHistory *history = self.history;
     if (history.completed || history.request.loading || !historyItem) return;
-    NSUInteger count = [history.entries count];
-    NSUInteger index = [history.entries indexOfObject:historyItem];
-    BOOL shouldAppendCandies = (count >= 3) ? index > count - 3 : YES;
-    if (shouldAppendCandies) {
-        runUnaryQueuedOperation(@"wl_candy_pagination_queue", ^(WLOperation *operation) {
-            [history older:^(NSSet *candies) {
-                [operation finish];
-            } failure:^(NSError *error) {
-                if (error.isNetworkError) {
-                    historyItem.completed = YES;
-                }
-                [operation finish];
-            }];
-        });
-    }
+    [self.paginationQueue addOperationWithBlock:^(WLOperation *operation) {
+        [history older:^(NSSet *candies) {
+            [operation finish];
+        } failure:^(NSError *error) {
+            if (error.isNetworkError) {
+                historyItem.completed = YES;
+            }
+            [operation finish];
+        }];
+    }];
 }
 
 - (void)setCandy:(WLCandy *)candy {
@@ -527,15 +523,13 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLHistoryItem *item = self.historyItem;
     candy = [item.entries tryAt:[item.entries indexOfObject:candy] + 1];
     if (candy) {
-        WLCandyViewController *candyViewController = [self candyViewController:candy];
-        return candyViewController;
+        return [self candyViewController:candy];
     }
     
     if (item.completed) {
         item = [self.history.entries tryAt:[self.history.entries indexOfObject:item] + 1];
         if (item) {
-            WLCandyViewController *candyViewController = [self candyViewController:[item.entries firstObject]];
-            return candyViewController;
+            return [self candyViewController:[item.entries firstObject]];
         }
         [self fetchHistoryItemsOlderThen:self.historyItem];
     } else {
@@ -550,13 +544,11 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLHistoryItem *item = self.historyItem;
     candy = [item.entries tryAt:[item.entries indexOfObject:candy] - 1];
     if (candy) {
-        WLCandyViewController *candyViewController = [self candyViewController:candy];
-        return candyViewController;
+        return [self candyViewController:candy];
     } else {
         item = [self.history.entries tryAt:[self.history.entries indexOfObject:item] - 1];
         if (item) {
-            WLCandyViewController *candyViewController = [self candyViewController:[item.entries lastObject]];
-            return candyViewController;
+            return [self candyViewController:[item.entries lastObject]];
         }
     }
     return nil;

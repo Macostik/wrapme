@@ -97,7 +97,7 @@
     NSSet* wraps = [WLUser currentUser].wraps;
     homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:nil]];
     
-    publicDataSource.items = [WLPaginatedSet setWithEntries:[[WLWrap entriesWhere:@"isPublic == YES"] set] request:[WLPaginatedRequest wraps:@"public_not_following"]];
+    publicDataSource.items = [WLPaginatedSet setWithEntries:[[WLWrap entriesWhere:@"isPublic == YES"] set] request:[WLPaginatedRequest wraps:@"public"]];
     
     homeDataSource.selectionBlock = publicDataSource.selectionBlock = ^(id entry) {
         [WLChronologicalEntryPresenter presentEntry:entry animated:NO];

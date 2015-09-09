@@ -55,6 +55,7 @@
     currentUser.wraps = [NSSet set];
     [[WLImageCache cache] clear];
     [[WLImageCache uploadingCache] clear];
+    [[WLSystemImageCache instance] removeAllObjects];
     [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
 }
 

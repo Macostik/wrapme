@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 @interface WLLogger : NSObject
 
 + (void)systemLog:(NSString*)string;

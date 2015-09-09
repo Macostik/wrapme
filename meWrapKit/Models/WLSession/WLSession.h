@@ -46,6 +46,8 @@
 
 @property NSString *avatarURI;
 
+@property NSInteger pageSize;
+
 - (void)setCurrentAppVersion;
 
 - (void)clear;

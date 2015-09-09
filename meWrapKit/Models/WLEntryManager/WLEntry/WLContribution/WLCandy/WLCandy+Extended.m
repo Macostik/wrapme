@@ -18,6 +18,8 @@
 #import "WLBlockImageFetching.h"
 #import "WLEditPicture.h"
 #import "WLEntry+WLAPIRequest.h"
+#import "GCDHelper.h"
+#import "WLLocalization.h"
 
 @implementation WLCandy (Extended)
 

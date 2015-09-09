@@ -15,6 +15,7 @@
 #import "NSDictionary+Extended.h"
 #import "WLTelephony.h"
 #import "UIFont+CustomFonts.h"
+#import "WLLocalization.h"
 
 @implementation WLAuthorization
 

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WLAPIResponse.h"
+#import "DefinedBlocks.h"
 
 static NSString* WLErrorDomain = @"com.wraplive.error";
 

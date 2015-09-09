@@ -13,6 +13,7 @@
 #import "WLAuthorizationRequest.h"
 #import "WLUploadingQueue.h"
 #import "AFNetworkReachabilityManager.h"
+#import "GCDHelper.h"
 
 @implementation WLNetwork
 

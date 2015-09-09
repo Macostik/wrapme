@@ -12,6 +12,7 @@
 #import "WLAPIRequest.h"
 #import "NSUserDefaults+WLAppGroup.h"
 #import "WLEntryNotifier.h"
+#import "WLLogger.h"
 
 @interface WLMergePolicy : NSMergePolicy
 

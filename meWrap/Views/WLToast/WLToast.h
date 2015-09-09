@@ -11,6 +11,7 @@
 static NSTimeInterval WLToastDismissalDelay = 4.0f;
 
 @class WLToast;
+@class WLWrap;
 
 @protocol WLToastAppearance <NSObject>
 

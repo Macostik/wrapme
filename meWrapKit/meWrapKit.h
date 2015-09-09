@@ -1,12 +1,10 @@
 //
-//  meWrapKit.h
-//  meWrapKit
+//  meWrapKitt.h
+//  meWrapKitt
 //
-//  Created by Ravenpod on 3/21/15.
+//  Created by Sergey Maximenko on 9/8/15.
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
-
-#import <UIKit/UIKit.h>
 
 #import <meWrapKit/GeometryHelper.h>
 #import <meWrapKit/Timecost.h>
@@ -96,3 +94,5 @@
 #import <meWrapKit/WLExtensionMessage.h>
 #import <meWrapKit/WLExtensionRequest.h>
 #import <meWrapKit/WLExtensionResponse.h>
+
+

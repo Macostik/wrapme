@@ -9,6 +9,7 @@
 #import "NSError+WLAPIManager.h"
 #import "WLEntry+WLAPIRequest.h"
 #import "NSDictionary+Extended.h"
+#import "WLLocalization.h"
 
 @implementation NSError (WLAPIManager)
 

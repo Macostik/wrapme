@@ -14,6 +14,8 @@
 #import "NSString+Additions.h"
 #import "WLSystemImageCache.h"
 #import "UIDevice+SystemVersion.h"
+#import "GCDHelper.h"
+#import "WLLogger.h"
 
 static NSUInteger WLImageCacheSize = 524288000;
 

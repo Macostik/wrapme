@@ -11,7 +11,7 @@
 #import "WLContribution.h"
 #import "WLDevice.h"
 #import "WLWrap.h"
-
+#import "WLLocalization.h"
 
 @implementation WLUser
 

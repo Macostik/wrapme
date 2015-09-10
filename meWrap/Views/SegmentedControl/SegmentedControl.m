@@ -61,7 +61,7 @@
 	
 	_horizontal = (dx > dy);
 	
-	self.selectedSegment = 0;
+	[self setSelectedControl:[self controlForSegment:self.selectedSegment]];
 }
 
 - (void)setSelectionEvent:(UIControlEvents)selectionEvent {

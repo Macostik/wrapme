@@ -18,12 +18,12 @@
 
 @interface WLEmojiView () <SegmentedControlDelegate>
 
-@property (strong, nonatomic) UIView * emojiView;
+@property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (strong, nonatomic) NSArray * emojis;
 @property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
 @property (weak, nonatomic) UITextView* textView;
-@property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
-@property (strong, nonatomic) IBOutlet GridMetrics *metrics;
+@property (strong, nonatomic) StreamDataSource *dataSource;
+@property (strong, nonatomic) GridMetrics *metrics;
 
 @end
 
@@ -38,15 +38,14 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    if ([[WLEmoji recentEmoji] nonempty]) {
-        self.emojis = [WLEmoji recentEmoji];
-    } else {
-        self.segmentedControl.selectedSegment = 1;
-        self.emojis = [WLEmoji emojiByType:WLEmojiTypeSmiles];
-    }
+    self.streamView.layout = [[GridLayout alloc] initWithHorizontal:YES];
+    self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
+    self.metrics = [[GridMetrics alloc] initWithIdentifier:@"WLEmojiCell"];
+    [self.dataSource addMetrics:self.metrics];
+    self.dataSource.numberOfGridColumns = 3;
+    self.dataSource.sizeForGridColumns = 0.3333f;
     __weak typeof(self)weakSelf = self;
-    
-    StreamView *streamView = self.dataSource.streamView;
+    StreamView *streamView = self.streamView;
     [self.metrics setRatioAt:^CGFloat(StreamPosition * __nonnull index, GridMetrics * __nonnull metrics) {
         return (streamView.frame.size.width/7) / (streamView.frame.size.height/3);
     }];
@@ -55,18 +54,17 @@
         [WLEmoji saveAsRecent:emoji];
         [weakSelf.textView insertText:emoji];
     }];
+    
+    if ([[WLEmoji recentEmoji] nonempty]) {
+        self.emojis = [WLEmoji recentEmoji];
+    } else {
+        self.segmentedControl.selectedSegment = 1;
+        self.emojis = [WLEmoji emojiByType:WLEmojiTypeSmiles];
+    }
 }
 
 - (IBAction)returnClicked:(UIButton *)sender {
     [self.textView deleteBackward];
-}
-
-#pragma mark - UICollectionViewDelegate
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSString * selectedEmoji = [self.emojis objectAtIndex:indexPath.item];
-    [WLEmoji saveAsRecent:selectedEmoji];
-    [self.textView insertText:selectedEmoji];
 }
 
 - (void)setEmojis:(NSArray *)emojis {

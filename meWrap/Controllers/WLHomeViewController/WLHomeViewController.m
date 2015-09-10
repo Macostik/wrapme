@@ -103,26 +103,7 @@
         }];
         [metrics setFinalizeAppearing:^(StreamItem *item, id entry) {
             weakSelf.candiesView = (id)item.view;
-            StreamMetrics *metrics = [weakSelf.candiesView.dataSource.metrics firstObject];
-            [metrics setSelection:^(StreamItem *candyItem, WLCandy *candy) {
-                WLCandyCell *cell = (id)candyItem.view;
-                if (candy.valid && cell.coverView.image != nil) {
-                    WLHistoryViewController *historyViewController = (id)[candy viewController];
-                    if (historyViewController) {
-                        WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
-                        presentingImageView.delegate = self;
-                        __weak __typeof(self)weakSelf = self;
-                        historyViewController.presentingImageView = presentingImageView;
-                        [presentingImageView presentCandy:candy success:^(WLPresentingImageView *presetingImageView) {
-                            [weakSelf.navigationController pushViewController:historyViewController animated:NO];
-                        } failure:^(NSError *error) {
-                            [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
-                        }];
-                    }
-                } else {
-                    [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
-                }
-            }];
+            [weakSelf finalizeAppearingOfCandiesView:weakSelf.candiesView];
         }];
         [metrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
             return position.index != 0;
@@ -167,6 +148,29 @@
     [[WLWhatsUpSet sharedSet].broadcaster addReceiver:self];
     
     [[WLMessagesCounter instance] addReceiver:self];
+}
+
+- (void)finalizeAppearingOfCandiesView:(WLRecentCandiesView*)candiesView {
+    __weak typeof(self)weakSelf = self;
+    StreamMetrics *metrics = [candiesView.dataSource.metrics firstObject];
+    [metrics setSelection:^(StreamItem *candyItem, WLCandy *candy) {
+        WLCandyCell *cell = (id)candyItem.view;
+        if (candy.valid && cell.coverView.image != nil) {
+            WLHistoryViewController *historyViewController = (id)[candy viewController];
+            if (historyViewController) {
+                WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
+                presentingImageView.delegate = weakSelf;
+                historyViewController.presentingImageView = presentingImageView;
+                [presentingImageView presentCandy:candy success:^(WLPresentingImageView *presetingImageView) {
+                    [weakSelf.navigationController pushViewController:historyViewController animated:NO];
+                } failure:^(NSError *error) {
+                    [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
+                }];
+            }
+        } else {
+            [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
+        }
+    }];
 }
 
 - (void)setCreateWrapTipHidden:(BOOL)createWrapTipHidden {

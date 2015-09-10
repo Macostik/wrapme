@@ -124,13 +124,13 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 - (void)hideMenuForContributor:(WLUser*)contributor {
     if (self.contributiorWithOpenedMenu == contributor) {
         self.contributiorWithOpenedMenu = nil;
-#warning implement getting visible views
-//        for (WLContributorCell *cell in [self.dataSource.streamView visibleCells]) {
-//            if (cell.entry == contributor) {
-//                [cell setMenuHidden:YES animated:YES];
-//                break;
-//            }
-//        }
+        for (StreamItem *item in self.dataSource.streamView.visibleItems) {
+            WLContributorCell *cell = (id)item.view;
+            if (cell.entry == contributor) {
+                [cell setMenuHidden:YES animated:YES];
+                break;
+            }
+        }
     }
 }
 
@@ -163,12 +163,12 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
         self.contributiorWithOpenedMenu = nil;
     } else {
         self.contributiorWithOpenedMenu = contributor;
-#warning implement getting visible views
-//        for (WLContributorCell *cell in [self.dataSource.collectionView visibleCells]) {
-//            if (cell.entry != contributor) {
-//                [cell setMenuHidden:YES animated:YES];
-//            }
-//        }
+        for (StreamItem *item in self.dataSource.streamView.visibleItems) {
+            WLContributorCell *cell = (id)item.view;
+            if (cell.entry != contributor) {
+                [cell setMenuHidden:YES animated:YES];
+            }
+        }
     }
 }
 

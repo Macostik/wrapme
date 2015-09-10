@@ -316,6 +316,12 @@ class StreamView: UIScrollView {
         })
     }
     
+    func visibleItems() -> Set<StreamItem> {
+        return itemsPassingTest({ (item) -> Bool in
+            return item.visible
+        })
+    }
+    
     func selectedItems() -> Set<StreamItem> {
         return itemsPassingTest({ (item) -> Bool in
             return item.selected

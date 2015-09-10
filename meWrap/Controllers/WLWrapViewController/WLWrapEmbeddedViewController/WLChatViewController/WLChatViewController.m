@@ -209,9 +209,11 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)scrollToLastUnreadMessage {
-#warning implement scrolling to unread message
-//    self.layout.scrollToUnreadMessages = YES;
-    [self reloadDataSynchronously:NO];
+    __weak typeof(self)weakSelf = self;
+    StreamItem *unreadMessagesItem = [self.streamView itemPassingTest:^BOOL(StreamItem *item) {
+        return item.metrics == weakSelf.unreadMessagesMetrics;
+    }];
+    [self.streamView scrollToItem:unreadMessagesItem animated:NO];
 }
 
 - (void)setShowKeyboard:(BOOL)showKeyboard {

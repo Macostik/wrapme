@@ -31,6 +31,8 @@
 
 @interface WLAppDelegate () <iVersionDelegate>
 
+@property (nonatomic) BOOL versionChanged;
+
 @end
 
 @implementation WLAppDelegate
@@ -141,11 +143,17 @@
     [self.window makeKeyAndVisible];
     [UIWindow setMainWindow:self.window];
     
-    NSString* storedVersion = [WLSession appVersion];
+    NSString *storedVersion = WLSession.appVersion;
+    NSString *currentVersion = NSMainBundle.buildVersion;
+    
     if (!storedVersion || [storedVersion compare:@"2.0" options:NSNumericSearch] == NSOrderedAscending) {
         [WLSession clear];
     }
-    [WLSession setCurrentAppVersion];
+    
+    if (![storedVersion isEqualToString:currentVersion]) {
+        self.versionChanged = YES;
+        WLSession.appVersion = currentVersion;
+    }
 }
 
 - (void)presentInitialViewController {
@@ -164,7 +172,7 @@
     
     WLAuthorization* authorization = [WLAuthorization currentAuthorization];
     if ([authorization canAuthorize]) {
-        if (![WLAuthorizationRequest requiresSignIn]) {
+        if (!self.versionChanged && ![WLAuthorizationRequest requiresSignIn]) {
             WLUser *currentUser = [WLUser currentUser];
             if (currentUser) {
                 successBlock(currentUser);

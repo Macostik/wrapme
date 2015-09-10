@@ -48,8 +48,6 @@
 
 @property NSInteger pageSize;
 
-- (void)setCurrentAppVersion;
-
 - (void)clear;
 
 @end

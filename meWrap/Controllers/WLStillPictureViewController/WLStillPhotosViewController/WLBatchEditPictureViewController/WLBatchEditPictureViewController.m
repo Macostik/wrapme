@@ -115,14 +115,10 @@
         picture.selected = picture == self.picture;
     }
     [self.dataSource reload];
-    NSUInteger index = [self.pictures indexOfObject:self.picture];
-    if (index != NSNotFound) {
-//        __weak typeof(self)weakSelf = self;
-#warning  implement scrolling to item
-//        run_after_asap(^{
-//            [weakSelf.dataSource.streamView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-//        });
-    }
+    StreamItem *item = [self.dataSource.streamView itemPassingTest:^BOOL(StreamItem *item) {
+        return item.entry == self.picture;
+    }];
+    [self.dataSource.streamView scrollToItem:item animated:YES];
 }
 
 // MARK: - WLStillPictureBaseViewController

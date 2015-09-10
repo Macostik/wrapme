@@ -67,7 +67,7 @@ class StreamMetrics: NSObject {
     var finalizeAppearing: ((StreamItem?, AnyObject?) -> Void)?
     
     var reusableViews: Set<StreamReusableView> = Set()
-        
+    
     func loadView () -> StreamReusableView? {
         
         if nib == nil {

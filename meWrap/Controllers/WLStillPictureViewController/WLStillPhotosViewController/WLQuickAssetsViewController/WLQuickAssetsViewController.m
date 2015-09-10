@@ -20,7 +20,8 @@
 @property (strong, nonatomic) NSArray *assets;
 @property (strong, nonatomic) NSMutableArray *selectedAssets;
 
-@property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
+@property (strong, nonatomic) StreamDataSource *dataSource;
+@property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UILabel *accessErrorLabel;
 
 @end
@@ -33,6 +34,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.streamView.layout = [[GridLayout alloc] initWithHorizontal:YES];
+    self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
+    GridMetrics *metrics = [[GridMetrics alloc] initWithIdentifier:@"WLAssetCell" ratio:1];
+    metrics.nibOwner = self;
+    [self.dataSource addMetrics:metrics];
+    self.dataSource.numberOfGridColumns = 1;
+    self.dataSource.sizeForGridColumns = 1;
+    self.dataSource.layoutSpacing = 3;
     
     __weak typeof(self)weakSelf = self;
     [self loadAssets:^{

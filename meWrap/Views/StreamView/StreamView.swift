@@ -33,9 +33,20 @@ var StreamViewCommonLocksChanged: String = "StreamViewCommonLocksChanged"
 
 class StreamView: UIScrollView {
     
+    var _layout: StreamLayout?
+    
     @IBOutlet var layout: StreamLayout? {
-        didSet {
-            layout?.streamView = self
+        get {
+            if _layout == nil {
+                self.layout = StreamLayout()
+            }
+            return _layout
+        }
+        set {
+            if let layout = newValue {
+                layout.streamView = self
+                _layout = layout
+            }
         }
     }
     
@@ -45,10 +56,10 @@ class StreamView: UIScrollView {
     
     @IBInspectable var horizontal: Bool {
         get {
-            if (layout == nil) {
-                return false
+            if let layout = self.layout {
+                return layout.horizontal
             } else {
-                return layout!.horizontal
+                return false
             }
         }
         set {
@@ -76,13 +87,6 @@ class StreamView: UIScrollView {
         addGestureRecognizer(tapRecognizer)
         addObserver(self, forKeyPath: "contentOffset", options: .New, context: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "locksChanged", name: StreamViewCommonLocksChanged, object: nil)
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if layout == nil {
-            layout = StreamLayout()
-        }
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {

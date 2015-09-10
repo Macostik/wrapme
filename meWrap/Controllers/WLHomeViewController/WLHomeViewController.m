@@ -82,12 +82,12 @@
     __weak typeof(self)weakSelf = self;
     
     [[homeDataSource.metrics lastObject] change:^(StreamMetrics *metrics) {
-        [metrics setSizeAt:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
-            return index.item == 0 ? 70 : 60;
+        [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
+            return position.index == 0 ? 70 : 60;
         }];
         
-        [metrics setInsetsAt:^CGRect(StreamIndex *index, StreamMetrics *metrics) {
-            return CGRectMake(0, index.item == 1 ? 5 : 0, 0, 0);
+        [metrics setInsetsAt:^CGRect(StreamPosition *position, StreamMetrics *metrics) {
+            return CGRectMake(0, position.index == 1 ? 5 : 0, 0, 0);
         }];
         
         metrics.selection = ^(StreamItem *item, id entry) {
@@ -97,41 +97,22 @@
     
     [homeDataSource addMetrics:[[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLRecentCandiesView";
-        [metrics setSizeAt:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+        [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
             int size = (streamView.width - 2.0f)/3.0f;;
             return ([weakSelf.homeDataSource.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size) + 5;
         }];
         [metrics setFinalizeAppearing:^(StreamItem *item, id entry) {
             weakSelf.candiesView = (id)item.view;
-            StreamMetrics *metrics = [weakSelf.candiesView.dataSource.metrics firstObject];
-            [metrics setSelection:^(StreamItem *candyItem, WLCandy *candy) {
-                WLCandyCell *cell = (id)candyItem.view;
-                if (candy.valid && cell.coverView.image != nil) {
-                    WLHistoryViewController *historyViewController = (id)[candy viewController];
-                    if (historyViewController) {
-                        WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
-                        presentingImageView.delegate = self;
-                        __weak __typeof(self)weakSelf = self;
-                        historyViewController.presentingImageView = presentingImageView;
-                        [presentingImageView presentCandy:candy success:^(WLPresentingImageView *presetingImageView) {
-                            [weakSelf.navigationController pushViewController:historyViewController animated:NO];
-                        } failure:^(NSError *error) {
-                            [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
-                        }];
-                    }
-                } else {
-                    [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
-                }
-            }];
+            [weakSelf finalizeAppearingOfCandiesView:weakSelf.candiesView];
         }];
-        [metrics setHiddenAt:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
-            return index.item != 0;
+        [metrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
+            return position.index != 0;
         }];
     }]];
     
     [[publicDataSource.metrics lastObject] change:^(StreamMetrics *metrics) {
-        [metrics setInsetsAt:^CGRect(StreamIndex *index, StreamMetrics *metrics) {
-            return CGRectMake(0, index.item == 0 ? 5 : 0, 0, 0);
+        [metrics setInsetsAt:^CGRect(StreamPosition *position, StreamMetrics *metrics) {
+            return CGRectMake(0, position.index == 0 ? 5 : 0, 0, 0);
         }];
         metrics.selection = ^(StreamItem *item, id entry) {
             [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
@@ -150,7 +131,7 @@
     
     NSSet* wraps = [WLUser currentUser].wraps;
     homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:nil]];
-    publicDataSource.items = [WLPaginatedSet setWithEntries:[[WLWrap entriesWhere:@"isPublic == YES"] set] request:[WLPaginatedRequest wraps:@"public_not_following"]];
+    publicDataSource.items = [WLPaginatedSet setWithEntries:[[WLWrap entriesWhere:@"isPublic == YES"] set] request:[WLPaginatedRequest wraps:@"public"]];
     
     if (wraps.nonempty) {
         [homeDataSource refresh];
@@ -167,6 +148,35 @@
     [[WLWhatsUpSet sharedSet].broadcaster addReceiver:self];
     
     [[WLMessagesCounter instance] addReceiver:self];
+}
+
+- (void)finalizeAppearingOfCandiesView:(WLRecentCandiesView*)candiesView {
+    __weak typeof(self)weakSelf = self;
+    StreamMetrics *metrics = [candiesView.dataSource.metrics firstObject];
+    [metrics setSelection:^(StreamItem *candyItem, WLCandy *candy) {
+        WLCandyCell *cell = (id)candyItem.view;
+        
+        if (!candy) {
+            [weakSelf addPhoto:nil];
+            return;
+        }
+        
+        if (candy.valid && cell.coverView.image != nil) {
+            WLHistoryViewController *historyViewController = (id)[candy viewController];
+            if (historyViewController) {
+                WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
+                presentingImageView.delegate = weakSelf;
+                historyViewController.presentingImageView = presentingImageView;
+                [presentingImageView presentCandy:candy success:^(WLPresentingImageView *presetingImageView) {
+                    [weakSelf.navigationController pushViewController:historyViewController animated:NO];
+                } failure:^(NSError *error) {
+                    [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
+                }];
+            }
+        } else {
+            [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
+        }
+    }];
 }
 
 - (void)setCreateWrapTipHidden:(BOOL)createWrapTipHidden {
@@ -465,7 +475,7 @@
     NSUInteger index = [(id)candiesView.dataSource.items indexOfObject:candy];
     if (index != NSNotFound && candiesView) {
         WLCandyCell *candyCell = (id)[[candiesView.streamView itemPassingTest:^BOOL(StreamItem *item) {
-            return item.index.item == index;
+            return item.position.index == index;
         }] view];
         if (candyCell) {
             return candyCell;

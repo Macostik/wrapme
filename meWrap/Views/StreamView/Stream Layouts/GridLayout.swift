@@ -98,9 +98,9 @@ class GridLayout: StreamLayout {
         
         if let metrics = item.metrics {
             if let metrics = item.metrics as? GridMetrics {
-                ratio = metrics.ratioAt(item.index!, metrics)
+                ratio = metrics.ratioAt(item.position!, metrics)
             } else {
-                ratio = (horizontal ? streamView!.frame.size.height : streamView!.frame.size.width) / metrics.sizeAt(item.index!, metrics)
+                ratio = (horizontal ? streamView!.frame.size.height : streamView!.frame.size.width) / metrics.sizeAt(item.position!, metrics)
             }
         }
         

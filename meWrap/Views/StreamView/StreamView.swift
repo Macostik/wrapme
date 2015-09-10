@@ -14,9 +14,9 @@ var StreamViewCommonLocksChanged: String = "StreamViewCommonLocksChanged"
 @objc protocol StreamViewDelegate: UIScrollViewDelegate {
     func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int
     
-    func streamView(streamView: StreamView, entryAt index: StreamIndex) -> AnyObject?
+    func streamView(streamView: StreamView, didLayoutItem item: StreamItem)
     
-    func streamView(streamView: StreamView, metricsAt index: StreamIndex) -> [StreamMetrics]
+    func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics]
     
     optional func streamViewHeaderMetrics(streamView: StreamView) -> [StreamMetrics]
     
@@ -33,9 +33,20 @@ var StreamViewCommonLocksChanged: String = "StreamViewCommonLocksChanged"
 
 class StreamView: UIScrollView {
     
+    var _layout: StreamLayout?
+    
     @IBOutlet var layout: StreamLayout? {
-        didSet {
-            layout?.streamView = self
+        get {
+            if _layout == nil {
+                self.layout = StreamLayout()
+            }
+            return _layout
+        }
+        set {
+            if let layout = newValue {
+                layout.streamView = self
+                _layout = layout
+            }
         }
     }
     
@@ -45,10 +56,10 @@ class StreamView: UIScrollView {
     
     @IBInspectable var horizontal: Bool {
         get {
-            if (layout == nil) {
-                return false
+            if let layout = self.layout {
+                return layout.horizontal
             } else {
-                return layout!.horizontal
+                return false
             }
         }
         set {
@@ -76,13 +87,6 @@ class StreamView: UIScrollView {
         addGestureRecognizer(tapRecognizer)
         addObserver(self, forKeyPath: "contentOffset", options: .New, context: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "locksChanged", name: StreamViewCommonLocksChanged, object: nil)
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if layout == nil {
-            layout = StreamLayout()
-        }
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
@@ -119,18 +123,18 @@ class StreamView: UIScrollView {
     
     func locksChanged() {
         if (locks == 0 && StreamView.locks == 0 && reloadAfterUnlock) {
-            reloadAfterUnlock = false;
+            reloadAfterUnlock = false
             reload()
         }
     }
     
     func lock() {
-        locks = max(0, locks + 1);
+        locks = max(0, locks + 1)
     }
     
     func unlock() {
         if (locks > 0) {
-            locks = locks - 1;
+            locks = locks - 1
             locksChanged()
         }
     }
@@ -139,7 +143,7 @@ class StreamView: UIScrollView {
         
         if (locks > 0 && StreamView.locks > 0) {
             reloadAfterUnlock = true
-            return;
+            return
         }
         
         clear()
@@ -156,14 +160,14 @@ class StreamView: UIScrollView {
                 }
                 
                 if let headers = delegate.streamViewHeaderMetrics?(self) {
-                    layoutMetrics(headers, layout: layout, index: StreamIndex(index: 0))
+                    layoutMetrics(headers, layout: layout, index: StreamPosition(section: 0, index: 0))
                 }
                 
-                var count = items.count;
+                var count = items.count
                 
                 for section in 0..<numberOfSections {
                     
-                    var sectionIndex = StreamIndex(index:section)
+                    var sectionIndex = StreamPosition(section: section, index: 0)
                     
                     if let headers = delegate.streamView?(self, sectionHeaderMetricsInSection: section) {
                         layoutMetrics(headers, layout: layout, index: sectionIndex)
@@ -172,9 +176,13 @@ class StreamView: UIScrollView {
                     var numberOfItems = delegate.streamView(self, numberOfItemsInSection:section)
                     
                     for i in 0..<numberOfItems {
-                        var index = (sectionIndex.copy() as! StreamIndex).add(i)
+                        var index = StreamPosition(section: section, index: i);
                         let metrics = delegate.streamView(self, metricsAt:index)
-                        layoutMetrics(metrics, layout: layout, index: index)
+                        for itemMetrics in metrics {
+                            if let item = layoutItem(layout, metrics: itemMetrics, index: index) {
+                                delegate.streamView(self, didLayoutItem: item)
+                            }
+                        }
                     }
                     
                     if let footers = delegate.streamView?(self, sectionFooterMetricsInSection: section) {
@@ -188,58 +196,57 @@ class StreamView: UIScrollView {
                 var empty = items.count == count
                 
                 if let footers = delegate.streamViewFooterMetrics?(self) {
-                    layoutMetrics(footers, layout: layout, index: StreamIndex(index: 0))
+                    layoutMetrics(footers, layout: layout, index: StreamPosition(section: 0, index: 0))
                 }
                 
                 
                 if (empty) {
                     if let placeholder = delegate.streamViewPlaceholderMetrics?(self) {
-                        var size = frame.size;
-                        var insets = contentInset;
+                        var size = frame.size
+                        var insets = contentInset
                         if horizontal {
-                            placeholder.size = size.width - insets.left - insets.right - layout.contentSize.width;
+                            placeholder.size = size.width - insets.left - insets.right - layout.contentSize.width
                         } else {
-                            placeholder.size = size.height - insets.top - insets.bottom - layout.contentSize.height;
+                            placeholder.size = size.height - insets.top - insets.bottom - layout.contentSize.height
                         }
-                        layoutItem(layout, metrics:placeholder, index:StreamIndex(index: 0))
+                        layoutItem(layout, metrics:placeholder, index:StreamPosition(section: 0, index: 0))
                     }
                 }
                 
                 layout.finalizeLayout()
                 
-                contentSize = layout.contentSize;
+                contentSize = layout.contentSize
                 
                 updateVisibility()
             }
         }
     }
     
-    func layoutMetrics(metrics: [StreamMetrics], layout: StreamLayout, index: StreamIndex) {
+    func layoutMetrics(metrics: [StreamMetrics], layout: StreamLayout, index: StreamPosition) {
         for m in metrics {
             layoutItem(layout, metrics: m, index: index)
         }
     }
     
-    func layoutItem(layout: StreamLayout, metrics: StreamMetrics, index: StreamIndex) {
+    func layoutItem(layout: StreamLayout, metrics: StreamMetrics, index: StreamPosition) -> StreamItem? {
         if (!metrics.hiddenAt(index, metrics)) {
             var item = StreamItem()
-            item.index = index;
-            item.metrics = metrics;
+            item.position = index
+            item.metrics = metrics
             layout.layout(item)
             if !CGSizeEqualToSize(item.frame.size, CGSizeZero) {
                 items.insert(item)
             }
+            return item
         }
+        return nil
     }
     
     func viewForItem(item: StreamItem) -> StreamReusableView? {
-        if let view = item.metrics?.loadView() {
-            view.frame = item.frame;
-            item.view = view;
-            var entry: AnyObject?
-            if let delegate = self.delegate as? StreamViewDelegate {
-                entry = delegate.streamView(self, entryAt: item.index!)
-            }
+        if let view = item.metrics?.dequeueView() {
+            view.frame = item.frame
+            item.view = view
+            var entry: AnyObject? = item.entry
             if let prepareAppearing = item.metrics?.prepareAppearing {
                 prepareAppearing(item, entry)
             }
@@ -254,9 +261,10 @@ class StreamView: UIScrollView {
     }
     
     func updateVisibility() {
-        var rect = CGRectMake(contentOffset.x, contentOffset.y, bounds.size.width, bounds.size.height)
+        var offset = contentOffset
+        var size = frame.size
+        var rect = CGRectMake(offset.x, offset.y, size.width, size.height)
         for item in items {
-            
             var visible = CGRectIntersectsRect(item.frame, rect)
             if item.visible != visible {
                 item.visible = visible
@@ -268,7 +276,8 @@ class StreamView: UIScrollView {
                 } else {
                     if let view = item.view {
                         view.removeFromSuperview()
-                        item.metrics?.reusableViews.insert(view)
+                        item.metrics?.enqueueView(view)
+                        item.view = nil
                     }
                 }
             }
@@ -291,18 +300,16 @@ class StreamView: UIScrollView {
             }
             
             if item.selected {
-                if multipleSelection {
+                if !multipleSelection {
                     for _item in items {
-                        if _item != item {
+                        if _item != item && _item.selected {
                             _item.selected = false
                         }
                     }
                 }
                 
                 if let delegate = self.delegate as? StreamViewDelegate {
-                    if let entry: AnyObject = delegate.streamView(self, entryAt: item.index!) {
-                        item.metrics?.select(item, entry: entry)
-                    }
+                    item.metrics?.select(item, entry: item.entry)
                 }
             }
         }
@@ -311,6 +318,12 @@ class StreamView: UIScrollView {
     func visibleItemAtPoint(point: CGPoint) -> StreamItem? {
         return itemPassingTest({ (item) -> Bool in
             return CGRectContainsPoint(item.frame, point)
+        })
+    }
+    
+    func visibleItems() -> Set<StreamItem> {
+        return itemsPassingTest({ (item) -> Bool in
+            return item.visible
         })
     }
     
@@ -347,7 +360,14 @@ class StreamView: UIScrollView {
     
     func scrollToItem(item: StreamItem?, animated: Bool)  {
         if let _item = item {
-            scrollRectToVisible(_item.frame, animated:animated)
+            var size = self.frame.size
+            var insets = contentInset
+            if horizontal {
+                scrollRectToVisible(CGRectInset(_item.frame, -((size.width - insets.left - insets.right) - _item.frame.size.width) / 2.0, 0), animated:animated)
+                
+            } else {
+                scrollRectToVisible(CGRectInset(_item.frame, 0, -((size.height - insets.top - insets.bottom) - _item.frame.size.height) / 2.0), animated:animated)
+            }
         }
     }
     

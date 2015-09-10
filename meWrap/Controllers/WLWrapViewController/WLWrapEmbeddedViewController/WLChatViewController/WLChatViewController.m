@@ -59,7 +59,6 @@ CGFloat WLMaxTextViewWidth;
 @property (strong, nonatomic) StreamMetrics *unreadMessagesMetrics;
 @property (strong, nonatomic) StreamMetrics *typingViewMetrics;
 @property (strong, nonatomic) StreamMetrics *loadingViewMetrics;
-@property (strong, nonatomic) StreamMetrics *placeholderMetrics;
 
 @end
 
@@ -115,17 +114,10 @@ CGFloat WLMaxTextViewWidth;
     
     streamView.layer.geometryFlipped = YES;
     
-    self.placeholderMetrics = [[StreamMetrics alloc] initWithIdentifier:@"NoMessagePlaceholderView" initializer:^(StreamMetrics * metrics) {
-        [metrics setPrepareAppearing:^(StreamItem *item, id entry) {
-            PlaceholderView *placeholderView = (id)item.view;
-            placeholderView.textLabel.text = [NSString stringWithFormat:WLLS(@"no_chat_message"), weakSelf.wrap.name];
-        }];
-    }];
-    
     self.typingViewMetrics.finalizeAppearing = self.unreadMessagesMetrics.finalizeAppearing = self.dateMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
         item.view.backgroundColor = [weakSelf backgroundColorForMessage:message];
     };
-
+    
     self.myMessageMetrics.prepareAppearing = self.messageMetrics.prepareAppearing = ^(StreamItem *item, WLMessage *message) {
         [(WLMessageCell*)item.view setShowName:[weakSelf.chat.messagesWithName containsObject:message]];
     };
@@ -137,7 +129,7 @@ CGFloat WLMaxTextViewWidth;
         item.view.backgroundColor = [weakSelf backgroundColorForMessage:message];
     };
     
-    [self.loadingViewMetrics setHiddenAt:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
+    [self.loadingViewMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
         return weakSelf.chat.completed;
     }];
     
@@ -153,7 +145,7 @@ CGFloat WLMaxTextViewWidth;
         }
     }];
     
-    [self.typingViewMetrics setSizeAt:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+    [self.typingViewMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         return [weakSelf heightOfTypingCell:weakSelf.chat];
     }];
     
@@ -163,8 +155,8 @@ CGFloat WLMaxTextViewWidth;
     
     WLMaxTextViewWidth = WLConstants.screenWidth - WLLeadingIndent - 2*WLMessageHorizontalInset - WLTrailingIndent;
     
-    self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
-        WLMessage *message = [weakSelf.chat.entries tryAt:index.item];
+    self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
+        WLMessage *message = [weakSelf.chat.entries tryAt:position.index];
         return [weakSelf heightOfMessageCell:message];
     };
 	
@@ -209,9 +201,11 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)scrollToLastUnreadMessage {
-#warning implement scrolling to unread message
-//    self.layout.scrollToUnreadMessages = YES;
-    [self reloadDataSynchronously:NO];
+    __weak typeof(self)weakSelf = self;
+    StreamItem *unreadMessagesItem = [self.streamView itemPassingTest:^BOOL(StreamItem *item) {
+        return item.metrics == weakSelf.unreadMessagesMetrics;
+    }];
+    [self.streamView scrollToItem:unreadMessagesItem animated:NO];
 }
 
 - (void)setShowKeyboard:(BOOL)showKeyboard {
@@ -470,13 +464,13 @@ CGFloat WLMaxTextViewWidth;
     return [self.chat.entries count];
 }
 
-- (id)streamView:(StreamView*)streamView entryAt:(StreamIndex*)index {
-    return [self.chat.entries tryAt:index.item];
+- (void)streamView:(StreamView * __nonnull)streamView didLayoutItem:(StreamItem * __nonnull)item {
+    item.entry = [self.chat.entries tryAt:item.position.index];
 }
 
-- (NSArray*)streamView:(StreamView*)streamView metricsAt:(StreamIndex*)index {
+- (NSArray*)streamView:(StreamView*)streamView metricsAt:(StreamPosition*)position {
     NSMutableArray *metrics = [NSMutableArray array];
-    WLMessage *message = [self.chat.entries tryAt:index.item];
+    WLMessage *message = [self.chat.entries tryAt:position.index];
     if (message.contributedByCurrentUser) {
         [metrics addObject:self.myMessageMetrics];
     } else {
@@ -496,11 +490,46 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (NSArray*)streamViewHeaderMetrics:(StreamView*)streamView {
-    return @[self.typingViewMetrics];
+    
+    __weak typeof(self)weakSelf = self;
+    StreamMetrics *insetMetrics = [[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
+        [metrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
+            CGFloat contentHeight = [weakSelf contentHeight];
+            if (contentHeight == 0) return YES;
+            CGFloat size = (weakSelf.streamView.frame.size.height - weakSelf.streamView.verticalContentInsets) - contentHeight;
+            if (size > 0) {
+                metrics.size = size;
+                return NO;
+            } else {
+                return YES;
+            }
+        }];
+    }];
+    
+    return @[self.typingViewMetrics, insetMetrics];
+}
+
+- (CGFloat)contentHeight {
+    WLChat *chat = self.chat;
+    if (!chat.entries.nonempty) return 0;
+    CGFloat contentHeight = 0;
+    for (WLMessage *message in self.chat.entries) {
+        contentHeight += [self heightOfMessageCell:message];
+    }
+    contentHeight += self.chat.messagesWithDay.count * self.dateMetrics.size;
+    contentHeight += self.chat.unreadMessages.count > 0 ? 36 : 0;
+    contentHeight += [self heightOfTypingCell:self.chat];
+    return contentHeight;
 }
 
 - (StreamMetrics *)streamViewPlaceholderMetrics:(StreamView *)streamView {
-    return self.placeholderMetrics;
+    __weak typeof(self)weakSelf = self;
+    return [[StreamMetrics alloc] initWithIdentifier:@"NoMessagePlaceholderView" initializer:^(StreamMetrics * metrics) {
+        [metrics setPrepareAppearing:^(StreamItem *item, id entry) {
+            PlaceholderView *placeholderView = (id)item.view;
+            placeholderView.textLabel.text = [NSString stringWithFormat:WLLS(@"no_chat_message"), weakSelf.wrap.name];
+        }];
+    }];
 }
 
 - (UIColor*)backgroundColorForMessage:(WLMessage*)message {
@@ -540,8 +569,6 @@ CGFloat WLMaxTextViewWidth;
         return 0;
     }
 }
-
-#warning implement adjusting content inset
 
 - (void)refreshUnreadMessagesAfterDragging {
     if (self.chat.unreadMessages.count == 0) {

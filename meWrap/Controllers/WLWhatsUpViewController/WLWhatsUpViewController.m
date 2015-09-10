@@ -32,26 +32,26 @@
     [super viewDidLoad];
     __weak typeof(self)weakSelf = self;
     
-    [self.candyMetrics setSizeAt:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
+    [self.candyMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         UIFont *fontNormal = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
         UIFont *fontSmall = [UIFont preferredDefaultFontWithPreset:WLFontPresetSmall];
         return 2*floorf(fontNormal.lineHeight) + floorf(fontSmall.lineHeight) + WLPaddingCell;
     }];
     
-    [self.candyMetrics setHiddenAt:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
-        WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:index.item];
+    [self.candyMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
+        WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:position.index];
         return ![event.contribution isKindOfClass:[WLCandy class]];
     }];
     
-    [self.commentMetrics setSizeAt:^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
-        WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:index.item];
+    [self.commentMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
+        WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:position.index];
         UIFont *font = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
         CGFloat textHeight = [[event.contribution text] heightWithFont:font width:WLConstants.screenWidth - WLWhatsUpCommentHorizontalSpacing];
-        return textHeight + weakSelf.candyMetrics.sizeAt(index, weakSelf.candyMetrics);
+        return textHeight + weakSelf.candyMetrics.sizeAt(position, weakSelf.candyMetrics);
     }];
     
-    [self.commentMetrics setHiddenAt:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
-        WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:index.item];
+    [self.commentMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
+        WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:position.index];
         return ![event.contribution isKindOfClass:[WLComment class]];
     }];
     

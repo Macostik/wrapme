@@ -84,12 +84,12 @@
 	return [record.phoneNumbers count];
 }
 
-- (id __nullable)streamView:(StreamView * __nonnull)streamView entryAt:(StreamIndex * __nonnull)index {
+- (void)streamView:(StreamView * __nonnull)streamView didLayoutItem:(StreamItem * __nonnull)item {
     WLAddressBookRecord* record = self.entry;
-    return [record.phoneNumbers tryAt:index.item];
+    item.entry = [record.phoneNumbers tryAt:item.position.index];
 }
 
-- (NSArray * __nonnull)streamView:(StreamView * __nonnull)streamView metricsAt:(StreamIndex * __nonnull)index {
+- (NSArray * __nonnull)streamView:(StreamView * __nonnull)streamView metricsAt:(StreamPosition * __nonnull)position {
     __weak typeof(self)weakSelf = self;
     return @[[[StreamMetrics alloc] initWithIdentifier:@"WLAddressBookPhoneNumberCell" initializer:^(StreamMetrics *metrics) {
         metrics.size = 50;

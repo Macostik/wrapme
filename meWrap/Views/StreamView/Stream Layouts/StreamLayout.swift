@@ -34,7 +34,7 @@ class StreamLayout: NSObject {
         }
     }
     
-    private var offset: CGFloat = 0
+    var offset: CGFloat = 0
     
     func prepareLayout() {
         if let delegate = streamView?.delegate as? StreamLayoutDelegate {
@@ -49,8 +49,8 @@ class StreamLayout: NSObject {
     }
     
     func layout(item: StreamItem) -> StreamItem {
-        let size = item.metrics!.sizeAt(item.index!, item.metrics!)
-        let insets = item.metrics!.insetsAt(item.index!, item.metrics!)
+        let size = item.metrics!.sizeAt(item.position!, item.metrics!)
+        let insets = item.metrics!.insetsAt(item.position!, item.metrics!)
         if (self.horizontal) {
             item.frame = CGRectMake(offset + insets.origin.x, insets.origin.y, size + insets.size.width, streamView!.frame.size.height - 2*insets.size.height)
         } else {

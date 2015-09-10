@@ -16,65 +16,37 @@ class StreamItem: NSObject {
     
     var visible: Bool = false
     
-    var index: StreamIndex?
+    var position: StreamPosition?
+    
+    var entry: AnyObject?
     
     weak var metrics: StreamMetrics?
     
     weak var view: StreamReusableView? {
         didSet {
-            view!.selected = selected
+            if let view = self.view {
+                view.selected = self.selected
+            }
         }
     }
     
     var selected: Bool = false {
         didSet {
-            if view != nil {
-                view!.selected = selected
+            if let view = self.view {
+                view.selected = self.selected
             }
         }
     }
 }
 
-class StreamIndex: NSObject, NSCopying {
-    var value: Int = 0
-    
-    var next: StreamIndex?
-    
-    var section: Int {
-        return value
+class StreamPosition: NSObject {
+    let section: Int
+    let index: Int
+    init(section: Int, index: Int) {
+        self.section = section
+        self.index = index
     }
-    
-    var item: Int {
-        if let next = self.next {
-            return next.value
-        } else {
-            return 0
-        }
-    }
-    
-    init(index: Int) {
-        value = index
-        super.init()
-    }
-    
-    func add(index: Int) -> StreamIndex {
-        if next != nil {
-            next?.add(index)
-        } else {
-            next = StreamIndex(index: index)
-        }
-        return self;
-    }
-    
-    func copyWithZone(zone: NSZone) -> AnyObject {
-        var newInstance = self.dynamicType.init(index: value)
-        if let next = self.next {
-            newInstance.next = next.copy() as? StreamIndex
-        }
-        return newInstance;
-    }
-    
-    func isEqualToIndex(index: StreamIndex) -> Bool {
-        return self.section == index.section && self.item == index.item
+    func isEqualToPosition(position: StreamPosition) -> Bool {
+        return self.section == position.section && self.index == position.index
     }
 }

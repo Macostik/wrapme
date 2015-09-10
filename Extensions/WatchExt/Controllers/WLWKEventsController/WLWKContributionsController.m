@@ -60,9 +60,9 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     }
 }
 
-- (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)remoteNotification {
+- (void)handleActionWithIdentifier:(NSString *)identifier forNotification:(NSDictionary *)notification {
     __weak typeof(self)weakSelf = self;
-    WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:remoteNotification[@"entry"]];
+    WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:notification[@"entry"]];
     if ([entry isKindOfClass:[WLComment class]]) {
         [weakSelf pushControllerWithName:@"candy" context:entry.container];
     } else if ([entry isKindOfClass:[WLCandy class]]) {
@@ -79,6 +79,10 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
             }];
         });
     }
+}
+
+- (void)handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)localNotification {
+    [self handleActionWithIdentifier:identifier forNotification:localNotification.userInfo];
 }
 
 - (void)setEntries:(NSOrderedSet *)entries {

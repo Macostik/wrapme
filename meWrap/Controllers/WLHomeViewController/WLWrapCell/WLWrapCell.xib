@@ -14,7 +14,7 @@
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLHomeViewController"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="10A-rr-xxe" customClass="WLWrapCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
@@ -43,19 +43,45 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="25"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                            <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultIconColor">
+                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
+                            <real key="value" value="24"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="statusView" destination="Jbz-I0-JYz" id="Ifd-FK-4sM"/>
                     </connections>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbz-I0-JYz">
-                    <rect key="frame" x="9" y="4" width="17" height="17"/>
-                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbz-I0-JYz">
+                    <rect key="frame" x="9" y="4" width="16" height="16"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="5lG-oi-vXt"/>
+                        <constraint firstAttribute="width" constant="16" id="raf-bt-rJD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="10"/>
                     <color key="textColor" red="0.85098039219999999" green="0.32549019610000002" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.85098040103912354" green="0.32549020648002625" blue="0.30980393290519714" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </label>
-                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Moji Name Moji Name Moji Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZq-rH-3Re" customClass="WLLabel">
-                    <rect key="frame" x="85" y="6" width="164" height="24"/>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Moji Name Moji Name Moji Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZq-rH-3Re" customClass="WLLabel">
+                    <rect key="frame" x="84" y="6" width="164.5" height="24"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                     <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
@@ -65,7 +91,17 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="206" translatesAutoresizingMaskIntoConstraints="NO" id="gCG-7i-tcM" customClass="WLLabel">
-                    <rect key="frame" x="85" y="30" width="72" height="18"/>
+                    <rect key="frame" x="130" y="30" width="72" height="18"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                    <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="owner" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="206" translatesAutoresizingMaskIntoConstraints="NO" id="IsU-dA-qD5" customClass="WLLabel">
+                    <rect key="frame" x="84" y="30" width="40.5" height="18"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                     <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -75,7 +111,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="10000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="22" translatesAutoresizingMaskIntoConstraints="NO" id="yWc-qt-cbm" customClass="WLBadgeLabel">
-                    <rect key="frame" x="41" y="5" width="37" height="16"/>
+                    <rect key="frame" x="41" y="5" width="36.5" height="16"/>
                     <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="yWc-qt-cbm" secondAttribute="height" multiplier="1:1" id="gt9-26-pRG"/>
@@ -110,7 +146,7 @@
                     <rect key="frame" x="264" y="14" width="44" height="16"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="Q8t-he-XIo" secondAttribute="height" multiplier="1:1" priority="750" id="F4X-FG-i3L"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="Q8t-he-XIo" secondAttribute="height" multiplier="1:1" id="F4X-FG-i3L"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -148,7 +184,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to open camera" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dW0-OA-3Fr" customClass="WLLabel">
-                            <rect key="frame" x="121" y="21" width="147" height="18"/>
+                            <rect key="frame" x="121" y="21" width="146.5" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -176,7 +212,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                             <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tKA-QR-HJA" customClass="WLLabel">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tKA-QR-HJA" customClass="WLLabel">
                             <rect key="frame" x="25" y="22" width="17" height="17"/>
                             <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -186,7 +222,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SpN-k4-uJP" customClass="WLLabel">
-                            <rect key="frame" x="52" y="21" width="87" height="18"/>
+                            <rect key="frame" x="52" y="21" width="86.5" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -210,6 +246,7 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="uhU-Hx-yj0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gCG-7i-tcM" secondAttribute="trailing" id="2ew-Rx-4Gx"/>
                 <constraint firstAttribute="centerY" secondItem="jUk-B2-fHW" secondAttribute="centerY" id="3Qb-cT-rar"/>
                 <constraint firstItem="cov-Wb-wlk" firstAttribute="leading" secondItem="10A-rr-xxe" secondAttribute="leading" constant="10" id="3VF-IH-2Ep"/>
                 <constraint firstItem="gZq-rH-3Re" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cov-Wb-wlk" secondAttribute="trailing" constant="12" id="3hK-af-MlE"/>
@@ -218,26 +255,29 @@
                 <constraint firstItem="cov-Wb-wlk" firstAttribute="top" secondItem="yWc-qt-cbm" secondAttribute="top" id="AMH-Ws-hRy"/>
                 <constraint firstItem="uhU-Hx-yj0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gZq-rH-3Re" secondAttribute="trailing" id="AWU-PQ-J14"/>
                 <constraint firstAttribute="centerY" secondItem="cov-Wb-wlk" secondAttribute="centerY" id="CN9-Ho-U2v"/>
+                <constraint firstItem="gCG-7i-tcM" firstAttribute="leading" secondItem="IsU-dA-qD5" secondAttribute="trailing" priority="750" constant="5" id="FHn-kg-AzS"/>
                 <constraint firstItem="ZnF-pj-5f0" firstAttribute="leading" secondItem="10A-rr-xxe" secondAttribute="trailing" id="IGc-Nc-TX2"/>
                 <constraint firstItem="Jbz-I0-JYz" firstAttribute="centerY" secondItem="cov-Wb-wlk" secondAttribute="centerY" constant="-18" id="NN1-sw-LfI"/>
                 <constraint firstItem="jUk-B2-fHW" firstAttribute="height" secondItem="Piy-ZG-Wjc" secondAttribute="height" id="Nzu-9K-dTX"/>
                 <constraint firstItem="gZq-rH-3Re" firstAttribute="bottom" secondItem="cov-Wb-wlk" secondAttribute="centerY" id="PNe-df-2DF"/>
-                <constraint firstAttribute="trailing" secondItem="Q8t-he-XIo" secondAttribute="trailing" constant="12" id="RHs-yE-JeZ"/>
-                <constraint firstItem="gZq-rH-3Re" firstAttribute="leading" secondItem="gCG-7i-tcM" secondAttribute="leading" id="TAS-KW-BWJ"/>
+                <constraint firstAttribute="trailing" secondItem="Q8t-he-XIo" secondAttribute="trailing" priority="750" constant="12" id="RHs-yE-JeZ"/>
                 <constraint firstAttribute="centerY" secondItem="uhU-Hx-yj0" secondAttribute="centerY" id="UkQ-Fz-5s8"/>
                 <constraint firstAttribute="trailing" secondItem="Piy-ZG-Wjc" secondAttribute="trailing" id="VMg-2V-6L6"/>
                 <constraint firstItem="yWc-qt-cbm" firstAttribute="leading" secondItem="cov-Wb-wlk" secondAttribute="trailing" constant="-19" id="c3x-XK-9jg"/>
+                <constraint firstItem="IsU-dA-qD5" firstAttribute="leading" secondItem="gZq-rH-3Re" secondAttribute="leading" id="es6-hx-5yE"/>
                 <constraint firstItem="Piy-ZG-Wjc" firstAttribute="leading" secondItem="10A-rr-xxe" secondAttribute="leading" id="fht-bq-OOt"/>
                 <constraint firstAttribute="centerY" secondItem="ZnF-pj-5f0" secondAttribute="centerY" id="foO-ir-4Dc"/>
                 <constraint firstItem="Q8t-he-XIo" firstAttribute="leading" secondItem="uhU-Hx-yj0" secondAttribute="centerX" id="ftW-1L-a1Z"/>
                 <constraint firstItem="ZnF-pj-5f0" firstAttribute="width" secondItem="Piy-ZG-Wjc" secondAttribute="width" id="gks-MX-Tc6"/>
                 <constraint firstItem="ZnF-pj-5f0" firstAttribute="height" secondItem="Piy-ZG-Wjc" secondAttribute="height" id="huc-mx-OLb"/>
+                <constraint firstAttribute="trailing" secondItem="uhU-Hx-yj0" secondAttribute="leading" priority="250" id="nuX-vQ-rs7"/>
                 <constraint firstItem="Q8t-he-XIo" firstAttribute="bottom" secondItem="uhU-Hx-yj0" secondAttribute="centerY" id="ot9-vb-qe1"/>
                 <constraint firstItem="Jbz-I0-JYz" firstAttribute="centerX" secondItem="cov-Wb-wlk" secondAttribute="centerX" constant="-18" id="r5d-gR-dG9"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gCG-7i-tcM" secondAttribute="trailing" constant="44" id="stf-fl-vKk"/>
                 <constraint firstItem="gZq-rH-3Re" firstAttribute="leading" secondItem="yWc-qt-cbm" secondAttribute="trailing" constant="7" id="thh-gO-7S9"/>
+                <constraint firstItem="gZq-rH-3Re" firstAttribute="leading" secondItem="gCG-7i-tcM" secondAttribute="leading" priority="250" id="ufk-er-4en"/>
+                <constraint firstItem="IsU-dA-qD5" firstAttribute="top" secondItem="cov-Wb-wlk" secondAttribute="centerY" id="w5X-7P-K0i"/>
                 <constraint firstItem="Piy-ZG-Wjc" firstAttribute="top" secondItem="10A-rr-xxe" secondAttribute="top" id="wRp-Ol-usG"/>
-                <constraint firstAttribute="leading" secondItem="jUk-B2-fHW" secondAttribute="trailing" id="yjR-5e-tmQ"/>
+                <constraint firstItem="jUk-B2-fHW" firstAttribute="trailing" secondItem="10A-rr-xxe" secondAttribute="leading" id="yjR-5e-tmQ"/>
                 <constraint firstItem="jUk-B2-fHW" firstAttribute="width" secondItem="Piy-ZG-Wjc" secondAttribute="width" id="z1S-Mf-G8M"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -245,15 +285,35 @@
             <connections>
                 <outlet property="chatButton" destination="uhU-Hx-yj0" id="GAx-Ol-IWM"/>
                 <outlet property="chatNotificationLabel" destination="Q8t-he-XIo" id="DGw-aE-G7v"/>
+                <outlet property="chatPrioritizer" destination="ixL-oa-ffW" id="0IA-lw-wR3"/>
                 <outlet property="coverView" destination="cov-Wb-wlk" id="Xaj-O5-Jt0"/>
+                <outlet property="creatorName" destination="IsU-dA-qD5" id="oOL-PP-ROv"/>
                 <outlet property="dateLabel" destination="gCG-7i-tcM" id="gfX-RL-Pj6"/>
+                <outlet property="datePrioritizer" destination="UDo-5p-kGl" id="0rz-Rp-9UE"/>
+                <outlet property="delegate" destination="-1" id="jfS-GP-D2n"/>
                 <outlet property="leftSwipeActionConstraint" destination="yjR-5e-tmQ" id="wXf-3l-5Yi"/>
                 <outlet property="nameLabel" destination="gZq-rH-3Re" id="wZu-ez-wf0"/>
                 <outlet property="rightSwipeActionConstraint" destination="IGc-Nc-TX2" id="BPK-Yg-fSC"/>
                 <outlet property="wrapNotificationLabel" destination="yWc-qt-cbm" id="aTB-3g-5IJ"/>
+                <outletCollection property="leftSwipeIndicationViews" destination="dW0-OA-3Fr" id="anG-ci-GgU"/>
+                <outletCollection property="leftSwipeIndicationViews" destination="Z0F-dg-bId" id="233-uT-JZC"/>
+                <outletCollection property="rightSwipeIndicationViews" destination="SpN-k4-uJP" id="2Dz-IB-gsf"/>
+                <outletCollection property="rightSwipeIndicationViews" destination="tKA-QR-HJA" id="8Ao-aU-5Dz"/>
             </connections>
             <point key="canvasLocation" x="509" y="654"/>
         </view>
+        <customObject id="ixL-oa-ffW" customClass="WLLayoutPrioritizer">
+            <connections>
+                <outletCollection property="defaultConstraints" destination="RHs-yE-JeZ" id="hGF-f0-Nzl"/>
+                <outletCollection property="alternativeConstraints" destination="nuX-vQ-rs7" id="EBC-Zz-qth"/>
+            </connections>
+        </customObject>
+        <customObject id="UDo-5p-kGl" customClass="WLLayoutPrioritizer">
+            <connections>
+                <outletCollection property="defaultConstraints" destination="FHn-kg-AzS" id="Fi3-BJ-8SS"/>
+                <outletCollection property="alternativeConstraints" destination="ufk-er-4en" id="iaY-x9-s5h"/>
+            </connections>
+        </customObject>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

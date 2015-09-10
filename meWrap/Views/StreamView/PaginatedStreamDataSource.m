@@ -29,7 +29,7 @@
     self.loaderMetrics = [self addFooterMetrics:[[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLStreamLoadingView";
         metrics.size = WLStreamLoadingViewDefaultSize;
-        [metrics setHiddenAt:^BOOL(StreamIndex *index, StreamMetrics *metrics) {
+        [metrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
             return ![weakSelf appendable];
         }];
         [metrics setFinalizeAppearing:^(StreamItem *item, id entry) {

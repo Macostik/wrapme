@@ -181,8 +181,11 @@
     return self.numberOfItemsBlock ? self.numberOfItemsBlock(self) : [self.items count];
 }
 
-- (id)streamView:(StreamView*)streamView entryAt:(StreamIndex *)index {
-    return [self.items tryAt:index.item];
+- (void)streamView:(StreamView*)streamView didLayoutItem:(StreamItem * __nonnull)item {
+    item.entry = [self.items tryAt:item.position.index];
+    if (self.didLayoutItemBlock) {
+        self.didLayoutItemBlock(item);
+    }
 }
 
 - (NSArray *)streamViewHeaderMetrics:(StreamView *)streamView {
@@ -193,7 +196,7 @@
     return self.sectionHeaderMetrics;
 }
 
-- (NSArray *)streamView:(StreamView *)streamView metricsAt:(StreamIndex *)index {
+- (NSArray *)streamView:(StreamView *)streamView metricsAt:(StreamPosition *)index {
     return self.metrics;
 }
 

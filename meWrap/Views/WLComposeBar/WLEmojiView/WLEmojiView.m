@@ -47,7 +47,7 @@
     __weak typeof(self)weakSelf = self;
     
     StreamView *streamView = self.dataSource.streamView;
-    [self.metrics setRatioAt:^CGFloat(StreamIndex * __nonnull index, GridMetrics * __nonnull metrics) {
+    [self.metrics setRatioAt:^CGFloat(StreamPosition * __nonnull index, GridMetrics * __nonnull metrics) {
         return (streamView.frame.size.width/7) / (streamView.frame.size.height/3);
     }];
     

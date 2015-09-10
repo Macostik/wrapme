@@ -17,8 +17,15 @@
 
 @implementation WLOperationQueue
 
+static NSMutableDictionary *queues = nil;
+
++ (void)removeQueue:(WLOperationQueue*)queue {
+    if (queue.name) {
+        [queues removeObjectForKey:queue.name];
+    }
+}
+
 + (instancetype)queueNamed:(NSString*)name capacity:(NSUInteger)capacity {
-    static NSMutableDictionary *queues = nil;
     if (!queues) queues = [NSMutableDictionary dictionary];
     WLOperationQueue *queue = [queues objectForKey:name];
     if (!queue) {

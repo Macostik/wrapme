@@ -1235,6 +1235,9 @@ Tap here to start.</string>
                         <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLWrapCell"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="WLHomePlaceholderView"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="itemNibOwner" destination="L91-fZ-J9O" id="Amb-WH-e6g"/>
+                    </connections>
                 </customObject>
                 <customObject id="uJJ-OA-ZDD" customClass="PaginatedStreamDataSource">
                     <userDefinedRuntimeAttributes>
@@ -1245,6 +1248,7 @@ Tap here to start.</string>
                         <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="PublicWrapPlaceholderView"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="itemNibOwner" destination="L91-fZ-J9O" id="4tU-gt-4zl"/>
                         <outletCollection property="headerMetrics" destination="LBy-GY-uOH" collectionClass="NSMutableArray" id="61v-pl-Xvr"/>
                     </connections>
                 </customObject>

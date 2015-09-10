@@ -155,6 +155,12 @@
     StreamMetrics *metrics = [candiesView.dataSource.metrics firstObject];
     [metrics setSelection:^(StreamItem *candyItem, WLCandy *candy) {
         WLCandyCell *cell = (id)candyItem.view;
+        
+        if (!candy) {
+            [weakSelf addPhoto:nil];
+            return;
+        }
+        
         if (candy.valid && cell.coverView.image != nil) {
             WLHistoryViewController *historyViewController = (id)[candy viewController];
             if (historyViewController) {

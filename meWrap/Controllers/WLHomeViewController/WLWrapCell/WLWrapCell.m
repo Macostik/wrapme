@@ -35,8 +35,6 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightSwipeActionConstraint;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *leftSwipeIndicationViews;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rightSwipeIndicationViews;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *publicWrapDateLeading;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *privateWrapDateLeading;
 @property (weak, nonatomic) IBOutlet UILabel *creatorName;
 
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *datePrioritizer;

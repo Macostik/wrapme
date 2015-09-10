@@ -14,6 +14,15 @@
                     <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
+                            <real key="value" value="56"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultIconColor">
+                            <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <view userInteractionEnabled="NO" contentMode="bottom" placeholderIntrinsicWidth="106" placeholderIntrinsicHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="7sc-OX-fm7" customClass="WLGradientView">
                     <rect key="frame" x="0.0" y="61" width="106" height="45"/>
@@ -59,7 +68,7 @@
                 <outlet property="commentLabel" destination="91I-bQ-8zo" id="AFB-XM-GvU"/>
                 <outlet property="coverView" destination="cEC-tD-bY9" id="nHT-qn-JCO"/>
             </connections>
-            <point key="canvasLocation" x="772" y="752"/>
+            <point key="canvasLocation" x="467" y="338"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

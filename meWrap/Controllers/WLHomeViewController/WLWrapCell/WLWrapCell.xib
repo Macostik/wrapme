@@ -14,7 +14,7 @@
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WLHomeViewController"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="10A-rr-xxe" customClass="WLWrapCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
@@ -42,6 +42,16 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="25"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                            <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultIconColor">
+                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
+                            <real key="value" value="24"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -202,7 +212,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                             <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tKA-QR-HJA" customClass="WLLabel">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tKA-QR-HJA" customClass="WLLabel">
                             <rect key="frame" x="25" y="22" width="17" height="17"/>
                             <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -267,7 +277,7 @@
                 <constraint firstItem="gZq-rH-3Re" firstAttribute="leading" secondItem="gCG-7i-tcM" secondAttribute="leading" priority="250" id="ufk-er-4en"/>
                 <constraint firstItem="IsU-dA-qD5" firstAttribute="top" secondItem="cov-Wb-wlk" secondAttribute="centerY" id="w5X-7P-K0i"/>
                 <constraint firstItem="Piy-ZG-Wjc" firstAttribute="top" secondItem="10A-rr-xxe" secondAttribute="top" id="wRp-Ol-usG"/>
-                <constraint firstAttribute="leading" secondItem="jUk-B2-fHW" secondAttribute="trailing" id="yjR-5e-tmQ"/>
+                <constraint firstItem="jUk-B2-fHW" firstAttribute="trailing" secondItem="10A-rr-xxe" secondAttribute="leading" id="yjR-5e-tmQ"/>
                 <constraint firstItem="jUk-B2-fHW" firstAttribute="width" secondItem="Piy-ZG-Wjc" secondAttribute="width" id="z1S-Mf-G8M"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -280,10 +290,15 @@
                 <outlet property="creatorName" destination="IsU-dA-qD5" id="oOL-PP-ROv"/>
                 <outlet property="dateLabel" destination="gCG-7i-tcM" id="gfX-RL-Pj6"/>
                 <outlet property="datePrioritizer" destination="UDo-5p-kGl" id="0rz-Rp-9UE"/>
+                <outlet property="delegate" destination="-1" id="jfS-GP-D2n"/>
                 <outlet property="leftSwipeActionConstraint" destination="yjR-5e-tmQ" id="wXf-3l-5Yi"/>
                 <outlet property="nameLabel" destination="gZq-rH-3Re" id="wZu-ez-wf0"/>
                 <outlet property="rightSwipeActionConstraint" destination="IGc-Nc-TX2" id="BPK-Yg-fSC"/>
                 <outlet property="wrapNotificationLabel" destination="yWc-qt-cbm" id="aTB-3g-5IJ"/>
+                <outletCollection property="leftSwipeIndicationViews" destination="dW0-OA-3Fr" id="anG-ci-GgU"/>
+                <outletCollection property="leftSwipeIndicationViews" destination="Z0F-dg-bId" id="233-uT-JZC"/>
+                <outletCollection property="rightSwipeIndicationViews" destination="SpN-k4-uJP" id="2Dz-IB-gsf"/>
+                <outletCollection property="rightSwipeIndicationViews" destination="tKA-QR-HJA" id="8Ao-aU-5Dz"/>
             </connections>
             <point key="canvasLocation" x="509" y="654"/>
         </view>

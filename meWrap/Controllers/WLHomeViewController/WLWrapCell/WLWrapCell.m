@@ -39,7 +39,9 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *privateWrapDateLeading;
 @property (weak, nonatomic) IBOutlet UILabel *creatorName;
 
-@property (strong, nonatomic) WLLayoutPrioritizer *datePrioritizer;
+@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *datePrioritizer;
+
+@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *chatPrioritizer;
 
 @property (nonatomic) BOOL isRightSwipeAction;
 
@@ -58,14 +60,6 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     panGestureRecognizer.delegate = self;
     [self.nameLabel.superview addGestureRecognizer:panGestureRecognizer];
     self.swipeActionGestureRecognizer = panGestureRecognizer;
-    
-    if (self.publicWrapDateLeading && self.privateWrapDateLeading) {
-        WLLayoutPrioritizer *datePrioritizer = [[WLLayoutPrioritizer alloc] init];
-        datePrioritizer.defaultConstraints = @[self.publicWrapDateLeading];
-        datePrioritizer.alternativeConstraints = @[self.privateWrapDateLeading];
-        datePrioritizer.asynchronous = YES;
-        self.datePrioritizer = datePrioritizer;
-    }
 }
 
 - (void)prepareForReuse {
@@ -75,8 +69,6 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 }
 
 - (void)setup:(WLWrap*)wrap {
-#warning implement creator label
-#warning implement public wrap indicator
 	self.nameLabel.text = wrap.name;
     self.dateLabel.text = WLString(wrap.updatedAt.timeAgoStringAtAMPM);
     self.coverView.url = [wrap.picture anyUrl];
@@ -84,9 +76,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     if (wrap.isPublic) {
         self.chatNotificationLabel.intValue = 0;
         self.chatButton.hidden = YES;
-        self.nameLabel.horizontallyResistible = YES;
-        self.chatButton.horizontallyResistible = NO;
-        self.chatNotificationLabel.horizontallyResistible = NO;
+        self.chatPrioritizer.defaultState = NO;
         self.coverView.isFollowed = wrap.isContributing;
         self.coverView.isOwner = [wrap.contributor isCurrentUser];
         self.datePrioritizer.defaultState = YES;
@@ -96,9 +86,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         self.chatNotificationLabel.intValue = messageConter;
         BOOL hasUnreadMessages = messageConter > 0;
         self.chatButton.hidden = !hasUnreadMessages;
-        self.nameLabel.horizontallyResistible = !hasUnreadMessages;
-        self.chatButton.horizontallyResistible = hasUnreadMessages;
-        self.chatNotificationLabel.horizontallyResistible = hasUnreadMessages;
+        self.chatPrioritizer.defaultState = hasUnreadMessages;
         self.coverView.isFollowed = NO;
         self.datePrioritizer.defaultState = NO;
         self.creatorName.text = nil;

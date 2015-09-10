@@ -14,6 +14,8 @@
 
 @interface WLPaginatedSet ()
 
+@property (nonatomic) BOOL loadingOlder;
+
 @end
 
 @implementation WLPaginatedSet
@@ -40,15 +42,16 @@
 }
 
 - (void)older:(WLSetBlock)success failure:(WLFailureBlock)failure {
-    [self send:WLPaginatedRequestTypeOlder success:success failure:failure];
-}
-
-- (void)recursiveOlder:(WLFailureBlock)failure {
-    [self older:^(NSSet *set) {
-        if (!self.completed) {
-            [self recursiveOlder:failure];
-        }
-    } failure:failure];
+    if (self.loadingOlder) return;
+    self.loadingOlder = YES;
+    __weak typeof(self)weakSelf = self;
+    [self send:WLPaginatedRequestTypeOlder success:^(NSSet *set) {
+        weakSelf.loadingOlder = NO;
+        if (success) success(set);
+    } failure:^(NSError *error) {
+        weakSelf.loadingOlder = NO;
+        if (failure) failure(error);
+    }];
 }
 
 - (id)send:(WLPaginatedRequestType)type success:(WLSetBlock)success failure:(WLFailureBlock)failure {

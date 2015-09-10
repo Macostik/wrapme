@@ -81,8 +81,8 @@ CGFloat WLMaxTextViewWidth;
     if (self) {
         self.messageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageCell"];
         self.myMessageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMyMessageCell"];
-        self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageDateView" size:36];
-        self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:36];
+        self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageDateView" size:31];
+        self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:31];
         self.typingViewMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLTypingView"];
         self.loadingViewMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLStreamLoadingView" size:60];
     }
@@ -103,9 +103,9 @@ CGFloat WLMaxTextViewWidth;
     
     self.cachedMessageHeights = [NSMapTable strongToStrongObjectsMapTable];
 
-    self.messageFont = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
-    self.nameFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetNormal];
-    self.timeFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmall];
+    self.messageFont = [UIFont preferredDefaultFontWithPreset:WLFontPresetSmall];
+    self.nameFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmaller];
+    self.timeFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmaller];
     
     __weak StreamView *streamView = self.streamView;
     
@@ -125,7 +125,7 @@ CGFloat WLMaxTextViewWidth;
     self.typingViewMetrics.finalizeAppearing = self.unreadMessagesMetrics.finalizeAppearing = self.dateMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
         item.view.backgroundColor = [weakSelf backgroundColorForMessage:message];
     };
-    
+
     self.myMessageMetrics.prepareAppearing = self.messageMetrics.prepareAppearing = ^(StreamItem *item, WLMessage *message) {
         [(WLMessageCell*)item.view setShowName:[weakSelf.chat.messagesWithName containsObject:message]];
     };
@@ -161,7 +161,7 @@ CGFloat WLMaxTextViewWidth;
         [(WLTypingView*)item.view updateWithChat:weakSelf.chat];
     }];
     
-    WLMaxTextViewWidth = WLConstants.screenWidth - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
+    WLMaxTextViewWidth = WLConstants.screenWidth - WLLeadingIndent - 2*WLMessageHorizontalInset - WLTrailingIndent;
     
     self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamIndex *index, StreamMetrics *metrics) {
         WLMessage *message = [weakSelf.chat.entries tryAt:index.item];
@@ -507,7 +507,7 @@ CGFloat WLMaxTextViewWidth;
     if (self.chat.unreadMessages.nonempty) {
         NSUInteger index = [self.chat.entries indexOfObject:message];
         NSUInteger index1 = [self.chat.entries indexOfObject:[self.chat unreadMessages]];
-        return index <= index1 ? WLColors.grayLightest : [UIColor whiteColor];
+        return index <= index1 ? WLColors.orangeLighter : [UIColor whiteColor];
     } else {
         return [UIColor whiteColor];
     }
@@ -522,7 +522,8 @@ CGFloat WLMaxTextViewWidth;
         return 0;
     }
     BOOL containsName = [self.chat.messagesWithName containsObject:message];
-    CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth] + WLMessageVerticalInset;
+    CGFloat calculateWight = message.contributedByCurrentUser ? WLMaxTextViewWidth - WLLeadingIndent : WLMaxTextViewWidth;
+    CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:calculateWight] + WLMessageVerticalInset;
     CGFloat topInset = (containsName ? self.nameFont.lineHeight : 0);
     CGFloat bottomInset = self.timeFont.lineHeight;
     commentHeight = topInset + commentHeight + bottomInset;

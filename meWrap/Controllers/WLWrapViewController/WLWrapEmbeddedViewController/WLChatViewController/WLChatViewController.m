@@ -59,7 +59,6 @@ CGFloat WLMaxTextViewWidth;
 @property (strong, nonatomic) StreamMetrics *unreadMessagesMetrics;
 @property (strong, nonatomic) StreamMetrics *typingViewMetrics;
 @property (strong, nonatomic) StreamMetrics *loadingViewMetrics;
-@property (strong, nonatomic) StreamMetrics *placeholderMetrics;
 
 @end
 
@@ -114,13 +113,6 @@ CGFloat WLMaxTextViewWidth;
     self.refresher = [WLRefresher refresher:streamView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
     
     streamView.layer.geometryFlipped = YES;
-    
-    self.placeholderMetrics = [[StreamMetrics alloc] initWithIdentifier:@"NoMessagePlaceholderView" initializer:^(StreamMetrics * metrics) {
-        [metrics setPrepareAppearing:^(StreamItem *item, id entry) {
-            PlaceholderView *placeholderView = (id)item.view;
-            placeholderView.textLabel.text = [NSString stringWithFormat:WLLS(@"no_chat_message"), weakSelf.wrap.name];
-        }];
-    }];
     
     self.typingViewMetrics.finalizeAppearing = self.unreadMessagesMetrics.finalizeAppearing = self.dateMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
         item.view.backgroundColor = [weakSelf backgroundColorForMessage:message];
@@ -498,11 +490,46 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (NSArray*)streamViewHeaderMetrics:(StreamView*)streamView {
-    return @[self.typingViewMetrics];
+    
+    __weak typeof(self)weakSelf = self;
+    StreamMetrics *insetMetrics = [[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
+        [metrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
+            CGFloat contentHeight = [weakSelf contentHeight];
+            if (contentHeight == 0) return YES;
+            CGFloat size = (weakSelf.streamView.frame.size.height - weakSelf.streamView.verticalContentInsets) - contentHeight;
+            if (size > 0) {
+                metrics.size = size;
+                return NO;
+            } else {
+                return YES;
+            }
+        }];
+    }];
+    
+    return @[self.typingViewMetrics, insetMetrics];
+}
+
+- (CGFloat)contentHeight {
+    WLChat *chat = self.chat;
+    if (!chat.entries.nonempty) return 0;
+    CGFloat contentHeight = 0;
+    for (WLMessage *message in self.chat.entries) {
+        contentHeight += [self heightOfMessageCell:message];
+    }
+    contentHeight += self.chat.messagesWithDay.count * self.dateMetrics.size;
+    contentHeight += self.chat.unreadMessages.count > 0 ? 36 : 0;
+    contentHeight += [self heightOfTypingCell:self.chat];
+    return contentHeight;
 }
 
 - (StreamMetrics *)streamViewPlaceholderMetrics:(StreamView *)streamView {
-    return self.placeholderMetrics;
+    __weak typeof(self)weakSelf = self;
+    return [[StreamMetrics alloc] initWithIdentifier:@"NoMessagePlaceholderView" initializer:^(StreamMetrics * metrics) {
+        [metrics setPrepareAppearing:^(StreamItem *item, id entry) {
+            PlaceholderView *placeholderView = (id)item.view;
+            placeholderView.textLabel.text = [NSString stringWithFormat:WLLS(@"no_chat_message"), weakSelf.wrap.name];
+        }];
+    }];
 }
 
 - (UIColor*)backgroundColorForMessage:(WLMessage*)message {
@@ -541,8 +568,6 @@ CGFloat WLMaxTextViewWidth;
         return 0;
     }
 }
-
-#warning implement adjusting content inset
 
 - (void)refreshUnreadMessagesAfterDragging {
     if (self.chat.unreadMessages.count == 0) {

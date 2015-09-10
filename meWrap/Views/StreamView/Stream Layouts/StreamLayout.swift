@@ -34,7 +34,7 @@ class StreamLayout: NSObject {
         }
     }
     
-    private var offset: CGFloat = 0
+    var offset: CGFloat = 0
     
     func prepareLayout() {
         if let delegate = streamView?.delegate as? StreamLayoutDelegate {

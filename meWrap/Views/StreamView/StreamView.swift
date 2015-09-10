@@ -239,7 +239,7 @@ class StreamView: UIScrollView {
     }
     
     func viewForItem(item: StreamItem) -> StreamReusableView? {
-        if let view = item.metrics?.loadView() {
+        if let view = item.metrics?.dequeueView() {
             view.frame = item.frame
             item.view = view
             var entry: AnyObject? = item.entry
@@ -257,9 +257,10 @@ class StreamView: UIScrollView {
     }
     
     func updateVisibility() {
-        var rect = CGRectMake(contentOffset.x, contentOffset.y, bounds.size.width, bounds.size.height)
+        var offset = contentOffset
+        var size = frame.size
+        var rect = CGRectMake(offset.x, offset.y, size.width, size.height)
         for item in items {
-            
             var visible = CGRectIntersectsRect(item.frame, rect)
             if item.visible != visible {
                 item.visible = visible
@@ -271,7 +272,7 @@ class StreamView: UIScrollView {
                 } else {
                     if let view = item.view {
                         view.removeFromSuperview()
-                        item.metrics?.reusableViews.insert(view)
+                        item.metrics?.enqueueView(view)
                         item.view = nil
                     }
                 }

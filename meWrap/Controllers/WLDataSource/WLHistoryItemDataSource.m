@@ -26,7 +26,7 @@
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     CGFloat offset = targetContentOffset->x;
-    if (IsInBounds(0, scrollView.maximumContentOffset.x, offset)) {
+    if (offset > 0 && offset < scrollView.maximumContentOffset.x) {
 		targetContentOffset->x = [self fixedContentOffset:offset];
 	}
     [super scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];

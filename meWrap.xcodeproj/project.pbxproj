@@ -443,7 +443,6 @@
 		C560D2371AFBB55E006B906E /* WLHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2331AFBB55E006B906E /* WLHistoryViewController.m */; };
 		C56498D31ACB00D2000F1E4B /* meWrapWatchApp.app in Resources */ = {isa = PBXBuildFile; fileRef = C56498D21ACB00D2000F1E4B /* meWrapWatchApp.app */; };
 		C564B2B91ADE6DD5000C3DF1 /* meWrapWatchAppQA.app in Resources */ = {isa = PBXBuildFile; fileRef = C50645931ABD7FD500CB4BE3 /* meWrapWatchAppQA.app */; };
-		C565EBA01B9F0038002352C8 /* meWrapWatchExtQA.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C50645841ABD7FD400CB4BE3 /* meWrapWatchExtQA.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C565EBAD1B9F1219002352C8 /* meWrapKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C565EBAC1B9F1219002352C8 /* meWrapKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C565EBBF1B9F1219002352C8 /* meWrapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C565EBA81B9F1219002352C8 /* meWrapKit.framework */; };
 		C565EBC01B9F1219002352C8 /* meWrapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C565EBA81B9F1219002352C8 /* meWrapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1065,13 +1064,6 @@
 			remoteGlobalIDString = C56498D11ACB00D2000F1E4B;
 			remoteInfo = "WrapLive-Production WatchKit App";
 		};
-		C565EBA11B9F0038002352C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
-			remoteInfo = meWrapWatchExtQA;
-		};
 		C565EBBD1B9F1219002352C8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -1109,7 +1101,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C565EBA01B9F0038002352C8 /* meWrapWatchExtQA.appex in Embed App Extensions */,
 				5BA7AF2E1A481A9500C586CA /* meWrapTodayQA.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -5263,7 +5254,6 @@
 			dependencies = (
 				C559CB751AA0BB6200100B2C /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
-				C565EBA21B9F0038002352C8 /* PBXTargetDependency */,
 				C565EBBE1B9F1219002352C8 /* PBXTargetDependency */,
 			);
 			name = meWrapQA;
@@ -6509,11 +6499,6 @@
 			target = C56498D11ACB00D2000F1E4B /* meWrapWatchApp */;
 			targetProxy = C56498D41ACB00D2000F1E4B /* PBXContainerItemProxy */;
 		};
-		C565EBA21B9F0038002352C8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C50645831ABD7FD400CB4BE3 /* meWrapWatchExtQA */;
-			targetProxy = C565EBA11B9F0038002352C8 /* PBXContainerItemProxy */;
-		};
 		C565EBBE1B9F1219002352C8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C565EBA71B9F1219002352C8 /* meWrapKit */;
@@ -7152,7 +7137,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7202,7 +7186,6 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

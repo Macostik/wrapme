@@ -2,37 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>production</key>
-	<array>
-		<dict>
-			<key>deviceUID</key>
-			<string>9c5530466301f7a41577cc2bd16ac2a15ea64fe5</string>
-			<key>email</key>
-			<string>s.maximenko@mobidev.biz</string>
-			<key>password</key>
-			<string>31bbe83cdf</string>
-		</dict>
-		<dict>
-			<key>countryCode</key>
-			<string>380</string>
-			<key>deviceUID</key>
-			<string>9c5530466301f7a41577cc2bd16ac2a15ea64fe5</string>
-			<key>email</key>
-			<string>y.granchenko@mobidev.biz</string>
-			<key>password</key>
-			<string>ab6d120242</string>
-			<key>phone</key>
-			<string>957115540</string>
-		</dict>
-		<dict>
-			<key>deviceUID</key>
-			<string>8a02addef59ec177137e1045e1c1a04e4db6b39d</string>
-			<key>email</key>
-			<string>sergey.zakharov.md@gmail.com</string>
-			<key>password</key>
-			<string>f3b0ffd574</string>
-		</dict>
-	</array>
 	<key>qa</key>
 	<array>
 		<dict>
@@ -77,7 +46,7 @@
 			<key>deviceUID</key>
 			<string>472f48f0eea7013295780a17bdb65fbb</string>
 			<key>email</key>
-			<string>faker_roosevelt@example.com</string>
+			<string>faker_roosevelt@mewrap.me</string>
 			<key>password</key>
 			<string>password</string>
 			<key>phone</key>
@@ -89,7 +58,7 @@
 			<key>deviceUID</key>
 			<string>480ecb80eea70132957b0a17bdb65fbb</string>
 			<key>email</key>
-			<string>faker_aiden@example.com</string>
+			<string>faker_aiden@mewrap.me</string>
 			<key>password</key>
 			<string>password</string>
 			<key>phone</key>
@@ -137,7 +106,7 @@
 			<key>deviceUID</key>
 			<string>4b48df40eea7013295870a17bdb65fbb</string>
 			<key>email</key>
-			<string>faker_stanford@example.com</string>
+			<string>faker_stanford@mewrap.me</string>
 			<key>password</key>
 			<string>password</string>
 			<key>phone</key>
@@ -173,7 +142,7 @@
 			<key>deviceUID</key>
 			<string>4d9e8310eea7013295900a17bdb65fbb</string>
 			<key>email</key>
-			<string>faker_laurie.olson@example.com</string>
+			<string>faker_laurie.olson@mewrap.me</string>
 			<key>password</key>
 			<string>password</string>
 			<key>phone</key>
@@ -185,7 +154,7 @@
 			<key>deviceUID</key>
 			<string>4e603310eea7013295930a17bdb65fbb</string>
 			<key>email</key>
-			<string>faker_christy@example.com</string>
+			<string>faker_christy@mewrap.me</string>
 			<key>password</key>
 			<string>password</string>
 			<key>phone</key>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="CJf-VW-hWv" customClass="WLCommentWhatsUpCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="126"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VAv-XO-Ppi" customClass="WLCircleImageView">
+                    <rect key="frame" x="12" y="12" width="48" height="48"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="6Ek-1n-kOP"/>
+                        <constraint firstAttribute="width" constant="48" id="YSM-sz-TnO"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                            <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="yV8-fW-dTR" customClass="WLLabel">
+                    <rect key="frame" x="72" y="12" width="49" height="21"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                    <color key="textColor" red="0.1505631506" green="0.1505586505" blue="0.15056121350000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <textView clipsSubviews="YES" contentMode="left" scrollEnabled="NO" editable="NO" text="Awesome photo!" translatesAutoresizingMaskIntoConstraints="NO" id="n3e-9l-uBb" customClass="WLTextView">
+                    <rect key="frame" x="72" y="33" width="140" height="37"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.1505631506" green="0.1505586505" blue="0.15056121350000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES"/>
+                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                    </userDefinedRuntimeAttributes>
+                </textView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="61" translatesAutoresizingMaskIntoConstraints="NO" id="fY1-Pb-1cJ" customClass="WLLabel">
+                    <rect key="frame" x="72" y="70" width="30" height="21"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                    <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Yestarday at 2:34pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="Chy-BR-J9M" customClass="WLLabel">
+                    <rect key="frame" x="72" y="91" width="135" height="18"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                    <color key="textColor" red="0.39101129769999998" green="0.39099958540000002" blue="0.39100623130000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fjy-7M-wTv" customClass="WLSeparatorView">
+                    <rect key="frame" x="0.0" y="125" width="320" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="BRL-LI-fG3"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                            <color key="value" red="0.91664922240000002" green="0.91662174460000001" blue="0.91663730139999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0SH-fh-IwL" customClass="WLImageView">
+                    <rect key="frame" x="260" y="12" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="dB6-03-lbB"/>
+                        <constraint firstAttribute="width" constant="48" id="rJX-aq-lPz"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="VAv-XO-Ppi" firstAttribute="top" secondItem="yV8-fW-dTR" secondAttribute="top" id="26v-iR-nCu"/>
+                <constraint firstAttribute="trailing" secondItem="0SH-fh-IwL" secondAttribute="trailing" constant="12" id="81N-N4-r9q"/>
+                <constraint firstItem="VAv-XO-Ppi" firstAttribute="top" secondItem="CJf-VW-hWv" secondAttribute="top" constant="12" id="9BD-LV-Paa"/>
+                <constraint firstItem="0SH-fh-IwL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yV8-fW-dTR" secondAttribute="trailing" constant="12" id="Bvu-Zj-UyN"/>
+                <constraint firstItem="0SH-fh-IwL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Chy-BR-J9M" secondAttribute="trailing" constant="12" id="Hlf-Tr-PFm"/>
+                <constraint firstItem="fY1-Pb-1cJ" firstAttribute="top" secondItem="n3e-9l-uBb" secondAttribute="bottom" id="IGA-8a-mpv"/>
+                <constraint firstItem="n3e-9l-uBb" firstAttribute="leading" secondItem="VAv-XO-Ppi" secondAttribute="trailing" constant="12" id="V0T-gy-PLl"/>
+                <constraint firstItem="n3e-9l-uBb" firstAttribute="top" secondItem="yV8-fW-dTR" secondAttribute="bottom" id="ZKL-0y-2BW"/>
+                <constraint firstItem="Chy-BR-J9M" firstAttribute="leading" secondItem="VAv-XO-Ppi" secondAttribute="trailing" constant="12" id="b5o-ml-JZB"/>
+                <constraint firstItem="VAv-XO-Ppi" firstAttribute="leading" secondItem="CJf-VW-hWv" secondAttribute="leading" constant="12" id="bJv-0X-fq2"/>
+                <constraint firstAttribute="trailing" secondItem="Fjy-7M-wTv" secondAttribute="trailing" id="eCh-fL-IfC"/>
+                <constraint firstItem="yV8-fW-dTR" firstAttribute="leading" secondItem="VAv-XO-Ppi" secondAttribute="trailing" constant="12" id="jgz-hU-t79"/>
+                <constraint firstAttribute="bottom" secondItem="Fjy-7M-wTv" secondAttribute="bottom" id="kIg-iV-Pv5"/>
+                <constraint firstItem="0SH-fh-IwL" firstAttribute="top" secondItem="CJf-VW-hWv" secondAttribute="top" constant="12" id="lzf-Zg-Zfh"/>
+                <constraint firstItem="Fjy-7M-wTv" firstAttribute="leading" secondItem="CJf-VW-hWv" secondAttribute="leading" id="n0h-HT-bHg"/>
+                <constraint firstItem="0SH-fh-IwL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fY1-Pb-1cJ" secondAttribute="trailing" constant="12" id="tde-pP-A4E"/>
+                <constraint firstItem="fY1-Pb-1cJ" firstAttribute="leading" secondItem="VAv-XO-Ppi" secondAttribute="trailing" constant="12" id="uUd-9w-lo2"/>
+                <constraint firstItem="Chy-BR-J9M" firstAttribute="top" secondItem="fY1-Pb-1cJ" secondAttribute="bottom" id="uoU-PX-Ecz"/>
+                <constraint firstItem="0SH-fh-IwL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="n3e-9l-uBb" secondAttribute="trailing" constant="12" id="zbz-lH-XK4"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="inWrapLabel" destination="fY1-Pb-1cJ" id="GTI-ui-xnn"/>
+                <outlet property="pictureView" destination="VAv-XO-Ppi" id="t7m-AL-qSx"/>
+                <outlet property="textView" destination="n3e-9l-uBb" id="Va3-A6-wSt"/>
+                <outlet property="timeLabel" destination="Chy-BR-J9M" id="tRl-e6-e7U"/>
+                <outlet property="userNameLabel" destination="yV8-fW-dTR" id="nnU-Pg-hxm"/>
+                <outlet property="wrapImageView" destination="0SH-fh-IwL" id="8or-Vc-HKx"/>
+            </connections>
+        </view>
+    </objects>
+</document>

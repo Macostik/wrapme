@@ -11,15 +11,15 @@
 #import "NSObject+NibAdditions.h"
 #import "WLRefresher.h"
 #import "UIScrollView+Additions.h"
-#import "WLHistoryItemDataSource.h"
 #import "WLChronologicalEntryPresenter.h"
 
 @interface WLCandiesCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-@property (strong, nonatomic) WLHistoryItemDataSource* dataSource;
+@property (strong, nonatomic) IBOutlet WLHistoryItemDataSource* dataSource;
+
+@property (weak, nonatomic) IBOutlet StreamMetrics *candyMetrics;
 
 @end
 
@@ -27,23 +27,16 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    WLHistoryItemDataSource* dataSource = [WLHistoryItemDataSource dataSource:self.collectionView];
-    dataSource.minimumLineSpacing = dataSource.sectionLeftInset = dataSource.sectionRightInset = WLConstants.pixelSize;
-    dataSource.cellIdentifier = WLCandyCellIdentifier;
-    __weak typeof(self)weakSelf = self;
-    [dataSource setItemSizeBlock:^CGSize(WLCandy *candy, NSUInteger index) {
-        CGFloat size = weakSelf.collectionView.width/2.5;
-        return CGSizeMake(size, weakSelf.collectionView.height);
-    }];
-    self.dataSource = dataSource;
-    self.dataSource.headerAnimated = YES;
+    self.dataSource.streamView.layout = [[GridLayout alloc] initWithHorizontal:YES];
+    self.candyMetrics = [self.dataSource addMetrics:[[GridMetrics alloc] initWithIdentifier:@"WLCandyCell" ratio:1]];
+    self.dataSource.layoutSpacing = WLConstants.pixelSize;
 }
 
 - (void)setup:(WLHistoryItem*)item {
+    [self layoutIfNeeded];
     self.dataSource.items = item;
 	self.dateLabel.text = [item.date stringWithDateStyle:NSDateFormatterMediumStyle];
-    [self.collectionView layoutIfNeeded];
-    [self.collectionView trySetContentOffset:item.offset];
+    [self.dataSource.streamView trySetContentOffset:item.offset];
 }
 
 @end

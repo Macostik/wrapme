@@ -68,6 +68,17 @@
     }];
 }
 
+- (IBAction)selectCountry:(id)sender {
+    WLCountriesViewController *controller = [WLCountriesViewController instantiate:self.storyboard];
+    controller.selectedCountry = self.country;
+    __weak typeof(self)weakSelf = self;
+    [controller setSelectionBlock:^(WLCountry *country) {
+        weakSelf.country = country;
+        [weakSelf.navigationController popViewControllerAnimated:NO];
+    }];
+    [self.navigationController pushViewController:controller animated:NO];
+}
+
 - (void)confirmAuthorization:(WLAuthorization*)authorization success:(void (^)(WLAuthorization *authorization))success {
     __weak typeof(self)weakSelf = self;
     [WLConfirmView showInView:self.view authorization:authorization success:success cancel:^{

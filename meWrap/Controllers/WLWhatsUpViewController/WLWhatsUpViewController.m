@@ -8,7 +8,7 @@
 
 #import "WLWhatsUpViewController.h"
 #import "WLUserView.h"
-#import "WLBasicDataSource.h"
+#import "StreamDataSource.h"
 #import "WLNotificationCenter.h"
 #import "WLChronologicalEntryPresenter.h"
 #import "WLWhatsUpCell.h"
@@ -20,7 +20,9 @@
 
 @interface WLWhatsUpViewController () <WLEntryNotifyReceiver>
 
-@property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
+@property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
+@property (strong, nonatomic) IBOutlet StreamMetrics *commentMetrics;
+@property (strong, nonatomic) IBOutlet StreamMetrics *candyMetrics;
 
 @end
 
@@ -28,24 +30,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    __weak typeof(self)weakSelf = self;
     
-    [self.dataSource setCellIdentifierForItemBlock:^NSString *(WLWhatsUpEvent *event, NSUInteger index) {
-        return [event.contribution isKindOfClass:[WLComment class]] ? @"WLCommentWhatsUpCell" : @"WLCandyWhatsUpCell";
-    }];
-    
-    [self.dataSource setItemSizeBlock:^CGSize(WLWhatsUpEvent *event, NSUInteger index) {
-        
-        CGFloat textHeight  = [WLWhatsUpCell additionalHeightCell:event];
-        
+    [self.candyMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         UIFont *fontNormal = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
         UIFont *fontSmall = [UIFont preferredDefaultFontWithPreset:WLFontPresetSmall];
-        return CGSizeMake(WLConstants.screenWidth, textHeight + 2*floorf(fontNormal.lineHeight) + floorf(fontSmall.lineHeight) + WLPaddingCell);
-
+        return 2*floorf(fontNormal.lineHeight) + floorf(fontSmall.lineHeight) + WLPaddingCell;
     }];
     
-    [self.dataSource setSelectionBlock:^(WLWhatsUpEvent *event) {
-        [WLChronologicalEntryPresenter presentEntry:event.contribution animated:YES];
+    [self.candyMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
+        WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:position.index];
+        return ![event.contribution isKindOfClass:[WLCandy class]];
     }];
+    
+    [self.commentMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
+        WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:position.index];
+        UIFont *font = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
+        CGFloat textHeight = [[event.contribution text] heightWithFont:font width:WLConstants.screenWidth - WLWhatsUpCommentHorizontalSpacing];
+        return textHeight + weakSelf.candyMetrics.sizeAt(position, weakSelf.candyMetrics);
+    }];
+    
+    [self.commentMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
+        WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:position.index];
+        return ![event.contribution isKindOfClass:[WLComment class]];
+    }];
+    
+    self.commentMetrics.selection = self.candyMetrics.selection = ^(StreamItem *item, WLWhatsUpEvent *event) {
+        [WLChronologicalEntryPresenter presentEntry:event.contribution animated:YES];
+    };
  
     [[WLWrap notifier] addReceiver:self];
     

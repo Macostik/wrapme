@@ -17,7 +17,6 @@
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLNavigationHelper.h"
 #import "WLDrawingViewController.h"
-#import "WLCollectionView.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 
@@ -100,6 +99,13 @@
 
 - (void)setup:(WLCandy*)candy {
 	self.userInteractionEnabled = YES;
+    if (!candy) {
+        self.coverView.url = nil;
+        if (self.commentLabel) {
+            self.commentLabel.superview.hidden = YES;
+        }
+        return;
+    }
     if (self.commentLabel) {
         WLComment* comment = [candy latestComment];
         self.commentLabel.text = comment.text;
@@ -111,13 +117,13 @@
     if (picture.justUploaded) {
         [self.coverView setImageSetter:^(WLImageView *imageView, UIImage *image, BOOL animated) {
             picture.justUploaded = NO;
-            [WLCollectionView lock];
+            [StreamView lock];
             run_after_asap(^{
                 imageView.image = image;
                 NSTimeInterval duration = 0.5f;
                 [imageView fadeWithDuration:duration delegate:nil];
                 run_after(duration, ^{
-                    [WLCollectionView unlock];
+                    [StreamView unlock];
                 });
             });
         }];
@@ -127,16 +133,8 @@
     
     self.coverView.url = picture.small;
 
-    [[WLMenu sharedMenu] hide];
-}
-
-- (void)select:(WLCandy*)candy {
-    if (candy.valid && self.coverView.image != nil) {
-        if ([self.delegate respondsToSelector:@selector(candyCell:didSelectCandy:)]) {
-            [self.delegate candyCell:self didSelectCandy:candy];
-        }
-    } else {
-        [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
+    if (!self.disableMenu) {
+        [[WLMenu sharedMenu] hide];
     }
 }
 

@@ -6,16 +6,14 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLEntryCell.h"
+#import "StreamReusableView.h"
 
 const static CGFloat WLWhatsUpCommentHorizontalSpacing = 144.0f;
 const static CGFloat WLPaddingCell = 24.0;
 
 @class WLWhatsUpEvent;
 
-@interface WLWhatsUpCell : WLEntryCell
-
-+ (CGFloat)additionalHeightCell:(WLWhatsUpEvent*)event;
+@interface WLWhatsUpCell : StreamReusableView
 
 @end
 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Nickolay Rybalko. All rights reserved.
 //
 
-#import "WLEntryCell.h"
+#import "StreamReusableView.h"
 
 @class ALAsset;
 @class WLAssetCell;
@@ -23,7 +23,7 @@
 
 @end
 
-@interface WLAssetCell : WLEntryCell
+@interface WLAssetCell : StreamReusableView
 
 @property (nonatomic, weak) IBOutlet id <WLAssetCellDelegate> delegate;
 

@@ -7,7 +7,7 @@
 //
 
 #import "WLQuickAssetsViewController.h"
-#import "WLBasicDataSource.h"
+#import "StreamDataSource.h"
 #import "WLAssetCell.h"
 #import "ALAssetsLibrary+Additions.h"
 #import "WLToast.h"
@@ -20,7 +20,7 @@
 @property (strong, nonatomic) NSArray *assets;
 @property (strong, nonatomic) NSMutableArray *selectedAssets;
 
-@property (strong, nonatomic) IBOutlet WLBasicDataSource *dataSource;
+@property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet UILabel *accessErrorLabel;
 
 @end
@@ -43,12 +43,6 @@
         if (preselectFirstAsset) {
             [weakSelf performSelector:@selector(selectAsset:) withObject:[weakSelf.assets firstObject] afterDelay:0.0f];
         }
-    }];
-    
-    __weak WLBasicDataSource *dataSource = self.dataSource;
-    [dataSource setItemSizeBlock:^CGSize(id item, NSUInteger index) {
-        CGFloat size = dataSource.collectionView.height - dataSource.sectionBottomInset - dataSource.sectionTopInset;
-        return CGSizeMake(size, size);
     }];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];

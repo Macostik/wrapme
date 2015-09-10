@@ -1,18 +1,9 @@
 
-/* Class = "UILabel"; text = "10089969657\n2342342343"; ObjectID = "04J-8C-m9o"; */
-"04J-8C-m9o.text" = "10089969657\n2342342343";
-
-/* Class = "UILabel"; text = "Photo by Calvin"; ObjectID = "08S-52-GIh"; */
-"08S-52-GIh.text" = "Photo by Calvin";
-
 /* Class = "UITextView"; text = "message text"; ObjectID = "0OD-Cn-Lp6"; */
 "0OD-Cn-Lp6.text" = "message text";
 
 /* Class = "UILabel"; text = "Chat"; ObjectID = "0SW-P4-yg3"; */
 "0SW-P4-yg3.text" = "Chat";
-
-/* Class = "UILabel"; text = "Wrap"; ObjectID = "0YA-Wt-D43"; */
-"0YA-Wt-D43.text" = "Wrap";
 
 /* Class = "UILabel"; text = "Create Wrap is easy!\nTap here to start."; ObjectID = "0ka-0F-dc5"; */
 "0ka-0F-dc5.text" = "Create wrap is easy!\nTap here to start.";
@@ -20,14 +11,8 @@
 /* Class = "UIButton"; normalTitle = "m"; ObjectID = "0rM-Ee-8of"; */
 "0rM-Ee-8of.normalTitle" = "m";
 
-/* Class = "UILabel"; text = "Slide to open camera"; ObjectID = "0rs-Jv-qhC"; */
-"0rs-Jv-qhC.text" = "Slide to open camera";
-
 /* Class = "UIButton"; normalTitle = "k"; ObjectID = "1RC-4W-wDl"; */
 "1RC-4W-wDl.normalTitle" = "k";
-
-/* Class = "UILabel"; text = "10000"; ObjectID = "1g0-Jo-BE2"; */
-"1g0-Jo-BE2.text" = "10000";
 
 /* Class = "UILabel"; text = "10"; ObjectID = "2L6-nO-etl"; */
 "2L6-nO-etl.text" = "10";
@@ -47,9 +32,6 @@
 /* Class = "UILabel"; text = "1"; ObjectID = "456-IP-xA6"; */
 "456-IP-xA6.text" = "1";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "4dB-kx-151"; */
-"4dB-kx-151.text" = "Label";
-
 /* Class = "UILabel"; text = "D"; ObjectID = "4dZ-BR-VPb"; */
 "4dZ-BR-VPb.text" = "D";
 
@@ -59,17 +41,8 @@
 /* Class = "UIButton"; normalTitle = "Follow"; ObjectID = "5xC-mH-huG"; */
 "5xC-mH-huG.normalTitle" = "Follow";
 
-/* Class = "UILabel"; text = "Timestamp"; ObjectID = "641-7R-EdV"; */
-"641-7R-EdV.text" = "Timestamp";
-
 /* Class = "UILabel"; text = "home:"; ObjectID = "6NA-Lj-jWd"; */
 "6NA-Lj-jWd.text" = "home:";
-
-/* Class = "UILabel"; text = "Name"; ObjectID = "70w-oo-mtg"; */
-"70w-oo-mtg.text" = "Name";
-
-/* Class = "UILabel"; text = "3 days ago"; ObjectID = "71z-7i-OMc"; */
-"71z-7i-OMc.text" = "3 days ago";
 
 /* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "7Bf-ro-UFC"; */
 "7Bf-ro-UFC.normalTitle" = "Continue";
@@ -82,12 +55,6 @@
 
 /* Class = "UILabel"; text = "1"; ObjectID = "7Vm-cr-A2d"; */
 "7Vm-cr-A2d.text" = "1";
-
-/* Class = "UIButton"; normalTitle = "Remove"; ObjectID = "7dN-Y5-4Ue"; */
-"7dN-Y5-4Ue.normalTitle" = "Remove";
-
-/* Class = "UILabel"; text = "Yestarday at 2:34pm"; ObjectID = "7nH-rK-CBH"; */
-"7nH-rK-CBH.text" = "Yestarday at 2:34pm";
 
 /* Class = "UILabel"; text = "D"; ObjectID = "7yS-IZ-1M1"; */
 "7yS-IZ-1M1.text" = "D";
@@ -158,20 +125,11 @@
 /* Class = "UIButton"; normalTitle = "j"; ObjectID = "Efs-bl-JlE"; */
 "Efs-bl-JlE.normalTitle" = "j";
 
-/* Class = "UILabel"; text = "Wrap"; ObjectID = "FBj-ps-Q2W"; */
-"FBj-ps-Q2W.text" = "Wrap";
-
-/* Class = "UITextView"; text = "Awesome photo!"; ObjectID = "FgB-22-MIB"; */
-"FgB-22-MIB.text" = "Awesome photo!";
-
 /* Class = "UIButton"; normalTitle = "L"; ObjectID = "Fzq-yp-f3W"; */
 "Fzq-yp-f3W.normalTitle" = "L";
 
 /* Class = "UIButton"; normalTitle = "Done"; ObjectID = "GkU-w3-rTK"; */
 "GkU-w3-rTK.normalTitle" = "Done";
-
-/* Class = "UITextView"; text = "Text"; ObjectID = "H8X-L5-O9h"; */
-"H8X-L5-O9h.text" = "Text";
 
 /* Class = "UILabel"; text = "Friends"; ObjectID = "HGi-g8-MYV"; */
 "HGi-g8-MYV.text" = "Friends";
@@ -188,14 +146,8 @@
 /* Class = "UIButton"; normalTitle = "s"; ObjectID = "J3S-jS-mvs"; */
 "J3S-jS-mvs.normalTitle" = "s";
 
-/* Class = "UILabel"; text = "%"; ObjectID = "JTl-uI-0al"; */
-"JTl-uI-0al.text" = "%";
-
 /* Class = "UILabel"; text = "4"; ObjectID = "Jsx-br-jyZ"; */
 "Jsx-br-jyZ.text" = "4";
-
-/* Class = "UILabel"; text = "Label"; ObjectID = "JuD-N5-awC"; */
-"JuD-N5-awC.text" = "Label";
 
 /* Class = "UITextField"; placeholder = "Search contacts"; ObjectID = "KDf-WU-v2H"; */
 "KDf-WU-v2H.placeholder" = "Search contacts";
@@ -206,14 +158,8 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "Kag-WO-QAb"; */
 "Kag-WO-QAb.text" = "Label";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "Kc2-7D-Uw6"; */
-"Kc2-7D-Uw6.text" = "Label";
-
 /* Class = "UIButton"; normalTitle = "P"; ObjectID = "KxF-7g-Abs"; */
 "KxF-7g-Abs.normalTitle" = "P";
-
-/* Class = "UIButton"; normalTitle = "p"; ObjectID = "KyJ-lt-d5S"; */
-"KyJ-lt-d5S.normalTitle" = "p";
 
 /* Class = "UILabel"; text = "11:32 PM"; ObjectID = "Lc4-Kr-oEr"; */
 "Lc4-Kr-oEr.text" = "11:32 PM";
@@ -223,9 +169,6 @@
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "MJV-nQ-gRy"; */
 "MJV-nQ-gRy.normalTitle" = "Cancel";
-
-/* Class = "UILabel"; text = "Wrap Name Wrap Name Wrap Name"; ObjectID = "N8I-t6-aKU"; */
-"N8I-t6-aKU.text" = "Wrap Name Wrap Name Wrap Name";
 
 /* Class = "UILabel"; text = "Help secure your account"; ObjectID = "Nim-LA-uPS"; */
 "Nim-LA-uPS.text" = "Help secure your account";
@@ -239,14 +182,8 @@
 /* Class = "UILabel"; text = "Edit your profile"; ObjectID = "QO2-SC-TvX"; */
 "QO2-SC-TvX.text" = "Edit your profile";
 
-/* Class = "UILabel"; text = "e"; ObjectID = "Qjg-nF-pTh"; */
-"Qjg-nF-pTh.text" = "e";
-
 /* Class = "UIButton"; normalTitle = "Change e-mail"; ObjectID = "R9i-Mn-k3a"; */
 "R9i-Mn-k3a.normalTitle" = "Change e-mail";
-
-/* Class = "UILabel"; text = "4"; ObjectID = "RIL-os-qUh"; */
-"RIL-os-qUh.text" = "4";
 
 /* Class = "UILabel"; text = "e"; ObjectID = "STC-13-brF"; */
 "STC-13-brF.text" = "e";
@@ -274,9 +211,6 @@
 
 /* Class = "UILabel"; text = "Confirm calvin@ravenpod.com as your email address to help secure your account."; ObjectID = "UL6-dF-3Kj"; */
 "UL6-dF-3Kj.text" = "Confirm calvin@ravenpod.com as your email address to help secure your account.";
-
-/* Class = "UIButton"; normalTitle = "4"; ObjectID = "VDt-1T-mW3"; */
-"VDt-1T-mW3.normalTitle" = "4";
 
 /* Class = "UITextView"; text = "Confirm calvin@ravenpod.com as your email address to help secure your account."; ObjectID = "VXa-Dq-6e9"; */
 "VXa-Dq-6e9.text" = "Confirm calvin@ravenpod.com as your email address to help secure your account.";
@@ -329,9 +263,6 @@
 /* Class = "UILabel"; text = "Notify me when new chat is posted to the Wrap."; ObjectID = "cUR-VV-aaK"; */
 "cUR-VV-aaK.text" = "Notify me when new chat is posted.";
 
-/* Class = "UILabel"; text = "Slide to chat"; ObjectID = "cgx-nY-B3d"; */
-"cgx-nY-B3d.text" = "Slide to chat";
-
 /* Class = "UIButton"; normalTitle = "Account"; ObjectID = "co2-D4-XAH"; */
 "co2-D4-XAH.normalTitle" = "Account";
 
@@ -350,32 +281,20 @@
 /* Class = "UIButton"; normalTitle = "Resend"; ObjectID = "gpG-be-cvC"; */
 "gpG-be-cvC.normalTitle" = "Resend";
 
-/* Class = "UILabel"; text = "Yestarday at 2:34pm"; ObjectID = "gs3-em-Muh"; */
-"gs3-em-Muh.text" = "Yestarday at 2:34pm";
-
 /* Class = "UILabel"; text = "Photos"; ObjectID = "h8h-Ah-t4O"; */
 "h8h-Ah-t4O.text" = "Photos";
 
 /* Class = "UIButton"; normalTitle = "Clean Cache"; ObjectID = "hNJ-iN-ANg"; */
 "hNJ-iN-ANg.normalTitle" = "Clean cache";
 
-/* Class = "UILabel"; text = "Invite sent [friendly timestamp]. Swipe to resend invite"; ObjectID = "hiz-xa-3C6"; */
-"hiz-xa-3C6.text" = "Invite sent [friendly timestamp]. Swipe to resend invite";
-
 /* Class = "UILabel"; text = "1"; ObjectID = "hw2-sP-LBk"; */
 "hw2-sP-LBk.text" = "1";
-
-/* Class = "UILabel"; text = "D"; ObjectID = "i2e-Xd-doh"; */
-"i2e-Xd-doh.text" = "D";
 
 /* Class = "UIButton"; normalTitle = "g"; ObjectID = "iQY-Cq-aBP"; */
 "iQY-Cq-aBP.normalTitle" = "g";
 
 /* Class = "UILabel"; text = "%"; ObjectID = "ikS-PH-qcY"; */
 "ikS-PH-qcY.text" = "%";
-
-/* Class = "UILabel"; text = "u"; ObjectID = "kdU-Ps-nCK"; */
-"kdU-Ps-nCK.text" = "u";
 
 /* Class = "UIButton"; normalTitle = "Send invite"; ObjectID = "kdg-Ph-jY5"; */
 "kdg-Ph-jY5.normalTitle" = "Send invite";
@@ -398,26 +317,11 @@
 /* Class = "UIButton"; normalTitle = "#"; ObjectID = "mhi-C4-lKW"; */
 "mhi-C4-lKW.normalTitle" = "#";
 
-/* Class = "UIButton"; normalTitle = "Resend invite"; ObjectID = "phJ-P1-MdW"; */
-"phJ-P1-MdW.normalTitle" = "Resend invite";
-
-/* Class = "UILabel"; text = "Yesterday at 11:25pm"; ObjectID = "q95-rD-NQ9"; */
-"q95-rD-NQ9.text" = "Yesterday at 11:25pm";
-
 /* Class = "UILabel"; text = "%"; ObjectID = "qLD-cF-aDZ"; */
 "qLD-cF-aDZ.text" = "%";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "qYc-F7-Wsy"; */
-"qYc-F7-Wsy.text" = "Label";
-
-/* Class = "UIButton"; normalTitle = "t"; ObjectID = "qgM-hO-gXD"; */
-"qgM-hO-gXD.normalTitle" = "t";
-
 /* Class = "UILabel"; text = "I"; ObjectID = "qwf-nR-0BI"; */
 "qwf-nR-0BI.text" = "I";
-
-/* Class = "UILabel"; text = "Calvin:"; ObjectID = "qxv-Cb-5DK"; */
-"qxv-Cb-5DK.text" = "Calvin:";
 
 /* Class = "UIButton"; normalTitle = "o"; ObjectID = "sPd-Ai-V8F"; */
 "sPd-Ai-V8F.normalTitle" = "o";
@@ -443,9 +347,6 @@
 /* Class = "UIButton"; normalTitle = "L"; ObjectID = "vSX-H6-ha3"; */
 "vSX-H6-ha3.normalTitle" = "L";
 
-/* Class = "UILabel"; text = "100000"; ObjectID = "vhN-RG-jpt"; */
-"vhN-RG-jpt.text" = "100000";
-
 /* Class = "UILabel"; text = "FOLLOW & JOIN THIS WRAP?"; ObjectID = "wxe-oJ-t5C"; */
 "wxe-oJ-t5C.text" = "FOLLOW & JOIN THIS WRAP?";
 
@@ -454,9 +355,6 @@
 
 /* Class = "UILabel"; text = "Wrap"; ObjectID = "xS9-IA-WOM"; */
 "xS9-IA-WOM.text" = "Wrap";
-
-/* Class = "UIButton"; normalTitle = "l"; ObjectID = "yxU-kB-7d8"; */
-"yxU-kB-7d8.normalTitle" = "l";
 
 /* Class = "UIButton"; normalTitle = "LEAVE WRAP"; ObjectID = "zBK-OX-573"; */
 "zBK-OX-573.normalTitle" = "LEAVE WRAP";

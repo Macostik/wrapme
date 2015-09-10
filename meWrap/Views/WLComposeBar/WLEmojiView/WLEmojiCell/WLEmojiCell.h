@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLEntryCell.h"
+#import "StreamReusableView.h"
 
-@interface WLEmojiCell : WLEntryCell
+@interface WLEmojiCell : StreamReusableView
 
 
 @end

@@ -30,7 +30,6 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
-    self.layer.geometryFlipped = YES;
     self.commenttextView.textContainerInset = UIEdgeInsetsZero;
     self.commenttextView.textContainer.lineFragmentPadding = .0f;
     

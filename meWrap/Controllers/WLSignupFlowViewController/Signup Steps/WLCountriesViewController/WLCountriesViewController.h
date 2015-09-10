@@ -14,4 +14,6 @@
 
 @property (strong, nonatomic) WLCountry *selectedCountry;
 
+@property (strong, nonatomic) void (^selectionBlock) (WLCountry *country);
+
 @end

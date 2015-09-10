@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLBasicDataSource.h"
+#import "PaginatedStreamDataSource.h"
 
-@interface WLHistoryItemDataSource : WLBasicDataSource
+@interface WLHistoryItemDataSource : PaginatedStreamDataSource
 
 @end

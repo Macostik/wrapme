@@ -6,17 +6,17 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLEntryReusableView.h"
+#import "StreamReusableView.h"
 
-@class WLBasicDataSource;
+@class StreamDataSource, StreamView;
 
 static NSUInteger WLHomeTopWrapCandiesLimit = 6;
 static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
 
-@interface WLRecentCandiesView : WLEntryReusableView
+@interface WLRecentCandiesView : StreamReusableView
 
-@property (weak, nonatomic, readonly) UICollectionView *collectionView;
+@property (weak, nonatomic, readonly) StreamView *streamView;
 
-@property (strong, nonatomic, readonly) WLBasicDataSource* dataSource;
+@property (strong, nonatomic, readonly) StreamDataSource* dataSource;
 
 @end

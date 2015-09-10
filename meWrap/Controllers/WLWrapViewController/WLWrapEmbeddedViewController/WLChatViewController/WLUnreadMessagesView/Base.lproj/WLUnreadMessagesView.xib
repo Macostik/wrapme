@@ -6,24 +6,25 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="RX9-ya-hfz">
+        <view contentMode="scaleToFill" id="nHM-Nx-VU8" customClass="StreamReusableView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="34"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNREAD MESSAGES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3J-PO-D05">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="34"/>
+                    <rect key="frame" x="85" y="8" width="150" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="P3J-PO-D05" secondAttribute="bottom" id="2go-Ui-s5n"/>
-                <constraint firstItem="P3J-PO-D05" firstAttribute="top" secondItem="RX9-ya-hfz" secondAttribute="top" id="3gl-jq-MQY"/>
-                <constraint firstAttribute="trailing" secondItem="P3J-PO-D05" secondAttribute="trailing" id="9gm-Nf-2yr"/>
-                <constraint firstItem="P3J-PO-D05" firstAttribute="leading" secondItem="RX9-ya-hfz" secondAttribute="leading" id="sVw-Xv-nWD"/>
+                <constraint firstAttribute="centerX" secondItem="P3J-PO-D05" secondAttribute="centerX" id="QV7-Kj-oKu"/>
+                <constraint firstAttribute="centerY" secondItem="P3J-PO-D05" secondAttribute="centerY" id="XwG-Eu-SLe"/>
             </constraints>
-            <point key="canvasLocation" x="360" y="229"/>
-        </collectionReusableView>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="809" y="577"/>
+        </view>
     </objects>
 </document>

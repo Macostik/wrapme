@@ -6,15 +6,13 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLSectionedDataSource.h"
+#import "PaginatedStreamDataSource.h"
 #import "WLRecentCandiesView.h"
 
 @class WLWrap;
 
-@interface WLHomeDataSource : WLBasicDataSource
+@interface WLHomeDataSource : PaginatedStreamDataSource
 
 @property (strong, nonatomic) WLWrap* wrap;
-
-@property (strong, nonatomic) WLRecentCandiesView *candiesView;
 
 @end

@@ -13,24 +13,12 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *nameTextField;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *visibleConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *invisibleConstraint;
 
-@property (strong, nonatomic) WLLayoutPrioritizer *layoutPrioritizer;
+@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *layoutPrioritizer;
 
 @end
 
 @implementation WLTypingView
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    WLLayoutPrioritizer *layoutPrioritizer = [[WLLayoutPrioritizer alloc] init];
-    layoutPrioritizer.defaultConstraints = @[self.invisibleConstraint];
-    layoutPrioritizer.alternativeConstraints = @[self.visibleConstraint];
-    layoutPrioritizer.parentViews = @[self.nameTextField, self.avatarView];
-    self.layoutPrioritizer = layoutPrioritizer;
-}
 
 - (void)updateWithChat:(WLChat *)chat {
     

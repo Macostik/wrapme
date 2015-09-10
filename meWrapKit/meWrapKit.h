@@ -32,6 +32,7 @@
 #import <meWrapKit/WLOperationQueue.h>
 #import <meWrapKit/WLCryptographer.h>
 #import <meWrapKit/WLEntryNotifier.h>
+#import <meWrapKit/WLSet.h>
 #import <meWrapKit/WLPaginatedSet.h>
 #import <meWrapKit/WLHistory.h>
 #import <meWrapKit/WLHistoryItem.h>

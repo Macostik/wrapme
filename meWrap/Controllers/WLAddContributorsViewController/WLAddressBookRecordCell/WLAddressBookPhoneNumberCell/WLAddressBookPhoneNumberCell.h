@@ -6,20 +6,12 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
+#import "StreamReusableView.h"
+
 @class WLAddressBookPhoneNumberCell;
 @class WLAddressBookPhoneNumber;
 
-@protocol WLAddressBookPhoneNumberCellDelegate <NSObject>
-
-- (void)personCell:(WLAddressBookPhoneNumberCell*)cell didSelectPerson:(WLAddressBookPhoneNumber *)person;
-
-@end
-
-@interface WLAddressBookPhoneNumberCell : UITableViewCell
-
-@property (nonatomic, weak) IBOutlet id <WLAddressBookPhoneNumberCellDelegate> delegate;
-
-@property (strong, nonatomic) WLAddressBookPhoneNumber *phoneNumber;
+@interface WLAddressBookPhoneNumberCell : StreamReusableView
 
 @property (nonatomic) BOOL checked;
 

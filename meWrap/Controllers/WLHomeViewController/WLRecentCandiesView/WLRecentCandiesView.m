@@ -7,14 +7,14 @@
 //
 
 #import "WLRecentCandiesView.h"
-#import "WLBasicDataSource.h"
+#import "StreamDataSource.h"
 #import "WLCandyCell.h"
 
 @interface WLRecentCandiesView ()
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet StreamView *streamView;
 
-@property (strong, nonatomic) WLBasicDataSource* dataSource;
+@property (strong, nonatomic) StreamDataSource *dataSource;
 
 @end
 
@@ -22,25 +22,19 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
-    WLBasicDataSource* dataSource = [WLBasicDataSource dataSource:self.collectionView];
-    dataSource.cellIdentifier = WLCandyCellIdentifier;
-    dataSource.minimumLineSpacing = WLCandyCellSpacing;
-    dataSource.sectionLeftInset = dataSource.sectionRightInset = WLCandyCellSpacing;
-    [dataSource setNumberOfItemsBlock:^NSUInteger {
+    self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
+    self.dataSource.numberOfGridColumns = 3;
+    self.dataSource.sizeForGridColumns = 0.333f;
+    self.streamView.layout = [[GridLayout alloc] init];
+    [self.dataSource addMetrics:[[GridMetrics alloc] initWithIdentifier:@"WLCandyCell" ratio:1]];
+    [self.dataSource setNumberOfItemsBlock:^NSUInteger (StreamDataSource *dataSource) {
         return ([dataSource.items count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
     }];
-    [dataSource setCellIdentifierForItemBlock:^NSString *(id item, NSUInteger index) {
-        return (index < [dataSource.items count]) ? WLCandyCellIdentifier : @"WLCandyPlaceholderCell";
-    }];
-    [dataSource setItemSizeBlock:^CGSize(id item, NSUInteger index) {
-        int size = (WLConstants.screenWidth - 2.0f)/3.0f;
-        return CGSizeMake(size, size);
-    }];
-    self.dataSource = dataSource;
+    self.dataSource.layoutSpacing = WLConstants.pixelSize;
 }
 
 - (void)setup:(WLWrap*)wrap {
+    [self layoutIfNeeded];
     self.dataSource.items = [[NSMutableOrderedSet orderedSetWithSet:wrap.candies] sortByUpdatedAt];
 }
 

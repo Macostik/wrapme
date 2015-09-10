@@ -21,6 +21,8 @@
 
 @property (readonly, nonatomic) WLPicture* priorityPicture;
 
+@property (readonly, nonatomic) NSString *phoneStrings;
+
 + (void)record:(ABRecordRef)record completion:(WLContactBlock)completion;
 
 + (instancetype)record:(NSArray*)phoneNumbers;

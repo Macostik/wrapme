@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="icons.ttf">
+            <string>icons</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="mbS-gk-l90" customClass="WLWrapCell">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2os-5R-rsy" customClass="WLWrapStatusImageView">
+                    <rect key="frame" x="80" y="10" width="36" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="ibN-wD-yvs"/>
+                        <constraint firstAttribute="width" constant="36" id="v1J-f1-Oua"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="18"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="t"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                            <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
+                            <real key="value" value="16"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="statusView" destination="nS9-OC-BpX" id="wxN-yf-y1U"/>
+                    </connections>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nS9-OC-BpX">
+                    <rect key="frame" x="80" y="10" width="14" height="14"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="CmI-fr-Wdr"/>
+                        <constraint firstAttribute="width" constant="14" id="wjT-np-hkg"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="8"/>
+                    <color key="textColor" red="0.85098039219999999" green="0.32549019610000002" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <integer key="value" value="7"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.85098040100000005" green="0.32549020649999999" blue="0.30980393290000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGB-B8-v1O" customClass="WLLabel">
+                    <rect key="frame" x="124" y="17" width="168" height="21"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                    <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="KgR-Oy-EzF" customClass="WLSeparatorView">
+                    <rect key="frame" x="0.0" y="54" width="300" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="IJf-n5-Kgt"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                            <color key="value" white="0.1010000035" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="2os-5R-rsy" firstAttribute="top" secondItem="nS9-OC-BpX" secondAttribute="top" id="8oN-iS-4cb"/>
+                <constraint firstAttribute="centerY" secondItem="2os-5R-rsy" secondAttribute="centerY" id="F1J-sS-WNo"/>
+                <constraint firstItem="2os-5R-rsy" firstAttribute="centerX" secondItem="mbS-gk-l90" secondAttribute="leading" constant="98" id="Fst-7K-fqi"/>
+                <constraint firstItem="KgR-Oy-EzF" firstAttribute="leading" secondItem="mbS-gk-l90" secondAttribute="leading" id="JXI-08-EFb"/>
+                <constraint firstAttribute="trailing" secondItem="KgR-Oy-EzF" secondAttribute="trailing" id="K2s-PN-PJA"/>
+                <constraint firstItem="2os-5R-rsy" firstAttribute="leading" secondItem="nS9-OC-BpX" secondAttribute="leading" id="OOQ-rl-0r4"/>
+                <constraint firstItem="JGB-B8-v1O" firstAttribute="leading" secondItem="2os-5R-rsy" secondAttribute="trailing" constant="8" id="WaY-5L-yn8"/>
+                <constraint firstAttribute="trailing" secondItem="JGB-B8-v1O" secondAttribute="trailing" constant="8" id="k7C-Qy-M7Y"/>
+                <constraint firstAttribute="bottom" secondItem="KgR-Oy-EzF" secondAttribute="bottom" id="vbB-p7-Sp0"/>
+                <constraint firstAttribute="centerY" secondItem="JGB-B8-v1O" secondAttribute="centerY" id="wjV-Ka-oGQ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="coverView" destination="2os-5R-rsy" id="KVc-SF-BUt"/>
+                <outlet property="nameLabel" destination="JGB-B8-v1O" id="Lu1-By-7gI"/>
+            </connections>
+            <point key="canvasLocation" x="565" y="600.5"/>
+        </view>
+    </objects>
+</document>

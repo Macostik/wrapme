@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "WLSet.h"
 #import "WLPaginatedRequest.h"
 
 @class WLPaginatedSet;
@@ -17,27 +17,19 @@
 
 @end
 
-@protocol WLPaginatedSetDelegate <NSObject>
+@protocol WLPaginatedSetDelegate <WLSetDelegate>
 
-- (void)paginatedSetChanged:(WLPaginatedSet*)group;
-
-- (void)paginatedSetCompleted:(WLPaginatedSet *)group;
+- (void)paginatedSetDidComplete:(WLPaginatedSet *)set;
 
 @end
 
-@interface WLPaginatedSet : NSObject
-
-@property (strong, nonatomic) NSMutableOrderedSet* entries;
+@interface WLPaginatedSet : WLSet
 
 @property (nonatomic) BOOL completed;
 
 @property (strong, nonatomic) WLPaginatedRequest* request;
 
 @property (nonatomic, weak) id <WLPaginatedSetDelegate> delegate;
-
-@property (nonatomic, strong) NSComparator sortComparator;
-
-@property (nonatomic) BOOL sortDescending;
 
 + (instancetype)setWithEntries:(NSSet*)entries request:(WLPaginatedRequest*)request;
 
@@ -49,8 +41,6 @@
 
 - (NSDate*)olderPaginationDate;
 
-- (void)resetEntries:(NSSet*)entries;
-
 - (void)fresh:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
 - (void)newer:(WLSetBlock)success failure:(WLFailureBlock)failure;
@@ -59,21 +49,9 @@
 
 - (void)handleResponse:(NSSet*)entries;
 
-- (BOOL)addEntries:(NSSet *)entries;
-
-- (BOOL)addEntry:(id)entry;
-
-- (void)removeEntry:(id)entry;
-
-- (void)sort;
-
-- (void)sort:(id)entry;
-
 - (void)recursiveOlder:(WLFailureBlock)failure;
 
-- (void)didChange;
-
-- (void)didBecomeCompleted;
+- (void)didComplete;
 
 @end
 

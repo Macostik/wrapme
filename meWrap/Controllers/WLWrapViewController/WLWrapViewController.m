@@ -14,7 +14,6 @@
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
 #import "SegmentedControl.h"
-#import "WLBasicDataSource.h"
 #import "WLEntryPresenter.h"
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"
@@ -24,7 +23,6 @@
 #import "WLButton.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLWrapStatusImageView.h"
-#import "WLCollectionView.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPhotosViewControllerDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 

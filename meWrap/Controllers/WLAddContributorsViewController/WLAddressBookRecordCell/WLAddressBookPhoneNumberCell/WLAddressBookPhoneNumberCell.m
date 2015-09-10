@@ -20,8 +20,7 @@
 
 @implementation WLAddressBookPhoneNumberCell
 
-- (void)setPhoneNumber:(WLAddressBookPhoneNumber *)phoneNumber {
-    _phoneNumber = phoneNumber;
+- (void)setup:(WLAddressBookPhoneNumber *)phoneNumber {
 	self.typeLabel.text = [NSString stringWithFormat:@"%@:", WLString(phoneNumber.phone.label)];
 	self.phoneLabel.text = phoneNumber.phone;
 }
@@ -31,11 +30,6 @@
 	[UIView beginAnimations:nil context:nil];
 	self.selectionView.selected = checked;
 	[UIView commitAnimations];
-}
-
-- (IBAction)select:(id)sender {
-    WLAddressBookPhoneNumber *person = self.phoneNumber;
-	[self.delegate personCell:self didSelectPerson:person];
 }
 
 @end

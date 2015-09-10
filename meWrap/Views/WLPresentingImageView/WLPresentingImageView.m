@@ -9,7 +9,6 @@
 #import "WLPresentingImageView.h"
 #import "WLNavigationHelper.h"
 #import "WLCandyCell.h"
-#import "WLCollectionView.h"
 
 @interface WLPresentingImageView () <UIScrollViewDelegate>
 
@@ -37,7 +36,7 @@
     self.imageView.image = image;
     
     UIView *presentingView = [self.delegate presentingImageView:self presentingViewForCandy:candy];
-    [WLCollectionView lock];
+    [StreamView lock];
     self.imageView.frame = [self.superview convertRect:presentingView.bounds fromCoordinateSpace:presentingView];
     presentingView.hidden = YES;
     __weak typeof(self)weakSelf = self;
@@ -51,7 +50,7 @@
                          if (success) success(weakSelf);
                          presentingView.hidden = NO;
                          [weakSelf removeFromSuperview];
-                         [WLCollectionView unlock];
+                         [StreamView unlock];
                      }];
 }
 
@@ -76,7 +75,7 @@
     self.imageView.image = image;
     self.imageView.frame = CGRectThatFitsSize(self.size, image.size);
     __weak __typeof(self)weakSelf = self;
-    [WLCollectionView lock];
+    [StreamView lock];
     CGRect rect = [self.superview convertRect:dismissingView.bounds fromCoordinateSpace:dismissingView];
     dismissingView.hidden = YES;
     [UIView animateWithDuration:0.25
@@ -88,7 +87,7 @@
                      } completion:^(BOOL finished) {
                          dismissingView.hidden = NO;
                          [weakSelf removeFromSuperview];
-                         [WLCollectionView unlock];
+                         [StreamView unlock];
                      }];
 }
 

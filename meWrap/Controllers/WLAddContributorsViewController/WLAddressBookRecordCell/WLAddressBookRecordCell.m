@@ -1,5 +1,5 @@
 //
-//  WLContactCell.m
+//  WLrecordCell.m
 //  meWrap
 //
 //  Created by Ravenpod on 09.05.14.
@@ -12,10 +12,10 @@
 #import "WLAddressBookPhoneNumber.h"
 #import "UIView+QuartzCoreHelper.h"
 
-@interface WLAddressBookRecordCell () <UITableViewDataSource, UITableViewDelegate, WLAddressBookPhoneNumberCellDelegate>
+@interface WLAddressBookRecordCell () <StreamViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
-@property (nonatomic, weak) IBOutlet UITableView* tableView;
+@property (nonatomic, weak) IBOutlet StreamView* streamView;
 @property (nonatomic, weak) IBOutlet UILabel* nameLabel;
 @property (nonatomic, weak) IBOutlet WLImageView* avatarView;
 @property (weak, nonatomic) IBOutlet UIButton *openView;
@@ -26,29 +26,8 @@
 
 @implementation WLAddressBookRecordCell
 
-- (void)awakeFromNib {
-	[super awakeFromNib];
-	self.avatarView.circled = YES;
-    
-    self.signUpView.layer.borderWidth = 1;
-    self.signUpView.layer.borderColor = self.signUpView.textColor.CGColor;
-}
-
-+ (instancetype)cellWithContact:(WLAddressBookRecord *)record inTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
-	WLAddressBookRecordCell* cell = nil;
-	if ([record.phoneNumbers count] > 1) {
-		cell = [tableView dequeueReusableCellWithIdentifier:@"WLMultipleAddressBookRecordCell" forIndexPath:indexPath];
-	} else {
-		cell = [tableView dequeueReusableCellWithIdentifier:@"WLAddressBookRecordCell" forIndexPath:indexPath];
-	}
-	cell.record = record;
-	return cell;
-}
-
-- (void)setRecord:(WLAddressBookRecord *)record {
-    _record = record;
+- (void)setup:(WLAddressBookRecord *)record {
 	WLAddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
-    
     self.signUpView.hidden = (phoneNumber.user && phoneNumber.activated) ? NO : YES;
 	self.nameLabel.text = [phoneNumber priorityName];
     NSString *url = phoneNumber.priorityPicture.small;
@@ -59,34 +38,22 @@
     }
     self.avatarView.url = url;
 	
-	if (self.tableView) {
-		[self.tableView reloadData];
+	if (self.streamView) {
+        [self.streamView layoutIfNeeded];
+		[self.streamView reload];
 	} else {
-        self.phoneLabel.text = [WLAddressBookRecordCell collectionPersonsStringFromContact:record];
-		self.state = [self.delegate contactCell:self phoneNumberState:phoneNumber];
+        self.phoneLabel.text = record.phoneStrings;
+		self.state = [self.delegate recordCell:self phoneNumberState:phoneNumber];
 	}
 }
 
-+ (NSString *)collectionPersonsStringFromContact:(WLAddressBookRecord *)contact {
-    WLAddressBookPhoneNumber *person = [contact.phoneNumbers lastObject];
-    if (person) {
-        WLUser *user = person.user;
-        if (user.valid) {
-            return [user phones];
-        } else {
-            return [person phone];
-        }
-    }
-    return nil;
-}
-
-- (void)setState:(WLContactCellState)state {
+- (void)setState:(WLAddressBookPhoneNumberState)state {
 	_state = state;
-    if (state == WLContactCellStateAdded) {
+    if (state == WLAddressBookPhoneNumberStateAdded) {
         self.selectButton.enabled = NO;
     } else {
         self.selectButton.enabled = YES;
-        self.selectButton.selected = state == WLContactCellStateSelected;
+        self.selectButton.selected = state == WLAddressBookPhoneNumberStateSelected;
     }
 }
 
@@ -100,34 +67,40 @@
 #pragma mark - Actions
 
 - (IBAction)select:(id)sender {
-    WLAddressBookPhoneNumber *person = [self.record.phoneNumbers lastObject];
-	[self.delegate contactCell:self didSelectPerson:person];
+    WLAddressBookRecord* record = self.entry;
+    WLAddressBookPhoneNumber *person = [record.phoneNumbers lastObject];
+	[self.delegate recordCell:self didSelectPhoneNumber:person];
 }
 
 - (IBAction)open:(id)sender {
 	self.opened = !self.opened;
-	[self.delegate contactCellDidToggle:self];
+	[self.delegate recordCellDidToggle:self];
 }
 
-#pragma mark - UITableViewDataSource, UITableViewDelegate
+// MARK: - StreamViewDelegate
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	WLAddressBookRecord* contact = self.record;
-	return [contact.phoneNumbers count];
+- (NSInteger)streamView:(StreamView * __nonnull)streamView numberOfItemsInSection:(NSInteger)section {
+	WLAddressBookRecord* record = self.entry;
+	return [record.phoneNumbers count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	WLAddressBookPhoneNumberCell* cell = [tableView dequeueReusableCellWithIdentifier:@"WLAddressBookPhoneNumberCell" forIndexPath:indexPath];
-	WLAddressBookRecord* contact = self.record;
-	cell.phoneNumber = contact.phoneNumbers[indexPath.row];
-	cell.checked = [self.delegate contactCell:self phoneNumberState:cell.phoneNumber];
-	return cell;
+- (void)streamView:(StreamView * __nonnull)streamView didLayoutItem:(StreamItem * __nonnull)item {
+    WLAddressBookRecord* record = self.entry;
+    item.entry = [record.phoneNumbers tryAt:item.position.index];
 }
 
-#pragma mark - WLAddressBookPhoneNumberCellDelegate
-
-- (void)personCell:(WLAddressBookPhoneNumberCell *)cell didSelectPerson:(WLAddressBookPhoneNumber *)person {
-	[self.delegate contactCell:self didSelectPerson:person];
+- (NSArray * __nonnull)streamView:(StreamView * __nonnull)streamView metricsAt:(StreamPosition * __nonnull)position {
+    __weak typeof(self)weakSelf = self;
+    return @[[[StreamMetrics alloc] initWithIdentifier:@"WLAddressBookPhoneNumberCell" initializer:^(StreamMetrics *metrics) {
+        metrics.size = 50;
+        [metrics setFinalizeAppearing:^(StreamItem *item, WLAddressBookPhoneNumber* phoneNumber) {
+            WLAddressBookPhoneNumberCell* cell = (id)item.view;
+            cell.checked = [weakSelf.delegate recordCell:weakSelf phoneNumberState:phoneNumber];
+        }];
+        [metrics setSelection:^(StreamItem *item, WLAddressBookPhoneNumber *phoneNumber) {
+            [weakSelf.delegate recordCell:self didSelectPhoneNumber:phoneNumber];
+        }];
+    }]];
 }
 
 @end

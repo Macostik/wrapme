@@ -6,10 +6,13 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLEntryCell.h"
+#import "StreamReusableView.h"
+#import "WLHistoryItemDataSource.h"
 
-@interface WLCandiesCell : WLEntryCell
+@interface WLCandiesCell : StreamReusableView
 
-@property (weak, nonatomic, readonly) UICollectionView *collectionView;
+@property (strong, nonatomic, readonly) WLHistoryItemDataSource* dataSource;
+
+@property (weak, nonatomic, readonly) StreamMetrics *candyMetrics;
 
 @end

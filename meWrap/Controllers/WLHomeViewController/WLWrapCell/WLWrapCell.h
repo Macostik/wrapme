@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLEntryCell.h"
+#import "StreamReusableView.h"
 
 @class WLWrapCell, WLBasicDataSource;
 
@@ -19,7 +19,7 @@
 
 @end
 
-@interface WLWrapCell : WLEntryCell
+@interface WLWrapCell : StreamReusableView
 
 @property (strong, nonatomic) IBOutlet id <WLWrapCellDelegate> delegate;
 

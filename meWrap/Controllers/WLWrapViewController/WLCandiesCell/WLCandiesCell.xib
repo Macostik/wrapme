@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="WcT-6C-2AP" customClass="WLCandiesCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="nY2-aj-pJr" customClass="WLLabel">
+                    <rect key="frame" x="142" y="12" width="36" height="18"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="8eE-Kf-deT"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                    <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UzK-MR-YWi" customClass="StreamView" customModule="meWrap">
+                    <rect key="frame" x="0.0" y="42" width="320" height="122"/>
+                    <connections>
+                        <outlet property="delegate" destination="QI5-mP-o5y" id="ORf-EP-vDW"/>
+                    </connections>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="nY2-aj-pJr" firstAttribute="top" secondItem="WcT-6C-2AP" secondAttribute="top" constant="12" id="9k8-mI-rdO"/>
+                <constraint firstAttribute="trailing" secondItem="UzK-MR-YWi" secondAttribute="trailing" id="Bvv-wZ-eqS"/>
+                <constraint firstItem="UzK-MR-YWi" firstAttribute="leading" secondItem="WcT-6C-2AP" secondAttribute="leading" id="Cff-R8-wJW"/>
+                <constraint firstAttribute="centerX" secondItem="nY2-aj-pJr" secondAttribute="centerX" id="G5x-3F-lM6"/>
+                <constraint firstItem="UzK-MR-YWi" firstAttribute="top" secondItem="WcT-6C-2AP" secondAttribute="top" constant="42" id="hHU-ky-bLG"/>
+                <constraint firstItem="nY2-aj-pJr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WcT-6C-2AP" secondAttribute="leading" constant="12" id="jv1-9L-8mc"/>
+                <constraint firstAttribute="bottom" secondItem="UzK-MR-YWi" secondAttribute="bottom" id="yKQ-Zq-E0u"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nY2-aj-pJr" secondAttribute="trailing" constant="12" id="zmz-ih-vHj"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="dataSource" destination="QI5-mP-o5y" id="7xX-m8-DwP"/>
+                <outlet property="dateLabel" destination="nY2-aj-pJr" id="1H6-ST-96B"/>
+            </connections>
+            <point key="canvasLocation" x="488" y="748"/>
+        </view>
+        <customObject id="QI5-mP-o5y" customClass="WLHistoryItemDataSource">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="numberOfGridColumns">
+                    <integer key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="sizeForGridColumns">
+                    <real key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="streamView" destination="UzK-MR-YWi" id="7ZQ-pZ-osL"/>
+            </connections>
+        </customObject>
+    </objects>
+</document>

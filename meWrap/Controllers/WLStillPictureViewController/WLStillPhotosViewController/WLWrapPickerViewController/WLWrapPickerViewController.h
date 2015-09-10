@@ -7,7 +7,6 @@
 //
 
 #import "WLBaseViewController.h"
-#import "WLEntryReusableView.h"
 
 @class WLWrapPickerViewController;
 @class WLWrap;
@@ -35,27 +34,5 @@
 @end
 
 @interface WLWrapPickerCollectionViewLayout : UICollectionViewFlowLayout
-
-@end
-
-@class WLAddWrapPickerView;
-
-@protocol WLAddWrapPickerViewDelegate <NSObject>
-
-- (BOOL)addWrapPickerViewShouldShowKeyboard:(WLAddWrapPickerView*)view;
-
-- (BOOL)addWrapPickerViewShouldBeginEditing:(WLAddWrapPickerView*)view;
-
-- (void)addWrapPickerViewDidBeginEditing:(WLAddWrapPickerView*)view;
-
-- (void)addWrapPickerView:(WLAddWrapPickerView*)view didAddWrap:(WLWrap*)wrap;
-
-@end
-
-@interface WLAddWrapPickerView : WLEntryReusableView
-
-@property (weak, nonatomic, readonly) UITextField *wrapNameTextField;
-
-@property (weak, nonatomic) IBOutlet id <WLAddWrapPickerViewDelegate> delegate;
 
 @end

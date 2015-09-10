@@ -18,6 +18,8 @@
 
 @implementation WLPaginatedSet
 
+@dynamic delegate;
+
 + (instancetype)setWithEntries:(NSSet *)entries request:(WLPaginatedRequest *)request {
     WLPaginatedSet* set = [[WLPaginatedSet alloc] init];
     set.request = request;
@@ -27,22 +29,6 @@
 
 + (instancetype)setWithRequest:(WLPaginatedRequest *)request {
     return [self setWithEntries:nil request:request];
-}
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.entries = [NSMutableOrderedSet orderedSet];
-        self.sortComparator = comparatorByUpdatedAt;
-        self.sortDescending = YES;
-    }
-    return self;
-}
-
-- (void)resetEntries:(NSSet *)entries {
-    [self.entries removeAllObjects];
-    [self.entries unionSet:entries];
-    [self sort];
 }
 
 - (void)fresh:(WLSetBlock)success failure:(WLFailureBlock)failure {
@@ -125,7 +111,7 @@
     if (completed != _completed) {
         _completed = completed;
         if (completed) {
-            [self didBecomeCompleted];
+            [self didComplete];
         } else {
             [self didChange];
         }
@@ -133,46 +119,8 @@
 
 }
 
-- (BOOL)addEntries:(NSSet *)entries {
-    if (!entries.nonempty || [entries isSubsetOfSet:self.entries.set]) {
-        return NO;
-    }
-    [self.entries unionSet:entries];
-    [self sort];
-    return YES;
-}
-
-- (BOOL)addEntry:(id)entry {
-    if ([self.entries containsObject:entry]) {
-        return NO;
-    }
-    [self.entries add:entry comparator:self.sortComparator descending:self.sortDescending];
-    [self didChange];
-    return YES;
-}
-
-- (void)removeEntry:(id)entry {
-    if ([self.entries containsObject:entry]) {
-        [self.entries removeObject:entry];
-        [self didChange];
-    }
-}
-
-- (void)sort {
-    [self.entries sort:self.sortComparator descending:self.sortDescending];
-    [self didChange];
-}
-
-- (void)sort:(id)entry {
-    [self sort];
-}
-
-- (void)didChange {
-    [self.delegate paginatedSetChanged:self];
-}
-
-- (void)didBecomeCompleted {
-    [self.delegate paginatedSetCompleted:self];
+- (void)didComplete {
+    [self.delegate paginatedSetDidComplete:self];
 }
 
 @end

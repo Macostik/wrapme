@@ -24,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLTextView *textView;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
-@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *namePrioritizer;
 
 @end
 

@@ -57,7 +57,9 @@
     self.dataSource.sizeForGridColumns = 1;
     self.dataSource.layoutSpacing = 3;
     
-    self.assets = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
+    PHFetchOptions *options = [[PHFetchOptions alloc] init];
+    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+    self.assets = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:options];
     if ([self.delegate respondsToSelector:@selector(quickAssetsViewControllerShouldPreselectFirstAsset:)]) {
         if ([self.delegate quickAssetsViewControllerShouldPreselectFirstAsset:self]) {
             [self performSelector:@selector(selectAsset:) withObject:[self.assets firstObject] afterDelay:0.0f];

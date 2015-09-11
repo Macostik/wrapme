@@ -14,12 +14,13 @@
 #import "UIImage+Drawing.h"
 #import "WLUploadingQueue.h"
 #import "NSError+WLAPIManager.h"
-#import "ALAssetsLibrary+Additions.h"
 #import "WLBlockImageFetching.h"
 #import "WLEditPicture.h"
 #import "WLEntry+WLAPIRequest.h"
 #import "GCDHelper.h"
 #import "WLLocalization.h"
+
+@import Photos;
 
 @implementation WLCandy (Extended)
 
@@ -119,24 +120,6 @@
 
 - (BOOL)deletable {
     return self.contributedByCurrentUser || self.wrap.contributedByCurrentUser;
-}
-
-- (void)download:(WLBlock)success failure:(WLFailureBlock)failure {
-    
-    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
-    if (status == ALAuthorizationStatusDenied) {
-        if (failure) failure(WLError(WLLS(@"downloading_privacy_settings")));
-        return;
-    }
-    
-    [[WLBlockImageFetching fetchingWithUrl:self.picture.original] enqueue:^(UIImage *image) {
-        [image save:nil completion:success failure:failure];
-    } failure:^(NSError *error) {
-        if (error.isNetworkError) {
-            error = WLError(WLLS(@"downloading_internet_connection_error"));
-        }
-        if (failure) failure(error);
-    }];
 }
 
 - (void)editWithImage:(UIImage*)image {

@@ -55,3 +55,4 @@ typedef void (^WLImageFetcherBlock)(UIImage* image, BOOL cached);
 typedef NSDate* (^WLDateFromEntryBlock)(WLEntry* entry);
 typedef void (^WLGestureBlock)(UIGestureRecognizer *recognizer);
 typedef void (^WLPictureBlock) (WLPicture *picture);
+typedef void (^WLCompletionBlock) (BOOL success, NSError *error);

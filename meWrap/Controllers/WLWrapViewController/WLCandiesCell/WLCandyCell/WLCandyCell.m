@@ -17,6 +17,7 @@
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLNavigationHelper.h"
 #import "WLDrawingViewController.h"
+#import "PHPhotoLibrary+Helper.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 

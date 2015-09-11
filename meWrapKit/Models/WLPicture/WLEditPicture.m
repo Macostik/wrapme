@@ -9,11 +9,11 @@
 #import "WLEditPicture.h"
 #import "WLImageCache.h"
 #import "UIImage+Resize.h"
-#import "ALAssetsLibrary+Additions.h"
 #import "WLImageFetcher.h"
 #import "UIImage+Drawing.h"
 #import "WLAPIRequest.h"
 #import "GCDHelper.h"
+#import "PHPhotoLibrary+Helper.h"
 
 @interface WLEditPicture () <WLImageFetching>
 
@@ -153,7 +153,7 @@
 // MARK: - WLImageFetching
 
 - (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
-    [image save:nil];
+    [image saveToAlbum];
     self.fetching = NO;
 }
 

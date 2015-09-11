@@ -12,9 +12,7 @@
 #import "WLEntryManager.h"
 #import "WLMenu.h"
 #import "WLNavigationHelper.h"
-#import "ALAssetsLibrary+Additions.h"
 #import "NSObject+NibAdditions.h"
-#import "ALAssetsLibrary+Additions.h"
 #import "WLRemoteEntryHandler.h"
 #import "WLHomeViewController.h"
 #import "iVersion.h"
@@ -29,13 +27,17 @@
 #import "WLEntryPresenter.h"
 #import "WLWrapViewController.h"
 
-@interface WLAppDelegate () <iVersionDelegate>
+@import Photos;
+
+@interface WLAppDelegate () <iVersionDelegate, PHPhotoLibraryChangeObserver>
 
 @end
 
 @implementation WLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     
     [self registerUserNotificationSettings];
     
@@ -70,15 +72,7 @@
     }
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-    
-    runUnaryQueuedOperation(@"background_fetch", ^(WLOperation *operation) {
-        run_after(0.5f, ^{
-            [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
-                [operation finish];
-            }];
-        });
-    });
-        
+
 	return YES;
 }
 
@@ -208,29 +202,10 @@
         completionHandler(UIBackgroundFetchResultFailed);
         return;
     }
-    NSLog(@"performFetchWithCompletionHandler");
-    runUnaryQueuedOperations(@"background_fetch", ^(WLOperation *operation) {
-        [[ALAssetsLibrary library] hasChanges:^(BOOL hasChanges) {
-            if (hasChanges) {
-                UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
-                photoNotification.alertBody = WLLS(@"engagement_notification_alert");
-                photoNotification.alertAction = WLLS(@"upload");
-                photoNotification.repeatInterval = 0;
-                photoNotification.userInfo = @{@"type":@(WLNotificationEngagement)};
-                [application presentLocalNotificationNow:photoNotification];
-            }
-            [operation finish:^{
-                completionHandler(hasChanges ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
-            }];
-        }];
-    }, ^(WLOperation *operation) {
-        [WLUploadingQueue start];
-        run_after(20, ^{
-            [operation finish:^{
-                completionHandler(UIBackgroundFetchResultNoData);
-            }];
-        });
-    }, nil);
+    [WLUploadingQueue start];
+    run_after(20, ^{
+        completionHandler(UIBackgroundFetchResultNewData);
+    });
 }
 
 - (void)presentNotification:(NSDictionary *)notification {
@@ -373,6 +348,24 @@
     UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
     UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:types categories:[NSSet setWithObject:category]];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+}
+
+- (void)photoLibraryDidChange:(PHChange *)changeInstance {
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        return;
+    }
+    run_in_main_queue(^{
+        PHFetchResult *fetchResult = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
+        PHFetchResultChangeDetails *changeDetails = [changeInstance changeDetailsForFetchResult:fetchResult];
+        if (changeDetails && changeDetails.insertedObjects) {
+            UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
+            photoNotification.alertBody = WLLS(@"engagement_notification_alert");
+            photoNotification.alertAction = WLLS(@"upload");
+            photoNotification.repeatInterval = 0;
+            photoNotification.userInfo = @{@"type":@(WLNotificationEngagement)};
+            [[UIApplication sharedApplication] presentLocalNotificationNow:photoNotification];
+        }
+    });
 }
 
 @end

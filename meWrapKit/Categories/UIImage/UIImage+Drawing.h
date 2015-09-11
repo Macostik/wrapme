@@ -18,10 +18,6 @@ static NSString *WLAlbumName = @"meWrap";
 
 + (void)drawAssetNamed:(NSString*)name directory:(NSString*)directory size:(CGSize)size drawing:(void(^)(CGSize size))drawing;
 
-- (void)save:(NSMutableDictionary*)metadata;
-
-- (void)save:(NSMutableDictionary*)metadata completion:(void (^)(void))completion failure:(void (^)(NSError*))failure;
-
 - (void)writeToPNGFile:(NSString*)path atomically:(BOOL)atomically;
 
 + (UIImage*)gradient:(CGSize)size;

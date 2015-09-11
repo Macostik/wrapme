@@ -29,6 +29,7 @@
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLFollowingViewController.h"
 #import "UIViewController+Container.h"
+#import "PHPhotoLibrary+Helper.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 

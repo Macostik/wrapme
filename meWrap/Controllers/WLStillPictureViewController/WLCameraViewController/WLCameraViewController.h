@@ -10,11 +10,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import "WLQuickAssetsViewController.h"
 
-@class WLCameraViewController, ALAsset;
+@class WLCameraViewController, PHAsset;
 
 @protocol WLCameraViewControllerDelegate <WLStillPictureBaseViewControllerDelegate, WLQuickAssetsViewControllerDelegate>
 
-- (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image metadata:(NSMutableDictionary*)metadata saveToAlbum:(BOOL)saveToAlbum;
+- (void)cameraViewController:(WLCameraViewController*)controller didFinishWithImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum;
 - (void)cameraViewControllerDidCancel:(WLCameraViewController*)controller;
 
 @optional

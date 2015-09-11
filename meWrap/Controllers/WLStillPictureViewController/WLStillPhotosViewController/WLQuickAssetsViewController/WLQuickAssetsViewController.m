@@ -9,15 +9,15 @@
 #import "WLQuickAssetsViewController.h"
 #import "StreamDataSource.h"
 #import "WLAssetCell.h"
-#import "ALAssetsLibrary+Additions.h"
 #import "WLToast.h"
 #import "UIButton+Additions.h"
-#import "WLCollections.h"
-#import "WLWrapView.h"
+#import "PHPhotoLibrary+Helper.h"
 
-@interface WLQuickAssetsViewController () <WLAssetCellDelegate>
+@import Photos;
 
-@property (strong, nonatomic) NSArray *assets;
+@interface WLQuickAssetsViewController () <WLAssetCellDelegate, PHPhotoLibraryChangeObserver>
+
+@property (strong, nonatomic) PHFetchResult *assets;
 @property (strong, nonatomic) NSMutableArray *selectedAssets;
 
 @property (strong, nonatomic) StreamDataSource *dataSource;
@@ -30,6 +30,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
 }
 
 - (void)viewDidLoad {
@@ -44,22 +45,14 @@
     self.dataSource.sizeForGridColumns = 1;
     self.dataSource.layoutSpacing = 3;
     
-    __weak typeof(self)weakSelf = self;
-    [self loadAssets:^{
-        BOOL preselectFirstAsset = NO;
-        if ([weakSelf.delegate respondsToSelector:@selector(quickAssetsViewControllerShouldPreselectFirstAsset:)]) {
-            preselectFirstAsset = [weakSelf.delegate quickAssetsViewControllerShouldPreselectFirstAsset:weakSelf];
+    [self loadAssets];
+    if ([self.delegate respondsToSelector:@selector(quickAssetsViewControllerShouldPreselectFirstAsset:)]) {
+        if ([self.delegate quickAssetsViewControllerShouldPreselectFirstAsset:self]) {
+            [self performSelector:@selector(selectAsset:) withObject:[self.assets firstObject] afterDelay:0.0f];
         }
-        if (preselectFirstAsset) {
-            [weakSelf performSelector:@selector(selectAsset:) withObject:[weakSelf.assets firstObject] afterDelay:0.0f];
-        }
-    }];
+    }
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(assetsLibraryChanged:)
-                                                 name:ALAssetsLibraryChangedNotification
-                                               object:nil];
+    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 }
 
 - (NSMutableArray *)selectedAssets {
@@ -69,39 +62,25 @@
     return _selectedAssets;
 }
 
-- (void)setAssets:(NSArray *)assets {
+- (void)setAssets:(PHFetchResult *)assets {
     _assets = assets;
     self.dataSource.items = assets;
 }
 
-- (void)assetsLibraryChanged:(NSNotification*)notifiection {
-    [self performSelectorOnMainThread:@selector(loadAssets:) withObject:nil waitUntilDone:NO];
+- (void)loadAssets {
+    self.assets = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
 }
 
-- (void)loadAssets:(WLBlock)success {
-    __weak typeof(self)weakSelf = self;
-    [[ALAssetsLibrary library] enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        if (group) {
-            if (weakSelf) {
-                [group assets:^(NSArray *assets) {
-                    weakSelf.assets = assets;
-                    if (success) success();
-                }];
-            }
-            *stop = YES;
-        }
-    } failureBlock:^(NSError *error) {
-        if (error.code == ALAssetsLibraryAccessUserDeniedError ||
-            error.code == ALAssetsLibraryAccessGloballyDeniedError) {
-            weakSelf.accessErrorLabel.hidden = NO;
-        }
-    }];
+// MARK: - PHPhotoLibraryChangeObserver
+
+- (void)photoLibraryDidChange:(PHChange *)changeInstance {
+    [self performSelectorOnMainThread:@selector(loadAssets) withObject:nil waitUntilDone:NO];
 }
 
 #pragma mark - PGAssetCellDelegate
 
-- (void)selectAsset:(ALAsset *)asset {
-    NSString *identifier = asset.ID;
+- (void)selectAsset:(PHAsset *)asset {
+    NSString *identifier = asset.localIdentifier;
     if ([self.selectedAssets containsObject:identifier]) {
         [self.selectedAssets removeObject:identifier];
         if ([self.delegate respondsToSelector:@selector(quickAssetsViewController:didDeselectAsset:)]) {
@@ -114,7 +93,7 @@
             shouldSelect = [self.delegate quickAssetsViewController:self shouldSelectAsset:asset];
         }
         if (shouldSelect) {
-            [self.selectedAssets addObject:asset.ID];
+            [self.selectedAssets addObject:asset.localIdentifier];
             if ([self.delegate respondsToSelector:@selector(quickAssetsViewController:didSelectAsset:)]) {
                 [self.delegate quickAssetsViewController:self didSelectAsset:asset];
             }
@@ -123,12 +102,12 @@
     }
 }
 
-- (void)assetCell:(WLAssetCell *)cell didSelectAsset:(ALAsset *)asset {
+- (void)assetCell:(WLAssetCell *)cell didSelectAsset:(PHAsset *)asset {
     [self selectAsset:asset];
 }
 
-- (BOOL)assetCell:(WLAssetCell *)cell isSelectedAsset:(ALAsset *)asset {
-    return [self.selectedAssets containsObject:asset.ID];
+- (BOOL)assetCell:(WLAssetCell *)cell isSelectedAsset:(PHAsset *)asset {
+    return [self.selectedAssets containsObject:asset.localIdentifier];
 }
 
 - (BOOL)assetCellAllowsMultipleSelection:(WLAssetCell *)cell {

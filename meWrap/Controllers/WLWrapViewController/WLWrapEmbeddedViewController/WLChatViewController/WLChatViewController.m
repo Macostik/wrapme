@@ -114,10 +114,6 @@ CGFloat WLMaxTextViewWidth;
     
     streamView.layer.geometryFlipped = YES;
     
-    self.typingViewMetrics.finalizeAppearing = self.unreadMessagesMetrics.finalizeAppearing = self.dateMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
-        item.view.backgroundColor = [weakSelf backgroundColorForMessage:message];
-    };
-    
     self.myMessageMetrics.prepareAppearing = self.messageMetrics.prepareAppearing = ^(StreamItem *item, WLMessage *message) {
         [(WLMessageCell*)item.view setShowName:[weakSelf.chat.messagesWithName containsObject:message]];
     };
@@ -126,7 +122,6 @@ CGFloat WLMaxTextViewWidth;
         if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
             [weakSelf.chat.readMessages addObject:message];
         }
-        item.view.backgroundColor = [weakSelf backgroundColorForMessage:message];
     };
     
     [self.loadingViewMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
@@ -530,16 +525,6 @@ CGFloat WLMaxTextViewWidth;
             placeholderView.textLabel.text = [NSString stringWithFormat:WLLS(@"no_chat_message"), weakSelf.wrap.name];
         }];
     }];
-}
-
-- (UIColor*)backgroundColorForMessage:(WLMessage*)message {
-    if (self.chat.unreadMessages.nonempty) {
-        NSUInteger index = [self.chat.entries indexOfObject:message];
-        NSUInteger index1 = [self.chat.entries indexOfObject:[self.chat unreadMessages]];
-        return index <= index1 ? WLColors.orangeLighter : [UIColor whiteColor];
-    } else {
-        return [UIColor whiteColor];
-    }
 }
 
 - (CGFloat)heightOfMessageCell:(WLMessage *)message {

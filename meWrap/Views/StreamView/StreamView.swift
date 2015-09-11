@@ -319,14 +319,30 @@ class StreamView: UIScrollView {
     }
     
     func scrollToItem(item: StreamItem?, animated: Bool)  {
+        var size = self.frame.size
+        var minOffset = minimumContentOffset
+        var maxOffset = maximumContentOffset
+        
         if let _item = item {
-            var size = self.frame.size
-            var insets = contentInset
+            
             if horizontal {
-                scrollRectToVisible(CGRectInset(_item.frame, -((size.width - insets.left - insets.right) - _item.frame.size.width) / 2.0, 0), animated:animated)
-                
+                var offset = _item.frame.origin.x - (size.width - horizontalContentInsets) / 2 + _item.frame.size.width / 2
+                if offset < minOffset.x {
+                    self.setContentOffset(minOffset, animated: animated)
+                } else if offset > maxOffset.x {
+                    self.setContentOffset(maxOffset, animated: animated)
+                } else {
+                    self.setContentOffset(CGPointMake(offset, 0), animated: animated)
+                }
             } else {
-                scrollRectToVisible(CGRectInset(_item.frame, 0, -((size.height - insets.top - insets.bottom) - _item.frame.size.height) / 2.0), animated:animated)
+                var offset = _item.frame.origin.y - (size.height - verticalContentInsets) / 2 + _item.frame.size.height / 2
+                if offset < minOffset.y {
+                    self.setContentOffset(minOffset, animated: animated)
+                } else if offset > maxOffset.y {
+                    self.setContentOffset(maxOffset, animated: animated)
+                } else {
+                    self.setContentOffset(CGPointMake(0, offset), animated: animated)
+                }
             }
         }
     }

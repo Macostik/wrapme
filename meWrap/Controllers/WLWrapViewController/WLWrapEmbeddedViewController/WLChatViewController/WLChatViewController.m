@@ -80,8 +80,8 @@ CGFloat WLMaxTextViewWidth;
     if (self) {
         self.messageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageCell"];
         self.myMessageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMyMessageCell"];
-        self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageDateView" size:36];
-        self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:36];
+        self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageDateView" size:31];
+        self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:48];
         self.typingViewMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLTypingView"];
         self.loadingViewMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLStreamLoadingView" size:60];
     }
@@ -102,9 +102,9 @@ CGFloat WLMaxTextViewWidth;
     
     self.cachedMessageHeights = [NSMapTable strongToStrongObjectsMapTable];
 
-    self.messageFont = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
-    self.nameFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetNormal];
-    self.timeFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmall];
+    self.messageFont = [UIFont preferredDefaultFontWithPreset:WLFontPresetSmall];
+    self.nameFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmaller];
+    self.timeFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmaller];
     
     __weak StreamView *streamView = self.streamView;
     
@@ -115,18 +115,19 @@ CGFloat WLMaxTextViewWidth;
     streamView.layer.geometryFlipped = YES;
     
     self.typingViewMetrics.finalizeAppearing = self.unreadMessagesMetrics.finalizeAppearing = self.dateMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
-        item.view.backgroundColor = [weakSelf backgroundColorForMessage:message];
+        if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
+            [weakSelf.chat.readMessages addObject:message];
+        }
     };
     
-    self.myMessageMetrics.prepareAppearing = self.messageMetrics.prepareAppearing = ^(StreamItem *item, WLMessage *message) {
-        [(WLMessageCell*)item.view setShowName:[weakSelf.chat.messagesWithName containsObject:message]];
+    self.messageMetrics.prepareAppearing = ^(StreamItem *item, WLMessage *message) {
+        [(WLMessageCell *)item.view setShowName:[weakSelf.chat.messagesWithName containsObject:message]];
     };
     
     self.myMessageMetrics.finalizeAppearing = self.messageMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
         if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
             [weakSelf.chat.readMessages addObject:message];
         }
-        item.view.backgroundColor = [weakSelf backgroundColorForMessage:message];
     };
     
     [self.loadingViewMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
@@ -153,11 +154,17 @@ CGFloat WLMaxTextViewWidth;
         [(WLTypingView*)item.view updateWithChat:weakSelf.chat];
     }];
     
-    WLMaxTextViewWidth = WLConstants.screenWidth - WLAvatarWidth - 2*WLMessageHorizontalInset - WLAvatarLeading;
+    WLMaxTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndent - 2*WLMessageHorizontalInset - WLTrailingBubbleIndent;
     
     self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         WLMessage *message = [weakSelf.chat.entries tryAt:position.index];
         return [weakSelf heightOfMessageCell:message];
+    };
+    
+    self.messageMetrics.insetsAt = self.myMessageMetrics.insetsAt = ^CGRect(StreamPosition *position, StreamMetrics *metrics) {
+        WLMessage *message = [weakSelf.chat.entries tryAt:position.index];
+        return [weakSelf.chat.groupMessages containsObject:message] ? CGRectMake(0, WLMessageGroupSpacing, 0, 0) : CGRectZero;
+        [weakSelf.streamView layoutIfNeeded];
     };
 	
 	self.composeBar.placeholder = WLLS(@"message_placeholder");
@@ -532,16 +539,6 @@ CGFloat WLMaxTextViewWidth;
     }];
 }
 
-- (UIColor*)backgroundColorForMessage:(WLMessage*)message {
-    if (self.chat.unreadMessages.nonempty) {
-        NSUInteger index = [self.chat.entries indexOfObject:message];
-        NSUInteger index1 = [self.chat.entries indexOfObject:[self.chat unreadMessages]];
-        return index <= index1 ? WLColors.grayLightest : [UIColor whiteColor];
-    } else {
-        return [UIColor whiteColor];
-    }
-}
-
 - (CGFloat)heightOfMessageCell:(WLMessage *)message {
     NSNumber *cachedHeight = [self.cachedMessageHeights objectForKey:message];
     if (cachedHeight) {
@@ -551,18 +548,20 @@ CGFloat WLMaxTextViewWidth;
         return 0;
     }
     BOOL containsName = [self.chat.messagesWithName containsObject:message];
-    CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:WLMaxTextViewWidth] + WLMessageVerticalInset;
-    CGFloat topInset = (containsName ? self.nameFont.lineHeight : 0);
-    CGFloat bottomInset = self.timeFont.lineHeight;
+    CGFloat calculateWight = message.contributedByCurrentUser ? WLConstants.screenWidth - 44 : WLMaxTextViewWidth;
+    CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:calculateWight];
+    CGFloat topInset = containsName ? self.nameFont.lineHeight + WLMessageVerticalInset : 0;
+    CGFloat bottomInset = self.timeFont.lineHeight + WLMessageVerticalInset;
+    CGFloat groupInset = [self.chat.groupMessages containsObject:message] ? WLMessageGroupSpacing : 0;
     commentHeight = topInset + commentHeight + bottomInset;
-    commentHeight = MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight) + 4;
+    commentHeight = MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight + WLMessageVerticalInset);
     [self.cachedMessageHeights setObject:@(commentHeight) forKey:message];
     return commentHeight;
 }
 
 - (CGFloat)heightOfTypingCell:(WLChat *)chat {
     if (chat.wrap.messages.nonempty || chat.typingUsers.nonempty) {
-        return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmaller]
+        return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmall]
                                                                      width:WLMaxTextViewWidth] + WLTypingViewTopIndent);
     } else {
         return 0;
@@ -597,9 +596,9 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
     [self.cachedMessageHeights removeAllObjects];
-    self.messageFont = [self.messageFont preferredFontWithPreset:WLFontPresetNormal];
-    self.nameFont = [self.nameFont preferredFontWithPreset:WLFontPresetNormal];
-    self.timeFont = [self.timeFont preferredFontWithPreset:WLFontPresetSmall];
+    self.messageFont = [self.messageFont preferredFontWithPreset:WLFontPresetSmall];
+    self.nameFont = [self.nameFont preferredFontWithPreset:WLFontPresetSmaller];
+    self.timeFont = [self.timeFont preferredFontWithPreset:WLFontPresetSmaller];
     [self reloadDataSynchronously:NO];
 }
 

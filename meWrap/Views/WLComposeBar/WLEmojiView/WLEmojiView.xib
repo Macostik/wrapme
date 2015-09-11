@@ -10,18 +10,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6x3-oN-iXh" customClass="StreamView">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6x3-oN-iXh" customClass="StreamView" customModule="meWrap">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
-                    <connections>
-                        <outlet property="delegate" destination="zdb-5F-FAy" id="sgj-yR-nTJ"/>
-                        <outlet property="layout" destination="w2O-3q-Ged" id="JNx-uh-1ae"/>
-                    </connections>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mPs-gu-yq8" customClass="SegmentedControl">
                     <rect key="frame" x="0.0" y="162" width="320" height="54"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DU3-Bg-H1Y" customClass="WLSegmentButton">
-                            <rect key="frame" x="0.0" y="0.0" width="45" height="54"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DU3-Bg-H1Y" customClass="WLSegmentButton">
+                            <rect key="frame" x="0.0" y="0.0" width="46" height="54"/>
                             <state key="normal" image="ic_emoji_clock">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -34,8 +30,8 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ul8-uu-tv9" customClass="WLSegmentButton">
-                            <rect key="frame" x="45" y="0.0" width="45" height="54"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ul8-uu-tv9" customClass="WLSegmentButton">
+                            <rect key="frame" x="46" y="0.0" width="45.5" height="54"/>
                             <state key="normal" image="ic_emoji_smile">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -48,8 +44,8 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiB-8u-Fte" customClass="WLSegmentButton">
-                            <rect key="frame" x="90" y="0.0" width="45" height="54"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiB-8u-Fte" customClass="WLSegmentButton">
+                            <rect key="frame" x="91.5" y="0.0" width="46" height="54"/>
                             <state key="normal" image="ic_emoji_flower">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -62,8 +58,8 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vMa-M9-Pb2" customClass="WLSegmentButton">
-                            <rect key="frame" x="135" y="0.0" width="45" height="54"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vMa-M9-Pb2" customClass="WLSegmentButton">
+                            <rect key="frame" x="137.5" y="0.0" width="46" height="54"/>
                             <state key="normal" image="ic_emoji_ring">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -76,8 +72,8 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1K-iZ-g1b" customClass="WLSegmentButton">
-                            <rect key="frame" x="180" y="0.0" width="45" height="54"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1K-iZ-g1b" customClass="WLSegmentButton">
+                            <rect key="frame" x="183.5" y="0.0" width="45.5" height="54"/>
                             <state key="normal" image="ic_emoji_car">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -90,8 +86,8 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pV1-Lb-zVf" customClass="WLSegmentButton">
-                            <rect key="frame" x="225" y="0.0" width="45" height="54"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pV1-Lb-zVf" customClass="WLSegmentButton">
+                            <rect key="frame" x="229" y="0.0" width="46" height="54"/>
                             <fontDescription key="fontDescription" name="LucidaGrande-Bold" family="Lucida Grande" pointSize="15"/>
                             <state key="normal" image="ic_emoji_symbol"/>
                             <userDefinedRuntimeAttributes>
@@ -106,14 +102,38 @@
                     </subviews>
                     <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstItem="h1K-iZ-g1b" firstAttribute="top" secondItem="mPs-gu-yq8" secondAttribute="top" id="1ej-j3-CGX"/>
+                        <constraint firstItem="DU3-Bg-H1Y" firstAttribute="leading" secondItem="mPs-gu-yq8" secondAttribute="leading" id="6KQ-0w-yxS"/>
+                        <constraint firstItem="h1K-iZ-g1b" firstAttribute="width" secondItem="vMa-M9-Pb2" secondAttribute="width" id="6ve-Or-zC0"/>
+                        <constraint firstAttribute="bottom" secondItem="pV1-Lb-zVf" secondAttribute="bottom" id="A5w-MW-9gV"/>
+                        <constraint firstItem="KiB-8u-Fte" firstAttribute="top" secondItem="mPs-gu-yq8" secondAttribute="top" id="BeF-5t-H0n"/>
+                        <constraint firstItem="Ul8-uu-tv9" firstAttribute="leading" secondItem="DU3-Bg-H1Y" secondAttribute="trailing" id="FHM-Xw-ohs"/>
+                        <constraint firstItem="h1K-iZ-g1b" firstAttribute="width" secondItem="pV1-Lb-zVf" secondAttribute="width" id="Gwh-bq-Mf2"/>
+                        <constraint firstAttribute="bottom" secondItem="vMa-M9-Pb2" secondAttribute="bottom" id="INO-m7-GJK"/>
+                        <constraint firstAttribute="bottom" secondItem="DU3-Bg-H1Y" secondAttribute="bottom" id="IuF-4v-y7D"/>
                         <constraint firstAttribute="height" constant="54" id="J6C-eo-iDV"/>
+                        <constraint firstItem="KiB-8u-Fte" firstAttribute="width" secondItem="vMa-M9-Pb2" secondAttribute="width" id="Kt8-R9-1na"/>
+                        <constraint firstItem="Ul8-uu-tv9" firstAttribute="top" secondItem="mPs-gu-yq8" secondAttribute="top" id="LTl-Cr-ikb"/>
+                        <constraint firstItem="pV1-Lb-zVf" firstAttribute="leading" secondItem="h1K-iZ-g1b" secondAttribute="trailing" id="RBF-IQ-590"/>
+                        <constraint firstItem="DU3-Bg-H1Y" firstAttribute="top" secondItem="mPs-gu-yq8" secondAttribute="top" id="S4X-cr-gVo"/>
+                        <constraint firstAttribute="bottom" secondItem="KiB-8u-Fte" secondAttribute="bottom" id="UlR-aP-jBX"/>
+                        <constraint firstItem="KiB-8u-Fte" firstAttribute="leading" secondItem="Ul8-uu-tv9" secondAttribute="trailing" id="VqK-K2-f3U"/>
+                        <constraint firstItem="vMa-M9-Pb2" firstAttribute="top" secondItem="mPs-gu-yq8" secondAttribute="top" id="YmK-bT-s7L"/>
+                        <constraint firstItem="pV1-Lb-zVf" firstAttribute="top" secondItem="mPs-gu-yq8" secondAttribute="top" id="bKy-eh-l1W"/>
+                        <constraint firstItem="KiB-8u-Fte" firstAttribute="width" secondItem="Ul8-uu-tv9" secondAttribute="width" id="d37-JT-kbW"/>
+                        <constraint firstAttribute="trailing" secondItem="pV1-Lb-zVf" secondAttribute="trailing" constant="45" id="dB4-VD-NgS"/>
+                        <constraint firstAttribute="bottom" secondItem="Ul8-uu-tv9" secondAttribute="bottom" id="fcy-CK-RUK"/>
+                        <constraint firstItem="vMa-M9-Pb2" firstAttribute="leading" secondItem="KiB-8u-Fte" secondAttribute="trailing" id="i9b-uA-8ng"/>
+                        <constraint firstItem="h1K-iZ-g1b" firstAttribute="leading" secondItem="vMa-M9-Pb2" secondAttribute="trailing" id="mVC-xO-nMD"/>
+                        <constraint firstItem="DU3-Bg-H1Y" firstAttribute="width" secondItem="Ul8-uu-tv9" secondAttribute="width" id="n5A-rZ-Xxs"/>
+                        <constraint firstAttribute="bottom" secondItem="h1K-iZ-g1b" secondAttribute="bottom" id="vVV-4C-NyA"/>
                     </constraints>
                     <connections>
                         <outlet property="delegate" destination="kYn-bs-Z0z" id="6La-CZ-wfH"/>
                     </connections>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7mm-YS-WVN">
-                    <rect key="frame" x="265" y="162" width="45" height="54"/>
+                    <rect key="frame" x="275" y="162" width="45" height="54"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="45" id="8zJ-2E-q1f"/>
@@ -129,7 +149,7 @@
             </subviews>
             <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="7mm-YS-WVN" secondAttribute="trailing" constant="10" id="277-b5-1ge"/>
+                <constraint firstAttribute="trailing" secondItem="7mm-YS-WVN" secondAttribute="trailing" id="277-b5-1ge"/>
                 <constraint firstAttribute="trailing" secondItem="mPs-gu-yq8" secondAttribute="trailing" id="49U-y7-g0y"/>
                 <constraint firstAttribute="bottom" secondItem="mPs-gu-yq8" secondAttribute="bottom" id="565-gB-1yP"/>
                 <constraint firstItem="mPs-gu-yq8" firstAttribute="top" secondItem="6x3-oN-iXh" secondAttribute="bottom" id="Ek2-16-Wbi"/>
@@ -142,38 +162,10 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="dataSource" destination="zdb-5F-FAy" id="ERG-z5-WcV"/>
-                <outlet property="metrics" destination="N9E-Rg-h1p" id="rvG-k5-xkz"/>
                 <outlet property="segmentedControl" destination="mPs-gu-yq8" id="MSE-ke-M60"/>
+                <outlet property="streamView" destination="6x3-oN-iXh" id="ae7-mW-VFo"/>
             </connections>
         </view>
-        <customObject id="zdb-5F-FAy" customClass="StreamDataSource">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="number" keyPath="numberOfGridColumns">
-                    <integer key="value" value="3"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="number" keyPath="sizeForGridColumns">
-                    <real key="value" value="0.33333000000000002"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="streamView" destination="6x3-oN-iXh" id="xjo-Li-8gu"/>
-                <outletCollection property="metrics" destination="N9E-Rg-h1p" collectionClass="NSMutableArray" id="orY-rY-bLc"/>
-            </connections>
-        </customObject>
-        <customObject id="w2O-3q-Ged" customClass="GridLayout">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="YES"/>
-            </userDefinedRuntimeAttributes>
-        </customObject>
-        <customObject id="N9E-Rg-h1p" customClass="GridMetrics">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="number" keyPath="ratio">
-                    <real key="value" value="1"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLEmojiCell"/>
-            </userDefinedRuntimeAttributes>
-        </customObject>
     </objects>
     <resources>
         <image name="ic_backspace" width="26" height="26"/>

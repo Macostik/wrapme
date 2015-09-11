@@ -49,8 +49,6 @@
 
 - (void)handleResponse:(NSSet*)entries;
 
-- (void)recursiveOlder:(WLFailureBlock)failure;
-
 - (void)didComplete;
 
 @end

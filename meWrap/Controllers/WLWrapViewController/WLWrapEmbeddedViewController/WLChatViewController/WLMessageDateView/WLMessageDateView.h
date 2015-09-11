@@ -12,6 +12,4 @@
 
 @interface WLMessageDateView : StreamReusableView
 
-@property (strong, nonatomic) WLMessage* message;
-
 @end

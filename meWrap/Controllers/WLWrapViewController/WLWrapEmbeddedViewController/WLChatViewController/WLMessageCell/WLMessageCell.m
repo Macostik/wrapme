@@ -15,6 +15,7 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLEntryStatusIndicator.h"
 #import "WLMenu.h"
+#import "WLLayoutPrioritizer.h"
 
 @interface WLMessageCell () <WLEntryNotifyReceiver>
 
@@ -22,8 +23,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLTextView *textView;
-@property (weak, nonatomic) IBOutlet UIImageView *tailView;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
+@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *namePrioritizer;
 
 @end
 
@@ -61,36 +62,13 @@
         menu.entry = weakSelf.entry;
     }];
     
-    UIColor *color = self.textView.superview.backgroundColor;
-    if (self.avatarView.x > self.textView.superview.x) {
-        self.tailView.image = [WLMessageCell tailImageWithColor:color size:self.tailView.size drawing:^(CGSize size) {
-            UIBezierPath *path = [UIBezierPath bezierPath];
-            [path moveToPoint:CGPointZero];
-            [path addQuadCurveToPoint:CGPointMake(size.width, 0) controlPoint:CGPointMake(size.width/2, size.height/2)];
-            [path addQuadCurveToPoint:CGPointMake(0, size.height) controlPoint:CGPointMake(size.width, size.height)];
-            [path addLineToPoint:CGPointZero];
-            [color setFill];
-            [path fill];
-        }];
-    } else {
-        self.tailView.image = [WLMessageCell tailImageWithColor:color size:self.tailView.size drawing:^(CGSize size) {
-            UIBezierPath *path = [UIBezierPath bezierPath];
-            [path moveToPoint:CGPointMake(size.width, 0)];
-            [path addQuadCurveToPoint:CGPointMake(0, 0) controlPoint:CGPointMake(size.width/2, size.height/2)];
-            [path addQuadCurveToPoint:CGPointMake(size.width, size.height) controlPoint:CGPointMake(0, size.height)];
-            [path addLineToPoint:CGPointMake(size.width, 0)];
-            [color setFill];
-            [path fill];
-        }];
-    }
-    
     self.showName = YES;
 }
 
 - (void)setShowName:(BOOL)showName {
     if (_showName != showName) {
         _showName = showName;
-        self.avatarView.hidden = self.nameLabel.hidden = self.tailView.hidden = !showName;
+        self.avatarView.hidden = self.nameLabel.hidden = !showName;
         [self.nameLabel setContentCompressionResistancePriority:showName ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisVertical];
         [self.nameLabel setContentCompressionResistancePriority:showName ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
         [self.textView setContentCompressionResistancePriority:showName ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
@@ -101,7 +79,7 @@
 - (void)setup:(WLMessage*)message {
     if (_showName) {
         self.avatarView.url = message.contributor.picture.small;
-        self.nameLabel.text = message.contributedByCurrentUser ? WLLS(@"you") : message.contributor.name;
+        self.nameLabel.text = message.contributor.name;
     }
     self.timeLabel.text = [message.createdAt stringWithTimeStyle:NSDateFormatterShortStyle];
     [self.textView determineHyperLink:message.text];

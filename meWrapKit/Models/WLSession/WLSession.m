@@ -301,10 +301,6 @@ static NSInteger _pageSize = -1;
 
 // MARK: - methods
 
-- (void)setCurrentAppVersion {
-    self.appVersion = NSMainBundle.buildVersion;
-}
-
 - (void)clear {
     [WLUser setCurrentUser:nil];
     [self setAuthorization:nil];

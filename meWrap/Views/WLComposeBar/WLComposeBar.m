@@ -26,7 +26,6 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 @property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *horizontalSpaceDoneButtonContstraint;
 @property (assign, nonatomic) IBInspectable CGFloat maxLines;
-@property (assign, nonatomic) IBInspectable UIColor *borderColor;
 
 @end
 
@@ -35,7 +34,6 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 - (void)awakeFromNib {
 	[super awakeFromNib];
     
-	self.textView.superview.layer.borderColor = self.borderColor.CGColor;
     self.textView.superview.layer.borderWidth = WLConstants.pixelSize;
     self.textView.layoutManager.allowsNonContiguousLayout = NO;
     self.textView.textContainerInset = self.textView.contentInset = UIEdgeInsetsZero;

@@ -18,8 +18,7 @@
 
 @implementation WLMessageDateView
 
-- (void)setMessage:(WLMessage *)message {
-    _message = message;
+- (void)setup:(WLMessage *)message {
     self.dateLabel.text = [message.createdAt stringWithDateStyle:NSDateFormatterMediumStyle];
 }
 

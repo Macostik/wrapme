@@ -86,7 +86,10 @@ static WLReturnObjectBlock assetCreaterBlock;
     [[self sharedPhotoLibrary] performChanges:^{
         PHAssetChangeRequest * assetChangeRequest = assetCreaterBlock();
         PHAssetCollectionChangeRequest *collectonRequest = [self assetCollectionWithTitle:title];
-        [collectonRequest addAssets:@[[assetChangeRequest placeholderForCreatedAsset]]];
+        PHObjectPlaceholder *asset = [assetChangeRequest placeholderForCreatedAsset];
+        if (asset) {
+            [collectonRequest addAssets:@[asset]];
+        }
     } completionHandler:completion];
 }
 

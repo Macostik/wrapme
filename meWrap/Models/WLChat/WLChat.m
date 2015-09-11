@@ -37,6 +37,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
         self.messagesWithDay = [NSHashTable weakObjectsHashTable];
         self.messagesWithName = [NSHashTable weakObjectsHashTable];
         self.typingUsers = [NSMutableOrderedSet orderedSet];
+        self.groupMessages = [NSMutableOrderedSet orderedSet];
     }
     return self;
 }
@@ -143,6 +144,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     NSHashTable *messagesWithName = [NSHashTable weakObjectsHashTable];
     [_unreadMessages removeAllObjects];
     [_messagesWithDay removeAllObjects];
+    [_groupMessages removeAllObjects];
     NSOrderedSet *messages = self.entries;
     for (WLMessage *message in messages) {
         
@@ -155,12 +157,13 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
         BOOL showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
         if (showDay) {
             [_messagesWithDay addObject:message];
-            [messagesWithName addObject:message];
+            if (!message.contributedByCurrentUser) [messagesWithName addObject:message];
             continue;
         }
         
         if (previousMessage.contributor != message.contributor) {
-            [messagesWithName addObject:message];
+            if (!message.contributedByCurrentUser) [messagesWithName addObject:message];
+            [self.groupMessages addObject:previousMessage];
         }
     }
     

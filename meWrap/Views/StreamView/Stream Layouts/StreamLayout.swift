@@ -53,10 +53,12 @@ class StreamLayout: NSObject {
         let insets = item.metrics!.insetsAt(item.position!, item.metrics!)
         if (self.horizontal) {
             item.frame = CGRectMake(offset + insets.origin.x, insets.origin.y, size + insets.size.width, streamView!.frame.size.height - 2*insets.size.height)
+            offset += size + insets.origin.x + insets.size.width
         } else {
             item.frame = CGRectMake(insets.origin.x, offset + insets.origin.y, streamView!.frame.size.width - 2*insets.size.width, size + insets.size.height)
+            offset += size + insets.origin.y + insets.size.height
         }
-        offset += size;
+        
         return item;
     }
     

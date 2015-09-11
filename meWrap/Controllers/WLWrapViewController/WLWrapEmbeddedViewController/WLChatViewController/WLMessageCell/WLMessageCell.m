@@ -15,6 +15,7 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLEntryStatusIndicator.h"
 #import "WLMenu.h"
+#import "WLLayoutPrioritizer.h"
 
 @interface WLMessageCell () <WLEntryNotifyReceiver>
 
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLTextView *textView;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
+@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *namePrioritizer;
 
 @end
 
@@ -77,7 +79,7 @@
 - (void)setup:(WLMessage*)message {
     if (_showName) {
         self.avatarView.url = message.contributor.picture.small;
-        self.nameLabel.text = message.contributedByCurrentUser ? WLLS(@"you") : message.contributor.name;
+        self.nameLabel.text = message.contributor.name;
     }
     self.timeLabel.text = [message.createdAt stringWithTimeStyle:NSDateFormatterShortStyle];
     [self.textView determineHyperLink:message.text];

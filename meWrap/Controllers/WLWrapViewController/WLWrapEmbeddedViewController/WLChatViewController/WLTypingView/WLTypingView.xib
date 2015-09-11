@@ -11,7 +11,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rro-ai-R87" customClass="WLImageView">
-                    <rect key="frame" x="12" y="-46" width="40" height="40"/>
+                    <rect key="frame" x="16" y="-46" width="40" height="40"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="Skb-k4-MTX"/>
@@ -35,9 +35,9 @@
             <constraints>
                 <constraint firstAttribute="top" secondItem="Rro-ai-R87" secondAttribute="bottom" priority="750" constant="6" id="7fx-Ea-3Re"/>
                 <constraint firstItem="9n0-5x-dIy" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Rro-ai-R87" secondAttribute="top" id="Hmb-fX-HQ2"/>
-                <constraint firstItem="9n0-5x-dIy" firstAttribute="leading" secondItem="Rro-ai-R87" secondAttribute="trailing" constant="12" id="MqE-t1-Hct"/>
+                <constraint firstItem="9n0-5x-dIy" firstAttribute="leading" secondItem="Rro-ai-R87" secondAttribute="trailing" constant="8" id="MqE-t1-Hct"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9n0-5x-dIy" secondAttribute="trailing" constant="12" id="NZV-ts-wiM"/>
-                <constraint firstItem="Rro-ai-R87" firstAttribute="leading" secondItem="vC6-4V-oVB" secondAttribute="leading" constant="12" id="d2z-uI-OJi"/>
+                <constraint firstItem="Rro-ai-R87" firstAttribute="leading" secondItem="vC6-4V-oVB" secondAttribute="leading" constant="16" id="d2z-uI-OJi"/>
                 <constraint firstItem="Rro-ai-R87" firstAttribute="top" secondItem="vC6-4V-oVB" secondAttribute="top" priority="250" constant="6" id="kLM-5q-x00"/>
                 <constraint firstItem="Rro-ai-R87" firstAttribute="centerY" secondItem="9n0-5x-dIy" secondAttribute="centerY" priority="750" id="yRd-9A-Non"/>
             </constraints>

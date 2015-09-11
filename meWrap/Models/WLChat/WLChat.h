@@ -37,6 +37,8 @@
 
 @property (strong, nonatomic) NSMutableOrderedSet* readMessages;
 
+@property (strong, nonatomic) NSMutableOrderedSet* groupMessages;
+
 @property (weak, nonatomic) WLWrap* wrap;
 
 + (instancetype)chatWithWrap:(WLWrap*)wrap;

@@ -548,11 +548,10 @@ CGFloat WLMaxTextViewWidth;
         return 0;
     }
     BOOL containsName = [self.chat.messagesWithName containsObject:message];
-    CGFloat calculateWight = message.contributedByCurrentUser ? WLConstants.screenWidth - 44 : WLMaxTextViewWidth;
+    CGFloat calculateWight = message.contributedByCurrentUser ? WLConstants.screenWidth - WLLeadingBubbleIndent - WLTrailingBubbleIndent : WLMaxTextViewWidth;
     CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:calculateWight];
     CGFloat topInset = containsName ? self.nameFont.lineHeight + WLMessageVerticalInset : 0;
     CGFloat bottomInset = self.timeFont.lineHeight + WLMessageVerticalInset;
-    CGFloat groupInset = [self.chat.groupMessages containsObject:message] ? WLMessageGroupSpacing : 0;
     commentHeight = topInset + commentHeight + bottomInset;
     commentHeight = MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight + WLMessageVerticalInset);
     [self.cachedMessageHeights setObject:@(commentHeight) forKey:message];

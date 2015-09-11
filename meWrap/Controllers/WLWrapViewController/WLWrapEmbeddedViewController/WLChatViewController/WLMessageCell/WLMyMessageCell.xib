@@ -21,10 +21,6 @@
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="244" verticalCompressionResistancePriority="744" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="JR4-Ry-U5Q" customClass="WLTextView">
                             <rect key="frame" x="6" y="2" width="102" height="34"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="21" id="AFl-cc-rvt"/>
-                                <constraint firstAttribute="height" constant="24" id="ar8-Qx-f6Y"/>
-                            </constraints>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -32,12 +28,6 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                             </userDefinedRuntimeAttributes>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="AFl-cc-rvt"/>
-                                    <exclude reference="ar8-Qx-f6Y"/>
-                                </mask>
-                            </variation>
                         </textView>
                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KU3-Pe-eUZ" customClass="WLLabel">
                             <rect key="frame" x="36" y="36" width="56" height="16"/>
@@ -60,7 +50,6 @@
                     <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="KU3-Pe-eUZ" secondAttribute="trailing" constant="22" id="2bs-rd-BLz"/>
-                        <constraint firstItem="KU3-Pe-eUZ" firstAttribute="top" secondItem="i9a-dj-YI8" secondAttribute="top" constant="28" id="4fQ-hK-hDk"/>
                         <constraint firstItem="5lR-p8-XMC" firstAttribute="leading" secondItem="KU3-Pe-eUZ" secondAttribute="trailing" id="B6h-8a-Zz7"/>
                         <constraint firstItem="KU3-Pe-eUZ" firstAttribute="top" secondItem="JR4-Ry-U5Q" secondAttribute="bottom" id="BRs-to-exk"/>
                         <constraint firstItem="JR4-Ry-U5Q" firstAttribute="top" secondItem="i9a-dj-YI8" secondAttribute="top" constant="2" id="Ct6-Zd-fB9"/>
@@ -77,27 +66,16 @@
                             <real key="value" value="6"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="4fQ-hK-hDk"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="i9a-dj-YI8" firstAttribute="top" secondItem="rHi-Pu-C00" secondAttribute="top" id="8Js-jr-xg4"/>
                 <constraint firstItem="i9a-dj-YI8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rHi-Pu-C00" secondAttribute="leading" constant="16" id="GDL-20-PpP"/>
                 <constraint firstAttribute="bottom" secondItem="i9a-dj-YI8" secondAttribute="bottom" constant="2" id="ei4-29-Pjd"/>
                 <constraint firstAttribute="trailing" secondItem="i9a-dj-YI8" secondAttribute="trailing" constant="16" id="yAn-Lq-VBd"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="8Js-jr-xg4"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="indicator" destination="5lR-p8-XMC" id="7Hm-hB-DRN"/>
                 <outlet property="textView" destination="JR4-Ry-U5Q" id="xKb-Zx-fjo"/>

@@ -17,30 +17,16 @@
                             <rect key="frame" x="6" y="4" width="32" height="16"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="13" id="4DR-4N-VZe"/>
-                                <constraint firstAttribute="height" constant="13" id="eCp-LV-87q"/>
-                            </constraints>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                             <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                             </userDefinedRuntimeAttributes>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="4DR-4N-VZe"/>
-                                    <exclude reference="eCp-LV-87q"/>
-                                </mask>
-                            </variation>
                         </label>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="745" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="uzq-Y1-O7b" customClass="WLTextView">
-                            <rect key="frame" x="6" y="20" width="102" height="10"/>
+                            <rect key="frame" x="6" y="18" width="102" height="12"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="15" id="R3H-n7-jgY"/>
-                                <constraint firstAttribute="height" constant="5" id="tDC-ot-PC6"/>
-                            </constraints>
                             <color key="textColor" red="0.1505631506" green="0.1505586505" blue="0.15056121350000001" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -48,31 +34,17 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                             </userDefinedRuntimeAttributes>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="R3H-n7-jgY"/>
-                                    <exclude reference="tDC-ot-PC6"/>
-                                </mask>
-                            </variation>
                         </textView>
                         <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpB-lF-feB" customClass="WLLabel">
                             <rect key="frame" x="52" y="30" width="56" height="16"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="13" id="Bv1-Mg-QE6"/>
-                            </constraints>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                             <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
                             </userDefinedRuntimeAttributes>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="Bv1-Mg-QE6"/>
-                                </mask>
-                            </variation>
                         </label>
                     </subviews>
                     <color key="backgroundColor" red="0.93333333730000001" green="0.93333333730000001" blue="0.93333333730000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -84,7 +56,7 @@
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xkc-2N-B6M" secondAttribute="trailing" constant="6" id="abY-bl-yfO"/>
                         <constraint firstItem="uzq-Y1-O7b" firstAttribute="leading" secondItem="tyW-OA-8ng" secondAttribute="leading" constant="6" id="gXY-gk-n1S"/>
                         <constraint firstItem="xkc-2N-B6M" firstAttribute="leading" secondItem="tyW-OA-8ng" secondAttribute="leading" constant="6" id="gua-9s-l9d"/>
-                        <constraint firstItem="uzq-Y1-O7b" firstAttribute="top" secondItem="xkc-2N-B6M" secondAttribute="bottom" id="vIh-2d-c7c"/>
+                        <constraint firstItem="uzq-Y1-O7b" firstAttribute="top" secondItem="xkc-2N-B6M" secondAttribute="bottom" constant="-2" id="vIh-2d-c7c"/>
                         <constraint firstItem="cpB-lF-feB" firstAttribute="top" secondItem="uzq-Y1-O7b" secondAttribute="bottom" id="vsM-H4-eef"/>
                         <constraint firstItem="cpB-lF-feB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tyW-OA-8ng" secondAttribute="leading" constant="6" id="wfD-8N-EtK"/>
                     </constraints>
@@ -114,7 +86,6 @@
             <constraints>
                 <constraint firstItem="8Do-t9-L3S" firstAttribute="top" secondItem="tyW-OA-8ng" secondAttribute="top" id="6oF-Ph-xzn"/>
                 <constraint firstItem="tyW-OA-8ng" firstAttribute="top" secondItem="AzW-cI-2Hi" secondAttribute="top" id="RzW-qA-Dl2"/>
-                <constraint firstItem="8Do-t9-L3S" firstAttribute="top" secondItem="AzW-cI-2Hi" secondAttribute="top" id="dbA-bp-seG"/>
                 <constraint firstAttribute="bottom" secondItem="tyW-OA-8ng" secondAttribute="bottom" constant="2" id="lBb-Sr-auo"/>
                 <constraint firstItem="8Do-t9-L3S" firstAttribute="leading" secondItem="AzW-cI-2Hi" secondAttribute="leading" constant="16" id="qsW-Z7-dkq"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tyW-OA-8ng" secondAttribute="trailing" constant="16" id="vzx-lW-uB5"/>
@@ -122,11 +93,6 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="dbA-bp-seG"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="avatarView" destination="8Do-t9-L3S" id="U93-cb-jJu"/>
                 <outlet property="nameLabel" destination="xkc-2N-B6M" id="SRI-UY-1PO"/>

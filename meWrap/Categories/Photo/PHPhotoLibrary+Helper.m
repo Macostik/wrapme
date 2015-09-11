@@ -65,7 +65,7 @@ static WLReturnObjectBlock assetCreaterBlock;
 }
 
 + (PHAssetCollectionChangeRequest *)assetCollectionWithTitle:(NSString *)title {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"localizedTitle == %@", title];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", title];
     PHFetchResult *result = [PHAssetCollection assetObjectnWithType:PHAssetCollectionTypeAlbum
                                                             subType:PHAssetCollectionSubtypeAny
                                                           predicate:predicate];
@@ -85,10 +85,12 @@ static WLReturnObjectBlock assetCreaterBlock;
 + (void)performChangesForAssetCollectionWithTitle:(NSString *)title completionHandler:(WLCompletionBlock)completion {
     [[self sharedPhotoLibrary] performChanges:^{
         PHAssetChangeRequest * assetChangeRequest = assetCreaterBlock();
-        PHAssetCollectionChangeRequest *collectonRequest = [self assetCollectionWithTitle:title];
-        PHObjectPlaceholder *asset = [assetChangeRequest placeholderForCreatedAsset];
-        if (asset) {
-            [collectonRequest addAssets:@[asset]];
+        if  (assetChangeRequest) {
+            PHAssetCollectionChangeRequest *collectonRequest = [self assetCollectionWithTitle:title];
+            PHObjectPlaceholder *asset = [assetChangeRequest placeholderForCreatedAsset];
+            if (asset) {
+                [collectonRequest addAssets:@[asset]];
+            }
         }
     } completionHandler:completion];
 }

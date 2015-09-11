@@ -254,11 +254,13 @@ static WLReturnObjectBlock assetCreaterBlock;
 
 - (void)saveToAlbum:(void (^)(void))completion failure:(void (^)(NSError *))failure {
     [PHPhotoLibrary addNewAssetWithImage:self toAssetCollectionWithTitle:WLAlbumName completionHandler:^(BOOL success, NSError *error) {
-        if (error) {
-            if (failure) failure(error);
-        } else {
-            if (completion) completion();
-        }
+        run_in_main_queue(^{
+            if (error) {
+                if (failure) failure(error);
+            } else {
+                if (completion) completion();
+            }
+        });
     }];
 }
 

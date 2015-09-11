@@ -55,6 +55,11 @@
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self.dataSource reload];
+}
+
 - (NSMutableArray *)selectedAssets {
     if (!_selectedAssets) {
         _selectedAssets = [NSMutableArray array];

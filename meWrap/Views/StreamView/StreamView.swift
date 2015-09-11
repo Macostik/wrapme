@@ -142,77 +142,68 @@ class StreamView: UIScrollView {
         
         clear()
         
-        if let layout = self.layout {
+        if let layout = self.layout, let delegate = self.delegate as? StreamViewDelegate {
             layout.prepareLayout()
             
-            if let delegate = self.delegate as? StreamViewDelegate {
-                
-                if let numberOfSections = delegate.streamViewNumberOfSections?(self) {
-                    self.numberOfSections = numberOfSections
-                } else {
-                    numberOfSections = 1
-                }
-                
-                if let headers = delegate.streamViewHeaderMetrics?(self) {
-                    layoutMetrics(headers, layout: layout, index: StreamPosition(section: 0, index: 0))
-                }
-                
-                var count = items.count
-                
-                for section in 0..<numberOfSections {
-                    
-                    var sectionIndex = StreamPosition(section: section, index: 0)
-                    
-                    if let headers = delegate.streamView?(self, sectionHeaderMetricsInSection: section) {
-                        layoutMetrics(headers, layout: layout, index: sectionIndex)
-                    }
-                    
-                    var numberOfItems = delegate.streamView(self, numberOfItemsInSection:section)
-                    
-                    for i in 0..<numberOfItems {
-                        var index = StreamPosition(section: section, index: i);
-                        let metrics = delegate.streamView(self, metricsAt:index)
-                        for itemMetrics in metrics {
-                            if let item = layoutItem(layout, metrics: itemMetrics, index: index) {
-                                delegate.streamView(self, didLayoutItem: item)
-                            }
-                        }
-                    }
-                    
-                    if let footers = delegate.streamView?(self, sectionFooterMetricsInSection: section) {
-                        layoutMetrics(footers, layout: layout, index: sectionIndex)
-                    }
-                    
-                    
-                    layout.prepareForNextSection()
-                }
-                
-                var empty = items.count == count
-                
-                if let footers = delegate.streamViewFooterMetrics?(self) {
-                    layoutMetrics(footers, layout: layout, index: StreamPosition(section: 0, index: 0))
-                }
-                
-                
-                if (empty) {
-                    if let placeholder = delegate.streamViewPlaceholderMetrics?(self) {
-                        var size = frame.size
-                        var insets = contentInset
-                        if horizontal {
-                            placeholder.size = size.width - insets.left - insets.right - layout.contentSize.width
-                        } else {
-                            placeholder.size = size.height - insets.top - insets.bottom - layout.contentSize.height
-                        }
-                        layoutItem(layout, metrics:placeholder, index:StreamPosition(section: 0, index: 0))
-                    }
-                }
-                
-                layout.finalizeLayout()
-                
-                contentSize = layout.contentSize
-                
-                updateVisibility()
+            if let numberOfSections = delegate.streamViewNumberOfSections?(self) {
+                self.numberOfSections = numberOfSections
+            } else {
+                numberOfSections = 1
             }
+            
+            if let headers = delegate.streamViewHeaderMetrics?(self) {
+                layoutMetrics(headers, layout: layout, index: StreamPosition(section: 0, index: 0))
+            }
+            
+            for section in 0..<numberOfSections {
+                
+                var sectionIndex = StreamPosition(section: section, index: 0)
+                
+                if let headers = delegate.streamView?(self, sectionHeaderMetricsInSection: section) {
+                    layoutMetrics(headers, layout: layout, index: sectionIndex)
+                }
+                
+                var numberOfItems = delegate.streamView(self, numberOfItemsInSection:section)
+                
+                for i in 0..<numberOfItems {
+                    var index = StreamPosition(section: section, index: i);
+                    let metrics = delegate.streamView(self, metricsAt:index)
+                    for itemMetrics in metrics {
+                        if let item = layoutItem(layout, metrics: itemMetrics, index: index) {
+                            delegate.streamView(self, didLayoutItem: item)
+                        }
+                    }
+                }
+                
+                if let footers = delegate.streamView?(self, sectionFooterMetricsInSection: section) {
+                    layoutMetrics(footers, layout: layout, index: sectionIndex)
+                }
+                
+                
+                layout.prepareForNextSection()
+            }
+            
+            if let footers = delegate.streamViewFooterMetrics?(self) {
+                layoutMetrics(footers, layout: layout, index: StreamPosition(section: 0, index: 0))
+            }
+            
+            
+            if items.count == 0 {
+                if let placeholder = delegate.streamViewPlaceholderMetrics?(self) {
+                    if horizontal {
+                        placeholder.size = frame.size.width - horizontalContentInsets
+                    } else {
+                        placeholder.size = frame.size.height - verticalContentInsets
+                    }
+                    layoutItem(layout, metrics:placeholder, index:StreamPosition(section: 0, index: 0))
+                }
+            }
+            
+            layout.finalizeLayout()
+            
+            contentSize = layout.contentSize
+            
+            updateVisibility()
         }
     }
     

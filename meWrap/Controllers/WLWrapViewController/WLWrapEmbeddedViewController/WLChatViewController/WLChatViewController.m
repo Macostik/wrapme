@@ -154,6 +154,10 @@ CGFloat WLMaxTextViewWidth;
         [(WLTypingView*)item.view updateWithChat:weakSelf.chat];
     }];
     
+    [self.typingViewMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
+        return !weakSelf.chat.entries.nonempty;
+    }];
+    
     WLMaxTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndent - 2*WLMessageHorizontalInset - WLTrailingBubbleIndent;
     
     self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
@@ -559,12 +563,8 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (CGFloat)heightOfTypingCell:(WLChat *)chat {
-    if (chat.wrap.messages.nonempty || chat.typingUsers.nonempty) {
-        return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmall]
-                                                                     width:WLMaxTextViewWidth] + WLTypingViewTopIndent);
-    } else {
-        return 0;
-    }
+    return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmall]
+                                                                 width:WLMaxTextViewWidth] + WLTypingViewTopIndent);
 }
 
 - (void)refreshUnreadMessagesAfterDragging {

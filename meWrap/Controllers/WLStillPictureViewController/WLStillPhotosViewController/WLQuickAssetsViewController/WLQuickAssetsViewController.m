@@ -79,7 +79,10 @@
 // MARK: - PHPhotoLibraryChangeObserver
 
 - (void)photoLibraryDidChange:(PHChange *)changeInstance {
-    [self performSelectorOnMainThread:@selector(loadAssets) withObject:nil waitUntilDone:NO];
+    __weak typeof(self)weakSelf = self;
+    run_in_main_queue(^{
+        weakSelf.assets = [changeInstance changeDetailsForFetchResult:weakSelf.assets].fetchResultAfterChanges;
+    });
 }
 
 #pragma mark - PGAssetCellDelegate

@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @class StreamMetrics;
+@class StreamItem;
 
 @interface StreamReusableView : UIView
 
-@property (strong, nonatomic) id entry;
+@property (weak, nonatomic) id entry;
 
-@property (strong, nonatomic) StreamMetrics *metrics;
+@property (weak, nonatomic) StreamMetrics *metrics;
+
+@property (weak, nonatomic) StreamItem *item;
 
 @property (nonatomic) BOOL selected;
 

@@ -7,13 +7,12 @@
 //
 
 #import "WLAssetCell.h"
-#import <AssetsLibrary/AssetsLibrary.h>
+@import Photos;
 
 @interface WLAssetCell()
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *acceptView;
-@property (weak, nonatomic) IBOutlet UIButton *selectButton;
 
 @property (nonatomic) PHImageRequestID imageRequestID;
 
@@ -28,7 +27,9 @@
 
 - (void)setup:(PHAsset *)asset {
     __weak __typeof(self)weakSelf = self;
-    CGSize thumbnail = CGSizeMake(100, 100);
+    CGSize thumbnail = self.size;
+    thumbnail.width *= [UIScreen mainScreen].scale;
+    thumbnail.height *= [UIScreen mainScreen].scale;
     self.imageRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset
                                                targetSize:thumbnail
                                               contentMode:PHImageContentModeAspectFill
@@ -36,21 +37,12 @@
                                             resultHandler:^(UIImage *result, NSDictionary *info) {
                                                   weakSelf.imageView.image = result;
                                               }];
-    if ([self.delegate respondsToSelector:@selector(assetCell:isSelectedAsset:)]) {
-        BOOL selected = [self.delegate assetCell:self isSelectedAsset:asset];
-        self.acceptView.hidden = !selected;
-        self.imageView.alpha = selected ? 0.5f : 1.0f;
-    }
-    
-    if ([self.delegate respondsToSelector:@selector(assetCellAllowsMultipleSelection:)]) {
-        self.selectButton.exclusiveTouch = ![self.delegate assetCellAllowsMultipleSelection:self];
-    } else {
-        self.selectButton.exclusiveTouch = YES;
-    }
 }
 
-- (IBAction)select:(id)sender {
-	[self.delegate assetCell:self didSelectAsset:self.entry];
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
+    self.acceptView.hidden = !selected;
+    self.imageView.alpha = selected ? 0.5f : 1.0f;
 }
 
 @end

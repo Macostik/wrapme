@@ -10,7 +10,11 @@
 
 @implementation StreamReusableView
 
-@synthesize entry = _entry;
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(select)];
+    [self addGestureRecognizer:gestureRecognizer];
+}
 
 - (void)setEntry:(id)entry {
     _entry = entry;
@@ -26,7 +30,7 @@
 }
 
 - (void)select:(id)entry {
-    [self.metrics select:nil entry:entry];
+    [self.metrics select:self.item entry:entry];
 }
 
 - (IBAction)select {

@@ -50,10 +50,6 @@ class StreamView: UIScrollView {
         }
     }
     
-    var toggleSelection = false
-    
-    var multipleSelection = false
-    
     @IBInspectable var horizontal: Bool {
         get {
             if let layout = self.layout {
@@ -83,8 +79,6 @@ class StreamView: UIScrollView {
     }
     
     func setup() {
-        var tapRecognizer = UITapGestureRecognizer(target: self, action: "tap:")
-        addGestureRecognizer(tapRecognizer)
         addObserver(self, forKeyPath: "contentOffset", options: .New, context: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "locksChanged", name: StreamViewCommonLocksChanged, object: nil)
     }
@@ -244,6 +238,7 @@ class StreamView: UIScrollView {
     
     func viewForItem(item: StreamItem) -> StreamReusableView? {
         if let view = item.metrics?.dequeueView() {
+            view.item = item
             view.frame = item.frame
             item.view = view
             var entry: AnyObject? = item.entry
@@ -285,41 +280,6 @@ class StreamView: UIScrollView {
     }
     
     // MARK: - User Actions
-    
-    func tap(recognizer: UITapGestureRecognizer) {
-        touchedAt(recognizer.locationInView(self))
-    }
-    
-    func touchedAt(point: CGPoint) {
-        if let item = visibleItemAtPoint(point) {
-            
-            if toggleSelection {
-                item.selected = !item.selected
-            } else {
-                item.selected = true
-            }
-            
-            if item.selected {
-                if !multipleSelection {
-                    for _item in items {
-                        if _item != item && _item.selected {
-                            _item.selected = false
-                        }
-                    }
-                }
-                
-                if let delegate = self.delegate as? StreamViewDelegate {
-                    item.metrics?.select(item, entry: item.entry)
-                }
-            }
-        }
-    }
-    
-    func visibleItemAtPoint(point: CGPoint) -> StreamItem? {
-        return itemPassingTest({ (item) -> Bool in
-            return CGRectContainsPoint(item.frame, point)
-        })
-    }
     
     func visibleItems() -> Set<StreamItem> {
         return itemsPassingTest({ (item) -> Bool in

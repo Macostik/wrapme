@@ -8,24 +8,6 @@
 
 #import "StreamReusableView.h"
 
-@import Photos;
-
-@class WLAssetCell;
-
-@protocol WLAssetCellDelegate <NSObject>
-
-- (void)assetCell:(WLAssetCell*)cell didSelectAsset:(PHAsset*)asset;
-
-@optional
-
-- (BOOL)assetCell:(WLAssetCell*)cell isSelectedAsset:(PHAsset*)asset;
-
-- (BOOL)assetCellAllowsMultipleSelection:(WLAssetCell*)cell;
-
-@end
-
 @interface WLAssetCell : StreamReusableView
-
-@property (nonatomic, weak) IBOutlet id <WLAssetCellDelegate> delegate;
 
 @end

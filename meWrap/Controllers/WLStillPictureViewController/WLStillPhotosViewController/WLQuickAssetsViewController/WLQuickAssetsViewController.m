@@ -15,7 +15,7 @@
 
 @import Photos;
 
-@interface WLQuickAssetsViewController () <WLAssetCellDelegate, PHPhotoLibraryChangeObserver>
+@interface WLQuickAssetsViewController () <PHPhotoLibraryChangeObserver>
 
 @property (strong, nonatomic) PHFetchResult *assets;
 @property (strong, nonatomic) NSMutableArray *selectedAssets;
@@ -36,16 +36,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak typeof(self)weakSelf = self;
     self.streamView.layout = [[GridLayout alloc] initWithHorizontal:YES];
     self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
     GridMetrics *metrics = [[GridMetrics alloc] initWithIdentifier:@"WLAssetCell" ratio:1];
-    metrics.nibOwner = self;
+    [metrics setSelection:^(StreamItem *item, id entry) {
+        item.selected = !item.selected;
+        [weakSelf selectAsset:entry];
+    }];
+    [metrics setPrepareAppearing:^(StreamItem *item, PHAsset *asset) {
+        item.view.exclusiveTouch = !weakSelf.allowsMultipleSelection;
+    }];
+    [self.dataSource setDidLayoutItemBlock:^(StreamItem *item) {
+        PHAsset *asset = item.entry;
+        item.selected = [weakSelf.selectedAssets containsObject:asset.localIdentifier];
+    }];
+    
     [self.dataSource addMetrics:metrics];
     self.dataSource.numberOfGridColumns = 1;
     self.dataSource.sizeForGridColumns = 1;
     self.dataSource.layoutSpacing = 3;
     
-    [self loadAssets];
+    self.assets = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
     if ([self.delegate respondsToSelector:@selector(quickAssetsViewControllerShouldPreselectFirstAsset:)]) {
         if ([self.delegate quickAssetsViewControllerShouldPreselectFirstAsset:self]) {
             [self performSelector:@selector(selectAsset:) withObject:[self.assets firstObject] afterDelay:0.0f];
@@ -55,9 +67,9 @@
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    [self.dataSource reload];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.dataSource.items = self.assets;
 }
 
 - (NSMutableArray *)selectedAssets {
@@ -67,21 +79,13 @@
     return _selectedAssets;
 }
 
-- (void)setAssets:(PHFetchResult *)assets {
-    _assets = assets;
-    self.dataSource.items = assets;
-}
-
-- (void)loadAssets {
-    self.assets = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
-}
-
 // MARK: - PHPhotoLibraryChangeObserver
 
 - (void)photoLibraryDidChange:(PHChange *)changeInstance {
     __weak typeof(self)weakSelf = self;
     run_in_main_queue(^{
         weakSelf.assets = [changeInstance changeDetailsForFetchResult:weakSelf.assets].fetchResultAfterChanges;
+        weakSelf.dataSource.items = weakSelf.assets;
     });
 }
 
@@ -108,18 +112,6 @@
             [self.dataSource reload];
         }
     }
-}
-
-- (void)assetCell:(WLAssetCell *)cell didSelectAsset:(PHAsset *)asset {
-    [self selectAsset:asset];
-}
-
-- (BOOL)assetCell:(WLAssetCell *)cell isSelectedAsset:(PHAsset *)asset {
-    return [self.selectedAssets containsObject:asset.localIdentifier];
-}
-
-- (BOOL)assetCellAllowsMultipleSelection:(WLAssetCell *)cell {
-    return self.allowsMultipleSelection;
 }
 
 @end

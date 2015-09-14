@@ -68,16 +68,15 @@
 
 - (void)subscribe {
 	NSString* userUID = [WLUser currentUser].identifier;
-    NSString* deviceUID = [WLAuthorization currentAuthorization].deviceUID;
-	if (!userUID.nonempty || !deviceUID.nonempty) {
+	if (!userUID.nonempty) {
 		return;
 	}
     if (![[[[PubNub sharedInstance] currentConfiguration] uuid] isEqualToString:userUID]) {
         [[[PubNub sharedInstance] currentConfiguration] setUUID:userUID];
     }
-    NSString *channelName = [NSString stringWithFormat:@"%@-%@", userUID, deviceUID];
+    NSString *channelName = [NSString stringWithFormat:@"cg-%@", userUID];
     if (![self.userSubscription.name isEqualToString:channelName]) {
-        self.userSubscription = [WLNotificationSubscription subscription:channelName];
+        self.userSubscription = [WLNotificationSubscription subscription:channelName presence:NO group:YES];
         self.userSubscription.delegate = self;
         [self registerForVoIPPushes];
     } else {
@@ -378,7 +377,7 @@
 }
 
 - (void)client:(PubNub *)client didReceiveStatus:(PNSubscribeStatus *)status {
-    WLLog(@"PUBNUB", @"did receive status", status.subscribedChannels);
+    WLLog(@"PUBNUB", @"did receive status", status.subscribedChannelGroups);
 }
 
 // MARK: - WLEntryNotifyReceiver

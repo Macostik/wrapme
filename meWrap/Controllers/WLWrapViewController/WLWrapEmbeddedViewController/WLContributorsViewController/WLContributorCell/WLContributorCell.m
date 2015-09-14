@@ -13,10 +13,6 @@
 
 @interface WLContributorCell ()
 
-@property (nonatomic) BOOL deletable;
-
-@property (nonatomic) BOOL canBeInvited;
-
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
@@ -38,10 +34,15 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
-    self.removeMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLContributorRemoveCell" size:76];
-    self.resendMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLContributorResendCell" size:76];
-    self.spinnerMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLContributorSpinnerCell" size:76];
-    self.resendDoneMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLContributorResendDoneCell" size:76];
+    self.removeMetrics = [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLContributorRemoveCell" size:76]];
+    self.resendMetrics = [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLContributorResendCell" size:76]];
+    self.spinnerMetrics = [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLContributorSpinnerCell" size:76]];
+    self.resendDoneMetrics = [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLContributorResendDoneCell" size:76]];
+    self.removeMetrics.nibOwner = self.resendMetrics.nibOwner = self.spinnerMetrics.nibOwner = self.resendDoneMetrics.nibOwner = self;
+    self.removeMetrics.hidden = YES;
+    self.resendMetrics.hidden = YES;
+    self.resendDoneMetrics.hidden = YES;
+    self.spinnerMetrics.hidden = YES;
 }
 
 - (void)prepareForReuse {
@@ -54,19 +55,20 @@
 
 - (void)setup:(WLUser*)user {
 	
+    BOOL deletable = NO;
     BOOL wrapContributedByCurrentUser = [self.delegate contributorCell:self isCreator:[WLUser currentUser]];
     if (wrapContributedByCurrentUser) {
-        self.deletable = ![user isCurrentUser];
+        deletable = ![user isCurrentUser];
     } else {
-        self.deletable = NO;
+        deletable = NO;
     }
     
-    if (self.deletable) {
+    if (deletable) {
         self.removeMetrics.hidden = NO;
     }
-    self.canBeInvited = user.isInvited;
+    BOOL canBeInvited = user.isInvited;
     
-    if (self.canBeInvited) {
+    if (canBeInvited) {
         BOOL invited = [self.delegate contributorCell:self isInvitedContributor:user];
         self.resendDoneMetrics.hidden = !invited;
         self.resendMetrics.hidden = invited;
@@ -81,8 +83,8 @@
     self.nameLabel.text = isCreator ? [NSString stringWithFormat:WLLS(@"formatted_owner"), userNameText] : userNameText;
     self.phoneLabel.text = user.securePhones;
     
-    self.inviteLabel.hidden = !self.canBeInvited;
-    self.signUpView.hidden = self.canBeInvited;
+    self.inviteLabel.hidden = !canBeInvited;
+    self.signUpView.hidden = canBeInvited;
     
     NSString *url = user.picture.small;
     if (!self.signUpView.hidden && !url.nonempty) {
@@ -92,11 +94,11 @@
     }
     self.avatarView.url = url;
     
-    if (self.canBeInvited) {
+    if (canBeInvited) {
         self.inviteLabel.text = user.invitationHintText;
     }
     
-    self.slideMenuButton.hidden = !self.deletable && !self.canBeInvited;
+    self.slideMenuButton.hidden = !deletable && !canBeInvited;
     
     [self setMenuHidden:![self.delegate contributorCell:self showMenu:user] animated:NO];
 }

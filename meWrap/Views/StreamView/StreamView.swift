@@ -111,7 +111,10 @@ class StreamView: UIScrollView {
     func clear() {
         currentLayoutItem = nil
         for item in items {
-            item.view?.removeFromSuperview()
+            if let view = item.view {
+                view.removeFromSuperview()
+                item.metrics?.enqueueView(view)
+            }
         }
         items.removeAll(keepCapacity: false)
     }

@@ -29,7 +29,7 @@
 
 @import Photos;
 
-@interface WLAppDelegate () <iVersionDelegate, PHPhotoLibraryChangeObserver>
+@interface WLAppDelegate () <iVersionDelegate /*PHPhotoLibraryChangeObserver*/>
 
 @property (nonatomic) BOOL versionChanged;
 
@@ -39,7 +39,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+//     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     
     [self registerUserNotificationSettings];
     
@@ -358,22 +358,22 @@
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
 }
 
-- (void)photoLibraryDidChange:(PHChange *)changeInstance {
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-        return;
-    }
-    run_in_main_queue(^{
-        PHFetchResult *fetchResult = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
-        PHFetchResultChangeDetails *changeDetails = [changeInstance changeDetailsForFetchResult:fetchResult];
-        if (changeDetails && changeDetails.insertedObjects) {
-            UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
-            photoNotification.alertBody = WLLS(@"engagement_notification_alert");
-            photoNotification.alertAction = WLLS(@"upload");
-            photoNotification.repeatInterval = 0;
-            photoNotification.userInfo = @{@"type":@(WLNotificationEngagement)};
-            [[UIApplication sharedApplication] presentLocalNotificationNow:photoNotification];
-        }
-    });
-}
+//- (void)photoLibraryDidChange:(PHChange *)changeInstance {
+//    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+//        return;
+//    }
+//    run_in_main_queue(^{
+//        PHFetchResult *fetchResult = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
+//        PHFetchResultChangeDetails *changeDetails = [changeInstance changeDetailsForFetchResult:fetchResult];
+//        if (changeDetails && changeDetails.insertedObjects) {
+//            UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
+//            photoNotification.alertBody = WLLS(@"engagement_notification_alert");
+//            photoNotification.alertAction = WLLS(@"upload");
+//            photoNotification.repeatInterval = 0;
+//            photoNotification.userInfo = @{@"type":@(WLNotificationEngagement)};
+//            [[UIApplication sharedApplication] presentLocalNotificationNow:photoNotification];
+//        }
+//    });
+//}
 
 @end

@@ -235,7 +235,6 @@
 }
 
 - (void)requestHistory {
-    return;
     __weak typeof(self)weakSelf = self;
     runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
         NSDate *historyDate = WLSession.historyDate;

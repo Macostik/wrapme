@@ -28,7 +28,7 @@
 + (void)log:(NSString *)label action:(NSString *)action object:(id)object {
     NSString *str = [NSString stringWithFormat:@"%@ - %@",label, action];
     [WLLogger systemLog:object ? [NSString stringWithFormat:@"%@: %@", str, object] : str];
-    [WLLogger LE_log:[NSString stringWithFormat:@"%@ >> extension >> %@: %@", [WLUser combinedIdentifier], str, object]];
+    [WLLogger LE_log:[NSString stringWithFormat:@"%@ >> %@: %@", [WLUser combinedIdentifier], str, object]];
 }
 
 @end

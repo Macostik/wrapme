@@ -59,6 +59,7 @@ CGFloat WLMaxTextViewWidth;
 @property (strong, nonatomic) StreamMetrics *unreadMessagesMetrics;
 @property (strong, nonatomic) StreamMetrics *typingViewMetrics;
 @property (strong, nonatomic) StreamMetrics *loadingViewMetrics;
+@property (strong, nonatomic) StreamMetrics *placeholderMetrics;
 
 @end
 
@@ -84,6 +85,13 @@ CGFloat WLMaxTextViewWidth;
         self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:48];
         self.typingViewMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLTypingView"];
         self.loadingViewMetrics = [WLStreamLoadingView streamLoadingMetrics];
+        __weak typeof(self)weakSelf = self;
+        self.placeholderMetrics = [[StreamMetrics alloc] initWithIdentifier:@"NoMessagePlaceholderView" initializer:^(StreamMetrics * metrics) {
+            [metrics setPrepareAppearing:^(StreamItem *item, id entry) {
+                PlaceholderView *placeholderView = (id)item.view;
+                placeholderView.textLabel.text = [NSString stringWithFormat:WLLS(@"no_chat_message"), weakSelf.wrap.name];
+            }];
+        }];
     }
     return self;
 }
@@ -518,13 +526,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (StreamMetrics *)streamViewPlaceholderMetrics:(StreamView *)streamView {
-    __weak typeof(self)weakSelf = self;
-    return [[StreamMetrics alloc] initWithIdentifier:@"NoMessagePlaceholderView" initializer:^(StreamMetrics * metrics) {
-        [metrics setPrepareAppearing:^(StreamItem *item, id entry) {
-            PlaceholderView *placeholderView = (id)item.view;
-            placeholderView.textLabel.text = [NSString stringWithFormat:WLLS(@"no_chat_message"), weakSelf.wrap.name];
-        }];
-    }];
+    return self.placeholderMetrics;
 }
 
 - (CGFloat)heightOfMessageCell:(WLMessage *)message {

@@ -253,11 +253,13 @@
     if (WLSession.numberOfLaunches >= 3 && [WLUser currentUser].wraps.count >= 3) {
         [WLHintView showHomeSwipeTransitionHintViewInView:[UIWindow mainWindow]];
     }
+    [self.streamView unlock];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self hideCreateWrapTip];
+    [self.streamView lock];
 }
 
 - (void)updateEmailConfirmationView:(BOOL)animated {

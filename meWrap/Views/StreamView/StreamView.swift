@@ -120,7 +120,7 @@ class StreamView: UIScrollView {
     }
     
     class func lock() {
-        locks = max(0, locks + 1)
+        locks++
     }
     
     class func unlock() {
@@ -138,19 +138,19 @@ class StreamView: UIScrollView {
     }
     
     func lock() {
-        locks = max(0, locks + 1)
+        locks++
     }
     
     func unlock() {
         if (locks > 0) {
-            locks = locks - 1
+            locks--
             locksChanged()
         }
     }
     
     func reload() {
         
-        if (locks > 0 && StreamView.locks > 0) {
+        if locks > 0 || StreamView.locks > 0 {
             reloadAfterUnlock = true
             return
         }
@@ -224,9 +224,9 @@ class StreamView: UIScrollView {
         if items.count == 0 {
             if let placeholder = delegate.streamViewPlaceholderMetrics?(self) {
                 if horizontal {
-                    placeholder.size = frame.size.width - horizontalContentInsets
+                    placeholder.size = self.frame.size.width - self.horizontalContentInsets
                 } else {
-                    placeholder.size = frame.size.height - verticalContentInsets
+                    placeholder.size = self.frame.size.height - self.verticalContentInsets
                 }
                 layoutItem(layout, metrics:placeholder, position:StreamPosition(section: 0, index: 0))
             }

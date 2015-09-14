@@ -47,7 +47,7 @@
     __weak typeof(self)weakSelf = self;
     StreamView *streamView = self.streamView;
     [self.metrics setRatioAt:^CGFloat(StreamPosition * __nonnull index, GridMetrics * __nonnull metrics) {
-        return (streamView.frame.size.width/7) / (streamView.frame.size.height/3);
+        return  (streamView.frame.size.height/3) / (streamView.frame.size.width/7);
     }];
     
     [self.metrics setSelection:^(StreamItem * __nonnull item, NSString * __nonnull emoji) {
@@ -61,6 +61,11 @@
         self.segmentedControl.selectedSegment = 1;
         self.emojis = [WLEmoji emojiByType:WLEmojiTypeSmiles];
     }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self.dataSource reload];
 }
 
 - (IBAction)returnClicked:(UIButton *)sender {

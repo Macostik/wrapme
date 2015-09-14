@@ -126,12 +126,18 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
             }];
         }
         [self.dataSource reload];
+        [self.uploadingView update];
+        [self.dataSource.streamView unlock];
     } else {
         run_after(0.5f, ^{
             [weakSelf.navigationController popViewControllerAnimated:NO];
         });
     }
-    [self.uploadingView update];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.dataSource.streamView lock];
 }
 
 // MARK: - User Actions

@@ -321,7 +321,7 @@
 "bsu-Ad-ILe.text" = "Фото";
 
 /* Class = "UIButton"; normalTitle = "g"; ObjectID = "cKy-OZ-m8E"; */
-"cKy-OZ-m8E.normalTitle" = "\"\";
+"cKy-OZ-m8E.normalTitle" = "+";
 
 /* Class = "UITextView"; text = "message text"; ObjectID = "cMC-ND-b5t"; */
 "cMC-ND-b5t.text" = "message text";

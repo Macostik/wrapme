@@ -213,7 +213,7 @@
 /* Class = "UILabel"; text = "Photo"; ObjectID = "bsu-Ad-ILe"; */
 "bsu-Ad-ILe.text" = "相片";
 /* Class = "UIButton"; normalTitle = "g"; ObjectID = "cKy-OZ-m8E"; */
-"cKy-OZ-m8E.normalTitle" = "\"\";
+"cKy-OZ-m8E.normalTitle" = "+";
 /* Class = "UITextView"; text = "message text"; ObjectID = "cMC-ND-b5t"; */
 "cMC-ND-b5t.text" = "message text";
 /* Class = "UILabel"; text = "Notify me when new chat is posted to the Wrap."; ObjectID = "cUR-VV-aaK"; */

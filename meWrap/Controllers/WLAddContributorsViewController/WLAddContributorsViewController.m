@@ -32,6 +32,12 @@
 
 @property (strong, nonatomic) NSMutableSet* invitedRecords;
 
+@property (strong, nonatomic) StreamMetrics *singleMetrics;
+
+@property (strong, nonatomic) StreamMetrics *multipleMetrics;
+
+@property (strong, nonatomic) StreamMetrics *sectionHeaderMetrics;
+
 @end
 
 @implementation WLAddContributorsViewController
@@ -42,7 +48,43 @@
     self.invitedRecords = [NSMutableSet set];
     self.openedRows = [NSMutableArray array];
     [self.spinner startAnimating];
-	__weak typeof(self)weakSelf = self;
+    
+    __weak typeof(self)weakSelf = self;
+    
+    self.singleMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLAddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
+        [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
+            WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
+            WLAddressBookRecord* record = [group.records tryAt:position.index];
+            return [record.phoneStrings heightWithFont:[UIFont preferredDefaultFontWithPreset:WLFontPresetSmall] width:weakSelf.streamView.width - 142.0f] + 54;
+        }];
+    }];
+    
+    self.multipleMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMultipleAddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
+        [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
+            WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
+            WLAddressBookRecord* record = [group.records tryAt:position.index];
+            return [weakSelf openedPosition:position] ? (72.0f + [record.phoneNumbers count] * 50.0f) : 72.0f;
+        }];
+        [metrics setFinalizeAppearing:^(StreamItem *item, WLAddressBookRecord *record) {
+            WLAddressBookRecordCell *cell = (id)item.view;
+            cell.opened = ([record.phoneNumbers count] > 1 && [weakSelf openedPosition:item.position] != nil);
+        }];
+    }];
+    
+    self.sectionHeaderMetrics = [[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
+        metrics.identifier = @"WLAddressBookGroupView";
+        metrics.size = 32;
+        [metrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
+            WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
+            return !(group.title.nonempty && group.records.nonempty);
+        }];
+        [metrics setFinalizeAppearing:^(StreamItem *item, id entry) {
+            WLAddressBookGroupView *view = (id)item.view;
+            view.group = [weakSelf.filteredAddressBook.groups tryAt:item.position.section];
+        }];
+    }];
+    
+	
     BOOL cached = [[WLAddressBook addressBook] cachedRecords:^(NSArray *array) {
         [weakSelf addressBook:[WLAddressBook addressBook] didUpdateCachedRecords:array];
         [weakSelf.spinner stopAnimating];
@@ -112,19 +154,7 @@
 }
 
 - (NSArray *)streamView:(StreamView * __nonnull)streamView headerMetricsInSection:(NSInteger)section {
-    __weak typeof(self)weakSelf = self;
-    return @[[[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
-        metrics.identifier = @"WLAddressBookGroupView";
-        metrics.size = 32;
-        [metrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
-            WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
-            return !(group.title.nonempty && group.records.nonempty);
-        }];
-        [metrics setFinalizeAppearing:^(StreamItem *item, id entry) {
-            WLAddressBookGroupView *view = (id)item.view;
-            view.group = [weakSelf.filteredAddressBook.groups tryAt:item.position.section];
-        }];
-    }]];
+    return @[self.sectionHeaderMetrics];
 }
 
 - (void)streamView:(StreamView * __nonnull)streamView didLayoutItem:(StreamItem * __nonnull)item {
@@ -138,21 +168,9 @@
     StreamMetrics *metrics = nil;
     __weak typeof(self)weakSelf = self;
     if ([record.phoneNumbers count] > 1) {
-        metrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMultipleAddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
-            [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
-                return [weakSelf openedPosition:position] ? (72.0f + [record.phoneNumbers count] * 50.0f) : 72.0f;
-            }];
-            [metrics setFinalizeAppearing:^(StreamItem *item, WLAddressBookRecord *record) {
-                WLAddressBookRecordCell *cell = (id)item.view;
-                cell.opened = ([record.phoneNumbers count] > 1 && [weakSelf openedPosition:item.position] != nil);
-            }];
-        }];
+        metrics = self.multipleMetrics;
     } else {
-        metrics = [[StreamMetrics alloc] initWithIdentifier:@"WLAddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
-            [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
-                return [record.phoneStrings heightWithFont:[UIFont preferredDefaultFontWithPreset:WLFontPresetSmall] width:weakSelf.streamView.width - 142.0f] + 54;
-            }];
-        }];
+        metrics = self.singleMetrics;
     }
     metrics.nibOwner = weakSelf;
     return @[metrics];

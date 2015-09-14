@@ -26,7 +26,7 @@ var StreamViewCommonLocksChanged: String = "StreamViewCommonLocksChanged"
     
     optional func streamView(streamView: StreamView, footerMetricsInSection section: Int) -> [StreamMetrics]
     
-    optional func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetrics
+    optional func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetrics?
     
     optional func streamViewNumberOfSections(streamView: StreamView) -> Int
 }

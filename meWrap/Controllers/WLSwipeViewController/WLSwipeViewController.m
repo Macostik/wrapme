@@ -18,6 +18,8 @@
 
 @property (weak, nonatomic) UIViewController *secondViewController;
 
+@property (strong, nonatomic) NSMutableArray *viewControllers;
+
 @end
 
 @implementation WLSwipeViewController
@@ -154,8 +156,16 @@
     }
 }
 
+- (NSMutableArray *)viewControllers {
+    if (!_viewControllers) {
+        _viewControllers = [NSMutableArray array];
+    }
+    return _viewControllers;
+}
+
 - (void)addViewController:(UIViewController*)viewController {
     if (viewController) {
+        [self.viewControllers addObject:viewController];
         [self addChildViewController:viewController];
         if (viewController.view.superview != self.scrollView) {
             [self.scrollView addSubview:viewController.view];
@@ -165,6 +175,7 @@
 
 - (void)removeViewController:(UIViewController*)viewController {
     if (viewController) {
+        [self.viewControllers removeObject:viewController];
         [viewController.view removeFromSuperview];
         [viewController removeFromParentViewController];
     }
@@ -232,7 +243,7 @@
     self.secondViewController = nil;
     self.scrollView.contentSize = self.scrollView.size;
     self.scrollView.contentOffset = CGPointZero;
-    for (UIViewController *viewController in self.childViewControllers) {
+    for (UIViewController *viewController in self.viewControllers) {
         if (viewController != self.viewController) {
             [self removeViewController:viewController];
         }

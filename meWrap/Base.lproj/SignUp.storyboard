@@ -114,7 +114,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="75"/>
                                                 <subviews>
                                                     <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Cq-cU-Kci">
-                                                        <rect key="frame" x="74" y="10" width="132" height="56"/>
+                                                        <rect key="frame" x="64" y="10" width="152" height="56"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrW-0Q-whc">
                                                                 <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
@@ -123,9 +123,9 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="QHb-k1-ref">
-                                                                <rect key="frame" x="68" y="-4" width="64" height="64"/>
+                                                                <rect key="frame" x="58" y="16" width="94" height="24"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="64"/>
+                                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -137,7 +137,7 @@
                                                             <constraint firstItem="QHb-k1-ref" firstAttribute="centerY" secondItem="yrW-0Q-whc" secondAttribute="centerY" id="bog-pe-L7h"/>
                                                             <constraint firstItem="yrW-0Q-whc" firstAttribute="top" secondItem="5Cq-cU-Kci" secondAttribute="top" id="gCC-72-VZm"/>
                                                             <constraint firstAttribute="bottom" secondItem="yrW-0Q-whc" secondAttribute="bottom" id="iTP-Iy-MJB"/>
-                                                            <constraint firstItem="QHb-k1-ref" firstAttribute="leading" secondItem="yrW-0Q-whc" secondAttribute="trailing" constant="12" id="iwd-IE-COD"/>
+                                                            <constraint firstItem="QHb-k1-ref" firstAttribute="leading" secondItem="yrW-0Q-whc" secondAttribute="trailing" constant="2" id="iwd-IE-COD"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -392,9 +392,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="DAz-0E-aDC">
-                                        <rect key="frame" x="42" y="15" width="55" height="55"/>
+                                        <rect key="frame" x="44" y="32" width="79" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="55"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -404,7 +404,7 @@
                                     <constraint firstAttribute="centerY" secondItem="RCC-0D-s50" secondAttribute="centerY" constant="-10" id="Xet-At-VId"/>
                                     <constraint firstItem="DAz-0E-aDC" firstAttribute="centerY" secondItem="RCC-0D-s50" secondAttribute="centerY" id="Z5b-f3-a5z"/>
                                     <constraint firstItem="RCC-0D-s50" firstAttribute="leading" secondItem="mJg-XG-GUq" secondAttribute="leading" constant="12" id="aal-4g-Bjn"/>
-                                    <constraint firstItem="DAz-0E-aDC" firstAttribute="leading" secondItem="RCC-0D-s50" secondAttribute="trailing" id="h4h-8D-1Gf"/>
+                                    <constraint firstItem="DAz-0E-aDC" firstAttribute="leading" secondItem="RCC-0D-s50" secondAttribute="trailing" constant="2" id="h4h-8D-1Gf"/>
                                     <constraint firstAttribute="height" constant="64" id="j0f-6f-6Pt"/>
                                 </constraints>
                             </view>

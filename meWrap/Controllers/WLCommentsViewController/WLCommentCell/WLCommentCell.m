@@ -62,12 +62,7 @@
 	self.authorImageView.url = entry.contributor.picture.small;
     self.dateLabel.text = entry.createdAt.timeAgoString;
     [self.indicator updateStatusIndicator:entry];
-    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-    paragraphStyle.firstLineHeadIndent = [[self.entry contributor] isCurrentUser] ? WLLineHeadIndent : 0;
-    self.commenttextView.attributedText = [[NSAttributedString alloc]
-                                            initWithString:entry.text
-                                            attributes: @{NSParagraphStyleAttributeName : paragraphStyle,
-                                                          NSFontAttributeName : self.commenttextView.font}];
+    self.commenttextView.text = entry.text;
 }
 
 @end

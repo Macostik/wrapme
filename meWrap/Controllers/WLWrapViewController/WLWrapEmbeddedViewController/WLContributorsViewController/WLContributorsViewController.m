@@ -13,7 +13,7 @@
 #import "UIFont+CustomFonts.h"
 #import "WLHintView.h"
 #import "WLNavigationHelper.h"
-#import "WLLoadingView.h"
+#import "WLStreamLoadingView.h"
 
 const static CGFloat WLContributorsVerticalIndent = 48.0f;
 const static CGFloat WLContributorsHorizontalIndent = 96.0f;
@@ -60,10 +60,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     
     [[WLWrap notifier] addReceiver:self];
     
-    StreamMetrics *loadingMetrics = [self.dataSource addFooterMetrics:[[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
-        metrics.identifier = @"WLStreamLoadingView";
-        metrics.size = WLLoadingViewDefaultSize;
-    }]];
+    StreamMetrics *loadingMetrics = [self.dataSource addFooterMetrics:[WLStreamLoadingView streamLoadingMetrics]];
     
     self.dataSource.items = [self sortedContributors];
     

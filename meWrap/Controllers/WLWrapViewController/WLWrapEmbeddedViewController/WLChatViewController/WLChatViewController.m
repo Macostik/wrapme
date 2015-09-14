@@ -15,7 +15,7 @@
 #import "WLChatViewController.h"
 #import "WLComposeBar.h"
 #import "WLKeyboard.h"
-#import "WLLoadingView.h"
+#import "WLStreamLoadingView.h"
 #import "WLMessageCell.h"
 #import "WLRefresher.h"
 #import "WLSoundPlayer.h"
@@ -83,7 +83,7 @@ CGFloat WLMaxTextViewWidth;
         self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageDateView" size:31];
         self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:48];
         self.typingViewMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLTypingView"];
-        self.loadingViewMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLStreamLoadingView" size:60];
+        self.loadingViewMetrics = [WLStreamLoadingView streamLoadingMetrics];
     }
     return self;
 }
@@ -135,7 +135,7 @@ CGFloat WLMaxTextViewWidth;
     }];
     
     [self.loadingViewMetrics setFinalizeAppearing:^(StreamItem *item, id entry) {
-        WLLoadingView *loadingView = (id)item.view;
+        WLStreamLoadingView *loadingView = (id)item.view;
         if (weakSelf.chat.wrap) {
             loadingView.error = NO;
             [weakSelf appendMessages:^{
@@ -501,23 +501,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (NSArray*)streamViewHeaderMetrics:(StreamView*)streamView {
-    
-    __weak typeof(self)weakSelf = self;
-    StreamMetrics *insetMetrics = [[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
-        [metrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
-            CGFloat contentHeight = [weakSelf contentHeight];
-            if (contentHeight == 0) return YES;
-            CGFloat size = (weakSelf.streamView.frame.size.height - weakSelf.streamView.verticalContentInsets) - contentHeight;
-            if (size > 0) {
-                metrics.size = size;
-                return NO;
-            } else {
-                return YES;
-            }
-        }];
-    }];
-    
-    return @[self.typingViewMetrics, insetMetrics];
+    return @[self.typingViewMetrics];
 }
 
 - (CGFloat)contentHeight {

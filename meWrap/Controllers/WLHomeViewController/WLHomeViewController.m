@@ -12,7 +12,6 @@
 #import "WLCandyViewController.h"
 #import "WLHomeDataSource.h"
 #import "WLHomeViewController.h"
-#import "WLLoadingView.h"
 #import "WLNavigationHelper.h"
 #import "WLRefresher.h"
 #import "WLBadgeLabel.h"

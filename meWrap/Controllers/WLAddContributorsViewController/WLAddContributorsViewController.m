@@ -111,7 +111,7 @@
 	return [group.records count];
 }
 
-- (NSArray *)streamView:(StreamView * __nonnull)streamView sectionHeaderMetricsInSection:(NSInteger)section {
+- (NSArray *)streamView:(StreamView * __nonnull)streamView headerMetricsInSection:(NSInteger)section {
     __weak typeof(self)weakSelf = self;
     return @[[[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLAddressBookGroupView";

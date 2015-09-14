@@ -212,7 +212,10 @@ static CGFloat WLRefresherContentSize = 44.0f;
 	if (style == WLRefresherStyleOrange) {
         color = WLColors.orange;
         self.backgroundColor = [UIColor whiteColor];
-	} else {
+    } else if (style == WLRefresherStyleClear) {
+        color = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
+    } else {
         color = [UIColor whiteColor];
         self.backgroundColor = WLColors.orange;
     }

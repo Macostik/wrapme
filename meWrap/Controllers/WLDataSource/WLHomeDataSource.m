@@ -10,7 +10,6 @@
 #import "WLWrapCell.h"
 #import "WLOperationQueue.h"
 #import "UIView+Shorthand.h"
-#import "WLLoadingView.h"
 
 @interface WLHomeDataSource ()
 

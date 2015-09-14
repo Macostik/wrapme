@@ -37,6 +37,10 @@ class StreamItem: NSObject {
             }
         }
     }
+    
+    weak var previous: StreamItem?
+    
+    weak var next: StreamItem?
 }
 
 class StreamPosition: NSObject {

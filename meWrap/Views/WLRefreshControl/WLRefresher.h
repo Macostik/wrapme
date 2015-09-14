@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, WLRefresherStyle) {
-    WLRefresherStyleWhite_Clear,
+    WLRefresherStyleClear,
 	WLRefresherStyleWhite,
 	WLRefresherStyleOrange
 };

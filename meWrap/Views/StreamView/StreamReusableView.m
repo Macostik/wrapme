@@ -41,4 +41,12 @@
     
 }
 
+- (void)setFrame:(CGRect)frame {
+    if (self.item) {
+        [super setFrame:self.item.frame];
+    } else {
+        [super setFrame:frame];
+    }
+}
+
 @end

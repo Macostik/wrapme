@@ -18,6 +18,10 @@
 
 @implementation WLStreamLoadingView
 
++ (StreamMetrics*)streamLoadingMetrics {
+    return [[StreamMetrics alloc] initWithIdentifier:WLStreamLoadingViewIdentifier size:WLStreamLoadingViewDefaultSize];
+}
+
 - (void)setError:(BOOL)error {
     _error = error;
     self.errorView.hidden = !error;

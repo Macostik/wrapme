@@ -22,9 +22,9 @@ var StreamViewCommonLocksChanged: String = "StreamViewCommonLocksChanged"
     
     optional func streamViewFooterMetrics(streamView: StreamView) -> [StreamMetrics]
     
-    optional func streamView(streamView: StreamView, sectionHeaderMetricsInSection section: Int) -> [StreamMetrics]
+    optional func streamView(streamView: StreamView, headerMetricsInSection section: Int) -> [StreamMetrics]
     
-    optional func streamView(streamView: StreamView, sectionFooterMetricsInSection section: Int) -> [StreamMetrics]
+    optional func streamView(streamView: StreamView, footerMetricsInSection section: Int) -> [StreamMetrics]
     
     optional func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetrics
     
@@ -73,6 +73,17 @@ class StreamView: UIScrollView {
     
     static var locks: Int = 0
     
+    weak var currentLayoutItem: StreamItem?
+    
+    @IBInspectable var flipped: Bool {
+        get {
+            return layer.geometryFlipped
+        }
+        set {
+            layer.geometryFlipped = newValue
+        }
+    }
+    
     deinit {
         removeObserver(self, forKeyPath:"contentOffset")
         NSNotificationCenter.defaultCenter().removeObserver(self, name:StreamViewCommonLocksChanged, object:nil)
@@ -98,6 +109,7 @@ class StreamView: UIScrollView {
     }
     
     func clear() {
+        currentLayoutItem = nil
         for item in items {
             item.view?.removeFromSuperview()
         }
@@ -143,7 +155,6 @@ class StreamView: UIScrollView {
         clear()
         
         if let layout = self.layout, let delegate = self.delegate as? StreamViewDelegate {
-            layout.prepareLayout()
             
             if let numberOfSections = delegate.streamViewNumberOfSections?(self) {
                 self.numberOfSections = numberOfSections
@@ -151,55 +162,7 @@ class StreamView: UIScrollView {
                 numberOfSections = 1
             }
             
-            if let headers = delegate.streamViewHeaderMetrics?(self) {
-                layoutMetrics(headers, layout: layout, index: StreamPosition(section: 0, index: 0))
-            }
-            
-            for section in 0..<numberOfSections {
-                
-                var sectionIndex = StreamPosition(section: section, index: 0)
-                
-                if let headers = delegate.streamView?(self, sectionHeaderMetricsInSection: section) {
-                    layoutMetrics(headers, layout: layout, index: sectionIndex)
-                }
-                
-                var numberOfItems = delegate.streamView(self, numberOfItemsInSection:section)
-                
-                for i in 0..<numberOfItems {
-                    var index = StreamPosition(section: section, index: i);
-                    let metrics = delegate.streamView(self, metricsAt:index)
-                    for itemMetrics in metrics {
-                        if let item = layoutItem(layout, metrics: itemMetrics, index: index) {
-                            delegate.streamView(self, didLayoutItem: item)
-                        }
-                    }
-                }
-                
-                if let footers = delegate.streamView?(self, sectionFooterMetricsInSection: section) {
-                    layoutMetrics(footers, layout: layout, index: sectionIndex)
-                }
-                
-                
-                layout.prepareForNextSection()
-            }
-            
-            if let footers = delegate.streamViewFooterMetrics?(self) {
-                layoutMetrics(footers, layout: layout, index: StreamPosition(section: 0, index: 0))
-            }
-            
-            
-            if items.count == 0 {
-                if let placeholder = delegate.streamViewPlaceholderMetrics?(self) {
-                    if horizontal {
-                        placeholder.size = frame.size.width - horizontalContentInsets
-                    } else {
-                        placeholder.size = frame.size.height - verticalContentInsets
-                    }
-                    layoutItem(layout, metrics:placeholder, index:StreamPosition(section: 0, index: 0))
-                }
-            }
-            
-            layout.finalizeLayout()
+            layoutMetrics(delegate, layout: layout);
             
             contentSize = layout.contentSize
             
@@ -207,19 +170,79 @@ class StreamView: UIScrollView {
         }
     }
     
-    func layoutMetrics(metrics: [StreamMetrics], layout: StreamLayout, index: StreamPosition) {
-        for m in metrics {
-            layoutItem(layout, metrics: m, index: index)
+    func layoutMetrics(delegate: StreamViewDelegate, layout: StreamLayout) {
+        layout.prepareLayout()
+        
+        if let headers = delegate.streamViewHeaderMetrics?(self) {
+            for header in headers {
+                layoutItem(layout, metrics: header, position: StreamPosition(section: 0, index: 0))
+            }
         }
+        
+        for section in 0..<numberOfSections {
+            
+            var sectionIndex = StreamPosition(section: section, index: 0)
+            
+            if let headers = delegate.streamView?(self, headerMetricsInSection: section) {
+                for header in headers {
+                    layoutItem(layout, metrics: header, position: sectionIndex)
+                }
+            }
+            
+            var numberOfItems = delegate.streamView(self, numberOfItemsInSection:section)
+            
+            for i in 0..<numberOfItems {
+                var index = StreamPosition(section: section, index: i);
+                let metrics = delegate.streamView(self, metricsAt:index)
+                for itemMetrics in metrics {
+                    if let item = layoutItem(layout, metrics: itemMetrics, position: index) {
+                        delegate.streamView(self, didLayoutItem: item)
+                    }
+                }
+            }
+            
+            if let footers = delegate.streamView?(self, footerMetricsInSection: section) {
+                for footer in footers {
+                    layoutItem(layout, metrics: footer, position: sectionIndex)
+                }
+            }
+            
+            
+            layout.prepareForNextSection()
+        }
+        
+        if let footers = delegate.streamViewFooterMetrics?(self) {
+            for footer in footers {
+                layoutItem(layout, metrics: footer, position: StreamPosition(section: 0, index: 0))
+            }
+        }
+        
+        
+        if items.count == 0 {
+            if let placeholder = delegate.streamViewPlaceholderMetrics?(self) {
+                if horizontal {
+                    placeholder.size = frame.size.width - horizontalContentInsets
+                } else {
+                    placeholder.size = frame.size.height - verticalContentInsets
+                }
+                layoutItem(layout, metrics:placeholder, position:StreamPosition(section: 0, index: 0))
+            }
+        }
+        
+        layout.finalizeLayout()
     }
     
-    func layoutItem(layout: StreamLayout, metrics: StreamMetrics, index: StreamPosition) -> StreamItem? {
-        if (!metrics.hiddenAt(index, metrics)) {
+    func layoutItem(layout: StreamLayout, metrics: StreamMetrics, position: StreamPosition) -> StreamItem? {
+        if (!metrics.hiddenAt(position, metrics)) {
             var item = StreamItem()
-            item.position = index
+            item.position = position
             item.metrics = metrics
             layout.layout(item)
             if !CGSizeEqualToSize(item.frame.size, CGSizeZero) {
+                if let currentItem = currentLayoutItem {
+                    item.previous = currentItem
+                    currentItem.next = item
+                }
                 items.insert(item)
             }
             return item
@@ -240,7 +263,6 @@ class StreamView: UIScrollView {
             if let finalizeAppearing = item.metrics?.finalizeAppearing {
                 finalizeAppearing(item, entry)
             }
-            view.frame = item.frame
             return view
         }
         return nil

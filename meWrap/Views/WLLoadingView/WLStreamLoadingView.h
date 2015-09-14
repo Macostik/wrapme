@@ -8,6 +8,7 @@
 
 #import "StreamReusableView.h"
 
+static NSString* WLStreamLoadingViewIdentifier = @"WLStreamLoadingView";
 static CGFloat WLStreamLoadingViewDefaultSize = 66.0f;
 
 @interface WLStreamLoadingView : StreamReusableView
@@ -15,5 +16,7 @@ static CGFloat WLStreamLoadingViewDefaultSize = 66.0f;
 @property (nonatomic) BOOL animating;
 
 @property (nonatomic) BOOL error;
+
++ (StreamMetrics*)streamLoadingMetrics;
 
 @end

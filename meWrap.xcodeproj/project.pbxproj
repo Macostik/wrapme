@@ -373,7 +373,6 @@
 		C54AF45B19B8C437006F7EDB /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		C54AF45C19B8C437006F7EDB /* WLRefresher.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A6BFAB18F2AE7700AE3B62 /* WLRefresher.m */; };
 		C54AF46119B8C437006F7EDB /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
-		C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		C54AF46F19B8C437006F7EDB /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		C54AF47319B8C437006F7EDB /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C54AF48019B8C437006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
@@ -410,7 +409,6 @@
 		C54AF52B19B8C437006F7EDB /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
 		C54AF52C19B8C437006F7EDB /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
 		C54AF52D19B8C437006F7EDB /* flowers.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9131934B4460001E570 /* flowers.plist */; };
-		C54AF52E19B8C437006F7EDB /* WLLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12A8AA6F18F592B500F67113 /* WLLoadingView.xib */; };
 		C54AF53219B8C437006F7EDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
 		C54AF53619B8C437006F7EDB /* WLEmojiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90D19347B9E0001E570 /* WLEmojiView.xib */; };
 		C54AF53D19B8C437006F7EDB /* rings.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* rings.plist */; };
@@ -422,7 +420,6 @@
 		C54AF65519B8C491006F7EDB /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		C54AF65619B8C491006F7EDB /* WLRefresher.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A6BFAB18F2AE7700AE3B62 /* WLRefresher.m */; };
 		C54AF65B19B8C491006F7EDB /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
-		C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A8AA6C18F5919700F67113 /* WLLoadingView.m */; };
 		C54AF66919B8C491006F7EDB /* WLCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 121B1B2D18E07430001F585C /* WLCountry.m */; };
 		C54AF66D19B8C491006F7EDB /* WLEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */; };
 		C54AF67A19B8C491006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
@@ -459,7 +456,6 @@
 		C54AF72519B8C491006F7EDB /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
 		C54AF72619B8C491006F7EDB /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
 		C54AF72719B8C491006F7EDB /* flowers.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9131934B4460001E570 /* flowers.plist */; };
-		C54AF72819B8C491006F7EDB /* WLLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12A8AA6F18F592B500F67113 /* WLLoadingView.xib */; };
 		C54AF72C19B8C491006F7EDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
 		C54AF73019B8C491006F7EDB /* WLEmojiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D90D19347B9E0001E570 /* WLEmojiView.xib */; };
 		C54AF73719B8C491006F7EDB /* rings.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9151934B44D0001E570 /* rings.plist */; };
@@ -1208,9 +1204,6 @@
 		12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWelcomeViewController.m; sourceTree = "<group>"; };
 		12A7A74318DA180C008FF6F0 /* WLHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLHomeViewController.h; path = WLHomeViewController/WLHomeViewController.h; sourceTree = "<group>"; };
 		12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLHomeViewController.m; path = WLHomeViewController/WLHomeViewController.m; sourceTree = "<group>"; };
-		12A8AA6B18F5919700F67113 /* WLLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLLoadingView.h; path = WLLoadingView/WLLoadingView.h; sourceTree = "<group>"; };
-		12A8AA6C18F5919700F67113 /* WLLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLLoadingView.m; path = WLLoadingView/WLLoadingView.m; sourceTree = "<group>"; };
-		12A8AA6F18F592B500F67113 /* WLLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLLoadingView.xib; path = WLLoadingView/WLLoadingView.xib; sourceTree = "<group>"; };
 		12D578C619178C3400586995 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		12D653D818E4329F009CE64C /* WLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProgressBar.h; sourceTree = "<group>"; };
 		12D653D918E4329F009CE64C /* WLProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLProgressBar.m; sourceTree = "<group>"; };
@@ -2545,9 +2538,6 @@
 		12A8AA6E18F5919D00F67113 /* WLLoadingView */ = {
 			isa = PBXGroup;
 			children = (
-				12A8AA6B18F5919700F67113 /* WLLoadingView.h */,
-				12A8AA6C18F5919700F67113 /* WLLoadingView.m */,
-				12A8AA6F18F592B500F67113 /* WLLoadingView.xib */,
 				C5B6812B1B83721300BEE613 /* WLStreamLoadingView.h */,
 				C5B6812C1B83721300BEE613 /* WLStreamLoadingView.m */,
 				C5B6812F1B83722300BEE613 /* WLStreamLoadingView.xib */,
@@ -5532,7 +5522,6 @@
 				C54AF52D19B8C437006F7EDB /* flowers.plist in Resources */,
 				C5BEC3931B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
 				5B5A8C6C1A4EB62F00F84529 /* SignUp.storyboard in Resources */,
-				C54AF52E19B8C437006F7EDB /* WLLoadingView.xib in Resources */,
 				C5A615101B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib in Resources */,
 				C5C3FEA71B8F311500F177EC /* Default-736h@3x.png in Resources */,
 				C551890F1B8F46C000D1327E /* WLContributorResendDoneCell.xib in Resources */,
@@ -5621,7 +5610,6 @@
 				C54AF72719B8C491006F7EDB /* flowers.plist in Resources */,
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
 				5B5A8C6E1A4EB62F00F84529 /* SignUp.storyboard in Resources */,
-				C54AF72819B8C491006F7EDB /* WLLoadingView.xib in Resources */,
 				C5A615111B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
 				C55189101B8F46C000D1327E /* WLContributorResendDoneCell.xib in Resources */,
@@ -5840,7 +5828,6 @@
 				C56F6A651B78D6EB00660DF1 /* PNChannelGroupChannelsResult.m in Sources */,
 				C56F6AC11B78D6EB00660DF1 /* PNReachability.m in Sources */,
 				C5C20BEA1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
-				C54AF46319B8C437006F7EDB /* WLLoadingView.m in Sources */,
 				C56F6A471B78D6EB00660DF1 /* PubNub+History.m in Sources */,
 				C56F6A631B78D6EB00660DF1 /* PNChannelClientStateResult.m in Sources */,
 				C500994C1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,
@@ -6101,7 +6088,6 @@
 				C56F6A661B78D6EB00660DF1 /* PNChannelGroupChannelsResult.m in Sources */,
 				C56F6AC21B78D6EB00660DF1 /* PNReachability.m in Sources */,
 				C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */,
-				C54AF65D19B8C491006F7EDB /* WLLoadingView.m in Sources */,
 				C56F6A481B78D6EB00660DF1 /* PubNub+History.m in Sources */,
 				C56F6A641B78D6EB00660DF1 /* PNChannelClientStateResult.m in Sources */,
 				C500994E1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */,

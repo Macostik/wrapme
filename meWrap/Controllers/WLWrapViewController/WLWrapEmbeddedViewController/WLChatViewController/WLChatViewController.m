@@ -17,7 +17,6 @@
 #import "WLKeyboard.h"
 #import "WLStreamLoadingView.h"
 #import "WLMessageCell.h"
-#import "WLRefresher.h"
 #import "WLSoundPlayer.h"
 #import "WLFontPresetter.h"
 #import "WLMessageDateView.h"
@@ -57,8 +56,6 @@ CGFloat WLMaxTextViewWidth;
 @property (strong, nonatomic) UIFont* messageFont;
 
 @property (strong, nonatomic) UIFont* timeFont;
-
-@property (weak, nonatomic) WLRefresher* refresher;
 
 @property (strong, nonatomic) NSMapTable* cachedMessageHeights;
 
@@ -240,13 +237,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
     [super keyboardWillShow:keyboard];
-    self.refresher.enabled = NO;
     [self.streamView setMaximumContentOffsetAnimated:NO];
-}
-
-- (void)keyboardWillHide:(WLKeyboard *)keyboard {
-    [super keyboardWillHide:keyboard];
-    self.refresher.enabled = YES;
 }
 
 - (void)insertMessage:(WLMessage*)message {
@@ -279,18 +270,8 @@ CGFloat WLMaxTextViewWidth;
                     [operation finish];
                 });
             }
-            
         }
     });
-}
-
-- (void)refreshMessages:(WLRefresher*)sender {
-    [self refreshMessages:^{
-        [sender setRefreshing:NO animated:YES];
-    } failure:^(NSError *error) {
-        [error showIgnoringNetworkError];
-        [sender setRefreshing:NO animated:YES];
-    }];
 }
 
 - (void)refreshMessages:(WLBlock)success failure:(WLFailureBlock)failure {

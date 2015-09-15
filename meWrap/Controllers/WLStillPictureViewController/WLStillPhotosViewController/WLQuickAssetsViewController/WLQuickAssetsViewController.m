@@ -83,8 +83,10 @@
 - (void)photoLibraryDidChange:(PHChange *)changeInstance {
     __weak typeof(self)weakSelf = self;
     run_in_main_queue(^{
-        weakSelf.assets = [changeInstance changeDetailsForFetchResult:weakSelf.assets].fetchResultAfterChanges;
-        weakSelf.dataSource.items = weakSelf.assets;
+        PHFetchResult *assets = [changeInstance changeDetailsForFetchResult:weakSelf.assets].fetchResultAfterChanges;
+        if (assets) {
+            weakSelf.dataSource.items = weakSelf.assets = assets;
+        }
     });
 }
 

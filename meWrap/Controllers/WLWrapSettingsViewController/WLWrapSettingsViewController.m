@@ -11,6 +11,7 @@
 #import "WLEditSession.h"
 #import "WLAlertView.h"
 #import "WLButton.h"
+#import "WLLayoutPrioritizer.h"
 
 static NSInteger WLIndent = 12.0;
 
@@ -22,7 +23,9 @@ static NSInteger WLIndent = 12.0;
 @property (weak, nonatomic) IBOutlet UIButton *actionButton;
 @property (weak, nonatomic) IBOutlet UISwitch *candyNotifyTrigger;
 @property (weak, nonatomic) IBOutlet UISwitch *chatNotifyTrigger;
+@property (weak, nonatomic) IBOutlet UISwitch *restictedInviteTrigger;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthTextFieldConstraint;
+@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *friendsInvitePrioritizer;
 
 @property (strong, nonatomic) WLEditSession *editSession;
 
@@ -42,6 +45,7 @@ static NSInteger WLIndent = 12.0;
     
     [self.candyNotifyTrigger setOn:self.wrap.isCandyNotifiable];
     [self.chatNotifyTrigger setOn:self.wrap.isChatNotifiable];
+    [self.restictedInviteTrigger setOn:!self.wrap.isRestrictedInvite];
     self.candyNotifyTrigger.userInteractionEnabled = NO;
     self.chatNotifyTrigger.userInteractionEnabled = NO;
     
@@ -56,6 +60,7 @@ static NSInteger WLIndent = 12.0;
         weakSelf.chatNotifyTrigger.userInteractionEnabled = YES;
     }];
     [self addNotifyReceivers];
+    self.friendsInvitePrioritizer.defaultState = self.wrap.contributor.isCurrentUser;
 }
 
 - (void)addNotifyReceivers {
@@ -156,6 +161,18 @@ static NSInteger WLIndent = 12.0;
     self.editButton.selected = NO;
     [textField resignFirstResponder];
     return YES;
+}
+
+- (IBAction)handleFriendsInvite:(UISwitch *)sender {
+    WLWrap *wrap = self.wrap;
+    sender.userInteractionEnabled = NO;
+    wrap.isRestrictedInvite = !sender.isOn;
+    [wrap update:^(WLWrap *wrap) {
+        [sender setOn:!wrap.isRestrictedInvite];
+        sender.userInteractionEnabled = YES;
+    } failure:^(NSError *error) {
+        sender.userInteractionEnabled = YES;
+    }];
 }
 
 @end

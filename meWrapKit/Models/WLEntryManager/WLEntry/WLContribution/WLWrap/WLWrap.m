@@ -16,6 +16,7 @@
 
 @dynamic isCandyNotifiable;
 @dynamic isChatNotifiable;
+@dynamic isRestrictedInvite;
 @dynamic name;
 @dynamic candies;
 @dynamic contributors;

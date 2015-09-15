@@ -50,6 +50,9 @@
     BOOL isPublic = [dictionary boolForKey:@"is_public"];
     if (self.isPublic != isPublic) self.isPublic = isPublic;
     
+    BOOL isRestrictedInvite = [dictionary boolForKey:@"is_restricted_invite"];
+    if (self.isRestrictedInvite != isRestrictedInvite) self.isRestrictedInvite = isRestrictedInvite;
+    
     NSArray *contributorsArray = [dictionary arrayForKey:WLContributorsKey];
     if (contributorsArray.nonempty) {
         [self addContributors:[WLUser API_entries:contributorsArray]];

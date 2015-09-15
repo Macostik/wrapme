@@ -312,3 +312,7 @@
 "zet-Ls-5CH.text" = "對話";
 /* Class = "UIButton"; normalTitle = "*"; ObjectID = "W2G-E9-yFD"; */
 "W2G-E9-yFD.normalTitle" = "*";
+/* Class = "UILabel"; text = "Friends"; ObjectID = "alx-1S-ZGS"; */
+"alx-1S-ZGS.text" = "Friends";
+/* Class = "UILabel"; text = "Allow friends to add people to the wrap."; ObjectID = "hr9-nr-ikq"; */
+"hr9-nr-ikq.text" = "Allow friends to add people to the wrap.";

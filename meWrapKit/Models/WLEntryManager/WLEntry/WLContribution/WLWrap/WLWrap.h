@@ -16,6 +16,7 @@
 
 @property (nonatomic) BOOL isCandyNotifiable;
 @property (nonatomic) BOOL isChatNotifiable;
+@property (nonatomic) BOOL isRestrictedInvite;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSSet *candies;
 @property (nonatomic, retain) NSSet *contributors;

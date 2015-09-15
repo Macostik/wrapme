@@ -3401,8 +3401,9 @@ QWRkEEZyaWVuZFZpZXc
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="EqA-Dj-Zuu" firstAttribute="top" secondItem="O8v-VC-NbB" secondAttribute="bottom" id="LYC-q3-Te1"/>
+                            <constraint firstItem="O8v-VC-NbB" firstAttribute="top" secondItem="hQR-1L-vX5" secondAttribute="bottom" priority="750" id="RkP-kH-UfQ"/>
                             <constraint firstItem="EqA-Dj-Zuu" firstAttribute="leading" secondItem="3Jb-s5-DCT" secondAttribute="leading" id="UO1-Sl-Gbi"/>
-                            <constraint firstItem="O8v-VC-NbB" firstAttribute="top" secondItem="hQR-1L-vX5" secondAttribute="bottom" id="cNz-8R-FlG"/>
+                            <constraint firstItem="O8v-VC-NbB" firstAttribute="bottom" secondItem="hQR-1L-vX5" secondAttribute="top" priority="250" id="cNz-8R-FlG"/>
                             <constraint firstItem="O8v-VC-NbB" firstAttribute="leading" secondItem="3Jb-s5-DCT" secondAttribute="leading" id="d4L-4g-Jlf"/>
                             <constraint firstAttribute="trailing" secondItem="EqA-Dj-Zuu" secondAttribute="trailing" id="mwF-2L-X7j"/>
                             <constraint firstAttribute="trailing" secondItem="O8v-VC-NbB" secondAttribute="trailing" id="qJ7-uh-fq8"/>
@@ -3413,6 +3414,7 @@ QWRkEEZyaWVuZFZpZXc
                     <connections>
                         <outlet property="addFriendView" destination="dW2-yZ-nvK" id="83H-Z9-P0v"/>
                         <outlet property="dataSource" destination="zjC-7P-9tZ" id="72Y-Da-JLc"/>
+                        <outlet property="restrictedInvitePrioritizer" destination="N09-Ii-tK7" id="zjP-H2-x6C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RN9-r6-64a" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3432,6 +3434,13 @@ QWRkEEZyaWVuZFZpZXc
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="streamView" destination="EqA-Dj-Zuu" id="ZdB-P1-x3k"/>
+                    </connections>
+                </customObject>
+                <customObject id="N09-Ii-tK7" customClass="WLLayoutPrioritizer">
+                    <connections>
+                        <outletCollection property="defaultConstraints" destination="RkP-kH-UfQ" id="4g3-TC-qeN"/>
+                        <outletCollection property="alternativeConstraints" destination="cNz-8R-FlG" id="cVU-ql-Fvb"/>
+                        <outletCollection property="parentViews" destination="3Jb-s5-DCT" id="UAK-JD-qy4"/>
                     </connections>
                 </customObject>
             </objects>
@@ -3592,6 +3601,48 @@ QWRkEEZyaWVuZFZpZXc
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WUw-53-Yq6" userLabel="FriendsInviteView">
+                                <rect key="frame" x="0.0" y="124" width="600" height="82"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alx-1S-ZGS" customClass="WLLabel">
+                                        <rect key="frame" x="12" y="12" width="57" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KAL-gI-aRC">
+                                        <rect key="frame" x="539" y="45" width="51" height="31"/>
+                                        <color key="onTintColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="mXP-hT-OKV"/>
+                                            <action selector="handleFriendsInvite:" destination="TKE-mx-bkQ" eventType="valueChanged" id="T25-GI-D70"/>
+                                        </connections>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Allow friends to add people to the wrap." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hr9-nr-ikq" customClass="WLLabel">
+                                        <rect key="frame" x="12" y="45" width="515" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                        <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="KAL-gI-aRC" secondAttribute="bottom" constant="6" id="1Zm-80-5sr"/>
+                                    <constraint firstItem="alx-1S-ZGS" firstAttribute="top" secondItem="WUw-53-Yq6" secondAttribute="top" constant="12" id="Iqu-1t-zz5"/>
+                                    <constraint firstItem="KAL-gI-aRC" firstAttribute="top" secondItem="hr9-nr-ikq" secondAttribute="top" id="PK2-NI-Mtn"/>
+                                    <constraint firstItem="hr9-nr-ikq" firstAttribute="leading" secondItem="WUw-53-Yq6" secondAttribute="leading" constant="12" id="RZs-CR-RkH"/>
+                                    <constraint firstAttribute="trailing" secondItem="KAL-gI-aRC" secondAttribute="trailing" constant="12" id="dnC-IR-cYJ"/>
+                                    <constraint firstItem="hr9-nr-ikq" firstAttribute="top" secondItem="alx-1S-ZGS" secondAttribute="bottom" constant="12" id="fG8-OF-vkV"/>
+                                    <constraint firstItem="alx-1S-ZGS" firstAttribute="leading" secondItem="WUw-53-Yq6" secondAttribute="leading" constant="12" id="oZY-0h-EP5"/>
+                                    <constraint firstItem="KAL-gI-aRC" firstAttribute="leading" secondItem="hr9-nr-ikq" secondAttribute="trailing" constant="12" id="wVa-kF-tYR"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GMA-8i-bdS">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
@@ -3628,6 +3679,124 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstItem="X0X-J5-pFk" firstAttribute="leading" secondItem="GMA-8i-bdS" secondAttribute="leading" constant="12" id="sep-ye-8Sg"/>
                                     <constraint firstItem="ZL1-Bm-SmI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="X0X-J5-pFk" secondAttribute="trailing" id="uVl-o8-pdD"/>
                                     <constraint firstAttribute="centerY" secondItem="ZL1-Bm-SmI" secondAttribute="centerY" constant="-10" id="wwz-9A-O7P"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-Oj-q4N">
+                                <rect key="frame" x="0.0" y="206" width="600" height="226"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="737" text="Notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtf-da-c8a" customClass="WLLabel">
+                                        <rect key="frame" x="12" y="12" width="96" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="747" text="Photo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsu-Ad-ILe" customClass="WLLabel">
+                                        <rect key="frame" x="12" y="45" width="46" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="755" text="Notify me when new photo is added to the Wrap." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHL-LP-6Kt" customClass="WLLabel">
+                                        <rect key="frame" x="12" y="66" width="515" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                        <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="R1I-Cl-5SX">
+                                        <rect key="frame" x="539" y="66" width="51" height="31"/>
+                                        <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="9cm-m9-GQc"/>
+                                        </connections>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="741" text="Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zet-Ls-5CH" customClass="WLLabel">
+                                        <rect key="frame" x="12" y="96" width="37" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Notify me when new chat is posted to the Wrap." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUR-VV-aaK" customClass="WLLabel">
+                                        <rect key="frame" x="12" y="129" width="515" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                        <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7VE-Kd-SiX">
+                                        <rect key="frame" x="539" y="129" width="51" height="31"/>
+                                        <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="2CM-a7-513"/>
+                                        </connections>
+                                    </switch>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="WLButton">
+                                        <rect key="frame" x="12" y="184" width="576" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="LEAVE WRAP">
+                                            <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                                <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="handleAction:" destination="TKE-mx-bkQ" eventType="touchUpInside" id="dUP-cl-Reo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="zet-Ls-5CH" firstAttribute="top" secondItem="bHL-LP-6Kt" secondAttribute="bottom" constant="12" id="85L-TB-2oX"/>
+                                    <constraint firstItem="zBK-OX-573" firstAttribute="top" secondItem="7VE-Kd-SiX" secondAttribute="bottom" constant="24" id="Hvo-ko-Q8T"/>
+                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="top" secondItem="7VE-Kd-SiX" secondAttribute="top" id="MSp-xg-eON"/>
+                                    <constraint firstItem="bsu-Ad-ILe" firstAttribute="top" secondItem="Vtf-da-c8a" secondAttribute="bottom" constant="12" id="QcC-UM-DoK"/>
+                                    <constraint firstItem="Vtf-da-c8a" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="Y1Y-Ub-xYv"/>
+                                    <constraint firstItem="bHL-LP-6Kt" firstAttribute="top" secondItem="bsu-Ad-ILe" secondAttribute="bottom" id="alO-fn-qxf"/>
+                                    <constraint firstItem="bHL-LP-6Kt" firstAttribute="top" secondItem="R1I-Cl-5SX" secondAttribute="top" id="bM8-1u-v5M"/>
+                                    <constraint firstItem="zBK-OX-573" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="dbc-XE-ugP"/>
+                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="trailing" secondItem="7VE-Kd-SiX" secondAttribute="leading" constant="-12" id="gLV-uE-Ykk"/>
+                                    <constraint firstAttribute="trailing" secondItem="zBK-OX-573" secondAttribute="trailing" constant="12" id="jDq-3E-wZh"/>
+                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="top" secondItem="zet-Ls-5CH" secondAttribute="bottom" constant="12" id="krU-ur-6b6"/>
+                                    <constraint firstAttribute="trailing" secondItem="7VE-Kd-SiX" secondAttribute="trailing" constant="12" id="l9f-Zf-m1e"/>
+                                    <constraint firstItem="bsu-Ad-ILe" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="las-NM-t1v"/>
+                                    <constraint firstItem="zet-Ls-5CH" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="piI-8c-oSj"/>
+                                    <constraint firstItem="bHL-LP-6Kt" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="qNg-2o-Ona"/>
+                                    <constraint firstAttribute="trailing" secondItem="R1I-Cl-5SX" secondAttribute="trailing" constant="12" id="qnG-SU-abf"/>
+                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="rGd-xL-bis"/>
+                                    <constraint firstItem="bHL-LP-6Kt" firstAttribute="trailing" secondItem="R1I-Cl-5SX" secondAttribute="leading" constant="-12" id="sEg-rk-5BT"/>
+                                    <constraint firstAttribute="bottom" secondItem="zBK-OX-573" secondAttribute="bottom" constant="12" id="uRp-Sb-t91"/>
+                                    <constraint firstItem="Vtf-da-c8a" firstAttribute="top" secondItem="fdR-Oj-q4N" secondAttribute="top" constant="12" id="v2e-fR-RM6"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" restorationIdentifier="WLSettingsView" translatesAutoresizingMaskIntoConstraints="NO" id="NbD-y4-9Ou" userLabel="Settings View">
@@ -3688,124 +3857,6 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstAttribute="trailing" secondItem="mVa-xJ-70I" secondAttribute="trailing" id="rgt-Ke-abU"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-Oj-q4N">
-                                <rect key="frame" x="0.0" y="125" width="600" height="188"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtf-da-c8a" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="12" width="96" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" misplaced="YES" text="Photo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsu-Ad-ILe" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="44" width="46" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="Notify me when new photo is added to the Wrap." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHL-LP-6Kt" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="65" width="515" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                        <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="R1I-Cl-5SX">
-                                        <rect key="frame" x="539" y="59" width="51" height="31"/>
-                                        <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="9cm-m9-GQc"/>
-                                        </connections>
-                                    </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" misplaced="YES" text="Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zet-Ls-5CH" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="95" width="37" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="Notify me when new chat is posted to the Wrap." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUR-VV-aaK" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="115" width="515" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                        <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7VE-Kd-SiX">
-                                        <rect key="frame" x="539" y="110" width="51" height="31"/>
-                                        <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="2CM-a7-513"/>
-                                        </connections>
-                                    </switch>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="WLButton">
-                                        <rect key="frame" x="12" y="145" width="576" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="LEAVE WRAP">
-                                            <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
-                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
-                                                <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="handleAction:" destination="TKE-mx-bkQ" eventType="touchUpInside" id="dUP-cl-Reo"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="zet-Ls-5CH" firstAttribute="top" secondItem="bHL-LP-6Kt" secondAttribute="bottom" constant="12" id="85L-TB-2oX"/>
-                                    <constraint firstItem="zBK-OX-573" firstAttribute="top" secondItem="cUR-VV-aaK" secondAttribute="bottom" constant="12" id="ALV-1E-I22"/>
-                                    <constraint firstItem="bsu-Ad-ILe" firstAttribute="top" secondItem="Vtf-da-c8a" secondAttribute="bottom" constant="12" id="QcC-UM-DoK"/>
-                                    <constraint firstItem="Vtf-da-c8a" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="Y1Y-Ub-xYv"/>
-                                    <constraint firstItem="bHL-LP-6Kt" firstAttribute="top" secondItem="bsu-Ad-ILe" secondAttribute="bottom" id="alO-fn-qxf"/>
-                                    <constraint firstItem="zBK-OX-573" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="dbc-XE-ugP"/>
-                                    <constraint firstItem="bsu-Ad-ILe" firstAttribute="top" secondItem="R1I-Cl-5SX" secondAttribute="top" constant="-15" id="exL-sQ-lZv"/>
-                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="trailing" secondItem="7VE-Kd-SiX" secondAttribute="leading" constant="-12" id="gLV-uE-Ykk"/>
-                                    <constraint firstAttribute="trailing" secondItem="zBK-OX-573" secondAttribute="trailing" constant="12" id="jDq-3E-wZh"/>
-                                    <constraint firstItem="Vtf-da-c8a" firstAttribute="top" secondItem="fdR-Oj-q4N" secondAttribute="top" constant="12" id="kAx-PT-hAA"/>
-                                    <constraint firstItem="zet-Ls-5CH" firstAttribute="top" secondItem="7VE-Kd-SiX" secondAttribute="top" constant="-15" id="knX-JW-6xp"/>
-                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="top" secondItem="zet-Ls-5CH" secondAttribute="bottom" id="krU-ur-6b6"/>
-                                    <constraint firstAttribute="trailing" secondItem="7VE-Kd-SiX" secondAttribute="trailing" constant="12" id="l9f-Zf-m1e"/>
-                                    <constraint firstItem="bsu-Ad-ILe" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="las-NM-t1v"/>
-                                    <constraint firstItem="zet-Ls-5CH" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="piI-8c-oSj"/>
-                                    <constraint firstItem="bHL-LP-6Kt" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="qNg-2o-Ona"/>
-                                    <constraint firstAttribute="trailing" secondItem="R1I-Cl-5SX" secondAttribute="trailing" constant="12" id="qnG-SU-abf"/>
-                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="rGd-xL-bis"/>
-                                    <constraint firstItem="bHL-LP-6Kt" firstAttribute="trailing" secondItem="R1I-Cl-5SX" secondAttribute="leading" constant="-12" id="sEg-rk-5BT"/>
-                                    <constraint firstAttribute="bottom" secondItem="zBK-OX-573" secondAttribute="bottom" constant="12" id="uRp-Sb-t91"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -3813,10 +3864,14 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstAttribute="trailing" secondItem="fdR-Oj-q4N" secondAttribute="trailing" id="5an-XN-3td"/>
                             <constraint firstItem="GMA-8i-bdS" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="8ae-ZE-bU7"/>
                             <constraint firstItem="NbD-y4-9Ou" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="C2z-GJ-NoN"/>
+                            <constraint firstItem="NbD-y4-9Ou" firstAttribute="bottom" secondItem="WUw-53-Yq6" secondAttribute="bottom" priority="250" id="FSp-fX-lJ8"/>
                             <constraint firstItem="GMA-8i-bdS" firstAttribute="top" secondItem="gRX-BZ-QRM" secondAttribute="bottom" constant="-20" id="SS9-B6-bXb"/>
                             <constraint firstAttribute="trailing" secondItem="GMA-8i-bdS" secondAttribute="trailing" id="WgA-VG-IsV"/>
+                            <constraint firstItem="fdR-Oj-q4N" firstAttribute="top" secondItem="WUw-53-Yq6" secondAttribute="bottom" id="agv-Zv-IZ4"/>
                             <constraint firstItem="NbD-y4-9Ou" firstAttribute="top" secondItem="GMA-8i-bdS" secondAttribute="bottom" id="ejy-12-frM"/>
-                            <constraint firstItem="fdR-Oj-q4N" firstAttribute="top" secondItem="mVa-xJ-70I" secondAttribute="bottom" id="qFl-Vh-54v"/>
+                            <constraint firstAttribute="trailing" secondItem="WUw-53-Yq6" secondAttribute="trailing" id="itK-bI-ECP"/>
+                            <constraint firstItem="WUw-53-Yq6" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="qJN-HA-4yn"/>
+                            <constraint firstItem="NbD-y4-9Ou" firstAttribute="bottom" secondItem="WUw-53-Yq6" secondAttribute="top" priority="750" id="tgH-6b-vF6"/>
                             <constraint firstItem="fdR-Oj-q4N" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="xYj-GO-7JX"/>
                         </constraints>
                     </view>
@@ -3825,13 +3880,22 @@ QWRkEEZyaWVuZFZpZXc
                         <outlet property="candyNotifyTrigger" destination="R1I-Cl-5SX" id="3u9-S3-WZv"/>
                         <outlet property="chatNotifyTrigger" destination="7VE-Kd-SiX" id="Mhz-BY-Ri7"/>
                         <outlet property="editButton" destination="EbT-vV-AiD" id="HS8-7x-q20"/>
+                        <outlet property="friendsInvitePrioritizer" destination="qS3-OX-s1K" id="zhy-hq-3Mg"/>
                         <outlet property="navigationBar" destination="GMA-8i-bdS" id="99Z-Cx-GMM"/>
+                        <outlet property="restictedInviteTrigger" destination="KAL-gI-aRC" id="DBq-la-KGN"/>
                         <outlet property="widthTextFieldConstraint" destination="8TJ-4a-Zkh" id="S98-px-cIy"/>
                         <outlet property="wrapNameLabel" destination="ZL1-Bm-SmI" id="Dat-3X-YfU"/>
                         <outlet property="wrapNameTextField" destination="dOb-uE-FSR" id="aVm-EK-wPl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aVH-vU-f4A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="qS3-OX-s1K" customClass="WLLayoutPrioritizer">
+                    <connections>
+                        <outletCollection property="parentViews" destination="fdR-Oj-q4N" id="EVk-Ev-SJN"/>
+                        <outletCollection property="alternativeConstraints" destination="FSp-fX-lJ8" id="PiD-af-CRC"/>
+                        <outletCollection property="defaultConstraints" destination="tgH-6b-vF6" id="yKw-kV-GRJ"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="2388.75" y="-531.33802816901402"/>
         </scene>

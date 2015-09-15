@@ -134,14 +134,14 @@
 
 - (void)client:(PubNub *)client didReceiveMessage:(PNMessageResult *)message {
     PNMessageData *data = message.data;
-    if ([data.subscribedChannel isEqualToString:self.name]) {
+    if ([data.actualChannel isEqualToString:self.name]) {
         [self didReceiveMessage:data];
     }
 }
 
 - (void)client:(PubNub *)client didReceivePresenceEvent:(PNPresenceEventResult *)event {
     PNPresenceEventData *data = event.data;
-    if ([data.subscribedChannel isEqualToString:self.name]) {
+    if ([data.actualChannel isEqualToString:self.name]) {
         [self didReceivePresenceEvent:data];
     }
 }

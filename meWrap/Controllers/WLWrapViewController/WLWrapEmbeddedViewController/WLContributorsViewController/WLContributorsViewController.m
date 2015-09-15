@@ -14,6 +14,7 @@
 #import "WLHintView.h"
 #import "WLNavigationHelper.h"
 #import "WLStreamLoadingView.h"
+#import "WLLayoutPrioritizer.h"
 
 const static CGFloat WLContributorsVerticalIndent = 48.0f;
 const static CGFloat WLContributorsHorizontalIndent = 96.0f;
@@ -24,6 +25,8 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 
 @property (weak, nonatomic) IBOutlet UIView *addFriendView;
+
+@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *restrictedInvitePrioritizer;
 
 @property (strong, nonatomic) NSMutableSet* invitedContributors;
 
@@ -79,6 +82,9 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     [super viewWillAppear:animated];
     if ([self.wrap isFirstCreated]) {
         [WLHintView showInviteHintViewInView:[UIWindow mainWindow] withFocusToView:self.addFriendView];
+    }
+    if (!self.wrap.contributor.isCurrentUser) {
+        self.restrictedInvitePrioritizer.defaultState = !self.wrap.isRestrictedInvite;
     }
 }
 
@@ -182,6 +188,9 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 
 - (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLWrap *)wrap {
     self.dataSource.items = [self sortedContributors];
+    if (!self.wrap.contributor.isCurrentUser) {
+        [self.restrictedInvitePrioritizer setDefaultState:!wrap.isRestrictedInvite animated:[self viewAppeared]];
+    }
 }
 
 @end

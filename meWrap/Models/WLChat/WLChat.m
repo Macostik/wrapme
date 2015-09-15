@@ -25,6 +25,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
 + (instancetype)chatWithWrap:(WLWrap *)wrap {
     WLChat* chat = [[self alloc] init];
     chat.sortComparator = comparatorByCreatedAt;
+    chat.sortDescending = NO;
     chat.wrap = wrap;
     return chat;
 }
@@ -153,7 +154,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
         }
         
         NSUInteger index = [messages indexOfObject:message];
-        WLMessage* previousMessage = [messages tryAt:index + 1];
+        WLMessage* previousMessage = [messages tryAt:index - 1];
         BOOL showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
         if (showDay) {
             [_messagesWithDay addObject:message];

@@ -69,6 +69,12 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
 
 @property (strong, nonatomic) void (^didLayoutItemBlock) (StreamItem *item);
 
+@property (strong, nonatomic) void (^willChangeContentSizeBlock) (CGSize newContentSize);
+
+@property (strong, nonatomic) void (^didChangeContentSizeBlock) (CGSize oldContentSize);
+
+@property (strong, nonatomic) void (^didLayoutBlock) (void);
+
 + (instancetype)dataSourceWithStreamView:(StreamView*)streamView;
 
 - (void)setLayoutOffsetBlock:(CGFloat (^)(void))layoutOffsetBlock;

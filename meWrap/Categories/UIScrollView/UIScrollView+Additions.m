@@ -54,12 +54,9 @@
 }
 
 - (BOOL)scrollable {
-    CGSize size = self.bounds.size;
     CGSize contentSize = self.contentSize;
-    UIEdgeInsets insets = self.contentInset;
-    if (contentSize.height > (size.height - (insets.bottom + insets.top))) return YES;
-    if (contentSize.width > (size.width - (insets.left + insets.right))) return YES;
-    return NO;
+    CGSize fittingContentSize = self.fittingContentSize;
+    return (contentSize.width > fittingContentSize.width) || (contentSize.height > fittingContentSize.height);
 }
 
 - (CGFloat)verticalContentInsets {
@@ -70,6 +67,18 @@
 - (CGFloat)horizontalContentInsets {
     UIEdgeInsets insets = self.contentInset;
     return insets.left + insets.right;
+}
+
+- (CGSize)fittingContentSize {
+    return CGSizeMake(self.fittingContentWidth, self.fittingContentHeight);
+}
+
+- (CGFloat)fittingContentWidth {
+    return self.frame.size.width - self.horizontalContentInsets;
+}
+
+- (CGFloat)fittingContentHeight {
+    return self.frame.size.height - self.verticalContentInsets;
 }
 
 - (CGRect)visibleRectOfRect:(CGRect)rect {

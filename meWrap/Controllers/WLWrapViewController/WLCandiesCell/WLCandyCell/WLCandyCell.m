@@ -116,20 +116,15 @@
     WLPicture *picture = candy.picture;
     
     if (picture.justUploaded) {
-        [self.coverView setImageSetter:^(WLImageView *imageView, UIImage *image, BOOL animated) {
+        [StreamView lock];
+        self.alpha = 0.0;
+        __weak typeof(self)weakSelf = self;
+        [UIView animateWithDuration:0.5 animations:^{
+            weakSelf.alpha = 1;
+        } completion:^(BOOL finished) {
             picture.justUploaded = NO;
-            [StreamView lock];
-            run_after_asap(^{
-                imageView.image = image;
-                NSTimeInterval duration = 0.5f;
-                [imageView fadeWithDuration:duration delegate:nil];
-                run_after(duration, ^{
-                    [StreamView unlock];
-                });
-            });
+            [StreamView unlock];
         }];
-    } else {
-        self.coverView.imageSetter = nil;
     }
     
     self.coverView.url = picture.small;

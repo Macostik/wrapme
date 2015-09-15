@@ -188,6 +188,24 @@
     }
 }
 
+- (void)streamViewWillChangeContentSize:(StreamView * __nonnull)streamView newContentSize:(CGSize)newContentSize {
+    if (self.willChangeContentSizeBlock) {
+        self.willChangeContentSizeBlock(newContentSize);
+    }
+}
+
+- (void)streamViewDidChangeContentSize:(StreamView * __nonnull)streamView oldContentSize:(CGSize)oldContentSize {
+    if (self.didChangeContentSizeBlock) {
+        self.didChangeContentSizeBlock(oldContentSize);
+    }
+}
+
+- (void)streamViewDidLayout:(StreamView * __nonnull)streamView {
+    if (self.didLayoutBlock) {
+        self.didLayoutBlock();
+    }
+}
+
 - (NSArray *)streamViewHeaderMetrics:(StreamView *)streamView {
     return self.headerMetrics;
 }

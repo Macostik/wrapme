@@ -81,13 +81,9 @@
 }
 
 - (void)setImage:(UIImage *)image animated:(BOOL)animated {
-    if (self.imageSetter) {
-        self.imageSetter(self, image, animated);
-    } else {
-        self.image = image;
-        if (animated) {
-            [self fade];
-        }
+    self.image = image;
+    if (animated) {
+        [self fade];
     }
 }
 

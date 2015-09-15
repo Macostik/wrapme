@@ -96,6 +96,20 @@ class StreamMetrics: NSObject {
         return loadView()
     }
     
+    func dequeueViewWithItem(item: StreamItem) -> StreamReusableView? {
+        if let view = dequeueView() {
+            view.item = item
+            view.frame = item.frame
+            item.view = view
+            var entry: AnyObject? = item.entry
+            prepareAppearing?(item, entry)
+            view.entry = entry
+            finalizeAppearing?(item, entry)
+            return view
+        }
+        return nil
+    }
+    
     func enqueueView(view: StreamReusableView) {
         reusableViews.insert(view)
     }

@@ -33,10 +33,21 @@
 }
 
 - (void)setAnimating:(BOOL)animating {
-    if (self.animating) {
+    if (animating) {
         [self.spinner stopAnimating];
     } else {
         [self.spinner startAnimating];
+    }
+}
+
+- (void)didMoveToSuperview {
+    [super didMoveToSuperview];
+    if (self.superview) {
+        if (!self.spinner.hidden) {
+            [self.spinner startAnimating];
+        }
+    } else {
+        [self.spinner stopAnimating];
     }
 }
 

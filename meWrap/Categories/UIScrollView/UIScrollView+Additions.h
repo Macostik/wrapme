@@ -20,6 +20,12 @@
 
 @property (readonly, nonatomic) CGFloat horizontalContentInsets;
 
+@property (readonly, nonatomic) CGSize fittingContentSize;
+
+@property (readonly, nonatomic) CGFloat fittingContentWidth;
+
+@property (readonly, nonatomic) CGFloat fittingContentHeight;
+
 - (void)setMinimumContentOffsetAnimated:(BOOL)animated;
 
 - (void)setMaximumContentOffsetAnimated:(BOOL)animated;

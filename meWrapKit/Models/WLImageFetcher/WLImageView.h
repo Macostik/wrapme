@@ -29,10 +29,6 @@
 
 @property (strong, nonatomic) WLFailureBlock failure;
 
-@property (strong, nonatomic) void(^imageSetter) (WLImageView *imageView, UIImage *image, BOOL animated);
-
-- (void)setImageSetter:(void (^)(WLImageView *imageView, UIImage *image, BOOL animated))imageSetter;
-
 - (void)setUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure;
 
 @end

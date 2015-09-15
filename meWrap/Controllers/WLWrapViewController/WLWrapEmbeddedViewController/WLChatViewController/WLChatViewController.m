@@ -19,7 +19,6 @@
 #import "WLMessageCell.h"
 #import "WLRefresher.h"
 #import "WLSoundPlayer.h"
-#import "WLTypingView.h"
 #import "WLFontPresetter.h"
 #import "WLMessageDateView.h"
 #import "WLWrapViewController.h"
@@ -28,17 +27,28 @@
 #import "WLBadgeLabel.h"
 #import "WLMessagesCounter.h"
 #import "PlaceholderView.h"
+#import "WLLayoutPrioritizer.h"
+#import "UIView+QuatzCoreAnimations.h"
 
 CGFloat WLMaxTextViewWidth;
 
 @interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate>
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
+
 @property (weak, nonatomic) IBOutlet WLComposeBar *composeBar;
+
+@property (weak, nonatomic) IBOutlet UIView *typingView;
+
+@property (weak, nonatomic) IBOutlet UILabel *typingUserNamesTextField;
+
+@property (weak, nonatomic) IBOutlet WLImageView *typingUserAvatarView;
 
 @property (weak, nonatomic) id operation;
 
 @property (nonatomic) BOOL typing;
+
+@property (nonatomic) BOOL reloading;
 
 @property (strong, nonatomic) WLChat *chat;
 
@@ -52,14 +62,14 @@ CGFloat WLMaxTextViewWidth;
 
 @property (strong, nonatomic) NSMapTable* cachedMessageHeights;
 
-@property (weak, nonatomic) WLTypingView *typingView;
 @property (strong, nonatomic) StreamMetrics *messageMetrics;
 @property (strong, nonatomic) StreamMetrics *myMessageMetrics;
 @property (strong, nonatomic) StreamMetrics *dateMetrics;
 @property (strong, nonatomic) StreamMetrics *unreadMessagesMetrics;
-@property (strong, nonatomic) StreamMetrics *typingViewMetrics;
 @property (strong, nonatomic) StreamMetrics *loadingViewMetrics;
 @property (strong, nonatomic) StreamMetrics *placeholderMetrics;
+
+@property (nonatomic) BOOL dragged;
 
 @end
 
@@ -69,11 +79,21 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
-- (void)reloadChatAfterApplicationBecameActive {
+- (void)applicationDidBecomeActive {
+    [self.streamView unlock];
     [self.chat resetEntries:self.wrap.messages];
     [self scrollToLastUnreadMessage];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
+}
+
+- (void)applicationWillResignActive {
+    [self.streamView lock];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -83,7 +103,6 @@ CGFloat WLMaxTextViewWidth;
         self.myMessageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMyMessageCell"];
         self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageDateView" size:31];
         self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:48];
-        self.typingViewMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLTypingView"];
         self.loadingViewMetrics = [WLStreamLoadingView streamLoadingMetrics];
         __weak typeof(self)weakSelf = self;
         self.placeholderMetrics = [[StreamMetrics alloc] initWithIdentifier:@"NoMessagePlaceholderView" initializer:^(StreamMetrics * metrics) {
@@ -114,15 +133,15 @@ CGFloat WLMaxTextViewWidth;
     self.nameFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmaller];
     self.timeFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmaller];
     
-    __weak StreamView *streamView = self.streamView;
-    
     __weak typeof(self)weakSelf = self;
     
-    self.refresher = [WLRefresher refresher:streamView target:self action:@selector(refreshMessages:) style:WLRefresherStyleOrange];
+    self.unreadMessagesMetrics.finalizeAppearing = self.dateMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
+        if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
+            [weakSelf.chat.readMessages addObject:message];
+        }
+    };
     
-    streamView.layer.geometryFlipped = YES;
-    
-    self.typingViewMetrics.finalizeAppearing = self.unreadMessagesMetrics.finalizeAppearing = self.dateMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
+    self.myMessageMetrics.finalizeAppearing = self.messageMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
         if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
             [weakSelf.chat.readMessages addObject:message];
         }
@@ -130,12 +149,6 @@ CGFloat WLMaxTextViewWidth;
     
     self.messageMetrics.prepareAppearing = ^(StreamItem *item, WLMessage *message) {
         [(WLMessageCell *)item.view setShowName:[weakSelf.chat.messagesWithName containsObject:message]];
-    };
-    
-    self.myMessageMetrics.finalizeAppearing = self.messageMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
-        if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
-            [weakSelf.chat.readMessages addObject:message];
-        }
     };
     
     [self.loadingViewMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
@@ -152,18 +165,6 @@ CGFloat WLMaxTextViewWidth;
                 loadingView.error = YES;
             }];
         }
-    }];
-    
-    [self.typingViewMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
-        return [weakSelf heightOfTypingCell:weakSelf.chat];
-    }];
-    
-    [self.typingViewMetrics setFinalizeAppearing:^(StreamItem *item, id entry) {
-        [(WLTypingView*)item.view updateWithChat:weakSelf.chat];
-    }];
-    
-    [self.typingViewMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
-        return !weakSelf.chat.entries.nonempty;
     }];
     
     WLMaxTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndent - 2*WLMessageHorizontalInset - WLTrailingBubbleIndent;
@@ -193,15 +194,18 @@ CGFloat WLMaxTextViewWidth;
     [[WLMessage notifier] addReceiver:self];
     [[WLFontPresetter presetter] addReceiver:self];
     
+    [self.streamView.panGestureRecognizer addTarget:self action:@selector(dragging:)];
+    
     self.modalPresentationStyle = UIModalPresentationCurrentContext;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.streamView unlock];
     [[WLMessagesCounter instance] update:nil];
     [self.chat sort];
     [self scrollToLastUnreadMessage];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadChatAfterApplicationBecameActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
     if (self.showKeyboard) {
         [self.composeBar becomeFirstResponder];
     }
@@ -209,14 +213,14 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.streamView lock];
     [self.chat.readMessages all:^(WLMessage *message) {
         [message markAsRead];
     }];
     [[WLMessagesCounter instance] update:nil];
-    [self.chat sort];
     [self.chat.unreadMessages minusSet:[self.chat.readMessages set]];
     [self updateBadge];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 - (void)scrollToLastUnreadMessage {
@@ -237,6 +241,7 @@ CGFloat WLMaxTextViewWidth;
 - (void)keyboardWillShow:(WLKeyboard *)keyboard {
     [super keyboardWillShow:keyboard];
     self.refresher.enabled = NO;
+    [self.streamView setMaximumContentOffsetAnimated:NO];
 }
 
 - (void)keyboardWillHide:(WLKeyboard *)keyboard {
@@ -246,58 +251,34 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)insertMessage:(WLMessage*)message {
     
-    if (!self.view.superview) {
+    if (self.streamView.locks > 0) {
         [self.chat addEntry:message];
         return;
     }
     
-    UIApplicationState applicationState = [UIApplication sharedApplication].applicationState;
-    if (applicationState == UIApplicationStateBackground) {
-        return;
-    }
-    BOOL chatVisible = applicationState == UIApplicationStateActive;
     __weak typeof(self)weakSelf = self;
     runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
         
         StreamView *streamView = weakSelf.streamView;
         
         if ([weakSelf.chat.entries containsObject:message]) {
-            
             [operation finish];
-            
-        } else if (!streamView.scrollable) {
-            
+        } else  {
             [weakSelf.chat addEntry:message];
-            [operation finish];
-            
-        } else if (streamView.contentOffset.y > streamView.minimumContentOffset.y || !chatVisible) {
-            
-            CGFloat offset = streamView.contentOffset.y;
-            CGFloat contentHeight = streamView.contentSize.height;
-            [weakSelf.chat addEntry:message];
-            [streamView reload];
-            [streamView layoutIfNeeded];
-            offset += streamView.contentSize.height - contentHeight;
-            [streamView trySetContentOffset:CGPointMake(0, offset) animated:NO];
-            [operation finish];
-            
-        } else {
-            
-            [weakSelf.chat addEntry:message];
-            
-            if (streamView.height/2 < [weakSelf heightOfMessageCell:message] &&
-                [self.chat.unreadMessages count] == 1) {
-//                self.layout.scrollToUnreadMessages = YES;
-            } else {
-                [streamView reload];
-                [streamView layoutIfNeeded];
-                streamView.contentOffset = CGPointOffset(streamView.minimumContentOffset, 0, [weakSelf heightOfMessageCell:message]);
-                [streamView setMinimumContentOffsetAnimated:YES];
-            }
-            
-            run_after(0.5, ^{
+            if (!streamView.scrollable || streamView.contentOffset.y < streamView.maximumContentOffset.y) {
                 [operation finish];
-            });
+            } else {
+                if (streamView.height/2 < [weakSelf heightOfMessageCell:message] && [self.chat.unreadMessages count] == 1) {
+                    [weakSelf scrollToLastUnreadMessage];
+                } else {
+                    [streamView reload];
+                    streamView.contentOffset = CGPointOffset(streamView.maximumContentOffset, 0, -[weakSelf heightOfMessageCell:message]);
+                    [streamView setMaximumContentOffsetAnimated:YES];
+                }
+                run_after(0.5, ^{
+                    [operation finish];
+                });
+            }
             
         }
     });
@@ -314,7 +295,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)refreshMessages:(WLBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
-    WLMessage* message = [self.chat.entries firstObject];
+    WLMessage* message = [self.chat.entries lastObject];
     if (!message) {
         [self loadMessages:success failure:failure];
         return;
@@ -338,8 +319,8 @@ CGFloat WLMaxTextViewWidth;
 - (void)appendMessages:(WLBlock)success failure:(WLFailureBlock)failure {
 	if (self.operation) return;
 	__weak typeof(self)weakSelf = self;
-    WLMessage* olderMessage = [self.chat.entries lastObject];
-    WLMessage* newerMessage = [self.chat.entries firstObject];
+    WLMessage* olderMessage = [self.chat.entries firstObject];
+    WLMessage* newerMessage = [self.chat.entries lastObject];
     if (!olderMessage) {
         [self loadMessages:success failure:failure];
         return;
@@ -358,32 +339,54 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)setDidChange:(WLPaginatedSet *)group {
-    [self reloadDataSynchronously:NO];
+    [self reloadData];
 }
 
 - (void)paginatedSetDidComplete:(WLPaginatedSet *)group {
-    [self reloadDataSynchronously:NO];
+    [self reloadData];
+}
+
+- (void)updateTypingView:(WLChat*)chat {
+    if (chat.typingUsers.nonempty) {
+        NSString *typingNames = chat.typingNames;
+        self.typingUserNamesTextField.text = typingNames;
+        self.typingUserAvatarView.hidden = self.typingUserNamesTextField.hidden = NO;
+        WLUser *user = chat.typingUsers.firstObject;
+        if (chat.typingUsers.count == 1 && user.valid) {
+            self.typingUserAvatarView.url = user.picture.small;
+        } else {
+            self.typingUserAvatarView.url = nil;
+            [self.typingUserAvatarView setImage:[UIImage imageNamed:@"friends"]];
+        }
+    } else {
+        self.typingUserNamesTextField.text = nil;
+        self.typingUserAvatarView.url = nil;
+        self.typingUserAvatarView.image = nil;
+        self.typingUserAvatarView.hidden = self.typingUserNamesTextField.hidden = YES;
+    }
+    [self.typingView layoutIfNeeded];
 }
 
 - (void)chat:(WLChat*)chat didBeginTyping:(WLUser *)user {
-    [self reloadDataSynchronously:NO];
+    [self updateTypingView:chat];
+    [self setTypingViewHidden:NO];
 }
     
 - (void)chat:(WLChat*)chat didEndTyping:(WLUser *)user {
-    [self reloadDataSynchronously:NO];
+    [self updateTypingView:chat];
+    [self setTypingViewHidden:chat.typingUsers.count == 0];
 }
 
-- (void)reloadDataSynchronously:(BOOL)synchronously {
+- (void)reloadData {
     __weak typeof(self)weakSelf = self;
-    static BOOL reloading = NO;
-    if (reloading) {
+    if (self.reloading) {
         return;
     }
-    reloading = YES;
+    self.reloading = YES;
     runUnaryQueuedOperation(@"wl_chat_insertion_queue", ^(WLOperation *operation) {
         [weakSelf.streamView reload];
         [operation finish];
-        reloading = NO;
+        weakSelf.reloading = NO;
     });
 }
 
@@ -398,7 +401,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
-    [self reloadDataSynchronously:NO];
+    [self reloadData];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLEntry *)entry {
@@ -424,17 +427,42 @@ CGFloat WLMaxTextViewWidth;
     }
 }
 
+- (void)dragging:(UIPanGestureRecognizer*)sender {
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        if ([sender translationInView:self.streamView].y <= 0) {
+            [self setTypingViewHidden:!self.chat.typingUsers.nonempty];
+        } else if (self.streamView.scrollable) {
+            [self setTypingViewHidden:YES];
+        }
+    }
+}
+
+- (void)setTypingViewHidden:(BOOL)hidden {
+    if (self.typingView.hidden != hidden) {
+        UIEdgeInsets insets = self.streamView.contentInset;
+        if (hidden) {
+            insets.bottom = 0;
+            [self.typingView topPushWithDuration:0.2 delegate:nil];
+        } else {
+            insets.bottom = self.typingView.height;
+            [self.typingView bottomPushWithDuration:0.2 delegate:nil];
+        }
+        self.streamView.contentInset = insets;
+        self.typingView.hidden = hidden;
+    }
+}
+
 #pragma mark - WLComposeBarDelegate
 
 - (void)sendMessageWithText:(NSString*)text {
     if (self.wrap.valid) {
         __weak typeof(self)weakSelf = self;
         [self.wrap uploadMessage:text success:^(WLMessage *message) {
-            [weakSelf.streamView setMinimumContentOffsetAnimated:YES];
+            [weakSelf.streamView setMaximumContentOffsetAnimated:YES];
         } failure:^(NSError *error) {
         }];
         [WLSoundPlayer playSound:WLSound_s04];
-        [self.streamView setMinimumContentOffsetAnimated:YES];
+        [self.streamView setMaximumContentOffsetAnimated:YES];
         [self.chat.readMessages all:^(WLMessage *message) {
             [message markAsRead];
         }];
@@ -450,7 +478,7 @@ CGFloat WLMaxTextViewWidth;
 
 - (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
     if (self.streamView.scrollable) {
-        [self.streamView setMinimumContentOffsetAnimated:self.viewAppeared];
+        [self.streamView setMaximumContentOffsetAnimated:self.viewAppeared];
     }
 }
 
@@ -476,9 +504,6 @@ CGFloat WLMaxTextViewWidth;
 // MARK: - StreamViewDelegate
 
 - (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section {
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground || !self.view.superview) {
-        return 0;
-    }
     [self updateBadge];
     return [self.chat.entries count];
 }
@@ -490,39 +515,34 @@ CGFloat WLMaxTextViewWidth;
 - (NSArray*)streamView:(StreamView*)streamView metricsAt:(StreamPosition*)position {
     NSMutableArray *metrics = [NSMutableArray array];
     WLMessage *message = [self.chat.entries tryAt:position.index];
+    if ([self.chat.unreadMessages firstObject] == message) {
+        [metrics addObject:self.unreadMessagesMetrics];
+    }
+    if ([self.chat.messagesWithDay containsObject:message]) {
+        [metrics addObject:self.dateMetrics];
+    }
     if (message.contributedByCurrentUser) {
         [metrics addObject:self.myMessageMetrics];
     } else {
         [metrics addObject:self.messageMetrics];
     }
-    if ([self.chat.messagesWithDay containsObject:message]) {
-        [metrics addObject:self.dateMetrics];
-    }
-    if ([self.chat.unreadMessages lastObject] == message) {
-        [metrics addObject:self.unreadMessagesMetrics];
-    }
     return metrics;
 }
 
-- (NSArray *)streamViewFooterMetrics:(StreamView *)streamView {
+- (NSArray *)streamViewHeaderMetrics:(StreamView * __nonnull)streamView {
     return @[self.loadingViewMetrics];
 }
 
-- (NSArray*)streamViewHeaderMetrics:(StreamView*)streamView {
-    return @[self.typingViewMetrics];
-}
-
-- (CGFloat)contentHeight {
-    WLChat *chat = self.chat;
-    if (!chat.entries.nonempty) return 0;
-    CGFloat contentHeight = 0;
-    for (WLMessage *message in self.chat.entries) {
-        contentHeight += [self heightOfMessageCell:message];
+- (void)streamViewDidChangeContentSize:(StreamView * __nonnull)streamView oldContentSize:(CGSize)oldContentSize {
+    if (streamView.scrollable) {
+        if (self.dragged) {
+            CGPoint offset = streamView.contentOffset;
+            offset.y += streamView.contentSize.height - oldContentSize.height;
+            streamView.contentOffset = offset;
+        } else {
+            [streamView setMaximumContentOffsetAnimated:NO];
+        }
     }
-    contentHeight += self.chat.messagesWithDay.count * self.dateMetrics.size;
-    contentHeight += self.chat.unreadMessages.count > 0 ? 36 : 0;
-    contentHeight += [self heightOfTypingCell:self.chat];
-    return contentHeight;
 }
 
 - (StreamMetrics *)streamViewPlaceholderMetrics:(StreamView *)streamView {
@@ -548,11 +568,6 @@ CGFloat WLMaxTextViewWidth;
     return commentHeight;
 }
 
-- (CGFloat)heightOfTypingCell:(WLChat *)chat {
-    return MAX(WLTypingViewMinHeight, [chat.typingNames heightWithFont:[UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmall]
-                                                                 width:WLMaxTextViewWidth] + WLTypingViewTopIndent);
-}
-
 - (void)refreshUnreadMessagesAfterDragging {
     if (self.chat.unreadMessages.count == 0) {
         [self updateBadge];
@@ -572,6 +587,7 @@ CGFloat WLMaxTextViewWidth;
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    self.dragged = YES;
     if (!decelerate) {
         [self refreshUnreadMessagesAfterDragging];
     }
@@ -584,7 +600,7 @@ CGFloat WLMaxTextViewWidth;
     self.messageFont = [self.messageFont preferredFontWithPreset:WLFontPresetSmall];
     self.nameFont = [self.nameFont preferredFontWithPreset:WLFontPresetSmaller];
     self.timeFont = [self.timeFont preferredFontWithPreset:WLFontPresetSmaller];
-    [self reloadDataSynchronously:NO];
+    [self reloadData];
 }
 
 @end

@@ -136,7 +136,7 @@
 
 - (NSMutableOrderedSet *)sortedComments {
     NSMutableOrderedSet* comments = [NSMutableOrderedSet orderedSetWithSet:self.comments];
-    [comments sortByCreatedAt];
+    [comments sortByCreatedAt:NO];
     return comments;
 }
 

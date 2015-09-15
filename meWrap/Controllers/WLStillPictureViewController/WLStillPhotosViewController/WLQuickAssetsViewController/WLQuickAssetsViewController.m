@@ -41,8 +41,7 @@
     self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
     GridMetrics *metrics = [[GridMetrics alloc] initWithIdentifier:@"WLAssetCell" ratio:1];
     [metrics setSelection:^(StreamItem *item, id entry) {
-        item.selected = !item.selected;
-        [weakSelf selectAsset:entry];
+        item.selected = [weakSelf selectAsset:entry];
     }];
     [metrics setPrepareAppearing:^(StreamItem *item, PHAsset *asset) {
         item.view.exclusiveTouch = !weakSelf.allowsMultipleSelection;
@@ -60,18 +59,16 @@
     PHFetchOptions *options = [[PHFetchOptions alloc] init];
     options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
     self.assets = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:options];
-    if ([self.delegate respondsToSelector:@selector(quickAssetsViewControllerShouldPreselectFirstAsset:)]) {
-        if ([self.delegate quickAssetsViewControllerShouldPreselectFirstAsset:self]) {
-            [self performSelector:@selector(selectAsset:) withObject:[self.assets firstObject] afterDelay:0.0f];
+    run_after_asap(^{
+        if ([weakSelf.delegate respondsToSelector:@selector(quickAssetsViewControllerShouldPreselectFirstAsset:)]) {
+            if ([weakSelf.delegate quickAssetsViewControllerShouldPreselectFirstAsset:weakSelf]) {
+                [weakSelf selectAsset:[weakSelf.assets firstObject]];
+            }
         }
-    }
+        weakSelf.dataSource.items = weakSelf.assets;
+    });
     
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    self.dataSource.items = self.assets;
 }
 
 - (NSMutableArray *)selectedAssets {
@@ -93,14 +90,13 @@
 
 #pragma mark - PGAssetCellDelegate
 
-- (void)selectAsset:(PHAsset *)asset {
+- (BOOL)selectAsset:(PHAsset *)asset {
     NSString *identifier = asset.localIdentifier;
     if ([self.selectedAssets containsObject:identifier]) {
         [self.selectedAssets removeObject:identifier];
         if ([self.delegate respondsToSelector:@selector(quickAssetsViewController:didDeselectAsset:)]) {
             [self.delegate quickAssetsViewController:self didDeselectAsset:asset];
         }
-        [self.dataSource reload];
     } else {
         BOOL shouldSelect = YES;
         if ([self.delegate respondsToSelector:@selector(quickAssetsViewController:shouldSelectAsset:)]) {
@@ -111,9 +107,10 @@
             if ([self.delegate respondsToSelector:@selector(quickAssetsViewController:didSelectAsset:)]) {
                 [self.delegate quickAssetsViewController:self didSelectAsset:asset];
             }
-            [self.dataSource reload];
+            return YES;
         }
     }
+    return NO;
 }
 
 @end

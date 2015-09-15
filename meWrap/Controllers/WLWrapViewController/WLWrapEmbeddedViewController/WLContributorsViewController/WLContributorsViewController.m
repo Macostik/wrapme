@@ -83,7 +83,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     if ([self.wrap isFirstCreated]) {
         [WLHintView showInviteHintViewInView:[UIWindow mainWindow] withFocusToView:self.addFriendView];
     }
-    if (!self.wrap.contributor.isCurrentUser) {
+    if (!self.wrap.contributedByCurrentUser) {
         self.restrictedInvitePrioritizer.defaultState = !self.wrap.isRestrictedInvite;
     }
 }
@@ -188,7 +188,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 
 - (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLWrap *)wrap {
     self.dataSource.items = [self sortedContributors];
-    if (!self.wrap.contributor.isCurrentUser) {
+    if (!self.wrap.contributedByCurrentUser) {
         [self.restrictedInvitePrioritizer setDefaultState:!wrap.isRestrictedInvite animated:[self viewAppeared]];
     }
 }

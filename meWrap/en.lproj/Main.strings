@@ -230,8 +230,8 @@
 /* Class = "UIButton"; normalTitle = "Resend"; ObjectID = "Yk6-tb-7gb"; */
 "Yk6-tb-7gb.normalTitle" = "Resend";
 
-/* Class = "UILabel"; text = "Wrap"; ObjectID = "ZL1-Bm-SmI"; */
-"ZL1-Bm-SmI.text" = "Wrap";
+/* Class = "UILabel"; text = "Settings"; ObjectID = "ZL1-Bm-SmI"; */
+"ZL1-Bm-SmI.text" = "Settings";
 
 /* Class = "UILabel"; text = "John Williams Brown"; ObjectID = "ZaI-gM-W2F"; */
 "ZaI-gM-W2F.text" = "John Williams Brown";

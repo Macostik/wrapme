@@ -13,18 +13,14 @@
 #import "WLButton.h"
 #import "WLLayoutPrioritizer.h"
 
-static NSInteger WLIndent = 12.0;
-
 @interface WLWrapSettingsViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *wrapNameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *wrapNameTextField;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UIButton *actionButton;
 @property (weak, nonatomic) IBOutlet UISwitch *candyNotifyTrigger;
 @property (weak, nonatomic) IBOutlet UISwitch *chatNotifyTrigger;
 @property (weak, nonatomic) IBOutlet UISwitch *restictedInviteTrigger;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthTextFieldConstraint;
 @property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *friendsInvitePrioritizer;
 
 @property (strong, nonatomic) WLEditSession *editSession;
@@ -37,12 +33,19 @@ static NSInteger WLIndent = 12.0;
     [super viewDidLoad];
     
     [self.actionButton setTitle:self.wrap.deletable ? WLLS(@"delete_wrap") : WLLS(@"leave_wrap")  forState:UIControlStateNormal];
-    self.wrapNameTextField.text = self.wrapNameLabel.text = self.wrap.name;
-    self.editButton.hidden = !self.wrap.deletable;
-    self.wrapNameTextField.enabled = self.wrap.deletable;
-    self.editSession = [[WLEditSession alloc] initWithEntry:self.wrap stringProperties:@"name", nil];
-    self.widthTextFieldConstraint.constant += !self.wrap.deletable ? : self.editButton.width + WLIndent;
     
+    WLWrap *wrap = self.wrap;
+    self.wrapNameTextField.text = wrap.name;
+    self.editSession = [[WLEditSession alloc] initWithEntry:wrap stringProperties:@"name", nil];
+    
+    if (wrap.isPublic && !wrap.contributedByCurrentUser) {
+        BOOL isFollowing = wrap.isContributing;
+        self.editButton.hidden = isFollowing;
+        self.wrapNameTextField.enabled = !isFollowing;
+    }
+    
+    self.friendsInvitePrioritizer.defaultState = wrap.contributedByCurrentUser && !wrap.isPublic;
+
     [self.candyNotifyTrigger setOn:self.wrap.isCandyNotifiable];
     [self.chatNotifyTrigger setOn:self.wrap.isChatNotifiable];
     [self.restictedInviteTrigger setOn:!self.wrap.isRestrictedInvite];
@@ -60,7 +63,6 @@ static NSInteger WLIndent = 12.0;
         weakSelf.chatNotifyTrigger.userInteractionEnabled = YES;
     }];
     [self addNotifyReceivers];
-    self.friendsInvitePrioritizer.defaultState = self.wrap.contributor.isCurrentUser;
 }
 
 - (void)addNotifyReceivers {
@@ -145,12 +147,12 @@ static NSInteger WLIndent = 12.0;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    WLWrap *wrap = self.wrap;
     NSString *name = [textField.text trim];
     if (name.nonempty) {
         if (self.editSession.hasChanges) {
-            self.wrap.name = name;
-            self.wrapNameLabel.text = name;
-            [self.wrap update:^(id object) {
+            wrap.name = name;
+            [wrap update:^(id object) {
             } failure:^(NSError *error) {
             }];
         }

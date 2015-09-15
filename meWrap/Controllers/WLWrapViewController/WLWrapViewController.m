@@ -94,7 +94,7 @@
         self.creatorName.text = wrap.contributor.name;
         BOOL requiresFollowing = wrap.requiresFollowing;
         self.segmentedControl.hidden = YES;
-        self.settingsButton.hidden = requiresFollowing || !contributedByCurrentUser;
+        self.settingsButton.hidden = requiresFollowing;
         self.publicWrapView.hidden = NO;
         self.followButton.hidden = !requiresFollowing || contributedByCurrentUser;
         self.unfollowButton.hidden = requiresFollowing || contributedByCurrentUser;

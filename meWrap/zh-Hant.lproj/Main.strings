@@ -196,8 +196,6 @@
 "Xmt-yf-g7R.placeholder" = "名稱";
 /* Class = "UIButton"; normalTitle = "Resend"; ObjectID = "Yk6-tb-7gb"; */
 "Yk6-tb-7gb.normalTitle" = "重發";
-/* Class = "UILabel"; text = "Wrap"; ObjectID = "ZL1-Bm-SmI"; */
-"ZL1-Bm-SmI.text" = "圍拍";
 /* Class = "UILabel"; text = "John Williams Brown"; ObjectID = "ZaI-gM-W2F"; */
 "ZaI-gM-W2F.text" = "John Williams Brown";
 /* Class = "UIButton"; normalTitle = "j"; ObjectID = "Zzu-qX-c4N"; */
@@ -316,3 +314,5 @@
 "alx-1S-ZGS.text" = "Friends";
 /* Class = "UILabel"; text = "Allow friends to add people to the wrap."; ObjectID = "hr9-nr-ikq"; */
 "hr9-nr-ikq.text" = "Allow friends to add people to the wrap.";
+/* Class = "UILabel"; text = "Settings"; ObjectID = "ZL1-Bm-SmI"; */
+"ZL1-Bm-SmI.text" = "Settings";

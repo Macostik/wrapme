@@ -92,8 +92,7 @@
     }
     [self addCommentsObject:comment];
     [self touch];
-    [comment notifyOnAddition:^(id object) {
-    }];
+    [comment notifyOnAddition];
 }
 
 - (void)removeComment:(WLComment *)comment {

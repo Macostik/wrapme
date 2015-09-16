@@ -125,7 +125,7 @@
         switch (status) {
             case WLContributionStatusReady: break;
             case WLContributionStatusFinished: {
-                [weakSelf notifyOnUpdate:nil];
+                [weakSelf notifyOnUpdate];
                 [WLUploadingQueue upload:[WLUploading uploading:weakSelf type:WLEventUpdate] success:nil failure:nil];
             } break;
             default:

@@ -34,7 +34,7 @@
         if (wrap.valid) {
             NSSet* messages = [WLMessage API_entries:response.data[@"chats"] container:wrap];
             if (messages.nonempty) {
-                [wrap notifyOnUpdate:nil];
+                [wrap notifyOnUpdate];
             }
             success(messages);
         } else {

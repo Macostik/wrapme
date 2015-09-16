@@ -86,7 +86,10 @@
     }
     
     [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        receiver.didAddBlock = receiver.didDeleteBlock = receiver.didUpdateBlock = ^ (WLWrap *wrap) {
+        receiver.willDeleteBlock = ^ (WLWrap *wrap) {
+            dataSource.items = [(NSMutableOrderedSet*)dataSource.items remove:wrap];
+        };
+        receiver.didAddBlock = receiver.didUpdateBlock = ^ (WLWrap *wrap) {
             dataSource.items = [[WLUser currentUser] sortedWraps];
         };
     }];
@@ -211,7 +214,7 @@
     [self.wrapNameTextField resignFirstResponder];
     WLWrap *wrap = [WLWrap wrap];
     wrap.name = name;
-    [wrap notifyOnAddition:nil];
+    [wrap notifyOnAddition];
     [self.delegate wrapPickerViewController:self didSelectWrap:wrap];
     [self.delegate wrapPickerViewControllerDidFinish:self];
     [WLUploadingQueue upload:[WLUploading uploading:wrap] success:^(id object) {

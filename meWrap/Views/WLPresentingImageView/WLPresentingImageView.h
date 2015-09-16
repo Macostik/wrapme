@@ -12,8 +12,6 @@
 
 @protocol WLPresentingImageViewDelegate <NSObject>
 
-- (UIView*)presentingImageView:(WLPresentingImageView *)presentingImageView presentingViewForCandy:(WLCandy *)candy;
-
 - (UIView*)presentingImageView:(WLPresentingImageView *)presentingImageView dismissingViewForCandy:(WLCandy *)candy;
 
 @end
@@ -24,7 +22,7 @@
 
 + (instancetype)sharedPresenting;
 
-- (void)presentCandy:(WLCandy *)candy success:(void (^) (WLPresentingImageView *presetingImageView))success failure:(WLFailureBlock)failure;
+- (void)presentCandy:(WLCandy *)candy fromView:(UIView*)view success:(void (^) (WLPresentingImageView *presetingImageView))success failure:(WLFailureBlock)failure;
 
 - (void)dismissCandy:(WLCandy *)candy;
 

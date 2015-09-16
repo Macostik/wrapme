@@ -46,16 +46,8 @@
     return currentEntry ? (currentEntry == entry) : YES;
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier willAddEntry:(WLEntry *)entry {
-    if (_willAddBlock) _willAddBlock(entry);
-}
-
 - (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLEntry *)entry {
     if (_didAddBlock) _didAddBlock(entry);
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier willUpdateEntry:(WLEntry *)entry {
-    if (_willUpdateBlock) _willUpdateBlock(entry);
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
@@ -66,16 +58,8 @@
     if (_willDeleteBlock) _willDeleteBlock(entry);
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLEntry *)entry {
-    if (_didDeleteBlock) _didDeleteBlock(entry);
-}
-
 - (void)notifier:(WLEntryNotifier *)notifier willDeleteContainer:(WLEntry *)entry {
     if (_willDeleteContainingBlock) _willDeleteContainingBlock(entry);
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier didDeleteContainer:(WLEntry *)entry {
-    if (_didDeleteContainingBlock) _didDeleteContainingBlock(entry);
 }
 
 - (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {

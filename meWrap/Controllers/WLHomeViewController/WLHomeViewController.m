@@ -166,7 +166,7 @@
                 WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
                 presentingImageView.delegate = weakSelf;
                 historyViewController.presentingImageView = presentingImageView;
-                [presentingImageView presentCandy:candy success:^(WLPresentingImageView *presetingImageView) {
+                [presentingImageView presentCandy:candy fromView:candyItem.view success:^(WLPresentingImageView *presetingImageView) {
                     [weakSelf.navigationController pushViewController:historyViewController animated:NO];
                 } failure:^(NSError *error) {
                     [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
@@ -457,20 +457,10 @@
 
 // MARK: - WLPresentingImageViewDelegate
 
-- (UIView *)presentingImageView:(WLPresentingImageView *)presentingImageView presentingViewForCandy:(WLCandy *)candy {
-    presentingImageView.hidden = NO;
-    return [self presentedCandyCell:candy];
-}
-
 - (UIView *)presentingImageView:(WLPresentingImageView *)presentingImageView dismissingViewForCandy:(WLCandy *)candy {
     if (self.streamView.contentOffset.y > self.navigationBar.height) {
         [self.streamView setContentOffset:CGPointMake(0, 70) animated:NO];
     }
-    WLCandyCell *candyCell = [self presentedCandyCell:candy];
-    return candyCell;
-}
-
-- (WLCandyCell *)presentedCandyCell:(WLCandy *)candy {
     [self.streamView layoutIfNeeded];
     WLRecentCandiesView *candiesView = self.candiesView;
     NSUInteger index = [(id)candiesView.dataSource.items indexOfObject:candy];

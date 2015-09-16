@@ -126,7 +126,10 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
             NSMutableOrderedSet *comments = (NSMutableOrderedSet*)weakSelf.dataSource.items;
             return comment.candy == weakSelf.candy || [comments containsObject:comment];
         }];
-        receiver.didDeleteBlock = receiver.didUpdateBlock = receiver.didAddBlock = ^(WLComment *comment) {
+        receiver.willDeleteBlock = ^(WLComment *comment) {
+            weakSelf.dataSource.items = [(NSMutableOrderedSet*)weakSelf.dataSource.items remove:comment];
+        };
+        receiver.didUpdateBlock = receiver.didAddBlock = ^(WLComment *comment) {
             weakSelf.dataSource.items = [weakSelf sortedComments];
         };
     }];

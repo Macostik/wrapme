@@ -22,7 +22,7 @@
     return [WLPresentingImageView loadFromNib];
 }
 
-- (void)presentCandy:(WLCandy *)candy success:(void (^)(WLPresentingImageView *))success failure:(WLFailureBlock)failure {
+- (void)presentCandy:(WLCandy *)candy fromView:(UIView *)view success:(void (^)(WLPresentingImageView *))success failure:(WLFailureBlock)failure {
     [self presentingAsMainWindowSubview];
     UIImage *image = [WLSystemImageCache imageWithIdentifier:candy.picture.large];
     if (!image) {
@@ -35,10 +35,9 @@
     }
     self.imageView.image = image;
     
-    UIView *presentingView = [self.delegate presentingImageView:self presentingViewForCandy:candy];
     [StreamView lock];
-    self.imageView.frame = [self.superview convertRect:presentingView.bounds fromCoordinateSpace:presentingView];
-    presentingView.hidden = YES;
+    self.imageView.frame = [self.superview convertRect:view.bounds fromCoordinateSpace:view];
+    view.hidden = YES;
     __weak typeof(self)weakSelf = self;
     [UIView animateWithDuration:0.25
                           delay:.0
@@ -48,7 +47,7 @@
                          weakSelf.backgroundColor = [weakSelf.backgroundColor colorWithAlphaComponent:1];
                      } completion:^(BOOL finished) {
                          if (success) success(weakSelf);
-                         presentingView.hidden = NO;
+                         view.hidden = NO;
                          [weakSelf removeFromSuperview];
                          [StreamView unlock];
                      }];

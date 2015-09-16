@@ -115,12 +115,10 @@
 
 - (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
 	__weak WLMessage* message = [WLMessage contribution];
-    __weak typeof(self)weakSelf = self;
-    [message notifyOnAddition:^(id object) {
-        message.contributor = [WLUser currentUser];
-        message.wrap = weakSelf;
-        message.text = text;
-    }];
+    message.contributor = [WLUser currentUser];
+    message.wrap = self;
+    message.text = text;
+    [message notifyOnAddition];
     [WLUploadingQueue upload:[WLUploading uploading:message] success:success failure:failure];
 }
 
@@ -130,11 +128,9 @@
     if (picture.comment.nonempty) {
         [candy addCommentsObject:[WLComment comment:picture.comment]];
     }
-    __weak typeof(self)weakSelf = self;
-    [candy notifyOnAddition:^(id object) {
-        [weakSelf addCandiesObject:candy];
-        [weakSelf touch];
-    }];
+    [self addCandiesObject:candy];
+    [self touch];
+    [candy notifyOnAddition];
     [WLUploadingQueue upload:[WLUploading uploading:candy] success:success failure:failure];
 }
 

@@ -22,21 +22,14 @@ typedef void (^WLEntryNotifyReceiverSetupBlock) (WLEntryNotifyReceiver *receiver
 
 - (BOOL)notifier:(WLEntryNotifier*)notifier shouldNotifyOnContainer:(WLEntry*)entry;
 
-- (void)notifier:(WLEntryNotifier*)notifier willAddEntry:(WLEntry*)entry;
-
 - (void)notifier:(WLEntryNotifier*)notifier didAddEntry:(WLEntry*)entry;
 
-- (void)notifier:(WLEntryNotifier*)notifier willUpdateEntry:(WLEntry*)entry;
 
 - (void)notifier:(WLEntryNotifier*)notifier didUpdateEntry:(WLEntry*)entry;
 
 - (void)notifier:(WLEntryNotifier*)notifier willDeleteEntry:(WLEntry*)entry;
 
-- (void)notifier:(WLEntryNotifier*)notifier didDeleteEntry:(WLEntry*)entry;
-
 - (void)notifier:(WLEntryNotifier*)notifier willDeleteContainer:(WLEntry*)entry;
-
-- (void)notifier:(WLEntryNotifier*)notifier didDeleteContainer:(WLEntry*)entry;
 
 @end
 
@@ -46,11 +39,11 @@ typedef void (^WLEntryNotifyReceiverSetupBlock) (WLEntryNotifyReceiver *receiver
 
 + (instancetype)notifier:(Class)entryClass;
 
-- (void)notifyOnAddition:(WLEntry*)entry block:(WLObjectBlock)block;
+- (void)notifyOnAddition:(WLEntry*)entry;
 
-- (void)notifyOnUpdate:(WLEntry*)entry block:(WLObjectBlock)block;
+- (void)notifyOnUpdate:(WLEntry*)entry;
 
-- (void)notifyOnDeleting:(WLEntry*)entry block:(WLObjectBlock)block;
+- (void)notifyOnDeleting:(WLEntry*)entry;
 
 @end
 
@@ -62,11 +55,11 @@ typedef void (^WLEntryNotifyReceiverSetupBlock) (WLEntryNotifyReceiver *receiver
 
 + (WLEntryNotifyReceiver*)notifyReceiverOwnedBy:(id)owner setupBlock:(WLEntryNotifyReceiverSetupBlock)setupBlock;
 
-- (instancetype)notifyOnAddition:(WLObjectBlock)block;
+- (instancetype)notifyOnAddition;
 
-- (instancetype)notifyOnUpdate:(WLObjectBlock)block;
+- (instancetype)notifyOnUpdate;
 
-- (instancetype)notifyOnDeleting:(WLObjectBlock)block;
+- (instancetype)notifyOnDeleting;
 
 - (instancetype)update:(NSDictionary*)dictionary;
 

@@ -21,21 +21,13 @@
 
 @property (strong, nonatomic) BOOL (^shouldNotifyBlock) (id entry);
 
-@property (strong, nonatomic) WLObjectBlock willAddBlock;
-
 @property (strong, nonatomic) WLObjectBlock didAddBlock;
-
-@property (strong, nonatomic) WLObjectBlock willUpdateBlock;
 
 @property (strong, nonatomic) WLObjectBlock didUpdateBlock;
 
 @property (strong, nonatomic) WLObjectBlock willDeleteBlock;
 
-@property (strong, nonatomic) WLObjectBlock didDeleteBlock;
-
 @property (strong, nonatomic) WLObjectBlock willDeleteContainingBlock;
-
-@property (strong, nonatomic) WLObjectBlock didDeleteContainingBlock;
 
 + (instancetype)receiverWithEntry:(WLEntry *)entry;
 

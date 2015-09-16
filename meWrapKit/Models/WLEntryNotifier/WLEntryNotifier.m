@@ -67,33 +67,21 @@ static NSMapTable* notifiers = nil;
     return self;
 }
 
-- (void)notifyOnAddition:(WLEntry *)entry block:(WLObjectBlock)block {
-    [self broadcast:@selector(notifier:willAddEntry:) object:entry select:self.selectEntryBlock];
-    if (block) block(entry);
+- (void)notifyOnAddition:(WLEntry *)entry {
     [self broadcast:@selector(notifier:didAddEntry:) object:entry select:self.selectEntryBlock];
 }
 
-- (void)notifyOnUpdate:(WLEntry *)entry block:(WLObjectBlock)block {
-    [self broadcast:@selector(notifier:willUpdateEntry:) object:entry select:self.selectEntryBlock];
-    if (block) block(entry);
+- (void)notifyOnUpdate:(WLEntry *)entry {
     [self broadcast:@selector(notifier:didUpdateEntry:) object:entry select:self.selectEntryBlock];
 }
 
-- (void)notifyOnDeleting:(WLEntry *)entry block:(WLObjectBlock)block {
+- (void)notifyOnDeleting:(WLEntry *)entry {
     
-    NSSet *contentClasses = [self.entryClass contentClasses];
-    
-    for (Class contentClass in contentClasses) {
+    for (Class contentClass in [self.entryClass contentClasses]) {
         [[contentClass notifier] broadcast:@selector(notifier:willDeleteContainer:) object:entry select:self.selectContainerBlock];
     }
     
     [self broadcast:@selector(notifier:willDeleteEntry:) object:entry select:self.selectEntryBlock];
-    if (block) block(entry);
-    [self broadcast:@selector(notifier:didDeleteEntry:) object:entry select:self.selectEntryBlock];
-    
-    for (Class contentClass in contentClasses) {
-        [[contentClass notifier] broadcast:@selector(notifier:didDeleteContainer:) object:entry select:self.selectContainerBlock];
-    }
 }
 
 @end
@@ -120,29 +108,29 @@ static NSMapTable* notifiers = nil;
 }
 
 - (instancetype)update:(NSDictionary *)dictionary {
-	__weak typeof(self)weakSelf = self;
-    [self notifyOnUpdate:^(id object) {
-        [weakSelf API_setup:dictionary];
-    }];
+	[self API_setup:dictionary];
+    if (self.updated) {
+        [self notifyOnUpdate];
+    }
 	return self;
 }
 
-- (instancetype)notifyOnAddition:(WLObjectBlock)block {
-	[[WLEntryNotifier notifier:[self class]] notifyOnAddition:self block:block];
+- (instancetype)notifyOnAddition {
+	[[WLEntryNotifier notifier:[self class]] notifyOnAddition:self];
 	[self touchContainer];
     return self;
 }
 
-- (instancetype)notifyOnUpdate:(WLObjectBlock)block {
-	[[WLEntryNotifier notifier:[self class]] notifyOnUpdate:self block:block];
+- (instancetype)notifyOnUpdate {
+	[[WLEntryNotifier notifier:[self class]] notifyOnUpdate:self];
 	[self touchContainer];
     return self;
 }
 
-- (instancetype)notifyOnDeleting:(WLObjectBlock)block {
+- (instancetype)notifyOnDeleting {
     WLEntry *container = self.container;
-    [[WLEntryNotifier notifier:[self class]] notifyOnDeleting:self block:block];
-	[container notifyOnUpdate:nil];
+    [[WLEntryNotifier notifier:[self class]] notifyOnDeleting:self];
+	[container notifyOnUpdate];
     return self;
 }
 
@@ -150,7 +138,7 @@ static NSMapTable* notifiers = nil;
 	WLEntry* entry = self.container;
 	if (entry) {
 		if ([entry.updatedAt earlier:self.updatedAt]) entry.updatedAt = self.updatedAt;
-		[entry notifyOnUpdate:nil];
+		[entry notifyOnUpdate];
 	}
 }
 

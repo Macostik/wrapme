@@ -66,9 +66,8 @@
 + (instancetype)leaveWrap:(WLWrap *)wrap {
     return [[[self DELETE:@"wraps/%@/leave", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.isPublic) {
-            [wrap notifyOnUpdate:^(id object) {
-                [wrap removeContributorsObject:[WLUser currentUser]];
-            }];
+            [wrap removeContributorsObject:[WLUser currentUser]];
+            [wrap notifyOnUpdate];
         } else {
             [wrap remove];
         }
@@ -82,10 +81,9 @@
 
 + (instancetype)followWrap:(WLWrap *)wrap {
     return [[[self POST:@"wraps/%@/follow", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        [wrap notifyOnUpdate:^(id object) {
-            [wrap touch];
-            [wrap addContributorsObject:[WLUser currentUser]];
-        }];
+        [wrap touch];
+        [wrap addContributorsObject:[WLUser currentUser]];
+        [wrap notifyOnUpdate];
         success(nil);
     }] beforeFailure:^(NSError *error) {
         if (wrap.uploaded && error.isContentUnavaliable) {
@@ -96,9 +94,8 @@
 
 + (instancetype)unfollowWrap:(WLWrap *)wrap {
     return [[[self DELETE:@"wraps/%@/unfollow", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        [wrap notifyOnUpdate:^(id object) {
-            [[WLUser currentUser] removeWrap:wrap];
-        }];
+        [[WLUser currentUser] removeWrap:wrap];
+        [wrap notifyOnUpdate];
         success(nil);
     }] beforeFailure:^(NSError *error) {
         if (wrap.uploaded && error.isContentUnavaliable) {
@@ -141,10 +138,8 @@
 
 + (instancetype)user:(WLUser*)user {
     return [[self GET:@"users/%@", user.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        NSDictionary* userData = response.data[@"user"];
-        [user notifyOnUpdate:^(id object) {
-            [user API_setup:userData];
-        }];
+        [user API_setup:response.data[@"user"]];
+        [user notifyOnUpdate];
         success(user);
     }];
 }
@@ -152,11 +147,10 @@
 + (instancetype)preferences:(WLWrap*)wrap {
     return [[[self GET:@"wraps/%@/preferences", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            [wrap notifyOnUpdate:^(id object) {
-                NSDictionary *preference = [response.data dictionaryForKey:WLPreferenceKey];
-                wrap.isCandyNotifiable = [preference boolForKey:WLCandyNotifiableKey];
-                wrap.isChatNotifiable = [preference boolForKey:WLChatNotifiableKey];
-            }];
+            NSDictionary *preference = [response.data dictionaryForKey:WLPreferenceKey];
+            wrap.isCandyNotifiable = [preference boolForKey:WLCandyNotifiableKey];
+            wrap.isChatNotifiable = [preference boolForKey:WLChatNotifiableKey];
+            [wrap notifyOnUpdate];
             success(wrap);
         } else {
             success(nil);
@@ -212,9 +206,8 @@
         [parameters trySetObject:message.uploadIdentifier forKey:WLUploadUIDKey];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (message.wrap.valid) {
-            [message notifyOnUpdate:^(id object) {
-                [message API_setup:[response.data dictionaryForKey:WLMessageKey]];
-            }];
+            [message API_setup:[response.data dictionaryForKey:WLMessageKey]];
+            [message notifyOnUpdate];
             success(message);
         } else {
             success(nil);
@@ -256,9 +249,8 @@
         if (wrap.valid) {
             NSSet *contributors = [WLUser API_entries:[response.data arrayForKey:WLContributorsKey]];
             if (![wrap.contributors isEqualToSet:contributors]) {
-                [wrap notifyOnUpdate:^(id object) {
-                    wrap.contributors = contributors;
-                }];
+                wrap.contributors = contributors;
+                [wrap notifyOnUpdate];
             }
             success(wrap);
         } else {
@@ -278,9 +270,8 @@
         if (wrap.valid) {
             NSSet *contributors = [WLUser API_entries:[response.data arrayForKey:WLContributorsKey]];
             if (![wrap.contributors isEqualToSet:contributors]) {
-                [wrap notifyOnUpdate:^(id object) {
-                    wrap.contributors = contributors;
-                }];
+                wrap.contributors = contributors;
+                [wrap notifyOnUpdate];
             }
             success(wrap);
         } else {
@@ -301,7 +292,7 @@
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
             [wrap API_setup:response.data[WLWrapKey]];
-            [wrap notifyOnAddition:nil];
+            [wrap notifyOnAddition];
             success(wrap);
         } else {
             success(nil);
@@ -319,10 +310,9 @@
         NSDictionary* userData = response.data[@"user"];
         WLAuthorization* authorization = [WLAuthorization currentAuthorization];
         [authorization updateWithUserData:userData];
-        [user notifyOnUpdate:^(id object) {
-            [user API_setup:userData];
-            [user setCurrent];
-        }];
+        [user API_setup:userData];
+        [user setCurrent];
+        [user notifyOnUpdate];
         success(user);
     }];
 }
@@ -391,9 +381,8 @@
         [parameters trySetObject:@(wrap.isRestrictedInvite) forKey:@"is_restricted_invite"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            [wrap notifyOnUpdate:^(id object) {
-                [wrap API_setup:response.data[WLWrapKey]];
-            }];
+            [wrap API_setup:response.data[WLWrapKey]];
+            [wrap notifyOnUpdate];
             success(wrap);
         } else {
             success(nil);

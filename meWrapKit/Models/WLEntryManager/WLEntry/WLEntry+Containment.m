@@ -76,7 +76,7 @@
 
 @implementation WLWrap (Containment)
 
-+ (NSSet *)containedEntryClasses {
++ (NSSet *)contentClasses {
     return [NSSet setWithObjects:[WLCandy class], [WLMessage class], nil];
 }
 
@@ -96,7 +96,7 @@
     return [WLWrap class];
 }
 
-+ (NSSet *)containedEntryClasses {
++ (NSSet *)contentClasses {
     return [NSSet setWithObjects:[WLComment class], nil];
 }
 

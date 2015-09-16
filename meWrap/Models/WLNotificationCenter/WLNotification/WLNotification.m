@@ -362,11 +362,11 @@
 }
 
 - (void)finalizeAddNotification:(WLNotification *)notification {
-    [self notifyOnAddition:nil];
+    [self notifyOnAddition];
 }
 
 - (void)finalizeUpdateNotification:(WLNotification *)notification {
-    [self notifyOnUpdate:nil];
+    [self notifyOnUpdate];
 }
 
 - (void)finalizeDeleteNotification:(WLNotification *)notification {
@@ -432,10 +432,8 @@
     if (!user || [user isCurrentUser]) {
         [super finalizeDeleteNotification:notification];
     } else {
-        __weak typeof(self)weakSelf = self;
-        [self notifyOnUpdate:^(id object) {
-            [weakSelf removeContributorsObject:user];
-        }];
+        [self removeContributorsObject:user];
+        [self notifyOnUpdate];
     }
 }
 

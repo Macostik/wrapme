@@ -116,3 +116,5 @@
 "followed_wrap_suggestion" = "Вы подписаны";
 "no_recent_updates" = "No recent updates";
 "following" = "Отписаться";
+"unfollow_confirmation_title" = "Отписаться от wrap?";
+"unfollow_confirmation_message" = "Вы уверены, что хотите отписаться от wrap?";

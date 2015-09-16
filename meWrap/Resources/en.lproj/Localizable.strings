@@ -115,3 +115,5 @@
 "followed_wrap_suggestion" = "YOU ARE NOW FOLLOWING";
 "no_recent_updates" = "No recent updates";
 "following" = "Following";
+"unfollow_confirmation_title" = "Unfollow wrap?";
+"unfollow_confirmation_message" = "Are you sure you want to unfollow the wrap?";

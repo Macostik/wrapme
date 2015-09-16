@@ -45,9 +45,15 @@
         message = [NSString stringWithFormat:WLLS(@"formatted_delete_wrap_confirmation"), wrap.name];
         buttons = @[WLLS(@"cancel"),WLLS(@"delete")];
     } else {
-        title = WLLS(@"leave_wrap");
-        message = WLLS(@"leave_wrap_confirmation");
-        buttons = @[WLLS(@"uppercase_no"),WLLS(@"uppercase_yes")];
+        if (wrap.isPublic) {
+            title = WLLS(@"unfollow_confirmation_title");
+            message = WLLS(@"unfollow_confirmation_message");
+            buttons = @[WLLS(@"uppercase_no"),WLLS(@"uppercase_yes")];
+        } else {
+            title = WLLS(@"leave_wrap");
+            message = WLLS(@"leave_wrap_confirmation");
+            buttons = @[WLLS(@"uppercase_no"),WLLS(@"uppercase_yes")];
+        }
     }
     [WLAlertView showWithTitle:title
                        message:message

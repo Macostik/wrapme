@@ -27,7 +27,7 @@
 @synthesize recentCandies = _recentCandies;
 
 - (void)dealloc {
-    [self addObserver:self forKeyPath:@"candies" options:NSKeyValueObservingOptionNew context:nil];
+    [self removeObserver:self forKeyPath:@"candies" context:nil];
 }
 
 - (void)awakeFromFetch {

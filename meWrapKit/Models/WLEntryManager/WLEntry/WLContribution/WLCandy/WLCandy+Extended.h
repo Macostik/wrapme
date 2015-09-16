@@ -22,8 +22,6 @@ static NSInteger WLCandyTypeImage = 10;
 
 - (NSMutableOrderedSet *)sortedComments;
 
-- (WLComment*)latestComment;
-
 - (void)setEditedPictureIfNeeded:(WLPicture *)editedPicture;
 
 - (void)editWithImage:(UIImage*)image;

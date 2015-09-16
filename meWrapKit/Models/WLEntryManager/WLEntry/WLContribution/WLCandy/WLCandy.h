@@ -19,6 +19,9 @@
 @property (nonatomic) int16_t type;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) WLWrap *wrap;
+
+@property (strong, nonatomic) WLComment *latestComment;
+
 @end
 
 @interface WLCandy (CoreDataGeneratedAccessors)

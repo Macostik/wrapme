@@ -139,10 +139,5 @@
     return comments;
 }
 
-- (WLComment *)latestComment {
-    WLComment *comment = [[self sortedComments] firstObject];
-    return comment.valid ? comment : nil;
-}
-
 @end
 

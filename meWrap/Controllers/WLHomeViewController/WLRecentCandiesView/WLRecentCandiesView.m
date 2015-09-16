@@ -35,7 +35,7 @@
 
 - (void)setup:(WLWrap*)wrap {
     [self layoutIfNeeded];
-    self.dataSource.items = [[NSMutableOrderedSet orderedSetWithSet:wrap.candies] sortByUpdatedAt];
+    self.dataSource.items = wrap.recentCandies;
 }
 
 @end

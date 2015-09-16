@@ -10,7 +10,7 @@
 #import "WLCandy.h"
 #import "WLMessage.h"
 #import "WLUser.h"
-
+#import "WLCollections.h"
 
 @implementation WLWrap
 
@@ -22,5 +22,43 @@
 @dynamic contributors;
 @dynamic messages;
 @dynamic isPublic;
+
+@synthesize cover = _cover;
+@synthesize recentCandies = _recentCandies;
+
+- (void)dealloc {
+    [self addObserver:self forKeyPath:@"candies" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)awakeFromFetch {
+    [super awakeFromFetch];
+    [self addObserver:self forKeyPath:@"candies" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)awakeFromInsert {
+    [super awakeFromInsert];
+    [self addObserver:self forKeyPath:@"candies" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"candies"]) {
+        self.cover = nil;
+        self.recentCandies = nil;
+    }
+}
+
+- (WLCandy *)cover {
+    if (!_cover && self.candies.count > 0) {
+        _cover = [[[self.candies array] sortByUpdatedAt] firstObject];
+    }
+    return _cover;
+}
+
+- (NSMutableOrderedSet *)recentCandies {
+    if (!_recentCandies) {
+        _recentCandies = (id)[[self.candies orderedSet] sortByUpdatedAt];
+    }
+    return _recentCandies;
+}
 
 @end

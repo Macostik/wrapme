@@ -23,4 +23,8 @@
 
 @property (strong, nonatomic) IBOutlet id <WLWrapCellDelegate> delegate;
 
+- (void)updateCandyNotifyCounter;
+
+- (void)updateChatNotifyCounter;
+
 @end

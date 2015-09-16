@@ -72,14 +72,18 @@
 }
 
 - (void)paginatedSetDidComplete:(WLPaginatedSet *)group {
+    [StreamView lock];
+    self.streamView.userInteractionEnabled = NO;
     StreamLayout *layout = self.streamView.layout;
     CGPoint offset = layout.horizontal ?
-    CGPointMake(self.streamView.contentOffset.x - self.loaderMetrics.size, 0) :
-    CGPointMake(0, self.streamView.contentOffset.y - self.loaderMetrics.size);
+    CGPointMake(self.streamView.maximumContentOffset.x - self.loadingView.width, 0) :
+    CGPointMake(0, self.streamView.maximumContentOffset.y - self.loadingView.height);
     [self.streamView trySetContentOffset:offset animated:YES];
-    self.loadingView.animating = NO;
+    __weak typeof(self)weakSelf = self;
     run_after(0.5, ^{
-        [self reload];
+        weakSelf.streamView.userInteractionEnabled = YES;
+        [StreamView unlock];
+        [weakSelf reload];
     });
 }
 

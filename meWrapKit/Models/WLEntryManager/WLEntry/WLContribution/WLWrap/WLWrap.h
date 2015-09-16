@@ -23,6 +23,10 @@
 @property (nonatomic, retain) NSSet *messages;
 @property (nonatomic) BOOL isPublic;
 
+@property (nonatomic, retain) WLCandy *cover;
+
+@property (nonatomic, retain) NSMutableOrderedSet *recentCandies;
+
 @end
 
 @interface WLWrap (CoreDataGeneratedAccessors)

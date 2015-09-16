@@ -352,31 +352,31 @@
     [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
         [receiver setDidAddBlock:^(WLWrap *wrap) {
             if (wrap.isPublic) {
-                [(WLPaginatedSet *)[weakSelf.publicDataSource items] addEntry:wrap];
+                [[weakSelf.publicDataSource items] addEntry:wrap];
             }
             if (wrap.isContributing) {
-                [(WLPaginatedSet *)[weakSelf.homeDataSource items] addEntry:wrap];
+                [[weakSelf.homeDataSource items] addEntry:wrap];
             }
             weakSelf.streamView.contentOffset = CGPointZero;
         }];
         [receiver setDidUpdateBlock:^(WLWrap *wrap) {
             if (wrap.isPublic) {
-                WLPaginatedSet *publicWraps = (WLPaginatedSet *)[weakSelf.publicDataSource items];
+                WLPaginatedSet *publicWraps = [weakSelf.publicDataSource items];
                 if ([publicWraps.entries containsObject:wrap]) {
-                    [publicWraps sort];
+                    [publicWraps sort:wrap];
                 } else {
                     [publicWraps addEntry:wrap];
                 }
             }
             if (wrap.isContributing) {
-                WLPaginatedSet *wraps = (WLPaginatedSet *)[weakSelf.homeDataSource items];
+                WLPaginatedSet *wraps = [weakSelf.homeDataSource items];
                 if ([wraps.entries containsObject:wrap]) {
-                    [wraps sort];
+                    [wraps sort:wrap];
                 } else {
                     [wraps addEntry:wrap];
                 }
             } else {
-                WLPaginatedSet *wraps = (WLPaginatedSet *)[weakSelf.homeDataSource items];
+                WLPaginatedSet *wraps = [weakSelf.homeDataSource items];
                 if ([wraps.entries containsObject:wrap]) {
                     [wraps removeEntry:wrap];
                 }
@@ -478,14 +478,22 @@
 // MARK: - WLWhatsUpSetBroadcastReceiver
 
 - (void)whatsUpBroadcaster:(WLBroadcaster *)broadcaster updated:(WLWhatsUpSet *)set {
+    for (StreamItem *item in self.streamView.visibleItems) {
+        if ([item.view isKindOfClass:[WLWrapCell class]]) {
+            [(WLWrapCell*)item.view updateCandyNotifyCounter];
+        }
+    }
     self.notificationsLabel.intValue = set.unreadEntriesCount;
-    [self.dataSource reload];
 }
 
 // MARK: - WLMessagesCounterReceiver
 
 - (void)counterDidChange:(WLMessagesCounter *)counter {
-    [self.dataSource reload];
+    for (StreamItem *item in self.streamView.visibleItems) {
+        if ([item.view isKindOfClass:[WLWrapCell class]]) {
+            [(WLWrapCell*)item.view updateChatNotifyCounter];
+        }
+    }
 }
 
 @end

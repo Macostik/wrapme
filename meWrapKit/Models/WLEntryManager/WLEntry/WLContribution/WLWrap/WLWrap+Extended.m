@@ -110,7 +110,7 @@
 }
 
 - (WLPicture *)picture {
-    return [[[[self.candies allObjects] sortByUpdatedAt] firstObject] picture];
+    return [self.cover picture];
 }
 
 - (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {

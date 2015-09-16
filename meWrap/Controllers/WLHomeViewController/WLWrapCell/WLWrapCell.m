@@ -69,7 +69,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 - (void)setup:(WLWrap*)wrap {
 	self.nameLabel.text = wrap.name;
     self.dateLabel.text = WLString(wrap.updatedAt.timeAgoStringAtAMPM);
-    self.coverView.url = [wrap.picture anyUrl];
+    self.coverView.url = wrap.picture.small;
     self.wrapNotificationLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:wrap];
     if (wrap.isPublic) {
         self.chatNotificationLabel.intValue = 0;
@@ -88,6 +88,17 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         self.coverView.isFollowed = NO;
         self.datePrioritizer.defaultState = NO;
         self.creatorName.text = nil;
+    }
+}
+
+- (void)updateCandyNotifyCounter {
+    self.wrapNotificationLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:self.entry];
+}
+
+- (void)updateChatNotifyCounter {
+    WLWrap *wrap = self.entry;
+    if (!wrap.isPublic) {
+        self.chatNotificationLabel.intValue = [[WLMessagesCounter instance] countForWrap:wrap];
     }
 }
 

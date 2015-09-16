@@ -95,7 +95,7 @@
 
 - (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type {
     self.pushToken = credentials.token;
-    WLLog(@"PUBNUB", @"apns_device_token", self.pushToken);
+    WLLog(@"PUBNUB - apns_device_token: %@", self.pushToken);
     [self.userSubscription enableAPNSWithData:self.pushToken];
 }
 
@@ -130,7 +130,7 @@
     }
     __weak typeof(self)weakSelf = self;
     WLNotification* notification = [WLNotification notificationWithData:data];
-    WLLog(@"PUBNUB", @"received APNS", data);
+    WLLog(@"PUBNUB - received APNS: %@", data);
     if (notification) {
         if ([self isAlreadyHandledNotification:notification]) {
             if (success) success(notification);
@@ -185,7 +185,7 @@
                     [operation finish];
                 }];
             });
-            WLLog(@"PUBNUB", ([NSString stringWithFormat:@"direct message received %@", notification]), notification.entryData);
+            WLLog(@"PUBNUB - direct message received %@", notification);
         }
         
         runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
@@ -241,18 +241,18 @@
             NSDate *fromDate = historyDate;
             NSDate *toDate = [NSDate now];
 
-            WLLog(@"PUBNUB", ([NSString stringWithFormat:@"requesting history starting from: %@ to: %@", fromDate, toDate]), nil);
+            WLLog(@"PUBNUB - requesting history starting from: %@ to: %@", fromDate, toDate);
             
             if  ([WLNetwork network].reachable && weakSelf.userSubscription) {
                 
                 [weakSelf.userSubscription history:fromDate to:toDate success:^(NSArray *messages) {
                     if (messages.count > 0) {
-                        WLLog(@"PUBNUB", ([NSString stringWithFormat:@"received history starting from: %@ to: %@", fromDate, toDate]), nil);
+                        WLLog(@"PUBNUB - received history starting from: %@ to: %@", fromDate, toDate);
                         [weakSelf handleHistoryMessages:messages];
                         WLSession.historyDate = [[NSDate dateWithTimetoken:[(NSDictionary*)[messages lastObject] numberForKey:@"timetoken"]] dateByAddingTimeInterval:0.001];
                         [weakSelf requestHistory];
                     } else {
-                        WLLog(@"PUBNUB", @"no missed messages in history", nil);
+                        WLLog(@"PUBNUB - no missed messages in history");
                         WLSession.historyDate = toDate;
                     }
                     [operation finish];
@@ -263,7 +263,7 @@
                 [operation finish];
             }
         } else {
-            WLLog(@"PUBNUB", @"history date is empty", nil);
+            WLLog(@"PUBNUB - history date is empty");
             WLSession.historyDate = [NSDate now];
             [operation finish];
         }
@@ -294,7 +294,7 @@
                     [operation finish];
                 }];
             });
-            WLLog(@"PUBNUB", ([NSString stringWithFormat:@"history message received %@", notification]), notification.entryData);
+            WLLog(@"PUBNUB - history message received %@", notification);
         }
         
         runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
@@ -369,15 +369,15 @@
 #pragma mark - PNObjectEventListener
 
 - (void)client:(PubNub *)client didReceiveMessage:(PNMessageResult *)message {
-    WLLog(@"PUBNUB", @"did receive message", nil);
+    WLLog(@"PUBNUB - did receive message");
 }
 
 - (void)client:(PubNub *)client didReceivePresenceEvent:(PNPresenceEventResult *)event {
-    WLLog(@"PUBNUB", @"did receive presence event", event.data.presenceEvent);
+    WLLog(@"PUBNUB - did receive presence event: %@", event.data.presenceEvent);
 }
 
 - (void)client:(PubNub *)client didReceiveStatus:(PNSubscribeStatus *)status {
-    WLLog(@"PUBNUB", @"did receive status", status.subscribedChannelGroups);
+    WLLog(@"PUBNUB - did receive status: %@", status.subscribedChannelGroups);
 }
 
 // MARK: - WLEntryNotifyReceiver

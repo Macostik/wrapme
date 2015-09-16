@@ -135,7 +135,7 @@
     
     _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
     if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]) {
-        WLLog(@"WRAPLIVEKIT", @"Couldn't create persistent store so clearing the database.", error);
+        WLLog(@"WRAPLIVEKIT - Couldn't create persistent store so clearing the database: %@", error);
         [[NSFileManager defaultManager] removeItemAtURL:url error:NULL];
         [_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error];
     }
@@ -235,7 +235,7 @@
             NSError* error = nil;
             [weakSelf.context save:&error];
             if (error) {
-                WLLog(@"CoreData", @"save error", error);
+                WLLog(@"CoreData - save error: %@", error);
             }
         }];
         
@@ -422,7 +422,7 @@
     WLEntryManager *manager = [WLEntryManager manager];
     [manager assureSave:^{
         [weakSelf notifyOnDeleting];
-        WLLog(@"WRAPLIVE", @"LOCAL DELETING", weakSelf);
+        WLLog(@"WRAPLIVE - LOCAL DELETING: %@", weakSelf);
         [manager deleteEntry:weakSelf];
     }];
 }

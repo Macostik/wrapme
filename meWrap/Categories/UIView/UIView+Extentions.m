@@ -22,7 +22,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
 #ifdef DEBUG
-	WLLog(@"SubviewsHierarchy \n\n", [self performSelector:@selector(recursiveDescription)], nil);
+	WLLog(@"SubviewsHierarchy %@", [self performSelector:@selector(recursiveDescription)]);
 #endif
 }
 

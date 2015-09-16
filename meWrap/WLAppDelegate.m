@@ -86,7 +86,7 @@
             UIView *topView = rootViewController.view;
             topView.userInteractionEnabled = YES;
             [WLAlertView confirmRedirectingToSignUp:^{
-                WLLog(@"ERROR", @"redirection to welcome screen, sign in failed", error);
+                WLLog(@"ERROR - redirection to welcome screen, sign in failed: %@", error);
                 [[WLNotificationCenter defaultCenter] clear];
                 [WLSession clear];
                 [storyboard present:YES];
@@ -155,7 +155,7 @@
         if (user.isSignupCompleted) {
             [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
         } else {
-            WLLog(@"INITIAL SIGN IN", @"sign up is not completed, redirecting to profile step", nil);
+            WLLog(@"INITIAL SIGN IN - sign up is not completed, redirecting to profile step");
             UINavigationController *signupNavigationController = [[UIStoryboard storyboardNamed:WLSignUpStoryboard] instantiateInitialViewController];
             WLSignupFlowViewController *signupFlowViewController = [WLSignupFlowViewController instantiate:signupNavigationController.storyboard];
             signupFlowViewController.registrationNotCompleted = YES;
@@ -181,7 +181,7 @@
                 successBlock(currentUser);
             } else {
                 [WLAlertView confirmRedirectingToSignUp:^{
-                    WLLog(@"INITIAL SIGN IN ERROR", @"couldn't sign in, so redirecting to welcome screen", nil);
+                    WLLog(@"INITIAL SIGN IN ERROR - couldn't sign in, so redirecting to welcome screen");
                     [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
                 } tryAgain:^{
                     [weakSelf presentInitialViewController];
@@ -189,7 +189,7 @@
             }
         }];
     } else {
-        WLLog(@"INITIAL SIGN IN", @"no data for signing in", nil);
+        WLLog(@"INITIAL SIGN IN - no data for signing in");
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
     }
 }

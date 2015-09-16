@@ -127,10 +127,10 @@ static NSUInteger WLImageCacheSize = 524288000;
                 [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
             });
         } else {
-            WLLog(@"Image Cache", @"Reusing local image", error);
+            WLLog(@"Image Cache - Reusing local image: %@", error);
         }
     } else {
-        WLLog(@"Image Cache", @"No local image", nil);
+        WLLog(@"Image Cache - No local image");
     }
 }
 

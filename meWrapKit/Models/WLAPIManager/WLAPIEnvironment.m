@@ -49,7 +49,7 @@
     environment.name = name;
     environment.defaultImageURI = dictionary[@"default_image_uri"];
     environment.defaultAvatarURI = dictionary[@"default_avatar_uri"];
-    WLLog(@"meWrap", @"API environment initialized", dictionary);
+    WLLog(@"meWrap - API environment initialized: %@", dictionary);
     return environment;
 }
 

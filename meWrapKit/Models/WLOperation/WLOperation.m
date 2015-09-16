@@ -14,8 +14,6 @@
 
 @property (strong, nonatomic) NSTimer *timer;
 
-@property (strong, nonatomic) NSString *identifier;
-
 @end
 
 @implementation WLOperation
@@ -38,10 +36,6 @@
         self.timer = [NSTimer scheduledTimerWithTimeInterval:45 target:self selector:@selector(timeout:) userInfo:nil repeats:NO];
         self.block(self);
         self.block = nil;
-#ifdef DEBUG
-        self.identifier = GUID();
-        NSLog(@"WLOperation started: %@ queue: %@", self.identifier, self.queue.name);
-#endif
     } else {
         [self finish];
     }
@@ -61,16 +55,10 @@
 }
 
 - (void)timeout:(NSTimer*)timer {
-#ifdef DEBUG
-    NSLog(@"WLOperation timeout: %@ queue: %@", self.identifier, self.queue.name);
-#endif
     [self finish];
 }
 
 - (void)finish {
-#ifdef DEBUG
-    NSLog(@"WLOperation finished: %@ queue: %@", self.identifier, self.queue.name);
-#endif
     self.timer = nil;
     self.executing = NO;
     self.finished = YES;

@@ -7,27 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "lelib.h"
+#import "WLUser+Extended.h"
 
-@interface WLLogger : NSObject
+__attribute__((constructor))
+static void WLInitializeLELog (void) {
+    [LELog sharedInstance].token = @"e9e259b1-98e6-41b5-b530-d89d1f5af01d";
+}
 
-+ (void)systemLog:(NSString*)string;
+#ifdef DEBUG
 
-+ (void)LE_log:(NSString*)string;
-
-+ (void)log:(NSString*)label action:(NSString*)action object:(id)object;
-
-@end
-
-#define WL_LOG_DETAILED 1
-
-#if WL_LOG_DETAILED
-
-#define WLLog(LABEL,ACTION,OBJECT)\
-[WLLogger log:(LABEL) action:(ACTION) object:(OBJECT)];
+#define WLLog(format, ...)\
+NSLog(format, ##__VA_ARGS__);\
 
 #else
 
-#define WLLog(LABEL,ACTION,OBJECT)\
-[WLLogger log:(LABEL) action:(ACTION) object:nil];
+#define WLLog(format, ...)\
+[[LELog sharedInstance] log:[NSString stringWithFormat:@"%@ >> %@", [WLUser combinedIdentifier], [NSString stringWithFormat:format, ##__VA_ARGS__]]];
 
 #endif

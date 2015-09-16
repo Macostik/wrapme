@@ -184,7 +184,6 @@
 		C539B9CF1BA1C93100C44D05 /* WLPaginatedRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C565EC241B9F24F1002352C8 /* WLPaginatedRequest.m */; };
 		C539B9D01BA1C93100C44D05 /* WLAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C565EC261B9F24F1002352C8 /* WLAPIResponse.m */; };
 		C539B9D11BA1C93100C44D05 /* WLEntry+WLAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C565EC281B9F24F1002352C8 /* WLEntry+WLAPIRequest.m */; };
-		C539B9D21BA1C93100C44D05 /* WLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C565EC2B1B9F24F1002352C8 /* WLLogger.m */; };
 		C539B9D31BA1C93100C44D05 /* WLArchivingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C565EC2E1B9F24F1002352C8 /* WLArchivingObject.m */; };
 		C539B9D41BA1C93100C44D05 /* WLAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = C565EC311B9F24F1002352C8 /* WLAuthorization.m */; };
 		C539B9D51BA1C93100C44D05 /* WLBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C565EC341B9F24F1002352C8 /* WLBroadcaster.m */; };
@@ -1630,7 +1629,6 @@
 		C565EC281B9F24F1002352C8 /* WLEntry+WLAPIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLEntry+WLAPIRequest.m"; sourceTree = "<group>"; };
 		C565EC291B9F24F1002352C8 /* WLLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLocalization.h; sourceTree = "<group>"; };
 		C565EC2A1B9F24F1002352C8 /* WLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLogger.h; sourceTree = "<group>"; };
-		C565EC2B1B9F24F1002352C8 /* WLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLLogger.m; sourceTree = "<group>"; };
 		C565EC2D1B9F24F1002352C8 /* WLArchivingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLArchivingObject.h; sourceTree = "<group>"; };
 		C565EC2E1B9F24F1002352C8 /* WLArchivingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLArchivingObject.m; sourceTree = "<group>"; };
 		C565EC301B9F24F1002352C8 /* WLAuthorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAuthorization.h; sourceTree = "<group>"; };
@@ -3844,7 +3842,6 @@
 				C565EC281B9F24F1002352C8 /* WLEntry+WLAPIRequest.m */,
 				C565EC291B9F24F1002352C8 /* WLLocalization.h */,
 				C565EC2A1B9F24F1002352C8 /* WLLogger.h */,
-				C565EC2B1B9F24F1002352C8 /* WLLogger.m */,
 			);
 			path = WLAPIManager;
 			sourceTree = "<group>";
@@ -6404,7 +6401,6 @@
 				C539BA1B1BA1C98800C44D05 /* AFURLConnectionOperation.m in Sources */,
 				C539B9F51BA1C93100C44D05 /* WLUploadingQueue.m in Sources */,
 				C539BA0E1BA1C94700C44D05 /* UIView+QuatzCoreAnimations.m in Sources */,
-				C539B9D21BA1C93100C44D05 /* WLLogger.m in Sources */,
 				C539B9EE1BA1C93100C44D05 /* WLNetwork.m in Sources */,
 				C539B9F21BA1C93100C44D05 /* WLEditPicture.m in Sources */,
 				C539B9CE1BA1C93100C44D05 /* WLPaginatedRequest+Defined.m in Sources */,

@@ -205,30 +205,35 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
     NSString* url = [manager urlWithPath:self.path];
     NSMutableURLRequest *request = [self request:parameters url:url];
     request.timeoutInterval = self.timeout;
-    WLLog(self.method, url, parameters);
+    WLLog(@"%@ - %@: %@", self.method, url, parameters);
     
     __strong typeof(self)strongSelf = self;
     self.operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         WLAPIResponse* response = [WLAPIResponse response:responseObject];
 		if (response.code == WLAPIResponseCodeSuccess) {
-            WLLog(@"RESPONSE",[operation.request.URL relativeString], responseObject);
+#ifdef DEBUG
+            WLLog(@"RESPONSE - %@: %@", url, response.data);
+#else
+            WLLog(@"RESPONSE - %@", url);
+#endif
             if (strongSelf.parser) {
                 strongSelf.parser(response, ^(id object) {
+                    WLLog(@"PARSED RESPONSE - %@: %@", url, object);
                     [strongSelf handleSuccess:object];
                 }, ^(NSError *error) {
-                    WLLog(@"ERROR",[operation.request.URL relativeString], error);
+                    WLLog(@"ERROR - %@: %@", url, error);
                     [strongSelf handleFailure:error];
                 });
             } else {
                 [strongSelf handleSuccess:response];
             }
 		} else {
-            WLLog(@"API ERROR",[operation.request.URL relativeString], responseObject);
+            WLLog(@"API ERROR %ld - %@", (long)response.code, url);
             [strongSelf handleFailure:[NSError errorWithResponse:response]];
 		}
         [strongSelf trackServerTime:operation.response];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        WLLog(@"ERROR",[operation.request.URL relativeString], error);
+        WLLog(@"ERROR - %@: %@", url, error);
         [strongSelf handleFailure:error];
     }];
     

@@ -72,20 +72,7 @@ static NSInteger WLDaySeconds = 24*60*60;
 }
 
 - (BOOL)isSameDay:(NSDate *)date {
-    if (ABS([self timeIntervalSinceDate:date]) > WLTimeIntervalDay) return NO;
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    if ([calendar component:NSCalendarUnitDay fromDate:self] != [calendar component:NSCalendarUnitDay fromDate:date]) return NO;
-    if ([calendar component:NSCalendarUnitMonth fromDate:self] != [calendar component:NSCalendarUnitMonth fromDate:date]) return NO;
-    if ([calendar component:NSCalendarUnitYear fromDate:self] != [calendar component:NSCalendarUnitYear fromDate:date]) return NO;
-    return YES;
-}
-
-- (BOOL)isSameDayComponents:(NSDateComponents *)c {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    if ([calendar component:NSCalendarUnitDay fromDate:self] != c.day) return NO;
-    if ([calendar component:NSCalendarUnitMonth fromDate:self] != c.month) return NO;
-    if ([calendar component:NSCalendarUnitYear fromDate:self] != c.year) return NO;
-    return YES;
+    return [[NSCalendar currentCalendar] isDate:self inSameDayAsDate:date];
 }
 
 - (BOOL)isSameHour:(NSDate *)date {

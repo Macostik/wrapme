@@ -174,7 +174,6 @@ CGFloat WLMaxTextViewWidth;
     self.messageMetrics.insetsAt = self.myMessageMetrics.insetsAt = ^CGRect(StreamPosition *position, StreamMetrics *metrics) {
         WLMessage *message = [weakSelf.chat.entries tryAt:position.index];
         return [weakSelf.chat.groupMessages containsObject:message] ? CGRectMake(0, WLMessageGroupSpacing, 0, 0) : CGRectZero;
-        [weakSelf.streamView layoutIfNeeded];
     };
 	
 	self.composeBar.placeholder = WLLS(@"message_placeholder");

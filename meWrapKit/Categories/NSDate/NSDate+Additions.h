@@ -33,8 +33,6 @@ static const NSTimeInterval WLTimeIntervalWeek = 604800;
 
 - (BOOL)isSameDay:(NSDate*)date;
 
-- (BOOL)isSameDayComponents:(NSDateComponents *)c;
-
 - (BOOL)isSameHour:(NSDate*)date;
 
 - (NSDate *)beginOfDay;

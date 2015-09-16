@@ -24,9 +24,5 @@
 
 - (WLHistoryItem*)itemWithCandy:(WLCandy*)candy;
 
-- (WLHistoryItem*)itemForDate:(NSDate*)date;
-
-- (WLHistoryItem*)itemForDate:(NSDate*)date create:(BOOL)create;
-
 @end
 

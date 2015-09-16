@@ -63,20 +63,25 @@
 }
 
 - (BOOL)addEntries:(NSSet *)entries {
-    BOOL added = NO;
+    BOOL candyAdded = NO;
+    BOOL itemAdded = NO;
     NSMutableSet* entriesCopy = [entries mutableCopy];
     while (entriesCopy.nonempty) {
         NSDate* date = [[entriesCopy anyObject] createdAt];
-        NSDateComponents* components = [date dayComponents];
-        WLHistoryItem* group = [self itemForDate:date create:YES];
-        NSSet* dayEntries = [entriesCopy selects:^BOOL(id item) {
-            if (components == nil) {
-                return [item createdAt] == nil;
-            }
-            return [[item createdAt] isSameDayComponents:components];
+        NSDate* beginOfDay = [date beginOfDay];
+        NSDate* endOfDay = [date endOfDay];
+        WLHistoryItem* group = [self itemForDate:beginOfDay];
+        if (!group.entries.nonempty) {
+            itemAdded = YES;
+        }
+        NSSet* dayEntries = [entriesCopy selects:^BOOL(WLCandy *candy) {
+            NSDate *createdAt = [candy createdAt];
+            if (date == nil) return createdAt == nil;
+            NSTimeInterval timestamp = createdAt.timestamp;
+            return timestamp >= beginOfDay.timestamp && timestamp <= endOfDay.timestamp;
         }];
         if ([group addEntries:dayEntries]) {
-            added = YES;
+            candyAdded = YES;
         }
         [entriesCopy removes:dayEntries];
         
@@ -84,17 +89,21 @@
             group.completed = group.entries.count < WLSession.pageSize;
         }
     }
-    if (added) {
+    if (itemAdded) {
         [self.entries sort:self.sortComparator];
+        [self didChange];
     }
-    return added;
+    return candyAdded;
 }
 
 - (BOOL)addEntry:(WLCandy*)candy {
-    WLHistoryItem* group = [self itemForDate:candy.createdAt create:YES];
+    WLHistoryItem* group = [self itemForDate:candy.createdAt.beginOfDay];
+    if (!group.entries.nonempty) {
+        [self.entries sort:self.sortComparator];
+        [self didChange];
+    }
     if ([group addEntry:candy]) {
         if ([candy.contributor isCurrentUser]) group.offset = CGPointZero;
-        [self.entries sort:self.sortComparator];
         return YES;
     }
     return NO;
@@ -123,7 +132,7 @@
 }
 
 - (void)sort:(WLCandy*)candy {
-    WLHistoryItem* group = [self itemForDate:candy.createdAt create:YES];
+    WLHistoryItem* group = [self itemForDate:candy.createdAt];
     if ([group.entries containsObject:candy]) {
         [group sort];
         return;
@@ -155,21 +164,14 @@
 }
 
 - (WLHistoryItem *)itemForDate:(NSDate *)date {
-    return [self.entries select:^BOOL(WLHistoryItem* item) {
-        return [item.date isSameDay:date];
-    }];
-}
-
-- (WLHistoryItem *)itemForDate:(NSDate *)date create:(BOOL)create {
     WLHistoryItem* item = [self.entries select:^BOOL(WLHistoryItem* item) {
-        return [item.date isSameDay:date];
+        return item.date.timestamp == date.timestamp;
     }];
-    if (!item && create) {
+    if (!item) {
         item = [[WLHistoryItem alloc] init];
         item.history = self;
         item.date = date;
         [self.entries addObject:item];
-        [self didChange];
     }
     return item;
 }

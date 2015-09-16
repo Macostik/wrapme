@@ -84,6 +84,9 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     [self.dataSource setAppendableBlock:^BOOL(PaginatedStreamDataSource *dataSource) {
         return weakSelf.wrap.uploaded;
     }];
+    if (self.wrap.requiresFollowing && [WLNetwork network].reachable) {
+        self.wrap.candies = nil;
+    }
     self.history = [WLHistory historyWithWrap:self.wrap checkCompletion:YES];
     self.dataSource.items = self.history;
     
@@ -101,10 +104,12 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 }
 
 - (void)firstLoadRequest {
-    if (self.history.entries.count > WLSession.pageSize) {
-        [self.history newer:nil failure:nil];
-    } else {
-        [self.history fresh:nil failure:nil];
+    if (self.wrap.candies.nonempty) {
+        if (self.history.entries.count > WLSession.pageSize) {
+            [self.history newer:nil failure:nil];
+        } else {
+            [self.history fresh:nil failure:nil];
+        }
     }
 }
 

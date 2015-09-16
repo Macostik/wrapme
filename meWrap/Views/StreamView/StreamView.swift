@@ -81,6 +81,8 @@ class StreamView: UIScrollView {
     
     weak var currentLayoutItem: StreamItem?
     
+    weak var latestVisibleItem: StreamItem?
+    
     deinit {
         removeObserver(self, forKeyPath:"contentOffset")
         NSNotificationCenter.defaultCenter().removeObserver(self, name:StreamViewCommonLocksChanged, object:nil)
@@ -106,6 +108,7 @@ class StreamView: UIScrollView {
     }
     
     func clear() {
+        latestVisibleItem = nil
         currentLayoutItem = nil
         for item in items {
             if let view = item.view {
@@ -252,6 +255,10 @@ class StreamView: UIScrollView {
                 }
                 currentLayoutItem = item
                 items.insert(item)
+                
+                if latestVisibleItem == nil {
+                    latestVisibleItem = item
+                }
             }
             return item
         }
@@ -263,8 +270,7 @@ class StreamView: UIScrollView {
         var size = frame.size
         var rect = CGRectMake(offset.x, offset.y, size.width, size.height)
         
-        var item = items.first
-        if let item = items.first {
+        if let item = (latestVisibleItem != nil) ? latestVisibleItem : items.first {
             recursivelyUpdateItemVisibility(item, rect: rect) { (item) -> StreamItem? in
                 if let previous = item.previous where !item.visible && previous.visible {
                     return nil
@@ -293,6 +299,7 @@ class StreamView: UIScrollView {
                     if let view = metrics.dequeueViewWithItem(item) {
                         insertSubview(view, atIndex: 0)
                     }
+                    latestVisibleItem = item
                 } else {
                     if let view = item.view {
                         view.removeFromSuperview()

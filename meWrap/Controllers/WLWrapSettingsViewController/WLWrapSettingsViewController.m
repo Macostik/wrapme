@@ -32,9 +32,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.actionButton setTitle:self.wrap.deletable ? WLLS(@"delete_wrap") : WLLS(@"leave_wrap")  forState:UIControlStateNormal];
-    
     WLWrap *wrap = self.wrap;
+    
+    NSString *title = wrap.isPublic && !wrap.contributedByCurrentUser ? WLLS(@"following") : wrap.deletable ? WLLS(@"delete_wrap") : WLLS(@"leave_wrap");
+    [self.actionButton setTitle:title forState:UIControlStateNormal];
+    
+    
     self.wrapNameTextField.text = wrap.name;
     self.editSession = [[WLEditSession alloc] initWithEntry:wrap stringProperties:@"name", nil];
     

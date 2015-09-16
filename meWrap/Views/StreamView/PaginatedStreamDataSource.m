@@ -73,15 +73,16 @@
 
 - (void)paginatedSetDidComplete:(WLPaginatedSet *)group {
     [StreamView lock];
-    self.streamView.userInteractionEnabled = NO;
-    StreamLayout *layout = self.streamView.layout;
+    StreamView *streamView = self.streamView;
+    streamView.userInteractionEnabled = NO;
+    StreamLayout *layout = streamView.layout;
     CGPoint offset = layout.horizontal ?
-    CGPointMake(self.streamView.maximumContentOffset.x - self.loadingView.width, 0) :
-    CGPointMake(0, self.streamView.maximumContentOffset.y - self.loadingView.height);
-    [self.streamView trySetContentOffset:offset animated:YES];
+    CGPointMake(streamView.maximumContentOffset.x - self.loadingView.width, 0) :
+    CGPointMake(0, streamView.maximumContentOffset.y - self.loadingView.height);
+    [streamView trySetContentOffset:offset animated:YES];
     __weak typeof(self)weakSelf = self;
     run_after(0.5, ^{
-        weakSelf.streamView.userInteractionEnabled = YES;
+        streamView.userInteractionEnabled = YES;
         [StreamView unlock];
         [weakSelf reload];
     });

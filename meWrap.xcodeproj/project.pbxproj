@@ -966,6 +966,8 @@
 		C5C3FEB01B8F311500F177EC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FEA11B8F311500F177EC /* Default.png */; };
 		C5C991121B9845CF0006F534 /* StreamMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C991111B9845CF0006F534 /* StreamMetrics.swift */; };
 		C5C991131B9845CF0006F534 /* StreamMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C991111B9845CF0006F534 /* StreamMetrics.swift */; };
+		C5CBA7C71BA9556B0008EAAE /* SquareGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */; };
+		C5CBA7C81BA9556B0008EAAE /* SquareGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */; };
 		C5CBACEF1BA70B70007D2403 /* WLStreamLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5CBACEE1BA70B70007D2403 /* WLStreamLoadingView.xib */; };
 		C5CBACF01BA70B70007D2403 /* WLStreamLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5CBACEE1BA70B70007D2403 /* WLStreamLoadingView.xib */; };
 		C5D051B51A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */; };
@@ -2102,6 +2104,7 @@
 		C5C6465419A6264300F8243A /* WLWhatsUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWhatsUpCell.m; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.m; sourceTree = "<group>"; };
 		C5C991111B9845CF0006F534 /* StreamMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamMetrics.swift; sourceTree = "<group>"; };
 		C5C991141B9846110006F534 /* meWrap-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "meWrap-Bridging-Header.h"; sourceTree = "<group>"; };
+		C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareGridLayout.swift; sourceTree = "<group>"; };
 		C5CBACEE1BA70B70007D2403 /* WLStreamLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLStreamLoadingView.xib; path = WLLoadingView/WLStreamLoadingView.xib; sourceTree = "<group>"; };
 		C5D051B21A9F7D7B00855A01 /* WLAddressBookRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookRecord.h; sourceTree = "<group>"; };
 		C5D051B31A9F7D7B00855A01 /* WLAddressBookRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookRecord.m; sourceTree = "<group>"; };
@@ -2658,6 +2661,7 @@
 				C5A877C61B985814006C5226 /* GridMetrics.swift */,
 				C5A877C91B985E8B006C5226 /* StreamLayout.swift */,
 				C540C0EE1B988BF700F880C9 /* GridLayout.swift */,
+				C5CBA7C61BA9556B0008EAAE /* SquareGridLayout.swift */,
 			);
 			path = "Stream Layouts";
 			sourceTree = "<group>";
@@ -6021,6 +6025,7 @@
 				5BA60CEC1A8257ED000F795C /* UIView+Extentions.m in Sources */,
 				C54AF50B19B8C437006F7EDB /* WLWhatsUpCell.m in Sources */,
 				C54AF50D19B8C437006F7EDB /* WLToast.m in Sources */,
+				C5CBA7C71BA9556B0008EAAE /* SquareGridLayout.swift in Sources */,
 				C56F6A871B78D6EB00660DF1 /* PNArray.m in Sources */,
 				C545312F1A24A1F20048A677 /* WLCountryCell.m in Sources */,
 				C5B681221B83566B00BEE613 /* StreamDataSource.m in Sources */,
@@ -6280,6 +6285,7 @@
 				5BA60CEE1A8257ED000F795C /* UIView+Extentions.m in Sources */,
 				C54AF70519B8C491006F7EDB /* WLWhatsUpCell.m in Sources */,
 				C54AF70719B8C491006F7EDB /* WLToast.m in Sources */,
+				C5CBA7C81BA9556B0008EAAE /* SquareGridLayout.swift in Sources */,
 				C56F6A881B78D6EB00660DF1 /* PNArray.m in Sources */,
 				C54531311A24A1F20048A677 /* WLCountryCell.m in Sources */,
 				C5B681231B83566B00BEE613 /* StreamDataSource.m in Sources */,

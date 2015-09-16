@@ -132,23 +132,20 @@
 }
 
 - (void)sort:(WLCandy*)candy {
-    WLHistoryItem* group = [self itemForDate:candy.createdAt];
-    if ([group.entries containsObject:candy]) {
-        [group sort];
-        return;
-    }
-    [self.entries removeSelectively:^BOOL(WLHistoryItem* group) {
-        if ([group.entries containsObject:candy]) {
-            [group.entries removeObject:candy];
-            if (group.entries.nonempty) {
-                return NO;
+    WLHistoryItem* item = [self itemForDate:candy.createdAt.beginOfDay];
+    if ([item.entries containsObject:candy]) {
+        [item sort];
+    } else {
+        WLHistoryItem *_item = [self itemWithCandy:candy];
+        if (_item) {
+            [_item.entries removeObject:candy];
+            if (_item.entries.nonempty) {
+                [self.entries remove:_item];
             }
-            return YES;
         }
-        return NO;
-    }];
-    [group addEntry:candy];
-    [self didChange];
+        [item addEntry:candy];
+        [self didChange];
+    }
 }
 
 - (void)sort {

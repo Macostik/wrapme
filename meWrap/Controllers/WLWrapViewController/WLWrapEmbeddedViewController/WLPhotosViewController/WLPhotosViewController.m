@@ -88,7 +88,6 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
         self.wrap.candies = nil;
     }
     self.history = [WLHistory historyWithWrap:self.wrap checkCompletion:YES];
-    self.dataSource.items = self.history;
     
     [self.dataSource setRefreshableWithStyle:WLRefresherStyleOrange];
     
@@ -130,7 +129,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
             } failure:^(NSError *error) {
             }];
         }
-        [self.dataSource reload];
+        self.dataSource.items = self.history;
         [self.uploadingView update];
         [self.dataSource.streamView unlock];
     } else {

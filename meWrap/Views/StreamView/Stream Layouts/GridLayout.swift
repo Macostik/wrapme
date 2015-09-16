@@ -11,13 +11,13 @@ import UIKit
 
 @objc protocol GridLayoutDelegate: StreamViewDelegate {
 
-    optional func streamView(streamView: StreamView, layoutNumberOfColumns layout: GridLayout) -> Int
+    optional func streamView(streamView: StreamView, layoutNumberOfColumns layout: StreamLayout) -> Int
 
-    optional func streamView(streamView: StreamView, layout: GridLayout, offsetForColumn column: Int)  -> CGFloat
+    optional func streamView(streamView: StreamView, layout: StreamLayout, offsetForColumn column: Int)  -> CGFloat
 
-    optional func streamView(streamView: StreamView, layout: GridLayout, sizeForColumn column: Int) -> CGFloat
+    optional func streamView(streamView: StreamView, layout: StreamLayout, sizeForColumn column: Int) -> CGFloat
 
-    optional func streamView(streamView: StreamView, layoutSpacing layout: GridLayout)  -> CGFloat
+    optional func streamView(streamView: StreamView, layoutSpacing layout: StreamLayout)  -> CGFloat
 
 }
 

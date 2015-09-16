@@ -25,8 +25,8 @@
     self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
     self.dataSource.numberOfGridColumns = 3;
     self.dataSource.sizeForGridColumns = 0.333f;
-    self.streamView.layout = [[GridLayout alloc] init];
-    [self.dataSource addMetrics:[[GridMetrics alloc] initWithIdentifier:@"WLCandyCell" ratio:1]];
+    self.streamView.layout = [[SquareGridLayout alloc] init];
+    [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLCandyCell"]];
     [self.dataSource setNumberOfItemsBlock:^NSUInteger (StreamDataSource *dataSource) {
         return ([dataSource.items count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
     }];

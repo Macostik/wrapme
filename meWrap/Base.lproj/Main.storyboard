@@ -3136,10 +3136,10 @@ Check your internet connection and try again.</string>
                                     <outlet property="delegate" destination="ef1-h7-yay" id="DUf-p4-jBl"/>
                                 </connections>
                             </scrollView>
-                            <view hidden="YES" clipsSubviews="YES" contentMode="bottom" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8pj-td-a5X" customClass="WLGradientView">
+                            <view hidden="YES" clipsSubviews="YES" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="8pj-td-a5X" customClass="WLGradientView">
                                 <rect key="frame" x="0.0" y="500" width="600" height="52"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Iz-9d-6IL" customClass="WLImageView">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4Iz-9d-6IL" customClass="WLImageView">
                                         <rect key="frame" x="16" y="6" width="40" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -3150,7 +3150,7 @@ Check your internet connection and try again.</string>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="User1, User2 and User3 are typi..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-Rh-4Et" customClass="WLLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User1, User2 and User3 are typi..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-Rh-4Et" customClass="WLLabel">
                                         <rect key="frame" x="64" y="17" width="233" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -3162,12 +3162,13 @@ Check your internet connection and try again.</string>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="4Iz-9d-6IL" secondAttribute="bottom" constant="6" id="4pI-8Z-bJk"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gT4-Rh-4Et" secondAttribute="trailing" constant="12" id="63s-hB-SaC"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gT4-Rh-4Et" secondAttribute="bottom" constant="6" id="BKz-1e-Mny"/>
+                                    <constraint firstAttribute="bottom" secondItem="4Iz-9d-6IL" secondAttribute="bottom" priority="750" constant="6" id="CRH-JU-29K"/>
                                     <constraint firstItem="4Iz-9d-6IL" firstAttribute="top" secondItem="8pj-td-a5X" secondAttribute="top" constant="6" id="GFa-GB-4IC"/>
                                     <constraint firstItem="gT4-Rh-4Et" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4Iz-9d-6IL" secondAttribute="top" id="Hxi-8d-6cN"/>
                                     <constraint firstItem="gT4-Rh-4Et" firstAttribute="leading" secondItem="4Iz-9d-6IL" secondAttribute="trailing" constant="8" id="L5W-XL-Vdu"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="52" id="Zza-kr-k0x"/>
                                     <constraint firstItem="4Iz-9d-6IL" firstAttribute="centerY" secondItem="gT4-Rh-4Et" secondAttribute="centerY" priority="750" id="iTv-6F-HIb"/>
                                     <constraint firstItem="4Iz-9d-6IL" firstAttribute="leading" secondItem="8pj-td-a5X" secondAttribute="leading" constant="16" id="luZ-3U-nkg"/>
                                 </constraints>

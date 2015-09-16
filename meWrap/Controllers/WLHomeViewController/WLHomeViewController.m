@@ -458,21 +458,10 @@
 // MARK: - WLPresentingImageViewDelegate
 
 - (UIView *)presentingImageView:(WLPresentingImageView *)presentingImageView dismissingViewForCandy:(WLCandy *)candy {
-    if (self.streamView.contentOffset.y > self.navigationBar.height) {
-        [self.streamView setContentOffset:CGPointMake(0, 70) animated:NO];
-    }
-    [self.streamView layoutIfNeeded];
-    WLRecentCandiesView *candiesView = self.candiesView;
-    NSUInteger index = [(id)candiesView.dataSource.items indexOfObject:candy];
-    if (index != NSNotFound && candiesView) {
-        WLCandyCell *candyCell = (id)[[candiesView.streamView itemPassingTest:^BOOL(StreamItem *item) {
-            return item.position.index == index;
-        }] view];
-        if (candyCell) {
-            return candyCell;
-        }
-    }
-    return nil;
+    [self.streamView scrollRectToVisible:self.candiesView.frame animated:NO];
+    return [[self.candiesView.streamView itemPassingTest:^BOOL(StreamItem *item) {
+        return item.entry == candy;
+    }] view];
 }
 
 // MARK: - WLWhatsUpSetBroadcastReceiver

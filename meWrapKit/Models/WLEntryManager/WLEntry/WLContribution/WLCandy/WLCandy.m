@@ -12,6 +12,12 @@
 #import "WLCollections.h"
 #import "WLEntryManager.h"
 
+@interface WLCandy ()
+
+@property (nonatomic) BOOL observing;
+
+@end
+
 @implementation WLCandy
 
 @dynamic commentCount;
@@ -22,8 +28,10 @@
 
 @synthesize latestComment = _latestComment;
 
+@synthesize observing = _observing;
+
 - (void)dealloc {
-    if (self.observationInfo) {
+    if (self.observing) {
         [self removeObserver:self forKeyPath:@"comments" context:nil];
     }
 }
@@ -31,15 +39,16 @@
 - (void)awakeFromFetch {
     [super awakeFromFetch];
     [self addObserver:self forKeyPath:@"comments" options:NSKeyValueObservingOptionNew context:nil];
+    self.observing = YES;
 }
 
 - (void)awakeFromInsert {
     [super awakeFromInsert];
     [self addObserver:self forKeyPath:@"comments" options:NSKeyValueObservingOptionNew context:nil];
+    self.observing = YES;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     if ([keyPath isEqualToString:@"comments"]) {
         self.latestComment = nil;
     }

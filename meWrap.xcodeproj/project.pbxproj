@@ -641,7 +641,6 @@
 		C565ED801B9F30A9002352C8 /* OpenUDID.h in Headers */ = {isa = PBXBuildFile; fileRef = C500C8D11ACBE37D0072BBA8 /* OpenUDID.h */; };
 		C565ED821B9F30B3002352C8 /* LEBackgroundThread.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CAA1A6EB5FA00D99741 /* LEBackgroundThread.h */; };
 		C565ED841B9F30B3002352C8 /* lecore.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CAC1A6EB5FA00D99741 /* lecore.h */; };
-		C565ED861B9F30B3002352C8 /* lelib-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CAE1A6EB5FA00D99741 /* lelib-Prefix.pch */; };
 		C565ED871B9F30B3002352C8 /* lelib.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CAF1A6EB5FA00D99741 /* lelib.h */; };
 		C565ED881B9F30B3002352C8 /* LELog.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CB01A6EB5FA00D99741 /* LELog.h */; };
 		C565ED8A1B9F30B3002352C8 /* LeNetworkStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = C53F2CB21A6EB5FA00D99741 /* LeNetworkStatus.h */; };
@@ -1412,7 +1411,6 @@
 		C53F2CAB1A6EB5FA00D99741 /* LEBackgroundThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEBackgroundThread.m; sourceTree = "<group>"; };
 		C53F2CAC1A6EB5FA00D99741 /* lecore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lecore.h; sourceTree = "<group>"; };
 		C53F2CAD1A6EB5FA00D99741 /* lecore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lecore.m; sourceTree = "<group>"; };
-		C53F2CAE1A6EB5FA00D99741 /* lelib-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "lelib-Prefix.pch"; sourceTree = "<group>"; };
 		C53F2CAF1A6EB5FA00D99741 /* lelib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lelib.h; sourceTree = "<group>"; };
 		C53F2CB01A6EB5FA00D99741 /* LELog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LELog.h; sourceTree = "<group>"; };
 		C53F2CB11A6EB5FA00D99741 /* LELog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LELog.m; sourceTree = "<group>"; };
@@ -3275,7 +3273,6 @@
 				C53F2CAB1A6EB5FA00D99741 /* LEBackgroundThread.m */,
 				C53F2CAC1A6EB5FA00D99741 /* lecore.h */,
 				C53F2CAD1A6EB5FA00D99741 /* lecore.m */,
-				C53F2CAE1A6EB5FA00D99741 /* lelib-Prefix.pch */,
 				C53F2CAF1A6EB5FA00D99741 /* lelib.h */,
 				C53F2CB01A6EB5FA00D99741 /* LELog.h */,
 				C53F2CB11A6EB5FA00D99741 /* LELog.m */,
@@ -5048,7 +5045,6 @@
 				C565ED001B9F24F1002352C8 /* WLLocalization.h in Headers */,
 				C565ECCC1B9F24F1002352C8 /* NSObject+NibAdditions.h in Headers */,
 				C565ED661B9F24F1002352C8 /* Timecost.h in Headers */,
-				C565ED861B9F30B3002352C8 /* lelib-Prefix.pch in Headers */,
 				C565ED211B9F24F1002352C8 /* WLMessage.h in Headers */,
 				C565ED191B9F24F1002352C8 /* WLComment.h in Headers */,
 				C565ED0F1B9F24F1002352C8 /* WLCommonEnums.h in Headers */,

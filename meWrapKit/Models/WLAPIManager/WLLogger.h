@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "lelib.h"
+#import "LELog.h"
 #import "WLUser+Extended.h"
 
 __attribute__((constructor))

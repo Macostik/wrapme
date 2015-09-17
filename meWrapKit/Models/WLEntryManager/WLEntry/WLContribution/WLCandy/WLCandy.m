@@ -23,7 +23,9 @@
 @synthesize latestComment = _latestComment;
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"comments" context:nil];
+    if (self.observationInfo) {
+        [self removeObserver:self forKeyPath:@"comments" context:nil];
+    }
 }
 
 - (void)awakeFromFetch {
@@ -37,6 +39,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     if ([keyPath isEqualToString:@"comments"]) {
         self.latestComment = nil;
     }

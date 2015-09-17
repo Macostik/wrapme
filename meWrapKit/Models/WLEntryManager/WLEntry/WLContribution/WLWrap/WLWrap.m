@@ -27,7 +27,9 @@
 @synthesize recentCandies = _recentCandies;
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"candies" context:nil];
+    if (self.observationInfo) {
+        [self removeObserver:self forKeyPath:@"candies" context:nil];
+    }
 }
 
 - (void)awakeFromFetch {
@@ -40,7 +42,12 @@
     [self addObserver:self forKeyPath:@"candies" options:NSKeyValueObservingOptionNew context:nil];
 }
 
+- (void)awakeFromSnapshotEvents:(NSSnapshotEventType)flags {
+    [super awakeFromSnapshotEvents:flags];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     if ([keyPath isEqualToString:@"candies"]) {
         self.cover = nil;
         self.recentCandies = nil;

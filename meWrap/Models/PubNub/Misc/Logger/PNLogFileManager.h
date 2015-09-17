@@ -1,5 +1,5 @@
-#import "DDFileLogger.h"
-#import "CocoaLumberjack.h"
+
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 
 /**

@@ -7,6 +7,7 @@
 //
 
 #import "WLPicture.h"
+#import "WLCommonEnums.h"
 
 @interface WLEditPicture : WLPicture
 

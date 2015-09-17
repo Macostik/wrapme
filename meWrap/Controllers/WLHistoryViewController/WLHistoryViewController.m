@@ -570,7 +570,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return self.disableRotation ? [super supportedInterfaceOrientations] : UIInterfaceOrientationMaskAll;
 }
 

@@ -64,7 +64,7 @@ class SquareGridLayout: StreamLayout {
                 spacing = 0
             }
             
-            var num = CGFloat(numberOfColumns)
+            let num = CGFloat(numberOfColumns)
             if horizontal {
                 size = (streamView.frame.size.height - spacing * (num + 1)) / num
             } else {
@@ -75,10 +75,10 @@ class SquareGridLayout: StreamLayout {
     
     override func layout(item: StreamItem) -> StreamItem {
         
-        var result = minimumOffset()
-        var offset = result.offset
-        var column = CGFloat(result.column)
-        var position = size * column + spacing * (column + 1)
+        let result = minimumOffset()
+        let offset = result.offset
+        let column = CGFloat(result.column)
+        let position = size * column + spacing * (column + 1)
         var frame = CGRectMake(0, 0, size, size)
         if horizontal {
             frame.origin = CGPointMake(offset, position)
@@ -93,7 +93,7 @@ class SquareGridLayout: StreamLayout {
     }
     
     func flatten() {
-        var offset = maximumOffset().offset
+        let offset = maximumOffset().offset
         for i in 0..<offsets.count {
             offsets[i] = offset
         }

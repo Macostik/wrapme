@@ -87,7 +87,7 @@ typedef enum : NSUInteger {
     __weak typeof(self)weakSelf = self;
     run_getting_object(^id{
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"Wraplive_TermsAndConditions" withExtension:@"rtf"];
-        return [[NSAttributedString alloc] initWithFileURL:url options:nil documentAttributes:nil error:nil];
+        return [[NSAttributedString alloc] initWithURL:url options:@{} documentAttributes:nil error:nil];
     }, ^(id object) {
         weakSelf.termsAndConditionsTextView.attributedText = object;
     });

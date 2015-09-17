@@ -101,7 +101,7 @@ class StreamMetrics: NSObject {
             view.item = item
             view.frame = item.frame
             item.view = view
-            var entry: AnyObject? = item.entry
+            let entry: AnyObject? = item.entry
             prepareAppearing?(item, entry)
             view.entry = entry
             finalizeAppearing?(item, entry)

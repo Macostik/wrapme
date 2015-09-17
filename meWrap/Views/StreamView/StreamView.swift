@@ -102,8 +102,8 @@ class StreamView: UIScrollView {
         setup()
     }
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         setup()
     }
     
@@ -167,8 +167,8 @@ class StreamView: UIScrollView {
             
             addItems(delegate, layout: layout);
             
-            var newContentSize = layout.contentSize
-            var oldContentSize = contentSize
+            let newContentSize = layout.contentSize
+            let oldContentSize = contentSize
             if !CGSizeEqualToSize(newContentSize, oldContentSize) {
                 delegate.streamViewWillChangeContentSize?(self, newContentSize: newContentSize)
                 contentSize = newContentSize
@@ -192,7 +192,7 @@ class StreamView: UIScrollView {
         
         for section in 0..<numberOfSections {
             
-            var sectionIndex = StreamPosition(section: section, index: 0)
+            let sectionIndex = StreamPosition(section: section, index: 0)
             
             if let headers = delegate.streamView?(self, headerMetricsInSection: section) {
                 for header in headers {
@@ -200,10 +200,10 @@ class StreamView: UIScrollView {
                 }
             }
             
-            var numberOfItems = delegate.streamView(self, numberOfItemsInSection:section)
+            let numberOfItems = delegate.streamView(self, numberOfItemsInSection:section)
             
             for i in 0..<numberOfItems {
-                var index = StreamPosition(section: section, index: i);
+                let index = StreamPosition(section: section, index: i);
                 let metrics = delegate.streamView(self, metricsAt:index)
                 for itemMetrics in metrics {
                     if let item = addItem(layout, metrics: itemMetrics, position: index) {
@@ -244,7 +244,7 @@ class StreamView: UIScrollView {
     
     func addItem(layout: StreamLayout, metrics: StreamMetrics, position: StreamPosition) -> StreamItem? {
         if (!metrics.hiddenAt(position, metrics)) {
-            var item = StreamItem()
+            let item = StreamItem()
             item.position = position
             item.metrics = metrics
             layout.layout(item)
@@ -266,9 +266,9 @@ class StreamView: UIScrollView {
     }
     
     func updateVisibility() {
-        var offset = contentOffset
-        var size = frame.size
-        var rect = CGRectMake(offset.x, offset.y, size.width, size.height)
+        let offset = contentOffset
+        let size = frame.size
+        let rect = CGRectMake(offset.x, offset.y, size.width, size.height)
         
         if let item = (latestVisibleItem != nil) ? latestVisibleItem : items.first {
             recursivelyUpdateItemVisibility(item, rect: rect) { (item) -> StreamItem? in
@@ -291,7 +291,7 @@ class StreamView: UIScrollView {
     }
     
     func recursivelyUpdateItemVisibility(item: StreamItem, rect: CGRect, next:((StreamItem) -> StreamItem?)) {
-        var visible = CGRectIntersectsRect(item.frame, rect)
+        let visible = CGRectIntersectsRect(item.frame, rect)
         if item.visible != visible {
             item.visible = visible
             if let metrics = item.metrics {
@@ -355,13 +355,13 @@ class StreamView: UIScrollView {
     }
     
     func scrollToItem(item: StreamItem?, animated: Bool)  {
-        var minOffset = minimumContentOffset
-        var maxOffset = maximumContentOffset
+        let minOffset = minimumContentOffset
+        let maxOffset = maximumContentOffset
         
         if let _item = item {
             
             if horizontal {
-                var offset = _item.frame.origin.x - self.fittingContentWidth / 2 + _item.frame.size.width / 2
+                let offset = _item.frame.origin.x - self.fittingContentWidth / 2 + _item.frame.size.width / 2
                 if offset < minOffset.x {
                     self.setContentOffset(minOffset, animated: animated)
                 } else if offset > maxOffset.x {
@@ -370,7 +370,7 @@ class StreamView: UIScrollView {
                     self.setContentOffset(CGPointMake(offset, 0), animated: animated)
                 }
             } else {
-                var offset = _item.frame.origin.y - self.fittingContentHeight / 2 + _item.frame.size.height / 2
+                let offset = _item.frame.origin.y - self.fittingContentHeight / 2 + _item.frame.size.height / 2
                 if offset < minOffset.y {
                     self.setContentOffset(minOffset, animated: animated)
                 } else if offset > maxOffset.y {

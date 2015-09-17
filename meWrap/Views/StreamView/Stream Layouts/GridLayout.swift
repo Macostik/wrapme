@@ -104,12 +104,12 @@ class GridLayout: StreamLayout {
             }
         }
         
-        var result = minimumOffset()
-        var offset = result.offset
-        var column = result.column
-        var size = sizes[column] * (horizontal ? streamView!.frame.size.height : streamView!.frame.size.width)
+        let result = minimumOffset()
+        let offset = result.offset
+        let column = result.column
+        let size = sizes[column] * (horizontal ? streamView!.frame.size.height : streamView!.frame.size.width)
         
-        var spacing_2 = spacing/2.0
+        let spacing_2 = spacing/2.0
         var frame = CGRectZero
         if horizontal {
             frame.origin.x = offset
@@ -147,7 +147,7 @@ class GridLayout: StreamLayout {
     }
     
     func flatten() {
-        var offset = maximumOffset().offset
+        let offset = maximumOffset().offset
         for i in 0..<offsets.count {
             offsets[i] = offset
         }

@@ -757,8 +757,6 @@
 		C57CB29A1BAADAF20050FBF7 /* PNRequestParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = C57CB1FD1BAADAF20050FBF7 /* PNRequestParameters.m */; settings = {ASSET_TAGS = (); }; };
 		C57CB29B1BAADAF20050FBF7 /* PNURLBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = C57CB1FF1BAADAF20050FBF7 /* PNURLBuilder.m */; settings = {ASSET_TAGS = (); }; };
 		C57CB29C1BAADAF20050FBF7 /* PNURLBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = C57CB1FF1BAADAF20050FBF7 /* PNURLBuilder.m */; settings = {ASSET_TAGS = (); }; };
-		C57CB29E1BAADB790050FBF7 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */; settings = {ASSET_TAGS = (); }; };
-		C57CB29F1BAADB790050FBF7 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */; settings = {ASSET_TAGS = (); }; };
 		C57CB2A21BAADE7C0050FBF7 /* WLCommonEnums.h in Headers */ = {isa = PBXBuildFile; fileRef = C57CB2A11BAADE7C0050FBF7 /* WLCommonEnums.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C57CB2A41BAAE4ED0050FBF7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */; };
 		C57CB2A61BAAE4F60050FBF7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB2A51BAAE4F60050FBF7 /* libz.tbd */; };
@@ -776,6 +774,10 @@
 		C58AB9991B1384F300932272 /* WLWhatsUpSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB9951B1384F300932272 /* WLWhatsUpSet.m */; };
 		C58AB99D1B13856700932272 /* WLWhatsUpEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB99B1B13856700932272 /* WLWhatsUpEvent.m */; };
 		C58AB99F1B13856700932272 /* WLWhatsUpEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB99B1B13856700932272 /* WLWhatsUpEvent.m */; };
+		C58DB48E1BAAF6BD003C2932 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */; };
+		C58DB48F1BAAF6BD003C2932 /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C58DB4901BAAF6C7003C2932 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */; };
+		C58DB4911BAAF6C7003C2932 /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C5994D8A1B78894A0066A597 /* meWrapToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* meWrapToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C59EF3BD1B7A1B5B00E777BC /* UIViewController+Container.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3BC1B7A1B5B00E777BC /* UIViewController+Container.m */; };
 		C59EF3BE1B7A1B5B00E777BC /* UIViewController+Container.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3BC1B7A1B5B00E777BC /* UIViewController+Container.m */; };
@@ -1088,6 +1090,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C58DB48F1BAAF6BD003C2932 /* CocoaLumberjack.framework in Embed Frameworks */,
 				C565EBC01B9F1219002352C8 /* meWrapKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -1129,6 +1132,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C58DB4911BAAF6C7003C2932 /* CocoaLumberjack.framework in Embed Frameworks */,
 				C5D5D04B1BA006E5003C9204 /* meWrapKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -2124,6 +2128,7 @@
 			files = (
 				C57CB2A81BAAE5040050FBF7 /* libsqlite3.0.tbd in Frameworks */,
 				C57CB2A61BAAE4F60050FBF7 /* libz.tbd in Frameworks */,
+				C58DB48E1BAAF6BD003C2932 /* CocoaLumberjack.framework in Frameworks */,
 				C57CB2A41BAAE4ED0050FBF7 /* libc++.tbd in Frameworks */,
 				C5AE8DAE1B7B4F32003CC6D4 /* PushKit.framework in Frameworks */,
 				C5A28D631ACBEF1E00F0E8BA /* StoreKit.framework in Frameworks */,
@@ -2140,7 +2145,6 @@
 				C54AF51C19B8C437006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF51E19B8C437006F7EDB /* Foundation.framework in Frameworks */,
 				C560B1621AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */,
-				C57CB29E1BAADB790050FBF7 /* CocoaLumberjack.framework in Frameworks */,
 				C5D41CF31AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2151,6 +2155,7 @@
 			files = (
 				C57CB2AB1BAAE51E0050FBF7 /* libsqlite3.0.tbd in Frameworks */,
 				C57CB2AA1BAAE5140050FBF7 /* libz.tbd in Frameworks */,
+				C58DB4901BAAF6C7003C2932 /* CocoaLumberjack.framework in Frameworks */,
 				C57CB2A91BAAE50D0050FBF7 /* libc++.tbd in Frameworks */,
 				C5390BF41B849A3C00027D8B /* PushKit.framework in Frameworks */,
 				C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */,
@@ -2167,7 +2172,6 @@
 				C54AF71619B8C491006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF71819B8C491006F7EDB /* Foundation.framework in Frameworks */,
 				C560B1641AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */,
-				C57CB29F1BAADB790050FBF7 /* CocoaLumberjack.framework in Frameworks */,
 				C5D41CF51AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6968,7 +6972,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7022,7 +7025,6 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7503,7 +7505,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (

@@ -55,7 +55,7 @@ static NSString* WLServerTimeDifference = @"WLServerTimeDifference";
         NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", environment.version];
         [instance.requestSerializer setValue:acceptHeader forHTTPHeaderField:@"Accept"];
         [instance.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
-        [instance.requestSerializer setValue:NSMainBundle.buildVersion forHTTPHeaderField:@"app_version"];
+        [instance.requestSerializer setValue:NSMainBundle.buildVersion forHTTPHeaderField:@"MEWRAP-VERSION"];
         instance.securityPolicy.allowInvalidCertificates = YES;
         instance.securityPolicy.validatesDomainName = NO;
     });

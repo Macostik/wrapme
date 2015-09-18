@@ -91,59 +91,74 @@ class GridLayout: StreamLayout {
             }
         }
     }
-
-    override func layout(item: StreamItem) -> StreamItem {
     
+    override func horizontalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
         var ratio: CGFloat = 1
         
         if let metrics = item.metrics {
             if let metrics = item.metrics as? GridMetrics {
                 ratio = metrics.ratioAt(item.position!, metrics)
             } else {
-                ratio = (horizontal ? streamView!.frame.size.height : streamView!.frame.size.width) / metrics.sizeAt(item.position!, metrics)
+                ratio = streamView.frame.size.height / metrics.sizeAt(item.position!, metrics)
             }
         }
         
         let result = minimumOffset()
         let offset = result.offset
         let column = result.column
-        let size = sizes[column] * (horizontal ? streamView!.frame.size.height : streamView!.frame.size.width)
+        let size = sizes[column] * streamView.frame.size.height
         
         let spacing_2 = spacing/2.0
         var frame = CGRectZero
-        if horizontal {
-            frame.origin.x = offset
-            frame.size.width = size / ratio - spacing
-            if (column == 0) {
-                frame.origin.y = position(column) + spacing
-                frame.size.height = size - (spacing + spacing_2)
-            } else if (column == numberOfColumns - 1) {
-                frame.origin.y = position(column) + spacing_2;
-                frame.size.height = size - (spacing + spacing_2)
-            } else {
-                frame.origin.y = position(column) + spacing_2;
-                frame.size.height = size - spacing;
-            }
-            offsets[column] = CGRectGetMaxX(frame) + spacing;
+        frame.origin.x = offset
+        frame.size.width = size / ratio - spacing
+        if (column == 0) {
+            frame.origin.y = position(column) + spacing
+            frame.size.height = size - (spacing + spacing_2)
+        } else if (column == numberOfColumns - 1) {
+            frame.origin.y = position(column) + spacing_2;
+            frame.size.height = size - (spacing + spacing_2)
         } else {
-            frame.origin.y = offset
-            frame.size.height = size / ratio - spacing
-            if (column == 0) {
-                frame.origin.x = position(column) + spacing;
-                frame.size.width = size - (spacing + spacing_2)
-                
-            } else if (column == numberOfColumns - 1) {
-                frame.origin.x = position(column) + spacing_2
-                frame.size.width = size - (spacing + spacing_2)
+            frame.origin.y = position(column) + spacing_2;
+            frame.size.height = size - spacing;
+        }
+        offsets[column] = CGRectGetMaxX(frame) + spacing;
+        return frame
+    }
+    
+    override func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
+        var ratio: CGFloat = 1
+        
+        if let metrics = item.metrics {
+            if let metrics = item.metrics as? GridMetrics {
+                ratio = metrics.ratioAt(item.position!, metrics)
             } else {
-                frame.origin.x = position(column) + spacing_2
-                frame.size.width = size - spacing
+                ratio = streamView.frame.size.width / metrics.sizeAt(item.position!, metrics)
             }
-            offsets[column] = CGRectGetMaxY(frame) + spacing;
         }
         
-        item.frame = frame
-        return item;
+        let result = minimumOffset()
+        let offset = result.offset
+        let column = result.column
+        let size = sizes[column] * streamView.frame.size.width
+        
+        let spacing_2 = spacing/2.0
+        var frame = CGRectZero
+        frame.origin.y = offset
+        frame.size.height = size / ratio - spacing
+        if (column == 0) {
+            frame.origin.x = position(column) + spacing;
+            frame.size.width = size - (spacing + spacing_2)
+            
+        } else if (column == numberOfColumns - 1) {
+            frame.origin.x = position(column) + spacing_2
+            frame.size.width = size - (spacing + spacing_2)
+        } else {
+            frame.origin.x = position(column) + spacing_2
+            frame.size.width = size - spacing
+        }
+        offsets[column] = CGRectGetMaxY(frame) + spacing;
+        return frame
     }
     
     func flatten() {
@@ -155,13 +170,5 @@ class GridLayout: StreamLayout {
     
     override func prepareForNextSection() {
         flatten()
-    }
-    
-    override var contentSize: CGSize {
-        if horizontal {
-            return CGSizeMake(maximumOffset().offset, streamView!.frame.size.height);
-        } else {
-            return CGSizeMake(streamView!.frame.size.width, maximumOffset().offset);
-        }
     }
 }

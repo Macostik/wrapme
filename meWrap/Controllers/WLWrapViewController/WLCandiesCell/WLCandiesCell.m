@@ -34,15 +34,8 @@
 
 - (void)setup:(WLHistoryItem*)item {
     [self layoutIfNeeded];
-    
-    __weak typeof(self)weakSelf = self;
-    [self.dataSource setDidLayoutBlock:^{
-        [weakSelf.dataSource.streamView trySetContentOffset:item.offset];
-    }];
-    
     self.dataSource.items = item;
-    
-    self.dataSource.didLayoutBlock = nil;
+    [self.dataSource.streamView trySetContentOffset:item.offset];
 	self.dateLabel.text = [item.date stringWithDateStyle:NSDateFormatterMediumStyle];
 }
 

@@ -75,10 +75,7 @@
     [StreamView lock];
     StreamView *streamView = self.streamView;
     streamView.userInteractionEnabled = NO;
-    StreamLayout *layout = streamView.layout;
-    CGPoint offset = layout.horizontal ?
-    CGPointMake(streamView.maximumContentOffset.x - self.loadingView.width, 0) :
-    CGPointMake(0, streamView.maximumContentOffset.y - self.loadingView.height);
+    CGPoint offset = streamView.horizontal ? CGPointMake(self.loadingView.x - self.streamView.width + self.loadingView.width, 0) : CGPointMake(0, self.loadingView.y - self.streamView.height + self.loadingView.height);
     [streamView trySetContentOffset:offset animated:YES];
     __weak typeof(self)weakSelf = self;
     run_after(0.5, ^{

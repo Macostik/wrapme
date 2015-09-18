@@ -17,7 +17,7 @@ import UIKit
 
 class StreamLayout: NSObject {
     
-    var streamView: StreamView?
+    weak var streamView: StreamView?
     
     @IBInspectable var horizontal: Bool = false
     
@@ -26,19 +26,11 @@ class StreamLayout: NSObject {
         self.horizontal = horizontal
     }
     
-    var contentSize: CGSize {
-        if (horizontal) {
-            return CGSizeMake(offset, streamView!.frame.size.height);
-        } else {
-            return CGSizeMake(streamView!.frame.size.width, offset);
-        }
-    }
-    
     var offset: CGFloat = 0
     
     func prepareLayout() {
-        if let delegate = streamView?.delegate as? StreamLayoutDelegate {
-            if let offset = delegate.streamView?(streamView!, offsetForLayout: self) {
+        if let streamView = self.streamView, let delegate = streamView.delegate as? StreamLayoutDelegate {
+            if let offset = delegate.streamView?(streamView, offsetForLayout: self) {
                 self.offset = offset
             } else {
                 self.offset = 0
@@ -48,18 +40,58 @@ class StreamLayout: NSObject {
         }
     }
     
-    func layout(item: StreamItem) -> StreamItem {
-        let size = item.metrics!.sizeAt(item.position!, item.metrics!)
-        let insets = item.metrics!.insetsAt(item.position!, item.metrics!)
-        if (self.horizontal) {
-            item.frame = CGRectMake(offset + insets.origin.x, insets.origin.y, size + insets.size.width, streamView!.frame.size.height - 2*insets.size.height)
-            offset += size + insets.origin.x + insets.size.width
-        } else {
-            item.frame = CGRectMake(insets.origin.x, offset + insets.origin.y, streamView!.frame.size.width - 2*insets.size.width, size + insets.size.height)
-            offset += size + insets.origin.y + insets.size.height
+    func layoutItem(item: StreamItem) {
+        if let streamView = self.streamView {
+            if (self.horizontal) {
+                layoutItemHorizontally(item, streamView: streamView)
+            } else {
+                layoutItemVertically(item, streamView: streamView)
+            }
         }
-        
-        return item;
+    }
+    
+    func layoutItemHorizontally(item: StreamItem, streamView: StreamView) {
+        item.frame = horizontalFrameForItem(item, streamView: streamView)
+        if let next = item.next {
+            layoutItemHorizontally(next, streamView: streamView)
+        } else {
+            streamView.changeContentSize(CGSizeMake(CGRectGetMaxX(item.frame), streamView.frame.size.height))
+        }
+    }
+    
+    func horizontalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
+        if let metrics = item.metrics, position = item.position {
+            let size = metrics.sizeAt(position, metrics)
+            let insets = metrics.insetsAt(position, metrics)
+            var offset = self.offset
+            if let previous = item.previous {
+                offset = CGRectGetMaxX(previous.frame)
+            }
+            return CGRectMake(offset + insets.origin.x, insets.origin.y, size + insets.size.width, streamView.frame.size.height - insets.origin.y - insets.size.height)
+        }
+        return CGRectZero
+    }
+    
+    func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
+        if let metrics = item.metrics, position = item.position {
+            let size = metrics.sizeAt(position, metrics)
+            let insets = metrics.insetsAt(position, metrics)
+            var offset = self.offset
+            if let previous = item.previous {
+                offset = CGRectGetMaxY(previous.frame)
+            }
+            return CGRectMake(insets.origin.x, offset + insets.origin.y, streamView.frame.size.width - insets.origin.x - insets.size.width, size + insets.size.height)
+        }
+        return CGRectZero
+    }
+    
+    func layoutItemVertically(item: StreamItem, streamView: StreamView) {
+        item.frame = verticalFrameForItem(item, streamView: streamView)
+        if let next = item.next {
+            layoutItemVertically(next, streamView: streamView)
+        } else {
+            streamView.changeContentSize(CGSizeMake(streamView.frame.size.width, CGRectGetMaxY(item.frame)))
+        }
     }
     
     func prepareForNextSection() {

@@ -81,7 +81,7 @@ class StreamView: UIScrollView {
     
     weak var currentLayoutItem: StreamItem?
     
-    weak var latestVisibleItem: StreamItem?
+    weak var firstItem: StreamItem?
     
     deinit {
         removeObserver(self, forKeyPath:"contentOffset")
@@ -97,6 +97,12 @@ class StreamView: UIScrollView {
         updateVisibility()
     }
     
+    override var contentOffset: CGPoint {
+        didSet {
+            updateVisibility()
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -108,7 +114,7 @@ class StreamView: UIScrollView {
     }
     
     func clear() {
-        latestVisibleItem = nil
+        firstItem = nil
         currentLayoutItem = nil
         for item in items {
             if let view = item.view {
@@ -165,15 +171,15 @@ class StreamView: UIScrollView {
                 numberOfSections = 1
             }
             
+            layout.prepareLayout()
+            
             addItems(delegate, layout: layout);
             
-            let newContentSize = layout.contentSize
-            let oldContentSize = contentSize
-            if !CGSizeEqualToSize(newContentSize, oldContentSize) {
-                delegate.streamViewWillChangeContentSize?(self, newContentSize: newContentSize)
-                contentSize = newContentSize
-                delegate.streamViewDidChangeContentSize?(self, oldContentSize: oldContentSize)
+            if let item = firstItem {
+                layout.layoutItem(item)
             }
+            
+            layout.finalizeLayout()
             
             delegate.streamViewDidLayout?(self)
             
@@ -181,8 +187,18 @@ class StreamView: UIScrollView {
         }
     }
     
+    func changeContentSize(newContentSize: CGSize) {
+        if let delegate = self.delegate as? StreamViewDelegate {
+            let oldContentSize = contentSize
+            if !CGSizeEqualToSize(newContentSize, oldContentSize) {
+                delegate.streamViewWillChangeContentSize?(self, newContentSize: newContentSize)
+                contentSize = newContentSize
+                delegate.streamViewDidChangeContentSize?(self, oldContentSize: oldContentSize)
+            }
+        }
+    }
+    
     func addItems(delegate: StreamViewDelegate, layout: StreamLayout) {
-        layout.prepareLayout()
         
         if let headers = delegate.streamViewHeaderMetrics?(self) {
             for header in headers {
@@ -238,8 +254,6 @@ class StreamView: UIScrollView {
                 addItem(layout, metrics:placeholder, position:StreamPosition(section: 0, index: 0))
             }
         }
-        
-        layout.finalizeLayout()
     }
     
     func addItem(layout: StreamLayout, metrics: StreamMetrics, position: StreamPosition) -> StreamItem? {
@@ -247,18 +261,15 @@ class StreamView: UIScrollView {
             let item = StreamItem()
             item.position = position
             item.metrics = metrics
-            layout.layout(item)
-            if !CGSizeEqualToSize(item.frame.size, CGSizeZero) {
-                if let currentItem = currentLayoutItem {
-                    item.previous = currentItem
-                    currentItem.next = item
-                }
-                currentLayoutItem = item
-                items.insert(item)
-                
-                if latestVisibleItem == nil {
-                    latestVisibleItem = item
-                }
+            if let currentItem = currentLayoutItem {
+                item.previous = currentItem
+                currentItem.next = item
+            }
+            currentLayoutItem = item
+            items.insert(item)
+            
+            if firstItem == nil {
+                firstItem = item
             }
             return item
         }
@@ -266,11 +277,11 @@ class StreamView: UIScrollView {
     }
     
     func updateVisibility() {
-        let offset = contentOffset
-        let size = frame.size
-        let rect = CGRectMake(offset.x, offset.y, size.width, size.height)
-        
-        if let item = (latestVisibleItem != nil) ? latestVisibleItem : items.first {
+        updateVisibility(withRect: CGRect(origin: contentOffset, size: frame.size))
+    }
+    
+    func updateVisibility(withRect rect: CGRect) {
+        if let item = (firstItem != nil) ? firstItem : items.first {
             recursivelyUpdateItemVisibility(item, rect: rect) { (item) -> StreamItem? in
                 if let previous = item.previous where !item.visible && previous.visible {
                     return nil
@@ -299,7 +310,7 @@ class StreamView: UIScrollView {
                     if let view = metrics.dequeueViewWithItem(item) {
                         insertSubview(view, atIndex: 0)
                     }
-                    latestVisibleItem = item
+                    firstItem = item
                 } else {
                     if let view = item.view {
                         view.removeFromSuperview()

@@ -603,8 +603,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKa-TF-m51">
                                 <rect key="frame" x="0.0" y="64" width="600" height="58"/>
                                 <subviews>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" misplaced="YES" text="Help secure your account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nim-LA-uPS" customClass="WLLabel">
-                                        <rect key="frame" x="10" y="10" width="526" height="18"/>
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Help secure your account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nim-LA-uPS" customClass="WLLabel">
+                                        <rect key="frame" x="10" y="10" width="525" height="18"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
@@ -613,8 +613,8 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpG-be-cvC" customClass="WLButton">
-                                        <rect key="frame" x="546" y="10" width="44" height="28"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpG-be-cvC" customClass="WLButton">
+                                        <rect key="frame" x="545" y="10" width="45" height="28"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <state key="normal" title="Resend">
@@ -820,8 +820,8 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xsmall"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R9i-Mn-k3a" customClass="WLPressButton">
-                                        <rect key="frame" x="10" y="52" width="83" height="32"/>
+                                    <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R9i-Mn-k3a" customClass="WLPressButton">
+                                        <rect key="frame" x="10" y="52" width="88" height="32"/>
                                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="cZq-AT-DO4"/>
@@ -843,8 +843,8 @@
                                             <action selector="push:" destination="DBa-Dn-FbP" eventType="touchUpInside" id="ESe-cV-Vpc"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yk6-tb-7gb" customClass="WLPressButton">
-                                        <rect key="frame" x="546" y="52" width="44" height="32"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yk6-tb-7gb" customClass="WLPressButton">
+                                        <rect key="frame" x="545" y="52" width="45" height="32"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="X5I-V9-6Fr"/>
@@ -938,21 +938,21 @@
                                     <outlet property="countLabel" destination="hw2-sP-LBk" id="DNE-Ow-uoV"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh" customClass="WLTouchView">
-                                <rect key="frame" x="417" y="62" width="179" height="71"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh" customClass="WLTouchView">
+                                <rect key="frame" x="418" y="62" width="178" height="71"/>
                                 <subviews>
-                                    <view contentMode="top" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-EK-LgH" customClass="WLTriangleView">
-                                        <rect key="frame" x="151" y="1" width="16" height="9"/>
+                                    <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-EK-LgH" customClass="WLTriangleView">
+                                        <rect key="frame" x="150" y="1" width="16" height="9"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="DYD-eK-tIS"/>
                                         </constraints>
                                     </view>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ohz-Ik-QZ1">
-                                        <rect key="frame" x="0.0" y="10" width="179" height="61"/>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohz-Ik-QZ1">
+                                        <rect key="frame" x="0.0" y="10" width="178" height="61"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ka-0F-dc5" customClass="WLLabel">
-                                                <rect key="frame" x="10" y="10" width="159" height="41"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ka-0F-dc5" customClass="WLLabel">
+                                                <rect key="frame" x="10" y="10" width="158" height="41"/>
                                                 <string key="text">Create Wrap is easy!
 Tap here to start.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1581,8 +1581,8 @@ Tap here to start.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wb9-YW-Ahp">
                                 <rect key="frame" x="140" y="64" width="320" height="200"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Enter your friend's name and phone number" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlS-f9-yyB" customClass="WLLabel">
-                                        <rect key="frame" x="17" y="12" width="287" height="18"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your friend's name and phone number" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlS-f9-yyB" customClass="WLLabel">
+                                        <rect key="frame" x="38" y="12" width="245" height="36"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -1590,8 +1590,8 @@ Tap here to start.</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xmt-yf-g7R" customClass="WLTextField">
-                                        <rect key="frame" x="40" y="42" width="240" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xmt-yf-g7R" customClass="WLTextField">
+                                        <rect key="frame" x="40" y="60" width="240" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="QuD-FO-rvl"/>
                                             <constraint firstAttribute="width" constant="240" id="fRx-ib-2eH"/>
@@ -1607,8 +1607,8 @@ Tap here to start.</string>
                                             <outlet property="delegate" destination="ro7-vm-AlA" id="7OT-bA-yaO"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="555-555-5555" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KIX-5W-ASY" customClass="WLTextField">
-                                        <rect key="frame" x="40" y="84" width="240" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="555-555-5555" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KIX-5W-ASY" customClass="WLTextField">
+                                        <rect key="frame" x="40" y="102" width="240" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="4hk-mh-lbV"/>
                                             <constraint firstAttribute="width" constant="240" id="ViC-1w-JM5"/>
@@ -1782,8 +1782,8 @@ Tap here to start.</string>
                                             <outletCollection property="selectings" destination="h8h-Ah-t4O" id="gG6-Am-doD"/>
                                         </connections>
                                     </button>
-                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1sv-Ky-AGJ">
-                                        <rect key="frame" x="58" y="10" width="84" height="24"/>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sv-Ky-AGJ">
+                                        <rect key="frame" x="59" y="10" width="83" height="24"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="u" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43e-ae-hhx">
                                                 <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
@@ -1791,8 +1791,8 @@ Tap here to start.</string>
                                                 <color key="textColor" red="0.9843137264251709" green="0.83529412746429443" blue="0.74117648601531982" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Photos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8h-Ah-t4O" customClass="WLLabel">
-                                                <rect key="frame" x="29" y="2" width="55" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8h-Ah-t4O" customClass="WLLabel">
+                                                <rect key="frame" x="29" y="2" width="54" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.98431372549019602" green="0.83529411764705885" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1919,8 +1919,8 @@ Tap here to start.</string>
                                             <constraint firstAttribute="height" constant="4" id="nHt-zD-59m"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m01-Ic-fcZ" customClass="WLBadgeLabel">
-                                        <rect key="frame" x="74" y="1" width="22" height="16"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m01-Ic-fcZ" customClass="WLBadgeLabel">
+                                        <rect key="frame" x="75" y="1" width="22" height="16"/>
                                         <color key="backgroundColor" red="0.79607843137254897" green="0.32549019607843138" blue="0.035294117647058823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="m01-Ic-fcZ" secondAttribute="height" multiplier="1:1" id="Pts-7h-qNF"/>
@@ -2076,8 +2076,8 @@ Tap here to start.</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Owner" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goi-9S-32d" customClass="WLLabel">
-                                        <rect key="frame" x="104" y="33" width="45" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Owner" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goi-9S-32d" customClass="WLLabel">
+                                        <rect key="frame" x="104" y="33" width="46" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -2085,8 +2085,8 @@ Tap here to start.</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Public - followers can see all content" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRa-xU-fCg" customClass="WLLabel">
-                                        <rect key="frame" x="104" y="54" width="222" height="16"/>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public - followers can see all content" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRa-xU-fCg" customClass="WLLabel">
+                                        <rect key="frame" x="104" y="54" width="223" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.85098040103912354" green="0.32549020648002625" blue="0.30980393290519714" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2365,8 +2365,8 @@ Tap here to start.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DOa-Ws-aK4" customClass="WLGradientView">
                                 <rect key="frame" x="0.0" y="480" width="600" height="120"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dFH-JX-QNB">
-                                        <rect key="frame" x="12" y="66" width="89" height="42"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFH-JX-QNB">
+                                        <rect key="frame" x="12" y="66" width="90" height="42"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yS-IZ-1M1" customClass="WLEntryStatusIndicator">
                                                 <rect key="frame" x="0.0" y="5" width="16" height="13"/>
@@ -2380,8 +2380,8 @@ Tap here to start.</string>
                                                     <outlet property="widthConstraint" destination="MeQ-nf-zRz" id="hHZ-rm-3gg"/>
                                                 </connections>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Photo by S" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGF-6q-Jgs" customClass="WLLabel">
-                                                <rect key="frame" x="16" y="0.0" width="73" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Photo by S" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGF-6q-Jgs" customClass="WLLabel">
+                                                <rect key="frame" x="16" y="0.0" width="74" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="zpj-pw-TPr"/>
                                                 </constraints>
@@ -2392,8 +2392,8 @@ Tap here to start.</string>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Yesterday at" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBg-6r-k4s" customClass="WLLabel">
-                                                <rect key="frame" x="0.0" y="21" width="80" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Yesterday at" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBg-6r-k4s" customClass="WLLabel">
+                                                <rect key="frame" x="0.0" y="21" width="84" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="A47-sl-hkO"/>
                                                 </constraints>
@@ -2404,8 +2404,8 @@ Tap here to start.</string>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n28-ZL-uwJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="89" height="42"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n28-ZL-uwJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="42"/>
                                                 <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -2499,8 +2499,8 @@ Tap here to start.</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ai-CO-qH0" customClass="WLButton">
-                                <rect key="frame" x="487" y="558" width="101" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ai-CO-qH0" customClass="WLButton">
+                                <rect key="frame" x="491" y="558" width="97" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="QaK-uY-Rqe"/>
                                 </constraints>
@@ -2937,8 +2937,8 @@ Check your internet connection and try again.</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="FOLLOW &amp; JOIN THIS WRAP?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxe-oJ-t5C" customClass="WLLabel">
-                                <rect key="frame" x="195" y="289" width="211" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FOLLOW &amp; JOIN THIS WRAP?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxe-oJ-t5C" customClass="WLLabel">
+                                <rect key="frame" x="197" y="289" width="206" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -2987,8 +2987,8 @@ Check your internet connection and try again.</string>
                                     <action selector="later:" destination="a5u-0V-k1F" eventType="touchUpInside" id="Cmi-TB-jUO"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="WRAP NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8h1-Do-qBF" customClass="WLLabel">
-                                <rect key="frame" x="254" y="327" width="92" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WRAP NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8h1-Do-qBF" customClass="WLLabel">
+                                <rect key="frame" x="255" y="327" width="90" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -3064,8 +3064,8 @@ Check your internet connection and try again.</string>
                                     <action selector="close:" destination="a5u-0V-k1F" eventType="touchUpInside" id="sqz-th-zW5"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="WRAP OWNER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zd5-1Z-u2u" customClass="WLLabel">
-                                <rect key="frame" x="248" y="351" width="105" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WRAP OWNER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zd5-1Z-u2u" customClass="WLLabel">
+                                <rect key="frame" x="249" y="351" width="102" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -3150,8 +3150,8 @@ Check your internet connection and try again.</string>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="User1, User2 and User3 are typi..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-Rh-4Et" customClass="WLLabel">
-                                        <rect key="frame" x="64" y="17" width="233" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User1, User2 and User3 are typi..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-Rh-4Et" customClass="WLLabel">
+                                        <rect key="frame" x="64" y="17" width="231" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3716,8 +3716,8 @@ QWRkEEZyaWVuZFZpZXc
                                             <action selector="back:" destination="TKE-mx-bkQ" eventType="touchUpInside" id="4Rc-Ww-Zpa"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZL1-Bm-SmI" customClass="WLLabel">
-                                        <rect key="frame" x="269" y="32" width="63" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZL1-Bm-SmI" customClass="WLLabel">
+                                        <rect key="frame" x="268" y="32" width="64" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -3787,8 +3787,8 @@ QWRkEEZyaWVuZFZpZXc
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-Oj-q4N">
                                 <rect key="frame" x="0.0" y="206" width="600" height="238"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="737" misplaced="YES" text="Notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtf-da-c8a" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="12" width="96" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="737" text="Notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtf-da-c8a" customClass="WLLabel">
+                                        <rect key="frame" x="12" y="12" width="97" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>

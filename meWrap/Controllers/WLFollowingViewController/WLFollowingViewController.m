@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
+@property (strong, nonatomic) UIWindow* window;
+
 @end
 
 @implementation WLFollowingViewController
@@ -31,7 +33,10 @@
         WLFollowingViewController *controller = [WLFollowingViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
         controller.wrap = wrap;
         controller.actionBlock = action;
-        [[UIWindow mainWindow].rootViewController addContainedViewController:controller animated:NO];
+        UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        window.rootViewController = controller;
+        [window makeKeyAndVisible];
+        controller.window = window;
     } else {
         if (action) action();
     }
@@ -59,11 +64,13 @@
     if (self.actionBlock)  {
         self.actionBlock();
     }
-    [self removeFromContainerAnimated:NO];
+    self.window.rootViewController = nil;
+    self.window.hidden = YES;
 }
 
 - (IBAction)later:(id)sender {
-    [self removeFromContainerAnimated:NO];
+    self.window.rootViewController = nil;
+    self.window.hidden = YES;
 }
 
 - (IBAction)follow:(WLButton*)sender {

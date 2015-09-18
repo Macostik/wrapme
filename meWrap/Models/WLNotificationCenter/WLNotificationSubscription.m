@@ -136,7 +136,7 @@
     PNMessageData *data = message.data;
     if ([data.actualChannel isEqualToString:self.name]) {
         [self didReceiveMessage:data];
-    }else if ([data.subscribedChannel isEqualToString:self.name]) {
+    } else if ([data.subscribedChannel isEqualToString:self.name]) {
         [self didReceiveMessage:data];
     }
 }

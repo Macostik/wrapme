@@ -98,7 +98,11 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 - (void)updateChatNotifyCounter {
     WLWrap *wrap = self.entry;
     if (!wrap.isPublic) {
-        self.chatNotificationLabel.intValue = [[WLMessagesCounter instance] countForWrap:wrap];
+        NSUInteger messageConter = [[WLMessagesCounter instance] countForWrap:wrap];
+        self.chatNotificationLabel.intValue = messageConter;
+        BOOL hasUnreadMessages = messageConter > 0;
+        self.chatButton.hidden = !hasUnreadMessages;
+        self.chatPrioritizer.defaultState = hasUnreadMessages;
     }
 }
 

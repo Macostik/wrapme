@@ -66,11 +66,15 @@
     __weak __typeof(self)weakSelf = self;
     NSString *titleAlbum = @"test album";
     NSURL *url = [NSURL URLWithString:stringUrl];
-    [PHPhotoLibrary addNewAssetWithImageAtFileUrl:url
-                       toAssetCollectionWithTitle:titleAlbum
-                                completionHandler:^(BOOL success, NSError *error) {
-                                    if  (success) [weakSelf addDemoImageWithCount:count - 1];
-                                }];
+    NSData *dataImage = [NSData dataWithContentsOfURL:url];
+    UIImage * image = [UIImage imageWithData:dataImage];
+    
+    [PHPhotoLibrary addNewAssetWithImage:image
+              toAssetCollectionWithTitle:titleAlbum
+                       completionHandler:^(BOOL success, NSError *error) {
+                           if  (success) [weakSelf addDemoImageWithCount:count - 1];
+                       }];
+    
 }
 
 

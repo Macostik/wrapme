@@ -10,9 +10,9 @@
 #import "NSString+Additions.h"
 #import <objc/runtime.h>
 #import "WLAPIRequest.h"
-#import "NSUserDefaults+WLAppGroup.h"
 #import "WLEntryNotifier.h"
 #import "WLLogger.h"
+#import "WLSession.h"
 
 @interface WLMergePolicy : NSMergePolicy
 

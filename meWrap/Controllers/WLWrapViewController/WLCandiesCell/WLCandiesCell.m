@@ -12,6 +12,7 @@
 #import "WLRefresher.h"
 #import "UIScrollView+Additions.h"
 #import "WLChronologicalEntryPresenter.h"
+#import "WLHistoryItem.h"
 
 @interface WLCandiesCell ()
 

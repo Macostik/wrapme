@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-    [self.noUpdatesLabel setText:WLLS(@"no_recent_updates")];
+    [self.noUpdatesLabel setText:NSLocalizedString(@"no_recent_updates", nil)];
 }
 
 - (void)setState:(WLWKContributionsState)state {
@@ -145,7 +145,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     if ([WLSession.authorization canAuthorize]) {
         self.entries = [WLContribution recentContributions:10];
     } else {
-        [self showError:WLError(@"No data for authorization. Please, check meWrap app on you iPhone.")];
+        [self showError:[NSError errorWithDomain:nil code:0 userInfo:@{NSLocalizedDescriptionKey:@"No data for authorization. Please, check meWrap app on you iPhone."}]];
     }
 }
 

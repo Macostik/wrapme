@@ -18,6 +18,7 @@
 #import "WLNavigationHelper.h"
 #import "WLDrawingViewController.h"
 #import "PHPhotoLibrary+Helper.h"
+#import "WLEntry+WLUploadingQueue.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 

@@ -8,6 +8,7 @@
 
 #import "WLEditPictureViewController.h"
 #import "WLImageView.h"
+#import "WLEditPicture.h"
 
 @interface WLEditPictureViewController ()
 

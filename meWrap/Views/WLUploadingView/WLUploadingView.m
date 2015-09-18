@@ -9,6 +9,7 @@
 #import "WLUploadingView.h"
 #import "WLUploadingQueue.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLNetwork.h"
 
 @interface WLUploadingView () <WLUploadingQueueReceiver, WLNetworkReceiver>
 

@@ -30,6 +30,7 @@
 #import "WLFollowingViewController.h"
 #import "UIViewController+Container.h"
 #import "PHPhotoLibrary+Helper.h"
+#import "WLEntry+WLUploadingQueue.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 

@@ -26,6 +26,11 @@
 #import "UIFont+CustomFonts.h"
 #import "WLEntryPresenter.h"
 #import "WLWrapViewController.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "WLAuthorizationRequest.h"
+#import "WLUploadingQueue.h"
+#import "WLEntry+WLUploadingQueue.h"
+#import "WLNetwork.h"
 
 @import Photos;
 
@@ -40,7 +45,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
 //     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
-    
     [self registerUserNotificationSettings];
     
     [self initializeCrashlyticsAndLogging];

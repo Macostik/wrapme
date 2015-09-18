@@ -18,6 +18,7 @@
 #import "NSDate+PNTimetoken.h"
 #import <PushKit/PushKit.h>
 #import "WLEntry+LocalNotifications.h"
+#import "WLNetwork.h"
 
 @interface WLNotificationCenter () <PNObjectEventListener, WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate, PKPushRegistryDelegate>
 

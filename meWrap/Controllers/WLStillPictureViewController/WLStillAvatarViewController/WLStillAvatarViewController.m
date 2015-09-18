@@ -16,6 +16,7 @@
 #import "UIView+AnimationHelper.h"
 #import "WLNavigationHelper.h"
 #import "PHPhotoLibrary+Helper.h"
+#import "WLEditPicture.h"
 
 @interface WLStillAvatarViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver>
 

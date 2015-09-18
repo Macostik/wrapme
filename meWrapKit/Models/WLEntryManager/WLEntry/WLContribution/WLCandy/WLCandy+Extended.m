@@ -12,10 +12,8 @@
 #import "NSString+Additions.h"
 #import "WLImageCache.h"
 #import "UIImage+Drawing.h"
-#import "WLUploadingQueue.h"
 #import "NSError+WLAPIManager.h"
 #import "WLBlockImageFetching.h"
-#import "WLEditPicture.h"
 #import "WLEntry+WLAPIRequest.h"
 #import "GCDHelper.h"
 #import "WLLocalization.h"
@@ -103,34 +101,12 @@
     }
 }
 
-- (id)uploadComment:(NSString *)text success:(WLCommentBlock)success failure:(WLFailureBlock)failure {
-    WLComment* comment = [WLComment comment:text];
-    WLUploading* uploading = [WLUploading uploading:comment];
-    [self addComment:comment];
-    run_after(0.3f,^{
-        [WLUploadingQueue upload:uploading success:success failure:failure];
-    });
-    return comment;
-}
-
 - (BOOL)canBeUploaded {
     return self.wrap.uploading == nil;
 }
 
 - (BOOL)deletable {
     return self.contributedByCurrentUser || self.wrap.contributedByCurrentUser;
-}
-
-- (void)editWithImage:(UIImage*)image {
-    if (self.valid) {
-        __weak typeof(self)weakSelf = self;
-        __block WLEditPicture *picture = [WLEditPicture picture:image completion:^(id object) {
-            [weakSelf setEditedPictureIfNeeded:[picture uploadablePicture:NO]];
-            [weakSelf enqueueUpdate:^(NSError *error) {
-                [error show];
-            }];
-        }];
-    }
 }
 
 - (NSMutableOrderedSet *)sortedComments {

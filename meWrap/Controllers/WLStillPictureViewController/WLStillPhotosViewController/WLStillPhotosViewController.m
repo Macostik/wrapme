@@ -17,6 +17,7 @@
 #import "UIButton+Additions.h"
 #import "WLBatchEditPictureViewController.h"
 #import "WLCollections.h"
+#import "WLEditPicture.h"
 
 @import Photos;
 

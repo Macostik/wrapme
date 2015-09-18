@@ -21,7 +21,7 @@
 @implementation WLWKCandyEventRow
 
 - (void)setEntry:(WLCandy *)entry {
-    [self.photoByLabel setText:[NSString stringWithFormat:WLLS(@"formatted_photo_by"), entry.contributor.name]];
+    [self.photoByLabel setText:[NSString stringWithFormat:NSLocalizedString(@"formatted_photo_by", nil), entry.contributor.name]];
     [self.wrapNameLabel setText:entry.wrap.name];
     [self.dateLabel setText:[entry.createdAt timeAgoStringAtAMPM]];
     self.group.url = entry.picture.small;

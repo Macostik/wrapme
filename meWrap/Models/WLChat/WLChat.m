@@ -9,6 +9,7 @@
 #import "WLChat.h"
 #import "WLNotificationSubscription.h"
 #import "WLToast.h"
+#import "WLAPIRequest+Defined.h"
 
 static NSString *WLChatTypingChannelTypingKey = @"typing";
 

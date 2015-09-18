@@ -13,7 +13,6 @@
 #import "WLCandy+Extended.h"
 #import "WLComment+Extended.h"
 #import "WLContribution+Extended.h"
-#import "WLUploading+Extended.h"
 #import "WLMessage+Extended.h"
 
 @interface WLEntry (Containment)

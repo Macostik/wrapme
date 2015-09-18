@@ -23,6 +23,7 @@
 #import "WLButton.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLWrapStatusImageView.h"
+#import "WLEntry+WLUploadingQueue.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPhotosViewControllerDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 

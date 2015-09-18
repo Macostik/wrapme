@@ -38,16 +38,6 @@
 
 @end
 
-typedef void (^WLContributionUpdatePreparingBlock)(WLContribution *contribution, WLContributionStatus status);
-
-@interface WLContribution (WLAPIManager)
-
-- (void)enqueueUpdate:(WLFailureBlock)failure;
-
-- (void)prepareForUpdate:(WLContributionUpdatePreparingBlock)success failure:(WLFailureBlock)failure;
-
-@end
-
 @interface WLWrap (WLAPIManager)
 
 - (id)fetch:(NSString*)contentType success:(WLSetBlock)success failure:(WLFailureBlock)failure;

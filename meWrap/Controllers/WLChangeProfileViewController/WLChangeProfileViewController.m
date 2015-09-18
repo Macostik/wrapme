@@ -19,6 +19,7 @@
 #import "UIView+AnimationHelper.h"
 #import "WLTextView.h"
 #import "WLFontPresetter.h"
+#import "WLEditPicture.h"
 
 @interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLFontPresetterReceiver, WLBroadcastReceiver>
 

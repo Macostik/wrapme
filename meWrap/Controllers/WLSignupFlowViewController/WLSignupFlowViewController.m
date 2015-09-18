@@ -18,6 +18,7 @@
 #import "WLActivationViewController.h"
 #import "UIView+AnimationHelper.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLAuthorizationRequest.h"
 
 @interface WLSignupFlowViewController () <UINavigationControllerDelegate>
 

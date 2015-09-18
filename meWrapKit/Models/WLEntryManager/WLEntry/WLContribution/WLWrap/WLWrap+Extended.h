@@ -22,14 +22,6 @@ static NSUInteger WLWrapNameLimit = 190;
 
 - (NSString*)contributorNames;
 
-- (void)uploadMessage:(NSString*)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure;
-
-- (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
-
-- (void)uploadPicture:(WLPicture *)picture;
-
-- (void)uploadPictures:(NSArray *)pictures;
-
 - (BOOL)isFirstCreated;
 
 @end

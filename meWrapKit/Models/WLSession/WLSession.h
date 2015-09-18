@@ -7,6 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSBundle+Extended.h"
+
+static NSString *const WLAppGroupEncryptedAuthorization = @"encrypted_authorization";
+
+static inline NSString *AppGroupIdentifier(void) {
+    static NSString *identifier = nil;
+    if (!identifier) {
+        identifier = NSMainBundle.groupIdentifier;
+        if (identifier.length == 0) identifier = @"group.com.ravenpod.wraplive";
+    }
+    return identifier;
+}
 
 @class WLAuthorization;
 
@@ -47,6 +59,8 @@
 @property NSString *avatarURI;
 
 @property NSInteger pageSize;
+
++ (instancetype)appGroupUserDefaults;
 
 - (void)clear;
 

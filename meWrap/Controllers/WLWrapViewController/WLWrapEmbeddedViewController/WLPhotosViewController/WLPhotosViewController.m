@@ -29,6 +29,8 @@
 #import "WLFollowingViewController.h"
 #import "WLWhatsUpSet.h"
 #import "WLBadgeLabel.h"
+#import "WLUploadingQueue.h"
+#import "WLNetwork.h"
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 

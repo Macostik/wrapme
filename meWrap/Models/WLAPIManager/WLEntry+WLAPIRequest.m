@@ -21,7 +21,6 @@
 #import "WLAuthorizationRequest.h"
 #import "WLOperationQueue.h"
 #import "WLHistory.h"
-#import "NSUserDefaults+WLAppGroup.h"
 #import "WLAlertView.h"
 
 @implementation WLEntry (WLAPIManager)
@@ -113,34 +112,6 @@
 
 - (id)newer:(WLOrderedSetBlock)success failure:(WLFailureBlock)failure {
     return [self newer:NO success:success failure:failure];
-}
-
-@end
-
-@implementation WLContribution (WLAPIManager)
-
-- (void)enqueueUpdate:(WLFailureBlock)failure {
-    __weak typeof(self)weakSelf = self;
-    [self prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
-        switch (status) {
-            case WLContributionStatusReady: break;
-            case WLContributionStatusFinished: {
-                [weakSelf notifyOnUpdate];
-                [WLUploadingQueue upload:[WLUploading uploading:weakSelf type:WLEventUpdate] success:nil failure:nil];
-            } break;
-            default:
-                break;
-        }
-    } failure:failure];
-}
-
-- (void)prepareForUpdate:(WLContributionUpdatePreparingBlock)success failure:(WLFailureBlock)failure {
-    WLContributionStatus status = [self statusOfAnyUploadingType];
-    if (status == WLContributionStatusInProgress) {
-        if (failure) failure(WLError(WLLS(@"photo_is_uploading")));
-    } else {
-        if (success) success(self, status);
-    }
 }
 
 @end

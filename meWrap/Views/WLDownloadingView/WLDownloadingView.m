@@ -12,6 +12,7 @@
 #import "WLCandy+Extended.h"
 #import "WLNavigationHelper.h"
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
+#import "WLNetwork.h"
 
 @interface WLDownloadingView () <WLImageFetching, WLEntryNotifyReceiver>
 

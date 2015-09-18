@@ -20,6 +20,7 @@
 #import "WLDrawingViewController.h"
 #import "UIView+LayoutHelper.h"
 #import "UIScrollView+Additions.h"
+#import "WLEditPicture.h"
 
 @interface WLBatchEditPictureViewController () <WLComposeBarDelegate>
 

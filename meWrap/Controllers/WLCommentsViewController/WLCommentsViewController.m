@@ -19,6 +19,7 @@
 #import "WLCommentCell.h"
 #import "WLStreamLoadingView.h"
 #import "UIScrollView+Additions.h"
+#import "WLEntry+WLUploadingQueue.h"
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;
 static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;

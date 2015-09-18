@@ -38,6 +38,8 @@
 #import "WLLayoutPrioritizer.h"
 #import "WLMessagesCounter.h"
 #import "SegmentedStreamDataSource.h"
+#import "WLUploadingQueue.h"
+#import "WLEntry+WLUploadingQueue.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 

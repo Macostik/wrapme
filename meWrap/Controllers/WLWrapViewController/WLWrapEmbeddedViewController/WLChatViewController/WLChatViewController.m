@@ -28,6 +28,7 @@
 #import "PlaceholderView.h"
 #import "WLLayoutPrioritizer.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "WLEntry+WLUploadingQueue.h"
 
 CGFloat WLMaxTextViewWidth;
 

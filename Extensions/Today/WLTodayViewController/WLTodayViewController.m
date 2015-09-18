@@ -13,8 +13,6 @@
 
 static NSString *const WLTodayCandyCellIdentifier = @"WLTodayCandyCell";
 static NSString *const WLTodayCommentCellIdentifier = @"WLTodayCommentCell";
-static NSString *const WLLessButtonKey = @"Less meWrap stories";
-static NSString *const WLMoreButtonKey = @"More meWrap stories";
 static CGFloat WLMaxRow = 6;
 static CGFloat WLMinRow = 3;
 
@@ -76,14 +74,14 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
             break;
         case WLTodayViewStateShowMore:
             if (!self.tableView.tableFooterView) self.tableView.tableFooterView = self.tableFooterView;
-            [self.moreButton setTitle:WLMoreButtonKey forState:UIControlStateNormal];
+            [self.moreButton setTitle:NSLocalizedString(@"more_today_stories", nil) forState:UIControlStateNormal];
             self.signUpButton.hidden = YES;
             self.moreButton.hidden = NO;
             [self.spinner stopAnimating];
             break;
         case WLTodayViewStateShowLess:
             if (!self.tableView.tableFooterView) self.tableView.tableFooterView = self.tableFooterView;
-            [self.moreButton setTitle:WLLessButtonKey forState:UIControlStateNormal];
+            [self.moreButton setTitle:NSLocalizedString(@"less_today_stories", nil) forState:UIControlStateNormal];
             self.signUpButton.hidden = YES;
             self.moreButton.hidden = NO;
             [self.spinner stopAnimating];

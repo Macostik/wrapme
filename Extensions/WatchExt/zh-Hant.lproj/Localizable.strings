@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  meWrap
+
+  Created by Sergey Maximenko on 9/18/15.
+  Copyright © 2015 Ravenpod. All rights reserved.
+*/
+
+"comment" = "回應";
+"formatted_photo_by" = "拍攝者 %@";
+"no_recent_updates" = "未有最近更新";

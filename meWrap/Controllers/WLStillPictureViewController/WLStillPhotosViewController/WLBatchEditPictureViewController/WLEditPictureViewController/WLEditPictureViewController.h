@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class WLImageView;
+@class WLImageView, WLEditPicture;
 
 @interface WLEditPictureViewController : UIViewController
 

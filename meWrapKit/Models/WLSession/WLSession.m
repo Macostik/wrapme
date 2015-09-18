@@ -15,9 +15,7 @@
 #import "WLNotificationCenter.h"
 #import "WLEntryManager.h"
 #import "WLCryptographer.h"
-#import "NSUserDefaults+WLAppGroup.h"
 #import "NSObject+Extension.h"
-#import "NSBundle+Extended.h"
 
 static NSString* WLSessionAuthorizationKey = @"WrapLiveAuthorization";
 static NSString* WLSessionPhoneNumberKey = @"WrapLivePhoneNumber";
@@ -29,6 +27,14 @@ static NSString* WLSessionAppVersionKey = @"wrapLiveVersion";
 static NSString* WLSessionServerTimeDifference = @"WLServerTimeDifference";
 
 @implementation NSUserDefaults (WLSessionData)
+
++ (instancetype)appGroupUserDefaults {
+    static NSUserDefaults *appGroupUserDefaults = nil;
+    if (!appGroupUserDefaults) {
+        appGroupUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:AppGroupIdentifier()];
+    }
+    return appGroupUserDefaults;
+}
 
 // MARK: - authorization
 

@@ -29,7 +29,7 @@
 - (void)setEntry:(WLComment *)entry {
     self.avatar.url = entry.contributor.picture.small;
     self.mainGroup.url = entry.candy.picture.small;
-    [self.photoByLabel setText:[NSString stringWithFormat:WLLS(@"formatted_photo_by"), entry.candy.contributor.name]];
+    [self.photoByLabel setText:[NSString stringWithFormat:NSLocalizedString(@"formatted_photo_by", nil), entry.candy.contributor.name]];
     [self.wrapNameLabel setText:entry.candy.wrap.name];
     [self.text setText:[NSString stringWithFormat:@"\"%@\"", entry.text]];
     [self.dateLabel setText:entry.createdAt.timeAgoStringAtAMPM];

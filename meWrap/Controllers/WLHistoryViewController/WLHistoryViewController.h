@@ -8,6 +8,7 @@
 
 #import "WLSwipeViewController.h"
 #import "WLPresentingImageView.h"
+#import "WLHistory.h"
 
 @interface WLHistoryViewController : WLSwipeViewController
 

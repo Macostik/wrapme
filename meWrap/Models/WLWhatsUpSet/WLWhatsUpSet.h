@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import <meWrapKit/meWrapKit.h>
+#import "WLSet.h"
 
 @class WLWhatsUpSet;
 @class WLBroadcaster;

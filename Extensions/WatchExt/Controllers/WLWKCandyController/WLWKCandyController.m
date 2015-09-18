@@ -33,12 +33,12 @@
     [super awakeWithContext:candy];
     [[WLEntryManager manager].context refreshObject:candy mergeChanges:NO];
     self.candy = candy;
-    [self.commentButton setTitle:WLLS(@"comment")];
+    [self.commentButton setTitle:NSLocalizedString(@"comment", nil)];
 }
 
 - (void)update {
     WLCandy *candy = self.candy;
-    [self.photoByLabel setText:[NSString stringWithFormat:WLLS(@"formatted_photo_by"), candy.contributor.name]];
+    [self.photoByLabel setText:[NSString stringWithFormat:NSLocalizedString(@"formatted_photo_by", nil), candy.contributor.name]];
     [self.wrapNameLabel setText:candy.wrap.name];
     [self.dateLabel setText:candy.createdAt.timeAgoStringAtAMPM];
     self.image.url = candy.picture.small;

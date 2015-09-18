@@ -7,7 +7,7 @@
 //
 
 #import "WLContribution.h"
-#import "WLUploading+Extended.h"
+#import "WLCommonEnums.h"
 
 typedef NS_ENUM (NSUInteger, WLContributionStatus) {
     WLContributionStatusReady,

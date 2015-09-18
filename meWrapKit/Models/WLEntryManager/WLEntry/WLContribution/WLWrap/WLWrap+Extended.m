@@ -15,11 +15,8 @@
 #import "UIImage+Resize.h"
 #import "WLEntry+WLAPIRequest.h"
 #import "WLAPIResponse.h"
-#import "WLNetwork.h"
 #import "NSDate+Additions.h"
-#import "WLUploadingQueue.h"
 #import "WLOperationQueue.h"
-#import "WLEditPicture.h"
 #import "WLLocalization.h"
 #import "GCDHelper.h"
 
@@ -111,43 +108,6 @@
 
 - (WLPicture *)picture {
     return [self.cover picture];
-}
-
-- (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
-	__weak WLMessage* message = [WLMessage contribution];
-    message.contributor = [WLUser currentUser];
-    message.wrap = self;
-    message.text = text;
-    [message notifyOnAddition];
-    [WLUploadingQueue upload:[WLUploading uploading:message] success:success failure:failure];
-}
-
-- (void)uploadPicture:(WLEditPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-    WLCandy* candy = [WLCandy candyWithType:WLCandyTypeImage wrap:self];
-    candy.picture = [picture uploadablePicture:YES];
-    if (picture.comment.nonempty) {
-        [candy addCommentsObject:[WLComment comment:picture.comment]];
-    }
-    [self addCandiesObject:candy];
-    [self touch];
-    [candy notifyOnAddition];
-    [WLUploadingQueue upload:[WLUploading uploading:candy] success:success failure:failure];
-}
-
-- (void)uploadPicture:(WLPicture *)picture {
-    [self uploadPicture:picture success:^(WLCandy *candy) { } failure:^(NSError *error) { }];
-}
-
-- (void)uploadPictures:(NSArray *)pictures {
-    __weak typeof(self)weakSelf = self;
-    for (WLPicture *picture in pictures) {
-        runUnaryQueuedOperation(@"wl_upload_candies_queue", ^(WLOperation *operation) {
-            [weakSelf uploadPicture:picture];
-            run_after(0.6f, ^{
-                [operation finish];
-            });
-        });
-    }
 }
 
 - (BOOL)isFirstCreated {

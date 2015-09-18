@@ -31,6 +31,7 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
+    self.exclusiveTouch = YES;
     
 	[[WLCandy notifier] addReceiver:self];
     __weak typeof(self)weakSelf = self;

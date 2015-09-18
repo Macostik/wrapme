@@ -136,6 +136,8 @@
     PNMessageData *data = message.data;
     if ([data.actualChannel isEqualToString:self.name]) {
         [self didReceiveMessage:data];
+    }else if ([data.subscribedChannel isEqualToString:self.name]) {
+        [self didReceiveMessage:data];
     }
 }
 
@@ -143,6 +145,8 @@
     PNPresenceEventData *data = event.data;
     if ([data.actualChannel isEqualToString:self.name]) {
         [self didReceivePresenceEvent:data];
+    } else if ([data.subscribedChannel isEqualToString:self.name]) {
+            [self didReceivePresenceEvent:data];
     }
 }
 

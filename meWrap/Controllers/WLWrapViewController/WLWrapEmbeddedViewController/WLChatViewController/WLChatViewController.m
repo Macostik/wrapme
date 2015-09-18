@@ -421,15 +421,21 @@ CGFloat WLMaxTextViewWidth;
 - (void)setTypingViewHidden:(BOOL)hidden {
     if (self.typingView.hidden != hidden) {
         UIEdgeInsets insets = self.streamView.contentInset;
+        BOOL scroll = NO;
         if (hidden) {
             insets.bottom = 0;
             [self.typingView topPushWithDuration:0.2 delegate:nil];
         } else {
+            scroll = ABS(self.streamView.contentOffset.y - self.streamView.maximumContentOffset.y) < 5;
             insets.bottom = self.typingView.height;
             [self.typingView bottomPushWithDuration:0.2 delegate:nil];
         }
         self.streamView.contentInset = insets;
         self.typingView.hidden = hidden;
+        
+        if (scroll) {
+            [self.streamView setMaximumContentOffsetAnimated:YES];
+        }
     }
 }
 

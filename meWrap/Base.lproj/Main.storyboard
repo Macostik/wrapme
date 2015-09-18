@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Bqr-tR-fcY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Bqr-tR-fcY">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -158,7 +158,7 @@
             </objects>
             <point key="canvasLocation" x="997.5" y="-531.33802816901402"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Source View Controller-->
         <scene sceneID="nh2-ON-WTv">
             <objects>
                 <viewController storyboardIdentifier="WLSettingsViewController" id="zBt-TT-rM7" customClass="WLSettingsViewController" sceneMemberID="viewController">
@@ -458,7 +458,7 @@
             </objects>
             <point key="canvasLocation" x="1730.625" y="-531.33802816901402"/>
         </scene>
-        <!--Change Profile View Controller-->
+        <!--Source View Controller-->
         <scene sceneID="zxY-Lu-ZtN">
             <objects>
                 <viewController storyboardIdentifier="WLChangeProfileViewController" automaticallyAdjustsScrollViewInsets="NO" id="7FG-gC-kPg" customClass="WLChangeProfileViewController" sceneMemberID="viewController">
@@ -603,7 +603,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKa-TF-m51">
                                 <rect key="frame" x="0.0" y="64" width="600" height="58"/>
                                 <subviews>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Help secure your account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nim-LA-uPS" customClass="WLLabel">
+                                    <label clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" misplaced="YES" text="Help secure your account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nim-LA-uPS" customClass="WLLabel">
                                         <rect key="frame" x="10" y="10" width="526" height="18"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -613,7 +613,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpG-be-cvC" customClass="WLButton">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpG-be-cvC" customClass="WLButton">
                                         <rect key="frame" x="546" y="10" width="44" height="28"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
@@ -778,7 +778,7 @@
             </objects>
             <point key="canvasLocation" x="3054.375" y="-531.33802816901402"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Delegate-->
         <scene sceneID="MbJ-3V-1SB">
             <objects>
                 <viewController storyboardIdentifier="WLHomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="L91-fZ-J9O" customClass="WLHomeViewController" sceneMemberID="viewController">
@@ -820,7 +820,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xsmall"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R9i-Mn-k3a" customClass="WLPressButton">
+                                    <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R9i-Mn-k3a" customClass="WLPressButton">
                                         <rect key="frame" x="10" y="52" width="83" height="32"/>
                                         <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -843,7 +843,7 @@
                                             <action selector="push:" destination="DBa-Dn-FbP" eventType="touchUpInside" id="ESe-cV-Vpc"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yk6-tb-7gb" customClass="WLPressButton">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yk6-tb-7gb" customClass="WLPressButton">
                                         <rect key="frame" x="546" y="52" width="44" height="32"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -938,20 +938,20 @@
                                     <outlet property="countLabel" destination="hw2-sP-LBk" id="DNE-Ow-uoV"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh" customClass="WLTouchView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh" customClass="WLTouchView">
                                 <rect key="frame" x="417" y="62" width="179" height="71"/>
                                 <subviews>
-                                    <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-EK-LgH" customClass="WLTriangleView">
+                                    <view contentMode="top" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-EK-LgH" customClass="WLTriangleView">
                                         <rect key="frame" x="151" y="1" width="16" height="9"/>
                                         <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="DYD-eK-tIS"/>
                                         </constraints>
                                     </view>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohz-Ik-QZ1">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ohz-Ik-QZ1">
                                         <rect key="frame" x="0.0" y="10" width="179" height="61"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ka-0F-dc5" customClass="WLLabel">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ka-0F-dc5" customClass="WLLabel">
                                                 <rect key="frame" x="10" y="10" width="159" height="41"/>
                                                 <string key="text">Create Wrap is easy!
 Tap here to start.</string>
@@ -1302,7 +1302,7 @@ Tap here to start.</string>
             </objects>
             <point key="canvasLocation" x="1730" y="124"/>
         </scene>
-        <!--Add Contributors View Controller-->
+        <!--Source View Controller-->
         <scene sceneID="eJ4-7I-sOa">
             <objects>
                 <viewController storyboardIdentifier="WLAddContributorsViewController" automaticallyAdjustsScrollViewInsets="NO" id="2bk-UF-zkR" customClass="WLAddContributorsViewController" sceneMemberID="viewController">
@@ -1581,7 +1581,7 @@ Tap here to start.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wb9-YW-Ahp">
                                 <rect key="frame" x="140" y="64" width="320" height="200"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your friend's name and phone number" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlS-f9-yyB" customClass="WLLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Enter your friend's name and phone number" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlS-f9-yyB" customClass="WLLabel">
                                         <rect key="frame" x="17" y="12" width="287" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
@@ -1590,7 +1590,7 @@ Tap here to start.</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xmt-yf-g7R" customClass="WLTextField">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xmt-yf-g7R" customClass="WLTextField">
                                         <rect key="frame" x="40" y="42" width="240" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="QuD-FO-rvl"/>
@@ -1607,7 +1607,7 @@ Tap here to start.</string>
                                             <outlet property="delegate" destination="ro7-vm-AlA" id="7OT-bA-yaO"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="555-555-5555" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KIX-5W-ASY" customClass="WLTextField">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="555-555-5555" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KIX-5W-ASY" customClass="WLTextField">
                                         <rect key="frame" x="40" y="84" width="240" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="4hk-mh-lbV"/>
@@ -1683,7 +1683,7 @@ Tap here to start.</string>
             </objects>
             <point key="canvasLocation" x="4378.125" y="789.08450704225345"/>
         </scene>
-        <!--Wrap View Controller-->
+        <!--Source View Controller-->
         <scene sceneID="swT-1e-jus">
             <objects>
                 <viewController storyboardIdentifier="WLWrapViewController" automaticallyAdjustsScrollViewInsets="NO" id="hUj-RK-zkg" customClass="WLWrapViewController" sceneMemberID="viewController">
@@ -1782,7 +1782,7 @@ Tap here to start.</string>
                                             <outletCollection property="selectings" destination="h8h-Ah-t4O" id="gG6-Am-doD"/>
                                         </connections>
                                     </button>
-                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sv-Ky-AGJ">
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1sv-Ky-AGJ">
                                         <rect key="frame" x="58" y="10" width="84" height="24"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="u" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43e-ae-hhx">
@@ -1791,7 +1791,7 @@ Tap here to start.</string>
                                                 <color key="textColor" red="0.9843137264251709" green="0.83529412746429443" blue="0.74117648601531982" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8h-Ah-t4O" customClass="WLLabel">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Photos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8h-Ah-t4O" customClass="WLLabel">
                                                 <rect key="frame" x="29" y="2" width="55" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.98431372549019602" green="0.83529411764705885" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
@@ -1919,7 +1919,7 @@ Tap here to start.</string>
                                             <constraint firstAttribute="height" constant="4" id="nHt-zD-59m"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m01-Ic-fcZ" customClass="WLBadgeLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m01-Ic-fcZ" customClass="WLBadgeLabel">
                                         <rect key="frame" x="74" y="1" width="22" height="16"/>
                                         <color key="backgroundColor" red="0.79607843137254897" green="0.32549019607843138" blue="0.035294117647058823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -2076,7 +2076,7 @@ Tap here to start.</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Owner" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goi-9S-32d" customClass="WLLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Owner" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goi-9S-32d" customClass="WLLabel">
                                         <rect key="frame" x="104" y="33" width="45" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
@@ -2085,7 +2085,7 @@ Tap here to start.</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public - followers can see all content" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRa-xU-fCg" customClass="WLLabel">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Public - followers can see all content" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRa-xU-fCg" customClass="WLLabel">
                                         <rect key="frame" x="104" y="54" width="222" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.85098040103912354" green="0.32549020648002625" blue="0.30980393290519714" alpha="1" colorSpace="calibratedRGB"/>
@@ -2365,7 +2365,7 @@ Tap here to start.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DOa-Ws-aK4" customClass="WLGradientView">
                                 <rect key="frame" x="0.0" y="480" width="600" height="120"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFH-JX-QNB">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dFH-JX-QNB">
                                         <rect key="frame" x="12" y="66" width="89" height="42"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yS-IZ-1M1" customClass="WLEntryStatusIndicator">
@@ -2380,7 +2380,7 @@ Tap here to start.</string>
                                                     <outlet property="widthConstraint" destination="MeQ-nf-zRz" id="hHZ-rm-3gg"/>
                                                 </connections>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Photo by S" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGF-6q-Jgs" customClass="WLLabel">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Photo by S" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGF-6q-Jgs" customClass="WLLabel">
                                                 <rect key="frame" x="16" y="0.0" width="73" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="zpj-pw-TPr"/>
@@ -2392,7 +2392,7 @@ Tap here to start.</string>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Yesterday at" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBg-6r-k4s" customClass="WLLabel">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Yesterday at" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBg-6r-k4s" customClass="WLLabel">
                                                 <rect key="frame" x="0.0" y="21" width="80" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="A47-sl-hkO"/>
@@ -2404,7 +2404,7 @@ Tap here to start.</string>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n28-ZL-uwJ">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n28-ZL-uwJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="89" height="42"/>
                                                 <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2499,7 +2499,7 @@ Tap here to start.</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ai-CO-qH0" customClass="WLButton">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ai-CO-qH0" customClass="WLButton">
                                 <rect key="frame" x="487" y="558" width="101" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="QaK-uY-Rqe"/>
@@ -2677,7 +2677,7 @@ Check your internet connection and try again.</string>
             </objects>
             <point key="canvasLocation" x="3718.125" y="124.64788732394365"/>
         </scene>
-        <!--Comments View Controller-->
+        <!--Delegate-->
         <scene sceneID="iUx-SN-sz9">
             <objects>
                 <viewController storyboardIdentifier="WLCommentsViewController" modalPresentationStyle="currentContext" id="M8n-42-KAe" customClass="WLCommentsViewController" sceneMemberID="viewController">
@@ -2937,7 +2937,7 @@ Check your internet connection and try again.</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FOLLOW &amp; JOIN THIS WRAP?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxe-oJ-t5C" customClass="WLLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="FOLLOW &amp; JOIN THIS WRAP?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxe-oJ-t5C" customClass="WLLabel">
                                 <rect key="frame" x="195" y="289" width="211" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2987,7 +2987,7 @@ Check your internet connection and try again.</string>
                                     <action selector="later:" destination="a5u-0V-k1F" eventType="touchUpInside" id="Cmi-TB-jUO"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WRAP NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8h1-Do-qBF" customClass="WLLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="WRAP NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8h1-Do-qBF" customClass="WLLabel">
                                 <rect key="frame" x="254" y="327" width="92" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3064,7 +3064,7 @@ Check your internet connection and try again.</string>
                                     <action selector="close:" destination="a5u-0V-k1F" eventType="touchUpInside" id="sqz-th-zW5"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WRAP OWNER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zd5-1Z-u2u" customClass="WLLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="WRAP OWNER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zd5-1Z-u2u" customClass="WLLabel">
                                 <rect key="frame" x="248" y="351" width="105" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3117,7 +3117,7 @@ Check your internet connection and try again.</string>
             </objects>
             <point key="canvasLocation" x="5064.375" y="124.64788732394365"/>
         </scene>
-        <!--Chat View Controller-->
+        <!--Delegate-->
         <scene sceneID="JRm-Kq-Yqc">
             <objects>
                 <viewController storyboardIdentifier="WLChatViewController" automaticallyAdjustsScrollViewInsets="NO" id="ef1-h7-yay" customClass="WLChatViewController" sceneMemberID="viewController">
@@ -3150,7 +3150,7 @@ Check your internet connection and try again.</string>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User1, User2 and User3 are typi..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-Rh-4Et" customClass="WLLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="User1, User2 and User3 are typi..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-Rh-4Et" customClass="WLLabel">
                                         <rect key="frame" x="64" y="17" width="233" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -3373,7 +3373,7 @@ Check your internet connection and try again.</string>
             </objects>
             <point key="canvasLocation" x="997.5" y="124.64788732394365"/>
         </scene>
-        <!--Contributors View Controller-->
+        <!--Source View Controller-->
         <scene sceneID="8UV-zT-Qeh">
             <objects>
                 <viewController storyboardIdentifier="WLContributorsViewController" automaticallyAdjustsScrollViewInsets="NO" id="qRW-aK-Lk5" customClass="WLContributorsViewController" sceneMemberID="viewController">
@@ -3716,7 +3716,7 @@ QWRkEEZyaWVuZFZpZXc
                                             <action selector="back:" destination="TKE-mx-bkQ" eventType="touchUpInside" id="4Rc-Ww-Zpa"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZL1-Bm-SmI" customClass="WLLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZL1-Bm-SmI" customClass="WLLabel">
                                         <rect key="frame" x="269" y="32" width="63" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3787,7 +3787,7 @@ QWRkEEZyaWVuZFZpZXc
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-Oj-q4N">
                                 <rect key="frame" x="0.0" y="206" width="600" height="238"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="737" text="Notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtf-da-c8a" customClass="WLLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="737" misplaced="YES" text="Notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtf-da-c8a" customClass="WLLabel">
                                         <rect key="frame" x="12" y="12" width="96" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>

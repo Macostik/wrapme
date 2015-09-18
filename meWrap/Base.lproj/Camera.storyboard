@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="owE-f8-xzI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="owE-f8-xzI">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
@@ -79,7 +79,7 @@
                                         </connections>
                                     </view>
                                     <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To allow access to the camera go to the Settings &gt; Privacy &gt; Camera" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwv-dz-I8C" customClass="WLLabel">
-                                        <rect key="frame" x="43" y="151" width="234" height="36"/>
+                                        <rect key="frame" x="43" y="142" width="234" height="54"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -157,9 +157,9 @@
                                             <action selector="toggleQuickAssets:" destination="gev-MF-K1G" eventType="touchUpInside" id="3ZY-ag-Qpt"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="y" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acO-Zn-Gz0">
-                                        <rect key="frame" x="154" y="2" width="13" height="13"/>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="13"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acO-Zn-Gz0">
+                                        <rect key="frame" x="149" y="-3" width="24" height="24"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -176,11 +176,11 @@
                                     <constraint firstItem="Ory-OK-auU" firstAttribute="leading" secondItem="Fe5-n5-5fh" secondAttribute="leading" id="8RP-XR-CQ6"/>
                                     <constraint firstItem="Ory-OK-auU" firstAttribute="top" secondItem="2IK-Ed-Mpv" secondAttribute="bottom" id="Alz-A5-nSk"/>
                                     <constraint firstAttribute="trailing" secondItem="Ory-OK-auU" secondAttribute="trailing" id="NA9-ue-AbK"/>
-                                    <constraint firstAttribute="centerX" secondItem="acO-Zn-Gz0" secondAttribute="centerX" id="UAF-SA-J2G"/>
+                                    <constraint firstAttribute="centerX" secondItem="acO-Zn-Gz0" secondAttribute="centerX" constant="-1" id="UAF-SA-J2G"/>
                                     <constraint firstItem="2IK-Ed-Mpv" firstAttribute="leading" secondItem="Fe5-n5-5fh" secondAttribute="leading" id="dOW-jA-N4e"/>
                                     <constraint firstItem="Ory-OK-auU" firstAttribute="top" secondItem="Fe5-n5-5fh" secondAttribute="top" constant="16" id="h49-Wp-QF7"/>
                                     <constraint firstAttribute="bottom" secondItem="Ory-OK-auU" secondAttribute="bottom" id="jgg-ha-Mwo"/>
-                                    <constraint firstAttribute="top" secondItem="acO-Zn-Gz0" secondAttribute="centerY" constant="-8" id="n10-cq-lvb"/>
+                                    <constraint firstAttribute="top" secondItem="acO-Zn-Gz0" secondAttribute="centerY" constant="-9" id="n10-cq-lvb"/>
                                     <constraint firstAttribute="trailing" secondItem="2IK-Ed-Mpv" secondAttribute="trailing" id="oOB-L2-n0w"/>
                                     <constraint firstItem="2IK-Ed-Mpv" firstAttribute="top" secondItem="Fe5-n5-5fh" secondAttribute="top" id="vmc-bJ-eGb"/>
                                 </constraints>
@@ -453,7 +453,7 @@
                                             <action selector="toggleQuickAssets:" destination="gkl-Du-487" eventType="touchUpInside" id="7qc-He-dlf"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2i-cM-gaQ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2i-cM-gaQ">
                                         <rect key="frame" x="148" y="-4" width="24" height="24"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -488,7 +488,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="104"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qck-Rs-PkM" customClass="WLDebugButton">
-                                                <rect key="frame" x="0.0" y="71" width="132" height="33"/>
+                                                <rect key="frame" x="0.0" y="71" width="135" height="33"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <state key="normal" title="Get sample photo">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -500,7 +500,7 @@
                                                     <action selector="getSamplePhoto:" destination="gkl-Du-487" eventType="touchUpInside" id="EsT-ac-NpJ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITP-VR-CiW" customClass="WLButton">
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITP-VR-CiW" customClass="WLButton">
                                                 <rect key="frame" x="10" y="28" width="36" height="48"/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                                 <state key="normal" title="L">
@@ -517,7 +517,7 @@
                                                     <action selector="cancel:" destination="gkl-Du-487" eventType="touchUpInside" id="Ohw-9D-PNA"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agr-RC-KiU" customClass="WLButton">
+                                            <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agr-RC-KiU" customClass="WLButton">
                                                 <rect key="frame" x="274" y="28" width="36" height="48"/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                                 <state key="normal" title="6">
@@ -607,7 +607,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAP TO CHANGE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="av4-g2-N6y" customClass="WLLabel">
-                                        <rect key="frame" x="50" y="28" width="101" height="16"/>
+                                        <rect key="frame" x="50" y="28" width="102" height="16"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <color key="textColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="highlightedColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
@@ -990,7 +990,7 @@
             </objects>
             <point key="canvasLocation" x="3540" y="-254"/>
         </scene>
-        <!--Batch Edit Picture View Controller-->
+        <!--Delegate-->
         <scene sceneID="WkN-uv-Mwe">
             <objects>
                 <viewController storyboardIdentifier="WLBatchEditPictureViewController" id="CvA-oq-Pt1" customClass="WLBatchEditPictureViewController" sceneMemberID="viewController">
@@ -1029,7 +1029,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAP TO CHANGE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upJ-Du-Uru" customClass="WLLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="TAP TO CHANGE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upJ-Du-Uru" customClass="WLLabel">
                                         <rect key="frame" x="50" y="28" width="101" height="16"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <color key="textColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
@@ -1192,7 +1192,7 @@
                                             <constraint firstAttribute="height" constant="1" id="0ID-nR-c2M"/>
                                         </constraints>
                                     </view>
-                                    <button tag="5" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Nk-uxq" customClass="WLButton">
+                                    <button tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Nk-uxq" customClass="WLButton">
                                         <rect key="frame" x="276" y="5" width="45" height="34"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1375,7 +1375,7 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OZr-dY-Xul" customClass="StreamView" customModule="meWrap">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="141"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8l4-7n-9vU" customClass="WLButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8l4-7n-9vU" customClass="WLButton">
                                                 <rect key="frame" x="12" y="47" width="36" height="48"/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                                 <state key="normal" title="L">
@@ -1401,7 +1401,7 @@
                                             <outlet property="delegate" destination="y7X-Pb-ZcE" id="iPS-E5-9ct"/>
                                         </connections>
                                     </scrollView>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="WLButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taU-aO-Oxc" customClass="WLButton">
                                         <rect key="frame" x="272" y="47" width="36" height="48"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="36"/>
                                         <state key="normal" title="g">
@@ -1736,6 +1736,6 @@
         <image name="switch_to_front_cam" width="23" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Eot-wR-oeG"/>
+        <segue reference="l1z-eb-ReB"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -65,7 +65,9 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self.dataSource reload];
+    [UIView performWithoutAnimation:^{
+           [self.dataSource reload];
+    }];
 }
 
 - (IBAction)returnClicked:(UIButton *)sender {

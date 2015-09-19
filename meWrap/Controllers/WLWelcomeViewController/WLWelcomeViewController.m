@@ -27,6 +27,8 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UITextView *termsAndConditionsTextView;
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *backgroundAnimationPrioritizer;
 
+@property (nonatomic) BOOL animating;
+
 @end
 
 @implementation WLWelcomeViewController
@@ -41,8 +43,14 @@ typedef enum : NSUInteger {
     [UITapGestureRecognizer recognizerWithView:self.termsAndConditionsTextView block:^(UIGestureRecognizer *recognizer) {
         [weakSelf flipAnimationView:WLFlipDirectionLeft];
     }];
-    
-    [weakSelf animateBackgroundView];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (!self.animating) {
+        self.animating = YES;
+        [self animateBackgroundView];
+    }
 }
 
 - (void)animateBackgroundView {

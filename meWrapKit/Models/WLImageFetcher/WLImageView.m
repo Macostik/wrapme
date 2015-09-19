@@ -12,6 +12,7 @@
 #import "NSError+WLAPIManager.h"
 #import "WLPicture.h"
 #import "UIView+QuatzCoreAnimations.h"
+#import "UIImage+Resize.h"
 
 @interface WLImageView () <WLImageFetching>
 

@@ -28,9 +28,3 @@
 + (instancetype)record:(NSArray*)phoneNumbers;
 
 @end
-
-@interface NSString (WLAddressBook)
-
-@property (nonatomic, strong) NSString *label;
-
-@end

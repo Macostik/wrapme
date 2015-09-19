@@ -21,7 +21,7 @@
 @implementation WLAddressBookPhoneNumberCell
 
 - (void)setup:(WLAddressBookPhoneNumber *)phoneNumber {
-	self.typeLabel.text = [NSString stringWithFormat:@"%@:", WLString(phoneNumber.phone.label)];
+	self.typeLabel.text = [NSString stringWithFormat:@"%@:", WLString(phoneNumber.label)];
 	self.phoneLabel.text = phoneNumber.phone;
 }
 

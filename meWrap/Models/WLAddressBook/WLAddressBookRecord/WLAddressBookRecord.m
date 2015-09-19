@@ -57,7 +57,7 @@ static inline NSArray* WLAddressBookGetPhones(ABRecordRef record) {
         person.phone = phoneNumberClearing((__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, index));
         if (person.phone.length >= WLAddressBookPhoneNumberMinimumLength) {
             CFStringRef phoneLabel = ABMultiValueCopyLabelAtIndex(phones, index);
-            person.phone.label = (__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(phoneLabel);
+            person.label = (__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(phoneLabel);
             if (phoneLabel != NULL) {
                 CFRelease(phoneLabel);
             }
@@ -131,6 +131,10 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
         }
     }
     return nil;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@ %@", self.name, self.phoneNumbers.description];
 }
 
 @end

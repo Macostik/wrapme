@@ -61,6 +61,7 @@ CGFloat WLMaxTextViewWidth;
 @property (strong, nonatomic) NSMapTable* cachedMessageHeights;
 
 @property (strong, nonatomic) StreamMetrics *messageMetrics;
+@property (strong, nonatomic) StreamMetrics *messageWithNameMetrics;
 @property (strong, nonatomic) StreamMetrics *myMessageMetrics;
 @property (strong, nonatomic) StreamMetrics *dateMetrics;
 @property (strong, nonatomic) StreamMetrics *unreadMessagesMetrics;
@@ -98,6 +99,7 @@ CGFloat WLMaxTextViewWidth;
     self = [super initWithCoder:coder];
     if (self) {
         self.messageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageCell"];
+        self.messageWithNameMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageWithNameCell"];
         self.myMessageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMyMessageCell"];
         self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageDateView" size:31];
         self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:48];
@@ -133,21 +135,17 @@ CGFloat WLMaxTextViewWidth;
     
     __weak typeof(self)weakSelf = self;
     
-    self.unreadMessagesMetrics.finalizeAppearing = self.dateMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
+    void (^finalizeMessageAppearing)(StreamItem *, id) = ^(StreamItem *item, WLMessage *message) {
         if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
             [weakSelf.chat.readMessages addObject:message];
         }
     };
     
-    self.myMessageMetrics.finalizeAppearing = self.messageMetrics.finalizeAppearing = ^(StreamItem *item, WLMessage *message) {
-        if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
-            [weakSelf.chat.readMessages addObject:message];
-        }
-    };
-    
-    self.messageMetrics.prepareAppearing = ^(StreamItem *item, WLMessage *message) {
-        [(WLMessageCell *)item.view setShowName:[weakSelf.chat.messagesWithName containsObject:message]];
-    };
+    self.unreadMessagesMetrics.finalizeAppearing = finalizeMessageAppearing;
+    self.dateMetrics.finalizeAppearing = finalizeMessageAppearing;
+    self.messageWithNameMetrics.finalizeAppearing = finalizeMessageAppearing;
+    self.myMessageMetrics.finalizeAppearing = finalizeMessageAppearing;
+    self.messageMetrics.finalizeAppearing = finalizeMessageAppearing;
     
     [self.loadingViewMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
         return weakSelf.chat.completed;
@@ -167,12 +165,12 @@ CGFloat WLMaxTextViewWidth;
     
     WLMaxTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndent - 2*WLMessageHorizontalInset - WLTrailingBubbleIndent;
     
-    self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
+    self.messageWithNameMetrics.sizeAt = self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         WLMessage *message = [weakSelf.chat.entries tryAt:position.index];
         return [weakSelf heightOfMessageCell:message];
     };
     
-    self.messageMetrics.insetsAt = self.myMessageMetrics.insetsAt = ^CGRect(StreamPosition *position, StreamMetrics *metrics) {
+    self.messageWithNameMetrics.insetsAt = self.messageMetrics.insetsAt = self.myMessageMetrics.insetsAt = ^CGRect(StreamPosition *position, StreamMetrics *metrics) {
         WLMessage *message = [weakSelf.chat.entries tryAt:position.index];
         return [weakSelf.chat.groupMessages containsObject:message] ? CGRectMake(0, WLMessageGroupSpacing, 0, 0) : CGRectZero;
     };
@@ -510,6 +508,8 @@ CGFloat WLMaxTextViewWidth;
     }
     if (message.contributedByCurrentUser) {
         [metrics addObject:self.myMessageMetrics];
+    } else if ([self.chat.messagesWithName containsObject:message]) {
+        [metrics addObject:self.messageWithNameMetrics];
     } else {
         [metrics addObject:self.messageMetrics];
     }

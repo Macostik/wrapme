@@ -808,6 +808,8 @@
 		C5B993C81B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */; };
 		C5B993CC1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B993CB1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m */; };
 		C5B993CD1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B993CB1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m */; };
+		C5B9F9CC1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B9F9CB1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib */; settings = {ASSET_TAGS = (); }; };
+		C5B9F9CD1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B9F9CB1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib */; settings = {ASSET_TAGS = (); }; };
 		C5BAD1341B53F9C60028FCEB /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BAD1311B53F9C60028FCEB /* WLAlertView.m */; };
 		C5BAD1361B53F9C60028FCEB /* WLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BAD1311B53F9C60028FCEB /* WLAlertView.m */; };
 		C5BCAC401B2EDF2300080650 /* WLWKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */; };
@@ -1891,6 +1893,7 @@
 		C5B993C41B302E73002BCC8C /* WLWKCommentReplyPresets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLWKCommentReplyPresets.plist; sourceTree = "<group>"; };
 		C5B993CA1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceController+SimplifiedTextInput.h"; sourceTree = "<group>"; };
 		C5B993CB1B3036A6002BCC8C /* WKInterfaceController+SimplifiedTextInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKInterfaceController+SimplifiedTextInput.m"; sourceTree = "<group>"; };
+		C5B9F9CB1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLMessageWithNameCell.xib; sourceTree = "<group>"; };
 		C5BAD1301B53F9C60028FCEB /* WLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAlertView.h; sourceTree = "<group>"; };
 		C5BAD1311B53F9C60028FCEB /* WLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAlertView.m; sourceTree = "<group>"; };
 		C5BCAC3E1B2EDF2300080650 /* WLWKAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKAlertController.h; sourceTree = "<group>"; };
@@ -4469,6 +4472,7 @@
 				C5BCEFDF1B551B7B00E4AD6D /* WLMessageCell.h */,
 				C5BCEFE01B551B7B00E4AD6D /* WLMessageCell.m */,
 				C5A9CC8D1B9482C30084D0F5 /* WLMessageCell.xib */,
+				C5B9F9CB1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib */,
 				C5A9CC901B9482D20084D0F5 /* WLMyMessageCell.xib */,
 			);
 			path = WLMessageCell;
@@ -5377,6 +5381,7 @@
 				C5BEC3A61B8F16E800499EEA /* logo_and_caption_white.png in Resources */,
 				C54AF54019B8C437006F7EDB /* numbers.plist in Resources */,
 				5BD552131B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */,
+				C5B9F9CC1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib in Resources */,
 				C5BCF0181B551B7B00E4AD6D /* WLMessageDateView.xib in Resources */,
 				C55908E51B18B9FA001CB99F /* WLInviteHintView.xib in Resources */,
 				C5A9CC891B946F9C0084D0F5 /* WLEmojiCell.xib in Resources */,
@@ -5464,6 +5469,7 @@
 				C5BEC3A71B8F16E800499EEA /* logo_and_caption_white.png in Resources */,
 				C54AF73A19B8C491006F7EDB /* numbers.plist in Resources */,
 				5BD552151B3C13F700530566 /* WhatsUpPlaceholderView.xib in Resources */,
+				C5B9F9CD1BAD61B200B7D8F3 /* WLMessageWithNameCell.xib in Resources */,
 				C5BCF01A1B551B7B00E4AD6D /* WLMessageDateView.xib in Resources */,
 				C55908E71B18B9FA001CB99F /* WLInviteHintView.xib in Resources */,
 				C5A9CC8A1B946F9C0084D0F5 /* WLEmojiCell.xib in Resources */,

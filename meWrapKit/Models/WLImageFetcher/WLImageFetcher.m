@@ -17,6 +17,7 @@
 #import "NSError+WLAPIManager.h"
 #import "GCDHelper.h"
 #import "WLLogger.h"
+#import "UIImage+Resize.h"
 
 @interface WLImageFetcher ()
 
@@ -111,8 +112,9 @@
     operation.securityPolicy.allowInvalidCertificates = YES;
     operation.securityPolicy.validatesDomainName = NO;
 	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-		[[WLImageCache cache] setImage:responseObject withUrl:url];
-		if (success) success(responseObject, NO);
+        UIImage *image = [responseObject thumbnailImage:40];
+		[[WLImageCache cache] setImage:image withUrl:url];
+		if (success) success(image, NO);
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 		if (error.code != NSURLErrorCancelled && failure) failure(error);
 	}];

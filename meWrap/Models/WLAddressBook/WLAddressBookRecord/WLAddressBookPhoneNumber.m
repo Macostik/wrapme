@@ -42,16 +42,8 @@
     }
 }
 
-@end
-
-@implementation NSString (WLAddressBook)
-
-- (void)setLabel:(NSString *)label {
-    [self setAssociatedObject:label forKey:"wl_address_book_label"];
-}
-
-- (NSString *)label {
-    return [self associatedObjectForKey:"wl_address_book_label"];
+- (NSString *)description {
+    return self.phone;
 }
 
 @end

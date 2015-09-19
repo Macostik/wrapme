@@ -29,28 +29,10 @@
 
 @implementation WLMessageCell
 
-+ (UIImage*)tailImageWithColor:(UIColor*)color size:(CGSize)size drawing:(void (^) (CGSize size))drawing {
-    static NSDictionary *tails = nil;
-    UIImage *image = [tails objectForKey:color];
-    if (!image) {
-        image = [UIImage draw:size opaque:NO scale:[UIScreen mainScreen].scale drawing:drawing];
-        if (tails) {
-            NSMutableDictionary *_tails = [tails mutableCopy];
-            [_tails setObject:image forKey:color];
-            tails = [_tails copy];
-        } else {
-            tails = [NSDictionary dictionaryWithObject:image forKey:color];
-        }
-    }
-    return image;
-}
-
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    self.avatarView.hidden = self.nameLabel.hidden = YES;
     self.textView.textContainerInset = UIEdgeInsetsZero;
     self.textView.textContainer.lineFragmentPadding = .0;
-    
     __weak typeof(self)weakSelf = self;
     [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
         [menu addCopyItem:^(WLMessage *message) {
@@ -60,23 +42,10 @@
         }];
         menu.entry = weakSelf.entry;
     }];
-    
-    self.showName = YES;
-}
-
-- (void)setShowName:(BOOL)showName {
-    if (_showName != showName) {
-        _showName = showName;
-        self.avatarView.hidden = self.nameLabel.hidden = !showName;
-        [self.nameLabel setContentCompressionResistancePriority:showName ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisVertical];
-        [self.nameLabel setContentCompressionResistancePriority:showName ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-        [self.textView setContentCompressionResistancePriority:showName ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
-        [self setNeedsLayout];
-    }
 }
 
 - (void)setup:(WLMessage*)message {
-    if (_showName) {
+    if (self.nameLabel) {
         self.avatarView.url = message.contributor.picture.small;
         self.nameLabel.text = message.contributor.name;
     }

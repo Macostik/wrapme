@@ -23,6 +23,4 @@ extern CGFloat WLMaxTextViewWidth;
 
 @interface WLMessageCell : StreamReusableView
 
-@property (nonatomic) BOOL showName;
-
 @end

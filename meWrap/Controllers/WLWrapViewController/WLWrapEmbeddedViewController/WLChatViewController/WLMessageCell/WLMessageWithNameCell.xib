@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="AzW-cI-2Hi" customClass="WLMessageCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="86"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tyW-OA-8ng">
+                    <rect key="frame" x="64" y="0.0" width="114" height="72"/>
+                    <subviews>
+                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xkc-2N-B6M" customClass="WLLabel">
+                            <rect key="frame" x="6" y="4" width="33.5" height="16"/>
+                            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                            <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpB-lF-feB" customClass="WLLabel">
+                            <rect key="frame" x="54.5" y="52" width="53.5" height="16"/>
+                            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                            <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="745" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="uzq-Y1-O7b" customClass="WLTextView">
+                            <rect key="frame" x="6" y="18" width="102" height="34"/>
+                            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.1505631506" green="0.1505586505" blue="0.15056121350000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                            </userDefinedRuntimeAttributes>
+                        </textView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.93333333730000001" green="0.93333333730000001" blue="0.93333333730000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="uzq-Y1-O7b" secondAttribute="trailing" constant="6" id="8zW-MA-y5L"/>
+                        <constraint firstAttribute="trailing" secondItem="cpB-lF-feB" secondAttribute="trailing" constant="6" id="OJA-rS-LYh"/>
+                        <constraint firstAttribute="bottom" secondItem="cpB-lF-feB" secondAttribute="bottom" constant="4" id="V1v-qo-MEb"/>
+                        <constraint firstItem="xkc-2N-B6M" firstAttribute="top" secondItem="tyW-OA-8ng" secondAttribute="top" constant="4" id="Z9E-BP-yTS"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xkc-2N-B6M" secondAttribute="trailing" constant="6" id="abY-bl-yfO"/>
+                        <constraint firstItem="uzq-Y1-O7b" firstAttribute="leading" secondItem="tyW-OA-8ng" secondAttribute="leading" constant="6" id="gXY-gk-n1S"/>
+                        <constraint firstItem="xkc-2N-B6M" firstAttribute="leading" secondItem="tyW-OA-8ng" secondAttribute="leading" constant="6" id="gua-9s-l9d"/>
+                        <constraint firstItem="uzq-Y1-O7b" firstAttribute="top" secondItem="xkc-2N-B6M" secondAttribute="bottom" constant="-2" id="vIh-2d-c7c"/>
+                        <constraint firstItem="cpB-lF-feB" firstAttribute="top" secondItem="uzq-Y1-O7b" secondAttribute="bottom" id="vsM-H4-eef"/>
+                        <constraint firstItem="cpB-lF-feB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tyW-OA-8ng" secondAttribute="leading" constant="6" id="wfD-8N-EtK"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Do-t9-L3S" customClass="WLCircleImageView">
+                    <rect key="frame" x="16" y="0.0" width="40" height="40"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="TYY-Xv-ELw"/>
+                        <constraint firstAttribute="height" constant="40" id="haZ-Rn-lIq"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                            <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="defaultIconText" value="&amp;"/>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="8Do-t9-L3S" firstAttribute="top" secondItem="tyW-OA-8ng" secondAttribute="top" id="6oF-Ph-xzn"/>
+                <constraint firstItem="tyW-OA-8ng" firstAttribute="top" secondItem="AzW-cI-2Hi" secondAttribute="top" id="RzW-qA-Dl2"/>
+                <constraint firstItem="8Do-t9-L3S" firstAttribute="leading" secondItem="AzW-cI-2Hi" secondAttribute="leading" constant="16" id="qsW-Z7-dkq"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tyW-OA-8ng" secondAttribute="trailing" constant="16" id="vzx-lW-uB5"/>
+                <constraint firstItem="tyW-OA-8ng" firstAttribute="leading" secondItem="8Do-t9-L3S" secondAttribute="trailing" constant="8" id="wC9-5p-eew"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="avatarView" destination="8Do-t9-L3S" id="U93-cb-jJu"/>
+                <outlet property="nameLabel" destination="xkc-2N-B6M" id="SRI-UY-1PO"/>
+                <outlet property="textView" destination="uzq-Y1-O7b" id="Me8-f6-Sj0"/>
+                <outlet property="timeLabel" destination="cpB-lF-feB" id="UFs-Fd-jRk"/>
+            </connections>
+            <point key="canvasLocation" x="276" y="386"/>
+        </view>
+    </objects>
+</document>

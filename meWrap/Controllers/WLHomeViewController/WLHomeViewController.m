@@ -40,6 +40,8 @@
 #import "SegmentedStreamDataSource.h"
 #import "WLUploadingQueue.h"
 #import "WLEntry+WLUploadingQueue.h"
+#import "WLFollowingViewController.h"
+#import "WLSoundPlayer.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
@@ -354,42 +356,29 @@
     [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
         [receiver setDidAddBlock:^(WLWrap *wrap) {
             if (wrap.isPublic) {
-                [[weakSelf.publicDataSource items] addEntry:wrap];
+                [weakSelf.publicDataSource.items sort:wrap];
             }
             if (wrap.isContributing) {
-                [[weakSelf.homeDataSource items] addEntry:wrap];
+                [weakSelf.homeDataSource.items sort:wrap];
             }
             weakSelf.streamView.contentOffset = CGPointZero;
         }];
         [receiver setDidUpdateBlock:^(WLWrap *wrap) {
             if (wrap.isPublic) {
-                WLPaginatedSet *publicWraps = [weakSelf.publicDataSource items];
-                if ([publicWraps.entries containsObject:wrap]) {
-                    [publicWraps sort:wrap];
-                } else {
-                    [publicWraps addEntry:wrap];
-                }
+                [weakSelf.publicDataSource.items sort:wrap];
             }
             if (wrap.isContributing) {
-                WLPaginatedSet *wraps = [weakSelf.homeDataSource items];
-                if ([wraps.entries containsObject:wrap]) {
-                    [wraps sort:wrap];
-                } else {
-                    [wraps addEntry:wrap];
-                }
+                [weakSelf.homeDataSource.items sort:wrap];
             } else {
-                WLPaginatedSet *wraps = [weakSelf.homeDataSource items];
-                if ([wraps.entries containsObject:wrap]) {
-                    [wraps removeEntry:wrap];
-                }
+                [weakSelf.homeDataSource.items removeEntry:wrap];
             }
         }];
         [receiver setWillDeleteBlock:^(WLWrap *wrap) {
             if (wrap.isPublic) {
-                [(WLPaginatedSet *)[weakSelf.publicDataSource items] removeEntry:wrap];
+                [weakSelf.publicDataSource.items removeEntry:wrap];
             }
             if (wrap.isContributing) {
-                [(WLPaginatedSet *)[weakSelf.homeDataSource items] removeEntry:wrap];
+                [weakSelf.homeDataSource.items removeEntry:wrap];
             }
         }];
     }];
@@ -428,8 +417,11 @@
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     WLWrap* wrap = controller.wrap;
     if (wrap) {
-        [wrap uploadPictures:pictures];
         [self dismissViewControllerAnimated:NO completion:nil];
+        [WLFollowingViewController followWrapIfNeeded:wrap performAction:^{
+            [WLSoundPlayer playSound:WLSound_s04];
+            [wrap uploadPictures:pictures];
+        }];
     }
 }
 

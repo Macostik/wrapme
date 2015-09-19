@@ -25,26 +25,50 @@
 #endif
 }
 
-+ (BOOL)isEmbeddedDefaultValue {
-    return NO;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.preferredViewFrame = [UIWindow mainWindow].bounds;
+    }
+    return self;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.preferredViewFrame = [UIWindow mainWindow].bounds;
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.preferredViewFrame = [UIWindow mainWindow].bounds;
+    }
+    return self;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 
+- (void)loadView {
+    [super loadView];
+    if ([self shouldUsePreferredViewFrame]) {
+        self.view.frame = self.preferredViewFrame;
+        [self.view layoutIfNeeded];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.screenName = NSStringFromClass([self class]);
     self.keyboardAdjustmentAnimated = YES;
-    if ([self shouldResizeViewWithScreenBounds]) {
-        self.view.frame = [UIWindow mainWindow].bounds;
-        [self.view layoutIfNeeded];
-    }
     [[WLKeyboard keyboard] addReceiver:self];
 }
 
-- (BOOL)shouldResizeViewWithScreenBounds {
+- (BOOL)shouldUsePreferredViewFrame {
     return YES;
 }
 

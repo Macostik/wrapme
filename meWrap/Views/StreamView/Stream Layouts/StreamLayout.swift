@@ -28,7 +28,10 @@ class StreamLayout: NSObject {
     
     var offset: CGFloat = 0
     
+    var finalized = false
+    
     func prepareLayout() {
+        finalized = false
         if let streamView = self.streamView, let delegate = streamView.delegate as? StreamLayoutDelegate {
             if let offset = delegate.streamView?(streamView, offsetForLayout: self) {
                 self.offset = offset
@@ -100,5 +103,6 @@ class StreamLayout: NSObject {
     
     func finalizeLayout() {
         prepareForNextSection()
+        finalized = true
     }
 }

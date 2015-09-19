@@ -107,7 +107,7 @@
     }
 }
 
-- (BOOL)shouldResizeViewWithScreenBounds {
+- (BOOL)shouldUsePreferredViewFrame {
     return NO;
 }
 

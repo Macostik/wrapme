@@ -94,12 +94,16 @@ class StreamView: UIScrollView {
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        updateVisibility()
+        if let layout = layout where layout.finalized {
+            updateVisibility()
+        }
     }
     
     override var contentOffset: CGPoint {
         didSet {
-            updateVisibility()
+            if let layout = layout where layout.finalized {
+                updateVisibility()
+            }
         }
     }
     

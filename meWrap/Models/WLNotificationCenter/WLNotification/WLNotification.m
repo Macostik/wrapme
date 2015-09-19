@@ -13,6 +13,7 @@
 #import "WLEntry+WLAPIRequest.h"
 #import "PubNub.h"
 #import "NSDate+PNTimetoken.h"
+#import "WLCommonEnums.h"
 
 @interface WLNotification ()
 
@@ -54,10 +55,6 @@
         }
     }
     return nil;
-}
-
-+ (BOOL)isSupportedType:(WLNotificationType)type {
-    return YES;
 }
 
 - (void)setup:(NSDictionary*)data {
@@ -398,7 +395,7 @@
 - (BOOL)notifiableForNotification:(WLNotification *)notification {
     if (notification.event == WLEventAdd) {
         NSString *userIdentifier = notification.data[WLUserUIDKey] ? : notification.data[WLUserKey][WLUserUIDKey];
-        return !self.contributedByCurrentUser && [userIdentifier isEqualToString:[WLUser currentUser].identifier];
+        return !self.contributedByCurrentUser && [userIdentifier isEqualToString:[WLUser currentUser].identifier] && notification.requester != [WLUser currentUser];
     } else {
         return [super notifiableForNotification:notification];
     }
@@ -408,20 +405,21 @@
     NSString *userIdentifier = notification.data[WLUserUIDKey];
     NSDictionary *userData = notification.data[WLUserKey];
     WLUser *user = userData ? [WLUser API_entry:userData] : [WLUser entry:userIdentifier];
-    if (!user) {
-        user = [WLUser currentUser];
-    }
-    if (![self.contributors containsObject:user]) {
+    if (user && ![self.contributors containsObject:user]) {
         [self addContributorsObject:user];
+    }
+    NSDictionary *inviter = notification.data[@"inviter"];
+    if (inviter) {
+        notification.requester = [WLUser API_entry:inviter];
     }
     [super fetchAddNotification:notification success:success failure:failure];
 }
 
 - (void)finalizeAddNotification:(WLNotification *)notification {
-    [super finalizeAddNotification:notification];
-    NSDictionary *userData = notification.data[@"inviter"];
-    if (userData) {
-        notification.requester = [WLUser API_entry:userData];
+    if (self.isPublic && !notification.inserted) {
+        [self notifyOnUpdate];
+    } else {
+        [self notifyOnAddition];
     }
 }
 
@@ -429,14 +427,13 @@
     NSString *userIdentifier = notification.data[WLUserUIDKey];
     NSDictionary *userData = notification.data[WLUserKey];
     WLUser *user = userData ? [WLUser API_entry:userData] : [WLUser entry:userIdentifier];
-    if (!user || [user isCurrentUser]) {
-        if (self.isPublic && user.wraps.count && ![user.wraps containsObject:self]) {
-            return;
+    if (user) {
+        if (!self.isPublic || notification.type == WLNotificationWrapDelete) {
+            [super finalizeDeleteNotification:notification];
+        } else {
+            [self removeContributorsObject:user];
+            [self notifyOnUpdate];
         }
-        [super finalizeDeleteNotification:notification];
-    } else {
-        [self removeContributorsObject:user];
-        [self notifyOnUpdate];
     }
 }
 

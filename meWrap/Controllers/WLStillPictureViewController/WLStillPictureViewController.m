@@ -14,7 +14,6 @@
 #import "WLHintView.h"
 #import "WLWrapView.h"
 #import "WLCameraViewController.h"
-#import "WLSoundPlayer.h"
 
 @import Photos;
 
@@ -167,10 +166,6 @@
 }
 
 - (void)finishWithPictures:(NSArray*)pictures {
-    
-    if (self.mode == WLStillPictureModeDefault) {
-        [WLSoundPlayer playSound:WLSound_s04];
-    }
     
     id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
     if ([delegate respondsToSelector:@selector(stillPictureViewController:didFinishWithPictures:)]) {

@@ -24,6 +24,8 @@
 #import "WLLayoutPrioritizer.h"
 #import "WLWrapStatusImageView.h"
 #import "WLEntry+WLUploadingQueue.h"
+#import "WLFollowingViewController.h"
+#import "WLSoundPlayer.h"
 
 @interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPhotosViewControllerDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
@@ -194,13 +196,19 @@
 // MARK: - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+    
     WLWrap* wrap = controller.wrap ? : self.wrap;
     if (self.wrap != wrap) {
         self.view = nil;
         self.wrap = wrap;
     }
-    [wrap uploadPictures:pictures];
+    
     [self dismissViewControllerAnimated:NO completion:nil];
+    
+    [WLFollowingViewController followWrapIfNeeded:wrap performAction:^{
+        [WLSoundPlayer playSound:WLSound_s04];
+        [wrap uploadPictures:pictures];
+    }];
 }
 
 - (void)stillPictureViewControllerDidCancel:(WLStillPictureViewController *)controller {
@@ -245,6 +253,7 @@
     }];
     if (viewController == nil) {
         viewController = [class instantiate:self.storyboard];
+        viewController.preferredViewFrame = self.containerView.bounds;
         viewController.wrap = self.wrap;
         viewController.delegate = self;
         [self addChildViewController:viewController];

@@ -11,7 +11,6 @@
 #import "WLHintView.h"
 #import "WLEditAvatarViewController.h"
 #import "WLHomeViewController.h"
-#import "WLSoundPlayer.h"
 #import "WLToast.h"
 #import "UIView+AnimationHelper.h"
 #import "WLNavigationHelper.h"

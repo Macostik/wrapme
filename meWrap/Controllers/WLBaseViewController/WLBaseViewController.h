@@ -13,6 +13,8 @@
 
 @interface WLBaseViewController : GAITrackedViewController <WLKeyboardBroadcastReceiver>
 
+@property (nonatomic) CGRect preferredViewFrame;
+
 @property (weak, nonatomic) IBOutlet UIView* navigationBar;
 
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *keyboardAdjustmentLayoutViews;
@@ -25,7 +27,7 @@
 
 @property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *keyboardAdjustmentTopConstraints;
 
-- (BOOL)shouldResizeViewWithScreenBounds;
+- (BOOL)shouldUsePreferredViewFrame;
 
 - (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint*)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight;
 

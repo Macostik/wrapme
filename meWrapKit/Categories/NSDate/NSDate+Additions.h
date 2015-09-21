@@ -50,3 +50,15 @@ static const NSTimeInterval WLTimeIntervalWeek = 604800;
 - (NSComparisonResult)timestampCompare:(NSDate*)date;
 
 @end
+
+@interface NSDate (ServerTimeDifference)
+
++ (void)trackServerTime:(NSDate *)serverTime;
+
++ (instancetype)now;
+
++ (instancetype)now:(NSTimeInterval)offset;
+
++ (instancetype)dateWithTimestamp:(NSTimeInterval)timestamp;
+
+@end

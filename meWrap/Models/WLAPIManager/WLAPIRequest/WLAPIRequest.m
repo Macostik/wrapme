@@ -13,28 +13,6 @@
 #import "WLSession.h"
 #import "AFHTTPRequestOperationManager.h"
 
-static NSString* WLServerTimeDifference = @"WLServerTimeDifference";
-
-@implementation NSDate (WLServerTime)
-
-+ (void)trackServerTime:(NSDate *)serverTime {
-    WLSession.serverTimeDifference = serverTime ? [serverTime timeIntervalSinceNow] : 0;
-}
-
-+ (NSDate*)now {
-    return [self dateWithTimeIntervalSinceNow:WLSession.serverTimeDifference];
-}
-
-+ (instancetype)now:(NSTimeInterval)offset {
-    return [self dateWithTimeIntervalSinceNow:WLSession.serverTimeDifference + offset];
-}
-
-+ (instancetype)dateWithTimestamp:(NSTimeInterval)timestamp {
-    return [self dateWithTimeIntervalSince1970:WLSession.serverTimeDifference + timestamp];
-}
-
-@end
-
 @interface WLAPIManager : AFHTTPRequestOperationManager
 
 + (instancetype)manager;

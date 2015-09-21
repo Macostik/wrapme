@@ -25,7 +25,7 @@
             if (response.success) {
                 if (success) success(response.userInfo);
             } else {
-                if (failure) failure([NSError errorWithDomain:nil code:0 userInfo:@{NSLocalizedDescriptionKey:response.message}]);
+                if (failure) failure([NSError errorWithDomain:NSURLErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:response.message}]);
             }
         }
     }];

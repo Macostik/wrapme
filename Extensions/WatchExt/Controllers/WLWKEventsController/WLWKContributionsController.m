@@ -145,7 +145,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     if ([WLSession.authorization canAuthorize]) {
         self.entries = [WLContribution recentContributions:10];
     } else {
-        [self showError:[NSError errorWithDomain:nil code:0 userInfo:@{NSLocalizedDescriptionKey:@"No data for authorization. Please, check meWrap app on you iPhone."}]];
+        [self showError:[NSError errorWithDomain:NSURLErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:@"No data for authorization. Please, check meWrap app on you iPhone."}]];
     }
 }
 

@@ -12,6 +12,7 @@
 #import "WLAPIRequest.h"
 #import "UIDevice+SystemVersion.h"
 #import "WLLocalization.h"
+#import "WLSession.h"
 
 static NSInteger WLDaySeconds = 24*60*60;
 
@@ -153,6 +154,26 @@ static NSInteger WLDaySeconds = 24*60*60;
     } else {
         return NSOrderedSame;
     }
+}
+
+@end
+
+@implementation NSDate (ServerTimeDifference)
+
++ (void)trackServerTime:(NSDate *)serverTime {
+    WLSession.serverTimeDifference = serverTime ? [serverTime timeIntervalSinceNow] : 0;
+}
+
++ (NSDate*)now {
+    return [self dateWithTimeIntervalSinceNow:WLSession.serverTimeDifference];
+}
+
++ (instancetype)now:(NSTimeInterval)offset {
+    return [self dateWithTimeIntervalSinceNow:WLSession.serverTimeDifference + offset];
+}
+
++ (instancetype)dateWithTimestamp:(NSTimeInterval)timestamp {
+    return [self dateWithTimeIntervalSince1970:WLSession.serverTimeDifference + timestamp];
 }
 
 @end

@@ -10,9 +10,9 @@
 #import "WLAPIResponse.h"
 #import "DefinedBlocks.h"
 
-static NSString* WLErrorDomain = @"com.wraplive.error";
+static NSString* WLErrorDomain = @"com.mewrap.error";
 
-static NSString* WLErrorResponseDataKey = @"com.wraplive.error.response.data";
+static NSString* WLErrorResponseDataKey = @"com.mewrap.error.response.data";
 
 typedef NS_ENUM(NSInteger, WLErrorCode) {
     WLErrorUnknown = -1,

@@ -154,7 +154,7 @@ static NSTimeInterval _difference = 0;
 - (NSTimeInterval)serverTimeDifference {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _difference = [self doubleForKey:WLSessionServerTimeDifference];
+        _difference = [[NSUserDefaults appGroupUserDefaults] doubleForKey:WLSessionServerTimeDifference];
     });
     return _difference;
 }
@@ -162,8 +162,8 @@ static NSTimeInterval _difference = 0;
 - (void)setServerTimeDifference:(NSTimeInterval)interval {
     if (_difference != interval) {
         _difference = interval;
-        [self setDouble:interval forKey:WLSessionServerTimeDifference];
-        [self enqueueSynchronize];
+        [[NSUserDefaults appGroupUserDefaults] setDouble:interval forKey:WLSessionServerTimeDifference];
+        [[NSUserDefaults appGroupUserDefaults] enqueueSynchronize];
     }
 }
 

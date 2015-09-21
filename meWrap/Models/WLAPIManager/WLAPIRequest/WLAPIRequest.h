@@ -98,13 +98,3 @@ typedef NSString *(^WLAPIRequestFile) (id request);
 - (void)cancel;
 
 @end
-
-@interface NSDate (WLServerTime)
-
-+ (instancetype)now;
-
-+ (instancetype)now:(NSTimeInterval)offset;
-
-+ (instancetype)dateWithTimestamp:(NSTimeInterval)timestamp;
-
-@end

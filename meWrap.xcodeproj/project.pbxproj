@@ -949,7 +949,6 @@
 		C5D7FE881B501CD000746908 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D7FE7C1B501CD000746908 /* WLNotification.m */; };
 		C5D7FE931B501CDE00746908 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D7FE901B501CDE00746908 /* WLSoundPlayer.m */; };
 		C5D7FE951B501CDE00746908 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D7FE901B501CDE00746908 /* WLSoundPlayer.m */; };
-		C5DCCD421BB005F000EE8D96 /* meWrapWatchExtQA.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C50645841ABD7FD400CB4BE3 /* meWrapWatchExtQA.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5DCCD451BB0076200EE8D96 /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; settings = {ASSET_TAGS = (); }; };
 		C5DCCD461BB0076300EE8D96 /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50645C51ABD815100CB4BE3 /* WatchImages.xcassets */; settings = {ASSET_TAGS = (); }; };
 		C5E4CCF61A1BA38800B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
@@ -1045,13 +1044,6 @@
 			remoteGlobalIDString = C565EBA71B9F1219002352C8;
 			remoteInfo = meWrapKit;
 		};
-		C5DCCD431BB005F000EE8D96 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
-			remoteInfo = meWrapWatchExtQA;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1061,7 +1053,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C5DCCD421BB005F000EE8D96 /* meWrapWatchExtQA.appex in Embed App Extensions */,
 				5BA7AF2E1A481A9500C586CA /* meWrapTodayQA.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -5085,7 +5076,6 @@
 				C559CB751AA0BB6200100B2C /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
 				C565EBBE1B9F1219002352C8 /* PBXTargetDependency */,
-				C5DCCD441BB005F000EE8D96 /* PBXTargetDependency */,
 			);
 			name = meWrapQA;
 			productName = WrapLive;
@@ -6325,11 +6315,6 @@
 			isa = PBXTargetDependency;
 			target = C565EBA71B9F1219002352C8 /* meWrapKit */;
 			targetProxy = C5D5D04C1BA006E6003C9204 /* PBXContainerItemProxy */;
-		};
-		C5DCCD441BB005F000EE8D96 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C50645831ABD7FD400CB4BE3 /* meWrapWatchExtQA */;
-			targetProxy = C5DCCD431BB005F000EE8D96 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

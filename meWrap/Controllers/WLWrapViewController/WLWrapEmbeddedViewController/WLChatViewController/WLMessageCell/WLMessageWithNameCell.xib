@@ -58,7 +58,7 @@
                         <constraint firstItem="uzq-Y1-O7b" firstAttribute="leading" secondItem="tyW-OA-8ng" secondAttribute="leading" constant="6" id="gXY-gk-n1S"/>
                         <constraint firstItem="xkc-2N-B6M" firstAttribute="leading" secondItem="tyW-OA-8ng" secondAttribute="leading" constant="6" id="gua-9s-l9d"/>
                         <constraint firstItem="uzq-Y1-O7b" firstAttribute="top" secondItem="xkc-2N-B6M" secondAttribute="bottom" constant="-2" id="vIh-2d-c7c"/>
-                        <constraint firstItem="cpB-lF-feB" firstAttribute="top" secondItem="uzq-Y1-O7b" secondAttribute="bottom" id="vsM-H4-eef"/>
+                        <constraint firstItem="uzq-Y1-O7b" firstAttribute="bottom" secondItem="cpB-lF-feB" secondAttribute="top" id="vsM-H4-eef"/>
                         <constraint firstItem="cpB-lF-feB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tyW-OA-8ng" secondAttribute="leading" constant="6" id="wfD-8N-EtK"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -85,10 +85,10 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="8Do-t9-L3S" firstAttribute="top" secondItem="tyW-OA-8ng" secondAttribute="top" id="6oF-Ph-xzn"/>
-                <constraint firstItem="tyW-OA-8ng" firstAttribute="top" secondItem="AzW-cI-2Hi" secondAttribute="top" id="RzW-qA-Dl2"/>
                 <constraint firstItem="8Do-t9-L3S" firstAttribute="leading" secondItem="AzW-cI-2Hi" secondAttribute="leading" constant="16" id="qsW-Z7-dkq"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tyW-OA-8ng" secondAttribute="trailing" constant="16" id="vzx-lW-uB5"/>
                 <constraint firstItem="tyW-OA-8ng" firstAttribute="leading" secondItem="8Do-t9-L3S" secondAttribute="trailing" constant="8" id="wC9-5p-eew"/>
+                <constraint firstItem="8Do-t9-L3S" firstAttribute="top" secondItem="AzW-cI-2Hi" secondAttribute="top" id="ya6-gU-GYy"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

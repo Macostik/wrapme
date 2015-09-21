@@ -112,9 +112,8 @@
     operation.securityPolicy.allowInvalidCertificates = YES;
     operation.securityPolicy.validatesDomainName = NO;
 	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        UIImage *image = [responseObject thumbnailImage:40];
-		[[WLImageCache cache] setImage:image withUrl:url];
-		if (success) success(image, NO);
+		[[WLImageCache cache] setImage:responseObject withUrl:url];
+		if (success) success(responseObject, NO);
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 		if (error.code != NSURLErrorCancelled && failure) failure(error);
 	}];

@@ -53,6 +53,7 @@
 #import <meWrapKit/WLEntryKeys.h>
 #import <meWrapKit/WLEntryManager.h>
 #import <meWrapKit/WLImageFetcher.h>
+#import <meWrapKit/WLImageView.h>
 #import <meWrapKit/WLBlockImageFetching.h>
 #import <meWrapKit/WLImageCache.h>
 #import <meWrapKit/WLSystemImageCache.h>

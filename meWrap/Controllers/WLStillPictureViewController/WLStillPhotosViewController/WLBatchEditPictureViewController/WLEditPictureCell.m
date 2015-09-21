@@ -7,7 +7,6 @@
 //
 
 #import "WLEditPictureCell.h"
-#import "WLImageView.h"
 #import "WLEditPicture.h"
 
 @interface WLEditPictureCell ()

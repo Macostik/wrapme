@@ -12,33 +12,6 @@
 
 @implementation WLLabel
 
-#if !TARGET_INTERFACE_BUILDER
-- (CGRect)textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines {
-    CGRect rect = [super textRectForBounds:bounds limitedToNumberOfLines:numberOfLines];
-    UIViewContentMode contentMode = self.contentMode;
-    switch (contentMode) {
-        case UIViewContentModeTop:
-            rect.origin.y = 0;
-            break;
-        case UIViewContentModeBottom:
-            rect.origin.y = bounds.size.height - rect.size.height;
-            break;
-        default:
-            break;
-    }
-    return rect;
-}
-
-- (void)drawTextInRect:(CGRect)rect {
-    UIViewContentMode contentMode = self.contentMode;
-    if (contentMode == UIViewContentModeTop || contentMode == UIViewContentModeBottom) {
-        [super drawTextInRect:[self textRectForBounds:rect limitedToNumberOfLines:self.numberOfLines]];
-    } else {
-        [super drawTextInRect:rect];
-    }
-}
-#endif
-
 - (void)setPreset:(NSString *)preset {
     _preset = preset;
     self.font = [self.font preferredFontWithPreset:preset];

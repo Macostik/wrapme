@@ -118,3 +118,6 @@
 "following" = "Отписаться";
 "unfollow_confirmation_title" = "Отписаться от wrap?";
 "unfollow_confirmation_message" = "Вы уверены, что хотите отписаться от wrap?";
+"url_open_in_safari" = "Открыть в Safari";
+"url_add_to_reading_list" = "Добавить в список чтения";
+"copy" = "Скопировать";

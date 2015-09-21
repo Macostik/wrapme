@@ -8,12 +8,20 @@
 
 #import "StreamReusableView.h"
 
+@interface StreamReusableView () <UIGestureRecognizerDelegate>
+
+@property (weak, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
+
+@end
+
 @implementation StreamReusableView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(select)];
+    gestureRecognizer.delegate = self;
     [self addGestureRecognizer:gestureRecognizer];
+    self.tapGestureRecognizer = gestureRecognizer;
 }
 
 - (void)setEntry:(id)entry {
@@ -37,8 +45,18 @@
     [self select:self.entry];
 }
 
-- (void)prepareForReuse {
+- (void)didDequeue {
     
+}
+
+- (void)willEnqueue {
+    
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return gestureRecognizer != self.tapGestureRecognizer || self.metrics.selectable;
 }
 
 @end

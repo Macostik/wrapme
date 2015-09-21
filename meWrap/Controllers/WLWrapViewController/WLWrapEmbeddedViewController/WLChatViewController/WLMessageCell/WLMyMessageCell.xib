@@ -17,21 +17,19 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i9a-dj-YI8">
-                    <rect key="frame" x="190" y="33" width="114" height="56"/>
+                    <rect key="frame" x="200" y="49" width="104" height="40"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="244" verticalCompressionResistancePriority="744" scrollEnabled="NO" editable="NO" text="message text" translatesAutoresizingMaskIntoConstraints="NO" id="JR4-Ry-U5Q" customClass="WLTextView">
-                            <rect key="frame" x="6" y="2" width="102" height="34"/>
+                        <label clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="244" verticalCompressionResistancePriority="744" text="message text" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="JR4-Ry-U5Q" customClass="WLAttributedLabel">
+                            <rect key="frame" x="6" y="2" width="92" height="18"/>
                             <color key="backgroundColor" red="0.95294117647058818" green="0.45882352941176469" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                             </userDefinedRuntimeAttributes>
-                        </textView>
+                        </label>
                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KU3-Pe-eUZ" customClass="WLLabel">
-                            <rect key="frame" x="38" y="36" width="54" height="16"/>
+                            <rect key="frame" x="28" y="20" width="54" height="16"/>
                             <color key="backgroundColor" red="0.95294117647058818" green="0.45882352941176469" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
@@ -42,7 +40,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lR-p8-XMC" customClass="WLEntryStatusIndicator">
-                            <rect key="frame" x="92" y="36" width="18" height="16"/>
+                            <rect key="frame" x="82" y="20" width="18" height="16"/>
                             <color key="backgroundColor" red="0.95294117649999999" green="0.45882352939999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" name="icons" family="icons" pointSize="13"/>
                             <color key="textColor" red="0.9843137264251709" green="0.83529412746429443" blue="0.74117648601531982" alpha="1" colorSpace="calibratedRGB"/>

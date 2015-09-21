@@ -10,7 +10,6 @@
 
 @interface WLEntryStatusIndicator () <WLEntryNotifyReceiver>
 
-@property (weak, nonatomic) WLContribution *contribution;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
 
 @end

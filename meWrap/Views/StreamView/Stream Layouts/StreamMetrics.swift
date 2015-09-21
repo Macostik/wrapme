@@ -60,6 +60,8 @@ class StreamMetrics: NSObject {
         return metrics.insets;
     }
     
+    var selectable = true
+    
     var selection: ((StreamItem?, AnyObject?) -> Void)?
     
     var prepareAppearing: ((StreamItem?, AnyObject?) -> Void)?
@@ -90,7 +92,7 @@ class StreamMetrics: NSObject {
     func dequeueView() -> StreamReusableView? {
         if let view = reusableViews.first {
             reusableViews.remove(view)
-            view.prepareForReuse()
+            view.didDequeue()
             return view;
         }
         return loadView()
@@ -111,6 +113,7 @@ class StreamMetrics: NSObject {
     }
     
     func enqueueView(view: StreamReusableView) {
+        view.willEnqueue()
         reusableViews.insert(view)
     }
     

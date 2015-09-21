@@ -95,8 +95,8 @@
     }
 }
 
-- (void)prepareForReuse {
-    [super prepareForReuse];
+- (void)didDequeue {
+    [super didDequeue];
     [self.coverView setImage:nil];
 }
 

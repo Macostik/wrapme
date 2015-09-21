@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet WLImageView *authorImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet WLTextView *commenttextView;
+@property (weak, nonatomic) IBOutlet UILabel *commenttextView;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
 
 @end
@@ -30,9 +30,6 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
-    self.commenttextView.textContainerInset = UIEdgeInsetsZero;
-    self.commenttextView.textContainer.lineFragmentPadding = .0f;
-    
     [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
         WLComment* comment = weakSelf.entry;
         if (comment.deletable) {

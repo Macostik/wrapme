@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet WLTextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *textView;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
 
 @end
@@ -31,8 +31,6 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    self.textView.textContainerInset = UIEdgeInsetsZero;
-    self.textView.textContainer.lineFragmentPadding = .0;
     __weak typeof(self)weakSelf = self;
     [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
         [menu addCopyItem:^(WLMessage *message) {
@@ -50,7 +48,7 @@
         self.nameLabel.text = message.contributor.name;
     }
     self.timeLabel.text = [message.createdAt stringWithTimeStyle:NSDateFormatterShortStyle];
-    [self.textView determineHyperLink:message.text];
+    self.textView.text = message.text;
     if (self.indicator) {
         [self.indicator updateStatusIndicator:message];
     }

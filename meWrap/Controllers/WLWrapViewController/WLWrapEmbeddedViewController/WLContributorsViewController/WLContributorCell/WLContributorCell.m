@@ -45,8 +45,8 @@
     self.spinnerMetrics.hidden = YES;
 }
 
-- (void)prepareForReuse {
-    [super prepareForReuse];
+- (void)didDequeue {
+    [super didDequeue];
     self.removeMetrics.hidden = YES;
     self.resendMetrics.hidden = YES;
     self.resendDoneMetrics.hidden = YES;

@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet WLCircleImageView *pictureView;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *inWrapLabel;
-@property (weak, nonatomic) IBOutlet WLTextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *textView;
 @property (weak, nonatomic) IBOutlet WLImageView *wrapImageView;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 
@@ -44,19 +44,13 @@
 
 @implementation WLCommentWhatsUpCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.textView.textContainerInset = UIEdgeInsetsZero;
-    self.textView.textContainer.lineFragmentPadding = .0;
-}
-
 - (void)setup:(WLWhatsUpEvent*)event {
     [super setup:event];
     WLComment *comment = event.contribution;
     self.pictureView.url = comment.contributor.picture.small;
     self.userNameLabel.text = [NSString stringWithFormat:@"%@:", comment.contributor.name];
     self.inWrapLabel.text = comment.candy.wrap.name;
-    [self.textView determineHyperLink:comment.text];
+    self.textView.text = comment.text;
 }
 
 @end

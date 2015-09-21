@@ -35,6 +35,8 @@ inline static NSString* iconNameByContribution(WLContribution *contribution) {
 
 @interface WLEntryStatusIndicator : WLLabel
 
+@property (weak, nonatomic) WLContribution *contribution;
+
 - (void)updateStatusIndicator:(WLContribution *)contribution;
 
 @end

@@ -60,8 +60,8 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     self.swipeActionGestureRecognizer = panGestureRecognizer;
 }
 
-- (void)prepareForReuse {
-    [super prepareForReuse];
+- (void)didDequeue {
+    [super didDequeue];
     self.leftSwipeActionConstraint.constant = 0;
     self.rightSwipeActionConstraint.constant = 0;
 }

@@ -100,11 +100,17 @@ CGFloat WLMinTextViewWidth;
     self = [super initWithCoder:coder];
     if (self) {
         self.messageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageCell"];
+        self.messageMetrics.selectable = NO;
         self.messageWithNameMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageWithNameCell"];
+        self.messageWithNameMetrics.selectable = NO;
         self.myMessageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMyMessageCell"];
+        self.myMessageMetrics.selectable = NO;
         self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageDateView" size:31];
+        self.dateMetrics.selectable = NO;
         self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:48];
+        self.unreadMessagesMetrics.selectable = NO;
         self.loadingViewMetrics = [WLStreamLoadingView streamLoadingMetrics];
+        self.loadingViewMetrics.selectable = NO;
         __weak typeof(self)weakSelf = self;
         self.placeholderMetrics = [[StreamMetrics alloc] initWithIdentifier:@"NoMessagePlaceholderView" initializer:^(StreamMetrics * metrics) {
             [metrics setPrepareAppearing:^(StreamItem *item, id entry) {
@@ -112,6 +118,7 @@ CGFloat WLMinTextViewWidth;
                 placeholderView.textLabel.text = [NSString stringWithFormat:WLLS(@"no_chat_message"), weakSelf.wrap.name];
             }];
         }];
+        self.placeholderMetrics.selectable = NO;
     }
     return self;
 }

@@ -117,3 +117,6 @@
 "following" = "Following";
 "unfollow_confirmation_title" = "Unfollow wrap?";
 "unfollow_confirmation_message" = "Are you sure you want to unfollow the wrap?";
+"url_open_in_safari" = "Open in Safari";
+"url_add_to_reading_list" = "Add to Reading List";
+"copy" = "Сopy";

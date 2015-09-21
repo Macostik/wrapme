@@ -20,8 +20,8 @@
 
 @implementation WLAssetCell
 
-- (void)prepareForReuse {
-    [super prepareForReuse];
+- (void)didDequeue {
+    [super didDequeue];
     [[PHImageManager defaultManager] cancelImageRequest:self.imageRequestID];
 }
 

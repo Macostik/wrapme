@@ -317,8 +317,8 @@ class StreamView: UIScrollView {
                     firstItem = item
                 } else {
                     if let view = item.view {
-                        view.removeFromSuperview()
                         metrics.enqueueView(view)
+                        view.removeFromSuperview()
                         item.view = nil
                     }
                 }

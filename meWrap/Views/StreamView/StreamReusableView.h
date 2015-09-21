@@ -21,7 +21,9 @@
 
 @property (nonatomic) BOOL selected;
 
-- (void)prepareForReuse;
+- (void)didDequeue;
+
+- (void)willEnqueue;
 
 - (void)setup:(id)entry;
 

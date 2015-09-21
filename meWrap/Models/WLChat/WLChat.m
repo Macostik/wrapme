@@ -165,7 +165,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
         
         if (previousMessage.contributor != message.contributor) {
             if (!message.contributedByCurrentUser) [messagesWithName addObject:message];
-            [self.groupMessages addObject:previousMessage];
+            [self.groupMessages addObject:message];
         }
     }
     

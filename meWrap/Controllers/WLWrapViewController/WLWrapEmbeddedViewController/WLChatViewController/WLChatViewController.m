@@ -31,6 +31,7 @@
 #import "WLEntry+WLUploadingQueue.h"
 
 CGFloat WLMaxTextViewWidth;
+CGFloat WLMinTextViewWidth;
 
 @interface WLChatViewController () <StreamViewDelegate, WLComposeBarDelegate, WLKeyboardBroadcastReceiver, WLEntryNotifyReceiver, WLChatDelegate>
 
@@ -163,7 +164,8 @@ CGFloat WLMaxTextViewWidth;
         }
     }];
     
-    WLMaxTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndent - 2*WLMessageHorizontalInset - WLTrailingBubbleIndent;
+    WLMinTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndentWithAvatar - 2*WLMessageHorizontalInset - WLTrailingBubbleIndent;
+    WLMaxTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndent - WLTrailingBubbleIndent - 2*WLMessageHorizontalInset;
     
     self.messageWithNameMetrics.sizeAt = self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         WLMessage *message = [weakSelf.chat.entries tryAt:position.index];
@@ -545,9 +547,9 @@ CGFloat WLMaxTextViewWidth;
         return 0;
     }
     BOOL containsName = [self.chat.messagesWithName containsObject:message];
-    CGFloat calculateWight = message.contributedByCurrentUser ? WLConstants.screenWidth - WLLeadingBubbleIndent - WLTrailingBubbleIndent : WLMaxTextViewWidth;
+    CGFloat calculateWight = message.contributedByCurrentUser ? WLMaxTextViewWidth : WLMinTextViewWidth;
     CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:calculateWight];
-    CGFloat topInset = containsName ? self.nameFont.lineHeight + WLMessageVerticalInset : 0;
+    CGFloat topInset = containsName ? self.nameFont.lineHeight : 0;
     CGFloat bottomInset = self.timeFont.lineHeight + WLMessageVerticalInset;
     commentHeight = topInset + commentHeight + bottomInset;
     commentHeight = MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight + WLMessageVerticalInset);

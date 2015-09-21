@@ -31,7 +31,7 @@
                             </userDefinedRuntimeAttributes>
                         </textView>
                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" verticalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KU3-Pe-eUZ" customClass="WLLabel">
-                            <rect key="frame" x="38.5" y="36" width="53.5" height="16"/>
+                            <rect key="frame" x="38" y="36" width="54" height="16"/>
                             <color key="backgroundColor" red="0.95294117647058818" green="0.45882352941176469" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>

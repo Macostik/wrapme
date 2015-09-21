@@ -26,7 +26,7 @@
                             </userDefinedRuntimeAttributes>
                         </textView>
                         <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpB-lF-feB" customClass="WLLabel">
-                            <rect key="frame" x="54.5" y="36" width="53.5" height="16"/>
+                            <rect key="frame" x="54" y="36" width="54" height="16"/>
                             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>

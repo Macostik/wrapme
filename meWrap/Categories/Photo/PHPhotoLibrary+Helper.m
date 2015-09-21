@@ -65,13 +65,20 @@ static WLReturnObjectBlock assetCreaterBlock;
 }
 
 + (PHAssetCollectionChangeRequest *)assetCollectionWithTitle:(NSString *)title {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", title];
-    PHFetchResult *result = [PHAssetCollection assetObjectnWithType:PHAssetCollectionTypeAlbum
-                                                            subType:PHAssetCollectionSubtypeAny
-                                                          predicate:predicate];
+    __block PHAssetCollection *collection = nil;
+    PHFetchResult *assetCollectionFetchResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum
+                                                                                         subtype:PHAssetCollectionSubtypeAlbumRegular
+                                                                                         options:nil];
+    [assetCollectionFetchResult enumerateObjectsUsingBlock:^(PHAssetCollection * obj, NSUInteger idx, BOOL *stop) {
+        if([obj.localizedTitle isEqualToString:title])
+        {
+            *stop = YES;
+            collection = obj;
+        }  
+    }];
     PHAssetCollectionChangeRequest *collectionChangeRequest = nil;
-    if (result.count > 0) {
-        collectionChangeRequest = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:result.firstObject];
+    if (collection != nil) {
+        collectionChangeRequest = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:collection];
     } else {
         collectionChangeRequest = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:title];
     }

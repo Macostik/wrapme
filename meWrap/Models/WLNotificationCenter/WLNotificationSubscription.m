@@ -83,9 +83,15 @@
     }
     [[PubNub sharedInstance] pushNotificationEnabledChannelsForDeviceWithPushToken:data andCompletion:^(PNAPNSEnabledChannelsResult *result, PNErrorStatus *status) {
         if (!status.isError) {
-            NSArray *channels = [[result.data.channels mutableCopy] remove:weakSelf.name];
-            [[PubNub sharedInstance] removePushNotificationsFromChannels:channels withDevicePushToken:data andCompletion:nil];
-            [[PubNub sharedInstance] addPushNotificationsOnChannels:@[weakSelf.name] withDevicePushToken:data andCompletion:nil];
+            [[PubNub sharedInstance] removePushNotificationsFromChannels:result.data.channels withDevicePushToken:data andCompletion:^(PNAcknowledgmentStatus *status) {
+                if (!status.isError) {
+                    [[PubNub sharedInstance] channelsForGroup:weakSelf.name withCompletion:^(PNChannelGroupChannelsResult *result, PNErrorStatus *status) {
+                        if (!status.isError) {
+                            [[PubNub sharedInstance] addPushNotificationsOnChannels:result.data.channels withDevicePushToken:data andCompletion:nil];
+                        }
+                    }];
+                }
+            }];
         }
     }];
 }

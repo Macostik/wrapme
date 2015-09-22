@@ -118,19 +118,17 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     [super viewWillAppear:animated];
     __weak typeof(self)weakSelf = self;
     if (self.wrap.valid) {
-        __block BOOL readStateChanged = NO;
+        __block int unreadCandyCounter = 0;
         [self.wrap.candies all:^(WLCandy *candy) {
             if (candy.valid && candy.unread) {
-                readStateChanged = YES;
+                unreadCandyCounter++;
                 candy.unread = NO;
             }
         }];
-        if (readStateChanged) {
-            [[WLWhatsUpSet sharedSet] refreshCount:^(NSUInteger count) {
-                weakSelf.badge.intValue = count;
-            } failure:^(NSError *error) {
-            }];
-        }
+        [[WLWhatsUpSet sharedSet] refreshCount:^(NSUInteger count) {
+            weakSelf.badge.intValue = unreadCandyCounter;
+        } failure:^(NSError *error) {
+        }];
         self.dataSource.items = self.history;
         [self.uploadingView update];
         [self.dataSource.streamView unlock];

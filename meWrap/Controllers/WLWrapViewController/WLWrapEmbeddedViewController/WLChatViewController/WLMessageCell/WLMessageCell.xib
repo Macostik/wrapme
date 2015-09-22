@@ -51,16 +51,27 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="TDG-xP-bNj">
+                    <rect key="frame" x="56" y="25" width="8" height="10"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="8" id="83d-zd-oas"/>
+                        <constraint firstAttribute="height" constant="10" id="if9-br-7I3"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="tyW-OA-8ng" firstAttribute="top" secondItem="AzW-cI-2Hi" secondAttribute="top" id="RzW-qA-Dl2"/>
+                <constraint firstItem="TDG-xP-bNj" firstAttribute="trailing" secondItem="tyW-OA-8ng" secondAttribute="leading" id="abf-aO-Oe5"/>
                 <constraint firstItem="tyW-OA-8ng" firstAttribute="leading" secondItem="AzW-cI-2Hi" secondAttribute="leading" constant="64" id="af6-su-WbC"/>
+                <constraint firstItem="TDG-xP-bNj" firstAttribute="bottom" secondItem="tyW-OA-8ng" secondAttribute="bottom" constant="-5" id="dD8-pw-D2J"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tyW-OA-8ng" secondAttribute="trailing" constant="16" id="vzx-lW-uB5"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="tailView" destination="TDG-xP-bNj" id="MoZ-kS-8fo"/>
                 <outlet property="textView" destination="uzq-Y1-O7b" id="Me8-f6-Sj0"/>
                 <outlet property="timeLabel" destination="cpB-lF-feB" id="UFs-Fd-jRk"/>
             </connections>

@@ -21,6 +21,7 @@
     [super awakeFromNib];
     self.delegate = self;
     self.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+//    self.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
 }
 
 // MARK: - TTTAttributedLabelDelegate

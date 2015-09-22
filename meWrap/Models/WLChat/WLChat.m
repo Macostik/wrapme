@@ -160,6 +160,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
         if (showDay) {
             [_messagesWithDay addObject:message];
             if (!message.contributedByCurrentUser) [messagesWithName addObject:message];
+            [self.groupMessages addObject:message];
             continue;
         }
         

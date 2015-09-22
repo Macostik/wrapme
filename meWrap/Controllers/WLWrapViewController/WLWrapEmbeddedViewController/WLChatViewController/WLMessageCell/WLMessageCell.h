@@ -11,7 +11,7 @@
 static NSString* WLMessageitemIdentifier = @"WLMessageCell";
 static NSString* WLMyMessageitemIdentifier = @"WLMyMessageCell";
 
-static CGFloat WLMessageVerticalInset = 4.0f;
+static CGFloat WLMessageVerticalInset = 6.0f;
 static CGFloat WLMessageHorizontalInset = 6.0f;
 static CGFloat WLMessageWithNameMinimumCellHeight = 40.0f;
 static CGFloat WLMessageWithoutNameMinimumCellHeight = 24.0f;
@@ -24,5 +24,7 @@ extern CGFloat WLMaxTextViewWidth;
 extern CGFloat WLMinTextViewWidth;
 
 @interface WLMessageCell : StreamReusableView
+
+@property (weak, nonatomic) IBOutlet UIImageView *tailView;
 
 @end

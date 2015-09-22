@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
+		5B17310C1BB17784001CFE6D /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C56498C71ACB00D2000F1E4B /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5B17310F1BB17784001CFE6D /* meWrapWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C56498D21ACB00D2000F1E4B /* meWrapWatchApp.app */; };
 		5B36F4FD1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B36F5011B668091009609C3 /* WLUnreadMessagesView.xib */; };
 		5B36F4FF1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B36F5011B668091009609C3 /* WLUnreadMessagesView.xib */; };
 		5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
@@ -416,7 +418,6 @@
 		C5528A111B3425C600AF1311 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		C5568BDE1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
 		C5568BE01A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
-		C557B0F81AF8AF7B00F437D7 /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C56498C71ACB00D2000F1E4B /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C558E7C71A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
 		C558E7C91A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
 		C55908751B185F9D001CB99F /* Introduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C55908791B185F9D001CB99F /* Introduction.storyboard */; };
@@ -466,7 +467,6 @@
 		C560D22B1AFB7703006B906E /* WLSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2271AFB7703006B906E /* WLSwipeViewController.m */; };
 		C560D2351AFBB55E006B906E /* WLHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2331AFBB55E006B906E /* WLHistoryViewController.m */; };
 		C560D2371AFBB55E006B906E /* WLHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C560D2331AFBB55E006B906E /* WLHistoryViewController.m */; };
-		C56498D31ACB00D2000F1E4B /* meWrapWatchApp.app in Resources */ = {isa = PBXBuildFile; fileRef = C56498D21ACB00D2000F1E4B /* meWrapWatchApp.app */; };
 		C564B2B91ADE6DD5000C3DF1 /* meWrapWatchAppQA.app in Resources */ = {isa = PBXBuildFile; fileRef = C50645931ABD7FD500CB4BE3 /* meWrapWatchAppQA.app */; };
 		C565EBAD1B9F1219002352C8 /* meWrapKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C565EBAC1B9F1219002352C8 /* meWrapKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C565EBBF1B9F1219002352C8 /* meWrapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C565EBA81B9F1219002352C8 /* meWrapKit.framework */; };
@@ -976,6 +976,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5B17310A1BB17784001CFE6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C56498C61ACB00D2000F1E4B;
+			remoteInfo = meWrapWatchExt;
+		};
+		5B17310D1BB17784001CFE6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C56498D11ACB00D2000F1E4B;
+			remoteInfo = meWrapWatchApp;
+		};
 		5BA7AF2F1A481A9500C586CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -990,13 +1004,6 @@
 			remoteGlobalIDString = C50645921ABD7FD500CB4BE3;
 			remoteInfo = "WrapLive-Development WatchKit App";
 		};
-		C557B0F91AF8AF7B00F437D7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C56498C61ACB00D2000F1E4B;
-			remoteInfo = "WrapLiveWatchKitExtension-Production";
-		};
 		C559CB741AA0BB6200100B2C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -1010,13 +1017,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
 			remoteInfo = CopyProvisioningProfiles;
-		};
-		C56498D41ACB00D2000F1E4B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C56498D11ACB00D2000F1E4B;
-			remoteInfo = "WrapLive-Production WatchKit App";
 		};
 		C565EBBD1B9F1219002352C8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1049,6 +1049,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		5B1731101BB17785001CFE6D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5B17310C1BB17784001CFE6D /* meWrapWatchExt.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B1731111BB17785001CFE6D /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				5B17310F1BB17784001CFE6D /* meWrapWatchApp.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BA7AF311A481A9500C586CA /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1130,7 +1152,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C557B0F81AF8AF7B00F437D7 /* meWrapWatchExt.appex in Embed App Extensions */,
 				C5994D8A1B78894A0066A597 /* meWrapToday.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -5085,14 +5106,15 @@
 				C5D41CF91AB1FD6400990944 /* NewRelic upload dSym */,
 				C5E54B391ACBF83A00444F7B /* Embed App Extensions */,
 				C5D5D04E1BA006E7003C9204 /* Embed Frameworks */,
+				5B1731111BB17785001CFE6D /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
-				C557B0FA1AF8AF7B00F437D7 /* PBXTargetDependency */,
 				C5994D8C1B78894A0066A597 /* PBXTargetDependency */,
 				C5D5D04D1BA006E6003C9204 /* PBXTargetDependency */,
+				5B17310E1BB17784001CFE6D /* PBXTargetDependency */,
 			);
 			name = meWrap;
 			productName = WrapLive;
@@ -5129,27 +5151,28 @@
 			buildRules = (
 			);
 			dependencies = (
-				C56498D51ACB00D2000F1E4B /* PBXTargetDependency */,
 			);
 			name = meWrapWatchExt;
 			productName = "WrapLive-Production WatchKit Extension";
 			productReference = C56498C71ACB00D2000F1E4B /* meWrapWatchExt.appex */;
-			productType = "com.apple.product-type.watchkit-extension";
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 		C56498D11ACB00D2000F1E4B /* meWrapWatchApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C56498E11ACB00D3000F1E4B /* Build configuration list for PBXNativeTarget "meWrapWatchApp" */;
 			buildPhases = (
 				C56498D01ACB00D2000F1E4B /* Resources */,
+				5B1731101BB17785001CFE6D /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5B17310B1BB17784001CFE6D /* PBXTargetDependency */,
 			);
 			name = meWrapWatchApp;
 			productName = "WrapLive-Production WatchKit App";
 			productReference = C56498D21ACB00D2000F1E4B /* meWrapWatchApp.app */;
-			productType = "com.apple.product-type.application.watchapp";
+			productType = "com.apple.product-type.application.watchapp2";
 		};
 		C565EBA71B9F1219002352C8 /* meWrapKit */ = {
 			isa = PBXNativeTarget;
@@ -5177,7 +5200,7 @@
 			attributes = {
 				CLASSPREFIX = WL;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Ravenpod;
 				TargetAttributes = {
 					5B787D9A1A27876F004AE459 = {
@@ -5508,7 +5531,6 @@
 				C55A45231BAC189C0055AEC2 /* Localizable.strings in Resources */,
 				C5E54B471ACBF9B100444F7B /* WatchImages.xcassets in Resources */,
 				C5B993C81B302E73002BCC8C /* WLWKCommentReplyPresets.plist in Resources */,
-				C56498D31ACB00D2000F1E4B /* meWrapWatchApp.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6260,6 +6282,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5B17310B1BB17784001CFE6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C56498C61ACB00D2000F1E4B /* meWrapWatchExt */;
+			targetProxy = 5B17310A1BB17784001CFE6D /* PBXContainerItemProxy */;
+		};
+		5B17310E1BB17784001CFE6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C56498D11ACB00D2000F1E4B /* meWrapWatchApp */;
+			targetProxy = 5B17310D1BB17784001CFE6D /* PBXContainerItemProxy */;
+		};
 		5BA7AF301A481A9500C586CA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5B787D9A1A27876F004AE459 /* meWrapTodayQA */;
@@ -6270,11 +6302,6 @@
 			target = C50645921ABD7FD500CB4BE3 /* meWrapWatchAppQA */;
 			targetProxy = C50645951ABD7FD500CB4BE3 /* PBXContainerItemProxy */;
 		};
-		C557B0FA1AF8AF7B00F437D7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C56498C61ACB00D2000F1E4B /* meWrapWatchExt */;
-			targetProxy = C557B0F91AF8AF7B00F437D7 /* PBXContainerItemProxy */;
-		};
 		C559CB751AA0BB6200100B2C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C5953B6A19C8398B006DF1F3 /* CopyProfiles */;
@@ -6284,11 +6311,6 @@
 			isa = PBXTargetDependency;
 			target = C5953B6A19C8398B006DF1F3 /* CopyProfiles */;
 			targetProxy = C559CB781AA0BB6900100B2C /* PBXContainerItemProxy */;
-		};
-		C56498D51ACB00D2000F1E4B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C56498D11ACB00D2000F1E4B /* meWrapWatchApp */;
-			targetProxy = C56498D41ACB00D2000F1E4B /* PBXContainerItemProxy */;
 		};
 		C565EBBE1B9F1219002352C8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6625,6 +6647,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				ENV = qa;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -6710,6 +6733,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6741,6 +6765,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "5ac09444-1592-43a6-bd8e-9527a54bdf67";
 				SKIP_INSTALL = YES;
@@ -6770,6 +6795,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6800,6 +6826,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4616bf2e-f126-40b9-a836-285b4f506cd7";
 				SKIP_INSTALL = YES;
@@ -6826,6 +6853,7 @@
 				INFOPLIST_FILE = "Info/meWrapWatchAppQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6853,6 +6881,7 @@
 				INFOPLIST_FILE = "Info/meWrapWatchAppQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "bf3e3c03-112d-47e0-85e6-aaea8a2cf2b0";
 				SKIP_INSTALL = YES;
@@ -6883,6 +6912,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -6912,6 +6942,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "de91e72c-1c11-4c7b-90b7-78da35c14324";
 				SKIP_INSTALL = YES;
@@ -6958,6 +6989,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = meWrapQA;
 				PROVISIONING_PROFILE = "";
@@ -7011,6 +7043,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = meWrapQA;
 				PROVISIONING_PROFILE = "5dcdac67-bb6e-4ba9-9338-d6b43ed8833d";
@@ -7063,6 +7096,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -7117,6 +7151,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "56db280b-2ce7-4f9b-b1b6-e7c9c532a241";
@@ -7169,6 +7204,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ravenpod.*";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/meWrapQA.app/meWrapQA";
 			};
@@ -7189,6 +7225,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ravenpod.*";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/meWrapQA.app/meWrapQA";
 			};
@@ -7210,14 +7247,15 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				IBSC_MODULE = meWrap_Watch_Ext;
 				INFOPLIST_FILE = "Info/meWrapWatchApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
 				USE_NEWRELIC = "$(inherited)";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -7237,14 +7275,15 @@
 				ENV = "$(inherited)";
 				IBSC_MODULE = meWrap_Watch_Ext;
 				INFOPLIST_FILE = "Info/meWrapWatchApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "000d1813-8e39-4a0c-bcc0-1c7851289cb4";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
 				USE_NEWRELIC = "$(inherited)";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -7270,10 +7309,14 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
 				USE_NEWRELIC = "$(inherited)";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -7300,10 +7343,14 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "eda489e0-a1d1-4d0a-8d4d-bac6df98e993";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
 				USE_NEWRELIC = "$(inherited)";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -7337,6 +7384,7 @@
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobidev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -7372,6 +7420,7 @@
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobidev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -7407,6 +7456,7 @@
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobidev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -7491,6 +7541,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = meWrapQA;
 				PROVISIONING_PROFILE = "189fa146-ee5e-4517-94e0-9aa8f6bd25f8";
@@ -7542,6 +7593,7 @@
 					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "08237be5-ca06-4442-a3fa-8cdbfaed6e4f";
@@ -7587,6 +7639,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "37012950-d853-4fbf-9c33-12dcb909bf9c";
 				SKIP_INSTALL = YES;
@@ -7617,6 +7670,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "78469d0c-1d9b-4908-9115-dfc35de8c6d9";
 				SKIP_INSTALL = YES;
@@ -7647,6 +7701,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "efea2529-e3aa-4605-adc2-9312b1cd690e";
 				SKIP_INSTALL = YES;
@@ -7672,6 +7727,7 @@
 				INFOPLIST_FILE = "Info/meWrapWatchAppQA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "eb383f74-b6e6-4dc7-95dd-2646233918df";
 				SKIP_INSTALL = YES;
@@ -7704,10 +7760,14 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "ad5598e1-0326-4535-9f5e-7b1d78e6f355";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
 				USE_NEWRELIC = "$(inherited)";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = AdHoc;
 		};
@@ -7727,14 +7787,15 @@
 				ENV = "$(inherited)";
 				IBSC_MODULE = meWrap_Watch_Ext;
 				INFOPLIST_FILE = "Info/meWrapWatchApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "b3795d16-85c7-491b-b7e8-276e71f86ce3";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
 				USE_NEWRELIC = "$(inherited)";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = AdHoc;
 		};
@@ -7753,6 +7814,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ravenpod.*";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/meWrapQA.app/meWrapQA";
 			};

@@ -105,9 +105,9 @@ CGFloat WLMinTextViewWidth;
         self.messageWithNameMetrics.selectable = NO;
         self.myMessageMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMyMessageCell"];
         self.myMessageMetrics.selectable = NO;
-        self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageDateView" size:31];
+        self.dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMessageDateView" size:33];
         self.dateMetrics.selectable = NO;
-        self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:48];
+        self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:46];
         self.unreadMessagesMetrics.selectable = NO;
         self.loadingViewMetrics = [WLStreamLoadingView streamLoadingMetrics];
         self.loadingViewMetrics.selectable = NO;
@@ -147,10 +147,10 @@ CGFloat WLMinTextViewWidth;
         if (message.unread && weakSelf.view.superview && ![weakSelf.chat.readMessages containsObject:message]) {
             [weakSelf.chat.readMessages addObject:message];
         }
+        WLMessageCell *messageCell = (id)item.view;
+        messageCell.tailView.hidden = ![weakSelf.chat.groupMessages containsObject:message];
     };
     
-    self.unreadMessagesMetrics.finalizeAppearing = finalizeMessageAppearing;
-    self.dateMetrics.finalizeAppearing = finalizeMessageAppearing;
     self.messageWithNameMetrics.finalizeAppearing = finalizeMessageAppearing;
     self.myMessageMetrics.finalizeAppearing = finalizeMessageAppearing;
     self.messageMetrics.finalizeAppearing = finalizeMessageAppearing;
@@ -181,7 +181,8 @@ CGFloat WLMinTextViewWidth;
     
     self.messageWithNameMetrics.insetsAt = self.messageMetrics.insetsAt = self.myMessageMetrics.insetsAt = ^CGRect(StreamPosition *position, StreamMetrics *metrics) {
         WLMessage *message = [weakSelf.chat.entries tryAt:position.index];
-        return [weakSelf.chat.groupMessages containsObject:message] ? CGRectMake(0, WLMessageGroupSpacing, 0, 0) : CGRectZero;
+        return  [weakSelf.chat.messagesWithDay containsObject:message] ?
+                CGRectZero : [weakSelf.chat.groupMessages containsObject:message] ? CGRectMake(0, WLMessageGroupSpacing, 0, 0) : CGRectMake(0, 2, 0, 0);
     };
 	
 	self.composeBar.placeholder = WLLS(@"message_placeholder");
@@ -558,8 +559,8 @@ CGFloat WLMinTextViewWidth;
     CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:calculateWight];
     CGFloat topInset = containsName ? self.nameFont.lineHeight : 0;
     CGFloat bottomInset = self.timeFont.lineHeight + WLMessageVerticalInset;
-    commentHeight = topInset + commentHeight + bottomInset;
-    commentHeight = MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight + WLMessageVerticalInset);
+    commentHeight += topInset + bottomInset;
+    commentHeight = MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight);
     [self.cachedMessageHeights setObject:@(commentHeight) forKey:message];
     return commentHeight;
 }

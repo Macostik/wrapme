@@ -8,14 +8,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="AzW-cI-2Hi" customClass="WLMessageCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="86"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tyW-OA-8ng">
                     <rect key="frame" x="64" y="0.0" width="104" height="56"/>
                     <subviews>
                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xkc-2N-B6M" customClass="WLLabel">
-                            <rect key="frame" x="6" y="4" width="34" height="16"/>
+                            <rect key="frame" x="6" y="4" width="34" height="12"/>
                             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
@@ -27,6 +27,7 @@
                         </label>
                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="message text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJn-Un-ki1" customClass="WLAttributedLabel">
                             <rect key="frame" x="6" y="18" width="92" height="18"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -49,7 +50,7 @@
                     <color key="backgroundColor" red="0.93333333730000001" green="0.93333333730000001" blue="0.93333333730000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="cpB-lF-feB" firstAttribute="top" secondItem="mJn-Un-ki1" secondAttribute="bottom" id="CU7-LN-1jZ"/>
-                        <constraint firstItem="mJn-Un-ki1" firstAttribute="top" secondItem="xkc-2N-B6M" secondAttribute="bottom" constant="-2" id="Ffk-bz-W1v"/>
+                        <constraint firstItem="mJn-Un-ki1" firstAttribute="top" secondItem="xkc-2N-B6M" secondAttribute="bottom" constant="2" id="Ffk-bz-W1v"/>
                         <constraint firstAttribute="trailing" secondItem="cpB-lF-feB" secondAttribute="trailing" constant="6" id="OJA-rS-LYh"/>
                         <constraint firstAttribute="trailing" secondItem="mJn-Un-ki1" secondAttribute="trailing" constant="6" id="QFp-ZI-n92"/>
                         <constraint firstItem="mJn-Un-ki1" firstAttribute="leading" secondItem="tyW-OA-8ng" secondAttribute="leading" constant="6" id="Sc3-FQ-POy"/>
@@ -65,8 +66,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="RRC-hH-OaS">
-                    <rect key="frame" x="56" y="41" width="8" height="10"/>
+                <imageView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="RRC-hH-OaS">
+                    <rect key="frame" x="56" y="30" width="8" height="10"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="8" id="Tgv-H9-ozl"/>
@@ -92,6 +93,8 @@
             <constraints>
                 <constraint firstItem="RRC-hH-OaS" firstAttribute="bottom" secondItem="tyW-OA-8ng" secondAttribute="bottom" constant="-5" id="6Ld-8G-IWC"/>
                 <constraint firstItem="8Do-t9-L3S" firstAttribute="top" secondItem="tyW-OA-8ng" secondAttribute="top" id="6oF-Ph-xzn"/>
+                <constraint firstItem="RRC-hH-OaS" firstAttribute="bottom" secondItem="8Do-t9-L3S" secondAttribute="bottom" id="AH4-fw-Tqz"/>
+                <constraint firstAttribute="bottom" secondItem="tyW-OA-8ng" secondAttribute="bottom" id="FsK-zo-nVC"/>
                 <constraint firstItem="RRC-hH-OaS" firstAttribute="trailing" secondItem="tyW-OA-8ng" secondAttribute="leading" id="Tph-1U-e93"/>
                 <constraint firstItem="8Do-t9-L3S" firstAttribute="leading" secondItem="AzW-cI-2Hi" secondAttribute="leading" constant="16" id="qsW-Z7-dkq"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tyW-OA-8ng" secondAttribute="trailing" constant="16" id="vzx-lW-uB5"/>
@@ -100,6 +103,11 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="6Ld-8G-IWC"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="avatarView" destination="8Do-t9-L3S" id="U93-cb-jJu"/>
                 <outlet property="nameLabel" destination="xkc-2N-B6M" id="SRI-UY-1PO"/>
@@ -107,7 +115,7 @@
                 <outlet property="textView" destination="mJn-Un-ki1" id="2hn-hx-98g"/>
                 <outlet property="timeLabel" destination="cpB-lF-feB" id="UFs-Fd-jRk"/>
             </connections>
-            <point key="canvasLocation" x="276" y="386"/>
+            <point key="canvasLocation" x="276" y="371"/>
         </view>
     </objects>
 </document>

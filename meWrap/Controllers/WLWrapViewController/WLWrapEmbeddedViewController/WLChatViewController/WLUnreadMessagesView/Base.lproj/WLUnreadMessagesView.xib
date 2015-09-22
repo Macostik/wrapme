@@ -8,14 +8,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="nHM-Nx-VU8" customClass="StreamReusableView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooO-NK-rpX">
                     <rect key="frame" x="0.0" y="6" width="320" height="34"/>
                     <subviews>
                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNREAD MESSAGES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3J-PO-D05">
-                            <rect key="frame" x="80" y="7.5" width="160.5" height="20.5"/>
+                            <rect key="frame" x="80" y="7" width="161" height="21"/>
                             <color key="backgroundColor" red="0.98431372640000003" green="0.83529412749999998" blue="0.74117648599999997" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
@@ -26,7 +26,13 @@
                     <constraints>
                         <constraint firstAttribute="centerY" secondItem="P3J-PO-D05" secondAttribute="centerY" id="2K0-MP-Y4Y"/>
                         <constraint firstAttribute="centerX" secondItem="P3J-PO-D05" secondAttribute="centerX" id="4En-X2-gYM"/>
+                        <constraint firstAttribute="bottom" secondItem="P3J-PO-D05" secondAttribute="bottom" constant="6" id="Rix-DC-hmz"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="2K0-MP-Y4Y"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -34,7 +40,7 @@
                 <constraint firstItem="ooO-NK-rpX" firstAttribute="leading" secondItem="nHM-Nx-VU8" secondAttribute="leading" id="5qB-EV-HOE"/>
                 <constraint firstAttribute="trailing" secondItem="ooO-NK-rpX" secondAttribute="trailing" id="8Nj-54-eMW"/>
                 <constraint firstItem="ooO-NK-rpX" firstAttribute="top" secondItem="nHM-Nx-VU8" secondAttribute="top" constant="6" id="rOg-O3-0OG"/>
-                <constraint firstAttribute="bottom" secondItem="ooO-NK-rpX" secondAttribute="bottom" constant="8" id="yFd-Ud-a74"/>
+                <constraint firstAttribute="bottom" secondItem="ooO-NK-rpX" secondAttribute="bottom" constant="6" id="yFd-Ud-a74"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

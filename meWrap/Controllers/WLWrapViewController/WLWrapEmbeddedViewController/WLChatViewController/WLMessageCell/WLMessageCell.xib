@@ -8,7 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="AzW-cI-2Hi" customClass="WLMessageCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tyW-OA-8ng">
@@ -16,11 +16,17 @@
                     <subviews>
                         <label clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="745" text="message text" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="uzq-Y1-O7b" customClass="WLAttributedLabel">
                             <rect key="frame" x="6" y="2" width="92" height="18"/>
-                            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.1505631506" green="0.1505586505" blue="0.15056121350000001" alpha="1" colorSpace="calibratedRGB"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="lineSpacing">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="minimumLineHeight">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="top" horizontalHuggingPriority="251" text="11:32 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpB-lF-feB" customClass="WLLabel">
@@ -51,31 +57,21 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="TDG-xP-bNj">
-                    <rect key="frame" x="56" y="25" width="8" height="10"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="8" id="83d-zd-oas"/>
-                        <constraint firstAttribute="height" constant="10" id="if9-br-7I3"/>
-                    </constraints>
-                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="tyW-OA-8ng" firstAttribute="top" secondItem="AzW-cI-2Hi" secondAttribute="top" id="RzW-qA-Dl2"/>
-                <constraint firstItem="TDG-xP-bNj" firstAttribute="trailing" secondItem="tyW-OA-8ng" secondAttribute="leading" id="abf-aO-Oe5"/>
                 <constraint firstItem="tyW-OA-8ng" firstAttribute="leading" secondItem="AzW-cI-2Hi" secondAttribute="leading" constant="64" id="af6-su-WbC"/>
-                <constraint firstItem="TDG-xP-bNj" firstAttribute="bottom" secondItem="tyW-OA-8ng" secondAttribute="bottom" constant="-5" id="dD8-pw-D2J"/>
+                <constraint firstAttribute="bottom" secondItem="tyW-OA-8ng" secondAttribute="bottom" id="se3-jJ-iA5"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tyW-OA-8ng" secondAttribute="trailing" constant="16" id="vzx-lW-uB5"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="tailView" destination="TDG-xP-bNj" id="MoZ-kS-8fo"/>
                 <outlet property="textView" destination="uzq-Y1-O7b" id="Me8-f6-Sj0"/>
                 <outlet property="timeLabel" destination="cpB-lF-feB" id="UFs-Fd-jRk"/>
             </connections>
-            <point key="canvasLocation" x="272" y="336"/>
+            <point key="canvasLocation" x="272" y="318"/>
         </view>
     </objects>
 </document>

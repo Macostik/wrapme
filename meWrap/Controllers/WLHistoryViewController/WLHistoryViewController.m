@@ -415,7 +415,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         WLCandy *candy = weakSelf.candy;
         if (candy.deletable) {
-            [WLAlertView confirmCandyDeleting:candy success:^{
+            [UIAlertController confirmCandyDeleting:candy success:^{
                 weakSelf.removedCandy = candy;
                 sender.loading = YES;
                 [candy remove:^(id object) {

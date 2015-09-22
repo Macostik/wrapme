@@ -85,7 +85,7 @@
     __weak __typeof(self)weakSelf = self;
     WLWrap *wrap = self.wrap;
     BOOL deletable = wrap.deletable;
-    [WLAlertView confirmWrapDeleting:wrap success:^{
+    [UIAlertController confirmWrapDeleting:wrap success:^{
         sender.loading = YES;
         weakSelf.view.userInteractionEnabled = NO;
         [wrap remove:^(id object) {

@@ -89,7 +89,7 @@
             UIViewController *rootViewController = [UIWindow mainWindow].rootViewController.presentedViewController ? : [UIWindow mainWindow].rootViewController;
             UIView *topView = rootViewController.view;
             topView.userInteractionEnabled = YES;
-            [WLAlertView confirmRedirectingToSignUp:^{
+            [UIAlertController confirmRedirectingToSignUp:^{
                 WLLog(@"ERROR - redirection to welcome screen, sign in failed: %@", error);
                 [[WLNotificationCenter defaultCenter] clear];
                 [WLSession clear];
@@ -184,7 +184,7 @@
             if ([error isNetworkError] && currentUser) {
                 successBlock(currentUser);
             } else {
-                [WLAlertView confirmRedirectingToSignUp:^{
+                [UIAlertController confirmRedirectingToSignUp:^{
                     WLLog(@"INITIAL SIGN IN ERROR - couldn't sign in, so redirecting to welcome screen");
                     [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
                 } tryAgain:^{

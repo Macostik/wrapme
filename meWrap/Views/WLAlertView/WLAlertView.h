@@ -8,7 +8,7 @@
 
 typedef void (^WLAlertViewCompletion)(NSUInteger index);
 
-@protocol WLAlertView <NSObject>
+@interface UIAlertController (WLAlertView)
 
 + (void)showWithTitle:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons completion:(WLAlertViewCompletion)completion;
 
@@ -20,27 +20,12 @@ typedef void (^WLAlertViewCompletion)(NSUInteger index);
 
 @end
 
-
-@interface WLAlertView : NSObject <WLAlertView>
-
-@end
-
-@interface WLAlertView (DefinedAlerts)
+@interface UIAlertController (DefinedAlerts)
 
 + (void)confirmWrapDeleting:(WLWrap*)wrap success:(WLBlock)success failure:(WLFailureBlock)failure;
 
 + (void)confirmCandyDeleting:(WLCandy *)candy success:(WLBlock)success failure:(WLFailureBlock)failure;
 
 + (void)confirmRedirectingToSignUp:(WLBlock)signUp tryAgain:(WLBlock)tryAgain;
-
-@end
-
-@interface UIAlertController (WLAlertView) <WLAlertView>
-
-@end
-
-@interface UIAlertView (WLAlertView) <WLAlertView>
-
-@property (strong, nonatomic) WLAlertViewCompletion completion;
 
 @end

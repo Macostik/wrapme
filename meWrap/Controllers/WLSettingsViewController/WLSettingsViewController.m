@@ -27,11 +27,11 @@
     NSString* version = NSMainBundle.buildVersion;
     NSString* build = NSMainBundle.buildNumber;
     NSString *message = [NSString stringWithFormat:WLLS(@"formatted_about_message"), appName, version, build];
-    [WLAlertView showWithMessage:message];
+    [UIAlertController showWithMessage:message];
 }
 
 - (IBAction)signOut:(id)sender {
-    [WLAlertView showWithTitle:WLLS(@"sign_out") message:WLLS(@"sign_out_confirmation") cancel:WLLS(@"cancel") action:WLLS(@"sign_out") completion:^{
+    [UIAlertController showWithTitle:WLLS(@"sign_out") message:WLLS(@"sign_out_confirmation") cancel:WLLS(@"cancel") action:WLLS(@"sign_out") completion:^{
         [[WLNotificationCenter defaultCenter] clear];
         [WLSession clear];
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];

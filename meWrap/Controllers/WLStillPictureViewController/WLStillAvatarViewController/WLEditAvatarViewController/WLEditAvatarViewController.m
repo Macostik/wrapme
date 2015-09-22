@@ -34,7 +34,7 @@
 
 - (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
     if (!completion) return;
-    [WLAlertView showWithTitle:WLLS(@"unsaved_photo")
+    [UIAlertController showWithTitle:WLLS(@"unsaved_photo")
                        message:WLLS(@"leave_screen_on_editing")
                        buttons:@[WLLS(@"cancel"),WLLS(@"continue")]
                     completion:^(NSUInteger index) {

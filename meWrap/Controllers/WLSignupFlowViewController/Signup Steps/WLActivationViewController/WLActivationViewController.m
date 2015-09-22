@@ -76,7 +76,7 @@
     sender.userInteractionEnabled = NO;
     [[WLAPIRequest verificationCall] send:^(id object) {
         sender.userInteractionEnabled = YES;
-        [WLAlertView showWithMessage:[NSString stringWithFormat:WLLS(@"formatted_calling_now"), weakSelf.phoneNumberLabel.text]];
+        [UIAlertController showWithMessage:[NSString stringWithFormat:WLLS(@"formatted_calling_now"), weakSelf.phoneNumberLabel.text]];
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;
         [error show];

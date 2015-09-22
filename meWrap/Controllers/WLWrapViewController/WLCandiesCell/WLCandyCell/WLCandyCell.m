@@ -75,7 +75,7 @@
             
             if (candy.deletable) {
                 [menu addDeleteItem:^(WLCandy *candy) {
-                    [WLAlertView confirmCandyDeleting:candy success:^{
+                    [UIAlertController confirmCandyDeleting:candy success:^{
                         weakSelf.userInteractionEnabled = NO;
                         [candy remove:^(id object) {
                             weakSelf.userInteractionEnabled = YES;

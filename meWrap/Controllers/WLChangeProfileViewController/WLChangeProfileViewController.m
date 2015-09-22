@@ -11,7 +11,6 @@
 #import "WLStillPictureViewController.h"
 #import "WLNavigationHelper.h"
 #import "WLKeyboard.h"
-#import "WLInputAccessoryView.h"
 #import "WLToast.h"
 #import "WLWelcomeViewController.h"
 #import "UIButton+Additions.h"

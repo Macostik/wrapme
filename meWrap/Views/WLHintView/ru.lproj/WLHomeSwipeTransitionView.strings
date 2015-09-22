@@ -1,6 +1,6 @@
 
-/* Class = "UILabel"; text = "Быстрый доступ к чату и камере."; ObjectID = "NjR-YP-UWX"; */
+/* Class = "UILabel"; text = "Opening camera & chat just got easier"; ObjectID = "NjR-YP-UWX"; */
 "NjR-YP-UWX.text" = "Быстрый доступ к чату и камере.";
 
-/* Class = "UIButton"; normalTitle = "Понял"; ObjectID = "dh9-nf-daF"; */
+/* Class = "UIButton"; normalTitle = "Got it"; ObjectID = "dh9-nf-daF"; */
 "dh9-nf-daF.normalTitle" = "Понял";

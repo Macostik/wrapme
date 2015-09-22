@@ -1,18 +1,12 @@
 
-/* Class = "UIButton"; normalTitle = "Отмена"; ObjectID = "76D-bl-W0K"; */
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "76D-bl-W0K"; */
 "76D-bl-W0K.normalTitle" = "Отмена";
 
-/* Class = "UILabel"; text = "Данные правильные?"; ObjectID = "CeK-FC-xMs"; */
+/* Class = "UILabel"; text = "Is it correct?"; ObjectID = "CeK-FC-xMs"; */
 "CeK-FC-xMs.text" = "Данные правильные?";
 
-/* Class = "UILabel"; text = "+1 (925) 980 8866"; ObjectID = "MpF-fi-jIi"; */
-"MpF-fi-jIi.text" = "+1 (925) 980 8866";
-
-/* Class = "UILabel"; text = "Подтверждение Ваших данных"; ObjectID = "Yo3-sx-jNh"; */
+/* Class = "UILabel"; text = "Confirm your details"; ObjectID = "Yo3-sx-jNh"; */
 "Yo3-sx-jNh.text" = "Подтверждение Ваших данных";
 
 /* Class = "UIButton"; normalTitle = "OK"; ObjectID = "anc-0k-7cc"; */
 "anc-0k-7cc.normalTitle" = "OK";
-
-/* Class = "UILabel"; text = "calvin@ravenpod.com"; ObjectID = "edD-kw-Hyg"; */
-"edD-kw-Hyg.text" = "calvin@ravenpod.com";

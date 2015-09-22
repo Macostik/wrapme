@@ -318,7 +318,6 @@
 		C54AF48219B8C437006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF48A19B8C437006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
-		C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */; };
 		C54AF4AA19B8C437006F7EDB /* WLWrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */; };
 		C54AF4AD19B8C437006F7EDB /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
 		C54AF4B119B8C437006F7EDB /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
@@ -343,7 +342,6 @@
 		C54AF51C19B8C437006F7EDB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70618DA0945008FF6F0 /* UIKit.framework */; };
 		C54AF51E19B8C437006F7EDB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
 		C54AF52819B8C437006F7EDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
-		C54AF52B19B8C437006F7EDB /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
 		C54AF52C19B8C437006F7EDB /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
 		C54AF52D19B8C437006F7EDB /* flowers.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9131934B4460001E570 /* flowers.plist */; };
 		C54AF53219B8C437006F7EDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
@@ -363,7 +361,6 @@
 		C54AF67C19B8C491006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
-		C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */; };
 		C54AF6A419B8C491006F7EDB /* WLWrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */; };
 		C54AF6A719B8C491006F7EDB /* WLEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A04F8A1940CB5E005DA4CE /* WLEmoji.m */; };
 		C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
@@ -388,7 +385,6 @@
 		C54AF71619B8C491006F7EDB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70618DA0945008FF6F0 /* UIKit.framework */; };
 		C54AF71819B8C491006F7EDB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A7A70218DA0945008FF6F0 /* Foundation.framework */; };
 		C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
-		C54AF72519B8C491006F7EDB /* WLInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */; };
 		C54AF72619B8C491006F7EDB /* cars.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9171934B45C0001E570 /* cars.plist */; };
 		C54AF72719B8C491006F7EDB /* flowers.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D9131934B4460001E570 /* flowers.plist */; };
 		C54AF72C19B8C491006F7EDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A7A71418DA0946008FF6F0 /* Main.storyboard */; };
@@ -1152,9 +1148,6 @@
 		128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLStillPictureViewController.m; path = WLStillPictureViewController/WLStillPictureViewController.m; sourceTree = "<group>"; };
 		129654E118E197ED00FF43F6 /* WLAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLAddressBook.h; path = WLAddressBook/WLAddressBook.h; sourceTree = "<group>"; };
 		129654E218E197ED00FF43F6 /* WLAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLAddressBook.m; path = WLAddressBook/WLAddressBook.m; sourceTree = "<group>"; };
-		129654F118E1CAF900FF43F6 /* WLInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLInputAccessoryView.h; path = WLInputAccessoryView/WLInputAccessoryView.h; sourceTree = "<group>"; };
-		129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLInputAccessoryView.m; path = WLInputAccessoryView/WLInputAccessoryView.m; sourceTree = "<group>"; };
-		129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLInputAccessoryView.xib; path = WLInputAccessoryView/WLInputAccessoryView.xib; sourceTree = "<group>"; };
 		12A6BFAA18F2AE7700AE3B62 /* WLRefresher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLRefresher.h; path = WLRefreshControl/WLRefresher.h; sourceTree = "<group>"; };
 		12A6BFAB18F2AE7700AE3B62 /* WLRefresher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLRefresher.m; path = WLRefreshControl/WLRefresher.m; sourceTree = "<group>"; };
 		12A7A70218DA0945008FF6F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1194,8 +1187,6 @@
 		14B2429C195C4CEB00C5D208 /* WLEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditSession.m; path = WLEditSession/WLEditSession.m; sourceTree = "<group>"; };
 		14B242A2195C4D9200C5D208 /* WLProfileEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileEditSession.h; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.h; sourceTree = "<group>"; };
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
-		3E9E8B7F1B6FF4D60025974A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = "zh-Hant"; path = "zh-Hant.lproj/Camera.strings"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
-		3E9E8B801B6FF4D60025974A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = "zh-Hant"; path = "zh-Hant.lproj/Introduction.strings"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		3E9E8B8C1B6FF4D70025974A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		5B2A85A71BA6BCD4008D9175 /* CoreData 1. 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 1. 4.xcdatamodel"; sourceTree = "<group>"; };
 		5B36F5001B668091009609C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLUnreadMessagesView.xib; sourceTree = "<group>"; };
@@ -1244,9 +1235,6 @@
 		5BB04F2619D9822300B5C6EE /* WLEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEditViewController.h; path = WLEditViewController/WLEditViewController.h; sourceTree = "<group>"; };
 		5BB04F2719D9822300B5C6EE /* WLEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditViewController.m; path = WLEditViewController/WLEditViewController.m; sourceTree = "<group>"; };
 		5BB41F8D1B8EEF26007DB7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PublicWrapPlaceholderView.xib; sourceTree = "<group>"; };
-		5BB41F911B8F1C7B007DB7A2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PublicWrapPlaceholderView.strings; sourceTree = "<group>"; };
-		5BB41F931B8F1C7C007DB7A2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/PublicWrapPlaceholderView.strings"; sourceTree = "<group>"; };
-		5BB41F951B8F1C91007DB7A2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/PublicWrapPlaceholderView.strings; sourceTree = "<group>"; };
 		5BBAB3AA1AAA002400CE6252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Camera.storyboard; sourceTree = "<group>"; };
 		5BD104F01AE7C066008794F5 /* WLEntryStatusIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEntryStatusIndicator.h; path = WLEntryStatusIndicator/WLEntryStatusIndicator.h; sourceTree = "<group>"; };
 		5BD104F11AE7C066008794F5 /* WLEntryStatusIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEntryStatusIndicator.m; path = WLEntryStatusIndicator/WLEntryStatusIndicator.m; sourceTree = "<group>"; };
@@ -1330,9 +1318,6 @@
 		C5259D661ACC2333003D3317 /* meWrap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = meWrap.entitlements; sourceTree = "<group>"; };
 		C5259D671ACC2333003D3317 /* meWrapQA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = meWrapQA.entitlements; sourceTree = "<group>"; };
 		C5284C8F1B95A5C9006455FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = WLHomeViewController/Base.lproj/WLHottestWrapHeader.xib; sourceTree = "<group>"; };
-		C5284C921B95A5D7006455FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = WLHomeViewController/en.lproj/WLHottestWrapHeader.strings; sourceTree = "<group>"; };
-		C5284C931B95A5D9006455FB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = WLHomeViewController/ru.lproj/WLHottestWrapHeader.strings; sourceTree = "<group>"; };
-		C5284C941B95A5DA006455FB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "WLHomeViewController/zh-Hant.lproj/WLHottestWrapHeader.strings"; sourceTree = "<group>"; };
 		C5284C951B95A8B0006455FB /* PlaceholderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderView.h; sourceTree = "<group>"; };
 		C5284C961B95A8B0006455FB /* PlaceholderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderView.m; sourceTree = "<group>"; };
 		C52E1FC81A41951300A2C370 /* WLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLButton.h; path = WLButton/WLButton.h; sourceTree = "<group>"; };
@@ -1451,8 +1436,6 @@
 		C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLProgressBar+WLContribution.m"; sourceTree = "<group>"; };
 		C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLHomePlaceholderView.xib; sourceTree = "<group>"; };
 		C55908781B185F9D001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Introduction.storyboard; sourceTree = "<group>"; };
-		C559087B1B185FA7001CB99F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/Introduction.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
-		C559087D1B185FAC001CB99F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = ru; path = ru.lproj/Introduction.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		C55908D41B18995D001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLDownloadingView.xib; sourceTree = "<group>"; };
 		C55908E81B18B9FA001CB99F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WLInviteHintView.xib; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
@@ -1667,8 +1650,6 @@
 		C573FB8C1AB84AF400F1098C /* WLTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTouchView.m; sourceTree = "<group>"; };
 		C577C2611A4C427100ECC7E5 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
 		C577C2621A4C427100ECC7E5 /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
-		C57B2FA21B3D69DF0065EEDF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/Camera.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
-		C57B2FA41B3D6A230065EEDF /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Camera.strings; sourceTree = "<group>"; };
 		C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Frameworks/CocoaLumberjack.framework; sourceTree = "<group>"; };
 		C57CB2A11BAADE7C0050FBF7 /* WLCommonEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCommonEnums.h; sourceTree = "<group>"; };
 		C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -1707,7 +1688,6 @@
 		C5A9CC821B9450660084D0F5 /* WLEditPictureCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLEditPictureCell.xib; sourceTree = "<group>"; };
 		C5A9CC851B945DE00084D0F5 /* WLWrapPickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLWrapPickerCell.xib; sourceTree = "<group>"; };
 		C5A9CC881B946F9C0084D0F5 /* WLEmojiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLEmojiCell.xib; path = WLComposeBar/WLEmojiView/WLEmojiCell/WLEmojiCell.xib; sourceTree = "<group>"; };
-		C5A9CC8C1B94826C0084D0F5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C5A9CC8D1B9482C30084D0F5 /* WLMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLMessageCell.xib; sourceTree = "<group>"; };
 		C5A9CC901B9482D20084D0F5 /* WLMyMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLMyMessageCell.xib; sourceTree = "<group>"; };
 		C5AB7D721B318FDD0077F9F1 /* WLWKParentApplicationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKParentApplicationContext.h; sourceTree = "<group>"; };
@@ -1883,6 +1863,28 @@
 		C5B097271BB14F030057D6BA /* PNURLBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNURLBuilder.h; sourceTree = "<group>"; };
 		C5B097281BB14F030057D6BA /* PNURLBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNURLBuilder.m; sourceTree = "<group>"; };
 		C5B097291BB14F040057D6BA /* PubNub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubNub.h; sourceTree = "<group>"; };
+		C5B097C11BB15B2D0057D6BA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		C5B097C31BB15B3D0057D6BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		C5B097C91BB160520057D6BA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SignUp.strings; sourceTree = "<group>"; };
+		C5B097CB1BB162340057D6BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SignUp.strings"; sourceTree = "<group>"; };
+		C5B097D11BB1646E0057D6BA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Camera.strings; sourceTree = "<group>"; };
+		C5B097D31BB165250057D6BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Camera.strings"; sourceTree = "<group>"; };
+		C5B097D71BB165D20057D6BA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Introduction.strings; sourceTree = "<group>"; };
+		C5B097D91BB165F30057D6BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Introduction.strings"; sourceTree = "<group>"; };
+		C5B097DD1BB167670057D6BA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = WLHomeViewController/ru.lproj/WLHottestWrapHeader.strings; sourceTree = "<group>"; };
+		C5B097DF1BB167870057D6BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "WLHomeViewController/zh-Hant.lproj/WLHottestWrapHeader.strings"; sourceTree = "<group>"; };
+		C5B097EB1BB1687F0057D6BA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
+		C5B097ED1BB168960057D6BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLHomeSwipeTransitionView.strings"; sourceTree = "<group>"; };
+		C5B097F31BB169740057D6BA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLConfirmView.strings; sourceTree = "<group>"; };
+		C5B097F51BB169940057D6BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLConfirmView.strings"; sourceTree = "<group>"; };
+		C5B097F91BB169F20057D6BA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLWrapPlaceholderViewHistory.strings; sourceTree = "<group>"; };
+		C5B097FB1BB16A0A0057D6BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLWrapPlaceholderViewHistory.strings"; sourceTree = "<group>"; };
+		C5B098011BB16A570057D6BA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/NoCommentsPlaceholderView.strings; sourceTree = "<group>"; };
+		C5B098031BB16A5F0057D6BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/NoCommentsPlaceholderView.strings"; sourceTree = "<group>"; };
+		C5B098071BB16A980057D6BA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/PublicWrapPlaceholderView.strings; sourceTree = "<group>"; };
+		C5B098091BB16A9F0057D6BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/PublicWrapPlaceholderView.strings"; sourceTree = "<group>"; };
+		C5B0980D1BB16B2A0057D6BA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WhatsUpPlaceholderView.strings; sourceTree = "<group>"; };
+		C5B0980F1BB16B2F0057D6BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WhatsUpPlaceholderView.strings"; sourceTree = "<group>"; };
 		C5B233781B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AdobeUXImageEditorViewController+SharedEditing.h"; sourceTree = "<group>"; };
 		C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AdobeUXImageEditorViewController+SharedEditing.m"; sourceTree = "<group>"; };
 		C5B2A1201B4BFED8004759F3 /* WLChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChat.h; sourceTree = "<group>"; };
@@ -1977,35 +1979,12 @@
 		C5C20BC61A239D6F008B2E2E /* WLProfileInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLProfileInformationViewController.m; sourceTree = "<group>"; };
 		C5C20BC71A239D6F008B2E2E /* WLSignupFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSignupFlowViewController.h; sourceTree = "<group>"; };
 		C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSignupFlowViewController.m; sourceTree = "<group>"; };
-		C5C3FE531B8F2D6E00F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		C5C3FE541B8F2D7400F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
-		C5C3FE551B8F2D8200F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SignUp.strings; sourceTree = "<group>"; };
-		C5C3FE561B8F2D8600F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SignUp.strings; sourceTree = "<group>"; };
-		C5C3FE571B8F2D8B00F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SignUp.strings"; sourceTree = "<group>"; };
-		C5C3FE5B1B8F2DD300F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLDownloadingView.strings; sourceTree = "<group>"; };
 		C5C3FE5C1B8F2DD600F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLDownloadingView.strings; sourceTree = "<group>"; };
 		C5C3FE5D1B8F2DDB00F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLDownloadingView.strings"; sourceTree = "<group>"; };
-		C5C3FE5E1B8F2DE700F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLUnreadMessagesView.strings; sourceTree = "<group>"; };
 		C5C3FE5F1B8F2DEA00F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLUnreadMessagesView.strings; sourceTree = "<group>"; };
 		C5C3FE601B8F2DED00F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLUnreadMessagesView.strings"; sourceTree = "<group>"; };
-		C5C3FE611B8F2DF500F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLInviteHintView.strings; sourceTree = "<group>"; };
 		C5C3FE621B8F2DF800F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLInviteHintView.strings; sourceTree = "<group>"; };
 		C5C3FE631B8F2DFB00F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLInviteHintView.strings"; sourceTree = "<group>"; };
-		C5C3FE6A1B8F2E1D00F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
-		C5C3FE6B1B8F2E2000F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLHomeSwipeTransitionView.strings; sourceTree = "<group>"; };
-		C5C3FE6C1B8F2E2300F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLHomeSwipeTransitionView.strings"; sourceTree = "<group>"; };
-		C5C3FE6D1B8F2E8300F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLWrapPlaceholderViewHistory.strings; sourceTree = "<group>"; };
-		C5C3FE6E1B8F2E8600F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLWrapPlaceholderViewHistory.strings; sourceTree = "<group>"; };
-		C5C3FE6F1B8F2E8900F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLWrapPlaceholderViewHistory.strings"; sourceTree = "<group>"; };
-		C5C3FE701B8F2E8F00F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NoCommentsPlaceholderView.strings; sourceTree = "<group>"; };
-		C5C3FE711B8F2E9200F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/NoCommentsPlaceholderView.strings; sourceTree = "<group>"; };
-		C5C3FE721B8F2E9400F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/NoCommentsPlaceholderView.strings"; sourceTree = "<group>"; };
-		C5C3FE731B8F2E9A00F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WhatsUpPlaceholderView.strings; sourceTree = "<group>"; };
-		C5C3FE741B8F2E9E00F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WhatsUpPlaceholderView.strings; sourceTree = "<group>"; };
-		C5C3FE751B8F2EA200F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WhatsUpPlaceholderView.strings"; sourceTree = "<group>"; };
-		C5C3FE761B8F2EE000F177EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/WLConfirmView.strings; sourceTree = "<group>"; };
-		C5C3FE771B8F2EE300F177EC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/WLConfirmView.strings; sourceTree = "<group>"; };
-		C5C3FE781B8F2EE700F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/WLConfirmView.strings"; sourceTree = "<group>"; };
 		C5C3FE961B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5C3FE9A1B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-736h@3x.png"; sourceTree = "<group>"; };
 		C5C3FE9C1B8F311500F177EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default@2x.png"; sourceTree = "<group>"; };
@@ -2251,16 +2230,6 @@
 			name = WLAddressBook;
 			sourceTree = "<group>";
 		};
-		129654F018E1CACB00FF43F6 /* WLInputAccessoryView */ = {
-			isa = PBXGroup;
-			children = (
-				129654F118E1CAF900FF43F6 /* WLInputAccessoryView.h */,
-				129654F218E1CAF900FF43F6 /* WLInputAccessoryView.m */,
-				129654F418E1CB3000FF43F6 /* WLInputAccessoryView.xib */,
-			);
-			name = WLInputAccessoryView;
-			sourceTree = "<group>";
-		};
 		12A6BFA918F2AE5F00AE3B62 /* WLRefreshControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -2455,7 +2424,6 @@
 				12E8FF0718E960E000BF1B96 /* StreamView */,
 				12D653D718E4329F009CE64C /* WLProgressBar */,
 				12D653DA18E4329F009CE64C /* WLSeparatorView */,
-				129654F018E1CACB00FF43F6 /* WLInputAccessoryView */,
 				5BA432AE1A3F3F5200B53BC7 /* WLConfirmView */,
 			);
 			path = Views;
@@ -5371,7 +5339,6 @@
 				C54AF52819B8C437006F7EDB /* Images.xcassets in Resources */,
 				C551890B1B8F46C000D1327E /* WLContributorRemoveCell.xib in Resources */,
 				C583A40D1AE79DCE0024003F /* WLTestUsers.plist in Resources */,
-				C54AF52B19B8C437006F7EDB /* WLInputAccessoryView.xib in Resources */,
 				C54AF52C19B8C437006F7EDB /* cars.plist in Resources */,
 				C54AF52D19B8C437006F7EDB /* flowers.plist in Resources */,
 				C5BEC3931B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
@@ -5459,7 +5426,6 @@
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
 				C551890C1B8F46C000D1327E /* WLContributorRemoveCell.xib in Resources */,
 				C583A40F1AE79DCE0024003F /* WLTestUsers.plist in Resources */,
-				C54AF72519B8C491006F7EDB /* WLInputAccessoryView.xib in Resources */,
 				C54AF72619B8C491006F7EDB /* cars.plist in Resources */,
 				C54AF72719B8C491006F7EDB /* flowers.plist in Resources */,
 				C5BEC3941B8F129B00499EEA /* logo_and_caption_white@3x.png in Resources */,
@@ -5731,7 +5697,6 @@
 				C5C20BD61A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C5B097501BB14F040057D6BA /* PNChannelGroupChannelsResult.m in Sources */,
 				C54AF49119B8C437006F7EDB /* WLComposeBar.m in Sources */,
-				C54AF49319B8C437006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C5BCF0311B551B7B00E4AD6D /* WLContributorCell.m in Sources */,
 				C547A4521A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C52E1FE91A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
@@ -6002,7 +5967,6 @@
 				C5C20BD81A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C5B097511BB14F040057D6BA /* PNChannelGroupChannelsResult.m in Sources */,
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
-				C54AF68D19B8C491006F7EDB /* WLInputAccessoryView.m in Sources */,
 				C5BCF0331B551B7B00E4AD6D /* WLContributorCell.m in Sources */,
 				C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */,
 				C52E1FEB1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */,
@@ -6355,9 +6319,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				12A7A71518DA0946008FF6F0 /* Base */,
-				C5C3FE531B8F2D6E00F177EC /* ru */,
-				C5C3FE541B8F2D7400F177EC /* zh-Hant */,
-				C5A9CC8C1B94826C0084D0F5 /* en */,
+				C5B097C11BB15B2D0057D6BA /* ru */,
+				C5B097C31BB15B3D0057D6BA /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -6366,7 +6329,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				5B36F5001B668091009609C3 /* Base */,
-				C5C3FE5E1B8F2DE700F177EC /* en */,
 				C5C3FE5F1B8F2DEA00F177EC /* ru */,
 				C5C3FE601B8F2DED00F177EC /* zh-Hant */,
 			);
@@ -6377,9 +6339,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				5B5A8C6F1A4EB62F00F84529 /* Base */,
-				C5C3FE551B8F2D8200F177EC /* en */,
-				C5C3FE561B8F2D8600F177EC /* ru */,
-				C5C3FE571B8F2D8B00F177EC /* zh-Hant */,
+				C5B097C91BB160520057D6BA /* ru */,
+				C5B097CB1BB162340057D6BA /* zh-Hant */,
 			);
 			name = SignUp.storyboard;
 			sourceTree = "<group>";
@@ -6388,9 +6349,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				5B954BAB1B44328B00D362B5 /* Base */,
-				C5C3FE6A1B8F2E1D00F177EC /* en */,
-				C5C3FE6B1B8F2E2000F177EC /* ru */,
-				C5C3FE6C1B8F2E2300F177EC /* zh-Hant */,
+				C5B097EB1BB1687F0057D6BA /* ru */,
+				C5B097ED1BB168960057D6BA /* zh-Hant */,
 			);
 			name = WLHomeSwipeTransitionView.xib;
 			sourceTree = "<group>";
@@ -6399,9 +6359,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				5BA4C58A1A8BA0F600251B6D /* Base */,
-				C5C3FE701B8F2E8F00F177EC /* en */,
-				C5C3FE711B8F2E9200F177EC /* ru */,
-				C5C3FE721B8F2E9400F177EC /* zh-Hant */,
+				C5B098011BB16A570057D6BA /* ru */,
+				C5B098031BB16A5F0057D6BA /* zh-Hant */,
 			);
 			name = NoCommentsPlaceholderView.xib;
 			sourceTree = "<group>";
@@ -6410,9 +6369,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				5BA6AA541A66805E00493582 /* Base */,
-				C5C3FE6D1B8F2E8300F177EC /* en */,
-				C5C3FE6E1B8F2E8600F177EC /* ru */,
-				C5C3FE6F1B8F2E8900F177EC /* zh-Hant */,
+				C5B097F91BB169F20057D6BA /* ru */,
+				C5B097FB1BB16A0A0057D6BA /* zh-Hant */,
 			);
 			name = WLWrapPlaceholderViewHistory.xib;
 			sourceTree = "<group>";
@@ -6431,9 +6389,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				5BB41F8D1B8EEF26007DB7A2 /* Base */,
-				5BB41F911B8F1C7B007DB7A2 /* en */,
-				5BB41F931B8F1C7C007DB7A2 /* zh-Hant */,
-				5BB41F951B8F1C91007DB7A2 /* ru */,
+				C5B098071BB16A980057D6BA /* ru */,
+				C5B098091BB16A9F0057D6BA /* zh-Hant */,
 			);
 			name = PublicWrapPlaceholderView.xib;
 			sourceTree = "<group>";
@@ -6442,9 +6399,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				5BBAB3AA1AAA002400CE6252 /* Base */,
-				C57B2FA21B3D69DF0065EEDF /* en */,
-				C57B2FA41B3D6A230065EEDF /* ru */,
-				3E9E8B7F1B6FF4D60025974A /* zh-Hant */,
+				C5B097D11BB1646E0057D6BA /* ru */,
+				C5B097D31BB165250057D6BA /* zh-Hant */,
 			);
 			name = Camera.storyboard;
 			sourceTree = "<group>";
@@ -6453,9 +6409,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				5BD552101B3C13F700530566 /* Base */,
-				C5C3FE731B8F2E9A00F177EC /* en */,
-				C5C3FE741B8F2E9E00F177EC /* ru */,
-				C5C3FE751B8F2EA200F177EC /* zh-Hant */,
+				C5B0980D1BB16B2A0057D6BA /* ru */,
+				C5B0980F1BB16B2F0057D6BA /* zh-Hant */,
 			);
 			name = WhatsUpPlaceholderView.xib;
 			sourceTree = "<group>";
@@ -6464,9 +6419,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				5BD782CC1A4EC56A0094BEE5 /* Base */,
-				C5C3FE761B8F2EE000F177EC /* en */,
-				C5C3FE771B8F2EE300F177EC /* ru */,
-				C5C3FE781B8F2EE700F177EC /* zh-Hant */,
+				C5B097F31BB169740057D6BA /* ru */,
+				C5B097F51BB169940057D6BA /* zh-Hant */,
 			);
 			name = WLConfirmView.xib;
 			path = WLConfirmView;
@@ -6485,9 +6439,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				C5284C8F1B95A5C9006455FB /* Base */,
-				C5284C921B95A5D7006455FB /* en */,
-				C5284C931B95A5D9006455FB /* ru */,
-				C5284C941B95A5DA006455FB /* zh-Hant */,
+				C5B097DD1BB167670057D6BA /* ru */,
+				C5B097DF1BB167870057D6BA /* zh-Hant */,
 			);
 			name = WLHottestWrapHeader.xib;
 			sourceTree = "<group>";
@@ -6496,9 +6449,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				C55908781B185F9D001CB99F /* Base */,
-				C559087B1B185FA7001CB99F /* en */,
-				C559087D1B185FAC001CB99F /* ru */,
-				3E9E8B801B6FF4D60025974A /* zh-Hant */,
+				C5B097D71BB165D20057D6BA /* ru */,
+				C5B097D91BB165F30057D6BA /* zh-Hant */,
 			);
 			name = Introduction.storyboard;
 			sourceTree = "<group>";
@@ -6507,7 +6459,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C55908D41B18995D001CB99F /* Base */,
-				C5C3FE5B1B8F2DD300F177EC /* en */,
 				C5C3FE5C1B8F2DD600F177EC /* ru */,
 				C5C3FE5D1B8F2DDB00F177EC /* zh-Hant */,
 			);
@@ -6519,7 +6470,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C55908E81B18B9FA001CB99F /* Base */,
-				C5C3FE611B8F2DF500F177EC /* en */,
 				C5C3FE621B8F2DF800F177EC /* ru */,
 				C5C3FE631B8F2DFB00F177EC /* zh-Hant */,
 			);

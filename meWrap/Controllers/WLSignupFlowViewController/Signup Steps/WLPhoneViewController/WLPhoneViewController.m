@@ -9,7 +9,6 @@
 #import "WLPhoneViewController.h"
 #import "WLCountriesViewController.h"
 #import "WLCountry.h"
-#import "WLInputAccessoryView.h"
 #import "UIButton+Additions.h"
 #import "WLNavigationHelper.h"
 #import "WLToast.h"

@@ -1,4 +1,6 @@
-/* Class = "UILabel"; text = "HOTTEST WRAP"; ObjectID = "fO9-Y4-A1S"; */
-"fO9-Y4-A1S.text" = "人氣圍拍";
-/* Class = "UILabel"; text = "EXPLORE OUR"; ObjectID = "tXO-NZ-tJ7"; */
-"tXO-NZ-tJ7.text" = "瀏覽meWrap上的";
+
+/* Class = "UILabel"; text = "EXPLORE OUR"; ObjectID = "Wcy-Ot-Nnz"; */
+"Wcy-Ot-Nnz.text" = "瀏覽meWrap上的";
+
+/* Class = "UILabel"; text = "HOTTEST WRAPS"; ObjectID = "vds-co-bvP"; */
+"vds-co-bvP.text" = "人氣圍拍";

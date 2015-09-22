@@ -1950,7 +1950,6 @@
 		C5BEE0E51B2AC8C300D3CF70 /* WLNotificationSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotificationSubscription.m; sourceTree = "<group>"; };
 		C5BFE4CD1B4FD930004B655E /* WLWrapEmbeddedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapEmbeddedViewController.h; sourceTree = "<group>"; };
 		C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapEmbeddedViewController.m; sourceTree = "<group>"; };
-		C5C0AF9B1B997D2000B8B242 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5C0AF9C1B997D2100B8B242 /* ru */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ru; path = "ru.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
 		C5C0AFA01B99CF1F00B8B242 /* StreamReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamReusableView.h; sourceTree = "<group>"; };
 		C5C0AFA11B99CF1F00B8B242 /* StreamReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamReusableView.m; sourceTree = "<group>"; };
@@ -5250,7 +5249,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 				ru,
 				"zh-Hant",
@@ -6555,7 +6553,6 @@
 			children = (
 				C5C3FE961B8F311500F177EC /* Base */,
 				C5C3FEB21B8F311D00F177EC /* zh-Hant */,
-				C5C0AF9B1B997D2000B8B242 /* en */,
 				C5C0AF9C1B997D2100B8B242 /* ru */,
 			);
 			name = "Default-568h@2x.png";

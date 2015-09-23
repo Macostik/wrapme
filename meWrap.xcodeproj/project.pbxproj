@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		5B0F81E81A30920900B42D7D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12E3DA5018E049C300DBDB79 /* Images.xcassets */; };
 		5B17310C1BB17784001CFE6D /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C56498C71ACB00D2000F1E4B /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		5B17310F1BB17784001CFE6D /* meWrapWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C56498D21ACB00D2000F1E4B /* meWrapWatchApp.app */; };
 		5B36F4FD1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B36F5011B668091009609C3 /* WLUnreadMessagesView.xib */; };
 		5B36F4FF1B668091009609C3 /* WLUnreadMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B36F5011B668091009609C3 /* WLUnreadMessagesView.xib */; };
 		5B3CD74B19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
@@ -1057,7 +1056,6 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				5B17310F1BB17784001CFE6D /* meWrapWatchApp.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;

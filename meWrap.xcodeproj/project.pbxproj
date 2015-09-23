@@ -981,13 +981,6 @@
 			remoteGlobalIDString = C56498C61ACB00D2000F1E4B;
 			remoteInfo = meWrapWatchExt;
 		};
-		5B17310D1BB17784001CFE6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C56498D11ACB00D2000F1E4B;
-			remoteInfo = meWrapWatchApp;
-		};
 		5BA7AF2F1A481A9500C586CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -5108,7 +5101,6 @@
 				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
 				C5994D8C1B78894A0066A597 /* PBXTargetDependency */,
 				C5D5D04D1BA006E6003C9204 /* PBXTargetDependency */,
-				5B17310E1BB17784001CFE6D /* PBXTargetDependency */,
 			);
 			name = meWrap;
 			productName = WrapLive;
@@ -6284,11 +6276,6 @@
 			target = C56498C61ACB00D2000F1E4B /* meWrapWatchExt */;
 			targetProxy = 5B17310A1BB17784001CFE6D /* PBXContainerItemProxy */;
 		};
-		5B17310E1BB17784001CFE6D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C56498D11ACB00D2000F1E4B /* meWrapWatchApp */;
-			targetProxy = 5B17310D1BB17784001CFE6D /* PBXContainerItemProxy */;
-		};
 		5BA7AF301A481A9500C586CA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5B787D9A1A27876F004AE459 /* meWrapTodayQA */;
@@ -7067,7 +7054,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7122,7 +7108,6 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7306,7 +7291,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
@@ -7340,7 +7325,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "eda489e0-a1d1-4d0a-8d4d-bac6df98e993";
 				SDKROOT = watchos;
@@ -7564,7 +7549,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7757,7 +7741,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "ad5598e1-0326-4535-9f5e-7b1d78e6f355";
 				SDKROOT = watchos;

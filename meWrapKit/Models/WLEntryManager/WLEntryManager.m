@@ -421,9 +421,11 @@
     __weak typeof(self)weakSelf = self;
     WLEntryManager *manager = [WLEntryManager manager];
     [manager assureSave:^{
+        WLEntry *container = self.container;
         [weakSelf notifyOnDeleting];
         WLLog(@"WRAPLIVE - LOCAL DELETING: %@", weakSelf);
         [manager deleteEntry:weakSelf];
+        [container notifyOnUpdate];
     }];
 }
 

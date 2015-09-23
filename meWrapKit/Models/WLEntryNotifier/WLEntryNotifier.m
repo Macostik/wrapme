@@ -128,9 +128,7 @@ static NSMapTable* notifiers = nil;
 }
 
 - (instancetype)notifyOnDeleting {
-    WLEntry *container = self.container;
     [[WLEntryNotifier notifier:[self class]] notifyOnDeleting:self];
-	[container notifyOnUpdate];
     return self;
 }
 

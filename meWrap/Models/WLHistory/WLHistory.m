@@ -66,26 +66,36 @@
     BOOL candyAdded = NO;
     BOOL itemAdded = NO;
     NSMutableSet* entriesCopy = [entries mutableCopy];
+    NSMutableSet* dayEntries = [[NSMutableSet alloc] init];
     while (entriesCopy.nonempty) {
-        NSDate* date = [[entriesCopy anyObject] createdAt];
-        NSDate* beginOfDay = [date beginOfDay];
-        NSDate* endOfDay = [date endOfDay];
+        [dayEntries removeAllObjects];
+        WLEntry *entry = [entriesCopy anyObject];
+        [dayEntries addObject:entry];
+        NSDate* date = [entry createdAt];
+        NSDate* beginOfDay = nil;
+        NSDate* beginOfNextDay = nil;
+        [date getBeginOfDay:&beginOfDay beginOfNextDay:&beginOfNextDay];
         WLHistoryItem* group = [self itemForDate:beginOfDay];
         if (!group.entries.nonempty) {
             itemAdded = YES;
         }
-        NSSet* dayEntries = [entriesCopy selects:^BOOL(WLCandy *candy) {
-            NSDate *createdAt = [candy createdAt];
-            if (date == nil) return createdAt == nil;
+        
+        for (WLEntry *entry in entriesCopy) {
+            NSDate *createdAt = [entry createdAt];
             NSTimeInterval timestamp = createdAt.timestamp;
-            return timestamp >= beginOfDay.timestamp && timestamp <= endOfDay.timestamp;
-        }];
+            if (date == nil && createdAt == nil)  {
+                [dayEntries addObject:entry];
+            } else if (timestamp >= beginOfDay.timestamp && timestamp < beginOfNextDay.timestamp) {
+                [dayEntries addObject:entry];
+            }
+        }
+        
         if ([group addEntries:dayEntries]) {
             candyAdded = YES;
         }
-        [entriesCopy removes:dayEntries];
+        [entriesCopy minusSet:dayEntries];
         
-        if  (self.checkCompletion) {
+        if (self.checkCompletion) {
             group.completed = group.entries.count < WLSession.pageSize;
         }
     }

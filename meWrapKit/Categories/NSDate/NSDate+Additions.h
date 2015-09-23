@@ -23,23 +23,17 @@ static const NSTimeInterval WLTimeIntervalWeek = 604800;
 
 @property (readonly, nonatomic) NSTimeInterval timestamp;
 
-+ (NSDate *)defaultBirtday;
-
-+ (NSDate *)sinceWeekAgo;
-
 + (NSDate *)dayAgo;
 
-- (NSDateComponents *)dayComponents;
-
 - (BOOL)isSameDay:(NSDate*)date;
-
-- (BOOL)isSameHour:(NSDate*)date;
 
 - (NSDate *)beginOfDay;
 
 - (NSDate *)endOfDay;
 
 - (void)getBeginOfDay:(NSDate**)beginOfDay endOfDay:(NSDate**)endOfDay;
+
+- (void)getBeginOfDay:(NSDate *__autoreleasing *)beginOfDay beginOfNextDay:(NSDate *__autoreleasing *)beginOfNextDay;
 
 - (BOOL)earlier:(NSDate*)date;
 

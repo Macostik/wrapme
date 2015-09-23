@@ -18,71 +18,56 @@ static NSInteger WLDaySeconds = 24*60*60;
 
 @implementation NSDate (Additions)
 
-+ (NSDate *)defaultBirtday {
-	NSDateComponents* components = [NSDateComponents  new];
-	[components setYear:2013];
-	[components setMonth:06];
-	[components setDay:19];
-	components.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-	return [[NSCalendar currentCalendar] dateFromComponents:components];
-}
-
-+ (NSDate *)sinceWeekAgo {
-    return [NSDate now:-WLTimeIntervalWeek];
-}
-
 + (NSDate *)dayAgo {
     return [NSDate now:-WLDaySeconds];
 }
 
 - (NSDate *)beginOfDay {
-    return [[NSCalendar currentCalendar] dateFromComponents:[self componentsBeginOfDay]];
+    NSDate *beginOfDay = nil;
+    [self getBeginOfDay:&beginOfDay endOfDay:NULL];
+    return beginOfDay;
 }
 
 - (NSDate *)endOfDay {
-    return [[NSCalendar currentCalendar] dateFromComponents:[self componentsEndOfDay]];
+    NSDate *endOfDay = nil;
+    [self getBeginOfDay:NULL endOfDay:&endOfDay];
+    return endOfDay;
 }
 
 - (void)getBeginOfDay:(NSDate *__autoreleasing *)beginOfDay endOfDay:(NSDate *__autoreleasing *)endOfDay {
-    NSDateComponents* components = [self componentsBeginOfDay];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self];
     if (beginOfDay != NULL) {
+        components.hour = components.minute = components.second = 0;
         *beginOfDay = [[NSCalendar currentCalendar] dateFromComponents:components];
     }
-    components.hour = 23;
-    components.minute = components.second = 59;
     if (endOfDay != NULL) {
+        components.hour = 23;
+        components.minute = 59;
+        components.nanosecond = 59999999999;
         *endOfDay = [[NSCalendar currentCalendar] dateFromComponents:components];
     }
 }
 
-- (NSDateComponents *)componentsBeginOfDay {
-	NSDateComponents* components = [self dayComponents];
+- (void)getBeginOfDay:(NSDate *__autoreleasing *)beginOfDay beginOfNextDay:(NSDate *__autoreleasing *)beginOfNextDay {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self];
     components.hour = components.minute = components.second = 0;
-    return components;
-}
-
-- (NSDateComponents *)componentsEndOfDay {
-    NSDateComponents* components = [self dayComponents];
-    components.hour = 23;
-    components.minute = components.second = 59;
-    return components;
-}
-
-- (NSDateComponents *)dayComponents {
-    return [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self];
+    if (beginOfDay != NULL) {
+        *beginOfDay = [calendar dateFromComponents:components];
+        if (beginOfNextDay != NULL) {
+            *beginOfNextDay = [*beginOfDay dateByAddingTimeInterval:WLDaySeconds];
+        }
+    } else {
+        if (beginOfNextDay != NULL) {
+            components.day += 1;
+            *beginOfNextDay = [calendar dateFromComponents:components];
+        }
+    }
 }
 
 - (BOOL)isSameDay:(NSDate *)date {
     return [[NSCalendar currentCalendar] isDate:self inSameDayAsDate:date];
-}
-
-- (BOOL)isSameHour:(NSDate *)date {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    if ([calendar component:NSCalendarUnitHour fromDate:self] != [calendar component:NSCalendarUnitHour fromDate:date]) return NO;
-    if ([calendar component:NSCalendarUnitDay fromDate:self] != [calendar component:NSCalendarUnitDay fromDate:date]) return NO;
-    if ([calendar component:NSCalendarUnitMonth fromDate:self] != [calendar component:NSCalendarUnitMonth fromDate:date]) return NO;
-    if ([calendar component:NSCalendarUnitYear fromDate:self] != [calendar component:NSCalendarUnitYear fromDate:date]) return NO;
-    return YES;
 }
 
 - (BOOL)isToday {

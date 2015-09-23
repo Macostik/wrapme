@@ -68,3 +68,42 @@ class SquareGridLayout: StreamLayout {
         return CGRect(origin: CGPointMake(x, y), size: CGSizeMake(size, size))
     }
 }
+
+class SquareLayout: StreamLayout {
+    
+    var size: CGFloat = 0
+    var spacing: CGFloat = 0
+    
+    override func prepareLayout() {
+        if let streamView = self.streamView, let delegate = streamView.delegate as? GridLayoutDelegate {
+            
+            if let s = delegate.streamView?(streamView, layoutSpacing: self) {
+                spacing = s
+            } else {
+                spacing = 0
+            }
+            
+            if horizontal {
+                size = streamView.frame.size.height - spacing*2
+            } else {
+                size = streamView.frame.size.width - spacing*2
+            }
+        }
+    }
+    
+    override func horizontalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
+        var x = spacing
+        if let previous = item.previous {
+            x += CGRectGetMaxX(previous.frame)
+        }
+        return CGRect(origin: CGPointMake(x, spacing), size: CGSizeMake(size, size))
+    }
+    
+    override func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
+        var y = spacing
+        if let previous = item.previous {
+            y += CGRectGetMaxY(previous.frame)
+        }
+        return CGRect(origin: CGPointMake(spacing, y), size: CGSizeMake(size, size))
+    }
+}

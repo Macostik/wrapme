@@ -20,6 +20,8 @@ class StreamItem: NSObject {
     
     var entry: AnyObject?
     
+    var layoutInfo: Dictionary<String,AnyObject>?
+    
     weak var metrics: StreamMetrics?
     
     weak var view: StreamReusableView? {

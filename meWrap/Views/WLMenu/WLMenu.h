@@ -24,6 +24,8 @@ typedef void(^WLMenuConfiguration)(WLMenu* menu);
 
 - (void)addView:(UIView*)view configuration:(WLMenuConfiguration)configuration;
 
+- (BOOL)removeView:(UIView *)view;
+
 - (void)hide;
 
 - (void)addItemWithText:(NSString*)text block:(WLObjectBlock)block;

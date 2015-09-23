@@ -131,8 +131,8 @@
     
     self.coverView.url = picture.small;
 
-    if (!self.disableMenu) {
-        [[WLMenu sharedMenu] hide];
+    if (self.disableMenu) {
+        [[WLMenu sharedMenu] removeView:self];
     }
 }
 

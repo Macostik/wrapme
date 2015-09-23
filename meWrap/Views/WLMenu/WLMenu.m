@@ -75,21 +75,24 @@
 }
 
 - (void)addView:(UIView *)view configuration:(WLMenuConfiguration)configuration {
-    NSMapTable *views = self.views;
-    BOOL contains = NO;
-    for (id key in views) {
-        UIView *_view = [views objectForKey:key];
-        if (_view == view) {
-            [views removeObjectForKey:key];
-            contains = YES;
-            break;
-        }
-    }
-    [views setObject:view forKey:configuration];
+    BOOL contains = [self removeView:view];
+    [self.views setObject:view forKey:configuration];
     if (!contains) {
         UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(present:)];
         [view addGestureRecognizer:recognizer];
     }
+}
+
+- (BOOL)removeView:(UIView *)view {
+    NSMapTable *views = self.views;
+    for (id key in views) {
+        UIView *_view = [views objectForKey:key];
+        if (_view == view) {
+            [views removeObjectForKey:key];
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)hide {

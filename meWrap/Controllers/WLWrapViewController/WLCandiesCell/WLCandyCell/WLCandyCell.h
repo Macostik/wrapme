@@ -10,7 +10,7 @@
 
 @interface WLCandyCell : StreamReusableView
 
-@property (nonatomic) IBInspectable BOOL disableMenu;
+@property (nonatomic) BOOL disableMenu;
 
 @property (weak, nonatomic, readonly) WLImageView *coverView;
 

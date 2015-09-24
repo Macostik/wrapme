@@ -120,3 +120,79 @@
 "url_open_in_safari" = "Open in Safari";
 "url_add_to_reading_list" = "Add to Reading List";
 "copy" = "Сopy";
+
+"chat" = "對話";
+
+"create_wrap_tip" = "按此即可建立圍拍，\n簡易又輕鬆！";
+
+"close" = "關閉";
+
+"follow" = "追隨";
+
+"continue" = "繼續";
+
+"sign_out" = "登出";
+
+"e_mail_address" = "電郵地址";
+
+"may_be_later" = "稍後決定";
+
+"invite_your_friends" = "邀請好友加入meWrap";
+
+"add_friends" = "新增成員";
+
+"help_secure_account" = "保障帳戶安全";
+
+"your_name" = "輸入你的姓名";
+
+"done" = "完成";
+
+"search_contacts" = "搜尋聯絡人";
+
+"about_app" = "關於meWrap";
+
+"edit_your_profile" = "編輯個人資料";
+
+"change_email" = "更改電郵地址";
+
+"following" = "追隨中";
+
+"whats_up" = "最近更新";
+
+"enter_your_friends_name" = "輸入好友名稱和手機號碼";
+
+"no_internet_connection" = "無法連線。請稍後重試。";
+
+"notifications" = "通知";
+
+"name" = "名稱";
+
+"resend" = "重發";
+
+"settings" = "設定";
+
+"friends" = "成員";
+
+"notify_about_new_photo" = "當有新相片時通知我";
+
+"add_friend..." = "新增成員...";
+
+"photo" = "相片";
+
+"notify_about_new_chat" = "當有新對話時通知我";
+
+"account" = "個人資料";
+
+"photos" = "相片";
+
+"allow_friends_to_add_people" = "Allow friends to add people to the wrap.";
+
+"send_invite" = "傳送邀請";
+
+"uppercase_follow" = "追隨";
+
+"public_wrap_label" = "公開圍拍 - 追隨者可瀏覽所有內容。";
+
+"follow_and_join_this_wrap" = "確定要追隨這個圍拍嗎？";
+
+"leave_wrap" = "退出圍拍";

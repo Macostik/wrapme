@@ -10,6 +10,8 @@
 
 @interface WLLabel : UILabel
 
+@property (nonatomic) IBInspectable BOOL localize;
+
 @property (nonatomic) IBInspectable NSString *preset;
 
 @end

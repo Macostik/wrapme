@@ -1,4 +1,5 @@
-"cancel" = "Отмена";"candy_deleted" = "Фото было успешно удалено.";
+"cancel" = "Отмена";
+"candy_deleted" = "Фото было успешно удалено.";
 "candy_unavailable" = "Это фото больше не доступно.";
 "cannot_add_yourself" = "Вы не можете добавить самого себя.";
 "capitalized_no" = "Нет";
@@ -121,3 +122,82 @@
 "url_open_in_safari" = "Открыть в Safari";
 "url_add_to_reading_list" = "Добавить в список чтения";
 "copy" = "Скопировать";
+
+//
+
+"chat" = "Чат";
+
+"create_wrap_tip" = "Создать wrap легко!\nНажми кнопку.";
+
+"close" = "Закрыть";
+
+"follow" = "Подписаться";
+
+"continue" = "Продолжить";
+
+"sign_out" = "Выход";
+
+"e_mail_address" = "Ваш E-mail";
+
+"may_be_later" = "ПОЗЖЕ";
+
+"invite_your_friends" = "Пригласите друзей!";
+
+"add_friends" = "Добавить друзей";
+
+"help_secure_account" = "Помогите обезопасить Ваш аккаунт";
+
+"your_name" = "Ваше имя";
+
+"done" = "Готово";
+
+"search_contacts" = "Поиск контактов";
+
+"about_app" = "О приложении";
+
+"edit_your_profile" = "Редактировать профиль";
+
+"change_email" = "Изменить e-mail";
+
+"following" = "Вы подписаны";
+
+"whats_up" = "ЧТО НОВОГО";
+
+"enter_your_friends_name" = "Введите имя и телефон Вашего друга";
+
+"no_internet_connection" = "Проблемы соединения с meWrap. Проверте интернет соединение и попытайтесь снова.";
+
+"notifications" = "Уведомления";
+
+"name" = "Имя";
+
+"resend" = "Пов. отправка";
+
+"settings" = "Настройки";
+
+"friends" = "Друзья";
+
+"notify_about_new_photo" = "Напомнить когда будет добавлено новое фото.";
+
+"add_friend..." = "Добавить друга...";
+
+"photo" = "Фото";
+
+"notify_about_new_chat" = "Напомнить когда будет добавлено новое сообщение.";
+
+"account" = "Аккаунт";
+
+"photos" = "Фото";
+
+"allow_friends_to_add_people" = "Разрешить друзьям добавлять людей в этот wrap.";
+
+"send_invite" = "Отправить приглашение";
+
+"uppercase_follow" = "ПОДПИСАТЬСЯ";
+
+"public_wrap_label" = "Публичный - подписчики могут видеть все содержимое";
+
+"follow_and_join_this_wrap" = "ПОДПИСАТЬСЯ НА ЭТОТ WRAP?";
+
+"leave_wrap" = "ПОКИНУТЬ WRAP";
+

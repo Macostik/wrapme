@@ -10,6 +10,8 @@
 
 @interface WLButton : UIButton
 
+@property (nonatomic) IBInspectable BOOL localize;
+
 @property (strong, nonatomic) IBInspectable UIColor *normalColor;
 
 @property (strong, nonatomic) IBInspectable UIColor *highlightedColor;

@@ -34,6 +34,24 @@
     [self update];
 }
 
+- (void)setLocalize:(BOOL)localize {
+    _localize = localize;
+    if (localize) {
+        NSString *text = [self titleForState:UIControlStateNormal];
+        if (text.nonempty) {
+            [super setTitle:WLLS(text) forState:UIControlStateNormal];
+        }
+    }
+}
+
+- (void)setTitle:(NSString *)title forState:(UIControlState)state {
+    if (self.localize) {
+        [super setTitle:WLLS(title) forState:state];
+    } else {
+        [super setTitle:title forState:state];
+    }
+}
+
 - (void)setHighlighted:(BOOL)highlighted {
     [super setHighlighted:highlighted];
     [self update];

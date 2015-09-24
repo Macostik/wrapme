@@ -12,7 +12,6 @@
 #import "WLMenu.h"
 #import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
-#import "WLTextView.h"
 #import "WLEntryStatusIndicator.h"
 
 @interface WLCommentCell ()

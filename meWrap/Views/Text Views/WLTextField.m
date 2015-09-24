@@ -39,6 +39,24 @@
     [self sendActionsForControlEvents:UIControlEventEditingChanged];
 }
 
+- (void)setLocalize:(BOOL)localize {
+    _localize = localize;
+    if (localize) {
+        NSString *text = self.placeholder;
+        if (text.nonempty) {
+            [super setPlaceholder:WLLS(text)];
+        }
+    }
+}
+
+- (void)setPlaceholder:(NSString *)placeholder {
+    if (self.localize) {
+        [super setPlaceholder:WLLS(placeholder)];
+    } else {
+        [super setPlaceholder:placeholder];
+    }
+}
+
 - (void)setPreset:(NSString *)preset {
     _preset = preset;
     self.font = [self.font preferredFontWithPreset:preset];

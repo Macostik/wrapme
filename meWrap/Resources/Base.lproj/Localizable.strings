@@ -120,3 +120,79 @@
 "url_open_in_safari" = "Open in Safari";
 "url_add_to_reading_list" = "Add to Reading List";
 "copy" = "Сopy";
+
+"chat" = "Chat";
+
+"create_wrap_tip" = "Create wrap is easy!\nTap here to start.";
+
+"close" = "Close";
+
+"follow" = "Follow";
+
+"continue" = "Continue";
+
+"sign_out" = "Sign out";
+
+"e_mail_address" = "E-mail address";
+
+"may_be_later" = "MAY BE LATER";
+
+"invite_your_friends" = "Invite your friends!";
+
+"add_friends" = "Add friends";
+
+"help_secure_account" = "Help secure your account";
+
+"your_name" = "Your name";
+
+"done" = "Готово";
+
+"search_contacts" = "Search contacts";
+
+"about_app" = "About meWrap";
+
+"edit_your_profile" = "Edit your profile";
+
+"change_email" = "Change e-mail";
+
+"following" = "Following";
+
+"whats_up" = "WHAT'S UP";
+
+"enter_your_friends_name" = "Enter your friend's name & phone number";
+
+"no_internet_connection" = "No internet connection. Please try again later.";
+
+"notifications" = "Notifications";
+
+"name" = "Name";
+
+"resend" = "Resend";
+
+"settings" = "Settings";
+
+"friends" = "Friends";
+
+"notify_about_new_photo" = "Notify me when new photo is added.";
+
+"add_friend..." = "Add friend...";
+
+"photo" = "Photo";
+
+"notify_about_new_chat" = "Notify me when new chat is posted.";
+
+"account" = "Account";
+
+"photos" = "Photos";
+
+"allow_friends_to_add_people" = "Allow friends to add people to the wrap.";
+
+"send_invite" = "Send invite";
+
+"uppercase_follow" = "FOLLOW";
+
+"public_wrap_label" = "Public - followers can see all content";
+
+"follow_and_join_this_wrap" = "FOLLOW & JOIN THIS WRAP?";
+
+"leave_wrap" = "LEAVE WRAP";

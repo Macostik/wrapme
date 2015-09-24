@@ -187,13 +187,14 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to open camera" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dW0-OA-3Fr" customClass="WLLabel">
-                            <rect key="frame" x="123" y="21" width="145" height="18"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="slide_to_open_camera" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dW0-OA-3Fr" customClass="WLLabel">
+                            <rect key="frame" x="118" y="21" width="150" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
@@ -225,13 +226,14 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SpN-k4-uJP" customClass="WLLabel">
-                            <rect key="frame" x="52" y="21" width="86" height="18"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="slide_to_chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SpN-k4-uJP" customClass="WLLabel">
+                            <rect key="frame" x="52" y="21" width="89" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>

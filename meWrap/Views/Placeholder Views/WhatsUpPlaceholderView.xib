@@ -16,23 +16,24 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="08c-Nu-jys">
-                    <rect key="frame" x="69" y="212" width="182" height="144"/>
+                    <rect key="frame" x="67" y="212" width="187" height="144"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8q-pM-R7B" customClass="WLButton">
-                            <rect key="frame" x="43" y="0.0" width="96" height="108"/>
+                            <rect key="frame" x="45" y="0.0" width="96" height="108"/>
                             <fontDescription key="fontDescription" name="icons" family="icons" pointSize="96"/>
                             <state key="normal" title="r">
                                 <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No messages today" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7x-T0-suZ" customClass="WLLabel">
-                            <rect key="frame" x="0.0" y="118" width="182" height="26"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no_messages_today" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7x-T0-suZ" customClass="WLLabel">
+                            <rect key="frame" x="0.0" y="118" width="187" height="26"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
                             <color key="textColor" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="larger"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>

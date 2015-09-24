@@ -78,14 +78,15 @@
                                             <outletCollection property="gestureRecognizers" destination="lNU-oZ-hbO" appends="YES" id="oC3-9S-ZMv"/>
                                         </connections>
                                     </view>
-                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please go to Settings &gt; meWrap to allow meWrap access the camera." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwv-dz-I8C" customClass="WLLabel">
-                                        <rect key="frame" x="43" y="151" width="234" height="36"/>
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="access_to_camera_message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jwv-dz-I8C" customClass="WLLabel">
+                                        <rect key="frame" x="43" y="160" width="234" height="18"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bka-bI-Ghh" customClass="WLFlashModeControl">
@@ -358,14 +359,15 @@
                                             <outletCollection property="gestureRecognizers" destination="Umv-GX-DDj" appends="YES" id="i5R-Lr-8sZ"/>
                                         </connections>
                                     </view>
-                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please go to Settings &gt; meWrap to allow meWrap access the camera." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVW-IT-Sr6" customClass="WLLabel">
-                                        <rect key="frame" x="29" y="170" width="262" height="36"/>
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="access_to_camera_message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVW-IT-Sr6" customClass="WLLabel">
+                                        <rect key="frame" x="29" y="179" width="262" height="18"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JuH-62-Y2V" customClass="WLFlashModeControl">
@@ -606,13 +608,14 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAP TO CHANGE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="av4-g2-N6y" customClass="WLLabel">
-                                        <rect key="frame" x="50" y="28" width="102" height="16"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tap_to_change" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="av4-g2-N6y" customClass="WLLabel">
+                                        <rect key="frame" x="50" y="28" width="87" height="16"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <color key="textColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="highlightedColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m7Y-PK-g9k" customClass="WLWrapStatusImageView">
@@ -1029,13 +1032,14 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="TAP TO CHANGE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upJ-Du-Uru" customClass="WLLabel">
-                                        <rect key="frame" x="50" y="28" width="101" height="16"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tap_to_change" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upJ-Du-Uru" customClass="WLLabel">
+                                        <rect key="frame" x="50" y="28" width="87" height="16"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <color key="textColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="highlightedColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CUo-rv-JG9" customClass="WLWrapStatusImageView">
@@ -1154,7 +1158,7 @@
                                                     <outlet property="delegate" destination="ao0-lV-pbN" id="mYa-Ww-VNg"/>
                                                 </connections>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a comment..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ag-My-O3m" customClass="WLLabel">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add_comment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ag-My-O3m" customClass="WLLabel">
                                                 <rect key="frame" x="8" y="8" width="220" height="21"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -1165,6 +1169,7 @@
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
@@ -1570,7 +1575,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhU-V1-DHc">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New wrap" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Caa-Xm-Qlw" customClass="WLTextField">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="new_wrap" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Caa-Xm-Qlw" customClass="WLTextField">
                                                 <rect key="frame" x="128" y="6" width="160" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="jhO-z9-ga9"/>
@@ -1581,6 +1586,7 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="disableSeparator" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="textFieldDidChange:" destination="c77-hp-0nQ" eventType="editingChanged" id="6vD-3J-BiH"/>

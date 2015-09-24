@@ -14,13 +14,14 @@
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MXe-nm-aQD">
                     <rect key="frame" x="30" y="221" width="260" height="126"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm your details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yo3-sx-jNh" customClass="WLLabel">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="confirm_your_details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yo3-sx-jNh" customClass="WLLabel">
                             <rect key="frame" x="12" y="12" width="236" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="edD-kw-Hyg" customClass="WLLabel">
@@ -41,13 +42,14 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is it correct?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CeK-FC-xMs" customClass="WLLabel">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="is_it_correct" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CeK-FC-xMs" customClass="WLLabel">
                             <rect key="frame" x="12" y="57" width="236" height="21"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                             <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Uq-KL-pmz">
@@ -57,7 +59,7 @@
                                     <rect key="frame" x="0.0" y="1" width="130" height="35"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                    <state key="normal" title="Cancel">
+                                    <state key="normal" title="cancel">
                                         <color key="titleColor" red="0.95294117647058818" green="0.45882352941176469" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <state key="highlighted">
@@ -71,6 +73,7 @@
                                         <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                             <size key="value" width="0.0" height="10"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="cancel:" destination="WNc-M0-c96" eventType="touchUpInside" id="6Au-pK-GOh"/>
@@ -80,7 +83,7 @@
                                     <rect key="frame" x="131" y="1" width="129" height="35"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                    <state key="normal" title="OK">
+                                    <state key="normal" title="ok">
                                         <color key="titleColor" red="0.95294117647058818" green="0.45882352941176469" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <state key="highlighted">
@@ -94,6 +97,7 @@
                                         <userDefinedRuntimeAttribute type="size" keyPath="insets">
                                             <size key="value" width="0.0" height="10"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="confirm:" destination="WNc-M0-c96" eventType="touchUpInside" id="iC9-fn-Sdc"/>

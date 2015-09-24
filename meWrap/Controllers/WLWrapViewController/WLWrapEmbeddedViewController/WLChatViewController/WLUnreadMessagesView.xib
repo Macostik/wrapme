@@ -14,12 +14,15 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooO-NK-rpX">
                     <rect key="frame" x="0.0" y="6" width="320" height="34"/>
                     <subviews>
-                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNREAD MESSAGES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3J-PO-D05">
-                            <rect key="frame" x="80" y="7" width="161" height="21"/>
+                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unread_messages" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3J-PO-D05" customClass="WLLabel">
+                            <rect key="frame" x="91" y="7" width="138" height="21"/>
                             <color key="backgroundColor" red="0.98431372640000003" green="0.83529412749999998" blue="0.74117648599999997" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
                     <color key="backgroundColor" red="0.9843137264251709" green="0.83529412746429443" blue="0.74117648601531982" alpha="1" colorSpace="calibratedRGB"/>

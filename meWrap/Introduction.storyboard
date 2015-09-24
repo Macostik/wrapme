@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1ip-WU-dPb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1ip-WU-dPb">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--Introduction Base View Controller-->
@@ -27,12 +27,13 @@
                                     <constraint firstAttribute="height" constant="44" id="hka-2D-faX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                <state key="normal" title="Next">
+                                <state key="normal" title="next">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="continueIntroduction:" destination="erS-Rh-tGc" eventType="touchUpInside" id="XhO-45-4eD"/>
@@ -143,39 +144,42 @@
                                     <constraint firstAttribute="height" constant="44" id="Snf-bN-frX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                <state key="normal" title="Let's get started!">
+                                <state key="normal" title="lets_get_started">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="finishIntroduction:" destination="CKX-v6-yfy" eventType="touchUpInside" id="quF-fT-4bS"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jdr-is-aI6">
-                                <rect key="frame" x="12" y="49" width="256" height="178"/>
+                                <rect key="frame" x="41" y="67" width="198" height="142"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="introduction_candy" translatesAutoresizingMaskIntoConstraints="NO" id="vO8-T0-gU8">
-                                        <rect key="frame" x="29" y="0.0" width="197" height="85"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="197" height="85"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's a Wrap?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNA-4e-bin" customClass="WLLabel">
-                                        <rect key="frame" x="66" y="97" width="123" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="whats_a_wrap" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNA-4e-bin" customClass="WLLabel">
+                                        <rect key="frame" x="46" y="97" width="105" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Wrap is an album where you and the people you want can contribute pictures and share memories." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFX-em-iVo" customClass="WLLabel">
-                                        <rect key="frame" x="0.0" y="124" width="256" height="54"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wrap_definition" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFX-em-iVo" customClass="WLLabel">
+                                        <rect key="frame" x="0.0" y="124" width="198" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>

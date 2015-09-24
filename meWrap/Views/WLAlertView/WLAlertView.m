@@ -98,7 +98,7 @@
 }
 
 + (void)confirmRedirectingToSignUp:(WLBlock)signUp tryAgain:(WLBlock)tryAgain {
-    [UIAlertController showWithTitle:WLLS(@"authorization_error_title") message:WLLS(@"authorization_error_message") buttons:@[WLLS(@"authorization_error_try_again"),WLLS(@"authorization_error_sign_up")] completion:^(NSUInteger index) {
+    [UIAlertController showWithTitle:WLLS(@"authorization_error_title") message:WLLS(@"authorization_error_message") buttons:@[WLLS(@"try_again"),WLLS(@"authorization_error_sign_up")] completion:^(NSUInteger index) {
         if (index == 0) {
             if (tryAgain) tryAgain();
         } else {

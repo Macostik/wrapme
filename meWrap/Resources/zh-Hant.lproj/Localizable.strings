@@ -100,16 +100,13 @@
 "APNS_TT06" = "meWrap有更新版本";
 "APNS_MSG06" = "meWrap有更新版本。現在就下載吧！";
 "reply" = "回複";
-"oe_Ending" = "";
-"ue_Ending" = "";
-"sORix_Ending" = "S";
 "no_chat_message" = "跟\"%@\"成員在此聊天。";
 "no_photos_to_upload" = "請拍攝新相片或從圖庫中選擇相片上傳。";
 "new_wrap" = "建立新圍拍";
 "what_is_new_wrap_about" = "輸入圍拍名稱";
 "authorization_error_title" = "無法登入。";
 "authorization_error_message" = "無法登入。請稍後再試，或重新註冊。";
-"authorization_error_try_again" = "重試";
+"try_again" = "重試";
 "authorization_error_sign_up" = "註冊";
 "follow_wrap_suggestion" = "確定要追隨這個圍拍嗎？";
 "followed_wrap_suggestion" = "你正在追隨";
@@ -120,79 +117,69 @@
 "url_open_in_safari" = "Open in Safari";
 "url_add_to_reading_list" = "Add to Reading List";
 "copy" = "Сopy";
-
 "chat" = "對話";
-
 "create_wrap_tip" = "按此即可建立圍拍，\n簡易又輕鬆！";
-
 "close" = "關閉";
-
 "follow" = "追隨";
-
 "continue" = "繼續";
-
 "sign_out" = "登出";
-
 "e_mail_address" = "電郵地址";
-
 "may_be_later" = "稍後決定";
-
 "invite_your_friends" = "邀請好友加入meWrap";
-
 "add_friends" = "新增成員";
-
 "help_secure_account" = "保障帳戶安全";
-
 "your_name" = "輸入你的姓名";
-
 "done" = "完成";
-
 "search_contacts" = "搜尋聯絡人";
-
 "about_app" = "關於meWrap";
-
 "edit_your_profile" = "編輯個人資料";
-
 "change_email" = "更改電郵地址";
-
 "following" = "追隨中";
-
 "whats_up" = "最近更新";
-
 "enter_your_friends_name" = "輸入好友名稱和手機號碼";
-
 "no_internet_connection" = "無法連線。請稍後重試。";
-
 "notifications" = "通知";
-
 "name" = "名稱";
-
 "resend" = "重發";
-
 "settings" = "設定";
-
 "friends" = "成員";
-
 "notify_about_new_photo" = "當有新相片時通知我";
-
 "add_friend..." = "新增成員...";
-
 "photo" = "相片";
-
 "notify_about_new_chat" = "當有新對話時通知我";
-
 "account" = "個人資料";
-
 "photos" = "相片";
-
 "allow_friends_to_add_people" = "Allow friends to add people to the wrap.";
-
 "send_invite" = "傳送邀請";
-
 "uppercase_follow" = "追隨";
-
 "public_wrap_label" = "公開圍拍 - 追隨者可瀏覽所有內容。";
-
 "follow_and_join_this_wrap" = "確定要追隨這個圍拍嗎？";
-
 "leave_wrap" = "退出圍拍";
+"next" = "下一步";
+"sending_passcode_message" = "現正傳送連結密碼到你的電郵。";
+"select_your_country" = "選擇國家";
+"phone_verification_success" = "你已成功確認電話號碼！";
+"use_another_phone" = "更改電話號碼";
+"passcode_description" = "你可以利用連結密碼將此流動裝置連接到你現有的meWrap帳戶。當你收到連結密碼後，請輸入到以上空格內。";
+"linked_device_message" = "你已成功連接此流動裝置到你的meWrap帳戶！";
+"voice_call" = "使用語音通知";
+"terms_and_conditions" = "條款與使用規則";
+"passcode" = "連結密碼";
+"sending_verification_code_message" = "現正發送驗證碼以便確認閣下的手機號碼。當你收到驗證碼後，請輸入到以上空格內。";
+"phone_input_label" = "你的手機號碼是什麼？";
+"finish" = "完成";
+"use_another_email" = "更改電郵地址";
+"email_confirmation_description" = "閣下在其他電子產品安裝圍愛前，請先點擊帳戶確認郵件內之連結，以確認閣下的電郵地址。";
+"agree_and_continue" = "同意並繼續";
+"email_input_label" = "你的電郵地址是什麼？";
+"sending_sms_message" = "我們將會向閣下手機發送一個確認短訊，電訊網絡商或會徵收短訊費用。";
+"verification_code" = "輸入驗證碼";
+"resend_email" = "重發確認電郵";
+"successful" = "成功！";
+"no_sms" = "還未收到短訊？";
+"invalid_verification_code" = "驗證碼無效。";
+"select_country" = "選擇國家";
+"edit_phone_number" = "更改電話號碼";
+"add_avatar" = "添加個人相片";
+"use_test_account" = "使用測試帳戶";
+"is_confirmed_successfully" = "is confirmed successfully!";

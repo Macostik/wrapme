@@ -100,18 +100,13 @@
 "APNS_TT06" = "meWrap обновил версию";
 "APNS_MSG06" = "meWrap обновился. Скачайте сейчас!";
 "reply" = "Ответить";
-"oe_Ending" = "ОЕ";
-"ue_Ending" = "ИЕ";
-"sORix_Ending" = "ЫХ";
-"iya_Ending" = "ИЯ";
-"ii_Ending" = "ИЙ";
 "no_chat_message" = "Друзья в \"%@\" увидят твое сообщение мгновенно.";
 "no_photos_to_upload" = "Нет фото, которые можно загрузить.";
 "new_wrap" = "Новый Wrap";
 "what_is_new_wrap_about" = "О чем этот Wrap?";
 "authorization_error_title" = "Login failed.";
 "authorization_error_message" = "Unexpected error while logging into meWrap. Please try again later. If the problem persists, please sign up again.";
-"authorization_error_try_again" = "Try Again";
+"try_again" = "Try Again";
 "authorization_error_sign_up" = "Sign Up";
 "follow_wrap_suggestion" = "Подписаться на этот WRAP?";
 "followed_wrap_suggestion" = "Вы подписаны";
@@ -122,82 +117,69 @@
 "url_open_in_safari" = "Открыть в Safari";
 "url_add_to_reading_list" = "Добавить в список чтения";
 "copy" = "Скопировать";
-
-//
-
 "chat" = "Чат";
-
 "create_wrap_tip" = "Создать wrap легко!\nНажми кнопку.";
-
 "close" = "Закрыть";
-
 "follow" = "Подписаться";
-
 "continue" = "Продолжить";
-
 "sign_out" = "Выход";
-
 "e_mail_address" = "Ваш E-mail";
-
 "may_be_later" = "ПОЗЖЕ";
-
 "invite_your_friends" = "Пригласите друзей!";
-
 "add_friends" = "Добавить друзей";
-
 "help_secure_account" = "Помогите обезопасить Ваш аккаунт";
-
 "your_name" = "Ваше имя";
-
 "done" = "Готово";
-
 "search_contacts" = "Поиск контактов";
-
 "about_app" = "О приложении";
-
 "edit_your_profile" = "Редактировать профиль";
-
 "change_email" = "Изменить e-mail";
-
 "following" = "Вы подписаны";
-
 "whats_up" = "ЧТО НОВОГО";
-
 "enter_your_friends_name" = "Введите имя и телефон Вашего друга";
-
 "no_internet_connection" = "Проблемы соединения с meWrap. Проверте интернет соединение и попытайтесь снова.";
-
 "notifications" = "Уведомления";
-
 "name" = "Имя";
-
 "resend" = "Пов. отправка";
-
 "settings" = "Настройки";
-
 "friends" = "Друзья";
-
 "notify_about_new_photo" = "Напомнить когда будет добавлено новое фото.";
-
 "add_friend..." = "Добавить друга...";
-
 "photo" = "Фото";
-
 "notify_about_new_chat" = "Напомнить когда будет добавлено новое сообщение.";
-
 "account" = "Аккаунт";
-
 "photos" = "Фото";
-
 "allow_friends_to_add_people" = "Разрешить друзьям добавлять людей в этот wrap.";
-
 "send_invite" = "Отправить приглашение";
-
 "uppercase_follow" = "ПОДПИСАТЬСЯ";
-
 "public_wrap_label" = "Публичный - подписчики могут видеть все содержимое";
-
 "follow_and_join_this_wrap" = "ПОДПИСАТЬСЯ НА ЭТОТ WRAP?";
-
 "leave_wrap" = "ПОКИНУТЬ WRAP";
-
+"next" = "Далее";
+"sending_passcode_message" = "Мы отравили Вам код на e-mail и телефон...";
+"select_your_country" = "Выберите свою страну";
+"phone_verification_success" = "Номер телефона подтвержден успешно!";
+"use_another_phone" = "Использовать другой номер телефона";
+"passcode_description" = "Пароль необходим, чтобы связать это устройство с Вашей учетной записью meWrap. Когда получите пароль, введите его выше.";
+"linked_device_message" = "Вы связали это устройство с Вашей учетной записью meWrap. Наслаждайтесь!";
+"voice_call" = "Использовать голосовой звонок";
+"terms_and_conditions" = "Сроки и условия";
+"passcode" = "Пароль";
+"sending_verification_code_message" = "Мы отправляем Вам 4-х значный код. Введите его выше для подтверждения Вашего номера";
+"phone_input_label" = "Укажите Ваш номер телефона";
+"finish" = "Готово";
+"use_another_email" = "Использовать другой e-mail";
+"email_confirmation_description" = "Нам необходимо проверить Ваш e-mail, прежде чем будет добавлено устройство к аккаунту. Пожалуйста, перейдите по ссылке для продолжения";
+"agree_and_continue" = "Принять и далее";
+"email_input_label" = "Укажите Ваш e-mail";
+"sending_sms_message" = "Мы отправим одноразовое SMS-сообщение, чтобы подтвердить Ваш номер. Могут потребоватся расходы, установленные SMS-провайдером.";
+"verification_code" = "Код подтверждения";
+"resend_email" = "Переотправить письмо";
+"successful" = "Успешно!";
+"no_sms" = "Не приходит SMS?";
+"invalid_verification_code" = "Код подтверждения неверный.";
+"select_country" = "Выберите страну";
+"edit_phone_number" = "Изменить номер телефона";
+"add_avatar" = "Добавить фото";
+"use_test_account" = "Использовать тестовый аккаунт";
+"is_confirmed_successfully" = "успешно подтвержден!";

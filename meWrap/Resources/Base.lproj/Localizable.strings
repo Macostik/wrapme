@@ -100,16 +100,13 @@
 "APNS_TT06" = "A new version of meWrap is available";
 "APNS_MSG06" = "meWrap has a new update! Download it now!";
 "reply" = "Reply";
-"oe_Ending" = "";
-"ue_Ending" = "";
-"sORix_Ending" = "S";
 "no_chat_message" = "Friends in \"%@\" will see your chat messages instantly.";
 "no_photos_to_upload" = "No photos to be uploaded.";
 "new_wrap" = "New Wrap";
 "what_is_new_wrap_about" = "What's the new wrap about?";
 "authorization_error_title" = "Login failed.";
 "authorization_error_message" = "Unexpected error while logging into meWrap. Please try again later. If the problem persists, please sign up again.";
-"authorization_error_try_again" = "Try Again";
+"try_again" = "Try Again";
 "authorization_error_sign_up" = "Sign Up";
 "follow_wrap_suggestion" = "FOLLOW & JOIN THIS WRAP?";
 "followed_wrap_suggestion" = "YOU ARE NOW FOLLOWING";
@@ -120,79 +117,69 @@
 "url_open_in_safari" = "Open in Safari";
 "url_add_to_reading_list" = "Add to Reading List";
 "copy" = "Сopy";
-
 "chat" = "Chat";
-
 "create_wrap_tip" = "Create wrap is easy!\nTap here to start.";
-
 "close" = "Close";
-
 "follow" = "Follow";
-
 "continue" = "Continue";
-
 "sign_out" = "Sign out";
-
 "e_mail_address" = "E-mail address";
-
 "may_be_later" = "MAY BE LATER";
-
 "invite_your_friends" = "Invite your friends!";
-
 "add_friends" = "Add friends";
-
 "help_secure_account" = "Help secure your account";
-
 "your_name" = "Your name";
-
 "done" = "Готово";
-
 "search_contacts" = "Search contacts";
-
 "about_app" = "About meWrap";
-
 "edit_your_profile" = "Edit your profile";
-
 "change_email" = "Change e-mail";
-
 "following" = "Following";
-
 "whats_up" = "WHAT'S UP";
-
 "enter_your_friends_name" = "Enter your friend's name & phone number";
-
 "no_internet_connection" = "No internet connection. Please try again later.";
-
 "notifications" = "Notifications";
-
 "name" = "Name";
-
 "resend" = "Resend";
-
 "settings" = "Settings";
-
 "friends" = "Friends";
-
 "notify_about_new_photo" = "Notify me when new photo is added.";
-
 "add_friend..." = "Add friend...";
-
 "photo" = "Photo";
-
 "notify_about_new_chat" = "Notify me when new chat is posted.";
-
 "account" = "Account";
-
 "photos" = "Photos";
-
 "allow_friends_to_add_people" = "Allow friends to add people to the wrap.";
-
 "send_invite" = "Send invite";
-
 "uppercase_follow" = "FOLLOW";
-
 "public_wrap_label" = "Public - followers can see all content";
-
 "follow_and_join_this_wrap" = "FOLLOW & JOIN THIS WRAP?";
-
 "leave_wrap" = "LEAVE WRAP";
+"next" = "Next";
+"sending_passcode_message" = "We're sending you a passcode to your e-mail...";
+"select_your_country" = "Select your country";
+"phone_verification_success" = "The phone number is verified successfully!";
+"use_another_phone" = "Use another phone number";
+"passcode_description" = "The passcode is required to link this device to your meWrap account. Enter it above when you receive it.";
+"linked_device_message" = "You have linked this device to your meWrap account.";
+"voice_call" = "Try the voice call option";
+"terms_and_conditions" = "Terms and Conditions";
+"passcode" = "Passcode";
+"sending_verification_code_message" = "We're sending you a 4-digit code. Enter it above to verify your phone number.";
+"phone_input_label" = "What's your phone number?";
+"finish" = "Finish";
+"use_another_email" = "Use another e-mail";
+"email_confirmation_description" = "We need you to confirm your e-mail before adding additional devices to your account. Please click the link on your confirmation e-mail to continue";
+"agree_and_continue" = "Agree and Continue";
+"email_input_label" = "What's your e-mail?";
+"sending_sms_message" = "We'll send one time SMS message to verify your phone number. Carrier SMS charges may apply.";
+"verification_code" = "Verification code";
+"resend_email" = "Resend the e-mail";
+"successful" = "Successful!";
+"no_sms" = "Haven't received the SMS?";
+"invalid_verification_code" = "The verification code is not valid.";
+"select_country" = "Select country";
+"edit_phone_number" = "Edit phone number";
+"add_avatar" = "Add your photo";
+"use_test_account" = "Use test account";
+"is_confirmed_successfully" = "is confirmed successfully!";

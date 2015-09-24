@@ -42,6 +42,7 @@
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLFollowingViewController.h"
 #import "WLSoundPlayer.h"
+#import "WLNetwork.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
@@ -134,7 +135,6 @@
     
     NSSet* wraps = [WLUser currentUser].wraps;
     homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:nil]];
-    publicDataSource.items = [WLPaginatedSet setWithEntries:[[WLWrap entriesWhere:@"isPublic == YES"] set] request:[WLPaginatedRequest wraps:@"public"]];
     
     if (wraps.nonempty) {
         [homeDataSource refresh];
@@ -410,6 +410,14 @@
 
 - (IBAction)addPhoto:(id)sender {
     [self openCameraAnimated:NO startFromGallery:NO showWrapPicker:NO];
+}
+
+- (IBAction)hottestWrapsOpened:(id)sender {
+    NSSet *wraps = nil;
+    if (![WLNetwork network].reachable) {
+        wraps = [[WLWrap entriesWhere:@"isPublic == YES"] set];
+    }
+    self.publicDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:@"public"]];
 }
 
 // MARK: - WLStillPictureViewControllerDelegate

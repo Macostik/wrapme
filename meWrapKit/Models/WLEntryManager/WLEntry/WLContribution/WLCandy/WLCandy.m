@@ -33,24 +33,29 @@
 - (void)dealloc {
     if (self.observing) {
         [self removeObserver:self forKeyPath:@"comments" context:nil];
+        [self removeObserver:self forKeyPath:@"updatedAt" context:nil];
     }
 }
 
 - (void)awakeFromFetch {
     [super awakeFromFetch];
     [self addObserver:self forKeyPath:@"comments" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"updatedAt" options:NSKeyValueObservingOptionNew context:nil];
     self.observing = YES;
 }
 
 - (void)awakeFromInsert {
     [super awakeFromInsert];
     [self addObserver:self forKeyPath:@"comments" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"updatedAt" options:NSKeyValueObservingOptionNew context:nil];
     self.observing = YES;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"comments"]) {
         self.latestComment = nil;
+    } else if ([keyPath isEqualToString:@"updatedAt"]) {
+         self.wrap.recentCandies = nil;
     }
 }
 

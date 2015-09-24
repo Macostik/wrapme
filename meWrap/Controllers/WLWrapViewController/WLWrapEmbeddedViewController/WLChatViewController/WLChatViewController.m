@@ -336,7 +336,8 @@ CGFloat WLMinTextViewWidth;
 }
 
 - (void)updateTypingView:(WLChat*)chat {
-    if (chat.typingUsers.nonempty) {
+    BOOL someoneIsTyping = chat.typingUsers.nonempty;
+    if (someoneIsTyping) {
         NSString *typingNames = chat.typingNames;
         self.typingUserNamesTextField.text = typingNames;
         self.typingUserAvatarView.hidden = self.typingUserNamesTextField.hidden = NO;
@@ -353,7 +354,6 @@ CGFloat WLMinTextViewWidth;
         self.typingUserAvatarView.image = nil;
         self.typingUserAvatarView.hidden = self.typingUserNamesTextField.hidden = YES;
     }
-    [self.typingView layoutIfNeeded];
 }
 
 - (void)chat:(WLChat*)chat didBeginTyping:(WLUser *)user {

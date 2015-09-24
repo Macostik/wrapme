@@ -192,7 +192,9 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     if ([event.presenceEvent isEqualToString:@"state-change"]) {
         [self handleClientState:event.presence.state user:user];
     } else if ([event.presenceEvent isEqualToString:@"leave"] || [event.presenceEvent isEqualToString:@"timeout"]) {
-        [self didEndTyping:user];
+        if ([self.typingUsers containsObject:user]) {
+            [self didEndTyping:user];
+        }
     }
 }
 

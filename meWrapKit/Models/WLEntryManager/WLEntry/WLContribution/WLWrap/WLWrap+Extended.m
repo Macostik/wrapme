@@ -64,11 +64,13 @@
     }
     
     if (self.isPublic) {
-        BOOL isFollowing = [dictionary boolForKey:@"is_following"];
-        if (isFollowing && !self.isContributing) {
-            [self addContributorsObject:[WLUser currentUser]];
-        } else if (!isFollowing && self.isContributing) {
-            [self removeContributorsObject:[WLUser currentUser]];
+        if (dictionary[@"is_following"]) {
+            BOOL isFollowing = [dictionary boolForKey:@"is_following"];
+            if (isFollowing && !self.isContributing) {
+                [self addContributorsObject:[WLUser currentUser]];
+            } else if (!isFollowing && self.isContributing) {
+                [self removeContributorsObject:[WLUser currentUser]];
+            }
         }
     } else {
         if (!self.isContributing) [self addContributorsObject:[WLUser currentUser]];

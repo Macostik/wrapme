@@ -8,3 +8,4 @@
 
 "less_today_stories" = "Less meWrap stories";
 "more_today_stories" = "More meWrap stories";
+"formatted_day_at_time" = "%@ в %@";

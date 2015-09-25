@@ -99,15 +99,18 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUT-Wr-PzL">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUT-Wr-PzL" customClass="WLLabel">
                                                     <rect key="frame" x="281" y="26" width="34" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ElV-2O-2hs">
-                                                    <rect key="frame" x="50" y="27" width="78" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Wrap name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ElV-2O-2hs">
+                                                    <rect key="frame" x="50" y="28" width="78" height="17"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -124,7 +127,7 @@
                                                 <constraint firstItem="0DV-rQ-oLq" firstAttribute="top" secondItem="QMk-gY-TBT" secondAttribute="top" id="QKe-BD-3Lc"/>
                                                 <constraint firstItem="0DV-rQ-oLq" firstAttribute="leading" secondItem="eCa-GO-21K" secondAttribute="leading" constant="5" id="VMi-qI-Ed8"/>
                                                 <constraint firstItem="QMk-gY-TBT" firstAttribute="leading" secondItem="0DV-rQ-oLq" secondAttribute="trailing" constant="5" id="YrZ-yv-Jcs"/>
-                                                <constraint firstItem="0DV-rQ-oLq" firstAttribute="bottom" secondItem="ElV-2O-2hs" secondAttribute="bottom" id="hqt-WK-LF0"/>
+                                                <constraint firstItem="ElV-2O-2hs" firstAttribute="top" secondItem="QMk-gY-TBT" secondAttribute="bottom" constant="5" id="ZwM-Lb-jy7"/>
                                                 <constraint firstAttribute="trailing" secondItem="QMk-gY-TBT" secondAttribute="trailing" constant="5" id="nEo-c3-dSi"/>
                                                 <constraint firstItem="0DV-rQ-oLq" firstAttribute="top" secondItem="eCa-GO-21K" secondAttribute="top" constant="5" id="yED-yI-BQW"/>
                                                 <constraint firstItem="eUT-Wr-PzL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ElV-2O-2hs" secondAttribute="trailing" constant="5" id="yvV-3Y-rwH"/>
@@ -152,12 +155,15 @@
                                                         <constraint firstAttribute="height" constant="40" id="kHW-wb-gY7"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3oA-UQ-SCN">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3oA-UQ-SCN" customClass="WLLabel">
                                                     <rect key="frame" x="281" y="74" width="34" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXc-WE-BY0">
                                                     <rect key="frame" x="50" y="74" width="78" height="19"/>

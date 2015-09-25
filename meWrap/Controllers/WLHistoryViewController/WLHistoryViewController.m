@@ -44,7 +44,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLButton *commentButton;
-@property (weak, nonatomic) IBOutlet UIButton *actionButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet UIButton *reportButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UIButton *downloadButton;
 @property (weak, nonatomic) IBOutlet UIButton *drawButton;
@@ -276,7 +277,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLCandy *candy = _candy;
     [candy markAsRead];
     [self.candyIndicator updateStatusIndicator:candy];
-    [self.actionButton setTitle:candy.deletable ? @"n" : @"s" forState:UIControlStateNormal];
+    self.deleteButton.hidden = !candy.deletable;
+    self.reportButton.hidden = !self.deleteButton.hidden;
     [self setCommentButtonTitle:candy];
     [self setupBottomViewModeRelatedData:self.bottomViewMode candy:candy];
     self.lastComment = [candy latestComment];
@@ -426,8 +428,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
                     sender.loading = NO;
                 }];
             } failure:nil];
-        } else {
-            [MFMailComposeViewController messageWithCandy:candy];
         }
     }];
 }

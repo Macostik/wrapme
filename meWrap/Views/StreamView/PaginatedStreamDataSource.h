@@ -15,6 +15,8 @@
 
 @property (strong, nonatomic) BOOL (^appendableBlock) (PaginatedStreamDataSource *dataSource);
 
+@property (weak, nonatomic) StreamMetrics *loadingMetrics;
+
 - (void)append:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 @end

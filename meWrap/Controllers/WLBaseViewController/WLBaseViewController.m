@@ -57,12 +57,14 @@
     [super loadView];
     if ([self shouldUsePreferredViewFrame]) {
         self.view.frame = self.preferredViewFrame;
-        [self.view layoutIfNeeded];
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if ([self shouldUsePreferredViewFrame]) {
+        [self.view layoutIfNeeded];
+    }
     self.screenName = NSStringFromClass([self class]);
     self.keyboardAdjustmentAnimated = YES;
     [[WLKeyboard keyboard] addReceiver:self];

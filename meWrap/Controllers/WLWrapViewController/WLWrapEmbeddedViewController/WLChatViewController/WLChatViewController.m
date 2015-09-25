@@ -29,6 +29,7 @@
 #import "WLLayoutPrioritizer.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLEntry+WLUploadingQueue.h"
+#import "WLNetwork.h"
 
 CGFloat WLMaxTextViewWidth;
 CGFloat WLMinTextViewWidth;
@@ -66,7 +67,6 @@ CGFloat WLMinTextViewWidth;
 @property (strong, nonatomic) StreamMetrics *myMessageMetrics;
 @property (strong, nonatomic) StreamMetrics *dateMetrics;
 @property (strong, nonatomic) StreamMetrics *unreadMessagesMetrics;
-@property (strong, nonatomic) StreamMetrics *loadingViewMetrics;
 @property (strong, nonatomic) StreamMetrics *placeholderMetrics;
 
 @property (nonatomic) BOOL dragged;
@@ -109,8 +109,6 @@ CGFloat WLMinTextViewWidth;
         self.dateMetrics.selectable = NO;
         self.unreadMessagesMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLUnreadMessagesView" size:46];
         self.unreadMessagesMetrics.selectable = NO;
-        self.loadingViewMetrics = [WLStreamLoadingView streamLoadingMetrics];
-        self.loadingViewMetrics.selectable = NO;
         __weak typeof(self)weakSelf = self;
         self.placeholderMetrics = [[StreamMetrics alloc] initWithIdentifier:@"NoMessagePlaceholderView" initializer:^(StreamMetrics * metrics) {
             [metrics setPrepareAppearing:^(StreamItem *item, id entry) {
@@ -154,22 +152,6 @@ CGFloat WLMinTextViewWidth;
     self.messageWithNameMetrics.finalizeAppearing = finalizeMessageAppearing;
     self.myMessageMetrics.finalizeAppearing = finalizeMessageAppearing;
     self.messageMetrics.finalizeAppearing = finalizeMessageAppearing;
-    
-    [self.loadingViewMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
-        return weakSelf.chat.completed;
-    }];
-    
-    [self.loadingViewMetrics setFinalizeAppearing:^(StreamItem *item, id entry) {
-        WLStreamLoadingView *loadingView = (id)item.view;
-        if (weakSelf.chat.wrap) {
-            loadingView.error = NO;
-            [weakSelf appendMessages:^{
-            } failure:^(NSError *error) {
-                [error showIgnoringNetworkError];
-                loadingView.error = YES;
-            }];
-        }
-    }];
     
     WLMinTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndentWithAvatar - 2*WLMessageHorizontalInset - WLTrailingBubbleIndent;
     WLMaxTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndent - WLTrailingBubbleIndent - 2*WLMessageHorizontalInset;
@@ -328,10 +310,6 @@ CGFloat WLMinTextViewWidth;
 }
 
 - (void)setDidChange:(WLPaginatedSet *)group {
-    [self reloadData];
-}
-
-- (void)paginatedSetDidComplete:(WLPaginatedSet *)group {
     [self reloadData];
 }
 
@@ -526,10 +504,6 @@ CGFloat WLMinTextViewWidth;
     return metrics;
 }
 
-- (NSArray *)streamViewHeaderMetrics:(StreamView * __nonnull)streamView {
-    return @[self.loadingViewMetrics];
-}
-
 - (void)streamViewDidChangeContentSize:(StreamView * __nonnull)streamView oldContentSize:(CGSize)oldContentSize {
     if (streamView.scrollable) {
         if (self.dragged) {
@@ -539,6 +513,7 @@ CGFloat WLMinTextViewWidth;
         } else {
             [streamView setMaximumContentOffsetAnimated:NO];
         }
+        [self appendItemsIfNeededWithTargetContentOffset:streamView.contentOffset];
     }
 }
 
@@ -588,6 +563,24 @@ CGFloat WLMinTextViewWidth;
     if (!decelerate) {
         [self refreshUnreadMessagesAfterDragging];
     }
+}
+
+- (void)appendItemsIfNeededWithTargetContentOffset:(CGPoint)targetContentOffset {
+    StreamView *streamView = self.streamView;
+    BOOL reachedRequiredOffset = reachedRequiredOffset = (targetContentOffset.y - streamView.minimumContentOffset.y) < streamView.fittingContentHeight;
+    if (reachedRequiredOffset && [WLNetwork network].reachable && !self.chat.completed) {
+        __weak typeof(self)weakSelf = self;
+        if (weakSelf.chat.wrap) {
+            [weakSelf appendMessages:^{
+            } failure:^(NSError *error) {
+                [error showIgnoringNetworkError];
+            }];
+        }
+    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    [self appendItemsIfNeededWithTargetContentOffset:*targetContentOffset];
 }
 
 #pragma mark - WLFontPresetterReceiver

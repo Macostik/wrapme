@@ -20,8 +20,6 @@
 
 @implementation WLPaginatedSet
 
-@dynamic delegate;
-
 + (instancetype)setWithEntries:(NSSet *)entries request:(WLPaginatedRequest *)request {
     WLPaginatedSet* set = [[WLPaginatedSet alloc] init];
     set.request = request;
@@ -117,17 +115,8 @@
 - (void)setCompleted:(BOOL)completed {
     if (completed != _completed) {
         _completed = completed;
-        if (completed) {
-            [self didComplete];
-        } else {
-            [self didChange];
-        }
+        [self didChange];
     }
-
-}
-
-- (void)didComplete {
-    [self.delegate paginatedSetDidComplete:self];
 }
 
 @end

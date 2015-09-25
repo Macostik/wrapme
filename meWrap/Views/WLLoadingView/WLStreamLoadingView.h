@@ -13,7 +13,9 @@ static CGFloat WLStreamLoadingViewDefaultSize = 66.0f;
 
 @interface WLStreamLoadingView : StreamReusableView
 
-@property (nonatomic) BOOL error;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView* spinner;
+
+@property (nonatomic) BOOL animating;
 
 + (StreamMetrics*)streamLoadingMetrics;
 

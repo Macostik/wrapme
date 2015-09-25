@@ -9,12 +9,13 @@
 #import "PaginatedStreamDataSource.h"
 #import "WLStreamLoadingView.h"
 #import "UIScrollView+Additions.h"
+#import "WLNetwork.h"
 
-@interface PaginatedStreamDataSource () <WLPaginatedSetDelegate>
+@interface PaginatedStreamDataSource () <WLSetDelegate, WLNetworkReceiver>
 
 @property (weak, nonatomic) WLStreamLoadingView *loadingView;
 
-@property (weak, nonatomic) StreamMetrics *loaderMetrics;
+@property (nonatomic) BOOL animateLoading;
 
 @end
 
@@ -26,19 +27,30 @@
     [super didAwake];
     
     __weak typeof(self)weakSelf = self;
-    self.loaderMetrics = [self addFooterMetrics:[[WLStreamLoadingView streamLoadingMetrics] change:^(StreamMetrics *metrics) {
+    self.loadingMetrics = [self addFooterMetrics:[[WLStreamLoadingView streamLoadingMetrics] change:^(StreamMetrics *metrics) {
+        [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
+            if (weakSelf.streamView.horizontal) {
+                return weakSelf.streamView.fittingContentWidth;
+            } else {
+                return weakSelf.streamView.fittingContentHeight;
+            }
+        }];
         [metrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
-            return ![weakSelf appendable];
+            return weakSelf.items.count > 0 || weakSelf.items.completed;
         }];
         [metrics setFinalizeAppearing:^(StreamItem *item, id entry) {
-            weakSelf.loadingView = (id)item.view;
-            weakSelf.loadingView.error = NO;
-            [weakSelf append:nil failure:^(NSError *error) {
-                [error showIgnoringNetworkError];
-                if (error) weakSelf.loadingView.error = YES;
-            }];
+            WLStreamLoadingView *loadingView = (id)item.view;
+            loadingView.animating = weakSelf.animateLoading;
+            weakSelf.loadingView = loadingView;
         }];
     }]];
+}
+
+- (void)setAnimateLoading:(BOOL)animateLoading {
+    _animateLoading = animateLoading;
+    if (self.loadingView) {
+        self.loadingView.animating = animateLoading;
+    }
 }
 
 - (void)setItems:(WLPaginatedSet *)items {
@@ -67,22 +79,51 @@
 
 // MARK: - WLPaginatedSetDelegate
 
+- (void)appendItemsIfNeededWithTargetContentOffset:(CGPoint)targetContentOffset {
+    StreamView *streamView = self.streamView;
+    BOOL reachedRequiredOffset = NO;
+    if (self.streamView.horizontal) {
+        reachedRequiredOffset = (streamView.maximumContentOffset.x - targetContentOffset.x) < streamView.fittingContentWidth;
+    } else {
+        reachedRequiredOffset = (streamView.maximumContentOffset.y - targetContentOffset.y) < streamView.fittingContentHeight;
+    }
+    if (reachedRequiredOffset && [self appendable]) {
+        if ([WLNetwork network].reachable) {
+            self.animateLoading = YES;
+            __weak typeof(self)weakSelf = self;
+            [self append:nil failure:^(NSError *error) {
+                weakSelf.animateLoading = NO;
+                [error showIgnoringNetworkError];
+            }];
+        } else {
+            [[WLNetwork network] addReceiver:self];
+            self.animateLoading = NO;
+        }
+    }
+}
+
 - (void)setDidChange:(WLPaginatedSet *)group {
     [self reload];
 }
 
-- (void)paginatedSetDidComplete:(WLPaginatedSet *)group {
-    [StreamView lock];
-    StreamView *streamView = self.streamView;
-    streamView.userInteractionEnabled = NO;
-    CGPoint offset = streamView.horizontal ? CGPointMake(self.loadingView.x - streamView.fittingContentWidth, 0) : CGPointMake(0, self.loadingView.y - streamView.fittingContentHeight);
-    [streamView trySetContentOffset:offset animated:YES];
-    __weak typeof(self)weakSelf = self;
-    run_after(0.5, ^{
-        streamView.userInteractionEnabled = YES;
-        [StreamView unlock];
-        [weakSelf reload];
+- (void)streamViewDidLayout:(StreamView *)streamView {
+    [super streamViewDidLayout:streamView];
+    run_after_asap(^{
+        [self appendItemsIfNeededWithTargetContentOffset:streamView.contentOffset];
     });
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    [self appendItemsIfNeededWithTargetContentOffset:*targetContentOffset];
+}
+
+// MARK: - WLNetworkReceiver
+
+- (void)networkDidChangeReachability:(WLNetwork *)network {
+    if (network.reachable) {
+        [network removeReceiver:self];
+        [self appendItemsIfNeededWithTargetContentOffset:self.streamView.contentOffset];
+    }
 }
 
 @end

@@ -16,6 +16,22 @@
 #import "WLPaginatedRequest+Defined.h"
 #import "WLSession.h"
 
+@interface NSDate (WLHistory)
+
+- (NSDate *)historyItemDate;
+
+@end
+
+@implementation NSDate (WLHistory)
+
+- (NSDate *)historyItemDate {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self];
+    return [calendar dateFromComponents:components];
+}
+
+@end
+
 @interface WLHistory () <WLEntryNotifyReceiver, WLBroadcastReceiver>
 
 @property (weak, nonatomic) WLWrap* wrap;
@@ -30,11 +46,38 @@
 
 + (instancetype)historyWithWrap:(WLWrap *)wrap checkCompletion:(BOOL)checkCompletion {
     WLHistory *history = [[self alloc] init];
-    history.checkCompletion = checkCompletion;
-    [history addEntries:wrap.candies];
-    history.request = [WLPaginatedRequest wrap:wrap contentType:WLWrapContentTypePaginated];
     history.wrap = wrap;
+    [history fetchCandies:checkCompletion];
+    history.request = [WLPaginatedRequest wrap:wrap contentType:WLWrapContentTypePaginated];
     return history;
+}
+
+- (void)fetchCandies:(BOOL)checkCompletion {
+    NSFetchRequest *fetchRequest = [WLCandy fetchRequest:@"wrap == %@", self.wrap];
+    
+    NSString *key = @"createdAt.historyItemDate";
+    
+    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:key ascending:NO]];
+    
+    NSManagedObjectContext *context = [WLEntryManager manager].context;
+    
+    NSFetchedResultsController *results = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                              managedObjectContext:context
+                                                                                sectionNameKeyPath:key
+                                                                                         cacheName:nil];
+    [results performFetch:nil];
+    
+    [self.entries removeAllObjects];
+    for (id <NSFetchedResultsSectionInfo> section in results.sections) {
+        WLHistoryItem *item = [[WLHistoryItem alloc] init];
+        NSArray *candies = [section objects];
+        item.date = [[candies.firstObject createdAt] beginOfDay];
+        [item.entries addObjectsFromArray:candies];
+        if (checkCompletion) {
+            item.completed = candies.count < WLSession.pageSize;
+        }
+        [self.entries addObject:item];
+    }
 }
 
 - (void)dealloc {
@@ -53,13 +96,14 @@
 
 - (void)systemTimeZoneChanged:(NSNotification*)notification {
     if (self.wrap.valid) {
-        [self performSelector:@selector(resetEntries:) withObject:self.wrap.candies afterDelay:0.0f];
+        [self fetchCandies:NO];
+        [self didChange];
     }
 }
 
 - (void)resetEntries:(NSSet *)entries {
-    [self clear];
-    [self addEntries:entries];
+    [self fetchCandies:NO];
+    [self didChange];
 }
 
 - (BOOL)addEntries:(NSSet *)entries {
@@ -94,10 +138,6 @@
             candyAdded = YES;
         }
         [entriesCopy minusSet:dayEntries];
-        
-        if (self.checkCompletion) {
-            group.completed = group.entries.count < WLSession.pageSize;
-        }
     }
     if (itemAdded) {
         [self.entries sort:self.sortComparator];

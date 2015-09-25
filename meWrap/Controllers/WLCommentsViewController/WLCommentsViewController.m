@@ -66,12 +66,9 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     });
     
     if (self.candy.uploaded) {
-        StreamMetrics *loadingMetrics = [self.dataSource addFooterMetrics:[WLStreamLoadingView streamLoadingMetrics]];
         [self.candy fetch:^(id object) {
-            loadingMetrics.hidden = YES;
             weakSelf.dataSource.items = [weakSelf sortedComments];
         } failure:^(NSError *error) {
-            loadingMetrics.hidden = YES;
             [weakSelf.dataSource reload];
             [error showIgnoringNetworkError];
         }];

@@ -64,15 +64,11 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     
     [[WLWrap notifier] addReceiver:self];
     
-    StreamMetrics *loadingMetrics = [self.dataSource addFooterMetrics:[WLStreamLoadingView streamLoadingMetrics]];
-    
     self.dataSource.items = [self sortedContributors];
     
     [[WLAPIRequest contributors:self.wrap] send:^(id object) {
-        loadingMetrics.hidden = YES;
         weakSelf.dataSource.items = [weakSelf sortedContributors];
     } failure:^(NSError *error) {
-        loadingMetrics.hidden = YES;
         [weakSelf.dataSource reload];
         [error showIgnoringNetworkError];
     }];

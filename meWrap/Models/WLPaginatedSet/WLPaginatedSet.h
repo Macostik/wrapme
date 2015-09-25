@@ -17,19 +17,11 @@
 
 @end
 
-@protocol WLPaginatedSetDelegate <WLSetDelegate>
-
-- (void)paginatedSetDidComplete:(WLPaginatedSet *)set;
-
-@end
-
 @interface WLPaginatedSet : WLSet
 
 @property (nonatomic) BOOL completed;
 
 @property (strong, nonatomic) WLPaginatedRequest* request;
-
-@property (nonatomic, weak) id <WLPaginatedSetDelegate> delegate;
 
 + (instancetype)setWithEntries:(NSSet*)entries request:(WLPaginatedRequest*)request;
 
@@ -48,8 +40,6 @@
 - (void)older:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
 - (void)handleResponse:(NSSet*)entries;
-
-- (void)didComplete;
 
 @end
 

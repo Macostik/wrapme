@@ -43,6 +43,7 @@
 #import "WLFollowingViewController.h"
 #import "WLSoundPlayer.h"
 #import "WLNetwork.h"
+#import "UIScrollView+Additions.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
@@ -85,6 +86,10 @@
     
     __weak typeof(self)weakSelf = self;
     
+    CGFloat hottestWrapsHeaderSize = 88;
+    
+    [publicDataSource addHeaderMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLHottestWrapHeader" size:hottestWrapsHeaderSize]];
+    
     [[homeDataSource.metrics lastObject] change:^(StreamMetrics *metrics) {
         [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
             return position.index == 0 ? 70 : 60;
@@ -121,6 +126,10 @@
         metrics.selection = ^(StreamItem *item, id entry) {
             [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
         };
+    }];
+    
+    [publicDataSource.loadingMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
+        return streamView.fittingContentHeight - hottestWrapsHeaderSize;
     }];
     
     [self.dataSource setRefreshable];

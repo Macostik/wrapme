@@ -10,10 +10,6 @@
 
 @interface WLStreamLoadingView ()
 
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView* spinner;
-
-@property (weak, nonatomic) IBOutlet UIView* errorView;
-
 @end
 
 @implementation WLStreamLoadingView
@@ -22,18 +18,22 @@
     return [[StreamMetrics alloc] initWithIdentifier:WLStreamLoadingViewIdentifier size:WLStreamLoadingViewDefaultSize];
 }
 
-- (void)setError:(BOOL)error {
-    _error = error;
-    self.errorView.hidden = !error;
-    self.spinner.hidden = error;
+- (void)setAnimating:(BOOL)animating {
+    if (animating) {
+        [self.spinner startAnimating];
+    } else {
+        [self.spinner stopAnimating];
+    }
+}
+
+- (BOOL)animating {
+    return self.spinner.isAnimating;
 }
 
 - (void)didMoveToSuperview {
     [super didMoveToSuperview];
     if (self.superview) {
-        if (!self.spinner.hidden) {
-            [self.spinner startAnimating];
-        }
+        [self.spinner startAnimating];
     } else {
         [self.spinner stopAnimating];
     }

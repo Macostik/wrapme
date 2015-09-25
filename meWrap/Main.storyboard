@@ -1266,16 +1266,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="itemNibOwner" destination="L91-fZ-J9O" id="4tU-gt-4zl"/>
-                        <outletCollection property="headerMetrics" destination="LBy-GY-uOH" collectionClass="NSMutableArray" id="61v-pl-Xvr"/>
                     </connections>
-                </customObject>
-                <customObject id="LBy-GY-uOH" customClass="StreamMetrics" customModule="meWrap">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLHottestWrapHeader"/>
-                        <userDefinedRuntimeAttribute type="number" keyPath="size">
-                            <real key="value" value="88"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                 </customObject>
                 <customObject id="Qns-CC-AwC" userLabel="Notifications Transition" customClass="WLStoryboardTransition">
                     <userDefinedRuntimeAttributes>
@@ -3556,6 +3547,7 @@ QWRkEEZyaWVuZFZpZXc
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI4-B5-vhI" customClass="StreamView" customModule="meWrap">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="92"/>
                                 <connections>
                                     <outlet property="delegate" destination="R4B-e5-fki" id="hiY-aJ-yqd"/>
                                 </connections>

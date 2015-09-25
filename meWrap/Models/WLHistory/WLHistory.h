@@ -14,8 +14,6 @@
 
 @interface WLHistory : WLPaginatedSet
 
-@property (nonatomic) BOOL checkCompletion;
-
 + (instancetype)historyWithWrap:(WLWrap*)wrap;
 
 + (instancetype)historyWithWrap:(WLWrap *)wrap checkCompletion:(BOOL)checkCompletion;

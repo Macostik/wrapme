@@ -32,6 +32,9 @@
 }
 
 + (NSSet*)API_entries:(NSArray*)array container:(id)container {
+    if (array.count == 0) {
+        return nil;
+    }
     NSMutableSet *set = [NSMutableSet setWithCapacity:[array count]];
     for (NSDictionary* dictionary in array) {
 		WLEntry* entry = [self API_entry:dictionary container:container];

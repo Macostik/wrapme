@@ -254,18 +254,6 @@
     return self.layoutSpacing;
 }
 
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.scrollDirectionLayoutPrioritizer && scrollView.tracking) {
         if (scrollView.contentSize.height > scrollView.height || self.direction == ScrollDirectionUp) {

@@ -200,6 +200,12 @@
     WLWrap* wrap = controller.wrap ? : self.wrap;
     if (self.wrap != wrap) {
         self.view = nil;
+        self.viewController = nil;
+        for (UIViewController *controller in [self.childViewControllers copy]) {
+            if ([controller isKindOfClass:[WLWrapEmbeddedViewController class]]) {
+                [controller removeFromParentViewController];
+            }
+        }
         self.wrap = wrap;
     }
     
@@ -233,18 +239,20 @@
         [_viewController.view removeFromSuperview];
     }
     _viewController = viewController;
-    if (self.segment == WLWrapSegmentChat) {
-        WLChatViewController *viewController = (id)_viewController;
-        viewController.showKeyboard = self.showKeyboard;
-        self.showKeyboard = NO;
+    if (viewController) {
+        if (self.segment == WLWrapSegmentChat) {
+            WLChatViewController *viewController = (id)_viewController;
+            viewController.showKeyboard = self.showKeyboard;
+            self.showKeyboard = NO;
+        }
+        
+        UIView *view = viewController.view;
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+        view.frame = self.containerView.bounds;
+        [self.containerView addSubview:view];
+        [self.containerView makeResizibleSubview:view];
+        [self.view setNeedsLayout];
     }
-    
-    UIView *view = viewController.view;
-    view.translatesAutoresizingMaskIntoConstraints = NO;
-    view.frame = self.containerView.bounds;
-    [self.containerView addSubview:view];
-    [self.containerView makeResizibleSubview:view];
-    [self.view setNeedsLayout];
 }
 
 - (WLWrapEmbeddedViewController *)controllerForClass:(Class)class badge:(WLBadgeLabel*)badge {

@@ -102,7 +102,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@: %@", [self class], self.identifier];
+    return [NSString stringWithFormat:@"%@: %@", [[self class] displayName] ? : [self class], self.identifier];
 }
 
 - (void)editPicture:(WLPicture*)editedPicture {

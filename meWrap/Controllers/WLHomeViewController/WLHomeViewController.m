@@ -107,7 +107,7 @@
     [homeDataSource addMetrics:[[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
         metrics.identifier = @"WLRecentCandiesView";
         [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
-            int size = (streamView.width - 2.0f)/3.0f;;
+            int size = (streamView.width - 2.0f)/3.0f;
             return ([weakSelf.homeDataSource.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size) + 5;
         }];
         [metrics setFinalizeAppearing:^(StreamItem *item, id entry) {

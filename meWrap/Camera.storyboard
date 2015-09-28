@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="AppleColorEmoji@2x.ttf">
@@ -1576,7 +1577,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="new_wrap" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Caa-Xm-Qlw" customClass="WLTextField">
-                                                <rect key="frame" x="128" y="6" width="160" height="44"/>
+                                                <rect key="frame" x="136" y="6" width="152" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="jhO-z9-ga9"/>
                                                 </constraints>
@@ -1594,7 +1595,7 @@
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQs-5i-dNx" customClass="WLButton">
-                                                <rect key="frame" x="80" y="10" width="36" height="36"/>
+                                                <rect key="frame" x="88" y="10" width="36" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="JlU-fe-vsp"/>
                                                     <constraint firstAttribute="width" constant="36" id="zu8-3l-6PG"/>
@@ -1652,7 +1653,7 @@
                                             <constraint firstItem="TYl-t6-Q4W" firstAttribute="leading" secondItem="QhU-V1-DHc" secondAttribute="leading" id="WWO-Cv-8W1"/>
                                             <constraint firstAttribute="trailing" secondItem="TYl-t6-Q4W" secondAttribute="trailing" id="Xh6-oW-Ehu"/>
                                             <constraint firstAttribute="centerY" secondItem="EQs-5i-dNx" secondAttribute="centerY" id="cXV-ga-InL"/>
-                                            <constraint firstItem="EQs-5i-dNx" firstAttribute="centerX" secondItem="QhU-V1-DHc" secondAttribute="leading" priority="750" constant="98" id="hdI-og-UWa"/>
+                                            <constraint firstItem="EQs-5i-dNx" firstAttribute="centerX" secondItem="QhU-V1-DHc" secondAttribute="trailing" multiplier="0.5" priority="750" constant="-44" id="hdI-og-UWa"/>
                                             <constraint firstItem="Caa-Xm-Qlw" firstAttribute="leading" secondItem="EQs-5i-dNx" secondAttribute="trailing" constant="12" id="ida-n6-O1c"/>
                                             <constraint firstAttribute="bottom" secondItem="TYl-t6-Q4W" secondAttribute="bottom" id="oLB-EO-2t3"/>
                                             <constraint firstAttribute="height" constant="55" id="wvq-Eg-tZf"/>

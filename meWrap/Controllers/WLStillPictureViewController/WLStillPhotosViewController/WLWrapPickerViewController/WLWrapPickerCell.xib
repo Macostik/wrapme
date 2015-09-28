@@ -21,7 +21,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
                     <subviews>
                         <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2os-5R-rsy" customClass="WLWrapStatusImageView">
-                            <rect key="frame" x="88" y="10" width="36" height="36"/>
+                            <rect key="frame" x="12" y="10" width="36" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="ibN-wD-yvs"/>
                                 <constraint firstAttribute="width" constant="36" id="v1J-f1-Oua"/>
@@ -43,7 +43,7 @@
                             </connections>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nS9-OC-BpX">
-                            <rect key="frame" x="88" y="10" width="14" height="14"/>
+                            <rect key="frame" x="12" y="10" width="14" height="14"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="14" id="CmI-fr-Wdr"/>
@@ -65,7 +65,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moji name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGB-B8-v1O" customClass="WLLabel">
-                            <rect key="frame" x="136" y="18" width="152" height="21"/>
+                            <rect key="frame" x="60" y="18" width="228" height="21"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                             <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -79,12 +79,18 @@
                         <constraint firstItem="2os-5R-rsy" firstAttribute="centerY" secondItem="yyu-he-0gz" secondAttribute="centerY" id="Dyg-Tm-oPA"/>
                         <constraint firstAttribute="trailing" secondItem="JGB-B8-v1O" secondAttribute="trailing" constant="12" id="RUL-UL-b8W"/>
                         <constraint firstItem="nS9-OC-BpX" firstAttribute="top" secondItem="2os-5R-rsy" secondAttribute="top" id="V1k-U9-ucp"/>
+                        <constraint firstItem="2os-5R-rsy" firstAttribute="leading" secondItem="yyu-he-0gz" secondAttribute="leading" constant="12" id="cCL-Rd-hyk"/>
                         <constraint firstItem="JGB-B8-v1O" firstAttribute="centerY" secondItem="2os-5R-rsy" secondAttribute="centerY" id="ccz-KB-BL6"/>
                         <constraint firstItem="2os-5R-rsy" firstAttribute="centerX" secondItem="yyu-he-0gz" secondAttribute="trailing" multiplier="0.5" constant="-44" id="gLG-pk-pKQ"/>
                         <constraint firstItem="2os-5R-rsy" firstAttribute="leading" secondItem="nS9-OC-BpX" secondAttribute="leading" id="lDE-Fs-Bvh"/>
                         <constraint firstItem="JGB-B8-v1O" firstAttribute="leading" secondItem="2os-5R-rsy" secondAttribute="trailing" constant="12" id="uvi-TI-apn"/>
                         <constraint firstAttribute="width" constant="300" id="xAH-WM-OEd"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="gLG-pk-pKQ"/>
+                        </mask>
+                    </variation>
                 </view>
                 <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="KgR-Oy-EzF" customClass="WLSeparatorView">
                     <rect key="frame" x="0.0" y="54" width="300" height="1"/>

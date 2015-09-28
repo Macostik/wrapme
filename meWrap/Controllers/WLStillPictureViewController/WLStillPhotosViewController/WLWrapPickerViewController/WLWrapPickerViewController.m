@@ -45,8 +45,6 @@
 
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *editingPrioritizer;
 
-@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *savingPrioritizer;
-
 @end
 
 @implementation WLWrapPickerViewController
@@ -101,7 +99,7 @@
     
     self.wrapNameTextField.placeholder = WLLS(@"new_wrap");
     if (self.wrap == nil) {
-        self.editingPrioritizer.defaultState = NO;
+        self.editingPrioritizer.defaultState = YES;
         [self.wrapNameTextField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0f];
     }
 }
@@ -188,7 +186,6 @@
     if (text.length > WLProfileNameLimit) {
         text = textField.text = [text substringToIndex:WLProfileNameLimit];
     }
-    [self.savingPrioritizer setDefaultState:!text.nonempty animated:YES];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

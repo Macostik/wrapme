@@ -166,14 +166,14 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXc-WE-BY0">
-                                                    <rect key="frame" x="50" y="74" width="78" height="19"/>
+                                                    <rect key="frame" x="50" y="75" width="78" height="18"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John commented &quot;Hello&quot; John commented &quot;Hello&quot; John commented &quot;Hello&quot;" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rzm-FM-Khm">
-                                                    <rect key="frame" x="50" y="5" width="265" height="64"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" text="John commented &quot;Hello&quot; John commented &quot;Hello&quot; John commented &quot;Hello&quot;" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rzm-FM-Khm">
+                                                    <rect key="frame" x="50" y="5" width="265" height="65"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -185,12 +185,12 @@
                                                 <constraint firstAttribute="bottom" secondItem="3oA-UQ-SCN" secondAttribute="bottom" constant="5" id="8Vx-tr-jql"/>
                                                 <constraint firstItem="3oA-UQ-SCN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VXc-WE-BY0" secondAttribute="trailing" constant="5" id="G29-WL-sGs"/>
                                                 <constraint firstItem="9n2-sw-g83" firstAttribute="top" secondItem="Fu2-x7-MZd" secondAttribute="top" constant="5" id="GAb-tg-pMW"/>
-                                                <constraint firstItem="3oA-UQ-SCN" firstAttribute="top" secondItem="Rzm-FM-Khm" secondAttribute="bottom" constant="5" id="KuA-Gw-E3N"/>
                                                 <constraint firstAttribute="trailing" secondItem="3oA-UQ-SCN" secondAttribute="trailing" constant="5" id="Ppg-wM-Mdb"/>
                                                 <constraint firstItem="9n2-sw-g83" firstAttribute="leading" secondItem="Fu2-x7-MZd" secondAttribute="leading" constant="5" id="WEE-Xk-DQD"/>
                                                 <constraint firstAttribute="bottom" secondItem="VXc-WE-BY0" secondAttribute="bottom" constant="5" id="aMk-bm-zeO"/>
                                                 <constraint firstItem="VXc-WE-BY0" firstAttribute="top" secondItem="Rzm-FM-Khm" secondAttribute="bottom" constant="5" id="fOj-5x-7OM"/>
                                                 <constraint firstItem="9n2-sw-g83" firstAttribute="top" secondItem="Rzm-FM-Khm" secondAttribute="top" id="hUD-tL-PZU"/>
+                                                <constraint firstItem="3oA-UQ-SCN" firstAttribute="bottom" secondItem="VXc-WE-BY0" secondAttribute="bottom" id="lCm-SH-sgo"/>
                                                 <constraint firstItem="VXc-WE-BY0" firstAttribute="leading" secondItem="9n2-sw-g83" secondAttribute="trailing" constant="5" id="syj-ik-jaB"/>
                                                 <constraint firstAttribute="trailing" secondItem="Rzm-FM-Khm" secondAttribute="trailing" constant="5" id="vwc-cy-Krw"/>
                                                 <constraint firstItem="Rzm-FM-Khm" firstAttribute="leading" secondItem="9n2-sw-g83" secondAttribute="trailing" constant="5" id="yEj-vz-Xrg"/>

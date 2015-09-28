@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="AppleColorEmoji@2x.ttf">
@@ -1573,29 +1572,11 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ILu-Xn-X2e" customClass="StreamView" customModule="meWrap">
                                 <rect key="frame" x="10" y="202" width="300" height="165"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhU-V1-DHc">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHc-Ku-aIc">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="new_wrap" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Caa-Xm-Qlw" customClass="WLTextField">
-                                                <rect key="frame" x="136" y="6" width="152" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="jhO-z9-ga9"/>
-                                                </constraints>
-                                                <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="disableSeparator" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="textFieldDidChange:" destination="c77-hp-0nQ" eventType="editingChanged" id="6vD-3J-BiH"/>
-                                                    <outlet property="delegate" destination="c77-hp-0nQ" id="U7Y-2I-i4W"/>
-                                                </connections>
-                                            </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQs-5i-dNx" customClass="WLButton">
-                                                <rect key="frame" x="88" y="10" width="36" height="36"/>
+                                                <rect key="frame" x="12" y="10" width="36" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="JlU-fe-vsp"/>
                                                     <constraint firstAttribute="width" constant="36" id="zu8-3l-6PG"/>
@@ -1612,6 +1593,25 @@
                                                     <action selector="createNewWrap:" destination="c77-hp-0nQ" eventType="touchUpInside" id="Uba-VQ-Tq2"/>
                                                 </connections>
                                             </button>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="new_wrap" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Caa-Xm-Qlw" customClass="WLTextField">
+                                                <rect key="frame" x="60" y="6" width="228" height="44"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="jhO-z9-ga9"/>
+                                                </constraints>
+                                                <color key="textColor" white="0.10100000351667404" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="disableSeparator" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="textFieldDidChange:" destination="c77-hp-0nQ" eventType="editingChanged" id="6vD-3J-BiH"/>
+                                                    <outlet property="delegate" destination="c77-hp-0nQ" id="U7Y-2I-i4W"/>
+                                                </connections>
+                                            </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mRj-Yl-hQH" customClass="WLButton">
                                                 <rect key="frame" x="300" y="10" width="36" height="36"/>
                                                 <constraints>
@@ -1630,43 +1630,26 @@
                                                     <action selector="saveNewWrap:" destination="c77-hp-0nQ" eventType="touchUpInside" id="mrA-eh-G9P"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="TYl-t6-Q4W" customClass="WLSeparatorView">
-                                                <rect key="frame" x="0.0" y="54" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="5g1-xB-Avb"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                        <color key="value" white="0.10100000351667404" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="centerY" secondItem="mRj-Yl-hQH" secondAttribute="centerY" id="AzU-SC-PTn"/>
-                                            <constraint firstAttribute="centerY" secondItem="Caa-Xm-Qlw" secondAttribute="centerY" id="BtV-Lg-PoT"/>
-                                            <constraint firstItem="mRj-Yl-hQH" firstAttribute="leading" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" constant="12" id="DSE-K6-Pbk"/>
-                                            <constraint firstAttribute="trailing" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" priority="250" constant="52" id="K3r-jg-BZe"/>
-                                            <constraint firstAttribute="trailing" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" priority="750" constant="12" id="TdA-lm-5DH"/>
-                                            <constraint firstItem="TYl-t6-Q4W" firstAttribute="leading" secondItem="QhU-V1-DHc" secondAttribute="leading" id="WWO-Cv-8W1"/>
-                                            <constraint firstAttribute="trailing" secondItem="TYl-t6-Q4W" secondAttribute="trailing" id="Xh6-oW-Ehu"/>
-                                            <constraint firstAttribute="centerY" secondItem="EQs-5i-dNx" secondAttribute="centerY" id="cXV-ga-InL"/>
-                                            <constraint firstItem="EQs-5i-dNx" firstAttribute="centerX" secondItem="QhU-V1-DHc" secondAttribute="trailing" multiplier="0.5" priority="750" constant="-44" id="hdI-og-UWa"/>
-                                            <constraint firstItem="Caa-Xm-Qlw" firstAttribute="leading" secondItem="EQs-5i-dNx" secondAttribute="trailing" constant="12" id="ida-n6-O1c"/>
-                                            <constraint firstAttribute="bottom" secondItem="TYl-t6-Q4W" secondAttribute="bottom" id="oLB-EO-2t3"/>
-                                            <constraint firstAttribute="height" constant="55" id="wvq-Eg-tZf"/>
-                                            <constraint firstItem="EQs-5i-dNx" firstAttribute="leading" secondItem="QhU-V1-DHc" secondAttribute="leading" priority="250" constant="12" id="y4S-ui-54d"/>
+                                            <constraint firstItem="EQs-5i-dNx" firstAttribute="leading" secondItem="cHc-Ku-aIc" secondAttribute="leading" constant="12" id="3gF-bn-Glv"/>
+                                            <constraint firstItem="EQs-5i-dNx" firstAttribute="centerY" secondItem="cHc-Ku-aIc" secondAttribute="centerY" id="4LE-DE-nVe"/>
+                                            <constraint firstItem="Caa-Xm-Qlw" firstAttribute="trailing" secondItem="mRj-Yl-hQH" secondAttribute="leading" constant="-12" id="Bg1-Tb-5AE"/>
+                                            <constraint firstItem="Caa-Xm-Qlw" firstAttribute="leading" secondItem="EQs-5i-dNx" secondAttribute="trailing" constant="12" id="Fpr-Rs-aYt"/>
+                                            <constraint firstAttribute="width" constant="300" id="LhI-hX-f6y"/>
+                                            <constraint firstAttribute="trailing" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" priority="250" constant="60" id="OZl-et-35j"/>
+                                            <constraint firstItem="Caa-Xm-Qlw" firstAttribute="centerY" secondItem="EQs-5i-dNx" secondAttribute="centerY" id="TrI-95-V1J"/>
+                                            <constraint firstItem="mRj-Yl-hQH" firstAttribute="centerY" secondItem="Caa-Xm-Qlw" secondAttribute="centerY" id="UoB-gT-ERW"/>
+                                            <constraint firstAttribute="trailing" secondItem="Caa-Xm-Qlw" secondAttribute="trailing" priority="750" constant="12" id="eTP-6B-WzT"/>
+                                            <constraint firstAttribute="height" constant="55" id="oWl-KI-wRC"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.83999999999999997" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="QhU-V1-DHc" firstAttribute="width" secondItem="ILu-Xn-X2e" secondAttribute="width" id="9Lb-Um-uQW"/>
                                     <constraint firstAttribute="height" constant="165" id="9RM-jM-fiH"/>
-                                    <constraint firstItem="QhU-V1-DHc" firstAttribute="top" secondItem="ILu-Xn-X2e" secondAttribute="top" id="EV3-Oy-lLU"/>
-                                    <constraint firstAttribute="centerX" secondItem="QhU-V1-DHc" secondAttribute="centerX" id="dnZ-og-NC3"/>
+                                    <constraint firstItem="cHc-Ku-aIc" firstAttribute="centerX" secondItem="ILu-Xn-X2e" secondAttribute="centerX" id="DtH-2R-IYX"/>
+                                    <constraint firstItem="cHc-Ku-aIc" firstAttribute="top" secondItem="ILu-Xn-X2e" secondAttribute="top" id="gb1-cq-3yB"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1695,7 +1678,6 @@
                     <connections>
                         <outlet property="dataSource" destination="0yt-I4-bE6" id="62b-B2-H5G"/>
                         <outlet property="editingPrioritizer" destination="9tn-uH-4kd" id="Vgj-2J-sUA"/>
-                        <outlet property="savingPrioritizer" destination="ezd-SB-189" id="lsQ-9H-rv7"/>
                         <outlet property="wrapNameTextField" destination="Caa-Xm-Qlw" id="jMV-YT-Ixg"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="yUW-OR-QOp" id="2hS-5z-STp"/>
                     </connections>
@@ -1717,14 +1699,8 @@
                 </customObject>
                 <customObject id="9tn-uH-4kd" customClass="WLLayoutPrioritizer">
                     <connections>
-                        <outletCollection property="defaultConstraints" destination="hdI-og-UWa" id="lai-dK-Ndi"/>
-                        <outletCollection property="alternativeConstraints" destination="y4S-ui-54d" id="IrX-Ol-8CO"/>
-                    </connections>
-                </customObject>
-                <customObject id="ezd-SB-189" customClass="WLLayoutPrioritizer">
-                    <connections>
-                        <outletCollection property="alternativeConstraints" destination="K3r-jg-BZe" id="rSs-NJ-IiM"/>
-                        <outletCollection property="defaultConstraints" destination="TdA-lm-5DH" id="Qdl-Ps-QlL"/>
+                        <outletCollection property="alternativeConstraints" destination="OZl-et-35j" id="OYm-hd-UjT"/>
+                        <outletCollection property="defaultConstraints" destination="eTP-6B-WzT" id="k5O-KJ-hgl"/>
                     </connections>
                 </customObject>
                 <tapGestureRecognizer id="W2D-by-Qd2">

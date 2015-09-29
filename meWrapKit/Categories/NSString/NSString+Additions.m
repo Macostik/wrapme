@@ -80,7 +80,7 @@
 }
 
 - (NSDictionary *)URLQueryParameters {
-    NSString *query = [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *query = [self stringByRemovingPercentEncoding];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     for (NSString *pair in [query componentsSeparatedByString:@"&"]) {
         NSArray *components = [pair componentsSeparatedByString:@"="];

@@ -6,7 +6,9 @@
 	<string>2PW57LM468</string>
 	<key>method</key>
 	<string>ad-hoc</string>
-	<key>uploadSymbols</key>
+	<key>compileBitcode</key>
 	<false/>
+	<key>thinning</key>
+	<string>thin-for-all-variants</string>
 </dict>
 </plist>

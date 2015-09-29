@@ -8,4 +8,16 @@
 
 "less_today_stories" = "Less meWrap stories";
 "more_today_stories" = "More meWrap stories";
+"minute" = "分鐘";
+"hour" = "小時";
+"day" = "天";
+"week" = "星期";
+"month" = "月";
+"year" = "年";
+"less_than_minute_ago" = "少於1分鐘前";
+"yesterday" = "昨天";
+"today" = "今天";
 "formatted_day_at_time" = "%@%@";
+"formatted_calendar_units_ago_at_time" = "%.f%@前%@";
+"formatted_calendar_units_ago" = "%.f%@%@前";
+"at" = "";

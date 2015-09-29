@@ -119,9 +119,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="0DV-rQ-oLq" firstAttribute="bottom" secondItem="eUT-Wr-PzL" secondAttribute="bottom" id="6df-fN-Kfz"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="eUT-Wr-PzL" secondAttribute="bottom" constant="5" id="8pN-dq-vTK"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ElV-2O-2hs" secondAttribute="bottom" constant="5" id="Boi-Gw-gph"/>
+                                                <constraint firstAttribute="bottom" secondItem="ElV-2O-2hs" secondAttribute="bottom" constant="5" id="Boi-Gw-gph"/>
                                                 <constraint firstAttribute="trailing" secondItem="eUT-Wr-PzL" secondAttribute="trailing" constant="5" id="EGV-Lg-EAo"/>
                                                 <constraint firstItem="ElV-2O-2hs" firstAttribute="leading" secondItem="0DV-rQ-oLq" secondAttribute="trailing" constant="5" id="N6n-V4-sMv"/>
                                                 <constraint firstItem="0DV-rQ-oLq" firstAttribute="top" secondItem="QMk-gY-TBT" secondAttribute="top" id="QKe-BD-3Lc"/>
@@ -129,6 +127,7 @@
                                                 <constraint firstItem="QMk-gY-TBT" firstAttribute="leading" secondItem="0DV-rQ-oLq" secondAttribute="trailing" constant="5" id="YrZ-yv-Jcs"/>
                                                 <constraint firstItem="ElV-2O-2hs" firstAttribute="top" secondItem="QMk-gY-TBT" secondAttribute="bottom" constant="5" id="ZwM-Lb-jy7"/>
                                                 <constraint firstAttribute="trailing" secondItem="QMk-gY-TBT" secondAttribute="trailing" constant="5" id="nEo-c3-dSi"/>
+                                                <constraint firstAttribute="bottom" secondItem="eUT-Wr-PzL" secondAttribute="bottom" constant="5" id="opS-oN-R7t"/>
                                                 <constraint firstItem="0DV-rQ-oLq" firstAttribute="top" secondItem="eCa-GO-21K" secondAttribute="top" constant="5" id="yED-yI-BQW"/>
                                                 <constraint firstItem="eUT-Wr-PzL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ElV-2O-2hs" secondAttribute="trailing" constant="5" id="yvV-3Y-rwH"/>
                                             </constraints>
@@ -155,16 +154,6 @@
                                                         <constraint firstAttribute="height" constant="40" id="kHW-wb-gY7"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3oA-UQ-SCN" customClass="WLLabel">
-                                                    <rect key="frame" x="281" y="74" width="34" height="19"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrap name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXc-WE-BY0">
                                                     <rect key="frame" x="50" y="75" width="78" height="18"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -179,10 +168,19 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3oA-UQ-SCN" customClass="WLLabel">
+                                                    <rect key="frame" x="281" y="74" width="34" height="19"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="3oA-UQ-SCN" secondAttribute="bottom" constant="5" id="8Vx-tr-jql"/>
                                                 <constraint firstItem="3oA-UQ-SCN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VXc-WE-BY0" secondAttribute="trailing" constant="5" id="G29-WL-sGs"/>
                                                 <constraint firstItem="9n2-sw-g83" firstAttribute="top" secondItem="Fu2-x7-MZd" secondAttribute="top" constant="5" id="GAb-tg-pMW"/>
                                                 <constraint firstAttribute="trailing" secondItem="3oA-UQ-SCN" secondAttribute="trailing" constant="5" id="Ppg-wM-Mdb"/>
@@ -190,10 +188,10 @@
                                                 <constraint firstAttribute="bottom" secondItem="VXc-WE-BY0" secondAttribute="bottom" constant="5" id="aMk-bm-zeO"/>
                                                 <constraint firstItem="VXc-WE-BY0" firstAttribute="top" secondItem="Rzm-FM-Khm" secondAttribute="bottom" constant="5" id="fOj-5x-7OM"/>
                                                 <constraint firstItem="9n2-sw-g83" firstAttribute="top" secondItem="Rzm-FM-Khm" secondAttribute="top" id="hUD-tL-PZU"/>
-                                                <constraint firstItem="3oA-UQ-SCN" firstAttribute="bottom" secondItem="VXc-WE-BY0" secondAttribute="bottom" id="lCm-SH-sgo"/>
                                                 <constraint firstItem="VXc-WE-BY0" firstAttribute="leading" secondItem="9n2-sw-g83" secondAttribute="trailing" constant="5" id="syj-ik-jaB"/>
                                                 <constraint firstAttribute="trailing" secondItem="Rzm-FM-Khm" secondAttribute="trailing" constant="5" id="vwc-cy-Krw"/>
                                                 <constraint firstItem="Rzm-FM-Khm" firstAttribute="leading" secondItem="9n2-sw-g83" secondAttribute="trailing" constant="5" id="yEj-vz-Xrg"/>
+                                                <constraint firstAttribute="bottom" secondItem="3oA-UQ-SCN" secondAttribute="bottom" constant="5" id="zg8-4J-i6r"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

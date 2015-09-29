@@ -34,8 +34,15 @@
 }
 #endif
 
+- (CGSize)intrinsicContentSize {
+    if (self.trim) {
+        self.text = [self.text trim];
+    }
+    return [super intrinsicContentSize];
+}
+
 - (void)setText:(NSString *)text {
-    [super setText:text];
+    [super setText:text];  
     [self sendActionsForControlEvents:UIControlEventEditingChanged];
 }
 

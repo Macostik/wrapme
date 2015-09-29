@@ -11,8 +11,8 @@
 @interface WLTextField : UITextField
 
 @property (nonatomic) IBInspectable BOOL localize;
-
 @property (nonatomic) IBInspectable BOOL disableSeparator;
+@property (nonatomic) IBInspectable BOOL trim;
 
 @property (nonatomic) IBInspectable NSString *preset;
 @property (nonatomic) IBInspectable UIColor *strokeColor;

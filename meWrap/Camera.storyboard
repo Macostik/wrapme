@@ -1606,6 +1606,7 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="disableSeparator" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="trim" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="textFieldDidChange:" destination="c77-hp-0nQ" eventType="editingChanged" id="6vD-3J-BiH"/>

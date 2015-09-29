@@ -149,12 +149,14 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    __weak __typeof(self)weakSelf = self;
     WLWrap *wrap = self.wrap;
     NSString *name = [textField.text trim];
     if (name.nonempty) {
         if (self.editSession.hasChanges) {
             wrap.name = name;
             [wrap update:^(id object) {
+                weakSelf.editButton.selected = NO;
             } failure:^(NSError *error) {
             }];
         }

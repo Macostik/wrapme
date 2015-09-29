@@ -3994,6 +3994,23 @@ QWRkEEZyaWVuZFZpZXc
                             <view contentMode="scaleToFill" restorationIdentifier="WLSettingsView" translatesAutoresizingMaskIntoConstraints="NO" id="NbD-y4-9Ou" userLabel="Settings View">
                                 <rect key="frame" x="0.0" y="64" width="600" height="60"/>
                                 <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dOb-uE-FSR" customClass="WLTextField">
+                                        <rect key="frame" x="12" y="0.0" width="534" height="60"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="trim" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="textFieldEditChange:" destination="TKE-mx-bkQ" eventType="editingChanged" id="Mj4-Ai-O2P"/>
+                                            <outlet property="delegate" destination="TKE-mx-bkQ" id="GrY-26-scl"/>
+                                        </connections>
+                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EbT-vV-AiD" customClass="WLButton">
                                         <rect key="frame" x="558" y="0.0" width="30" height="60"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
@@ -4011,31 +4028,16 @@ QWRkEEZyaWVuZFZpZXc
                                             <action selector="editButtonClick:" destination="TKE-mx-bkQ" eventType="touchUpInside" id="nEb-Ko-c4w"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dOb-uE-FSR" customClass="WLTextField">
-                                        <rect key="frame" x="12" y="0.0" width="534" height="60"/>
-                                        <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="textFieldEditChange:" destination="TKE-mx-bkQ" eventType="editingChanged" id="Mj4-Ai-O2P"/>
-                                            <outlet property="delegate" destination="TKE-mx-bkQ" id="GrY-26-scl"/>
-                                        </connections>
-                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="3nl-vL-zzR"/>
                                     <constraint firstItem="EbT-vV-AiD" firstAttribute="top" secondItem="NbD-y4-9Ou" secondAttribute="top" id="COo-oL-HIt"/>
+                                    <constraint firstAttribute="trailing" secondItem="dOb-uE-FSR" secondAttribute="trailing" constant="54" id="Dq7-wB-apo"/>
                                     <constraint firstAttribute="bottom" secondItem="EbT-vV-AiD" secondAttribute="bottom" id="MjV-cJ-TwO"/>
                                     <constraint firstAttribute="trailing" secondItem="EbT-vV-AiD" secondAttribute="trailing" constant="12" id="S9F-BW-bDw"/>
                                     <constraint firstItem="dOb-uE-FSR" firstAttribute="top" secondItem="NbD-y4-9Ou" secondAttribute="top" id="VQZ-hK-ojf"/>
                                     <constraint firstItem="dOb-uE-FSR" firstAttribute="leading" secondItem="NbD-y4-9Ou" secondAttribute="leading" constant="12" id="bjt-1F-het"/>
-                                    <constraint firstItem="EbT-vV-AiD" firstAttribute="leading" secondItem="dOb-uE-FSR" secondAttribute="trailing" constant="12" id="eVy-p2-UKh"/>
                                     <constraint firstAttribute="bottom" secondItem="dOb-uE-FSR" secondAttribute="bottom" id="rSy-DW-AqO"/>
                                 </constraints>
                             </view>

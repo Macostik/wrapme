@@ -300,7 +300,6 @@
 		C54C567A1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */; };
 		C54C567C1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */; };
 		C54DA0AB1BBAC20600790F17 /* meWrapWatchApp.app in Resources */ = {isa = PBXBuildFile; fileRef = C54DA0AA1BBAC20600790F17 /* meWrapWatchApp.app */; };
-		C54DA0B71BBAC20600790F17 /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C54DA0A01BBAC20500790F17 /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C54EFF161B8C7A9400F1BBF8 /* WLCandiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54EFF151B8C7A9400F1BBF8 /* WLCandiesCell.xib */; };
 		C54EFF171B8C7A9400F1BBF8 /* WLCandiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54EFF151B8C7A9400F1BBF8 /* WLCandiesCell.xib */; };
 		C551890B1B8F46C000D1327E /* WLContributorRemoveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C55189071B8F46C000D1327E /* WLContributorRemoveCell.xib */; };
@@ -1294,13 +1293,6 @@
 			remoteGlobalIDString = C54DA0A91BBAC20600790F17;
 			remoteInfo = "meWrap WatchKit 1 App";
 		};
-		C54DA0B51BBAC20600790F17 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C54DA09F1BBAC20500790F17;
-			remoteInfo = "meWrap WatchKit 1 Extension";
-		};
 		C559CB741AA0BB6200100B2C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -1411,7 +1403,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C54DA0B71BBAC20600790F17 /* meWrapWatchExt.appex in Embed App Extensions */,
 				C5994D8A1B78894A0066A597 /* meWrapToday.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -2313,6 +2304,7 @@
 		C5E6E8E31BBAC3EC007FFA66 /* WLPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPicture.m; sourceTree = "<group>"; };
 		C5E6E8E51BBAC3EC007FFA66 /* WLSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSession.h; sourceTree = "<group>"; };
 		C5E6E8E61BBAC3EC007FFA66 /* WLSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSession.m; sourceTree = "<group>"; };
+		C5E6EAC11BBAC7B4007FFA66 /* exportPlist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = exportPlist.plist; sourceTree = "<group>"; };
 		C5EE2CD41B5653A90016889E /* UIView+LayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LayoutHelper.h"; sourceTree = "<group>"; };
 		C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LayoutHelper.m"; sourceTree = "<group>"; };
 		C5EE2CDC1B5658F90016889E /* WLMessagesCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessagesCounter.h; sourceTree = "<group>"; };
@@ -2482,6 +2474,7 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
+				C5E6EAC11BBAC7B4007FFA66 /* exportPlist.plist */,
 				C5A278C41B9598DF00D5C969 /* Info */,
 				C5259D651ACC2333003D3317 /* Entitlements */,
 				C50645AA1ABD815100CB4BE3 /* Extensions */,
@@ -5247,7 +5240,6 @@
 			dependencies = (
 				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
 				C5994D8C1B78894A0066A597 /* PBXTargetDependency */,
-				C54DA0B61BBAC20600790F17 /* PBXTargetDependency */,
 			);
 			name = meWrap;
 			productName = WrapLive;
@@ -6791,11 +6783,6 @@
 			isa = PBXTargetDependency;
 			target = C54DA0A91BBAC20600790F17 /* meWrapWatchApp */;
 			targetProxy = C54DA0AC1BBAC20600790F17 /* PBXContainerItemProxy */;
-		};
-		C54DA0B61BBAC20600790F17 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C54DA09F1BBAC20500790F17 /* meWrapWatchExt */;
-			targetProxy = C54DA0B51BBAC20600790F17 /* PBXContainerItemProxy */;
 		};
 		C559CB751AA0BB6200100B2C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

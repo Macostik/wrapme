@@ -8129,7 +8129,7 @@
 				C5E6E8931BBAC3EC007FFA66 /* CoreData 1.1.xcdatamodel */,
 				C5E6E8941BBAC3EC007FFA66 /* CoreData.xcdatamodel */,
 			);
-			currentVersion = C5E6E8901BBAC3EC007FFA66 /* CoreData 1. 2.xcdatamodel */;
+			currentVersion = C5E6E8921BBAC3EC007FFA66 /* CoreData 1. 4.xcdatamodel */;
 			path = CoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -26,7 +26,7 @@
 #import "UIFont+CustomFonts.h"
 #import "WLEntryPresenter.h"
 #import "WLWrapViewController.h"
-#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "CocoaLumberjack.h"
 #import "WLAuthorizationRequest.h"
 #import "WLUploadingQueue.h"
 #import "WLEntry+WLUploadingQueue.h"

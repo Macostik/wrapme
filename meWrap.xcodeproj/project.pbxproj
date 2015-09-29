@@ -386,10 +386,6 @@
 		C58AB9991B1384F300932272 /* WLWhatsUpSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB9951B1384F300932272 /* WLWhatsUpSet.m */; };
 		C58AB99D1B13856700932272 /* WLWhatsUpEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB99B1B13856700932272 /* WLWhatsUpEvent.m */; };
 		C58AB99F1B13856700932272 /* WLWhatsUpEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB99B1B13856700932272 /* WLWhatsUpEvent.m */; };
-		C58DB48E1BAAF6BD003C2932 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */; };
-		C58DB48F1BAAF6BD003C2932 /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C58DB4901BAAF6C7003C2932 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */; };
-		C58DB4911BAAF6C7003C2932 /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C5994D8A1B78894A0066A597 /* meWrapToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* meWrapToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C59EF3BD1B7A1B5B00E777BC /* UIViewController+Container.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3BC1B7A1B5B00E777BC /* UIViewController+Container.m */; };
 		C59EF3BE1B7A1B5B00E777BC /* UIViewController+Container.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3BC1B7A1B5B00E777BC /* UIViewController+Container.m */; };
@@ -1261,6 +1257,26 @@
 		C5E6EABE1BBAC3EC007FFA66 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8E61BBAC3EC007FFA66 /* WLSession.m */; settings = {ASSET_TAGS = (); }; };
 		C5E6EABF1BBAC3EC007FFA66 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8E61BBAC3EC007FFA66 /* WLSession.m */; settings = {ASSET_TAGS = (); }; };
 		C5E6EAC01BBAC3EC007FFA66 /* WLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8E61BBAC3EC007FFA66 /* WLSession.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAE01BBADF5A007FFA66 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EAC51BBADF5A007FFA66 /* CLIColor.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAE11BBADF5A007FFA66 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EAC51BBADF5A007FFA66 /* CLIColor.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAE41BBADF5A007FFA66 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EACA1BBADF5A007FFA66 /* DDAbstractDatabaseLogger.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAE51BBADF5A007FFA66 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EACA1BBADF5A007FFA66 /* DDAbstractDatabaseLogger.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAE61BBADF5A007FFA66 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EACC1BBADF5A007FFA66 /* DDASLLogCapture.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAE71BBADF5A007FFA66 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EACC1BBADF5A007FFA66 /* DDASLLogCapture.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAE81BBADF5A007FFA66 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EACE1BBADF5A007FFA66 /* DDASLLogger.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAE91BBADF5A007FFA66 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EACE1BBADF5A007FFA66 /* DDASLLogger.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAEA1BBADF5A007FFA66 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EAD11BBADF5A007FFA66 /* DDFileLogger.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAEB1BBADF5A007FFA66 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EAD11BBADF5A007FFA66 /* DDFileLogger.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAEC1BBADF5A007FFA66 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EAD51BBADF5A007FFA66 /* DDLog.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAED1BBADF5A007FFA66 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EAD51BBADF5A007FFA66 /* DDLog.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAEE1BBADF5A007FFA66 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EAD81BBADF5A007FFA66 /* DDTTYLogger.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAEF1BBADF5A007FFA66 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EAD81BBADF5A007FFA66 /* DDTTYLogger.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAF01BBADF5A007FFA66 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EADB1BBADF5A007FFA66 /* DDContextFilterLogFormatter.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAF11BBADF5A007FFA66 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EADB1BBADF5A007FFA66 /* DDContextFilterLogFormatter.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAF21BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EADD1BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAF31BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EADD1BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAF41BBADF5A007FFA66 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EADF1BBADF5A007FFA66 /* DDMultiFormatter.m */; settings = {ASSET_TAGS = (); }; };
+		C5E6EAF51BBADF5A007FFA66 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EADF1BBADF5A007FFA66 /* DDMultiFormatter.m */; settings = {ASSET_TAGS = (); }; };
 		C5EE2CD81B5653A90016889E /* UIView+LayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */; };
 		C5EE2CDA1B5653A90016889E /* UIView+LayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */; };
 		C5EE2CE01B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
@@ -1351,7 +1367,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C58DB48F1BAAF6BD003C2932 /* CocoaLumberjack.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1392,7 +1407,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C58DB4911BAAF6C7003C2932 /* CocoaLumberjack.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1737,7 +1751,6 @@
 		C573FB8C1AB84AF400F1098C /* WLTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTouchView.m; sourceTree = "<group>"; };
 		C577C2611A4C427100ECC7E5 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
 		C577C2621A4C427100ECC7E5 /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
-		C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Frameworks/CocoaLumberjack.framework; sourceTree = "<group>"; };
 		C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		C57CB2A51BAAE4F60050FBF7 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -2305,6 +2318,31 @@
 		C5E6E8E51BBAC3EC007FFA66 /* WLSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSession.h; sourceTree = "<group>"; };
 		C5E6E8E61BBAC3EC007FFA66 /* WLSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSession.m; sourceTree = "<group>"; };
 		C5E6EAC11BBAC7B4007FFA66 /* exportPlist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = exportPlist.plist; sourceTree = "<group>"; };
+		C5E6EAC41BBADF5A007FFA66 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
+		C5E6EAC51BBADF5A007FFA66 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
+		C5E6EAC61BBADF5A007FFA66 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
+		C5E6EAC91BBADF5A007FFA66 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		C5E6EACA1BBADF5A007FFA66 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		C5E6EACB1BBADF5A007FFA66 /* DDASLLogCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogCapture.h; sourceTree = "<group>"; };
+		C5E6EACC1BBADF5A007FFA66 /* DDASLLogCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogCapture.m; sourceTree = "<group>"; };
+		C5E6EACD1BBADF5A007FFA66 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		C5E6EACE1BBADF5A007FFA66 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		C5E6EACF1BBADF5A007FFA66 /* DDAssertMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAssertMacros.h; sourceTree = "<group>"; };
+		C5E6EAD01BBADF5A007FFA66 /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		C5E6EAD11BBADF5A007FFA66 /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		C5E6EAD21BBADF5A007FFA66 /* DDLegacyMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLegacyMacros.h; sourceTree = "<group>"; };
+		C5E6EAD31BBADF5A007FFA66 /* DDLog+LOGV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDLog+LOGV.h"; sourceTree = "<group>"; };
+		C5E6EAD41BBADF5A007FFA66 /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		C5E6EAD51BBADF5A007FFA66 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		C5E6EAD61BBADF5A007FFA66 /* DDLogMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogMacros.h; sourceTree = "<group>"; };
+		C5E6EAD71BBADF5A007FFA66 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		C5E6EAD81BBADF5A007FFA66 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		C5E6EADA1BBADF5A007FFA66 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
+		C5E6EADB1BBADF5A007FFA66 /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
+		C5E6EADC1BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
+		C5E6EADD1BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
+		C5E6EADE1BBADF5A007FFA66 /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
+		C5E6EADF1BBADF5A007FFA66 /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
 		C5EE2CD41B5653A90016889E /* UIView+LayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LayoutHelper.h"; sourceTree = "<group>"; };
 		C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LayoutHelper.m"; sourceTree = "<group>"; };
 		C5EE2CDC1B5658F90016889E /* WLMessagesCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessagesCounter.h; sourceTree = "<group>"; };
@@ -2349,7 +2387,6 @@
 			files = (
 				C57CB2A81BAAE5040050FBF7 /* libsqlite3.0.tbd in Frameworks */,
 				C57CB2A61BAAE4F60050FBF7 /* libz.tbd in Frameworks */,
-				C58DB48E1BAAF6BD003C2932 /* CocoaLumberjack.framework in Frameworks */,
 				C57CB2A41BAAE4ED0050FBF7 /* libc++.tbd in Frameworks */,
 				C5AE8DAE1B7B4F32003CC6D4 /* PushKit.framework in Frameworks */,
 				C5218E731AE558CF007E55D0 /* OpenGLES.framework in Frameworks */,
@@ -2374,7 +2411,6 @@
 			files = (
 				C57CB2AB1BAAE51E0050FBF7 /* libsqlite3.0.tbd in Frameworks */,
 				C57CB2AA1BAAE5140050FBF7 /* libz.tbd in Frameworks */,
-				C58DB4901BAAF6C7003C2932 /* CocoaLumberjack.framework in Frameworks */,
 				C57CB2A91BAAE50D0050FBF7 /* libc++.tbd in Frameworks */,
 				C5390BF41B849A3C00027D8B /* PushKit.framework in Frameworks */,
 				C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */,
@@ -2508,7 +2544,6 @@
 				C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */,
 				C57CB2A51BAAE4F60050FBF7 /* libz.tbd */,
 				C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */,
-				C57CB29D1BAADB790050FBF7 /* CocoaLumberjack.framework */,
 				C5AE8DAD1B7B4F32003CC6D4 /* PushKit.framework */,
 				C560B15A1AE69F7C0010B2EC /* AdobeCreativeSDK */,
 				C5218E671AE554B7007E55D0 /* OpenGLES.framework */,
@@ -2595,6 +2630,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C5E6EAC21BBADF5A007FFA66 /* CocoaLumberjack */,
 				C55A45311BAC1ED00055AEC2 /* WLEditPicture */,
 				C55A45281BAC1C4A0055AEC2 /* WLNetwork */,
 				C5C769A71BAC143D00B205CB /* WLPaginatedSet */,
@@ -5047,6 +5083,54 @@
 			path = WLSession;
 			sourceTree = "<group>";
 		};
+		C5E6EAC21BBADF5A007FFA66 /* CocoaLumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				C5E6EAC31BBADF5A007FFA66 /* CLI */,
+				C5E6EAC61BBADF5A007FFA66 /* CocoaLumberjack.h */,
+				C5E6EAC91BBADF5A007FFA66 /* DDAbstractDatabaseLogger.h */,
+				C5E6EACA1BBADF5A007FFA66 /* DDAbstractDatabaseLogger.m */,
+				C5E6EACB1BBADF5A007FFA66 /* DDASLLogCapture.h */,
+				C5E6EACC1BBADF5A007FFA66 /* DDASLLogCapture.m */,
+				C5E6EACD1BBADF5A007FFA66 /* DDASLLogger.h */,
+				C5E6EACE1BBADF5A007FFA66 /* DDASLLogger.m */,
+				C5E6EACF1BBADF5A007FFA66 /* DDAssertMacros.h */,
+				C5E6EAD01BBADF5A007FFA66 /* DDFileLogger.h */,
+				C5E6EAD11BBADF5A007FFA66 /* DDFileLogger.m */,
+				C5E6EAD21BBADF5A007FFA66 /* DDLegacyMacros.h */,
+				C5E6EAD31BBADF5A007FFA66 /* DDLog+LOGV.h */,
+				C5E6EAD41BBADF5A007FFA66 /* DDLog.h */,
+				C5E6EAD51BBADF5A007FFA66 /* DDLog.m */,
+				C5E6EAD61BBADF5A007FFA66 /* DDLogMacros.h */,
+				C5E6EAD71BBADF5A007FFA66 /* DDTTYLogger.h */,
+				C5E6EAD81BBADF5A007FFA66 /* DDTTYLogger.m */,
+				C5E6EAD91BBADF5A007FFA66 /* Extensions */,
+			);
+			path = CocoaLumberjack;
+			sourceTree = "<group>";
+		};
+		C5E6EAC31BBADF5A007FFA66 /* CLI */ = {
+			isa = PBXGroup;
+			children = (
+				C5E6EAC41BBADF5A007FFA66 /* CLIColor.h */,
+				C5E6EAC51BBADF5A007FFA66 /* CLIColor.m */,
+			);
+			path = CLI;
+			sourceTree = "<group>";
+		};
+		C5E6EAD91BBADF5A007FFA66 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C5E6EADA1BBADF5A007FFA66 /* DDContextFilterLogFormatter.h */,
+				C5E6EADB1BBADF5A007FFA66 /* DDContextFilterLogFormatter.m */,
+				C5E6EADC1BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.h */,
+				C5E6EADD1BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m */,
+				C5E6EADE1BBADF5A007FFA66 /* DDMultiFormatter.h */,
+				C5E6EADF1BBADF5A007FFA66 /* DDMultiFormatter.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C5EE2CDB1B5658E90016889E /* WLMessagesCounter */ = {
 			isa = PBXGroup;
 			children = (
@@ -5996,6 +6080,7 @@
 				C54731B51B906A7400B583FD /* WLEditPictureCell.m in Sources */,
 				C5603DC61AD922B800427DEC /* WLHierarchicalEntryPresenter.m in Sources */,
 				C5E6E9D71BBAC3EC007FFA66 /* WLAuthorization.m in Sources */,
+				C5E6EAEC1BBADF5A007FFA66 /* DDLog.m in Sources */,
 				C5E6E93B1BBAC3EC007FFA66 /* NSArray+WLCollection.m in Sources */,
 				C5E6EA851BBAC3EC007FFA66 /* WLExtensionMessage.m in Sources */,
 				C5E6E9171BBAC3EC007FFA66 /* lecore.m in Sources */,
@@ -6043,6 +6128,7 @@
 				C5E6EABB1BBAC3EC007FFA66 /* WLSession.m in Sources */,
 				C5B097821BB14F040057D6BA /* PNURLRequest.m in Sources */,
 				C5B097301BB14F040057D6BA /* PubNub+History.m in Sources */,
+				C5E6EAEE1BBADF5A007FFA66 /* DDTTYLogger.m in Sources */,
 				C5E6EAAF1BBAC3EC007FFA66 /* WLOperationQueue.m in Sources */,
 				C5E6E95F1BBAC3EC007FFA66 /* NSData+CommonCrypto.m in Sources */,
 				C5111D3A1AB345D10094275C /* WLIntroductionViewController.m in Sources */,
@@ -6088,6 +6174,7 @@
 				C5C7699F1BAC11F200B205CB /* WLHistoryItem.m in Sources */,
 				C5E6E9E31BBAC3EC007FFA66 /* WLCache.m in Sources */,
 				C5C769931BAC10BF00B205CB /* WLEntry+WLAPIRequest.m in Sources */,
+				C5E6EAE61BBADF5A007FFA66 /* DDASLLogCapture.m in Sources */,
 				C5C20B901A238AE7008B2E2E /* WLValidation.m in Sources */,
 				C5E6E9CB1BBAC3EC007FFA66 /* UIView+Shorthand.m in Sources */,
 				C5C769A11BAC11F200B205CB /* WLUploadingQueue.m in Sources */,
@@ -6128,6 +6215,7 @@
 				C5D051C81A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
 				C560D2291AFB7703006B906E /* WLSwipeViewController.m in Sources */,
 				C5E6E9B91BBAC3EC007FFA66 /* UIImage+Resize.m in Sources */,
+				C5E6EAE81BBADF5A007FFA66 /* DDASLLogger.m in Sources */,
 				C5C769AE1BAC143D00B205CB /* WLSet.m in Sources */,
 				C5B0978E1BB14F040057D6BA /* PNClientStateParser.m in Sources */,
 				C54731B11B906A7400B583FD /* WLStillAvatarViewController.m in Sources */,
@@ -6166,6 +6254,7 @@
 				C5A82CD71ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */,
 				5BA60CB01A8257ED000F795C /* UIButton+Additions.m in Sources */,
 				C58AB9971B1384F300932272 /* WLWhatsUpSet.m in Sources */,
+				C5E6EAF01BBADF5A007FFA66 /* DDContextFilterLogFormatter.m in Sources */,
 				C54AF4C119B8C437006F7EDB /* WLWelcomeViewController.m in Sources */,
 				C5B097321BB14F040057D6BA /* PubNub+Presence.m in Sources */,
 				C5B097781BB14F040057D6BA /* PNData.m in Sources */,
@@ -6229,6 +6318,7 @@
 				5BA60C681A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C54731C21B906AFA00B583FD /* WLCameraAdjustmentView.m in Sources */,
 				C5E6E8F31BBAC3EC007FFA66 /* AFNetworkReachabilityManager.m in Sources */,
+				C5E6EAEA1BBADF5A007FFA66 /* DDFileLogger.m in Sources */,
 				C5B097801BB14F040057D6BA /* PNString.m in Sources */,
 				C5E6EA971BBAC3EC007FFA66 /* WLBlockImageFetching.m in Sources */,
 				C52E1FE31A41952400A2C370 /* WLTextView.m in Sources */,
@@ -6248,6 +6338,7 @@
 				C5E6E9711BBAC3EC007FFA66 /* NSObject+AssociatedObjects.m in Sources */,
 				C54AF4E619B8C437006F7EDB /* WLAppDelegate.m in Sources */,
 				C5177C3F1B7CE65C008102C7 /* UIView+QuartzCoreHelper.m in Sources */,
+				C5E6EAE41BBADF5A007FFA66 /* DDAbstractDatabaseLogger.m in Sources */,
 				5B3E96321BAAD1B8002AE045 /* WLReportViewController.swift in Sources */,
 				C568D8D71A6D491800C2333B /* WLHintView.m in Sources */,
 				C544E4FD1AA069F20025DB3F /* WLArrangedAddressBookGroup.m in Sources */,
@@ -6286,9 +6377,11 @@
 				C5D051C21A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				C5C20BDA1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				C5D7FE931B501CDE00746908 /* WLSoundPlayer.m in Sources */,
+				C5E6EAE01BBADF5A007FFA66 /* CLIColor.m in Sources */,
 				C5E6EA371BBAC3EC007FFA66 /* WLWrap.m in Sources */,
 				C53DC22A1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
 				C5BEE0E81B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */,
+				C5E6EAF21BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m in Sources */,
 				C5B2337C1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */,
 				C5B0972C1BB14F040057D6BA /* PubNub+ChannelGroup.m in Sources */,
 				C5E6EA611BBAC3EC007FFA66 /* WLUploadingData.m in Sources */,
@@ -6303,6 +6396,7 @@
 				C5E6E9E91BBAC3EC007FFA66 /* WLImageCache.m in Sources */,
 				C545312F1A24A1F20048A677 /* WLCountryCell.m in Sources */,
 				C5B681221B83566B00BEE613 /* StreamDataSource.m in Sources */,
+				C5E6EAF41BBADF5A007FFA66 /* DDMultiFormatter.m in Sources */,
 				C5BCF0131B551B7B00E4AD6D /* WLMessageDateView.m in Sources */,
 				C5E6E9651BBAC3EC007FFA66 /* NSDate+Additions.m in Sources */,
 				C54531361A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
@@ -6347,6 +6441,7 @@
 				C5603DC81AD922B800427DEC /* WLHierarchicalEntryPresenter.m in Sources */,
 				C5FE0A601ACD98F3007DBE95 /* WLCircleImageView.m in Sources */,
 				C5E6E9D81BBAC3EC007FFA66 /* WLAuthorization.m in Sources */,
+				C5E6EAED1BBADF5A007FFA66 /* DDLog.m in Sources */,
 				C5E6E93C1BBAC3EC007FFA66 /* NSArray+WLCollection.m in Sources */,
 				C5E6EA861BBAC3EC007FFA66 /* WLExtensionMessage.m in Sources */,
 				C5E6E9181BBAC3EC007FFA66 /* lecore.m in Sources */,
@@ -6394,6 +6489,7 @@
 				C5E6EABC1BBAC3EC007FFA66 /* WLSession.m in Sources */,
 				C5B097831BB14F040057D6BA /* PNURLRequest.m in Sources */,
 				C5B097311BB14F040057D6BA /* PubNub+History.m in Sources */,
+				C5E6EAEF1BBADF5A007FFA66 /* DDTTYLogger.m in Sources */,
 				C5E6EAB01BBAC3EC007FFA66 /* WLOperationQueue.m in Sources */,
 				C5E6E9601BBAC3EC007FFA66 /* NSData+CommonCrypto.m in Sources */,
 				C5BCF0011B551B7B00E4AD6D /* WLChatViewController.m in Sources */,
@@ -6439,6 +6535,7 @@
 				C5C769A01BAC11F200B205CB /* WLHistoryItem.m in Sources */,
 				C5E6E9E41BBAC3EC007FFA66 /* WLCache.m in Sources */,
 				C5C769941BAC10BF00B205CB /* WLEntry+WLAPIRequest.m in Sources */,
+				C5E6EAE71BBADF5A007FFA66 /* DDASLLogCapture.m in Sources */,
 				C5BAD1361B53F9C60028FCEB /* WLAlertView.m in Sources */,
 				C5E6E9CC1BBAC3EC007FFA66 /* UIView+Shorthand.m in Sources */,
 				C5C769A21BAC11F200B205CB /* WLUploadingQueue.m in Sources */,
@@ -6479,6 +6576,7 @@
 				C5D051CA1A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */,
 				C560D22B1AFB7703006B906E /* WLSwipeViewController.m in Sources */,
 				C5E6E9BA1BBAC3EC007FFA66 /* UIImage+Resize.m in Sources */,
+				C5E6EAE91BBADF5A007FFA66 /* DDASLLogger.m in Sources */,
 				C5C769AF1BAC143D00B205CB /* WLSet.m in Sources */,
 				C5B0978F1BB14F040057D6BA /* PNClientStateParser.m in Sources */,
 				C54731B21B906A7400B583FD /* WLStillAvatarViewController.m in Sources */,
@@ -6517,6 +6615,7 @@
 				C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */,
 				5BA60CB21A8257ED000F795C /* UIButton+Additions.m in Sources */,
 				C58AB9991B1384F300932272 /* WLWhatsUpSet.m in Sources */,
+				C5E6EAF11BBADF5A007FFA66 /* DDContextFilterLogFormatter.m in Sources */,
 				C54AF6BB19B8C491006F7EDB /* WLWelcomeViewController.m in Sources */,
 				C5B097331BB14F040057D6BA /* PubNub+Presence.m in Sources */,
 				C5B097791BB14F040057D6BA /* PNData.m in Sources */,
@@ -6580,6 +6679,7 @@
 				C5AEE44B1B3AE770000C8CCF /* WLColorPicker.m in Sources */,
 				5BA60C6A1A8257ED000F795C /* MFMailComposeViewController+Additions.m in Sources */,
 				C5E6E8F41BBAC3EC007FFA66 /* AFNetworkReachabilityManager.m in Sources */,
+				C5E6EAEB1BBADF5A007FFA66 /* DDFileLogger.m in Sources */,
 				C5B097811BB14F040057D6BA /* PNString.m in Sources */,
 				C5E6EA981BBAC3EC007FFA66 /* WLBlockImageFetching.m in Sources */,
 				C54731C31B906AFA00B583FD /* WLCameraAdjustmentView.m in Sources */,
@@ -6599,6 +6699,7 @@
 				C5E6E9721BBAC3EC007FFA66 /* NSObject+AssociatedObjects.m in Sources */,
 				C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C5177C401B7CE65C008102C7 /* UIView+QuartzCoreHelper.m in Sources */,
+				C5E6EAE51BBADF5A007FFA66 /* DDAbstractDatabaseLogger.m in Sources */,
 				5B3E96331BAAD1B8002AE045 /* WLReportViewController.swift in Sources */,
 				C54AF6E019B8C491006F7EDB /* WLAppDelegate.m in Sources */,
 				C568D8D91A6D491800C2333B /* WLHintView.m in Sources */,
@@ -6637,9 +6738,11 @@
 				C5D051C41A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */,
 				C5C20BDC1A239D6F008B2E2E /* WLTestUserCell.m in Sources */,
 				C5D7FE951B501CDE00746908 /* WLSoundPlayer.m in Sources */,
+				C5E6EAE11BBADF5A007FFA66 /* CLIColor.m in Sources */,
 				C5E6EA381BBAC3EC007FFA66 /* WLWrap.m in Sources */,
 				C53DC22C1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
 				C5BEE0EA1B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */,
+				C5E6EAF31BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m in Sources */,
 				C5B2337E1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */,
 				C5B0972D1BB14F040057D6BA /* PubNub+ChannelGroup.m in Sources */,
 				C5E6EA621BBAC3EC007FFA66 /* WLUploadingData.m in Sources */,
@@ -6654,6 +6757,7 @@
 				C5E6E9EA1BBAC3EC007FFA66 /* WLImageCache.m in Sources */,
 				C54531311A24A1F20048A677 /* WLCountryCell.m in Sources */,
 				C5B681231B83566B00BEE613 /* StreamDataSource.m in Sources */,
+				C5E6EAF51BBADF5A007FFA66 /* DDMultiFormatter.m in Sources */,
 				C5BCF0151B551B7B00E4AD6D /* WLMessageDateView.m in Sources */,
 				C5E6E9661BBAC3EC007FFA66 /* NSDate+Additions.m in Sources */,
 				C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,

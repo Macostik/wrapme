@@ -1,4 +1,4 @@
-#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "CocoaLumberjack.h"
 
 
 /**

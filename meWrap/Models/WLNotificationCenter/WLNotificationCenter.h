@@ -8,6 +8,8 @@
 
 @interface WLNotificationCenter : NSObject
 
+@property (strong, nonatomic) NSData *pushToken;
+
 + (instancetype)defaultCenter;
 
 - (void)clear;

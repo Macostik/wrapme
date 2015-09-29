@@ -19,6 +19,7 @@
 #import <PushKit/PushKit.h>
 #import "WLEntry+LocalNotifications.h"
 #import "WLNetwork.h"
+#import "WLAuthorizationRequest.h"
 
 @interface WLNotificationCenter () <PNObjectEventListener, WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate, PKPushRegistryDelegate>
 
@@ -27,8 +28,6 @@
 @property (strong, nonatomic) NSMutableArray* enqueuedMessages;
 
 @property (strong, nonatomic) PKPushRegistry *pushRegistry;
-
-@property (strong, nonatomic) NSData *pushToken;
 
 @end
 
@@ -60,6 +59,7 @@
 
 - (void)configure {
     [[WLUser notifier] addReceiver:self];
+    [self registerForVoIPPushes];
 }
 
 - (void)setup {
@@ -79,7 +79,6 @@
     if (![self.userSubscription.name isEqualToString:channelName]) {
         self.userSubscription = [WLNotificationSubscription subscription:channelName presence:NO group:YES];
         self.userSubscription.delegate = self;
-        [self registerForVoIPPushes];
     } else {
         [self.userSubscription subscribe];
     }
@@ -97,7 +96,9 @@
 - (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type {
     self.pushToken = credentials.token;
     WLLog(@"PUBNUB - apns_device_token: %@", self.pushToken);
-    [self.userSubscription enableAPNSWithData:self.pushToken];
+    if ([WLAuthorizationRequest authorized]) {
+        [[WLAuthorizationRequest updateDevice] send];
+    }
 }
 
 - (void)pushRegistry:(PKPushRegistry *)registry didInvalidatePushTokenForType:(NSString *)type {

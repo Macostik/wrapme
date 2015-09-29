@@ -44,8 +44,6 @@
 
 - (void)hereNow:(WLArrayBlock)completion;
 
-- (void)enableAPNSWithData:(NSData*)data;
-
 - (void)history:(NSDate*)from to:(NSDate*)to success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 - (void)didReceiveMessage:(PNMessageData*)message;

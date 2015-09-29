@@ -76,26 +76,6 @@
     }
 }
 
-- (void)enableAPNSWithData:(NSData*)data {
-    __weak typeof(self)weakSelf = self;
-    if (!self.name) {
-        return;
-    }
-    [[PubNub sharedInstance] pushNotificationEnabledChannelsForDeviceWithPushToken:data andCompletion:^(PNAPNSEnabledChannelsResult *result, PNErrorStatus *status) {
-        if (!status.isError) {
-            [[PubNub sharedInstance] removePushNotificationsFromChannels:result.data.channels withDevicePushToken:data andCompletion:^(PNAcknowledgmentStatus *status) {
-                if (!status.isError) {
-                    [[PubNub sharedInstance] channelsForGroup:weakSelf.name withCompletion:^(PNChannelGroupChannelsResult *result, PNErrorStatus *status) {
-                        if (!status.isError) {
-                            [[PubNub sharedInstance] addPushNotificationsOnChannels:result.data.channels withDevicePushToken:data andCompletion:nil];
-                        }
-                    }];
-                }
-            }];
-        }
-    }];
-}
-
 - (void)send:(NSDictionary *)message {
     [[PubNub sharedInstance] publish:message toChannel:self.name withCompletion:nil];
 }

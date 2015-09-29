@@ -32,6 +32,8 @@
 
 + (instancetype)linkDevice:(NSString*)passcode;
 
++ (instancetype)updateDevice;
+
 @end
 
 @interface WLAuthorization (WLAuthorizationRequest)

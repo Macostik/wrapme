@@ -15,8 +15,6 @@
 		5B3E962C1BAAC3F0002AE045 /* WLReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3E962A1BAAC3F0002AE045 /* WLReportCell.swift */; settings = {ASSET_TAGS = (); }; };
 		5B3E96321BAAD1B8002AE045 /* WLReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3E96311BAAD1B8002AE045 /* WLReportViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		5B3E96331BAAD1B8002AE045 /* WLReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3E96311BAAD1B8002AE045 /* WLReportViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		5B5A8C6C1A4EB62F00F84529 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A8C701A4EB62F00F84529 /* SignUp.storyboard */; };
-		5B5A8C6E1A4EB62F00F84529 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A8C701A4EB62F00F84529 /* SignUp.storyboard */; };
 		5B7591DE1BAAEF7800967AAA /* WLReportList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B7591DD1BAAEF7800967AAA /* WLReportList.plist */; settings = {ASSET_TAGS = (); }; };
 		5B7591DF1BAAEF7800967AAA /* WLReportList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B7591DD1BAAEF7800967AAA /* WLReportList.plist */; settings = {ASSET_TAGS = (); }; };
 		5B7591E21BAAF9F600967AAA /* (null) in Headers */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1211,7 +1209,6 @@
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
 		5B3E962A1BAAC3F0002AE045 /* WLReportCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WLReportCell.swift; path = ../Controllers/WLReportViewController/WLReportView/WLReportCell.swift; sourceTree = "<group>"; };
 		5B3E96311BAAD1B8002AE045 /* WLReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WLReport\U0010ViewController.swift"; path = "meWrap/Controllers/WLReportViewController/WLReport\U0010ViewController.swift"; sourceTree = SOURCE_ROOT; };
-		5B5A8C6F1A4EB62F00F84529 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SignUp.storyboard; sourceTree = "<group>"; };
 		5B7591DD1BAAEF7800967AAA /* WLReportList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = WLReportList.plist; path = WLReportList/WLReportList.plist; sourceTree = "<group>"; };
 		5B787D9B1A27876F004AE459 /* meWrapTodayQA.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapTodayQA.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -6837,6 +6834,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					USE_CSDK_COMPONENTS,
+					"PROJECT_DIR=\\@\\\"$SOURCE_ROOT\\\"",
 				);
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -6947,6 +6945,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					USE_CSDK_COMPONENTS,
+					"PROJECT_DIR=\\@\\\"$SOURCE_ROOT\\\"",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Info/meWrap-Info.plist";

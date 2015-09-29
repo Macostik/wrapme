@@ -10,6 +10,8 @@
 #import "WLWelcomeViewController.h"
 #import "WLUploadingQueue.h"
 #import "WLOperationQueue.h"
+#import "WLNotificationCenter.h"
+#import "PNData.h"
 
 @implementation WLAuthorizationRequest
 
@@ -28,7 +30,7 @@ static BOOL authorized = NO;
 }
 
 + (BOOL)requiresSignIn {
-    return !authorized || !WLSession.imageURI || !WLSession.avatarURI;
+    return !authorized || !WLSession.imageURI || !WLSession.avatarURI || ![WLUser currentUser].identifier.nonempty;
 }
 
 + (instancetype)signUp:(WLAuthorization*)authorization {
@@ -38,6 +40,10 @@ static BOOL authorized = NO;
         [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];
         [parameters trySetObject:authorization.email forKey:@"email"];
+        NSData *deviceToken = [WLNotificationCenter defaultCenter].pushToken;
+        if (deviceToken) {
+            [parameters trySetObject:[PNData HEXFromDevicePushToken:deviceToken] forKey:@"device_token"];
+        }
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         success(authorization);
     }];
@@ -122,6 +128,15 @@ static BOOL authorized = NO;
     }];
 }
 
++ (instancetype)updateDevice {
+    return [[self PUT:@"users/device"] parametrize:^(id request, NSMutableDictionary *parameters) {
+        NSData *deviceToken = [WLNotificationCenter defaultCenter].pushToken;
+        if (deviceToken) {
+            [parameters trySetObject:[PNData HEXFromDevicePushToken:deviceToken] forKey:@"device_token"];
+        }
+    }];
+}
+
 + (instancetype)signUp {
     return [self signUp:[WLAuthorization currentAuthorization]];
 }
@@ -145,7 +160,7 @@ static BOOL authorized = NO;
     
     // replace path to test users plist
     NSString *projectDirectoryPath = PROJECT_DIR;
-    NSString *currentTestUsersPath = [projectDirectoryPath stringByAppendingPathComponent:@"WrapLive/Resources/Property Lists/Test Users/WLTestUsers.plist"];
+    NSString *currentTestUsersPath = [projectDirectoryPath stringByAppendingPathComponent:@"meWrap/Resources/Property Lists/Test Users/WLTestUsers.plist"];
     
     NSMutableDictionary *testUsers = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:currentTestUsersPath]];
     

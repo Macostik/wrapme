@@ -1187,6 +1187,7 @@
 		C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC61A239D6F008B2E2E /* WLProfileInformationViewController.m */; };
 		C5C20BEA1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
 		C5C20BEC1A239D6F008B2E2E /* WLSignupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BC81A239D6F008B2E2E /* WLSignupFlowViewController.m */; };
+		C5C35DD81BBAA4610086F4DE /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C56498C71ACB00D2000F1E4B /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5C3FEA31B8F311500F177EC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE951B8F311500F177EC /* Default-568h@2x.png */; };
 		C5C3FEA41B8F311500F177EC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE951B8F311500F177EC /* Default-568h@2x.png */; };
 		C5C3FEA71B8F311500F177EC /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5C3FE991B8F311500F177EC /* Default-736h@3x.png */; };
@@ -1330,6 +1331,13 @@
 			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
 			remoteInfo = meWrapWatchExtQA;
 		};
+		C5C35DD91BBAA4610086F4DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C56498C61ACB00D2000F1E4B;
+			remoteInfo = meWrapWatchExt;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1434,6 +1442,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				C5C35DD81BBAA4610086F4DE /* meWrapWatchExt.appex in Embed App Extensions */,
 				C5994D8A1B78894A0066A597 /* meWrapToday.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -5270,6 +5279,7 @@
 			dependencies = (
 				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
 				C5994D8C1B78894A0066A597 /* PBXTargetDependency */,
+				C5C35DDA1BBAA4610086F4DE /* PBXTargetDependency */,
 			);
 			name = meWrap;
 			productName = WrapLive;
@@ -6840,6 +6850,11 @@
 			isa = PBXTargetDependency;
 			target = C50645831ABD7FD400CB4BE3 /* meWrapWatchExtQA */;
 			targetProxy = C5BF03291BBA90E000D1F97F /* PBXContainerItemProxy */;
+		};
+		C5C35DDA1BBAA4610086F4DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C56498C61ACB00D2000F1E4B /* meWrapWatchExt */;
+			targetProxy = C5C35DD91BBAA4610086F4DE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

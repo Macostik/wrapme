@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 
 #import <Photos/Photos.h>
-#import <meWrapKit/SupportHeaders.h>
-#import <meWrapKit/WLCandy.h>
-#import <meWrapKit/WLCollection.h>
+#import "SupportHeaders.h"
+#import "WLCandy.h"
+#import "WLCollection.h"
 
 @class Photos;
 

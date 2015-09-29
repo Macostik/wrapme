@@ -19,6 +19,8 @@
 #import "WLTextView.h"
 #import "WLFontPresetter.h"
 #import "WLEditPicture.h"
+#import "WLImageView.h"
+#import "WLSession.h"
 
 @interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLFontPresetterReceiver, WLBroadcastReceiver>
 

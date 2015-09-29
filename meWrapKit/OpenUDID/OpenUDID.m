@@ -36,12 +36,6 @@
  distribution.
 */
 
-#if __has_feature(objc_arc)
-#error This file uses the classic non-ARC retain/release model; hints below... 
-    // to selectively compile this file as non-ARC, do as follows:
-    // https://img.skitch.com/20120411-bcku69k1uw528cwh9frh5px8ya.png
-#endif
-
 #import "OpenUDID.h"
 #import <CommonCrypto/CommonDigest.h> // Need to import for CC_MD5 access
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -177,7 +171,7 @@ static int const kOpenUDIDRedundancySlots = 100;
     {
       // generate a new uuid and store it in user defaults
       CFUUIDRef uuid = CFUUIDCreate(NULL);
-      appUID = (NSString *) CFUUIDCreateString(NULL, uuid);
+      appUID = (NSString *) CFBridgingRelease(CFUUIDCreateString(NULL, uuid));
       CFRelease(uuid);
     }
   
@@ -320,7 +314,7 @@ static int const kOpenUDIDRedundancySlots = 100;
                                                      code:kOpenUDIDErrorOptedOut
                                                  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"Application with unique id %@ is opted-out from OpenUDID as of %@",appUID,optedOutDate],@"description", nil]];
             
-        kOpenUDIDSessionCache = [[NSString stringWithFormat:@"%040x",0] retain];
+        kOpenUDIDSessionCache = [NSString stringWithFormat:@"%040x",0];
         return kOpenUDIDSessionCache;
     }
 
@@ -336,7 +330,7 @@ static int const kOpenUDIDRedundancySlots = 100;
                                          code:kOpenUDIDErrorNone
                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"OpenUDID succesfully retrieved",@"description", nil]];
     }
-    kOpenUDIDSessionCache = [openUDID retain];
+    kOpenUDIDSessionCache = openUDID;
     return kOpenUDIDSessionCache;
 }
 

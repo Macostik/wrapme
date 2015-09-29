@@ -10,6 +10,11 @@
 #import <NotificationCenter/NotificationCenter.h>
 #import "WLTodayCandyCell.h"
 #import "WLTodayCommentCell.h"
+#import "WLEntryNotifier.h"
+#import "WLSession.h"
+#import "WLAuthorization.h"
+#import "NSURL+WLRemoteEntryHandler.h"
+#import "GeometryHelper.h"
 
 static NSString *const WLTodayCandyCellIdentifier = @"WLTodayCandyCell";
 static NSString *const WLTodayCommentCellIdentifier = @"WLTodayCommentCell";

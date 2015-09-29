@@ -6,8 +6,6 @@
 //  Copyright © 2015 Ravenpod. All rights reserved.
 //
 
-#import <meWrapKit/meWrapKit.h>
-
 @interface WLEntry (WLUploadingQueue)
 
 @end

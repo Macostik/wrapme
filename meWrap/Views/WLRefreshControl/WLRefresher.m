@@ -9,6 +9,7 @@
 #import "WLRefresher.h"
 #import "UIView+AnimationHelper.h"
 #import "UIScrollView+Additions.h"
+#import "UIColor+CustomColors.h"
 
 static CGFloat WLRefresherContentSize = 44.0f;
 

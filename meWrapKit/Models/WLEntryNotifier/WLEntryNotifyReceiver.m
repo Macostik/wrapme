@@ -10,10 +10,6 @@
 
 @implementation WLEntryNotifyReceiver
 
-- (void)dealloc {
-    NSLog(@"dealloc WLEntryNotifyReceiver");
-}
-
 + (instancetype)receiverWithEntry:(WLEntry *)entry {
     WLEntryNotifyReceiver *receiver = [[self alloc] init];
     receiver.entry = entry;

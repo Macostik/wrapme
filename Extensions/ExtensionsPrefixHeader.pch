@@ -11,6 +11,6 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import <meWrapKit/meWrapKit.h>
+#import "meWrapKit.h"
 
 #endif

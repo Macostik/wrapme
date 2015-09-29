@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import <meWrapKit/meWrapKit.h>
 #import "WLSoundPlayer.h"
 
 @class WLNotification;

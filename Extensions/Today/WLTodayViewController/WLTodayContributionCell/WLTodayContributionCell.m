@@ -7,6 +7,7 @@
 //
 
 #import "WLTodayContributionCell.h"
+#import "NSDate+Additions.h"
 
 @interface WLTodayContributionCell ()
 

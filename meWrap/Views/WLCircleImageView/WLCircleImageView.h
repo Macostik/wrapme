@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
+#import "WLImageView.h"
+
 @interface WLCircleImageView : WLImageView
 
 @end

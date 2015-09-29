@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLImageView.h"
 
 @interface WLTodayContributionCell : UITableViewCell
 

@@ -14,8 +14,6 @@
 			<integer>38</integer>
 			<integer>1</integer>
 		</array>
-		<key>showArrow</key>
-		<false/>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -29,8 +27,6 @@
 			<integer>135</integer>
 			<integer>1</integer>
 		</array>
-		<key>showArrow</key>
-		<false/>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -44,8 +40,8 @@
 			<integer>38</integer>
 			<integer>1</integer>
 		</array>
-		<key>showArrow</key>
-		<true/>
+		<key>v_code</key>
+		<string>vc01</string>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -59,8 +55,6 @@
 			<integer>38</integer>
 			<integer>1</integer>
 		</array>
-		<key>showArrow</key>
-		<false/>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -74,8 +68,8 @@
 			<integer>135</integer>
 			<integer>1</integer>
 		</array>
-		<key>showArrow</key>
-		<true/>
+		<key>v_code</key>
+		<string>vc02</string>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -89,8 +83,8 @@
 			<integer>135</integer>
 			<integer>1</integer>
 		</array>
-		<key>showArrow</key>
-		<true/>
+		<key>v_code</key>
+		<string>vc03</string>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -104,8 +98,8 @@
 			<integer>135</integer>
 			<integer>1</integer>
 		</array>
-		<key>showArrow</key>
-		<true/>
+		<key>v_code</key>
+		<string>vc04</string>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -119,8 +113,6 @@
 			<integer>38</integer>
 			<integer>1</integer>
 		</array>
-		<key>showArrow</key>
-		<false/>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -134,8 +126,8 @@
 			<integer>135</integer>
 			<integer>1</integer>
 		</array>
-		<key>showArrow</key>
-		<true/>
+		<key>v_code</key>
+		<string>vc05</string>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -149,8 +141,8 @@
 			<integer>135</integer>
 			<integer>1</integer>
 		</array>
-		<key>showArrow</key>
-		<true/>
+		<key>v_code</key>
+		<string>vc06</string>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -164,8 +156,8 @@
 			<integer>135</integer>
 			<integer>1</integer>
 		</array>
-		<key>showArrow</key>
-		<true/>
+		<key>v_code</key>
+		<string>vc07</string>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -179,8 +171,8 @@
 			<integer>135</integer>
 			<integer>1</integer>
 		</array>
-		<key>showArrow</key>
-		<true/>
+		<key>v_code</key>
+		<string>vc08</string>
 	</dict>
 </array>
 </plist>

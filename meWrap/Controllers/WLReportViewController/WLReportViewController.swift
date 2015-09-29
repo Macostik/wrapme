@@ -12,28 +12,24 @@ import Foundation
 import UIKit
 
 struct Entry {
-    let title:String
-    let fontSize:CGFloat
-    let fontColor:UIColor
-    let isShowArrow:Bool
-    init(title:String, fontSize:CGFloat, fontColor:UIColor, isShowArrow:Bool) {
+    let title: String
+    let fontSize: CGFloat
+    let fontColor: UIColor
+    let v_code: String
+    init(title:String, fontSize:CGFloat, fontColor:UIColor, v_code:String) {
         self.title = title
         self.fontSize = fontSize
         self.fontColor = fontColor
-        self.isShowArrow = isShowArrow
+        self.v_code = v_code
     }
 }
 
 struct ReportDataModel {
     let entries:[Entry] = []
     
-    func pathFromFile(fileName:String) -> String? {
-        return NSBundle.mainBundle().pathForResource(fileName, ofType: "plist")
-    }
-    
     func parse (fileName : String) -> [Entry] {
         var container:[Entry] = []
-        let path = Optional.Some(fileName).flatMap(pathFromFile)
+        let path = NSBundle.mainBundle().pathForResource(fileName, ofType: "plist")
         if  let path = path {
             let content = NSArray(contentsOfFile:path)! as Array
             guard !content.isEmpty else  {
@@ -48,9 +44,9 @@ struct ReportDataModel {
                 let blue = CGFloat (fontColorList[2])/255
                 let alpha = CGFloat (fontColorList[3])
                 let fontColor = UIColor(red: red, green: green, blue: blue, alpha: alpha)
-                let isShowArrow : Bool = dict["showArrow"] as! Bool
+                let v_code : String = dict["v_code"] as? String ?? ""
                 
-                let entry = Entry(title: title, fontSize: fontSize, fontColor: fontColor, isShowArrow: isShowArrow)
+                let entry = Entry(title: title, fontSize: fontSize, fontColor: fontColor, v_code: v_code)
                 container.append(entry)
             }
         }
@@ -60,7 +56,7 @@ struct ReportDataModel {
 }
 
 class WLReportViewController : UIViewController {
-    weak var wrap:AnyObject?
+    weak var candy:AnyObject?
     private var reportList:NSArray?
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var dataSource : WLCVDataSource!
@@ -69,15 +65,11 @@ class WLReportViewController : UIViewController {
         super.viewDidLoad()
         let contentData = ReportDataModel()
         let reportList = contentData.parse("WLReportList")
-        
-        do {
-           try dataSource.configuration(reportList)
-        } catch ErrorHandler.Identifier {
-            print("identifier is'n correct")
-        } catch ErrorHandler.EmptyData {
-            print("data is empty")
-        } catch _ {
-             print("something went wrong")
+        dataSource.select = {[unowned self] _ , violationCode in
+            WLAPIRequest.postCandy(candy, violationCode: violationCode).send({
+                _ in self.collectionView.hidden = true }, failure:{ _ in
+            })
         }
+        dataSource.data = reportList
     }
 }

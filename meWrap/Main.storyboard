@@ -2629,8 +2629,8 @@
                 <customObject id="hIc-oM-BkJ" customClass="WLLayoutPrioritizer"/>
                 <customObject id="yoH-75-zao" userLabel="Report Transition" customClass="WLStoryboardTransition">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="wrap"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="wrap"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="candy"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="candy"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLReportViewController"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -2753,20 +2753,32 @@
                                                     <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TdK-3w-jvO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <connections>
+                                                        <action selector="postViolationRequest:" destination="Hzh-iD-SNP" eventType="touchUpInside" id="Dtc-TV-1Sl"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="bottomMargin" secondItem="PtJ-pW-4g2" secondAttribute="bottom" id="6Ds-Tr-qMy"/>
+                                            <constraint firstAttribute="bottom" secondItem="TdK-3w-jvO" secondAttribute="bottom" id="EcH-gZ-DGE"/>
                                             <constraint firstItem="PtJ-pW-4g2" firstAttribute="leading" secondItem="4xm-Rn-FUr" secondAttribute="trailing" id="FWb-yH-v3b"/>
                                             <constraint firstAttribute="bottom" secondItem="4xm-Rn-FUr" secondAttribute="bottom" id="K4K-PZ-RLf"/>
+                                            <constraint firstAttribute="trailing" secondItem="TdK-3w-jvO" secondAttribute="trailing" id="ONd-44-PYP"/>
+                                            <constraint firstItem="TdK-3w-jvO" firstAttribute="leading" secondItem="Hzh-iD-SNP" secondAttribute="leading" id="PPB-59-9Jo"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="PtJ-pW-4g2" secondAttribute="trailing" constant="12" id="ZQT-bH-PRD"/>
                                             <constraint firstItem="4xm-Rn-FUr" firstAttribute="top" secondItem="Hzh-iD-SNP" secondAttribute="top" id="d68-EB-OJb"/>
                                             <constraint firstItem="PtJ-pW-4g2" firstAttribute="top" secondItem="Hzh-iD-SNP" secondAttribute="topMargin" id="rGP-Vq-nU4"/>
                                             <constraint firstItem="4xm-Rn-FUr" firstAttribute="leading" secondItem="Hzh-iD-SNP" secondAttribute="leading" constant="12" id="v8g-kO-Ium"/>
+                                            <constraint firstItem="TdK-3w-jvO" firstAttribute="top" secondItem="Hzh-iD-SNP" secondAttribute="top" id="vWN-ph-4aR"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="button" destination="TdK-3w-jvO" id="VLN-cC-xsh"/>
                                             <outlet property="showArrowLabel" destination="PtJ-pW-4g2" id="Kue-aH-krF"/>
                                             <outlet property="textLabel" destination="4xm-Rn-FUr" id="U6w-kw-1sI"/>
                                         </connections>

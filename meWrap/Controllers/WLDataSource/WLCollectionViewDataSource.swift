@@ -8,21 +8,10 @@
 
 import Foundation
 
-enum ErrorHandler : ErrorType {
-    case Identifier
-    case EmptyData
-    
-    func descreption() -> String {
-        switch self {
-        case .Identifier: return "Identifier is'n correct"
-        case .EmptyData : return "Data is empty"
-        }
-    }
-}
-
 @objc class WLCVDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var data : [Entry] = []
+    var select : ((WLReportCell, String) -> Void)?
     
     @IBInspectable var identifier: String = ""
     @IBInspectable var cellWidth: CGFloat = 0
@@ -33,16 +22,6 @@ enum ErrorHandler : ErrorType {
         super.init()
     }
     
-    func configuration (data:[Entry]) throws {
-        guard !identifier.isEmpty else {
-            throw ErrorHandler.Identifier
-        }
-        guard !data.isEmpty else {
-            throw ErrorHandler.EmptyData
-        }
-        self.data = data
-    }
-    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count
     }
@@ -51,6 +30,7 @@ enum ErrorHandler : ErrorType {
         let entry = data[indexPath.item] as Entry
         let cell : WLReportCell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! WLReportCell
         cell.entry = entry
+        cell.select = select
         return cell
     }
     
@@ -61,12 +41,4 @@ enum ErrorHandler : ErrorType {
      func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(cellWidth > 0 ? cellWidth : UIScreen.mainScreen().bounds.width, cellHeight > 0 ? cellHeight : 50)
     }
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let entry = data[indexPath.item] as Entry
-        if entry.isShowArrow {
-            collectionView.hidden = true
-        }
-    }
-    
 }

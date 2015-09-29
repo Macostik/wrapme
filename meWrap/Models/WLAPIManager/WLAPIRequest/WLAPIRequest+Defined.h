@@ -58,4 +58,6 @@
 
 + (instancetype)contributorsFromContacts:(NSArray*)contacts;
 
++ (instancetype)postCandy:(id)candy violationCode:(NSString *)violationCode;
+
 @end

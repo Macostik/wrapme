@@ -4,3 +4,5 @@
 
 #import "StreamReusableView.h"
 #import "UIScrollView+Additions.h"
+#import "WLAPIRequest.h"
+#import "WLAPIRequest+Defined.h"

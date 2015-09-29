@@ -428,4 +428,17 @@
     }];
 }
 
++ (instancetype)postCandy:(WLCandy *)candy violationCode:(NSString *)violationCode {
+    return [[[[self POST:@"wraps/%@/candies/%@/violations/", candy.wrap.identifier, candy.identifier] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
+        [parameters trySetObject:violationCode forKey:WLCandyViolationKey];
+    }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
+        if  (candy.wrap.valid) {
+            success(candy);
+        }else {
+            success(nil);
+        }
+    }] afterFailure:^(NSError *error) {
+    }];
+}
+
 @end

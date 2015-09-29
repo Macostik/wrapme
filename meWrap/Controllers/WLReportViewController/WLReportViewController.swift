@@ -16,11 +16,13 @@ struct Entry {
     let fontSize: CGFloat
     let fontColor: UIColor
     let v_code: String
-    init(title:String, fontSize:CGFloat, fontColor:UIColor, v_code:String) {
+    let indent: CGFloat
+    init(title:String, fontSize:CGFloat, fontColor:UIColor, v_code:String, indent:CGFloat) {
         self.title = title
         self.fontSize = fontSize
         self.fontColor = fontColor
         self.v_code = v_code
+        self.indent = indent
     }
 }
 
@@ -45,8 +47,9 @@ struct ReportDataModel {
                 let alpha = CGFloat (fontColorList[3])
                 let fontColor = UIColor(red: red, green: green, blue: blue, alpha: alpha)
                 let v_code : String = dict["v_code"] as? String ?? ""
+                let indent : CGFloat = dict["indent"] as! CGFloat
                 
-                let entry = Entry(title: title, fontSize: fontSize, fontColor: fontColor, v_code: v_code)
+                let entry = Entry(title: title, fontSize: fontSize, fontColor: fontColor, v_code: v_code, indent: indent)
                 container.append(entry)
             }
         }

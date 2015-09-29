@@ -13,6 +13,8 @@ class WLReportCell : UICollectionViewCell {
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var showArrowLabel: UILabel!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var leadingContstraint: NSLayoutConstraint!
+    
     var select : ((WLReportCell, String) -> Void)?
     var entry : Entry? {
         didSet {
@@ -21,6 +23,7 @@ class WLReportCell : UICollectionViewCell {
             textLabel.font = textLabel.font.fontWithSize(self.entry!.fontSize)
             showArrowLabel.hidden = self.entry!.v_code.isEmpty
             button.hidden = showArrowLabel.hidden
+            leadingContstraint.constant += self.entry!.indent
         }
     }
    

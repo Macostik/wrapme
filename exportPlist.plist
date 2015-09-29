@@ -8,7 +8,5 @@
 	<string>ad-hoc</string>
 	<key>compileBitcode</key>
 	<false/>
-	<key>thinning</key>
-	<string>&lt;thin-for-all-variants&gt;</string>
 </dict>
 </plist>

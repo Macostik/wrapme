@@ -83,7 +83,7 @@ static NSInteger WLDaySeconds = 24*60*60;
     NSTimeInterval interval = ABS([self timeIntervalSinceDate:[NSDate now]]);
     
 	if (interval >= WLTimeIntervalWeek) {
-		return [self stringWithDateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
+		return [self stringWithDateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
 	} else {
 		NSTimeInterval value = 0;
 		NSString* name = nil;
@@ -104,7 +104,7 @@ static NSInteger WLDaySeconds = 24*60*60;
 - (NSString *)timeAgoStringAtAMPM {
     NSTimeInterval interval = ABS([self timeIntervalSinceDate:[NSDate now]]);
     if (interval >= WLTimeIntervalWeek) {
-        return [self stringWithDateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
+        return [self stringWithDateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
     } else {
         NSTimeInterval value = 0;
         NSString* name = nil;

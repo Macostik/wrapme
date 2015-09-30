@@ -82,7 +82,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Moji Name Moji Name Moji Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZq-rH-3Re" customClass="WLLabel">
-                    <rect key="frame" x="86" y="6" width="160" height="24"/>
+                    <rect key="frame" x="86" y="6" width="148" height="24"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                     <color key="textColor" white="0.1010000035" alpha="1" colorSpace="calibratedWhite"/>
@@ -252,14 +252,14 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="uhU-Hx-yj0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gCG-7i-tcM" secondAttribute="trailing" id="2ew-Rx-4Gx"/>
+                <constraint firstItem="uhU-Hx-yj0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gCG-7i-tcM" secondAttribute="trailing" constant="12" id="2ew-Rx-4Gx"/>
                 <constraint firstAttribute="centerY" secondItem="jUk-B2-fHW" secondAttribute="centerY" id="3Qb-cT-rar"/>
                 <constraint firstItem="cov-Wb-wlk" firstAttribute="leading" secondItem="10A-rr-xxe" secondAttribute="leading" constant="10" id="3VF-IH-2Ep"/>
                 <constraint firstItem="gZq-rH-3Re" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cov-Wb-wlk" secondAttribute="trailing" constant="12" id="3hK-af-MlE"/>
                 <constraint firstItem="gCG-7i-tcM" firstAttribute="top" secondItem="cov-Wb-wlk" secondAttribute="centerY" id="4Lh-D6-aQ8"/>
                 <constraint firstAttribute="bottom" secondItem="Piy-ZG-Wjc" secondAttribute="bottom" id="8eL-zn-utE"/>
                 <constraint firstItem="cov-Wb-wlk" firstAttribute="top" secondItem="yWc-qt-cbm" secondAttribute="top" id="AMH-Ws-hRy"/>
-                <constraint firstItem="uhU-Hx-yj0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gZq-rH-3Re" secondAttribute="trailing" id="AWU-PQ-J14"/>
+                <constraint firstItem="uhU-Hx-yj0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gZq-rH-3Re" secondAttribute="trailing" constant="12" id="AWU-PQ-J14"/>
                 <constraint firstAttribute="centerY" secondItem="cov-Wb-wlk" secondAttribute="centerY" id="CN9-Ho-U2v"/>
                 <constraint firstItem="gCG-7i-tcM" firstAttribute="leading" secondItem="IsU-dA-qD5" secondAttribute="trailing" priority="750" constant="5" id="FHn-kg-AzS"/>
                 <constraint firstItem="ZnF-pj-5f0" firstAttribute="leading" secondItem="10A-rr-xxe" secondAttribute="trailing" id="IGc-Nc-TX2"/>

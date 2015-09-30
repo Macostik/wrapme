@@ -37,7 +37,7 @@
     [super viewDidLoad];
     
     __weak typeof(self)weakSelf = self;
-    self.streamView.layout = [[SquareGridLayout alloc] initWithHorizontal:YES];
+    self.streamView.layout = [[SquareLayout alloc] initWithHorizontal:YES];
     self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
     StreamMetrics *metrics = [[StreamMetrics alloc] initWithIdentifier:@"WLAssetCell"];
     [metrics setSelection:^(StreamItem *item, id entry) {

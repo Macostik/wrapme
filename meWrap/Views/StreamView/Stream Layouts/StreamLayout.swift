@@ -54,11 +54,32 @@ class StreamLayout: NSObject {
     }
     
     func layoutItemHorizontally(item: StreamItem, streamView: StreamView) {
-        item.frame = horizontalFrameForItem(item, streamView: streamView)
-        if let next = item.next {
-            layoutItemHorizontally(next, streamView: streamView)
-        } else {
-            streamView.changeContentSize(CGSizeMake(CGRectGetMaxX(item.frame), streamView.frame.size.height))
+        var next: StreamItem? = item
+        while next != nil {
+            if let item = next {
+                item.frame = horizontalFrameForItem(item, streamView: streamView)
+                if item.next != nil {
+                    next = item.next
+                } else {
+                    streamView.changeContentSize(CGSizeMake(CGRectGetMaxX(item.frame), streamView.frame.size.height))
+                    next = nil
+                }
+            }
+        }
+    }
+    
+    func layoutItemVertically(item: StreamItem, streamView: StreamView) {
+        var next: StreamItem? = item
+        while next != nil {
+            if let item = next {
+                item.frame = verticalFrameForItem(item, streamView: streamView)
+                if item.next != nil {
+                    next = item.next
+                } else {
+                    streamView.changeContentSize(CGSizeMake(streamView.frame.size.width, CGRectGetMaxY(item.frame)))
+                    next = nil
+                }
+            }
         }
     }
     
@@ -86,15 +107,6 @@ class StreamLayout: NSObject {
             return CGRectMake(insets.origin.x, offset + insets.origin.y, streamView.frame.size.width - insets.origin.x - insets.size.width, size + insets.size.height)
         }
         return CGRectZero
-    }
-    
-    func layoutItemVertically(item: StreamItem, streamView: StreamView) {
-        item.frame = verticalFrameForItem(item, streamView: streamView)
-        if let next = item.next {
-            layoutItemVertically(next, streamView: streamView)
-        } else {
-            streamView.changeContentSize(CGSizeMake(streamView.frame.size.width, CGRectGetMaxY(item.frame)))
-        }
     }
     
     func prepareForNextSection() {

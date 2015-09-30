@@ -58,6 +58,40 @@
 	return nil;
 }
 
++ (NSString *)API_uploadIdentifier:(NSDictionary *)dictionary {
+    return nil;
+}
+
++ (NSArray*)API_prefetchArray:(NSArray *)array {
+    NSMutableArray *descriptors = [NSMutableArray array];
+    [self API_prefetchDescriptors:descriptors inArray:array];
+    [[WLEntryManager manager] fetchEntries:descriptors];
+    return array;
+}
+
++ (NSDictionary*)API_prefetchDictionary:(NSDictionary *)dictionary {
+    NSMutableArray *descriptors = [NSMutableArray array];
+    [self API_prefetchDescriptors:descriptors inDictionary:dictionary];
+    [[WLEntryManager manager] fetchEntries:descriptors];
+    return dictionary;
+}
+
++ (void)API_prefetchDescriptors:(NSMutableArray*)descriptors inArray:(NSArray*)array {
+    for (NSDictionary *dictionary in array) {
+        [self API_prefetchDescriptors:descriptors inDictionary:dictionary];
+    }
+}
+
++ (void)API_prefetchDescriptors:(NSMutableArray*)descriptors inDictionary:(NSDictionary*)dictionary {
+    NSString *identifier = [self API_identifier:dictionary];
+    NSString *uploadIdentifier = [self API_uploadIdentifier:dictionary];
+    WLEntryDescriptor *descriptor = [[WLEntryDescriptor alloc] init];
+    descriptor.entryClass = self;
+    descriptor.identifier = identifier;
+    descriptor.uploadIdentifier = uploadIdentifier;
+    [descriptors addObject:descriptor];
+}
+
 - (instancetype)API_setup:(NSDictionary *)dictionary {
     if (dictionary) {
         return [self API_setup:dictionary container:nil];

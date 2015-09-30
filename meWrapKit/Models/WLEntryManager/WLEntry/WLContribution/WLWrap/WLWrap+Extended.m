@@ -39,6 +39,22 @@
 	return [dictionary stringForKey:WLWrapUIDKey];
 }
 
++ (void)API_prefetchDescriptors:(NSMutableArray *)descriptors inDictionary:(NSDictionary *)dictionary {
+    [super API_prefetchDescriptors:descriptors inDictionary:dictionary];
+    
+    if (dictionary[WLContributorsKey]) {
+        [WLUser API_prefetchDescriptors:descriptors inArray:dictionary[WLContributorsKey]];
+    }
+    
+    if (dictionary[WLCreatorKey] != nil) {
+        [WLUser API_prefetchDescriptors:descriptors inDictionary:dictionary[WLCreatorKey]];
+    }
+    
+    if (dictionary[WLCandiesKey] != nil) {
+        [WLCandy API_prefetchDescriptors:descriptors inArray:dictionary[WLCandiesKey]];
+    }
+}
+
 - (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
     [super API_setup:dictionary container:container];
     NSString* name = [dictionary stringForKey:WLNameKey];

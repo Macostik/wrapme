@@ -1277,6 +1277,12 @@
 		C5E6EAF31BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EADD1BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m */; settings = {ASSET_TAGS = (); }; };
 		C5E6EAF41BBADF5A007FFA66 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EADF1BBADF5A007FFA66 /* DDMultiFormatter.m */; settings = {ASSET_TAGS = (); }; };
 		C5E6EAF51BBADF5A007FFA66 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6EADF1BBADF5A007FFA66 /* DDMultiFormatter.m */; settings = {ASSET_TAGS = (); }; };
+		C5E80C181BBBF2030024244D /* WLEntryDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E80C171BBBF2030024244D /* WLEntryDescriptor.m */; settings = {ASSET_TAGS = (); }; };
+		C5E80C191BBBF2030024244D /* WLEntryDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E80C171BBBF2030024244D /* WLEntryDescriptor.m */; settings = {ASSET_TAGS = (); }; };
+		C5E80C1A1BBBF2030024244D /* WLEntryDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E80C171BBBF2030024244D /* WLEntryDescriptor.m */; settings = {ASSET_TAGS = (); }; };
+		C5E80C1B1BBBF2030024244D /* WLEntryDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E80C171BBBF2030024244D /* WLEntryDescriptor.m */; settings = {ASSET_TAGS = (); }; };
+		C5E80C1C1BBBF2030024244D /* WLEntryDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E80C171BBBF2030024244D /* WLEntryDescriptor.m */; settings = {ASSET_TAGS = (); }; };
+		C5E80C1D1BBBF2030024244D /* WLEntryDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E80C171BBBF2030024244D /* WLEntryDescriptor.m */; settings = {ASSET_TAGS = (); }; };
 		C5EE2CD81B5653A90016889E /* UIView+LayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */; };
 		C5EE2CDA1B5653A90016889E /* UIView+LayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */; };
 		C5EE2CE01B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
@@ -2343,6 +2349,8 @@
 		C5E6EADD1BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		C5E6EADE1BBADF5A007FFA66 /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
 		C5E6EADF1BBADF5A007FFA66 /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
+		C5E80C161BBBF2030024244D /* WLEntryDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryDescriptor.h; sourceTree = "<group>"; };
+		C5E80C171BBBF2030024244D /* WLEntryDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryDescriptor.m; sourceTree = "<group>"; };
 		C5EE2CD41B5653A90016889E /* UIView+LayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LayoutHelper.h"; sourceTree = "<group>"; };
 		C5EE2CD51B5653A90016889E /* UIView+LayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LayoutHelper.m"; sourceTree = "<group>"; };
 		C5EE2CDC1B5658F90016889E /* WLMessagesCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessagesCounter.h; sourceTree = "<group>"; };
@@ -4887,6 +4895,8 @@
 				C5E6E8951BBAC3EC007FFA66 /* WLEntry */,
 				C5E6E8C51BBAC3EC007FFA66 /* WLEntryManager.h */,
 				C5E6E8C61BBAC3EC007FFA66 /* WLEntryManager.m */,
+				C5E80C161BBBF2030024244D /* WLEntryDescriptor.h */,
+				C5E80C171BBBF2030024244D /* WLEntryDescriptor.m */,
 			);
 			path = WLEntryManager;
 			sourceTree = "<group>";
@@ -5804,6 +5814,7 @@
 				C5E6EA031BBAC3EC007FFA66 /* WLCandy+Extended.m in Sources */,
 				C5E6E9911BBAC3EC007FFA66 /* NSString+MD5.m in Sources */,
 				C5E6EA091BBAC3EC007FFA66 /* WLCandy.m in Sources */,
+				C5E80C1A1BBBF2030024244D /* WLEntryDescriptor.m in Sources */,
 				C5E6E9D91BBAC3EC007FFA66 /* WLAuthorization.m in Sources */,
 				C5E6EA991BBAC3EC007FFA66 /* WLBlockImageFetching.m in Sources */,
 				C5E6E9AF1BBAC3EC007FFA66 /* UIImage+Alpha.m in Sources */,
@@ -5894,6 +5905,7 @@
 				C5E6EA041BBAC3EC007FFA66 /* WLCandy+Extended.m in Sources */,
 				C5E6E9921BBAC3EC007FFA66 /* NSString+MD5.m in Sources */,
 				C5E6EA0A1BBAC3EC007FFA66 /* WLCandy.m in Sources */,
+				C5E80C1B1BBBF2030024244D /* WLEntryDescriptor.m in Sources */,
 				C5E6E9DA1BBAC3EC007FFA66 /* WLAuthorization.m in Sources */,
 				C5E6EA9A1BBAC3EC007FFA66 /* WLBlockImageFetching.m in Sources */,
 				C5E6E9B01BBAC3EC007FFA66 /* UIImage+Alpha.m in Sources */,
@@ -6026,6 +6038,7 @@
 				C5AB7D741B318FDD0077F9F1 /* WLWKParentApplicationContext.m in Sources */,
 				C5E6E91B1BBAC3EC007FFA66 /* lecore.m in Sources */,
 				C506466B1ABD815200CB4BE3 /* WLWKCommentRow.m in Sources */,
+				C5E80C1C1BBBF2030024244D /* WLEntryDescriptor.m in Sources */,
 				C5E6EA3B1BBAC3EC007FFA66 /* WLWrap.m in Sources */,
 				C5E6E9C31BBAC3EC007FFA66 /* UIImage+RoundedCorner.m in Sources */,
 				C5E6EA111BBAC3EC007FFA66 /* WLComment+Extended.m in Sources */,
@@ -6328,6 +6341,7 @@
 				C5E6EA431BBAC3EC007FFA66 /* WLDevice.m in Sources */,
 				C5E6EA9D1BBAC3EC007FFA66 /* WLImageFetcher.m in Sources */,
 				C5B0977C1BB14F040057D6BA /* PNGZIP.m in Sources */,
+				C5E80C181BBBF2030024244D /* WLEntryDescriptor.m in Sources */,
 				C5B097A21BB14F040057D6BA /* PNRemoveDeviceFromAPNSResponseParser.m in Sources */,
 				C5EE2CE81B567A970016889E /* WLRecentCandiesView.m in Sources */,
 				C5B097841BB14F040057D6BA /* PNLog.m in Sources */,
@@ -6689,6 +6703,7 @@
 				C5E6EA441BBAC3EC007FFA66 /* WLDevice.m in Sources */,
 				C5E6EA9E1BBAC3EC007FFA66 /* WLImageFetcher.m in Sources */,
 				C5B0977D1BB14F040057D6BA /* PNGZIP.m in Sources */,
+				C5E80C191BBBF2030024244D /* WLEntryDescriptor.m in Sources */,
 				C5B097A31BB14F040057D6BA /* PNRemoveDeviceFromAPNSResponseParser.m in Sources */,
 				C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C5B097851BB14F040057D6BA /* PNLog.m in Sources */,
@@ -6845,6 +6860,7 @@
 				C5E6E7FE1BBAC35E007FFA66 /* WKInterfaceController+SimplifiedTextInput.m in Sources */,
 				C5E6E91C1BBAC3EC007FFA66 /* lecore.m in Sources */,
 				C5E6E8061BBAC35E007FFA66 /* WLWKEntryRow.m in Sources */,
+				C5E80C1D1BBBF2030024244D /* WLEntryDescriptor.m in Sources */,
 				C5E6EA3C1BBAC3EC007FFA66 /* WLWrap.m in Sources */,
 				C5E6E9C41BBAC3EC007FFA66 /* UIImage+RoundedCorner.m in Sources */,
 				C5E6EA121BBAC3EC007FFA66 /* WLComment+Extended.m in Sources */,

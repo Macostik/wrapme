@@ -13,6 +13,7 @@
 @interface WLEntry : NSManagedObject
 
 @property (nonatomic, retain) NSString * identifier;
+@property (nonatomic, retain) NSString * uploadIdentifier;
 @property (nonatomic, retain) NSDate * updatedAt;
 @property (nonatomic, retain) WLPicture * picture;
 @property (nonatomic, retain) NSDate * createdAt;

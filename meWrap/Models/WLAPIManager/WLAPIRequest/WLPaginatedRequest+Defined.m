@@ -15,7 +15,7 @@
     return [[[self GET:@"wraps", nil] parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:scope forKey:@"scope"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        NSSet* wraps = [WLWrap API_entries:[response.data arrayForKey:@"wraps"]];
+        NSSet* wraps = [WLWrap API_entries:[WLWrap API_prefetchArray:[response.data arrayForKey:@"wraps"]]];
         for (WLWrap *wrap in wraps) {
             if (!wrap.isPublic) {
                 [[WLUser currentUser] addWraps:wraps];
@@ -32,7 +32,7 @@
 + (instancetype)messages:(WLWrap *)wrap {
     return [[[[self GET:@"wraps/%@/chats", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet* messages = [WLMessage API_entries:response.data[@"chats"] container:wrap];
+            NSSet* messages = [WLMessage API_entries:[WLMessage API_prefetchArray:response.data[@"chats"]] container:wrap];
             if (messages.nonempty) {
                 [wrap notifyOnUpdate];
             }
@@ -57,7 +57,7 @@
         [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet* candies = [WLCandy API_entries:response.data[WLCandiesKey] container:wrap];
+            NSSet* candies = [WLCandy API_entries:[WLCandy API_prefetchArray:response.data[WLCandiesKey]] container:wrap];
             [wrap addCandies:candies];
             success(candies);
         } else {
@@ -84,7 +84,7 @@
         }
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            success([wrap update:response.data[WLWrapKey]]);
+            success([wrap update:[WLWrap API_prefetchDictionary:response.data[WLWrapKey]]]);
         } else {
             success(nil);
         }

@@ -71,17 +71,17 @@ class StreamView: UIScrollView {
     
     var numberOfSections = 1
     
-    lazy var items: Set<StreamItem> = Set()
-    
     var reloadAfterUnlock = false
     
     var locks: Int = 0
     
     static var locks: Int = 0
     
-    weak var currentLayoutItem: StreamItem?
+    var currentLayoutItem: StreamItem?
     
-    weak var firstItem: StreamItem?
+    var rootItem: StreamItem?
+    
+    var latestVisibleItem: StreamItem?
     
     deinit {
         removeObserver(self, forKeyPath:"contentOffset")
@@ -118,15 +118,19 @@ class StreamView: UIScrollView {
     }
     
     func clear() {
-        firstItem = nil
-        currentLayoutItem = nil
-        for item in items {
-            if let view = item.view {
-                view.removeFromSuperview()
-                item.metrics?.enqueueView(view)
+        var item = rootItem
+        while item != nil {
+            if let _item = item {
+                if let view = _item.view {
+                    view.removeFromSuperview()
+                    _item.metrics?.enqueueView(view)
+                }
+                item = _item.next
             }
         }
-        items.removeAll(keepCapacity: false)
+        rootItem = nil
+        currentLayoutItem = nil
+        latestVisibleItem = nil
     }
     
     class func lock() {
@@ -179,7 +183,7 @@ class StreamView: UIScrollView {
             
             addItems(delegate, layout: layout);
             
-            if let item = firstItem {
+            if let item = rootItem {
                 layout.layoutItem(item)
             }
             
@@ -248,7 +252,7 @@ class StreamView: UIScrollView {
             }
         }
         
-        if items.count == 0 {
+        if rootItem == nil {
             if let placeholder = delegate.streamViewPlaceholderMetrics?(self) {
                 if horizontal {
                     placeholder.size = self.fittingContentWidth
@@ -270,10 +274,9 @@ class StreamView: UIScrollView {
                 currentItem.next = item
             }
             currentLayoutItem = item
-            items.insert(item)
             
-            if firstItem == nil {
-                firstItem = item
+            if rootItem == nil {
+                rootItem = item
             }
             return item
         }
@@ -285,27 +288,28 @@ class StreamView: UIScrollView {
     }
     
     func updateVisibility(withRect rect: CGRect) {
-        if let item = (firstItem != nil) ? firstItem : items.first {
-            recursivelyUpdateItemVisibility(item, rect: rect) { (item) -> StreamItem? in
-                if let previous = item.previous where !item.visible && previous.visible {
-                    return nil
+        if let startItem = (latestVisibleItem != nil) ? latestVisibleItem : rootItem {
+            
+            var iterateNext = true
+            var continueLoop = true
+            var _item: StreamItem? = startItem
+            while continueLoop {
+                if let item = _item {
+                    updateItemVisibility(item, rect: rect)
+                    _item = iterateNext ? item.next : item.previous
                 } else {
-                    return item.next
-                }
-            }
-            if let item = item.previous {
-                recursivelyUpdateItemVisibility(item, rect: rect) { (item) -> StreamItem? in
-                    if let next = item.next where !item.visible && next.visible {
-                        return nil
+                    if iterateNext {
+                        _item = startItem.previous
+                        iterateNext = false
                     } else {
-                        return item.previous
+                        continueLoop = false
                     }
                 }
             }
         }
     }
     
-    func recursivelyUpdateItemVisibility(item: StreamItem, rect: CGRect, next:((StreamItem) -> StreamItem?)) {
+    func updateItemVisibility(item: StreamItem, rect: CGRect) {
         let visible = CGRectIntersectsRect(item.frame, rect)
         if item.visible != visible {
             item.visible = visible
@@ -314,7 +318,7 @@ class StreamView: UIScrollView {
                     if let view = metrics.dequeueViewWithItem(item) {
                         insertSubview(view, atIndex: 0)
                     }
-                    firstItem = item
+                    latestVisibleItem = item
                 } else {
                     if let view = item.view {
                         metrics.enqueueView(view)
@@ -323,10 +327,6 @@ class StreamView: UIScrollView {
                     }
                 }
             }
-        }
-        
-        if let nextItem = next(item) {
-            recursivelyUpdateItemVisibility(nextItem, rect: rect, next: next)
         }
     }
     
@@ -351,9 +351,13 @@ class StreamView: UIScrollView {
     }
     
     func itemPassingTest(test: (StreamItem) -> Bool) -> StreamItem? {
-        for item in items {
-            if test(item) {
-                return item
+        var item = rootItem
+        while item != nil {
+            if let _item = item {
+                if test(_item) {
+                    return _item
+                }
+                item = _item.next
             }
         }
         return nil
@@ -361,9 +365,13 @@ class StreamView: UIScrollView {
     
     func itemsPassingTest(test: (StreamItem) -> Bool) -> Set<StreamItem> {
         var _items: Set<StreamItem> = Set()
-        for item in items {
-            if test(item) {
-                _items.insert(item)
+        var item = rootItem
+        while item != nil {
+            if let _item = item {
+                if test(_item) {
+                    _items.insert(_item)
+                }
+                item = _item.next
             }
         }
         return _items

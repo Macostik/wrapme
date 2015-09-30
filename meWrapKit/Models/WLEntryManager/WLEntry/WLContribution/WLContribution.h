@@ -19,8 +19,6 @@
 
 @property (nonatomic, retain) WLUploading *uploading;
 
-@property (nonatomic, retain) NSString * uploadIdentifier;
-
 @property (nonatomic, retain) WLUser *editor;
 
 @property (nonatomic, retain) NSDate *editedAt;

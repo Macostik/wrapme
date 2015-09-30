@@ -513,8 +513,8 @@ CGFloat WLMinTextViewWidth;
         } else {
             [streamView setMaximumContentOffsetAnimated:NO];
         }
-        [self appendItemsIfNeededWithTargetContentOffset:streamView.contentOffset];
     }
+    [self appendItemsIfNeededWithTargetContentOffset:streamView.contentOffset];
 }
 
 - (StreamMetrics *)streamViewPlaceholderMetrics:(StreamView *)streamView {

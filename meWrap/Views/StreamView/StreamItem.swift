@@ -18,9 +18,9 @@ class StreamItem: NSObject {
     
     var position: StreamPosition?
     
-    var entry: AnyObject?
+    var column: Int = 0
     
-    var layoutInfo: Dictionary<String,AnyObject>?
+    var entry: AnyObject?
     
     weak var metrics: StreamMetrics?
     
@@ -42,7 +42,7 @@ class StreamItem: NSObject {
     
     weak var previous: StreamItem?
     
-    weak var next: StreamItem?
+    var next: StreamItem?
 }
 
 class StreamPosition: NSObject {

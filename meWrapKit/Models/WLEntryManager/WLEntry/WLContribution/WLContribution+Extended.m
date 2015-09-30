@@ -96,6 +96,18 @@
     return self.contributedByCurrentUser;
 }
 
++ (void)API_prefetchDescriptors:(NSMutableArray *)descriptors inDictionary:(NSDictionary *)dictionary {
+    [super API_prefetchDescriptors:descriptors inDictionary:dictionary];
+    
+    if (dictionary[WLContributorKey]) {
+        [WLUser API_prefetchDescriptors:descriptors inDictionary:dictionary[WLContributorKey]];
+    }
+    
+    if (dictionary[WLEditorKey]) {
+        [WLUser API_prefetchDescriptors:descriptors inDictionary:dictionary[WLEditorKey]];
+    }
+}
+
 - (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
     
     if (dictionary[WLUploadUIDKey]) {

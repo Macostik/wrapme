@@ -28,7 +28,7 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-    self.dataSource.streamView.layout = [[SquareGridLayout alloc] initWithHorizontal:YES];
+    self.dataSource.streamView.layout = [[SquareLayout alloc] initWithHorizontal:YES];
     self.candyMetrics = [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLCandyCell"]];
     self.dataSource.layoutSpacing = WLConstants.pixelSize;
 }

@@ -39,13 +39,15 @@ class SquareGridLayout: StreamLayout {
     }
     
     override func horizontalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        var y = spacing
         var x = spacing
+        var y = spacing
+        var column: Int = 0
         if let previous = item.previous {
-            let dy = CGRectGetMaxY(previous.frame)
-            if dy + 2*spacing + size <= streamView.frame.size.height {
-                y += dy
+            if previous.column < numberOfColumns - 1 {
+                column = previous.column + 1
                 x = previous.frame.origin.x
+                y = size * CGFloat(column) + spacing * (CGFloat(column) + 1)
+                item.column = column
             } else {
                 x = CGRectGetMaxX(previous.frame) + spacing
             }
@@ -54,13 +56,15 @@ class SquareGridLayout: StreamLayout {
     }
     
     override func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        var y = spacing
         var x = spacing
+        var y = spacing
+        var column: Int = 0
         if let previous = item.previous {
-            let dx = CGRectGetMaxX(previous.frame)
-            if dx + 2*spacing + size <= streamView.frame.size.width {
-                x += dx
+            if previous.column < numberOfColumns - 1 {
+                column = previous.column + 1
                 y = previous.frame.origin.y
+                x = size * CGFloat(column) + spacing * (CGFloat(column) + 1)
+                item.column = column
             } else {
                 y = CGRectGetMaxY(previous.frame) + spacing
             }

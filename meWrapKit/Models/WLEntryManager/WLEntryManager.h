@@ -16,6 +16,7 @@
 #import "WLContribution+Extended.h"
 #import "WLMessage+Extended.h"
 #import "WLCollections.h"
+#import "WLEntryDescriptor.h"
 
 typedef void (^WLEntryManagerBackgroundContextBlock) (id *result, NSError **error, NSManagedObjectContext *backgroundContext);
 
@@ -45,6 +46,8 @@ typedef void (^WLEntryManagerMainContextFailureBlock) (NSError *error, NSManaged
 - (NSMutableOrderedSet*)entriesOfClass:(Class)entryClass;
 
 - (NSMutableOrderedSet*)entriesOfClass:(Class)entryClass configure:(void (^)(NSFetchRequest* request))configure;
+
+- (void)fetchEntries:(NSArray *)descriptors;
 
 - (void)deleteEntry:(WLEntry*)entry;
 

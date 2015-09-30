@@ -12,6 +12,7 @@
 @implementation WLEntry
 
 @dynamic identifier;
+@dynamic uploadIdentifier;
 @dynamic updatedAt;
 @dynamic picture;
 @dynamic createdAt;

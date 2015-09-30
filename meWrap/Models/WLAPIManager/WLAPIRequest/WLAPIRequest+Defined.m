@@ -181,7 +181,7 @@
 
 + (instancetype)contributors:(WLWrap*)wrap {
     return [[[self GET:@"wraps/%@/contributors", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        NSSet *contributors = [WLUser API_entries:[response.data arrayForKey:WLContributorsKey]];
+        NSSet *contributors = [WLUser API_entries:[WLUser API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]];
         if (wrap.valid && ![wrap.contributors isEqualToSet:contributors]) {
             wrap.contributors = contributors;
         }
@@ -247,7 +247,7 @@
         }] forKey:@"invitees"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet *contributors = [WLUser API_entries:[response.data arrayForKey:WLContributorsKey]];
+            NSSet *contributors = [WLUser API_entries:[WLUser API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]];
             if (![wrap.contributors isEqualToSet:contributors]) {
                 wrap.contributors = contributors;
                 [wrap notifyOnUpdate];
@@ -268,7 +268,7 @@
         [parameters trySetObject:[[contributors where:@"user != nil"] valueForKeyPath:@"user.identifier"] forKey:@"user_uids"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet *contributors = [WLUser API_entries:[response.data arrayForKey:WLContributorsKey]];
+            NSSet *contributors = [WLUser API_entries:[WLUser API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]];
             if (![wrap.contributors isEqualToSet:contributors]) {
                 wrap.contributors = contributors;
                 [wrap notifyOnUpdate];

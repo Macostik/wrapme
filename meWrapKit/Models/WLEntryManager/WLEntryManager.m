@@ -157,6 +157,53 @@
     [self.cachedEntries removeObjectForKey:entry.identifier];
 }
 
+- (void)fetchEntries:(NSArray *)descriptors {
+    if (descriptors.count == 0) {
+        return;
+    }
+    
+    NSMutableArray *_descriptors = [descriptors mutableCopy];
+    
+    for (WLEntryDescriptor *descriptor in descriptors) {
+        if ([self cachedEntry:descriptor.identifier]) {
+            [_descriptors removeObject:descriptor];
+        }
+    }
+    
+    if (_descriptors.nonempty) {
+        
+        NSMutableArray *uids = [NSMutableArray arrayWithCapacity:_descriptors.count];
+        NSMutableArray *locuids = [NSMutableArray arrayWithCapacity:_descriptors.count];
+        NSMutableDictionary *keyedDescriptors = [NSMutableDictionary dictionaryWithCapacity:_descriptors.count];
+        
+        for (WLEntryDescriptor *descriptor in _descriptors) {
+            if (descriptor.identifier) {
+                [uids addObject:descriptor.identifier];
+                keyedDescriptors[descriptor.identifier] = descriptor;
+            }
+            if (descriptor.uploadIdentifier) {
+                [locuids addObject:descriptor.uploadIdentifier];
+            }
+        }
+        
+        NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:@"WLEntry"];
+        request.predicate = [NSPredicate predicateWithFormat:@"identifier IN %@ OR uploadIdentifier IN %@", uids, locuids];
+        NSArray *array = [request execute];
+        for (WLEntry *entry in array) {
+            WLEntryDescriptor *descriptor = keyedDescriptors[entry.identifier];
+            [self cacheEntry:entry];
+            [_descriptors removeObject:descriptor];
+        }
+        
+        for (WLEntryDescriptor *descriptor in _descriptors) {
+            WLEntry *entry = [[descriptor.entryClass alloc] initWithEntity:[descriptor.entryClass entity] insertIntoManagedObjectContext:self.context];
+            entry.identifier = descriptor.identifier;
+            entry.uploadIdentifier = descriptor.uploadIdentifier;
+            [self cacheEntry:entry];
+        }
+    }
+}
+
 - (NSFetchRequest*)fetchRequestForClass:(Class)entryClass {
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     [request setFetchLimit:1];

@@ -36,6 +36,13 @@
 	return [dictionary stringForKey:WLCandyUIDKey];
 }
 
++ (void)API_prefetchDescriptors:(NSMutableArray *)descriptors inDictionary:(NSDictionary *)dictionary {
+    [super API_prefetchDescriptors:descriptors inDictionary:dictionary];
+    if (dictionary[WLCommentsKey]) {
+        [WLComment API_prefetchDescriptors:descriptors inArray:dictionary[WLCommentsKey]];
+    }
+}
+
 - (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
     [super API_setup:dictionary container:container];
     NSInteger type = [dictionary integerForKey:WLCandyTypeKey];

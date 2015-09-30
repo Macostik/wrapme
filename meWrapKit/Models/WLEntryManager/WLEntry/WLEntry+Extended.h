@@ -29,9 +29,19 @@
 
 + (NSString*)API_identifier:(NSDictionary*)dictionary;
 
++ (NSString *)API_uploadIdentifier:(NSDictionary *)dictionary;
+
 - (instancetype)API_setup:(NSDictionary*)dictionary;
 
 - (instancetype)API_setup:(NSDictionary*)dictionary container:(id)container;
+
++ (NSArray*)API_prefetchArray:(NSArray*)array;
+
++ (NSDictionary*)API_prefetchDictionary:(NSDictionary*)dictionary;
+
++ (void)API_prefetchDescriptors:(NSMutableArray*)descriptors inArray:(NSArray*)array;
+
++ (void)API_prefetchDescriptors:(NSMutableArray*)descriptors inDictionary:(NSDictionary*)dictionary;
 
 - (BOOL)isEqualToEntry:(WLEntry*)entry;
 

@@ -82,8 +82,8 @@
                 weakSelf.request.type = type;
                 [weakSelf configureRequest:request];
                 [request send:^(NSSet *set) {
-                    [weakSelf removeLoadingType:type];
                     [weakSelf handleResponse:set];
+                    [weakSelf removeLoadingType:type];
                     [operation finish];
                     if (success) success(set);
                 } failure:^(NSError *error) {

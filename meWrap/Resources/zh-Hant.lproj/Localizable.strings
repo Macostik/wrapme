@@ -207,3 +207,18 @@
 "no_messages_today" = "今天未有更新";
 "is_it_correct" = "正確嗎？";
 "confirm_your_details" = "確認個人資料";
+"report_content" = "Report Content";
+"why_reporting_contnet" = "Why are you reporting this content?";
+"content_is_spam_or_scam" = "The content is spam or a scam";
+"content_people_risk" = "The content puts people at risk";
+"self_harm" = "Self-harm";
+"harassment_or_bullying" = "Harassment or bullying";
+"drug_use" = "Drug use";
+"content_shouldn't_mewrap" = "The content shouldn't be on meWrap";
+"nudity_or_pornography" = "Nudity or pornography";
+"graphic_violence" = "Graphic violence";
+"hate_speech_or_symbol" = "Hate speech or symbol";
+"intellectual_property_violation" = "Intellectual property violation";
+"thank_you" = "Thank you";
+"thank_you_for_report" = "Thank you for you report. We will remove this content if it violates our community guidelines.";
+

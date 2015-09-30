@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>title</key>
-		<string>Report Content</string>
+		<string>report_content</string>
 		<key>fontSize</key>
 		<integer>17</integer>
 		<key>fontColor</key>
@@ -19,7 +19,7 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>Why are you reporting this content?</string>
+		<string>why_reporting_contnet</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>fontColor</key>
@@ -34,7 +34,7 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>The content is spam or a scam</string>
+		<string>content_is_spam_or_scam</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>fontColor</key>
@@ -51,7 +51,7 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>The content puts people at risk</string>
+		<string>content_people_risk</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>fontColor</key>
@@ -66,7 +66,7 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>Self-harm</string>
+		<string>self_harm</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>fontColor</key>
@@ -83,7 +83,7 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>Harassment or bullying</string>
+		<string>harassment_or_bullying</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>fontColor</key>
@@ -100,7 +100,7 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>Drug use</string>
+		<string>drug_use</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>fontColor</key>
@@ -117,7 +117,7 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>The content shouldn&apos;t be on meWrap</string>
+		<string>content_shouldn&apos;t_mewrap</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>fontColor</key>
@@ -132,7 +132,7 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>Nudity or pornography</string>
+		<string>nudity_or_pornography</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>fontColor</key>
@@ -149,7 +149,7 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>Graphic violence</string>
+		<string>graphic_violence</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>fontColor</key>
@@ -166,7 +166,7 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>Hate speech or symbol</string>
+		<string>hate_speech_or_symbol</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>fontColor</key>
@@ -183,7 +183,7 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>Intellectual property violation</string>
+		<string>intellectual_property_violation</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>fontColor</key>

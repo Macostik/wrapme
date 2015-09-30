@@ -9,6 +9,9 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </mutableArray>
         <mutableArray key="icons.ttf">
             <string>icons</string>
             <string>icons</string>

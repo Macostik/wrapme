@@ -207,3 +207,17 @@
 "no_messages_today" = "Сегодня уведомлений нет";
 "is_it_correct" = "Данные правильные?";
 "confirm_your_details" = "Подтверждение Ваших данных";
+"report_content" = "Cодержимоe отчета";
+"why_reporting_contnet" = "Почему Вы хотите отправить отчет?";
+"content_is_spam_or_scam" = "Содержимое являеться спамом или надувательством";
+"content_people_risk" = "Содержимое являеться опастным для человека";
+"self_harm" = "Пирносит ущерб";
+"harassment_or_bullying" = "Беспокойство и запугивание";
+"drug_use" = "Употребление наркотичестких веществ";
+"content_shouldn't_mewrap" = "Содержимое не должно быть в meWrap";
+"nudity_or_pornography" = "Извращение или порнография";
+"graphic_violence" = "Графическое насилие";
+"hate_speech_or_symbol" = "Ненависное произношение или обложка";
+"intellectual_property_violation" = "Интелектуальное нарушение прав";
+"thank_you" = "Спасибо";
+"thank_you_for_report" = "Спасибо за Ваш Отчет. Мы удалим содержимое, если оно противоречит общественным правилам.";

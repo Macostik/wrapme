@@ -14,11 +14,11 @@
 
 @interface WLPaginatedSet ()
 
-@property (nonatomic) NSMutableIndexSet *loadingTypes;
-
 @end
 
 @implementation WLPaginatedSet
+
+@dynamic delegate;
 
 + (instancetype)setWithEntries:(NSSet *)entries request:(WLPaginatedRequest *)request {
     WLPaginatedSet* set = [[WLPaginatedSet alloc] init];
@@ -36,6 +36,24 @@
         _loadingTypes = [NSMutableIndexSet indexSet];
     }
     return _loadingTypes;
+}
+
+- (void)addLoadingType:(NSUInteger)type {
+    [self.loadingTypes addIndex:type];
+    if (self.loadingTypes.count == 1) {
+        if ([self.delegate respondsToSelector:@selector(paginatedSetDidStartLoading:)]) {
+            [self.delegate paginatedSetDidStartLoading:self];
+        }
+    }
+}
+
+- (void)removeLoadingType:(NSUInteger)type {
+    [self.loadingTypes removeIndex:type];
+    if (self.loadingTypes.count == 0) {
+        if ([self.delegate respondsToSelector:@selector(paginatedSetDidFinishLoading:)]) {
+            [self.delegate paginatedSetDidFinishLoading:self];
+        }
+    }
 }
 
 - (void)fresh:(WLSetBlock)success failure:(WLFailureBlock)failure {
@@ -57,24 +75,24 @@
             if (failure) failure(nil);
             return nil;
         }
-        [self.loadingTypes addIndex:type];
+        [self addLoadingType:type];
         __weak typeof(self)weakSelf = self;
         runUnaryQueuedOperation(WLOperationFetchingDataQueue,^(WLOperation *operation) {
             if (weakSelf && request) {
                 weakSelf.request.type = type;
                 [weakSelf configureRequest:request];
                 [request send:^(NSSet *set) {
-                    [weakSelf.loadingTypes removeIndex:type];
+                    [weakSelf removeLoadingType:type];
                     [weakSelf handleResponse:set];
                     [operation finish];
                     if (success) success(set);
                 } failure:^(NSError *error) {
-                    [weakSelf.loadingTypes removeIndex:type];
+                    [weakSelf removeLoadingType:type];
                     [operation finish];
                     if (failure) failure(error);
                 }];
             } else {
-                [weakSelf.loadingTypes removeIndex:type];
+                [weakSelf removeLoadingType:type];
                 [operation finish];
                 if (success) success(nil);
             }

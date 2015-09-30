@@ -17,11 +17,24 @@
 
 @end
 
+@protocol WLPaginatedSetDelegate <WLSetDelegate>
+
+@optional
+- (void)paginatedSetDidStartLoading:(WLPaginatedSet*)set;
+
+- (void)paginatedSetDidFinishLoading:(WLPaginatedSet*)set;
+
+@end
+
 @interface WLPaginatedSet : WLSet
 
 @property (nonatomic) BOOL completed;
 
 @property (strong, nonatomic) WLPaginatedRequest* request;
+
+@property (nonatomic) NSMutableIndexSet *loadingTypes;
+
+@property (nonatomic, weak) id <WLPaginatedSetDelegate> delegate;
 
 + (instancetype)setWithEntries:(NSSet*)entries request:(WLPaginatedRequest*)request;
 

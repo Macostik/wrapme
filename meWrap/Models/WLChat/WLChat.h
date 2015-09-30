@@ -10,7 +10,7 @@
 
 @class WLChat;
 
-@protocol WLChatDelegate <WLSetDelegate>
+@protocol WLChatDelegate <WLPaginatedSetDelegate>
 
 @optional
 - (void)chat:(WLChat*)chat didBeginTyping:(WLUser *)user;

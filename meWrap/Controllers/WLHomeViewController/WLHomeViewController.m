@@ -88,7 +88,12 @@
     
     CGFloat hottestWrapsHeaderSize = 88;
     
-    [publicDataSource addHeaderMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLHottestWrapHeader" size:hottestWrapsHeaderSize]];
+    [publicDataSource addHeaderMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLHottestWrapHeader" initializer:^(StreamMetrics *metrics) {
+        metrics.size = hottestWrapsHeaderSize;
+        [metrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
+            return publicDataSource.items.count == 0;
+        }];
+    }]];
     
     [[homeDataSource.metrics lastObject] change:^(StreamMetrics *metrics) {
         [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
@@ -126,10 +131,6 @@
         metrics.selection = ^(StreamItem *item, id entry) {
             [WLChronologicalEntryPresenter presentEntry:entry animated:NO];
         };
-    }];
-    
-    [publicDataSource.loadingMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
-        return streamView.fittingContentHeight - hottestWrapsHeaderSize;
     }];
     
     [self.dataSource setRefreshable];

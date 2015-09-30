@@ -44,6 +44,7 @@ static BOOL authorized = NO;
         if (deviceToken) {
             [parameters trySetObject:[PNData HEXFromDevicePushToken:deviceToken] forKey:@"device_token"];
         }
+        parameters[@"os"] = @"ios";
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         success(authorization);
     }];
@@ -135,6 +136,7 @@ static BOOL authorized = NO;
             NSLog(@"PUBNUB - apns_device_token_string: %@", [PNData HEXFromDevicePushToken:deviceToken]);
             [parameters trySetObject:[PNData HEXFromDevicePushToken:deviceToken] forKey:@"device_token"];
         }
+        parameters[@"os"] = @"ios";
     }];
 }
 

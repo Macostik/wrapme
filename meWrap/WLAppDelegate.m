@@ -253,37 +253,6 @@
     }
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    UIApplicationState state = [UIApplication sharedApplication].applicationState;
-    if (state == UIApplicationStateActive) {
-        return;
-    }
-    BOOL presentable = state == UIApplicationStateInactive;
-    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
-        if (presentable) {
-            NSDictionary *entry = [notification.entry dictionaryRepresentation];
-            if (entry) {
-                [self presentNotification:@{@"type":@(notification.type),@"entry":entry}];
-            }
-        }
-        completionHandler(UIBackgroundFetchResultNewData);
-    } failure:^(NSError *error) {
-        completionHandler(UIBackgroundFetchResultFailed);
-    }];
-}
-
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
-    [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
-        NSDictionary *entry = [notification.entry dictionaryRepresentation];
-        if (entry) {
-            [self presentNotification:@{@"type":@(notification.type),@"entry":entry}];
-        }
-        completionHandler(UIBackgroundFetchResultNewData);
-    } failure:^(NSError *error) {
-        completionHandler(UIBackgroundFetchResultFailed);
-    }];
-}
-
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     [self presentNotification:notification.userInfo];
 }

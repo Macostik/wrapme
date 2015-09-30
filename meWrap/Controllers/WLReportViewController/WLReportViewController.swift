@@ -11,16 +11,39 @@
 import Foundation
 import UIKit
 
+enum InformationError: ErrorType {
+    case MissingError(String)
+    case InvalidError(String)
+}
+
 struct Entry {
     let title: String
     let fontSize: CGFloat
     let fontColor: UIColor
     let v_code: String
     let indent: CGFloat
-    init(title:String, fontSize:CGFloat, fontColor:UIColor, v_code:String, indent:CGFloat) {
+    init?(attribute:Dictionary<String, AnyObject>) throws {
+        
+        guard let title = attribute["title"] as? String else { throw InformationError.MissingError("Incorrect title") }
+        guard let fontSize = attribute["fontSize"] as? CGFloat else { throw InformationError.MissingError("Incorrect fontSize") }
+        guard let fontColorList = attribute["fontColor"] else { throw InformationError.MissingError("Incorrect color")  }
+        
+        guard   let red  = (fontColorList[0] as? NSNumber),
+                let green = (fontColorList[1] as? NSNumber),
+                let blue = (fontColorList[2] as? NSNumber),
+                let alpha = (fontColorList[3]as? NSNumber) else { throw InformationError.InvalidError("Invalid color value") }
+        
+        let fontColor = UIColor(red: CGFloat (red)/255,
+                                green: CGFloat(green)/255,
+                                blue: CGFloat (blue)/255,
+                                alpha: CGFloat(alpha))
+        
+        let v_code = (attribute["v_code"] as? String) ?? ""
+        guard let indent = attribute["indent"] as? CGFloat else { throw InformationError.MissingError("Incorrect indent") }
+        
         self.title = title
         self.fontSize = fontSize
-        self.fontColor = fontColor
+        self.fontColor  = fontColor
         self.v_code = v_code
         self.indent = indent
     }
@@ -37,20 +60,17 @@ struct ReportDataModel {
             guard !content.isEmpty else  {
                 return []
             }
-            for (_, dict)in content.enumerate() {
-                let title : String = dict["title"] as! String
-                let fontSize : CGFloat = dict["fontSize"] as! CGFloat
-                let fontColorList = dict["fontColor"] as! [Int]
-                let red = CGFloat(fontColorList[0])/255
-                let green = CGFloat(fontColorList[1])/255
-                let blue = CGFloat (fontColorList[2])/255
-                let alpha = CGFloat (fontColorList[3])
-                let fontColor = UIColor(red: red, green: green, blue: blue, alpha: alpha)
-                let v_code : String = dict["v_code"] as? String ?? ""
-                let indent : CGFloat = dict["indent"] as! CGFloat
-                
-                let entry = Entry(title: title, fontSize: fontSize, fontColor: fontColor, v_code: v_code, indent: indent)
-                container.append(entry)
+            for dict in content {
+                do {
+                    let entry = try Entry(attribute: dict as! Dictionary<String, AnyObject>)
+                    container.append(entry!)
+                } catch InformationError.MissingError(let description) {
+                    print("\(description)")
+                } catch InformationError.InvalidError(let description) {
+                    print("\(description)")
+                } catch {
+                    print("Initialization is wrong")
+                }
             }
         }
         

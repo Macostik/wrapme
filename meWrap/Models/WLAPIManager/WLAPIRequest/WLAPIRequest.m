@@ -292,6 +292,7 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
             NSDate* serverTime = [formatter dateFromString:dateStr];
             if (serverTime) {
                 [NSDate trackServerTime:serverTime];
+                previousDateStr = dateStr;
             }
         }
     }

@@ -279,17 +279,20 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
 
 - (void)trackServerTime:(NSHTTPURLResponse*)response {
     NSDictionary* headers = [response allHeaderFields];
-    NSString* serverTimeString = [headers objectForKey:@"Date"];
-    if (serverTimeString) {
-        static NSDateFormatter *formatter = nil;
-        if (!formatter) {
-            formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"];
-            [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
-        }
-        NSDate* serverTime = [formatter dateFromString:serverTimeString];
-        if (serverTime) {
-            [NSDate trackServerTime:serverTime];
+    NSString* dateStr = [headers objectForKey:@"Date"];
+    if (dateStr) {
+        static NSString *previousDateStr = nil;
+        if (previousDateStr == nil || ![previousDateStr isEqualToString:dateStr]) {
+            static NSDateFormatter *formatter = nil;
+            if (!formatter) {
+                formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"];
+                [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+            }
+            NSDate* serverTime = [formatter dateFromString:dateStr];
+            if (serverTime) {
+                [NSDate trackServerTime:serverTime];
+            }
         }
     }
 }

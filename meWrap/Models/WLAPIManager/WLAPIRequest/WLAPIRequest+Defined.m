@@ -21,7 +21,7 @@
         request = [self GET:@"entities/%@", candy.identifier];
     }
     return [[request parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        success(candy.valid ? [candy update:[response.data dictionaryForKey:WLCandyKey]] : nil);
+        success(candy.valid ? [candy update:[WLCandy API_prefetchDictionary:response.data[WLCandyKey]]] : nil);
     }] beforeFailure:^(NSError *error) {
         if (candy.uploaded && error.isContentUnavaliable) {
             [candy remove];

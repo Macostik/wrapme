@@ -647,7 +647,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="py0-IZ-HZq" customClass="WLLabel">
-                                        <rect key="frame" x="13" y="244" width="45" height="32"/>
+                                        <rect key="frame" x="15" y="244" width="45" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="45" id="P0T-wm-xfQ"/>
                                             <constraint firstAttribute="height" constant="32" id="iYy-Gn-QLS"/>
@@ -658,8 +658,19 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sending_sms_message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3io-Yh-1tp" customClass="WLLabel">
+                                        <rect key="frame" x="91" y="288" width="139" height="16"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="555-555-5555" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Sj-7d-nda" customClass="WLTextField">
-                                        <rect key="frame" x="58" y="244" width="201" height="32"/>
+                                        <rect key="frame" x="60" y="244" width="201" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="201" id="5UB-07-1v5"/>
                                             <constraint firstAttribute="height" constant="32" id="Uak-28-wfM"/>
@@ -673,18 +684,8 @@
                                             <action selector="phoneChanged:" destination="Jh0-1l-1TK" eventType="editingChanged" id="VVX-oK-BaH"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sending_sms_message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="jGq-WB-mde" customClass="WLLabel">
-                                        <rect key="frame" x="89" y="288" width="139" height="16"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" white="0.15099999310000001" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="smaller"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tHE-KW-9HQ" customClass="WLButton">
-                                        <rect key="frame" x="36" y="211" width="246" height="33"/>
+                                        <rect key="frame" x="37" y="211" width="246" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="246" id="nLq-gT-wkj"/>
                                         </constraints>
@@ -708,22 +709,21 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="jGq-WB-mde" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5uM-C1-HJg" secondAttribute="leading" constant="12" id="1HK-a0-z0S"/>
                                     <constraint firstAttribute="centerY" secondItem="b75-OF-Awx" secondAttribute="top" constant="32" id="1aW-XX-GNc"/>
-                                    <constraint firstAttribute="centerX" secondItem="jGq-WB-mde" secondAttribute="centerX" constant="1.5" id="2GX-pc-W7X"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="b75-OF-Awx" secondAttribute="trailing" constant="12" id="3ZG-sE-nun"/>
                                     <constraint firstItem="2Sj-7d-nda" firstAttribute="leading" secondItem="py0-IZ-HZq" secondAttribute="trailing" id="930-bx-MC1"/>
-                                    <constraint firstItem="jGq-WB-mde" firstAttribute="centerX" secondItem="tHE-KW-9HQ" secondAttribute="centerX" id="CQD-wX-Xgh"/>
+                                    <constraint firstItem="3io-Yh-1tp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5uM-C1-HJg" secondAttribute="leading" constant="12" id="94p-y3-vXT"/>
                                     <constraint firstItem="py0-IZ-HZq" firstAttribute="centerY" secondItem="2Sj-7d-nda" secondAttribute="centerY" id="CVT-3u-tl6"/>
                                     <constraint firstItem="tHE-KW-9HQ" firstAttribute="top" secondItem="b75-OF-Awx" secondAttribute="bottom" constant="12" id="Flu-50-7Id"/>
                                     <constraint firstItem="b75-OF-Awx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5uM-C1-HJg" secondAttribute="leading" constant="12" id="HOO-dM-vnc"/>
+                                    <constraint firstItem="tHE-KW-9HQ" firstAttribute="centerX" secondItem="OR7-m6-E1h" secondAttribute="centerX" id="I5D-Qw-vvr"/>
                                     <constraint firstItem="b75-OF-Awx" firstAttribute="top" secondItem="OR7-m6-E1h" secondAttribute="bottom" constant="12" id="IHu-Go-Akn"/>
-                                    <constraint firstItem="jGq-WB-mde" firstAttribute="top" secondItem="2Sj-7d-nda" secondAttribute="bottom" constant="12" id="J8d-6o-EPc"/>
+                                    <constraint firstItem="2Sj-7d-nda" firstAttribute="bottom" secondItem="3io-Yh-1tp" secondAttribute="top" constant="-12" id="JcH-0V-srz"/>
                                     <constraint firstItem="tHE-KW-9HQ" firstAttribute="centerX" secondItem="2Sj-7d-nda" secondAttribute="centerX" id="Mwm-aT-qPg"/>
                                     <constraint firstAttribute="centerX" secondItem="b75-OF-Awx" secondAttribute="centerX" id="apO-rY-9bD"/>
                                     <constraint firstAttribute="centerX" secondItem="OR7-m6-E1h" secondAttribute="centerX" id="d0i-IS-TMe"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jGq-WB-mde" secondAttribute="trailing" constant="12" id="pTI-Mw-Wpx"/>
                                     <constraint firstItem="2Sj-7d-nda" firstAttribute="top" secondItem="tHE-KW-9HQ" secondAttribute="bottom" id="qQk-9d-JBZ"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3io-Yh-1tp" secondAttribute="trailing" constant="12" id="waE-jh-uUj"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -733,6 +733,7 @@
                             <constraint firstItem="sze-nv-qGE" firstAttribute="centerY" secondItem="mzE-aK-5Kc" secondAttribute="bottom" constant="22" id="DFG-6b-8i1"/>
                             <constraint firstItem="K1q-bO-uyh" firstAttribute="top" secondItem="5uM-C1-HJg" secondAttribute="bottom" id="HC7-UN-Ry3"/>
                             <constraint firstAttribute="trailing" secondItem="5uM-C1-HJg" secondAttribute="trailing" id="QzL-Gl-jeB"/>
+                            <constraint firstItem="3io-Yh-1tp" firstAttribute="centerX" secondItem="yNh-OR-83F" secondAttribute="centerX" id="VWG-aU-Yqi"/>
                             <constraint firstItem="5uM-C1-HJg" firstAttribute="top" secondItem="mzE-aK-5Kc" secondAttribute="bottom" constant="44" id="X8h-yj-8U8"/>
                             <constraint firstItem="5uM-C1-HJg" firstAttribute="leading" secondItem="yNh-OR-83F" secondAttribute="leading" id="YJp-8w-xuI"/>
                         </constraints>

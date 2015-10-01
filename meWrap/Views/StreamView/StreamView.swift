@@ -119,14 +119,12 @@ class StreamView: UIScrollView {
     
     func clear() {
         var item = rootItem
-        while item != nil {
-            if let _item = item {
-                if let view = _item.view {
-                    view.removeFromSuperview()
-                    _item.metrics?.enqueueView(view)
-                }
-                item = _item.next
+        while let next = item {
+            if let view = next.view {
+                view.removeFromSuperview()
+                next.metrics?.enqueueView(view)
             }
+            item = next.next
         }
         rootItem = nil
         currentLayoutItem = nil
@@ -288,23 +286,18 @@ class StreamView: UIScrollView {
     }
     
     func updateVisibility(withRect rect: CGRect) {
-        if let startItem = (latestVisibleItem != nil) ? latestVisibleItem : rootItem {
+        if let startItem = latestVisibleItem ?? rootItem {
             
-            var iterateNext = true
-            var continueLoop = true
-            var _item: StreamItem? = startItem
-            while continueLoop {
-                if let item = _item {
-                    updateItemVisibility(item, rect: rect)
-                    _item = iterateNext ? item.next : item.previous
-                } else {
-                    if iterateNext {
-                        _item = startItem.previous
-                        iterateNext = false
-                    } else {
-                        continueLoop = false
-                    }
-                }
+            var item: StreamItem? = startItem
+            while let next = item {
+                updateItemVisibility(next, rect: rect)
+                item = next.next
+            }
+            
+            item = startItem.previous
+            while let previous = item {
+                updateItemVisibility(previous, rect: rect)
+                item = previous.previous
             }
         }
     }
@@ -352,37 +345,31 @@ class StreamView: UIScrollView {
     
     func itemPassingTest(test: (StreamItem) -> Bool) -> StreamItem? {
         var item = rootItem
-        while item != nil {
-            if let _item = item {
-                if test(_item) {
-                    return _item
-                }
-                item = _item.next
+        while let next = item {
+            if test(next) {
+                return next
             }
+            item = next.next
         }
         return nil
     }
     
     func itemsPassingTest(test: (StreamItem) -> Bool) -> Set<StreamItem> {
-        var _items: Set<StreamItem> = Set()
+        var items: Set<StreamItem> = Set()
         var item = rootItem
-        while item != nil {
-            if let _item = item {
-                if test(_item) {
-                    _items.insert(_item)
-                }
-                item = _item.next
+        while let next = item {
+            if test(next) {
+                items.insert(next)
             }
+            item = next.next
         }
-        return _items
+        return items
     }
     
     func scrollToItem(item: StreamItem?, animated: Bool)  {
-        let minOffset = minimumContentOffset
-        let maxOffset = maximumContentOffset
-        
         if let _item = item {
-            
+            let minOffset = minimumContentOffset
+            let maxOffset = maximumContentOffset
             if horizontal {
                 let offset = _item.frame.origin.x - self.fittingContentWidth / 2 + _item.frame.size.width / 2
                 if offset < minOffset.x {

@@ -54,33 +54,25 @@ class StreamLayout: NSObject {
     }
     
     func layoutItemHorizontally(item: StreamItem, streamView: StreamView) {
-        var next: StreamItem? = item
-        while next != nil {
-            if let item = next {
-                item.frame = horizontalFrameForItem(item, streamView: streamView)
-                if item.next != nil {
-                    next = item.next
-                } else {
-                    streamView.changeContentSize(CGSizeMake(CGRectGetMaxX(item.frame), streamView.frame.size.height))
-                    next = nil
-                }
-            }
+        var current = item
+        var next: StreamItem? = current
+        while let item = next {
+            item.frame = horizontalFrameForItem(item, streamView: streamView)
+            next = item.next
+            current = item
         }
+        streamView.changeContentSize(CGSizeMake(CGRectGetMaxX(current.frame), streamView.frame.size.height))
     }
     
     func layoutItemVertically(item: StreamItem, streamView: StreamView) {
-        var next: StreamItem? = item
-        while next != nil {
-            if let item = next {
-                item.frame = verticalFrameForItem(item, streamView: streamView)
-                if item.next != nil {
-                    next = item.next
-                } else {
-                    streamView.changeContentSize(CGSizeMake(streamView.frame.size.width, CGRectGetMaxY(item.frame)))
-                    next = nil
-                }
-            }
+        var current = item
+        var next: StreamItem? = current
+        while let item = next {
+            item.frame = verticalFrameForItem(item, streamView: streamView)
+            next = item.next
+            current = item
         }
+        streamView.changeContentSize(CGSizeMake(streamView.frame.size.width, CGRectGetMaxY(current.frame)))
     }
     
     func horizontalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {

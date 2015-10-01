@@ -104,7 +104,7 @@
     if (!NSDateEqual(self.createdAt, createdAt)) self.createdAt = createdAt;
     NSDate* updatedAt = [dictionary timestampDateForKey:WLLastTouchedAtKey];
     if (updatedAt) {
-        if (!NSDateEqual(self.updatedAt, updatedAt)) self.updatedAt = updatedAt;
+        if (!self.updatedAt || [updatedAt later:self.updatedAt]) self.updatedAt = updatedAt;
     } else {
         if (!NSDateEqual(self.updatedAt, createdAt)) self.updatedAt = createdAt;
     }

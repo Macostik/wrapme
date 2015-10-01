@@ -37,7 +37,7 @@
 - (void)setLocalize:(BOOL)localize {
     _localize = localize;
     if (localize) {
-        NSString *text = [self titleForState:UIControlStateNormal];
+        NSString *text = self.titleLabel.text;
         if (text.nonempty) {
             [super setTitle:WLLS(text) forState:UIControlStateNormal];
         }

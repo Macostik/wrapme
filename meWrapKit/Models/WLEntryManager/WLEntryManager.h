@@ -47,7 +47,7 @@ typedef void (^WLEntryManagerMainContextFailureBlock) (NSError *error, NSManaged
 
 - (NSMutableOrderedSet*)entriesOfClass:(Class)entryClass configure:(void (^)(NSFetchRequest* request))configure;
 
-- (void)fetchEntries:(NSArray *)descriptors;
+- (void)fetchEntries:(NSMutableDictionary *)descriptors;
 
 - (void)deleteEntry:(WLEntry*)entry;
 

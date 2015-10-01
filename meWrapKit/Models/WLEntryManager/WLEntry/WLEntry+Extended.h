@@ -39,9 +39,9 @@
 
 + (NSDictionary*)API_prefetchDictionary:(NSDictionary*)dictionary;
 
-+ (void)API_prefetchDescriptors:(NSMutableArray*)descriptors inArray:(NSArray*)array;
++ (void)API_prefetchDescriptors:(NSMutableDictionary*)descriptors inArray:(NSArray*)array;
 
-+ (void)API_prefetchDescriptors:(NSMutableArray*)descriptors inDictionary:(NSDictionary*)dictionary;
++ (void)API_prefetchDescriptors:(NSMutableDictionary*)descriptors inDictionary:(NSDictionary*)dictionary;
 
 - (BOOL)isEqualToEntry:(WLEntry*)entry;
 

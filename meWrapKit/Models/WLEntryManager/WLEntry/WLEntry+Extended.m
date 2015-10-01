@@ -63,33 +63,34 @@
 }
 
 + (NSArray*)API_prefetchArray:(NSArray *)array {
-    NSMutableArray *descriptors = [NSMutableArray array];
+    NSMutableDictionary *descriptors = [NSMutableDictionary dictionary];
     [self API_prefetchDescriptors:descriptors inArray:array];
     [[WLEntryManager manager] fetchEntries:descriptors];
     return array;
 }
 
 + (NSDictionary*)API_prefetchDictionary:(NSDictionary *)dictionary {
-    NSMutableArray *descriptors = [NSMutableArray array];
+    NSMutableDictionary *descriptors = [NSMutableDictionary dictionary];
     [self API_prefetchDescriptors:descriptors inDictionary:dictionary];
     [[WLEntryManager manager] fetchEntries:descriptors];
     return dictionary;
 }
 
-+ (void)API_prefetchDescriptors:(NSMutableArray*)descriptors inArray:(NSArray*)array {
++ (void)API_prefetchDescriptors:(NSMutableDictionary*)descriptors inArray:(NSArray*)array {
     for (NSDictionary *dictionary in array) {
         [self API_prefetchDescriptors:descriptors inDictionary:dictionary];
     }
 }
 
-+ (void)API_prefetchDescriptors:(NSMutableArray*)descriptors inDictionary:(NSDictionary*)dictionary {
++ (void)API_prefetchDescriptors:(NSMutableDictionary*)descriptors inDictionary:(NSDictionary*)dictionary {
     NSString *identifier = [self API_identifier:dictionary];
-    NSString *uploadIdentifier = [self API_uploadIdentifier:dictionary];
-    WLEntryDescriptor *descriptor = [[WLEntryDescriptor alloc] init];
-    descriptor.entryClass = self;
-    descriptor.identifier = identifier;
-    descriptor.uploadIdentifier = uploadIdentifier;
-    [descriptors addObject:descriptor];
+    if (identifier && [descriptors objectForKeyedSubscript:identifier] == nil) {
+        WLEntryDescriptor *descriptor = [[WLEntryDescriptor alloc] init];
+        descriptor.entryClass = self;
+        descriptor.identifier = identifier;
+        descriptor.uploadIdentifier = [self API_uploadIdentifier:dictionary];
+        [descriptors setObject:descriptor forKey:identifier];
+    }
 }
 
 - (instancetype)API_setup:(NSDictionary *)dictionary {

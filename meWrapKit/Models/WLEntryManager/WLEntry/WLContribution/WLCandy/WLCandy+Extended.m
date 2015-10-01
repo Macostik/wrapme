@@ -36,7 +36,7 @@
 	return [dictionary stringForKey:WLCandyUIDKey];
 }
 
-+ (void)API_prefetchDescriptors:(NSMutableArray *)descriptors inDictionary:(NSDictionary *)dictionary {
++ (void)API_prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
     [super API_prefetchDescriptors:descriptors inDictionary:dictionary];
     if (dictionary[WLCommentsKey]) {
         [WLComment API_prefetchDescriptors:descriptors inArray:dictionary[WLCommentsKey]];

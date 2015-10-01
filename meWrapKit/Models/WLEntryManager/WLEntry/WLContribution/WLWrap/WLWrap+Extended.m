@@ -39,7 +39,7 @@
 	return [dictionary stringForKey:WLWrapUIDKey];
 }
 
-+ (void)API_prefetchDescriptors:(NSMutableArray *)descriptors inDictionary:(NSDictionary *)dictionary {
++ (void)API_prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
     [super API_prefetchDescriptors:descriptors inDictionary:dictionary];
     
     if (dictionary[WLContributorsKey]) {

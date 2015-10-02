@@ -95,13 +95,42 @@
 - (void)history:(NSDate *)from to:(NSDate *)to success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     NSNumber *startDate = [from timetoken];
     NSNumber *endDate = [to timetoken];
-    [[PubNub sharedInstance] historyForChannel:self.name start:startDate end:endDate includeTimeToken:YES withCompletion:^(PNHistoryResult *result, PNErrorStatus *status) {
-        if (!status.isError) {
-            if (success) success(result.data.messages);
-        } else {
-            if (failure) failure(nil);
-        }
-    }];
+    if (self.group) {
+        [[PubNub sharedInstance] channelsForGroup:self.name withCompletion:^(PNChannelGroupChannelsResult *result, PNErrorStatus *status) {
+            if (status.isError) {
+                if (failure) failure(nil);
+            } else {
+                NSArray *channels = result.data.channels;
+                if (channels.nonempty) {
+                    NSMutableSet *fetchedChannels = [NSMutableSet set];
+                    NSMutableArray *messages = [NSMutableArray array];
+                    for (NSString *channel in channels) {
+                        [[PubNub sharedInstance] historyForChannel:channel start:startDate end:endDate includeTimeToken:YES withCompletion:^(PNHistoryResult *result, PNErrorStatus *status) {
+                            [fetchedChannels addObject:channel];
+                            NSArray *_messages = result.data.messages;
+                            if (!status.isError && _messages.nonempty) {
+                                [messages addObjectsFromArray:_messages];
+                            }
+                            if (fetchedChannels.count == channels.count) {
+                                [messages sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"timetoken" ascending:YES]]];
+                                if (success) success([messages copy]);
+                            }
+                        }];
+                    }
+                } else {
+                    if (success) success(nil);
+                }
+            }
+        }];
+    } else {
+        [[PubNub sharedInstance] historyForChannel:self.name start:startDate end:endDate includeTimeToken:YES withCompletion:^(PNHistoryResult *result, PNErrorStatus *status) {
+            if (!status.isError) {
+                if (success) success(result.data.messages);
+            } else {
+                if (failure) failure(nil);
+            }
+        }];
+    }
 }
 
 // MARK: - PNObjectEventListener

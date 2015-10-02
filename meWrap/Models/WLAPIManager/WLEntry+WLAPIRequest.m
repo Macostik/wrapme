@@ -22,6 +22,7 @@
 #import "WLOperationQueue.h"
 #import "WLHistory.h"
 #import "WLAlertView.h"
+#import <AWSS3/AWSS3.h>
 
 @implementation WLEntry (WLAPIManager)
 
@@ -210,7 +211,43 @@
 }
 
 - (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-    return [[WLAPIRequest uploadCandy:self] send:success failure:failure];
+    __weak __typeof(self)weakSelf = self;
+    NSMutableDictionary *metaData = [NSMutableDictionary dictionary];
+    NSString* accept = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@",
+                        [WLAPIEnvironment currentEnvironment].version];
+    NSString *contributedAt = [NSString stringWithFormat:@"%f", [self.updatedAt timestamp]];
+    [metaData trySetObject:accept forKey:@"Accept"];
+    [metaData trySetObject:[WLAuthorization currentAuthorization].deviceUID forKey:WLDeviceIDKey];
+    [metaData trySetObject:self.contributor.identifier forKey:WLUserUIDKey];
+    [metaData trySetObject:self.wrap.identifier forKey:WLWrapUIDKey];
+    [metaData trySetObject:self.uploadIdentifier forKey:WLUploadUIDKey];
+    [metaData trySetObject:contributedAt forKey:WLContributedAtKey];
+    WLComment *firstComment = [[self.comments where:@"uploading == nil"] anyObject];
+    if (firstComment) {
+        [metaData trySetObject:firstComment.text forKey:@"message"];
+        [metaData trySetObject:firstComment.uploadIdentifier forKey:@"message_upload_uid"];
+    }
+    
+    AWSS3TransferManagerUploadRequest *uploadRequest = [AWSS3TransferManagerUploadRequest new];
+    uploadRequest.bucket = [[WLAPIEnvironment currentEnvironment] isProduction] ?
+                            @"wraplive-production-upload-placeholder" : @"wraplive-qa-upload-placeholder";
+    uploadRequest.key = [[self.picture.original lastPathComponent] stringByDeletingPathExtension];
+    uploadRequest.ACL = AWSS3ObjectCannedACLPublicReadWrite;
+    uploadRequest.metadata = metaData;
+    uploadRequest.contentType = @"image/jpeg";
+    uploadRequest.body = [NSURL fileURLWithPath:self.picture.original];
+    
+    [[[AWSS3TransferManager defaultS3TransferManager] upload:uploadRequest] continueWithSuccessBlock:^id(AWSTask *task) {
+        run_in_main_queue(^{
+            if(weakSelf.wrap.valid && task.completed && task.result)  {
+                success(weakSelf);
+            }else {
+                failure(task.error);
+            }
+        });
+        return task;
+    }];
+    return nil;
 }
 
 - (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure {

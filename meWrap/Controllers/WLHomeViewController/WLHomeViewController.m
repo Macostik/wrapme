@@ -378,7 +378,7 @@
                 [weakSelf.publicDataSource.items sort:wrap];
             }
             if (wrap.isContributing) {
-                [weakSelf.homeDataSource.items sort:wrap];
+                [weakSelf.homeDataSource.items sort];
             } else {
                 [weakSelf.homeDataSource.items removeEntry:wrap];
             }

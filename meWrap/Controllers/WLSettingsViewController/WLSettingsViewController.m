@@ -45,13 +45,10 @@
 
 - (IBAction)cleanCache:(WLButton*)sender {
     WLUser *currentUser = [WLUser currentUser];
-    [[WLEntry entries] all:^(WLEntry *entry) {
-        if (entry != currentUser) {
-            [[WLEntryManager manager] uncacheEntry:entry];
-            [[WLEntryManager manager].context deleteObject:entry];
-        }
-    }];
-    [[WLEntryManager manager].context save:NULL];
+    WLEntryManager *manager = [WLEntryManager manager];
+    [manager.coordinator executeRequest:[[NSBatchDeleteRequest alloc] initWithFetchRequest:[WLWrap fetchRequest]] withContext:manager.context error:NULL];
+    [manager.coordinator executeRequest:[[NSBatchDeleteRequest alloc] initWithFetchRequest:[WLUser fetchRequest:@"SELF != %@", currentUser]] withContext:manager.context error:NULL];
+    [manager.context save:NULL];
     currentUser.wraps = [NSSet set];
     [[WLImageCache cache] clear];
     [[WLImageCache uploadingCache] clear];

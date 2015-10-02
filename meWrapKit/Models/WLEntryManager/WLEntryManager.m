@@ -307,11 +307,8 @@
 }
 
 - (void)clear {
-    __weak __typeof(self)weakSelf = self;
-    [[WLEntry entries] all:^(WLEntry *entry) {
-        [weakSelf uncacheEntry:entry];
-        [weakSelf.context deleteObject:entry];
-    }];
+    [self.coordinator executeRequest:[[NSBatchDeleteRequest alloc] initWithFetchRequest:[WLWrap fetchRequest]] withContext:self.context error:NULL];
+    [self.coordinator executeRequest:[[NSBatchDeleteRequest alloc] initWithFetchRequest:[WLUser fetchRequest]] withContext:self.context error:NULL];
     [self.context save:NULL];
     [self.cachedEntries removeAllObjects];
 }

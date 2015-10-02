@@ -14,8 +14,17 @@
 #import "WLAPIResponse.h"
 #import "WLEntry+WLAPIRequest.h"
 #import "AFHTTPRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @class WLAPIRequest;
+
+@interface WLAPIManager : AFHTTPRequestOperationManager
+
++ (instancetype)manager;
+
+- (NSString*)urlWithPath:(NSString*)path;
+
+@end
 
 typedef void (^WLAPIRequestParser) (WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure);
 

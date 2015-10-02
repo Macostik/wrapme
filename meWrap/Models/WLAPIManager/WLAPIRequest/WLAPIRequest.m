@@ -11,15 +11,6 @@
 #import "WLWelcomeViewController.h"
 #import "NSDate+Formatting.h"
 #import "WLSession.h"
-#import "AFHTTPRequestOperationManager.h"
-
-@interface WLAPIManager : AFHTTPRequestOperationManager
-
-+ (instancetype)manager;
-
-- (NSString*)urlWithPath:(NSString*)path;
-
-@end
 
 @implementation WLAPIManager
 
@@ -256,9 +247,7 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
         }];
     } else {
         if (self.failureBlock) {
-            if (error.code != NSURLErrorCancelled) {
-                self.failureBlock(error);
-            }
+            self.failureBlock(error);
             self.failureBlock = nil;
             self.successBlock = nil;
         }

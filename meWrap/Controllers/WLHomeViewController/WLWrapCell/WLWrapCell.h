@@ -21,7 +21,7 @@
 
 @interface WLWrapCell : StreamReusableView
 
-@property (strong, nonatomic) IBOutlet id <WLWrapCellDelegate> delegate;
+@property (weak, nonatomic) IBOutlet id <WLWrapCellDelegate> delegate;
 
 - (void)updateCandyNotifyCounter;
 

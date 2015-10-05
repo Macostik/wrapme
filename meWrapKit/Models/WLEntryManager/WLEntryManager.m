@@ -307,8 +307,13 @@
 }
 
 - (void)clear {
-    [self.coordinator executeRequest:[[NSBatchDeleteRequest alloc] initWithFetchRequest:[WLWrap fetchRequest]] withContext:self.context error:NULL];
-    [self.coordinator executeRequest:[[NSBatchDeleteRequest alloc] initWithFetchRequest:[WLUser fetchRequest]] withContext:self.context error:NULL];
+    __weak typeof(self)weakSelf = self;
+    [[WLWrap entries] all:^(WLEntry *entry) {
+        [weakSelf.context deleteObject:entry];
+    }];
+    [[WLUser entries] all:^(WLEntry *entry) {
+        [weakSelf.context deleteObject:entry];
+    }];
     [self.context save:NULL];
     [self.cachedEntries removeAllObjects];
 }

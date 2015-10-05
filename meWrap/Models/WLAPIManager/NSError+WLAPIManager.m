@@ -38,6 +38,9 @@ static NSDictionary *errorsToIgnore = nil;
 }
 
 - (BOOL)ignore {
+    if (self.code == NSURLErrorCancelled) {
+        return YES;
+    }
 	return [[[NSError errorsToIgnore] objectForKey:self.domain] containsObject:@(self.code)];
 }
 

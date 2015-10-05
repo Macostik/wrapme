@@ -13,6 +13,7 @@
 #import "WLAlertView.h"
 #import "WLNotificationCenter.h"
 #import "PHPhotoLibrary+Helper.h"
+#import "WLAPIRequest.h"
 
 @interface WLSettingsViewController ()
 
@@ -32,6 +33,8 @@
 
 - (IBAction)signOut:(id)sender {
     [UIAlertController showWithTitle:WLLS(@"sign_out") message:WLLS(@"sign_out_confirmation") cancel:WLLS(@"cancel") action:WLLS(@"sign_out") completion:^{
+        [[WLOperationQueue queueNamed:WLOperationFetchingDataQueue] cancelAllOperations];
+        [[WLAPIManager manager].operationQueue cancelAllOperations];
         [[WLNotificationCenter defaultCenter] clear];
         [WLSession clear];
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
@@ -44,10 +47,20 @@
 }
 
 - (IBAction)cleanCache:(WLButton*)sender {
-    WLUser *currentUser = [WLUser currentUser];
-    WLEntryManager *manager = [WLEntryManager manager];
-    [manager.coordinator executeRequest:[[NSBatchDeleteRequest alloc] initWithFetchRequest:[WLWrap fetchRequest]] withContext:manager.context error:NULL];
-    [manager.coordinator executeRequest:[[NSBatchDeleteRequest alloc] initWithFetchRequest:[WLUser fetchRequest:@"SELF != %@", currentUser]] withContext:manager.context error:NULL];
+    [[WLOperationQueue queueNamed:WLOperationFetchingDataQueue] cancelAllOperations];
+    [[WLAPIManager manager].operationQueue cancelAllOperations];
+    __weak WLUser *currentUser = [WLUser currentUser];
+    __weak WLEntryManager *manager = [WLEntryManager manager];
+    [[WLWrap entries] all:^(WLEntry *entry) {
+        [manager uncacheEntry:entry];
+        [manager.context deleteObject:entry];
+    }];
+    [[WLUser entries] all:^(WLEntry *entry) {
+        if (entry != currentUser) {
+            [manager uncacheEntry:entry];
+            [manager.context deleteObject:entry];
+        }
+    }];
     [manager.context save:NULL];
     currentUser.wraps = [NSSet set];
     [[WLImageCache cache] clear];

@@ -13,6 +13,4 @@
 
 @property (strong, nonatomic, readonly) WLHistoryItemDataSource* dataSource;
 
-@property (weak, nonatomic, readonly) StreamMetrics *candyMetrics;
-
 @end

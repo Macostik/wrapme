@@ -125,6 +125,7 @@
 		C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE11A41952400A2C370 /* WLTextView.m */; };
 		C52E1FE91A41957800A2C370 /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */; };
 		C52E1FEB1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */; };
+		C535B4711BC2684700F5CBE9 /* meWrapWatchExtQA.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C50645841ABD7FD400CB4BE3 /* meWrapWatchExtQA.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C535F9CB1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
@@ -1306,6 +1307,13 @@
 			remoteGlobalIDString = C50645921ABD7FD500CB4BE3;
 			remoteInfo = "WrapLive-Development WatchKit App";
 		};
+		C535B4721BC2684700F5CBE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
+			remoteInfo = meWrapWatchExtQA;
+		};
 		C54DA0AC1BBAC20600790F17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -1360,6 +1368,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				C535B4711BC2684700F5CBE9 /* meWrapWatchExtQA.appex in Embed App Extensions */,
 				5BA7AF2E1A481A9500C586CA /* meWrapTodayQA.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -5307,6 +5316,7 @@
 			dependencies = (
 				C559CB751AA0BB6200100B2C /* PBXTargetDependency */,
 				5BA7AF301A481A9500C586CA /* PBXTargetDependency */,
+				C535B4731BC2684700F5CBE9 /* PBXTargetDependency */,
 			);
 			name = meWrapQA;
 			productName = WrapLive;
@@ -6892,6 +6902,11 @@
 			isa = PBXTargetDependency;
 			target = C50645921ABD7FD500CB4BE3 /* meWrapWatchAppQA */;
 			targetProxy = C50645951ABD7FD500CB4BE3 /* PBXContainerItemProxy */;
+		};
+		C535B4731BC2684700F5CBE9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C50645831ABD7FD400CB4BE3 /* meWrapWatchExtQA */;
+			targetProxy = C535B4721BC2684700F5CBE9 /* PBXContainerItemProxy */;
 		};
 		C54DA0AD1BBAC20600790F17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

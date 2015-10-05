@@ -32,10 +32,12 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     self.exclusiveTouch = YES;
-    
-	[[WLCandy notifier] addReceiver:self];
-    __weak typeof(self)weakSelf = self;
-    if (!self.disableMenu) {
+}
+
+- (void)setMetrics:(StreamMetrics *)metrics {
+    [super setMetrics:metrics];
+    if (!metrics.disableMenu) {
+        __weak typeof(self)weakSelf = self;
         [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
             __weak WLCandy* candy = weakSelf.entry;
             
@@ -130,10 +132,6 @@
     }
     
     self.coverView.url = picture.small;
-
-    if (self.disableMenu) {
-        [[WLMenu sharedMenu] removeView:self];
-    }
 }
 
 #pragma mark - WLEntryNotifyReceiver

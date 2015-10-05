@@ -70,6 +70,8 @@ class StreamMetrics: NSObject {
     
     var reusableViews: Set<StreamReusableView> = Set()
     
+    var disableMenu = false
+    
     func loadView () -> StreamReusableView? {
         
         if nib == nil {

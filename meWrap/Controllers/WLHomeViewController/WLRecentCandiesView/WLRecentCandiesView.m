@@ -26,13 +26,7 @@
     self.dataSource.numberOfGridColumns = 3;
     self.dataSource.sizeForGridColumns = 0.333f;
     self.streamView.layout = [[SquareGridLayout alloc] init];
-    [self.dataSource addMetrics:[[StreamMetrics alloc] initWithInitializer:^(StreamMetrics * _Nonnull metrics) {
-        metrics.identifier = @"WLCandyCell";
-        [metrics setFinalizeAppearing:^(StreamItem *item, id entry) {
-            WLCandyCell *candyCell = (id)item.view;
-            candyCell.disableMenu = YES;
-        }];
-    }]];
+    [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLCandyCell"]].disableMenu = YES;
     [self.dataSource setNumberOfItemsBlock:^NSUInteger (StreamDataSource *dataSource) {
         return ([dataSource.items count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
     }];

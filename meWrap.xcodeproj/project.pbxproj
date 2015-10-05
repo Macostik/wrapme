@@ -126,6 +126,7 @@
 		C52E1FE91A41957800A2C370 /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */; };
 		C52E1FEB1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */; };
 		C535B4711BC2684700F5CBE9 /* meWrapWatchExtQA.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C50645841ABD7FD400CB4BE3 /* meWrapWatchExtQA.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C535B4741BC2D2DF00F5CBE9 /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C54DA0A01BBAC20500790F17 /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C535F9CB1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
@@ -1314,6 +1315,13 @@
 			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
 			remoteInfo = meWrapWatchExtQA;
 		};
+		C535B4751BC2D2DF00F5CBE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C54DA09F1BBAC20500790F17;
+			remoteInfo = meWrapWatchExt;
+		};
 		C54DA0AC1BBAC20600790F17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -1430,6 +1438,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				C535B4741BC2D2DF00F5CBE9 /* meWrapWatchExt.appex in Embed App Extensions */,
 				C5994D8A1B78894A0066A597 /* meWrapToday.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -5340,6 +5349,7 @@
 			dependencies = (
 				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
 				C5994D8C1B78894A0066A597 /* PBXTargetDependency */,
+				C535B4761BC2D2DF00F5CBE9 /* PBXTargetDependency */,
 			);
 			name = meWrap;
 			productName = WrapLive;
@@ -6907,6 +6917,11 @@
 			isa = PBXTargetDependency;
 			target = C50645831ABD7FD400CB4BE3 /* meWrapWatchExtQA */;
 			targetProxy = C535B4721BC2684700F5CBE9 /* PBXContainerItemProxy */;
+		};
+		C535B4761BC2D2DF00F5CBE9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C54DA09F1BBAC20500790F17 /* meWrapWatchExt */;
+			targetProxy = C535B4751BC2D2DF00F5CBE9 /* PBXContainerItemProxy */;
 		};
 		C54DA0AD1BBAC20600790F17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

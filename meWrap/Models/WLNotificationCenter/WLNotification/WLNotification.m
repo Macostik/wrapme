@@ -428,7 +428,7 @@
     NSDictionary *userData = notification.data[WLUserKey];
     WLUser *user = userData ? [WLUser API_entry:userData] : [WLUser entry:userIdentifier];
     if (user) {
-        if (!self.isPublic || notification.type == WLNotificationWrapDelete) {
+        if (notification.type == WLNotificationWrapDelete || (user.isCurrentUser && !self.isPublic)) {
             [super finalizeDeleteNotification:notification];
         } else {
             [self removeContributorsObject:user];

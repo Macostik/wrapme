@@ -9,3 +9,16 @@
 "comment" = "回應";
 "formatted_photo_by" = "拍攝者 %@";
 "no_recent_updates" = "未有最近更新";
+"minute" = "分鐘";
+"hour" = "小時";
+"day" = "天";
+"week" = "星期";
+"month" = "月";
+"year" = "年";
+"less_than_minute_ago" = "少於1分鐘前";
+"yesterday" = "昨天";
+"today" = "今天";
+"formatted_day_at_time" = "%@%@";
+"formatted_calendar_units_ago_at_time" = "%.f%@前%@";
+"formatted_calendar_units_ago" = "%.f%@%@前";
+"at" = "";

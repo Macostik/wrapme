@@ -6,7 +6,7 @@
 	<string>2PW57LM468</string>
 	<key>method</key>
 	<string>app-store</string>
-	<key>compileBitcode</key>
+	<key>uploadBitcode</key>
 	<false/>
 </dict>
 </plist>

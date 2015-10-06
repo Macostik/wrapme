@@ -2,60 +2,40 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AppGroupIdentifier</key>
-	<string>group.com.ravenpod.wrapliveadhoc</string>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleDisplayName</key>
-	<string>QA meWrap</string>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>QA meWrap</string>
+	<key>LSGetAppDiedEvents</key>
+	<true/>
+	<key>URLScheme</key>
+	<string>mewrapqa</string>
+	<key>CFBundleVersion</key>
+	<string>629</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDefault</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>2.6</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>com.ravenpod.wrapliveadhoc</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>mewrapqa</string>
-			</array>
-		</dict>
-	</array>
-	<key>CFBundleVersion</key>
-	<string>629</string>
-	<key>LSGetAppDiedEvents</key>
-	<true/>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>UIAppFonts</key>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string>icons.ttf</string>
+		<string>armv7</string>
 	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>remote-notification</string>
-		<string>voip</string>
-	</array>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
 	<key>UILaunchImages</key>
 	<array>
 		<dict>
@@ -63,62 +43,83 @@
 			<string>8.0</string>
 			<key>UILaunchImageName</key>
 			<string>Default</string>
-			<key>UILaunchImageOrientation</key>
-			<string>Portrait</string>
 			<key>UILaunchImageSize</key>
 			<string>{320, 480}</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
 		</dict>
 		<dict>
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>8.0</string>
 			<key>UILaunchImageName</key>
 			<string>Default-568h</string>
-			<key>UILaunchImageOrientation</key>
-			<string>Portrait</string>
 			<key>UILaunchImageSize</key>
 			<string>{320, 568}</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
 		</dict>
 		<dict>
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>8.0</string>
 			<key>UILaunchImageName</key>
 			<string>Default-667h</string>
-			<key>UILaunchImageOrientation</key>
-			<string>Portrait</string>
 			<key>UILaunchImageSize</key>
 			<string>{375, 667}</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
 		</dict>
 		<dict>
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>8.0</string>
 			<key>UILaunchImageName</key>
 			<string>Default-736h</string>
-			<key>UILaunchImageOrientation</key>
-			<string>Portrait</string>
 			<key>UILaunchImageSize</key>
 			<string>{414, 736}</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
 		</dict>
 		<dict>
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>8.0</string>
 			<key>UILaunchImageName</key>
 			<string>Default-Portrait</string>
-			<key>UILaunchImageOrientation</key>
-			<string>Portrait</string>
 			<key>UILaunchImageSize</key>
 			<string>{768, 1024}</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
 		</dict>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.ravenpod.wrapliveadhoc</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>mewrapqa</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+	</array>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>icons.ttf</string>
 	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>AppGroupIdentifier</key>
+	<string>group.com.ravenpod.wrapliveadhoc</string>
+	<key>CFBundleDisplayName</key>
+	<string>QA meWrap</string>
 	<key>UIRequiresFullScreen</key>
 	<true/>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleDefault</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -133,7 +134,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>URLScheme</key>
-	<string>mewrapqa</string>
 </dict>
 </plist>

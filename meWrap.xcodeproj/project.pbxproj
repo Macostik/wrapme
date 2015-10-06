@@ -130,6 +130,7 @@
 		C52E1FE91A41957800A2C370 /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */; };
 		C52E1FEB1A41957800A2C370 /* UIFont+CustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE71A41957800A2C370 /* UIFont+CustomFonts.m */; };
 		C535B4711BC2684700F5CBE9 /* meWrapWatchExtQA.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C50645841ABD7FD400CB4BE3 /* meWrapWatchExtQA.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C535B4741BC2D2DF00F5CBE9 /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C54DA0A01BBAC20500790F17 /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C535F9CB1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9D01AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
@@ -140,7 +141,6 @@
 		C5390BF01B845A6200027D8B /* WLCandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEE1B845A6200027D8B /* WLCandyCell.xib */; };
 		C5390BF21B845C5700027D8B /* WLRecentCandiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BF11B845C5700027D8B /* WLRecentCandiesView.xib */; };
 		C5390BF31B845C5700027D8B /* WLRecentCandiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BF11B845C5700027D8B /* WLRecentCandiesView.xib */; };
-		C5390BF41B849A3C00027D8B /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AE8DAD1B7B4F32003CC6D4 /* PushKit.framework */; };
 		C539B9BD1BA1C87F00C44D05 /* PHPhotoLibrary+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C539B9BC1BA1C87F00C44D05 /* PHPhotoLibrary+Helper.m */; };
 		C539B9BE1BA1C87F00C44D05 /* PHPhotoLibrary+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C539B9BC1BA1C87F00C44D05 /* PHPhotoLibrary+Helper.m */; };
 		C53DC22A1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53DC2281AA7637C00D2E4C0 /* WLUploadingView.m */; };
@@ -424,7 +424,6 @@
 		C5AE6B5F1B8E014400EE41FB /* WLCommentWhatsUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5AE6B5D1B8E014400EE41FB /* WLCommentWhatsUpCell.xib */; };
 		C5AE6B611B8E015300EE41FB /* WLCandyWhatsUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5AE6B601B8E015300EE41FB /* WLCandyWhatsUpCell.xib */; };
 		C5AE6B621B8E015300EE41FB /* WLCandyWhatsUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5AE6B601B8E015300EE41FB /* WLCandyWhatsUpCell.xib */; };
-		C5AE8DAE1B7B4F32003CC6D4 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AE8DAD1B7B4F32003CC6D4 /* PushKit.framework */; };
 		C5AE8DB41B7B6ADA003CC6D4 /* WLEntry+LocalNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AE8DB31B7B6ADA003CC6D4 /* WLEntry+LocalNotifications.m */; };
 		C5AE8DB51B7B6ADA003CC6D4 /* WLEntry+LocalNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AE8DB31B7B6ADA003CC6D4 /* WLEntry+LocalNotifications.m */; };
 		C5AE8FB71BB0286D00A9B27B /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AE8FB61BB0286D00A9B27B /* TTTAttributedLabel.m */; settings = {ASSET_TAGS = (); }; };
@@ -1318,6 +1317,13 @@
 			remoteGlobalIDString = C50645831ABD7FD400CB4BE3;
 			remoteInfo = meWrapWatchExtQA;
 		};
+		C535B4751BC2D2DF00F5CBE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C54DA09F1BBAC20500790F17;
+			remoteInfo = meWrapWatchExt;
+		};
 		C54DA0AC1BBAC20600790F17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -1434,6 +1440,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				C535B4741BC2D2DF00F5CBE9 /* meWrapWatchExt.appex in Embed App Extensions */,
 				C5994D8A1B78894A0066A597 /* meWrapToday.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -1979,6 +1986,8 @@
 		C5B097271BB14F030057D6BA /* PNURLBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNURLBuilder.h; sourceTree = "<group>"; };
 		C5B097281BB14F030057D6BA /* PNURLBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNURLBuilder.m; sourceTree = "<group>"; };
 		C5B097291BB14F040057D6BA /* PubNub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubNub.h; sourceTree = "<group>"; };
+		C5B19DA81BC3C0AC00EB5353 /* exportAdhoc.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = exportAdhoc.plist; sourceTree = "<group>"; };
+		C5B19DA91BC3C0AC00EB5353 /* exportAppStore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = exportAppStore.plist; sourceTree = "<group>"; };
 		C5B233781B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AdobeUXImageEditorViewController+SharedEditing.h"; sourceTree = "<group>"; };
 		C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AdobeUXImageEditorViewController+SharedEditing.m"; sourceTree = "<group>"; };
 		C5B2A1201B4BFED8004759F3 /* WLChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChat.h; sourceTree = "<group>"; };
@@ -2335,7 +2344,6 @@
 		C5E6E8E31BBAC3EC007FFA66 /* WLPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPicture.m; sourceTree = "<group>"; };
 		C5E6E8E51BBAC3EC007FFA66 /* WLSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSession.h; sourceTree = "<group>"; };
 		C5E6E8E61BBAC3EC007FFA66 /* WLSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSession.m; sourceTree = "<group>"; };
-		C5E6EAC11BBAC7B4007FFA66 /* exportPlist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = exportPlist.plist; sourceTree = "<group>"; };
 		C5E6EAC41BBADF5A007FFA66 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
 		C5E6EAC51BBADF5A007FFA66 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
 		C5E6EAC61BBADF5A007FFA66 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
@@ -2408,7 +2416,6 @@
 				C57CB2A81BAAE5040050FBF7 /* libsqlite3.0.tbd in Frameworks */,
 				C57CB2A61BAAE4F60050FBF7 /* libz.tbd in Frameworks */,
 				C57CB2A41BAAE4ED0050FBF7 /* libc++.tbd in Frameworks */,
-				C5AE8DAE1B7B4F32003CC6D4 /* PushKit.framework in Frameworks */,
 				C5218E731AE558CF007E55D0 /* OpenGLES.framework in Frameworks */,
 				C5218E711AE558B8007E55D0 /* Accelerate.framework in Frameworks */,
 				C5218E701AE558B3007E55D0 /* CoreData.framework in Frameworks */,
@@ -2434,7 +2441,6 @@
 				C57CB2AB1BAAE51E0050FBF7 /* libsqlite3.0.tbd in Frameworks */,
 				C57CB2AA1BAAE5140050FBF7 /* libz.tbd in Frameworks */,
 				C57CB2A91BAAE50D0050FBF7 /* libc++.tbd in Frameworks */,
-				C5390BF41B849A3C00027D8B /* PushKit.framework in Frameworks */,
 				C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */,
 				C5218E7D1AE5594E007E55D0 /* OpenGLES.framework in Frameworks */,
 				C5218E7A1AE55936007E55D0 /* CoreData.framework in Frameworks */,
@@ -2534,7 +2540,8 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
-				C5E6EAC11BBAC7B4007FFA66 /* exportPlist.plist */,
+				C5B19DA81BC3C0AC00EB5353 /* exportAdhoc.plist */,
+				C5B19DA91BC3C0AC00EB5353 /* exportAppStore.plist */,
 				C5A278C41B9598DF00D5C969 /* Info */,
 				C5259D651ACC2333003D3317 /* Entitlements */,
 				C50645AA1ABD815100CB4BE3 /* Extensions */,
@@ -5352,6 +5359,7 @@
 			dependencies = (
 				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
 				C5994D8C1B78894A0066A597 /* PBXTargetDependency */,
+				C535B4761BC2D2DF00F5CBE9 /* PBXTargetDependency */,
 			);
 			name = meWrap;
 			productName = WrapLive;
@@ -6920,6 +6928,11 @@
 			target = C50645831ABD7FD400CB4BE3 /* meWrapWatchExtQA */;
 			targetProxy = C535B4721BC2684700F5CBE9 /* PBXContainerItemProxy */;
 		};
+		C535B4761BC2D2DF00F5CBE9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C54DA09F1BBAC20500790F17 /* meWrapWatchExt */;
+			targetProxy = C535B4751BC2D2DF00F5CBE9 /* PBXContainerItemProxy */;
+		};
 		C54DA0AD1BBAC20600790F17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C54DA0A91BBAC20600790F17 /* meWrapWatchApp */;
@@ -7437,6 +7450,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7495,6 +7509,7 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7525,7 +7540,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = meWrapQA;
-				PROVISIONING_PROFILE = "5dcdac67-bb6e-4ba9-9338-d6b43ed8833d";
+				PROVISIONING_PROFILE = "e625de58-9b25-4942-8d58-e5ec64c1695c";
 				SWIFT_OBJC_BRIDGING_HEADER = "meWrap/meWrap-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "meWrap-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -7550,6 +7565,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7605,6 +7621,7 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7708,7 +7725,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b3795d16-85c7-491b-b7e8-276e71f86ce3";
+				PROVISIONING_PROFILE = "7ab3bafd-0e54-48e5-aaac-700229cc9e6c";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
@@ -7781,7 +7798,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "ad5598e1-0326-4535-9f5e-7b1d78e6f355";
+				PROVISIONING_PROFILE = "a35af1ed-8ecf-49ae-82de-6d6ce3a42fb4";
 				SKIP_INSTALL = YES;
 			};
 			name = AdHoc;
@@ -7905,6 +7922,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7935,7 +7953,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = meWrapQA;
-				PROVISIONING_PROFILE = "189fa146-ee5e-4517-94e0-9aa8f6bd25f8";
+				PROVISIONING_PROFILE = "5b038403-142d-4634-b9e4-6ab255c38c98";
 				SWIFT_OBJC_BRIDGING_HEADER = "meWrap/meWrap-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "meWrap-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -7959,6 +7977,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7987,7 +8006,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive;
 				PRODUCT_MODULE_NAME = meWrap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "08237be5-ca06-4442-a3fa-8cdbfaed6e4f";
+				PROVISIONING_PROFILE = "d89aac58-4498-483e-ba11-5a63dc09b604";
 				SWIFT_OBJC_BRIDGING_HEADER = "meWrap/meWrap-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "meWrap-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -8033,7 +8052,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "37012950-d853-4fbf-9c33-12dcb909bf9c";
+				PROVISIONING_PROFILE = "5737ba18-f286-405c-b3d9-17e69b9d698a";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USE_NEWRELIC = "$(inherited)";
@@ -8064,7 +8083,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wraplive.today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "78469d0c-1d9b-4908-9115-dfc35de8c6d9";
+				PROVISIONING_PROFILE = "d16a0073-e1e1-43b5-a675-a4a8fdaa2c80";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USE_NEWRELIC = "$(inherited)";
@@ -8095,7 +8114,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "efea2529-e3aa-4605-adc2-9312b1cd690e";
+				PROVISIONING_PROFILE = "8fd4d1c4-455a-493d-9da9-78333e02dcee";
 				SKIP_INSTALL = YES;
 				USE_NEWRELIC = "$(inherited)";
 			};
@@ -8121,7 +8140,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravenpod.wrapliveadhoc.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "eb383f74-b6e6-4dc7-95dd-2646233918df";
+				PROVISIONING_PROFILE = "6fa8487c-8111-4300-9d48-27bcc963e69b";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";

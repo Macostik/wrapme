@@ -12,6 +12,8 @@
 
 + (instancetype)defaultCenter;
 
+- (void)handleDeviceToken:(NSData*)deviceToken;
+
 - (void)clear;
 
 - (void)configure;

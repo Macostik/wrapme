@@ -16,18 +16,15 @@
 #import "WLNotificationSubscription.h"
 #import "WLNotification.h"
 #import "NSDate+PNTimetoken.h"
-#import <PushKit/PushKit.h>
 #import "WLEntry+LocalNotifications.h"
 #import "WLNetwork.h"
 #import "WLAuthorizationRequest.h"
 
-@interface WLNotificationCenter () <PNObjectEventListener, WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate, PKPushRegistryDelegate>
+@interface WLNotificationCenter () <PNObjectEventListener, WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate>
 
 @property (strong, nonatomic) WLNotificationSubscription* userSubscription;
 
 @property (strong, nonatomic) NSMutableArray* enqueuedMessages;
-
-@property (strong, nonatomic) PKPushRegistry *pushRegistry;
 
 @end
 
@@ -59,7 +56,7 @@
 
 - (void)configure {
     [[WLUser notifier] addReceiver:self];
-    [self registerForVoIPPushes];
+    [self registerForRemoteNotifications];
 }
 
 - (void)setup {
@@ -85,44 +82,16 @@
     [self requestHistory];
 }
 
-- (void)registerForVoIPPushes {
-    self.pushRegistry = [[PKPushRegistry alloc] initWithQueue:dispatch_get_main_queue()];
-    self.pushRegistry.delegate = self;
-    self.pushRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
+- (void)registerForRemoteNotifications {
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 
-// MARK: - PKPushRegistryDelegate
-
-- (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type {
-    self.pushToken = credentials.token;
-    WLLog(@"PUBNUB - apns_device_token: %@", self.pushToken);
+- (void)handleDeviceToken:(NSData*)deviceToken {
+    self.pushToken = deviceToken;
+    WLLog(@"PUBNUB - apns_device_token: %@", deviceToken);
     if ([WLAuthorizationRequest authorized]) {
         [[WLAuthorizationRequest updateDevice] send];
     }
-}
-
-- (void)pushRegistry:(PKPushRegistry *)registry didInvalidatePushTokenForType:(NSString *)type {
-    
-}
-
-- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type {
-    UIApplicationState state = [UIApplication sharedApplication].applicationState;
-    if (state == UIApplicationStateActive) {
-        return;
-    }
-    NSDictionary *userInfo = payload.dictionaryPayload;
-    [self handleRemoteNotification:userInfo success:^(WLNotification *notification) {
-        if (notification.presentable) {
-            WLEntry *entry = notification.entry;
-            if ([entry locallyNotifiableNotification:notification] && [entry notifiableForNotification:notification]) {
-                if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-                    UILocalNotification *localNotification = [entry localNotificationForNotification:notification];
-                    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-                }
-            }
-        }
-    } failure:^(NSError *error) {
-    }];
 }
 
 - (void)handleRemoteNotification:(NSDictionary *)data success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
@@ -204,7 +173,6 @@
     WLSession.handledNotifications = nil;
     WLSession.historyDate = nil;
     [[[PubNub sharedInstance] currentConfiguration] setUUID:nil];
-    [[PubNub sharedInstance] removeAllPushNotificationsFromDeviceWithPushToken:self.pushToken andCompletion:nil];
 }
 
 - (BOOL)isAlreadyHandledNotification:(WLNotification*)notification {

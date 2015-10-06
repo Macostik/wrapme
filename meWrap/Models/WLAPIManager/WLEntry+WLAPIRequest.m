@@ -254,7 +254,7 @@
     AWSS3TransferManagerUploadRequest *uploadRequest = [AWSS3TransferManagerUploadRequest new];
     uploadRequest.bucket = [[WLAPIEnvironment currentEnvironment] isProduction] ?
     @"wraplive-production-upload-placeholder" : @"wraplive-qa-upload-placeholder";
-    uploadRequest.key = GUID();
+    uploadRequest.key = [self.picture.original lastPathComponent];
     uploadRequest.metadata = metaData;
     uploadRequest.contentType = @"image/jpeg";
     uploadRequest.body = [NSURL fileURLWithPath:self.picture.original];

@@ -25,6 +25,8 @@
 
 @property (strong, nonatomic) WLEditSession *editSession;
 
+@property (nonatomic) BOOL userInitiatedDestructiveAction;
+
 @end
 
 @implementation WLWrapSettingsViewController
@@ -71,7 +73,7 @@
     __weak typeof(self)weakSelf = self;
     [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
         receiver.willDeleteBlock = ^(WLWrap *wrap) {
-            if (weakSelf.viewAppeared) {
+            if (weakSelf.viewAppeared && !weakSelf.userInitiatedDestructiveAction) {
                 [weakSelf.navigationController popToRootViewControllerAnimated:NO];
                 if (!wrap.deletable) {
                     [WLToast showMessageForUnavailableWrap:wrap];
@@ -86,6 +88,7 @@
     WLWrap *wrap = self.wrap;
     BOOL deletable = wrap.deletable;
     [UIAlertController confirmWrapDeleting:wrap success:^{
+        weakSelf.userInitiatedDestructiveAction = YES;
         sender.loading = YES;
         weakSelf.view.userInteractionEnabled = NO;
         [wrap remove:^(id object) {
@@ -97,6 +100,7 @@
             }
             sender.loading = NO;
         } failure:^(NSError *error) {
+            weakSelf.userInitiatedDestructiveAction = NO;
             [error show];
             sender.loading = NO;
             weakSelf.view.userInteractionEnabled = YES;

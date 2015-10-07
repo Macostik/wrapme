@@ -41,7 +41,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 @interface WLHistoryViewController () <WLEntryNotifyReceiver>
 
-@property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
@@ -490,6 +489,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(toggleBottomViewMode) object:nil];
         [self toggleBottomViewMode];
     }
+}
+
+- (IBAction)hadleTapRecognizer:(id)sender {
+    [self setBarsHidden:self.primaryConstraint.defaultState animated:YES];
 }
 
 #pragma mark - WLSwipeViewController Methods

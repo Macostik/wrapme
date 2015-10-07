@@ -2733,6 +2733,9 @@
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="bottom" secondItem="FUv-v8-MyM" secondAttribute="top" priority="250" id="x8y-fG-5Cd"/>
                             <constraint firstAttribute="bottom" secondItem="wdj-eZ-S3g" secondAttribute="bottom" id="yMM-3Z-tmj"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="AFe-us-m8R" appends="YES" id="OHV-WY-hhc"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="avatarImageView" destination="DKe-of-CwY" id="pwy-xB-Q7n"/>
@@ -2751,7 +2754,6 @@
                         <outlet property="scrollView" destination="wdj-eZ-S3g" id="lT5-G5-juv"/>
                         <outlet property="spinner" destination="TL4-HZ-bti" id="PiR-V6-Unb"/>
                         <outlet property="timeLabel" destination="OBg-6r-k4s" id="gLL-0G-dWw"/>
-                        <outlet property="topView" destination="Wbg-W9-8Ie" id="6g0-cf-4Q4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLM-ad-e36" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2765,7 +2767,6 @@
                         <outletCollection property="alternativeConstraints" destination="FGX-3K-gVJ" id="8PQ-3c-tpd"/>
                     </connections>
                 </customObject>
-                <customObject id="hIc-oM-BkJ" customClass="WLLayoutPrioritizer"/>
                 <customObject id="yoH-75-zao" userLabel="Report Transition" customClass="WLStoryboardTransition">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="candy"/>
@@ -2776,6 +2777,12 @@
                         <outlet property="sourceViewController" destination="eto-O4-OHy" id="iFv-Wj-Ml7"/>
                     </connections>
                 </customObject>
+                <tapGestureRecognizer id="AFe-us-m8R">
+                    <connections>
+                        <action selector="hadleTapRecognizer:" destination="eto-O4-OHy" id="eEg-Y6-MUp"/>
+                        <outlet property="delegate" destination="FUv-v8-MyM" id="gew-gQ-t0F"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3054.375" y="124.64788732394365"/>
         </scene>

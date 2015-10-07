@@ -115,47 +115,16 @@
         if (!NSStringEqual(self.uploadIdentifier, uploadIdentifier)) self.uploadIdentifier = uploadIdentifier;
     }
     
-    if (dictionary[WLContributorKey]) {
-        WLUser *contributor = [WLUser API_entry:dictionary[WLContributorKey]];
-        if (self.contributor != contributor) self.contributor = contributor;
-    } else {
-        [self parseContributor:dictionary];
-    }
+    WLUser *contributor = [WLUser API_entry:dictionary[WLContributorKey]];
+    if (self.contributor != contributor) self.contributor = contributor;
     
-    if (dictionary[WLEditorKey]) {
-        WLUser *editor = [WLUser API_entry:dictionary[WLEditorKey]];
-        if (self.editor != editor) self.editor = editor;
-    } else {
-        [self parseEditor:dictionary];
-    }
+    WLUser *editor = [WLUser API_entry:dictionary[WLEditorKey]];
+    if (self.editor != editor) self.editor = editor;
     
     NSDate* editedAt = [dictionary timestampDateForKey:WLEditedAtKey];
     if (!NSDateEqual(self.editedAt, editedAt)) self.editedAt = editedAt;
     
     return [super API_setup:dictionary container:container];
-}
-
-- (void)parseContributor:(NSDictionary*)dictionary {
-    NSString* identifier = [dictionary stringForKey:WLContributorUIDKey];
-    if (!identifier.nonempty) return;
-    WLUser* contributor = self.contributor;
-    if (!NSStringEqual(contributor.identifier, identifier)) {
-        contributor = [WLUser entry:identifier];
-        self.contributor = contributor;
-    }
-    NSString* name = [dictionary stringForKey:WLContributorNameKey];
-    if (!NSStringEqual(contributor.name, name)) contributor.name = name;
-    [contributor editPicture:[contributor.picture editWithContributorDictionary:dictionary]];
-}
-
-- (void)parseEditor:(NSDictionary*)dictionary {
-    NSString* identifier = [dictionary stringForKey:WLEditorUIDKey];
-    if (!identifier.nonempty) return;
-    WLUser* editor = self.editor;
-    if (!NSStringEqual(editor.identifier, identifier)) {
-        editor = [WLUser entry:identifier];
-        self.editor = editor;
-    }
 }
 
 - (BOOL)canBeUploaded {

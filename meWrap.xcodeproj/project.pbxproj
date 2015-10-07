@@ -664,13 +664,6 @@
 			remoteGlobalIDString = C54DA0A91BBAC20600790F17;
 			remoteInfo = "meWrap WatchKit 1 App";
 		};
-		C559CB781AA0BB6900100B2C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C5953B6A19C8398B006DF1F3;
-			remoteInfo = CopyProvisioningProfiles;
-		};
 		C5994D8B1B78894A0066A597 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -4446,23 +4439,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXLegacyTarget section */
-		C5953B6A19C8398B006DF1F3 /* CopyProfiles */ = {
-			isa = PBXLegacyTarget;
-			buildArgumentsString = "${SRCROOT}/cpprof.sh";
-			buildConfigurationList = C5953B6B19C8398C006DF1F3 /* Build configuration list for PBXLegacyTarget "CopyProfiles" */;
-			buildPhases = (
-			);
-			buildToolPath = /bin/bash;
-			buildWorkingDirectory = "";
-			dependencies = (
-			);
-			name = CopyProfiles;
-			passBuildSettingsInEnvironment = 1;
-			productName = CopyProvisioningProfiles;
-		};
-/* End PBXLegacyTarget section */
-
 /* Begin PBXNativeTarget section */
 		5BF1B22F1A49A683000BB2C1 /* meWrapToday */ = {
 			isa = PBXNativeTarget;
@@ -4497,7 +4473,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C559CB791AA0BB6900100B2C /* PBXTargetDependency */,
 				C5994D8C1B78894A0066A597 /* PBXTargetDependency */,
 				C535B4761BC2D2DF00F5CBE9 /* PBXTargetDependency */,
 			);
@@ -4612,7 +4587,6 @@
 			projectRoot = "";
 			targets = (
 				C54AF64F19B8C491006F7EDB /* meWrap */,
-				C5953B6A19C8398B006DF1F3 /* CopyProfiles */,
 				5BF1B22F1A49A683000BB2C1 /* meWrapToday */,
 				C54DA09F1BBAC20500790F17 /* meWrapWatchExt */,
 				C54DA0A91BBAC20600790F17 /* meWrapWatchApp */,
@@ -5337,11 +5311,6 @@
 			target = C54DA0A91BBAC20600790F17 /* meWrapWatchApp */;
 			targetProxy = C54DA0AC1BBAC20600790F17 /* PBXContainerItemProxy */;
 		};
-		C559CB791AA0BB6900100B2C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C5953B6A19C8398B006DF1F3 /* CopyProfiles */;
-			targetProxy = C559CB781AA0BB6900100B2C /* PBXContainerItemProxy */;
-		};
 		C5994D8C1B78894A0066A597 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5BF1B22F1A49A683000BB2C1 /* meWrapToday */;
@@ -5899,27 +5868,6 @@
 			};
 			name = AdHoc;
 		};
-		C559CB721AA0BB5D00100B2C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_USE_OPTIMIZATION_PROFILE = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = CopyProvisioningProfiles;
-			};
-			name = Debug;
-		};
-		C559CB731AA0BB5D00100B2C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_USE_OPTIMIZATION_PROFILE = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				PRODUCT_NAME = CopyProvisioningProfiles;
-			};
-			name = Release;
-		};
 		C55C366F1ACEB7A900C614BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6058,16 +6006,6 @@
 			};
 			name = AdHoc;
 		};
-		C5C991061B9836F10006F534 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_USE_OPTIMIZATION_PROFILE = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				PRODUCT_NAME = CopyProvisioningProfiles;
-			};
-			name = AdHoc;
-		};
 		C5C991081B9836F10006F534 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6179,16 +6117,6 @@
 				C55C366F1ACEB7A900C614BD /* Debug */,
 				C55C36711ACEB7A900C614BD /* Release */,
 				C5C9910E1B9836F10006F534 /* AdHoc */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C5953B6B19C8398C006DF1F3 /* Build configuration list for PBXLegacyTarget "CopyProfiles" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C559CB721AA0BB5D00100B2C /* Debug */,
-				C559CB731AA0BB5D00100B2C /* Release */,
-				C5C991061B9836F10006F534 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

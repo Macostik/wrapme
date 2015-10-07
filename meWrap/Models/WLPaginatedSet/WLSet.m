@@ -63,12 +63,7 @@
 
 - (void)sort:(id)entry {
     if ([self.entries containsObject:entry]) {
-        NSUInteger index = [self.entries indexOfObject:entry inSortedRange:NSMakeRange(0, self.entries.count) options:NSBinarySearchingInsertionIndex usingComparator:self.sortComparator];
-        if ([self.entries indexOfObject:entry] != index) {
-            [self sort];
-        } else {
-            [self didChange];
-        }
+        [self sort];
     } else {
         [self addEntry:entry];
     }

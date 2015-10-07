@@ -23,10 +23,6 @@
 
 @property (readonly, nonatomic) NSString *buildNumber;
 
-@property (readonly, nonatomic) NSString *groupIdentifier;
-
-@property (readonly, nonatomic) NSString *URLScheme;
-
 - (NSString*)plist:(NSString *)name;
 
 @end

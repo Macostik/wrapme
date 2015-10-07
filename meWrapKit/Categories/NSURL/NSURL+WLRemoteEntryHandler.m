@@ -14,8 +14,7 @@
 @implementation NSURL (WLRemoteEntryHandler)
 
 + (instancetype)WLURLWithPath:(NSString *)path {
-    NSString *urlScheme = NSMainBundle.URLScheme ? : WLURLScheme;
-    return [[self alloc] initWithScheme:urlScheme host:nil path:path];
+    return [[self alloc] initWithScheme:WLURLScheme host:nil path:path];
 }
 
 + (instancetype)WLURLForRemoteEntryWithKey:(NSString *)key identifier:(NSString *)identifier{

@@ -26,14 +26,6 @@
     return [self objectForInfoDictionaryKey:(id)kCFBundleVersionKey];
 }
 
-- (NSString *)groupIdentifier {
-    return [self objectForInfoDictionaryKey:@"AppGroupIdentifier"];
-}
-
-- (NSString *)URLScheme {
-    return [self objectForInfoDictionaryKey:@"URLScheme"];
-}
-
 @end
 
 @implementation NSArray (NSBundleExtended)

@@ -217,7 +217,6 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    NSLog(@"didReceiveRemoteNotification");
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
     if (state == UIApplicationStateActive) {
         return;

@@ -122,7 +122,7 @@
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *url = nil;
-    NSURL* sharedURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:AppGroupIdentifier()];
+    NSURL* sharedURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:AppGroupIdentifier];
     sharedURL = [sharedURL URLByAppendingPathComponent:@"CoreData.sqlite"];
     NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     documentsURL = [documentsURL URLByAppendingPathComponent:@"CoreData.sqlite"];

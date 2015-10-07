@@ -31,7 +31,7 @@ static NSString* WLSessionServerTimeDifference = @"WLServerTimeDifference";
 + (instancetype)appGroupUserDefaults {
     static NSUserDefaults *appGroupUserDefaults = nil;
     if (!appGroupUserDefaults) {
-        appGroupUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:AppGroupIdentifier()];
+        appGroupUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:AppGroupIdentifier];
     }
     return appGroupUserDefaults;
 }

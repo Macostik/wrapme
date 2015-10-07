@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *chatNotifyTrigger;
 @property (weak, nonatomic) IBOutlet UISwitch *restictedInviteTrigger;
 @property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *friendsInvitePrioritizer;
+@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *chatPrioritizer;
 
 @property (strong, nonatomic) WLEditSession *editSession;
 
@@ -49,6 +50,7 @@
     }
     
     self.friendsInvitePrioritizer.defaultState = wrap.contributedByCurrentUser && !wrap.isPublic;
+    self.chatPrioritizer.defaultState = !wrap.isPublic;
 
     [self.candyNotifyTrigger setOn:self.wrap.isCandyNotifiable];
     [self.chatNotifyTrigger setOn:self.wrap.isChatNotifiable];

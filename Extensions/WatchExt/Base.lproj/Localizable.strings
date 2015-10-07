@@ -10,3 +10,16 @@
 "comment" = "Comment";
 "formatted_photo_by" = "Photo by %@";
 "no_recent_updates" = "No recent updates";
+"minute" = "minute";
+"hour" = "hour";
+"day" = "day";
+"week" = "week";
+"month" = "month";
+"year" = "year";
+"less_than_minute_ago" = "less than 1 minute ago";
+"yesterday" = "Yesterday";
+"today" = "Today";
+"formatted_day_at_time" = "%@ at %@";
+"formatted_calendar_units_ago_at_time" = "%.f %@s ago at %@";
+"formatted_calendar_units_ago" = "%.f %@%@ ago";
+"at" = "at";

@@ -4123,7 +4123,7 @@ QWRkEEZyaWVuZFZpZXc
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WUw-53-Yq6" userLabel="FriendsInviteView">
-                                <rect key="frame" x="0.0" y="124" width="600" height="82"/>
+                                <rect key="frame" x="0.0" y="124" width="600" height="76"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alx-1S-ZGS" customClass="WLLabel">
                                         <rect key="frame" x="12" y="12" width="54" height="21"/>
@@ -4160,7 +4160,7 @@ QWRkEEZyaWVuZFZpZXc
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="KAL-gI-aRC" secondAttribute="bottom" constant="6" id="1Zm-80-5sr"/>
+                                    <constraint firstAttribute="bottom" secondItem="KAL-gI-aRC" secondAttribute="bottom" id="1Zm-80-5sr"/>
                                     <constraint firstItem="alx-1S-ZGS" firstAttribute="top" secondItem="WUw-53-Yq6" secondAttribute="top" constant="12" id="Iqu-1t-zz5"/>
                                     <constraint firstItem="KAL-gI-aRC" firstAttribute="top" secondItem="hr9-nr-ikq" secondAttribute="top" id="PK2-NI-Mtn"/>
                                     <constraint firstItem="hr9-nr-ikq" firstAttribute="leading" secondItem="WUw-53-Yq6" secondAttribute="leading" constant="12" id="RZs-CR-RkH"/>
@@ -4265,8 +4265,54 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstAttribute="bottom" secondItem="dOb-uE-FSR" secondAttribute="bottom" id="rSy-DW-AqO"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYA-26-DXt" userLabel="ChatView">
+                                <rect key="frame" x="0.0" y="309" width="600" height="76"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="741" text="chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zet-Ls-5CH" customClass="WLLabel">
+                                        <rect key="frame" x="12" y="12" width="34" height="21"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="notify_about_new_chat" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUR-VV-aaK" customClass="WLLabel">
+                                        <rect key="frame" x="12" y="45" width="153" height="18"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                        <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7VE-Kd-SiX">
+                                        <rect key="frame" x="539" y="45" width="51" height="31"/>
+                                        <animations/>
+                                        <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="2CM-a7-513"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="7VE-Kd-SiX" secondAttribute="bottom" id="1Kn-R7-s80"/>
+                                    <constraint firstItem="zet-Ls-5CH" firstAttribute="leading" secondItem="zYA-26-DXt" secondAttribute="leading" constant="12" id="AL7-Yc-sPd"/>
+                                    <constraint firstAttribute="trailing" secondItem="7VE-Kd-SiX" secondAttribute="trailing" constant="12" id="ASg-9f-Rda"/>
+                                    <constraint firstItem="7VE-Kd-SiX" firstAttribute="top" secondItem="cUR-VV-aaK" secondAttribute="top" id="CRM-Rr-ieB"/>
+                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="leading" secondItem="zYA-26-DXt" secondAttribute="leading" constant="12" id="Myf-dH-dDH"/>
+                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="top" secondItem="zet-Ls-5CH" secondAttribute="bottom" constant="12" id="Qm5-pC-aIZ"/>
+                                    <constraint firstItem="zet-Ls-5CH" firstAttribute="top" secondItem="zYA-26-DXt" secondAttribute="top" constant="12" id="Ssd-3n-Yfz"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-Oj-q4N">
-                                <rect key="frame" x="0.0" y="206" width="600" height="238"/>
+                                <rect key="frame" x="0.0" y="200" width="600" height="109"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="737" text="notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtf-da-c8a" customClass="WLLabel">
                                         <rect key="frame" x="12" y="12" width="94" height="21"/>
@@ -4309,94 +4355,57 @@ QWRkEEZyaWVuZFZpZXc
                                             <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="9cm-m9-GQc"/>
                                         </connections>
                                     </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="741" text="chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zet-Ls-5CH" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="108" width="34" height="21"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.15056315064430237" green="0.15055865049362183" blue="0.15056121349334717" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="notify_about_new_chat" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUR-VV-aaK" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="141" width="515" height="18"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                        <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7VE-Kd-SiX">
-                                        <rect key="frame" x="539" y="141" width="51" height="31"/>
-                                        <animations/>
-                                        <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="2CM-a7-513"/>
-                                        </connections>
-                                    </switch>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="WLButton">
-                                        <rect key="frame" x="12" y="196" width="576" height="30"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="leave_wrap">
-                                            <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
-                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
-                                                <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="handleAction:" destination="TKE-mx-bkQ" eventType="touchUpInside" id="dUP-cl-Reo"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="zet-Ls-5CH" firstAttribute="top" secondItem="bHL-LP-6Kt" secondAttribute="bottom" constant="12" id="85L-TB-2oX"/>
-                                    <constraint firstItem="zBK-OX-573" firstAttribute="top" secondItem="7VE-Kd-SiX" secondAttribute="bottom" constant="24" id="Hvo-ko-Q8T"/>
-                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="top" secondItem="7VE-Kd-SiX" secondAttribute="top" id="MSp-xg-eON"/>
+                                    <constraint firstAttribute="bottom" secondItem="R1I-Cl-5SX" secondAttribute="bottom" id="1uY-eM-Y2W"/>
                                     <constraint firstItem="bsu-Ad-ILe" firstAttribute="top" secondItem="Vtf-da-c8a" secondAttribute="bottom" constant="12" id="QcC-UM-DoK"/>
                                     <constraint firstItem="Vtf-da-c8a" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="Y1Y-Ub-xYv"/>
                                     <constraint firstItem="bHL-LP-6Kt" firstAttribute="top" secondItem="bsu-Ad-ILe" secondAttribute="bottom" constant="12" id="alO-fn-qxf"/>
                                     <constraint firstItem="bHL-LP-6Kt" firstAttribute="top" secondItem="R1I-Cl-5SX" secondAttribute="top" id="bM8-1u-v5M"/>
-                                    <constraint firstItem="zBK-OX-573" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="dbc-XE-ugP"/>
-                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="trailing" secondItem="7VE-Kd-SiX" secondAttribute="leading" constant="-12" id="gLV-uE-Ykk"/>
-                                    <constraint firstAttribute="trailing" secondItem="zBK-OX-573" secondAttribute="trailing" constant="12" id="jDq-3E-wZh"/>
-                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="top" secondItem="zet-Ls-5CH" secondAttribute="bottom" constant="12" id="krU-ur-6b6"/>
-                                    <constraint firstAttribute="trailing" secondItem="7VE-Kd-SiX" secondAttribute="trailing" constant="12" id="l9f-Zf-m1e"/>
                                     <constraint firstItem="bsu-Ad-ILe" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="las-NM-t1v"/>
-                                    <constraint firstItem="zet-Ls-5CH" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="piI-8c-oSj"/>
                                     <constraint firstItem="bHL-LP-6Kt" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="qNg-2o-Ona"/>
                                     <constraint firstAttribute="trailing" secondItem="R1I-Cl-5SX" secondAttribute="trailing" constant="12" id="qnG-SU-abf"/>
-                                    <constraint firstItem="cUR-VV-aaK" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="rGd-xL-bis"/>
                                     <constraint firstItem="bHL-LP-6Kt" firstAttribute="trailing" secondItem="R1I-Cl-5SX" secondAttribute="leading" constant="-12" id="sEg-rk-5BT"/>
-                                    <constraint firstAttribute="bottom" secondItem="zBK-OX-573" secondAttribute="bottom" constant="12" id="uRp-Sb-t91"/>
                                     <constraint firstItem="Vtf-da-c8a" firstAttribute="top" secondItem="fdR-Oj-q4N" secondAttribute="top" constant="12" id="v2e-fR-RM6"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="WLButton">
+                                <rect key="frame" x="12" y="405" width="576" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ipo-OD-8dx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="leave_wrap">
+                                    <color key="titleColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                        <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="handleAction:" destination="TKE-mx-bkQ" eventType="touchUpInside" id="dUP-cl-Reo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4404,22 +4413,30 @@ QWRkEEZyaWVuZFZpZXc
                             <constraint firstAttribute="trailing" secondItem="NbD-y4-9Ou" secondAttribute="trailing" id="128-JE-QoL"/>
                             <constraint firstAttribute="trailing" secondItem="fdR-Oj-q4N" secondAttribute="trailing" id="5an-XN-3td"/>
                             <constraint firstItem="GMA-8i-bdS" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="8ae-ZE-bU7"/>
+                            <constraint firstAttribute="trailing" secondItem="zYA-26-DXt" secondAttribute="trailing" id="BEw-qS-Waq"/>
                             <constraint firstItem="NbD-y4-9Ou" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="C2z-GJ-NoN"/>
+                            <constraint firstItem="fdR-Oj-q4N" firstAttribute="bottom" secondItem="zYA-26-DXt" secondAttribute="top" priority="750" id="EzZ-4T-m9D"/>
                             <constraint firstItem="NbD-y4-9Ou" firstAttribute="bottom" secondItem="WUw-53-Yq6" secondAttribute="bottom" priority="250" id="FSp-fX-lJ8"/>
+                            <constraint firstItem="zYA-26-DXt" firstAttribute="bottom" secondItem="zBK-OX-573" secondAttribute="top" constant="-20" id="MNL-sJ-su2"/>
                             <constraint firstItem="GMA-8i-bdS" firstAttribute="top" secondItem="gRX-BZ-QRM" secondAttribute="bottom" constant="-20" id="SS9-B6-bXb"/>
+                            <constraint firstItem="zBK-OX-573" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" constant="12" id="SlH-Wj-xsc"/>
                             <constraint firstAttribute="trailing" secondItem="GMA-8i-bdS" secondAttribute="trailing" id="WgA-VG-IsV"/>
+                            <constraint firstItem="zYA-26-DXt" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="Znh-yW-hus"/>
                             <constraint firstItem="fdR-Oj-q4N" firstAttribute="top" secondItem="WUw-53-Yq6" secondAttribute="bottom" id="agv-Zv-IZ4"/>
                             <constraint firstItem="NbD-y4-9Ou" firstAttribute="top" secondItem="GMA-8i-bdS" secondAttribute="bottom" id="ejy-12-frM"/>
                             <constraint firstAttribute="trailing" secondItem="WUw-53-Yq6" secondAttribute="trailing" id="itK-bI-ECP"/>
+                            <constraint firstAttribute="trailing" secondItem="zBK-OX-573" secondAttribute="trailing" constant="12" id="pDQ-i2-HGG"/>
                             <constraint firstItem="WUw-53-Yq6" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="qJN-HA-4yn"/>
                             <constraint firstItem="NbD-y4-9Ou" firstAttribute="bottom" secondItem="WUw-53-Yq6" secondAttribute="top" priority="750" id="tgH-6b-vF6"/>
                             <constraint firstItem="fdR-Oj-q4N" firstAttribute="leading" secondItem="LGQ-2s-xPN" secondAttribute="leading" id="xYj-GO-7JX"/>
+                            <constraint firstItem="zYA-26-DXt" firstAttribute="bottom" secondItem="fdR-Oj-q4N" secondAttribute="bottom" priority="250" id="xfs-B5-TbF"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="actionButton" destination="zBK-OX-573" id="X6v-wJ-diD"/>
                         <outlet property="candyNotifyTrigger" destination="R1I-Cl-5SX" id="3u9-S3-WZv"/>
                         <outlet property="chatNotifyTrigger" destination="7VE-Kd-SiX" id="Mhz-BY-Ri7"/>
+                        <outlet property="chatPrioritizer" destination="0bc-8G-SJK" id="SKf-X9-x0w"/>
                         <outlet property="editButton" destination="EbT-vV-AiD" id="HS8-7x-q20"/>
                         <outlet property="friendsInvitePrioritizer" destination="qS3-OX-s1K" id="zhy-hq-3Mg"/>
                         <outlet property="navigationBar" destination="GMA-8i-bdS" id="99Z-Cx-GMM"/>
@@ -4433,6 +4450,13 @@ QWRkEEZyaWVuZFZpZXc
                         <outletCollection property="parentViews" destination="fdR-Oj-q4N" id="EVk-Ev-SJN"/>
                         <outletCollection property="alternativeConstraints" destination="FSp-fX-lJ8" id="PiD-af-CRC"/>
                         <outletCollection property="defaultConstraints" destination="tgH-6b-vF6" id="yKw-kV-GRJ"/>
+                    </connections>
+                </customObject>
+                <customObject id="0bc-8G-SJK" userLabel="Chat Prioritizer" customClass="WLLayoutPrioritizer">
+                    <connections>
+                        <outletCollection property="parentViews" destination="LGQ-2s-xPN" id="8o5-JV-E0B"/>
+                        <outletCollection property="defaultConstraints" destination="EzZ-4T-m9D" id="pVc-ie-Xo2"/>
+                        <outletCollection property="alternativeConstraints" destination="xfs-B5-TbF" id="E1d-7I-QAL"/>
                     </connections>
                 </customObject>
             </objects>

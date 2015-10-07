@@ -56,7 +56,7 @@
 }
 
 - (void)uploadPicture:(WLEditPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-    WLCandy* candy = [WLCandy candyWithType:WLCandyTypeImage wrap:self];
+    WLCandy* candy = [WLCandy candyWithType:picture.type wrap:self];
     candy.picture = [picture uploadablePicture:YES];
     if (picture.comment.nonempty) {
         [candy addCommentsObject:[WLComment comment:picture.comment]];

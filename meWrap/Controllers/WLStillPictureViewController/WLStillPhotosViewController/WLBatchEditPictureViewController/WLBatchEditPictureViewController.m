@@ -210,10 +210,6 @@
 - (IBAction)upload:(id)sender {
     self.picture.comment = self.composeBar.text;
     NSArray *pictures = [self.pictures selects:^BOOL(WLEditPicture *picture) {
-        if (picture.type == WLCandyTypeVideo) {
-            [WLToast showWithMessage:WLLS(@"Video uploading is not yet implemented.")];
-            return NO;
-        }
         return ![picture deleted];
     }];
     if (pictures.nonempty) {

@@ -183,6 +183,7 @@
 - (WLPicture *)uploadablePicture:(BOOL)justUploaded {
     self.uploaded = YES;
     WLPicture *picture = [[WLPicture alloc] init];
+    picture.type = self.type;
     picture.original = self.original;
     picture.large = self.large;
     picture.medium = self.medium;

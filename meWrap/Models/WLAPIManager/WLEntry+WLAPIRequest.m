@@ -250,17 +250,19 @@
 }
 
 - (void)uploadWithData:(NSDictionary *)metaData success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    
-    WLLog(@"uploading metadata: %@", metaData);
     __weak __typeof(self)weakSelf = self;
     AWSS3TransferManagerUploadRequest *uploadRequest = [AWSS3TransferManagerUploadRequest new];
     uploadRequest.bucket = [[WLAPIEnvironment currentEnvironment] isProduction] ?
     @"wraplive-production-upload-placeholder" : @"wraplive-qa-upload-placeholder";
     uploadRequest.key = [self.picture.original lastPathComponent];
     uploadRequest.metadata = metaData;
-    uploadRequest.contentType = @"image/jpeg";
+    if (self.type == WLCandyTypeVideo) {
+        uploadRequest.contentType = @"video/mp4";
+    } else {
+        uploadRequest.contentType = @"image/jpeg";
+    }
     uploadRequest.body = [NSURL fileURLWithPath:self.picture.original];
-    
+    WLLog(@"uploading content: %@ metadata: %@", uploadRequest.contentType, metaData);
     [[[AWSS3TransferManager defaultS3TransferManager] upload:uploadRequest] continueWithSuccessBlock:^id(AWSTask *task) {
         run_in_main_queue(^{
             if(weakSelf.wrap.valid && task.completed && task.result)  {

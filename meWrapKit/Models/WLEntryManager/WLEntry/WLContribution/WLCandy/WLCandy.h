@@ -15,7 +15,6 @@
 @interface WLCandy : WLContribution
 
 @property (nonatomic) int16_t commentCount;
-@property (nonatomic, retain) WLPicture *editedPicture;
 @property (nonatomic) int16_t type;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) WLWrap *wrap;

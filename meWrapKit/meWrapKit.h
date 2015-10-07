@@ -35,7 +35,6 @@
 #import "WLDevice.h"
 #import "WLDevice+Extended.h"
 #import "WLUploading.h"
-#import "WLUploadingData.h"
 #import "WLUser.h"
 #import "WLUser+Extended.h"
 #import "WLMessage+Extended.h"

@@ -31,36 +31,38 @@
     return uploading;
 }
 
-- (id)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (void)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (![WLNetwork network].reachable) {
         if (failure) failure([NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorNetworkConnectionLost userInfo:@{NSLocalizedDescriptionKey:@"Network connection lost."}]);
-        return nil;
-    }
-    WLContribution *contribution = self.contribution;
-    __weak typeof(self)weakSelf = self;
-    self.data.operation = [self sendTypedRequest:^(id object) {
-        [weakSelf remove];
-        if (success) success(object);
-        [contribution notifyOnUpdate];
-    } failure:^(NSError *error) {
-        if (error.isDuplicatedUploading) {
-            NSDictionary *data = [[error.userInfo dictionaryForKey:WLErrorResponseDataKey] objectForPossibleKeys:WLCandyKey, WLWrapKey, WLCommentKey, WLMessageKey, nil];
-            if ([data isKindOfClass:[NSDictionary class]]) {
-                [weakSelf.contribution API_setup:data];
-            }
+    } else {
+        WLContribution *contribution = self.contribution;
+        __weak typeof(self)weakSelf = self;
+        [self sendTypedRequest:^(id object) {
+            weakSelf.inProgress = NO;
             [weakSelf remove];
-            if (success) success(contribution);
+            if (success) success(object);
             [contribution notifyOnUpdate];
-        } else if ([error isError:WLErrorContentUnavaliable]) {
-            [weakSelf.contribution remove];
-            if (failure) failure(error);
-        } else {
-            [weakSelf.contribution notifyOnUpdate];
-            if (failure) failure(error);
-        }
-    }];
-    [contribution notifyOnUpdate];
-    return self.data.operation;
+        } failure:^(NSError *error) {
+            weakSelf.inProgress = NO;
+            if (error.isDuplicatedUploading) {
+                NSDictionary *data = [[error.userInfo dictionaryForKey:WLErrorResponseDataKey] objectForPossibleKeys:WLCandyKey, WLWrapKey, WLCommentKey, WLMessageKey, nil];
+                if ([data isKindOfClass:[NSDictionary class]]) {
+                    [contribution API_setup:data];
+                }
+                [weakSelf remove];
+                if (success) success(contribution);
+                [contribution notifyOnUpdate];
+            } else if ([error isError:WLErrorContentUnavaliable]) {
+                [contribution remove];
+                if (failure) failure(error);
+            } else {
+                [contribution notifyOnUpdate];
+                if (failure) failure(error);
+            }
+        }];
+        self.inProgress = YES;
+        [contribution notifyOnUpdate];
+    }
 }
 
 - (id)sendTypedRequest:(WLObjectBlock)success failure:(WLFailureBlock)failure {

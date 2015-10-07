@@ -250,6 +250,8 @@
 }
 
 - (void)uploadWithData:(NSDictionary *)metaData success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    
+    WLLog(@"uploading metadata: %@", metaData);
     __weak __typeof(self)weakSelf = self;
     AWSS3TransferManagerUploadRequest *uploadRequest = [AWSS3TransferManagerUploadRequest new];
     uploadRequest.bucket = [[WLAPIEnvironment currentEnvironment] isProduction] ?

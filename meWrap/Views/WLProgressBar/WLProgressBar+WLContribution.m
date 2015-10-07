@@ -10,43 +10,14 @@
 #import "NSObject+AssociatedObjects.h"
 #import "WLNetwork.h"
 
+static CGFloat WLUploadingDataProgressPart = 0.5f;
+static CGFloat WLDownloadingDataProgressPart = 0.5f;
+
 @implementation WLProgressBar (WLContribution)
 
 static inline float progressValue(float progress) {
     return WLDefaultProgress + (1.0f - WLDefaultProgress) * progress;
 };
-
-- (void)setContribution:(WLContribution *)contribution {
-    if (!contribution) {
-        self.hidden = YES;
-        return;
-    }
-    switch (contribution.status) {
-        case WLContributionStatusReady:
-        case WLContributionStatusInProgress: {
-            self.hidden = NO;
-            __weak typeof(self)weakSelf = self;
-            void (^progressBlock)(float, BOOL) = ^ (float progress, BOOL animated) {
-                progress = progressValue(progress);
-                [weakSelf setProgress:progress animated:animated];
-                if (progress == 1) {
-                    run_after(1.0f, ^{
-                        weakSelf.hidden = YES;
-                    });
-                }
-            };
-            progressBlock(contribution.uploading.data.progress, NO);
-            [contribution.uploading.data setProgressBlock:^(float progress) {
-                progressBlock(progress, YES);
-            }];
-        } break;
-        case WLContributionStatusFinished:
-            self.hidden = YES;
-            break;
-        default:
-            break;
-    }
-}
 
 - (void)setOperation:(AFURLConnectionOperation *)operation {
     self.progress = WLDefaultProgress;

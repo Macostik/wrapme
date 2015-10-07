@@ -66,7 +66,7 @@
     WLUploading* uploading = self.uploading;
     if (!uploading || uploading.type != event) {
         return WLContributionStatusFinished;
-    } else if (uploading.data.operation) {
+    } else if (uploading.inProgress) {
         return WLContributionStatusInProgress;
     } else {
         return WLContributionStatusReady;
@@ -77,7 +77,7 @@
     WLUploading* uploading = self.uploading;
     if (!uploading) {
         return WLContributionStatusFinished;
-    } else if (uploading.data.operation) {
+    } else if (uploading.inProgress) {
         return WLContributionStatusInProgress;
     } else {
         return WLContributionStatusReady;

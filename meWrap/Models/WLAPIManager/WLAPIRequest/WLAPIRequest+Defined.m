@@ -331,7 +331,6 @@
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (candy.wrap.valid) {
             WLPicture* oldPicture = [candy.picture copy];
-            candy.editedPicture = nil;
             [candy API_setup:[response.data dictionaryForKey:WLCandyKey]];
             [oldPicture cacheForPicture:candy.picture];
             success(candy);
@@ -353,15 +352,14 @@
 
 + (instancetype)editCandy:(WLCandy*)candy {
     return [[[[[self PUT:@"wraps/%@/candies/%@/", candy.wrap.identifier, candy.identifier] file:^NSString *(id request) {
-        return candy.editedPicture.original;
+        return candy.picture.original;
     }] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:@([candy.updatedAt timestamp]) forKey:WLContributedAtKey];
         candy.uploadIdentifier = GUID();
         [parameters trySetObject:candy.uploadIdentifier forKey:WLUploadUIDKey];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (candy.wrap.valid) {
-            WLPicture* oldPicture = [candy.editedPicture copy];
-            candy.editedPicture = nil;
+            WLPicture* oldPicture = [candy.picture copy];
             [candy API_setup:[response.data dictionaryForKey:WLCandyKey]];
             [oldPicture cacheForPicture:candy.picture];
             success(candy);

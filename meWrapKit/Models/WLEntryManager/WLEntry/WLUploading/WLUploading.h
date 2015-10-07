@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "WLEntry.h"
-#import "WLUploadingData.h"
 
 @class WLContribution;
 
@@ -19,6 +18,6 @@
 
 @property (nonatomic, retain) WLContribution *contribution;
 
-@property (strong, nonatomic) WLUploadingData* data;
+@property (nonatomic) BOOL inProgress;
 
 @end

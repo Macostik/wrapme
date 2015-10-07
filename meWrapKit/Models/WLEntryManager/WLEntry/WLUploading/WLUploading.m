@@ -15,14 +15,6 @@
 
 @dynamic type;
 
-@synthesize data = _data;
-
-- (WLUploadingData *)data {
-    if (!_data) {
-        _data = [[WLUploadingData alloc] init];
-        _data.uploading = self;
-    }
-    return _data;
-}
+@synthesize inProgress = _inProgress;
 
 @end

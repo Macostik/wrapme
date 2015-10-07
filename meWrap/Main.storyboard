@@ -2723,8 +2723,9 @@
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="top" secondItem="FUv-v8-MyM" secondAttribute="top" priority="750" id="9OU-iu-BTw"/>
                             <constraint firstAttribute="trailing" secondItem="wdj-eZ-S3g" secondAttribute="trailing" id="Bro-hF-oDw"/>
                             <constraint firstItem="DOa-Ws-aK4" firstAttribute="top" secondItem="kcj-4A-oFo" secondAttribute="top" priority="250" id="FGX-3K-gVJ"/>
+                            <constraint firstItem="2ai-CO-qH0" firstAttribute="bottom" secondItem="DOa-Ws-aK4" secondAttribute="bottom" priority="250" constant="12" id="Fr5-au-wVq"/>
                             <constraint firstItem="wdj-eZ-S3g" firstAttribute="top" secondItem="FUv-v8-MyM" secondAttribute="top" id="Oo7-M6-a6c"/>
-                            <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="2ai-CO-qH0" secondAttribute="bottom" constant="12" id="R09-AS-8Qc"/>
+                            <constraint firstItem="kcj-4A-oFo" firstAttribute="top" secondItem="2ai-CO-qH0" secondAttribute="bottom" priority="750" constant="12" id="R09-AS-8Qc"/>
                             <constraint firstAttribute="trailing" secondItem="DOa-Ws-aK4" secondAttribute="trailing" id="WMM-NN-L4t"/>
                             <constraint firstItem="wdj-eZ-S3g" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="XjL-5U-3St"/>
                             <constraint firstItem="DOa-Ws-aK4" firstAttribute="leading" secondItem="FUv-v8-MyM" secondAttribute="leading" id="iM1-Ax-Ka6"/>
@@ -2742,6 +2743,7 @@
                         <outlet property="bottomView" destination="DOa-Ws-aK4" id="oO2-CG-2mp"/>
                         <outlet property="candyIndicator" destination="7yS-IZ-1M1" id="4SO-xL-ie4"/>
                         <outlet property="commentButton" destination="2ai-CO-qH0" id="gaJ-nC-R6A"/>
+                        <outlet property="commentButtonPrioritizer" destination="gXs-Hi-baz" id="XGg-CY-Euu"/>
                         <outlet property="commentIndicator" destination="U0A-o6-Hed" id="fn6-LQ-ijP"/>
                         <outlet property="deleteButton" destination="J3S-jS-mvs" id="Ivz-Xj-Akh"/>
                         <outlet property="downloadButton" destination="sPd-Ai-V8F" id="xcQ-Js-zwj"/>
@@ -2775,6 +2777,16 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="sourceViewController" destination="eto-O4-OHy" id="iFv-Wj-Ml7"/>
+                    </connections>
+                </customObject>
+                <customObject id="gXs-Hi-baz" userLabel="CommentButtonPrioritizer" customClass="WLLayoutPrioritizer">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outletCollection property="defaultConstraints" destination="R09-AS-8Qc" id="QdU-QJ-Kfr"/>
+                        <outletCollection property="parentViews" destination="FUv-v8-MyM" id="UGE-sz-nXg"/>
+                        <outletCollection property="alternativeConstraints" destination="Fr5-au-wVq" id="SQ7-sg-U7C"/>
                     </connections>
                 </customObject>
                 <tapGestureRecognizer id="AFe-us-m8R">

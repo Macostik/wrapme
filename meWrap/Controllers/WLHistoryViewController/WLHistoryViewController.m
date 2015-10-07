@@ -59,6 +59,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet WLTextView *lastCommentTextView;
 
 @property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *primaryConstraint;
+@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *commentButtonPrioritizer;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;
@@ -493,6 +494,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (IBAction)hadleTapRecognizer:(id)sender {
     [self setBarsHidden:self.primaryConstraint.defaultState animated:YES];
+    self.commentButtonPrioritizer.defaultState = self.primaryConstraint.defaultState;
 }
 
 #pragma mark - WLSwipeViewController Methods

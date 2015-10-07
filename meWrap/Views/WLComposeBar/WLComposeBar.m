@@ -129,6 +129,7 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 - (WLEmojiView *)emojiView {
 	if (!_emojiView) {
 		_emojiView = [WLEmojiView emojiViewWithTextView:self.textView];
+        _emojiView.backgroundColor = self.backgroundColor;
 	}
 	return _emojiView;
 }

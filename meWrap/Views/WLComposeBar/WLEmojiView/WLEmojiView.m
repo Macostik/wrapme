@@ -23,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet SegmentedControl *segmentedControl;
 @property (weak, nonatomic) UITextView* textView;
 @property (strong, nonatomic) StreamDataSource *dataSource;
-@property (strong, nonatomic) GridMetrics *metrics;
 
 @end
 
@@ -38,22 +37,23 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.streamView.layout = [[GridLayout alloc] initWithHorizontal:YES];
-    self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
-    self.metrics = [[GridMetrics alloc] initWithIdentifier:@"WLEmojiCell"];
-    [self.dataSource addMetrics:self.metrics];
-    self.dataSource.numberOfGridColumns = 3;
-    self.dataSource.sizeForGridColumns = 0.3333f;
     __weak typeof(self)weakSelf = self;
     StreamView *streamView = self.streamView;
-    [self.metrics setRatioAt:^CGFloat(StreamPosition * __nonnull index, GridMetrics * __nonnull metrics) {
-        return  (streamView.frame.size.height/3) / (streamView.frame.size.width/7);
-    }];
     
-    [self.metrics setSelection:^(StreamItem * __nonnull item, NSString * __nonnull emoji) {
-        [WLEmoji saveAsRecent:emoji];
-        [weakSelf.textView insertText:emoji];
-    }];
+    self.streamView.layout = [[GridLayout alloc] initWithHorizontal:YES];
+    self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
+    [self.dataSource addMetrics:[[GridMetrics alloc] initWithIdentifier:@"WLEmojiCell" initializer:^(StreamMetrics *metrics) {
+        [(GridMetrics*)metrics setRatioAt:^CGFloat(StreamPosition * __nonnull index, GridMetrics * __nonnull metrics) {
+            return (streamView.frame.size.height/3) / (streamView.frame.size.width/7);
+        }];
+        
+        [(GridMetrics*)metrics setSelection:^(StreamItem * __nonnull item, NSString * __nonnull emoji) {
+            [WLEmoji saveAsRecent:emoji];
+            [weakSelf.textView insertText:emoji];
+        }];
+    }]];
+    self.dataSource.numberOfGridColumns = 3;
+    self.dataSource.sizeForGridColumns = 0.3333f;
     
     if ([[WLEmoji recentEmoji] nonempty]) {
         self.emojis = [WLEmoji recentEmoji];
@@ -66,7 +66,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     [UIView performWithoutAnimation:^{
-           [self.dataSource reload];
+        [self.dataSource reload];
     }];
 }
 

@@ -58,16 +58,6 @@
     return self;
 }
 
-- (WLPicture *)picture {
-    if (self.editedPicture) {
-        return self.editedPicture;
-    }
-    [self willAccessValueForKey:@"picture"];
-    WLPicture *picture = [self primitiveValueForKey:@"picture"];
-    [self didAccessValueForKey:@"picture"];
-    return picture;
-}
-
 - (void)setEditedPictureIfNeeded:(WLPicture *)editedPicture {
     switch (self.status) {
         case WLContributionStatusReady:
@@ -77,11 +67,15 @@
             break;
         case WLContributionStatusFinished:
             [self touch];
-            self.editedPicture = editedPicture;
+            self.picture = editedPicture;
             break;
         default:
             break;
     }
+}
+
+- (BOOL)uploaded {
+    return [super uploaded] && ![self.identifier isEqualToString:self.uploadIdentifier];
 }
 
 - (void)prepareForDeletion {

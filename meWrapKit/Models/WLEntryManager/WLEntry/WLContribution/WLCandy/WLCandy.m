@@ -21,7 +21,6 @@
 @implementation WLCandy
 
 @dynamic commentCount;
-@dynamic editedPicture;
 @dynamic type;
 @dynamic comments;
 @dynamic wrap;

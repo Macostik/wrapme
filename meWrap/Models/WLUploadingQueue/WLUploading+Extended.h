@@ -15,6 +15,6 @@
 
 + (instancetype)uploading:(WLContribution*)contribution type:(WLEvent)type;
 
-- (id)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (void)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 @end

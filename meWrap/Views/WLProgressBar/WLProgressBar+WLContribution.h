@@ -12,8 +12,6 @@ static CGFloat WLDefaultProgress = 0.1f;
 
 @interface WLProgressBar (WLContribution)
 
-- (void)setContribution:(WLContribution *)contribution;
-
 - (void)setOperation:(id)operation;
 
 @end

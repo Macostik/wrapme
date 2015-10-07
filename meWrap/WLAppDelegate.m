@@ -31,6 +31,7 @@
 #import "WLUploadingQueue.h"
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLNetwork.h"
+#import <AWSCore/AWSCore.h>
 
 @import Photos;
 
@@ -50,6 +51,8 @@
     [self initializeCrashlyticsAndLogging];
     
     [self initializeAPIManager];
+    
+    [self initializerAWS];
     
     [[WLNotificationCenter defaultCenter] configure];
     
@@ -134,6 +137,13 @@
     version.downloadButtonLabel = WLLS(@"update");
     version.remindButtonLabel = WLLS(@"not_now");
     version.updatePriority = iVersionUpdatePriorityMedium;
+}
+
+- (void)initializerAWS {
+    AWSStaticCredentialsProvider *credentialsProvider = [[AWSStaticCredentialsProvider alloc] initWithAccessKey:@"AKIAI6OCL6FAUCGK62GQ"
+                                                                                                      secretKey: @"mcRijNSjMaZ6F44G35atmEQwDeYzd29q4aZkla2x"];
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSWest2 credentialsProvider:credentialsProvider];
+    AWSServiceManager.defaultServiceManager.defaultServiceConfiguration = configuration;
 }
 
 - (void)createWindow {

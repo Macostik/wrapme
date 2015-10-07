@@ -17,6 +17,10 @@
 		5B7591DE1BAAEF7800967AAA /* WLReportList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B7591DD1BAAEF7800967AAA /* WLReportList.plist */; settings = {ASSET_TAGS = (); }; };
 		5B7591DF1BAAEF7800967AAA /* WLReportList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B7591DD1BAAEF7800967AAA /* WLReportList.plist */; settings = {ASSET_TAGS = (); }; };
 		5B787D9D1A27876F004AE459 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B787D9C1A27876F004AE459 /* NotificationCenter.framework */; };
+		5B7BDD811BBD6008001F728A /* AWSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7BDD801BBD6008001F728A /* AWSCore.framework */; settings = {ASSET_TAGS = (); }; };
+		5B7BDD821BBD6008001F728A /* AWSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7BDD801BBD6008001F728A /* AWSCore.framework */; settings = {ASSET_TAGS = (); }; };
+		5B7BDD841BBD622A001F728A /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7BDD831BBD622A001F728A /* AWSS3.framework */; settings = {ASSET_TAGS = (); }; };
+		5B7BDD851BBD622A001F728A /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7BDD831BBD622A001F728A /* AWSS3.framework */; settings = {ASSET_TAGS = (); }; };
 		5B954BB71B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */; };
 		5B954BB91B4437C000D362B5 /* WLLayoutPrioritizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */; };
 		5BA1307C1B15A92600385C2C /* WLPresentingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA130791B15A92600385C2C /* WLPresentingImageView.m */; };
@@ -1159,12 +1163,6 @@
 		C5E6EA5E1BBAC3EC007FFA66 /* WLUploading.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8BD1BBAC3EC007FFA66 /* WLUploading.m */; settings = {ASSET_TAGS = (); }; };
 		C5E6EA5F1BBAC3EC007FFA66 /* WLUploading.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8BD1BBAC3EC007FFA66 /* WLUploading.m */; settings = {ASSET_TAGS = (); }; };
 		C5E6EA601BBAC3EC007FFA66 /* WLUploading.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8BD1BBAC3EC007FFA66 /* WLUploading.m */; settings = {ASSET_TAGS = (); }; };
-		C5E6EA611BBAC3EC007FFA66 /* WLUploadingData.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8BF1BBAC3EC007FFA66 /* WLUploadingData.m */; settings = {ASSET_TAGS = (); }; };
-		C5E6EA621BBAC3EC007FFA66 /* WLUploadingData.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8BF1BBAC3EC007FFA66 /* WLUploadingData.m */; settings = {ASSET_TAGS = (); }; };
-		C5E6EA631BBAC3EC007FFA66 /* WLUploadingData.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8BF1BBAC3EC007FFA66 /* WLUploadingData.m */; settings = {ASSET_TAGS = (); }; };
-		C5E6EA641BBAC3EC007FFA66 /* WLUploadingData.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8BF1BBAC3EC007FFA66 /* WLUploadingData.m */; settings = {ASSET_TAGS = (); }; };
-		C5E6EA651BBAC3EC007FFA66 /* WLUploadingData.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8BF1BBAC3EC007FFA66 /* WLUploadingData.m */; settings = {ASSET_TAGS = (); }; };
-		C5E6EA661BBAC3EC007FFA66 /* WLUploadingData.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8BF1BBAC3EC007FFA66 /* WLUploadingData.m */; settings = {ASSET_TAGS = (); }; };
 		C5E6EA671BBAC3EC007FFA66 /* WLUser+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8C21BBAC3EC007FFA66 /* WLUser+Extended.m */; settings = {ASSET_TAGS = (); }; };
 		C5E6EA681BBAC3EC007FFA66 /* WLUser+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8C21BBAC3EC007FFA66 /* WLUser+Extended.m */; settings = {ASSET_TAGS = (); }; };
 		C5E6EA691BBAC3EC007FFA66 /* WLUser+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8C21BBAC3EC007FFA66 /* WLUser+Extended.m */; settings = {ASSET_TAGS = (); }; };
@@ -1498,6 +1496,8 @@
 		5B7591DD1BAAEF7800967AAA /* WLReportList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = WLReportList.plist; path = WLReportList/WLReportList.plist; sourceTree = "<group>"; };
 		5B787D9B1A27876F004AE459 /* meWrapTodayQA.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapTodayQA.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		5B7BDD801BBD6008001F728A /* AWSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSCore.framework; sourceTree = "<group>"; };
+		5B7BDD831BBD622A001F728A /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
 		5B954BB31B4437C000D362B5 /* WLLayoutPrioritizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLLayoutPrioritizer.h; sourceTree = "<group>"; };
 		5B954BB41B4437C000D362B5 /* WLLayoutPrioritizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLLayoutPrioritizer.m; sourceTree = "<group>"; };
 		5BA130781B15A92600385C2C /* WLPresentingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPresentingImageView.h; path = meWrap/Views/WLPresentingImageView/WLPresentingImageView.h; sourceTree = SOURCE_ROOT; };
@@ -2306,8 +2306,6 @@
 		C5E6E8BA1BBAC3EC007FFA66 /* WLEntryKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryKeys.h; sourceTree = "<group>"; };
 		C5E6E8BC1BBAC3EC007FFA66 /* WLUploading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploading.h; sourceTree = "<group>"; };
 		C5E6E8BD1BBAC3EC007FFA66 /* WLUploading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploading.m; sourceTree = "<group>"; };
-		C5E6E8BE1BBAC3EC007FFA66 /* WLUploadingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploadingData.h; sourceTree = "<group>"; };
-		C5E6E8BF1BBAC3EC007FFA66 /* WLUploadingData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploadingData.m; sourceTree = "<group>"; };
 		C5E6E8C11BBAC3EC007FFA66 /* WLUser+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLUser+Extended.h"; sourceTree = "<group>"; };
 		C5E6E8C21BBAC3EC007FFA66 /* WLUser+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLUser+Extended.m"; sourceTree = "<group>"; };
 		C5E6E8C31BBAC3EC007FFA66 /* WLUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUser.h; sourceTree = "<group>"; };
@@ -2420,9 +2418,11 @@
 				C54AF51A19B8C437006F7EDB /* CFNetwork.framework in Frameworks */,
 				C54AF51B19B8C437006F7EDB /* CoreGraphics.framework in Frameworks */,
 				C54AF51C19B8C437006F7EDB /* UIKit.framework in Frameworks */,
+				5B7BDD841BBD622A001F728A /* AWSS3.framework in Frameworks */,
 				C54AF51E19B8C437006F7EDB /* Foundation.framework in Frameworks */,
 				C560B1621AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */,
 				C5D41CF31AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
+				5B7BDD811BBD6008001F728A /* AWSCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2443,9 +2443,11 @@
 				C54AF71419B8C491006F7EDB /* CFNetwork.framework in Frameworks */,
 				C54AF71519B8C491006F7EDB /* CoreGraphics.framework in Frameworks */,
 				C54AF71619B8C491006F7EDB /* UIKit.framework in Frameworks */,
+				5B7BDD851BBD622A001F728A /* AWSS3.framework in Frameworks */,
 				C54AF71819B8C491006F7EDB /* Foundation.framework in Frameworks */,
 				C560B1641AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */,
 				C5D41CF51AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
+				5B7BDD821BBD6008001F728A /* AWSCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2562,6 +2564,8 @@
 		12A7A70118DA0945008FF6F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B7BDD831BBD622A001F728A /* AWSS3.framework */,
+				5B7BDD801BBD6008001F728A /* AWSCore.framework */,
 				C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */,
 				C57CB2A51BAAE4F60050FBF7 /* libz.tbd */,
 				C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */,
@@ -5006,8 +5010,6 @@
 			children = (
 				C5E6E8BC1BBAC3EC007FFA66 /* WLUploading.h */,
 				C5E6E8BD1BBAC3EC007FFA66 /* WLUploading.m */,
-				C5E6E8BE1BBAC3EC007FFA66 /* WLUploadingData.h */,
-				C5E6E8BF1BBAC3EC007FFA66 /* WLUploadingData.m */,
 			);
 			path = WLUploading;
 			sourceTree = "<group>";
@@ -5848,7 +5850,6 @@
 				C5E6EA0F1BBAC3EC007FFA66 /* WLComment+Extended.m in Sources */,
 				C5E6E9071BBAC3EC007FFA66 /* AFURLRequestSerialization.m in Sources */,
 				C5E6EA151BBAC3EC007FFA66 /* WLComment.m in Sources */,
-				C5E6EA631BBAC3EC007FFA66 /* WLUploadingData.m in Sources */,
 				C5E6EA751BBAC3EC007FFA66 /* WLEntryManager.m in Sources */,
 				C5E6E9A91BBAC3EC007FFA66 /* UIDevice-Hardware.m in Sources */,
 				C5E6E93D1BBAC3EC007FFA66 /* NSArray+WLCollection.m in Sources */,
@@ -5939,7 +5940,6 @@
 				C5E6EA101BBAC3EC007FFA66 /* WLComment+Extended.m in Sources */,
 				C5E6E9081BBAC3EC007FFA66 /* AFURLRequestSerialization.m in Sources */,
 				C5E6EA161BBAC3EC007FFA66 /* WLComment.m in Sources */,
-				C5E6EA641BBAC3EC007FFA66 /* WLUploadingData.m in Sources */,
 				C5E6EA761BBAC3EC007FFA66 /* WLEntryManager.m in Sources */,
 				C5E6E9AA1BBAC3EC007FFA66 /* UIDevice-Hardware.m in Sources */,
 				C5E6E93E1BBAC3EC007FFA66 /* NSArray+WLCollection.m in Sources */,
@@ -6004,7 +6004,6 @@
 				C5E6EA831BBAC3EC007FFA66 /* WLEntryNotifyReceiver.m in Sources */,
 				C50646641ABD815200CB4BE3 /* WLWKCandyController.m in Sources */,
 				C5BCAC401B2EDF2300080650 /* WLWKAlertController.m in Sources */,
-				C5E6EA651BBAC3EC007FFA66 /* WLUploadingData.m in Sources */,
 				C5E6EA411BBAC3EC007FFA66 /* WLDevice+Extended.m in Sources */,
 				C5E6E97B1BBAC3EC007FFA66 /* NSObject+Extension.m in Sources */,
 				C5E6EA2F1BBAC3EC007FFA66 /* WLMessage.m in Sources */,
@@ -6411,7 +6410,6 @@
 				C5E6EAF21BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m in Sources */,
 				C5B2337C1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */,
 				C5B0972C1BB14F040057D6BA /* PubNub+ChannelGroup.m in Sources */,
-				C5E6EA611BBAC3EC007FFA66 /* WLUploadingData.m in Sources */,
 				C53F2CE51A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				C54731CA1B90A4B000B583FD /* WLAssetCell.m in Sources */,
 				C54C567A1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
@@ -6772,7 +6770,6 @@
 				C5E6EAF31BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m in Sources */,
 				C5B2337E1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */,
 				C5B0972D1BB14F040057D6BA /* PubNub+ChannelGroup.m in Sources */,
-				C5E6EA621BBAC3EC007FFA66 /* WLUploadingData.m in Sources */,
 				C53F2CE71A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				C54731CB1B90A4B000B583FD /* WLAssetCell.m in Sources */,
 				C54C567C1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
@@ -6824,7 +6821,6 @@
 				C5E6EA841BBAC3EC007FFA66 /* WLEntryNotifyReceiver.m in Sources */,
 				C5E6E8051BBAC35E007FFA66 /* WLWKCommentEventRow.m in Sources */,
 				C5E6E8021BBAC35E007FFA66 /* WLWKCandyController.m in Sources */,
-				C5E6EA661BBAC3EC007FFA66 /* WLUploadingData.m in Sources */,
 				C5E6EA421BBAC3EC007FFA66 /* WLDevice+Extended.m in Sources */,
 				C5E6E97C1BBAC3EC007FFA66 /* NSObject+Extension.m in Sources */,
 				C5E6EA301BBAC3EC007FFA66 /* WLMessage.m in Sources */,

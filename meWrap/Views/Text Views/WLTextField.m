@@ -34,11 +34,11 @@
 }
 #endif
 
-- (CGSize)intrinsicContentSize {
+- (BOOL)resignFirstResponder{
     if (self.trim) {
         self.text = [self.text trim];
     }
-    return [super intrinsicContentSize];
+    return [super resignFirstResponder];
 }
 
 - (void)setText:(NSString *)text {

@@ -21,6 +21,7 @@
 #import "UIView+LayoutHelper.h"
 #import "UIScrollView+Additions.h"
 #import "WLEditPicture.h"
+#import "WLLayoutPrioritizer.h"
 
 @interface WLBatchEditPictureViewController () <WLComposeBarDelegate>
 
@@ -76,8 +77,6 @@
             [weakSelf setViewController:[weakSelf editPictureViewControllerForPicture:picture] direction:0 animated:NO];
         }
     }];
-    
-    self.composeBar.showsDoneButtonOnEditing = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -278,6 +277,8 @@
 
 - (IBAction)composeBarDidFinish:(id)sender {
     [self.composeBar resignFirstResponder];
+    [self.composeBar.text trim];
+    self.composeBar.trailingPrioritizer.defaultState = YES;
 }
 
 - (void)composeBarDidChangeText:(WLComposeBar *)composeBar {

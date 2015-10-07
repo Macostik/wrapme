@@ -18,14 +18,12 @@
 static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 
 @interface WLComposeBar () <UITextViewDelegate, UICollectionViewDelegate>
-
-@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) WLEmojiView * emojiView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *horizontalSpaceDoneButtonContstraint;
 @property (assign, nonatomic) IBInspectable CGFloat maxLines;
+
 
 @end
 
@@ -34,10 +32,10 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 - (void)awakeFromNib {
 	[super awakeFromNib];
     
-    self.textView.superview.layer.borderWidth = WLConstants.pixelSize;
     self.textView.layoutManager.allowsNonContiguousLayout = NO;
+    self.textView.textContainer.lineFragmentPadding = 0;
     self.textView.textContainerInset = self.textView.contentInset = UIEdgeInsetsZero;
-	[self updateStateAnimated:NO];
+	[self updatePioritizerState];
     
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(becomeFirstResponder)]];
     [self.textView.superview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(becomeFirstResponder)]];
@@ -67,11 +65,11 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
     self.textView.text = text;
     self.placeholderLabel.hidden = text.nonempty || self.textView.selectedRange.location != 0;
     [self updateHeight];
-    [self updateStateAnimated:YES];
+    [self updatePioritizerState];
 }
 
-- (void)updateStateAnimated:(BOOL)animated {
-	[self setDoneButtonHidden:!self.textView.text.nonempty animated:animated];
+- (void)updatePioritizerState {
+    self.trailingPrioritizer.defaultState = !self.textView.text.nonempty;
 }
 
 - (NSString *)placeholder {
@@ -99,21 +97,6 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
     run_after_asap(^{
         self.text = nil;
     });
-}
-
-- (void)setDoneButtonHidden:(BOOL)doneButtonHidden {
-	[self setDoneButtonHidden:doneButtonHidden animated:NO];
-}
-
-- (void)setDoneButtonHidden:(BOOL)hidden animated:(BOOL)animated {
-    if (self.showsDoneButtonOnEditing && !self.isFirstResponder && !hidden) {
-        hidden = YES;
-    }
-    self.doneButton.userInteractionEnabled = !hidden;
-    [UIView performAnimated:animated animation:^{
-        self.horizontalSpaceDoneButtonContstraint.constant = hidden ? 0 : -self.doneButton.width;
-        [self layoutIfNeeded];
-    }];
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
@@ -160,14 +143,12 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
     }
     self.placeholderLabel.hidden = textView.text.nonempty;
     [self updateHeight];
-    [self updateStateAnimated:YES];
+    [self updatePioritizerState];
     [self sendActionsForControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    if (self.showsDoneButtonOnEditing) {
-        [self updateStateAnimated:YES];
-    }
+    [self updatePioritizerState];
 	if ([self.delegate respondsToSelector:@selector(composeBarDidBeginEditing:)]) {
 		[self.delegate composeBarDidBeginEditing:self];
 	}
@@ -175,9 +156,7 @@ static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    if (self.showsDoneButtonOnEditing) {
-        [self updateStateAnimated:YES];
-    }
+    [self updatePioritizerState];
 	if ([self.delegate respondsToSelector:@selector(composeBarDidEndEditing:)]) {
 		[self.delegate composeBarDidEndEditing:self];
 	}

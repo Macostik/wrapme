@@ -70,6 +70,13 @@
     return self.placeholderLabel.text;
 }
 
+- (BOOL)resignFirstResponder {
+    if (self.trim) {
+         self.text = [self.text trim];
+    }
+    return [super resignFirstResponder];
+}
+
 - (void)setPreset:(NSString *)preset {
     _preset = preset;
     self.font = [self.font preferredFontWithPreset:preset];

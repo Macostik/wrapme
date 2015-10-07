@@ -167,7 +167,6 @@ CGFloat WLMinTextViewWidth;
                 CGRectZero : [weakSelf.chat.groupMessages containsObject:message] ? CGRectMake(0, WLMessageGroupSpacing, 0, 0) : CGRectMake(0, 2, 0, 0);
     };
 	
-	self.composeBar.placeholder = WLLS(@"message_placeholder");
     self.chat = [WLChat chatWithWrap:self.wrap];
     self.chat.delegate = self;
 

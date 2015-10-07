@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLLayoutPrioritizer.h"
 
 @class WLComposeBar;
 
@@ -27,14 +28,12 @@
 
 @property (nonatomic, weak) IBOutlet id delegate;
 
+@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *trailingPrioritizer;
+
 @property (strong, nonatomic) NSString* text;
 
 @property (strong, nonatomic) NSString* placeholder;
 
 @property (nonatomic) BOOL doneButtonHidden;
-
-@property (nonatomic) BOOL showsDoneButtonOnEditing;
-
-- (void)setDoneButtonHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end

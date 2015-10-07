@@ -7,13 +7,11 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="AppleColorEmoji@2x.ttf">
-            <string>AppleColorEmoji</string>
-        </mutableArray>
         <mutableArray key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
         </mutableArray>
         <mutableArray key="icons.ttf">
+            <string>icons</string>
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
@@ -1276,25 +1274,25 @@
                                 <rect key="frame" x="0.0" y="383" width="320" height="44"/>
                                 <subviews>
                                     <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHr-LD-08v">
-                                        <rect key="frame" x="0.0" y="0.0" width="45" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="6q3-dp-RDC"/>
-                                            <constraint firstAttribute="width" constant="45" id="Dkg-Lm-bof"/>
+                                            <constraint firstAttribute="width" constant="44" id="Dkg-Lm-bof"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="15"/>
-                                        <state key="normal" image="ic_emoji_smile"/>
-                                        <state key="selected" image="ic_emoji_keyboard_white"/>
+                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
+                                        <state key="normal" title="J"/>
+                                        <state key="selected" title="K"/>
                                         <connections>
                                             <action selector="selectEmoji:" destination="ao0-lV-pbN" eventType="touchUpInside" id="bYo-hf-LaY"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6p-H5-Fb8">
-                                        <rect key="frame" x="45" y="4" width="231" height="36"/>
+                                        <rect key="frame" x="44" y="4" width="276" height="36"/>
                                         <subviews>
                                             <textView autoresizesSubviews="NO" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HH9-aQ-kkJ" customClass="WLTextView">
-                                                <rect key="frame" x="4" y="8" width="227" height="20"/>
+                                                <rect key="frame" x="0.0" y="8" width="276" height="20"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1302,13 +1300,15 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="trim" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="delegate" destination="ao0-lV-pbN" id="mYa-Ww-VNg"/>
+                                                    <outlet property="placeholderLabel" destination="2ag-My-O3m" id="AXF-vB-2oe"/>
                                                 </connections>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add_comment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ag-My-O3m" customClass="WLLabel">
-                                                <rect key="frame" x="8" y="8" width="220" height="21"/>
+                                                <rect key="frame" x="0.0" y="8" width="276" height="21"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -1328,12 +1328,12 @@
                                         <constraints>
                                             <constraint firstAttribute="centerY" secondItem="2ag-My-O3m" secondAttribute="centerY" constant="-0.5" id="1B3-JR-pxN"/>
                                             <constraint firstAttribute="bottom" secondItem="HH9-aQ-kkJ" secondAttribute="bottom" constant="8" id="4Yw-gq-zSK"/>
-                                            <constraint firstItem="HH9-aQ-kkJ" firstAttribute="leading" secondItem="Q6p-H5-Fb8" secondAttribute="leading" constant="4" id="9s6-qy-3YN"/>
+                                            <constraint firstItem="HH9-aQ-kkJ" firstAttribute="leading" secondItem="Q6p-H5-Fb8" secondAttribute="leading" id="9s6-qy-3YN"/>
                                             <constraint firstItem="HH9-aQ-kkJ" firstAttribute="top" secondItem="Q6p-H5-Fb8" secondAttribute="top" constant="8" id="ENF-lK-5Pm"/>
                                             <constraint firstAttribute="trailing" secondItem="HH9-aQ-kkJ" secondAttribute="trailing" id="UQO-Nb-vLo"/>
-                                            <constraint firstItem="2ag-My-O3m" firstAttribute="leading" secondItem="Q6p-H5-Fb8" secondAttribute="leading" constant="8" id="b10-l4-BFn"/>
+                                            <constraint firstItem="2ag-My-O3m" firstAttribute="leading" secondItem="Q6p-H5-Fb8" secondAttribute="leading" id="b10-l4-BFn"/>
                                             <constraint firstAttribute="height" constant="36" id="bgi-k4-ZQ1"/>
-                                            <constraint firstAttribute="trailing" secondItem="2ag-My-O3m" secondAttribute="trailing" constant="3" id="mUa-qe-744"/>
+                                            <constraint firstAttribute="trailing" secondItem="2ag-My-O3m" secondAttribute="trailing" id="mUa-qe-744"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
@@ -1342,7 +1342,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQe-F3-dTa">
-                                        <rect key="frame" x="45" y="38" width="221" height="1"/>
+                                        <rect key="frame" x="44" y="38" width="266" height="1"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1350,7 +1350,7 @@
                                         </constraints>
                                     </view>
                                     <button tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Nk-uxq" customClass="WLButton">
-                                        <rect key="frame" x="276" y="5" width="45" height="34"/>
+                                        <rect key="frame" x="320" y="5" width="45" height="34"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1373,7 +1373,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="composeBarDidFinish:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="F2R-OV-epi"/>
+                                            <action selector="composeBarDidFinish:" destination="CvA-oq-Pt1" eventType="touchUpInside" id="ESp-sI-r6p"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1384,7 +1384,8 @@
                                     <constraint firstItem="XHr-LD-08v" firstAttribute="leading" secondItem="ao0-lV-pbN" secondAttribute="leading" id="8ht-xh-Vsk"/>
                                     <constraint firstAttribute="centerY" secondItem="XHr-LD-08v" secondAttribute="centerY" id="IIV-XY-Rph"/>
                                     <constraint firstAttribute="bottom" secondItem="kQe-F3-dTa" secondAttribute="bottom" constant="5" id="KOv-zt-6np"/>
-                                    <constraint firstItem="Ovp-Nk-uxq" firstAttribute="leading" secondItem="ao0-lV-pbN" secondAttribute="trailing" constant="-44" id="WRL-nH-baO"/>
+                                    <constraint firstItem="Ovp-Nk-uxq" firstAttribute="leading" secondItem="ao0-lV-pbN" secondAttribute="trailing" priority="750" id="WRL-nH-baO"/>
+                                    <constraint firstItem="Q6p-H5-Fb8" firstAttribute="leading" secondItem="XHr-LD-08v" secondAttribute="trailing" id="WgY-nj-22G"/>
                                     <constraint firstAttribute="centerY" secondItem="Ovp-Nk-uxq" secondAttribute="centerY" id="aSk-zf-Wq8"/>
                                     <constraint firstItem="Ovp-Nk-uxq" firstAttribute="leading" secondItem="Q6p-H5-Fb8" secondAttribute="trailing" id="iMn-KO-LB7"/>
                                     <constraint firstItem="kQe-F3-dTa" firstAttribute="trailing" secondItem="Q6p-H5-Fb8" secondAttribute="trailing" constant="-10" id="qCp-2N-DKu"/>
@@ -1400,13 +1401,17 @@
                                         <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1j2-me-eBo"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="CvA-oq-Pt1" id="kgd-bp-UKs"/>
-                                    <outlet property="doneButton" destination="Ovp-Nk-uxq" id="Nwx-r3-ns2"/>
                                     <outlet property="heightConstraint" destination="bgi-k4-ZQ1" id="uE4-MT-ueg"/>
-                                    <outlet property="horizontalSpaceDoneButtonContstraint" destination="WRL-nH-baO" id="t5z-GI-Aji"/>
                                     <outlet property="placeholderLabel" destination="2ag-My-O3m" id="snX-2y-03T"/>
                                     <outlet property="textView" destination="HH9-aQ-kkJ" id="6WM-0j-fmc"/>
+                                    <outlet property="trailingPrioritizer" destination="h5f-E8-jro" id="eJ1-i0-fbq"/>
                                 </connections>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yq-a6-Fsm" customClass="WLButton">
@@ -1610,6 +1615,7 @@
                             <constraint firstItem="JfN-vq-FkG" firstAttribute="top" secondItem="J8F-Df-FmE" secondAttribute="bottom" id="adE-nk-wDd"/>
                             <constraint firstItem="ojC-8r-fOh" firstAttribute="centerY" secondItem="3yq-a6-Fsm" secondAttribute="centerY" id="bCp-iB-j1V"/>
                             <constraint firstAttribute="trailing" secondItem="mxa-eX-hMc" secondAttribute="trailing" id="gxK-qo-Goi"/>
+                            <constraint firstAttribute="trailing" secondItem="Ovp-Nk-uxq" secondAttribute="trailing" priority="250" id="jba-cK-jBq"/>
                             <constraint firstItem="mxa-eX-hMc" firstAttribute="top" secondItem="ao0-lV-pbN" secondAttribute="bottom" id="kJD-sK-cdk"/>
                             <constraint firstItem="ao0-lV-pbN" firstAttribute="top" secondItem="3yq-a6-Fsm" secondAttribute="bottom" constant="10" id="pf0-CB-pNk"/>
                             <constraint firstItem="JfN-vq-FkG" firstAttribute="leading" secondItem="fOQ-kN-b10" secondAttribute="leading" id="qdi-Ft-QgG"/>
@@ -1657,6 +1663,16 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="streamView" destination="OZr-dY-Xul" id="Hcs-B7-L36"/>
+                    </connections>
+                </customObject>
+                <customObject id="h5f-E8-jro" userLabel="ComposeBar Trailing Prioritizer" customClass="WLLayoutPrioritizer">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outletCollection property="alternativeConstraints" destination="jba-cK-jBq" id="h94-gX-lTa"/>
+                        <outletCollection property="defaultConstraints" destination="WRL-nH-baO" id="gIz-0c-T3U"/>
+                        <outletCollection property="parentViews" destination="ao0-lV-pbN" id="HgC-mF-TVe"/>
                     </connections>
                 </customObject>
             </objects>
@@ -1919,8 +1935,6 @@
     </scenes>
     <resources>
         <image name="camera_btn" width="84" height="84"/>
-        <image name="ic_emoji_keyboard_white" width="30" height="18"/>
-        <image name="ic_emoji_smile" width="26" height="26"/>
         <image name="switch_to_front_cam" width="23" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>

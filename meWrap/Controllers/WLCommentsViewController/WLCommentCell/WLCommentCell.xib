@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -18,6 +18,7 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CfT-Xm-rkb" customClass="WLImageView">
                     <rect key="frame" x="12" y="12" width="48" height="48"/>
+                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="BiY-eN-EMc"/>
@@ -36,6 +37,7 @@
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="749" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CzO-tJ-adW" customClass="WLLabel">
                     <rect key="frame" x="72" y="12" width="45" height="21"/>
+                    <animations/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                     <color key="textColor" red="0.1505631506" green="0.1505586505" blue="0.15056121350000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -45,6 +47,7 @@
                 </label>
                 <label clipsSubviews="YES" contentMode="left" placeholderIntrinsicWidth="221" placeholderIntrinsicHeight="34" text="Text" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="QTr-oh-YKY" customClass="WLAttributedLabel">
                     <rect key="frame" x="72" y="33" width="212" height="34"/>
+                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -54,6 +57,7 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNy-3e-Fqq" customClass="WLEntryStatusIndicator">
                     <rect key="frame" x="150" y="70" width="16" height="13"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="16" id="c1s-gF-cfW"/>
                     </constraints>
@@ -66,6 +70,7 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalCompressionResistancePriority="751" text="Timestamp" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1E-KI-PQ2" customClass="WLLabel">
                     <rect key="frame" x="72" y="67" width="76" height="18"/>
+                    <animations/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                     <color key="textColor" red="0.39101129769999998" green="0.39099958540000002" blue="0.39100623130000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -74,6 +79,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="QTr-oh-YKY" firstAttribute="leading" secondItem="CfT-Xm-rkb" secondAttribute="trailing" constant="12" id="97i-4h-S4z"/>

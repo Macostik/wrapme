@@ -12,6 +12,8 @@
 
 @property (nonatomic) IBInspectable NSString *preset;
 
+@property (nonatomic) IBInspectable BOOL trim;
+
 @property (strong, nonatomic) NSString *placeholder;
 
 @end

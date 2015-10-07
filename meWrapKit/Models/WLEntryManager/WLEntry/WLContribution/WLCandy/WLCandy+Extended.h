@@ -9,6 +9,7 @@
 #import "WLCandy.h"
 
 static NSInteger WLCandyTypeImage = 10;
+static NSInteger WLCandyTypeVideo = 20;
 
 @interface WLCandy (Extended)
 

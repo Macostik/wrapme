@@ -111,7 +111,8 @@
             [self.composeBar resignFirstResponder];
         }
     } else {
-        self.drawButton.hidden = self.deleteButton.hidden = self.editButton.hidden = self.composeBar.hidden = NO;
+        self.deleteButton.hidden = self.composeBar.hidden = NO;
+        self.drawButton.hidden = self.editButton.hidden = picture.type == WLCandyTypeVideo;
         self.restoreButton.hidden = YES;
         self.composeBar.text = picture.comment;
     }
@@ -209,6 +210,10 @@
 - (IBAction)upload:(id)sender {
     self.picture.comment = self.composeBar.text;
     NSArray *pictures = [self.pictures selects:^BOOL(WLEditPicture *picture) {
+        if (picture.type == WLCandyTypeVideo) {
+            [WLToast showWithMessage:WLLS(@"Video uploading is not yet implemented.")];
+            return NO;
+        }
         return ![picture deleted];
     }];
     if (pictures.nonempty) {

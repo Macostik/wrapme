@@ -9,6 +9,7 @@
 #import "WLStillPictureBaseViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "WLQuickAssetsViewController.h"
+#import "WLButton.h"
 
 @class WLCameraViewController, PHAsset;
 
@@ -18,14 +19,15 @@
 - (void)cameraViewControllerDidCancel:(WLCameraViewController*)controller;
 
 @optional
-- (void)cameraViewControllerDidFinish:(WLCameraViewController*)controller sender:(id)sender;
-- (BOOL)cameraViewControllerShouldTakePhoto:(WLCameraViewController*)controller;
+- (void)cameraViewController:(WLCameraViewController*)controller didFinishWithVideoAtPath:(NSString*)path saveToAlbum:(BOOL)saveToAlbum;
+- (void)cameraViewControllerDidFinish:(WLCameraViewController*)controller;
+- (BOOL)cameraViewControllerCaptureMedia:(WLCameraViewController*)controller;
 
 @end
 
 @interface WLCameraViewController : WLStillPictureBaseViewController
 
-@property (weak, nonatomic) IBOutlet UIButton *finishButton;
+@property (weak, nonatomic) IBOutlet WLButton *finishButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 

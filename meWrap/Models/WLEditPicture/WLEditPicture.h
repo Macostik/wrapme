@@ -45,6 +45,8 @@
 
 - (void)setImage:(UIImage *)image completion:(WLObjectBlock)completion;
 
+- (void)setVideoAtPath:(NSString*)path completion:(WLObjectBlock)completion;
+
 - (WLPicture*)uploadablePicture:(BOOL)justUploaded;
 
 - (void)saveToAssets;

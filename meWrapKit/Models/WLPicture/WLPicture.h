@@ -13,6 +13,8 @@
 
 @interface WLPicture : WLArchivingObject
 
+@property (nonatomic) NSInteger type;
+
 @property (strong, nonatomic) NSString* original;
 @property (strong, nonatomic) NSString* large;
 @property (strong, nonatomic) NSString* medium;

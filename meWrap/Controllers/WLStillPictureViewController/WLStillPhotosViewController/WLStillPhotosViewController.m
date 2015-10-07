@@ -54,7 +54,7 @@
 
 #pragma mark - WLCameraViewControllerDelegate
 
-- (void)cameraViewControllerDidFinish:(WLCameraViewController *)controller sender:(WLButton*)sender {
+- (void)cameraViewControllerDidFinish:(WLCameraViewController *)controller {
     WLOperationQueue *queue = [WLOperationQueue queueNamed:@"wl_still_picture_queue" capacity:1];
     
     __weak typeof(self)weakSelf = self;
@@ -75,16 +75,32 @@
     if (queue.operations.count == 0) {
         completionBlock();
     } else {
-        sender.loading = YES;
+        controller.finishButton.loading = YES;
         [queue setFinishQueueBlock:^{
-            sender.loading = NO;
+            controller.finishButton.loading = NO;
             completionBlock();
         }];
     }
 }
 
-- (BOOL)cameraViewControllerShouldTakePhoto:(WLCameraViewController *)controller {
+- (BOOL)cameraViewControllerCaptureMedia:(WLCameraViewController *)controller {
     return [self shouldAddPicture:^{
+    } failure:^(NSError *error) {
+        [error show];
+    }];
+}
+
+- (void)cameraViewController:(WLCameraViewController *)controller didFinishWithVideoAtPath:(NSString *)path saveToAlbum:(BOOL)saveToAlbum {
+    
+    WLEditPicture *picture = [WLEditPicture picture:self.mode];
+    picture.type = WLCandyTypeVideo;
+    picture.date = [NSDate now];
+    [self addPicture:picture success:^{
+        runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
+            [picture setVideoAtPath:path completion:^(id object) {
+                [operation finish];
+            }];
+        });
     } failure:^(NSError *error) {
         [error show];
     }];

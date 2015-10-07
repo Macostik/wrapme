@@ -18,6 +18,10 @@
 #import "WLToast.h"
 #import "WLWrapView.h"
 #import "WLQuickAssetsViewController.h"
+#import "WLProgressBar.h"
+@import AVKit;
+
+static NSTimeInterval maxVideoRecordedDuration = 60;
 
 @interface WLCameraView : UIView
 
@@ -40,14 +44,17 @@
 
 @end
 
-@interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver, UIGestureRecognizerDelegate>
+@interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver, UIGestureRecognizerDelegate, AVCaptureFileOutputRecordingDelegate>
 
 #pragma mark - AVCaptureSession interface
 
-@property (strong, nonatomic) AVCaptureStillImageOutput *output;
+@property (strong, nonatomic) AVCaptureMovieFileOutput *movieFileOutput;
+
+@property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;
 @property (strong, nonatomic) AVCaptureDeviceInput *input;
 @property (nonatomic, strong) AVCaptureSession* session;
-@property (nonatomic, weak) AVCaptureConnection* connection;
+@property (nonatomic, weak) AVCaptureConnection* stillImageOutputConnection;
+@property (nonatomic, weak) AVCaptureConnection* movieFileOutputConnection;
 @property (nonatomic) AVCaptureFlashMode flashMode;
 @property (nonatomic) CGFloat zoomScale;
 
@@ -61,13 +68,30 @@
 @property (weak, nonatomic) IBOutlet UIButton *rotateButton;
 @property (weak, nonatomic) IBOutlet UILabel *zoomLabel;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
-@property (weak, nonatomic) IBOutlet UIButton *galleryButton;
 
 @property (weak, nonatomic) WLQuickAssetsViewController* assetsViewController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *assetsBottomConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *assetsArrow;
+@property (weak, nonatomic) IBOutlet UIView *assetsView;
 
 @property (strong, nonatomic) dispatch_queue_t sessionQueue;
+
+@property (weak, nonatomic) NSTimer *videoRecordingTimer;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet WLProgressBar *videoRecordingProgressBar;
+@property (weak, nonatomic) IBOutlet UIView *videoRecordingView;
+@property (weak, nonatomic) IBOutlet UILabel *videoRecordingTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cancelVideoRecordingLabel;
+
+@property (weak, nonatomic) AVCaptureDeviceInput *audioInput;
+
+@property (nonatomic) BOOL videoRecordingCancelled;
+
+@property (nonatomic) NSTimeInterval videoRecordingTimeLeft;
+
+@property (strong, nonatomic) NSString *videoFilePath;
 
 @end
 
@@ -84,6 +108,14 @@
 #pragma mark - View controller lifecycle
 
 - (void)viewDidLoad {
+    
+    if (self.bottomViewHeightConstraint) {
+        CGRect frame = self.preferredViewFrame;
+        CGFloat bottomViewHeight = MAX(130, frame.size.height - frame.size.width / 0.75);
+        self.bottomViewHeightConstraint.constant = bottomViewHeight;
+        self.cameraViewBottomConstraint.constant = bottomViewHeight;
+    }
+    
 	[super viewDidLoad];
     
     self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
@@ -116,6 +148,11 @@
         weakSelf.flashMode = weakSelf.flashModeControl.mode = flashMode;
         weakSelf.cameraView.layer.session = weakSelf.session;
         [weakSelf start];
+        
+        if (weakSelf.mode == WLStillPictureModeDefault) {
+            UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:weakSelf action:@selector(startVideoRecording:)];
+            [weakSelf.takePhotoButton addGestureRecognizer:longPressGestureRecognizer];
+        }
     } failure:^(NSError *error) {
         weakSelf.unauthorizedStatusView.hidden = NO;
         weakSelf.takePhotoButton.active = NO;
@@ -161,8 +198,8 @@
 }
 
 - (IBAction)shot:(UIButton*)sender {
-    if ([self.delegate respondsToSelector:@selector(cameraViewControllerShouldTakePhoto:)]) {
-        if ([self.delegate cameraViewControllerShouldTakePhoto:self] == NO) {
+    if ([self.delegate respondsToSelector:@selector(cameraViewControllerCaptureMedia:)]) {
+        if ([self.delegate cameraViewControllerCaptureMedia:self] == NO) {
             return;
         }
     }
@@ -195,8 +232,8 @@
 }
 
 - (IBAction)finish:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:sender:)]) {
-        [self.delegate cameraViewControllerDidFinish:self sender:sender];
+    if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
+        [self.delegate cameraViewControllerDidFinish:self];
     }
 }
 
@@ -313,7 +350,7 @@
     run_getting_object(^id{
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGSize size = CGSizeMake(width, width / 0.75);
-        NSString* url = url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
+        NSString* url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
         return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
     }, ^ (UIImage* image) {
         if (image) {
@@ -323,29 +360,107 @@
     });
 }
 
+- (void)startVideoRecording:(UILongPressGestureRecognizer*)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(cameraViewControllerCaptureMedia:)]) {
+        if ([self.delegate cameraViewControllerCaptureMedia:self] == NO) {
+            return;
+        }
+    }
+    
+    switch (sender.state) {
+        case UIGestureRecognizerStateBegan: {
+            [self updateVideoRecordingViews:YES];
+            [self prepareSessionForVideoRecording];
+            [self performSelector:@selector(startVideoRecording) withObject:nil afterDelay:0.5f];
+        } break;
+        case UIGestureRecognizerStateEnded: {
+            CGPoint location = [sender locationInView:self.videoRecordingView];
+            if (CGRectContainsPoint(self.cancelVideoRecordingLabel.frame, location)) {
+                [self cancelVideoRecording];
+            } else {
+                [self stopVideoRecording];
+            }
+        } break;
+        default:
+            break;
+    }
+}
+
+- (void)updateVideoRecordingViews:(BOOL)recording {
+    self.bottomView.hidden = recording;
+    self.assetsView.hidden = recording;
+    self.wrapView.hidden = recording;
+    self.rotateButton.hidden = recording;
+    self.cropAreaView.hidden = recording;
+    self.flashModeControl.alpha = recording ? 0.0f : 1.0f;
+    self.cameraViewBottomConstraint.constant = recording ? 0 : self.bottomViewHeightConstraint.constant;
+    [self.cameraView layoutIfNeeded];
+}
+
+- (void)prepareSessionForVideoRecording {
+    __weak typeof(self)weakSelf = self;
+    [self configureSession:^(AVCaptureSession *session) {
+        session.sessionPreset = AVCaptureSessionPresetHigh;
+        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] error:nil];
+        [session addInput:input];
+        weakSelf.audioInput = input;
+        [session removeOutput:weakSelf.stillImageOutput];
+        [session addOutput:weakSelf.movieFileOutput];
+    }];
+    [self applyDeviceOrientation:[WLDeviceOrientationBroadcaster broadcaster].orientation forConnection:self.movieFileOutputConnection];
+}
+
+- (void)prepareSessionForPhotoTaking {
+    __weak typeof(self)weakSelf = self;
+    [self configureSession:^(AVCaptureSession *session) {
+        session.sessionPreset = AVCaptureSessionPresetPhoto;
+        [session removeInput:weakSelf.audioInput];
+        [session removeOutput:weakSelf.movieFileOutput];
+        [session addOutput:weakSelf.stillImageOutput];
+    }];
+}
+
+- (void)startVideoRecording {
+    self.videoRecordingCancelled = NO;
+    NSString *videosDirectoryPath = @"Documents/Videos";
+    [[NSFileManager defaultManager] createDirectoryAtPath:videosDirectoryPath withIntermediateDirectories:YES attributes:nil error:NULL];
+    NSString *path = [NSString stringWithFormat:@"%@/%@.mp4", videosDirectoryPath, GUID()];
+    self.videoFilePath = path;
+    [self.movieFileOutput startRecordingToOutputFileURL:[NSURL fileURLWithPath:path] recordingDelegate:self];
+}
+
+- (void)stopVideoRecording {
+    if (self.movieFileOutput.recording) {
+        [self.movieFileOutput stopRecording];
+    } else {
+        [self prepareSessionForPhotoTaking];
+        [self updateVideoRecordingViews:NO];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(startVideoRecording) object:nil];
+    }
+}
+
+- (void)cancelVideoRecording {
+    self.videoRecordingCancelled = YES;
+    [self stopVideoRecording];
+}
+
 #pragma mark - AVCaptureSession
 
 - (AVCaptureDevice*)deviceWithPosition:(AVCaptureDevicePosition)position {
-    NSArray *devices = [AVCaptureDevice devices];
-    for (AVCaptureDevice *device in devices) {
-        if ([device hasMediaType:AVMediaTypeVideo]) {
-            if ([device position] == position)
-                return device;
-        }
-    }
-    return nil;
+    return [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] select:^BOOL(AVCaptureDevice *device) {
+        return [device position] == position;
+    }];
 }
 
 - (AVCaptureDeviceInput*)inputWithPosition:(AVCaptureDevicePosition)position {
-    AVCaptureDevice *deviceInput = [self deviceWithPosition:position];
-    if (deviceInput) {
-        [deviceInput lockForConfiguration:nil];
-        if ([deviceInput isFocusModeSupported:AVCaptureFocusModeAutoFocus])
-            deviceInput.focusMode = AVCaptureFocusModeAutoFocus;
-        [deviceInput unlockForConfiguration];
-        NSError *error = nil;
-        id input = [AVCaptureDeviceInput deviceInputWithDevice:deviceInput error:&error];
-        return input;
+    AVCaptureDevice *device = [self deviceWithPosition:position];
+    if (device) {
+        [device lockForConfiguration:nil];
+        if ([device isFocusModeSupported:AVCaptureFocusModeAutoFocus])
+            device.focusMode = AVCaptureFocusModeAutoFocus;
+        [device unlockForConfiguration];
+        return [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
     }
     return nil;
 }
@@ -361,7 +476,6 @@
 	}
 	[session commitConfiguration];
 	self.flashModeControl.hidden = !self.input.device.hasFlash;
-    self.connection = nil;
 	[self applyDeviceOrientation:[WLDeviceOrientationBroadcaster broadcaster].orientation];
 }
 
@@ -377,17 +491,26 @@
         } else {
             _session.sessionPreset = AVCaptureSessionPresetMedium;
         }
-        [_session addOutput:self.output];
+        [_session addOutput:self.stillImageOutput];
     }
     return _session;
 }
 
-- (AVCaptureStillImageOutput *)output {
-	if (!_output) {
-		_output = [[AVCaptureStillImageOutput alloc] init];
-		[_output setOutputSettings:@{AVVideoCodecKey : AVVideoCodecJPEG}];
+- (AVCaptureMovieFileOutput *)movieFileOutput {
+    if (!_movieFileOutput) {
+        _movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
+        CMTime maxDuration = CMTimeMakeWithSeconds(maxVideoRecordedDuration, 30);
+        _movieFileOutput.maxRecordedDuration = maxDuration;
+    }
+    return _movieFileOutput;
+}
+
+- (AVCaptureStillImageOutput *)stillImageOutput {
+	if (!_stillImageOutput) {
+		_stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+		[_stillImageOutput setOutputSettings:@{AVVideoCodecKey : AVVideoCodecJPEG}];
 	}
-	return _output;
+	return _stillImageOutput;
 }
 
 - (void)start {
@@ -406,22 +529,12 @@
     });
 }
 
-- (AVCaptureConnection*)connection {
-	if (!_connection) {
-		for (AVCaptureConnection *connection in [self.output connections]) {
-			for (AVCaptureInputPort *port in [connection inputPorts]) {
-				if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
-					_connection = connection;
-					_connection.videoOrientation = AVCaptureVideoOrientationPortrait;
-					break;
-				}
-			}
-			if (_connection) {
-				break;
-			}
-		}
-	}
-    return _connection;
+- (AVCaptureConnection*)stillImageOutputConnection {
+    return [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+}
+
+- (AVCaptureConnection *)movieFileOutputConnection {
+    return [self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
 }
 
 - (void)captureImage:(WLBlock)completion result:(void (^)(UIImage*image))result failure:(WLFailureBlock)failure {
@@ -452,10 +565,10 @@
             if (failure) failure(error);
         }
 	};
-    AVCaptureConnection *connection = self.connection;
+    AVCaptureConnection *connection = self.stillImageOutputConnection;
     self.takePhotoButton.active = connection == nil;
 	connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
-    [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
+    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
 }
 
 - (AVCaptureDevicePosition)position {
@@ -555,7 +668,7 @@
 	CGRect visibleViewRect = CGRectThatFitsSize(scaledImageSize, frameSize);
     point.x += visibleViewRect.origin.x;
     point.y += visibleViewRect.origin.y;
-    if ([self.connection isVideoMirrored]) {
+    if ([self.stillImageOutputConnection isVideoMirrored]) {
         point.x = frameSize.width - point.x;
     }
 	CGPoint pointOfInterest = CGPointMake(point.x/scaledImageSize.width, point.y/scaledImageSize.height);
@@ -576,7 +689,6 @@
 	_zoomScale = Smoothstep(1, MIN(8, device.activeFormat.videoMaxZoomFactor), zoomScale);
     
     if (device.videoZoomFactor != _zoomScale) {
-        // iOS 7.x with compatible hardware
         if ([device lockForConfiguration:nil]) {
             [device setVideoZoomFactor:_zoomScale];
             [device unlockForConfiguration];
@@ -602,7 +714,7 @@
 
 - (void)applyDeviceOrientation:(UIDeviceOrientation)orientation {
     if (orientation != UIDeviceOrientationUnknown) {
-        [self applyDeviceOrientation:orientation forConnection:self.connection];
+        [self applyDeviceOrientation:orientation forConnection:self.stillImageOutputConnection];
         [self applyDeviceOrientationToFunctionalButton:orientation];
     }
 }
@@ -626,7 +738,7 @@
     [UIView animateWithDuration:.25 animations:^{
         self.backButton.transform = transform;
         self.rotateButton.transform = transform;
-        self.galleryButton.transform = transform;
+        self.videoRecordingTimeLabel.transform = transform;
         for (UIView *subView in self.flashModeControl.subviews) {
             subView.transform = transform;
         }
@@ -634,14 +746,16 @@
 }
 
 - (void)applyDeviceOrientation:(UIDeviceOrientation)orientation forConnection:(AVCaptureConnection*)connection {
-    if (orientation == UIDeviceOrientationLandscapeLeft) {
-        connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
-    } else if (orientation == UIDeviceOrientationLandscapeRight) {
-        connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
-    } else if (orientation == UIDeviceOrientationPortrait) {
-        connection.videoOrientation = AVCaptureVideoOrientationPortrait;
-    } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
-        connection.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
+    if (connection) {
+        if (orientation == UIDeviceOrientationLandscapeLeft) {
+            connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+        } else if (orientation == UIDeviceOrientationLandscapeRight) {
+            connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+        } else if (orientation == UIDeviceOrientationPortrait) {
+            connection.videoOrientation = AVCaptureVideoOrientationPortrait;
+        } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
+            connection.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
+        }
     }
 }
 
@@ -649,6 +763,49 @@
 
 - (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {
 	[self applyDeviceOrientation:[orientation integerValue]];
+}
+
+// MARK: - AVCaptureFileOutputRecordingDelegate
+
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
+    self.cancelVideoRecordingLabel.hidden = YES;
+    [self.videoRecordingTimer invalidate];
+    [self prepareSessionForPhotoTaking];
+    [self updateVideoRecordingViews:NO];
+    self.videoRecordingView.hidden = YES;
+    if (self.videoRecordingCancelled) {
+        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:NULL];
+    } else {
+        if ([self.delegate respondsToSelector:@selector(cameraViewController:didFinishWithVideoAtPath:saveToAlbum:)]) {
+            [self.delegate cameraViewController:self didFinishWithVideoAtPath:self.videoFilePath saveToAlbum:YES];
+        }
+    }
+}
+
+static NSTimeInterval videoRecordingTimerInterval = 0.03333333;
+
+- (void)recordingTimerChanged:(NSTimer*)timer {
+    NSTimeInterval videoRecordingTimeLeft = self.videoRecordingTimeLeft;
+    if (videoRecordingTimeLeft > 0) {
+        videoRecordingTimeLeft = MAX(0, videoRecordingTimeLeft - videoRecordingTimerInterval);
+        self.videoRecordingTimeLeft = videoRecordingTimeLeft;
+        self.videoRecordingTimeLabel.text = [@(ceilf(videoRecordingTimeLeft)) stringValue];
+        self.videoRecordingProgressBar.progress = 1.0f - videoRecordingTimeLeft/maxVideoRecordedDuration;
+    } else {
+        [self.videoRecordingTimer invalidate];
+    }
+}
+
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections {
+    self.cancelVideoRecordingLabel.hidden = NO;
+    self.videoRecordingTimeLeft = maxVideoRecordedDuration;
+    self.videoRecordingTimeLabel.text = [@(maxVideoRecordedDuration) stringValue];
+    self.videoRecordingProgressBar.progress = 0;
+    self.videoRecordingView.hidden = NO;
+    if (self.videoRecordingTimer) {
+        [self.videoRecordingTimer invalidate];
+    }
+    self.videoRecordingTimer = [NSTimer scheduledTimerWithTimeInterval:videoRecordingTimerInterval target:self selector:@selector(recordingTimerChanged:) userInfo:nil repeats:YES];
 }
 
 @end

@@ -221,3 +221,5 @@
 "intellectual_property_violation" = "Интелектуальное нарушение прав";
 "thank_you" = "Спасибо";
 "thank_you_for_report" = "Спасибо за Ваш Отчет. Мы удалим содержимое, если оно противоречит общественным правилам.";
+"video_suggestion" = "Hold for video, tap for photo";
+"slide_to_cancel" = "Slide to cancel";

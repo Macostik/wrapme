@@ -23,6 +23,14 @@
 
 @implementation WLEditPicture
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.type = WLCandyTypeImage;
+    }
+    return self;
+}
+
 - (void)dealloc {
     if (!self.uploaded) {
         [[NSFileManager defaultManager] removeItemAtPath:self.original error:NULL];
@@ -103,6 +111,59 @@
             if (completion) completion(weakSelf);
         }
     }];
+}
+
+- (void)setVideoAtPath:(NSString*)path completion:(WLObjectBlock)completion {
+    if (!completion) {
+        return;
+    }
+    
+    WLImageCache *cache = self.cache;
+    if (!cache) {
+        cache = [WLImageCache cache];
+    }
+    
+    __weak WLImageCache *imageCache = cache;
+    __weak typeof(self)weakSelf = self;
+    self.original = path;
+    run_getting_object(^id{
+        AVAsset *asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:path]];
+        AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+        imageGenerator.appliesPreferredTrackTransform = YES;
+        NSTimeInterval duration = asset.duration.value;
+        CMTime time = CMTimeMake(duration/2.0f, 1);
+        NSError *error = nil;
+        CGImageRef imageRef = [imageGenerator copyCGImageAtTime:time actualTime:NULL error:&error];
+        UIImage *image = [UIImage imageWithCGImage:imageRef];
+        CGImageRelease(imageRef);
+        return image;
+    }, ^(UIImage *image) {
+        [imageCache setImage:image completion:^(NSString *identifier) {
+            NSString *largePath = [imageCache pathWithIdentifier:identifier];
+            if (weakSelf) {
+                weakSelf.large = largePath;
+                run_getting_object(^id{
+                    return [image thumbnailImage:240];
+                }, ^(UIImage *smallImage) {
+                    [imageCache setImage:smallImage completion:^(NSString *identifier) {
+                        NSString *smallPath = [imageCache pathWithIdentifier:identifier];
+                        if (weakSelf) {
+                            weakSelf.small = smallPath;
+                            if (completion) completion(weakSelf);
+                        } else {
+                            [[NSFileManager defaultManager] removeItemAtPath:largePath error:NULL];
+                            [[NSFileManager defaultManager] removeItemAtPath:smallPath error:NULL];
+                            if (completion) completion(weakSelf);
+                        }
+                    }];
+                });
+            } else {
+                [[NSFileManager defaultManager] removeItemAtPath:largePath error:NULL];
+                if (completion) completion(weakSelf);
+            }
+        }];
+
+    });
 }
 
 - (void)setOriginal:(NSString *)original {

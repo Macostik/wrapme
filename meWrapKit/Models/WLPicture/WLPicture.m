@@ -202,6 +202,11 @@
         picture.large = data[@"large"];
         picture.medium = data[@"medium"];
         picture.small = data[@"small"];
+        if (data[@"type"]) {
+            picture.type = [data integerForKey:@"type"];
+        } else {
+            picture.type = WLCandyTypeImage;
+        }
         return picture;
     }
     return nil;
@@ -213,6 +218,7 @@
     [data trySetObject:self.large forKey:@"large"];
     [data trySetObject:self.medium forKey:@"medium"];
     [data trySetObject:self.small forKey:@"small"];
+    [data trySetObject:@(self.type > 0 ? self.type : WLCandyTypeImage) forKey:@"type"];
     return [NSJSONSerialization dataWithJSONObject:data options:0 error:NULL];
 }
 

@@ -12,6 +12,8 @@
 
 @property (strong, nonatomic) CABasicAnimation* animation;
 
+@property (nonatomic) CGSize renderedSize;
+
 @end
 
 @implementation WLProgressBar
@@ -42,6 +44,18 @@
     layer.fillColor = [UIColor clearColor].CGColor;
     layer.strokeColor = WLColors.orange.CGColor;
     layer.strokeStart = layer.strokeEnd = 0.0f;
+    [self updatePath];
+    layer.actions = @{@"strokeEnd":[NSNull null]};
+}
+
+- (void)updatePathIfNeeded {
+    if (!CGSizeEqualToSize(self.renderedSize, self.bounds.size)) {
+        [self updatePath];
+    }
+}
+
+- (void)updatePath {
+    CAShapeLayer *layer = (id)self.layer;
     CGSize size = self.bounds.size;
     UIBezierPath *path = [UIBezierPath bezierPath];
     if (size.width > size.height) {
@@ -57,7 +71,12 @@
                      clockwise:YES];
     }
     layer.path = path.CGPath;
-    layer.actions = @{@"strokeEnd":[NSNull null]};
+    self.renderedSize = size;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self updatePathIfNeeded];
 }
 
 - (void)setProgress:(float)progress {

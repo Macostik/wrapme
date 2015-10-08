@@ -10,6 +10,10 @@
 
 @implementation WLExtensionMessage
 
++ (NSSet *)archivableProperties {
+    return [NSSet setWithObjects:@"userInfo", nil];
+}
+
 + (NSString*)serializationKey {
     return nil;
 }

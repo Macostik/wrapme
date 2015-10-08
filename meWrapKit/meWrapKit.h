@@ -59,7 +59,6 @@
 #import "WLCache.h"
 #import "WLBroadcaster.h"
 #import "WLPicture.h"
-#import "WLArchivingObject.h"
 #import "WLAuthorization.h"
 #import "WLSession.h"
 #import "NSURL+WLRemoteEntryHandler.h"

@@ -8,6 +8,20 @@
 
 #import "WLExtensionMessage.h"
 
+@class WLExtensionRequest;
+@class WLExtensionResponse;
+
+@protocol WLExtensionRequestActions <NSObject>
+
+@optional
+- (void)postComment:(WLExtensionRequest*)request completionHandler:(void (^)(WLExtensionResponse *response))completionHandler;
+
+- (void)postMessage:(WLExtensionRequest*)request completionHandler:(void (^)(WLExtensionResponse *response))completionHandler;
+
+- (void)handleNotification:(WLExtensionRequest*)request completionHandler:(void (^)(WLExtensionResponse *response))completionHandler;
+
+@end
+
 @interface WLExtensionRequest : WLExtensionMessage
 
 @property (strong, nonatomic) NSString *action;

@@ -57,11 +57,11 @@ static WLAuthorization* _authorization = nil;
     _authorization = authorization;
     NSUserDefaults *userDefaults = [NSUserDefaults appGroupUserDefaults];
     if (authorization) {
-        [authorization archive:^(NSData *data) {
-            NSData *encryptedData = [WLCryptographer encryptData:data];
+        run_in_default_queue(^{
+            NSData *encryptedData = [WLCryptographer encryptData:[authorization archive]];
             [userDefaults setObject:encryptedData forKey:WLAppGroupEncryptedAuthorization];
             [self setObject:encryptedData forKey:WLAppGroupEncryptedAuthorization];
-        }];
+        });
     } else {
         [userDefaults setObject:nil forKey:WLAppGroupEncryptedAuthorization];
         [self setObject:nil forKey:WLAppGroupEncryptedAuthorization];

@@ -32,6 +32,7 @@
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLNetwork.h"
 #import <AWSCore/AWSCore.h>
+#import "WLExtensionManager.h"
 
 @import Photos;
 
@@ -45,7 +46,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-//     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     [self registerUserNotificationSettings];
     
     [self initializeCrashlyticsAndLogging];
@@ -75,10 +75,14 @@
     }];
 	[[WLKeyboard keyboard] configure];
 	
-    UILocalNotification *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
-    if (notification) {
-        [self presentNotification:notification.userInfo];
-    }
+    NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    [[WLNotificationCenter defaultCenter] handleRemoteNotification:notification success:^(id object) {
+        if (object) {
+            [self presentNotification:object];
+        }
+    } failure:^(NSError *error) {
+        [error show];
+    }];
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
@@ -217,6 +221,9 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    __block void (^completion)(UIBackgroundFetchResult) = completionHandler;
+    
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
     if (state == UIApplicationStateActive) {
         return;
@@ -224,26 +231,35 @@
     BOOL presentable = state == UIApplicationStateInactive;
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
         if (presentable) {
-            NSDictionary *entry = [notification.entry dictionaryRepresentation];
-            if (entry) {
-                [self presentNotification:@{@"type":@(notification.type),@"entry":entry}];
-            }
+            [self presentNotification:notification];
         }
-        completionHandler(UIBackgroundFetchResultNewData);
+        if (completion) {
+            completion(UIBackgroundFetchResultNewData);
+            completion = nil;
+        }
     } failure:^(NSError *error) {
-        completionHandler(UIBackgroundFetchResultFailed);
+        if (completion) {
+            completion(UIBackgroundFetchResultFailed);
+            completion = nil;
+        }
     }];
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    
+    __block void (^completion)(UIBackgroundFetchResult) = completionHandler;
+    
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:userInfo success:^(WLNotification *notification) {
-        NSDictionary *entry = [notification.entry dictionaryRepresentation];
-        if (entry) {
-            [self presentNotification:@{@"type":@(notification.type),@"entry":entry}];
+        [self presentNotification:notification handleActionWithIdentifier:identifier];
+        if (completion) {
+            completion(UIBackgroundFetchResultNewData);
+            completion = nil;
         }
-        completionHandler(UIBackgroundFetchResultNewData);
     } failure:^(NSError *error) {
-        completionHandler(UIBackgroundFetchResultFailed);
+        if (completion) {
+            completion(UIBackgroundFetchResultFailed);
+            completion = nil;
+        }
     }];
 }
 
@@ -255,56 +271,44 @@
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    __block void (^completion)(UIBackgroundFetchResult) = completionHandler;
+    
     if (![WLAuthorizationRequest authorized]) {
-        completionHandler(UIBackgroundFetchResultFailed);
+        if (completion) {
+            completion(UIBackgroundFetchResultFailed);
+            completion = nil;
+        }
         return;
     }
     [WLUploadingQueue start];
     run_after(20, ^{
-        completionHandler(UIBackgroundFetchResultNewData);
+        if (completion) {
+            completion(UIBackgroundFetchResultNewData);
+            completion = nil;
+        }
     });
 }
 
-- (void)presentNotification:(NSDictionary *)notification {
-    WLNotificationType type = [notification integerForKey:@"type"];
+- (void)presentNotification:(WLNotification *)notification {
+    [self presentNotification:notification handleActionWithIdentifier:nil];
+}
+
+- (void)presentNotification:(WLNotification *)notification handleActionWithIdentifier:(NSString *)identifier {
+    
+    WLNotificationType type = notification.type;
     if (type == WLNotificationUpdateAvailable) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",@(WLConstants.appStoreID)]]];
-    } else if (type == WLNotificationEngagement) {
-        UINavigationController *navigationController = [UINavigationController mainNavigationController];
-        WLHomeViewController *homeViewController = [navigationController.viewControllers firstObject];
-        if ([homeViewController isKindOfClass:[WLHomeViewController class]]) {
-            if (navigationController.topViewController != homeViewController) {
-                [navigationController popToViewController:homeViewController animated:NO];
+    } else {
+        WLEntry *entry = notification.entry;
+        if (entry) {
+            [[WLRemoteEntryHandler sharedHandler] presentEntry:entry];
+            if ([identifier isEqualToString:@"reply"]) {
+                id wrapViewController = [entry viewControllerWithNavigationController:[UINavigationController mainNavigationController]];
+                [wrapViewController setShowKeyboard:YES];
             }
-            if (navigationController.presentedViewController) {
-                [navigationController dismissViewControllerAnimated:NO completion:nil];
-            }
-            [homeViewController openCameraAnimated:NO startFromGallery:YES showWrapPicker:YES];
         }
-    } else {
-        WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:[notification dictionaryForKey:@"entry"]];
-        [[WLRemoteEntryHandler sharedHandler] presentEntry:entry];
     }
-}
-
-- (void)presentNotification:(NSDictionary *)notification handleActionWithIdentifier:(NSString *)identifier {
-    if ([identifier isEqualToString:@"reply"]) {
-        WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:[notification dictionaryForKey:@"entry"]];
-        [[WLRemoteEntryHandler sharedHandler] presentEntry:entry];
-        id wrapViewController = [entry viewControllerWithNavigationController:[UINavigationController mainNavigationController]];
-        [wrapViewController setShowKeyboard:YES];
-    } else {
-        [self presentNotification:notification];
-    }
-}
-
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    [self presentNotification:notification.userInfo];
-}
-
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)())completionHandler {
-    [self presentNotification:notification.userInfo handleActionWithIdentifier:identifier];
-    if (completionHandler) completionHandler();
 }
 
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
@@ -322,44 +326,7 @@
     };
     
     WLExtensionRequest *request = [WLExtensionRequest deserialize:userInfo];
-    if (request.action.nonempty) {
-        if ([request.action isEqualToString:@"authorization"]) {
-            if ([[WLAuthorization currentAuthorization] canAuthorize]) {
-                [[WLAuthorization currentAuthorization] setCurrent];
-                completion([WLExtensionResponse success]);
-            } else {
-                completion([WLExtensionResponse failureWithMessage:@"Please, launch meWrap containing app for registration"]);
-            }
-        } else if ([request.action isEqualToString:@"post_chat_message"]) {
-            NSString *wrapIdentifier = request.userInfo[WLWrapUIDKey];
-            NSString *text = request.userInfo[@"text"];
-            if ([WLWrap entryExists:wrapIdentifier]) {
-                WLWrap *wrap = [WLWrap entry:wrapIdentifier];
-                [wrap uploadMessage:text success:^(WLMessage *message) {
-                    completion([WLExtensionResponse success]);
-                } failure:^(NSError *error) {
-                    completion([WLExtensionResponse failureWithMessage:error.localizedDescription]);
-                }];
-            } else {
-                completion([WLExtensionResponse failureWithMessage:@"Wrap isn't available."]);
-            }
-        } else if ([request.action isEqualToString:@"post_comment"]) {
-            NSString *candyIdentifier = request.userInfo[WLCandyUIDKey];
-            NSString *text = request.userInfo[@"text"];
-            if ([WLCandy entryExists:candyIdentifier]) {
-                WLCandy *candy = [WLCandy entry:candyIdentifier];
-                [candy uploadComment:text success:^(WLComment *comment) {
-                    completion([WLExtensionResponse success]);
-                } failure:^(NSError *error) {
-                    completion([WLExtensionResponse failureWithMessage:error.localizedDescription]);
-                }];
-            } else {
-                completion([WLExtensionResponse failureWithMessage:@"Photo isn't available."]);
-            }
-        }
-    } else {
-        completion([WLExtensionResponse failureWithMessage:@"No action specified."]);
-    }
+    [WLExtensionManager performRequest:request completionHandler:completion];
 }
 
 - (void)registerUserNotificationSettings {
@@ -375,23 +342,5 @@
     UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:types categories:[NSSet setWithObject:category]];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
 }
-
-//- (void)photoLibraryDidChange:(PHChange *)changeInstance {
-//    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-//        return;
-//    }
-//    run_in_main_queue(^{
-//        PHFetchResult *fetchResult = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
-//        PHFetchResultChangeDetails *changeDetails = [changeInstance changeDetailsForFetchResult:fetchResult];
-//        if (changeDetails && changeDetails.insertedObjects) {
-//            UILocalNotification *photoNotification = [[UILocalNotification alloc] init];
-//            photoNotification.alertBody = WLLS(@"engagement_notification_alert");
-//            photoNotification.alertAction = WLLS(@"upload");
-//            photoNotification.repeatInterval = 0;
-//            photoNotification.userInfo = @{@"type":@(WLNotificationEngagement)};
-//            [[UIApplication sharedApplication] presentLocalNotificationNow:photoNotification];
-//        }
-//    });
-//}
 
 @end

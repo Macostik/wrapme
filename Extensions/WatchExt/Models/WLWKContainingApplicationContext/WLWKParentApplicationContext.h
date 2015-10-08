@@ -10,18 +10,18 @@
 
 @interface WLWKParentApplicationContext : NSObject
 
-+ (void)performAction:(NSString*)action success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure;
++ (void)performAction:(SEL)action success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure;
 
-+ (void)performAction:(NSString*)action parameters:(NSDictionary*)parameters success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure;
++ (void)performAction:(SEL)action parameters:(NSDictionary*)parameters success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure;
 
 @end
 
 @interface WLWKParentApplicationContext (DefinedActions)
 
-+ (void)requestAuthorization:(WLDictionaryBlock)success failure:(WLFailureBlock)failure;
-
 + (void)postMessage:(NSString*)text wrap:(NSString*)wrapIdentifier success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure;
 
 + (void)postComment:(NSString*)text candy:(NSString*)candyIdentifier success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure;
+
++ (void)handleNotification:(NSDictionary*)notification success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure;
 
 @end

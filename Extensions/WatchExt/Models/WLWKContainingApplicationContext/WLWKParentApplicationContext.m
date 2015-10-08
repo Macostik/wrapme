@@ -11,12 +11,12 @@
 
 @implementation WLWKParentApplicationContext
 
-+ (void)performAction:(NSString*)action success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure {
++ (void)performAction:(SEL)action success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure {
     [self performAction:action parameters:nil success:success failure:failure];
 }
 
-+ (void)performAction:(NSString*)action parameters:(NSDictionary*)parameters success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure {
-    WLExtensionRequest *request = [WLExtensionRequest requestWithAction:action userInfo:parameters];
++ (void)performAction:(SEL)action parameters:(NSDictionary*)parameters success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure {
+    WLExtensionRequest *request = [WLExtensionRequest requestWithAction:NSStringFromSelector(action) userInfo:parameters];
     [WKInterfaceController openParentApplication:[request serialize] reply:^(NSDictionary *replyInfo, NSError *error) {
         if (error) {
             if (failure) failure(error);
@@ -35,16 +35,16 @@
 
 @implementation WLWKParentApplicationContext (DefinedActions)
 
-+ (void)requestAuthorization:(WLDictionaryBlock)success failure:(WLFailureBlock)failure {
-    [self performAction:@"authorization" success:success failure:failure];
-}
-
 + (void)postMessage:(NSString *)text wrap:(NSString *)wrapIdentifier success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure {
-    [self performAction:@"post_chat_message" parameters:@{WLWrapUIDKey:wrapIdentifier,@"text":text} success:success failure:failure];
+    [self performAction:@selector(postMessage:completionHandler:) parameters:@{WLWrapUIDKey:wrapIdentifier,@"text":text} success:success failure:failure];
 }
 
 + (void)postComment:(NSString *)text candy:(NSString *)candyIdentifier success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure {
-    [self performAction:@"post_comment" parameters:@{WLCandyUIDKey:candyIdentifier,@"text":text} success:success failure:failure];
+    [self performAction:@selector(postComment:completionHandler:) parameters:@{WLCandyUIDKey:candyIdentifier,@"text":text} success:success failure:failure];
+}
+
++ (void)handleNotification:(NSDictionary *)notification success:(WLDictionaryBlock)success failure:(WLFailureBlock)failure {
+    [self performAction:@selector(handleNotification:completionHandler:) parameters:notification success:success failure:failure];
 }
 
 @end

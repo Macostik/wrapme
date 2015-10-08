@@ -60,9 +60,9 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     }
 }
 
-- (void)handleActionWithIdentifier:(NSString *)identifier forNotification:(NSDictionary *)notification {
+- (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)remoteNotification {
     __weak typeof(self)weakSelf = self;
-    WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:notification[@"entry"]];
+    WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:remoteNotification[@"entry"]];
     if ([entry isKindOfClass:[WLComment class]]) {
         [weakSelf pushControllerWithName:@"candy" context:entry.container];
     } else if ([entry isKindOfClass:[WLCandy class]]) {
@@ -79,10 +79,6 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
             }];
         });
     }
-}
-
-- (void)handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)localNotification {
-    [self handleActionWithIdentifier:identifier forNotification:localNotification.userInfo];
 }
 
 - (void)setEntries:(NSOrderedSet *)entries {
@@ -110,21 +106,12 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 }
 
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
-    if (self.entries.count == 0) {
-        __weak typeof(self)weakSelf = self;
-        [WLWKParentApplicationContext requestAuthorization:^(NSDictionary *replyInfo) {
-            [weakSelf updateContributions];
-        } failure:^(NSError *error) {
-            [weakSelf showError:error];
-        }];
-    } else {
-        WLEntry *entry = self.entries[rowIndex];
-        if (entry.valid) {
-            if ([entry isKindOfClass:[WLComment class]]) {
-                [self pushControllerWithName:@"candy" context:[(id)entry candy]];
-            } else if ([entry isKindOfClass:[WLCandy class]]) {
-                [self pushControllerWithName:@"candy" context:entry];
-            }
+    WLEntry *entry = self.entries[rowIndex];
+    if (entry.valid) {
+        if ([entry isKindOfClass:[WLComment class]]) {
+            [self pushControllerWithName:@"candy" context:[(id)entry candy]];
+        } else if ([entry isKindOfClass:[WLCandy class]]) {
+            [self pushControllerWithName:@"candy" context:entry];
         }
     }
 }

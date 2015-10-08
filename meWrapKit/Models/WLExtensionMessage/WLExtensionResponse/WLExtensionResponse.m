@@ -10,6 +10,10 @@
 
 @implementation WLExtensionResponse
 
++ (NSSet *)archivableProperties {
+    return [NSSet setWithObjects:@"message", @"success", @"userInfo", nil];
+}
+
 + (instancetype)responseWithSuccess:(BOOL)success message:(NSString*)message userInfo:(NSDictionary *)userInfo {
     WLExtensionResponse *response = [[self alloc] init];
     response.success = success;

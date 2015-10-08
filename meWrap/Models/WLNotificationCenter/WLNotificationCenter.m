@@ -16,7 +16,6 @@
 #import "WLNotificationSubscription.h"
 #import "WLNotification.h"
 #import "NSDate+PNTimetoken.h"
-#import "WLEntry+LocalNotifications.h"
 #import "WLNetwork.h"
 #import "WLAuthorizationRequest.h"
 

@@ -22,3 +22,15 @@
 "formatted_calendar_units_ago_at_time" = "%.f%@前%@";
 "formatted_calendar_units_ago" = "%.f%@%@前";
 "at" = "";
+"APNS_TT01" = "你已被邀請！";
+"APNS_MSG01" = "%@邀請你加入\"%@\"，一起分享當中樂趣。";
+"APNS_TT02" = "新相片";
+"APNS_MSG02" = "%@為\"%@\"添加了新相片。";
+"APNS_TT03" = "新回應";
+"APNS_MSG03" = "%@回應:\"%@\"";
+"APNS_TT04" = "新對話";
+"APNS_MSG04" = "%@:\"%@\"在\"%@\"上的對話";
+"APNS_TT05" = "修圖";
+"APNS_MSG05" = "%@剛修輯了相片。";
+"APNS_TT06" = "meWrap有更新版本";
+"APNS_MSG06" = "meWrap有更新版本。現在就下載吧！";

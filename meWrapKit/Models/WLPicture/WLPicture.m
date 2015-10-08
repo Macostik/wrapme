@@ -19,6 +19,10 @@
 
 @implementation WLPicture
 
++ (NSSet *)archivableProperties {
+    return [NSSet setWithObjects:@"type",@"original",@"large",@"medium",@"small", nil];
+}
+
 - (NSString *)anyUrl {
     return self.small ? : (self.medium ? : self.large);
 }

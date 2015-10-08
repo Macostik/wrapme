@@ -10,6 +10,10 @@
 
 @implementation WLExtensionRequest
 
++ (NSSet *)archivableProperties {
+    return [NSSet setWithObjects:@"action", @"userInfo", nil];
+}
+
 + (instancetype)requestWithAction:(NSString *)action userInfo:(NSDictionary *)userInfo {
     WLExtensionRequest *request = [[self alloc] init];
     request.action = action;

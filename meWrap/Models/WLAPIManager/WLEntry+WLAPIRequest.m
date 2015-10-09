@@ -223,7 +223,8 @@
     [metaData trySetObject:contributedAt forKey:WLContributedAtKey];
     WLComment *firstComment = [[self.comments where:@"uploading == nil"] anyObject];
     if (firstComment) {
-        [metaData trySetObject:firstComment.text forKey:@"message"];
+        NSString *escapeString = [firstComment.text escapedUnicode];
+        [metaData trySetObject:escapeString forKey:@"message"];
         [metaData trySetObject:firstComment.uploadIdentifier forKey:@"message_upload_uid"];
     }
     
@@ -263,7 +264,7 @@
     }
     uploadRequest.body = [NSURL fileURLWithPath:self.picture.original];
     WLLog(@"uploading content: %@ metadata: %@", uploadRequest.contentType, metaData);
-    [[[AWSS3TransferManager defaultS3TransferManager] upload:uploadRequest] continueWithSuccessBlock:^id(AWSTask *task) {
+    [[[AWSS3TransferManager defaultS3TransferManager] upload:uploadRequest] continueWithBlock:^id(AWSTask *task) {
         run_in_main_queue(^{
             if(weakSelf.wrap.valid && task.completed && task.result)  {
                 success(weakSelf);

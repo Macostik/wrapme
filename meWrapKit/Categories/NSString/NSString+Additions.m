@@ -90,6 +90,11 @@
     return [parameters copy];
 }
 
+- (NSString *)escapedUnicode {
+    NSData *data = [self dataUsingEncoding:NSNonLossyASCIIStringEncoding];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
 @end
 
 @implementation NSNumber (Additions)

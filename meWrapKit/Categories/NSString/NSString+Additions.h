@@ -78,6 +78,8 @@ static inline CGFloat WLCalculateHeightString(NSString *string, UIFont *font, CG
 
 - (NSDictionary *)URLQueryParameters;
 
+- (NSString *)escapedUnicode;
+
 @end
 
 @interface NSNumber (Additions)

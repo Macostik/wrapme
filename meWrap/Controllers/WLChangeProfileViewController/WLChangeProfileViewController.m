@@ -137,7 +137,7 @@
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-    WLPicture *picture = [[pictures lastObject] uploadablePicture:NO];
+    WLAsset *picture = [[pictures lastObject] uploadablePicture:NO];
     self.imageView.url = picture.large;
     self.editSession.url = picture.large;
     [self dismissViewControllerAnimated:NO completion:nil];

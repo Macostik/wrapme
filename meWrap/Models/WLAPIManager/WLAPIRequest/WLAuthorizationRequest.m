@@ -30,7 +30,7 @@ static BOOL authorized = NO;
 }
 
 + (BOOL)requiresSignIn {
-    return !authorized || !WLSession.imageURI || !WLSession.avatarURI || ![WLUser currentUser].identifier.nonempty;
+    return !authorized || !WLSession.imageURI || !WLSession.avatarURI || !WLSession.videoURI || ![WLUser currentUser].identifier.nonempty;
 }
 
 + (instancetype)signUp:(WLAuthorization*)authorization {
@@ -100,6 +100,12 @@ static BOOL authorized = NO;
 			WLSession.avatarURI = response.data[@"avatar_uri"];
         } else {
             WLSession.avatarURI = [WLAPIEnvironment currentEnvironment].defaultAvatarURI;
+        }
+        
+        if (response.data[@"video_uri"]) {
+            WLSession.videoURI = response.data[@"video_uri"];
+        } else {
+            WLSession.videoURI = [WLAPIEnvironment currentEnvironment].defaultVideoURI;
         }
 		
         NSDictionary* userData = [response.data dictionaryForKey:@"user"];

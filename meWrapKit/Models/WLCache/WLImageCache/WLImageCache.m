@@ -15,7 +15,6 @@
 #import "WLSystemImageCache.h"
 #import "UIDevice+SystemVersion.h"
 #import "GCDHelper.h"
-#import "WLLogger.h"
 
 static NSUInteger WLImageCacheSize = 524288000;
 
@@ -126,11 +125,7 @@ static NSUInteger WLImageCacheSize = 524288000;
             run_after_asap(^{
                 [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
             });
-        } else {
-            WLLog(@"Image Cache - Reusing local image: %@", error);
         }
-    } else {
-        WLLog(@"Image Cache - No local image");
     }
 }
 

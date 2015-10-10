@@ -10,6 +10,7 @@
 #import "NSString+Additions.h"
 #import "DefinedBlocks.h"
 #import "NSObject+AssociatedObjects.h"
+#import "WLToast.h"
 
 @implementation PHFetchResult (Extended)
 
@@ -41,65 +42,55 @@
 
 @implementation PHPhotoLibrary (Helper)
 
-static WLReturnObjectBlock assetCreaterBlock;
-
-+ (void)addNewAssetWithImage:(UIImage *)image toAssetCollectionWithTitle:(NSString *)title completionHandler:(WLCompletionBlock)completion {
-    assetCreaterBlock = ^ {
++ (void)addImage:(UIImage *)image collectionTitle:(NSString *)title success:(WLBlock)success failure:(WLFailureBlock)failure {
+    [self addAsset:^PHAssetChangeRequest *{
         return [PHAssetChangeRequest creationRequestForAssetFromImage:image];
-    };
-    [self performChangesForAssetCollectionWithTitle:title completionHandler:completion];
+    } collectionTitle:title success:success failure:failure];
 }
 
-+ (void)addNewAssetWithImageAtFileUrl:(NSURL *)url toAssetCollectionWithTitle:(NSString *)title completionHandler:(WLCompletionBlock)completion {
-    assetCreaterBlock = ^ {
++ (void)addImageAtFileUrl:(NSURL *)url collectionTitle:(NSString *)title success:(WLBlock)success failure:(WLFailureBlock)failure {
+    [self addAsset:^PHAssetChangeRequest *{
         return [PHAssetChangeRequest creationRequestForAssetFromImageAtFileURL:url];
-    };
-    [self performChangesForAssetCollectionWithTitle:title completionHandler:completion];
+    } collectionTitle:title success:success failure:failure];
 }
 
-+ (void)addNewAssetWithVideoAtFileUrl:(NSURL *)url toAssetCollectionWithTitle:(NSString *)title completionHandler:(WLCompletionBlock)completion {
-    assetCreaterBlock = ^ {
-        return [PHAssetChangeRequest creationRequestForAssetFromImageAtFileURL:url];
-    };
-    [self performChangesForAssetCollectionWithTitle:title completionHandler:completion];
++ (void)addVideoAtFileUrl:(NSURL *)url collectionTitle:(NSString *)title success:(WLBlock)success failure:(WLFailureBlock)failure {
+    [self addAsset:^PHAssetChangeRequest *{
+        return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
+    } collectionTitle:title success:success failure:failure];
 }
 
-+ (PHAssetCollectionChangeRequest *)assetCollectionWithTitle:(NSString *)title {
-    __block PHAssetCollection *collection = nil;
-    PHFetchResult *assetCollectionFetchResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum
++ (PHAssetCollectionChangeRequest *)collectionWithTitle:(NSString *)title {
+    PHFetchResult *result = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum
                                                                                          subtype:PHAssetCollectionSubtypeAlbumRegular
                                                                                          options:nil];
-    [assetCollectionFetchResult enumerateObjectsUsingBlock:^(PHAssetCollection * obj, NSUInteger idx, BOOL *stop) {
-        if([obj.localizedTitle isEqualToString:title])
-        {
-            *stop = YES;
-            collection = obj;
-        }  
-    }];
-    PHAssetCollectionChangeRequest *collectionChangeRequest = nil;
-    if (collection != nil) {
-        collectionChangeRequest = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:collection];
-    } else {
-        collectionChangeRequest = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:title];
+    for (PHAssetCollection * collection in result) {
+        if ([collection.localizedTitle isEqualToString:title]) {
+            return [PHAssetCollectionChangeRequest changeRequestForAssetCollection:collection];
+        }
     }
-    return collectionChangeRequest;
+    return [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:title];
 }
 
-+ ( void)performChanges:(dispatch_block_t)changeBlock forAssetCollectionWithTitle:(NSString *)title completionHandler:(WLCompletionBlock)completion {
-    [[self sharedPhotoLibrary] performChanges:changeBlock completionHandler:completion];
-}
-
-+ (void)performChangesForAssetCollectionWithTitle:(NSString *)title completionHandler:(WLCompletionBlock)completion {
++ (void)addAsset:(PHAssetChangeRequest *(^)(void))assetBlock collectionTitle:(NSString *)title success:(WLBlock)success failure:(WLFailureBlock)failure {
     [[self sharedPhotoLibrary] performChanges:^{
-        PHAssetChangeRequest * assetChangeRequest = assetCreaterBlock();
+        PHAssetChangeRequest * assetChangeRequest = assetBlock();
         if  (assetChangeRequest) {
-            PHAssetCollectionChangeRequest *collectonRequest = [self assetCollectionWithTitle:title];
+            PHAssetCollectionChangeRequest *collectonRequest = [self collectionWithTitle:title];
             PHObjectPlaceholder *asset = [assetChangeRequest placeholderForCreatedAsset];
             if (asset) {
                 [collectonRequest addAssets:@[asset]];
             }
         }
-    } completionHandler:completion];
+    } completionHandler:^(BOOL s, NSError * _Nullable error) {
+        run_in_main_queue(^{
+            if (error) {
+                if (failure) failure(error);
+            } else {
+                if (success) success();
+            }
+        });
+    }];
 }
 
 @end
@@ -239,21 +230,37 @@ static WLReturnObjectBlock assetCreaterBlock;
 @implementation WLCandy (Photo)
 
 - (void)download:(WLBlock)success failure:(WLFailureBlock)failure {
-    
     PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
     if (status == PHAuthorizationStatusDenied) {
         if (failure) failure(WLError(WLLS(@"downloading_privacy_settings")));
-        return;
-    }
-    
-    [[WLBlockImageFetching fetchingWithUrl:self.picture.original] enqueue:^(UIImage *image) {
-        [image saveToAlbum:success failure:failure];
-    } failure:^(NSError *error) {
-        if (error.isNetworkError) {
-            error = WLError(WLLS(@"downloading_internet_connection_error"));
+    } else {
+        __weak typeof(self)weakSelf = self;
+        if (weakSelf.type == WLCandyTypeVideo) {
+            NSString *url = weakSelf.picture.original;
+            if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+                [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
+                    return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:[NSURL fileURLWithPath:url]];
+                } collectionTitle:WLAlbumName success:success failure:failure];
+            } else {
+                NSURLSessionDownloadTask *task = [[NSURLSession sharedSession] downloadTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    if (error) {
+                        if (failure) failure(error);
+                    } else {
+                        [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
+                            return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:location];
+                        } collectionTitle:WLAlbumName success:success failure:failure];
+                    }
+                }];
+                [task resume];
+            }
+        } else {
+            [[WLBlockImageFetching fetchingWithUrl:weakSelf.picture.original] enqueue:^(UIImage *image) {
+                [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
+                    return [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+                } collectionTitle:WLAlbumName success:success failure:failure];
+            } failure:failure];
         }
-        if (failure) failure(error);
-    }];
+    }
 }
 
 @end
@@ -264,16 +271,10 @@ static WLReturnObjectBlock assetCreaterBlock;
     [self saveToAlbum:nil failure:nil];
 }
 
-- (void)saveToAlbum:(void (^)(void))completion failure:(void (^)(NSError *))failure {
-    [PHPhotoLibrary addNewAssetWithImage:self toAssetCollectionWithTitle:WLAlbumName completionHandler:^(BOOL success, NSError *error) {
-        run_in_main_queue(^{
-            if (error) {
-                if (failure) failure(error);
-            } else {
-                if (completion) completion();
-            }
-        });
-    }];
+- (void)saveToAlbum:(void (^)(void))success failure:(void (^)(NSError *))failure {
+    [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
+        return [PHAssetChangeRequest creationRequestForAssetFromImage:self];
+    } collectionTitle:WLAlbumName success:success failure:failure];
 }
 
 @end

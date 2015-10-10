@@ -12,7 +12,7 @@
 #import "NSString+Additions.h"
 #import "NSDate+Additions.h"
 #import "WLAPIResponse.h"
-#import "WLEntry+WLAPIRequest.h"
+#import "WLEntry+API.h"
 #import "AFHTTPRequestOperation.h"
 #import "AFHTTPRequestOperationManager.h"
 

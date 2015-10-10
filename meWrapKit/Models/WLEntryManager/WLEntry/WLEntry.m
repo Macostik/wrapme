@@ -18,4 +18,12 @@
 @dynamic createdAt;
 @dynamic unread;
 
+- (NSComparisonResult)compare:(WLEntry *)entry {
+    return [self.updatedAt compare:entry.updatedAt];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@: %@", [[self class] displayName] ? : [self class], self.identifier];
+}
+
 @end

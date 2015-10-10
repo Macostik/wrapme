@@ -8,8 +8,6 @@
 
 #import "NSURL+WLRemoteEntryHandler.h"
 #import "WLEntryKeys.h"
-#import "WLAPIEnvironment.h"
-#import "NSBundle+Extended.h"
 
 @implementation NSURL (WLRemoteEntryHandler)
 

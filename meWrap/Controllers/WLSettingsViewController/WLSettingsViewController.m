@@ -74,16 +74,11 @@
     
     NSString* stringUrl = count % 2 == 0 ? @"https://placeimg.com/640/1136/any" : @"https://placeimg.com/1136/640/any";
     __weak __typeof(self)weakSelf = self;
-    NSString *titleAlbum = @"test album";
-    NSURL *url = [NSURL URLWithString:stringUrl];
-    NSData *dataImage = [NSData dataWithContentsOfURL:url];
-    UIImage * image = [UIImage imageWithData:dataImage];
-    
-    [PHPhotoLibrary addNewAssetWithImage:image
-              toAssetCollectionWithTitle:titleAlbum
-                       completionHandler:^(BOOL success, NSError *error) {
-                           if  (success) [weakSelf addDemoImageWithCount:count - 1];
-                       }];
+    [PHPhotoLibrary addImageAtFileUrl:[NSURL URLWithString:stringUrl] collectionTitle:WLAlbumName success:^{
+        [weakSelf addDemoImageWithCount:count - 1];
+    } failure:^(NSError *error) {
+        
+    }];
     
 }
 

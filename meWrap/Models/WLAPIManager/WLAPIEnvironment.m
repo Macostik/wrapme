@@ -27,15 +27,18 @@
     return @{WLAPIEnvironmentLocal:@{@"endpoint":@"http://0.0.0.0:3000/api",
                                      @"version":@"7",
                                      @"default_image_uri":@"https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
-                                     @"default_avatar_uri":@"https://d2rojtzyvje8rl.cloudfront.net/users/avatars"},
+                                     @"default_avatar_uri":@"https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
+                                     @"default_video_uri":@"https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments"},
              WLAPIEnvironmentQA:@{@"endpoint":@"https://qa-api.mewrap.me/api",
                                   @"version":@"7",
                                   @"default_image_uri":@"https://d2rojtzyvje8rl.cloudfront.net/candies/image_attachments",
-                                  @"default_avatar_uri":@"https://d2rojtzyvje8rl.cloudfront.net/users/avatars"},
+                                  @"default_avatar_uri":@"https://d2rojtzyvje8rl.cloudfront.net/users/avatars",
+                                  @"default_video_uri":@"https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments"},
              WLAPIEnvironmentProduction:@{@"endpoint":@"https://prd-api.mewrap.me/api",
                                           @"version":@"7",
                                           @"default_image_uri":@"https://dhtwvi2qvu3d7.cloudfront.net/candies/image_attachments",
-                                          @"default_avatar_uri":@"https://dhtwvi2qvu3d7.cloudfront.net/users/avatars"}};
+                                          @"default_avatar_uri":@"https://dhtwvi2qvu3d7.cloudfront.net/users/avatars",
+                                          @"default_video_uri":@"https://d2rojtzyvje8rl.cloudfront.net/candies/video_attachments"}};
 }
 
 + (instancetype)environmentNamed:(NSString *)name {
@@ -49,6 +52,7 @@
     environment.name = name;
     environment.defaultImageURI = dictionary[@"default_image_uri"];
     environment.defaultAvatarURI = dictionary[@"default_avatar_uri"];
+    environment.defaultVideoURI = dictionary[@"default_video_uri"];
     WLLog(@"meWrap - API environment initialized: %@", dictionary);
     return environment;
 }

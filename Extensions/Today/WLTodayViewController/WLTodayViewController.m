@@ -10,7 +10,6 @@
 #import <NotificationCenter/NotificationCenter.h>
 #import "WLTodayCandyCell.h"
 #import "WLTodayCommentCell.h"
-#import "WLEntryNotifier.h"
 #import "WLSession.h"
 #import "WLAuthorization.h"
 #import "NSURL+WLRemoteEntryHandler.h"
@@ -29,7 +28,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
     WLTodayViewStateNoFooter
 };
 
-@interface WLTodayViewController () <NCWidgetProviding, WLEntryNotifyReceiver>
+@interface WLTodayViewController () <NCWidgetProviding>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
@@ -133,7 +132,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (void)updateExtensionWithResult:(void(^)(NCUpdateResult))result {
-    if (![WLSession.authorization canAuthorize]) {
+    if ([WLUser currentUser] == nil) {
         self.state = WLTodayViewStateUnauthorized;
         if (result) result(NCUpdateResultNoData);
         return;

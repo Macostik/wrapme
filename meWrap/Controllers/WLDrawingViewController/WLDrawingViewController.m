@@ -14,6 +14,7 @@
 #import "UIView+LayoutHelper.h"
 #import "WLNavigationHelper.h"
 #import "UIView+LayoutHelper.h"
+#import "UIImage+Drawing.h"
 
 @interface WLDrawingViewController () <WLDrawingSessionDelegate, WLColorPickerDelegate, WLDrawingViewControllerDelegate>
 

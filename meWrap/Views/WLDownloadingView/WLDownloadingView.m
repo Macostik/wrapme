@@ -9,7 +9,7 @@
 #import "WLDownloadingView.h"
 #import "NSObject+NibAdditions.h"
 #import "WLProgressBar+WLContribution.h"
-#import "WLCandy+Extended.h"
+#import "WLCandy.h"
 #import "WLNavigationHelper.h"
 #import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLNetwork.h"

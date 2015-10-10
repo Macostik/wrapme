@@ -67,13 +67,13 @@
     [WLUploadingQueue upload:[WLUploading uploading:candy] success:success failure:failure];
 }
 
-- (void)uploadPicture:(WLPicture *)picture {
+- (void)uploadPicture:(WLAsset *)picture {
     [self uploadPicture:picture success:^(WLCandy *candy) { } failure:^(NSError *error) { }];
 }
 
 - (void)uploadPictures:(NSArray *)pictures {
     __weak typeof(self)weakSelf = self;
-    for (WLPicture *picture in pictures) {
+    for (WLAsset *picture in pictures) {
         runUnaryQueuedOperation(@"wl_upload_candies_queue", ^(WLOperation *operation) {
             [weakSelf uploadPicture:picture];
             run_after(0.6f, ^{

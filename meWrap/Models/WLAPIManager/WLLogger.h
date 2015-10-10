@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "LELog.h"
-#import "WLUser+Extended.h"
+#import "WLUser.h"
+#import "WLAuthorization.h"
 
 __attribute__((constructor))
 static void WLInitializeLELog (void) {
@@ -23,6 +24,6 @@ NSLog(format, ##__VA_ARGS__);\
 #else
 
 #define WLLog(format, ...)\
-[[LELog sharedInstance] log:[NSString stringWithFormat:@"%@ >> %@", [WLUser combinedIdentifier], [NSString stringWithFormat:format, ##__VA_ARGS__]]];
+[[LELog sharedInstance] log:[NSString stringWithFormat:@"%@-%@ >> %@", [WLUser currentUser].identifier, [WLAuthorization currentAuthorization].deviceUID, [NSString stringWithFormat:format, ##__VA_ARGS__]]];
 
 #endif

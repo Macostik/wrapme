@@ -8,15 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "WLPicture.h"
+#import "WLAsset.h"
 
 @interface WLEntry : NSManagedObject
 
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSString * uploadIdentifier;
 @property (nonatomic, retain) NSDate * updatedAt;
-@property (nonatomic, retain) WLPicture * picture;
+@property (nonatomic, retain) WLAsset * picture;
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic) BOOL unread;
+
+- (NSComparisonResult)compare:(WLEntry *)entry;
 
 @end

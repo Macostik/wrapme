@@ -7,7 +7,7 @@
 //
 
 #import "WLNotificationSubscription.h"
-#import "WLUser+Extended.h"
+#import "WLUser.h"
 #import "PubNub+SharedInstance.h"
 #import "NSDate+PNTimetoken.h"
 

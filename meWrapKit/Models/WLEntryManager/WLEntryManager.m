@@ -9,9 +9,7 @@
 #import "WLEntryManager.h"
 #import "NSString+Additions.h"
 #import <objc/runtime.h>
-#import "WLAPIRequest.h"
 #import "WLEntryNotifier.h"
-#import "WLLogger.h"
 #import "WLSession.h"
 
 @interface WLMergePolicy : NSMergePolicy
@@ -62,7 +60,7 @@
     if (_context != nil) {
         return _context;
     }
-    [NSValueTransformer setValueTransformer:[[WLPictureTransformer alloc] init] forName:@"pictureTransformer"];
+    [NSValueTransformer setValueTransformer:[[WLAssetTransformer alloc] init] forName:@"pictureTransformer"];
     NSPersistentStoreCoordinator *coordinator = [self coordinator];
     if (coordinator != nil) {
         _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
@@ -135,7 +133,7 @@
     
     _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
     if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]) {
-        WLLog(@"WRAPLIVEKIT - Couldn't create persistent store so clearing the database: %@", error);
+        NSLog(@"WRAPLIVEKIT - Couldn't create persistent store so clearing the database: %@", error);
         [[NSFileManager defaultManager] removeItemAtURL:url error:NULL];
         [_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error];
     }
@@ -155,53 +153,6 @@
 
 - (void)uncacheEntry:(WLEntry *)entry {
     [self.cachedEntries removeObjectForKey:entry.identifier];
-}
-
-- (void)fetchEntries:(NSMutableDictionary *)descriptors {
-    
-    NSMutableArray *keysToRemove = [NSMutableArray array];
-    for (NSString *identifier in descriptors) {
-        if ([self cachedEntry:identifier]) {
-            [keysToRemove addObject:identifier];
-        }
-    }
-    [descriptors removeObjectsForKeys:keysToRemove];
-    
-    if (descriptors.count == 0) {
-        return;
-    }
-    
-    NSMutableArray *uids = [NSMutableArray arrayWithCapacity:descriptors.count];
-    NSMutableArray *locuids = [NSMutableArray arrayWithCapacity:descriptors.count];
-    
-    [descriptors enumerateKeysAndObjectsUsingBlock:^(NSString *identifier, WLEntryDescriptor *descriptor, BOOL *stop) {
-        if (descriptor.identifier) {
-            [uids addObject:descriptor.identifier];
-        }
-        if (descriptor.uploadIdentifier) {
-            [locuids addObject:descriptor.uploadIdentifier];
-        }
-    }];
-    
-    NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:@"WLEntry"];
-    request.predicate = [NSPredicate predicateWithFormat:@"identifier IN %@ OR uploadIdentifier IN %@", uids, locuids];
-    NSArray *array = [request execute];
-    for (WLEntry *entry in array) {
-        [self.cachedEntries setObject:entry forKey:entry.identifier];
-        if (entry.identifier) {
-            [descriptors removeObjectForKey:entry.identifier];
-        }
-        if (entry.uploadIdentifier) {
-            [descriptors removeObjectForKey:entry.uploadIdentifier];
-        }
-    }
-    
-    [descriptors enumerateKeysAndObjectsUsingBlock:^(NSString *identifier, WLEntryDescriptor *descriptor, BOOL *stop) {
-        WLEntry *entry = [[descriptor.entryClass alloc] initWithEntity:[descriptor.entryClass entity] insertIntoManagedObjectContext:self.context];
-        entry.identifier = descriptor.identifier;
-        entry.uploadIdentifier = descriptor.uploadIdentifier;
-        [self.cachedEntries setObject:entry forKey:entry.identifier];
-    }];
 }
 
 - (NSFetchRequest*)fetchRequestForClass:(Class)entryClass {
@@ -282,7 +233,7 @@
             NSError* error = nil;
             [weakSelf.context save:&error];
             if (error) {
-                WLLog(@"CoreData - save error: %@", error);
+                NSLog(@"CoreData - save error: %@", error);
             }
         }];
         
@@ -472,7 +423,7 @@
     [manager assureSave:^{
         WLEntry *container = self.container;
         [weakSelf notifyOnDeleting];
-        WLLog(@"WRAPLIVE - LOCAL DELETING: %@", weakSelf);
+        NSLog(@"WRAPLIVE - LOCAL DELETING: %@", weakSelf);
         [manager deleteEntry:weakSelf];
         [container notifyOnUpdate];
     }];
@@ -482,7 +433,7 @@
     [super awakeFromInsert];
     [[WLEntryManager manager] cacheEntry:self];
     if (!self.picture) {
-        self.picture = [[WLPicture alloc] init];
+        self.picture = [[WLAsset alloc] init];
     }
     self.createdAt = [NSDate now];
 }

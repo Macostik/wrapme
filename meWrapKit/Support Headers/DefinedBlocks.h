@@ -9,25 +9,22 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class WLAPIResponse;
 @class WLCandy;
 @class WLWrap;
 @class WLUser;
-@class WLAPIResponse;
 @class WLComment;
 @class WLAddressBookRecord;
 @class WLAddressBookPhoneNumber;
 @class WLAuthorization;
 @class WLEntry;
 @class WLMessage;
-@class WLPicture;
+@class WLAsset;
 
 typedef void (^WLBlock) (void);
 typedef void (^WLObjectBlock) (id object);
 typedef id (^WLReturnObjectBlock) (void);
 typedef id (^WLMapObjectBlock) (id object);
 typedef void (^WLFailureBlock) (NSError *error);
-typedef id (^WLMapResponseBlock)(WLAPIResponse* response);
 typedef void (^WLAuthorizationBlock) (WLAuthorization *authorization);
 typedef void (^WLEntryBlock) (WLEntry *entry);
 typedef void (^WLUserBlock) (WLUser *user);
@@ -54,5 +51,5 @@ typedef BOOL(^EqualityBlock)(id first, id second);
 typedef void (^WLImageFetcherBlock)(UIImage* image, BOOL cached);
 typedef NSDate* (^WLDateFromEntryBlock)(WLEntry* entry);
 typedef void (^WLGestureBlock)(UIGestureRecognizer *recognizer);
-typedef void (^WLPictureBlock) (WLPicture *picture);
+typedef void (^WLAssetBlock) (WLAsset *picture);
 typedef void (^WLCompletionBlock) (BOOL success, NSError *error);

@@ -7,7 +7,7 @@
 //
 
 #import "NSError+WLAPIManager.h"
-#import "WLEntry+WLAPIRequest.h"
+#import "WLEntry+API.h"
 #import "NSDictionary+Extended.h"
 #import "WLLocalization.h"
 

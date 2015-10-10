@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLPicture.h"
+#import "WLAsset.h"
 #import "WLCommonEnums.h"
 
-@interface WLEditPicture : WLPicture
+@interface WLEditPicture : WLAsset
 
 @property (strong, nonatomic) NSString *comment;
 
@@ -47,7 +47,7 @@
 
 - (void)setVideoAtPath:(NSString*)path completion:(WLObjectBlock)completion;
 
-- (WLPicture*)uploadablePicture:(BOOL)justUploaded;
+- (WLAsset*)uploadablePicture:(BOOL)justUploaded;
 
 - (void)saveToAssets;
 

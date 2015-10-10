@@ -7,7 +7,7 @@
 //
 
 #import "WLUploading+Extended.h"
-#import "WLEntry+WLAPIRequest.h"
+#import "WLEntry+API.h"
 #import "WLImageCache.h"
 #import "WLEntryNotifier.h"
 #import "WLOperationQueue.h"

@@ -10,7 +10,7 @@
 #import "NSDate+Additions.h"
 #import "WLAuthorization.h"
 #import "WLEntryNotifier.h"
-#import "WLEntry+WLAPIRequest.h"
+#import "WLEntry+API.h"
 #import "PubNub.h"
 #import "NSDate+PNTimetoken.h"
 #import "WLCommonEnums.h"

@@ -8,7 +8,6 @@
 
 #import "WLCandyCell.h"
 #import "WLToast.h"
-#import "MFMailComposeViewController+Additions.h"
 #import "WLMenu.h"
 #import "UIFont+CustomFonts.h"
 #import "WLChronologicalEntryPresenter.h"
@@ -24,6 +23,7 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+@property (weak, nonatomic) IBOutlet UIView *videoIndicatorView;
 
 @end
 
@@ -89,7 +89,15 @@
                 }];
             } else {
                 [menu addReportItem:^(WLCandy *candy) {
-                    [MFMailComposeViewController messageWithCandy:candy];
+                    ReportViewController *controller = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateViewControllerWithIdentifier:@"report"];;
+                    [controller setReportClosure:^(NSString * code, ReportViewController *controller) {
+                        [[WLAPIRequest postCandy:candy violationCode:code] send:^(id object) {
+                            [controller reportingFinished];
+                        } failure:^(NSError *error) {
+                            [error show];
+                        }];
+                    }];
+                    [[UIWindow mainWindow].rootViewController presentViewController:controller animated:NO completion:nil];
                 }];
             }
             menu.entry = candy;
@@ -105,19 +113,22 @@
 - (void)setup:(WLCandy*)candy {
 	self.userInteractionEnabled = YES;
     if (!candy) {
+        self.videoIndicatorView.hidden = YES;
         self.coverView.url = nil;
         if (self.commentLabel) {
             self.commentLabel.superview.hidden = YES;
         }
         return;
     }
+    
+    self.videoIndicatorView.hidden = candy.type != WLCandyTypeVideo;
     if (self.commentLabel) {
         WLComment* comment = [candy latestComment];
         self.commentLabel.text = comment.text;
         self.commentLabel.superview.hidden = !self.commentLabel.text.nonempty;
     }
     
-    WLPicture *picture = candy.picture;
+    WLAsset *picture = candy.picture;
     
     if (picture.justUploaded) {
         [StreamView lock];

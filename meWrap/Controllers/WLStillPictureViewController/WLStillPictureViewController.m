@@ -14,6 +14,7 @@
 #import "WLHintView.h"
 #import "WLWrapView.h"
 #import "WLCameraViewController.h"
+#import "UIImage+Resize.h"
 
 @import Photos;
 

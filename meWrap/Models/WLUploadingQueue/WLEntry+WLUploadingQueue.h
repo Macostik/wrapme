@@ -12,7 +12,7 @@
 
 typedef void (^WLContributionUpdatePreparingBlock)(WLContribution *contribution, WLContributionStatus status);
 
-@interface WLContribution (WLAPIManager)
+@interface WLContribution (WLUploadingQueue)
 
 - (void)enqueueUpdate:(WLFailureBlock)failure;
 
@@ -24,9 +24,9 @@ typedef void (^WLContributionUpdatePreparingBlock)(WLContribution *contribution,
 
 - (void)uploadMessage:(NSString*)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure;
 
-- (void)uploadPicture:(WLPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
+- (void)uploadPicture:(WLAsset *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
 
-- (void)uploadPicture:(WLPicture *)picture;
+- (void)uploadPicture:(WLAsset *)picture;
 
 - (void)uploadPictures:(NSArray *)pictures;
 

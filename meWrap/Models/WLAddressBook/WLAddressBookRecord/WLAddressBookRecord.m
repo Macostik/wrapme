@@ -23,7 +23,7 @@
         if (ABPersonHasImageData(record)) {
             NSString* identifier = [NSString stringWithFormat:@"addressbook_%d", ABRecordGetRecordID(record)];
             WLStringBlock complete = ^(NSString* path) {
-                WLPicture* picture = [WLPicture new];
+                WLAsset* picture = [WLAsset new];
                 picture.large = path;
                 picture.medium = path;
                 picture.small = path;
@@ -115,7 +115,7 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
     return phoneNumber.priorityName;
 }
 
-- (WLPicture *)priorityPicture {
+- (WLAsset *)priorityPicture {
     WLAddressBookPhoneNumber *phoneNumber = [self.phoneNumbers lastObject];
     return phoneNumber.priorityPicture;
 }

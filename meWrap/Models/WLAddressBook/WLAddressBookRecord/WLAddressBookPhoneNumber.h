@@ -24,12 +24,12 @@ static NSInteger WLAddressBookPhoneNumberMinimumLength = 6;
 
 @property (weak, nonatomic) WLUser *user;
 
-@property (strong, nonatomic) WLPicture *picture;
+@property (strong, nonatomic) WLAsset *picture;
 
 @property (nonatomic) BOOL activated;
 
 - (BOOL)isEqualToPerson:(WLAddressBookPhoneNumber*)person;
 - (NSString *)priorityName;
-- (WLPicture *)priorityPicture;
+- (WLAsset *)priorityPicture;
 
 @end

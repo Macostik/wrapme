@@ -330,7 +330,7 @@
         }
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (candy.wrap.valid) {
-            WLPicture* oldPicture = [candy.picture copy];
+            WLAsset* oldPicture = [candy.picture copy];
             [candy API_setup:[response.data dictionaryForKey:WLCandyKey]];
             [oldPicture cacheForPicture:candy.picture];
             success(candy);
@@ -359,7 +359,7 @@
         [parameters trySetObject:candy.uploadIdentifier forKey:WLUploadUIDKey];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (candy.wrap.valid) {
-            WLPicture* oldPicture = [candy.picture copy];
+            WLAsset* oldPicture = [candy.picture copy];
             [candy API_setup:[response.data dictionaryForKey:WLCandyKey]];
             [oldPicture cacheForPicture:candy.picture];
             success(candy);

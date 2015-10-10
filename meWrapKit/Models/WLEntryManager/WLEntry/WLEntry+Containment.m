@@ -39,7 +39,7 @@
 }
 
 + (NSString*)displayName {
-    return @"Item";
+    return NSStringFromClass([self class]);
 }
 
 + (id)entryFromDictionaryRepresentation:(NSDictionary *)dictionary {

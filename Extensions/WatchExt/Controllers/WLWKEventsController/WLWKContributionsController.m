@@ -62,23 +62,26 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 
 - (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)remoteNotification {
     __weak typeof(self)weakSelf = self;
-    WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:remoteNotification[@"entry"]];
-    if ([entry isKindOfClass:[WLComment class]]) {
-        [weakSelf pushControllerWithName:@"candy" context:entry.container];
-    } else if ([entry isKindOfClass:[WLCandy class]]) {
-        [weakSelf pushControllerWithName:@"candy" context:entry];
-    } else if ([identifier isEqualToString:@"reply"] && [entry isKindOfClass:[WLMessage class]]) {
-        run_after(0.2f,^{
-            [weakSelf presentTextInputControllerWithSuggestionsFromFileNamed:@"WLWKChatReplyPresets" completion:^(NSString *result) {
-                WLWrap *wrap = [(WLMessage*)entry wrap];
-                [WLWKParentApplicationContext postMessage:result wrap:wrap.identifier success:^(NSDictionary *replyInfo) {
-                    [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Message \"%@\" sent!", result]];
-                } failure:^(NSError *error) {
-                    [weakSelf pushControllerWithName:@"alert" context:error];
+    [WLWKParentApplicationContext handleNotification:remoteNotification success:^(NSDictionary *dictionary) {
+        WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:dictionary[@"entry"]];
+        if ([entry isKindOfClass:[WLComment class]]) {
+            [weakSelf pushControllerWithName:@"candy" context:entry.container];
+        } else if ([entry isKindOfClass:[WLCandy class]]) {
+            [weakSelf pushControllerWithName:@"candy" context:entry];
+        } else if ([identifier isEqualToString:@"reply"] && [entry isKindOfClass:[WLMessage class]]) {
+            run_after(0.2f,^{
+                [weakSelf presentTextInputControllerWithSuggestionsFromFileNamed:@"WLWKChatReplyPresets" completion:^(NSString *result) {
+                    WLWrap *wrap = [(WLMessage*)entry wrap];
+                    [WLWKParentApplicationContext postMessage:result wrap:wrap.identifier success:^(NSDictionary *replyInfo) {
+                        [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Message \"%@\" sent!", result]];
+                    } failure:^(NSError *error) {
+                        [weakSelf pushControllerWithName:@"alert" context:error];
+                    }];
                 }];
-            }];
-        });
-    }
+            });
+        }
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (void)setEntries:(NSOrderedSet *)entries {
@@ -129,7 +132,7 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 }
 
 - (void)updateContributions {
-    if ([WLSession.authorization canAuthorize]) {
+    if ([WLUser currentUser]) {
         self.entries = [WLContribution recentContributions:10];
     } else {
         [self showError:[NSError errorWithDomain:NSURLErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:@"No data for authorization. Please, check meWrap app on you iPhone."}]];

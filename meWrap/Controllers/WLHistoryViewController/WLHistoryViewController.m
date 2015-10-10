@@ -15,7 +15,6 @@
 #import "UIView+AnimationHelper.h"
 #import "UITextView+Aditions.h"
 #import "WLToast.h"
-#import "MFMailComposeViewController+Additions.h"
 #import "WLCandyViewController.h"
 #import "WLNavigationHelper.h"
 #import "WLDownloadingView.h"
@@ -282,6 +281,12 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [self setCommentButtonTitle:candy];
     [self setupBottomViewModeRelatedData:self.bottomViewMode candy:candy];
     self.lastComment = [candy latestComment];
+    NSInteger type = candy.type;
+    if (type == WLCandyTypeVideo) {
+        self.drawButton.hidden = self.editButton.hidden = YES;
+    } else {
+        self.drawButton.hidden = self.editButton.hidden = NO;
+    }
 }
 
 - (void)setCommentButtonTitle:(WLCandy *)candy {
@@ -430,6 +435,19 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
             } failure:nil];
         }
     }];
+}
+
+- (IBAction)report:(id)sender {
+    WLCandy *candy = self.candy;
+    ReportViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"report"];
+    [controller setReportClosure:^(NSString * code, ReportViewController *controller) {
+        [[WLAPIRequest postCandy:candy violationCode:code] send:^(id object) {
+            [controller reportingFinished];
+        } failure:^(NSError *error) {
+            [error show];
+        }];
+    }];
+    [self.navigationController pushViewController:controller animated:NO];
 }
 
 - (IBAction)editPhoto:(id)sender {

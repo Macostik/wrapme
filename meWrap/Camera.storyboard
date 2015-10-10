@@ -31,6 +31,7 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1684,21 +1685,14 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kMq-SU-ghj">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
-                                <animations/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="9x7-BQ-E6R"/>
-                                    <barButtonItem systemItem="play" id="Hci-xQ-doI">
-                                        <color key="tintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="AOm-a0-BG2"/>
-                                </items>
-                            </toolbar>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DA2-yr-iJC">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
                                 <animations/>
+                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="96"/>
+                                <state key="normal" title="*"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="playVideo:" destination="mRo-Ag-1wo" eventType="touchUpInside" id="gHQ-Qr-mUW"/>
                                 </connections>
@@ -1718,21 +1712,17 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="BsW-9c-x98" firstAttribute="top" secondItem="vh6-7i-2VL" secondAttribute="bottom" id="FZb-au-1Ey"/>
-                            <constraint firstItem="kMq-SU-ghj" firstAttribute="height" secondItem="TNd-Ji-ceT" secondAttribute="height" id="HL3-SX-CeF"/>
                             <constraint firstItem="BsW-9c-x98" firstAttribute="leading" secondItem="TNd-Ji-ceT" secondAttribute="leading" id="Nfd-bP-gLh"/>
                             <constraint firstItem="q2x-i3-oQd" firstAttribute="leading" secondItem="TNd-Ji-ceT" secondAttribute="leading" id="YMf-zv-KFF"/>
                             <constraint firstItem="DA2-yr-iJC" firstAttribute="width" secondItem="TNd-Ji-ceT" secondAttribute="width" id="ZPK-Ep-YPJ"/>
                             <constraint firstAttribute="trailing" secondItem="q2x-i3-oQd" secondAttribute="trailing" id="aTW-9e-gxy"/>
-                            <constraint firstItem="kMq-SU-ghj" firstAttribute="width" secondItem="TNd-Ji-ceT" secondAttribute="width" id="av1-Bc-hg6"/>
                             <constraint firstItem="JWW-Ya-7fG" firstAttribute="top" secondItem="q2x-i3-oQd" secondAttribute="bottom" id="bbn-5n-9cg"/>
                             <constraint firstItem="DA2-yr-iJC" firstAttribute="centerY" secondItem="TNd-Ji-ceT" secondAttribute="centerY" id="beW-jb-UPV"/>
                             <constraint firstItem="JWW-Ya-7fG" firstAttribute="top" secondItem="BsW-9c-x98" secondAttribute="bottom" id="fqZ-V1-M9E"/>
                             <constraint firstItem="q2x-i3-oQd" firstAttribute="top" secondItem="vh6-7i-2VL" secondAttribute="bottom" id="jVB-fZ-iFe"/>
-                            <constraint firstItem="kMq-SU-ghj" firstAttribute="centerY" secondItem="TNd-Ji-ceT" secondAttribute="centerY" id="kgE-I6-eDT"/>
                             <constraint firstAttribute="trailing" secondItem="BsW-9c-x98" secondAttribute="trailing" id="mgT-Va-TxG"/>
                             <constraint firstItem="DA2-yr-iJC" firstAttribute="centerX" secondItem="TNd-Ji-ceT" secondAttribute="centerX" id="nam-k9-ecC"/>
                             <constraint firstItem="DA2-yr-iJC" firstAttribute="height" secondItem="TNd-Ji-ceT" secondAttribute="height" id="plT-PC-Cnr"/>
-                            <constraint firstItem="kMq-SU-ghj" firstAttribute="centerX" secondItem="TNd-Ji-ceT" secondAttribute="centerX" id="qsp-Zn-DEa"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -1744,7 +1734,6 @@
                         <outlet property="deletionView" destination="q2x-i3-oQd" id="W6p-7F-ids"/>
                         <outlet property="imageView" destination="BsW-9c-x98" id="37e-Pz-Wxj"/>
                         <outlet property="playVideoButton" destination="DA2-yr-iJC" id="gu7-TE-KeZ"/>
-                        <outlet property="playVideoToolbar" destination="kMq-SU-ghj" id="JDk-Rp-OtU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0at-hw-HBt" userLabel="First Responder" sceneMemberID="firstResponder"/>

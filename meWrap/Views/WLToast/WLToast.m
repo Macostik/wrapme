@@ -15,6 +15,7 @@
 #import "WLNavigationHelper.h"
 #import "UIView+LayoutHelper.h"
 #import "UIColor+CustomColors.h"
+#import "PHPhotoLibrary+Helper.h"
 
 @implementation WLToastAppearance
 

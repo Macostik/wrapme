@@ -10,7 +10,6 @@
 #import "WLImageCache.h"
 #import "UIImage+Resize.h"
 #import "WLImageFetcher.h"
-#import "UIImage+Drawing.h"
 #import "WLAPIRequest.h"
 #import "GCDHelper.h"
 #import "PHPhotoLibrary+Helper.h"
@@ -180,9 +179,9 @@
     [super setSmall:small];
 }
 
-- (WLPicture *)uploadablePicture:(BOOL)justUploaded {
+- (WLAsset *)uploadablePicture:(BOOL)justUploaded {
     self.uploaded = YES;
-    WLPicture *picture = [[WLPicture alloc] init];
+    WLAsset *picture = [[WLAsset alloc] init];
     picture.type = self.type;
     picture.original = self.original;
     picture.large = self.large;

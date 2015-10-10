@@ -18,7 +18,7 @@
 
 - (BOOL)isEqualToPerson:(WLAddressBookPhoneNumber*)person {
     if (self.user) {
-        return [self.user isEqualToEntry:person.user];
+        return self.user == person.user;
     } else {
         return [self.phone isEqualToString:person.phone];
     }
@@ -34,7 +34,7 @@
     }
 }
 
-- (WLPicture *)priorityPicture {
+- (WLAsset *)priorityPicture {
     if (_user.picture.small.nonempty) {
         return _user.picture;
     } else {

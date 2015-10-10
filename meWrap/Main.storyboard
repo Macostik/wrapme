@@ -55,6 +55,7 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -2383,7 +2384,7 @@
             </objects>
             <point key="canvasLocation" x="2388.75" y="124.64788732394365"/>
         </scene>
-        <!--Source View Controller-->
+        <!--History View Controller-->
         <scene sceneID="IUe-2p-n08">
             <objects>
                 <viewController storyboardIdentifier="WLHistoryViewController" automaticallyAdjustsScrollViewInsets="NO" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" id="eto-O4-OHy" customClass="WLHistoryViewController" sceneMemberID="viewController">
@@ -2500,7 +2501,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="push:" destination="yoH-75-zao" eventType="touchUpInside" id="JcM-jP-Lay"/>
+                                            <action selector="report:" destination="eto-O4-OHy" eventType="touchUpInside" id="c4Z-9n-W3a"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2770,16 +2771,6 @@
                         <outletCollection property="alternativeConstraints" destination="FGX-3K-gVJ" id="8PQ-3c-tpd"/>
                     </connections>
                 </customObject>
-                <customObject id="yoH-75-zao" userLabel="Report Transition" customClass="WLStoryboardTransition">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sourceValue" value="candy"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationValue" value="candy"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLReportViewController"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="sourceViewController" destination="eto-O4-OHy" id="iFv-Wj-Ml7"/>
-                    </connections>
-                </customObject>
                 <customObject id="gXs-Hi-baz" userLabel="CommentButtonPrioritizer" customClass="WLLayoutPrioritizer">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
@@ -2802,7 +2793,7 @@
         <!--Report View Controller-->
         <scene sceneID="30F-AL-P3B">
             <objects>
-                <viewController storyboardIdentifier="WLReportViewController" id="WrQ-w6-leR" customClass="WLReportViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="report" id="WrQ-w6-leR" customClass="ReportViewController" customModule="meWrap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KBg-HG-jyJ"/>
                         <viewControllerLayoutGuide type="bottom" id="Th4-Lu-B7q"/>
@@ -2842,7 +2833,19 @@
                                             <color key="titleColor" red="0.91664922240000002" green="0.91662174460000001" blue="0.91663730139999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="back:" destination="WrQ-w6-leR" eventType="touchUpInside" id="pes-aF-h6v"/>
+                                            <action selector="done" destination="WrQ-w6-leR" eventType="touchUpInside" id="IxH-wn-Jcy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2E-Gt-nm8" customClass="WLButton">
+                                        <rect key="frame" x="551" y="25" width="41" height="34"/>
+                                        <animations/>
+                                        <state key="normal" title="done"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="done" destination="WrQ-w6-leR" eventType="touchUpInside" id="iwJ-dQ-n6c"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2852,6 +2855,8 @@
                                     <constraint firstAttribute="centerY" secondItem="YKV-Sm-57c" secondAttribute="centerY" constant="-10" id="Ql2-CI-djL"/>
                                     <constraint firstItem="9y6-vT-Bq0" firstAttribute="leading" secondItem="zbw-ag-4HQ" secondAttribute="leading" constant="12" id="VbK-Nv-CQ5"/>
                                     <constraint firstAttribute="centerY" secondItem="9y6-vT-Bq0" secondAttribute="centerY" constant="-10" id="YTw-NE-qEy"/>
+                                    <constraint firstAttribute="trailing" secondItem="d2E-Gt-nm8" secondAttribute="trailing" constant="8" id="Zpb-Jv-T3b"/>
+                                    <constraint firstItem="d2E-Gt-nm8" firstAttribute="centerY" secondItem="zbw-ag-4HQ" secondAttribute="centerY" constant="10" id="pWA-H8-tLj"/>
                                     <constraint firstAttribute="centerX" secondItem="YKV-Sm-57c" secondAttribute="centerX" id="qa8-a7-ET3"/>
                                     <constraint firstAttribute="height" constant="64" id="yt8-82-3Rc"/>
                                 </constraints>
@@ -2902,7 +2907,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="WLReportCell" id="Hzh-iD-SNP" customClass="WLReportCell" customModule="meWrap" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="ReportCell" id="Hzh-iD-SNP" customClass="ReportCell" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -2992,15 +2997,16 @@
                     <connections>
                         <outlet property="collectionView" destination="s5H-Dd-yyT" id="DPF-um-oUa"/>
                         <outlet property="dataSource" destination="ZTH-AM-jQS" id="3SN-Fg-qzv"/>
+                        <outlet property="doneButton" destination="d2E-Gt-nm8" id="Blw-83-zI0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bdy-6S-khF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="ZTH-AM-jQS" customClass="WLCVDataSource" customModule="meWrap" customModuleProvider="target">
+                <customObject id="ZTH-AM-jQS" customClass="CVDataSource" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cellHeight">
                             <real key="value" value="36"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="WLReportCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="ReportCell"/>
                     </userDefinedRuntimeAttributes>
                 </customObject>
             </objects>
@@ -3065,6 +3071,20 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" secondItem="pry-wp-qRG" secondAttribute="height" id="pBD-R3-n9X"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bjv-79-xBo">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="96"/>
+                                <state key="normal" title="*">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="playVideo:" destination="nz6-sC-pRK" eventType="touchUpInside" id="zEL-9A-Onj"/>
+                                </connections>
+                            </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="bf0-24-ZKl">
                                 <rect key="frame" x="290" y="290" width="20" height="20"/>
                                 <animations/>
@@ -3088,12 +3108,16 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Bjv-79-xBo" firstAttribute="centerX" secondItem="jS6-zb-1Jg" secondAttribute="centerX" id="00P-3x-5EH"/>
+                            <constraint firstItem="Bjv-79-xBo" firstAttribute="centerY" secondItem="jS6-zb-1Jg" secondAttribute="centerY" id="016-4u-ETk"/>
                             <constraint firstItem="bf0-24-ZKl" firstAttribute="centerX" secondItem="mJR-KD-aWN" secondAttribute="centerX" id="1ZP-S9-ETd"/>
                             <constraint firstAttribute="trailing" secondItem="mJR-KD-aWN" secondAttribute="trailing" id="2Rt-A2-4gh"/>
+                            <constraint firstItem="Bjv-79-xBo" firstAttribute="width" secondItem="jS6-zb-1Jg" secondAttribute="width" id="Cpa-72-QG1"/>
                             <constraint firstItem="mJR-KD-aWN" firstAttribute="leading" secondItem="jS6-zb-1Jg" secondAttribute="leading" id="JrQ-O2-PDU"/>
                             <constraint firstItem="TvM-gd-tcr" firstAttribute="centerY" secondItem="bf0-24-ZKl" secondAttribute="centerY" constant="-100" id="PWe-gT-0Rx"/>
                             <constraint firstItem="mJR-KD-aWN" firstAttribute="top" secondItem="jS6-zb-1Jg" secondAttribute="top" id="f5w-bt-O46"/>
                             <constraint firstItem="bf0-24-ZKl" firstAttribute="centerY" secondItem="mJR-KD-aWN" secondAttribute="centerY" id="gsq-O5-3gO"/>
+                            <constraint firstItem="Bjv-79-xBo" firstAttribute="height" secondItem="jS6-zb-1Jg" secondAttribute="height" id="i5c-GG-EG4"/>
                             <constraint firstItem="TvM-gd-tcr" firstAttribute="centerX" secondItem="bf0-24-ZKl" secondAttribute="centerX" id="oHv-Sf-egE"/>
                             <constraint firstAttribute="bottom" secondItem="mJR-KD-aWN" secondAttribute="bottom" id="ut6-R5-Obo"/>
                         </constraints>
@@ -3102,6 +3126,7 @@
                         <outlet property="aspectRatioConstraint" destination="Yhx-2Q-feM" id="J9o-dK-O0H"/>
                         <outlet property="errorLabel" destination="TvM-gd-tcr" id="opu-Ro-OI6"/>
                         <outlet property="imageView" destination="Cn8-Rl-m4g" id="f99-6S-6sL"/>
+                        <outlet property="playVideoButton" destination="Bjv-79-xBo" id="qOJ-E6-iYL"/>
                         <outlet property="scrollView" destination="pry-wp-qRG" id="qU7-uM-DxO"/>
                         <outlet property="spinner" destination="bf0-24-ZKl" id="9Hf-UG-yem"/>
                     </connections>
@@ -4309,7 +4334,7 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstAttribute="bottom" secondItem="dOb-uE-FSR" secondAttribute="bottom" id="rSy-DW-AqO"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYA-26-DXt" userLabel="ChatView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zYA-26-DXt" userLabel="ChatView">
                                 <rect key="frame" x="0.0" y="309" width="600" height="76"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="741" text="chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zet-Ls-5CH" customClass="WLLabel">
@@ -4355,7 +4380,7 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstItem="zet-Ls-5CH" firstAttribute="top" secondItem="zYA-26-DXt" secondAttribute="top" constant="12" id="Ssd-3n-Yfz"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-Oj-q4N">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-Oj-q4N">
                                 <rect key="frame" x="0.0" y="200" width="600" height="109"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="737" text="notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtf-da-c8a" customClass="WLLabel">
@@ -4380,7 +4405,7 @@ QWRkEEZyaWVuZFZpZXc
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="755" text="notify_about_new_photo" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHL-LP-6Kt" customClass="WLLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="755" misplaced="YES" text="notify_about_new_photo" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHL-LP-6Kt" customClass="WLLabel">
                                         <rect key="frame" x="12" y="78" width="515" height="18"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
@@ -4391,7 +4416,7 @@ QWRkEEZyaWVuZFZpZXc
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="R1I-Cl-5SX">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="R1I-Cl-5SX">
                                         <rect key="frame" x="539" y="78" width="51" height="31"/>
                                         <animations/>
                                         <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
@@ -4415,7 +4440,7 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstItem="Vtf-da-c8a" firstAttribute="top" secondItem="fdR-Oj-q4N" secondAttribute="top" constant="12" id="v2e-fR-RM6"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="WLButton">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="WLButton">
                                 <rect key="frame" x="12" y="405" width="576" height="30"/>
                                 <animations/>
                                 <constraints>

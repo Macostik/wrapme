@@ -7,7 +7,7 @@
 //
 
 #import "WLWKCandyController.h"
-#import "WLCandy+Extended.h"
+#import "WLCandy.h"
 #import "WLWKCommentRow.h"
 #import "WKInterfaceImage+WLImageFetcher.h"
 #import "WKInterfaceController+SimplifiedTextInput.h"

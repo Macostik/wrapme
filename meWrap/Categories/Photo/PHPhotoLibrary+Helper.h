@@ -10,6 +10,8 @@
 #import "WLCandy.h"
 #import "WLCollection.h"
 
+static NSString *WLAlbumName = @"meWrap";
+
 @class Photos;
 
 @interface PHFetchResult (Extended)
@@ -26,19 +28,15 @@
 
 @interface PHPhotoLibrary (Helper)
 
-+ (void)addNewAssetWithImage:(UIImage *)image
-  toAssetCollectionWithTitle:(NSString *)title
-           completionHandler:(WLCompletionBlock)completion;
++ (void)addImage:(UIImage *)image collectionTitle:(NSString *)title success:(WLBlock)success failure:(WLFailureBlock)failure;
 
-+ (void)addNewAssetWithImageAtFileUrl:(NSURL *)url
-           toAssetCollectionWithTitle:(NSString *)title
-                    completionHandler:(WLCompletionBlock)completion;
++ (void)addImageAtFileUrl:(NSURL *)url collectionTitle:(NSString *)title success:(WLBlock)success failure:(WLFailureBlock)failure;
 
-+ (void)addNewAssetWithVideoAtFileUrl:(NSURL *)url
-           toAssetCollectionWithTitle:(NSString *)title
-                    completionHandler:(WLCompletionBlock)completion;
++ (void)addVideoAtFileUrl:(NSURL *)url collectionTitle:(NSString *)title success:(WLBlock)success failure:(WLFailureBlock)failure;
 
-+ (PHAssetCollectionChangeRequest *)assetCollectionWithTitle:(NSString *)title;
++ (void)addAsset:(PHAssetChangeRequest *(^)(void))assetBlock collectionTitle:(NSString *)title success:(WLBlock)success failure:(WLFailureBlock)failure;
+
++ (PHAssetCollectionChangeRequest *)collectionWithTitle:(NSString *)title;
 
 @end
 

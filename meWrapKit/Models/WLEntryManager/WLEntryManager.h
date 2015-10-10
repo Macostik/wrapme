@@ -7,16 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLEntry+Extended.h"
-#import "WLUser+Extended.h"
-#import "WLDevice+Extended.h"
-#import "WLWrap+Extended.h"
-#import "WLCandy+Extended.h"
-#import "WLComment+Extended.h"
-#import "WLContribution+Extended.h"
-#import "WLMessage+Extended.h"
+#import "WLEntry.h"
+#import "WLUser.h"
+#import "WLDevice.h"
+#import "WLWrap.h"
+#import "WLCandy.h"
+#import "WLComment.h"
+#import "WLContribution.h"
+#import "WLMessage.h"
 #import "WLCollections.h"
-#import "WLEntryDescriptor.h"
 
 typedef void (^WLEntryManagerBackgroundContextBlock) (id *result, NSError **error, NSManagedObjectContext *backgroundContext);
 
@@ -31,7 +30,11 @@ typedef void (^WLEntryManagerMainContextFailureBlock) (NSError *error, NSManaged
 @property (strong, nonatomic) NSManagedObjectModel *model;
 @property (strong, nonatomic) NSPersistentStoreCoordinator *coordinator;
 
+@property (strong, nonatomic, readonly) NSMapTable* cachedEntries;
+
 + (instancetype)manager;
+
+- (WLEntry*)cachedEntry:(NSString*)identifier;
 
 - (void)cacheEntry:(WLEntry*)entry;
 
@@ -46,8 +49,6 @@ typedef void (^WLEntryManagerMainContextFailureBlock) (NSError *error, NSManaged
 - (NSMutableOrderedSet*)entriesOfClass:(Class)entryClass;
 
 - (NSMutableOrderedSet*)entriesOfClass:(Class)entryClass configure:(void (^)(NSFetchRequest* request))configure;
-
-- (void)fetchEntries:(NSMutableDictionary *)descriptors;
 
 - (void)deleteEntry:(WLEntry*)entry;
 

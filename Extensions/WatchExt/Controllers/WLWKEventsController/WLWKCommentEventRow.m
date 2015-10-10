@@ -7,10 +7,10 @@
 //
 
 #import "WLWKCommentEventRow.h"
-#import "WLComment+Extended.h"
-#import "WLUser+Extended.h"
-#import "WLCandy+Extended.h"
-#import "WLWrap+Extended.h"
+#import "WLComment.h"
+#import "WLUser.h"
+#import "WLCandy.h"
+#import "WLWrap.h"
 #import "NSDate+Additions.h"
 #import "WKInterfaceImage+WLImageFetcher.h"
 

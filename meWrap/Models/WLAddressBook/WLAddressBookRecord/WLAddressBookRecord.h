@@ -19,7 +19,7 @@
 
 @property (readonly, nonatomic) NSString* priorityName;
 
-@property (readonly, nonatomic) WLPicture* priorityPicture;
+@property (readonly, nonatomic) WLAsset* priorityPicture;
 
 @property (readonly, nonatomic) NSString *phoneStrings;
 

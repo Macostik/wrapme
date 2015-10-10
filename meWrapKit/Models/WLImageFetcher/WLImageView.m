@@ -9,10 +9,8 @@
 #import "WLImageView.h"
 #import "WLImageFetcher.h"
 #import "NSString+Additions.h"
-#import "NSError+WLAPIManager.h"
-#import "WLPicture.h"
+#import "WLAsset.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "UIImage+Resize.h"
 
 @interface WLImageView () <WLImageFetching>
 

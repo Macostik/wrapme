@@ -7,8 +7,8 @@
 //
 
 #import "WLHistory.h"
-#import "WLCandy+Extended.h"
-#import "WLEntry+Extended.h"
+#import "WLCandy.h"
+#import "WLEntry.h"
 #import "NSDate+Formatting.h"
 #import "WLCollections.h"
 #import "NSDate+Additions.h"

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WLLabel.h"
-#import "WLEntry+Extended.h"
+#import "WLEntry.h"
 
 static NSInteger WLIndicatorWidth = 16.0;
 

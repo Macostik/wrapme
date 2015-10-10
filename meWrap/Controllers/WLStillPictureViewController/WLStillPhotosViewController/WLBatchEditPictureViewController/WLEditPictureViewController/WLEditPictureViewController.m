@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *deletionView;
 @property (weak, nonatomic) IBOutlet UIButton *playVideoButton;
-@property (weak, nonatomic) IBOutlet UIToolbar *playVideoToolbar;
 
 @end
 
@@ -28,7 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.imageView setUrl:self.picture.large];
-    self.playVideoToolbar.hidden = self.playVideoButton.hidden = self.picture.type != WLCandyTypeVideo;
+    self.playVideoButton.hidden = self.picture.type != WLCandyTypeVideo;
     [self updateDeletionState];
 }
 

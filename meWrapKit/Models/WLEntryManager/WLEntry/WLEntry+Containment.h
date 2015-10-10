@@ -6,14 +6,12 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "WLEntry+Extended.h"
-#import "WLUser+Extended.h"
-#import "WLDevice+Extended.h"
-#import "WLWrap+Extended.h"
-#import "WLCandy+Extended.h"
-#import "WLComment+Extended.h"
-#import "WLContribution+Extended.h"
-#import "WLMessage+Extended.h"
+#import "WLUser.h"
+#import "WLDevice.h"
+#import "WLWrap.h"
+#import "WLCandy.h"
+#import "WLComment.h"
+#import "WLMessage.h"
 
 @interface WLEntry (Containment)
 

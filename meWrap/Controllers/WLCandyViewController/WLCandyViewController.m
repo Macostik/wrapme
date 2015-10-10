@@ -9,6 +9,8 @@
 #import "WLCandyViewController.h"
 #import "WLDeviceOrientationBroadcaster.h"
 #import "WLToast.h"
+@import AVKit;
+@import AVFoundation;
 
 @interface WLCandyViewController () <WLEntryNotifyReceiver, UIScrollViewDelegate>
 
@@ -17,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *aspectRatioConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *playVideoButton;
+@property (weak, nonatomic) VideoPlayerView *videoPlayerView;
 
 @end
 
@@ -44,6 +48,7 @@
     __weak typeof(self)weakSelf = self;
     self.spinner.hidden = NO;
     self.errorLabel.hidden = YES;
+    self.playVideoButton.hidden = candy.type != WLCandyTypeVideo;
     [self.imageView setUrl:candy.picture.large success:^(UIImage *image, BOOL cached) {
         [weakSelf calculateScaleValues];
         weakSelf.scrollView.userInteractionEnabled = YES;
@@ -92,6 +97,31 @@
             [self refresh];
         }
     }
+}
+
+- (IBAction)playVideo:(id)sender {
+    VideoPlayerView *view = [[VideoPlayerView alloc] initWithFrame:self.view.bounds];
+    
+    NSString *url = self.candy.picture.original;
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+        view.url = [NSURL fileURLWithPath:url];
+    } else {
+        view.url = [NSURL URLWithString:url];
+    }
+    
+    [self.view addSubview:view];
+    
+    self.videoPlayerView = view;
+//    AVPlayerViewController *controller = [[AVPlayerViewController alloc] init];
+//    
+//    if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+//        controller.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:url]];
+//    } else {
+//        controller.player = [AVPlayer playerWithURL:[NSURL URLWithString:url]];
+//    }
+//    
+//    [self presentViewController:controller animated:NO completion:nil];
 }
 
 #pragma mark - WLEntryNotifyReceiver

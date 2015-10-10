@@ -7,8 +7,8 @@
 //
 
 #import "WLWKCommentRow.h"
-#import "WLComment+Extended.h"
-#import "WLUser+Extended.h"
+#import "WLComment.h"
+#import "WLUser.h"
 #import "WKInterfaceImage+WLImageFetcher.h"
 #import "NSDate+Additions.h"
 

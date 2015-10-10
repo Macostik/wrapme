@@ -22,6 +22,8 @@ static NSString* WLAPIEnvironmentProduction = @"production";
 
 @property (strong, nonatomic) NSString* defaultImageURI;
 
+@property (strong, nonatomic) NSString* defaultVideoURI;
+
 @property (strong, nonatomic) NSString* defaultAvatarURI;
 
 @property (readonly, nonatomic) BOOL isProduction;

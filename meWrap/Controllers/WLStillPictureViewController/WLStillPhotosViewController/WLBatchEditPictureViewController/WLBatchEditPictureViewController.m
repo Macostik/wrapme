@@ -22,6 +22,7 @@
 #import "UIScrollView+Additions.h"
 #import "WLEditPicture.h"
 #import "WLLayoutPrioritizer.h"
+#import "UIDevice+SystemVersion.h"
 
 @interface WLBatchEditPictureViewController () <WLComposeBarDelegate>
 

@@ -14,18 +14,13 @@
 #import "NSString+Additions.h"
 #import "AFURLResponseSerialization.h"
 #import "AFHTTPRequestOperation.h"
-#import "NSError+WLAPIManager.h"
 #import "GCDHelper.h"
-#import "WLLogger.h"
-#import "UIImage+Resize.h"
 
 @interface WLImageFetcher ()
 
 @property (strong, nonatomic) NSMutableSet* urls;
 
 @property (strong, nonatomic) NSOperationQueue *fetchingQueue;
-
-@property (strong, nonatomic) AFImageResponseSerializer *imageResponseSerializer;
 
 @end
 
@@ -43,7 +38,6 @@
     [super setup];
     self.urls = [NSMutableSet set];
     self.fetchingQueue = [[NSOperationQueue alloc] init];
-    self.imageResponseSerializer = [AFImageResponseSerializer serializer];
 }
 
 - (id)enqueueImageWithUrl:(NSString *)url receiver:(id)receiver {
@@ -105,20 +99,17 @@
 }
 
 - (id)setNetworkUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure {
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-    [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
-	AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-	operation.responseSerializer = [self imageResponseSerializer];
-    operation.securityPolicy.allowInvalidCertificates = YES;
-    operation.securityPolicy.validatesDomainName = NO;
-	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-		[[WLImageCache cache] setImage:responseObject withUrl:url];
-		if (success) success(responseObject, NO);
-	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		if (error.code != NSURLErrorCancelled && failure) failure(error);
-	}];
-	[[self fetchingQueue] addOperation:operation];
-    return operation;
+    run_getting_object(^id{
+        return [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+    }, ^(UIImage *image) {
+        if (image) {
+            [[WLImageCache cache] setImage:image withUrl:url];
+            if (success) success(image, NO);
+        } else {
+            if (failure) failure(nil);
+        }
+    });
+    return nil;
 }
 
 - (void)setFileSystemUrl:(NSString *)url completion:(WLImageFetcherBlock)completion {

@@ -36,6 +36,11 @@ class VideoPlayerView: UIView {
                 return
             }
             if playing {
+                if let item = player.currentItem {
+                    if CMTimeCompare(item.currentTime(), item.duration) == 0 {
+                        item.seekToTime(kCMTimeZero)
+                    }
+                }
                 player.play()
             } else {
                 player.pause()

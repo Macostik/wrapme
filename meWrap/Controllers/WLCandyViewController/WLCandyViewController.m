@@ -112,6 +112,8 @@
     
     [self.view addSubview:view];
     
+    [view play];
+    
     self.videoPlayerView = view;
 //    AVPlayerViewController *controller = [[AVPlayerViewController alloc] init];
 //    

@@ -69,7 +69,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
                 WLHistoryViewController *historyViewController = (id)[candy viewController];
                 if (historyViewController) {
                     WLPresentingImageView *presentingImageView = [WLPresentingImageView sharedPresenting];
-                    presentingImageView.delegate = self;
+                    presentingImageView.delegate = weakSelf;
                     historyViewController.presentingImageView = presentingImageView;
                     [presentingImageView presentCandy:candy fromView:item.view success:^(WLPresentingImageView *presetingImageView) {
                         [weakSelf.navigationController pushViewController:historyViewController animated:NO];

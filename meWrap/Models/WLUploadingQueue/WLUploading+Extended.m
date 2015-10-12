@@ -24,7 +24,7 @@
 }
 
 + (instancetype)uploading:(WLContribution *)contribution type:(WLEvent)type {
-    WLUploading* uploading = [WLUploading entry:contribution.uploadIdentifier];
+    WLUploading* uploading = [[WLUploading alloc] initWithEntity:[self entity] insertIntoManagedObjectContext:[WLEntryManager manager].context];
     uploading.type = type;
     uploading.contribution = contribution;
     contribution.uploading = uploading;

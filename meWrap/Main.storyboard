@@ -2421,10 +2421,16 @@
                                             <constraint firstAttribute="height" constant="16" id="Dt6-F0-Sox"/>
                                         </constraints>
                                     </view>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="9h2-2w-uGN">
+                                        <rect key="frame" x="290" y="290" width="20" height="20"/>
+                                        <animations/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="9h2-2w-uGN" firstAttribute="centerX" secondItem="BOE-UJ-qJt" secondAttribute="centerX" id="BN1-Bm-9Bd"/>
+                                    <constraint firstItem="9h2-2w-uGN" firstAttribute="centerY" secondItem="BOE-UJ-qJt" secondAttribute="centerY" id="FLR-bp-qBF"/>
                                     <constraint firstItem="PBl-j3-u70" firstAttribute="leading" secondItem="1JW-Fm-K51" secondAttribute="trailing" constant="12" id="Ixp-jx-7U5"/>
                                     <constraint firstItem="1JW-Fm-K51" firstAttribute="leading" secondItem="BOE-UJ-qJt" secondAttribute="leading" constant="12" id="YA3-9d-0t7"/>
                                     <constraint firstAttribute="trailing" secondItem="PBl-j3-u70" secondAttribute="trailing" constant="12" id="evE-Ae-aKT"/>
@@ -2432,6 +2438,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="playButton" destination="1JW-Fm-K51" id="033-uO-JT0"/>
+                                    <outlet property="spinner" destination="9h2-2w-uGN" id="3zW-fO-ayc"/>
                                     <outlet property="timeView" destination="PBl-j3-u70" id="FmC-ke-u86"/>
                                 </connections>
                             </view>

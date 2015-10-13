@@ -111,8 +111,9 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
     }
     
     deinit {
-        playing = false
-        _player = nil
+        if let player = _player {
+            finalizePlayer(player)
+        }
         NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
     
@@ -136,10 +137,11 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
     private var _playing = false
     var playing: Bool {
         set {
-            if _playing != newValue {
-                _playing = newValue
-                if let player = player {
-                    if playing {
+            if let player = player {
+                if _playing != newValue {
+                    _playing = newValue
+                    
+                    if newValue {
                         startObservingTime(player)
                         if let item = player.currentItem {
                             if CMTimeCompare(item.currentTime(), item.duration) == 0 {
@@ -157,9 +159,10 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
                             delegate.videoPlayerViewDidPause?(self)
                         }
                     }
-                }
-                if let playButton = playButton {
-                    playButton.selected = newValue
+                    
+                    if let playButton = playButton {
+                        playButton.selected = newValue
+                    }
                 }
             }
         }
@@ -168,10 +171,55 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
         }
     }
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView?
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        guard let player = player, let item = player.currentItem else {
+            return
+        }
+        if keyPath == "status" {
+            if player.status == .ReadyToPlay {
+                readyToPlay = true
+            } else {
+                readyToPlay = false
+            }
+        } else if keyPath == "playbackLikelyToKeepUp" {
+            if item.playbackLikelyToKeepUp {
+                if _playing {
+                    player.play()
+                }
+                if let spinner = spinner {
+                    spinner.stopAnimating()
+                }
+            } else {
+                if let spinner = spinner {
+                    spinner.startAnimating()
+                }
+            }
+        }
+    }
+    
+    var readyToPlay = false
+    
+    private func finalizePlayer(player: AVPlayer) {
+        player.removeObserver(self, forKeyPath: "status")
+        if let item = player.currentItem {
+            item.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
+        }
+        stopObservingTime(player)
+    }
+    
     private var _player: AVPlayer? {
         didSet {
             if let oldValue = oldValue {
-                stopObservingTime(oldValue)
+                finalizePlayer(oldValue)
+            }
+            
+            if let player = _player {
+                player.addObserver(self, forKeyPath: "status", options: .New, context: nil)
+                if let item = player.currentItem {
+                    item.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
+                }
             }
             
             if let layer = layer as? AVPlayerLayer {
@@ -220,7 +268,9 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
     
     var url: NSURL? {
         didSet {
-            playing = false
+            if _playing {
+                playing = false
+            }
             if _player != nil {
                 _player = nil
             }

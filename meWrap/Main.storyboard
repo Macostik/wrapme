@@ -2795,6 +2795,7 @@
                         <outlet property="scrollView" destination="wdj-eZ-S3g" id="lT5-G5-juv"/>
                         <outlet property="spinner" destination="TL4-HZ-bti" id="PiR-V6-Unb"/>
                         <outlet property="timeLabel" destination="OBg-6r-k4s" id="gLL-0G-dWw"/>
+                        <outlet property="topView" destination="Wbg-W9-8Ie" id="w6j-VG-uhe"/>
                         <outlet property="videoPlayerView" destination="BOE-UJ-qJt" id="WcM-3p-8sC"/>
                     </connections>
                 </viewController>

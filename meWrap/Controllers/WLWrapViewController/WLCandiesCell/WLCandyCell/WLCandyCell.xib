@@ -31,8 +31,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NHo-j9-z5Q">
-                    <rect key="frame" x="41" y="41" width="24" height="24"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NHo-j9-z5Q">
+                    <rect key="frame" x="77" y="5" width="24" height="24"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -74,11 +74,11 @@
                 <constraint firstAttribute="bottom" secondItem="cEC-tD-bY9" secondAttribute="bottom" id="3lk-hb-Gkg"/>
                 <constraint firstAttribute="trailing" secondItem="cEC-tD-bY9" secondAttribute="trailing" id="9YT-Vm-Isl"/>
                 <constraint firstAttribute="bottom" secondItem="7sc-OX-fm7" secondAttribute="bottom" id="Ase-Iq-aOR"/>
-                <constraint firstItem="NHo-j9-z5Q" firstAttribute="centerY" secondItem="cEC-tD-bY9" secondAttribute="centerY" id="C1P-Q0-C1E"/>
                 <constraint firstAttribute="trailing" secondItem="7sc-OX-fm7" secondAttribute="trailing" id="XSF-sa-u4E"/>
                 <constraint firstItem="cEC-tD-bY9" firstAttribute="top" secondItem="gY8-XM-Izy" secondAttribute="top" id="clx-xB-72F"/>
-                <constraint firstItem="NHo-j9-z5Q" firstAttribute="centerX" secondItem="cEC-tD-bY9" secondAttribute="centerX" id="eD1-hv-zOi"/>
+                <constraint firstItem="NHo-j9-z5Q" firstAttribute="top" secondItem="gY8-XM-Izy" secondAttribute="top" constant="5" id="egc-1F-no3"/>
                 <constraint firstItem="cEC-tD-bY9" firstAttribute="leading" secondItem="gY8-XM-Izy" secondAttribute="leading" id="kFl-bO-5n4"/>
+                <constraint firstAttribute="trailing" secondItem="NHo-j9-z5Q" secondAttribute="trailing" constant="5" id="nv7-Wa-2aA"/>
                 <constraint firstItem="7sc-OX-fm7" firstAttribute="leading" secondItem="gY8-XM-Izy" secondAttribute="leading" id="ygM-rN-uv1"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

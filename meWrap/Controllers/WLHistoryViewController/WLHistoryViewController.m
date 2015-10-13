@@ -40,6 +40,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 @interface WLHistoryViewController () <WLEntryNotifyReceiver, VideoPlayerViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
@@ -613,12 +614,39 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 // MARK: - VideoPlayerViewDelegate
 
+- (void)hideVideoPlayingViews {
+    self.bottomView.hidden = YES;
+    self.topView.hidden = YES;
+    self.videoPlayerView.playButton.hidden = YES;
+    self.videoPlayerView.timeView.hidden = YES;
+    self.commentButton.hidden = YES;
+    [self.topView fade];
+    [self.bottomView fade];
+    [self.videoPlayerView.playButton fade];
+    [self.videoPlayerView.timeView fade];
+    [self.commentButton fade];
+}
+
+- (void)showVideoPlayingViews {
+    self.bottomView.hidden = NO;
+    self.topView.hidden = NO;
+    self.videoPlayerView.playButton.hidden = NO;
+    self.videoPlayerView.timeView.hidden = NO;
+    self.commentButton.hidden = NO;
+}
+
 - (void)videoPlayerViewDidPlay:(VideoPlayerView *)view {
+    [self setBarsHidden:NO animated:YES];
     self.scrollView.panGestureRecognizer.enabled = NO;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideVideoPlayingViews) object:nil];
+    [self showVideoPlayingViews];
+    [self performSelector:@selector(hideVideoPlayingViews) withObject:nil afterDelay:4];
 }
 
 - (void)videoPlayerViewDidPause:(VideoPlayerView *)view {
     self.scrollView.panGestureRecognizer.enabled = YES;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideVideoPlayingViews) object:nil];
+    [self showVideoPlayingViews];
 }
 
 @end

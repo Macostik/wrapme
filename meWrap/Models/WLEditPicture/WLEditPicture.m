@@ -129,7 +129,8 @@
         AVAsset *asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:path]];
         AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
         imageGenerator.appliesPreferredTrackTransform = YES;
-        CMTime time = CMTimeMakeWithSeconds(0, NSEC_PER_SEC);
+        Float64 duration = CMTimeGetSeconds(asset.duration);
+        CMTime time = CMTimeMakeWithSeconds(duration/2.0f, NSEC_PER_SEC);
         NSError *error = nil;
         CGImageRef imageRef = [imageGenerator copyCGImageAtTime:time actualTime:NULL error:&error];
         UIImage *image = [UIImage imageWithCGImage:imageRef];

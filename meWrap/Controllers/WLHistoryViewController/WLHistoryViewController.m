@@ -649,4 +649,11 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [self showVideoPlayingViews];
 }
 
+- (void)videoPlayerViewSeekedToTime:(VideoPlayerView *)view {
+    if (view.playing) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideVideoPlayingViews) object:nil];
+        [self performSelector:@selector(hideVideoPlayingViews) withObject:nil afterDelay:4];
+    }
+}
+
 @end

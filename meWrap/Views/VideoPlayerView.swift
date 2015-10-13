@@ -18,6 +18,8 @@ import AVFoundation
     optional func videoPlayerViewDidPlay(view: VideoPlayerView)
     
     optional func videoPlayerViewDidPause(view: VideoPlayerView)
+    
+    optional func videoPlayerViewSeekedToTime(view: VideoPlayerView)
 }
 
 protocol VideoTimeViewDelegate: NSObjectProtocol {
@@ -86,12 +88,10 @@ class VideoTimeView: UIView {
     }
     
     func tap(sender: UITapGestureRecognizer) {
-        if let delegate = delegate {
-            let x = min(bounds.width, max(0, sender.locationInView(self).x))
-            let time = Float64(x / bounds.width)
-            self.time = time
-            delegate.videoTimeView(self, didSeekToTime: time)
-        }
+        let x = min(bounds.width, max(0, sender.locationInView(self).x))
+        let time = Float64(x / bounds.width)
+        self.time = time
+        delegate?.videoTimeView(self, didSeekToTime: time)
     }
 }
 
@@ -149,15 +149,11 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
                             }
                         }
                         player.play()
-                        if let delegate = delegate {
-                            delegate.videoPlayerViewDidPlay?(self)
-                        }
+                        delegate?.videoPlayerViewDidPlay?(self)
                     } else {
                         stopObservingTime(player)
                         player.pause()
-                        if let delegate = delegate {
-                            delegate.videoPlayerViewDidPause?(self)
-                        }
+                        delegate?.videoPlayerViewDidPause?(self)
                     }
                     
                     if let playButton = playButton {
@@ -282,9 +278,7 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
             
             playing = false
             
-            if let delegate = delegate {
-                delegate.videoPlayerViewDidPlayToEnd?(self)
-            }
+            delegate?.videoPlayerViewDidPlayToEnd?(self)
         }
     }
     
@@ -303,9 +297,12 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
     // MARK: - VideoTimeViewDelegate
     
     func videoTimeView(view: VideoTimeView, didSeekToTime time: Float64) {
-        if let player = player, let item = player.currentItem {
-            let duration = CMTimeGetSeconds(item.duration)
-            player.seekToTime(CMTimeMakeWithSeconds(duration * time, Int32(NSEC_PER_SEC)))
+        guard let player = player, let item = player.currentItem else {
+            return
         }
+        let duration = CMTimeGetSeconds(item.duration)
+        let resultTime = CMTimeMakeWithSeconds(duration * time, Int32(NSEC_PER_SEC))
+        player.seekToTime(resultTime)
+        delegate?.videoPlayerViewSeekedToTime?(self)
     }
 }

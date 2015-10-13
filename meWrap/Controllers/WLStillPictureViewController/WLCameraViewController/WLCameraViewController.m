@@ -368,6 +368,21 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
         }
     }
     
+#if TARGET_IPHONE_SIMULATOR
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        NSString *videosDirectoryPath = @"Documents/Videos";
+        [[NSFileManager defaultManager] createDirectoryAtPath:videosDirectoryPath withIntermediateDirectories:YES attributes:nil error:NULL];
+        NSString *path = [NSString stringWithFormat:@"%@/%@.mp4", videosDirectoryPath, GUID()];
+        [[NSFileManager defaultManager] copyItemAtPath:@"/Users/sergeymaximenko/Downloads/moji.mp4" toPath:path error:nil];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+            if ([self.delegate respondsToSelector:@selector(cameraViewController:didFinishWithVideoAtPath:saveToAlbum:)]) {
+                [self.delegate cameraViewController:self didFinishWithVideoAtPath:path saveToAlbum:YES];
+            }
+        }
+    }
+    return;
+#endif
+    
     switch (sender.state) {
         case UIGestureRecognizerStateBegan: {
             [self updateVideoRecordingViews:YES];
@@ -499,7 +514,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 - (AVCaptureMovieFileOutput *)movieFileOutput {
     if (!_movieFileOutput) {
         _movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
-        CMTime maxDuration = CMTimeMakeWithSeconds(maxVideoRecordedDuration, 30);
+        CMTime maxDuration = CMTimeMakeWithSeconds(maxVideoRecordedDuration, NSEC_PER_SEC);
         _movieFileOutput.maxRecordedDuration = maxDuration;
     }
     return _movieFileOutput;

@@ -38,7 +38,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLHistoryBottomViewModeEditing
 };
 
-@interface WLHistoryViewController () <WLEntryNotifyReceiver>
+@interface WLHistoryViewController () <WLEntryNotifyReceiver, VideoPlayerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet WLButton *commentButton;
@@ -56,6 +56,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLTextView *lastCommentTextView;
+@property (weak, nonatomic) IBOutlet VideoPlayerView *videoPlayerView;
 
 @property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *primaryConstraint;
 @property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *commentButtonPrioritizer;
@@ -85,6 +86,9 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.view addGestureRecognizer:self.scrollView.panGestureRecognizer];
+    self.videoPlayerView.delegate = self;
     
     __weak typeof(self)weakSelf = self;
     self.paginationQueue = [WLOperationQueue queueNamed:GUID() capacity:1];
@@ -283,8 +287,17 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.lastComment = [candy latestComment];
     NSInteger type = candy.type;
     if (type == WLCandyTypeVideo) {
+        NSString *url = candy.picture.original;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+            self.videoPlayerView.url = [NSURL fileURLWithPath:url];
+        } else {
+            self.videoPlayerView.url = [NSURL URLWithString:url];
+        }
         self.drawButton.hidden = self.editButton.hidden = YES;
+        self.videoPlayerView.hidden = NO;
     } else {
+        self.videoPlayerView.url = nil;
+        self.videoPlayerView.hidden = YES;
         self.drawButton.hidden = self.editButton.hidden = NO;
     }
 }
@@ -299,7 +312,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [self.commentButton setTitle:title forState:UIControlStateNormal];
 }
 
-#pragma mark - WLEntryNotifyReceiver
+// MARK: - WLEntryNotifyReceiver
 
 - (WLCandy*)candyAfterDeletingCandy:(WLCandy*)candy {
     
@@ -388,7 +401,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     return self.wrap == entry;
 }
 
-#pragma mark - Actions
+// MARK: - Actions
 
 - (IBAction)back:(id)sender {
     BOOL animate = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
@@ -515,7 +528,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.commentButtonPrioritizer.defaultState = self.primaryConstraint.defaultState;
 }
 
-#pragma mark - WLSwipeViewController Methods
+// MARK: - WLSwipeViewController Methods
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -592,10 +605,20 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     viewController.view.alpha = offset;
 }
 
-#pragma mark - WLDeviceOrientationBroadcastReceiver
+// MARK: - WLDeviceOrientationBroadcastReceiver
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return self.disableRotation ? [super supportedInterfaceOrientations] : UIInterfaceOrientationMaskAll;
+}
+
+// MARK: - VideoPlayerViewDelegate
+
+- (void)videoPlayerViewDidPlay:(VideoPlayerView *)view {
+    self.scrollView.panGestureRecognizer.enabled = NO;
+}
+
+- (void)videoPlayerViewDidPause:(VideoPlayerView *)view {
+    self.scrollView.panGestureRecognizer.enabled = YES;
 }
 
 @end

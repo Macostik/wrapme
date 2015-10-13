@@ -8,7 +8,6 @@
 
 #import "WLEditPictureViewController.h"
 #import "WLEditPicture.h"
-#import "WLKeyboard.h"
 
 @import AVKit;
 @import AVFoundation;
@@ -17,7 +16,6 @@
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *deletionView;
-@property (weak, nonatomic) IBOutlet UIButton *playVideoButton;
 
 @end
 
@@ -27,23 +25,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.imageView setUrl:self.picture.large];
-    self.playVideoButton.hidden = self.picture.type != WLCandyTypeVideo;
     [self updateDeletionState];
 }
 
 - (void)updateDeletionState {
     self.deletionView.hidden = !self.picture.deleted;
-}
-
-- (IBAction)playVideo:(id)sender {
-    if ([WLKeyboard keyboard].isShow) {
-        [self.view.window endEditing:YES];
-    } else {
-        AVPlayerViewController *controller = [[AVPlayerViewController alloc] init];
-        controller.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:self.picture.original]];
-        [self presentViewController:controller animated:NO completion:nil];
-        [controller.player play];
-    }
 }
 
 @end

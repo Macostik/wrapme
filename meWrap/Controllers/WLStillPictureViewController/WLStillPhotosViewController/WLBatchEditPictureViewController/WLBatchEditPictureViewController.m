@@ -24,7 +24,7 @@
 #import "WLLayoutPrioritizer.h"
 #import "UIDevice+SystemVersion.h"
 
-@interface WLBatchEditPictureViewController () <WLComposeBarDelegate>
+@interface WLBatchEditPictureViewController () <WLComposeBarDelegate, VideoPlayerViewDelegate>
 
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 
@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *uploadButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *uploadButtonXConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *drawButton;
+@property (weak, nonatomic) IBOutlet VideoPlayerView *videoPlayerView;
 
 @end
 
@@ -58,6 +59,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.view addGestureRecognizer:self.scrollView.panGestureRecognizer];
+    
+    self.videoPlayerView.delegate = self;
     
     __weak StreamDataSource *dataSource = self.dataSource;
     __weak StreamView *streamView = dataSource.streamView;
@@ -110,11 +115,20 @@
         if (self.composeBar.isFirstResponder) {
             [self.composeBar resignFirstResponder];
         }
+        self.videoPlayerView.url = nil;
+        self.videoPlayerView.hidden = YES;
     } else {
         self.deleteButton.hidden = self.composeBar.hidden = NO;
         self.drawButton.hidden = self.editButton.hidden = picture.type == WLCandyTypeVideo;
         self.restoreButton.hidden = YES;
         self.composeBar.text = picture.comment;
+        if (picture.type == WLCandyTypeVideo) {
+            self.videoPlayerView.url = [NSURL fileURLWithPath:picture.original];
+            self.videoPlayerView.hidden = NO;
+        } else {
+            self.videoPlayerView.url = nil;
+            self.videoPlayerView.hidden = YES;
+        }
     }
     for (WLEditPicture *picture in self.pictures) {
         picture.selected = picture == self.picture;
@@ -169,9 +183,15 @@
 }
 
 - (WLEditPictureViewController *)editPictureViewControllerForPicture:(WLEditPicture*)picture {
-    WLEditPictureViewController *editPictureViewController = [WLEditPictureViewController instantiate:self.storyboard];
-    editPictureViewController.picture = picture;
-    return editPictureViewController;
+    if (picture.type == WLCandyTypeVideo) {
+        WLEditPictureViewController *editPictureViewController = [WLEditPictureViewController instantiateWithIdentifier:@"WLEditVideoViewController" storyboard:self.storyboard];
+        editPictureViewController.picture = picture;
+        return editPictureViewController;
+    } else {
+        WLEditPictureViewController *editPictureViewController = [WLEditPictureViewController instantiate:self.storyboard];
+        editPictureViewController.picture = picture;
+        return editPictureViewController;
+    }
 }
 
 // MARK: - WLSwipeViewController
@@ -289,10 +309,25 @@
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {
     self.picture.comment = composeBar.text;
+    self.scrollView.userInteractionEnabled = YES;
+}
+
+- (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
+    self.scrollView.userInteractionEnabled = NO;
 }
 
 - (CGFloat)constantForKeyboardAdjustmentBottomConstraint:(NSLayoutConstraint *)constraint defaultConstant:(CGFloat)defaultConstant keyboardHeight:(CGFloat)keyboardHeight {
     return (keyboardHeight - self.bottomView.height);
+}
+
+// MARK: - VideoPlayerViewDelegate
+
+- (void)videoPlayerViewDidPlay:(VideoPlayerView *)view {
+    self.scrollView.panGestureRecognizer.enabled = NO;
+}
+
+- (void)videoPlayerViewDidPause:(VideoPlayerView *)view {
+    self.scrollView.panGestureRecognizer.enabled = YES;
 }
 
 @end

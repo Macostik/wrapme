@@ -181,6 +181,9 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
                             }
                         }
                         player.play()
+                        if player.status != .ReadyToPlay {
+                            spinner?.startAnimating()
+                        }
                         delegate?.videoPlayerViewDidPlay?(self)
                     } else {
                         stopObservingTime(player)
@@ -205,13 +208,11 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
         }
         if keyPath == "status" {
             if player.status == .ReadyToPlay {
-                readyToPlay = true
-            } else {
-                readyToPlay = false
+                spinner?.stopAnimating()
             }
         } else if keyPath == "playbackLikelyToKeepUp" {
             if item.playbackLikelyToKeepUp {
-                if _playing {
+                if _playing && self.seeking == false {
                     player.play()
                 }
                 spinner?.stopAnimating()
@@ -220,8 +221,6 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
             }
         }
     }
-    
-    var readyToPlay = false
     
     private func finalizePlayer(player: AVPlayer) {
         player.removeObserver(self, forKeyPath: "status")
@@ -321,9 +320,13 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
     
     func videoTimeViewDidBeginInteraction(view: VideoTimeView) {
         seeking = true
+        player?.pause()
     }
     
     func videoTimeViewDidEndInteraction(view: VideoTimeView) {
         seeking = false
+        if _playing {
+            player?.play()
+        }
     }
 }

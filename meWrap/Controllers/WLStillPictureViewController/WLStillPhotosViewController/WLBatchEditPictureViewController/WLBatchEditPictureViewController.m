@@ -24,6 +24,8 @@
 #import "WLLayoutPrioritizer.h"
 #import "UIDevice+SystemVersion.h"
 
+static const int WLInstanceCommentLimit = 1500;
+
 @interface WLBatchEditPictureViewController () <WLComposeBarDelegate, VideoPlayerViewDelegate>
 
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
@@ -228,15 +230,23 @@
 }
 
 - (IBAction)upload:(id)sender {
-    self.picture.comment = self.composeBar.text;
-    NSArray *pictures = [self.pictures selects:^BOOL(WLEditPicture *picture) {
-        return ![picture deleted];
-    }];
-    if (pictures.nonempty) {
-        [self.delegate batchEditPictureViewController:self didFinishWithPictures:pictures];
+    NSString *comment = self.composeBar.text;
+    NSData *commentData = [comment dataUsingEncoding:NSUTF8StringEncoding];
+    if (commentData.length < WLInstanceCommentLimit) {
+        self.picture.comment = comment;
+        NSArray *pictures = [self.pictures selects:^BOOL(WLEditPicture *picture) {
+            return ![picture deleted];
+        }];
+        
+        if (pictures.nonempty) {
+            [self.delegate batchEditPictureViewController:self didFinishWithPictures:pictures];
+        } else {
+            [WLToast showWithMessage:WLLS(@"no_photos_to_upload")];
+        }
     } else {
-        [WLToast showWithMessage:WLLS(@"no_photos_to_upload")];
+         [WLToast showWithMessage:WLLS(@"comment_limit")];
     }
+   
 }
 
 - (IBAction)edit:(id)sender {

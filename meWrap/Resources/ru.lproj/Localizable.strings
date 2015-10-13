@@ -223,3 +223,4 @@
 "thank_you_for_report" = "Спасибо за Ваш Отчет. Мы удалим содержимое, если оно противоречит общественным правилам.";
 "video_suggestion" = "Hold for video, tap for photo";
 "slide_to_cancel" = "Slide to cancel";
+"comment_limit" = "Комментарий не должнен превышать 200 символов.";

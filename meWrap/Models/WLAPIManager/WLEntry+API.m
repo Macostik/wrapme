@@ -660,8 +660,7 @@
 - (void)uploadWithData:(NSDictionary *)metaData success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     __weak __typeof(self)weakSelf = self;
     AWSS3TransferManagerUploadRequest *uploadRequest = [AWSS3TransferManagerUploadRequest new];
-    uploadRequest.bucket = [[WLAPIEnvironment currentEnvironment] isProduction] ?
-    @"wraplive-production-upload-placeholder" : @"wraplive-qa-upload-placeholder";
+    uploadRequest.bucket = [[WLAPIEnvironment currentEnvironment] bucketUploadingIdentifier];
     uploadRequest.key = [self.picture.original lastPathComponent];
     uploadRequest.metadata = metaData;
     if (self.type == WLCandyTypeVideo) {

@@ -61,6 +61,10 @@
     return [self.name isEqualToString:WLAPIEnvironmentProduction];
 }
 
+- (NSString *)bucketUploadingIdentifier {
+    return [self isProduction] ? @"wraplive-production-upload-placeholder" : @"wraplive-qa-upload-placeholder";
+}
+
 - (void)testUsers:(void (^)(NSArray *))completion {
     if (completion) {
         NSMutableArray *authorizations = [NSMutableArray array];

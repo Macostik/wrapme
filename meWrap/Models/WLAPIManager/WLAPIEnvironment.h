@@ -26,6 +26,8 @@ static NSString* WLAPIEnvironmentProduction = @"production";
 
 @property (strong, nonatomic) NSString* defaultAvatarURI;
 
+@property (readonly, nonatomic) NSString *bucketUploadingIdentifier;
+
 @property (readonly, nonatomic) BOOL isProduction;
 
 + (instancetype)environmentNamed:(NSString*)name;

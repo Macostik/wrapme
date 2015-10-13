@@ -24,6 +24,8 @@ import AVFoundation
 
 protocol VideoTimeViewDelegate: NSObjectProtocol {
     func videoTimeView(view: VideoTimeView, didSeekToTime time: Float64)
+    func videoTimeViewDidBeginInteraction(view: VideoTimeView)
+    func videoTimeViewDidEndInteraction(view: VideoTimeView)
 }
 
 class VideoTimeView: UIView {
@@ -40,6 +42,7 @@ class VideoTimeView: UIView {
     
     func awake() {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tap:"))
+        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "pan:"))
     }
     
     weak var delegate: VideoTimeViewDelegate?
@@ -93,6 +96,37 @@ class VideoTimeView: UIView {
         self.time = time
         delegate?.videoTimeView(self, didSeekToTime: time)
     }
+    
+    private weak var timer: NSTimer?
+    private var timeSent: Float64?
+    
+    func seekToTimeInteraction() {
+        if timeSent != time {
+            timeSent = time
+            delegate?.videoTimeView(self, didSeekToTime: time)
+        }
+    }
+    
+    func pan(sender: UIPanGestureRecognizer) {
+        
+        switch sender.state {
+        case .Began:
+            timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "seekToTimeInteraction", userInfo: nil, repeats: true)
+            delegate?.videoTimeViewDidBeginInteraction(self)
+        case .Changed:
+            let x = min(bounds.width, max(0, sender.locationInView(self).x))
+            let time = Float64(x / bounds.width)
+            if time != self.time {
+                self.time = time
+                delegate?.videoTimeView(self, didSeekToTime: time)
+            }
+        case .Ended, .Failed, .Cancelled:
+            timeSent = nil
+            timer?.invalidate()
+            delegate?.videoTimeViewDidEndInteraction(self)
+        default: break
+        }
+    }
 }
 
 class VideoPlayerView: UIView, VideoTimeViewDelegate {
@@ -128,9 +162,7 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
     
     @IBOutlet weak var timeView: VideoTimeView! {
         didSet {
-            if let timeView = timeView {
-                timeView.delegate = self
-            }
+            timeView?.delegate = self
         }
     }
     
@@ -156,9 +188,7 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
                         delegate?.videoPlayerViewDidPause?(self)
                     }
                     
-                    if let playButton = playButton {
-                        playButton.selected = newValue
-                    }
+                    playButton?.selected = newValue
                 }
             }
         }
@@ -184,13 +214,9 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
                 if _playing {
                     player.play()
                 }
-                if let spinner = spinner {
-                    spinner.stopAnimating()
-                }
+                spinner?.stopAnimating()
             } else {
-                if let spinner = spinner {
-                    spinner.startAnimating()
-                }
+                spinner?.startAnimating()
             }
         }
     }
@@ -199,9 +225,7 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
     
     private func finalizePlayer(player: AVPlayer) {
         player.removeObserver(self, forKeyPath: "status")
-        if let item = player.currentItem {
-            item.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
-        }
+        player.currentItem?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
         stopObservingTime(player)
     }
     
@@ -213,22 +237,14 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
             
             if let player = _player {
                 player.addObserver(self, forKeyPath: "status", options: .New, context: nil)
-                if let item = player.currentItem {
-                    item.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
-                }
+                player.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
             }
             
-            if let layer = layer as? AVPlayerLayer {
-                layer.player = _player
-            }
+            (layer as? AVPlayerLayer)?.player = _player
             
-            if let timeView = timeView {
-                timeView.time = 0
-            }
+            timeView?.time = 0
             
-            if let playButton = playButton {
-                playButton.selected = false
-            }
+            playButton?.selected = false
         }
     }
     
@@ -237,16 +253,12 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
             player.removeTimeObserver(timeObserver)
             self.timeObserver = nil
         }
-        
     }
     
     func startObservingTime(player: AVPlayer) {
-        
-        unowned let weakSelf = self
-        unowned let weakPlayer = player
-        timeObserver = player.addPeriodicTimeObserverForInterval(CMTimeMakeWithSeconds(0.01, Int32(NSEC_PER_SEC)), queue: dispatch_get_main_queue()) {(time) -> Void in
-            if let item = weakPlayer.currentItem, let timeView = weakSelf.timeView {
-                timeView.time = CMTimeGetSeconds(item.currentTime()) / CMTimeGetSeconds(item.duration)
+        timeObserver = player.addPeriodicTimeObserverForInterval(CMTimeMakeWithSeconds(0.01, Int32(NSEC_PER_SEC)), queue: dispatch_get_main_queue()) {[unowned self] (time) -> Void in
+            if let item = self.player?.currentItem where self.seeking == false {
+                self.timeView?.time = CMTimeGetSeconds(item.currentTime()) / CMTimeGetSeconds(item.duration)
             }
         }
     }
@@ -270,14 +282,13 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
             if _player != nil {
                 _player = nil
             }
+            seeking = false
         }
     }
     
     func playerItemDidPlayToEndTime(notification: NSNotification) {
-        if let player = player where player.currentItem == notification.object as? AVPlayerItem {
-            
+        if player?.currentItem == notification.object as? AVPlayerItem {
             playing = false
-            
             delegate?.videoPlayerViewDidPlayToEnd?(self)
         }
     }
@@ -296,6 +307,8 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
     
     // MARK: - VideoTimeViewDelegate
     
+    var seeking = false
+    
     func videoTimeView(view: VideoTimeView, didSeekToTime time: Float64) {
         guard let player = player, let item = player.currentItem else {
             return
@@ -304,5 +317,13 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
         let resultTime = CMTimeMakeWithSeconds(duration * time, Int32(NSEC_PER_SEC))
         player.seekToTime(resultTime)
         delegate?.videoPlayerViewSeekedToTime?(self)
+    }
+    
+    func videoTimeViewDidBeginInteraction(view: VideoTimeView) {
+        seeking = true
+    }
+    
+    func videoTimeViewDidEndInteraction(view: VideoTimeView) {
+        seeking = false
     }
 }

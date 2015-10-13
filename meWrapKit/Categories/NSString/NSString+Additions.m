@@ -91,19 +91,26 @@
 }
 
 - (NSString *)escapedUnicode {
-    NSData* data = [self dataUsingEncoding:NSUTF16LittleEndianStringEncoding allowLossyConversion:YES];
+    NSData* data = [self dataUsingEncoding:NSUTF32LittleEndianStringEncoding allowLossyConversion:YES];
     size_t bytesRead = 0;
     const char* bytes = data.bytes;
     NSMutableString* encodedString = [NSMutableString string];
     while (bytesRead < data.length){
-        uint16_t code = *((uint16_t*) &bytes[bytesRead]);
-        if (code > 0x007E) {
-            [encodedString appendFormat:@"\\u{%04X}", code];
+        uint32_t codepoint = *((uint32_t*) &bytes[bytesRead]);
+        if (codepoint > 0x007E) {
+            [self getBytes:&codepoint
+                 maxLength:4
+                usedLength:nil
+                  encoding:NSUTF32StringEncoding
+                   options:0
+                     range:NSMakeRange(0, 0)
+            remainingRange:nil];
+            [encodedString appendFormat:@"\\u{%04x}", codepoint];
         }
         else {
-            [encodedString appendFormat:@"%C", code];
+            [encodedString appendFormat:@"%C", (unichar)codepoint];
         }
-        bytesRead += sizeof(uint16_t);
+        bytesRead += sizeof(uint32_t);
     }
     
     return encodedString;

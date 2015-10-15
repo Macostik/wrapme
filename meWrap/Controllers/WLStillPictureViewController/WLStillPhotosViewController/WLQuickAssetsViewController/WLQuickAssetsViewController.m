@@ -57,7 +57,7 @@
     
     PHFetchOptions *options = [[PHFetchOptions alloc] init];
     options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-    self.assets = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:options];
+    self.assets = [PHAsset fetchAssetsWithOptions:options];
     run_after_asap(^{
         if ([weakSelf.delegate respondsToSelector:@selector(quickAssetsViewControllerShouldPreselectFirstAsset:)]) {
             if ([weakSelf.delegate quickAssetsViewControllerShouldPreselectFirstAsset:weakSelf]) {

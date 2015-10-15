@@ -75,6 +75,6 @@ extension UIScrollView {
     }
     
     func visibleRectOfRect(rect: CGRect, offset: CGPoint) -> CGRect {
-        return CGRectIntersection(CGRect(origin: contentOffset, size: bounds.size), rect);
+        return CGRectIntersection(CGRect(origin: offset, size: bounds.size), rect);
     }
 }

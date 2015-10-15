@@ -89,16 +89,22 @@
 }
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithVideoAtPath:(NSString *)path saveToAlbum:(BOOL)saveToAlbum {
-    
+    [self handleVideoAtPath:path saveToAlbum:saveToAlbum];
+}
+
+- (void)handleVideoAtPath:(NSString*)path saveToAlbum:(BOOL)saveToAlbum {
     WLEditPicture *picture = [WLEditPicture picture:self.mode];
     picture.type = WLCandyTypeVideo;
     picture.date = [NSDate now];
+    picture.saveToAlbum = saveToAlbum;
+    
+    runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
+        [picture setVideoAtPath:path completion:^(id object) {
+            [operation finish];
+        }];
+    });
+    
     [self addPicture:picture success:^{
-        runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
-            [picture setVideoAtPath:path completion:^(id object) {
-                [operation finish];
-            }];
-        });
     } failure:^(NSError *error) {
         [error show];
     }];
@@ -107,19 +113,30 @@
 #pragma mark - WLQuickAssetsViewControllerDelegate
 
 - (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
-    return [self shouldAddPicture:^{
-    } failure:^(NSError *error) {
-        [error show];
-    }];
+    if (asset.mediaType == PHAssetMediaTypeVideo && asset.duration > 60) {
+        [WLError(WLLS(@"upload_video_duration_limit_error")) show];
+        return NO;
+    } else {
+        return [self shouldAddPicture:^{
+        } failure:^(NSError *error) {
+            [error show];
+        }];
+    }
 }
 
 - (void)quickAssetsViewController:(WLQuickAssetsViewController *)controller didSelectAsset:(PHAsset *)asset {
-    [self handleAssets:@[asset]];
+    [self handleAsset:asset];
 }
 
 - (void)quickAssetsViewController:(WLQuickAssetsViewController *)controller didDeselectAsset:(PHAsset *)asset {
     [self.pictures removeSelectively:^BOOL(WLEditPicture* picture) {
-        return [picture.assetID isEqualToString:asset.localIdentifier];
+        if ([picture.assetID isEqualToString:asset.localIdentifier]) {
+            if (picture.videoExportSession) {
+                [picture.videoExportSession cancelExport];
+            }
+            return YES;
+        }
+        return NO;
     }];
     [self updatePicturesCountLabel];
 }
@@ -128,23 +145,53 @@
     return self.startFromGallery;
 }
 
-- (void)handleAssets:(NSArray*)assets {
+- (void)handleAsset:(PHAsset*)asset {
     __weak typeof(self)weakSelf = self;
-    for (PHAsset* asset in assets) {
-        WLEditPicture *picture = [WLEditPicture picture:weakSelf.mode];
-        picture.assetID = asset.localIdentifier;
-        picture.date = asset.creationDate;
-        [self addPicture:picture success:^{
-            runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
+    __weak WLEditPicture *picture = [WLEditPicture picture:self.mode];
+    picture.assetID = asset.localIdentifier;
+    picture.date = asset.creationDate;
+    picture.type = asset.mediaType == PHAssetMediaTypeVideo ? WLCandyTypeVideo : WLCandyTypeImage;
+    [self addPicture:picture success:^{
+        runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
+            if (asset.mediaType == PHAssetMediaTypeVideo) {
+                PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
+                options.version = PHVideoRequestOptionsVersionOriginal;
+                options.networkAccessAllowed = YES;
+                options.deliveryMode = PHVideoRequestOptionsDeliveryModeMediumQualityFormat;
+                [[PHImageManager defaultManager] requestExportSessionForVideo:asset options:options exportPreset:AVAssetExportPresetMediumQuality resultHandler:^(AVAssetExportSession * _Nullable exportSession, NSDictionary * _Nullable info) {
+                    picture.videoExportSession = exportSession;
+                    NSString *path = [NSString stringWithFormat:@"%@/Documents/%@.mp4", NSHomeDirectory(), GUID()];
+                    exportSession.outputFileType = @"public.mpeg-4";
+                    exportSession.outputURL = [NSURL fileURLWithPath:path];
+                    [exportSession exportAsynchronouslyWithCompletionHandler:^{
+                        picture.videoExportSession = nil;
+                        run_in_main_queue(^{
+                            if (exportSession.error == nil && picture) {
+                                [picture setVideoAtPath:path completion:^(id object) {
+                                    [operation finish];
+                                }];
+                            } else {
+                                [operation finish];
+                            }
+                        });
+                    }];
+                }];
+            } else {
                 [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {
                     [picture setImage:croppedImage completion:^(id object) {
                         [operation finish];
                     }];
                 }];
-            });
-        } failure:^(NSError *error) {
-            [error show];
-        }];
+            }
+        });
+    } failure:^(NSError *error) {
+        [error show];
+    }];
+}
+
+- (void)handleAssets:(NSArray*)assets {
+    for (PHAsset* asset in assets) {
+        [self handleAsset:asset];
     }
 }
 
@@ -181,13 +228,6 @@
     }
     
     [self finishWithPictures:pictures];
-}
-
-#pragma mark - WLAssetsViewControllerDelegate
-
-- (void)assetsViewController:(id)controller didSelectAssets:(NSArray *)assets {
-    [self popToRootViewControllerAnimated:YES];
-    [self handleAssets:assets];
 }
 
 @end

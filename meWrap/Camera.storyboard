@@ -741,6 +741,7 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
                                                 <real key="value" value="16"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="statusView" destination="3I3-pS-q4V" id="LlV-QJ-R0W"/>
@@ -1235,6 +1236,7 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="defaultIconSize">
                                                 <real key="value" value="16"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="statusView" destination="yNv-Ri-HV0" id="jkD-rC-Fc9"/>

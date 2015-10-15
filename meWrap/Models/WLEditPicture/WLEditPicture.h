@@ -9,6 +9,8 @@
 #import "WLAsset.h"
 #import "WLCommonEnums.h"
 
+@class AVAssetExportSession;
+
 @interface WLEditPicture : WLAsset
 
 @property (strong, nonatomic) NSString *comment;
@@ -30,6 +32,8 @@
 @property (nonatomic) BOOL deleted;
 
 @property (nonatomic) BOOL uploaded;
+
+@property (weak, nonatomic) AVAssetExportSession *videoExportSession;
 
 + (instancetype)picture:(UIImage *)image completion:(WLObjectBlock)completion;
 

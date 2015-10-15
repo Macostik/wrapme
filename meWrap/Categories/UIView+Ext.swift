@@ -104,7 +104,7 @@ extension UIView {
     
     @IBInspectable var circled: Bool {
         set {
-            cornerRadius = circled ? bounds.height/2.0 : 0
+            cornerRadius = newValue ? bounds.height/2.0 : 0
         }
         get {
             return cornerRadius == bounds.height/2.0

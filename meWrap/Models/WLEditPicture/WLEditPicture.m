@@ -14,12 +14,6 @@
 #import "GCDHelper.h"
 #import "PHPhotoLibrary+Helper.h"
 
-@interface WLEditPicture () <WLImageFetching>
-
-@property (nonatomic) BOOL fetching;
-
-@end
-
 @implementation WLEditPicture
 
 - (instancetype)init {
@@ -161,7 +155,7 @@
                 if (completion) completion(weakSelf);
             }
         }];
-
+        
     });
 }
 
@@ -192,10 +186,15 @@
 }
 
 - (void)saveToAssets {
-    if (!self.fetching) {
-        self.fetching = YES;
-        [[WLImageFetcher fetcher] enqueueImageWithUrl:self.original receiver:self];
-    }
+    [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
+        if (self.type == WLCandyTypeVideo) {
+            return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:[NSURL fileURLWithPath:self.original]];
+        } else {
+            return [PHAssetChangeRequest creationRequestForAssetFromImageAtFileURL:[NSURL fileURLWithPath:self.original]];
+        }
+    } collectionTitle:WLAlbumName success:^{
+    } failure:^(NSError *error) {
+    }];
 }
 
 - (void)saveToAssetsIfNeeded {
@@ -209,21 +208,6 @@
         _date = [NSDate now];
     }
     return _date;
-}
-
-// MARK: - WLImageFetching
-
-- (void)fetcher:(WLImageFetcher *)fetcher didFinishWithImage:(UIImage *)image cached:(BOOL)cached {
-    [image saveToAlbum];
-    self.fetching = NO;
-}
-
-- (void)fetcher:(WLImageFetcher *)fetcher didFailWithError:(NSError *)error {
-    self.fetching = NO;
-}
-
-- (NSString *)fetcherTargetUrl:(WLImageFetcher *)fetcher {
-    return self.fetching ? self.original : nil;
 }
 
 @end

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="icons.ttf">
+            <string>icons</string>
             <string>icons</string>
         </mutableArray>
     </customFonts>
@@ -17,9 +19,11 @@
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="iWj-SH-g7d">
                     <rect key="frame" x="0.0" y="0.0" width="88" height="88"/>
+                    <animations/>
                 </imageView>
                 <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="l" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUi-bn-6yb">
                     <rect key="frame" x="66" y="66" width="20" height="20"/>
+                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="I9F-v9-WWu"/>
@@ -40,13 +44,23 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpb-li-GPc">
+                    <rect key="frame" x="66" y="2" width="20" height="20"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="20"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="iWj-SH-g7d" secondAttribute="trailing" id="1NF-HR-Hqd"/>
+                <constraint firstAttribute="trailing" secondItem="Qpb-li-GPc" secondAttribute="trailing" constant="2" id="4v0-0R-OvG"/>
                 <constraint firstItem="iWj-SH-g7d" firstAttribute="leading" secondItem="Dmv-BH-Pgy" secondAttribute="leading" id="Iog-M1-LGR"/>
                 <constraint firstAttribute="bottom" secondItem="KUi-bn-6yb" secondAttribute="bottom" constant="2" id="a0u-ls-aRS"/>
                 <constraint firstAttribute="bottom" secondItem="iWj-SH-g7d" secondAttribute="bottom" id="eoK-xY-Dqd"/>
+                <constraint firstItem="Qpb-li-GPc" firstAttribute="top" secondItem="Dmv-BH-Pgy" secondAttribute="top" constant="2" id="hRt-Uq-PjB"/>
                 <constraint firstAttribute="trailing" secondItem="KUi-bn-6yb" secondAttribute="trailing" constant="2" id="kVu-9Y-eu7"/>
                 <constraint firstItem="iWj-SH-g7d" firstAttribute="top" secondItem="Dmv-BH-Pgy" secondAttribute="top" id="nlv-6c-jLJ"/>
             </constraints>
@@ -55,6 +69,7 @@
             <connections>
                 <outlet property="acceptView" destination="KUi-bn-6yb" id="J4J-Yf-8Zn"/>
                 <outlet property="imageView" destination="iWj-SH-g7d" id="rjN-OK-FjA"/>
+                <outlet property="videoIndicator" destination="Qpb-li-GPc" id="TXT-PS-5dq"/>
             </connections>
             <point key="canvasLocation" x="632" y="606"/>
         </view>

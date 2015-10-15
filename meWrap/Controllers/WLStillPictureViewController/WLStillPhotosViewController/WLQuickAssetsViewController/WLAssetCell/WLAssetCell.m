@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *acceptView;
+@property (weak, nonatomic) IBOutlet UILabel *videoIndicator;
 
 @end
 
@@ -35,6 +36,7 @@
                                             resultHandler:^(UIImage *result, NSDictionary *info) {
                                                   weakSelf.imageView.image = result;
                                               }];
+    self.videoIndicator.hidden = asset.mediaType != PHAssetMediaTypeVideo;
 }
 
 - (void)setSelected:(BOOL)selected {

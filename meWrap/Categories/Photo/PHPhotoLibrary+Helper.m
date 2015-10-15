@@ -246,8 +246,10 @@
                     if (error) {
                         if (failure) failure(error);
                     } else {
+                        NSURL* url = [[location URLByDeletingPathExtension] URLByAppendingPathExtension:@"mp4"];
+                        [[NSFileManager defaultManager] moveItemAtURL:location toURL:url error:nil];
                         [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
-                            return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:location];
+                            return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
                         } collectionTitle:WLAlbumName success:success failure:failure];
                     }
                 }];

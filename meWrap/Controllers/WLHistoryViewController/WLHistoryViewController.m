@@ -418,12 +418,15 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     
 }
 
-- (IBAction)downloadCandy:(id)sender {
+- (IBAction)downloadCandy:(WLButton*)sender {
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
+        sender.loading = YES;
         [weakSelf.candy download:^{
+            sender.loading = NO;
             [WLToast showPhotoDownloadingMessage];
         } failure:^(NSError *error) {
+            sender.loading = NO;
             [error show];
         }];
     }];

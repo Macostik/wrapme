@@ -22,30 +22,7 @@ import AVFoundation
     optional func videoPlayerViewSeekedToTime(view: VideoPlayerView)
 }
 
-protocol VideoTimeViewDelegate: NSObjectProtocol {
-    func videoTimeView(view: VideoTimeView, didSeekToTime time: Float64)
-    func videoTimeViewDidBeginInteraction(view: VideoTimeView)
-    func videoTimeViewDidEndInteraction(view: VideoTimeView)
-}
-
 class VideoTimeView: UIView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        awake()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        awake()
-    }
-    
-    func awake() {
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tap:"))
-        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "pan:"))
-    }
-    
-    weak var delegate: VideoTimeViewDelegate?
     
     var time: Float64 = 0 {
         didSet {
@@ -84,52 +61,9 @@ class VideoTimeView: UIView {
             path.stroke()
         }
     }
-    
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        let rect = CGRectInset(bounds, -6, -22)
-        return CGRectContainsPoint(rect, point)
-    }
-    
-    func tap(sender: UITapGestureRecognizer) {
-        let x = min(bounds.width, max(0, sender.locationInView(self).x))
-        let time = Float64(x / bounds.width)
-        self.time = time
-        delegate?.videoTimeView(self, didSeekToTime: time)
-    }
-    
-    private weak var timer: NSTimer?
-    private var timeSent: Float64?
-    
-    func seekToTimeInteraction() {
-        if timeSent != time {
-            timeSent = time
-            delegate?.videoTimeView(self, didSeekToTime: time)
-        }
-    }
-    
-    func pan(sender: UIPanGestureRecognizer) {
-        
-        switch sender.state {
-        case .Began:
-            timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "seekToTimeInteraction", userInfo: nil, repeats: true)
-            delegate?.videoTimeViewDidBeginInteraction(self)
-        case .Changed:
-            let x = min(bounds.width, max(0, sender.locationInView(self).x))
-            let time = Float64(x / bounds.width)
-            if time != self.time {
-                self.time = time
-                delegate?.videoTimeView(self, didSeekToTime: time)
-            }
-        case .Ended, .Failed, .Cancelled:
-            timeSent = nil
-            timer?.invalidate()
-            delegate?.videoTimeViewDidEndInteraction(self)
-        default: break
-        }
-    }
 }
 
-class VideoPlayerView: UIView, VideoTimeViewDelegate {
+class VideoPlayerView: UIView {
     override class func layerClass() -> AnyClass  {
         return AVPlayerLayer.self
     }
@@ -152,7 +86,6 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
     }
     
     func awake() {
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: "toggle"))
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemDidPlayToEndTime:", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
     
@@ -162,7 +95,7 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
     
     @IBOutlet weak var timeView: VideoTimeView! {
         didSet {
-            timeView?.delegate = self
+            timeView?.userInteractionEnabled = false
         }
     }
     
@@ -308,25 +241,64 @@ class VideoPlayerView: UIView, VideoTimeViewDelegate {
     
     var seeking = false
     
-    func videoTimeView(view: VideoTimeView, didSeekToTime time: Float64) {
-        guard let player = player, let item = player.currentItem else {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        guard let touch = touches.first else {
             return
         }
-        let duration = CMTimeGetSeconds(item.duration)
-        let resultTime = CMTimeMakeWithSeconds(duration * time, Int32(NSEC_PER_SEC))
-        player.seekToTime(resultTime)
-        delegate?.videoPlayerViewSeekedToTime?(self)
+        let location = touch.locationInView(self)
+        if let timeView = timeView where CGRectContainsPoint(CGRectInset(timeView.frame, -6, -22), location) && _playing {
+            guard let player = player, let item = player.currentItem else {
+                return
+            }
+            seeking = true
+            player.pause()
+            let location = touch.locationInView(timeView)
+            let x = min(timeView.bounds.width, max(0, location.x))
+            let ratio = Float64(x / timeView.bounds.width)
+            timeView.time = ratio
+            let duration = CMTimeGetSeconds(item.duration)
+            let resultTime = CMTimeMakeWithSeconds(duration * ratio, Int32(NSEC_PER_SEC))
+            player.seekToTime(resultTime)
+            delegate?.videoPlayerViewSeekedToTime?(self)
+        }
     }
     
-    func videoTimeViewDidBeginInteraction(view: VideoTimeView) {
-        seeking = true
-        player?.pause()
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        guard let touch = touches.first else {
+            return
+        }
+        if seeking {
+            guard let timeView = timeView, let player = player, let item = player.currentItem else {
+                return
+            }
+            let location = touch.locationInView(timeView)
+            let x = min(timeView.bounds.width, max(0, location.x))
+            let ratio = Float64(x / timeView.bounds.width)
+            timeView.time = ratio
+            let duration = CMTimeGetSeconds(item.duration)
+            let resultTime = CMTimeMakeWithSeconds(duration * ratio, Int32(NSEC_PER_SEC))
+            player.seekToTime(resultTime)
+            delegate?.videoPlayerViewSeekedToTime?(self)
+        }
     }
     
-    func videoTimeViewDidEndInteraction(view: VideoTimeView) {
-        seeking = false
-        if _playing {
-            player?.play()
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if seeking {
+            seeking = false
+            if _playing {
+                player?.play()
+            }
+        } else {
+            toggle()
+        }
+    }
+    
+    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+        if seeking {
+            seeking = false
+            if _playing {
+                player?.play()
+            }
         }
     }
 }

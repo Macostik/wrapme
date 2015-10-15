@@ -2399,6 +2399,9 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdj-eZ-S3g">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="AFe-us-m8R" appends="YES" id="dFU-EZ-L95"/>
+                                </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BOE-UJ-qJt" customClass="VideoPlayerView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -2780,9 +2783,6 @@
                             <constraint firstItem="Wbg-W9-8Ie" firstAttribute="bottom" secondItem="FUv-v8-MyM" secondAttribute="top" priority="250" id="x8y-fG-5Cd"/>
                             <constraint firstAttribute="bottom" secondItem="wdj-eZ-S3g" secondAttribute="bottom" id="yMM-3Z-tmj"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="AFe-us-m8R" appends="YES" id="OHV-WY-hhc"/>
-                        </connections>
                     </view>
                     <connections>
                         <outlet property="avatarImageView" destination="DKe-of-CwY" id="pwy-xB-Q7n"/>
@@ -2830,7 +2830,7 @@
                         <outletCollection property="alternativeConstraints" destination="Fr5-au-wVq" id="SQ7-sg-U7C"/>
                     </connections>
                 </customObject>
-                <tapGestureRecognizer id="AFe-us-m8R">
+                <tapGestureRecognizer cancelsTouchesInView="NO" id="AFe-us-m8R">
                     <connections>
                         <action selector="hadleTapRecognizer:" destination="eto-O4-OHy" id="j6g-0u-fd5"/>
                         <outlet property="delegate" destination="FUv-v8-MyM" id="gew-gQ-t0F"/>

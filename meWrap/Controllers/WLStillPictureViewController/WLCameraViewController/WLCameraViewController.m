@@ -415,7 +415,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 - (void)prepareSessionForVideoRecording {
     __weak typeof(self)weakSelf = self;
     [self configureSession:^(AVCaptureSession *session) {
-        session.sessionPreset = AVCaptureSessionPresetHigh;
+        session.sessionPreset = AVCaptureSessionPresetMedium;
         AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] error:nil];
         [session addInput:input];
         weakSelf.audioInput = input;

@@ -113,7 +113,7 @@
 #pragma mark - WLQuickAssetsViewControllerDelegate
 
 - (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
-    if (asset.mediaType == PHAssetMediaTypeVideo && asset.duration > 60) {
+    if (asset.mediaType == PHAssetMediaTypeVideo && asset.duration >= 61) {
         [WLError(WLLS(@"upload_video_duration_limit_error")) show];
         return NO;
     } else {

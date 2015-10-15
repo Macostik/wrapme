@@ -281,11 +281,13 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLCandy *candy = _candy;
     [candy markAsRead];
     [self.candyIndicator updateStatusIndicator:candy];
-    self.deleteButton.hidden = !candy.deletable;
-    self.reportButton.hidden = !self.deleteButton.hidden;
     [self setCommentButtonTitle:candy];
     [self setupBottomViewModeRelatedData:self.bottomViewMode candy:candy];
     self.lastComment = [candy latestComment];
+    run_after_asap(^{
+        self.deleteButton.hidden = !candy.deletable;
+        self.reportButton.hidden = !self.deleteButton.hidden;
+    });
     NSInteger type = candy.type;
     if (type == WLCandyTypeVideo) {
         NSString *url = candy.picture.original;

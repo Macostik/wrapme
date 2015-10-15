@@ -232,7 +232,6 @@ static const int WLInstanceCommentLimit = 1500;
         NSArray *pictures = [self.pictures selects:^BOOL(WLEditPicture *picture) {
             return ![picture deleted];
         }];
-        
         if (pictures.nonempty) {
             [self.delegate batchEditPictureViewController:self didFinishWithPictures:pictures];
         } else {
@@ -241,7 +240,6 @@ static const int WLInstanceCommentLimit = 1500;
     } else {
          [WLToast showWithMessage:WLLS(@"comment_limit")];
     }
-   
 }
 
 - (IBAction)edit:(id)sender {

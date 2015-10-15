@@ -17,13 +17,18 @@
 #import "WLCommentCell.h"
 #import "WLStreamLoadingView.h"
 #import "WLEntry+WLUploadingQueue.h"
+#import "WLComposerScrollView.h"
+#import "WLHistoryViewController.h"
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;
 static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
 
-@interface WLCommentsViewController () <UIViewControllerTransitioningDelegate>
+@interface WLCommentsViewController () <UIViewControllerTransitioningDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
+@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *composeBarBottomPrioritizer;
+@property (weak, nonatomic) IBOutlet WLComposerScrollView *contentView;
+@property (weak, nonatomic) WLHistoryViewController *historyViewController;
 
 @end
 
@@ -70,6 +75,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     
     [self addNotifyReceivers];
     [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
+    self.historyViewController = (WLHistoryViewController *)self.parentViewController;
 }
 
 - (NSMutableOrderedSet *)sortedComments {
@@ -95,8 +101,9 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
 - (IBAction)onClose:(id)sender {
     [self.view endEditing:YES];
     [self.view removeFromSuperview];
-    [self.parentViewController viewWillAppear:YES];
-    [self removeFromParentViewController];
+    [self.historyViewController viewWillAppear:YES];
+    [self removeFromContainerAnimated:YES];
+    [self.historyViewController applyScaleToCandyViewController:NO];
 }
 
 - (IBAction)hide:(UITapGestureRecognizer *)sender {
@@ -163,6 +170,43 @@ static CGFloat WLContstraintOffset = 44.0;
 - (void)broadcaster:(WLDeviceOrientationBroadcaster*)broadcaster didChangeOrientation:(NSNumber*)orientation {
     [self.view layoutIfNeeded];
     [self.dataSource reload];
+}
+
+// MARK: - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    BOOL direction = [scrollView.panGestureRecognizer translationInView:scrollView.superview].y < 0;
+    self.composeBarBottomPrioritizer.defaultState = direction;
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    CGPoint offset = scrollView.contentOffset;
+    if (ABS(offset.y) > scrollView.height/5 || ABS(velocity.y) > 2) {
+        UIView *snapshot = [self.contentView snapshotViewAfterScreenUpdates:NO];
+        snapshot.frame = CGRectMake(0, self.contentView.y, self.view.width, self.contentView.height);
+        [self.view.window addSubview:snapshot];
+        [self removeFromContainerAnimated:YES];
+        [UIView animateWithDuration:0.5 animations:^{
+            CGFloat offsetY = offset.y > 0 ? self.view.y - self.view.height : self.view.height;
+            snapshot.transform = CGAffineTransformMakeTranslation(0, offsetY);
+            [self.historyViewController applyScaleToCandyViewController:NO];
+        } completion:^(BOOL finished) {
+            [snapshot removeFromSuperview];
+        }];
+    } 
+}
+
+- (void)presentForController:(UIViewController *)controller animated:(BOOL)animated {
+    [controller addContainedViewController:self animated:animated];
+    self.contentView.transform = CGAffineTransformMakeTranslation(0, CGRectGetMaxY(self.view.frame));
+    [UIView animateWithDuration:0.5f
+                          delay:0.0f
+         usingSpringWithDamping:0.7f
+          initialSpringVelocity:1
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+        self.contentView.transform = CGAffineTransformIdentity;
+    }               completion:nil];
 }
 
 @end

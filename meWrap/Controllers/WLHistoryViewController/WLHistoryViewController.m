@@ -502,9 +502,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
             }
         }
         [weakSelf setBarsHidden:YES animated:YES];
+        [self applyScaleToCandyViewController:YES];
         WLCommentsViewController *controller = [WLCommentsViewController instantiate:weakSelf.storyboard];
         controller.candy = weakSelf.candy;
-        [weakSelf addContainedViewController:controller animated:YES];
+        [controller presentForController:weakSelf animated:YES];
     }];
 }
 
@@ -540,7 +541,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (WLCandyViewController *)candyViewController:(WLCandy*)candy {
     if (!self.cachedCandyViewControllers) {
         self.cachedCandyViewControllers = [NSMapTable weakToStrongObjectsMapTable];
-        
     }
     WLCandyViewController *candyViewController = [self.cachedCandyViewControllers objectForKey:candy];
     if (!candyViewController) {
@@ -655,6 +655,15 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideVideoPlayingViews) object:nil];
         [self performSelector:@selector(hideVideoPlayingViews) withObject:nil afterDelay:4];
     }
+}
+
+// MARK: - CommentViewControllerDelegate
+
+- (void)applyScaleToCandyViewController:(BOOL)apply {
+     WLCandyViewController *candyViewController = [self candyViewController:self.candy];
+    [UIView animateWithDuration:.25 animations:^{
+        candyViewController.view.transform = apply ? CGAffineTransformMakeScale(0.9, 0.9) : CGAffineTransformIdentity;
+    }];
 }
 
 @end

@@ -12,4 +12,6 @@
 
 @property (weak, nonatomic) WLCandy *candy;
 
+- (void)presentForController:(UIViewController *)controller animated:(BOOL)animated;
+
 @end

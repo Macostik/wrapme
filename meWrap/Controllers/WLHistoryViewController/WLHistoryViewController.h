@@ -28,4 +28,6 @@
 
 - (void)showCommentView;
 
+- (void)applyScaleToCandyViewController:(BOOL)apply;
+
 @end

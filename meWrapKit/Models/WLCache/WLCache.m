@@ -9,7 +9,6 @@
 #import "WLCache.h"
 #import "NSString+Documents.h"
 #import "WLCollections.h"
-#import "UIDevice+SystemVersion.h"
 #import "NSObject+Extension.h"
 #import "GCDHelper.h"
 #import "WLSession.h"

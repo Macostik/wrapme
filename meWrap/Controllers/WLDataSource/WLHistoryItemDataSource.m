@@ -7,7 +7,6 @@
 //
 
 #import "WLHistoryItemDataSource.h"
-#import "UIScrollView+Additions.h"
 #import "WLCandyCell.h"
 #import "WLHistoryItem.h"
 

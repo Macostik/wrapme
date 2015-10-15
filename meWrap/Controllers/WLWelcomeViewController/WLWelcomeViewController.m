@@ -7,7 +7,6 @@
 //
 
 #import "UIFont+CustomFonts.h"
-#import "UIView+GestureRecognizing.h"
 #import "WLNavigationHelper.h"
 #import "WLSignupFlowViewController.h"
 #import "WLWelcomeViewController.h"
@@ -40,7 +39,7 @@ typedef enum : NSUInteger {
     
     [self wrapIntoAttributedString];
     __weak typeof(self)weakSelf = self;
-    [UITapGestureRecognizer recognizerWithView:self.termsAndConditionsTextView block:^(UIGestureRecognizer *recognizer) {
+    [[[UITapGestureRecognizer alloc] initWithView:self.termsAndConditionsTextView] setActionClosure:^(UIGestureRecognizer *sender) {
         [weakSelf flipAnimationView:WLFlipDirectionLeft];
     }];
 }

@@ -8,7 +8,6 @@
 
 #import "WLOperationQueue.h"
 #import "UIFont+CustomFonts.h"
-#import "UIView+AnimationHelper.h"
 #import "WLCandyViewController.h"
 #import "WLHomeDataSource.h"
 #import "WLHomeViewController.h"
@@ -43,7 +42,6 @@
 #import "WLFollowingViewController.h"
 #import "WLSoundPlayer.h"
 #import "WLNetwork.h"
-#import "UIScrollView+Additions.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 

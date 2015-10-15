@@ -85,7 +85,6 @@
     }];
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-
 	return YES;
 }
 
@@ -156,7 +155,7 @@
     [UIWindow setMainWindow:self.window];
     
     NSString *storedVersion = WLSession.appVersion;
-    NSString *currentVersion = NSMainBundle.buildVersion;
+    NSString *currentVersion = [NSBundle mainBundle].buildVersion;
     
     if (!storedVersion || [storedVersion compare:@"2.0" options:NSNumericSearch] == NSOrderedAscending) {
         [WLSession clear];

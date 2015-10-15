@@ -9,7 +9,6 @@
 #import "WLAPIEnvironment.h"
 #import "NSString+Additions.h"
 #import "WLAuthorization.h"
-#import "NSBundle+Extended.h"
 #import "NSDictionary+Extended.h"
 #import "WLLogger.h"
 

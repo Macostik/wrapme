@@ -10,7 +10,6 @@
 #import "NSString+Additions.h"
 #import "WLSession.h"
 #import "WLEntryKeys.h"
-#import "UIDevice-Hardware.h"
 #import "NSDictionary+Extended.h"
 #import "WLTelephony.h"
 #import "UIFont+CustomFonts.h"

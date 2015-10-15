@@ -9,8 +9,6 @@
 #import "NSDate+Additions.h"
 #import "NSObject+NibAdditions.h"
 #import "UIFont+CustomFonts.h"
-#import "UIScrollView+Additions.h"
-#import "UIView+AnimationHelper.h"
 #import "WLChat.h"
 #import "WLChatViewController.h"
 #import "WLComposeBar.h"

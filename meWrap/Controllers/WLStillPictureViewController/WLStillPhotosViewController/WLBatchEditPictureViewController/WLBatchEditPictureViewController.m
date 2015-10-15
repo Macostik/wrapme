@@ -16,13 +16,9 @@
 #import "WLEditPictureCell.h"
 #import "WLToast.h"
 #import "WLHintView.h"
-#import "UIButton+Additions.h"
 #import "WLDrawingViewController.h"
-#import "UIView+LayoutHelper.h"
-#import "UIScrollView+Additions.h"
 #import "WLEditPicture.h"
 #import "WLLayoutPrioritizer.h"
-#import "UIDevice+SystemVersion.h"
 
 static const int WLInstanceCommentLimit = 1500;
 
@@ -221,12 +217,11 @@ static const int WLInstanceCommentLimit = 1500;
 // MARK: - Actions
 
 - (void)back:(UIButton *)sender {
-    __weak typeof(self)weakSelf = self;
-    runBySystemVersion(^{
-        [weakSelf.navigationController popViewControllerAnimated:YES];
-    }, ^{
-        [weakSelf.navigationController popViewControllerAnimated:NO];
-    });
+    if ([[UIDevice currentDevice] systemVersionSince:@"9"]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 }
 
 - (IBAction)upload:(id)sender {

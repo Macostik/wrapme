@@ -693,7 +693,11 @@
             if (failure) failure([NSError errorWithDescription:WLLS(@"photo_is_uploading")]);
         } break;
         case WLContributionStatusFinished: {
-            operation = [[WLAPIRequest deleteCandy:self] send:success failure:failure];
+            if ([self.identifier isEqualToString:self.uploadIdentifier]) {
+                if (failure) failure([NSError errorWithDescription:WLLS(@"photo_is_uploading")]);
+            } else {
+                operation = [[WLAPIRequest deleteCandy:self] send:success failure:failure];
+            }
         } break;
         default:
             break;

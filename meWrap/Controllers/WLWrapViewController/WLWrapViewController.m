@@ -18,7 +18,6 @@
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"
 #import "WLWhatsUpSet.h"
-#import "UIView+LayoutHelper.h"
 #import "WLMessagesCounter.h"
 #import "WLButton.h"
 #import "WLLayoutPrioritizer.h"

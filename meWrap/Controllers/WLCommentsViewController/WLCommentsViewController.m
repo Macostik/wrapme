@@ -11,14 +11,11 @@
 #import "WLComposeBar.h"
 #import "StreamDataSource.h"
 #import "WLSoundPlayer.h"
-#import "UIView+AnimationHelper.h"
 #import "WLNavigationHelper.h"
 #import "UIFont+CustomFonts.h"
-#import "UIView+Extentions.h"
 #import "WLDeviceOrientationBroadcaster.h"
 #import "WLCommentCell.h"
 #import "WLStreamLoadingView.h"
-#import "UIScrollView+Additions.h"
 #import "WLEntry+WLUploadingQueue.h"
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;

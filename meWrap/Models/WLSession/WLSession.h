@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSBundle+Extended.h"
 
 static NSString *const WLAppGroupEncryptedAuthorization = @"encrypted_authorization";
 

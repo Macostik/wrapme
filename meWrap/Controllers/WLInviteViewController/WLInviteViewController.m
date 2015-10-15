@@ -8,7 +8,6 @@
 
 #import "WLInviteViewController.h"
 #import "WLAddressBook.h"
-#import "UIButton+Additions.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLButton.h"
 #import "WLToast.h"

@@ -7,7 +7,6 @@
 //
 
 #import "WLButton.h"
-#import "UIView+AnimationHelper.h"
 #import "WLFontPresetter.h"
 #import "UIFont+CustomFonts.h"
 

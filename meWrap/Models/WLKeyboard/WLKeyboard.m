@@ -7,12 +7,11 @@
 //
 
 #import "WLKeyboard.h"
-#import "UIView+GestureRecognizing.h"
 #import "WLNavigationHelper.h"
-#import "UIView+AnimationHelper.h"
-#import "UIDevice+SystemVersion.h"
 
 @interface WLKeyboard ()
+
+@property (weak, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
 
@@ -54,9 +53,11 @@
     self.curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
 	[self broadcast:@selector(keyboardDidShow:)];
 	__weak UIWindow* window = [UIWindow mainWindow];
-    [UITapGestureRecognizer recognizerWithView:window identifier:@"WLKeyboardTapGestureRecognizer" block:^(UIGestureRecognizer *recognizer) {
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithView:window];
+    [tapGestureRecognizer setActionClosure:^(UIGestureRecognizer *sender) {
         [window endEditing:YES];
     }];
+    self.tapGestureRecognizer = tapGestureRecognizer;
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification {
@@ -73,7 +74,7 @@
     self.duration = 0;
     self.curve = 0;
 	[self broadcast:@selector(keyboardDidHide:)];
-    [[UIWindow mainWindow] removeGestureRecognizerWithIdentifier:@"WLKeyboardTapGestureRecognizer"];
+    [self.tapGestureRecognizer.view removeGestureRecognizer:self.tapGestureRecognizer];
 }
 
 - (void)performAnimation:(WLBlock)animation {

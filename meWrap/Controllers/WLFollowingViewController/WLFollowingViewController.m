@@ -7,7 +7,6 @@
 //
 
 #import "WLFollowingViewController.h"
-#import "UIViewController+Container.h"
 #import "WLButton.h"
 #import "WLNavigationHelper.h"
 #import "WLWrapStatusImageView.h"

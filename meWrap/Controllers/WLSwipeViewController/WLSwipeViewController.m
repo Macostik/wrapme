@@ -7,8 +7,6 @@
 //
 
 #import "WLSwipeViewController.h"
-#import "UIView+Extentions.h"
-#import "UIScrollView+Additions.h"
 
 @interface WLSwipeViewController () <UIScrollViewDelegate>
 
@@ -186,7 +184,7 @@
 }
 
 - (CGFloat)visibleWidthOfViewController:(UIViewController*)viewController withContentOffset:(CGPoint)contentOffset {
-    return [self.scrollView visibleRectOfRect:viewController.view.frame withContentOffset:contentOffset].size.width;
+    return [self.scrollView visibleRectOfRect:viewController.view.frame offset:contentOffset].size.width;
 }
 
 - (void)setSecondViewController:(UIViewController *)secondViewController {

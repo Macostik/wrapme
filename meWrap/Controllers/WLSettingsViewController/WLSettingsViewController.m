@@ -24,9 +24,9 @@
 @implementation WLSettingsViewController
 
 - (IBAction)about:(id)sender {
-    NSString* appName = NSMainBundle.displayName;
-    NSString* version = NSMainBundle.buildVersion;
-    NSString* build = NSMainBundle.buildNumber;
+    NSString* appName = [NSBundle mainBundle].displayName;
+    NSString* version = [NSBundle mainBundle].buildVersion;
+    NSString* build = [NSBundle mainBundle].buildNumber;
     NSString *message = [NSString stringWithFormat:WLLS(@"formatted_about_message"), appName, version, build];
     [UIAlertController showWithMessage:message];
 }

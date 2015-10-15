@@ -10,7 +10,6 @@
 #import "WLAddressBook.h"
 #import "WLAddressBookPhoneNumberCell.h"
 #import "WLAddressBookPhoneNumber.h"
-#import "UIView+QuartzCoreHelper.h"
 
 @interface WLAddressBookRecordCell () <StreamViewDelegate>
 

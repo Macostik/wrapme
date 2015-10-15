@@ -67,7 +67,7 @@ static BOOL authorized = NO;
 
 + (instancetype)signIn:(WLAuthorization*)authorization {
     return [[[[self POST:@"users/sign_in"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
-        [parameters trySetObject:NSMainBundle.buildVersion forKey:@"app_version"];
+        [parameters trySetObject:[NSBundle mainBundle].buildVersion forKey:@"app_version"];
         [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
         [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];

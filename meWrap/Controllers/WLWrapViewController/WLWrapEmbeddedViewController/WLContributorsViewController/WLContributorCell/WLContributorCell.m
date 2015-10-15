@@ -8,7 +8,6 @@
 
 #import "WLContributorCell.h"
 #import "WLButton.h"
-#import "UIScrollView+Additions.h"
 #import "StreamDataSource.h"
 
 @interface WLContributorCell ()

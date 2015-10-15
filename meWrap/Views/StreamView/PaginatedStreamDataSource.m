@@ -8,7 +8,6 @@
 
 #import "PaginatedStreamDataSource.h"
 #import "WLStreamLoadingView.h"
-#import "UIScrollView+Additions.h"
 #import "WLNetwork.h"
 
 @interface PaginatedStreamDataSource () <WLPaginatedSetDelegate, WLNetworkReceiver>

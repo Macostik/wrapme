@@ -9,7 +9,6 @@
 #import "WLActivationViewController.h"
 #import "WLProfileInformationViewController.h"
 #import "WLProgressBar+WLContribution.h"
-#import "UIButton+Additions.h"
 #import "WLHomeViewController.h"
 #import "WLNavigationHelper.h"
 #import "WLButton.h"

@@ -7,9 +7,6 @@
 //
 
 #import "WLAlertView.h"
-#import "UIDevice+SystemVersion.h"
-#import <objc/runtime.h>
-#import "NSObject+AssociatedObjects.h"
 
 @implementation UIAlertController (WLAlertView)
 

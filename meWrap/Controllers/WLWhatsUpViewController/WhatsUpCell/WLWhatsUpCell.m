@@ -7,7 +7,6 @@
 //
 
 #import "WLWhatsUpCell.h"
-#import "UITextView+Aditions.h"
 #import "UIFont+CustomFonts.h"
 #import "WLLabel.h"
 #import "WLComposeBar.h"

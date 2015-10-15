@@ -12,8 +12,6 @@
 #import <objc/runtime.h>
 #import "WLEmojiView.h"
 #import "WLEmoji.h"
-#import "UIView+AnimationHelper.h"
-#import "UIScrollView+Additions.h"
 
 static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 

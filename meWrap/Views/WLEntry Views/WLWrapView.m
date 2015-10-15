@@ -8,7 +8,6 @@
 
 #import "WLWrapView.h"
 #import "WLWrapStatusImageView.h"
-#import "UIView+QuartzCoreHelper.h"
 
 @implementation WLWrapView
 

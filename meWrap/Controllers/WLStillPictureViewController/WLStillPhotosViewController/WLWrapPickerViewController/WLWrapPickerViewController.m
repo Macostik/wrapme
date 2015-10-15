@@ -11,7 +11,6 @@
 #import "WLToast.h"
 #import "WLButton.h"
 #import "WLKeyboard.h"
-#import "UIScrollView+Additions.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLUploadingQueue.h"
 #import "WLUploading+Extended.h"

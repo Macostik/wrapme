@@ -7,7 +7,6 @@
 //
 
 #import "WLBaseViewController.h"
-#import "UIView+AnimationHelper.h"
 #import "WLNavigationHelper.h"
 #import "NSObject+NibAdditions.h"
 

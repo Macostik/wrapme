@@ -16,7 +16,6 @@
 #import "WLLinkDeviceViewController.h"
 #import "WLTelephony.h"
 #import "WLActivationViewController.h"
-#import "UIView+AnimationHelper.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLAuthorizationRequest.h"
 

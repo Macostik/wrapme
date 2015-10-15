@@ -10,7 +10,6 @@
 #import "WLSoundPlayer.h"
 #import "WLEntryNotifier.h"
 #import "WLSession.h"
-#import "UIDevice+SystemVersion.h"
 #import "WLOperationQueue.h"
 #import "PubNub+SharedInstance.h"
 #import "WLNotificationSubscription.h"

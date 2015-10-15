@@ -12,7 +12,6 @@
 #import "WLEditAvatarViewController.h"
 #import "WLHomeViewController.h"
 #import "WLToast.h"
-#import "UIView+AnimationHelper.h"
 #import "WLNavigationHelper.h"
 #import "PHPhotoLibrary+Helper.h"
 #import "WLEditPicture.h"

@@ -10,7 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Resize.h"
-#import "UIButton+Additions.h"
 #import "WLFlashModeControl.h"
 #import "WLCameraAdjustmentView.h"
 #import <MobileCoreServices/MobileCoreServices.h>

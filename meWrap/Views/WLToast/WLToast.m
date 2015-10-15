@@ -11,9 +11,7 @@
 #import "WLNavigationHelper.h"
 #import "WLLabel.h"
 #import "NSObject+NibAdditions.h"
-#import "UIView+AnimationHelper.h"
 #import "WLNavigationHelper.h"
-#import "UIView+LayoutHelper.h"
 #import "UIColor+CustomColors.h"
 #import "PHPhotoLibrary+Helper.h"
 

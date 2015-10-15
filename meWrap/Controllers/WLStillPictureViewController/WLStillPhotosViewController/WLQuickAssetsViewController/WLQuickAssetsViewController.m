@@ -10,7 +10,6 @@
 #import "StreamDataSource.h"
 #import "WLAssetCell.h"
 #import "WLToast.h"
-#import "UIButton+Additions.h"
 #import "PHPhotoLibrary+Helper.h"
 
 @import Photos;

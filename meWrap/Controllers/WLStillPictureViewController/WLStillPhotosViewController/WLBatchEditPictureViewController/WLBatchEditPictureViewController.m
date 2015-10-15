@@ -86,6 +86,7 @@ static const int WLInstanceCommentLimit = 1500;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.dataSource.items = self.pictures;
+    self.uploadButton.active = YES;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -225,20 +226,14 @@ static const int WLInstanceCommentLimit = 1500;
 }
 
 - (IBAction)upload:(id)sender {
-    NSString *comment = self.composeBar.text;
-    NSData *commentData = [comment dataUsingEncoding:NSUTF8StringEncoding];
-    if (commentData.length < WLInstanceCommentLimit) {
-        self.picture.comment = comment;
-        NSArray *pictures = [self.pictures selects:^BOOL(WLEditPicture *picture) {
-            return ![picture deleted];
-        }];
-        if (pictures.nonempty) {
-            [self.delegate batchEditPictureViewController:self didFinishWithPictures:pictures];
-        } else {
-            [WLToast showWithMessage:WLLS(@"no_photos_to_upload")];
-        }
+    self.picture.comment = self.composeBar.text;
+    NSArray *pictures = [self.pictures selects:^BOOL(WLEditPicture *picture) {
+        return ![picture deleted];
+    }];
+    if (pictures.nonempty) {
+        [self.delegate batchEditPictureViewController:self didFinishWithPictures:pictures];
     } else {
-         [WLToast showWithMessage:WLLS(@"comment_limit")];
+        [WLToast showWithMessage:WLLS(@"no_photos_to_upload")];
     }
 }
 
@@ -306,8 +301,16 @@ static const int WLInstanceCommentLimit = 1500;
 }
 
 - (void)composeBarDidChangeText:(WLComposeBar *)composeBar {
-    self.picture.comment = composeBar.text;
-    [self.dataSource reload];
+    NSString *comment = composeBar.text;
+    self.uploadButton.active = comment.nonempty;
+    NSData *commentData = [comment dataUsingEncoding:NSUTF8StringEncoding];
+    if (commentData.length < WLInstanceCommentLimit) {
+        self.picture.comment = composeBar.text;
+        [self.dataSource reload];
+    } else {
+        [WLToast showWithMessage:WLLS(@"comment_limit")];
+        self.uploadButton.active = NO;
+    }
 }
 
 - (void)composeBarDidEndEditing:(WLComposeBar *)composeBar {

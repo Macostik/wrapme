@@ -2,6 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>production</key>
+	<array>
+		<dict>
+			<key>countryCode</key>
+			<string>380</string>
+			<key>deviceUID</key>
+			<string>5171df9c37933818bebb0d9db5057d7796234e95</string>
+			<key>email</key>
+			<string>s.maximenko.mobidev@gmail.com</string>
+			<key>password</key>
+			<string>a878e7d3b6</string>
+			<key>phone</key>
+			<string>666386612</string>
+		</dict>
+	</array>
 	<key>qa</key>
 	<array>
 		<dict>

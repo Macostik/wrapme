@@ -664,6 +664,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [UIView animateWithDuration:.25 animations:^{
         candyViewController.view.transform = apply ? CGAffineTransformMakeScale(0.9, 0.9) : CGAffineTransformIdentity;
     }];
+    [self setBarsHidden:apply animated:YES];
 }
 
 @end

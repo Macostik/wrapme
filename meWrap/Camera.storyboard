@@ -865,6 +865,7 @@
                         <outlet property="rotateButton" destination="9Yt-Qh-gRF" id="I41-YY-6kp"/>
                         <outlet property="takePhotoButton" destination="iHd-sT-PMV" id="i0y-Tc-2c4"/>
                         <outlet property="unauthorizedStatusView" destination="SVW-IT-Sr6" id="0t0-gB-SYI"/>
+                        <outlet property="videoRecordingIndicator" destination="UzS-xp-Bg5" id="8U5-eb-pMZ"/>
                         <outlet property="videoRecordingProgressBar" destination="ELi-ZJ-CL2" id="Tju-zF-OGr"/>
                         <outlet property="videoRecordingTimeLabel" destination="5ej-Tb-UI4" id="D0F-2g-3JZ"/>
                         <outlet property="videoRecordingView" destination="4Ox-Dh-lbB" id="zwW-hi-dFj"/>

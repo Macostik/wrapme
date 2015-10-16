@@ -83,6 +83,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 @property (weak, nonatomic) IBOutlet UIView *videoRecordingView;
 @property (weak, nonatomic) IBOutlet UILabel *videoRecordingTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *cancelVideoRecordingLabel;
+@property (weak, nonatomic) IBOutlet UIView *videoRecordingIndicator;
 
 @property (weak, nonatomic) AVCaptureDeviceInput *audioInput;
 
@@ -604,10 +605,13 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
             if (failure) failure(error);
         }
 	};
+    __weak typeof(self)weakSelf = self;
     AVCaptureConnection *connection = self.stillImageOutputConnection;
     self.takePhotoButton.active = connection == nil;
 	connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
-    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
+    dispatch_async(self.sessionQueue, ^{
+        [weakSelf.stillImageOutput captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
+    });
 }
 
 - (AVCaptureDevicePosition)position {
@@ -816,6 +820,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 // MARK: - AVCaptureFileOutputRecordingDelegate
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
+    [self.videoRecordingIndicator.layer removeAnimationForKey:@"videoRecording"];
     self.cancelVideoRecordingLabel.hidden = YES;
     [self.videoRecordingTimer invalidate];
     [self prepareSessionForPhotoTaking];
@@ -845,6 +850,14 @@ static NSTimeInterval videoRecordingTimerInterval = 0.03333333;
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections {
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    animation.fromValue = @1;
+    animation.toValue = @0;
+    animation.autoreverses = YES;
+    animation.duration = 0.5;
+    animation.repeatCount = FLT_MAX;
+    animation.removedOnCompletion = NO;
+    [self.videoRecordingIndicator.layer addAnimation:animation forKey:@"videoRecording"];
     self.cancelVideoRecordingLabel.hidden = NO;
     self.videoRecordingTimeLeft = maxVideoRecordedDuration;
     self.videoRecordingTimeLabel.text = [@(maxVideoRecordedDuration) stringValue];

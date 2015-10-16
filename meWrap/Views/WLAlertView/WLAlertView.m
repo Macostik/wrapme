@@ -83,15 +83,15 @@
 
 + (void)confirmCandyDeleting:(WLCandy *)candy success:(WLBlock)success failure:(WLFailureBlock)failure {
     [UIAlertController showWithTitle:WLLS(@"delete_photo")
-                       message:WLLS(@"delete_photo_confirmation")
-                       buttons:@[WLLS(@"cancel"),WLLS(@"ok")]
-                    completion:^(NSUInteger index) {
-                        if (index == 1) {
-                            if (success) success();
-                        } else if (failure) {
-                            failure(nil);
-                        }
-                    }];
+                             message:candy.isVideo ? WLLS(@"delete_video_confirmation") :  WLLS(@"delete_photo_confirmation")
+                             buttons:@[WLLS(@"cancel"),WLLS(@"ok")]
+                          completion:^(NSUInteger index) {
+                              if (index == 1) {
+                                  if (success) success();
+                              } else if (failure) {
+                                  failure(nil);
+                              }
+                          }];
 }
 
 + (void)confirmRedirectingToSignUp:(WLBlock)signUp tryAgain:(WLBlock)tryAgain {

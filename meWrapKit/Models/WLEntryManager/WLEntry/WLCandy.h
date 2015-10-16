@@ -24,6 +24,8 @@ static NSInteger WLCandyTypeVideo = 20;
 
 - (NSMutableOrderedSet *)sortedComments;
 
+- (BOOL)isVideo;
+
 @end
 
 @interface WLCandy (CoreDataGeneratedAccessors)

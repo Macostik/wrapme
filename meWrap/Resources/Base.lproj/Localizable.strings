@@ -224,3 +224,4 @@
 "video_suggestion" = "Hold for video, tap for photo";
 "slide_to_cancel" = "Slide to cancel";
 "comment_limit" = "Please limit the comment length to 200 words.";
+"delete_video_confirmation" = "Are you sure you want to delete the video?";

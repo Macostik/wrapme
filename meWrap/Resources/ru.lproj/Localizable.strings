@@ -224,3 +224,4 @@
 "video_suggestion" = "Hold for video, tap for photo";
 "slide_to_cancel" = "Slide to cancel";
 "comment_limit" = "Комментарий не должнен превышать 200 символов.";
+"delete_video_confirmation" = "Вы уверены, что хотите удалить это видео?";

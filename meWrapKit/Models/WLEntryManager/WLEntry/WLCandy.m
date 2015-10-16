@@ -84,4 +84,8 @@
     return comments;
 }
 
+- (BOOL)isVideo {
+    return self.type == WLCandyTypeVideo;
+}
+
 @end

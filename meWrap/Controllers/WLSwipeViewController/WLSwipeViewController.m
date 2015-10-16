@@ -8,15 +8,19 @@
 
 #import "WLSwipeViewController.h"
 
+typedef NS_ENUM(NSUInteger, WLSwipeViewControllerPosition) {
+    WLSwipeViewControllerPositionCenter,
+    WLSwipeViewControllerPositionLeft,
+    WLSwipeViewControllerPositionRight,
+};
+
 @interface WLSwipeViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView* scrollView;
 
-@property (nonatomic) BOOL swiping;
-
 @property (weak, nonatomic) UIViewController *secondViewController;
 
-@property (strong, nonatomic) NSMutableArray *viewControllers;
+@property (nonatomic) WLSwipeViewControllerPosition position;
 
 @end
 
@@ -41,6 +45,8 @@
     scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
     
     [scrollView.panGestureRecognizer addTarget:self action:@selector(panning:)];
+    
+    
 }
 
 - (UIViewController*)viewControllerAfterViewController:(UIViewController*)viewController {
@@ -97,42 +103,11 @@
 
 // MARK: - UIScrollViewDelegate
 
-- (void)panning:(UIPanGestureRecognizer*)sender {
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        self.swiping = YES;
-    } else if (sender.state == UIGestureRecognizerStateChanged) {
-        if (self.viewController) {
-            if (self.secondViewController) {
-                CGFloat width2 = [self visibleWidthOfViewController:self.secondViewController];
-                if (width2 == 0) {
-                    self.swiping = YES;
-                    self.secondViewController = nil;
-                    [self addViewControllers:self.scrollView];
-                } else {
-                    CGFloat width1 = [self visibleWidthOfViewController:self.viewController];
-                    UIViewController *viewController = width1 > width2 ? self.viewController : self.secondViewController;
-                    if (self.viewController != viewController) {
-                        _secondViewController = self.viewController;
-                        _viewController = viewController;
-                        [self didChangeViewController:_viewController];
-                    }
-                }
-            } else {
-                [self addViewControllers:self.scrollView];
-            }
-        }
-    }
-}
-
-- (void)addViewControllers:(UIScrollView*)scrollView {
-    if (!self.swiping) {
-        return;
-    }
-    CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView];
-    if (translation.x != 0) {
-        self.swiping = NO;
+- (void)setPosition:(WLSwipeViewControllerPosition)position {
+    if (_position != position) {
+        _position = position;
         UIScrollView *scrollView = self.scrollView;
-        if (translation.x > 0) {
+        if (position == WLSwipeViewControllerPositionLeft) {
             UIViewController *viewController = [self viewControllerBeforeViewController:self.viewController];
             if (viewController) {
                 self.viewController.view.frame = CGRectMake(scrollView.size.width, 0, scrollView.size.width, scrollView.size.height);
@@ -141,7 +116,7 @@
                 scrollView.contentOffset = CGPointMake(self.scrollView.width, 0);
                 self.secondViewController = viewController;
             }
-        } else {
+        } else if (position == WLSwipeViewControllerPositionRight) {
             UIViewController *viewController = [self viewControllerAfterViewController:self.viewController];
             if (viewController) {
                 viewController.view.frame = CGRectMake(scrollView.size.width, 0, scrollView.size.width, scrollView.size.height);
@@ -154,16 +129,29 @@
     }
 }
 
-- (NSMutableArray *)viewControllers {
-    if (!_viewControllers) {
-        _viewControllers = [NSMutableArray array];
+- (void)panning:(UIPanGestureRecognizer*)sender {
+    
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        _position = WLSwipeViewControllerPositionCenter;
+    } else if (sender.state == UIGestureRecognizerStateChanged) {
+        if (self.viewController) {
+            
+            CGFloat offset = self.scrollView.contentOffset.x - self.viewController.view.x;
+            if (offset < 0) {
+                self.position = WLSwipeViewControllerPositionLeft;
+            } else if (offset > 0) {
+                self.position = WLSwipeViewControllerPositionRight;
+            } else {
+                self.position = WLSwipeViewControllerPositionCenter;
+            }
+            
+            [self swapViewControllersIfNeededWithContentOffset:self.scrollView.contentOffset];
+        }
     }
-    return _viewControllers;
 }
 
 - (void)addViewController:(UIViewController*)viewController {
     if (viewController) {
-        [self.viewControllers addObject:viewController];
         [self addChildViewController:viewController];
         if (viewController.view.superview != self.scrollView) {
             [self.scrollView addSubview:viewController.view];
@@ -173,7 +161,6 @@
 
 - (void)removeViewController:(UIViewController*)viewController {
     if (viewController) {
-        [self.viewControllers removeObject:viewController];
         [viewController.view removeFromSuperview];
         [viewController removeFromParentViewController];
     }
@@ -223,17 +210,28 @@
     }
 }
 
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    CGFloat width2 = [self visibleWidthOfViewController:self.secondViewController withContentOffset:*targetContentOffset];
-    if (width2 != 0) {
-        CGFloat width1 = [self visibleWidthOfViewController:self.viewController withContentOffset:*targetContentOffset];
-        UIViewController *currentViewController = width1 > width2 ? self.viewController : self.secondViewController;
-        if (self.viewController != currentViewController) {
-            _secondViewController = self.viewController;
-            _viewController = currentViewController;
-            [self didChangeViewController:_viewController];
+- (void)swapViewControllersIfNeededWithContentOffset:(CGPoint)contentOffset {
+    if (self.secondViewController) {
+        CGFloat width2 = [self visibleWidthOfViewController:self.secondViewController withContentOffset:contentOffset];
+        if (width2 != 0) {
+            CGFloat width1 = [self visibleWidthOfViewController:self.viewController withContentOffset:contentOffset];
+            UIViewController *currentViewController = width1 > width2 ? self.viewController : self.secondViewController;
+            if (self.viewController != currentViewController) {
+                _secondViewController = self.viewController;
+                _viewController = currentViewController;
+                if (self.position == WLSwipeViewControllerPositionRight) {
+                    _position = WLSwipeViewControllerPositionLeft;
+                } else if (self.position == WLSwipeViewControllerPositionLeft) {
+                    _position = WLSwipeViewControllerPositionRight;
+                }
+                [self didChangeViewController:_viewController];
+            }
         }
     }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    [self swapViewControllersIfNeededWithContentOffset:*targetContentOffset];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -241,11 +239,6 @@
     self.secondViewController = nil;
     self.scrollView.contentSize = self.scrollView.size;
     self.scrollView.contentOffset = CGPointZero;
-    for (UIViewController *viewController in self.viewControllers) {
-        if (viewController != self.viewController) {
-            [self removeViewController:viewController];
-        }
-    }
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {

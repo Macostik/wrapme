@@ -20,7 +20,7 @@ extension UIScrollView {
         let insets = contentInset
         return CGPointMake(-insets.left, -insets.top)
     }
-
+    
     var maximumContentOffset: CGPoint {
         let insets = contentInset
         let width = contentSize.width - (bounds.width - insets.right)
@@ -49,7 +49,7 @@ extension UIScrollView {
     var scrollable: Bool {
         return (contentSize.width > fittingContentWidth) || (contentSize.height > fittingContentHeight)
     }
-
+    
     var verticalContentInsets: CGFloat {
         return contentInset.top + contentInset.bottom
     }
@@ -57,9 +57,9 @@ extension UIScrollView {
     var horizontalContentInsets: CGFloat {
         return contentInset.left + contentInset.right
     }
-
+    
     var fittingContentSize: CGSize {
-    return CGSizeMake(fittingContentWidth, fittingContentHeight)
+        return CGSizeMake(fittingContentWidth, fittingContentHeight)
     }
     
     var fittingContentWidth: CGFloat {
@@ -69,7 +69,7 @@ extension UIScrollView {
     var fittingContentHeight: CGFloat {
         return frame.height - verticalContentInsets
     }
-
+    
     func visibleRectOfRect(rect: CGRect) -> CGRect {
         return visibleRectOfRect(rect, offset:contentOffset)
     }

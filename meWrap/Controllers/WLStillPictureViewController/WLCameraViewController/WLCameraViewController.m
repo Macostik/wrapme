@@ -217,8 +217,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
         }];
     }];
     
-    [self captureImage:^{
-    } result:^(UIImage *image) {
+    [self captureImage:^(UIImage *image) {
         [weakSelf finishWithImage:image];
         weakSelf.view.userInteractionEnabled = YES;
         run_after(0.5f, ^{
@@ -456,6 +455,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 - (void)prepareSessionForPhotoTaking {
     __weak typeof(self)weakSelf = self;
     if (![self.session.outputs containsObject:self.stillImageOutput]) {
+        self.takePhotoButton.userInteractionEnabled = NO;
         [self blurCamera:^(WLBlock completion) {
             [self configureSession:^(AVCaptureSession *session) {
                 session.sessionPreset = AVCaptureSessionPresetPhoto;
@@ -464,7 +464,10 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
                 if ([session canAddOutput:weakSelf.stillImageOutput]) {
                     [session addOutput:weakSelf.stillImageOutput];
                 }
-            } completion:completion];
+            } completion:^{
+                weakSelf.takePhotoButton.userInteractionEnabled = YES;
+                completion();
+            }];
         }];
     }
 }
@@ -587,7 +590,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
     return [self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
 }
 
-- (void)captureImage:(WLBlock)completion result:(void (^)(UIImage*image))result failure:(WLFailureBlock)failure {
+- (void)captureImage:(void (^)(UIImage*image))result failure:(WLFailureBlock)failure {
 #if TARGET_IPHONE_SIMULATOR
 	run_getting_object(^id{
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
@@ -596,7 +599,6 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 		return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
 	}, ^ (UIImage* image) {
         if (image) {
-            if (completion) completion();
             if (result) result(image);
         } else {
             if (failure) failure(nil);
@@ -604,10 +606,9 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 	});
 	return;
 #endif
-	
+    
 	void (^handler) (CMSampleBufferRef, NSError *) = ^(CMSampleBufferRef buffer, NSError *error) {
-		if (!error) {
-            if (completion) completion();
+        if (!error) {
             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
             UIImage* image = [[UIImage alloc] initWithData:imageData];
             if (result) result(image);
@@ -615,13 +616,15 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
             if (failure) failure(error);
         }
 	};
-    __weak typeof(self)weakSelf = self;
-    AVCaptureConnection *connection = self.stillImageOutputConnection;
-    self.takePhotoButton.active = connection == nil;
-	connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
-    dispatch_async(self.sessionQueue, ^{
-        [weakSelf.stillImageOutput captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
-    });
+    
+    AVCaptureStillImageOutput *output = self.stillImageOutput;
+    AVCaptureConnection *connection = [output connectionWithMediaType:AVMediaTypeVideo];
+    if (connection && [self.session.outputs containsObject:output]) {
+        connection.videoMirrored = (self.position == AVCaptureDevicePositionFront);
+        [output captureStillImageAsynchronouslyFromConnection:connection completionHandler:handler];
+    } else {
+        if (failure) failure(nil);
+    }
 }
 
 - (AVCaptureDevicePosition)position {

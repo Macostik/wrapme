@@ -408,8 +408,6 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
     self.rotateButton.hidden = recording;
     self.cropAreaView.hidden = recording;
     self.flashModeControl.alpha = recording ? 0.0f : 1.0f;
-    self.cameraViewBottomConstraint.constant = recording ? 0 : self.bottomViewHeightConstraint.constant;
-    [self.cameraView layoutIfNeeded];
 }
 
 - (void)prepareSessionForVideoRecording {
@@ -601,9 +599,11 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 
 - (void)configureSession:(void (^)(AVCaptureSession* session))configuration {
 	AVCaptureSession* session = self.session;
-	[session beginConfiguration];
-	configuration(session);
-	[session commitConfiguration];
+    dispatch_async(self.sessionQueue, ^{
+        [session beginConfiguration];
+        configuration(session);
+        [session commitConfiguration];
+    });
 }
 
 - (void)configureDevice:(AVCaptureDevice*)device configuration:(void (^)(AVCaptureDevice* device))configuration {

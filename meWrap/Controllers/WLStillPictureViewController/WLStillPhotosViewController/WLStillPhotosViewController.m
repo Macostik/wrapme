@@ -36,15 +36,15 @@
     __weak typeof(self)weakSelf = self;
     self.view.userInteractionEnabled = NO;
     WLEditPicture *picture = [WLEditPicture picture:self.mode];
-    runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
-        [picture setImage:image completion:^(id object) {
-            weakSelf.view.userInteractionEnabled = YES;
-            [operation finish];
-        }];
-    });
     picture.saveToAlbum = saveToAlbum;
     picture.date = [NSDate now];
-    [self addPicture:picture success:^{
+    [self addPicture:picture success:^(WLEditPicture *picture){
+        runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
+            [picture setImage:image completion:^(id object) {
+                weakSelf.view.userInteractionEnabled = YES;
+                [operation finish];
+            }];
+        });
     } failure:^(NSError *error) {
         [error show];
     }];
@@ -97,14 +97,12 @@
     picture.type = WLCandyTypeVideo;
     picture.date = [NSDate now];
     picture.saveToAlbum = saveToAlbum;
-    
-    runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
-        [picture setVideoAtPath:path completion:^(id object) {
-            [operation finish];
-        }];
-    });
-    
-    [self addPicture:picture success:^{
+    [self addPicture:picture success:^(WLEditPicture *picture) {
+        runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
+            [picture setVideoAtPath:path completion:^(id object) {
+                [operation finish];
+            }];
+        });
     } failure:^(NSError *error) {
         [error show];
     }];
@@ -147,11 +145,11 @@
 
 - (void)handleAsset:(PHAsset*)asset {
     __weak typeof(self)weakSelf = self;
-    __weak WLEditPicture *picture = [WLEditPicture picture:self.mode];
+    WLEditPicture *picture = [WLEditPicture picture:self.mode];
     picture.assetID = asset.localIdentifier;
     picture.date = asset.creationDate;
     picture.type = asset.mediaType == PHAssetMediaTypeVideo ? WLCandyTypeVideo : WLCandyTypeImage;
-    [self addPicture:picture success:^{
+    [self addPicture:picture success:^(WLEditPicture *picture) {
         runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
             if (asset.mediaType == PHAssetMediaTypeVideo) {
                 PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
@@ -195,12 +193,12 @@
     }
 }
 
-- (void)addPicture:(WLEditPicture*)picture success:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)addPicture:(WLEditPicture*)picture success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [self shouldAddPicture:^{
         [weakSelf.pictures addObject:picture];
         [weakSelf updatePicturesCountLabel];
-        if (success) success();
+        if (success) success(picture);
     } failure:failure];
 }
 

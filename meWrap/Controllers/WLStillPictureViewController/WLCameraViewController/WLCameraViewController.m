@@ -413,24 +413,30 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 
 - (void)prepareSessionForVideoRecording {
     __weak typeof(self)weakSelf = self;
-    [self blurCamera:^(WLBlock completion) {
-        [self configureSession:^(AVCaptureSession *session) {
-            session.sessionPreset = AVCaptureSessionPresetMedium;
-            AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] error:nil];
-            [session addInput:input];
-            weakSelf.audioInput = input;
-            [session removeOutput:weakSelf.stillImageOutput];
-            [session addOutput:weakSelf.movieFileOutput];
-        } completion:completion];
-    }];
-    [self applyDeviceOrientation:[WLDeviceOrientationBroadcaster broadcaster].orientation forConnection:self.movieFileOutputConnection];
+    if (![self.session.outputs containsObject:self.movieFileOutput]) {
+        [self blurCamera:^(WLBlock completion) {
+            [self configureSession:^(AVCaptureSession *session) {
+                session.sessionPreset = AVCaptureSessionPresetMedium;
+                AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] error:nil];
+                if ([session canAddInput:input]) {
+                    [session addInput:input];
+                }
+                weakSelf.audioInput = input;
+                [session removeOutput:weakSelf.stillImageOutput];
+                if ([session canAddOutput:weakSelf.movieFileOutput]) {
+                    [session addOutput:weakSelf.movieFileOutput];
+                }
+            } completion:completion];
+        }];
+        [self applyDeviceOrientation:[WLDeviceOrientationBroadcaster broadcaster].orientation forConnection:self.movieFileOutputConnection];
+    }
 }
 
 - (void)blurCamera:(void (^)(WLBlock completion))handler {
     UIView *snapshot = [self.cameraView.superview snapshotViewAfterScreenUpdates:YES];
-    snapshot.frame = self.cameraView.superview.frame;
+    snapshot.frame = self.cameraView.superview.bounds;
     snapshot.alpha = 0;
-    [self.view insertSubview:snapshot aboveSubview:self.cameraView.superview];
+    [self.cameraView.superview insertSubview:snapshot aboveSubview:self.cameraView];
     
     UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     effectView.frame = snapshot.bounds;
@@ -449,14 +455,18 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 
 - (void)prepareSessionForPhotoTaking {
     __weak typeof(self)weakSelf = self;
-    [self blurCamera:^(WLBlock completion) {
-        [self configureSession:^(AVCaptureSession *session) {
-            session.sessionPreset = AVCaptureSessionPresetPhoto;
-            [session removeInput:weakSelf.audioInput];
-            [session removeOutput:weakSelf.movieFileOutput];
-            [session addOutput:weakSelf.stillImageOutput];
-        } completion:completion];
-    }];
+    if (![self.session.outputs containsObject:self.stillImageOutput]) {
+        [self blurCamera:^(WLBlock completion) {
+            [self configureSession:^(AVCaptureSession *session) {
+                session.sessionPreset = AVCaptureSessionPresetPhoto;
+                [session removeInput:weakSelf.audioInput];
+                [session removeOutput:weakSelf.movieFileOutput];
+                if ([session canAddOutput:weakSelf.stillImageOutput]) {
+                    [session addOutput:weakSelf.stillImageOutput];
+                }
+            } completion:completion];
+        }];
+    }
 }
 
 - (void)startVideoRecording {

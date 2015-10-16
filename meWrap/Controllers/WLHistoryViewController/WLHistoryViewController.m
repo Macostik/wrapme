@@ -48,6 +48,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *commentIndicator;
 @property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *candyIndicator;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @property (weak, nonatomic) WLComment *lastComment;
 
@@ -73,6 +74,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 @property (weak, nonatomic) WLOperationQueue *paginationQueue;
 
+
+
 @end
 
 @implementation WLHistoryViewController
@@ -84,7 +87,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view addGestureRecognizer:self.scrollView.panGestureRecognizer];
+    [self.contentView addGestureRecognizer:self.scrollView.panGestureRecognizer];
     self.videoPlayerView.delegate = self;
     
     __weak typeof(self)weakSelf = self;

@@ -675,8 +675,8 @@
 		14B2429C195C4CEB00C5D208 /* WLEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditSession.m; path = WLEditSession/WLEditSession.m; sourceTree = "<group>"; };
 		14B242A2195C4D9200C5D208 /* WLProfileEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileEditSession.h; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.h; sourceTree = "<group>"; };
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
-		5B201B961BCF99B1003DBCDF /* WLComposerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposerScrollView.h; path = meWrap/Views/WLScrollView/WLComposerScrollView.h; sourceTree = "<group>"; };
-		5B201B971BCF99B1003DBCDF /* WLComposerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposerScrollView.m; path = meWrap/Views/WLScrollView/WLComposerScrollView.m; sourceTree = "<group>"; };
+		5B201B961BCF99B1003DBCDF /* WLComposerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposerScrollView.h; path = WLComposerScrollView/WLComposerScrollView.h; sourceTree = "<group>"; };
+		5B201B971BCF99B1003DBCDF /* WLComposerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposerScrollView.m; path = WLComposerScrollView/WLComposerScrollView.m; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
 		5B7591DD1BAAEF7800967AAA /* WLReportList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = WLReportList.plist; path = WLReportList/WLReportList.plist; sourceTree = "<group>"; };
 		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -1629,8 +1629,6 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
-				5B201B961BCF99B1003DBCDF /* WLComposerScrollView.h */,
-				5B201B971BCF99B1003DBCDF /* WLComposerScrollView.m */,
 				C5B19DA81BC3C0AC00EB5353 /* exportAdhoc.plist */,
 				C5B19DA91BC3C0AC00EB5353 /* exportAppStore.plist */,
 				C5A278C41B9598DF00D5C969 /* Info */,
@@ -1795,6 +1793,7 @@
 			isa = PBXGroup;
 			children = (
 				C521E18B1BC7AE1B00505432 /* VideoPlayerView.swift */,
+				5B1B5C691BD10CC6005681EF /* WLComposerScrollView */,
 				C5AE8FB41BB0286D00A9B27B /* TTTAttributedLabel */,
 				C5177C381B7CE55E008102C7 /* WLWrapStatusImageView */,
 				C5BAD12F1B53F9C60028FCEB /* WLAlertView */,
@@ -2038,6 +2037,15 @@
 				14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */,
 			);
 			name = WLProfileEditSession;
+			sourceTree = "<group>";
+		};
+		5B1B5C691BD10CC6005681EF /* WLComposerScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				5B201B961BCF99B1003DBCDF /* WLComposerScrollView.h */,
+				5B201B971BCF99B1003DBCDF /* WLComposerScrollView.m */,
+			);
+			name = WLComposerScrollView;
 			sourceTree = "<group>";
 		};
 		5B2B0C201A77DDC400DADC9D /* WLButton */ = {

@@ -2666,6 +2666,7 @@
                                             <constraint firstItem="OBg-6r-k4s" firstAttribute="leading" secondItem="7yS-IZ-1M1" secondAttribute="leading" id="CUf-Hw-66D"/>
                                             <constraint firstItem="n28-ZL-uwJ" firstAttribute="top" secondItem="dFH-JX-QNB" secondAttribute="top" id="Gmz-Sb-t5U"/>
                                             <constraint firstItem="7yS-IZ-1M1" firstAttribute="leading" secondItem="dFH-JX-QNB" secondAttribute="leading" id="Mff-ZG-wfR"/>
+                                            <constraint firstAttribute="height" constant="42" id="PV3-xU-ZzR"/>
                                             <constraint firstAttribute="bottom" secondItem="n28-ZL-uwJ" secondAttribute="bottom" id="S1z-oE-YMC"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xGF-6q-Jgs" secondAttribute="trailing" id="ZwS-aI-YEB"/>
                                             <constraint firstItem="xGF-6q-Jgs" firstAttribute="top" secondItem="dFH-JX-QNB" secondAttribute="top" id="cLf-kH-4RM"/>
@@ -2726,11 +2727,12 @@
                                     <constraint firstAttribute="trailing" secondItem="G8T-0M-jNN" secondAttribute="trailing" constant="12" id="IcP-wV-Vfi"/>
                                     <constraint firstItem="G8T-0M-jNN" firstAttribute="top" secondItem="U0A-o6-Hed" secondAttribute="top" constant="-5" id="Mkb-Az-pQv"/>
                                     <constraint firstItem="G8T-0M-jNN" firstAttribute="leading" secondItem="U0A-o6-Hed" secondAttribute="leading" id="NJz-Zs-KSf"/>
-                                    <constraint firstAttribute="height" constant="120" id="Q7b-Sa-Mcr"/>
+                                    <constraint firstItem="dFH-JX-QNB" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="top" priority="250" constant="6" id="dOs-nd-JXn"/>
                                     <constraint firstItem="G8T-0M-jNN" firstAttribute="top" secondItem="DKe-of-CwY" secondAttribute="top" id="mG9-4s-qs6"/>
                                     <constraint firstAttribute="bottom" secondItem="dFH-JX-QNB" secondAttribute="bottom" constant="12" id="miB-5X-d8Z"/>
+                                    <constraint firstItem="dFH-JX-QNB" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="top" priority="750" constant="66" id="qQx-LV-j8Z"/>
                                     <constraint firstItem="dFH-JX-QNB" firstAttribute="leading" secondItem="DOa-Ws-aK4" secondAttribute="leading" constant="12" id="uT0-IV-O6n"/>
-                                    <constraint firstItem="DKe-of-CwY" firstAttribute="top" secondItem="DOa-Ws-aK4" secondAttribute="top" constant="12" id="vs5-cV-Y5s"/>
+                                    <constraint firstItem="dFH-JX-QNB" firstAttribute="top" secondItem="DKe-of-CwY" secondAttribute="bottom" constant="6" id="vkO-3n-grC"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
@@ -2800,6 +2802,7 @@
                     <connections>
                         <outlet property="avatarImageView" destination="DKe-of-CwY" id="pwy-xB-Q7n"/>
                         <outlet property="bottomView" destination="DOa-Ws-aK4" id="oO2-CG-2mp"/>
+                        <outlet property="bottomViewHeightPrioritizer" destination="xsD-Sv-qce" id="lVy-Ia-AQX"/>
                         <outlet property="candyIndicator" destination="7yS-IZ-1M1" id="4SO-xL-ie4"/>
                         <outlet property="commentButton" destination="2ai-CO-qH0" id="gaJ-nC-R6A"/>
                         <outlet property="commentButtonPrioritizer" destination="gXs-Hi-baz" id="XGg-CY-Euu"/>
@@ -2842,6 +2845,13 @@
                         <outletCollection property="defaultConstraints" destination="R09-AS-8Qc" id="QdU-QJ-Kfr"/>
                         <outletCollection property="parentViews" destination="FUv-v8-MyM" id="UGE-sz-nXg"/>
                         <outletCollection property="alternativeConstraints" destination="Fr5-au-wVq" id="SQ7-sg-U7C"/>
+                    </connections>
+                </customObject>
+                <customObject id="xsD-Sv-qce" userLabel="BottomViewHeightPrioritizer" customClass="WLLayoutPrioritizer">
+                    <connections>
+                        <outletCollection property="parentViews" destination="DOa-Ws-aK4" id="geG-Yh-HaY"/>
+                        <outletCollection property="alternativeConstraints" destination="dOs-nd-JXn" id="Jog-XC-vEb"/>
+                        <outletCollection property="defaultConstraints" destination="qQx-LV-j8Z" id="CiE-yr-HS4"/>
                     </connections>
                 </customObject>
                 <tapGestureRecognizer cancelsTouchesInView="NO" id="AFe-us-m8R">
@@ -3415,22 +3425,10 @@
                                     <constraint firstItem="OVW-mQ-dry" firstAttribute="top" secondItem="vTd-en-UyT" secondAttribute="top" constant="20" id="AZN-eA-73h"/>
                                     <constraint firstItem="flS-sD-RYF" firstAttribute="leading" secondItem="OVW-mQ-dry" secondAttribute="trailing" id="BYY-qM-h2i"/>
                                     <constraint firstItem="flS-sD-RYF" firstAttribute="width" secondItem="vTd-en-UyT" secondAttribute="width" id="Go9-yB-jpw"/>
-                                    <constraint firstItem="flS-sD-RYF" firstAttribute="leading" secondItem="vTd-en-UyT" secondAttribute="leading" id="KuE-oi-9xI"/>
-                                    <constraint firstItem="flS-sD-RYF" firstAttribute="top" secondItem="vTd-en-UyT" secondAttribute="top" id="LEN-zT-vhd"/>
                                     <constraint firstAttribute="trailing" secondItem="OVW-mQ-dry" secondAttribute="trailing" constant="23" id="UZU-qV-lZd"/>
-                                    <constraint firstAttribute="bottom" secondItem="flS-sD-RYF" secondAttribute="bottom" id="Vjl-BR-9cQ"/>
                                     <constraint firstItem="flS-sD-RYF" firstAttribute="height" secondItem="vTd-en-UyT" secondAttribute="height" id="X4n-ca-leY"/>
                                     <constraint firstAttribute="bottom" secondItem="OVW-mQ-dry" secondAttribute="bottom" constant="-31" id="egK-O2-mzt"/>
-                                    <constraint firstAttribute="trailing" secondItem="flS-sD-RYF" secondAttribute="trailing" id="s6t-OZ-1k0"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="KuE-oi-9xI"/>
-                                        <exclude reference="LEN-zT-vhd"/>
-                                        <exclude reference="Vjl-BR-9cQ"/>
-                                        <exclude reference="s6t-OZ-1k0"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="M8n-42-KAe" id="kN7-he-Waw"/>
                                 </connections>

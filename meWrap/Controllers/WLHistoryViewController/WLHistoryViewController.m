@@ -58,6 +58,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 @property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *primaryConstraint;
 @property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *commentButtonPrioritizer;
+@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *bottomViewHeightPrioritizer;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;
@@ -302,6 +303,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         self.videoPlayerView.hidden = YES;
         self.drawButton.hidden = self.editButton.hidden = NO;
     }
+    self.bottomViewHeightPrioritizer.defaultState = !self.avatarImageView.hidden;
 }
 
 - (void)setCommentButtonTitle:(WLCandy *)candy {

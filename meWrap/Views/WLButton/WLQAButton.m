@@ -12,7 +12,11 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.hidden = [WLAPIEnvironment currentEnvironment].isProduction;
+#ifdef DEBUG
+    self.hidden = NO;
+#else
+    self.hidden = [ENV isEqualToString:WLAPIEnvironmentProduction];
+#endif
 }
 
 @end

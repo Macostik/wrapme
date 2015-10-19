@@ -86,7 +86,6 @@
 
 - (void)handleDeviceToken:(NSData*)deviceToken {
     self.pushToken = deviceToken;
-    WLLog(@"PUBNUB - apns_device_token: %@", deviceToken);
     if ([WLAuthorizationRequest authorized]) {
         [[WLAuthorizationRequest updateDevice] send];
     }
@@ -345,7 +344,13 @@
 }
 
 - (void)client:(PubNub *)client didReceiveStatus:(PNSubscribeStatus *)status {
-    WLLog(@"PUBNUB - did receive status: %@", status.subscribedChannelGroups);
+    if (status.isError) {
+        WLLog(@"PUBNUB - subscribtion error: %@", status.errorData);
+    } else if (status.subscribedChannelGroups) {
+        WLLog(@"PUBNUB - subscribed on channel groups: %@", status.subscribedChannelGroups);
+    } else if (status.subscribedChannels) {
+        WLLog(@"PUBNUB - subscribed on channels: %@", status.subscribedChannels);
+    }
 }
 
 // MARK: - WLEntryNotifyReceiver

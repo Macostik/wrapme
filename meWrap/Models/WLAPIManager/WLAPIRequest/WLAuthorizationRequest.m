@@ -139,7 +139,7 @@ static BOOL authorized = NO;
     return [[self PUT:@"users/device"] parametrize:^(id request, NSMutableDictionary *parameters) {
         NSData *deviceToken = [WLNotificationCenter defaultCenter].pushToken;
         if (deviceToken) {
-            NSLog(@"PUBNUB - apns_device_token_string: %@", [PNData HEXFromDevicePushToken:deviceToken]);
+            WLLog(@"PUBNUB - apns_device_token: %@", [PNData HEXFromDevicePushToken:deviceToken]);
             [parameters trySetObject:[PNData HEXFromDevicePushToken:deviceToken] forKey:@"device_token"];
         }
         parameters[@"os"] = @"ios";

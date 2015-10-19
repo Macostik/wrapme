@@ -9,7 +9,7 @@
 #import "WLBaseViewController.h"
 
 typedef NS_OPTIONS(NSUInteger, WLWrapSegment) {
-    WLWrapSegmentPhotos,
+    WLWrapSegmentMedia,
     WLWrapSegmentChat,
     WLWrapSegmentFriend
 };

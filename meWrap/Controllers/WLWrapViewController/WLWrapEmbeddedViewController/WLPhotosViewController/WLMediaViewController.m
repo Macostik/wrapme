@@ -1,5 +1,5 @@
 //
-//  WLPhotosViewController.m
+//  WLMediaViewController.m
 //  
 //
 //  Created by Yura Granchenko on 10/06/15.
@@ -20,7 +20,7 @@
 #import "WLChronologicalEntryPresenter.h"
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
-#import "WLPhotosViewController.h"
+#import "WLMediaViewController.h"
 #import "WLNavigationHelper.h"
 #import "WLLayoutPrioritizer.h"
 #import "WLUploadingView.h"
@@ -32,7 +32,7 @@
 
 static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
-@interface WLPhotosViewController () <WLPresentingImageViewDelegate, WLEntryNotifyReceiver>
+@interface WLMediaViewController () <WLPresentingImageViewDelegate, WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) IBOutlet PaginatedStreamDataSource *dataSource;
 @property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *primaryConstraint;
@@ -43,7 +43,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 
 @end
 
-@implementation WLPhotosViewController
+@implementation WLMediaViewController
 
 @dynamic delegate;
 
@@ -147,8 +147,8 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 - (IBAction)addPhoto:(id)sender {
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
-        if ([weakSelf.delegate respondsToSelector:@selector(photosViewControllerDidAddPhoto:)]) {
-            [weakSelf.delegate photosViewControllerDidAddPhoto:weakSelf];
+        if ([weakSelf.delegate respondsToSelector:@selector(mediaViewControllerDidAddPhoto:)]) {
+            [weakSelf.delegate mediaViewControllerDidAddPhoto:weakSelf];
         }
     }];
 }

@@ -10,7 +10,7 @@
 #import "WLWrapViewController.h"
 #import "WLStillPictureViewController.h"
 #import "WLNavigationHelper.h"
-#import "WLPhotosViewController.h"
+#import "WLMediaViewController.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
 #import "SegmentedControl.h"
@@ -26,7 +26,7 @@
 #import "WLFollowingViewController.h"
 #import "WLSoundPlayer.h"
 
-@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLPhotosViewControllerDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
+@interface WLWrapViewController () <WLStillPictureViewControllerDelegate, WLMediaViewControllerDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *messageCountLabel;
@@ -145,7 +145,7 @@
             return weakSelf.wrap;
         }];
         [receiver setDidAddBlock:^(WLCandy *candy) {
-            if ([weakSelf isViewLoaded] && weakSelf.segment == WLWrapSegmentPhotos) {
+            if ([weakSelf isViewLoaded] && weakSelf.segment == WLWrapSegmentMedia) {
                 [candy markAsRead];
             }
         }];
@@ -158,8 +158,8 @@
 
 - (IBAction)segmentChanged:(SegmentedControl*)sender {
     NSUInteger selectedSegment = self.segment = sender.selectedSegment;
-    if (selectedSegment == WLWrapSegmentPhotos) {
-        self.viewController = [self controllerForClass:[WLPhotosViewController class] badge:self.candyCountLabel];
+    if (selectedSegment == WLWrapSegmentMedia) {
+        self.viewController = [self controllerForClass:[WLMediaViewController class] badge:self.candyCountLabel];
     } else if (selectedSegment == WLWrapSegmentChat) {
         self.viewController = [self controllerForClass:[WLChatViewController class] badge:self.messageCountLabel];
     } else {
@@ -272,9 +272,9 @@
     return viewController;
 }
 
-// MARK: - WLPhotoViewControllerDelegate
+// MARK: - WLMediaViewControllerDelegate
 
-- (void)photosViewControllerDidAddPhoto:(WLPhotosViewController *)controller {
+- (void)mediaViewControllerDidAddPhoto:(WLMediaViewController *)controller {
     WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController];
     stillPictureViewController.wrap = self.wrap;
     stillPictureViewController.mode = WLStillPictureModeDefault;

@@ -368,7 +368,7 @@
 		C5BCF01A1B551B7B00E4AD6D /* WLMessageDateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BCEFE41B551B7B00E4AD6D /* WLMessageDateView.xib */; };
 		C5BCF0331B551B7B00E4AD6D /* WLContributorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFF21B551B7B00E4AD6D /* WLContributorCell.m */; };
 		C5BCF0381B551B7B00E4AD6D /* WLContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFF41B551B7B00E4AD6D /* WLContributorsViewController.m */; };
-		C5BCF03D1B551B7B00E4AD6D /* WLPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFF71B551B7B00E4AD6D /* WLPhotosViewController.m */; };
+		C5BCF03D1B551B7B00E4AD6D /* WLMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCEFF71B551B7B00E4AD6D /* WLMediaViewController.m */; };
 		C5BCF0481B551C3E00E4AD6D /* WLCandiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCF0401B551C3E00E4AD6D /* WLCandiesCell.m */; };
 		C5BCF04D1B551C3E00E4AD6D /* WLCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCF0431B551C3E00E4AD6D /* WLCandyCell.m */; };
 		C5BEC3851B8F099300499EEA /* WLContributorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5BEC3831B8F099300499EEA /* WLContributorCell.xib */; };
@@ -1265,8 +1265,8 @@
 		C5BCEFF21B551B7B00E4AD6D /* WLContributorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLContributorCell.m; sourceTree = "<group>"; };
 		C5BCEFF31B551B7B00E4AD6D /* WLContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLContributorsViewController.h; sourceTree = "<group>"; };
 		C5BCEFF41B551B7B00E4AD6D /* WLContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLContributorsViewController.m; sourceTree = "<group>"; };
-		C5BCEFF61B551B7B00E4AD6D /* WLPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPhotosViewController.h; sourceTree = "<group>"; };
-		C5BCEFF71B551B7B00E4AD6D /* WLPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPhotosViewController.m; sourceTree = "<group>"; };
+		C5BCEFF61B551B7B00E4AD6D /* WLMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMediaViewController.h; sourceTree = "<group>"; };
+		C5BCEFF71B551B7B00E4AD6D /* WLMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMediaViewController.m; sourceTree = "<group>"; };
 		C5BCF03F1B551C3E00E4AD6D /* WLCandiesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCandiesCell.h; sourceTree = "<group>"; };
 		C5BCF0401B551C3E00E4AD6D /* WLCandiesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCandiesCell.m; sourceTree = "<group>"; };
 		C5BCF0421B551C3E00E4AD6D /* WLCandyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCandyCell.h; sourceTree = "<group>"; };
@@ -3456,12 +3456,13 @@
 			path = WLContributorCell;
 			sourceTree = "<group>";
 		};
-		C5BCEFF51B551B7B00E4AD6D /* WLPhotosViewController */ = {
+		C5BCEFF51B551B7B00E4AD6D /* WLMediaViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C5BCEFF61B551B7B00E4AD6D /* WLPhotosViewController.h */,
-				C5BCEFF71B551B7B00E4AD6D /* WLPhotosViewController.m */,
+				C5BCEFF61B551B7B00E4AD6D /* WLMediaViewController.h */,
+				C5BCEFF71B551B7B00E4AD6D /* WLMediaViewController.m */,
 			);
+			name = WLMediaViewController;
 			path = WLPhotosViewController;
 			sourceTree = "<group>";
 		};
@@ -3520,7 +3521,7 @@
 			children = (
 				C5BCEFD51B551B7B00E4AD6D /* WLChatViewController */,
 				C5BCEFEF1B551B7B00E4AD6D /* WLContributorsViewController */,
-				C5BCEFF51B551B7B00E4AD6D /* WLPhotosViewController */,
+				C5BCEFF51B551B7B00E4AD6D /* WLMediaViewController */,
 				C5BFE4CD1B4FD930004B655E /* WLWrapEmbeddedViewController.h */,
 				C5BFE4CE1B4FD930004B655E /* WLWrapEmbeddedViewController.m */,
 			);
@@ -4631,7 +4632,7 @@
 				C5053E4F1BC7D7800040613A /* WLAuthorization.m in Sources */,
 				C5E6E94E1BBAC3EC007FFA66 /* NSSet+WLCollection.m in Sources */,
 				C54AF6A419B8C491006F7EDB /* WLWrapCell.m in Sources */,
-				C5BCF03D1B551B7B00E4AD6D /* WLPhotosViewController.m in Sources */,
+				C5BCF03D1B551B7B00E4AD6D /* WLMediaViewController.m in Sources */,
 				C55A45301BAC1CBE0055AEC2 /* WLUploading+Extended.m in Sources */,
 				C54731B41B906A7400B583FD /* WLBatchEditPictureViewController.m in Sources */,
 				C5E6EA561BBAC3EC007FFA66 /* WLEntry.m in Sources */,

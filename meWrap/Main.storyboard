@@ -55,7 +55,6 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
-            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1376,7 +1375,7 @@
             </objects>
             <point key="canvasLocation" x="1730" y="124"/>
         </scene>
-        <!--Source View Controller-->
+        <!--Add Contributors View Controller-->
         <scene sceneID="eJ4-7I-sOa">
             <objects>
                 <viewController storyboardIdentifier="WLAddContributorsViewController" automaticallyAdjustsScrollViewInsets="NO" id="2bk-UF-zkR" customClass="WLAddContributorsViewController" sceneMemberID="viewController">
@@ -1424,29 +1423,12 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Mp-6R-mE3">
-                                        <rect key="frame" x="556" y="20" width="44" height="44"/>
-                                        <animations/>
-                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="44" id="clE-uO-Xy6"/>
-                                            <constraint firstAttribute="height" constant="44" id="yUj-bs-RBL"/>
-                                        </constraints>
-                                        <state key="normal" image="add_by_phone_white">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="push:" destination="AtS-Jw-GZt" eventType="touchUpInside" id="muN-Bw-noo"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="1Mp-6R-mE3" secondAttribute="trailing" id="ANT-sJ-Mw5"/>
                                     <constraint firstAttribute="height" constant="64" id="KJ6-LJ-st0"/>
                                     <constraint firstItem="Bop-dI-sMz" firstAttribute="leading" secondItem="Bvm-fO-3Iz" secondAttribute="leading" constant="75" id="NTl-Tt-QHs"/>
-                                    <constraint firstItem="1Mp-6R-mE3" firstAttribute="top" secondItem="Bvm-fO-3Iz" secondAttribute="top" constant="20" id="QA0-uS-Zhx"/>
                                     <constraint firstAttribute="trailing" secondItem="Bop-dI-sMz" secondAttribute="trailing" constant="75" id="esB-Qq-K9f"/>
                                     <constraint firstAttribute="centerY" secondItem="khD-F3-MeT" secondAttribute="centerY" constant="-10" id="mV9-C1-n3Y"/>
                                     <constraint firstItem="Bop-dI-sMz" firstAttribute="top" secondItem="Bvm-fO-3Iz" secondAttribute="top" constant="20" id="xuq-u1-RkS"/>
@@ -1607,186 +1589,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Adp-VB-Iup" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="AtS-Jw-GZt" userLabel="Invite Transition" customClass="WLStoryboardTransition">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="destinationID" value="WLInviteViewController"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="sourceIsDelegate" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="sourceViewController" destination="2bk-UF-zkR" id="iB8-p7-f0c"/>
-                    </connections>
-                </customObject>
             </objects>
             <point key="canvasLocation" x="3718.125" y="789.08450704225345"/>
-        </scene>
-        <!--Invite View Controller-->
-        <scene sceneID="LCf-at-3Ye">
-            <objects>
-                <viewController storyboardIdentifier="WLInviteViewController" automaticallyAdjustsScrollViewInsets="NO" id="ro7-vm-AlA" customClass="WLInviteViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="sHo-2x-VbK"/>
-                        <viewControllerLayoutGuide type="bottom" id="EAn-Ce-PWy"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="lyX-GX-vpE">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntu-B6-9gu">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="invite_your_friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="BgE-ku-qap" customClass="WLLabel">
-                                        <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                        <animations/>
-                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vPv-49-SfA" customClass="WLButton">
-                                        <rect key="frame" x="12" y="20" width="32" height="44"/>
-                                        <animations/>
-                                        <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
-                                        <state key="normal" title="L">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="back:" destination="ro7-vm-AlA" eventType="touchUpInside" id="nNL-OF-4pK"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <animations/>
-                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="Fuk-ox-iEr"/>
-                                    <constraint firstItem="BgE-ku-qap" firstAttribute="leading" secondItem="ntu-B6-9gu" secondAttribute="leading" id="IpK-L2-Z3F"/>
-                                    <constraint firstAttribute="bottom" secondItem="BgE-ku-qap" secondAttribute="bottom" id="QL8-Ax-JNH"/>
-                                    <constraint firstItem="vPv-49-SfA" firstAttribute="leading" secondItem="ntu-B6-9gu" secondAttribute="leading" constant="12" id="Zec-BP-D2r"/>
-                                    <constraint firstAttribute="centerY" secondItem="vPv-49-SfA" secondAttribute="centerY" constant="-10" id="eVF-Xe-R4C"/>
-                                    <constraint firstAttribute="trailing" secondItem="BgE-ku-qap" secondAttribute="trailing" id="oCA-12-Hb9"/>
-                                    <constraint firstItem="BgE-ku-qap" firstAttribute="top" secondItem="ntu-B6-9gu" secondAttribute="top" constant="20" id="uph-VR-R5X"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wb9-YW-Ahp">
-                                <rect key="frame" x="140" y="64" width="320" height="200"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="enter_your_friends_name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlS-f9-yyB" customClass="WLLabel">
-                                        <rect key="frame" x="76" y="12" width="168" height="18"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                        <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xmt-yf-g7R" customClass="WLTextField">
-                                        <rect key="frame" x="40" y="42" width="240" height="30"/>
-                                        <animations/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="QuD-FO-rvl"/>
-                                            <constraint firstAttribute="width" constant="240" id="fRx-ib-2eH"/>
-                                        </constraints>
-                                        <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="textChanged:" destination="ro7-vm-AlA" eventType="editingChanged" id="NMI-dS-HyK"/>
-                                            <outlet property="delegate" destination="ro7-vm-AlA" id="7OT-bA-yaO"/>
-                                        </connections>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="555-555-5555" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KIX-5W-ASY" customClass="WLTextField">
-                                        <rect key="frame" x="40" y="84" width="240" height="30"/>
-                                        <animations/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="4hk-mh-lbV"/>
-                                            <constraint firstAttribute="width" constant="240" id="ViC-1w-JM5"/>
-                                        </constraints>
-                                        <color key="textColor" white="0.15099999308586121" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="textChanged:" destination="ro7-vm-AlA" eventType="editingChanged" id="QhZ-aA-da6"/>
-                                            <outlet property="delegate" destination="ro7-vm-AlA" id="F6t-1F-y6X"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="1sG-Qx-q1P"/>
-                                    <constraint firstItem="KIX-5W-ASY" firstAttribute="top" secondItem="Xmt-yf-g7R" secondAttribute="bottom" constant="12" id="4Wd-Uh-wNn"/>
-                                    <constraint firstAttribute="centerX" secondItem="Xmt-yf-g7R" secondAttribute="centerX" id="9EX-Lp-DXQ"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="TlS-f9-yyB" secondAttribute="trailing" constant="12" id="D0J-kc-Nj9"/>
-                                    <constraint firstItem="Xmt-yf-g7R" firstAttribute="top" secondItem="TlS-f9-yyB" secondAttribute="bottom" constant="12" id="Des-vn-wW6"/>
-                                    <constraint firstItem="TlS-f9-yyB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Wb9-YW-Ahp" secondAttribute="leading" constant="12" id="gtm-fb-2kI"/>
-                                    <constraint firstAttribute="centerX" secondItem="TlS-f9-yyB" secondAttribute="centerX" id="ntV-2J-5O2"/>
-                                    <constraint firstItem="TlS-f9-yyB" firstAttribute="top" secondItem="Wb9-YW-Ahp" secondAttribute="top" constant="12" id="p8r-qe-gKf"/>
-                                    <constraint firstAttribute="width" constant="320" id="sac-kh-dAE"/>
-                                    <constraint firstAttribute="centerX" secondItem="KIX-5W-ASY" secondAttribute="centerX" id="tIw-ct-JOq"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdg-Ph-jY5" customClass="WLPressButton">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="oue-Mf-rrk"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="send_invite">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="addContact:" destination="ro7-vm-AlA" eventType="touchUpInside" id="Iya-xy-N1d"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="kdg-Ph-jY5" firstAttribute="leading" secondItem="lyX-GX-vpE" secondAttribute="leading" id="3OF-CO-wjE"/>
-                            <constraint firstItem="ntu-B6-9gu" firstAttribute="top" secondItem="sHo-2x-VbK" secondAttribute="bottom" constant="-20" id="AfK-je-XVk"/>
-                            <constraint firstAttribute="trailing" secondItem="kdg-Ph-jY5" secondAttribute="trailing" id="Lu6-3G-bza"/>
-                            <constraint firstItem="ntu-B6-9gu" firstAttribute="leading" secondItem="lyX-GX-vpE" secondAttribute="leading" id="Pzd-6Q-ATb"/>
-                            <constraint firstAttribute="centerX" secondItem="Wb9-YW-Ahp" secondAttribute="centerX" id="QBB-zj-bfh"/>
-                            <constraint firstAttribute="trailing" secondItem="ntu-B6-9gu" secondAttribute="trailing" id="WMC-5X-g2O"/>
-                            <constraint firstItem="EAn-Ce-PWy" firstAttribute="top" secondItem="kdg-Ph-jY5" secondAttribute="bottom" id="bWp-Rk-jx2"/>
-                            <constraint firstItem="Wb9-YW-Ahp" firstAttribute="top" secondItem="sHo-2x-VbK" secondAttribute="bottom" constant="44" id="h0N-Dz-Rpe"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="LVb-lT-0Jh"/>
-                    <connections>
-                        <outlet property="addUserButton" destination="kdg-Ph-jY5" id="7zR-iq-XqN"/>
-                        <outlet property="navigationBar" destination="ntu-B6-9gu" id="1pH-fQ-A2D"/>
-                        <outlet property="phoneNumberTextField" destination="KIX-5W-ASY" id="l2d-Wt-sKj"/>
-                        <outlet property="userNameTextField" destination="Xmt-yf-g7R" id="Jpl-Yb-dg4"/>
-                        <outletCollection property="keyboardAdjustmentBottomConstraints" destination="bWp-Rk-jx2" id="L4A-CZ-RPw"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZQb-fd-dXj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4378.125" y="789.08450704225345"/>
         </scene>
         <!--Source View Controller-->
         <scene sceneID="swT-1e-jus">
@@ -4617,7 +4421,6 @@ QWRkEEZyaWVuZFZpZXc
         </scene>
     </scenes>
     <resources>
-        <image name="add_by_phone_white" width="30" height="30"/>
         <image name="bt_camera_disabled" width="40" height="40"/>
         <image name="bt_camera_normal" width="40" height="40"/>
         <image name="bt_camera_pressed" width="40" height="40"/>

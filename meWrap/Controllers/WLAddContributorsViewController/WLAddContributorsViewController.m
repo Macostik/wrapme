@@ -10,7 +10,6 @@
 #import "WLAddressBook.h"
 #import "WLAddressBookRecordCell.h"
 #import "UIFont+CustomFonts.h"
-#import "WLInviteViewController.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLButton.h"
 #import "WLFontPresetter.h"
@@ -18,7 +17,7 @@
 #import "WLAddressBookGroupView.h"
 #import "NSObject+NibAdditions.h"
 
-@interface WLAddContributorsViewController () <StreamViewDelegate, WLAddressBookRecordCellDelegate, UITextFieldDelegate, WLInviteViewControllerDelegate, WLFontPresetterReceiver, WLAddressBookReceiver>
+@interface WLAddContributorsViewController () <StreamViewDelegate, WLAddressBookRecordCellDelegate, UITextFieldDelegate, WLFontPresetterReceiver, WLAddressBookReceiver>
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
@@ -237,36 +236,6 @@
     [self filterContacts];
 	[textField resignFirstResponder];
 	return YES;
-}
-
-#pragma mark - WLInviteViewControllerDelegate
-
-- (void)inviteViewController:(WLInviteViewController *)controller didInviteContact:(WLAddressBookRecord *)contact {
-    if (!self.addressBook) {
-        self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
-        [self.addressBook addRecord:contact];
-        [self filterContacts];
-        [self.navigationController popToViewController:self animated:NO];
-        return;
-    }
-    __weak typeof(self)weakSelf = self;
-    [self.addressBook addUniqueRecord:contact success:^(BOOL exists, NSArray *records, NSArray *groups) {
-        WLAddressBookRecord *record = [records lastObject];
-        WLArrangedAddressBookGroup *group = [groups lastObject];
-        if (!exists) {
-            [weakSelf.invitedRecords addObject:record];
-        }
-        [weakSelf.addressBook selectPhoneNumber:[record.phoneNumbers firstObject]];
-        [weakSelf filterContacts];
-        NSUInteger section = [weakSelf.addressBook.groups indexOfObject:group];
-        NSUInteger row = [group.records indexOfObject:record];
-        [weakSelf.streamView scrollToItem:[weakSelf.streamView itemPassingTest:^BOOL(StreamItem *item) {
-            return item.position.section == section && item.position.index == row;
-        }] animated:NO];
-        [weakSelf.navigationController popToViewController:weakSelf animated:NO];
-    } failure:^(NSError *error) {
-        [error show];
-    }];
 }
 
 #pragma mark - WLFontPresetterReceiver

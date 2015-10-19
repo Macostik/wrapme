@@ -170,7 +170,6 @@
 		C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
 		C54AF6AE19B8C491006F7EDB /* WLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D918E4329F009CE64C /* WLProgressBar.m */; };
 		C54AF6BB19B8C491006F7EDB /* WLWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */; };
-		C54AF6BF19B8C491006F7EDB /* WLInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE2BA9193DFF4E003702D4 /* WLInviteViewController.m */; };
 		C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
 		C54AF6C919B8C491006F7EDB /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
 		C54AF6CB19B8C491006F7EDB /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
@@ -716,8 +715,6 @@
 		AC79ED371934791600D7031F /* WLEmojiCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEmojiCell.m; path = WLComposeBar/WLEmojiView/WLEmojiCell/WLEmojiCell.m; sourceTree = "<group>"; };
 		ACDE2A0C192CB38B00CA0803 /* WLEmojiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLEmojiView.h; path = WLComposeBar/WLEmojiView/WLEmojiView.h; sourceTree = "<group>"; };
 		ACDE2A0D192CB38B00CA0803 /* WLEmojiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEmojiView.m; path = WLComposeBar/WLEmojiView/WLEmojiView.m; sourceTree = "<group>"; };
-		ACDE2BA8193DFF4E003702D4 /* WLInviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLInviteViewController.h; path = WLInviteViewController/WLInviteViewController.h; sourceTree = "<group>"; };
-		ACDE2BA9193DFF4E003702D4 /* WLInviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLInviteViewController.m; path = WLInviteViewController/WLInviteViewController.m; sourceTree = "<group>"; };
 		ACF8D90F1934B4350001E570 /* smiles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = smiles.plist; sourceTree = "<group>"; };
 		ACF8D9111934B4400001E570 /* numbers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = numbers.plist; sourceTree = "<group>"; };
 		ACF8D9131934B4460001E570 /* flowers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = flowers.plist; sourceTree = "<group>"; };
@@ -1731,7 +1728,6 @@
 				C51383CD19A4AB0F00D23257 /* WLWhatsUpViewController */,
 				C5FCC697199A5C4B009A0DC6 /* WLNavigation */,
 				CE1FEABF196EB73000BF1B22 /* WLEditViewController */,
-				ACDE2BA4193DFE85003702D4 /* WLInviteViewController */,
 				128156A81938A0BF00035F89 /* WLStillPictureViewController */,
 				AC00A4C419095E5600EE6EDA /* WLChangeProfileViewController */,
 				12E1104619067095007DB4AC /* WLCandyViewController */,
@@ -2214,15 +2210,6 @@
 				C5A9CC881B946F9C0084D0F5 /* WLEmojiCell.xib */,
 			);
 			name = WLEmojiCell;
-			sourceTree = "<group>";
-		};
-		ACDE2BA4193DFE85003702D4 /* WLInviteViewController */ = {
-			isa = PBXGroup;
-			children = (
-				ACDE2BA8193DFF4E003702D4 /* WLInviteViewController.h */,
-				ACDE2BA9193DFF4E003702D4 /* WLInviteViewController.m */,
-			);
-			name = WLInviteViewController;
 			sourceTree = "<group>";
 		};
 		C500983B1AFCCC6400729DA4 /* WLCommentCell */ = {
@@ -4684,7 +4671,6 @@
 				C5B097331BB14F040057D6BA /* PubNub+Presence.m in Sources */,
 				C5B097791BB14F040057D6BA /* PNData.m in Sources */,
 				C54CEF991BCFAF1D00128CBE /* UINavigationController+Ext.swift in Sources */,
-				C54AF6BF19B8C491006F7EDB /* WLInviteViewController.m in Sources */,
 				C53E5CF71A84D8BD004F61B0 /* WLEntryView.m in Sources */,
 				C5B097971BB14F040057D6BA /* PNLeaveParser.m in Sources */,
 				C5D051BD1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */,

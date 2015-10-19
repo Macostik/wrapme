@@ -9,6 +9,7 @@
         <mutableArray key="icons.ttf">
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -29,6 +30,13 @@
                     <rect key="frame" x="57" y="105" width="24" height="12"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6q-Hy-0eK">
+                    <rect key="frame" x="57" y="31" width="20" height="20"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="20"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -81,6 +89,8 @@
                 <constraint firstItem="hoB-ij-p5B" firstAttribute="width" secondItem="pZh-BF-TTX" secondAttribute="width" constant="-2" id="POA-qu-4Mw"/>
                 <constraint firstAttribute="centerY" secondItem="hoB-ij-p5B" secondAttribute="centerY" id="cit-hd-5SH"/>
                 <constraint firstItem="eHZ-ah-rRV" firstAttribute="trailing" secondItem="hoB-ij-p5B" secondAttribute="trailing" constant="2" id="d0P-Lx-MDO"/>
+                <constraint firstItem="hoB-ij-p5B" firstAttribute="trailing" secondItem="n6q-Hy-0eK" secondAttribute="trailing" constant="2" id="k2t-g9-ava"/>
+                <constraint firstItem="n6q-Hy-0eK" firstAttribute="top" secondItem="hoB-ij-p5B" secondAttribute="top" constant="2" id="sLI-Hz-LLe"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -89,6 +99,7 @@
                 <outlet property="imageView" destination="hoB-ij-p5B" id="zBe-1z-zYj"/>
                 <outlet property="selectionView" destination="pZh-BF-TTX" id="N35-mw-qMK"/>
                 <outlet property="statusLabel" destination="eHZ-ah-rRV" id="p4q-WX-2gc"/>
+                <outlet property="videoIndicator" destination="n6q-Hy-0eK" id="wcd-tF-vZa"/>
             </connections>
             <point key="canvasLocation" x="775" y="649"/>
         </view>

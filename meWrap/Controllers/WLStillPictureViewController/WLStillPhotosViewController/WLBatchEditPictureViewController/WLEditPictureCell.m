@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIView *selectionView;
 @property (weak, nonatomic) IBOutlet UIView *deletionView;
+@property (weak, nonatomic) IBOutlet UILabel *videoIndicator;
 
 @end
 
@@ -37,6 +38,7 @@
     }
     self.selectionView.hidden = !picture.selected;
     self.deletionView.hidden = !picture.deleted;
+    self.videoIndicator.hidden = picture.type != WLCandyTypeVideo;
 }
 
 @end

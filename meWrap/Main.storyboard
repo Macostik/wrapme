@@ -4230,8 +4230,16 @@ QWRkEEZyaWVuZFZpZXc
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7VE-Kd-SiX">
+                                        <rect key="frame" x="539" y="45" width="51" height="31"/>
+                                        <animations/>
+                                        <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="2CM-a7-513"/>
+                                        </connections>
+                                    </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="notify_about_new_chat" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUR-VV-aaK" customClass="WLLabel">
-                                        <rect key="frame" x="12" y="45" width="153" height="18"/>
+                                        <rect key="frame" x="12" y="45" width="515" height="18"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
@@ -4241,14 +4249,6 @@ QWRkEEZyaWVuZFZpZXc
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7VE-Kd-SiX">
-                                        <rect key="frame" x="539" y="45" width="51" height="31"/>
-                                        <animations/>
-                                        <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="changeSwichValue:" destination="TKE-mx-bkQ" eventType="valueChanged" id="2CM-a7-513"/>
-                                        </connections>
-                                    </switch>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4260,7 +4260,14 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstItem="cUR-VV-aaK" firstAttribute="leading" secondItem="zYA-26-DXt" secondAttribute="leading" constant="12" id="Myf-dH-dDH"/>
                                     <constraint firstItem="cUR-VV-aaK" firstAttribute="top" secondItem="zet-Ls-5CH" secondAttribute="bottom" constant="12" id="Qm5-pC-aIZ"/>
                                     <constraint firstItem="zet-Ls-5CH" firstAttribute="top" secondItem="zYA-26-DXt" secondAttribute="top" constant="12" id="Ssd-3n-Yfz"/>
+                                    <constraint firstAttribute="bottom" secondItem="cUR-VV-aaK" secondAttribute="bottom" constant="13" id="akO-nq-Aq1"/>
+                                    <constraint firstItem="7VE-Kd-SiX" firstAttribute="leading" secondItem="cUR-VV-aaK" secondAttribute="trailing" constant="12" id="l7g-8y-DB5"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1Kn-R7-s80"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-Oj-q4N">
                                 <rect key="frame" x="0.0" y="200" width="600" height="121"/>
@@ -4311,6 +4318,7 @@ QWRkEEZyaWVuZFZpZXc
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="R1I-Cl-5SX" secondAttribute="bottom" id="1uY-eM-Y2W"/>
+                                    <constraint firstAttribute="bottom" secondItem="bHL-LP-6Kt" secondAttribute="bottom" constant="13" id="5ic-v3-JQ0"/>
                                     <constraint firstItem="bsu-Ad-ILe" firstAttribute="top" secondItem="Vtf-da-c8a" secondAttribute="bottom" constant="24" id="QcC-UM-DoK"/>
                                     <constraint firstItem="Vtf-da-c8a" firstAttribute="leading" secondItem="fdR-Oj-q4N" secondAttribute="leading" constant="12" id="Y1Y-Ub-xYv"/>
                                     <constraint firstItem="bHL-LP-6Kt" firstAttribute="top" secondItem="bsu-Ad-ILe" secondAttribute="bottom" constant="12" id="alO-fn-qxf"/>
@@ -4321,6 +4329,11 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstItem="bHL-LP-6Kt" firstAttribute="trailing" secondItem="R1I-Cl-5SX" secondAttribute="leading" constant="-12" id="sEg-rk-5BT"/>
                                     <constraint firstItem="Vtf-da-c8a" firstAttribute="top" secondItem="fdR-Oj-q4N" secondAttribute="top" constant="12" id="v2e-fR-RM6"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1uY-eM-Y2W"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="WLButton">
                                 <rect key="frame" x="12" y="417" width="576" height="30"/>

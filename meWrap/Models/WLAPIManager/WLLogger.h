@@ -16,14 +16,17 @@ static void WLInitializeLELog (void) {
     [LELog sharedInstance].token = @"e9e259b1-98e6-41b5-b530-d89d1f5af01d";
 }
 
-#ifdef DEBUG
-
 #define WLLog(format, ...)\
 NSLog(format, ##__VA_ARGS__);\
 
-#else
-
-#define WLLog(format, ...)\
-[[LELog sharedInstance] log:[NSString stringWithFormat:@"%@-%@ >> %@", [WLUser currentUser].identifier, [WLAuthorization currentAuthorization].deviceUID, [NSString stringWithFormat:format, ##__VA_ARGS__]]];
-
-#endif
+//#ifdef DEBUG
+//
+//#define WLLog(format, ...)\
+//NSLog(format, ##__VA_ARGS__);\
+//
+//#else
+//
+//#define WLLog(format, ...)\
+//[[LELog sharedInstance] log:[NSString stringWithFormat:@"%@-%@ >> %@", [WLUser currentUser].identifier, [WLAuthorization currentAuthorization].deviceUID, [NSString stringWithFormat:format, ##__VA_ARGS__]]];
+//
+//#endif

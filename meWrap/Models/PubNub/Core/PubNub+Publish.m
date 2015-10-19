@@ -8,6 +8,7 @@
 #import "PubNub+CorePrivate.h"
 #import "PNStatus+Private.h"
 #import "PNConfiguration.h"
+#import "PNLogMacro.h"
 #import "PNHelpers.h"
 #import "PNAES.h"
 
@@ -191,6 +192,14 @@
            // it and probably whole client instance has been deallocated.
            #pragma clang diagnostic push
            #pragma clang diagnostic ignored "-Wreceiver-is-weak"
+           if (status.isError) {
+                
+               status.retryBlock = ^{
+                   
+                   [weakSelf publish:message toChannel:channel mobilePushPayload:payloads
+                      storeInHistory:shouldStore compressed:compressed withCompletion:block];
+               };
+           }
            [weakSelf callBlock:block status:YES withResult:nil andStatus:status];
            #pragma clang diagnostic pop
        }];

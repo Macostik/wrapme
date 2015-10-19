@@ -28,7 +28,7 @@
  * Step 1:
  * Import the header in your implementation or prefix file:
  *
- * #import "CocoaLumberjack.h"
+ * #import <CocoaLumberjack/CocoaLumberjack.h>
  *
  * Step 2:
  * Define your logging level in your implementation file:

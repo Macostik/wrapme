@@ -18,22 +18,9 @@
 @implementation WLToastAppearance
 
 + (instancetype)defaultAppearance {
-	return [self errorAppearance];
-}
-
-+ (instancetype)errorAppearance {
     static id instance = nil;
     if (instance == nil) {
         instance = [[self alloc] init];
-    }
-    return instance;
-}
-
-+ (instancetype)infoAppearance {
-    static WLToastAppearance *instance = nil;
-    if (instance == nil) {
-        instance = [[self alloc] init];
-        instance.backgroundColor = [UIColor blueColor];
     }
     return instance;
 }
@@ -223,13 +210,21 @@
     UIViewController *visibleViewController = [UIWindow mainWindow].rootViewController;
     UIViewController *presentedViewController = visibleViewController.presentedViewController;
     while (presentedViewController) {
-        visibleViewController = presentedViewController;
-        presentedViewController = visibleViewController.presentedViewController;
+        if ([presentedViewController definesToastAppearance]) {
+            visibleViewController = presentedViewController;
+            presentedViewController = visibleViewController.presentedViewController;
+        } else {
+            presentedViewController = nil;
+        }
     }
     if ([visibleViewController isKindOfClass:[UINavigationController class]]) {
         visibleViewController = [(UINavigationController*)visibleViewController topViewController];
     }
     return [visibleViewController toastAppearanceViewController:toast];
+}
+
+- (BOOL)definesToastAppearance {
+    return YES;
 }
 
 - (UIViewController*)toastAppearanceViewController:(WLToast*)toast {
@@ -245,6 +240,18 @@
         referenceView = self.view;
     }
     return referenceView;
+}
+
+@end
+
+@interface UIAlertController (WLToast)
+
+@end
+
+@implementation UIAlertController (WLToast)
+
+- (BOOL)definesToastAppearance {
+    return NO;
 }
 
 @end

@@ -29,10 +29,6 @@ static NSTimeInterval WLToastDismissalDelay = 4.0f;
 
 + (instancetype)defaultAppearance;
 
-+ (instancetype)errorAppearance;
-
-+ (instancetype)infoAppearance;
-
 @property (nonatomic) BOOL shouldShowIcon;
 
 @property (strong, nonatomic) UIColor* backgroundColor;
@@ -56,6 +52,8 @@ static NSTimeInterval WLToastDismissalDelay = 4.0f;
 @interface UIViewController (WLToast) <WLToastAppearance>
 
 + (UIViewController*)toastAppearanceViewController:(WLToast*)toast;
+
+- (BOOL)definesToastAppearance;
 
 - (UIViewController*)toastAppearanceViewController:(WLToast*)toast;
 

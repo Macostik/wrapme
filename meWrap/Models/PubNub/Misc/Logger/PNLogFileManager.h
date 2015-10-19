@@ -1,3 +1,4 @@
+#import "DDFileLogger.h"
 #import "CocoaLumberjack.h"
 
 

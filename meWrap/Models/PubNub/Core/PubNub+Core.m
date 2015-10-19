@@ -17,6 +17,7 @@
 #import "PNConfiguration.h"
 #import "PNReachability.h"
 #import "PNConstants.h"
+#import "PNLogMacro.h"
 #import "PNNetwork.h"
 #import "PNHelpers.h"
 
@@ -162,7 +163,7 @@ void pn_dispatch_async(dispatch_queue_t queue, dispatch_block_t block) {
 #pragma mark - Information
 
 + (PNClientInformation *)information {
-    
+
     static PNClientInformation *_sharedClientInformation;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -311,6 +312,10 @@ void pn_dispatch_async(dispatch_queue_t queue, dispatch_block_t block) {
     // objects live feed or not.
     PNStatusCategory previousState = self.recentClientStatus;
     PNStatusCategory currentState = recentClientStatus;
+    if (currentState == PNReconnectedCategory) {
+        
+        currentState = PNConnectedCategory;
+    }
     
     // In case if client disconnected only from one of it's channels it should keep 'connected'
     // state.
@@ -343,7 +348,7 @@ void pn_dispatch_async(dispatch_queue_t queue, dispatch_block_t block) {
                 #pragma clang diagnostic pop
             });
         }
-    }
+}
 }
 
 
@@ -479,8 +484,8 @@ void pn_dispatch_async(dispatch_queue_t queue, dispatch_block_t block) {
 
 - (void)client:(PubNub *)__unused client didReceiveStatus:(PNSubscribeStatus *)status {
     
-    if (status.category == PNConnectedCategory || status.category == PNDisconnectedCategory ||
-        status.category == PNUnexpectedDisconnectCategory) {
+    if (status.category == PNConnectedCategory || status.category == PNReconnectedCategory ||
+        status.category == PNDisconnectedCategory || status.category == PNUnexpectedDisconnectCategory) {
         
         self.recentClientStatus = status.category;
     }

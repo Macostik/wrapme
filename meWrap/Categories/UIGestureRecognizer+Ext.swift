@@ -22,7 +22,7 @@ extension UIView {
     }
 }
 
-typealias GestureAction = @convention(block) (UIGestureRecognizer) -> ()
+typealias GestureAction = (UIGestureRecognizer) -> ()
 
 class GestureActionWrapper {
     var closure: GestureAction?
@@ -32,25 +32,32 @@ class GestureActionWrapper {
     }
 }
 
+private var identifierAssociationHandle: UInt8 = 0
+private var actionClosureAssociationHandle: UInt8 = 1
+
 extension UIGestureRecognizer {
     
     var identifier: String? {
         get {
-            return objc_getAssociatedObject(self, "identifier") as? String
+            return objc_getAssociatedObject(self, &identifierAssociationHandle) as? String
         }
         set {
             if let value = newValue {
-                objc_setAssociatedObject(self, "identifier", value, .OBJC_ASSOCIATION_RETAIN)
+                objc_setAssociatedObject(self, &identifierAssociationHandle, value, .OBJC_ASSOCIATION_RETAIN)
             }
         }
     }
     
     var actionClosure: GestureAction? {
         get {
-            return (objc_getAssociatedObject(self, "actionClosure") as? GestureActionWrapper)?.closure
+            if let wrapper = objc_getAssociatedObject(self, &actionClosureAssociationHandle) as? GestureActionWrapper {
+                return wrapper.closure
+            }
+            return nil
         }
         set {
-            objc_setAssociatedObject(self, "actionClosure", GestureActionWrapper(newValue), .OBJC_ASSOCIATION_RETAIN)
+            let wrapper = GestureActionWrapper(newValue)
+            objc_setAssociatedObject(self, &actionClosureAssociationHandle, wrapper, .OBJC_ASSOCIATION_RETAIN)
         }
     }
     

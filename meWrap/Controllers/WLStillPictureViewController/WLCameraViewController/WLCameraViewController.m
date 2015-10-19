@@ -50,7 +50,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 @property (strong, nonatomic) AVCaptureMovieFileOutput *movieFileOutput;
 
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;
-@property (strong, nonatomic) AVCaptureDeviceInput *input;
+@property (strong, nonatomic) AVCaptureDeviceInput *videoInput;
 @property (nonatomic, strong) AVCaptureSession* session;
 @property (nonatomic, weak) AVCaptureConnection* stillImageOutputConnection;
 @property (nonatomic, weak) AVCaptureConnection* movieFileOutputConnection;
@@ -425,7 +425,15 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
                 if ([session canAddOutput:weakSelf.movieFileOutput]) {
                     [session addOutput:weakSelf.movieFileOutput];
                 }
-            } completion:completion];
+            } completion:^{
+                AVCaptureTorchMode torchMode = (AVCaptureTorchMode)weakSelf.flashMode;
+                [weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
+                    if (device.hasTorch && device.torchAvailable && [device isTorchModeSupported:torchMode]) {
+                        device.torchMode = torchMode;
+                    }
+                }];
+                completion();
+            }];
         }];
         [self applyDeviceOrientation:[WLDeviceOrientationBroadcaster broadcaster].orientation forConnection:self.movieFileOutputConnection];
     }
@@ -518,22 +526,19 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
     return nil;
 }
 
-- (void)setInput:(AVCaptureDeviceInput *)input {
+- (void)setVideoInput:(AVCaptureDeviceInput *)videoInput {
 	AVCaptureSession* session = self.session;
 	[session beginConfiguration];
-	for (AVCaptureDeviceInput* input in session.inputs) {
-		[session removeInput:input];
+	if (_videoInput) {
+		[session removeInput:_videoInput];
 	}
-	if ([session canAddInput:input]) {
-		[session addInput:input];
+	if ([session canAddInput:videoInput]) {
+        _videoInput = videoInput;
+		[session addInput:videoInput];
 	}
 	[session commitConfiguration];
-	self.flashModeControl.hidden = !self.input.device.hasFlash;
+	self.flashModeControl.hidden = !videoInput.device.hasFlash;
 	[self applyDeviceOrientation:[WLDeviceOrientationBroadcaster broadcaster].orientation];
-}
-
-- (AVCaptureDeviceInput *)input {
-	return [self.session.inputs lastObject];
 }
 
 - (AVCaptureSession *)session {
@@ -628,7 +633,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 }
 
 - (AVCaptureDevicePosition)position {
-	return self.input.device.position;
+	return self.videoInput.device.position;
 }
 
 - (void)setPosition:(AVCaptureDevicePosition)position {
@@ -636,7 +641,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 }
 
 - (void)setPosition:(AVCaptureDevicePosition)position animated:(BOOL)animated {
-	self.input = [self inputWithPosition:position];
+	self.videoInput = [self inputWithPosition:position];
 }
 
 - (void)configureSession:(void (^)(AVCaptureSession* session))configuration {
@@ -663,7 +668,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 }
 
 - (void)configureCurrentDevice:(void (^)(AVCaptureDevice* device))configuration {
-	[self configureDevice:self.input.device configuration:configuration];
+	[self configureDevice:self.videoInput.device configuration:configuration];
 }
 
 - (void)setFlashMode:(AVCaptureFlashMode)flashMode {
@@ -678,11 +683,11 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 }
 
 - (AVCaptureFlashMode)flashMode {
-	return self.input.device.flashMode;
+	return self.videoInput.device.flashMode;
 }
 
 - (BOOL)flashSupported {
-    return self.input.device.hasFlash;
+    return self.videoInput.device.hasFlash;
 }
 
 - (void)autoFocusAtPoint:(CGPoint)point {
@@ -741,7 +746,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 }
 
 - (AVCaptureInputPort*)videoPort {
-    for (AVCaptureInputPort *port in [self.input ports]) {
+    for (AVCaptureInputPort *port in [self.videoInput ports]) {
         if ([port mediaType] == AVMediaTypeVideo) {
             return port;
         }
@@ -750,7 +755,7 @@ static NSTimeInterval maxVideoRecordedDuration = 60;
 }
 
 - (void)setZoomScale:(CGFloat)zoomScale {
-    AVCaptureDevice *device = self.input.device;
+    AVCaptureDevice *device = self.videoInput.device;
 	_zoomScale = Smoothstep(1, MIN(8, device.activeFormat.videoMaxZoomFactor), zoomScale);
     
     if (device.videoZoomFactor != _zoomScale) {

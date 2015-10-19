@@ -3151,9 +3151,6 @@
                                                     <constraint firstAttribute="trailing" secondItem="GNF-37-WDp" secondAttribute="trailing" priority="250" id="yWR-hO-j1P"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="maxLines">
-                                                        <real key="value" value="2"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                         <color key="value" red="0.52964758869999995" green="0.52963173389999996" blue="0.52964073420000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
@@ -3691,9 +3688,6 @@
                                     <constraint firstAttribute="height" secondItem="tDd-ic-aQG" secondAttribute="height" constant="12" id="zBb-C4-u4W"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maxLines">
-                                        <real key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                         <color key="value" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>

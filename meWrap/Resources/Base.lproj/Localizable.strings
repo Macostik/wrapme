@@ -222,7 +222,7 @@
 "thank_you" = "Thank you";
 "thank_you_for_report" = "Thank you for you report. We will remove this content if it violates our community guidelines.";
 "video_suggestion" = "Hold for video, tap for photo";
-"slide_to_cancel" = "Slide to cancel";
+"slide_to_cancel" = "< Slide to cancel";
 "comment_limit" = "Please limit the comment length to 200 words.";
 "delete_video_confirmation" = "Are you sure you want to delete the video?";
 "media" = "Media";

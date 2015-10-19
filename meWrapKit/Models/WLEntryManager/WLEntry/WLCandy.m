@@ -88,4 +88,8 @@
     return self.type == WLCandyTypeVideo;
 }
 
+- (NSString *)messageAppearanceByCandyType:(NSString *)firstString and:(NSString *)secondString {
+    return self.isVideo ? NSLocalizedString(firstString, nil) : NSLocalizedString(secondString, nil);
+}
+
 @end

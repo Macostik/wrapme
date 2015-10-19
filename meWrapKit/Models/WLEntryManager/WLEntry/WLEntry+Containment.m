@@ -105,7 +105,7 @@
 }
 
 + (NSString *)displayName {
-    return WLLS(@"photo");
+    return WLLS(@"candy");
 }
 
 - (WLEntry *)container {

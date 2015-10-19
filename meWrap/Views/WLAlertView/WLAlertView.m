@@ -83,7 +83,7 @@
 
 + (void)confirmCandyDeleting:(WLCandy *)candy success:(WLBlock)success failure:(WLFailureBlock)failure {
     [UIAlertController showWithTitle:WLLS(@"delete_photo")
-                             message:candy.isVideo ? WLLS(@"delete_video_confirmation") :  WLLS(@"delete_photo_confirmation")
+                             message:[candy messageAppearanceByCandyType:@"delete_video_confirmation" and:@"delete_photo_confirmation"]
                              buttons:@[WLLS(@"cancel"),WLLS(@"ok")]
                           completion:^(NSUInteger index) {
                               if (index == 1) {

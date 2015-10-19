@@ -251,8 +251,9 @@
 
 @implementation WLToast (DefinedToasts)
 
-+ (void)showPhotoDownloadingMessage {
-    [self showWithMessage:[NSString stringWithFormat:WLLS(@"downloading_photo"), WLAlbumName]];
++ (void)showDownloadingMediaMessageForCandy:(WLCandy *)candy {
+    [self showWithMessage:[NSString stringWithFormat:[candy messageAppearanceByCandyType:@"downloading_video"
+                                                                                     and:@"downloading_photo"], WLAlbumName]];
 }
 
 + (void)showMessageForUnavailableWrap:(WLWrap *)wrap {

@@ -41,8 +41,8 @@
 "invalid_image_error" = "處理相片過程中發生錯誤。";
 "too_small_image_error" = "相片解像度太低。";
 "report" = "舉報";
-"candy_deleted" = "已成功刪除相片。";
-"candy_unavailable" = "找不到相片。";
+"photo_deleted" = "已成功刪除相片。";
+"photo_unavailable" = "找不到相片。";
 "incorrect_email" = "電郵地址不正確。";
 "name_cannot_be_blank" = "請輸入姓名。";
 "formatted_is_typing" = "%@輸入中...";
@@ -145,7 +145,6 @@
 "friends" = "成員";
 "notify_about_new_photo" = "當有新相片時通知我";
 "add_friend..." = "新增成員...";
-"photo" = "相片";
 "notify_about_new_chat" = "當有新對話時通知我";
 "account" = "個人資料";
 "photos" = "相片";
@@ -225,4 +224,12 @@
 "slide_to_cancel" = "< Slide to cancel";
 "comment_limit" = "Please limit the comment length to 200 words.";
 "delete_video_confirmation" = "Are you sure you want to delete the video?";
+"media" = "Media";
+"video_is_uploading" = "Uploading the video now. Please wait.";
+"video_deleted" = "The video was deleted.";
+"video_unavailable" = "Video not found.";
+"downloading_video" = "Downloading the video now. It'll be in \"%@\" album momentarily.";
+"formatted_video_by" = "Video by %@";
+"no_video_to_upload" = "No video to be uploaded.";
+"notify_about_new_media" = "Notify me when new media is added.";
 "media" = "Media";

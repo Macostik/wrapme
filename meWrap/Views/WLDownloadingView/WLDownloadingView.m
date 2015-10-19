@@ -19,6 +19,8 @@
 
 @property (weak, nonatomic) IBOutlet WLProgressBar *progressBar;
 
+@property (weak, nonatomic) IBOutlet UILabel *downloadingMediaLabel;
+
 @property (weak, nonatomic) WLCandy *candy;
 
 @property (strong, nonatomic) WLImageBlock successBlock;
@@ -64,6 +66,7 @@
 
 - (void)setCandy:(WLCandy *)candy {
     _candy = candy;
+    self.downloadingMediaLabel.text = [candy messageAppearanceByCandyType:@"downloading_video" and:@"downloading_photo"];
     [[WLCandy notifier] addReceiver:self];
 }
 

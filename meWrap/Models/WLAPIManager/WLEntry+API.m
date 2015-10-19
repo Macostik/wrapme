@@ -690,11 +690,13 @@
             if (success) success(nil);
             break;
         case WLContributionStatusInProgress: {
-            if (failure) failure([NSError errorWithDescription:WLLS(@"photo_is_uploading")]);
+            if (failure) failure([NSError errorWithDescription:[self messageAppearanceByCandyType:@"video_is_uploading"
+                                                                                              and:@"photo_is_uploading"]]);
         } break;
         case WLContributionStatusFinished: {
             if ([self.identifier isEqualToString:self.uploadIdentifier]) {
-                if (failure) failure([NSError errorWithDescription:WLLS(@"photo_is_uploading")]);
+                if (failure) failure([NSError errorWithDescription:[self messageAppearanceByCandyType:@"video_is_uploading"
+                                                                                                  and:@"photo_is_uploading"]]);
             } else {
                 operation = [[WLAPIRequest deleteCandy:self] send:success failure:failure];
             }
@@ -709,7 +711,8 @@
     if (self.uploaded) {
         return [[WLAPIRequest candy:self] send:success failure:failure];
     } else {
-        if (failure) failure([NSError errorWithDescription:WLLS(@"photo_is_uploading")]);
+        if (failure) failure([NSError errorWithDescription:[self messageAppearanceByCandyType:@"video_is_uploading"
+                                                                                          and:@"photo_is_uploading"]]);
         return nil;
     }
 }
@@ -802,7 +805,8 @@
                     if (success) success(nil);
                     break;
                 case WLContributionStatusInProgress:
-                    if (failure) failure([NSError errorWithDescription:WLLS(@"photo_is_uploading")]);
+                    if (failure) failure([NSError errorWithDescription:[self.candy messageAppearanceByCandyType:@"video_is_uploading"
+                                                                                                            and:@"photo_is_uploading"]]);
                     break;
                 case WLContributionStatusFinished:
                     return [[WLAPIRequest deleteComment:self] send:success failure:failure];

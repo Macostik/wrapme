@@ -69,7 +69,7 @@
             
             [menu addDownloadItem:^(WLCandy *candy) {
                 [candy download:^{
-                    [WLToast showPhotoDownloadingMessage];
+                    [WLToast showDownloadingMediaMessageForCandy:candy];
                 } failure:^(NSError *error) {
                     [error show];
                 }];

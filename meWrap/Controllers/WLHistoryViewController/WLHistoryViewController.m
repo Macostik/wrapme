@@ -166,7 +166,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         self.timeLabel.text = candy.editedAt.timeAgoStringAtAMPM;
     } else {
         _bottomViewMode = WLHistoryBottomViewModeCreating;
-        self.postLabel.text = [NSString stringWithFormat:WLLS(@"formatted_photo_by"), candy.contributor.name];
+        self.postLabel.text = [NSString stringWithFormat:[candy messageAppearanceByCandyType:@"formatted_video_by"
+                                                                                         and:@"formatted_photo_by"], candy.contributor.name];
         self.timeLabel.text = candy.createdAt.timeAgoStringAtAMPM;
     }
 }
@@ -376,10 +377,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
             [self.navigationController dismissViewControllerAnimated:NO completion:nil];
         }
         if (self.removedCandy == candy) {
-            [WLToast showWithMessage:WLLS(@"candy_deleted")];
+            [WLToast showWithMessage:[candy messageAppearanceByCandyType:@"video_deleted" and:@"photo_deleted"]];
             self.removedCandy = nil;
         } else {
-            [WLToast showWithMessage:WLLS(@"candy_unavailable")];
+            [WLToast showWithMessage:[candy messageAppearanceByCandyType:@"video_unavailable" and:@"photo_unavailable"]];
         }
         WLCandy *nextCandy = [self candyAfterDeletingCandy:candy];
         if (nextCandy) {
@@ -429,7 +430,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         sender.loading = YES;
         [weakSelf.candy download:^{
             sender.loading = NO;
-            [WLToast showPhotoDownloadingMessage];
+            [WLToast showDownloadingMediaMessageForCandy:weakSelf.candy];
         } failure:^(NSError *error) {
             sender.loading = NO;
             [error show];

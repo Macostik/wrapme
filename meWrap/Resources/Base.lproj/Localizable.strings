@@ -41,8 +41,8 @@
 "invalid_image_error" = "Error occurred while processing the photo.";
 "too_small_image_error" = "The photo is too small. Please choose another one.";
 "report" = "Report";
-"candy_deleted" = "The photo was deleted.";
-"candy_unavailable" = "Photo not found.";
+"photo_deleted" = "The photo was deleted.";
+"photo_unavailable" = "Photo not found.";
 "incorrect_email" = "Incorrect e-mail.";
 "name_cannot_be_blank" = "Please enter your name.";
 "formatted_is_typing" = "%@ is typing...";
@@ -101,7 +101,7 @@
 "APNS_MSG06" = "meWrap has a new update! Download it now!";
 "reply" = "Reply";
 "no_chat_message" = "Friends in \"%@\" will see your chat messages instantly.";
-"no_photos_to_upload" = "No photos to be uploaded.";
+"no_photos_to_upload" = "No photos or video to be uploaded.";
 "new_wrap" = "New Wrap";
 "what_is_new_wrap_about" = "What's the new wrap about?";
 "authorization_error_title" = "Login failed.";
@@ -143,9 +143,8 @@
 "resend" = "Resend";
 "settings" = "Settings";
 "friends" = "Friends";
-"notify_about_new_photo" = "Notify me when new photo is added.";
 "add_friend..." = "Add friend...";
-"photo" = "Photo";
+"media" = "Media";
 "notify_about_new_chat" = "Notify me when new chat is posted.";
 "account" = "Account";
 "photos" = "Photos";
@@ -226,3 +225,11 @@
 "comment_limit" = "Please limit the comment length to 200 words.";
 "delete_video_confirmation" = "Are you sure you want to delete the video?";
 "media" = "Media";
+"video_is_uploading" = "Uploading the video now. Please wait.";
+"video_deleted" = "The video was deleted.";
+"video_unavailable" = "Video not found.";
+"downloading_video" = "Downloading the video now. It'll be in \"%@\" album momentarily.";
+"formatted_video_by" = "Video by %@";
+"editing_video_internet_connection_error" = "No internet connection. Can't download the video for editing.";
+"no_video_to_upload" = "No video to be uploaded.";
+"notify_about_new_media" = "Notify me when new media is added.";

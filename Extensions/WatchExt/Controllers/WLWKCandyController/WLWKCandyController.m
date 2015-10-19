@@ -38,7 +38,8 @@
 
 - (void)update {
     WLCandy *candy = self.candy;
-    [self.photoByLabel setText:[NSString stringWithFormat:NSLocalizedString(@"formatted_photo_by", nil), candy.contributor.name]];
+    [self.photoByLabel setText:[NSString stringWithFormat:[candy messageAppearanceByCandyType:@"formatted_video_by"
+                                                                                          and:@"formatted_photo_by"],candy.contributor.name]];
     [self.wrapNameLabel setText:candy.wrap.name];
     [self.dateLabel setText:candy.createdAt.timeAgoStringAtAMPM];
     self.image.url = candy.picture.small;

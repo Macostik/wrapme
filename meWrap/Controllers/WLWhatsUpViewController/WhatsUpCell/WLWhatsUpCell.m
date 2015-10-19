@@ -63,7 +63,8 @@
         self.userNameLabel.text = [NSString stringWithFormat:WLLS(@"formatted_edited_by"), candy.editor.name];
     } else {
         self.pictureView.url = candy.contributor.picture.small;
-        self.userNameLabel.text = [NSString stringWithFormat:WLLS(@"formatted_photo_by"), candy.contributor.name];
+        self.userNameLabel.text = [NSString stringWithFormat:[candy messageAppearanceByCandyType:@"formatted_video_by"
+                                                                                             and:@"formatted_photo_by"], candy.contributor.name];
     }
     self.inWrapLabel.text = candy.wrap.name;
     self.textView.text = nil;

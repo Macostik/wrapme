@@ -109,4 +109,13 @@
     }
 }
 
+- (void)prepareForUpdate:(WLContributionUpdatePreparingBlock)success failure:(WLFailureBlock)failure {
+    WLContributionStatus status = [self statusOfAnyUploadingType];
+    if (status == WLContributionStatusInProgress) {
+         if (failure) failure(WLError([self messageAppearanceByCandyType:@"video_is_uploading" and:@"photo_is_uploading"]));
+    } else {
+        if (success) success(self, status);
+    }
+}
+
 @end

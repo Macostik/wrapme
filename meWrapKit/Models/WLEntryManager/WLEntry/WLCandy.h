@@ -25,6 +25,7 @@ static NSInteger WLCandyTypeVideo = 20;
 - (NSMutableOrderedSet *)sortedComments;
 
 - (BOOL)isVideo;
+- (NSString *)messageAppearanceByCandyType:(NSString *)firstString and:(NSString *)secondString;
 
 @end
 
@@ -34,5 +35,6 @@ static NSInteger WLCandyTypeVideo = 20;
 - (void)removeCommentsObject:(WLComment *)value;
 - (void)addComments:(NSSet *)values;
 - (void)removeComments:(NSSet *)values;
+
 
 @end

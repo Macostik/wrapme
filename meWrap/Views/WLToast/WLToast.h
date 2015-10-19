@@ -65,7 +65,7 @@ static NSTimeInterval WLToastDismissalDelay = 4.0f;
 
 @interface WLToast (DefinedToasts)
 
-+ (void)showPhotoDownloadingMessage;
++ (void)showDownloadingMediaMessageForCandy:(WLCandy *)candy ;
 
 + (void)showMessageForUnavailableWrap:(WLWrap*)wrap;
 

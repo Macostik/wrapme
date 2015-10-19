@@ -34,3 +34,5 @@
 "APNS_MSG05" = "%@剛修輯了相片。";
 "APNS_TT06" = "meWrap有更新版本";
 "APNS_MSG06" = "meWrap有更新版本。現在就下載吧！";
+"APNS_TT07" = "New video";
+"APNS_MSG07" = "%@ just added a new video in '%@'. Check it out!";

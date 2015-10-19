@@ -99,6 +99,8 @@
 "APNS_MSG05" = "%@ just edited a photo. Check it out!";
 "APNS_TT06" = "A new version of meWrap is available";
 "APNS_MSG06" = "meWrap has a new update! Download it now!";
+"APNS_TT07" = "New video";
+"APNS_MSG07" = "%@ just added a new video in '%@'. Check it out!";
 "reply" = "Reply";
 "no_chat_message" = "Friends in \"%@\" will see your chat messages instantly.";
 "no_photos_to_upload" = "No photos or video to be uploaded.";

@@ -625,29 +625,29 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELi-ZJ-CL2" customClass="WLProgressBar">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="4"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="2" id="7DN-iW-TpW"/>
+                                            <constraint firstAttribute="height" constant="4" id="7DN-iW-TpW"/>
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzS-xp-Bg5">
-                                        <rect key="frame" x="5" y="7" width="10" height="10"/>
+                                        <rect key="frame" x="5" y="9" width="11" height="11"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.85098040103912354" green="0.32549020648002625" blue="0.30980393290519714" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="10" id="1fV-6f-BEy"/>
-                                            <constraint firstAttribute="height" constant="10" id="eQX-4f-inA"/>
+                                            <constraint firstAttribute="width" constant="11" id="1fV-6f-BEy"/>
+                                            <constraint firstAttribute="height" constant="11" id="eQX-4f-inA"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ej-Tb-UI4" customClass="WLLabel">
-                                        <rect key="frame" x="20" y="3" width="10" height="18"/>
+                                        <rect key="frame" x="21" y="5" width="10" height="20"/>
                                         <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>

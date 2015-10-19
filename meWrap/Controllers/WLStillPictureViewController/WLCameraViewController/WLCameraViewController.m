@@ -860,7 +860,7 @@ static NSTimeInterval videoRecordingTimerInterval = 0.03333333;
     if (videoRecordingTimeLeft > 0) {
         videoRecordingTimeLeft = MAX(0, videoRecordingTimeLeft - videoRecordingTimerInterval);
         self.videoRecordingTimeLeft = videoRecordingTimeLeft;
-        self.videoRecordingTimeLabel.text = [@(ceilf(videoRecordingTimeLeft)) stringValue];
+        self.videoRecordingTimeLabel.text =  [[@(ceilf(videoRecordingTimeLeft)) stringValue] stringByAppendingString:@"\""];
         self.videoRecordingProgressBar.progress = 1.0f - videoRecordingTimeLeft/maxVideoRecordedDuration;
     } else {
         [self.videoRecordingTimer invalidate];

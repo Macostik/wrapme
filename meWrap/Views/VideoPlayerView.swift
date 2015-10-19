@@ -85,7 +85,14 @@ class VideoPlayerView: UIView {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
     
+    private var panGestureRecognizer: UIPanGestureRecognizer?
+    
     func awake() {
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tap:"))
+        let recognizer = UIPanGestureRecognizer(target: self, action: "pan:")
+        recognizer.delegate = self
+        addGestureRecognizer(recognizer)
+        panGestureRecognizer = recognizer
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemDidPlayToEndTime:", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
     
@@ -95,7 +102,7 @@ class VideoPlayerView: UIView {
     
     @IBOutlet weak var timeView: VideoTimeView! {
         didSet {
-            timeView?.userInteractionEnabled = false
+            timeView.userInteractionEnabled = false
         }
     }
     
@@ -174,7 +181,7 @@ class VideoPlayerView: UIView {
             
             (layer as? AVPlayerLayer)?.player = _player
             
-            timeView?.time = 0
+            timeView.time = 0
             
             playButton?.selected = false
         }
@@ -190,7 +197,7 @@ class VideoPlayerView: UIView {
     func startObservingTime(player: AVPlayer) {
         timeObserver = player.addPeriodicTimeObserverForInterval(CMTimeMakeWithSeconds(0.01, Int32(NSEC_PER_SEC)), queue: dispatch_get_main_queue()) {[unowned self] (time) -> Void in
             if let item = self.player?.currentItem where self.seeking == false {
-                self.timeView?.time = CMTimeGetSeconds(item.currentTime()) / CMTimeGetSeconds(item.duration)
+                self.timeView.time = CMTimeGetSeconds(item.currentTime()) / CMTimeGetSeconds(item.duration)
             }
         }
     }
@@ -241,64 +248,70 @@ class VideoPlayerView: UIView {
     
     var seeking = false
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        guard let touch = touches.first else {
+    private func seekToTimeAtPoint(point: CGPoint) {
+        guard let player = player, let item = player.currentItem else {
             return
         }
-        let location = touch.locationInView(self)
-        if let timeView = timeView where CGRectContainsPoint(CGRectInset(timeView.frame, -6, -22), location) && _playing {
-            guard let player = player, let item = player.currentItem else {
-                return
-            }
-            seeking = true
-            player.pause()
-            let location = touch.locationInView(timeView)
-            let x = min(timeView.bounds.width, max(0, location.x))
-            let ratio = Float64(x / timeView.bounds.width)
-            timeView.time = ratio
-            let duration = CMTimeGetSeconds(item.duration)
-            let resultTime = CMTimeMakeWithSeconds(duration * ratio, Int32(NSEC_PER_SEC))
-            player.seekToTime(resultTime)
-            delegate?.videoPlayerViewSeekedToTime?(self)
-        }
+        let x = min(timeView.bounds.width, max(0, point.x))
+        let ratio = Float64(x / timeView.bounds.width)
+        timeView.time = ratio
+        let duration = CMTimeGetSeconds(item.duration)
+        let resultTime = CMTimeMakeWithSeconds(duration * ratio, Int32(NSEC_PER_SEC))
+        player.seekToTime(resultTime)
+        delegate?.videoPlayerViewSeekedToTime?(self)
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        guard let touch = touches.first else {
-            return
-        }
-        if seeking {
-            guard let timeView = timeView, let player = player, let item = player.currentItem else {
-                return
-            }
-            let location = touch.locationInView(timeView)
-            let x = min(timeView.bounds.width, max(0, location.x))
-            let ratio = Float64(x / timeView.bounds.width)
-            timeView.time = ratio
-            let duration = CMTimeGetSeconds(item.duration)
-            let resultTime = CMTimeMakeWithSeconds(duration * ratio, Int32(NSEC_PER_SEC))
-            player.seekToTime(resultTime)
-            delegate?.videoPlayerViewSeekedToTime?(self)
-        }
+    private func shouldSeekToTimeAtPoint(point: CGPoint) -> Bool {
+        return CGRectContainsPoint(CGRectInset(timeView.bounds, -6, -22), point) && _playing
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if seeking {
-            seeking = false
-            if _playing {
-                player?.play()
-            }
+    func tap(sender: UITapGestureRecognizer) {
+        let location = sender.locationInView(timeView)
+        if shouldSeekToTimeAtPoint(location) {
+            seekToTimeAtPoint(location)
         } else {
             toggle()
         }
     }
     
-    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-        if seeking {
-            seeking = false
-            if _playing {
-                player?.play()
+    func pan(sender: UITapGestureRecognizer) {
+        let location = sender.locationInView(timeView)
+        switch sender.state {
+        case .Began:
+            seeking = true
+            player?.pause()
+            seekToTimeAtPoint(location)
+        case .Changed:
+            if seeking {
+                seekToTimeAtPoint(location)
             }
+        case .Ended:
+            if seeking {
+                seeking = false
+                if _playing {
+                    player?.play()
+                }
+            } else {
+                toggle()
+            }
+        case .Cancelled, .Failed:
+            if seeking {
+                seeking = false
+                if _playing {
+                    player?.play()
+                }
+            }
+        default: break
+        }
+    }
+}
+
+extension VideoPlayerView: UIGestureRecognizerDelegate {
+    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == panGestureRecognizer {
+            return shouldSeekToTimeAtPoint(gestureRecognizer.locationInView(timeView))
+        } else {
+            return true
         }
     }
 }

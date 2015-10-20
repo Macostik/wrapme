@@ -27,3 +27,4 @@ NSLog(format, ##__VA_ARGS__);\
 [[LELog sharedInstance] log:[NSString stringWithFormat:@"%@-%@ >> %@", [WLUser currentUser].identifier, [WLAuthorization currentAuthorization].deviceUID, [NSString stringWithFormat:format, ##__VA_ARGS__]]];
 
 #endif
+

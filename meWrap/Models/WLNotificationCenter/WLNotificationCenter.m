@@ -17,6 +17,7 @@
 #import "NSDate+PNTimetoken.h"
 #import "WLNetwork.h"
 #import "WLAuthorizationRequest.h"
+#import "WLAlertView.h"
 
 @interface WLNotificationCenter () <PNObjectEventListener, WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate>
 
@@ -71,11 +72,11 @@
         [[[PubNub sharedInstance] currentConfiguration] setUUID:userUID];
     }
     NSString *channelName = [NSString stringWithFormat:@"cg-%@", userUID];
-    if (![self.userSubscription.name isEqualToString:channelName]) {
+    if ([self.userSubscription.name isEqualToString:channelName]) {
+        [self.userSubscription subscribe];
+    } else {
         self.userSubscription = [WLNotificationSubscription subscription:channelName presence:NO group:YES];
         self.userSubscription.delegate = self;
-    } else {
-        [self.userSubscription subscribe];
     }
 }
 
@@ -344,7 +345,16 @@
 
 - (void)client:(PubNub *)client didReceiveStatus:(PNSubscribeStatus *)status {
     WLLog(@"PUBNUB - subscribtion status: %@", status.debugDescription);
-    [self requestHistory];
+    if (status.category == PNConnectedCategory) {
+        [self requestHistory];
+    }
+    if (status.subscribedChannelGroups.count == 0) {
+        __weak typeof(self)weakSelf = self;
+        [UIAlertController showWithTitle:@"PUBNUB" message:@"You aren't subscribed on any channel group." action:@"Subscribe" cancel:@"Dismiss" completion:^{
+            weakSelf.userSubscription = nil;
+            [weakSelf subscribe];
+        }];
+    }
 }
 
 // MARK: - WLEntryNotifyReceiver

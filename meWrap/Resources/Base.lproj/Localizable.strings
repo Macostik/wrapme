@@ -63,7 +63,7 @@
 "formatted_comments" = "%i comments";
 "data_invalid" = "Invalid data.";
 "no_presenting_data" = "No actual data for presenting.";
-"upload_photos_limit_error" = "You can upload up to 10 pictures at a time.";
+"upload_photos_limit_error" = "You can upload up to 10 media at a time.";
 "downloading_internet_connection_error" = "No internet connection. Please try again later.";
 "editing_internet_connection_error" = "No internet connection. Can't download the photo for editing.";
 "downloading_privacy_settings" = "Please go to Settings > meWrap to allow meWrap access the photos.";
@@ -236,3 +236,4 @@
 "no_video_to_upload" = "No video to be uploaded.";
 "notify_about_new_media" = "Notify me when new media is added.";
 "publishing_in_progress" = "Publishing in progress. Please try again later.";
+"formatted_upload_video_duration_limit" = "This video is too long, duration is limited up to %i seconds.";

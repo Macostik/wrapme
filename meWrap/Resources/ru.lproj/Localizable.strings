@@ -64,7 +64,7 @@
 "unsaved_photo" = "Не сохраненная фотография";
 "update" = "Обновление";
 "upload" = "Загрузка";
-"upload_photos_limit_error" = "Извините, Вы не можете загрузить больше 10 фотографий сразу";
+"upload_photos_limit_error" = "Извините, Вы не можете загрузить больше 10 медиафайлов сразу";
 "uppercase_no" = "Нет";
 "uppercase_yes" = "Да";
 "user_cannot_be_invited" = "Этот пользователь не может быть приглашен.";
@@ -236,3 +236,4 @@
 "no_video_to_upload" = "Нет видео, которые можно загрузить.";
 "notify_about_new_media" = "Напомнить когда будет добавлен новый медиа контент.";
 "publishing_in_progress" = "Publishing in progress. Please try again later.";
+"formatted_upload_video_duration_limit" = "This video is too long, duration is limited up to %i seconds.";

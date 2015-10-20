@@ -236,3 +236,4 @@
 "notify_about_new_media" = "Notify me when new media is added.";
 "media" = "Media";
 "publishing_in_progress" = "Publishing in progress. Please try again later.";
+"formatted_upload_video_duration_limit" = "This video is too long, duration is limited up to %i seconds.";

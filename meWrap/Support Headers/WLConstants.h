@@ -26,6 +26,6 @@ static void WLInitializeConstants (void) {
 }
 
 static NSString *WLAlbumName = @"meWrap";
-
+static NSTimeInterval maxVideoRecordedDuration = 60;
 
 

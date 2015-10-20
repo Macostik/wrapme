@@ -111,8 +111,8 @@
 #pragma mark - WLQuickAssetsViewControllerDelegate
 
 - (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
-    if (asset.mediaType == PHAssetMediaTypeVideo && asset.duration >= 61) {
-        [WLError(WLLS(@"upload_video_duration_limit_error")) show];
+    if (asset.mediaType == PHAssetMediaTypeVideo && asset.duration >= maxVideoRecordedDuration + 1) {
+        [WLError([NSString stringWithFormat:WLLS(@"formatted_upload_video_duration_limit"), (int)maxVideoRecordedDuration]) show];
         return NO;
     } else {
         return [self shouldAddPicture:^{

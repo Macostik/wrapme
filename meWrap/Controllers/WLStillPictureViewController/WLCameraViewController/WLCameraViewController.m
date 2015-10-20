@@ -20,8 +20,6 @@
 #import "WLProgressBar.h"
 @import AVKit;
 
-static NSTimeInterval maxVideoRecordedDuration = 60;
-
 @interface WLCameraView : UIView
 
 @property(nonatomic,readonly,retain) AVCaptureVideoPreviewLayer *layer;

@@ -383,8 +383,9 @@
     switch (sender.state) {
         case UIGestureRecognizerStateBegan: {
             [self updateVideoRecordingViews:YES];
-            [self prepareSessionForVideoRecording];
-            [self performSelector:@selector(startVideoRecording) withObject:nil afterDelay:0.5f];
+            [self prepareSessionForVideoRecording:^{
+                [self performSelector:@selector(startVideoRecording) withObject:nil afterDelay:0.5f];
+            }];
         } break;
         case UIGestureRecognizerStateEnded: {
             CGPoint location = [sender locationInView:self.videoRecordingView];
@@ -408,7 +409,7 @@
     self.flashModeControl.alpha = recording ? 0.0f : 1.0f;
 }
 
-- (void)prepareSessionForVideoRecording {
+- (void)prepareSessionForVideoRecording:(WLBlock)preparingCompletion {
     __weak typeof(self)weakSelf = self;
     if (![self.session.outputs containsObject:self.movieFileOutput]) {
         [self blurCamera:^(WLBlock completion) {
@@ -430,10 +431,11 @@
                         device.torchMode = torchMode;
                     }
                 }];
+                [weakSelf applyDeviceOrientation:[WLDeviceOrientationBroadcaster broadcaster].orientation forConnection:weakSelf.movieFileOutputConnection];
                 completion();
+                preparingCompletion();
             }];
         }];
-        [self applyDeviceOrientation:[WLDeviceOrientationBroadcaster broadcaster].orientation forConnection:self.movieFileOutputConnection];
     }
 }
 

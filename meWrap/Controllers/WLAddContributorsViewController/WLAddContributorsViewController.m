@@ -81,7 +81,7 @@
     }];
     
 	
-    BOOL cached = [[WLAddressBook addressBook] cachedRecords:^(NSArray *array) {
+    BOOL cached = [[WLAddressBook addressBook] cachedRecords:^(NSSet *array) {
         [weakSelf addressBook:[WLAddressBook addressBook] didUpdateCachedRecords:array];
         [weakSelf.spinner stopAnimating];
     } failure:^(NSError *error) {
@@ -102,7 +102,7 @@
 
 // MARK: - WLAddressBookReceiver
 
-- (void)addressBook:(WLAddressBook *)addressBook didUpdateCachedRecords:(NSArray *)cachedRecords {
+- (void)addressBook:(WLAddressBook *)addressBook didUpdateCachedRecords:(NSSet *)cachedRecords {
     [self.spinner stopAnimating];
     WLArrangedAddressBook *oldAddressBook = self.addressBook;
     self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];

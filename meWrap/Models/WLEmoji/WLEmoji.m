@@ -8,7 +8,6 @@
 
 #import "WLEmoji.h"
 
-static NSInteger WLMaxRecentEmojiCount = 21;
 static NSArray *_recentEmoji = nil;
 
 @implementation WLEmoji

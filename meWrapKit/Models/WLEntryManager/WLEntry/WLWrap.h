@@ -8,8 +8,6 @@
 
 #import "WLContribution.h"
 
-static NSUInteger WLWrapNameLimit = 190;
-
 @class WLCandy, WLMessage, WLUser;
 
 @interface WLWrap : WLContribution

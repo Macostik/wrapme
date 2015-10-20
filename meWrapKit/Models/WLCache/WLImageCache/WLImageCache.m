@@ -144,6 +144,15 @@ static NSUInteger WLImageCacheSize = 524288000;
     });
 }
 
+- (void)setImageData:(NSData*)data withIdentifier:(NSString*)identifier {
+    if (!identifier || !data || !self.permitted) {
+        return;
+    }
+    [data writeToFile:[self pathWithIdentifier:identifier] atomically:NO];
+    [self.identifiers addObject:identifier];
+    [self enqueueCheckSizePerforming];
+}
+
 - (void)setImageData:(NSData*)data completion:(void (^)(NSString* path))completion {
 	[self setImageData:data withIdentifier:[GUID() stringByAppendingPathExtension:@"jpg"] completion:completion];
 }

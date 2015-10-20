@@ -220,22 +220,22 @@
     }];
 }
 
-+ (instancetype)addContributors:(NSArray*)contributors wrap:(WLWrap*)wrap {
++ (instancetype)addContributors:(NSSet*)contributors wrap:(WLWrap*)wrap {
     return [[[[self POST:@"wraps/%@/add_contributor", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
-        NSMutableArray *_contributors = [NSMutableArray arrayWithArray:contributors];
+        NSMutableSet *_contributors = [NSMutableSet setWithSet:contributors];
         
-        NSArray* registeredContributors = [contributors where:@"user != nil"];
-        [_contributors removeObjectsInArray:registeredContributors];
+        NSSet* registeredContributors = [contributors where:@"user != nil"];
+        [_contributors minusSet:registeredContributors];
         [parameters trySetObject:[registeredContributors valueForKeyPath:@"user.identifier"] forKey:@"user_uids"];
         
         NSMutableArray *invitees = [NSMutableArray array];
         
         while (_contributors.nonempty) {
-            WLAddressBookPhoneNumber *_person = [contributors firstObject];
+            WLAddressBookPhoneNumber *_person = [contributors anyObject];
             if (_person.record) {
-                NSArray *groupedContributors = [contributors where:@"record == %@", _person.record];
+                NSSet *groupedContributors = [contributors where:@"record == %@", _person.record];
                 [invitees addObject:@{@"name":WLString(_person.name),@"phone_numbers":[groupedContributors valueForKey:@"phone"]}];
-                [_contributors removeObjectsInArray:groupedContributors];
+                [_contributors minusSet:groupedContributors];
             } else {
                 [invitees addObject:@{@"name":WLString(_person.name),@"phone_number":_person.phone}];
                 [_contributors removeObject:_person];
@@ -392,7 +392,7 @@
     }];
 }
 
-+ (instancetype)contributorsFromContacts:(NSArray*)contacts {
++ (instancetype)contributorsFromContacts:(NSSet*)contacts {
     return [[[self POST:@"users/sign_up_status"] parametrize:^(id request, NSMutableDictionary *parameters) {
         NSMutableArray* phones = [NSMutableArray array];
         [contacts all:^(WLAddressBookRecord* contact) {
@@ -404,7 +404,7 @@
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         NSArray* users = response.data[@"users"];
         NSMutableSet *registeredUsers = [NSMutableSet set];
-        NSArray *contributors = [contacts map:^id(WLAddressBookRecord* contact) {
+        NSSet *contributors = [contacts map:^id(WLAddressBookRecord* contact) {
             contact.phoneNumbers = [contact.phoneNumbers map:^id(WLAddressBookPhoneNumber *phoneNumber) {
                 NSDictionary *userData = [[users where:@"address_book_number == %@", phoneNumber.phone] lastObject];
                 if (userData) {

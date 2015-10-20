@@ -19,11 +19,11 @@ typedef void (^WLArrangedAddressBookUniqueRecordHandler)(BOOL exists, NSArray *r
 
 @property (strong, nonatomic) NSArray *groups;
 
-@property (strong, nonatomic) NSMutableArray *selectedPhoneNumbers;
+@property (strong, nonatomic) NSMutableSet *selectedPhoneNumbers;
 
 - (instancetype)initWithWrap:(WLWrap*)wrap;
 
-- (void)addRecords:(NSArray*)records;
+- (void)addRecords:(NSSet*)records;
 
 - (void)addRecord:(WLAddressBookRecord*)record;
 

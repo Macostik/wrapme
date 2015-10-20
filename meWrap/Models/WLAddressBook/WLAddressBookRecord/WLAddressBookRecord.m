@@ -10,42 +10,37 @@
 #import <objc/runtime.h>
 #import "NSObject+AssociatedObjects.h"
 #import "WLAddressBookPhoneNumber.h"
+#import "WLAddressBook.h"
 
 @implementation WLAddressBookRecord
 
-+ (void)record:(ABRecordRef)record completion:(WLContactBlock)completion {
++ (instancetype)recordWithABRecord:(ABRecordRef)record {
     NSArray* phones = WLAddressBookGetPhones(record);
     if (phones.nonempty) {
         WLAddressBookRecord* contact = [WLAddressBookRecord new];
+        contact.hasImage = ABPersonHasImageData(record);
+        contact.recordID = ABRecordGetRecordID(record);
         contact.name = WLAddressBookGetName(record);
         contact.phoneNumbers = phones;
-        [contact.phoneNumbers makeObjectsPerformSelector:@selector(setName:) withObject:contact.name];
-        if (ABPersonHasImageData(record)) {
-            NSString* identifier = [NSString stringWithFormat:@"addressbook_%d", ABRecordGetRecordID(record)];
-            WLStringBlock complete = ^(NSString* path) {
-                WLAsset* picture = [WLAsset new];
-                picture.large = path;
-                picture.medium = path;
-                picture.small = path;
-                [contact.phoneNumbers makeObjectsPerformSelector:@selector(setPicture:) withObject:picture];
-                completion(contact);
-            };
-            if ([[WLImageCache cache] containsObjectWithIdentifier:identifier]) {
-                complete([[WLImageCache cache] pathWithIdentifier:identifier]);
-            } else {
-                NSData* imageData = WLAddressBookGetImage(record);
-                if (imageData) {
-                    [[WLImageCache cache] setImageData:imageData withIdentifier:identifier completion:complete];
-                } else {
-                    completion(contact);
-                }
-            }
-        } else {
-            completion(contact);
-        }
-    } else {
-        completion(nil);
+        return contact;
     }
+    return nil;
+}
+
++ (instancetype)recordWithNumbers:(NSArray *)phoneNumbers {
+    WLAddressBookRecord *record = [[WLAddressBookRecord alloc] init];
+    record.phoneNumbers = phoneNumbers;
+    return record;
+}
+
++ (instancetype)recordWithRecord:(WLAddressBookRecord *)record {
+    WLAddressBookRecord *_record = [[WLAddressBookRecord alloc] init];
+    _record.hasImage = record.hasImage;
+    _record.recordID = record.recordID;
+    _record.name = record.name;
+    _record.picture = record->_picture;
+    _record.phoneNumbers = record.phoneNumbers;
+    return _record;
 }
 
 static inline NSArray* WLAddressBookGetPhones(ABRecordRef record) {
@@ -80,44 +75,34 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
     return (__bridge_transfer NSData *)ABPersonCopyImageData(record);
 }
 
-+ (instancetype)record:(NSArray *)phoneNumbers {
-    WLAddressBookRecord *record = [[WLAddressBookRecord alloc] init];
-    record.phoneNumbers = phoneNumbers;
-    return record;
-}
-
 - (void)setPhoneNumbers:(NSArray *)phoneNumbers {
     _phoneNumbers = phoneNumbers;
     [phoneNumbers makeObjectsPerformSelector:@selector(setRecord:) withObject:self];
 }
 
-- (NSString *)name {
-    if (!_name.nonempty) {
-        _name = [[self.phoneNumbers select:^BOOL(WLAddressBookPhoneNumber* person) {
-            return person.user.name.nonempty;
-        }] name];
+- (WLAsset *)picture {
+    if (!_picture) {
+        if (self.recordID && self.hasImage && [WLAddressBook addressBook]->sharedAddressBook != NULL) {
+            ABRecordRef record = ABAddressBookGetPersonWithRecordID([WLAddressBook addressBook]->sharedAddressBook, self.recordID);
+            NSString* identifier = [NSString stringWithFormat:@"addressbook_%d", self.recordID];
+            NSString *path = [[WLImageCache cache] pathWithIdentifier:identifier];
+            if (![[WLImageCache cache] containsObjectWithIdentifier:identifier]) {
+                NSData* imageData = WLAddressBookGetImage(record);
+                if (imageData) {
+                    [[WLImageCache cache] setImageData:imageData withIdentifier:identifier];
+                }
+            }
+            WLAsset* picture = [WLAsset new];
+            picture.large = picture.medium = picture.small = path;
+            _picture = picture;
+        }
     }
-    if (!_name.nonempty) {
-        _name = [[self.phoneNumbers select:^BOOL(WLAddressBookPhoneNumber* person) {
-            return person.phone.nonempty;
-        }] phone];
-    }
-    return _name;
+    return _picture;
 }
 
 - (BOOL)registered {
     WLAddressBookPhoneNumber *phoneNumber = [self.phoneNumbers lastObject];
     return phoneNumber.user != nil;
-}
-
-- (NSString *)priorityName {
-    WLAddressBookPhoneNumber *phoneNumber = [self.phoneNumbers lastObject];
-    return phoneNumber.priorityName;
-}
-
-- (WLAsset *)priorityPicture {
-    WLAddressBookPhoneNumber *phoneNumber = [self.phoneNumbers lastObject];
-    return phoneNumber.priorityPicture;
 }
 
 - (NSString *)phoneStrings {

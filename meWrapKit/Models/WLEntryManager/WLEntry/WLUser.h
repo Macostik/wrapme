@@ -8,9 +8,6 @@
 
 #import "WLEntry.h"
 
-static NSUInteger WLProfileNameLimit = 40;
-static NSUInteger WLPhoneNumberLimit = 20;
-
 @class WLCandy, WLContribution, WLDevice, WLWrap;
 
 @interface WLUser : WLEntry

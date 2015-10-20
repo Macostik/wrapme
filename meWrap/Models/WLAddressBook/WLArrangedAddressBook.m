@@ -24,7 +24,7 @@
                 return phoneNumber.user == nil;
             }]];
         }];
-        self.selectedPhoneNumbers = [NSMutableArray array];
+        self.selectedPhoneNumbers = [NSMutableSet set];
     }
     return self;
 }
@@ -37,7 +37,7 @@
     return self;
 }
 
-- (void)addRecords:(NSArray *)records {
+- (void)addRecords:(NSSet *)records {
     for (WLAddressBookRecord* record in records) {
         [self baseAddRecord:record success:nil failure:nil];
     }
@@ -58,7 +58,7 @@
 
 - (void)baseAddRecord:(WLAddressBookRecord*)record success:(WLArrangedAddressBookRecordHandler)success failure:(WLFailureBlock)failure {
     
-    record = [WLAddressBookRecord record:record.phoneNumbers];
+    record = [WLAddressBookRecord recordWithRecord:record];
     
     if (!record.phoneNumbers.nonempty) {
         
@@ -78,7 +78,10 @@
         
         [phoneNumbers removeSelectively:^BOOL(WLAddressBookPhoneNumber *phoneNumber) {
             if (phoneNumber.user) {
-                WLAddressBookRecord *newRecord = [WLAddressBookRecord record:@[phoneNumber]];
+                WLAddressBookRecord *newRecord = [WLAddressBookRecord recordWithNumbers:@[phoneNumber]];
+                if (!phoneNumber.user.name.nonempty) {
+                    newRecord.name = record.name;
+                }
                 WLArrangedAddressBookGroup *group = [self addRecordToGroup:newRecord];
                 if (group) {
                     [groups addObject:group];
@@ -135,7 +138,7 @@
 
 - (WLAddressBookPhoneNumber *)selectedPhoneNumber:(WLAddressBookPhoneNumber *)phoneNumber {
     for (WLAddressBookPhoneNumber* _phoneNumber in self.selectedPhoneNumbers) {
-        if ([_phoneNumber isEqualToPerson:phoneNumber]) {
+        if ([_phoneNumber isEqualToPhoneNumber:phoneNumber]) {
             return _phoneNumber;
         }
     }
@@ -150,7 +153,7 @@
                                                                                         addingRule:group.addingRule];
             _group.records = [group.records selects:^BOOL(WLAddressBookRecord  *record) {
                 WLAddressBookPhoneNumber *phoneNumbler = record.phoneNumbers.lastObject;
-                return ([phoneNumbler.priorityName rangeOfString:text options:NSCaseInsensitiveSearch].location != NSNotFound);
+                return ([phoneNumbler.name rangeOfString:text options:NSCaseInsensitiveSearch].location != NSNotFound);
             }];
             return _group;
         }];
@@ -164,7 +167,7 @@
     for (WLArrangedAddressBookGroup *group in self.groups) {
         for (WLAddressBookRecord *record in group.records) {
             for (WLAddressBookPhoneNumber *_phoneNumber in record.phoneNumbers) {
-                if ([_phoneNumber isEqualToPerson:phoneNumber]) {
+                if ([_phoneNumber isEqualToPhoneNumber:phoneNumber]) {
                     return _phoneNumber;
                 }
             }

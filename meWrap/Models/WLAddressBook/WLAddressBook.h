@@ -15,18 +15,20 @@
 @protocol WLAddressBookReceiver <NSObject>
 
 @optional
-- (void)addressBook:(WLAddressBook*)addressBook didUpdateCachedRecords:(NSArray*)cachedRecords;
+- (void)addressBook:(WLAddressBook*)addressBook didUpdateCachedRecords:(NSSet*)cachedRecords;
 
 @end
 
 
-@interface WLAddressBook : WLBroadcaster
+@interface WLAddressBook : WLBroadcaster {
+@public ABAddressBookRef sharedAddressBook;
+}
 
 + (instancetype)addressBook;
 
-- (BOOL)cachedRecords:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+- (BOOL)cachedRecords:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
-- (void)records:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+- (void)records:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
 - (void)beginCaching;
 
@@ -36,13 +38,6 @@
 
 - (void)updateCachedRecordsAfterFailure;
 
-/**
- *  Get the list of records from Address Book.
- *  If record doesn't have at least one specified phone number it will be ignored.
- *
- *  @param success block for successful completion
- *  @param failure block for failed completion
- */
-- (void)contacts:(WLArrayBlock)success failure:(WLFailureBlock)failure;
+- (void)contacts:(WLSetBlock)success failure:(WLFailureBlock)failure;
 
 @end

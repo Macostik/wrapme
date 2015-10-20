@@ -10,9 +10,6 @@
 
 @class StreamDataSource, StreamView;
 
-static NSUInteger WLHomeTopWrapCandiesLimit = 6;
-static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
-
 @interface WLRecentCandiesView : StreamReusableView
 
 @property (weak, nonatomic, readonly) StreamView *streamView;

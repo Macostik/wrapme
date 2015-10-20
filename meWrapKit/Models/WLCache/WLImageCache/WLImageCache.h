@@ -29,6 +29,8 @@
 
 - (void)setImageData:(NSData*)data completion:(void (^)(NSString* path))completion;
 
+- (void)setImageData:(NSData*)data withIdentifier:(NSString*)identifier;
+
 @end
 
 @interface WLImageCache (UrlCache)

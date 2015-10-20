@@ -40,7 +40,7 @@
     NSComparator comparator = ^NSComparisonResult(WLAddressBookRecord* contact1, WLAddressBookRecord* contact2) {
         WLAddressBookPhoneNumber *phoneNumber1 =  [contact1.phoneNumbers lastObject];
         WLAddressBookPhoneNumber *phoneNumber2 =  [contact2.phoneNumbers lastObject];
-        return [[phoneNumber1 priorityName] compare:[phoneNumber2 priorityName]];
+        return [phoneNumber1.name compare:phoneNumber2.name];
     };
  
     [self.records sortUsingComparator:comparator];

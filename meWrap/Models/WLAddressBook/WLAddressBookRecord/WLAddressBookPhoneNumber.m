@@ -8,6 +8,7 @@
 
 #import "WLAddressBookPhoneNumber.h"
 #import "NSObject+AssociatedObjects.h"
+#import "WLAddressBookRecord.h"
 
 @implementation WLAddressBookPhoneNumber
 
@@ -16,7 +17,7 @@
 @synthesize phone = _phone;
 @synthesize user = _user;
 
-- (BOOL)isEqualToPerson:(WLAddressBookPhoneNumber*)person {
+- (BOOL)isEqualToPhoneNumber:(WLAddressBookPhoneNumber*)person {
     if (self.user) {
         return self.user == person.user;
     } else {
@@ -24,22 +25,28 @@
     }
 }
 
-- (NSString *)priorityName {
-    if ([_user.name nonempty]) {
-        return _user.name;
-    } else if ([_name nonempty]) {
-        return _name;
-    } else {
-        return _phone;
+- (NSString *)name {
+    if (!_name) {
+        if ([_user.name nonempty]) {
+            _name = _user.name;
+        } else if (self.record.name.nonempty) {
+            _name = self.record.name;
+        } else {
+            _name = _phone;
+        }
     }
+    return _name;
 }
 
-- (WLAsset *)priorityPicture {
-    if (_user.picture.small.nonempty) {
-        return _user.picture;
-    } else {
-        return _picture;
+- (WLAsset *)picture {
+    if (!_picture) {
+        if (_user.picture.small.nonempty) {
+            _picture = _user.picture;
+        } else {
+            _picture = self.record.picture;
+        }
     }
+    return _picture;
 }
 
 - (NSString *)description {

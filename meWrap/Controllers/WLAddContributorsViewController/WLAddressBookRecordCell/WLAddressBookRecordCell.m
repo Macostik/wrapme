@@ -28,8 +28,8 @@
 - (void)setup:(WLAddressBookRecord *)record {
 	WLAddressBookPhoneNumber* phoneNumber = [record.phoneNumbers lastObject];
     self.signUpView.hidden = (phoneNumber.user && phoneNumber.activated) ? NO : YES;
-	self.nameLabel.text = [phoneNumber priorityName];
-    NSString *url = phoneNumber.priorityPicture.small;
+	self.nameLabel.text = phoneNumber.name;
+    NSString *url = phoneNumber.picture.small;
     if (self.signUpView && !self.signUpView.hidden && !url.nonempty) {
         self.avatarView.defaultBackgroundColor = WLColors.orange;
     } else {

@@ -27,5 +27,12 @@ static void WLInitializeConstants (void) {
 
 static NSString *WLAlbumName = @"meWrap";
 static NSTimeInterval maxVideoRecordedDuration = 60;
-
+static NSInteger WLAddressBookPhoneNumberMinimumLength = 6;
+static NSInteger WLMaxRecentEmojiCount = 21;
+static NSUInteger WLProfileNameLimit = 40;
+static NSUInteger WLPhoneNumberLimit = 20;
+static NSUInteger WLWrapNameLimit = 190;
+static NSUInteger WLHomeTopWrapCandiesLimit = 6;
+static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
+static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
 

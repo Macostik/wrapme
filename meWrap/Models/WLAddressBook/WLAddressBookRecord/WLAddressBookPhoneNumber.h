@@ -10,8 +10,6 @@
 
 @class WLAddressBookRecord;
 
-static NSInteger WLAddressBookPhoneNumberMinimumLength = 6;
-
 @interface WLAddressBookPhoneNumber : NSObject
 
 @property (weak, nonatomic) WLAddressBookRecord* record;
@@ -28,8 +26,6 @@ static NSInteger WLAddressBookPhoneNumberMinimumLength = 6;
 
 @property (nonatomic) BOOL activated;
 
-- (BOOL)isEqualToPerson:(WLAddressBookPhoneNumber*)person;
-- (NSString *)priorityName;
-- (WLAsset *)priorityPicture;
+- (BOOL)isEqualToPhoneNumber:(WLAddressBookPhoneNumber*)person;
 
 @end

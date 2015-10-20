@@ -11,20 +11,24 @@
 
 @interface WLAddressBookRecord : NSObject
 
+@property (nonatomic) ABRecordID recordID;
+
+@property (nonatomic) BOOL hasImage;
+
 @property (strong, nonatomic) NSString *name;
 
 @property (strong, nonatomic) NSArray *phoneNumbers;
 
 @property (nonatomic, readonly) BOOL registered;
 
-@property (readonly, nonatomic) NSString* priorityName;
-
-@property (readonly, nonatomic) WLAsset* priorityPicture;
+@property (strong, nonatomic) WLAsset* picture;
 
 @property (readonly, nonatomic) NSString *phoneStrings;
 
-+ (void)record:(ABRecordRef)record completion:(WLContactBlock)completion;
++ (instancetype)recordWithABRecord:(ABRecordRef)record;
 
-+ (instancetype)record:(NSArray*)phoneNumbers;
++ (instancetype)recordWithNumbers:(NSArray*)phoneNumbers;
+
++ (instancetype)recordWithRecord:(WLAddressBookRecord *)record;
 
 @end

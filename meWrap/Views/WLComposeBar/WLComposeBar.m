@@ -13,8 +13,6 @@
 #import "WLEmojiView.h"
 #import "WLEmoji.h"
 
-static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
-
 @interface WLComposeBar () <UITextViewDelegate, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) WLEmojiView * emojiView;

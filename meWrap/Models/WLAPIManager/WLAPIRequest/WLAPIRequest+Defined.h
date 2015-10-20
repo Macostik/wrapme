@@ -42,7 +42,7 @@
 
 + (instancetype)uploadMessage:(WLMessage*)message;
 
-+ (instancetype)addContributors:(NSArray*)contributors wrap:(WLWrap*)wrap;
++ (instancetype)addContributors:(NSSet*)contributors wrap:(WLWrap*)wrap;
 
 + (instancetype)removeContributors:(NSArray*)contributors wrap:(WLWrap*)wrap;
 
@@ -56,7 +56,7 @@
 
 + (instancetype)updateWrap:(WLWrap*)wrap;
 
-+ (instancetype)contributorsFromContacts:(NSArray*)contacts;
++ (instancetype)contributorsFromContacts:(NSSet*)contacts;
 
 + (instancetype)postCandy:(id)candy violationCode:(NSString *)violationCode;
 

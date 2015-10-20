@@ -77,7 +77,6 @@
     } else {
         [self.userSubscription subscribe];
     }
-    [self requestHistory];
 }
 
 - (void)registerForRemoteNotifications {
@@ -344,13 +343,8 @@
 }
 
 - (void)client:(PubNub *)client didReceiveStatus:(PNSubscribeStatus *)status {
-    if (status.isError) {
-        WLLog(@"PUBNUB - subscribtion error: %@", status.errorData);
-    } else if (status.subscribedChannelGroups) {
-        WLLog(@"PUBNUB - subscribed on channel groups: %@", status.subscribedChannelGroups);
-    } else if (status.subscribedChannels) {
-        WLLog(@"PUBNUB - subscribed on channels: %@", status.subscribedChannels);
-    }
+    WLLog(@"PUBNUB - subscribtion status: %@", status.debugDescription);
+    [self requestHistory];
 }
 
 // MARK: - WLEntryNotifyReceiver

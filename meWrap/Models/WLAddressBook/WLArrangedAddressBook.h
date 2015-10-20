@@ -29,8 +29,6 @@ typedef void (^WLArrangedAddressBookUniqueRecordHandler)(BOOL exists, NSArray *r
 
 - (void)addRecord:(WLAddressBookRecord*)record success:(WLArrangedAddressBookRecordHandler)success failure:(WLFailureBlock)failure;
 
-- (void)addUniqueRecord:(WLAddressBookRecord*)record success:(WLArrangedAddressBookUniqueRecordHandler)success failure:(WLFailureBlock)failure;
-
 - (WLArrangedAddressBookGroup*)groupWithRecord:(WLAddressBookRecord*)record;
 
 - (void)selectPhoneNumber:(WLAddressBookPhoneNumber*)phoneNumber;

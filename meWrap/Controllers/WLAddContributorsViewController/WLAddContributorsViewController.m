@@ -29,8 +29,6 @@
 
 @property (strong, nonatomic) WLArrangedAddressBook* filteredAddressBook;
 
-@property (strong, nonatomic) NSMutableSet* invitedRecords;
-
 @property (strong, nonatomic) StreamMetrics *singleMetrics;
 
 @property (strong, nonatomic) StreamMetrics *multipleMetrics;
@@ -44,7 +42,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.invitedRecords = [NSMutableSet set];
     self.openedRows = [NSMutableArray array];
     [self.spinner startAnimating];
     
@@ -110,9 +107,6 @@
     WLArrangedAddressBook *oldAddressBook = self.addressBook;
     self.addressBook = [[WLArrangedAddressBook alloc] initWithWrap:self.wrap];
     [self.addressBook addRecords:cachedRecords];
-    for (WLAddressBookRecord *record in self.invitedRecords) {
-        [self.addressBook addUniqueRecord:record success:nil failure:nil];
-    }
     if (oldAddressBook != nil) {
         self.addressBook.selectedPhoneNumbers = [oldAddressBook.selectedPhoneNumbers map:^id (WLAddressBookPhoneNumber *phoneNumber) {
             return [self.addressBook phoneNumberIdenticalTo:phoneNumber];

@@ -117,29 +117,6 @@
     }
 }
 
-- (void)addUniqueRecord:(WLAddressBookRecord *)record success:(WLArrangedAddressBookUniqueRecordHandler)success failure:(WLFailureBlock)failure {
-    WLAddressBookPhoneNumber *person = [record.phoneNumbers lastObject];
-    SelectBlock selectBlock = ^BOOL(WLAddressBookRecord* item) {
-        for (WLAddressBookPhoneNumber* _person in item.phoneNumbers) {
-            if ([_person isEqualToPerson:person]) {
-                person.name = item.name;
-                return YES;
-            }
-        }
-        return NO;
-    };
-    for (WLArrangedAddressBookGroup *group in self.groups) {
-        WLAddressBookRecord *record = [group.records select:selectBlock];
-        if (record) {
-            if (success) success(YES, @[record], @[group]);
-            return;
-        }
-    }
-    [self addRecord:record success:^(NSArray *records, NSArray *groups) {
-        if (success) success(NO, records, groups);
-    } failure:failure];
-}
-
 - (WLArrangedAddressBookGroup *)groupWithRecord:(WLAddressBookRecord *)record {
     for (WLArrangedAddressBookGroup *group in self.groups) {
         if ([group.records containsObject:record]) return group;

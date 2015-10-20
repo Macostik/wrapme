@@ -28,7 +28,7 @@
         _contribution = contribution;
         [[[contribution class] notifier] addReceiver:self];
         WLContribution *container = (id)[contribution container];
-        if (![container uploaded]) {
+        if (container.status != WLContributionStatusFinished) {
             [[[container class] notifier] addReceiver:self];
         }
     }

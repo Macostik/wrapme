@@ -235,3 +235,4 @@
 "no_video_to_upload" = "No video to be uploaded.";
 "notify_about_new_media" = "Notify me when new media is added.";
 "media" = "Media";
+"publishing_in_progress" = "Publishing in progress. Please try again later.";

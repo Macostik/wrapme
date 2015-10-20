@@ -695,8 +695,7 @@
         } break;
         case WLContributionStatusFinished: {
             if ([self.identifier isEqualToString:self.uploadIdentifier]) {
-                if (failure) failure([NSError errorWithDescription:[self messageAppearanceByCandyType:@"video_is_uploading"
-                                                                                                  and:@"photo_is_uploading"]]);
+                if (failure) failure([NSError errorWithDescription:WLLS(@"publishing_in_progress")]);
             } else {
                 operation = [[WLAPIRequest deleteCandy:self] send:success failure:failure];
             }

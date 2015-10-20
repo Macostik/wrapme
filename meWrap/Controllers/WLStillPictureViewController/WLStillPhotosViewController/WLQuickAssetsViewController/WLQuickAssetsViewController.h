@@ -26,7 +26,7 @@
 
 @interface WLQuickAssetsViewController : UIViewController
 
-@property (nonatomic) BOOL allowsMultipleSelection;
+@property (nonatomic) WLStillPictureMode mode;
 
 @property (weak, nonatomic) id <WLQuickAssetsViewControllerDelegate> delegate;
 

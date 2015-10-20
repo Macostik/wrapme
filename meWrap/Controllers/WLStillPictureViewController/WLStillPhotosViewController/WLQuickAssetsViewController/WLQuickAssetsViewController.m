@@ -43,7 +43,7 @@
         item.selected = [weakSelf selectAsset:entry];
     }];
     [metrics setPrepareAppearing:^(StreamItem *item, PHAsset *asset) {
-        item.view.exclusiveTouch = !weakSelf.allowsMultipleSelection;
+        item.view.exclusiveTouch = weakSelf.mode != WLStillPictureModeDefault;
     }];
     [self.dataSource setDidLayoutItemBlock:^(StreamItem *item) {
         PHAsset *asset = item.entry;
@@ -55,19 +55,24 @@
     self.dataSource.sizeForGridColumns = 1;
     self.dataSource.layoutSpacing = 3;
     
+    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+}
+
+- (void)setMode:(WLStillPictureMode)mode {
+    _mode = mode;
     PHFetchOptions *options = [[PHFetchOptions alloc] init];
     options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-    self.assets = [PHAsset fetchAssetsWithOptions:options];
-    run_after_asap(^{
-        if ([weakSelf.delegate respondsToSelector:@selector(quickAssetsViewControllerShouldPreselectFirstAsset:)]) {
-            if ([weakSelf.delegate quickAssetsViewControllerShouldPreselectFirstAsset:weakSelf]) {
-                [weakSelf selectAsset:[weakSelf.assets firstObject]];
-            }
+    if (self.mode == WLStillPictureModeDefault) {
+        self.assets = [PHAsset fetchAssetsWithOptions:options];
+    } else {
+        self.assets = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:options];
+    }
+    if ([self.delegate respondsToSelector:@selector(quickAssetsViewControllerShouldPreselectFirstAsset:)]) {
+        if ([self.delegate quickAssetsViewControllerShouldPreselectFirstAsset:self]) {
+            [self selectAsset:[self.assets firstObject]];
         }
-        weakSelf.dataSource.items = weakSelf.assets;
-    });
-    
-    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+    }
+    self.dataSource.items = self.assets;
 }
 
 - (NSMutableArray *)selectedAssets {

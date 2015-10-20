@@ -562,9 +562,17 @@
         [self addComments:comments];
     }
     if (type == WLCandyTypeVideo) {
-        [self editPicture:[self.picture edit:dictionary[WLVideoURLsKey] metrics:[AssetMetrics videoMetrics]]];
+        if (dictionary[WLMediaURLsKey]) {
+            [self editPicture:[self.picture edit:dictionary[WLMediaURLsKey] metrics:[AssetMetrics videoMetrics]]];
+        } else {
+            [self editPicture:[self.picture edit:dictionary[WLVideoURLsKey] metrics:[AssetMetrics videoMetrics]]];
+        }
     } else {
-        [self editPicture:[self.picture edit:dictionary[WLImageURLsKey] metrics:[AssetMetrics imageMetrics]]];
+        if (dictionary[WLMediaURLsKey]) {
+            [self editPicture:[self.picture edit:dictionary[WLMediaURLsKey] metrics:[AssetMetrics imageMetrics]]];
+        } else {
+            [self editPicture:[self.picture edit:dictionary[WLImageURLsKey] metrics:[AssetMetrics imageMetrics]]];
+        }
     }
     
     NSInteger commentCount = [dictionary integerForKey:WLCommentCountKey];

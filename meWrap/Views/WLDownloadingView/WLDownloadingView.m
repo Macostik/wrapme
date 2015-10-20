@@ -11,7 +11,6 @@
 #import "WLProgressBar+WLContribution.h"
 #import "WLCandy.h"
 #import "WLNavigationHelper.h"
-#import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLNetwork.h"
 #import "WLImageFetcher.h"
 

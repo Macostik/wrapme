@@ -13,11 +13,11 @@
 #import "WLChronologicalEntryPresenter.h"
 #import "WLDownloadingView.h"
 #import "WLAlertView.h"
-#import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLNavigationHelper.h"
 #import "WLDrawingViewController.h"
 #import "PHPhotoLibrary+Helper.h"
 #import "WLEntry+WLUploadingQueue.h"
+#import "WLImageEditorSession.h"
 
 @interface WLCandyCell () <WLEntryNotifyReceiver>
 
@@ -48,7 +48,7 @@
             [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
                 [menu addEditPhotoItem:^(WLCandy *candy) {
                     [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
-                        [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
+                        [WLImageEditorSession editImage:image completion:^(UIImage *image) {
                             [candy editWithImage:image];
                         } cancel:nil];
                     } failure:^(NSError *error) {

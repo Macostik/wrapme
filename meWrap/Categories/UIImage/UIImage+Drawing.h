@@ -16,8 +16,4 @@
 
 + (void)drawAssetNamed:(NSString*)name directory:(NSString*)directory size:(CGSize)size drawing:(void(^)(CGSize size))drawing;
 
-- (void)writeToPNGFile:(NSString*)path atomically:(BOOL)atomically;
-
-+ (UIImage*)gradient:(CGSize)size;
-
 @end

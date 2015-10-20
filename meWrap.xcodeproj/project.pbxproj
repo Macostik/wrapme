@@ -90,6 +90,7 @@
 		C5053E711BC7DF890040613A /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E6E1BC7DF890040613A /* UIImage+Resize.m */; settings = {ASSET_TAGS = (); }; };
 		C5053E801BC7E3DC0040613A /* WLEntryDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053E7F1BC7E3DC0040613A /* WLEntryDescriptor.m */; settings = {ASSET_TAGS = (); }; };
 		C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5053E811BC7F7280040613A /* ReportViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C50541581BD6545400AE6F2C /* WLImageEditorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C50541571BD6545400AE6F2C /* WLImageEditorSession.m */; settings = {ASSET_TAGS = (); }; };
 		C50646101ABD815200CB4BE3 /* WLTodayExtension.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */; };
 		C50646271ABD815200CB4BE3 /* WLTodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */; };
 		C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C509E2B71B96F46A003F6C21 /* Default-667h@2x.png */; };
@@ -335,7 +336,6 @@
 		C5AEE43D1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4381B3AC9E3000C8CCF /* WLDrawingBrush.m */; };
 		C5AEE4441B3ACC84000C8CCF /* WLDrawingCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE43F1B3ACC84000C8CCF /* WLDrawingCanvas.m */; };
 		C5AEE44B1B3AE770000C8CCF /* WLColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4461B3AE770000C8CCF /* WLColorPicker.m */; };
-		C5B2337E1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */; };
 		C5B2A1261B4BFED8004759F3 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1211B4BFED8004759F3 /* WLChat.m */; };
 		C5B2A12D1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */; };
 		C5B681231B83566B00BEE613 /* StreamDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B681211B83566B00BEE613 /* StreamDataSource.m */; };
@@ -801,6 +801,8 @@
 		C5053E7E1BC7E3DC0040613A /* WLEntryDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryDescriptor.h; sourceTree = "<group>"; };
 		C5053E7F1BC7E3DC0040613A /* WLEntryDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEntryDescriptor.m; sourceTree = "<group>"; };
 		C5053E811BC7F7280040613A /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Report\U0010ViewController.swift"; sourceTree = "<group>"; };
+		C50541561BD6545400AE6F2C /* WLImageEditorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLImageEditorSession.h; sourceTree = "<group>"; };
+		C50541571BD6545400AE6F2C /* WLImageEditorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLImageEditorSession.m; sourceTree = "<group>"; };
 		C50645BA1ABD815100CB4BE3 /* WLTodayExtension.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WLTodayExtension.storyboard; sourceTree = "<group>"; };
 		C50645C01ABD815100CB4BE3 /* WLTodayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayViewController.h; sourceTree = "<group>"; };
 		C50645C11ABD815100CB4BE3 /* WLTodayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayViewController.m; sourceTree = "<group>"; };
@@ -1209,8 +1211,6 @@
 		C5AEE4461B3AE770000C8CCF /* WLColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLColorPicker.m; sourceTree = "<group>"; };
 		C5B19DA81BC3C0AC00EB5353 /* exportAdhoc.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = exportAdhoc.plist; sourceTree = "<group>"; };
 		C5B19DA91BC3C0AC00EB5353 /* exportAppStore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = exportAppStore.plist; sourceTree = "<group>"; };
-		C5B233781B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AdobeUXImageEditorViewController+SharedEditing.h"; sourceTree = "<group>"; };
-		C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AdobeUXImageEditorViewController+SharedEditing.m"; sourceTree = "<group>"; };
 		C5B2A1201B4BFED8004759F3 /* WLChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLChat.h; sourceTree = "<group>"; };
 		C5B2A1211B4BFED8004759F3 /* WLChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChat.m; sourceTree = "<group>"; };
 		C5B2A1271B4C07DF004759F3 /* NSDate+PNTimetoken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PNTimetoken.h"; sourceTree = "<group>"; };
@@ -1744,6 +1744,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
 				C5053E7D1BC7E3DC0040613A /* WLEntryDescriptor */,
 				C5053E1F1BC7CF0F0040613A /* AssetMetrics.swift */,
 				C5053E5B1BC7DC150040613A /* WLOperation */,
@@ -2096,7 +2097,6 @@
 				C54CEF9C1BCFB09100128CBE /* UIViewController+Ext.swift */,
 				C5053E681BC7DF890040613A /* UIImage */,
 				C539B9BA1BA1C87F00C44D05 /* Photo */,
-				C5B233771B29E692008A14D1 /* AdobeUXImageEditorViewController */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2385,6 +2385,15 @@
 				C5053E7F1BC7E3DC0040613A /* WLEntryDescriptor.m */,
 			);
 			path = WLEntryDescriptor;
+			sourceTree = "<group>";
+		};
+		C50541551BD6545400AE6F2C /* WLImageEditorSession */ = {
+			isa = PBXGroup;
+			children = (
+				C50541561BD6545400AE6F2C /* WLImageEditorSession.h */,
+				C50541571BD6545400AE6F2C /* WLImageEditorSession.m */,
+			);
+			path = WLImageEditorSession;
 			sourceTree = "<group>";
 		};
 		C50645AA1ABD815100CB4BE3 /* Extensions */ = {
@@ -3330,15 +3339,6 @@
 				C5AE8FBA1BB04CCB00A9B27B /* WLAttributedLabel.m */,
 			);
 			path = TTTAttributedLabel;
-			sourceTree = "<group>";
-		};
-		C5B233771B29E692008A14D1 /* AdobeUXImageEditorViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C5B233781B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.h */,
-				C5B233791B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m */,
-			);
-			path = AdobeUXImageEditorViewController;
 			sourceTree = "<group>";
 		};
 		C5B2A11F1B4BFED8004759F3 /* WLChat */ = {
@@ -4597,6 +4597,7 @@
 				C55459531BD5213100A14C43 /* PNChannelGroupModificationParser.m in Sources */,
 				C55459571BD5213100A14C43 /* PNHistoryParser.m in Sources */,
 				C5C769941BAC10BF00B205CB /* WLEntry+API.m in Sources */,
+				C50541581BD6545400AE6F2C /* WLImageEditorSession.m in Sources */,
 				C55459401BD5213100A14C43 /* PNResult.m in Sources */,
 				C554594E1BD5213100A14C43 /* PNURLRequest.m in Sources */,
 				C55459431BD5213100A14C43 /* PNSubscriberResults.m in Sources */,
@@ -4782,7 +4783,6 @@
 				C53DC22C1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
 				C5BEE0EA1B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */,
 				C5E6EAF31BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m in Sources */,
-				C5B2337E1B29E6B8008A14D1 /* AdobeUXImageEditorViewController+SharedEditing.m in Sources */,
 				C53F2CE71A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				C55459441BD5213100A14C43 /* PNSubscribeStatus.m in Sources */,
 				C54731CB1B90A4B000B583FD /* WLAssetCell.m in Sources */,

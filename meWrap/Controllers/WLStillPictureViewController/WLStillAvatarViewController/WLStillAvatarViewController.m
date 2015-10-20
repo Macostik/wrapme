@@ -27,10 +27,10 @@
 - (void)handleImage:(UIImage*)image saveToAlbum:(BOOL)saveToAlbum {
     __weak typeof(self)weakSelf = self;
     [self editImage:image completion:^ (UIImage *resultImage, NSString *comment) {
-        if (saveToAlbum) [resultImage saveToAlbum];
         weakSelf.view.userInteractionEnabled = NO;
-        self.picture = [WLEditPicture picture:resultImage mode:weakSelf.mode completion:^(id object) {
-            [weakSelf finishWithPictures:@[weakSelf.picture]];
+        self.picture = [WLEditPicture picture:resultImage mode:weakSelf.mode completion:^(WLEditPicture *picture) {
+            if (saveToAlbum) [picture saveToAssets];
+            [weakSelf finishWithPictures:@[picture]];
             weakSelf.view.userInteractionEnabled = YES;
         }];
     }];

@@ -10,7 +10,7 @@
 #import "WLNavigationHelper.h"
 #import "WLAlertView.h"
 #import "WLToast.h"
-#import "AdobeUXImageEditorViewController+SharedEditing.h"
+#import "WLImageEditorSession.h"
 
 @interface WLEditAvatarViewController ()
 
@@ -46,13 +46,13 @@
 
 - (IBAction)edit:(id)sender {
     __weak typeof(self)weakSelf = self;
-    AFPhotoEditorController* aviaryController = [AdobeUXImageEditorViewController editControllerWithImage:self.image completion:^(UIImage *image, AdobeUXImageEditorViewController *controller) {
+    UIViewController* controller = [WLImageEditorSession editControllerWithImage:self.image completion:^(UIImage *image) {
         weakSelf.image = weakSelf.imageView.image = image;
         [weakSelf.navigationController popViewControllerAnimated:NO];
-    } cancel:^(AdobeUXImageEditorViewController *controller) {
+    } cancel:^ {
         [weakSelf.navigationController popViewControllerAnimated:NO];
     }];
-    [self.navigationController pushViewController:aviaryController animated:NO];
+    [self.navigationController pushViewController:controller animated:NO];
 }
 
 - (IBAction)cancel:(id)sender {

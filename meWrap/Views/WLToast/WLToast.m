@@ -13,7 +13,6 @@
 #import "NSObject+NibAdditions.h"
 #import "WLNavigationHelper.h"
 #import "UIColor+CustomColors.h"
-#import "PHPhotoLibrary+Helper.h"
 
 @implementation WLToastAppearance
 

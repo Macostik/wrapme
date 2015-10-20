@@ -25,4 +25,7 @@ static void WLInitializeConstants (void) {
     };
 }
 
+static NSString *WLAlbumName = @"meWrap";
+
+
 

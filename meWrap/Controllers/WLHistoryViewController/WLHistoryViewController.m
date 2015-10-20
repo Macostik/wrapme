@@ -22,10 +22,10 @@
 #import "WLLayoutPrioritizer.h"
 #import "WLAlertView.h"
 #import "WLDrawingViewController.h"
-#import "AdobeUXImageEditorViewController+SharedEditing.h"
 #import "WLFollowingViewController.h"
 #import "PHPhotoLibrary+Helper.h"
 #import "WLEntry+WLUploadingQueue.h"
+#import "WLImageEditorSession.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -476,7 +476,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         __weak WLCandy *candy = weakSelf.candy;
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
-            [AdobeUXImageEditorViewController editImage:image completion:^(UIImage *image) {
+            [WLImageEditorSession editImage:image completion:^(UIImage *image) {
                 [candy editWithImage:image];
             } cancel:nil];
         } failure:^(NSError *error) {

@@ -12,7 +12,7 @@
 #import "WLNavigationHelper.h"
 #import "StreamDataSource.h"
 #import "WLComposeBar.h"
-#import "AdobeUXImageEditorViewController+SharedEditing.h"
+#import "WLImageEditorSession.h"
 #import "WLEditPictureCell.h"
 #import "WLToast.h"
 #import "WLHintView.h"
@@ -239,13 +239,13 @@ static const int WLInstanceCommentLimit = 1500;
     if (!image) {
         return;
     }
-    AdobeUXImageEditorViewController* aviaryController = [AdobeUXImageEditorViewController editControllerWithImage:image completion:^(UIImage *image, AdobeUXImageEditorViewController *controller) {
+    UIViewController* controller = [WLImageEditorSession editControllerWithImage:image completion:^(UIImage *image) {
         [weakSelf editCurrentPictureWithImage:image];
         [weakSelf.navigationController popViewControllerAnimated:NO];
-    } cancel:^(AdobeUXImageEditorViewController *controller) {
+    } cancel:^ {
         [weakSelf.navigationController popViewControllerAnimated:NO];
     }];
-    [self.navigationController pushViewController:aviaryController animated:NO];
+    [self.navigationController pushViewController:controller animated:NO];
 }
 
 - (void)editCurrentPictureWithImage:(UIImage*)image {

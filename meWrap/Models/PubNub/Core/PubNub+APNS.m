@@ -171,6 +171,41 @@
            }];
 }
 
+- (void)pushNotificationEnabledChannelsForDeviceWithHEXToken:(NSString *)pushToken andCompletion:(PNPushNotificationsStateAuditCompletionBlock)block {
+    
+    PNRequestParameters *parameters = [PNRequestParameters new];
+    if ([pushToken length]) {
+        
+        [parameters addPathComponent:[pushToken lowercaseString]
+                      forPlaceholder:@"{token}"];
+    }
+    
+    DDLogAPICall([[self class] ddLogLevel], @"<PubNub> Push notification enabled channels for device '%@'.",
+                 [pushToken lowercaseString]);
+    
+    __weak __typeof(self) weakSelf = self;
+    [self processOperation:PNPushNotificationEnabledChannelsOperation withParameters:parameters
+           completionBlock:^(PNResult *result, PNStatus *status){
+               
+               // Silence static analyzer warnings.
+               // Code is aware about this case and at the end will simply call on 'nil' object
+               // method. In most cases if referenced object become 'nil' it mean what there is no
+               // more need in it and probably whole client instance has been deallocated.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreceiver-is-weak"
+               if (status.isError) {
+                   
+                   status.retryBlock = ^{
+                       
+                       [weakSelf pushNotificationEnabledChannelsForDeviceWithHEXToken:pushToken
+                                                                         andCompletion:block];
+                   };
+               }
+               [weakSelf callBlock:block status:NO withResult:result andStatus:status];
+#pragma clang diagnostic pop
+           }];
+}
+
 #pragma mark -
 
 

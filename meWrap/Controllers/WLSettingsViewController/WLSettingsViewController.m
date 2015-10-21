@@ -14,6 +14,9 @@
 #import "WLNotificationCenter.h"
 #import "PHPhotoLibrary+Helper.h"
 #import "WLAPIRequest.h"
+#import "PubNub+SharedInstance.h"
+#import "WLAlertView.h"
+#import "WLNotificationSubscription.h"
 
 @interface WLSettingsViewController ()
 
@@ -82,5 +85,18 @@
     
 }
 
+- (IBAction)showGroupChannels:(id)sender {
+    [[PubNub sharedInstance] channelsForGroup:[WLNotificationCenter defaultCenter].userSubscription.name withCompletion:^(PNChannelGroupChannelsResult *result, PNErrorStatus *status) {
+        WLLog(@"DEBUG - group %@ channels: %@", [WLNotificationCenter defaultCenter].userSubscription.name, result.data.channels.description);
+        [UIAlertController showWithTitle:[WLNotificationCenter defaultCenter].userSubscription.name message:result.data.channels.description buttons:@[@"OK"] completion:nil];
+    }];
+}
+
+- (IBAction)showAPNSChannels:(id)sender {
+    [[PubNub sharedInstance] pushNotificationEnabledChannelsForDeviceWithPushToken:[WLNotificationCenter defaultCenter].pushToken andCompletion:^(PNAPNSEnabledChannelsResult *result, PNErrorStatus *status) {
+        WLLog(@"DEBUG - token %@ channels: %@", [WLNotificationCenter defaultCenter].pushToken, result.data.channels.description);
+        [UIAlertController showWithTitle:[WLNotificationCenter defaultCenter].pushToken.description message:result.data.channels.description buttons:@[@"OK"] completion:nil];
+    }];
+}
 
 @end

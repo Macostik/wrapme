@@ -232,6 +232,8 @@ typedef void(^PNPushNotificationsStateAuditCompletionBlock)(PNAPNSEnabledChannel
 - (void)pushNotificationEnabledChannelsForDeviceWithPushToken:(NSData *)pushToken
                                   andCompletion:(PNPushNotificationsStateAuditCompletionBlock)block;
 
+- (void)pushNotificationEnabledChannelsForDeviceWithHEXToken:(NSString *)pushToken andCompletion:(PNPushNotificationsStateAuditCompletionBlock)block;
+
 #pragma mark -
 
 

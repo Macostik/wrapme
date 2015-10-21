@@ -53,15 +53,15 @@ typedef BOOL (^WLEditSessionComparator)(id originalValue, id changedValue);
 
 @property (nonatomic, weak) id <WLEditSessionDelegate> delegate;
 
-@property (readonly, weak, nonatomic) WLEntry* entry;
+@property (readonly, weak, nonatomic) id entry;
 
 @property (readonly, nonatomic) BOOL hasChanges;
 
 @property (readonly, strong, nonatomic) NSMutableDictionary *properties;
 
-- (id)initWithEntry:(WLEntry *)entry properties:(NSSet*)properties;
+- (id)initWithEntry:(id)entry properties:(NSSet*)properties;
 
-- (id)initWithEntry:(WLEntry *)entry stringProperties:(NSString*)keyPath, ... NS_REQUIRES_NIL_TERMINATION;
+- (id)initWithEntry:(id)entry stringProperties:(NSString*)keyPath, ... NS_REQUIRES_NIL_TERMINATION;
 
 - (void)apply;
 
@@ -75,14 +75,6 @@ typedef BOOL (^WLEditSessionComparator)(id originalValue, id changedValue);
 
 - (void)changeValue:(id)value forProperty:(NSString*)keyPath;
 
-- (void)changeValueForProperty:(NSString*)keyPath valueBlock:(id (^)(id changedValue))valueBlock;
-
 - (BOOL)isPropertyChanged:(NSString*)keyPath;
-
-@end
-
-@interface WLOrderedSetEditSessionProperty : WLEditSessionProperty
-
-+ (instancetype)property:(NSString *)keyPath;
 
 @end

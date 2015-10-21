@@ -69,13 +69,13 @@
 
 @property (strong, nonatomic) NSMutableDictionary *properties;
 
-@property (weak, nonatomic) WLEntry* entry;
+@property (weak, nonatomic) id entry;
 
 @end
 
 @implementation WLEditSession
 
-- (id)initWithEntry:(WLEntry *)entry properties:(NSSet *)properties {
+- (id)initWithEntry:(id)entry properties:(NSSet *)properties {
     self = [super init];
     if (self) {
         self.properties = [NSMutableDictionary dictionary];
@@ -88,7 +88,7 @@
     return self;
 }
 
-- (id)initWithEntry:(WLEntry *)entry stringProperties:(NSString *)keyPath, ... {
+- (id)initWithEntry:(id)entry stringProperties:(NSString *)keyPath, ... {
     NSMutableSet *properties = [NSMutableSet set];
     va_list args;
     va_start(args, keyPath);
@@ -142,13 +142,6 @@
     self.hasChanges = [self updatedHasChangesValue];
 }
 
-- (void)changeValueForProperty:(NSString *)keyPath valueBlock:(id (^)(id changedValue))valueBlock {
-    if (!valueBlock) return;
-    WLEditSessionProperty *property = [self.properties objectForKey:keyPath];
-    property.changedValue = valueBlock(property.changedValue);
-    self.hasChanges = [self updatedHasChangesValue];
-}
-
 - (BOOL)isPropertyChanged:(NSString *)keyPath {
     WLEditSessionProperty *property = [self.properties objectForKey:keyPath];
     return property.changed;
@@ -161,24 +154,6 @@
         }
     }
     return NO;
-}
-
-@end
-
-@implementation WLOrderedSetEditSessionProperty
-
-+ (instancetype)property:(NSString *)keyPath {
-    return [self property:keyPath comparator:^BOOL(id originalValue, id changedValue) {
-        return [originalValue isEqualToOrderedSet:changedValue];
-    }];
-}
-
-- (id)initialOriginalValue {
-    return [NSOrderedSet orderedSet];
-}
-
-- (void)apply:(id)value {
-    
 }
 
 @end

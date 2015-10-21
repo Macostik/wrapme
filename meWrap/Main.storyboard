@@ -454,6 +454,28 @@
                                     <action selector="addDemoImages:" destination="zBt-TT-rM7" eventType="touchUpInside" id="oYR-oa-v7f"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZn-iR-lCL">
+                                <rect key="frame" x="12" y="206" width="576" height="41"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="yTH-XD-3ep"/>
+                                </constraints>
+                                <state key="normal" title="Show channels in group"/>
+                                <connections>
+                                    <action selector="showGroupChannels:" destination="zBt-TT-rM7" eventType="touchUpInside" id="sht-fS-RiP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kp1-ut-oEm">
+                                <rect key="frame" x="12" y="259" width="576" height="41"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="RXp-su-FJj"/>
+                                </constraints>
+                                <state key="normal" title="Show APNS channels"/>
+                                <connections>
+                                    <action selector="showAPNSChannels:" destination="zBt-TT-rM7" eventType="touchUpInside" id="wav-eT-5RK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -466,12 +488,14 @@
                             <constraint firstItem="qU7-Ez-lna" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="75y-ff-xZ5"/>
                             <constraint firstItem="mQC-gK-lfD" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="AiZ-Aa-HJA"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="44" id="AlN-iI-BoV"/>
+                            <constraint firstItem="kp1-ut-oEm" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="Bei-U9-GUV"/>
                             <constraint firstItem="hNJ-iN-ANg" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="DqZ-ak-FZI"/>
                             <constraint firstItem="xod-QW-gum" firstAttribute="top" secondItem="Lq0-rh-5bS" secondAttribute="bottom" id="EIk-hi-aeH"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="7Ok-gy-eVo" secondAttribute="leading" id="ENs-zQ-ALk"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="G9j-4K-lq1"/>
                             <constraint firstItem="MDJ-Nd-sbY" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="HA9-f5-7Ud"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="HdV-Pv-jgs"/>
+                            <constraint firstAttribute="trailing" secondItem="kp1-ut-oEm" secondAttribute="trailing" constant="12" id="Is2-9Z-Lsb"/>
                             <constraint firstAttribute="trailing" secondItem="fos-MI-VJD" secondAttribute="trailing" constant="12" id="J03-jl-mne"/>
                             <constraint firstAttribute="trailing" secondItem="7C1-yc-O8X" secondAttribute="trailing" constant="12" id="JbV-JO-tQh"/>
                             <constraint firstItem="cRK-Tr-qQy" firstAttribute="top" secondItem="fos-MI-VJD" secondAttribute="bottom" constant="15" id="Lxa-Bu-Tmg"/>
@@ -482,14 +506,18 @@
                             <constraint firstItem="R6h-Ul-Nr0" firstAttribute="leading" secondItem="co2-D4-XAH" secondAttribute="leading" id="SvJ-CX-7Vo"/>
                             <constraint firstAttribute="trailing" secondItem="co2-D4-XAH" secondAttribute="trailing" constant="12" id="TqK-kg-CWd"/>
                             <constraint firstItem="bUo-1c-0rp" firstAttribute="centerY" secondItem="7C1-yc-O8X" secondAttribute="centerY" id="WHP-3t-erb"/>
+                            <constraint firstItem="pZn-iR-lCL" firstAttribute="top" secondItem="7C1-yc-O8X" secondAttribute="bottom" constant="8" id="XvY-4g-JUi"/>
                             <constraint firstItem="fos-MI-VJD" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="ZKd-f9-wPp"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="top" secondItem="co2-D4-XAH" secondAttribute="bottom" id="aYA-W2-whd"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="bottom" secondItem="7C1-yc-O8X" secondAttribute="top" id="bhL-y1-aAo"/>
+                            <constraint firstAttribute="trailing" secondItem="pZn-iR-lCL" secondAttribute="trailing" constant="12" id="cgr-n3-sd2"/>
                             <constraint firstItem="fos-MI-VJD" firstAttribute="top" secondItem="hNJ-iN-ANg" secondAttribute="bottom" constant="5" id="f1e-0I-nj6"/>
                             <constraint firstItem="7C1-yc-O8X" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="fG0-Qk-cC5"/>
+                            <constraint firstItem="kp1-ut-oEm" firstAttribute="top" secondItem="pZn-iR-lCL" secondAttribute="bottom" constant="12" id="kGT-CP-U3f"/>
                             <constraint firstAttribute="trailing" secondItem="MDJ-Nd-sbY" secondAttribute="trailing" id="kWI-un-S07"/>
                             <constraint firstItem="7C1-yc-O8X" firstAttribute="top" secondItem="xod-QW-gum" secondAttribute="bottom" id="mGh-n5-swI"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="88" id="nGi-ad-drO"/>
+                            <constraint firstItem="pZn-iR-lCL" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="pd6-Ak-ybt"/>
                             <constraint firstItem="bUo-1c-0rp" firstAttribute="leading" secondItem="7C1-yc-O8X" secondAttribute="leading" id="uzc-80-NYg"/>
                             <constraint firstAttribute="trailing" secondItem="xod-QW-gum" secondAttribute="trailing" id="xeE-i5-YAU"/>
                             <constraint firstAttribute="trailing" secondItem="mQC-gK-lfD" secondAttribute="trailing" id="xuQ-Yo-tyX"/>
@@ -519,7 +547,7 @@
                 </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JUy-Pu-NyQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1730.625" y="-531.33802816901402"/>
+            <point key="canvasLocation" x="1730" y="-532"/>
         </scene>
         <!--Source View Controller-->
         <scene sceneID="zxY-Lu-ZtN">

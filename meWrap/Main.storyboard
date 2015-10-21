@@ -238,6 +238,16 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                        <color key="value" red="0.93333333730697632" green="0.93333333730697632" blue="0.93333333730697632" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="push:" destination="5n6-Z7-rk2" eventType="touchUpInside" id="9wZ-zg-u8S"/>
@@ -266,7 +276,7 @@
                                     </imageView>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="4vC-Qa-3iV"/>
                                     <constraint firstAttribute="width" constant="44" id="JNG-7X-MRe"/>
@@ -286,36 +296,12 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                        <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ok-gy-eVo">
-                                <rect key="frame" x="12" y="108" width="44" height="44"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="8v5-RJ-m1m"/>
-                                    <constraint firstAttribute="width" constant="44" id="EqN-OG-ji0"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
-                                <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xod-QW-gum" customClass="WLSeparatorView">
-                                <rect key="frame" x="0.0" y="152" width="600" height="1"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="PWx-NG-9jA"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                        <color key="value" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.93333333730697632" green="0.93333333730697632" blue="0.93333333730697632" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lq0-rh-5bS" customClass="WLButton">
-                                <rect key="frame" x="12" y="108" width="576" height="44"/>
+                                <rect key="frame" x="12" y="109" width="576" height="44"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="NYv-6H-t4c"/>
@@ -329,37 +315,48 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                        <color key="value" red="0.93333333730697632" green="0.93333333730697632" blue="0.93333333730697632" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="about:" destination="zBt-TT-rM7" eventType="touchUpInside" id="8Xw-bI-pkr"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUo-1c-0rp">
-                                <rect key="frame" x="12" y="152" width="44" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ok-gy-eVo">
+                                <rect key="frame" x="12" y="109" width="44" height="44"/>
                                 <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="51v-S7-THv"/>
-                                    <constraint firstAttribute="height" constant="44" id="sAr-Cz-wEW"/>
+                                    <constraint firstAttribute="height" constant="44" id="8v5-RJ-m1m"/>
+                                    <constraint firstAttribute="width" constant="44" id="EqN-OG-ji0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
-                                <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQC-gK-lfD" customClass="WLSeparatorView">
-                                <rect key="frame" x="0.0" y="196" width="600" height="1"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xod-QW-gum" customClass="WLSeparatorView">
+                                <rect key="frame" x="0.0" y="153" width="600" height="1"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="qdb-EH-1Rj"/>
+                                    <constraint firstAttribute="height" constant="1" id="PWx-NG-9jA"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                        <color key="value" red="0.91664922240000002" green="0.91662174460000001" blue="0.91663730139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.93333333730697632" green="0.93333333730697632" blue="0.93333333730697632" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7C1-yc-O8X" customClass="WLButton">
-                                <rect key="frame" x="12" y="152" width="576" height="44"/>
+                                <rect key="frame" x="12" y="154" width="576" height="44"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Dqb-yr-Jzr"/>
@@ -373,11 +370,46 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="normalColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedColor">
+                                        <color key="value" red="0.93333333730697632" green="0.93333333730697632" blue="0.93333333730697632" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="signOut:" destination="zBt-TT-rM7" eventType="touchUpInside" id="VNg-4k-xSD"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUo-1c-0rp">
+                                <rect key="frame" x="12" y="154" width="44" height="44"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="51v-S7-THv"/>
+                                    <constraint firstAttribute="height" constant="44" id="sAr-Cz-wEW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="32"/>
+                                <color key="textColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQC-gK-lfD" customClass="WLSeparatorView">
+                                <rect key="frame" x="0.0" y="198" width="600" height="1"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="qdb-EH-1Rj"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" red="0.93333333730697632" green="0.93333333730697632" blue="0.93333333730697632" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNJ-iN-ANg" customClass="WLQAButton">
                                 <rect key="frame" x="12" y="492" width="576" height="44"/>
                                 <animations/>
@@ -456,13 +488,17 @@
                             <constraint firstItem="fos-MI-VJD" firstAttribute="top" secondItem="hNJ-iN-ANg" secondAttribute="bottom" constant="5" id="f1e-0I-nj6"/>
                             <constraint firstItem="7C1-yc-O8X" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="fG0-Qk-cC5"/>
                             <constraint firstAttribute="trailing" secondItem="MDJ-Nd-sbY" secondAttribute="trailing" id="kWI-un-S07"/>
+                            <constraint firstItem="7C1-yc-O8X" firstAttribute="top" secondItem="xod-QW-gum" secondAttribute="bottom" id="mGh-n5-swI"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="88" id="nGi-ad-drO"/>
                             <constraint firstItem="bUo-1c-0rp" firstAttribute="leading" secondItem="7C1-yc-O8X" secondAttribute="leading" id="uzc-80-NYg"/>
                             <constraint firstAttribute="trailing" secondItem="xod-QW-gum" secondAttribute="trailing" id="xeE-i5-YAU"/>
                             <constraint firstAttribute="trailing" secondItem="mQC-gK-lfD" secondAttribute="trailing" id="xuQ-Yo-tyX"/>
+                            <constraint firstItem="Lq0-rh-5bS" firstAttribute="top" secondItem="MDJ-Nd-sbY" secondAttribute="bottom" id="zBV-ZN-jGC"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="aYA-W2-whd"/>
+                                <exclude reference="bhL-y1-aAo"/>
                                 <exclude reference="nGi-ad-drO"/>
                             </mask>
                         </variation>

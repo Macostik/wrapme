@@ -105,6 +105,7 @@
 		C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E621AE5547D007E55D0 /* Accelerate.framework */; };
 		C521E18C1BC7AE1B00505432 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C521E18B1BC7AE1B00505432 /* VideoPlayerView.swift */; settings = {ASSET_TAGS = (); }; };
 		C523D8CA1BD76BC0006FE7AB /* LayoutPrioritizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523D8C91BD76BC0006FE7AB /* LayoutPrioritizer.swift */; settings = {ASSET_TAGS = (); }; };
+		C523D8CC1BD7733D006FE7AB /* Telephony.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523D8CB1BD7733D006FE7AB /* Telephony.swift */; settings = {ASSET_TAGS = (); }; };
 		C5284C981B95A8B0006455FB /* PlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5284C961B95A8B0006455FB /* PlaceholderView.m */; };
 		C52CC6471BC6757800288FDC /* WLExtensionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C52CC6461BC6757800288FDC /* WLExtensionManager.m */; settings = {ASSET_TAGS = (); }; };
 		C52CC6511BC6813700288FDC /* WLWKNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C52CC64F1BC6813100288FDC /* WLWKNotificationController.m */; settings = {ASSET_TAGS = (); }; };
@@ -280,7 +281,6 @@
 		C5568BE01A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
 		C558E7C91A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
 		C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
-		C55997531A262BD8003D4B29 /* WLTelephony.m in Sources */ = {isa = PBXBuildFile; fileRef = C559974F1A262BD8003D4B29 /* WLTelephony.m */; };
 		C55A451A1BAC18580055AEC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C55A451C1BAC18580055AEC2 /* Localizable.strings */; };
 		C55A452C1BAC1C4A0055AEC2 /* WLNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A452A1BAC1C4A0055AEC2 /* WLNetwork.m */; settings = {ASSET_TAGS = (); }; };
 		C55A45301BAC1CBE0055AEC2 /* WLUploading+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A452D1BAC1CBE0055AEC2 /* WLUploading+Extended.m */; settings = {ASSET_TAGS = (); }; };
@@ -839,6 +839,7 @@
 		C5218E671AE554B7007E55D0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		C521E18B1BC7AE1B00505432 /* VideoPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		C523D8C91BD76BC0006FE7AB /* LayoutPrioritizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutPrioritizer.swift; path = meWrap/Models/LayoutPrioritizer.swift; sourceTree = SOURCE_ROOT; };
+		C523D8CB1BD7733D006FE7AB /* Telephony.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Telephony.swift; sourceTree = "<group>"; };
 		C5259D661ACC2333003D3317 /* meWrap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = meWrap.entitlements; sourceTree = "<group>"; };
 		C5284C951B95A8B0006455FB /* PlaceholderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderView.h; sourceTree = "<group>"; };
 		C5284C961B95A8B0006455FB /* PlaceholderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderView.m; sourceTree = "<group>"; };
@@ -1108,8 +1109,6 @@
 		C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLHomePlaceholderView.xib; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
 		C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailConfirmationViewController.m; sourceTree = "<group>"; };
-		C559974E1A262BD8003D4B29 /* WLTelephony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTelephony.h; sourceTree = "<group>"; };
-		C559974F1A262BD8003D4B29 /* WLTelephony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTelephony.m; sourceTree = "<group>"; };
 		C55A45151BAC17CF0055AEC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C55A451B1BAC18580055AEC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C55A451D1BAC185A0055AEC2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1743,6 +1742,7 @@
 		12A7A73818DA09A9008FF6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C523D8CB1BD7733D006FE7AB /* Telephony.swift */,
 				C5053E1F1BC7CF0F0040613A /* AssetMetrics.swift */,
 				C523D8C91BD76BC0006FE7AB /* LayoutPrioritizer.swift */,
 				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
@@ -1773,7 +1773,6 @@
 				C5A82CCC1ACD979B00336027 /* WLDeviceOrientationBroadcaster */,
 				C577C2601A4C426300ECC7E5 /* iVersion */,
 				C54773101A41910E004C5826 /* WLFontPresetter */,
-				C559974D1A262BC2003D4B29 /* WLTelephony */,
 				C5C20B8C1A238ACC008B2E2E /* WLValidation */,
 				C547A44E1A026B3E005061AB /* WLKeyboard */,
 				C57BDDB419FA5E9E003593F1 /* WLStoryboardTransition */,
@@ -3070,15 +3069,6 @@
 				C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */,
 			);
 			path = WLEmailConfirmationViewController;
-			sourceTree = "<group>";
-		};
-		C559974D1A262BC2003D4B29 /* WLTelephony */ = {
-			isa = PBXGroup;
-			children = (
-				C559974E1A262BD8003D4B29 /* WLTelephony.h */,
-				C559974F1A262BD8003D4B29 /* WLTelephony.m */,
-			);
-			path = WLTelephony;
 			sourceTree = "<group>";
 		};
 		C55A45281BAC1C4A0055AEC2 /* WLNetwork */ = {
@@ -4706,7 +4696,6 @@
 				5BA432AD1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */,
 				C5053DD61BC7CCE30040613A /* WLContribution.m in Sources */,
 				C5603DC21AD921EE00427DEC /* WLEntryPresenter.m in Sources */,
-				C55997531A262BD8003D4B29 /* WLTelephony.m in Sources */,
 				C54731BE1B906A7400B583FD /* WLWrapPickerViewController.m in Sources */,
 				C5E6E9781BBAC3EC007FFA66 /* NSObject+Extension.m in Sources */,
 				C53E5CEB1A84D876004F61B0 /* WLUserView.m in Sources */,
@@ -4788,6 +4777,7 @@
 				C5053E651BC7DC4A0040613A /* WLAsset.m in Sources */,
 				C5E6EAF51BBADF5A007FFA66 /* DDMultiFormatter.m in Sources */,
 				C55459301BD5213100A14C43 /* PNClientInformation.m in Sources */,
+				C523D8CC1BD7733D006FE7AB /* Telephony.swift in Sources */,
 				C55459381BD5213100A14C43 /* PNClientStateUpdateStatus.m in Sources */,
 				C55459351BD5213100A14C43 /* PNChannelGroupChannelsResult.m in Sources */,
 				C55459291BD5213100A14C43 /* PubNub+Subscribe.m in Sources */,

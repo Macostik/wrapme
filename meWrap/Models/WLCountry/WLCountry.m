@@ -7,7 +7,6 @@
 //
 
 #import "WLCountry.h"
-#import "WLTelephony.h"
 
 @implementation WLCountry
 
@@ -25,7 +24,7 @@
 }
 
 + (WLCountry *)getCurrentCountry {
-	NSString *code = [WLTelephony countryCode];
+	NSString *code = [Telephony countryCode];
 	if (!code.nonempty) {
 		code = [[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] lowercaseString];
 	}

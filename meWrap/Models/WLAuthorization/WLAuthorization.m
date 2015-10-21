@@ -11,7 +11,6 @@
 #import "WLSession.h"
 #import "WLEntryKeys.h"
 #import "NSDictionary+Extended.h"
-#import "WLTelephony.h"
 #import "UIFont+CustomFonts.h"
 #import "WLLocalization.h"
 

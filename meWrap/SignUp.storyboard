@@ -291,7 +291,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RZe-hx-2bQ" sceneMemberID="firstResponder"/>
-                <customObject id="ZcZ-hW-bGa" customClass="WLLayoutPrioritizer">
+                <customObject id="ZcZ-hW-bGa" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
                         <outletCollection property="defaultConstraints" destination="mTX-gn-s6e" id="mp1-1E-k24"/>
                         <outletCollection property="alternativeConstraints" destination="5B1-T9-0l7" id="GE3-eO-2X8"/>

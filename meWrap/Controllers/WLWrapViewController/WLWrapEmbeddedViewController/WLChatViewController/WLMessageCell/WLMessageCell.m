@@ -14,7 +14,6 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLEntryStatusIndicator.h"
 #import "WLMenu.h"
-#import "WLLayoutPrioritizer.h"
 #import "WLImageView.h"
 #import "NSDate+Formatting.h"
 #import <MobileCoreServices/MobileCoreServices.h>

@@ -20,7 +20,6 @@
 #import "WLWhatsUpSet.h"
 #import "WLMessagesCounter.h"
 #import "WLButton.h"
-#import "WLLayoutPrioritizer.h"
 #import "WLWrapStatusImageView.h"
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLFollowingViewController.h"
@@ -43,7 +42,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *creatorName;
 @property (weak, nonatomic) IBOutlet UILabel *publicWrapNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ownerDescriptionLabel;
-@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *publicWrapPrioritizer;
+@property (strong, nonatomic) IBOutlet LayoutPrioritizer *publicWrapPrioritizer;
 
 @end
 

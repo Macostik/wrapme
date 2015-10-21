@@ -24,7 +24,6 @@
 #import "WLBadgeLabel.h"
 #import "WLMessagesCounter.h"
 #import "PlaceholderView.h"
-#import "WLLayoutPrioritizer.h"
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLNetwork.h"

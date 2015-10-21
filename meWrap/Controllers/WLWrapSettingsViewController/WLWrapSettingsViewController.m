@@ -11,7 +11,6 @@
 #import "WLEditSession.h"
 #import "WLAlertView.h"
 #import "WLButton.h"
-#import "WLLayoutPrioritizer.h"
 
 @interface WLWrapSettingsViewController ()
 
@@ -21,8 +20,8 @@
 @property (weak, nonatomic) IBOutlet UISwitch *candyNotifyTrigger;
 @property (weak, nonatomic) IBOutlet UISwitch *chatNotifyTrigger;
 @property (weak, nonatomic) IBOutlet UISwitch *restictedInviteTrigger;
-@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *friendsInvitePrioritizer;
-@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *chatPrioritizer;
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *friendsInvitePrioritizer;
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *chatPrioritizer;
 
 @property (strong, nonatomic) WLEditSession *editSession;
 

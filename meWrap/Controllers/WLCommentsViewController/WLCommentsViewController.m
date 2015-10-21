@@ -26,7 +26,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
 @interface WLCommentsViewController () <UIViewControllerTransitioningDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
-@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *composeBarBottomPrioritizer;
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *composeBarBottomPrioritizer;
 @property (weak, nonatomic) IBOutlet WLComposerScrollView *contentView;
 @property (weak, nonatomic) WLHistoryViewController *historyViewController;
 

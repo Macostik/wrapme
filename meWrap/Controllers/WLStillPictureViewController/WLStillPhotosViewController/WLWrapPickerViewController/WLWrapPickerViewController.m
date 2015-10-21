@@ -11,7 +11,6 @@
 #import "WLToast.h"
 #import "WLButton.h"
 #import "WLKeyboard.h"
-#import "WLLayoutPrioritizer.h"
 #import "WLUploadingQueue.h"
 #import "WLUploading+Extended.h"
 
@@ -42,7 +41,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *wrapNameTextField;
 
-@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *editingPrioritizer;
+@property (strong, nonatomic) IBOutlet LayoutPrioritizer *editingPrioritizer;
 
 @end
 

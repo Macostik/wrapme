@@ -19,7 +19,6 @@
 #import "WLImageCache.h"
 #import "WLPresentingImageView.h"
 #import "WLCommentsViewController.h"
-#import "WLLayoutPrioritizer.h"
 #import "WLAlertView.h"
 #import "WLDrawingViewController.h"
 #import "WLFollowingViewController.h"
@@ -56,9 +55,9 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet WLTextView *lastCommentTextView;
 @property (weak, nonatomic) IBOutlet VideoPlayerView *videoPlayerView;
 
-@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *primaryConstraint;
-@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *commentButtonPrioritizer;
-@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *bottomViewHeightPrioritizer;
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *primaryConstraint;
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *commentButtonPrioritizer;
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *bottomViewHeightPrioritizer;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;

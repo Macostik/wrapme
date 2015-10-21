@@ -14,7 +14,6 @@
 #import "WLHintView.h"
 #import "WLNavigationHelper.h"
 #import "WLStreamLoadingView.h"
-#import "WLLayoutPrioritizer.h"
 
 const static CGFloat WLContributorsVerticalIndent = 48.0f;
 const static CGFloat WLContributorsHorizontalIndent = 96.0f;
@@ -26,7 +25,7 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 
 @property (weak, nonatomic) IBOutlet UIView *addFriendView;
 
-@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *restrictedInvitePrioritizer;
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *restrictedInvitePrioritizer;
 
 @property (strong, nonatomic) NSMutableSet* invitedContributors;
 

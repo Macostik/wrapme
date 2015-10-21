@@ -10,7 +10,6 @@
 #import "WLNavigationHelper.h"
 #import "WLSignupFlowViewController.h"
 #import "WLWelcomeViewController.h"
-#import "WLLayoutPrioritizer.h"
 
 typedef enum : NSUInteger {
     WLFlipDirectionLeft,
@@ -24,7 +23,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
 @property (strong, nonatomic) IBOutlet UIView *placeholderView;
 @property (weak, nonatomic) IBOutlet UITextView *termsAndConditionsTextView;
-@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *backgroundAnimationPrioritizer;
+@property (strong, nonatomic) IBOutlet LayoutPrioritizer *backgroundAnimationPrioritizer;
 
 @property (nonatomic) BOOL animating;
 

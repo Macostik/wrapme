@@ -1696,7 +1696,7 @@
                         <outlet property="streamView" destination="OZr-dY-Xul" id="Hcs-B7-L36"/>
                     </connections>
                 </customObject>
-                <customObject id="h5f-E8-jro" userLabel="ComposeBar Trailing Prioritizer" customClass="WLLayoutPrioritizer">
+                <customObject id="h5f-E8-jro" userLabel="ComposeBar Trailing Prioritizer" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
                     </userDefinedRuntimeAttributes>
@@ -1920,7 +1920,7 @@
                         <outlet property="streamView" destination="ILu-Xn-X2e" id="3KG-2y-mi9"/>
                     </connections>
                 </customObject>
-                <customObject id="9tn-uH-4kd" customClass="WLLayoutPrioritizer">
+                <customObject id="9tn-uH-4kd" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
                         <outletCollection property="alternativeConstraints" destination="OZl-et-35j" id="OYm-hd-UjT"/>
                         <outletCollection property="defaultConstraints" destination="eTP-6B-WzT" id="k5O-KJ-hgl"/>

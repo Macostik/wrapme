@@ -16,7 +16,6 @@
 #import "WLWhatsUpSet.h"
 #import "WLMessagesCounter.h"
 #import "WLWrapStatusImageView.h"
-#import "WLLayoutPrioritizer.h"
 
 static CGFloat WLWrapCellSwipeActionWidth = 125;
 
@@ -36,9 +35,9 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *rightSwipeIndicationViews;
 @property (weak, nonatomic) IBOutlet UILabel *creatorName;
 
-@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *datePrioritizer;
+@property (strong, nonatomic) IBOutlet LayoutPrioritizer *datePrioritizer;
 
-@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *chatPrioritizer;
+@property (strong, nonatomic) IBOutlet LayoutPrioritizer *chatPrioritizer;
 
 @property (nonatomic) BOOL isRightSwipeAction;
 

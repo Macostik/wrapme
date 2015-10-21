@@ -22,7 +22,6 @@
 #import "WLHistoryViewController.h"
 #import "WLMediaViewController.h"
 #import "WLNavigationHelper.h"
-#import "WLLayoutPrioritizer.h"
 #import "WLUploadingView.h"
 #import "WLFollowingViewController.h"
 #import "WLWhatsUpSet.h"
@@ -35,7 +34,7 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
 @interface WLMediaViewController () <WLPresentingImageViewDelegate, WLEntryNotifyReceiver>
 
 @property (strong, nonatomic) IBOutlet PaginatedStreamDataSource *dataSource;
-@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *primaryConstraint;
+@property (strong, nonatomic) IBOutlet LayoutPrioritizer *primaryConstraint;
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
 @property (weak, nonatomic) IBOutlet UIButton *addPhotoButton;
 

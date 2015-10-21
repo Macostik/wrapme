@@ -18,7 +18,6 @@
 #import "WLHintView.h"
 #import "WLDrawingViewController.h"
 #import "WLEditPicture.h"
-#import "WLLayoutPrioritizer.h"
 
 static const int WLInstanceCommentLimit = 1500;
 

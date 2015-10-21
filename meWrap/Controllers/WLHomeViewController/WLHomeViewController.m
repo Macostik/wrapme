@@ -34,7 +34,6 @@
 #import "SegmentedControl.h"
 #import "WLNavigationHelper.h"
 #import "WLHintView.h"
-#import "WLLayoutPrioritizer.h"
 #import "WLMessagesCounter.h"
 #import "SegmentedStreamDataSource.h"
 #import "WLUploadingQueue.h"
@@ -57,7 +56,7 @@
 @property (weak, nonatomic) IBOutlet UIView *createWrapTipView;
 @property (weak, nonatomic) IBOutlet UIButton *createWrapButton;
 @property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
-@property (strong, nonatomic) IBOutlet WLLayoutPrioritizer *emailConfirmationLayoutPrioritizer;
+@property (strong, nonatomic) IBOutlet LayoutPrioritizer *emailConfirmationLayoutPrioritizer;
 @property (weak, nonatomic) IBOutlet UIButton *photoButton;
 
 @property (weak, nonatomic) WLRecentCandiesView *candiesView;

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WLLayoutPrioritizer.h"
 
 @class WLComposeBar;
 
@@ -28,7 +27,7 @@
 
 @property (nonatomic, weak) IBOutlet id delegate;
 
-@property (weak, nonatomic) IBOutlet WLLayoutPrioritizer *trailingPrioritizer;
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *trailingPrioritizer;
 
 @property (strong, nonatomic) NSString* text;
 

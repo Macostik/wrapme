@@ -17,7 +17,6 @@
 #import "WLCommentCell.h"
 #import "WLStreamLoadingView.h"
 #import "WLEntry+WLUploadingQueue.h"
-#import "WLComposerScrollView.h"
 #import "WLHistoryViewController.h"
 
 static CGFloat WLNotificationCommentHorizontalSpacing = 84.0f;
@@ -27,7 +26,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
 
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *composeBarBottomPrioritizer;
-@property (weak, nonatomic) IBOutlet WLComposerScrollView *contentView;
+@property (weak, nonatomic) IBOutlet InternalScrollView *contentView;
 @property (weak, nonatomic) WLHistoryViewController *historyViewController;
 
 @end

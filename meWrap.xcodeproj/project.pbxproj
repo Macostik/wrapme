@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5B201B981BCF99B1003DBCDF /* WLComposerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B201B971BCF99B1003DBCDF /* WLComposerScrollView.m */; settings = {ASSET_TAGS = (); }; };
+		5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */; settings = {ASSET_TAGS = (); }; };
 		5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B7591DF1BAAEF7800967AAA /* WLReportList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B7591DD1BAAEF7800967AAA /* WLReportList.plist */; settings = {ASSET_TAGS = (); }; };
 		5B7BDD821BBD6008001F728A /* AWSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7BDD801BBD6008001F728A /* AWSCore.framework */; settings = {ASSET_TAGS = (); }; };
@@ -672,8 +672,7 @@
 		14B2429C195C4CEB00C5D208 /* WLEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLEditSession.m; path = WLEditSession/WLEditSession.m; sourceTree = "<group>"; };
 		14B242A2195C4D9200C5D208 /* WLProfileEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileEditSession.h; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.h; sourceTree = "<group>"; };
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
-		5B201B961BCF99B1003DBCDF /* WLComposerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLComposerScrollView.h; path = WLComposerScrollView/WLComposerScrollView.h; sourceTree = "<group>"; };
-		5B201B971BCF99B1003DBCDF /* WLComposerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLComposerScrollView.m; path = WLComposerScrollView/WLComposerScrollView.m; sourceTree = "<group>"; };
+		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
 		5B7591DD1BAAEF7800967AAA /* WLReportList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = WLReportList.plist; path = WLReportList/WLReportList.plist; sourceTree = "<group>"; };
 		5B787D9C1A27876F004AE459 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -1778,8 +1777,8 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */,
 				C521E18B1BC7AE1B00505432 /* VideoPlayerView.swift */,
-				5B1B5C691BD10CC6005681EF /* WLComposerScrollView */,
 				C5AE8FB41BB0286D00A9B27B /* TTTAttributedLabel */,
 				C5177C381B7CE55E008102C7 /* WLWrapStatusImageView */,
 				C5BAD12F1B53F9C60028FCEB /* WLAlertView */,
@@ -2023,15 +2022,6 @@
 				14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */,
 			);
 			name = WLProfileEditSession;
-			sourceTree = "<group>";
-		};
-		5B1B5C691BD10CC6005681EF /* WLComposerScrollView */ = {
-			isa = PBXGroup;
-			children = (
-				5B201B961BCF99B1003DBCDF /* WLComposerScrollView.h */,
-				5B201B971BCF99B1003DBCDF /* WLComposerScrollView.m */,
-			);
-			name = WLComposerScrollView;
 			sourceTree = "<group>";
 		};
 		5B2B0C201A77DDC400DADC9D /* WLButton */ = {
@@ -4454,6 +4444,7 @@
 				C53E5CF11A84D886004F61B0 /* WLWrapView.m in Sources */,
 				C55459321BD5213100A14C43 /* PNAcknowledgmentStatus.m in Sources */,
 				C5284C981B95A8B0006455FB /* PlaceholderView.m in Sources */,
+				5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */,
 				C54AF65619B8C491006F7EDB /* WLRefresher.m in Sources */,
 				C5BCF0101B551B7B00E4AD6D /* WLMessageCell.m in Sources */,
 				C554595C1BD5213100A14C43 /* PNPushNotificationsAuditParser.m in Sources */,
@@ -4470,7 +4461,6 @@
 				C5603DC81AD922B800427DEC /* WLHierarchicalEntryPresenter.m in Sources */,
 				C5FE0A601ACD98F3007DBE95 /* WLCircleImageView.m in Sources */,
 				C54CEF9B1BCFAFA800128CBE /* UIButton+Ext.swift in Sources */,
-				5B201B981BCF99B1003DBCDF /* WLComposerScrollView.m in Sources */,
 				C554595A1BD5213100A14C43 /* PNPresenceHereNowParser.m in Sources */,
 				C5E6EAED1BBADF5A007FFA66 /* DDLog.m in Sources */,
 				C5E6E93C1BBAC3EC007FFA66 /* NSArray+WLCollection.m in Sources */,

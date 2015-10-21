@@ -3005,11 +3005,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vTd-en-UyT" customClass="WLComposerScrollView">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vTd-en-UyT" customClass="WLComposerScrollView">
                                 <rect key="frame" x="0.0" y="56" width="600" height="488"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="flS-sD-RYF">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="488"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="477"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HRF-S3-bc8">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
@@ -3037,7 +3037,7 @@
                                                     </button>
                                                 </subviews>
                                                 <animations/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="2nE-rT-l31" firstAttribute="top" secondItem="HRF-S3-bc8" secondAttribute="top" id="Lax-p8-Tj4"/>
                                                     <constraint firstAttribute="bottom" secondItem="2nE-rT-l31" secondAttribute="bottom" id="Xb3-R1-TBh"/>
@@ -3046,7 +3046,7 @@
                                                 </constraints>
                                             </view>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zd4-Tx-fC0" customClass="WLComposeBar">
-                                                <rect key="frame" x="0.0" y="440" width="600" height="48"/>
+                                                <rect key="frame" x="0.0" y="429" width="600" height="48"/>
                                                 <subviews>
                                                     <button contentMode="scaleToFill" placeholderIntrinsicWidth="45" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUX-Dn-0ih">
                                                         <rect key="frame" x="0.0" y="0.0" width="44" height="48"/>
@@ -3139,6 +3139,7 @@
                                                     </button>
                                                 </subviews>
                                                 <animations/>
+                                                <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="centerY" secondItem="PpO-T6-nxR" secondAttribute="centerY" id="2q0-Yi-BQd"/>
                                                     <constraint firstAttribute="height" secondItem="PpO-T6-nxR" secondAttribute="height" constant="12" id="3qK-OK-Zdv"/>
@@ -3166,7 +3167,7 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yYc-nx-s5E" customClass="WLSeparatorView">
-                                                <rect key="frame" x="0.0" y="440" width="600" height="1"/>
+                                                <rect key="frame" x="0.0" y="429" width="600" height="1"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -3179,15 +3180,16 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WYU-Tj-StJ" customClass="StreamView" customModule="meWrap">
-                                                <rect key="frame" x="0.0" y="30" width="600" height="410"/>
+                                                <rect key="frame" x="0.0" y="30" width="600" height="399"/>
                                                 <animations/>
+                                                <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="RbC-xy-dkj" id="iHW-xb-SLu"/>
                                                 </connections>
                                             </scrollView>
                                         </subviews>
                                         <animations/>
-                                        <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="zd4-Tx-fC0" secondAttribute="trailing" id="1e0-Nx-Wv2"/>
                                             <constraint firstItem="zd4-Tx-fC0" firstAttribute="leading" secondItem="flS-sD-RYF" secondAttribute="leading" id="6MO-WL-wc9"/>
@@ -3210,7 +3212,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" placeholderIntrinsicWidth="20" placeholderIntrinsicHeight="12" translatesAutoresizingMaskIntoConstraints="NO" id="OVW-mQ-dry" customClass="WLTriangleView">
-                                        <rect key="frame" x="-20" y="20" width="20" height="11"/>
+                                        <rect key="frame" x="557" y="477" width="20" height="11"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -3221,14 +3223,12 @@
                                 </subviews>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstItem="flS-sD-RYF" firstAttribute="centerX" secondItem="vTd-en-UyT" secondAttribute="centerX" id="3mM-La-Vcm"/>
-                                    <constraint firstItem="flS-sD-RYF" firstAttribute="centerY" secondItem="vTd-en-UyT" secondAttribute="centerY" id="8do-h7-0tO"/>
-                                    <constraint firstItem="OVW-mQ-dry" firstAttribute="top" secondItem="vTd-en-UyT" secondAttribute="top" constant="20" id="AZN-eA-73h"/>
-                                    <constraint firstItem="flS-sD-RYF" firstAttribute="leading" secondItem="OVW-mQ-dry" secondAttribute="trailing" id="BYY-qM-h2i"/>
-                                    <constraint firstItem="flS-sD-RYF" firstAttribute="width" secondItem="vTd-en-UyT" secondAttribute="width" id="Go9-yB-jpw"/>
-                                    <constraint firstAttribute="trailing" secondItem="OVW-mQ-dry" secondAttribute="trailing" constant="23" id="UZU-qV-lZd"/>
-                                    <constraint firstItem="flS-sD-RYF" firstAttribute="height" secondItem="vTd-en-UyT" secondAttribute="height" id="X4n-ca-leY"/>
-                                    <constraint firstAttribute="bottom" secondItem="OVW-mQ-dry" secondAttribute="bottom" constant="-31" id="egK-O2-mzt"/>
+                                    <constraint firstItem="flS-sD-RYF" firstAttribute="top" secondItem="vTd-en-UyT" secondAttribute="top" id="GPc-c5-BlV"/>
+                                    <constraint firstItem="OVW-mQ-dry" firstAttribute="trailing" secondItem="flS-sD-RYF" secondAttribute="trailing" constant="-23" id="WYD-i5-bGJ"/>
+                                    <constraint firstItem="flS-sD-RYF" firstAttribute="centerX" secondItem="vTd-en-UyT" secondAttribute="centerX" id="XbW-JP-e4a"/>
+                                    <constraint firstItem="OVW-mQ-dry" firstAttribute="top" secondItem="zd4-Tx-fC0" secondAttribute="bottom" id="nbG-ri-peO"/>
+                                    <constraint firstItem="flS-sD-RYF" firstAttribute="height" secondItem="vTd-en-UyT" secondAttribute="height" constant="-11" id="uIp-Tx-ZQu"/>
+                                    <constraint firstItem="flS-sD-RYF" firstAttribute="width" secondItem="vTd-en-UyT" secondAttribute="width" id="y9e-P1-PZY"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="M8n-42-KAe" id="kN7-he-Waw"/>
@@ -3241,7 +3241,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="vTd-en-UyT" secondAttribute="trailing" id="0wY-UJ-g7R"/>
                             <constraint firstItem="vTd-en-UyT" firstAttribute="top" secondItem="Mb1-3b-t3s" secondAttribute="topMargin" priority="750" constant="56" id="BY5-gK-WKu"/>
-                            <constraint firstItem="BUs-K2-ZTN" firstAttribute="top" secondItem="zd4-Tx-fC0" secondAttribute="bottom" priority="250" constant="56" id="KoO-yC-BDI"/>
+                            <constraint firstItem="BUs-K2-ZTN" firstAttribute="top" secondItem="zd4-Tx-fC0" secondAttribute="bottom" priority="250" constant="67" id="KoO-yC-BDI"/>
                             <constraint firstItem="vTd-en-UyT" firstAttribute="leading" secondItem="Mb1-3b-t3s" secondAttribute="leading" id="Pw2-ab-zwr"/>
                             <constraint firstItem="vTd-en-UyT" firstAttribute="top" secondItem="hf9-7F-Ofz" secondAttribute="bottom" priority="250" constant="20" id="ufO-yh-tqX"/>
                             <constraint firstAttribute="bottomMargin" secondItem="vTd-en-UyT" secondAttribute="bottom" constant="56" id="vPX-Zc-q14"/>

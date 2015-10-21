@@ -1360,16 +1360,16 @@
                 </customObject>
                 <customObject id="LSq-pS-yid" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
-                        <outletCollection property="defaultConstraints" destination="ZK0-p3-ckA" id="JEK-z0-gLq"/>
-                        <outletCollection property="alternativeConstraints" destination="v3N-j7-b7C" id="zhv-wN-1li"/>
-                        <outletCollection property="parentViews" destination="L5N-Xm-IFu" id="gul-rp-0Az"/>
+                        <outletCollection property="defaultConstraints" destination="ZK0-p3-ckA" collectionClass="NSMutableArray" id="JEK-z0-gLq"/>
+                        <outletCollection property="alternativeConstraints" destination="v3N-j7-b7C" collectionClass="NSMutableArray" id="zhv-wN-1li"/>
+                        <outletCollection property="parentViews" destination="L5N-Xm-IFu" collectionClass="NSMutableArray" id="gul-rp-0Az"/>
                     </connections>
                 </customObject>
                 <customObject id="qqw-Aq-nfs" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
-                        <outletCollection property="defaultConstraints" destination="EBe-HF-XDG" id="QJd-8T-txD"/>
-                        <outletCollection property="alternativeConstraints" destination="bOA-lw-YHv" id="A9r-dT-zne"/>
-                        <outletCollection property="parentViews" destination="Xxr-1f-Jzb" id="3CS-Vf-A6A"/>
+                        <outletCollection property="defaultConstraints" destination="EBe-HF-XDG" collectionClass="NSMutableArray" id="QJd-8T-txD"/>
+                        <outletCollection property="alternativeConstraints" destination="bOA-lw-YHv" collectionClass="NSMutableArray" id="A9r-dT-zne"/>
+                        <outletCollection property="parentViews" destination="Xxr-1f-Jzb" collectionClass="NSMutableArray" id="3CS-Vf-A6A"/>
                     </connections>
                 </customObject>
             </objects>
@@ -2180,9 +2180,9 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="asynchronous" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outletCollection property="parentViews" destination="f6K-dz-2Hs" id="YZU-Vn-8FR"/>
-                        <outletCollection property="defaultConstraints" destination="Mpw-Ez-yod" id="hrQ-xf-5U4"/>
-                        <outletCollection property="alternativeConstraints" destination="YSo-wa-QqC" id="gbH-7j-ZVf"/>
+                        <outletCollection property="parentViews" destination="f6K-dz-2Hs" collectionClass="NSMutableArray" id="YZU-Vn-8FR"/>
+                        <outletCollection property="defaultConstraints" destination="Mpw-Ez-yod" collectionClass="NSMutableArray" id="hrQ-xf-5U4"/>
+                        <outletCollection property="alternativeConstraints" destination="YSo-wa-QqC" collectionClass="NSMutableArray" id="gbH-7j-ZVf"/>
                     </connections>
                 </customObject>
             </objects>
@@ -2350,7 +2350,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="navigationButtonClick:" destination="eto-O4-OHy" eventType="touchUpInside" id="Vc1-n0-Gl0"/>
+                                            <action selector="deleteCandy:" destination="eto-O4-OHy" eventType="touchUpInside" id="MX4-gh-rQa"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wvQ-dZ-OGQ" userLabel="ReportButton" customClass="WLButton">
@@ -2633,12 +2633,12 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outletCollection property="parentViews" destination="Wbg-W9-8Ie" id="Ueq-JB-rij"/>
-                        <outletCollection property="parentViews" destination="DOa-Ws-aK4" id="CDc-hV-lWD"/>
-                        <outletCollection property="defaultConstraints" destination="9OU-iu-BTw" id="gwk-nV-i1D"/>
-                        <outletCollection property="defaultConstraints" destination="3Zf-0D-3vD" id="PnL-zi-F1g"/>
-                        <outletCollection property="alternativeConstraints" destination="x8y-fG-5Cd" id="5Gp-be-fh2"/>
-                        <outletCollection property="alternativeConstraints" destination="FGX-3K-gVJ" id="8PQ-3c-tpd"/>
+                        <outletCollection property="parentViews" destination="Wbg-W9-8Ie" collectionClass="NSMutableArray" id="Ueq-JB-rij"/>
+                        <outletCollection property="parentViews" destination="DOa-Ws-aK4" collectionClass="NSMutableArray" id="CDc-hV-lWD"/>
+                        <outletCollection property="defaultConstraints" destination="9OU-iu-BTw" collectionClass="NSMutableArray" id="gwk-nV-i1D"/>
+                        <outletCollection property="defaultConstraints" destination="3Zf-0D-3vD" collectionClass="NSMutableArray" id="PnL-zi-F1g"/>
+                        <outletCollection property="alternativeConstraints" destination="x8y-fG-5Cd" collectionClass="NSMutableArray" id="5Gp-be-fh2"/>
+                        <outletCollection property="alternativeConstraints" destination="FGX-3K-gVJ" collectionClass="NSMutableArray" id="8PQ-3c-tpd"/>
                     </connections>
                 </customObject>
                 <customObject id="gXs-Hi-baz" userLabel="CommentButtonPrioritizer" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
@@ -2646,16 +2646,16 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outletCollection property="defaultConstraints" destination="R09-AS-8Qc" id="QdU-QJ-Kfr"/>
-                        <outletCollection property="parentViews" destination="FUv-v8-MyM" id="UGE-sz-nXg"/>
-                        <outletCollection property="alternativeConstraints" destination="Fr5-au-wVq" id="SQ7-sg-U7C"/>
+                        <outletCollection property="defaultConstraints" destination="R09-AS-8Qc" collectionClass="NSMutableArray" id="QdU-QJ-Kfr"/>
+                        <outletCollection property="parentViews" destination="FUv-v8-MyM" collectionClass="NSMutableArray" id="UGE-sz-nXg"/>
+                        <outletCollection property="alternativeConstraints" destination="Fr5-au-wVq" collectionClass="NSMutableArray" id="SQ7-sg-U7C"/>
                     </connections>
                 </customObject>
                 <customObject id="xsD-Sv-qce" userLabel="BottomViewHeightPrioritizer" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
-                        <outletCollection property="parentViews" destination="DOa-Ws-aK4" id="geG-Yh-HaY"/>
-                        <outletCollection property="alternativeConstraints" destination="dOs-nd-JXn" id="Jog-XC-vEb"/>
-                        <outletCollection property="defaultConstraints" destination="qQx-LV-j8Z" id="CiE-yr-HS4"/>
+                        <outletCollection property="parentViews" destination="DOa-Ws-aK4" collectionClass="NSMutableArray" id="geG-Yh-HaY"/>
+                        <outletCollection property="alternativeConstraints" destination="dOs-nd-JXn" collectionClass="NSMutableArray" id="Jog-XC-vEb"/>
+                        <outletCollection property="defaultConstraints" destination="qQx-LV-j8Z" collectionClass="NSMutableArray" id="CiE-yr-HS4"/>
                     </connections>
                 </customObject>
                 <tapGestureRecognizer cancelsTouchesInView="NO" id="AFe-us-m8R">
@@ -3273,9 +3273,9 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outletCollection property="parentViews" destination="Mb1-3b-t3s" id="m4n-o5-P2P"/>
-                        <outletCollection property="defaultConstraints" destination="BY5-gK-WKu" id="AwG-4P-cQy"/>
-                        <outletCollection property="alternativeConstraints" destination="ufO-yh-tqX" id="a5O-sx-j9f"/>
+                        <outletCollection property="parentViews" destination="Mb1-3b-t3s" collectionClass="NSMutableArray" id="m4n-o5-P2P"/>
+                        <outletCollection property="defaultConstraints" destination="BY5-gK-WKu" collectionClass="NSMutableArray" id="AwG-4P-cQy"/>
+                        <outletCollection property="alternativeConstraints" destination="ufO-yh-tqX" collectionClass="NSMutableArray" id="a5O-sx-j9f"/>
                     </connections>
                 </customObject>
                 <customObject id="np4-hr-S7e" userLabel="ComposeBar Trailing Prioritizer" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
@@ -3283,9 +3283,9 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outletCollection property="parentViews" destination="zd4-Tx-fC0" id="c3O-fV-Qgs"/>
-                        <outletCollection property="alternativeConstraints" destination="yWR-hO-j1P" id="lUD-t0-2Nc"/>
-                        <outletCollection property="defaultConstraints" destination="aAY-uf-jAw" id="c2J-yn-p17"/>
+                        <outletCollection property="parentViews" destination="zd4-Tx-fC0" collectionClass="NSMutableArray" id="c3O-fV-Qgs"/>
+                        <outletCollection property="alternativeConstraints" destination="yWR-hO-j1P" collectionClass="NSMutableArray" id="lUD-t0-2Nc"/>
+                        <outletCollection property="defaultConstraints" destination="aAY-uf-jAw" collectionClass="NSMutableArray" id="c2J-yn-p17"/>
                     </connections>
                 </customObject>
                 <customObject id="Ft7-q6-54y" userLabel="ComposeBar Bottom Prioritizer" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
@@ -3293,9 +3293,9 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outletCollection property="parentViews" destination="flS-sD-RYF" id="oCy-r6-EWc"/>
-                        <outletCollection property="alternativeConstraints" destination="KoO-yC-BDI" id="q2J-k7-S5e"/>
-                        <outletCollection property="defaultConstraints" destination="ssR-K8-cdR" id="dZz-FP-mv2"/>
+                        <outletCollection property="parentViews" destination="flS-sD-RYF" collectionClass="NSMutableArray" id="oCy-r6-EWc"/>
+                        <outletCollection property="alternativeConstraints" destination="KoO-yC-BDI" collectionClass="NSMutableArray" id="q2J-k7-S5e"/>
+                        <outletCollection property="defaultConstraints" destination="ssR-K8-cdR" collectionClass="NSMutableArray" id="dZz-FP-mv2"/>
                     </connections>
                 </customObject>
                 <tapGestureRecognizer id="tQ4-cQ-JX6">
@@ -3750,9 +3750,9 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="animated" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outletCollection property="defaultConstraints" destination="BZk-bl-x8H" id="1DU-KE-dso"/>
-                        <outletCollection property="alternativeConstraints" destination="mzq-sF-PIc" id="6ui-Zh-lJ8"/>
-                        <outletCollection property="parentViews" destination="dQp-Lx-kpC" id="d6i-8U-32C"/>
+                        <outletCollection property="defaultConstraints" destination="BZk-bl-x8H" collectionClass="NSMutableArray" id="1DU-KE-dso"/>
+                        <outletCollection property="alternativeConstraints" destination="mzq-sF-PIc" collectionClass="NSMutableArray" id="6ui-Zh-lJ8"/>
+                        <outletCollection property="parentViews" destination="dQp-Lx-kpC" collectionClass="NSMutableArray" id="d6i-8U-32C"/>
                     </connections>
                 </customObject>
             </objects>
@@ -3902,9 +3902,9 @@ QWRkEEZyaWVuZFZpZXc
                 </customObject>
                 <customObject id="N09-Ii-tK7" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
-                        <outletCollection property="defaultConstraints" destination="RkP-kH-UfQ" id="4g3-TC-qeN"/>
-                        <outletCollection property="alternativeConstraints" destination="cNz-8R-FlG" id="cVU-ql-Fvb"/>
-                        <outletCollection property="parentViews" destination="3Jb-s5-DCT" id="UAK-JD-qy4"/>
+                        <outletCollection property="defaultConstraints" destination="RkP-kH-UfQ" collectionClass="NSMutableArray" id="4g3-TC-qeN"/>
+                        <outletCollection property="alternativeConstraints" destination="cNz-8R-FlG" collectionClass="NSMutableArray" id="cVU-ql-Fvb"/>
+                        <outletCollection property="parentViews" destination="3Jb-s5-DCT" collectionClass="NSMutableArray" id="UAK-JD-qy4"/>
                     </connections>
                 </customObject>
             </objects>
@@ -4045,16 +4045,16 @@ QWRkEEZyaWVuZFZpZXc
                 </customObject>
                 <customObject id="8F6-xd-Raa" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
-                        <outletCollection property="parentViews" destination="z88-8Q-V7N" id="NSu-0h-eYw"/>
-                        <outletCollection property="defaultConstraints" destination="CrN-KF-fsR" id="wdU-KA-Ihl"/>
-                        <outletCollection property="alternativeConstraints" destination="Dqa-Ym-RTY" id="1Te-nr-cRc"/>
+                        <outletCollection property="parentViews" destination="z88-8Q-V7N" collectionClass="NSMutableArray" id="NSu-0h-eYw"/>
+                        <outletCollection property="defaultConstraints" destination="CrN-KF-fsR" collectionClass="NSMutableArray" id="wdU-KA-Ihl"/>
+                        <outletCollection property="alternativeConstraints" destination="Dqa-Ym-RTY" collectionClass="NSMutableArray" id="1Te-nr-cRc"/>
                     </connections>
                 </customObject>
                 <customObject id="SFh-vB-Xt1" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
-                        <outletCollection property="defaultConstraints" destination="CrN-KF-fsR" id="cs2-Wo-0GI"/>
-                        <outletCollection property="alternativeConstraints" destination="Dqa-Ym-RTY" id="hJI-2F-00F"/>
-                        <outletCollection property="parentViews" destination="PNO-TY-VYu" id="jwJ-Aj-e5U"/>
+                        <outletCollection property="defaultConstraints" destination="CrN-KF-fsR" collectionClass="NSMutableArray" id="cs2-Wo-0GI"/>
+                        <outletCollection property="alternativeConstraints" destination="Dqa-Ym-RTY" collectionClass="NSMutableArray" id="hJI-2F-00F"/>
+                        <outletCollection property="parentViews" destination="PNO-TY-VYu" collectionClass="NSMutableArray" id="jwJ-Aj-e5U"/>
                     </connections>
                 </customObject>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXa-Fb-BfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4411,16 +4411,16 @@ QWRkEEZyaWVuZFZpZXc
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aVH-vU-f4A" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="qS3-OX-s1K" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
-                        <outletCollection property="parentViews" destination="fdR-Oj-q4N" id="EVk-Ev-SJN"/>
-                        <outletCollection property="alternativeConstraints" destination="FSp-fX-lJ8" id="PiD-af-CRC"/>
-                        <outletCollection property="defaultConstraints" destination="tgH-6b-vF6" id="yKw-kV-GRJ"/>
+                        <outletCollection property="parentViews" destination="fdR-Oj-q4N" collectionClass="NSMutableArray" id="EVk-Ev-SJN"/>
+                        <outletCollection property="alternativeConstraints" destination="FSp-fX-lJ8" collectionClass="NSMutableArray" id="PiD-af-CRC"/>
+                        <outletCollection property="defaultConstraints" destination="tgH-6b-vF6" collectionClass="NSMutableArray" id="yKw-kV-GRJ"/>
                     </connections>
                 </customObject>
                 <customObject id="0bc-8G-SJK" userLabel="Chat Prioritizer" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
-                        <outletCollection property="parentViews" destination="LGQ-2s-xPN" id="8o5-JV-E0B"/>
-                        <outletCollection property="defaultConstraints" destination="EzZ-4T-m9D" id="pVc-ie-Xo2"/>
-                        <outletCollection property="alternativeConstraints" destination="xfs-B5-TbF" id="E1d-7I-QAL"/>
+                        <outletCollection property="parentViews" destination="LGQ-2s-xPN" collectionClass="NSMutableArray" id="8o5-JV-E0B"/>
+                        <outletCollection property="defaultConstraints" destination="EzZ-4T-m9D" collectionClass="NSMutableArray" id="pVc-ie-Xo2"/>
+                        <outletCollection property="alternativeConstraints" destination="xfs-B5-TbF" collectionClass="NSMutableArray" id="E1d-7I-QAL"/>
                     </connections>
                 </customObject>
             </objects>

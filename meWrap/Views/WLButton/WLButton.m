@@ -171,7 +171,7 @@
                 if ((self.width - contentWidth) < spinner.width) {
                     spinnerSuperview = self.superview;
                     center = self.center;
-                    self.hidden = YES;
+                    self.alpha = 0;
                 } else {
                     CGSize size = self.bounds.size;
                     center = CGPointMake(size.width - size.height/2, size.height/2);
@@ -185,7 +185,7 @@
         } else {
             accessoryView.hidden = NO;
             if (self.spinner.superview != self) {
-                self.hidden = NO;
+                self.alpha = 1;
             }
             [self.spinner removeFromSuperview];
             self.userInteractionEnabled = YES;

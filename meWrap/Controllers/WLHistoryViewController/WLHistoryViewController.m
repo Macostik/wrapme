@@ -284,10 +284,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [self setCommentButtonTitle:candy];
     [self setupBottomViewModeRelatedData:self.bottomViewMode candy:candy];
     self.lastComment = [candy latestComment];
-    run_after_asap(^{
-        self.deleteButton.hidden = !candy.deletable;
-        self.reportButton.hidden = !self.deleteButton.hidden;
-    });
+    self.deleteButton.hidden = !candy.deletable;
+    self.reportButton.hidden = !self.deleteButton.hidden;
     NSInteger type = candy.type;
     if (type == WLCandyTypeVideo) {
         NSString *url = candy.picture.original;
@@ -437,23 +435,21 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     }];
 }
 
-- (IBAction)navigationButtonClick:(WLButton *)sender {
+- (IBAction)deleteCandy:(WLButton *)sender {
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         WLCandy *candy = weakSelf.candy;
-        if (candy.deletable) {
-            [UIAlertController confirmCandyDeleting:candy success:^{
-                weakSelf.removedCandy = candy;
-                sender.loading = YES;
-                [candy remove:^(id object) {
-                    sender.loading = NO;
-                } failure:^(NSError *error) {
-                    weakSelf.removedCandy = nil;
-                    [error show];
-                    sender.loading = NO;
-                }];
-            } failure:nil];
-        }
+        [UIAlertController confirmCandyDeleting:candy success:^{
+            weakSelf.removedCandy = candy;
+            sender.loading = YES;
+            [candy remove:^(id object) {
+                sender.loading = NO;
+            } failure:^(NSError *error) {
+                weakSelf.removedCandy = nil;
+                [error show];
+                sender.loading = NO;
+            }];
+        } failure:nil];
     }];
 }
 

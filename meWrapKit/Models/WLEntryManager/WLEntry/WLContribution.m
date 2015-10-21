@@ -65,7 +65,7 @@
 }
 
 - (BOOL)contributedByCurrentUser {
-    return [self.contributor isCurrentUser];
+    return [self.contributor current];
 }
 
 - (BOOL)deletable {

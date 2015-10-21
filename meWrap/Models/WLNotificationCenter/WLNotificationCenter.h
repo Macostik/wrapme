@@ -6,9 +6,13 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
+@class WLNotificationSubscription;
+
 @interface WLNotificationCenter : NSObject
 
 @property (strong, nonatomic) NSData *pushToken;
+
+@property (strong, nonatomic, readonly) WLNotificationSubscription* userSubscription;
 
 + (instancetype)defaultCenter;
 

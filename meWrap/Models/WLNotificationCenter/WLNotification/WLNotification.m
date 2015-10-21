@@ -379,7 +379,7 @@
     if (event == WLEventAdd) {
         return !self.contributedByCurrentUser;
     } else if (event == WLEventUpdate) {
-        return ![self.editor isCurrentUser];
+        return ![self.editor current];
     }
     return NO;
 }
@@ -428,7 +428,7 @@
     NSDictionary *userData = notification.data[WLUserKey];
     WLUser *user = userData ? [WLUser API_entry:userData] : [WLUser entry:userIdentifier];
     if (user) {
-        if (notification.type == WLNotificationWrapDelete || (user.isCurrentUser && !self.isPublic)) {
+        if (notification.type == WLNotificationWrapDelete || (user.current && !self.isPublic)) {
             [super finalizeDeleteNotification:notification];
         } else {
             [self removeContributorsObject:user];

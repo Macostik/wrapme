@@ -83,7 +83,7 @@
     NSUInteger i = 0;
     for (WLUser *contributor in contributors) {
         if (i < numberOfUsers) {
-            if (![contributor isCurrentUser]) {
+            if (![contributor current]) {
                 [names appendFormat:@"%@, ", contributor.name];
                 ++i;
             }

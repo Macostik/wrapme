@@ -57,7 +57,7 @@
     BOOL deletable = NO;
     BOOL wrapContributedByCurrentUser = [self.delegate contributorCell:self isCreator:[WLUser currentUser]];
     if (wrapContributedByCurrentUser) {
-        deletable = ![user isCurrentUser];
+        deletable = ![user current];
     } else {
         deletable = NO;
     }
@@ -78,7 +78,7 @@
     self.dataSource.items = @[user];
     
     BOOL isCreator = [self.delegate contributorCell:self isCreator:user];
-    NSString * userNameText = [user isCurrentUser] ? WLLS(@"you") : user.name;
+    NSString * userNameText = [user current] ? WLLS(@"you") : user.name;
     self.nameLabel.text = isCreator ? [NSString stringWithFormat:WLLS(@"formatted_owner"), userNameText] : userNameText;
     self.phoneLabel.text = user.securePhones;
     

@@ -55,7 +55,7 @@
     self.ownerLabel.text = self.wrap.contributor.name;
     self.imageView.url = self.wrap.picture.small;
     self.imageView.isFollowed = self.wrap.isPublic && self.wrap.isContributing;
-    self.imageView.isOwner = [self.wrap.contributor isCurrentUser];
+    self.imageView.isOwner = [self.wrap.contributor current];
     self.messageLabel.text = requiresFollowing ? WLLS(@"follow_wrap_suggestion") : WLLS(@"followed_wrap_suggestion");
 }
 

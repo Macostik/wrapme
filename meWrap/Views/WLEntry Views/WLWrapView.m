@@ -20,7 +20,7 @@
 - (void)update:(WLWrap*)wrap {
     self.coverView.url = wrap.picture.small;
     [self.coverView setIsFollowed:wrap.isPublic ? wrap.isContributing : NO];
-    [self.coverView setIsOwner:wrap.isPublic ? [wrap.contributor isCurrentUser] : NO];
+    [self.coverView setIsOwner:wrap.isPublic ? [wrap.contributor current] : NO];
     self.nameLabel.text = wrap.name;
 }
 

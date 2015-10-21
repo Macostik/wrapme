@@ -55,7 +55,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
             [weakSelf.subscription hereNow:^(NSArray *uuids) {
                 for (NSDictionary* uuid in uuids) {
                     WLUser* user = [WLUser entry:uuid[@"uuid"]];
-                    if ([user isCurrentUser]) {
+                    if ([user current]) {
                         continue;
                     }
                     if ([uuid[@"state"][WLChatTypingChannelTypingKey] boolValue]) {
@@ -110,7 +110,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
 #pragma mark - WLChatTypingChannelDelegate
 
 - (void)didBeginTyping:(WLUser *)user {
-    if (![user isCurrentUser]) {
+    if (![user current]) {
         if (!user.name.nonempty || !user.picture.large.nonempty) {
             __weak __typeof(self)weakSelf = self;
             [self.wrap addContributorsObject:user];
@@ -133,7 +133,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
 }
 
 - (void)didEndTyping:(WLUser *)user {
-    if (![user isCurrentUser]) {
+    if (![user current]) {
         [self removeTypingUser:user];
         if ([self.delegate respondsToSelector:@selector(chat:didEndTyping:)]) {
             [self.delegate chat:self didEndTyping:user];
@@ -186,7 +186,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
 
 - (void)notificationSubscription:(WLNotificationSubscription *)subscription didReceivePresenceEvent:(PNPresenceEventData *)event {
     WLUser* user = [WLUser entry:event.presence.uuid];
-    if ([user isCurrentUser]) {
+    if ([user current]) {
         return;
     }
     if ([event.presenceEvent isEqualToString:@"state-change"]) {

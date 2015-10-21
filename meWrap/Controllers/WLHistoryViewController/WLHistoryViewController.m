@@ -272,7 +272,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
             [self.commentIndicator updateStatusIndicator:lastComment];
             UIBezierPath *exlusionPath = [UIBezierPath bezierPathWithRect:[self.bottomView convertRect:self.commentIndicator.frame
                                                                                                 toView:textView]];
-            textView.textContainer.exclusionPaths = [self.lastComment.contributor isCurrentUser] ? @[exlusionPath] : nil;
+            textView.textContainer.exclusionPaths = [self.lastComment.contributor current] ? @[exlusionPath] : nil;
         }
     }
 }

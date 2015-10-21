@@ -27,13 +27,13 @@
 @synthesize securePhones = _securePhones;
 
 - (NSString *)phones:(BOOL)secure {
-    BOOL isCurrentUser = self.current;
+    BOOL current = self.current;
     NSMutableString* phones = [NSMutableString string];
     for (WLDevice* device in self.devices) {
         NSString *phone = device.phone;
         if (phone.length == 0) continue;
         if (phones.length > 0) [phones appendString:@"\n"];
-        if (!isCurrentUser && secure && phone.length > 4) {
+        if (!current && secure && phone.length > 4) {
             NSMutableString *_phone = [phone mutableCopy];
             for (NSUInteger index = 0; index < phone.length - 4; ++index) {
                 [_phone replaceCharactersInRange:NSMakeRange(index, 1) withString:@"*"];
@@ -78,7 +78,7 @@
 }
 
 - (BOOL)isInvited {
-    if ([self isCurrentUser]) return NO;
+    if ([self current]) return NO;
     NSSet *devices = self.devices;
     if (devices.nonempty) {
         for (WLDevice *device in devices) {
@@ -122,28 +122,20 @@ static WLUser *currentUser = nil;
 }
 
 + (void)setCurrentUser:(WLUser*)user {
-    if (currentUser) {
-        if (currentUser != user) {
-            if (currentUser.current) currentUser.current = NO;
+    if (currentUser != user) {
+        if (currentUser) {
+            currentUser.current = NO;
         }
-    } else {
-        [[WLUser entriesWhere:@"current == TRUE"] all:^(WLUser* _user) {
-            _user.current = NO;
-        }];
-    }
-    currentUser = user;
-    if (!user.current) user.current = YES;
-    if (user) {
-        [user notifyOnAddition];
+        currentUser = user;
+        if (user) {
+            if (!user.current) user.current = YES;
+            [user notifyOnAddition];
+        }
     }
 }
 
 - (void)setCurrent {
     [WLUser setCurrentUser:self];
-}
-
-- (BOOL)isCurrentUser {
-    return self.current;
 }
 
 @end

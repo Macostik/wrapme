@@ -71,6 +71,4 @@
 
 - (void)setCurrent;
 
-- (BOOL)isCurrentUser;
-
 @end

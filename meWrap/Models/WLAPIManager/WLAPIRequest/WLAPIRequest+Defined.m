@@ -410,7 +410,7 @@
                 if (userData) {
                     WLUser *user = [WLUser API_entry:userData];
                     if (user) {
-                        if ([user isCurrentUser] || [registeredUsers containsObject:user]) {
+                        if ([user current] || [registeredUsers containsObject:user]) {
                             return nil;
                         }
                         [registeredUsers addObject:user];

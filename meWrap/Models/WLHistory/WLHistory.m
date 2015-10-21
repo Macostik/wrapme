@@ -153,7 +153,7 @@
         [self didChange];
     }
     if ([group addEntry:candy]) {
-        if ([candy.contributor isCurrentUser]) group.offset = CGPointZero;
+        if ([candy.contributor current]) group.offset = CGPointZero;
         return YES;
     }
     return NO;
@@ -235,7 +235,7 @@
 
 - (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLCandy *)candy {
     [self addEntry:candy];
-    if  ([candy.contributor isCurrentUser]) [self didChange];
+    if  ([candy.contributor current]) [self didChange];
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLCandy *)candy {

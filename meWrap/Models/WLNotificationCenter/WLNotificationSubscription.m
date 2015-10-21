@@ -59,8 +59,10 @@
         return;
     }
     if (self.group) {
+        WLLog(@"PUBNUB - is about to subscribe on channel group %@", self.name);
         [[PubNub sharedInstance] subscribeToChannelGroups:@[self.name] withPresence:self.presence];
     } else {
+        WLLog(@"PUBNUB - is about to subscribe on channel %@", self.name);
         [[PubNub sharedInstance] subscribeToChannels:@[self.name] withPresence:self.presence];
     }
 }

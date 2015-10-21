@@ -74,7 +74,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
         self.chatButton.hidden = YES;
         self.chatPrioritizer.defaultState = NO;
         self.coverView.isFollowed = wrap.isContributing;
-        self.coverView.isOwner = [wrap.contributor isCurrentUser];
+        self.coverView.isOwner = [wrap.contributor current];
         self.datePrioritizer.defaultState = YES;
         self.creatorName.text = wrap.contributor.name;
     } else {

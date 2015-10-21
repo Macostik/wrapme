@@ -17,7 +17,6 @@
 #import "NSDate+PNTimetoken.h"
 #import "WLNetwork.h"
 #import "WLAuthorizationRequest.h"
-#import "WLAlertView.h"
 
 @interface WLNotificationCenter () <PNObjectEventListener, WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate>
 
@@ -64,14 +63,16 @@
 }
 
 - (void)subscribe {
-	NSString* userUID = [WLUser currentUser].identifier;
-	if (!userUID.nonempty) {
-		return;
-	}
-    if (![[[[PubNub sharedInstance] currentConfiguration] uuid] isEqualToString:userUID]) {
-        [[[PubNub sharedInstance] currentConfiguration] setUUID:userUID];
+    [self subscribeWithUser:[WLUser currentUser]];
+}
+
+- (void)subscribeWithUser:(WLUser*)user {
+    NSString* uuid = user.identifier;
+    if (!uuid.nonempty) {
+        return;
     }
-    NSString *channelName = [NSString stringWithFormat:@"cg-%@", userUID];
+    [[PubNub sharedInstance] currentConfiguration].uuid = uuid;
+    NSString *channelName = [NSString stringWithFormat:@"cg-%@", uuid];
     if ([self.userSubscription.name isEqualToString:channelName]) {
         [self.userSubscription subscribe];
     } else {
@@ -169,7 +170,7 @@
     self.userSubscription = nil;
     WLSession.handledNotifications = nil;
     WLSession.historyDate = nil;
-    [[[PubNub sharedInstance] currentConfiguration] setUUID:nil];
+    [[PubNub sharedInstance] currentConfiguration].uuid = nil;
 }
 
 - (BOOL)isAlreadyHandledNotification:(WLNotification*)notification {
@@ -346,21 +347,16 @@
 - (void)client:(PubNub *)client didReceiveStatus:(PNSubscribeStatus *)status {
     WLLog(@"PUBNUB - subscribtion status: %@", status.debugDescription);
     if (status.category == PNConnectedCategory) {
-        [self requestHistory];
-    }
-    if (status.subscribedChannelGroups.count == 0) {
-        __weak typeof(self)weakSelf = self;
-        [UIAlertController showWithTitle:@"PUBNUB" message:@"You aren't subscribed on any channel group." action:@"Subscribe" cancel:@"Dismiss" completion:^{
-            weakSelf.userSubscription = nil;
-            [weakSelf subscribe];
-        }];
+        if (status.subscribedChannelGroups.count > 0) {
+            [self requestHistory];
+        }
     }
 }
 
 // MARK: - WLEntryNotifyReceiver
 
 - (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLEntry *)entry {
-    [self subscribe];
+    [self subscribeWithUser:(WLUser*)entry];
 }
 
 - (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {

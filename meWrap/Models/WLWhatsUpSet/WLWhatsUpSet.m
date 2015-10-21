@@ -124,7 +124,7 @@
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier didAddEntry:(WLEntry*)entry {
-    if ([[(WLContribution*)entry contributor] isCurrentUser]) {
+    if ([[(WLContribution*)entry contributor] current]) {
         return;
     }
     __weak typeof(self)weakSelf = self;
@@ -135,7 +135,7 @@
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier didDeleteEntry:(WLEntry *)entry {
-    if ([[(WLContribution*)entry contributor] isCurrentUser]) {
+    if ([[(WLContribution*)entry contributor] current]) {
         return;
     }
     __weak typeof(self)weakSelf = self;

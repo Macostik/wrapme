@@ -7,7 +7,6 @@
 //
 
 #import "WLCountryCell.h"
-#import "WLCountry.h"
 
 @interface WLCountryCell ()
 
@@ -17,7 +16,7 @@
 
 @implementation WLCountryCell
 
-- (void)setup:(WLCountry*)country {
+- (void)setup:(Country*)country {
 	self.countryNameLabel.text = country.name;
 }
 

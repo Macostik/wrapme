@@ -8,7 +8,6 @@
 
 #import "WLPhoneViewController.h"
 #import "WLCountriesViewController.h"
-#import "WLCountry.h"
 #import "WLNavigationHelper.h"
 #import "WLToast.h"
 #import "WLKeyboard.h"
@@ -24,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *selectCountryButton;
 @property (weak, nonatomic) IBOutlet UILabel *countryCodeLabel;
 
-@property (strong, nonatomic) WLCountry *country;
+@property (strong, nonatomic) Country *country;
 
 @property (strong, nonatomic) IBOutlet WLPhoneValidation *validation;
 
@@ -34,12 +33,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.country = [WLCountry getCurrentCountry];
+	self.country = [Country getCurrentCountry];
     
 	self.phoneNumberTextField.text = [WLAuthorization currentAuthorization].phone;
 }
 
-- (void)setCountry:(WLCountry *)country {
+- (void)setCountry:(Country *)country {
 	_country = country;
     [WLAuthorization currentAuthorization].countryCode = country.callingCode;
 	[self.selectCountryButton setTitle:country.name forState:UIControlStateNormal];
@@ -70,7 +69,7 @@
     WLCountriesViewController *controller = [WLCountriesViewController instantiate:self.storyboard];
     controller.selectedCountry = self.country;
     __weak typeof(self)weakSelf = self;
-    [controller setSelectionBlock:^(WLCountry *country) {
+    [controller setSelectionBlock:^(Country *country) {
         weakSelf.country = country;
         [weakSelf.navigationController popViewControllerAnimated:NO];
     }];
@@ -107,13 +106,6 @@
     WLAuthorization *authorization = [WLAuthorization currentAuthorization];
     authorization.phone = phoneNumberClearing(sender.text);
     authorization.formattedPhone = sender.text;
-}
-
-- (IBAction)countrySelected:(UIStoryboardSegue *)unwindSegue {
-    WLCountry* selectedCountry = [unwindSegue.sourceViewController selectedCountry];
-    if (selectedCountry) {
-        self.country = selectedCountry;
-    }
 }
 
 @end

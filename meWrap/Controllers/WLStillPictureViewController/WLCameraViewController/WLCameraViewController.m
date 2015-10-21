@@ -13,7 +13,7 @@
 #import "WLFlashModeControl.h"
 #import "WLCameraAdjustmentView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "WLDeviceOrientationBroadcaster.h"
+#import "WLDeviceManager.h"
 #import "WLToast.h"
 #import "WLWrapView.h"
 #import "WLQuickAssetsViewController.h"
@@ -100,7 +100,7 @@
 @dynamic delegate;
 
 - (void)dealloc {
-    [[WLDeviceOrientationBroadcaster broadcaster] endUsingAccelerometer];
+    [[WLDeviceManager manager] endUsingAccelerometer];
 }
 
 #pragma mark - View controller lifecycle
@@ -118,8 +118,8 @@
     
     self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
 	
-    [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
-    [[WLDeviceOrientationBroadcaster broadcaster] beginUsingAccelerometer];
+    [[WLDeviceManager manager] addReceiver:self];
+    [[WLDeviceManager manager] beginUsingAccelerometer];
     
 	if (self.presentingViewController) {
 		self.view.frame = self.presentingViewController.view.bounds;
@@ -431,7 +431,7 @@
                         device.torchMode = torchMode;
                     }
                 }];
-                [weakSelf applyDeviceOrientation:[WLDeviceOrientationBroadcaster broadcaster].orientation forConnection:weakSelf.movieFileOutputConnection];
+                [weakSelf applyDeviceOrientation:[WLDeviceManager manager].orientation forConnection:weakSelf.movieFileOutputConnection];
                 completion();
                 preparingCompletion();
             }];
@@ -473,6 +473,7 @@
                     [session addOutput:weakSelf.stillImageOutput];
                 }
             } completion:^{
+                [weakSelf applyDeviceOrientation:[WLDeviceManager manager].orientation forConnection:weakSelf.stillImageOutputConnection];
                 weakSelf.takePhotoButton.userInteractionEnabled = YES;
                 completion();
             }];
@@ -538,7 +539,7 @@
 	}
 	[session commitConfiguration];
 	self.flashModeControl.hidden = !videoInput.device.hasFlash;
-	[self applyDeviceOrientation:[WLDeviceOrientationBroadcaster broadcaster].orientation];
+	[self applyDeviceOrientation:[WLDeviceManager manager].orientation];
 }
 
 - (AVCaptureSession *)session {
@@ -831,7 +832,7 @@
 
 #pragma mark - WLDeviceOrientationBroadcastReceiver
 
-- (void)broadcaster:(WLDeviceOrientationBroadcaster *)broadcaster didChangeOrientation:(NSNumber*)orientation {
+- (void)manager:(WLDeviceManager *)manager didChangeOrientation:(NSNumber*)orientation {
 	[self applyDeviceOrientation:[orientation integerValue]];
 }
 

@@ -318,7 +318,7 @@
 		C5A6150B1B9DC5C8009B92EF /* WLAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A615091B9DC5C8009B92EF /* WLAddressBookRecordCell.xib */; };
 		C5A6150E1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A6150C1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib */; };
 		C5A615111B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A6150F1B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib */; };
-		C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */; };
+		C5A82CD91ACD979B00336027 /* WLDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A82CCE1ACD979B00336027 /* WLDeviceManager.m */; };
 		C5A877C81B985814006C5226 /* GridMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A877C61B985814006C5226 /* GridMetrics.swift */; };
 		C5A877CB1B985E8B006C5226 /* StreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A877C91B985E8B006C5226 /* StreamLayout.swift */; };
 		C5A9CC811B9439F50084D0F5 /* WLAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC7F1B9439F50084D0F5 /* WLAssetCell.xib */; };
@@ -1176,8 +1176,8 @@
 		C5A615091B9DC5C8009B92EF /* WLAddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAddressBookRecordCell.xib; sourceTree = "<group>"; };
 		C5A6150C1B9DC5EA009B92EF /* WLMultipleAddressBookRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLMultipleAddressBookRecordCell.xib; sourceTree = "<group>"; };
 		C5A6150F1B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAddressBookPhoneNumberCell.xib; sourceTree = "<group>"; };
-		C5A82CCD1ACD979B00336027 /* WLDeviceOrientationBroadcaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDeviceOrientationBroadcaster.h; sourceTree = "<group>"; };
-		C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceOrientationBroadcaster.m; sourceTree = "<group>"; };
+		C5A82CCD1ACD979B00336027 /* WLDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDeviceManager.h; sourceTree = "<group>"; };
+		C5A82CCE1ACD979B00336027 /* WLDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDeviceManager.m; sourceTree = "<group>"; };
 		C5A877C61B985814006C5226 /* GridMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridMetrics.swift; sourceTree = "<group>"; };
 		C5A877C91B985E8B006C5226 /* StreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLayout.swift; sourceTree = "<group>"; };
 		C5A9CC7C1B9432920084D0F5 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
@@ -1761,7 +1761,7 @@
 				C58AB9931B1384D800932272 /* WLWhatsUpSet */,
 				5BD104F61AE7C071008794F5 /* WLEntryStatusIndicator */,
 				C55D77E51AE51BA0006FA19C /* WLRemoteEntryHandler */,
-				C5A82CCC1ACD979B00336027 /* WLDeviceOrientationBroadcaster */,
+				C5A82CCC1ACD979B00336027 /* WLDeviceManager */,
 				C577C2601A4C426300ECC7E5 /* iVersion */,
 				C54773101A41910E004C5826 /* WLFontPresetter */,
 				C5C20B8C1A238ACC008B2E2E /* WLValidation */,
@@ -3274,13 +3274,13 @@
 			path = Info;
 			sourceTree = "<group>";
 		};
-		C5A82CCC1ACD979B00336027 /* WLDeviceOrientationBroadcaster */ = {
+		C5A82CCC1ACD979B00336027 /* WLDeviceManager */ = {
 			isa = PBXGroup;
 			children = (
-				C5A82CCD1ACD979B00336027 /* WLDeviceOrientationBroadcaster.h */,
-				C5A82CCE1ACD979B00336027 /* WLDeviceOrientationBroadcaster.m */,
+				C5A82CCD1ACD979B00336027 /* WLDeviceManager.h */,
+				C5A82CCE1ACD979B00336027 /* WLDeviceManager.m */,
 			);
-			path = WLDeviceOrientationBroadcaster;
+			path = WLDeviceManager;
 			sourceTree = "<group>";
 		};
 		C5AB7D701B318F8B0077F9F1 /* Models */ = {
@@ -4638,7 +4638,7 @@
 				C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */,
 				C5E6E9841BBAC3EC007FFA66 /* NSString+Additions.m in Sources */,
 				5BA1307E1B15A92600385C2C /* WLPresentingImageView.m in Sources */,
-				C5A82CD91ACD979B00336027 /* WLDeviceOrientationBroadcaster.m in Sources */,
+				C5A82CD91ACD979B00336027 /* WLDeviceManager.m in Sources */,
 				C58AB9991B1384F300932272 /* WLWhatsUpSet.m in Sources */,
 				C5E6EAF11BBADF5A007FFA66 /* DDContextFilterLogFormatter.m in Sources */,
 				C54AF6BB19B8C491006F7EDB /* WLWelcomeViewController.m in Sources */,

@@ -10,7 +10,7 @@
 #import <AudioToolbox/AudioServices.h>
 #import "UIFont+CustomFonts.h"
 #import "WLButton.h"
-#import "WLDeviceOrientationBroadcaster.h"
+#import "WLDeviceManager.h"
 
 @class WLMenuItem;
 
@@ -97,7 +97,7 @@
 - (void)hide {
     if (self.visible) {
         [self setHidden:YES animated:YES];
-        [[WLDeviceOrientationBroadcaster broadcaster] removeReceiver:self];
+        [[WLDeviceManager manager] removeReceiver:self];
     }
 }
 
@@ -124,7 +124,7 @@
         return;
     }
     
-    [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
+    [[WLDeviceManager manager] addReceiver:self];
     self.currentView = view;
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
@@ -258,7 +258,7 @@
     [self hide];
 }
 
-- (void)broadcaster:(WLDeviceOrientationBroadcaster*)broadcaster didChangeOrientation:(NSNumber*)orientation {
+- (void)manager:(WLDeviceManager*)manager didChangeOrientation:(NSNumber*)orientation {
     [self hide];
 }
 

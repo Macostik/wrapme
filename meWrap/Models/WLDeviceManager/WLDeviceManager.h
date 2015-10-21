@@ -1,5 +1,5 @@
 //
-//  WLDeviceOrientationBroadcaster.h
+//  WLDeviceManager.h
 //  meWrap
 //
 //  Created by Ravenpod on 24.04.14.
@@ -8,18 +8,20 @@
 
 #import "WLBroadcaster.h"
 
-@class WLDeviceOrientationBroadcaster;
+@class WLDeviceManager;
 
 @protocol WLDeviceOrientationBroadcastReceiver
 
 @optional
-- (void)broadcaster:(WLDeviceOrientationBroadcaster*)broadcaster didChangeOrientation:(NSNumber*)orientation;
+- (void)manager:(WLDeviceManager*)manager didChangeOrientation:(NSNumber*)orientation;
 
 @end
 
-@interface WLDeviceOrientationBroadcaster : WLBroadcaster
+@interface WLDeviceManager : WLBroadcaster
 
 @property (readonly, nonatomic) UIDeviceOrientation orientation;
+
++ (instancetype)manager;
 
 - (void)beginUsingAccelerometer;
 

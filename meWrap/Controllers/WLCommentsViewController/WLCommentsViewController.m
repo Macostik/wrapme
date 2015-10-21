@@ -13,7 +13,7 @@
 #import "WLSoundPlayer.h"
 #import "WLNavigationHelper.h"
 #import "UIFont+CustomFonts.h"
-#import "WLDeviceOrientationBroadcaster.h"
+#import "WLDeviceManager.h"
 #import "WLCommentCell.h"
 #import "WLStreamLoadingView.h"
 #import "WLEntry+WLUploadingQueue.h"
@@ -74,7 +74,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     }
     
     [self addNotifyReceivers];
-    [[WLDeviceOrientationBroadcaster broadcaster] addReceiver:self];
+    [[WLDeviceManager manager] addReceiver:self];
     self.historyViewController = (WLHistoryViewController *)self.parentViewController;
 }
 
@@ -165,9 +165,9 @@ static CGFloat WLContstraintOffset = 44.0;
     return keyboardHeight - WLContstraintOffset;
 }
 
-#pragma mark - WLDeviceOrientationBroadcaster
+#pragma mark - WLDeviceManager
 
-- (void)broadcaster:(WLDeviceOrientationBroadcaster*)broadcaster didChangeOrientation:(NSNumber*)orientation {
+- (void)manager:(WLDeviceManager*)manager didChangeOrientation:(NSNumber*)orientation {
     [self.view layoutIfNeeded];
     [self.dataSource reload];
 }

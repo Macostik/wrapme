@@ -8,7 +8,6 @@
 
 #import "WLStoryboardTransition.h"
 #import "WLNavigationHelper.h"
-#import "WLWhatsUpViewController.h"
 
 @implementation WLStoryboardTransition
 

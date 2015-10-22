@@ -655,7 +655,7 @@
     NSString *editedAt = [NSString stringWithFormat:@"%f", [self.updatedAt timestamp]];
     [metaData trySetObject:accept forKey:@"Accept"];
     [metaData trySetObject:[WLAuthorization currentAuthorization].deviceUID forKey:WLDeviceIDKey];
-    [metaData trySetObject:self.contributor.identifier forKey:WLUserUIDKey];
+    [metaData trySetObject:[WLUser currentUser].identifier forKey:WLUserUIDKey];
     [metaData trySetObject:self.wrap.identifier forKey:WLWrapUIDKey];
     [metaData trySetObject:self.identifier forKey:WLCandyUIDKey];
     [metaData trySetObject:editedAt forKey:WLEditedAtKey];

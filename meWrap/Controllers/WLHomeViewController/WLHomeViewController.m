@@ -25,7 +25,6 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "WLTouchView.h"
 #import "WLChronologicalEntryPresenter.h"
-#import "WLGradientView.h"
 #import "WLCandyCell.h"
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"

@@ -694,7 +694,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqh-PE-5fJ" customClass="WLWrapView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                                 <subviews>
-                                    <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="SZ8-r8-gtM" customClass="WLGradientView">
+                                    <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="SZ8-r8-gtM" customClass="GradientView" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1190,7 +1190,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JfN-vq-FkG" customClass="WLWrapView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                                 <subviews>
-                                    <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="BhQ-8r-3OH" customClass="WLGradientView">
+                                    <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="BhQ-8r-3OH" customClass="GradientView" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1726,7 +1726,7 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <view hidden="YES" contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="q2x-i3-oQd" customClass="WLGradientView">
+                            <view hidden="YES" contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="q2x-i3-oQd" customClass="GradientView" customModule="meWrap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

@@ -29,7 +29,7 @@ class SeparatorView: UIView {
                 path.addLineToPoint(CGPoint(x: frame.width, y: frame.height))
             }
             color.setStroke()
-            path.lineWidth = 1.0 / UIScreen.mainScreen().scale
+            path.lineWidth = 1.0 / max(2, UIScreen.mainScreen().scale)
             path.stroke()
         }
     }

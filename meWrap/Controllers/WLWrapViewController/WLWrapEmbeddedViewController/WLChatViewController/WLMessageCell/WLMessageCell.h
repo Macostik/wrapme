@@ -19,6 +19,7 @@ static CGFloat WLLeadingBubbleIndentWithAvatar = 64.0f;
 static CGFloat WLLeadingBubbleIndent = 16.0f;
 static CGFloat WLTrailingBubbleIndent = 16.0f;
 static CGFloat WLMessageGroupSpacing = 6.0f;
+static CGFloat WLNameVerticalInset = 4.0;
 
 extern CGFloat WLMaxTextViewWidth;
 extern CGFloat WLMinTextViewWidth;

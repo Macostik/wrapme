@@ -226,7 +226,7 @@
         
         NSSet* registeredContributors = [contributors where:@"user != nil"];
         [_contributors minusSet:registeredContributors];
-        [parameters trySetObject:[registeredContributors valueForKeyPath:@"user.identifier"] forKey:@"user_uids"];
+        [parameters trySetObject:[[registeredContributors allObjects] valueForKeyPath:@"user.identifier"] forKey:@"user_uids"];
         
         NSMutableArray *invitees = [NSMutableArray array];
         

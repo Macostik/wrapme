@@ -101,6 +101,7 @@
 		C515055A19F0195400BF4D82 /* WLBlurredView.m in Sources */ = {isa = PBXBuildFile; fileRef = C515055619F0195400BF4D82 /* WLBlurredView.m */; };
 		C5177C3C1B7CE578008102C7 /* WLWrapStatusImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5177C3A1B7CE578008102C7 /* WLWrapStatusImageView.m */; };
 		C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */; };
+		C51E34EA1BD8EB4100C6F678 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51E34E91BD8EB4100C6F678 /* SeparatorView.swift */; settings = {ASSET_TAGS = (); }; };
 		C5218E7A1AE55936007E55D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
 		C5218E7D1AE5594E007E55D0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E671AE554B7007E55D0 /* OpenGLES.framework */; };
 		C5218E7E1AE55965007E55D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5218E621AE5547D007E55D0 /* Accelerate.framework */; };
@@ -174,7 +175,6 @@
 		C54AF6BB19B8C491006F7EDB /* WLWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */; };
 		C54AF6C419B8C491006F7EDB /* WLWrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */; };
 		C54AF6C919B8C491006F7EDB /* WLEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2429C195C4CEB00C5D208 /* WLEditSession.m */; };
-		C54AF6CB19B8C491006F7EDB /* WLSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653DC18E4329F009CE64C /* WLSeparatorView.m */; };
 		C54AF6CF19B8C491006F7EDB /* WLEmojiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC79ED371934791600D7031F /* WLEmojiCell.m */; };
 		C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 128156AA1938A1DA00035F89 /* WLStillPictureViewController.m */; };
 		C54AF6E019B8C491006F7EDB /* WLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A71218DA0946008FF6F0 /* WLAppDelegate.m */; };
@@ -650,8 +650,6 @@
 		12D578C619178C3400586995 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		12D653D818E4329F009CE64C /* WLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProgressBar.h; sourceTree = "<group>"; };
 		12D653D918E4329F009CE64C /* WLProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLProgressBar.m; sourceTree = "<group>"; };
-		12D653DB18E4329F009CE64C /* WLSeparatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSeparatorView.h; sourceTree = "<group>"; };
-		12D653DC18E4329F009CE64C /* WLSeparatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSeparatorView.m; sourceTree = "<group>"; };
 		12DCBA7918DB17D000A4BC44 /* WLWrapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapCell.h; path = WLHomeViewController/WLWrapCell/WLWrapCell.h; sourceTree = "<group>"; };
 		12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapCell.m; path = WLHomeViewController/WLWrapCell/WLWrapCell.m; sourceTree = "<group>"; };
 		12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapViewController.h; path = WLWrapViewController/WLWrapViewController.h; sourceTree = "<group>"; };
@@ -833,6 +831,7 @@
 		C5177C3A1B7CE578008102C7 /* WLWrapStatusImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapStatusImageView.m; sourceTree = "<group>"; };
 		C51A52191A24DCED00558BF3 /* WLPasscodeValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPasscodeValidation.h; path = WLValidation/WLPasscodeValidation.h; sourceTree = "<group>"; };
 		C51A521A1A24DCED00558BF3 /* WLPasscodeValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLPasscodeValidation.m; path = WLValidation/WLPasscodeValidation.m; sourceTree = "<group>"; };
+		C51E34E91BD8EB4100C6F678 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		C5218E621AE5547D007E55D0 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C5218E671AE554B7007E55D0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		C521E18B1BC7AE1B00505432 /* VideoPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
@@ -1776,6 +1775,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C51E34E91BD8EB4100C6F678 /* SeparatorView.swift */,
 				5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */,
 				C521E18B1BC7AE1B00505432 /* VideoPlayerView.swift */,
 				C5AE8FB41BB0286D00A9B27B /* TTTAttributedLabel */,
@@ -1803,7 +1803,6 @@
 				12E8FF1C18E9883700BF1B96 /* WLComposeBar */,
 				12E8FF0718E960E000BF1B96 /* StreamView */,
 				12D653D718E4329F009CE64C /* WLProgressBar */,
-				12D653DA18E4329F009CE64C /* WLSeparatorView */,
 				5BA432AE1A3F3F5200B53BC7 /* WLConfirmView */,
 			);
 			path = Views;
@@ -1850,15 +1849,6 @@
 				C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */,
 			);
 			path = WLProgressBar;
-			sourceTree = "<group>";
-		};
-		12D653DA18E4329F009CE64C /* WLSeparatorView */ = {
-			isa = PBXGroup;
-			children = (
-				12D653DB18E4329F009CE64C /* WLSeparatorView.h */,
-				12D653DC18E4329F009CE64C /* WLSeparatorView.m */,
-			);
-			path = WLSeparatorView;
 			sourceTree = "<group>";
 		};
 		12DCBA7818DB17B000A4BC44 /* WLWrapCell */ = {
@@ -4654,7 +4644,6 @@
 				C5053E3F1BC7D07D0040613A /* AFHTTPRequestOperation.m in Sources */,
 				C55459541BD5213100A14C43 /* PNClientStateParser.m in Sources */,
 				C54186B21B4561A700F83889 /* PubNub+SharedInstance.m in Sources */,
-				C54AF6CB19B8C491006F7EDB /* WLSeparatorView.m in Sources */,
 				C5053DD71BC7CCE30040613A /* WLUploading.m in Sources */,
 				C5B2A1261B4BFED8004759F3 /* WLChat.m in Sources */,
 				C554595E1BD5213100A14C43 /* PNRemoveDeviceFromAPNSResponseParser.m in Sources */,
@@ -4742,6 +4731,7 @@
 				C5E6EAF31BBADF5A007FFA66 /* DDDispatchQueueLogFormatter.m in Sources */,
 				C53F2CE71A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				C55459441BD5213100A14C43 /* PNSubscribeStatus.m in Sources */,
+				C51E34EA1BD8EB4100C6F678 /* SeparatorView.swift in Sources */,
 				C54731CB1B90A4B000B583FD /* WLAssetCell.m in Sources */,
 				C54C567C1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
 				C5053E1E1BC7CDBF0040613A /* OpenUDID.m in Sources */,

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+>>>>>>> swifted separator view
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -85,8 +89,13 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
+<<<<<<< HEAD
                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite sent [friendly timestamp]. Swipe to resend invite" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZuV-DA-CsE" customClass="WLLabel">
                                     <rect key="frame" x="72" y="70" width="193" height="32"/>
+=======
+                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Invite sent [friendly timestamp]. Swipe to resend invite" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZuV-DA-CsE" customClass="WLLabel">
+                                    <rect key="frame" x="72" y="70" width="216" height="32"/>
+>>>>>>> swifted separator view
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
@@ -144,7 +153,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </scrollView>
-                <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="MFg-Wa-I9f" customClass="WLSeparatorView">
+                <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="MFg-Wa-I9f" customClass="SeparatorView" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="119" width="320" height="1"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

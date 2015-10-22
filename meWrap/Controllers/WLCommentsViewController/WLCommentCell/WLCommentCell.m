@@ -7,10 +7,8 @@
 //
 
 #import "WLCommentCell.h"
-#import "UIFont+CustomFonts.h"
 #import "WLToast.h"
 #import "WLMenu.h"
-#import "UIFont+CustomFonts.h"
 #import "WLEntryStatusIndicator.h"
 
 @interface WLCommentCell ()

@@ -8,7 +8,6 @@
 
 #import "WLLabel.h"
 #import "WLFontPresetter.h"
-#import "UIFont+CustomFonts.h"
 
 @implementation WLLabel
 
@@ -32,12 +31,12 @@
 
 - (void)setPreset:(NSString *)preset {
     _preset = preset;
-    self.font = [self.font preferredFontWithPreset:preset];
+    self.font = [self.font fontWithPreset:preset];
     [[WLFontPresetter presetter] addReceiver:self];
 }
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
-    self.font = [self.font preferredFontWithPreset:self.preset];
+    self.font = [self.font fontWithPreset:self.preset];
 }
 
 @end

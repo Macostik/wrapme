@@ -9,7 +9,6 @@
 #import "WLAddContributorsViewController.h"
 #import "WLAddressBook.h"
 #import "WLAddressBookRecordCell.h"
-#import "UIFont+CustomFonts.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLButton.h"
 #import "WLFontPresetter.h"
@@ -51,7 +50,7 @@
         [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
             WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
             WLAddressBookRecord* record = [group.records tryAt:position.index];
-            return [record.phoneStrings heightWithFont:[UIFont preferredDefaultFontWithPreset:WLFontPresetSmall] width:weakSelf.streamView.width - 142.0f] + 54;
+            return [record.phoneStrings heightWithFont:[UIFont fontSmall] width:weakSelf.streamView.width - 142.0f] + 54;
         }];
     }];
     

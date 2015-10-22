@@ -8,14 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, WLCameraAdjustmentType) {
-    WLCameraAdjustmentTypeCombined,
-    WLCameraAdjustmentTypeFocus,
-    WLCameraAdjustmentTypeExposure
-};
-
 @interface WLCameraAdjustmentView : UIView
-
-@property (nonatomic) WLCameraAdjustmentType type;
 
 @end

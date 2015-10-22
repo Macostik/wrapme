@@ -8,7 +8,6 @@
 
 #import "WLComposeBar.h"
 #import "NSObject+NibAdditions.h"
-#import "UIFont+CustomFonts.h"
 #import <objc/runtime.h>
 #import "WLEmojiView.h"
 #import "WLEmoji.h"

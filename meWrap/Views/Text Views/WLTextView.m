@@ -9,7 +9,6 @@
 #import "WLTextView.h"
 #import "UIColor+CustomColors.h"
 #import "WLFontPresetter.h"
-#import "UIFont+CustomFonts.h"
 
 @interface WLTextView ()
 
@@ -79,12 +78,12 @@
 
 - (void)setPreset:(NSString *)preset {
     _preset = preset;
-    self.font = [self.font preferredFontWithPreset:preset];
+    self.font = [self.font fontWithPreset:preset];
     [[WLFontPresetter presetter] addReceiver:self];
 }
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
-    self.font = [self.font preferredFontWithPreset:self.preset];
+    self.font = [self.font fontWithPreset:self.preset];
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {

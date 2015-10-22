@@ -12,7 +12,6 @@
 #import "WLNotificationCenter.h"
 #import "WLChronologicalEntryPresenter.h"
 #import "WLWhatsUpCell.h"
-#import "UIFont+CustomFonts.h"
 #import "WLComposeBar.h"
 #import "WLToast.h"
 #import "WLWhatsUpSet.h"
@@ -33,8 +32,8 @@
     __weak typeof(self)weakSelf = self;
     
     [self.candyMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
-        UIFont *fontNormal = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
-        UIFont *fontSmall = [UIFont preferredDefaultFontWithPreset:WLFontPresetSmall];
+        UIFont *fontNormal = [UIFont fontNormal];
+        UIFont *fontSmall = [UIFont fontSmall];
         return 2*floorf(fontNormal.lineHeight) + floorf(fontSmall.lineHeight) + WLPaddingCell;
     }];
     
@@ -45,7 +44,7 @@
     
     [self.commentMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:position.index];
-        UIFont *font = [UIFont preferredDefaultFontWithPreset:WLFontPresetNormal];
+        UIFont *font = [UIFont fontNormal];
         CGFloat textHeight = [[event.contribution text] heightWithFont:font width:WLConstants.screenWidth - WLWhatsUpCommentHorizontalSpacing];
         return textHeight + weakSelf.candyMetrics.sizeAt(position, weakSelf.candyMetrics);
     }];

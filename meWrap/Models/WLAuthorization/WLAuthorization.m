@@ -11,7 +11,6 @@
 #import "WLSession.h"
 #import "WLEntryKeys.h"
 #import "NSDictionary+Extended.h"
-#import "UIFont+CustomFonts.h"
 #import "WLLocalization.h"
 
 @implementation WLAuthorization
@@ -85,9 +84,9 @@
                                                           [[NSString alloc] initWithFormat:WLLS(@"formatted_verification_email_text"), email]];
     NSRange fullRange = NSMakeRange(0, emailVerificationString.length);
     NSRange bitRange = [emailVerificationString.string rangeOfString:email];
-    [emailVerificationString setAttributes:@{NSFontAttributeName:[UIFont preferredDefaultLightFontWithPreset:WLFontPresetXSmall]}
+    [emailVerificationString setAttributes:@{NSFontAttributeName:[UIFont lightFontXSmall]}
                                      range:fullRange];
-    [emailVerificationString setAttributes:@{NSFontAttributeName:[UIFont preferredDefaultFontWithPreset:WLFontPresetXSmall]}
+    [emailVerificationString setAttributes:@{NSFontAttributeName:[UIFont fontXSmall]}
                                      range:bitRange];
     return emailVerificationString;
 }

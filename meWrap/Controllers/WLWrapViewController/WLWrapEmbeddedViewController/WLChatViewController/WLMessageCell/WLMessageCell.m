@@ -7,8 +7,6 @@
 //
 
 #import "WLMessageCell.h"
-#import "UIFont+CustomFonts.h"
-#import "UIFont+CustomFonts.h"
 #import "WLTextView.h"
 #import "UIImage+Drawing.h"
 #import "UIView+QuatzCoreAnimations.h"

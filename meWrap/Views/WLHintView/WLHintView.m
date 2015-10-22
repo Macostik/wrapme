@@ -10,7 +10,6 @@
 #import "WLNavigationHelper.h"
 #import "NSObject+NibAdditions.h"
 #import "WLButton.h"
-#import "UIFont+CustomFonts.h"
 
 @implementation WLHintView 
 

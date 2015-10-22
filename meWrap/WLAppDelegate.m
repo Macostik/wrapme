@@ -23,7 +23,6 @@
 #import "WLAddressBook.h"
 #import "WLNotification.h"
 #import "WLAlertView.h"
-#import "UIFont+CustomFonts.h"
 #import "WLEntryPresenter.h"
 #import "WLWrapViewController.h"
 #import "CocoaLumberjack.h"

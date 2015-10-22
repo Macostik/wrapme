@@ -9,7 +9,6 @@
 #import "WLCandyCell.h"
 #import "WLToast.h"
 #import "WLMenu.h"
-#import "UIFont+CustomFonts.h"
 #import "WLChronologicalEntryPresenter.h"
 #import "WLDownloadingView.h"
 #import "WLAlertView.h"

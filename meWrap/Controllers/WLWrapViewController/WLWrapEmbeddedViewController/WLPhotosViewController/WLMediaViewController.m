@@ -16,7 +16,6 @@
 #import "PaginatedStreamDataSource.h"
 #import "WLContributorsViewController.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "UIFont+CustomFonts.h"
 #import "WLChronologicalEntryPresenter.h"
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"

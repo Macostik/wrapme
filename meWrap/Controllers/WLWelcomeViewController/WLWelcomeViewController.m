@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "UIFont+CustomFonts.h"
 #import "WLNavigationHelper.h"
 #import "WLSignupFlowViewController.h"
 #import "WLWelcomeViewController.h"
@@ -66,7 +65,7 @@ typedef enum : NSUInteger {
 - (void)underlineLicenseButton {
 	NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:WLLS(@"terms_and_conditions")];
 	NSDictionary * attributes = @{NSUnderlineStyleAttributeName : [NSNumber numberWithInteger:NSUnderlineStyleSingle],
-								  NSFontAttributeName : [UIFont preferredDefaultFontWithPreset:WLFontPresetSmall],
+								  NSFontAttributeName : [UIFont fontSmall],
 								  NSForegroundColorAttributeName : WLColors.orange};
 	[titleString addAttributes:attributes range:NSMakeRange(0, [titleString length])];
 	[self.licenseButton setAttributedTitle: titleString forState:UIControlStateNormal];

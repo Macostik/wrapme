@@ -8,7 +8,6 @@
 
 #import "NSDate+Additions.h"
 #import "NSObject+NibAdditions.h"
-#import "UIFont+CustomFonts.h"
 #import "WLChat.h"
 #import "WLChatViewController.h"
 #import "WLComposeBar.h"
@@ -54,8 +53,6 @@ CGFloat WLMinTextViewWidth;
 @property (strong, nonatomic) UIFont* nameFont;
 
 @property (strong, nonatomic) UIFont* messageFont;
-
-@property (strong, nonatomic) UIFont* timeFont;
 
 @property (strong, nonatomic) NSMapTable* cachedMessageHeights;
 
@@ -132,9 +129,8 @@ CGFloat WLMinTextViewWidth;
     
     self.cachedMessageHeights = [NSMapTable strongToStrongObjectsMapTable];
 
-    self.messageFont = [UIFont preferredDefaultFontWithPreset:WLFontPresetSmall];
-    self.nameFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmaller];
-    self.timeFont = [UIFont preferredDefaultLightFontWithPreset:WLFontPresetSmaller];
+    self.messageFont = [UIFont fontSmall];
+    self.nameFont = [UIFont lightFontSmaller];
     
     __weak typeof(self)weakSelf = self;
     
@@ -529,7 +525,7 @@ CGFloat WLMinTextViewWidth;
     CGFloat calculateWight = message.contributedByCurrentUser ? WLMaxTextViewWidth : WLMinTextViewWidth;
     CGFloat commentHeight = [message.text heightWithFont:self.messageFont width:calculateWight];
     CGFloat topInset = containsName ? self.nameFont.lineHeight + WLNameVerticalInset : 0;
-    CGFloat bottomInset = self.timeFont.lineHeight + WLMessageVerticalInset;
+    CGFloat bottomInset = self.nameFont.lineHeight + WLMessageVerticalInset;
     commentHeight += topInset + bottomInset;
     commentHeight = MAX (containsName ? WLMessageWithNameMinimumCellHeight : WLMessageWithoutNameMinimumCellHeight, commentHeight);
     [self.cachedMessageHeights setObject:@(commentHeight) forKey:message];
@@ -583,9 +579,8 @@ CGFloat WLMinTextViewWidth;
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
     [self.cachedMessageHeights removeAllObjects];
-    self.messageFont = [self.messageFont preferredFontWithPreset:WLFontPresetSmall];
-    self.nameFont = [self.nameFont preferredFontWithPreset:WLFontPresetSmaller];
-    self.timeFont = [self.timeFont preferredFontWithPreset:WLFontPresetSmaller];
+    self.messageFont = [UIFont fontSmall];
+    self.nameFont = [UIFont lightFontSmaller];
     [self reloadData];
 }
 

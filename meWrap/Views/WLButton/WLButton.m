@@ -8,7 +8,6 @@
 
 #import "WLButton.h"
 #import "WLFontPresetter.h"
-#import "UIFont+CustomFonts.h"
 
 @interface WLButton ()
 
@@ -195,7 +194,7 @@
 
 - (void)setPreset:(NSString *)preset {
     _preset = preset;
-    self.titleLabel.font = [self.titleLabel.font preferredFontWithPreset:preset];
+    self.titleLabel.font = [self.titleLabel.font fontWithPreset:preset];
     [[WLFontPresetter presetter] addReceiver:self];
 }
 
@@ -206,7 +205,7 @@ static CGFloat minTouchSize = 44;
 }
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
-    self.titleLabel.font = [self.titleLabel.font preferredFontWithPreset:self.preset];
+    self.titleLabel.font = [self.titleLabel.font fontWithPreset:self.preset];
 }
 
 - (CGSize)intrinsicContentSize {

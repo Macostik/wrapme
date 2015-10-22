@@ -11,7 +11,6 @@
 #import "WLNotificationCenter.h"
 #import "WLBadgeLabel.h"
 #import "WLWrapCell.h"
-#import "UIFont+CustomFonts.h"
 #import "WLGradientView.h"
 #import "WLWhatsUpSet.h"
 #import "WLMessagesCounter.h"

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LELog.h"
+#import <LogEntries/LELog.h>
 #import "WLUser.h"
 #import "WLAuthorization.h"
 

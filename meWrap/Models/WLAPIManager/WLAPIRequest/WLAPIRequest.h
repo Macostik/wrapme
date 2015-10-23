@@ -13,8 +13,7 @@
 #import "NSDate+Additions.h"
 #import "WLAPIResponse.h"
 #import "WLEntry+API.h"
-#import "AFHTTPRequestOperation.h"
-#import "AFHTTPRequestOperationManager.h"
+#import <AFNetworking/AFNetworking.h>
 
 @class WLAPIRequest;
 

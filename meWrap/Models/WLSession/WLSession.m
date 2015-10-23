@@ -7,7 +7,7 @@
 //
 
 #import "WLSession.h"
-#import "OpenUDID.h"
+#import <OpenUDID/OpenUDID.h>
 #import "WLUser.h"
 #import "NSString+Additions.h"
 #import <MobileCoreServices/MobileCoreServices.h>

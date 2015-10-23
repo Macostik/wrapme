@@ -12,8 +12,6 @@
 
 @interface PaginatedStreamDataSource () <WLPaginatedSetDelegate, WLNetworkReceiver>
 
-@property (weak, nonatomic) WLStreamLoadingView *loadingView;
-
 @end
 
 @implementation PaginatedStreamDataSource

@@ -8,8 +8,6 @@
 
 #import "WLQuickAssetsViewController.h"
 #import "StreamDataSource.h"
-#import "WLAssetCell.h"
-#import "WLToast.h"
 #import "PHPhotoLibrary+Helper.h"
 
 @import Photos;
@@ -38,7 +36,7 @@
     __weak typeof(self)weakSelf = self;
     self.streamView.layout = [[SquareLayout alloc] initWithHorizontal:YES];
     self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
-    StreamMetrics *metrics = [[StreamMetrics alloc] initWithIdentifier:@"WLAssetCell"];
+    StreamMetrics *metrics = [[StreamMetrics alloc] initWithIdentifier:@"AssetCell"];
     [metrics setSelection:^(StreamItem *item, id entry) {
         item.selected = [weakSelf selectAsset:entry];
     }];
@@ -93,8 +91,6 @@
         }
     });
 }
-
-#pragma mark - PGAssetCellDelegate
 
 - (BOOL)selectAsset:(PHAsset *)asset {
     NSString *identifier = asset.localIdentifier;

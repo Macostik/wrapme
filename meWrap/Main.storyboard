@@ -876,16 +876,63 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uGg-7M-ebG" customClass="StreamView" customModule="meWrap">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uGg-7M-ebG" customClass="StreamView" customModule="meWrap">
                                 <rect key="frame" x="0.0" y="156" width="600" height="444"/>
+                                <subviews>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dmM-fs-68O">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="explore_our" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="544-Cl-3hs" customClass="WLLabel">
+                                                <rect key="frame" x="270" y="20" width="61" height="14"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xsmall"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hottest_wraps" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="UyC-7A-yW8" customClass="WLLabel">
+                                                <rect key="frame" x="234" y="37" width="132" height="26"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                        </subviews>
+                                        <animations/>
+                                        <color key="backgroundColor" red="0.99032074209999998" green="0.49772053960000001" blue="0.24937298890000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="centerX" secondItem="UyC-7A-yW8" secondAttribute="centerX" id="5cp-0O-F5q"/>
+                                            <constraint firstAttribute="centerX" secondItem="544-Cl-3hs" secondAttribute="centerX" id="H1J-Ly-3kS"/>
+                                            <constraint firstAttribute="height" constant="88" id="JJk-pN-sk5"/>
+                                            <constraint firstItem="544-Cl-3hs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dmM-fs-68O" secondAttribute="leading" constant="12" id="Nd1-Yg-k0w"/>
+                                            <constraint firstItem="544-Cl-3hs" firstAttribute="top" secondItem="dmM-fs-68O" secondAttribute="top" constant="20" id="VVg-jS-aps"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UyC-7A-yW8" secondAttribute="trailing" constant="12" id="Zw8-mt-3QX"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="544-Cl-3hs" secondAttribute="trailing" constant="12" id="cr7-Sb-cP7"/>
+                                            <constraint firstItem="UyC-7A-yW8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dmM-fs-68O" secondAttribute="leading" constant="12" id="uXp-Gr-N05"/>
+                                            <constraint firstItem="UyC-7A-yW8" firstAttribute="top" secondItem="544-Cl-3hs" secondAttribute="bottom" constant="3" id="vsS-Fg-Np3"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstItem="dmM-fs-68O" firstAttribute="top" secondItem="uGg-7M-ebG" secondAttribute="top" id="WD6-m4-Gdj"/>
+                                    <constraint firstItem="dmM-fs-68O" firstAttribute="centerX" secondItem="uGg-7M-ebG" secondAttribute="centerX" id="ban-NV-qqB"/>
+                                    <constraint firstItem="dmM-fs-68O" firstAttribute="width" secondItem="uGg-7M-ebG" secondAttribute="width" id="mve-xd-Waq"/>
+                                </constraints>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="48"/>
                                 <connections>
                                     <outlet property="delegate" destination="gv8-Nb-wf7" id="amG-nR-f7h"/>
                                 </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcq-LH-ZNY">
-                                <rect key="frame" x="0.0" y="62" width="600" height="94"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="94"/>
                                 <subviews>
                                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="help_secure_account" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="CSs-OC-vDg" customClass="WLLabel">
                                         <rect key="frame" x="10" y="10" width="580" height="18"/>
@@ -1038,7 +1085,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgB-qi-Gbh" customClass="WLTouchView">
-                                <rect key="frame" x="457" y="62" width="139" height="51"/>
+                                <rect key="frame" x="457" y="64" width="139" height="51"/>
                                 <subviews>
                                     <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-EK-LgH" customClass="WLTriangleView">
                                         <rect key="frame" x="111" y="1" width="16" height="9"/>
@@ -1112,6 +1159,9 @@
                                                 <color key="value" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="privateWrapsOpened:" destination="L91-fZ-J9O" eventType="touchDown" id="rxw-ud-FuX"/>
+                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="941-r6-Olj">
                                         <rect key="frame" x="265" y="0.0" width="70" height="48"/>
@@ -1202,10 +1252,10 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Rl-cW-5hv">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="62"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xeq-Fm-DeI" customClass="WLButton">
-                                        <rect key="frame" x="10" y="23" width="30" height="36"/>
+                                        <rect key="frame" x="10" y="23" width="30" height="38"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
                                         <state key="normal" title="A">
@@ -1239,14 +1289,14 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HmL-mc-hV3">
-                                        <rect key="frame" x="265" y="6" width="70" height="70"/>
+                                        <rect key="frame" x="265" y="7" width="70" height="70"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="70"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KxF-7g-Abs">
-                                        <rect key="frame" x="553" y="18" width="44" height="44"/>
+                                        <rect key="frame" x="553" y="20" width="44" height="44"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="Gxm-zF-qHA"/>
@@ -1265,7 +1315,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsz-UP-cFd">
-                                        <rect key="frame" x="40" y="0.0" width="513" height="62"/>
+                                        <rect key="frame" x="40" y="0.0" width="513" height="64"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="icons" family="icons" pointSize="15"/>
@@ -1288,6 +1338,7 @@
                                     <constraint firstItem="qsz-UP-cFd" firstAttribute="leading" secondItem="Xeq-Fm-DeI" secondAttribute="trailing" id="XRC-OS-hnW"/>
                                     <constraint firstAttribute="bottom" secondItem="qsz-UP-cFd" secondAttribute="bottom" id="bFl-s7-iFN"/>
                                     <constraint firstAttribute="centerX" secondItem="HmL-mc-hV3" secondAttribute="centerX" id="cJr-G2-xpx"/>
+                                    <constraint firstAttribute="height" constant="64" id="l9Z-NE-jmw"/>
                                     <constraint firstItem="2L6-nO-etl" firstAttribute="leading" secondItem="Xeq-Fm-DeI" secondAttribute="trailing" constant="-11" id="mbB-rt-Osy"/>
                                     <constraint firstAttribute="trailing" secondItem="KxF-7g-Abs" secondAttribute="trailing" constant="3" id="o48-no-2If"/>
                                     <constraint firstAttribute="height" secondItem="Xeq-Fm-DeI" secondAttribute="height" constant="26" id="r2O-0k-UEe"/>
@@ -1334,6 +1385,7 @@
                         <outlet property="notificationsLabel" destination="2L6-nO-etl" id="5XW-mo-EXZ"/>
                         <outlet property="photoButton" destination="eam-qO-REB" id="Tde-SP-8DF"/>
                         <outlet property="publicDataSource" destination="uJJ-OA-ZDD" id="Pa2-yU-Ali"/>
+                        <outlet property="publicWrapsHeaderView" destination="dmM-fs-68O" id="kDK-nV-Z3v"/>
                         <outlet property="streamView" destination="uGg-7M-ebG" id="DWY-UV-XhD"/>
                         <outlet property="uploadingView" destination="IWZ-KR-48g" id="KrJ-sE-ftu"/>
                         <outlet property="verificationEmailLabel" destination="UL6-dF-3Kj" id="nDG-MA-MkU"/>
@@ -1364,6 +1416,9 @@
                             <real key="value" value="60"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="PublicWrapPlaceholderView"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layoutOffset">
+                            <real key="value" value="88"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="itemNibOwner" destination="L91-fZ-J9O" id="4tU-gt-4zl"/>

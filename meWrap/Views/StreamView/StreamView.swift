@@ -58,11 +58,7 @@ class StreamView: UIScrollView {
     
     @IBInspectable var horizontal: Bool {
         get {
-            if let layout = self.layout {
-                return layout.horizontal
-            } else {
-                return false
-            }
+            return layout?.horizontal ?? false
         }
         set {
             layout?.horizontal = newValue
@@ -121,7 +117,7 @@ class StreamView: UIScrollView {
         var item = rootItem
         while let next = item {
             if let view = next.view {
-                view.removeFromSuperview()
+                view.hidden = true
                 next.metrics?.enqueueView(view)
             }
             item = next.next
@@ -309,13 +305,16 @@ class StreamView: UIScrollView {
             if let metrics = item.metrics {
                 if (visible) {
                     if let view = metrics.dequeueViewWithItem(item) {
-                        insertSubview(view, atIndex: 0)
+                        if view.superview != self {
+                            insertSubview(view, atIndex: 0)
+                        }
+                        view.hidden = false
                     }
                     latestVisibleItem = item
                 } else {
                     if let view = item.view {
                         metrics.enqueueView(view)
-                        view.removeFromSuperview()
+                        view.hidden = true
                         item.view = nil
                     }
                 }

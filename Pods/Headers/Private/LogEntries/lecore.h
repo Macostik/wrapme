@@ -1,0 +1,1 @@
+../../../LogEntries/lelib/lecore.h

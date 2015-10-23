@@ -8,7 +8,6 @@
 
 #import "WLNotificationSubscription.h"
 #import "WLUser.h"
-#import "PubNub+SharedInstance.h"
 #import "NSDate+PNTimetoken.h"
 
 @interface WLNotificationSubscription () <PNObjectEventListener>

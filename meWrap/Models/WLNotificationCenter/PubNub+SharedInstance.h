@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Ravenpod. All rights reserved.
 //
 
-#import "PubNub.h"
+#import <PubNub/PubNub.h>
 
 @interface PubNub (SharedInstance)
 

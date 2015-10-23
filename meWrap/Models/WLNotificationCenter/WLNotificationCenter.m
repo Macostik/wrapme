@@ -18,6 +18,32 @@
 #import "WLNetwork.h"
 #import "WLAuthorizationRequest.h"
 
+@interface NSData (DeviceTokenSerialization)
+
+- (NSString *)serializeDevicePushToken;
+
+@end
+
+@implementation NSData (DeviceTokenSerialization)
+
+- (NSString *)serializeDevicePushToken {
+    
+    NSUInteger capacity = [self length];
+    NSMutableString *stringBuffer = [[NSMutableString alloc] initWithCapacity:capacity];
+    const unsigned char *dataBuffer = [self bytes];
+    
+    // Iterate over the bytes
+    for (NSUInteger i=0; i < [self length]; i++) {
+        
+        [stringBuffer appendFormat:@"%02.2hhX", dataBuffer[i]];
+    }
+    
+    
+    return [stringBuffer copy];
+}
+
+@end
+
 @interface WLNotificationCenter () <PNObjectEventListener, WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate>
 
 @property (strong, nonatomic) WLNotificationSubscription* userSubscription;
@@ -87,6 +113,7 @@
 
 - (void)handleDeviceToken:(NSData*)deviceToken {
     self.pushToken = deviceToken;
+    self.pushTokenString = [deviceToken serializeDevicePushToken];
     if ([WLAuthorizationRequest authorized]) {
         [[WLAuthorizationRequest updateDevice] send];
     }

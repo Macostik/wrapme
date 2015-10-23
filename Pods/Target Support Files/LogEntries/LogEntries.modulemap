@@ -1,0 +1,6 @@
+framework module LogEntries {
+  umbrella header "LogEntries-umbrella.h"
+
+  export *
+  module * { export * }
+}

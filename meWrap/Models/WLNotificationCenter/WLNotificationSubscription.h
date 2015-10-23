@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PubNub.h"
+#import "PubNub+SharedInstance.h"
 
 @class WLNotificationSubscription;
 

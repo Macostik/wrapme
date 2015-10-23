@@ -12,6 +12,8 @@
 
 @property (strong, nonatomic) NSData *pushToken;
 
+@property (strong, nonatomic) NSString *pushTokenString;
+
 @property (strong, nonatomic, readonly) WLNotificationSubscription* userSubscription;
 
 + (instancetype)defaultCenter;

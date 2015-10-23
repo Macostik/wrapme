@@ -11,7 +11,6 @@
 #import "WLUploadingQueue.h"
 #import "WLOperationQueue.h"
 #import "WLNotificationCenter.h"
-#import "PNData.h"
 
 @implementation WLAuthorizationRequest
 
@@ -40,9 +39,9 @@ static BOOL authorized = NO;
         [parameters trySetObject:authorization.countryCode forKey:@"country_calling_code"];
         [parameters trySetObject:authorization.phone forKey:@"phone_number"];
         [parameters trySetObject:authorization.email forKey:@"email"];
-        NSData *deviceToken = [WLNotificationCenter defaultCenter].pushToken;
+        NSString *deviceToken = [WLNotificationCenter defaultCenter].pushTokenString;
         if (deviceToken) {
-            [parameters trySetObject:[PNData HEXFromDevicePushToken:deviceToken] forKey:@"device_token"];
+            [parameters trySetObject:deviceToken forKey:@"device_token"];
         }
         parameters[@"os"] = @"ios";
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
@@ -137,10 +136,10 @@ static BOOL authorized = NO;
 
 + (instancetype)updateDevice {
     return [[self PUT:@"users/device"] parametrize:^(id request, NSMutableDictionary *parameters) {
-        NSData *deviceToken = [WLNotificationCenter defaultCenter].pushToken;
+        NSString *deviceToken = [WLNotificationCenter defaultCenter].pushTokenString;
         if (deviceToken) {
-            WLLog(@"PUBNUB - apns_device_token: %@", [PNData HEXFromDevicePushToken:deviceToken]);
-            [parameters trySetObject:[PNData HEXFromDevicePushToken:deviceToken] forKey:@"device_token"];
+            WLLog(@"PUBNUB - apns_device_token: %@", deviceToken);
+            [parameters trySetObject:deviceToken forKey:@"device_token"];
         }
         parameters[@"os"] = @"ios";
     }];

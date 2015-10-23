@@ -7,6 +7,6 @@
 	<key>method</key>
 	<string>ad-hoc</string>
 	<key>compileBitcode</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

@@ -12,8 +12,6 @@
 #import "UIView+QuatzCoreAnimations.h"
 #import "NSObject+AssociatedObjects.h"
 #import "NSString+Additions.h"
-#import "AFURLResponseSerialization.h"
-#import "AFHTTPRequestOperation.h"
 #import "GCDHelper.h"
 
 @interface WLImageFetcher ()
@@ -68,11 +66,7 @@
 - (id)enqueueImageWithUrl:(NSString *)url {
 	if (url.nonempty) {
         if ([self.urls containsObject:url]) {
-            for (AFHTTPRequestOperation *operation in self.fetchingQueue.operations) {
-                if ([[operation.request.URL absoluteString] isEqualToString:url]) {
-                    return operation;
-                }
-            }
+            return nil;
         } else {
             [self.urls addObject:url];
             __weak typeof(self)weakSelf = self;

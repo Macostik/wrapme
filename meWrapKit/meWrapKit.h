@@ -36,7 +36,6 @@
 #import "WLSession.h"
 #import "NSURL+WLRemoteEntryHandler.h"
 #import "UIView+Shorthand.h"
-#import "AFNetworking.h"
 #import "NSObject+NibAdditions.h"
 #import "NSObject+Extension.h"
 #import "WLCommonEnums.h"
@@ -46,5 +45,4 @@
 #import "WLExtensionMessage.h"
 #import "WLExtensionRequest.h"
 #import "WLExtensionResponse.h"
-#import "LELog.h"
 

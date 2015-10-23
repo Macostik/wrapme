@@ -10,7 +10,6 @@
 #import "WLButton.h"
 #import "WLTextView.h"
 #import "WLLabel.h"
-#import "WLEntryStatusIndicator.h"
 #import "WLHintView.h"
 #import "WLToast.h"
 #import "WLCandyViewController.h"
@@ -45,8 +44,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet UIButton *drawButton;
 @property (weak, nonatomic) IBOutlet WLLabel *postLabel;
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
-@property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *commentIndicator;
-@property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *candyIndicator;
+@property (weak, nonatomic) IBOutlet EntryStatusIndicator *commentIndicator;
+@property (weak, nonatomic) IBOutlet EntryStatusIndicator *candyIndicator;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @property (weak, nonatomic) WLComment *lastComment;

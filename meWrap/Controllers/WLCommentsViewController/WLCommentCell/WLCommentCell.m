@@ -9,7 +9,6 @@
 #import "WLCommentCell.h"
 #import "WLToast.h"
 #import "WLMenu.h"
-#import "WLEntryStatusIndicator.h"
 
 @interface WLCommentCell ()
 
@@ -17,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *authorNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commenttextView;
-@property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
+@property (weak, nonatomic) IBOutlet EntryStatusIndicator *indicator;
 
 @end
 

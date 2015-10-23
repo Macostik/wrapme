@@ -6,3 +6,5 @@
 #import "WLSession.h"
 #import "WLAsset.h"
 #import "WLEntryKeys.h"
+#import "WLEntryNotifier.h"
+#import "WLEntry+Containment.h"

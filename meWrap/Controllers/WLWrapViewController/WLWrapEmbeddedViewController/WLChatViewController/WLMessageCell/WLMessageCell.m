@@ -10,7 +10,6 @@
 #import "WLTextView.h"
 #import "UIImage+Drawing.h"
 #import "UIView+QuatzCoreAnimations.h"
-#import "WLEntryStatusIndicator.h"
 #import "WLMenu.h"
 #import "WLImageView.h"
 #import "NSDate+Formatting.h"
@@ -22,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *textView;
-@property (weak, nonatomic) IBOutlet WLEntryStatusIndicator *indicator;
+@property (weak, nonatomic) IBOutlet EntryStatusIndicator *indicator;
 
 @end
 

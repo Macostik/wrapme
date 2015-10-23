@@ -9,7 +9,6 @@
 #import "WLContribution.h"
 #import "WLUser.h"
 
-
 @implementation WLContribution
 
 @dynamic contributor;

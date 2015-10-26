@@ -145,7 +145,7 @@ extension WLAsset {
     }
     
     private func parse(key: String?, dictionary: Dictionary<String, String>, uri: String, current: String?) -> String? {
-        if let key = key, let url = dictionary[key] {
+        if let key = key, let url = dictionary[key] where url.characters.count > 0 {
             return prepend(url: url, uri: uri)
         } else {
             return current

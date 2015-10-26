@@ -181,7 +181,10 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
 }
 
 - (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLWrap *)wrap {
-    self.dataSource.items = [self sortedContributors];
+    NSMutableOrderedSet *contributors = [self sortedContributors];
+    if (![contributors isEqualToOrderedSet:(NSMutableOrderedSet*)self.dataSource.items]) {
+        self.dataSource.items = contributors;
+    }
     if (!self.wrap.contributedByCurrentUser) {
         [self.restrictedInvitePrioritizer setDefaultState:!wrap.isRestrictedInvite animated:[self viewAppeared]];
     }

@@ -169,21 +169,6 @@
     return @[metrics];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[section];
-    return group.title.nonempty && group.records.nonempty ? 32.0 : 0;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[section];
-    if (group.title.nonempty && group.records.nonempty) {
-        WLAddressBookGroupView *header = [WLAddressBookGroupView loadFromNib];
-        header.group = group;
-        return header;
-    }
-    return nil;
-}
-
 #pragma mark - WLAddressBookRecordCellDelegate
 
 - (WLAddressBookPhoneNumberState)recordCell:(WLAddressBookRecordCell *)cell phoneNumberState:(WLAddressBookPhoneNumber *)phoneNumber {
@@ -205,9 +190,7 @@
 }
 
 - (void)recordCellDidToggle:(WLAddressBookRecordCell *)cell {
-    StreamPosition *position = [self.streamView itemPassingTest:^BOOL(StreamItem *item) {
-        return item.view == cell;
-    }].position;
+    StreamPosition *position = cell.item.position;
     if (position) {
         StreamPosition *_position = [self openedPosition:position];
         if (_position) {
@@ -215,7 +198,7 @@
         } else {
             [self.openedRows addObject:position];
         }
-#warning  implement animated layout uopdate
+#warning implement animated layout update
         [self.streamView reload];
     }
 }

@@ -47,6 +47,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet EntryStatusIndicator *commentIndicator;
 @property (weak, nonatomic) IBOutlet EntryStatusIndicator *candyIndicator;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UILabel *playLabel;
 
 @property (weak, nonatomic) WLComment *lastComment;
 
@@ -184,6 +185,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         } else {
             [self.navigationController popViewControllerAnimated:NO];
         }
+    }
+    if (_candy.isVideo) {
+        self.videoPlayerView.playButton.hidden = YES;
+        self.videoPlayerView.timeView.hidden = YES;
     }
 }
 
@@ -548,6 +553,12 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         candyViewController.candy = candy;
         [self.cachedCandyViewControllers setObject:candyViewController forKey:candy];
     }
+    
+    if (candy.isVideo) {
+        self.videoPlayerView.playButton.hidden = YES;
+        self.videoPlayerView.timeView.hidden = YES;
+    }
+    
     return candyViewController;
 }
 
@@ -638,6 +649,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (void)videoPlayerViewDidPlay:(VideoPlayerView *)view {
     [self setBarsHidden:NO animated:YES];
+    self.playLabel.hidden = YES;
     self.scrollView.panGestureRecognizer.enabled = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideVideoPlayingViews) object:nil];
     [self showVideoPlayingViews];
@@ -645,9 +657,10 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)videoPlayerViewDidPause:(VideoPlayerView *)view {
+    self.playLabel.hidden = NO;
     self.scrollView.panGestureRecognizer.enabled = YES;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideVideoPlayingViews) object:nil];
-    [self showVideoPlayingViews];
+    [self hideVideoPlayingViews];
 }
 
 - (void)videoPlayerViewSeekedToTime:(VideoPlayerView *)view {

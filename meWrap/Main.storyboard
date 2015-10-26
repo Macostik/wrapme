@@ -55,6 +55,7 @@
             <string>icons</string>
             <string>icons</string>
             <string>icons</string>
+            <string>icons</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -2304,11 +2305,18 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BOE-UJ-qJt" customClass="VideoPlayerView" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5t-Qc-htD">
+                                                <rect key="frame" x="283" y="283" width="35" height="35"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" name="icons" family="icons" pointSize="35"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1JW-Fm-K51" customClass="WLButton">
                                                 <rect key="frame" x="12" y="430" width="30" height="36"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" name="icons" family="icons" pointSize="24"/>
-                                                <state key="normal" title=","/>
+                                                <state key="normal" title="*"/>
                                                 <state key="selected" title="-"/>
                                                 <connections>
                                                     <action selector="toggle" destination="BOE-UJ-qJt" eventType="touchUpInside" id="LmX-iW-Zc8"/>
@@ -2347,11 +2355,13 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="U5t-Qc-htD" firstAttribute="centerX" secondItem="wdj-eZ-S3g" secondAttribute="centerX" id="1LS-oL-zbx"/>
                                     <constraint firstItem="wdj-eZ-S3g" firstAttribute="top" secondItem="K40-sd-thh" secondAttribute="top" id="8gu-4I-NyN"/>
                                     <constraint firstAttribute="trailing" secondItem="wdj-eZ-S3g" secondAttribute="trailing" id="AcD-b4-0WU"/>
                                     <constraint firstItem="wdj-eZ-S3g" firstAttribute="leading" secondItem="K40-sd-thh" secondAttribute="leading" id="DlZ-qb-zKb"/>
                                     <constraint firstItem="BOE-UJ-qJt" firstAttribute="height" secondItem="wdj-eZ-S3g" secondAttribute="height" id="K8d-rg-D3e"/>
                                     <constraint firstItem="BOE-UJ-qJt" firstAttribute="width" secondItem="wdj-eZ-S3g" secondAttribute="width" id="MeS-FJ-cdy"/>
+                                    <constraint firstItem="U5t-Qc-htD" firstAttribute="centerY" secondItem="wdj-eZ-S3g" secondAttribute="centerY" id="aVh-CW-c4o"/>
                                     <constraint firstItem="BOE-UJ-qJt" firstAttribute="centerX" secondItem="wdj-eZ-S3g" secondAttribute="centerX" id="gnd-xU-OoI"/>
                                     <constraint firstAttribute="bottom" secondItem="wdj-eZ-S3g" secondAttribute="bottom" id="nZo-C7-dgs"/>
                                     <constraint firstItem="BOE-UJ-qJt" firstAttribute="centerY" secondItem="wdj-eZ-S3g" secondAttribute="centerY" id="nbZ-dN-L7H"/>
@@ -2708,6 +2718,7 @@
                         <outlet property="drawButton" destination="U2n-dd-fSG" id="MpT-rX-G0x"/>
                         <outlet property="editButton" destination="P4L-uu-XEd" id="ZyM-nD-E5G"/>
                         <outlet property="lastCommentTextView" destination="G8T-0M-jNN" id="747-dx-mt6"/>
+                        <outlet property="playLabel" destination="U5t-Qc-htD" id="Zjp-6v-b4o"/>
                         <outlet property="postLabel" destination="xGF-6q-Jgs" id="QRd-Pg-cNO"/>
                         <outlet property="primaryConstraint" destination="7tb-Tf-pQx" id="7Hi-fX-7fY"/>
                         <outlet property="reportButton" destination="wvQ-dZ-OGQ" id="GNw-J8-SVE"/>

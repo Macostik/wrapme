@@ -21,6 +21,8 @@
 
 @property (nonatomic) BOOL selected;
 
+@property (weak, nonatomic, readonly) UITapGestureRecognizer *selectTapGestureRecognizer;
+
 - (void)didDequeue;
 
 - (void)willEnqueue;

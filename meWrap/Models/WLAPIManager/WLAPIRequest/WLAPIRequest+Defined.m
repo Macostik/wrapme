@@ -231,9 +231,9 @@
         NSMutableArray *invitees = [NSMutableArray array];
         
         while (_contributors.nonempty) {
-            WLAddressBookPhoneNumber *_person = [contributors anyObject];
+            WLAddressBookPhoneNumber *_person = [_contributors anyObject];
             if (_person.record) {
-                NSSet *groupedContributors = [contributors where:@"record == %@", _person.record];
+                NSSet *groupedContributors = [_contributors where:@"record == %@", _person.record];
                 [invitees addObject:@{@"name":WLString(_person.name),@"phone_numbers":[[groupedContributors valueForKey:@"phone"] array]}];
                 [_contributors minusSet:groupedContributors];
             } else {

@@ -55,6 +55,7 @@
     }];
     
     self.multipleMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLMultipleAddressBookRecordCell" initializer:^(StreamMetrics *metrics) {
+        metrics.selectable = NO;
         [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
             WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:position.section];
             WLAddressBookRecord* record = [group.records tryAt:position.index];

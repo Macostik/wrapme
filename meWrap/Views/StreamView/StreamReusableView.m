@@ -10,7 +10,7 @@
 
 @interface StreamReusableView () <UIGestureRecognizerDelegate>
 
-@property (weak, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
+@property (weak, nonatomic) UITapGestureRecognizer *selectTapGestureRecognizer;
 
 @end
 
@@ -21,7 +21,7 @@
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(select)];
     gestureRecognizer.delegate = self;
     [self addGestureRecognizer:gestureRecognizer];
-    self.tapGestureRecognizer = gestureRecognizer;
+    self.selectTapGestureRecognizer = gestureRecognizer;
 }
 
 - (void)setEntry:(id)entry {
@@ -56,7 +56,7 @@
 // MARK: - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    return gestureRecognizer != self.tapGestureRecognizer || self.metrics.selectable;
+    return gestureRecognizer != self.selectTapGestureRecognizer || self.metrics.selectable;
 }
 
 @end

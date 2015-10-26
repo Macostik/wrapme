@@ -50,6 +50,7 @@
 - (void)setCurrentDataSourceAtIndex:(NSUInteger)index {
     if (index < self.items.count) {
         self.currentDataSource = [self.items objectAtIndex:index];
+        [self.currentDataSource.streamView setMinimumContentOffsetAnimated:NO];
     }
 }
 

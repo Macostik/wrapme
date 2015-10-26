@@ -427,6 +427,9 @@
             } completion:^{
                 AVCaptureTorchMode torchMode = (AVCaptureTorchMode)weakSelf.flashMode;
                 [weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
+                    if ([device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+                        [device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+                    }
                     if (device.hasTorch && device.torchAvailable && [device isTorchModeSupported:torchMode]) {
                         device.torchMode = torchMode;
                     }
@@ -473,6 +476,14 @@
                     [session addOutput:weakSelf.stillImageOutput];
                 }
             } completion:^{
+                [weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
+                    if ([device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+                        [device setFocusMode:AVCaptureFocusModeAutoFocus];
+                    }
+                    if ([device isTorchModeSupported:AVCaptureTorchModeOff]) {
+                        device.torchMode = AVCaptureTorchModeOff;
+                    }
+                }];
                 [weakSelf applyDeviceOrientation:[WLDeviceManager manager].orientation forConnection:weakSelf.stillImageOutputConnection];
                 weakSelf.takePhotoButton.userInteractionEnabled = YES;
                 completion();
@@ -519,8 +530,8 @@
     AVCaptureDevice *device = [self deviceWithPosition:position];
     if (device) {
         [device lockForConfiguration:nil];
-        if ([device isFocusModeSupported:AVCaptureFocusModeAutoFocus])
-            device.focusMode = AVCaptureFocusModeAutoFocus;
+        if ([device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus])
+            device.focusMode = AVCaptureFocusModeContinuousAutoFocus;
         [device unlockForConfiguration];
         return [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
     }
@@ -560,6 +571,7 @@
         _movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
         CMTime maxDuration = CMTimeMakeWithSeconds(maxVideoRecordedDuration, NSEC_PER_SEC);
         _movieFileOutput.maxRecordedDuration = maxDuration;
+        [_movieFileOutput setMovieFragmentInterval:kCMTimeInvalid];
     }
     return _movieFileOutput;
 }

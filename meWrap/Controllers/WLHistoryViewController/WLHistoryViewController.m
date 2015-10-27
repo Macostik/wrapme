@@ -626,48 +626,56 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 // MARK: - VideoPlayerViewDelegate
 
-- (void)hideVideoPlayingViews {
-    self.bottomView.hidden = YES;
-    self.topView.hidden = YES;
-    self.videoPlayerView.playButton.hidden = YES;
-    self.videoPlayerView.timeView.hidden = YES;
-    self.commentButton.hidden = YES;
-    [self.topView fade];
-    [self.bottomView fade];
-    [self.videoPlayerView.playButton fade];
-    [self.videoPlayerView.timeView fade];
-    [self.commentButton fade];
+- (void)hideAllViews {
+    [self hideVideoPlayingViews:YES];
+    [self hideSecondaryViews:YES];
 }
 
-- (void)showVideoPlayingViews {
-    self.bottomView.hidden = NO;
-    self.topView.hidden = NO;
-    self.videoPlayerView.playButton.hidden = NO;
-    self.videoPlayerView.timeView.hidden = NO;
-    self.commentButton.hidden = NO;
+- (void)hideVideoPlayingViews:(BOOL)hide {
+    self.videoPlayerView.playButton.hidden = hide;
+    self.videoPlayerView.timeView.hidden = hide;
+    [self.videoPlayerView.playButton fade];
+    [self.videoPlayerView.timeView fade];
+}
+
+- (void)hideSecondaryViews:(BOOL)hide {
+    self.bottomView.hidden = hide;
+    self.topView.hidden = hide;
+    self.commentButton.hidden = hide;
+    [self.bottomView fade];
+    [self.topView fade];
+    [self.commentButton fade];
 }
 
 - (void)videoPlayerViewDidPlay:(VideoPlayerView *)view {
     [self setBarsHidden:NO animated:YES];
     self.playLabel.hidden = YES;
     self.scrollView.panGestureRecognizer.enabled = NO;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideVideoPlayingViews) object:nil];
-    [self showVideoPlayingViews];
-    [self performSelector:@selector(hideVideoPlayingViews) withObject:nil afterDelay:4];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
+    [self hideVideoPlayingViews:NO];
+    [self hideSecondaryViews:NO];
+    [self performSelector:@selector(hideAllViews) withObject:nil afterDelay:4];
 }
 
 - (void)videoPlayerViewDidPause:(VideoPlayerView *)view {
-    self.playLabel.hidden = NO;
+    [self hideVideoPlayingViews:NO];
+    [self hideSecondaryViews:NO];
     self.scrollView.panGestureRecognizer.enabled = YES;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideVideoPlayingViews) object:nil];
-    [self hideVideoPlayingViews];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
 }
 
 - (void)videoPlayerViewSeekedToTime:(VideoPlayerView *)view {
     if (view.playing) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideVideoPlayingViews) object:nil];
-        [self performSelector:@selector(hideVideoPlayingViews) withObject:nil afterDelay:4];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
+        [self performSelector:@selector(hideAllViews) withObject:nil afterDelay:4];
     }
+}
+
+- (void)videoPlayerViewDidPlayToEnd:(VideoPlayerView *)view {
+    self.playLabel.hidden = NO;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
+    [self hideSecondaryViews:NO];
+    [self hideVideoPlayingViews:YES];
 }
 
 // MARK: - CommentViewControllerDelegate

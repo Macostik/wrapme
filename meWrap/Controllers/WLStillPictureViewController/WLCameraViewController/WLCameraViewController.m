@@ -289,7 +289,9 @@
 - (IBAction)flashModeChanged:(WLFlashModeControl *)sender {
 	self.flashMode = sender.mode;
 	if (self.flashMode != sender.mode) {
-		sender.mode = self.flashMode;
+        run_after_asap(^{
+            sender.mode = self.flashMode;
+        });
 	}
     if (self.mode == WLStillPictureModeDefault) {
         WLSession.cameraDefaultFlashMode = @(self.flashMode);
@@ -685,14 +687,14 @@
 }
 
 - (void)setFlashMode:(AVCaptureFlashMode)flashMode {
-	__weak typeof(self)weakSelf = self;
-	[self configureSession:^(AVCaptureSession *session) {
-		[weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
-			if ([device isFlashModeSupported:flashMode]) {
-				device.flashMode = flashMode;
-			}
-		}];
-	}];
+    __weak typeof(self)weakSelf = self;
+    [self configureSession:^(AVCaptureSession *session) {
+        [weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
+            if ([device isFlashModeSupported:flashMode]) {
+                device.flashMode = flashMode;
+            }
+        }];
+    }];
 }
 
 - (AVCaptureFlashMode)flashMode {

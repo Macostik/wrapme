@@ -291,7 +291,6 @@ static const int WLInstanceCommentLimit = 1500;
 
 - (IBAction)composeBarDidFinish:(id)sender {
     [self.composeBar resignFirstResponder];
-    [self.composeBar.text trim];
     self.composeBar.trailingPrioritizer.defaultState = YES;
 }
 

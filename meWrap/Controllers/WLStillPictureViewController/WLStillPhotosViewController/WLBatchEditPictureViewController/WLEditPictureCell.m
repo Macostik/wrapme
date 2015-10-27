@@ -29,7 +29,7 @@
 - (void)setup:(WLEditPicture*)picture {
     self.imageView.url = picture.small;
     NSMutableString *status = [NSMutableString string];
-    if (picture.comment.nonempty) [status appendString:@"4"];
+    if (picture.comment.trim.nonempty) [status appendString:@"4"];
     if (picture.edited) [status appendString:@"R"];
     if (status.nonempty) {
         self.statusLabel.attributedText = [[NSAttributedString alloc] initWithString:status attributes:@{NSForegroundColorAttributeName:self.statusLabel.textColor, NSFontAttributeName:self.statusLabel.font,NSKernAttributeName:@3}];

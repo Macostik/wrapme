@@ -88,7 +88,7 @@
         if ([self.delegate respondsToSelector:@selector(composeBar:didFinishWithText:)]) {
             [self.delegate composeBar:self didFinishWithText:text];
         }
-	}
+    }
     run_after_asap(^{
         self.text = nil;
     });
@@ -156,6 +156,7 @@
 		[self.delegate composeBarDidEndEditing:self];
 	}
     [self sendActionsForControlEvents:UIControlEventEditingDidEnd];
+    [self updateHeight];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {

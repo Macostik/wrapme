@@ -271,6 +271,7 @@ class VideoPlayerView: UIView {
     }
     
     func tap(sender: UITapGestureRecognizer) {
+        self.superview!.endEditing(true)
         let location = sender.locationInView(timeView)
         if shouldSeekToTimeAtPoint(location) {
             seekToTimeAtPoint(location)

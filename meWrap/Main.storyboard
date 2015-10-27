@@ -12,6 +12,9 @@
         <mutableArray key="Helvetica.ttc">
             <string>Helvetica</string>
         </mutableArray>
+        <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </mutableArray>
         <mutableArray key="icons.ttf">
             <string>icons</string>
             <string>icons</string>
@@ -121,6 +124,14 @@
                                     <outlet property="delegate" destination="Sb9-ms-INl" id="pS2-vh-DCt"/>
                                 </connections>
                             </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGK-lN-1Ra" customClass="SmartLabel" customModule="meWrap" customModuleProvider="target">
+                                <rect key="frame" x="50" y="50" width="500" height="0.0"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.090196078430000007" green="1" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -132,7 +143,16 @@
                             <constraint firstItem="DTt-7g-SnC" firstAttribute="top" secondItem="EuS-QU-6xz" secondAttribute="bottom" constant="-20" id="Txy-bB-Cfg"/>
                             <constraint firstItem="70e-p4-rQV" firstAttribute="leading" secondItem="Akg-VQ-Wem" secondAttribute="leading" id="Vyg-Kg-E5Y"/>
                             <constraint firstItem="70e-p4-rQV" firstAttribute="top" secondItem="DTt-7g-SnC" secondAttribute="bottom" id="biL-sx-VFn"/>
+                            <constraint firstAttribute="trailing" secondItem="aGK-lN-1Ra" secondAttribute="trailing" constant="50" id="cpI-hZ-f7t"/>
+                            <constraint firstItem="aGK-lN-1Ra" firstAttribute="leading" secondItem="Akg-VQ-Wem" secondAttribute="leading" constant="50" id="sI2-8R-ScS"/>
+                            <constraint firstItem="aGK-lN-1Ra" firstAttribute="top" secondItem="Akg-VQ-Wem" secondAttribute="topMargin" constant="50" id="u66-vf-rsG"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="aGK-lN-1Ra" secondAttribute="bottom" constant="50" id="yNL-4i-fm4"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="yNL-4i-fm4"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="D4X-S5-GBc"/>
                     <connections>
@@ -140,6 +160,7 @@
                         <outlet property="commentMetrics" destination="Bpc-ed-wIr" id="dVf-O3-hu3"/>
                         <outlet property="dataSource" destination="Sb9-ms-INl" id="IUo-5V-S9X"/>
                         <outlet property="navigationBar" destination="DTt-7g-SnC" id="gAn-U2-agD"/>
+                        <outlet property="smartLabel" destination="aGK-lN-1Ra" id="8mj-jf-aH9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Aj-Ix-LHp" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -557,6 +557,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     if (candy.isVideo) {
         self.videoPlayerView.playButton.hidden = YES;
         self.videoPlayerView.timeView.hidden = YES;
+        self.playLabel.hidden = NO;
     }
     
     return candyViewController;

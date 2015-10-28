@@ -11,7 +11,7 @@
 @interface WLProgressBar ()
 
 @property (strong, nonatomic) CABasicAnimation* animation;
-
+@property (nonatomic, assign) IBInspectable CGFloat lineWidth;
 @property (nonatomic) CGSize renderedSize;
 
 @end
@@ -59,7 +59,7 @@
     CGSize size = self.bounds.size;
     UIBezierPath *path = [UIBezierPath bezierPath];
     if (size.width > size.height) {
-        layer.lineWidth = 4;
+        layer.lineWidth = self.lineWidth > 0 ? self.lineWidth : 4;
         [path moveToPoint:CGPointMake(0, size.height/2.0f)];
         [path addLineToPoint:CGPointMake(size.width, size.height/2.0f)];
     } else {

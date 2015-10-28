@@ -625,15 +625,20 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELi-ZJ-CL2" customClass="WLProgressBar">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="4"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="8"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="4" id="7DN-iW-TpW"/>
+                                            <constraint firstAttribute="height" constant="8" id="7DN-iW-TpW"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzS-xp-Bg5">
-                                        <rect key="frame" x="5" y="9" width="11" height="11"/>
+                                        <rect key="frame" x="5" y="13" width="11" height="11"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.85098040103912354" green="0.32549020648002625" blue="0.30980393290519714" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -645,7 +650,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ej-Tb-UI4" customClass="WLLabel">
-                                        <rect key="frame" x="21" y="5" width="10" height="20"/>
+                                        <rect key="frame" x="21" y="9" width="10" height="20"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

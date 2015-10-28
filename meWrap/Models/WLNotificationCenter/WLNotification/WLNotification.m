@@ -164,8 +164,14 @@
     WLEntry *entry = nil;
     
     switch (type) {
+        case WLNotificationContributorDelete: {
+            NSDictionary *originator = self.data[@"originator"];
+            if (![originator[WLDeviceIDKey] isEqualToString:[WLAuthorization currentAuthorization].deviceUID] &&
+                ![originator[WLUserUIDKey] isEqualToString:[WLUser currentUser].identifier]) {
+                entry = dictionary ? [WLWrap API_entry:dictionary] : [WLWrap entry:self.entryIdentifier];
+            }
+        } break;
         case WLNotificationContributorAdd:
-        case WLNotificationContributorDelete:
         case WLNotificationWrapDelete:
         case WLNotificationWrapUpdate: {
             entry = dictionary ? [WLWrap API_entry:dictionary] : [WLWrap entry:self.entryIdentifier];

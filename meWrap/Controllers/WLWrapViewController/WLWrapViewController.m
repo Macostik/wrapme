@@ -169,26 +169,34 @@
 
 - (IBAction)follow:(WLButton*)sender {
     sender.loading = YES;
-    [[WLAPIRequest followWrap:self.wrap] send:^(id object) {
-        sender.loading = NO;
-    } failure:^(NSError *error) {
-        [error show];
-        sender.loading = NO;
-    }];
+    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+        [[WLAPIRequest followWrap:self.wrap] send:^(id object) {
+            sender.loading = NO;
+            [operation finish];
+        } failure:^(NSError *error) {
+            [error show];
+            sender.loading = NO;
+            [operation finish];
+        }];
+    });
 }
 
 - (IBAction)unfollow:(WLButton*)sender {
     self.settingsButton.userInteractionEnabled = NO;
     sender.loading = YES;
     __weak typeof(self)weakSelf = self;
-    [[WLAPIRequest unfollowWrap:self.wrap] send:^(id object) {
-        sender.loading = NO;
-        weakSelf.settingsButton.userInteractionEnabled = YES;
-    } failure:^(NSError *error) {
-        [error show];
-        sender.loading = NO;
-        weakSelf.settingsButton.userInteractionEnabled = YES;
-    }];
+    runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
+        [[WLAPIRequest unfollowWrap:self.wrap] send:^(id object) {
+            sender.loading = NO;
+            weakSelf.settingsButton.userInteractionEnabled = YES;
+            [operation finish];
+        } failure:^(NSError *error) {
+            [error show];
+            sender.loading = NO;
+            weakSelf.settingsButton.userInteractionEnabled = YES;
+            [operation finish];
+        }];
+    });
 }
 
 // MARK: - WLStillPictureViewControllerDelegate

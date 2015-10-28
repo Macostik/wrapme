@@ -32,7 +32,7 @@
     [super viewDidLoad];
     __weak typeof(self)weakSelf = self;
     
-    self.smartLabel.text = @"my first comment with +380957115540 and apple.com adlfk ;asdlfkl adlsfkl askd;flk al;sdkfl ;asdl;fk alds;kfla sd;flka ls;dfk ladskfl asld;fk alsdkf ;alskdf laksd;lf alsdfk lasdk flaksd flkladskf la;ksfl ad;lf rambler.ru";
+    self.smartLabel.text = @"my first comment with +380957115540 and apple.com adlfk ;asdlfkl adlsfkl askd;flk al;sdkfl ;asdl;fk alds;kfla sd;flka ls;dfk ladskfl asld;fk alsdkf ;alskdf laksd;lf alsdfk lasdk flaksd flkladskf la;ksfl ad;lf rambler.ru ddd";
     
     [self.candyMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         UIFont *fontNormal = [UIFont fontNormal];

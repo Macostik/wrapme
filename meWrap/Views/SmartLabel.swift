@@ -102,21 +102,22 @@ class SmartLabel : UILabel, NSLayoutManagerDelegate {
     }
     
     func layoutManager(layoutManager: NSLayoutManager, didCompleteLayoutForTextContainer textContainer: NSTextContainer?, atEnd layoutFinishedFlag: Bool) {
-        checkingType()
+            self.checkingType()
     }
     
     func checkingType() {
         let detector = try! NSDataDetector(types: NSTextCheckingType.PhoneNumber.rawValue | NSTextCheckingType.Link.rawValue)
-        let results = detector.matchesInString(self.text!, options: .ReportProgress, range: NSMakeRange(0, self.text!.characters.count))
+        let results = detector.matchesInString(self.textStorage.string, options: .ReportProgress, range: NSMakeRange(0, self.text!.characters.count))
 //        calculateTextLayers()
-        
+        let mutableAttributedText = NSMutableAttributedString(string: self.textStorage.string)
         for result in results {
             let range = result.range
-            let mutableAttributedText = self.attributedText?.mutableCopy()
-            mutableAttributedText?.setAttributes([NSForegroundColorAttributeName:self.tintColor], range:range)
-            self.attributedText = NSAttributedString(attributedString:mutableAttributedText as! NSAttributedString)
-            calculateTextLayersForRange(range)
-//            self.layoutManager.enumerateEnclosingRectsForGlyphRange(range, withinSelectedGlyphRange: NSMakeRange(NSNotFound, 0), inTextContainer: textContainer, usingBlock: { (rect, flag) -> Void in
+            mutableAttributedText.setAttributes([NSForegroundColorAttributeName:self.tintColor], range:range)
+             print("range - \(range)")
+            calculateTextLayers(range)
+           
+            
+//            self.layoutManager.enumerateEnclosingRectsForGlyphRange(range, withinSelectedGlyphRange: NSMakeRange(NSNotFound, 0), inTextContainer: textContainer, usingBlock: { (rect, flag) -> Void i,n
 //                if  (rect.origin.y != 0) {
 //                    self.linkContainer[NSStringFromCGRect(rect)] = result.resultType.rawValue
 //                    print("\(rect.origin.x), \(rect.origin.y), \(rect.size.width), \(rect.size.height)")
@@ -124,38 +125,53 @@ class SmartLabel : UILabel, NSLayoutManagerDelegate {
 //            })
             
         }
+        self.attributedText = NSAttributedString(attributedString:mutableAttributedText as! NSAttributedString)
     }
     
-    func calculateTextLayersForRange(range: NSRange) {
+    func calculateTextLayers(range: NSRange) {
         characterTextLayers.removeAll(keepCapacity: false)
-   
+        let attributedText = textStorage.string
         
-        let layoutRect = layoutManager.usedRectForTextContainer(self.textContainer);
+        let wordRange = range;
+        let attributedString = self.internalAttributedText();
+        let layoutRect = layoutManager.usedRectForTextContainer(textContainer);
         
-            let characterRange = layoutManager.characterRangeForGlyphRange(range, actualGlyphRange:nil);
-            var glyphRect = layoutManager.boundingRectForGlyphRange(range, inTextContainer: self.textContainer);
-            let location = layoutManager.locationForGlyphAtIndex(range.location);
-            print("rect - \(characterRange) and point - \(glyphRect) - \(location)")
+        for var index = wordRange.location; index < wordRange.length+wordRange.location; index += 0 {
+            let glyphRange = NSMakeRange(index, 1);
+            let characterRange = layoutManager.characterRangeForGlyphRange(glyphRange, actualGlyphRange:nil);
+            let textContainer = layoutManager.textContainerForGlyphAtIndex(index, effectiveRange: nil);
+            var glyphRect = layoutManager.boundingRectForGlyphRange(glyphRange, inTextContainer: textContainer!);
+            let location = layoutManager.locationForGlyphAtIndex(index);
+            let kerningRange = layoutManager.rangeOfNominallySpacedGlyphsContainingIndex(index);
             
-//            if kerningRange.length > 1 && kerningRange.location == index {
-//                if characterTextLayers.count > 0 {
-//                    let previousLayer = characterTextLayers[characterTextLayers.endIndex-1]
-//                    var frame = previousLayer.frame
-//                    frame.size.width += CGRectGetMaxX(glyphRect)-CGRectGetMaxX(frame)
-//                    previousLayer.frame = frame
-//                }
-//            }
-        
+            print("range - \(range)")
+            print("glyphRange - \(glyphRange)")
+            print("characterRange -  \(characterRange)")
+            print("textContainer - \(textContainer)")
+            print(  "glyphRect - \(glyphRect) " )
+            print( "location - \(location) " )
+            print("kerningRange - \(kerningRange)")
+            if kerningRange.length > 1 && kerningRange.location == index {
+                if characterTextLayers.count > 0 {
+                    let previousLayer = characterTextLayers[characterTextLayers.endIndex-1]
+                    var frame = previousLayer.frame
+                    frame.size.width += CGRectGetMaxX(glyphRect)-CGRectGetMaxX(frame)
+                    previousLayer.frame = frame
+                }
+            }
+            
+            
             glyphRect.origin.y += location.y-(glyphRect.height/2)+(self.bounds.size.height/2)-(layoutRect.size.height/2);
-//            glyphRect.origin.y += location.y
             
-            let textLayer = CATextLayer(frame: glyphRect, string: internalAttributedText().attributedSubstringFromRange(characterRange));
-        
+            
+            let textLayer = CATextLayer(frame: glyphRect, string: attributedString.attributedSubstringFromRange(characterRange));
+//            initialTextLayerAttributes(textLayer)
+            
 //            layer.addSublayer(textLayer);
             characterTextLayers.append(textLayer);
             
-    
-        
+            index++;
+        }
     }
     
     func internalAttributedText() -> NSMutableAttributedString! {
@@ -179,7 +195,7 @@ class SmartLabel : UILabel, NSLayoutManagerDelegate {
             }
             print("rect - \(frame) and point - \(point)")
         }
-        return true;
+        return false;
     }
 }
 

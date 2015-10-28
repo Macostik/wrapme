@@ -125,7 +125,7 @@
                                 </connections>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGK-lN-1Ra" customClass="SmartLabel" customModule="meWrap" customModuleProvider="target">
-                                <rect key="frame" x="50" y="50" width="500" height="0.0"/>
+                                <rect key="frame" x="100" y="200" width="450" height="0.0"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.090196078430000007" green="1" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -144,8 +144,8 @@
                             <constraint firstItem="70e-p4-rQV" firstAttribute="leading" secondItem="Akg-VQ-Wem" secondAttribute="leading" id="Vyg-Kg-E5Y"/>
                             <constraint firstItem="70e-p4-rQV" firstAttribute="top" secondItem="DTt-7g-SnC" secondAttribute="bottom" id="biL-sx-VFn"/>
                             <constraint firstAttribute="trailing" secondItem="aGK-lN-1Ra" secondAttribute="trailing" constant="50" id="cpI-hZ-f7t"/>
-                            <constraint firstItem="aGK-lN-1Ra" firstAttribute="leading" secondItem="Akg-VQ-Wem" secondAttribute="leading" constant="50" id="sI2-8R-ScS"/>
-                            <constraint firstItem="aGK-lN-1Ra" firstAttribute="top" secondItem="Akg-VQ-Wem" secondAttribute="topMargin" constant="50" id="u66-vf-rsG"/>
+                            <constraint firstItem="aGK-lN-1Ra" firstAttribute="leading" secondItem="Akg-VQ-Wem" secondAttribute="leading" constant="100" id="sI2-8R-ScS"/>
+                            <constraint firstItem="aGK-lN-1Ra" firstAttribute="top" secondItem="Akg-VQ-Wem" secondAttribute="topMargin" constant="200" id="u66-vf-rsG"/>
                             <constraint firstAttribute="bottomMargin" secondItem="aGK-lN-1Ra" secondAttribute="bottom" constant="50" id="yNL-4i-fm4"/>
                         </constraints>
                         <variation key="default">

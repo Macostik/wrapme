@@ -499,6 +499,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (IBAction)comments:(id)sender {
+    if  (self.videoPlayerView.playing) [self.videoPlayerView pause];
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         for (UIViewController *controller in [self childViewControllers]) {

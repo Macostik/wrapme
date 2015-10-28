@@ -273,7 +273,7 @@ class VideoPlayerView: UIView {
     func tap(sender: UITapGestureRecognizer) {
         self.superview!.endEditing(true)
         let location = sender.locationInView(timeView)
-        if shouldSeekToTimeAtPoint(location) {
+        if shouldSeekToTimeAtPoint(location) && !timeView.hidden {
             seekToTimeAtPoint(location)
         } else {
             toggle()
@@ -281,33 +281,35 @@ class VideoPlayerView: UIView {
     }
     
     func pan(sender: UITapGestureRecognizer) {
-        let location = sender.locationInView(timeView)
-        switch sender.state {
-        case .Began:
-            seeking = true
-            player?.pause()
-            seekToTimeAtPoint(location)
-        case .Changed:
-            if seeking {
+        if (!timeView.hidden) {
+            let location = sender.locationInView(timeView)
+            switch sender.state {
+            case .Began:
+                seeking = true
+                player?.pause()
                 seekToTimeAtPoint(location)
-            }
-        case .Ended:
-            if seeking {
-                seeking = false
-                if _playing {
-                    player?.play()
+            case .Changed:
+                if seeking {
+                    seekToTimeAtPoint(location)
                 }
-            } else {
-                toggle()
-            }
-        case .Cancelled, .Failed:
-            if seeking {
-                seeking = false
-                if _playing {
-                    player?.play()
+            case .Ended:
+                if seeking {
+                    seeking = false
+                    if _playing {
+                        player?.play()
+                    }
+                } else {
+                    toggle()
                 }
+            case .Cancelled, .Failed:
+                if seeking {
+                    seeking = false
+                    if _playing {
+                        player?.play()
+                    }
+                }
+            default: break
             }
-        default: break
         }
     }
 }

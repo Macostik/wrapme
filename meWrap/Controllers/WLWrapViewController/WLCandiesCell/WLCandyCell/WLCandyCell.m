@@ -45,25 +45,27 @@
             }
             
             [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
-                [menu addEditPhotoItem:^(WLCandy *candy) {
-                    [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
-                        [WLImageEditorSession editImage:image completion:^(UIImage *image) {
-                            [candy editWithImage:image];
-                        } cancel:nil];
-                    } failure:^(NSError *error) {
-                        [error show];
-                    }];
-                }];
-                
-                [menu addDrawPhotoItem:^(WLCandy *candy) {
-                    [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
-                        [WLDrawingViewController draw:image finish:^(UIImage *image) {
-                            [candy editWithImage:image];
+                if (!candy.isVideo) {
+                    [menu addEditPhotoItem:^(WLCandy *candy) {
+                        [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
+                            [WLImageEditorSession editImage:image completion:^(UIImage *image) {
+                                [candy editWithImage:image];
+                            } cancel:nil];
+                        } failure:^(NSError *error) {
+                            [error show];
                         }];
-                    } failure:^(NSError *error) {
-                        [error show];
                     }];
-                }];
+                    
+                    [menu addDrawPhotoItem:^(WLCandy *candy) {
+                        [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
+                            [WLDrawingViewController draw:image finish:^(UIImage *image) {
+                                [candy editWithImage:image];
+                            }];
+                        } failure:^(NSError *error) {
+                            [error show];
+                        }];
+                    }];
+                }
             } failure:nil];
             
             [menu addDownloadItem:^(WLCandy *candy) {

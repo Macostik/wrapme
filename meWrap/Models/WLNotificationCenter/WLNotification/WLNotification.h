@@ -65,6 +65,8 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @property (nonatomic) BOOL inserted;
 
+@property (nonatomic) BOOL originatedByCurrentUser;
+
 + (instancetype)notificationWithMessage:(id)message;
 
 + (instancetype)notificationWithData:(NSDictionary*)data;

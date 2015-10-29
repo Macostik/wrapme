@@ -62,6 +62,11 @@
     self.identifier = [data stringForKey:@"msg_uid"];
     self.publishedAt = [data dateForKey:@"msg_published_at"];
     
+    NSDictionary *originator = data[@"originator"];
+    if (originator) {
+        self.originatedByCurrentUser = [originator[WLUserUIDKey] isEqualToString:[WLUser currentUser].identifier] && [originator[WLDeviceIDKey] isEqualToString:[WLAuthorization currentAuthorization].deviceUID];
+    }
+    
     WLNotificationType type = self.type;
     
     if (type == WLNotificationUpdateAvailable) {

@@ -306,6 +306,12 @@
     __weak typeof(self)weakSelf = self;
     NSMutableArray *notifications = [[messages map:^id(PNMessageData *message) {
         WLNotification *notification = [WLNotification notificationWithMessage:message];
+        if (notification.type != WLNotificationUserUpdate && ![WLAuthorizationRequest authorized]) {
+            return nil;
+        }
+        if (notification.type != WLNotificationCandyAdd && notification.originatedByCurrentUser) {
+            return nil;
+        }
         return [weakSelf isAlreadyHandledNotification:notification] ? nil : notification;
     }] mutableCopy];
     

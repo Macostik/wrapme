@@ -170,9 +170,7 @@
     
     switch (type) {
         case WLNotificationContributorDelete: {
-            NSDictionary *originator = self.data[@"originator"];
-            if (![originator[WLDeviceIDKey] isEqualToString:[WLAuthorization currentAuthorization].deviceUID] &&
-                ![originator[WLUserUIDKey] isEqualToString:[WLUser currentUser].identifier]) {
+            if (!self.originatedByCurrentUser) {
                 entry = dictionary ? [WLWrap API_entry:dictionary] : [WLWrap entry:self.entryIdentifier];
             }
         } break;

@@ -119,6 +119,8 @@ CGFloat WLMinTextViewWidth;
     
     [super viewDidLoad];
     
+    [self updateInsets:YES];
+    
     if (!self.wrap) {
         __weak typeof(self)weakSelf = self;
         run_after(0.5, ^{
@@ -146,8 +148,8 @@ CGFloat WLMinTextViewWidth;
     self.myMessageMetrics.finalizeAppearing = finalizeMessageAppearing;
     self.messageMetrics.finalizeAppearing = finalizeMessageAppearing;
     
-    WLMinTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndentWithAvatar - 2*WLMessageHorizontalInset - WLTrailingBubbleIndent;
-    WLMaxTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndent - WLTrailingBubbleIndent - 2*WLMessageHorizontalInset;
+    WLMinTextViewWidth = WLConstants.screenWidth - WLLeadingBubbleIndentWithAvatar - 2*WLMessageHorizontalInset - WLBubbleIndent;
+    WLMaxTextViewWidth = WLConstants.screenWidth - 2*WLBubbleIndent - 2*WLMessageHorizontalInset;
     
     self.messageWithNameMetrics.sizeAt = self.messageMetrics.sizeAt = self.myMessageMetrics.sizeAt = ^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         WLMessage *message = [weakSelf.chat.entries tryAt:position.index];
@@ -193,9 +195,7 @@ CGFloat WLMinTextViewWidth;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.streamView lock];
-    [self.chat.readMessages all:^(WLMessage *message) {
-        [message markAsRead];
-    }];
+    [self.chat markAsRead];
     [[WLMessagesCounter instance] update:nil];
     [self.chat.unreadMessages minusSet:[self.chat.readMessages set]];
     [self updateBadge];
@@ -217,9 +217,23 @@ CGFloat WLMinTextViewWidth;
     }
 }
 
-- (void)keyboardWillShow:(WLKeyboard *)keyboard {
-    [super keyboardWillShow:keyboard];
-    [self.streamView setMaximumContentOffsetAnimated:NO];
+- (void)updateInsets:(BOOL)typingViewHidden {
+    CGFloat bottom = self.composeBar.height + [WLKeyboard keyboard].height + (typingViewHidden ? 0 : self.typingView.height) + WLBubbleIndent;
+    self.streamView.contentInset = self.streamView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, bottom, 0);
+}
+
+- (void)keyboardDidShow:(WLKeyboard *)keyboard {
+    [super keyboardDidShow:keyboard];
+    [UIView performWithoutAnimation:^{
+        [self updateInsets:self.typingView.hidden];
+    }];
+}
+
+- (void)keyboardWillHide:(WLKeyboard *)keyboard {
+    [super keyboardWillHide:keyboard];
+    [UIView performWithoutAnimation:^{
+        [self updateInsets:self.typingView.hidden];
+    }];
 }
 
 - (void)insertMessage:(WLMessage*)message {
@@ -238,7 +252,9 @@ CGFloat WLMinTextViewWidth;
             [operation finish];
         } else  {
             [weakSelf.chat addEntry:message];
-            if (!streamView.scrollable || streamView.contentOffset.y < streamView.maximumContentOffset.y) {
+            CGPoint offset = streamView.contentOffset;
+            CGPoint maximumOffset = streamView.maximumContentOffset;
+            if (!streamView.scrollable || offset.y < maximumOffset.y) {
                 [operation finish];
             } else {
                 if (streamView.height/2 < [weakSelf heightOfMessageCell:message] && [self.chat.unreadMessages count] == 1) {
@@ -398,17 +414,14 @@ CGFloat WLMinTextViewWidth;
 
 - (void)setTypingViewHidden:(BOOL)hidden {
     if (self.typingView.hidden != hidden) {
-        UIEdgeInsets insets = self.streamView.contentInset;
         BOOL scroll = NO;
         if (hidden) {
-            insets.bottom = 0;
             [self.typingView topPushWithDuration:0.2 delegate:nil];
         } else {
             scroll = ABS(self.streamView.contentOffset.y - self.streamView.maximumContentOffset.y) < 5;
-            insets.bottom = self.typingView.height;
             [self.typingView bottomPushWithDuration:0.2 delegate:nil];
         }
-        self.streamView.contentInset = insets;
+        [self updateInsets:hidden];
         self.typingView.hidden = hidden;
         
         if (scroll) {
@@ -421,16 +434,12 @@ CGFloat WLMinTextViewWidth;
 
 - (void)sendMessageWithText:(NSString*)text {
     if (self.wrap.valid) {
-        __weak typeof(self)weakSelf = self;
+        self.streamView.contentOffset = self.streamView.maximumContentOffset;
         [self.wrap uploadMessage:text success:^(WLMessage *message) {
-            [weakSelf.streamView setMaximumContentOffsetAnimated:YES];
         } failure:^(NSError *error) {
         }];
         [WLSoundPlayer playSound:WLSound_s04];
-        [self.streamView setMaximumContentOffsetAnimated:YES];
-        [self.chat.readMessages all:^(WLMessage *message) {
-            [message markAsRead];
-        }];
+        [self.chat markAsRead];
     } else {
         [self.navigationController popToRootViewControllerAnimated:NO];
     }
@@ -439,12 +448,6 @@ CGFloat WLMinTextViewWidth;
 - (void)composeBar:(WLComposeBar *)composeBar didFinishWithText:(NSString *)text {
     self.typing = NO;
 	[self sendMessageWithText:text];
-}
-
-- (void)composeBarDidBeginEditing:(WLComposeBar *)composeBar {
-    if (self.streamView.scrollable) {
-        [self.streamView setMaximumContentOffsetAnimated:self.viewAppeared];
-    }
 }
 
 - (BOOL)composeBarDidShouldResignOnFinish:(WLComposeBar *)composeBar {
@@ -503,7 +506,7 @@ CGFloat WLMinTextViewWidth;
             offset.y += streamView.contentSize.height - oldContentSize.height;
             streamView.contentOffset = offset;
         } else {
-            [streamView setMaximumContentOffsetAnimated:NO];
+            streamView.contentOffset = streamView.maximumContentOffset;
         }
     }
     [self appendItemsIfNeededWithTargetContentOffset:streamView.contentOffset];
@@ -538,9 +541,7 @@ CGFloat WLMinTextViewWidth;
         return;
     }
     
-    [self.chat.readMessages all:^(WLMessage *message) {
-        [message markAsRead];
-    }];
+    [self.chat markAsRead];
     
     [[WLMessagesCounter instance] update:nil];
     [self.chat sort];

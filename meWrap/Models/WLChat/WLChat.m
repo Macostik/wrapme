@@ -220,4 +220,10 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     [self sendTyping:NO];
 }
 
+- (void)markAsRead {
+    [self.readMessages all:^(WLMessage *message) {
+        [message markAsRead];
+    }];
+}
+
 @end

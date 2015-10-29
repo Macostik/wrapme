@@ -25,7 +25,9 @@ extension UIScrollView {
         let insets = contentInset
         let width = contentSize.width - (bounds.width - insets.right)
         let height = contentSize.height - (bounds.height - insets.bottom)
-        return CGPoint(x: (width > -insets.left) ? width : -insets.left, y: (height > -insets.top) ? height : -insets.top)
+        let x = (width > -insets.left) ? width : -insets.left
+        let y = (height > -insets.top) ? height : -insets.top
+        return CGPoint(x: round(x), y: round(y))
     }
     
     func isPossibleContentOffset(offset: CGPoint) -> Bool {

@@ -49,4 +49,6 @@
 
 - (void)endTyping;
 
+- (void)markAsRead;
+
 @end

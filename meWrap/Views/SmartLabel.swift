@@ -24,7 +24,6 @@ class SmartLabel : UILabel, NSLayoutManagerDelegate {
     let layoutManager = NSLayoutManager();
     var characterTextLayers = Array<CATextLayer>()
     var linkContainer = [NSString:UInt64]()
-    
     override var lineBreakMode: NSLineBreakMode {
         get { return super.lineBreakMode }
         set {
@@ -39,14 +38,15 @@ class SmartLabel : UILabel, NSLayoutManagerDelegate {
             textContainer.maximumNumberOfLines = newValue
             super.numberOfLines = newValue
         }
-        
     }
     
     override var bounds: CGRect {
         get { return super.bounds }
         set {
-            textContainer.size = newValue.size
+            print (">>self - \(newValue)<<")
             super.bounds = newValue
+            textContainer.size = CGSizeMake(bounds.width, CGFloat.max)
+            textStorage.setAttributedString(self.attributedText!)
         }
     }
     
@@ -67,19 +67,18 @@ class SmartLabel : UILabel, NSLayoutManagerDelegate {
     }
     
     override var attributedText: NSAttributedString? {
-        didSet {
-            if textStorage.string == self.attributedText!.string {
+        get { return super.attributedText }
+        set {
+            if textStorage.string == newValue!.string {
                 return
             }
-//            self.sizeToFit()
-//            textContainer.size = bounds.size
-            textStorage.setAttributedString(self.attributedText!)
+            super.attributedText = newValue
         }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        setupLayoutManager()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -88,52 +87,36 @@ class SmartLabel : UILabel, NSLayoutManagerDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setup()
+        setupLayoutManager()
     }
-
-    func setup () {
+    
+    
+    func setupLayoutManager() {
         textStorage.addLayoutManager(layoutManager)
         layoutManager.addTextContainer(textContainer)
-        textContainer.maximumNumberOfLines = numberOfLines
-        textContainer.lineBreakMode = lineBreakMode
-        textContainer.lineFragmentPadding = 0.0
         layoutManager.delegate = self
+        textContainer.lineFragmentPadding = 0
         self.userInteractionEnabled = true
     }
     
     func layoutManager(layoutManager: NSLayoutManager, didCompleteLayoutForTextContainer textContainer: NSTextContainer?, atEnd layoutFinishedFlag: Bool) {
-            self.checkingType()
+        checkingType()
     }
     
     func checkingType() {
         let detector = try! NSDataDetector(types: NSTextCheckingType.PhoneNumber.rawValue | NSTextCheckingType.Link.rawValue)
         let results = detector.matchesInString(self.textStorage.string, options: .ReportProgress, range: NSMakeRange(0, self.text!.characters.count))
-//        calculateTextLayers()
-        let mutableAttributedText = NSMutableAttributedString(string: self.textStorage.string)
-        for result in results {
-            let range = result.range
-            mutableAttributedText.setAttributes([NSForegroundColorAttributeName:self.tintColor], range:range)
-             print("range - \(range)")
-            calculateTextLayers(range)
-           
-            
-//            self.layoutManager.enumerateEnclosingRectsForGlyphRange(range, withinSelectedGlyphRange: NSMakeRange(NSNotFound, 0), inTextContainer: textContainer, usingBlock: { (rect, flag) -> Void i,n
-//                if  (rect.origin.y != 0) {
-//                    self.linkContainer[NSStringFromCGRect(rect)] = result.resultType.rawValue
-//                    print("\(rect.origin.x), \(rect.origin.y), \(rect.size.width), \(rect.size.height)")
-//                }
-//            })
-            
-        }
-        self.attributedText = NSAttributedString(attributedString:mutableAttributedText as! NSAttributedString)
+        let temp = results.flatMap({$0.range})
+        print (">>self - \(temp)<<")
+        setupTextLayers(temp)
+        
     }
     
-    func calculateTextLayers(range: NSRange) {
+    func setupTextLayers(ranges: Array<NSRange>) {
         characterTextLayers.removeAll(keepCapacity: false)
         let attributedText = textStorage.string
         
-        let wordRange = range;
-        let attributedString = self.internalAttributedText();
+        let wordRange = NSMakeRange(0, attributedText.characters.count);
         let layoutRect = layoutManager.usedRectForTextContainer(textContainer);
         
         for var index = wordRange.location; index < wordRange.length+wordRange.location; index += 0 {
@@ -144,13 +127,6 @@ class SmartLabel : UILabel, NSLayoutManagerDelegate {
             let location = layoutManager.locationForGlyphAtIndex(index);
             let kerningRange = layoutManager.rangeOfNominallySpacedGlyphsContainingIndex(index);
             
-            print("range - \(range)")
-            print("glyphRange - \(glyphRange)")
-            print("characterRange -  \(characterRange)")
-            print("textContainer - \(textContainer)")
-            print(  "glyphRect - \(glyphRect) " )
-            print( "location - \(location) " )
-            print("kerningRange - \(kerningRange)")
             if kerningRange.length > 1 && kerningRange.location == index {
                 if characterTextLayers.count > 0 {
                     let previousLayer = characterTextLayers[characterTextLayers.endIndex-1]
@@ -159,32 +135,49 @@ class SmartLabel : UILabel, NSLayoutManagerDelegate {
                     previousLayer.frame = frame
                 }
             }
+            print("__________________________")
+            print("glyphRect.begin - \(glyphRect)")
+//            glyphRect.origin.y += location.y - (glyphRect.height/2)+(self.bounds.size.height/2)-(layoutRect.size.height/2);
             
             
-            glyphRect.origin.y += location.y-(glyphRect.height/2)+(self.bounds.size.height/2)-(layoutRect.size.height/2);
+            print (">>self -\(textStorage.attributedSubstringFromRange(characterRange).string)<<")
+            print("glyphRange.end - \(glyphRange)")
+            print("characterRange -  \(characterRange)")
+            print("glyphRect - \(glyphRect) " )
+            print("location - \(location) " )
+            print("kerningRange - \(kerningRange)")
+            print("layoutRect - \(layoutRect)")
+            print("self.frame - \(self.frame)")
+            print("--------------------------")
             
-            
-            let textLayer = CATextLayer(frame: glyphRect, string: attributedString.attributedSubstringFromRange(characterRange));
-//            initialTextLayerAttributes(textLayer)
-            
-//            layer.addSublayer(textLayer);
+            let string = textStorage.attributedSubstringFromRange(characterRange).string
+            let textLayer = initialTextLayer(string, frame: glyphRect)
+            let passTextRange = ranges.filter({
+                return $0.location <= index && $0.location + $0.length >= index
+            })
+             print ("\(index) - \(passTextRange)<<")
+//            if  (ranges.location <= index && range.location + range.length >= index) {
+//                print ("\(index) - \(range)<<")
+//                textLayer.foregroundColor = tintColor.CGColor
+//            }
+            layer.addSublayer(textLayer)
             characterTextLayers.append(textLayer);
             
-            index++;
+            index += characterRange.length;
         }
     }
     
-    func internalAttributedText() -> NSMutableAttributedString! {
-        let wordRange = NSMakeRange(0, textStorage.string.characters.count);
-        let attributedText = NSMutableAttributedString(string: textStorage.string);
-        attributedText.addAttribute(NSForegroundColorAttributeName , value: self.textColor.CGColor, range:wordRange);
-        attributedText.addAttribute(NSFontAttributeName , value: self.font, range:wordRange);
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = self.textAlignment
-        attributedText.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range: wordRange)
-        
-        return attributedText;
+    func initialTextLayer(string: String, frame: CGRect) -> CATextLayer {
+        let textLayer = CATextLayer()
+        textLayer.frame = frame
+        textLayer.string = string
+        textLayer.foregroundColor = UIColor.orangeColor().CGColor
+        textLayer.font = CTFontCreateWithName(font.fontName, font.lineHeight, nil);
+        textLayer.fontSize = font.pointSize
+        textLayer.wrapped = true
+        textLayer.alignmentMode = kCAAlignmentLeft
+        textLayer.contentsScale = UIScreen.mainScreen().scale
+        return textLayer
     }
     
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {

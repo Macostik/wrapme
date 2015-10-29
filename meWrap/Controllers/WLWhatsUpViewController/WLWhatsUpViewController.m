@@ -32,7 +32,7 @@
     [super viewDidLoad];
     __weak typeof(self)weakSelf = self;
     
-    self.smartLabel.text = @"my first comment with +380957115540 and apple.com adlfk ;asdlfkl adlsfkl askd;flk al;sdkfl ;asdl;fk alds;kfla sd;flka ls;dfk ladskfl asld;fk alsdkf ;alskdf laksd;lf alsdfk lasdk flaksd flkladskf la;ksfl ad;lf rambler.ru ddd";
+    self.smartLabel.text = @"The information +380957115540 contained in this web site is subject to change without notice. Copyright 1997-2009 Apple Inc. All rights reserved apple.com. Apple Inc., 1 Infinite Loop, Cupertino, CA 95014, USA.";
     
     [self.candyMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         UIFont *fontNormal = [UIFont fontNormal];

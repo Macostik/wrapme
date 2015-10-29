@@ -55,49 +55,51 @@
     } else {
         repRange = NSMakeRange(start, end - start);
     }
-    
-    // This is what the new text will be after adding/deleting 'string'
-    NSString *txt = [textField.text stringByReplacingCharactersInRange:repRange withString:string];
-    // This is the newly formatted version of the phone number
-    NSString *phone = [self.format format:txt];
-    // If these are the same then just let the normal text changing take place
-    if ([phone isEqualToString:txt]) {
-        return YES;
-    } else {
-        // The two are different which means the adding/removal of a character had a bigger effect
-        // from adding/removing phone number formatting based on the new number of characters in the text field
-        // The trick now is to ensure the cursor stays after the same character despite the change in formatting.
-        // So first let's count the number of non-formatting characters up to the cursor in the unchanged text.
-        int cnt = 0;
-        for (NSUInteger i = 0; i < repRange.location + string.length; i++) {
-            if ([self.characters characterIsMember:[txt characterAtIndex:i]]) {
-                cnt++;
-            }
-        }
-        
-        // Now let's find the position, in the newly formatted string, of the same number of non-formatting characters.
-        NSUInteger pos = [phone length];
-        int cnt2 = 0;
-        for (NSUInteger i = 0; i < [phone length]; i++) {
-            if ([self.characters characterIsMember:[phone characterAtIndex:i]]) {
-                cnt2++;
+    if (NSLocationInRange(start, repRange) && NSLocationInRange(end, repRange)) {
+        // This is what the new text will be after adding/deleting 'string'
+        NSString *txt = [textField.text stringByReplacingCharactersInRange:repRange withString:string];
+        // This is the newly formatted version of the phone number
+        NSString *phone = [self.format format:txt];
+        // If these are the same then just let the normal text changing take place
+        if ([phone isEqualToString:txt]) {
+            return YES;
+        } else {
+            // The two are different which means the adding/removal of a character had a bigger effect
+            // from adding/removing phone number formatting based on the new number of characters in the text field
+            // The trick now is to ensure the cursor stays after the same character despite the change in formatting.
+            // So first let's count the number of non-formatting characters up to the cursor in the unchanged text.
+            int cnt = 0;
+            for (NSUInteger i = 0; i < repRange.location + string.length; i++) {
+                if ([self.characters characterIsMember:[txt characterAtIndex:i]]) {
+                    cnt++;
+                }
             }
             
-            if (cnt2 == cnt) {
-                pos = i + 1;
-                break;
+            // Now let's find the position, in the newly formatted string, of the same number of non-formatting characters.
+            NSUInteger pos = [phone length];
+            int cnt2 = 0;
+            for (NSUInteger i = 0; i < [phone length]; i++) {
+                if ([self.characters characterIsMember:[phone characterAtIndex:i]]) {
+                    cnt2++;
+                }
+                
+                if (cnt2 == cnt) {
+                    pos = i + 1;
+                    break;
+                }
             }
+            
+            // Replace the text with the updated formatting
+            textField.text = phone;
+            
+            // Make sure the caret is in the right place
+            UITextPosition *startPos = [textField positionFromPosition:textField.beginningOfDocument offset:pos];
+            UITextRange *textRange = [textField textRangeFromPosition:startPos toPosition:startPos];
+            textField.selectedTextRange = textRange;
+            return NO;
         }
-        
-        // Replace the text with the updated formatting
-        textField.text = phone;
-        
-        // Make sure the caret is in the right place
-        UITextPosition *startPos = [textField positionFromPosition:textField.beginningOfDocument offset:pos];
-        UITextRange *textRange = [textField textRangeFromPosition:startPos toPosition:startPos];
-        textField.selectedTextRange = textRange;
-        return NO;
     }
+    return NO;
 }
 
 @end

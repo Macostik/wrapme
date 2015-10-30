@@ -74,6 +74,8 @@
 @property (strong, nonatomic) dispatch_queue_t sessionQueue;
 
 @property (weak, nonatomic) NSTimer *videoRecordingTimer;
+@property (weak, nonatomic) NSTimer *startVideoRecordingTimer;
+
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeightConstraint;
@@ -366,7 +368,11 @@
         case UIGestureRecognizerStateBegan: {
             [self updateVideoRecordingViews:YES];
             [self prepareSessionForVideoRecording:^{
-                [self performSelector:@selector(startVideoRecording) withObject:nil afterDelay:0.5f];
+                self.startVideoRecordingTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+                                                                                 target:self
+                                                                               selector:@selector(startVideoRecording)
+                                                                               userInfo:nil
+                                                                                repeats:NO];
             }];
         } break;
         case UIGestureRecognizerStateEnded: {
@@ -477,11 +483,16 @@
 - (void)startVideoRecording {
     self.videoRecordingCancelled = NO;
     NSString *videosDirectoryPath = @"Documents/Videos";
-    [[NSFileManager defaultManager] createDirectoryAtPath:videosDirectoryPath withIntermediateDirectories:YES attributes:nil error:NULL];
+ 	NSError *error = nil;
+    [[NSFileManager defaultManager] createDirectoryAtPath:videosDirectoryPath withIntermediateDirectories:YES attributes:nil error:&error];
     NSString *path = [NSString stringWithFormat:@"%@/capturedVideo.mov", videosDirectoryPath];
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
     self.videoFilePath = path;
-    [self.movieFileOutput startRecordingToOutputFileURL:[NSURL fileURLWithPath:path] recordingDelegate:self];
+    if (!error && path.nonempty) {
+        if ([self.session.outputs containsObject:self.movieFileOutput]) {
+            [self.movieFileOutput startRecordingToOutputFileURL:[NSURL fileURLWithPath:path] recordingDelegate:self];
+        }
+    }
 }
 
 - (void)stopVideoRecording {
@@ -492,7 +503,8 @@
             [self prepareSessionForPhotoTaking];
             [self updateVideoRecordingViews:NO];
         }
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(startVideoRecording) object:nil];
+        [self.startVideoRecordingTimer invalidate];
+        self.startVideoRecordingTimer = nil;
     }
 }
 

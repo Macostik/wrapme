@@ -184,6 +184,7 @@ class VideoPlayerView: UIView {
             timeView.time = 0
             
             playButton?.selected = false
+            spinner?.stopAnimating()
         }
     }
     
@@ -220,13 +221,15 @@ class VideoPlayerView: UIView {
     
     var url: NSURL? {
         didSet {
-            if _playing {
-                playing = false
+            if url != oldValue {
+                if _playing {
+                    playing = false
+                }
+                if _player != nil {
+                    _player = nil
+                }
+                seeking = false
             }
-            if _player != nil {
-                _player = nil
-            }
-            seeking = false
         }
     }
     

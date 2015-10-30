@@ -87,8 +87,21 @@
 
 - (IBAction)showGroupChannels:(id)sender {
     [[PubNub sharedInstance] channelsForGroup:[WLNotificationCenter defaultCenter].userSubscription.name withCompletion:^(PNChannelGroupChannelsResult *result, PNErrorStatus *status) {
-        WLLog(@"DEBUG - group %@ channels: %@", [WLNotificationCenter defaultCenter].userSubscription.name, result.data.channels.description);
-        [UIAlertController showWithTitle:[WLNotificationCenter defaultCenter].userSubscription.name message:result.data.channels.description buttons:@[@"OK"] completion:nil];
+        NSMutableString *message = [NSMutableString string];
+        NSMutableArray *channels = [result.data.channels mutableCopy];
+        for (WLWrap *wrap in [WLUser currentUser].wraps) {
+            if ([channels containsObject:wrap.identifier]) {
+                [message appendFormat:@"subscribed %@ : %@\n", wrap.name, wrap.identifier];
+                [channels removeObject:wrap.identifier];
+            } else {
+                [message appendFormat:@"not subscribed %@ : %@\n", wrap.name, wrap.identifier];
+            }
+        }
+        [message appendFormat:@"\nother channels %@", channels];
+        
+        [[UIPasteboard generalPasteboard] setValue:message forPasteboardType:(id)kUTTypeText];
+        
+        [UIAlertController showWithTitle:[WLNotificationCenter defaultCenter].pushToken.description message:message buttons:@[@"OK"] completion:nil];
     }];
 }
 

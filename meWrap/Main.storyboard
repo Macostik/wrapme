@@ -411,6 +411,28 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubG-pa-KnG" customClass="WLQAButton">
+                                <rect key="frame" x="12" y="394" width="576" height="44"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="paA-N2-5R3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Check group channels">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="showGroupChannels:" destination="zBt-TT-rM7" eventType="touchUpInside" id="VUE-ey-joY"/>
+                                </connections>
+                            </button>
                             <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5g-4l-XJx" customClass="WLQAButton">
                                 <rect key="frame" x="12" y="443" width="576" height="44"/>
                                 <animations/>
@@ -487,6 +509,7 @@
                             <constraint firstAttribute="trailing" secondItem="qU7-Ez-lna" secondAttribute="trailing" id="4mb-xu-6fX"/>
                             <constraint firstItem="R6h-Ul-Nr0" firstAttribute="centerY" secondItem="co2-D4-XAH" secondAttribute="centerY" id="5H8-ey-WLX"/>
                             <constraint firstItem="qU7-Ez-lna" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="75y-ff-xZ5"/>
+                            <constraint firstItem="O5g-4l-XJx" firstAttribute="top" secondItem="ubG-pa-KnG" secondAttribute="bottom" constant="5" id="7xl-Rt-Nls"/>
                             <constraint firstItem="mQC-gK-lfD" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" id="AiZ-Aa-HJA"/>
                             <constraint firstItem="co2-D4-XAH" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="44" id="AlN-iI-BoV"/>
                             <constraint firstItem="hNJ-iN-ANg" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="DqZ-ak-FZI"/>
@@ -501,6 +524,7 @@
                             <constraint firstAttribute="trailing" secondItem="Lq0-rh-5bS" secondAttribute="trailing" constant="12" id="NA3-Fi-lhu"/>
                             <constraint firstItem="MDJ-Nd-sbY" firstAttribute="top" secondItem="co2-D4-XAH" secondAttribute="bottom" id="OnQ-99-3BE"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="centerY" secondItem="7Ok-gy-eVo" secondAttribute="centerY" id="P3P-Gt-83L"/>
+                            <constraint firstItem="ubG-pa-KnG" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="QPC-1v-0B3"/>
                             <constraint firstItem="mQC-gK-lfD" firstAttribute="top" secondItem="7C1-yc-O8X" secondAttribute="bottom" id="Rmq-ig-ke7"/>
                             <constraint firstItem="R6h-Ul-Nr0" firstAttribute="leading" secondItem="co2-D4-XAH" secondAttribute="leading" id="SvJ-CX-7Vo"/>
                             <constraint firstAttribute="trailing" secondItem="co2-D4-XAH" secondAttribute="trailing" constant="12" id="TqK-kg-CWd"/>
@@ -517,6 +541,7 @@
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="88" id="nGi-ad-drO"/>
                             <constraint firstAttribute="trailing" secondItem="O5g-4l-XJx" secondAttribute="trailing" constant="12" id="nN3-XF-BIe"/>
                             <constraint firstItem="bUo-1c-0rp" firstAttribute="leading" secondItem="7C1-yc-O8X" secondAttribute="leading" id="uzc-80-NYg"/>
+                            <constraint firstAttribute="trailing" secondItem="ubG-pa-KnG" secondAttribute="trailing" constant="12" id="x6Z-GM-BoA"/>
                             <constraint firstAttribute="trailing" secondItem="xod-QW-gum" secondAttribute="trailing" id="xeE-i5-YAU"/>
                             <constraint firstAttribute="trailing" secondItem="mQC-gK-lfD" secondAttribute="trailing" id="xuQ-Yo-tyX"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="top" secondItem="MDJ-Nd-sbY" secondAttribute="bottom" id="zBV-ZN-jGC"/>
@@ -4370,7 +4395,7 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstAttribute="bottom" secondItem="dOb-uE-FSR" secondAttribute="bottom" id="rSy-DW-AqO"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYA-26-DXt" userLabel="ChatView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zYA-26-DXt" userLabel="ChatView">
                                 <rect key="frame" x="0.0" y="297" width="600" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="741" text="chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zet-Ls-5CH" customClass="WLLabel">
@@ -4423,7 +4448,7 @@ QWRkEEZyaWVuZFZpZXc
                                     </mask>
                                 </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="WLButton">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-OX-573" customClass="WLButton">
                                 <rect key="frame" x="12" y="381" width="576" height="30"/>
                                 <animations/>
                                 <constraints>
@@ -4458,7 +4483,7 @@ QWRkEEZyaWVuZFZpZXc
                                     <action selector="handleAction:" destination="TKE-mx-bkQ" eventType="touchUpInside" id="dUP-cl-Reo"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-Oj-q4N">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fdR-Oj-q4N">
                                 <rect key="frame" x="0.0" y="200" width="600" height="97"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="737" text="notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtf-da-c8a" customClass="WLLabel">
@@ -4483,7 +4508,7 @@ QWRkEEZyaWVuZFZpZXc
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="755" text="notify_about_new_media" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHL-LP-6Kt" customClass="WLLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="755" misplaced="YES" text="notify_about_new_media" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHL-LP-6Kt" customClass="WLLabel">
                                         <rect key="frame" x="12" y="66" width="515" height="18"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
@@ -4494,7 +4519,7 @@ QWRkEEZyaWVuZFZpZXc
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="R1I-Cl-5SX">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="R1I-Cl-5SX">
                                         <rect key="frame" x="539" y="66" width="51" height="31"/>
                                         <animations/>
                                         <color key="onTintColor" red="0.9529411792755127" green="0.45882353186607361" blue="0.14901961386203766" alpha="1" colorSpace="calibratedRGB"/>

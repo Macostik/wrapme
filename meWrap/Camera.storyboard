@@ -316,6 +316,7 @@
                 <pinchGestureRecognizer id="J0e-Mc-Ydd">
                     <connections>
                         <action selector="zooming:" destination="gev-MF-K1G" id="aAO-IZ-BSf"/>
+                        <outlet property="delegate" destination="gev-MF-K1G" id="I8n-Nm-VDy"/>
                     </connections>
                 </pinchGestureRecognizer>
                 <tapGestureRecognizer id="lNU-oZ-hbO">
@@ -326,7 +327,6 @@
                 <panGestureRecognizer minimumNumberOfTouches="1" id="1sM-bp-fjJ">
                     <connections>
                         <action selector="panning:" destination="gev-MF-K1G" id="62N-3c-kPc"/>
-                        <outlet property="delegate" destination="gev-MF-K1G" id="sfj-f2-Jfz"/>
                     </connections>
                 </panGestureRecognizer>
             </objects>
@@ -689,7 +689,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="exclusiveTouch" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>

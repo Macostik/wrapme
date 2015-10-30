@@ -149,6 +149,7 @@
         
         if (weakSelf.mode == WLStillPictureModeDefault) {
             UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:weakSelf action:@selector(startVideoRecording:)];
+            longPressGestureRecognizer.delegate = self;
             [weakSelf.takePhotoButton addGestureRecognizer:longPressGestureRecognizer];
         }
     } failure:^(NSError *error) {
@@ -253,14 +254,6 @@
     }
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
-    if (gestureRecognizer.view == self.view && [gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
-        CGPoint velocity = [gestureRecognizer velocityInView:self.view];
-        return ABS(velocity.y) > ABS(velocity.x);
-    }
-    return YES;
-}
-
 - (IBAction)toggleQuickAssets:(id)sender {
     [self setAssetsViewControllerHidden:self.assetsBottomConstraint.constant == 0 animated:YES];
 }
@@ -360,7 +353,6 @@
 }
 
 - (void)startVideoRecording:(UILongPressGestureRecognizer*)sender {
-    
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerCaptureMedia:)]) {
         if ([self.delegate cameraViewControllerCaptureMedia:self] == NO) {
             return;
@@ -900,6 +892,20 @@ static NSTimeInterval videoRecordingTimerInterval = 0.03333333;
         [self.videoRecordingTimer invalidate];
     }
     self.videoRecordingTimer = [NSTimer scheduledTimerWithTimeInterval:videoRecordingTimerInterval target:self selector:@selector(recordingTimerChanged:) userInfo:nil repeats:YES];
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.view == self.view && [gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+        CGPoint velocity = [gestureRecognizer velocityInView:self.view];
+        return ABS(velocity.y) > ABS(velocity.x);
+    }
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
 }
 
 @end

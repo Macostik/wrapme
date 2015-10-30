@@ -48,6 +48,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet EntryStatusIndicator *candyIndicator;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UILabel *playLabel;
+@property (weak, nonatomic) IBOutlet UIView *placeholderPlayLabel;
 
 @property (weak, nonatomic) WLComment *lastComment;
 
@@ -558,7 +559,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     if (candy.isVideo) {
         self.videoPlayerView.playButton.hidden = YES;
         self.videoPlayerView.timeView.hidden = YES;
-        self.playLabel.hidden = NO;
+        self.placeholderPlayLabel.hidden = self.playLabel.hidden = NO;
     }
     
     return candyViewController;
@@ -651,7 +652,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (void)videoPlayerViewDidPlay:(VideoPlayerView *)view {
     [self setBarsHidden:NO animated:YES];
-    self.playLabel.hidden = YES;
+    self.placeholderPlayLabel.hidden = self.playLabel.hidden = YES;
     self.scrollView.panGestureRecognizer.enabled = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
     [self hideVideoPlayingViews:NO];
@@ -674,6 +675,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)videoPlayerViewDidPlayToEnd:(VideoPlayerView *)view {
+    self.placeholderPlayLabel.hidden =
     self.playLabel.hidden = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
     [self hideSecondaryViews:NO];

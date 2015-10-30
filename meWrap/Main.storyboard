@@ -2305,6 +2305,20 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BOE-UJ-qJt" customClass="VideoPlayerView" customModule="meWrap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMe-xG-Ghx" customClass="BlurredView" customModule="meWrap" customModuleProvider="target">
+                                                <rect key="frame" x="262" y="262" width="76" height="76"/>
+                                                <animations/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="styleEffect">
+                                                        <integer key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circled" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="blurAlpha">
+                                                        <real key="value" value="0.80000000000000004"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5t-Qc-htD">
                                                 <rect key="frame" x="265" y="265" width="70" height="70"/>
                                                 <animations/>
@@ -2338,12 +2352,16 @@
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="ZMe-xG-Ghx" firstAttribute="height" secondItem="U5t-Qc-htD" secondAttribute="height" constant="6" id="4Ob-do-Z6o"/>
+                                            <constraint firstItem="ZMe-xG-Ghx" firstAttribute="width" secondItem="U5t-Qc-htD" secondAttribute="width" constant="6" id="5ub-2r-OAn"/>
+                                            <constraint firstItem="ZMe-xG-Ghx" firstAttribute="centerY" secondItem="U5t-Qc-htD" secondAttribute="centerY" id="9a9-Cq-7ys"/>
                                             <constraint firstItem="9h2-2w-uGN" firstAttribute="centerX" secondItem="BOE-UJ-qJt" secondAttribute="centerX" id="BN1-Bm-9Bd"/>
                                             <constraint firstItem="9h2-2w-uGN" firstAttribute="centerY" secondItem="BOE-UJ-qJt" secondAttribute="centerY" id="FLR-bp-qBF"/>
                                             <constraint firstItem="PBl-j3-u70" firstAttribute="leading" secondItem="1JW-Fm-K51" secondAttribute="trailing" constant="12" id="Ixp-jx-7U5"/>
                                             <constraint firstItem="1JW-Fm-K51" firstAttribute="leading" secondItem="BOE-UJ-qJt" secondAttribute="leading" constant="12" id="YA3-9d-0t7"/>
                                             <constraint firstAttribute="trailing" secondItem="PBl-j3-u70" secondAttribute="trailing" constant="12" id="evE-Ae-aKT"/>
                                             <constraint firstItem="1JW-Fm-K51" firstAttribute="centerY" secondItem="PBl-j3-u70" secondAttribute="centerY" id="tXA-3i-X4R"/>
+                                            <constraint firstItem="ZMe-xG-Ghx" firstAttribute="centerX" secondItem="U5t-Qc-htD" secondAttribute="centerX" id="u94-7e-xoy"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="playButton" destination="1JW-Fm-K51" id="033-uO-JT0"/>
@@ -2718,6 +2736,7 @@
                         <outlet property="drawButton" destination="U2n-dd-fSG" id="MpT-rX-G0x"/>
                         <outlet property="editButton" destination="P4L-uu-XEd" id="ZyM-nD-E5G"/>
                         <outlet property="lastCommentTextView" destination="G8T-0M-jNN" id="747-dx-mt6"/>
+                        <outlet property="placeholderPlayLabel" destination="ZMe-xG-Ghx" id="v1W-Ff-9zg"/>
                         <outlet property="playLabel" destination="U5t-Qc-htD" id="Zjp-6v-b4o"/>
                         <outlet property="postLabel" destination="xGF-6q-Jgs" id="QRd-Pg-cNO"/>
                         <outlet property="primaryConstraint" destination="7tb-Tf-pQx" id="7Hi-fX-7fY"/>

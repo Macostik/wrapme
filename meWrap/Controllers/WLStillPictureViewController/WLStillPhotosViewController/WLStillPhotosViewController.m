@@ -89,18 +89,16 @@
 }
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithVideoAtPath:(NSString *)path saveToAlbum:(BOOL)saveToAlbum {
-    [self handleVideoAtPath:path saveToAlbum:saveToAlbum];
-}
-
-- (void)handleVideoAtPath:(NSString*)path saveToAlbum:(BOOL)saveToAlbum {
     WLEditPicture *picture = [WLEditPicture picture:self.mode];
     picture.type = WLCandyTypeVideo;
     picture.date = [NSDate now];
     picture.saveToAlbum = saveToAlbum;
     [self addPicture:picture success:^(WLEditPicture *picture) {
+        controller.takePhotoButton.userInteractionEnabled = NO;
         runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
-            [picture setVideoAtPath:path completion:^(id object) {
+            [picture setVideoFromRecordAtPath:path completion:^(id object) {
                 [operation finish];
+                controller.takePhotoButton.userInteractionEnabled = YES;
             }];
         });
     } failure:^(NSError *error) {
@@ -152,27 +150,8 @@
     [self addPicture:picture success:^(WLEditPicture *picture) {
         runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
             if (asset.mediaType == PHAssetMediaTypeVideo) {
-                PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
-                options.version = PHVideoRequestOptionsVersionOriginal;
-                options.networkAccessAllowed = YES;
-                options.deliveryMode = PHVideoRequestOptionsDeliveryModeMediumQualityFormat;
-                [[PHImageManager defaultManager] requestExportSessionForVideo:asset options:options exportPreset:AVAssetExportPresetMediumQuality resultHandler:^(AVAssetExportSession * _Nullable exportSession, NSDictionary * _Nullable info) {
-                    picture.videoExportSession = exportSession;
-                    NSString *path = [NSString stringWithFormat:@"%@/Documents/%@.mp4", NSHomeDirectory(), GUID()];
-                    exportSession.outputFileType = @"public.mpeg-4";
-                    exportSession.outputURL = [NSURL fileURLWithPath:path];
-                    [exportSession exportAsynchronouslyWithCompletionHandler:^{
-                        picture.videoExportSession = nil;
-                        run_in_main_queue(^{
-                            if (exportSession.error == nil && picture) {
-                                [picture setVideoAtPath:path completion:^(id object) {
-                                    [operation finish];
-                                }];
-                            } else {
-                                [operation finish];
-                            }
-                        });
-                    }];
+                [picture setVideoFromAsset:asset completion:^(id object) {
+                    [operation finish];
                 }];
             } else {
                 [weakSelf cropAsset:asset completion:^(UIImage *croppedImage) {

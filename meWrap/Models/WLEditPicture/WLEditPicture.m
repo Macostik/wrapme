@@ -120,7 +120,9 @@
     __weak typeof(self)weakSelf = self;
     self.original = path;
     run_getting_object(^id{
+        
         AVAsset *asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:path]];
+        
         AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
         imageGenerator.appliesPreferredTrackTransform = YES;
         Float64 duration = CMTimeGetSeconds(asset.duration);
@@ -157,6 +159,50 @@
         }];
         
     });
+}
+
+- (void)setVideoFromRecordAtPath:(NSString*)path completion:(WLObjectBlock)completion {
+    __weak typeof(self)weakSelf = self;
+    AVAsset *asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:path]];
+    AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:asset presetName:AVAssetExportPresetMediumQuality];
+    NSString *outputPath = [NSString stringWithFormat:@"%@/Documents/%@.mp4", NSHomeDirectory(), GUID()];
+    session.outputFileType = AVFileTypeMPEG4;
+    session.outputURL = [NSURL fileURLWithPath:outputPath];
+    self.videoExportSession = session;
+    [session exportAsynchronouslyWithCompletionHandler:^{
+        weakSelf.videoExportSession = nil;
+        if (session.error) {
+            if (completion) completion(weakSelf);
+        } else {
+            [weakSelf setVideoAtPath:outputPath completion:completion];
+        }
+    }];
+}
+
+- (void)setVideoFromAsset:(PHAsset*)asset completion:(WLObjectBlock)completion {
+    __weak typeof(self)weakSelf = self;
+    PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
+    options.version = PHVideoRequestOptionsVersionOriginal;
+    options.networkAccessAllowed = YES;
+    options.deliveryMode = PHVideoRequestOptionsDeliveryModeMediumQualityFormat;
+    [[PHImageManager defaultManager] requestExportSessionForVideo:asset options:options exportPreset:AVAssetExportPresetMediumQuality resultHandler:^(AVAssetExportSession * _Nullable exportSession, NSDictionary * _Nullable info) {
+        weakSelf.videoExportSession = exportSession;
+        NSString *path = [NSString stringWithFormat:@"%@/Documents/%@.mp4", NSHomeDirectory(), GUID()];
+        exportSession.outputFileType = AVFileTypeMPEG4;
+        exportSession.outputURL = [NSURL fileURLWithPath:path];
+        [exportSession exportAsynchronouslyWithCompletionHandler:^{
+            weakSelf.videoExportSession = nil;
+            run_in_main_queue(^{
+                if (exportSession.error == nil && weakSelf) {
+                    [weakSelf setVideoAtPath:path completion:^(id object) {
+                        if (completion) completion(weakSelf);
+                    }];
+                } else {
+                    if (completion) completion(weakSelf);
+                }
+            });
+        }];
+    }];
 }
 
 - (void)setOriginal:(NSString *)original {

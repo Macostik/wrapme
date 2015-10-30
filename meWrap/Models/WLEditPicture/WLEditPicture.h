@@ -10,6 +10,7 @@
 #import "WLCommonEnums.h"
 
 @class AVAssetExportSession;
+@class PHAsset;
 
 @interface WLEditPicture : WLAsset
 
@@ -50,6 +51,10 @@
 - (void)setImage:(UIImage *)image completion:(WLObjectBlock)completion;
 
 - (void)setVideoAtPath:(NSString*)path completion:(WLObjectBlock)completion;
+
+- (void)setVideoFromRecordAtPath:(NSString*)path completion:(WLObjectBlock)completion;
+
+- (void)setVideoFromAsset:(PHAsset*)asset completion:(WLObjectBlock)completion;
 
 - (WLAsset*)uploadablePicture:(BOOL)justUploaded;
 

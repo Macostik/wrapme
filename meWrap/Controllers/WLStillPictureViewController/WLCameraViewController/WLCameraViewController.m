@@ -101,6 +101,9 @@
 
 - (void)dealloc {
     [[WLDeviceManager manager] endUsingAccelerometer];
+    if (self.videoFilePath) {
+        [[NSFileManager defaultManager] removeItemAtPath:self.videoFilePath error:nil];
+    }
 }
 
 #pragma mark - View controller lifecycle
@@ -359,21 +362,6 @@
         }
     }
     
-#if TARGET_IPHONE_SIMULATOR
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        NSString *videosDirectoryPath = @"Documents/Videos";
-        [[NSFileManager defaultManager] createDirectoryAtPath:videosDirectoryPath withIntermediateDirectories:YES attributes:nil error:nil];
-        NSString *path = [NSString stringWithFormat:@"%@/%@.mp4", videosDirectoryPath, GUID()];
-        [[NSFileManager defaultManager] copyItemAtPath:@"/Users/sergeymaximenko/Documents/meWrap/small.mp4" toPath:path error:nil];
-        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-            if ([self.delegate respondsToSelector:@selector(cameraViewController:didFinishWithVideoAtPath:saveToAlbum:)]) {
-                [self.delegate cameraViewController:self didFinishWithVideoAtPath:path saveToAlbum:YES];
-            }
-        }
-    }
-    return;
-#endif
-    
     switch (sender.state) {
         case UIGestureRecognizerStateBegan: {
             [self updateVideoRecordingViews:YES];
@@ -490,7 +478,8 @@
     self.videoRecordingCancelled = NO;
     NSString *videosDirectoryPath = @"Documents/Videos";
     [[NSFileManager defaultManager] createDirectoryAtPath:videosDirectoryPath withIntermediateDirectories:YES attributes:nil error:NULL];
-    NSString *path = [NSString stringWithFormat:@"%@/%@.mp4", videosDirectoryPath, GUID()];
+    NSString *path = [NSString stringWithFormat:@"%@/capturedVideo.mov", videosDirectoryPath];
+    [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
     self.videoFilePath = path;
     [self.movieFileOutput startRecordingToOutputFileURL:[NSURL fileURLWithPath:path] recordingDelegate:self];
 }

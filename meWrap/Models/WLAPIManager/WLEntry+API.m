@@ -590,6 +590,8 @@
             break;
         case WLContributionStatusFinished:
             [self touch];
+            self.editedAt = [NSDate now];
+            self.editor = [WLUser currentUser];
             self.picture = editedPicture;
             break;
         default:

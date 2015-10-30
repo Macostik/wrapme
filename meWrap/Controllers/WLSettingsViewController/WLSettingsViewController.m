@@ -94,8 +94,21 @@
 
 - (IBAction)showAPNSChannels:(id)sender {
     [[PubNub sharedInstance] pushNotificationEnabledChannelsForDeviceWithPushToken:[WLNotificationCenter defaultCenter].pushToken andCompletion:^(PNAPNSEnabledChannelsResult *result, PNErrorStatus *status) {
-        WLLog(@"DEBUG - token %@ channels: %@", [WLNotificationCenter defaultCenter].pushToken, result.data.channels.description);
-        [UIAlertController showWithTitle:[WLNotificationCenter defaultCenter].pushToken.description message:result.data.channels.description buttons:@[@"OK"] completion:nil];
+        NSMutableString *message = [NSMutableString string];
+        NSMutableArray *channels = [result.data.channels mutableCopy];
+        for (WLWrap *wrap in [WLUser currentUser].wraps) {
+            if ([channels containsObject:wrap.identifier]) {
+                [message appendFormat:@"enabled %@ : %@\n", wrap.name, wrap.identifier];
+                [channels removeObject:wrap.identifier];
+            } else {
+                [message appendFormat:@"disabled %@ : %@\n", wrap.name, wrap.identifier];
+            }
+        }
+        [message appendFormat:@"\nother channels %@", channels];
+        
+        [[UIPasteboard generalPasteboard] setValue:message forPasteboardType:(id)kUTTypeText];
+        
+        [UIAlertController showWithTitle:[WLNotificationCenter defaultCenter].pushToken.description message:message buttons:@[@"OK"] completion:nil];
     }];
 }
 

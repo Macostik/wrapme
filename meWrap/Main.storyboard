@@ -411,6 +411,28 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5g-4l-XJx" customClass="WLQAButton">
+                                <rect key="frame" x="12" y="443" width="576" height="44"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="N1n-VZ-V8g"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Check APNS">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="preset" value="large"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="showAPNSChannels:" destination="zBt-TT-rM7" eventType="touchUpInside" id="HzJ-34-HNX"/>
+                                </connections>
+                            </button>
                             <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNJ-iN-ANg" customClass="WLQAButton">
                                 <rect key="frame" x="12" y="492" width="576" height="44"/>
                                 <animations/>
@@ -483,6 +505,8 @@
                             <constraint firstItem="R6h-Ul-Nr0" firstAttribute="leading" secondItem="co2-D4-XAH" secondAttribute="leading" id="SvJ-CX-7Vo"/>
                             <constraint firstAttribute="trailing" secondItem="co2-D4-XAH" secondAttribute="trailing" constant="12" id="TqK-kg-CWd"/>
                             <constraint firstItem="bUo-1c-0rp" firstAttribute="centerY" secondItem="7C1-yc-O8X" secondAttribute="centerY" id="WHP-3t-erb"/>
+                            <constraint firstItem="hNJ-iN-ANg" firstAttribute="top" secondItem="O5g-4l-XJx" secondAttribute="bottom" constant="5" id="XGK-GE-eT0"/>
+                            <constraint firstItem="O5g-4l-XJx" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="XcC-tn-zBO"/>
                             <constraint firstItem="fos-MI-VJD" firstAttribute="leading" secondItem="ML0-M8-Exa" secondAttribute="leading" constant="12" id="ZKd-f9-wPp"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="top" secondItem="co2-D4-XAH" secondAttribute="bottom" id="aYA-W2-whd"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="bottom" secondItem="7C1-yc-O8X" secondAttribute="top" id="bhL-y1-aAo"/>
@@ -491,6 +515,7 @@
                             <constraint firstAttribute="trailing" secondItem="MDJ-Nd-sbY" secondAttribute="trailing" id="kWI-un-S07"/>
                             <constraint firstItem="7C1-yc-O8X" firstAttribute="top" secondItem="xod-QW-gum" secondAttribute="bottom" id="mGh-n5-swI"/>
                             <constraint firstItem="Lq0-rh-5bS" firstAttribute="top" secondItem="wsP-zc-2NJ" secondAttribute="bottom" constant="88" id="nGi-ad-drO"/>
+                            <constraint firstAttribute="trailing" secondItem="O5g-4l-XJx" secondAttribute="trailing" constant="12" id="nN3-XF-BIe"/>
                             <constraint firstItem="bUo-1c-0rp" firstAttribute="leading" secondItem="7C1-yc-O8X" secondAttribute="leading" id="uzc-80-NYg"/>
                             <constraint firstAttribute="trailing" secondItem="xod-QW-gum" secondAttribute="trailing" id="xeE-i5-YAU"/>
                             <constraint firstAttribute="trailing" secondItem="mQC-gK-lfD" secondAttribute="trailing" id="xuQ-Yo-tyX"/>

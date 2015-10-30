@@ -80,7 +80,6 @@
 
 - (void)configure {
     [[WLUser notifier] addReceiver:self];
-    [self registerForRemoteNotifications];
 }
 
 - (void)setup {
@@ -104,6 +103,14 @@
     } else {
         self.userSubscription = [WLNotificationSubscription subscription:channelName presence:NO group:YES];
         self.userSubscription.delegate = self;
+        
+        if (self.pushToken) {
+            if ([WLAuthorizationRequest authorized]) {
+                [[WLAuthorizationRequest updateDevice] send];
+            }
+        } else {
+            [self registerForRemoteNotifications];
+        }
     }
 }
 

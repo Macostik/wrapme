@@ -21,20 +21,24 @@ class AssetCell: StreamReusableView {
         }
     }
     
+    private static var requestImageOptions: PHImageRequestOptions = {
+        let options = PHImageRequestOptions()
+        options.synchronous = false
+        options.networkAccessAllowed = true
+        options.resizeMode = .Fast
+        options.deliveryMode = .FastFormat
+        return options
+    }()
+    
     override func setup(entry: AnyObject!) {
         if let asset = entry as? PHAsset {
-            var thumbnail = bounds.size
-            thumbnail.width *= UIScreen.mainScreen().scale
-            thumbnail.height *= UIScreen.mainScreen().scale
-            let options = PHImageRequestOptions()
-            options.synchronous = false
-            options.networkAccessAllowed = true
-            options.resizeMode = .Fast;
-            options.deliveryMode = .FastFormat;
-            requestID = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: thumbnail, contentMode: .AspectFit, options: options, resultHandler: {[weak self] (image, info) -> Void in
+            let scale = UIScreen.mainScreen().scale
+            let thumbnail = CGSize(width: bounds.width * scale, height: bounds.height * scale)
+            let options = AssetCell.requestImageOptions
+            requestID = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: thumbnail, contentMode: .AspectFill, options: options, resultHandler: {[weak self] (image, info) -> Void in
                 self?.imageView.image = image
             })
-            self.videoIndicator.hidden = asset.mediaType != .Video;
+            videoIndicator.hidden = asset.mediaType != .Video
         }
     }
     

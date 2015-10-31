@@ -13,7 +13,6 @@
 #import "WLKeyboard.h"
 #import "WLButton.h"
 #import "WLPhoneValidation.h"
-#import "RMPhoneFormat.h"
 #import "WLConfirmView.h"
 
 @interface WLPhoneViewController () <UITextFieldDelegate, WLKeyboardBroadcastReceiver>
@@ -43,7 +42,7 @@
     [WLAuthorization currentAuthorization].countryCode = country.callingCode;
 	[self.selectCountryButton setTitle:country.name forState:UIControlStateNormal];
 	self.countryCodeLabel.text = [NSString stringWithFormat:@"+%@", country.callingCode];
-    self.validation.format = [[RMPhoneFormat alloc] initWithDefaultCountry:[country.code lowercaseString]];
+    self.validation.country = country;
 }
 
 #pragma mark - Actions

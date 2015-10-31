@@ -9,4 +9,7 @@ pod 'LogEntries'
 pod 'OpenUDID'
 pod 'AWSCore'
 pod 'AWSS3'
+pod 'libPhoneNumber-iOS', '~> 0.8'
+pod 'Google/Analytics', '~> 1.0.0'
+pod 'NewRelicAgent'
 end

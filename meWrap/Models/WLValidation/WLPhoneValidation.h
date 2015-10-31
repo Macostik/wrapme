@@ -8,10 +8,8 @@
 
 #import "WLTextFieldValidation.h"
 
-@class RMPhoneFormat;
-
 @interface WLPhoneValidation : WLTextFieldValidation
 
-@property (strong, nonatomic) RMPhoneFormat *format;
+@property (strong, nonatomic) Country *country;
 
 @end

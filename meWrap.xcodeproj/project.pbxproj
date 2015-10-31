@@ -31,7 +31,6 @@
 		C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C500983D1AFCCC6400729DA4 /* WLCommentCell.m */; };
 		C500994A1ADFCC250064CC7B /* WLHistoryItemDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C50099441ADFCC250064CC7B /* WLHistoryItemDataSource.m */; };
 		C500994E1ADFCC250064CC7B /* WLHomeDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C50099461ADFCC250064CC7B /* WLHomeDataSource.m */; };
-		C500C9151ACBE53C0072BBA8 /* NewRelicAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C500C9111ACBE53C0072BBA8 /* NewRelicAgent.framework */; };
 		C504178519B9EE15000E55F3 /* WLAddContributorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */; };
 		C504178919B9EE15000E55F3 /* WLAddressBookRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C504177E19B9EE15000E55F3 /* WLAddressBookRecordCell.m */; };
 		C5053DD51BC7CCE30040613A /* WLCandy.m in Sources */ = {isa = PBXBuildFile; fileRef = C5053DBD1BC7CCE30040613A /* WLCandy.m */; };
@@ -117,8 +116,6 @@
 		C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5D581A851F71004F61B0 /* WLCameraViewController.m */; };
 		C53E5D7B1A851F71004F61B0 /* WLFlashModeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5D5B1A851F71004F61B0 /* WLFlashModeControl.m */; };
 		C53E709D1AC3173500844F9F /* WLIntroductionBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */; };
-		C53F2CE31A6EB5FB00D99741 /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = C53F2CB91A6EB5FA00D99741 /* PhoneFormats.dat */; };
-		C53F2CE71A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = C53F2CBB1A6EB5FA00D99741 /* RMPhoneFormat.m */; };
 		C540C0F01B988BF700F880C9 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0EE1B988BF700F880C9 /* GridLayout.swift */; };
 		C540C0F31B988BFD00F880C9 /* StreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C540C0F11B988BFD00F880C9 /* StreamItem.swift */; };
 		C54186B21B4561A700F83889 /* PubNub+SharedInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C54186AD1B4561A700F83889 /* PubNub+SharedInstance.m */; };
@@ -339,7 +336,6 @@
 		C5D051BD1A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051B91A9F7E6E00855A01 /* WLAddressBookPhoneNumber.m */; };
 		C5D051C41A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */; };
 		C5D051CA1A9F829B00855A01 /* WLArrangedAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */; };
-		C5D41CF51AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5D41CF11AB1EE4600990944 /* libGoogleAnalyticsServices.a */; };
 		C5D7FE881B501CD000746908 /* WLNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D7FE7C1B501CD000746908 /* WLNotification.m */; };
 		C5D7FE951B501CDE00746908 /* WLSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D7FE901B501CDE00746908 /* WLSoundPlayer.m */; };
 		C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
@@ -624,7 +620,6 @@
 		C50099441ADFCC250064CC7B /* WLHistoryItemDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHistoryItemDataSource.m; sourceTree = "<group>"; };
 		C50099451ADFCC250064CC7B /* WLHomeDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHomeDataSource.h; sourceTree = "<group>"; };
 		C50099461ADFCC250064CC7B /* WLHomeDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHomeDataSource.m; sourceTree = "<group>"; };
-		C500C9111ACBE53C0072BBA8 /* NewRelicAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NewRelicAgent.framework; path = Frameworks/NewRelicAgent.framework; sourceTree = "<group>"; };
 		C504177A19B9EE15000E55F3 /* WLAddContributorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddContributorsViewController.h; sourceTree = "<group>"; };
 		C504177B19B9EE15000E55F3 /* WLAddContributorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddContributorsViewController.m; sourceTree = "<group>"; };
 		C504177D19B9EE15000E55F3 /* WLAddressBookRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookRecordCell.h; sourceTree = "<group>"; };
@@ -751,9 +746,6 @@
 		C53E5D5B1A851F71004F61B0 /* WLFlashModeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFlashModeControl.m; sourceTree = "<group>"; };
 		C53E70981AC3173500844F9F /* WLIntroductionBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIntroductionBaseViewController.h; sourceTree = "<group>"; };
 		C53E70991AC3173500844F9F /* WLIntroductionBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIntroductionBaseViewController.m; sourceTree = "<group>"; };
-		C53F2CB91A6EB5FA00D99741 /* PhoneFormats.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = PhoneFormats.dat; sourceTree = "<group>"; };
-		C53F2CBA1A6EB5FA00D99741 /* RMPhoneFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPhoneFormat.h; sourceTree = "<group>"; };
-		C53F2CBB1A6EB5FA00D99741 /* RMPhoneFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMPhoneFormat.m; sourceTree = "<group>"; };
 		C540C0EE1B988BF700F880C9 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		C540C0F11B988BFD00F880C9 /* StreamItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamItem.swift; sourceTree = "<group>"; };
 		C54186AC1B4561A700F83889 /* PubNub+SharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PubNub+SharedInstance.h"; sourceTree = "<group>"; };
@@ -1087,17 +1079,6 @@
 		C5D051C01A9F7FCE00855A01 /* WLAddressBookPhoneNumberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookPhoneNumberCell.m; sourceTree = "<group>"; };
 		C5D051C51A9F829B00855A01 /* WLArrangedAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLArrangedAddressBook.h; path = WLAddressBook/WLArrangedAddressBook.h; sourceTree = "<group>"; };
 		C5D051C61A9F829B00855A01 /* WLArrangedAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLArrangedAddressBook.m; path = WLAddressBook/WLArrangedAddressBook.m; sourceTree = "<group>"; };
-		C5D41CE71AB1EE4600990944 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
-		C5D41CE81AB1EE4600990944 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
-		C5D41CE91AB1EE4600990944 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
-		C5D41CEA1AB1EE4600990944 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
-		C5D41CEB1AB1EE4600990944 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
-		C5D41CEC1AB1EE4600990944 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
-		C5D41CED1AB1EE4600990944 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
-		C5D41CEE1AB1EE4600990944 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
-		C5D41CEF1AB1EE4600990944 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
-		C5D41CF01AB1EE4600990944 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
-		C5D41CF11AB1EE4600990944 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		C5D5D0541BA00939003C9204 /* WLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLConstants.h; sourceTree = "<group>"; };
 		C5D7FE7B1B501CD000746908 /* WLNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotification.h; sourceTree = "<group>"; };
 		C5D7FE7C1B501CD000746908 /* WLNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotification.m; sourceTree = "<group>"; };
@@ -1221,7 +1202,6 @@
 				C5218E7D1AE5594E007E55D0 /* OpenGLES.framework in Frameworks */,
 				C5218E7A1AE55936007E55D0 /* CoreData.framework in Frameworks */,
 				C560B1601AE69F7D0010B2EC /* AdobeCreativeSDKCore.framework in Frameworks */,
-				C500C9151ACBE53C0072BBA8 /* NewRelicAgent.framework in Frameworks */,
 				C54AF71019B8C491006F7EDB /* MessageUI.framework in Frameworks */,
 				C54AF71319B8C491006F7EDB /* SystemConfiguration.framework in Frameworks */,
 				C54AF71419B8C491006F7EDB /* CFNetwork.framework in Frameworks */,
@@ -1229,7 +1209,6 @@
 				C54AF71619B8C491006F7EDB /* UIKit.framework in Frameworks */,
 				C54AF71819B8C491006F7EDB /* Foundation.framework in Frameworks */,
 				C560B1641AE69F7D0010B2EC /* AdobeCreativeSDKImage.framework in Frameworks */,
-				C5D41CF51AB1EE4700990944 /* libGoogleAnalyticsServices.a in Frameworks */,
 				18D7F6737186E5350A00FFEE /* Pods_meWrap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1342,10 +1321,7 @@
 				C560B15A1AE69F7C0010B2EC /* AdobeCreativeSDK */,
 				C5218E671AE554B7007E55D0 /* OpenGLES.framework */,
 				C5218E621AE5547D007E55D0 /* Accelerate.framework */,
-				C500C9111ACBE53C0072BBA8 /* NewRelicAgent.framework */,
 				C50647681ABD889100CB4BE3 /* CoreData.framework */,
-				C5D41CE61AB1EE4600990944 /* GoogleAnalyticsServices */,
-				C53F2CB81A6EB5FA00D99741 /* RMPhoneFormat */,
 				AC1A179C1937694B002B3737 /* MessageUI.framework */,
 				121FC9E4190A93E50034486D /* SystemConfiguration.framework */,
 				121FC9E2190A93D80034486D /* CFNetwork.framework */,
@@ -2206,17 +2182,6 @@
 			path = WLFlashSettingsControl;
 			sourceTree = "<group>";
 		};
-		C53F2CB81A6EB5FA00D99741 /* RMPhoneFormat */ = {
-			isa = PBXGroup;
-			children = (
-				C53F2CB91A6EB5FA00D99741 /* PhoneFormats.dat */,
-				C53F2CBA1A6EB5FA00D99741 /* RMPhoneFormat.h */,
-				C53F2CBB1A6EB5FA00D99741 /* RMPhoneFormat.m */,
-			);
-			name = RMPhoneFormat;
-			path = Frameworks/RMPhoneFormat;
-			sourceTree = "<group>";
-		};
 		C54531241A24A1F20048A677 /* WLCountriesViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2993,25 +2958,6 @@
 			path = WLAddressBookPhoneNumberCell;
 			sourceTree = "<group>";
 		};
-		C5D41CE61AB1EE4600990944 /* GoogleAnalyticsServices */ = {
-			isa = PBXGroup;
-			children = (
-				C5D41CE71AB1EE4600990944 /* GAI.h */,
-				C5D41CE81AB1EE4600990944 /* GAIDictionaryBuilder.h */,
-				C5D41CE91AB1EE4600990944 /* GAIEcommerceFields.h */,
-				C5D41CEA1AB1EE4600990944 /* GAIEcommerceProduct.h */,
-				C5D41CEB1AB1EE4600990944 /* GAIEcommerceProductAction.h */,
-				C5D41CEC1AB1EE4600990944 /* GAIEcommercePromotion.h */,
-				C5D41CED1AB1EE4600990944 /* GAIFields.h */,
-				C5D41CEE1AB1EE4600990944 /* GAILogger.h */,
-				C5D41CEF1AB1EE4600990944 /* GAITrackedViewController.h */,
-				C5D41CF01AB1EE4600990944 /* GAITracker.h */,
-				C5D41CF11AB1EE4600990944 /* libGoogleAnalyticsServices.a */,
-			);
-			name = GoogleAnalyticsServices;
-			path = Frameworks/GoogleAnalyticsServices;
-			sourceTree = "<group>";
-		};
 		C5D5D0531BA00939003C9204 /* Support Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3583,7 +3529,6 @@
 				C5A615111B9DC616009B92EF /* WLAddressBookPhoneNumberCell.xib in Resources */,
 				C5C3FEA81B8F311500F177EC /* Default-736h@3x.png in Resources */,
 				C55189101B8F46C000D1327E /* WLContributorResendDoneCell.xib in Resources */,
-				C53F2CE31A6EB5FB00D99741 /* PhoneFormats.dat in Resources */,
 				C558E7C91A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */,
 				5BDCA8821B394C2F00C4AB3E /* NoMessagePlaceholderView.xib in Resources */,
 				C5B91A571BB41679000E08E7 /* NoCommentsPlaceholderView.xib in Resources */,
@@ -4019,7 +3964,6 @@
 				C5D7FE951B501CDE00746908 /* WLSoundPlayer.m in Sources */,
 				C53DC22C1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */,
 				C5BEE0EA1B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */,
-				C53F2CE71A6EB5FB00D99741 /* RMPhoneFormat.m in Sources */,
 				C51E34EA1BD8EB4100C6F678 /* SeparatorView.swift in Sources */,
 				C54C567C1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
 				C54AF70519B8C491006F7EDB /* WLWhatsUpCell.m in Sources */,
@@ -4462,7 +4406,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4520,7 +4463,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4807,7 +4749,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/GoogleAnalyticsServices",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

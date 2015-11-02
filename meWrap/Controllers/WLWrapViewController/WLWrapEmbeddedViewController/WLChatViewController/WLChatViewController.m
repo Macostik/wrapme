@@ -380,7 +380,7 @@ CGFloat WLMinTextViewWidth;
     [self reloadData];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLEntry *)entry {
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLEntry *)entry {
     [self.chat removeEntry:entry];
     if (entry.unread) {
         [self updateBadge];

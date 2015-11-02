@@ -89,7 +89,7 @@
     }
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLEntry *)entry {
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLEntry *)entry {
     
 }
 

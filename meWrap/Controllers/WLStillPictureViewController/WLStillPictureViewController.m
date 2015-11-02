@@ -217,7 +217,7 @@
     [self setupWrapView:wrap];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier didDeleteEntry:(WLWrap *)wrap {
+- (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLEntry *)entry {
     self.wrap = [[[WLUser currentUser] sortedWraps] firstObject];
     id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
     if (!self.presentedViewController && [delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {

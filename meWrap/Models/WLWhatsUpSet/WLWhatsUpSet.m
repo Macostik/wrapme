@@ -73,22 +73,26 @@
             NSArray *updates = [[WLCandy fetchRequest:weakSelf.updatesPredicate, dayAgo, currentUser] executeInContext:backgroundContext];
             
             for (WLContribution *contribution in contributions) {
-                [events addObject:[WLWhatsUpEvent event:WLEventAdd contribution:contribution]];
-                if (contribution.unread) {
-                    unreadEntriesCount++;
-                    if ([contribution isKindOfClass:[WLCandy class]]) {
-                        NSString *wrapId = [[(WLCandy*)contribution wrap] identifier];
-                        if (wrapId) {
-                            wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
+                if (contribution.valid) {
+                    [events addObject:[WLWhatsUpEvent event:WLEventAdd contribution:contribution]];
+                    if (contribution.unread) {
+                        unreadEntriesCount++;
+                        if ([contribution isKindOfClass:[WLCandy class]]) {
+                            NSString *wrapId = [[(WLCandy*)contribution wrap] identifier];
+                            if (wrapId) {
+                                wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
+                            }
                         }
                     }
                 }
             }
             
             for (WLContribution *contribution in updates) {
-                [events addObject:[WLWhatsUpEvent event:WLEventUpdate contribution:contribution]];
-                if (contribution.unread) {
-                    unreadEntriesCount++;
+                if (contribution.valid) {
+                    [events addObject:[WLWhatsUpEvent event:WLEventUpdate contribution:contribution]];
+                    if (contribution.unread) {
+                        unreadEntriesCount++;
+                    }
                 }
             }
             weakSelf.unreadEntriesCount = unreadEntriesCount;
@@ -134,7 +138,7 @@
     }];
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier didDeleteEntry:(WLEntry *)entry {
+- (void)notifier:(WLEntryNotifier*)notifier willDeleteEntry:(WLEntry *)entry {
     if ([[(WLContribution*)entry contributor] current]) {
         return;
     }

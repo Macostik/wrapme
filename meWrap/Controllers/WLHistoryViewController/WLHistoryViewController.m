@@ -303,6 +303,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         playerView.url = nil;
         playerView.hidden = YES;
         self.drawButton.hidden = self.editButton.hidden = NO;
+        self.drawButton.userInteractionEnabled = YES;
     }
     self.bottomViewHeightPrioritizer.defaultState = !self.avatarImageView.hidden;
 }
@@ -483,16 +484,19 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     }];
 }
 
-- (IBAction)draw:(id)sender {
+- (IBAction)draw:(UIButton *)sender {
     __weak __typeof(self)weakSelf = self;
+    sender.userInteractionEnabled = NO;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         __weak WLCandy *candy = weakSelf.candy;
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
             [WLDrawingViewController draw:image finish:^(UIImage *image) {
                 [candy editWithImage:image];
+                sender.userInteractionEnabled = YES;
             }];
         } failure:^(NSError *error) {
             [error show];
+            sender.userInteractionEnabled = YES;
         }];
     }];
 }

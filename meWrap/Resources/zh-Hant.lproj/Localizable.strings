@@ -52,7 +52,7 @@
 "formatted_about_message" = "你正在使用%@\nv%@\n版本號 %@";
 "sign_out" = "登出";
 "sign_out_confirmation" = "確定要清除所有內容，並重設meWrap嗎？";
-"downloading_photo" = "下載相片中。相片將會保存到此裝置的\"%@\"資料夾內。";
+"downloading_photo" = "下載相片中。相片將會保存到此裝置的資料夾內。";
 "no_devices" = "未有註冊裝置";
 "terms_and_conditions" = "條款與使用規則";
 "formatted_wrap_unavailable" = "找不到\"%@\"。";
@@ -230,7 +230,7 @@
 "video_is_uploading" = "Uploading the video now. Please wait.";
 "video_deleted" = "The video was deleted.";
 "video_unavailable" = "Video not found.";
-"downloading_video" = "Downloading the video now. It'll be in \"%@\" album momentarily.";
+"downloading_video" = "Downloading the video now. It'll be in album momentarily.";
 "formatted_video_by" = "Video by %@";
 "no_video_to_upload" = "No video to be uploaded.";
 "notify_about_new_media" = "Notify me when new media is added.";

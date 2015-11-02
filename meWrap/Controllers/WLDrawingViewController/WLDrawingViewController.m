@@ -36,6 +36,7 @@
 + (instancetype)draw:(UIImage *)image finish:(WLImageBlock)finish {
     UIViewController *presentingViewController = [UIWindow mainWindow].rootViewController;
     WLDrawingViewController *drawingViewController = [[WLDrawingViewController alloc] init];
+    NSLog(@"%@ %@", presentingViewController.view, presentingViewController.view.superview);
     [drawingViewController setImage:image done:^(UIImage *image) {
         if (finish) finish(image);
         [presentingViewController dismissViewControllerAnimated:NO completion:nil];
@@ -179,6 +180,10 @@
     if (self.doneBlock) {
         self.doneBlock(image);
     }
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
 }
 
 @end

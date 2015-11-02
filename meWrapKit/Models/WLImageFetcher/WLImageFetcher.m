@@ -18,8 +18,6 @@
 
 @property (strong, nonatomic) NSMutableSet* urls;
 
-@property (strong, nonatomic) NSOperationQueue *fetchingQueue;
-
 @end
 
 @implementation WLImageFetcher
@@ -35,7 +33,6 @@
 - (void)setup {
     [super setup];
     self.urls = [NSMutableSet set];
-    self.fetchingQueue = [[NSOperationQueue alloc] init];
 }
 
 - (id)enqueueImageWithUrl:(NSString *)url receiver:(id)receiver {

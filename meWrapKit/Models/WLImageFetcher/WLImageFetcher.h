@@ -30,4 +30,6 @@
 
 - (id)enqueueImageWithUrl:(NSString*)url receiver:(id)receiver;
 
+- (void)setFileSystemUrl:(NSString *)url completion:(WLImageFetcherBlock)completion;
+
 @end

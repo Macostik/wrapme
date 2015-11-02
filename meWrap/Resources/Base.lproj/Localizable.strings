@@ -52,7 +52,7 @@
 "formatted_about_message" = "You're using %@\nv%@\nBuild %@";
 "sign_out" = "Sign out";
 "sign_out_confirmation" = "Are you sure you want to erase all content and sign out?";
-"downloading_photo" = "Downloading the photo now. It'll be in \"%@\" album momentarily.";
+"downloading_photo" = "Downloading the photo now. It'll be in album momentarily.";
 "no_devices" = "No registered devices";
 "terms_and_conditions" = "Terms and Conditions";
 "formatted_wrap_unavailable" = "\"%@\" not found.";
@@ -230,7 +230,7 @@
 "video_is_uploading" = "Uploading the video now. Please wait.";
 "video_deleted" = "The video was deleted.";
 "video_unavailable" = "Video not found.";
-"downloading_video" = "Downloading the video now. It'll be in \"%@\" album momentarily.";
+"downloading_video" = "Downloading the video now. It'll be in album momentarily.";
 "formatted_video_by" = "Video by %@";
 "editing_video_internet_connection_error" = "No internet connection. Can't download the video for editing.";
 "no_video_to_upload" = "No video to be uploaded.";

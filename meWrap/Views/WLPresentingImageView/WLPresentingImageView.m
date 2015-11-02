@@ -10,7 +10,7 @@
 #import "WLNavigationHelper.h"
 #import "WLCandyCell.h"
 
-@interface WLPresentingImageView () <UIScrollViewDelegate>
+@interface WLPresentingImageView ()
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 

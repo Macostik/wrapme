@@ -32,6 +32,10 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
 
 @implementation WLCommentsViewController
 
+- (void)dealloc {
+    self.contentView.delegate = nil;
+}
+
 - (void)viewDidLoad {
     
     __weak typeof(self)weakSelf = self;

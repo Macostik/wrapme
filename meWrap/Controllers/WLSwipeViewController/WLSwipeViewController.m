@@ -26,6 +26,10 @@ typedef NS_ENUM(NSUInteger, WLSwipeViewControllerPosition) {
 
 @implementation WLSwipeViewController
 
+- (void)dealloc {
+    self.scrollView.delegate = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

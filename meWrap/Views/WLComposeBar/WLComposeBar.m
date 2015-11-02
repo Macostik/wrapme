@@ -24,6 +24,10 @@
 
 @implementation WLComposeBar
 
+- (void)dealloc {
+    self.textView.delegate = nil;
+}
+
 - (void)awakeFromNib {
 	[super awakeFromNib];
     

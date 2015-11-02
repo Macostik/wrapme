@@ -24,6 +24,10 @@
 
 @implementation WLCandyViewController
 
+- (void)dealloc {
+    self.scrollView.delegate = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	

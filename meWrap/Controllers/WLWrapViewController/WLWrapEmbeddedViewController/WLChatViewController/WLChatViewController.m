@@ -72,6 +72,7 @@ CGFloat WLMinTextViewWidth;
 @dynamic delegate;
 
 - (void)dealloc {
+    self.streamView.delegate = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }

@@ -20,6 +20,12 @@
 
 @implementation StreamDataSource
 
+- (void)dealloc {
+    if (self.streamView.delegate == self) {
+        self.streamView.delegate = nil;
+    }
+}
+
 + (instancetype)dataSourceWithStreamView:(StreamView *)streamView {
     StreamDataSource *dataSource = [[StreamDataSource alloc] init];
     dataSource.streamView = streamView;

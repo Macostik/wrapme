@@ -424,9 +424,15 @@
 // MARK: - WLStillPictureViewControllerDelegate
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
+    [self dismissViewControllerAnimated:NO completion:nil];
     WLWrap* wrap = controller.wrap;
     if (wrap) {
-        [self dismissViewControllerAnimated:NO completion:nil];
+        WLWrapViewController *controller = (WLWrapViewController*)[wrap viewControllerWithNavigationController:self.navigationController];
+        if (controller) {
+            controller.segment = WLWrapSegmentMedia;
+            self.navigationController.viewControllers = @[self, controller];
+        }
+        
         [WLFollowingViewController followWrapIfNeeded:wrap performAction:^{
             [WLSoundPlayer playSound:WLSound_s04];
             [wrap uploadPictures:pictures];

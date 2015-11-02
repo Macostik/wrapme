@@ -19,7 +19,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         WLAPIEnvironment* environment = [WLAPIEnvironment currentEnvironment];
-        instance = [[self alloc] initWithBaseURL:[NSURL URLWithString:environment.endpoint]];
+        instance = [[self alloc] initWithBaseURL:[environment.endpoint URL]];
         instance.requestSerializer.timeoutInterval = 45;
         NSString* acceptHeader = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@", environment.version];
         [instance.requestSerializer setValue:acceptHeader forHTTPHeaderField:@"Accept"];
@@ -141,8 +141,8 @@ static WLAPIRequestUnauthorizedErrorBlock _unauthorizedErrorBlock;
     NSString* file = self.file ? self.file(self) : nil;
     if (file) {
         void (^constructing) (id<AFMultipartFormData> formData) = ^(id<AFMultipartFormData> formData) {
-            if (file && [[NSFileManager defaultManager] fileExistsAtPath:file]) {
-                [formData appendPartWithFileURL:[NSURL fileURLWithPath:file]
+            if (file && [file isExistingFilePath]) {
+                [formData appendPartWithFileURL:[file fileURL]
                                            name:@"qqfile"
                                        fileName:[file lastPathComponent]
                                        mimeType:@"image/jpeg" error:NULL];

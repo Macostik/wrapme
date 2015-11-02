@@ -78,7 +78,7 @@
             
             if ([[WLImageCache cache] containsImageWithUrl:url]) {
                 [[WLImageCache cache] imageWithUrl:url completion:success];
-            } else if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+            } else if ([url isExistingFilePath]) {
                 [self setFileSystemUrl:url completion:success];
             } else {
                 return [self setNetworkUrl:url success:success failure:^(NSError *error) {
@@ -94,7 +94,7 @@
 
 - (id)setNetworkUrl:(NSString *)url success:(WLImageFetcherBlock)success failure:(WLFailureBlock)failure {
     run_getting_object(^id{
-        return [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+        return [UIImage imageWithData:[NSData dataWithContentsOfURL:[url URL]]];
     }, ^(UIImage *image) {
         if (image) {
             [[WLImageCache cache] setImage:image withUrl:url];

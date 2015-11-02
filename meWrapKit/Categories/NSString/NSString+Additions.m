@@ -116,6 +116,29 @@
     return encodedString;
 }
 
+- (BOOL)isExistingFilePath {
+    if ([self hasPrefix:@"http"]) {
+        return NO;
+    }
+    return [[NSFileManager defaultManager] fileExistsAtPath:self];
+}
+
+- (NSURL*)URL {
+    return [NSURL URLWithString:self];
+}
+
+- (NSURL*)fileURL {
+    return [NSURL fileURLWithPath:self];
+}
+
+- (NSURL*)smartURL {
+    if ([self isExistingFilePath]) {
+        return [self fileURL];
+    } else {
+        return [self URL];
+    }
+}
+
 @end
 
 @implementation NSNumber (Additions)

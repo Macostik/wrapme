@@ -296,7 +296,7 @@
     
     WLNotificationType type = notification.type;
     if (type == WLNotificationUpdateAvailable) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",@(WLConstants.appStoreID)]]];
+        [[UIApplication sharedApplication] openURL:[[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",@(WLConstants.appStoreID)] URL]];
     } else {
         WLEntry *entry = notification.entry;
         if (entry) {

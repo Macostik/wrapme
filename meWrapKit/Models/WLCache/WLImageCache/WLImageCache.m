@@ -110,7 +110,7 @@ static NSUInteger WLImageCacheSize = 524288000;
 }
 
 - (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
-	if (self.permitted && identifier.nonempty && path.nonempty && [[NSFileManager defaultManager] fileExistsAtPath:path]) {
+	if (self.permitted && identifier.nonempty && path.nonempty && [path isExistingFilePath]) {
         NSString *toPath = [self pathWithIdentifier:identifier];
         NSError *error = nil;
         if ([[NSFileManager defaultManager] copyItemAtPath:path toPath:toPath error:&error]) {

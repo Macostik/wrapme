@@ -291,19 +291,17 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.lastComment = [candy latestComment];
     self.deleteButton.hidden = !candy.deletable;
     self.reportButton.hidden = !self.deleteButton.hidden;
+    VideoPlayerView *playerView = self.videoPlayerView;
     NSInteger type = candy.type;
     if (type == WLCandyTypeVideo) {
-        NSString *url = candy.picture.original;
-        if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
-            self.videoPlayerView.url = [NSURL fileURLWithPath:url];
-        } else {
-            self.videoPlayerView.url = [NSURL URLWithString:url];
+        if (!playerView.playing) {
+            playerView.url = [candy.picture.original smartURL];
         }
         self.drawButton.hidden = self.editButton.hidden = YES;
-        self.videoPlayerView.hidden = NO;
+        playerView.hidden = NO;
     } else {
-        self.videoPlayerView.url = nil;
-        self.videoPlayerView.hidden = YES;
+        playerView.url = nil;
+        playerView.hidden = YES;
         self.drawButton.hidden = self.editButton.hidden = NO;
     }
     self.bottomViewHeightPrioritizer.defaultState = !self.avatarImageView.hidden;

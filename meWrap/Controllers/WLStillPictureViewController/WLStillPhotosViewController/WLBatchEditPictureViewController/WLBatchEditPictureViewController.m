@@ -123,7 +123,7 @@ static const int WLInstanceCommentLimit = 1500;
         self.restoreButton.hidden = YES;
         self.composeBar.text = picture.comment;
         if (picture.type == WLCandyTypeVideo) {
-            self.videoPlayerView.url = [NSURL fileURLWithPath:picture.original];
+            self.videoPlayerView.url = [picture.original fileURL];
             self.videoPlayerView.hidden = NO;
         } else {
             self.videoPlayerView.url = nil;

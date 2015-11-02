@@ -73,12 +73,12 @@
         __weak typeof(self)weakSelf = self;
         if (weakSelf.type == WLCandyTypeVideo) {
             NSString *url = weakSelf.picture.original;
-            if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+            if ([url isExistingFilePath]) {
                 [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
-                    return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:[NSURL fileURLWithPath:url]];
+                    return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:[url fileURL]];
                 } collectionTitle:WLAlbumName success:success failure:failure];
             } else {
-                NSURLSessionDownloadTask *task = [[NSURLSession sharedSession] downloadTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                NSURLSessionDownloadTask *task = [[NSURLSession sharedSession] downloadTaskWithURL:[url URL] completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                     if (error) {
                         if (failure) failure(error);
                     } else {

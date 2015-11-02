@@ -67,6 +67,14 @@ static inline NSString* phoneNumberClearing (NSString* phone) {
 
 - (NSString *)escapedUnicode;
 
+- (BOOL)isExistingFilePath;
+
+- (NSURL*)URL;
+
+- (NSURL*)fileURL;
+
+- (NSURL*)smartURL;
+
 @end
 
 @interface NSNumber (Additions)

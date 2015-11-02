@@ -77,7 +77,7 @@
     
     NSString* stringUrl = count % 2 == 0 ? @"https://placeimg.com/640/1136/any" : @"https://placeimg.com/1136/640/any";
     __weak __typeof(self)weakSelf = self;
-    [PHPhotoLibrary addImageAtFileUrl:[NSURL URLWithString:stringUrl] collectionTitle:WLAlbumName success:^{
+    [PHPhotoLibrary addImageAtFileUrl:[stringUrl URL] collectionTitle:WLAlbumName success:^{
         [weakSelf addDemoImageWithCount:count - 1];
     } failure:^(NSError *error) {
         

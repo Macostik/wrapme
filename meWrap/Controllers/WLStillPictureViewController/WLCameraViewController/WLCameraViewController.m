@@ -348,7 +348,7 @@
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGSize size = CGSizeMake(width, width / 0.75);
         NSString* url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
-        return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+        return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[url URL]]];
     }, ^ (UIImage* image) {
         if (image) {
             [weakSelf.delegate cameraViewController:weakSelf didFinishWithImage:image saveToAlbum:NO];
@@ -490,7 +490,7 @@
     self.videoFilePath = path;
     if (!error && path.nonempty) {
         if ([self.session.outputs containsObject:self.movieFileOutput]) {
-            [self.movieFileOutput startRecordingToOutputFileURL:[NSURL fileURLWithPath:path] recordingDelegate:self];
+            [self.movieFileOutput startRecordingToOutputFileURL:[path fileURL] recordingDelegate:self];
         }
     }
 }
@@ -609,7 +609,7 @@
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGSize size = CGSizeMake(width, width / 0.75);
 		NSString* url = url = [NSString stringWithFormat:@"http://placeimg.com/%d/%d/any", (int)size.width, (int)size.height];
-		return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+		return [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[url URL]]];
 	}, ^ (UIImage* image) {
         if (image) {
             if (result) result(image);

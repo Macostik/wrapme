@@ -34,6 +34,10 @@
     return entry;
 }
 
++ (instancetype)entry:(NSString *)identifier uploadIdentifier:(NSString *)uploadIdentifier {
+    return (id)[[WLEntryManager manager] entryOfClass:self identifier:identifier uploadIdentifier:uploadIdentifier];
+}
+
 + (instancetype)entry:(NSString *)identifier container:(WLEntry*)container {
     WLEntry* entry = [self entry:identifier];
     entry.container = container;
@@ -97,7 +101,7 @@
 
 + (void)API_prefetchDescriptors:(NSMutableDictionary*)descriptors inDictionary:(NSDictionary*)dictionary {
     NSString *identifier = [self API_identifier:dictionary];
-    if (identifier && [descriptors objectForKeyedSubscript:identifier] == nil) {
+    if (identifier && [descriptors objectForKey:identifier] == nil) {
         WLEntryDescriptor *descriptor = [[WLEntryDescriptor alloc] init];
         descriptor.entryClass = self;
         descriptor.identifier = identifier;
@@ -317,10 +321,6 @@
     contributrion.uploadIdentifier = contributrion.identifier;
     contributrion.contributor = [WLUser currentUser];
     return contributrion;
-}
-
-+ (instancetype)entry:(NSString *)identifier uploadIdentifier:(NSString *)uploadIdentifier {
-    return (id)[[WLEntryManager manager] entryOfClass:self identifier:identifier uploadIdentifier:uploadIdentifier];
 }
 
 + (instancetype)API_entry:(NSDictionary *)dictionary container:(id)container {

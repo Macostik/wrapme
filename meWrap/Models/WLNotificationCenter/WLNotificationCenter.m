@@ -336,8 +336,8 @@
         if (![notifications containsObject:notification]) {
             continue;
         }
-        NSArray *deleted = [deleteNotifications where:@"entryIdentifier == %@", notification.entryIdentifier];
-        NSArray *added = [notifications where:@"event == %d AND entryIdentifier == %@", WLEventAdd, notification.entryIdentifier];
+        NSArray *deleted = [deleteNotifications where:@"descriptor.identifier == %@", notification.descriptor.identifier];
+        NSArray *added = [notifications where:@"event == %d AND descriptor.identifier == %@", WLEventAdd, notification.descriptor.identifier];
         if (added.count > deleted.count) {
             added = [added remove:[added lastObject]];
         } else if (added.count < deleted.count) {
@@ -350,18 +350,18 @@
     deleteNotifications = [notifications where:@"event == %d", WLEventDelete];
     
     deleteNotifications = [deleteNotifications sortedArrayUsingComparator:^NSComparisonResult(WLNotification* n1, WLNotification* n2) {
-        return [[n1.entryClass uploadingOrder] compare:[n2.entryClass uploadingOrder]];
+        return [[n1.descriptor.entryClass uploadingOrder] compare:[n2.descriptor.entryClass uploadingOrder]];
     }];
     
     for (WLNotification *deleteNotification in deleteNotifications) {
         if (![notifications containsObject:deleteNotification]) {
             continue;
         }
-        NSString *entryIdentifier = deleteNotification.entryIdentifier;
-        if (entryIdentifier.nonempty) {
-            NSArray *discardedNotifications = [notifications where:@"SELF != %@ AND (entryIdentifier == %@ OR containerIdentifier == %@)",deleteNotification, entryIdentifier, entryIdentifier];
+        NSString *uid = deleteNotification.descriptor.identifier;
+        if (uid.nonempty) {
+            NSArray *discardedNotifications = [notifications where:@"SELF != %@ AND (descriptor.identifier == %@ OR descriptor.container == %@)",deleteNotification, uid, uid];
             [notifications removeObjectsInArray:discardedNotifications];
-            if (![deleteNotification.entryClass entryExists:entryIdentifier]) {
+            if (![deleteNotification.descriptor entryExists]) {
                 [notifications removeObject:deleteNotification];
             }
         } else {

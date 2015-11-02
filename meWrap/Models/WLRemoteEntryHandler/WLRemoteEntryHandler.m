@@ -76,10 +76,10 @@
 
 - (void)presentEntryFromNotification:(WLNotification*)notification failure:(WLFailureBlock)failure {
     if (notification.event != WLEventDelete) {
-        if ([notification.entryClass entryExists:notification.entryIdentifier]) {
+        if ([notification.descriptor entryExists]) {
             if (![self presentEntry:notification.entry]) {
-                self.entryClass = notification.entryClass;
-                self.entryIdentifier = notification.entryIdentifier;
+                self.entryClass = notification.descriptor.entryClass;
+                self.entryIdentifier = notification.descriptor.identifier;
                 self.failureBlock = failure;
             }
         } else {

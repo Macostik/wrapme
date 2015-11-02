@@ -25,7 +25,7 @@
 
 - (NSString *)identifier {
     if (!_identifier.nonempty) {
-        _identifier = [NSString stringWithFormat:@"%lu_%@_%f", (unsigned long)self.type, self.entryIdentifier, self.date.timestamp];
+        _identifier = [NSString stringWithFormat:@"%lu_%@_%f", (unsigned long)self.type, self.descriptor.identifier, self.date.timestamp];
     }
     return _identifier;
 }
@@ -77,7 +77,6 @@
     self.containsEntry = YES;
     
     self.isSoundAllowed = ([data objectForKey:@"pn_apns"] != nil);
-    self.entryData = data;
     
     switch (type) {
         case WLNotificationContributorDelete:
@@ -103,53 +102,62 @@
     
     NSString *dataKey = nil;
     
+    WLEntryDescriptor *descriptor = [[WLEntryDescriptor alloc] init];
+    Class entryClass = nil;
+    
     switch (type) {
         case WLNotificationContributorAdd:
         case WLNotificationContributorDelete:
         case WLNotificationWrapDelete:
         case WLNotificationWrapUpdate: {
-            self.entryClass = [WLWrap class];
+            entryClass = [WLWrap class];
             dataKey = WLWrapKey;
         } break;
         case WLNotificationCandyAdd:
         case WLNotificationCandyDelete:
         case WLNotificationCandyUpdate:{
-            self.entryClass = [WLCandy class];
+            entryClass = [WLCandy class];
             dataKey = WLCandyKey;
         } break;
         case WLNotificationMessageAdd: {
-            self.entryClass = [WLMessage class];
+            entryClass = [WLMessage class];
             dataKey = WLMessageKey;
         } break;
         case WLNotificationCommentAdd:
         case WLNotificationCommentDelete: {
-            self.entryClass = [WLComment class];
+            entryClass = [WLComment class];
             dataKey = WLCommentKey;
         } break;
         case WLNotificationUserUpdate: {
-            self.entryClass = [WLUser class];
+            entryClass = [WLUser class];
             dataKey = WLUserKey;
         } break;
         default:
             break;
     }
-    
-    self.entryData = [data dictionaryForKey:dataKey];
-    self.entryIdentifier = [self.entryClass API_identifier:self.entryData ? : data];
-    self.trimmed = self.entryData == nil;
+    descriptor.entryClass = entryClass;
+    NSDictionary *entryData = [data dictionaryForKey:dataKey];
+    descriptor.data = entryData;
+    descriptor.identifier = [entryClass API_identifier:entryData ? : data];
+    descriptor.uploadIdentifier = [entryClass API_uploadIdentifier:entryData ? : data];
+    self.trimmed = entryData == nil;
     
     switch (type) {
         case WLNotificationCandyAdd:
         case WLNotificationCandyDelete:
         case WLNotificationMessageAdd: {
-            self.containerIdentifier = [data stringForKey:WLWrapUIDKey];
+            descriptor.container = [data stringForKey:WLWrapUIDKey];
         } break;
         case WLNotificationCommentAdd:
         case WLNotificationCommentDelete: {
-            self.containerIdentifier = [data stringForKey:WLCandyUIDKey];
+            descriptor.container = [data stringForKey:WLCandyUIDKey];
         } break;
         default:
             break;
+    }
+    
+    if (descriptor.identifier.nonempty) {
+        self.descriptor = descriptor;
     }
 }
 
@@ -164,43 +172,22 @@
     if (!self.containsEntry) {
         return;
     }
-    NSDictionary *dictionary = self.entryData;
+    
+    if (self.event == WLEventDelete && ![self.descriptor entryExists]) {
+        return;
+    }
+    
+    WLEntryDescriptor *descriptor = self.descriptor;
+    NSDictionary *dictionary = descriptor.data;
     WLNotificationType type = self.type;
     WLEntry *entry = nil;
-    
-    switch (type) {
-        case WLNotificationContributorDelete: {
-            if (!self.originatedByCurrentUser) {
-                entry = dictionary ? [WLWrap API_entry:dictionary] : [WLWrap entry:self.entryIdentifier];
-            }
-        } break;
-        case WLNotificationContributorAdd:
-        case WLNotificationWrapDelete:
-        case WLNotificationWrapUpdate: {
-            entry = dictionary ? [WLWrap API_entry:dictionary] : [WLWrap entry:self.entryIdentifier];
-        } break;
-        case WLNotificationCandyAdd:
-        case WLNotificationCandyDelete:
-        case WLNotificationCandyUpdate: {
-            entry = dictionary ? [WLCandy API_entry:dictionary] : [WLCandy entry:self.entryIdentifier];
-        } break;
-        case WLNotificationMessageAdd: {
-            entry = dictionary ? [WLMessage API_entry:dictionary] : [WLMessage entry:self.entryIdentifier];
-        } break;
-        case WLNotificationCommentAdd:
-        case WLNotificationCommentDelete: {
-            entry = dictionary ? [WLComment API_entry:dictionary] : [WLComment entry:self.entryIdentifier];
-        } break;
-        case WLNotificationUserUpdate: {
-            if (dictionary) {
-                [[WLAuthorization currentAuthorization] updateWithUserData:dictionary];
-                entry = [WLUser API_entry:dictionary];
-            } else {
-                entry = [WLUser entry:self.entryIdentifier];
-            }
-        } break;
-        default:
-            break;
+    if (dictionary) {
+        if (type == WLNotificationUserUpdate) {
+            [[WLAuthorization currentAuthorization] updateWithUserData:dictionary];
+        }
+        entry = [descriptor.entryClass API_entry:dictionary];
+    } else {
+        entry = [descriptor.entryClass entry:descriptor.identifier uploadIdentifier:descriptor.uploadIdentifier];
     }
     
     self.inserted = entry.inserted;
@@ -209,12 +196,10 @@
         switch (type) {
             case WLNotificationCandyAdd:
             case WLNotificationCandyDelete:
-            case WLNotificationMessageAdd: {
-                entry.container = [WLWrap entry:self.containerIdentifier];
-            } break;
+            case WLNotificationMessageAdd:
             case WLNotificationCommentAdd:
             case WLNotificationCommentDelete: {
-                entry.container = [WLCandy entry:self.containerIdentifier];
+                entry.container = [[descriptor.entryClass containerClass] entry:descriptor.container];
             } break;
             default:
                 break;
@@ -248,11 +233,6 @@
     WLEvent event = self.event;
     
     if (!self.containsEntry) {
-        if (success) success();
-        return;
-    }
-    
-    if (event == WLEventDelete && ![self.entryClass entryExists:self.entryIdentifier]) {
         if (success) success();
         return;
     }
@@ -318,7 +298,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%i : %@", (int)self.type, self.entryIdentifier];
+    return [NSString stringWithFormat:@"%i : %@", (int)self.type, self.descriptor.identifier];
 }
 
 - (BOOL)presentable {

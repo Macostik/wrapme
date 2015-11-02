@@ -8,46 +8,60 @@
 
 #import "WLEntryDescriptor.h"
 
-@implementation WLEntryDescriptor @end
+@implementation WLEntryDescriptor
+
+- (BOOL)entryExists {
+    return [[WLEntryManager manager] entryExists:self.entryClass identifier:self.identifier];
+}
+
+@end
 
 @implementation WLEntryManager (WLEntryDescriptor)
 
 - (void)fetchEntries:(NSMutableDictionary *)descriptors {
     
-    NSMutableArray *keysToRemove = [NSMutableArray array];
-    for (NSString *identifier in descriptors) {
-        if ([self cachedEntry:identifier]) {
-            [keysToRemove addObject:identifier];
+    NSMutableArray *uids = [NSMutableArray arrayWithCapacity:descriptors.count];
+    NSMutableArray *locuids = [NSMutableArray arrayWithCapacity:descriptors.count];
+    
+    NSDictionary *_descriptors = descriptors.copy;
+    for (NSString *identifier in _descriptors) {
+        WLEntryDescriptor *descriptor = _descriptors[identifier];
+        if ([self cachedEntry:descriptor.identifier]) {
+            [descriptors removeObjectForKey:descriptor.identifier];
+        } else if ([self cachedEntry:descriptor.uploadIdentifier]) {
+            [descriptors removeObjectForKey:descriptor.uploadIdentifier];
+        } else {
+            if (descriptor.identifier) {
+                [uids addObject:descriptor.identifier];
+            }
+            if (descriptor.uploadIdentifier) {
+                [locuids addObject:descriptor.uploadIdentifier];
+            }
         }
     }
-    [descriptors removeObjectsForKeys:keysToRemove];
     
     if (descriptors.count == 0) {
         return;
     }
     
-    NSMutableArray *uids = [NSMutableArray arrayWithCapacity:descriptors.count];
-    NSMutableArray *locuids = [NSMutableArray arrayWithCapacity:descriptors.count];
-    
-    [descriptors enumerateKeysAndObjectsUsingBlock:^(NSString *identifier, WLEntryDescriptor *descriptor, BOOL *stop) {
-        if (descriptor.identifier) {
-            [uids addObject:descriptor.identifier];
-        }
-        if (descriptor.uploadIdentifier) {
-            [locuids addObject:descriptor.uploadIdentifier];
-        }
-    }];
-    
     NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:@"WLEntry"];
     request.predicate = [NSPredicate predicateWithFormat:@"identifier IN %@ OR uploadIdentifier IN %@", uids, locuids];
     NSArray *array = [request execute];
     for (WLEntry *entry in array) {
-        [self.cachedEntries setObject:entry forKey:entry.identifier];
-        if (entry.identifier) {
-            [descriptors removeObjectForKey:entry.identifier];
+        
+        WLEntryDescriptor *descriptor = nil;
+        for (NSString *identifier in descriptors) {
+            WLEntryDescriptor *_descriptor = descriptors[identifier];
+            if ([_descriptor.identifier isEqualToString:entry.identifier] || [_descriptor.uploadIdentifier isEqualToString:entry.uploadIdentifier]) {
+                descriptor = _descriptor;
+                break;
+            }
         }
-        if (entry.uploadIdentifier) {
-            [descriptors removeObjectForKey:entry.uploadIdentifier];
+        if (descriptor) {
+            [descriptors removeObjectForKey:descriptor.identifier];
+            [self.cachedEntries setObject:entry forKey:descriptor.identifier];
+        } else {
+            [self.cachedEntries setObject:entry forKey:entry.identifier];
         }
     }
     

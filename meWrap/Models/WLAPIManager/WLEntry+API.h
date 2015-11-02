@@ -40,6 +40,8 @@
 
 + (instancetype)entry:(NSString *)identifier container:(WLEntry*)container;
 
++ (instancetype)entry:(NSString *)identifier uploadIdentifier:(NSString *)uploadIdentifier;
+
 + (NSSet*)API_entries:(NSArray*)array;
 
 + (instancetype)API_entry:(NSDictionary*)dictionary;

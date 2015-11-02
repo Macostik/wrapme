@@ -17,7 +17,13 @@
 
 @property (strong, nonatomic) NSString *uploadIdentifier;
 
+@property (strong, nonatomic) NSDictionary *data;
+
 @property (strong, nonatomic) Class entryClass;
+
+@property (strong, nonatomic) NSString *container;
+
+- (BOOL)entryExists;
 
 @end
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RQW-An-MfJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RQW-An-MfJ">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -41,30 +41,21 @@
                                     <constraint firstAttribute="width" secondItem="cYB-ha-wWW" secondAttribute="height" multiplier="16:75" id="C84-41-cyS"/>
                                 </constraints>
                             </imageView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPQ-8Y-05U" customClass="WLBlurredView">
+                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nRR-2B-Y9e">
                                 <rect key="frame" x="20" y="63" width="280" height="354"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pOA-CD-zHq">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="354"/>
-                                        <animations/>
-                                        <color key="backgroundColor" white="1" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5aB-iC-Rkp">
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="354"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
+                                </view>
                                 <animations/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="pOA-CD-zHq" firstAttribute="top" secondItem="DPQ-8Y-05U" secondAttribute="top" id="1V9-Dw-19T"/>
-                                    <constraint firstAttribute="bottom" secondItem="pOA-CD-zHq" secondAttribute="bottom" id="PEc-uX-n7N"/>
-                                    <constraint firstItem="pOA-CD-zHq" firstAttribute="leading" secondItem="DPQ-8Y-05U" secondAttribute="leading" id="hYH-lO-18a"/>
-                                    <constraint firstAttribute="trailing" secondItem="pOA-CD-zHq" secondAttribute="trailing" id="rcH-U3-FSi"/>
-                                </constraints>
+                                <blurEffect style="light"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="4"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                            </view>
+                            </visualEffectView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3MH-ja-zjo">
                                 <rect key="frame" x="20" y="63" width="280" height="278"/>
                                 <subviews>
@@ -260,23 +251,23 @@
                             <constraint firstItem="3MH-ja-zjo" firstAttribute="leading" secondItem="v1s-iQ-mYF" secondAttribute="leading" constant="20" id="015-z1-T7z"/>
                             <constraint firstItem="cYB-ha-wWW" firstAttribute="bottom" secondItem="tCy-Jw-JNH" secondAttribute="bottom" priority="250" id="5B1-T9-0l7"/>
                             <constraint firstAttribute="centerY" secondItem="3MH-ja-zjo" secondAttribute="centerY" constant="38" id="8lp-Jq-8vl"/>
-                            <constraint firstItem="DPQ-8Y-05U" firstAttribute="height" secondItem="3MH-ja-zjo" secondAttribute="height" constant="76" id="AmN-28-fQW"/>
                             <constraint firstItem="fA2-25-iSn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yjh-go-sqL" secondAttribute="leading" constant="12" id="DTj-Vc-wfj"/>
                             <constraint firstAttribute="trailing" secondItem="cYB-ha-wWW" secondAttribute="trailing" id="EBR-fu-Ruy"/>
-                            <constraint firstItem="DPQ-8Y-05U" firstAttribute="width" secondItem="3MH-ja-zjo" secondAttribute="width" id="Ej6-1B-CzJ"/>
                             <constraint firstItem="cYB-ha-wWW" firstAttribute="leading" secondItem="v1s-iQ-mYF" secondAttribute="leading" id="GRJ-Gu-X1t"/>
-                            <constraint firstItem="DPQ-8Y-05U" firstAttribute="leading" secondItem="3MH-ja-zjo" secondAttribute="leading" id="Lgb-eh-54h"/>
+                            <constraint firstItem="nRR-2B-Y9e" firstAttribute="top" secondItem="3MH-ja-zjo" secondAttribute="top" id="HMe-ia-s8R"/>
                             <constraint firstAttribute="trailing" secondItem="3MH-ja-zjo" secondAttribute="trailing" constant="20" id="PZz-Z4-Q6k"/>
+                            <constraint firstItem="nRR-2B-Y9e" firstAttribute="leading" secondItem="3MH-ja-zjo" secondAttribute="leading" id="TgE-pg-mYn"/>
                             <constraint firstAttribute="centerX" secondItem="fA2-25-iSn" secondAttribute="centerX" id="Vc7-qK-BLc"/>
                             <constraint firstItem="fA2-25-iSn" firstAttribute="centerY" secondItem="yjh-go-sqL" secondAttribute="centerY" id="Xro-64-vSo"/>
                             <constraint firstAttribute="centerX" secondItem="yjh-go-sqL" secondAttribute="centerX" id="Y0B-Oq-vtU"/>
+                            <constraint firstItem="nRR-2B-Y9e" firstAttribute="width" secondItem="3MH-ja-zjo" secondAttribute="width" id="auu-bw-r1w"/>
                             <constraint firstItem="yjh-go-sqL" firstAttribute="centerY" secondItem="V11-Xl-ach" secondAttribute="centerY" id="bhM-HM-3ql"/>
                             <constraint firstAttribute="height" secondItem="3MH-ja-zjo" secondAttribute="height" constant="202" id="c40-Lq-yx3"/>
                             <constraint firstItem="yjh-go-sqL" firstAttribute="trailing" secondItem="V11-Xl-ach" secondAttribute="trailing" constant="12" id="dux-df-hP7"/>
                             <constraint firstItem="V11-Xl-ach" firstAttribute="leading" secondItem="fA2-25-iSn" secondAttribute="trailing" constant="12" id="e9C-Xa-9V3"/>
-                            <constraint firstItem="yjh-go-sqL" firstAttribute="bottom" secondItem="DPQ-8Y-05U" secondAttribute="bottom" constant="-20" id="gEu-NE-Oae"/>
+                            <constraint firstItem="yjh-go-sqL" firstAttribute="bottom" secondItem="nRR-2B-Y9e" secondAttribute="bottom" constant="-20" id="ePu-p5-0UJ"/>
+                            <constraint firstItem="nRR-2B-Y9e" firstAttribute="height" secondItem="3MH-ja-zjo" secondAttribute="height" constant="76" id="l2h-ge-24j"/>
                             <constraint firstItem="cYB-ha-wWW" firstAttribute="top" secondItem="uY6-5G-NXW" secondAttribute="bottom" priority="750" constant="-20" id="mTX-gn-s6e"/>
-                            <constraint firstItem="DPQ-8Y-05U" firstAttribute="top" secondItem="3MH-ja-zjo" secondAttribute="top" id="xQ2-E1-49f"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HZb-wB-zXD"/>
@@ -293,8 +284,8 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RZe-hx-2bQ" sceneMemberID="firstResponder"/>
                 <customObject id="ZcZ-hW-bGa" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
-                        <outletCollection property="defaultConstraints" destination="mTX-gn-s6e" id="mp1-1E-k24"/>
-                        <outletCollection property="alternativeConstraints" destination="5B1-T9-0l7" id="GE3-eO-2X8"/>
+                        <outletCollection property="defaultConstraints" destination="mTX-gn-s6e" collectionClass="NSMutableArray" id="mp1-1E-k24"/>
+                        <outletCollection property="alternativeConstraints" destination="5B1-T9-0l7" collectionClass="NSMutableArray" id="GE3-eO-2X8"/>
                     </connections>
                 </customObject>
             </objects>

@@ -30,6 +30,10 @@ typedef enum : NSUInteger {
 
 @implementation WLWelcomeViewController
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -48,6 +52,7 @@ typedef enum : NSUInteger {
         self.animating = YES;
         [self animateBackgroundView];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(animateBackgroundView) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)animateBackgroundView {

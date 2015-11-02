@@ -10,4 +10,6 @@
 
 @interface WLEditPictureCell : StreamReusableView
 
+- (void)updateStatus;
+
 @end

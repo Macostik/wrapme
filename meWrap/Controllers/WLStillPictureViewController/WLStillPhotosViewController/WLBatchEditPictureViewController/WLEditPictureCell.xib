@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -27,7 +27,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4R" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eHZ-ah-rRV">
-                    <rect key="frame" x="57" y="105" width="24" height="12"/>
+                    <rect key="frame" x="53" y="109" width="24" height="12"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="icons" family="icons" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -80,7 +80,7 @@
                 <constraint firstItem="10v-tv-fzf" firstAttribute="height" secondItem="hoB-ij-p5B" secondAttribute="height" id="6Co-7Y-F2A"/>
                 <constraint firstItem="hoB-ij-p5B" firstAttribute="centerX" secondItem="pZh-BF-TTX" secondAttribute="centerX" id="7S8-Xs-CAL"/>
                 <constraint firstItem="hoB-ij-p5B" firstAttribute="height" secondItem="pZh-BF-TTX" secondAttribute="height" constant="-2" id="9Pw-fd-bUT"/>
-                <constraint firstItem="hoB-ij-p5B" firstAttribute="bottom" secondItem="eHZ-ah-rRV" secondAttribute="top" constant="2" id="AAb-JU-zCu"/>
+                <constraint firstItem="eHZ-ah-rRV" firstAttribute="top" secondItem="hoB-ij-p5B" secondAttribute="bottom" constant="2" id="AAb-JU-zCu"/>
                 <constraint firstItem="hoB-ij-p5B" firstAttribute="leading" secondItem="w5b-XM-fqF" secondAttribute="leading" constant="1" id="G9P-id-bKB"/>
                 <constraint firstItem="10v-tv-fzf" firstAttribute="centerX" secondItem="hoB-ij-p5B" secondAttribute="centerX" id="I0v-xZ-u1D"/>
                 <constraint firstAttribute="trailing" secondItem="hoB-ij-p5B" secondAttribute="trailing" constant="1" id="Iab-ou-AFa"/>
@@ -88,7 +88,7 @@
                 <constraint firstItem="10v-tv-fzf" firstAttribute="centerY" secondItem="hoB-ij-p5B" secondAttribute="centerY" id="PHS-sW-J85"/>
                 <constraint firstItem="hoB-ij-p5B" firstAttribute="width" secondItem="pZh-BF-TTX" secondAttribute="width" constant="-2" id="POA-qu-4Mw"/>
                 <constraint firstAttribute="centerY" secondItem="hoB-ij-p5B" secondAttribute="centerY" id="cit-hd-5SH"/>
-                <constraint firstItem="eHZ-ah-rRV" firstAttribute="trailing" secondItem="hoB-ij-p5B" secondAttribute="trailing" constant="2" id="d0P-Lx-MDO"/>
+                <constraint firstItem="hoB-ij-p5B" firstAttribute="trailing" secondItem="eHZ-ah-rRV" secondAttribute="trailing" constant="2" id="d0P-Lx-MDO"/>
                 <constraint firstItem="hoB-ij-p5B" firstAttribute="trailing" secondItem="n6q-Hy-0eK" secondAttribute="trailing" constant="2" id="k2t-g9-ava"/>
                 <constraint firstItem="n6q-Hy-0eK" firstAttribute="top" secondItem="hoB-ij-p5B" secondAttribute="top" constant="2" id="sLI-Hz-LLe"/>
             </constraints>

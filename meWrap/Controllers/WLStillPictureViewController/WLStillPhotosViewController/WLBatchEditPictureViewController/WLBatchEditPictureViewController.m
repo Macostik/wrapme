@@ -296,14 +296,26 @@ static const int WLInstanceCommentLimit = 1500;
 
 - (void)composeBarDidChangeText:(WLComposeBar *)composeBar {
     NSString *comment = composeBar.text;
-    self.uploadButton.active = comment.nonempty;
-    NSData *commentData = [comment dataUsingEncoding:NSUTF8StringEncoding];
-    if (commentData.length < WLInstanceCommentLimit) {
-        self.picture.comment = composeBar.text;
-        [self.dataSource reload];
-    } else {
+    while ([self commentLimitExceeded:comment]) {
+        comment = [comment substringToIndex:comment.length - 1];
+    }
+    if (![comment isEqualToString:composeBar.text]) {
         [WLToast showWithMessage:WLLS(@"comment_limit")];
-        self.uploadButton.active = NO;
+        composeBar.text = comment;
+    }
+    self.picture.comment = comment;
+    __weak typeof(self)weakSelf = self;
+    StreamItem *item = [self.dataSource.streamView itemPassingTest:^BOOL(StreamItem *item) {
+        return item.entry == weakSelf.picture;
+    }];
+    [(WLEditPictureCell*)item.view updateStatus];
+}
+
+- (BOOL)commentLimitExceeded:(NSString*)text {
+    if (text.length <= WLInstanceCommentLimit) {
+        return NO;
+    } else {
+        return [text dataUsingEncoding:NSUTF8StringEncoding].length > WLInstanceCommentLimit;
     }
 }
 

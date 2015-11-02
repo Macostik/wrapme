@@ -80,6 +80,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

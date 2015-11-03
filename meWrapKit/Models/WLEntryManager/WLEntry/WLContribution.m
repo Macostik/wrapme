@@ -18,7 +18,7 @@
 
 + (NSOrderedSet *)recentContributions {
     NSMutableArray *contributions = [NSMutableArray array];
-    NSDate *date = [[NSDate now] beginOfDay];
+    NSDate *date = [[NSDate date] beginOfDay];
     [contributions adds:[WLComment entriesWhere:@"createdAt > %@ AND contributor != nil", date]];
     [contributions adds:[WLCandy entriesWhere:@"createdAt > %@ AND contributor != nil", date]];
     [contributions sortByCreatedAt];

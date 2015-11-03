@@ -186,6 +186,7 @@
             WLUser *currentUser = [WLUser currentUser];
             if (currentUser) {
                 successBlock(currentUser);
+                [currentUser notifyOnAddition];
                 return;
             }
         }

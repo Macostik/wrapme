@@ -32,8 +32,6 @@ static NSString *AppGroupIdentifier = @"group.com.ravenpod.wraplive";
 
 @property NSUInteger numberOfLaunches;
 
-@property NSTimeInterval serverTimeDifference;
-
 @property NSNumber *cameraDefaultPosition;
 
 @property NSNumber *cameraDefaultFlashMode;
@@ -53,8 +51,6 @@ static NSString *AppGroupIdentifier = @"group.com.ravenpod.wraplive";
 @property NSString *avatarURI;
 
 @property NSInteger pageSize;
-
-+ (instancetype)appGroupUserDefaults;
 
 - (void)clear;
 

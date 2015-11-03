@@ -129,7 +129,6 @@ static WLUser *currentUser = nil;
         currentUser = user;
         if (user) {
             if (!user.current) user.current = YES;
-            [user notifyOnAddition];
         }
     }
 }

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		18D7F6737186E5350A00FFEE /* Pods_meWrap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8302B2CF78A9F0C0ED319A0E /* Pods_meWrap.framework */; };
 		5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */; };
+		5B2642491BE8F934001CA50C /* WLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2642481BE8F934001CA50C /* WLSession.swift */; };
+		5B26424A1BE900F8001CA50C /* WLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2642481BE8F934001CA50C /* WLSession.swift */; };
+		5B2642A71BE91511001CA50C /* WLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2642481BE8F934001CA50C /* WLSession.swift */; };
 		5B3B1F111BDA2A6B00FF7816 /* EntryStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3B1F101BDA2A6B00FF7816 /* EntryStatusIndicator.swift */; };
 		5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */; };
 		5B7591DF1BAAEF7800967AAA /* WLReportList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B7591DD1BAAEF7800967AAA /* WLReportList.plist */; };
@@ -572,6 +575,9 @@
 		14B242A2195C4D9200C5D208 /* WLProfileEditSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLProfileEditSession.h; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.h; sourceTree = "<group>"; };
 		14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLProfileEditSession.m; path = WLEditSession/WLProfileEditSession/WLProfileEditSession.m; sourceTree = "<group>"; };
 		5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalScrollView.swift; sourceTree = "<group>"; };
+		5B2642481BE8F934001CA50C /* WLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WLSession.swift; sourceTree = "<group>"; usesTabs = 0; };
+		5B2642A51BE912FB001CA50C /* TodayExtensionsPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayExtensionsPrefixHeader.pch; sourceTree = "<group>"; };
+		5B2642A61BE91327001CA50C /* WatchExtensionsPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchExtensionsPrefixHeader.pch; sourceTree = "<group>"; };
 		5B3B1F101BDA2A6B00FF7816 /* EntryStatusIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryStatusIndicator.swift; sourceTree = "<group>"; };
 		5B3CD74519DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Wraplive_TermsAndConditions.rtf; path = WLTermsAndConditions/Wraplive_TermsAndConditions.rtf; sourceTree = "<group>"; };
 		5B7591DD1BAAEF7800967AAA /* WLReportList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = WLReportList.plist; path = WLReportList/WLReportList.plist; sourceTree = "<group>"; };
@@ -680,7 +686,7 @@
 		C50645DE1ABD815200CB4BE3 /* WLWKEntryRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKEntryRow.m; sourceTree = "<group>"; };
 		C50645DF1ABD815200CB4BE3 /* WLWKContributionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKContributionsController.h; sourceTree = "<group>"; };
 		C50645E01ABD815200CB4BE3 /* WLWKContributionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWKContributionsController.m; sourceTree = "<group>"; };
-		C50647601ABD868800CB4BE3 /* ExtensionsPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsPrefixHeader.pch; sourceTree = "<group>"; };
+		C50647601ABD868800CB4BE3 /* ExtensionsPrefixHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsPrefixHeader.h; sourceTree = "<group>"; };
 		C50647681ABD889100CB4BE3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C509E2B81B96F46A003F6C21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = "Base.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
 		C509E2BC1B96F4B8003F6C21 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-667h@2x.png"; sourceTree = "<group>"; };
@@ -1874,6 +1880,7 @@
 			children = (
 				C5053E181BC7CDBF0040613A /* WLSession.h */,
 				C5053E191BC7CDBF0040613A /* WLSession.m */,
+				5B2642481BE8F934001CA50C /* WLSession.swift */,
 			);
 			path = WLSession;
 			sourceTree = "<group>";
@@ -1959,7 +1966,9 @@
 		C50645AA1ABD815100CB4BE3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C50647601ABD868800CB4BE3 /* ExtensionsPrefixHeader.pch */,
+				C50647601ABD868800CB4BE3 /* ExtensionsPrefixHeader.h */,
+				5B2642A51BE912FB001CA50C /* TodayExtensionsPrefixHeader.pch */,
+				5B2642A61BE91327001CA50C /* WatchExtensionsPrefixHeader.pch */,
 				C50645B81ABD815100CB4BE3 /* Today */,
 				C50645C21ABD815100CB4BE3 /* WatchApp */,
 				C50645C71ABD815100CB4BE3 /* WatchExt */,
@@ -3720,6 +3729,7 @@
 				C5E6E9621BBAC3EC007FFA66 /* NSData+CommonCrypto.m in Sources */,
 				C5E6EAA01BBAC3EC007FFA66 /* WLImageFetcher.m in Sources */,
 				C5E6EA881BBAC3EC007FFA66 /* WLExtensionMessage.m in Sources */,
+				5B26424A1BE900F8001CA50C /* WLSession.swift in Sources */,
 				C5E6E9501BBAC3EC007FFA66 /* NSSet+WLCollection.m in Sources */,
 				C5053DF51BC7CD490040613A /* WLComment.m in Sources */,
 				C5053DF91BC7CD490040613A /* WLEntry+Containment.m in Sources */,
@@ -3813,6 +3823,7 @@
 				C54CEF9D1BCFB09100128CBE /* UIViewController+Ext.swift in Sources */,
 				C54AF67C19B8C491006F7EDB /* main.m in Sources */,
 				C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */,
+				5B2642491BE8F934001CA50C /* WLSession.swift in Sources */,
 				C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
 				C5E6EA8C1BBAC3EC007FFA66 /* WLExtensionRequest.m in Sources */,
 				C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */,
@@ -4015,6 +4026,7 @@
 				C5E6E9821BBAC3EC007FFA66 /* NSObject+NibAdditions.m in Sources */,
 				C5053E0E1BC7CD4B0040613A /* WLCandy.m in Sources */,
 				C5E6EA5A1BBAC3EC007FFA66 /* WLEntry.m in Sources */,
+				5B2642A71BE91511001CA50C /* WLSession.swift in Sources */,
 				C5053E141BC7CD4B0040613A /* WLMessage.m in Sources */,
 				C5E6E8041BBAC35E007FFA66 /* WLWKCandyEventRow.m in Sources */,
 				C5E6E8031BBAC35E007FFA66 /* WLWKCommentRow.m in Sources */,
@@ -4315,7 +4327,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREFIX_HEADER = Extensions/TodayExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Info/meWrapToday-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -4348,7 +4360,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREFIX_HEADER = Extensions/TodayExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Info/meWrapToday-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -4379,6 +4391,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4437,6 +4450,7 @@
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4560,7 +4574,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREFIX_HEADER = Extensions/WatchExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -4588,7 +4602,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREFIX_HEADER = Extensions/WatchExtensionsPrefixHeader.pch;
 				INFOPLIST_FILE = "Info/meWrapWatchExt-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -4612,7 +4626,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREFIX_HEADER = Extensions/WatchExtensionsPrefixHeader.pch;
 				INFOPLIST_FILE = "Info/meWrapWatchExt-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -4723,6 +4737,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ravenpod, Inc. (2PW57LM468)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				ENV = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4780,7 +4795,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENV = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extensions/ExtensionsPrefixHeader.pch;
+				GCC_PREFIX_HEADER = Extensions/TodayExtensionsPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Info/meWrapToday-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;

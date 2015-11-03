@@ -112,6 +112,7 @@ static BOOL authorized = NO;
         WLUser* user = [WLUser API_entry:userData];
         [authorization updateWithUserData:userData];
         [user setCurrent];
+        [user notifyOnAddition];
         
         if (user.firstTimeUse) {
             [self preloadFirstWrapsWithUser:user];
@@ -226,7 +227,9 @@ static BOOL authorized = NO;
         whoIs.confirmed = [userInfo boolForKey:@"confirmed_email"];
         NSString* userUID = [WLUser API_identifier:userInfo];
         if (userUID.nonempty) {
-            [[WLUser entry:userUID] setCurrent];
+            WLUser *user = [WLUser entry:userUID];
+            [user setCurrent];
+            [user notifyOnAddition];
         }
         WLAuthorization* authorization = [[WLAuthorization alloc] init];
         authorization.email = email;

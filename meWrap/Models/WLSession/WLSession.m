@@ -28,14 +28,6 @@ static NSString* WLSessionServerTimeDifference = @"WLServerTimeDifference";
 
 @implementation NSUserDefaults (WLSessionData)
 
-+ (instancetype)appGroupUserDefaults {
-    static NSUserDefaults *appGroupUserDefaults = nil;
-    if (!appGroupUserDefaults) {
-        appGroupUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:AppGroupIdentifier];
-    }
-    return appGroupUserDefaults;
-}
-
 // MARK: - authorization
 
 static WLAuthorization* _authorization = nil;
@@ -145,26 +137,6 @@ static NSDate *_confirmationDate = nil;
 - (void)setNumberOfLaunches:(NSUInteger)numberOfLaunches {
     [self setInteger:numberOfLaunches forKey:@"WLNumberOfLaucnhes"];
     [self enqueueSynchronize];
-}
-
-// MARK: - serverTimeDifference
-
-static NSTimeInterval _difference = 0;
-
-- (NSTimeInterval)serverTimeDifference {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _difference = [[NSUserDefaults appGroupUserDefaults] doubleForKey:WLSessionServerTimeDifference];
-    });
-    return _difference;
-}
-
-- (void)setServerTimeDifference:(NSTimeInterval)interval {
-    if (_difference != interval) {
-        _difference = interval;
-        [[NSUserDefaults appGroupUserDefaults] setDouble:interval forKey:WLSessionServerTimeDifference];
-        [[NSUserDefaults appGroupUserDefaults] enqueueSynchronize];
-    }
 }
 
 // MARK: - cameraDefaultPosition

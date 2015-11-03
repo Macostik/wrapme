@@ -79,15 +79,18 @@ class VideoPlayerView: UIView {
     }
     
     deinit {
-        if let player = _player {
-            finalizePlayer(player)
-        }
+        stopObservingTime(player)
+        player.removeObserver(self, forKeyPath: "status")
+        _item?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
         NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
     
     private var panGestureRecognizer: UIPanGestureRecognizer?
     
     func awake() {
+        player.addObserver(self, forKeyPath: "status", options: .New, context: nil)
+        startObservingTime(player)
+        (layer as? AVPlayerLayer)?.player = player
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tap:"))
         let recognizer = UIPanGestureRecognizer(target: self, action: "pan:")
         recognizer.delegate = self
@@ -109,30 +112,27 @@ class VideoPlayerView: UIView {
     private var _playing = false
     var playing: Bool {
         set {
-            if let player = player {
-                if _playing != newValue {
-                    _playing = newValue
+            if _playing != newValue {
+                _playing = newValue
+                
+                if newValue {
                     
-                    if newValue {
-                        startObservingTime(player)
-                        if let item = player.currentItem {
-                            if CMTimeCompare(item.currentTime(), item.duration) == 0 {
-                                item.seekToTime(kCMTimeZero)
-                            }
+                    if let item = item {
+                        if CMTimeCompare(item.currentTime(), item.duration) == 0 {
+                            item.seekToTime(kCMTimeZero)
                         }
-                        player.play()
-                        if player.status != .ReadyToPlay {
-                            spinner?.startAnimating()
-                        }
-                        delegate?.videoPlayerViewDidPlay?(self)
-                    } else {
-                        stopObservingTime(player)
-                        player.pause()
-                        delegate?.videoPlayerViewDidPause?(self)
                     }
-                    
-                    playButton?.selected = newValue
+                    player.play()
+                    if player.status != .ReadyToPlay {
+                        spinner?.startAnimating()
+                    }
+                    delegate?.videoPlayerViewDidPlay?(self)
+                } else {
+                    player.pause()
+                    delegate?.videoPlayerViewDidPause?(self)
                 }
+                
+                playButton?.selected = newValue
             }
         }
         get {
@@ -143,7 +143,7 @@ class VideoPlayerView: UIView {
     @IBOutlet weak var spinner: UIActivityIndicatorView?
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        guard let player = player, let item = player.currentItem else {
+        guard let item = item else {
             return
         }
         if keyPath == "status" {
@@ -162,32 +162,6 @@ class VideoPlayerView: UIView {
         }
     }
     
-    private func finalizePlayer(player: AVPlayer) {
-        player.removeObserver(self, forKeyPath: "status")
-        player.currentItem?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
-        stopObservingTime(player)
-    }
-    
-    private var _player: AVPlayer? {
-        didSet {
-            if let oldValue = oldValue {
-                finalizePlayer(oldValue)
-            }
-            
-            if let player = _player {
-                player.addObserver(self, forKeyPath: "status", options: .New, context: nil)
-                player.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
-            }
-            
-            (layer as? AVPlayerLayer)?.player = _player
-            
-            timeView.time = 0
-            
-            playButton?.selected = false
-            spinner?.stopAnimating()
-        }
-    }
-    
     func stopObservingTime(player: AVPlayer) {
         if let timeObserver = timeObserver {
             player.removeTimeObserver(timeObserver)
@@ -196,26 +170,43 @@ class VideoPlayerView: UIView {
     }
     
     func startObservingTime(player: AVPlayer) {
-        timeObserver = player.addPeriodicTimeObserverForInterval(CMTimeMakeWithSeconds(0.01, Int32(NSEC_PER_SEC)), queue: dispatch_get_main_queue()) {[unowned self] (time) -> Void in
-            if let item = self.player?.currentItem where self.seeking == false {
-                self.timeView.time = CMTimeGetSeconds(item.currentTime()) / CMTimeGetSeconds(item.duration)
+        timeObserver = player.addPeriodicTimeObserverForInterval(CMTimeMakeWithSeconds(0.01, Int32(NSEC_PER_SEC)), queue: dispatch_get_main_queue()) {[weak self] (time) -> Void in
+            if let playerView = self, let item = playerView.item where playerView.seeking == false {
+                playerView.timeView.time = CMTimeGetSeconds(item.currentTime()) / CMTimeGetSeconds(item.duration)
             }
         }
     }
     
-    var player: AVPlayer? {
+    private var _item: AVPlayerItem? {
+        didSet {
+            if let oldItem = oldValue {
+                oldItem.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
+            }
+            if let item = _item {
+                item.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
+            }
+            player.replaceCurrentItemWithPlayerItem(_item)
+            timeView.time = 0
+            playButton?.selected = false
+            spinner?.stopAnimating()
+        }
+    }
+    
+    var item: AVPlayerItem? {
         get {
-            if _player == nil, let url = url {
+            if _item == nil, let url = url {
                 do {
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
                     try AVAudioSession.sharedInstance().setActive(true)
                 } catch {
                 }
-                _player = AVPlayer(URL: url)
+                _item = AVPlayerItem(URL: url)
             }
-            return _player
+            return _item
         }
     }
+    
+    var player: AVPlayer = AVPlayer()
     
     private weak var timeObserver: AnyObject?
     
@@ -225,8 +216,8 @@ class VideoPlayerView: UIView {
                 if _playing {
                     playing = false
                 }
-                if _player != nil {
-                    _player = nil
+                if _item != nil {
+                    _item = nil
                 }
                 seeking = false
             }
@@ -234,7 +225,7 @@ class VideoPlayerView: UIView {
     }
     
     func playerItemDidPlayToEndTime(notification: NSNotification) {
-        if player?.currentItem == notification.object as? AVPlayerItem {
+        if _item == notification.object as? AVPlayerItem {
             playing = false
             delegate?.videoPlayerViewDidPlayToEnd?(self)
         }
@@ -257,7 +248,7 @@ class VideoPlayerView: UIView {
     var seeking = false
     
     private func seekToTimeAtPoint(point: CGPoint) {
-        guard let player = player, let item = player.currentItem else {
+        guard let item = _item else {
             return
         }
         let x = min(timeView.bounds.width, max(0, point.x))
@@ -289,7 +280,7 @@ class VideoPlayerView: UIView {
             switch sender.state {
             case .Began:
                 seeking = true
-                player?.pause()
+                player.pause()
                 seekToTimeAtPoint(location)
             case .Changed:
                 if seeking {
@@ -299,7 +290,7 @@ class VideoPlayerView: UIView {
                 if seeking {
                     seeking = false
                     if _playing {
-                        player?.play()
+                        player.play()
                     }
                 } else {
                     toggle()
@@ -308,7 +299,7 @@ class VideoPlayerView: UIView {
                 if seeking {
                     seeking = false
                     if _playing {
-                        player?.play()
+                        player.play()
                     }
                 }
             default: break

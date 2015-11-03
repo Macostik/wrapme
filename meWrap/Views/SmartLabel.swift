@@ -23,7 +23,7 @@ class SmartLabel : UILabel, NSLayoutManagerDelegate {
     let textContainer = NSTextContainer();
     let layoutManager = NSLayoutManager();
     var characterTextLayers = Array<CATextLayer>()
-    var linkContainer = [NSString:UInt64]()
+    var linkContainer = [NSTextCheckingResult]()
     override var lineBreakMode: NSLineBreakMode {
         get { return super.lineBreakMode }
         set {
@@ -106,10 +106,7 @@ class SmartLabel : UILabel, NSLayoutManagerDelegate {
     func checkingType() {
         let detector = try! NSDataDetector(types: NSTextCheckingType.PhoneNumber.rawValue | NSTextCheckingType.Link.rawValue)
         let results = detector.matchesInString(self.textStorage.string, options: .ReportProgress, range: NSMakeRange(0, self.text!.characters.count))
-        let temp = results.flatMap({$0.range})
-        print (">>self - \(temp)<<")
-        setupTextLayers(temp)
-        
+        linkContainer.appendContentsOf(results)
     }
     
     func setupTextLayers(ranges: Array<NSRange>) {
@@ -180,17 +177,71 @@ class SmartLabel : UILabel, NSLayoutManagerDelegate {
         return textLayer
     }
     
+    func rectFlipped (rect : CGRect, bounds : CGRect) -> CGRect {
+        return CGRectMake(CGRectGetMinX(rect),
+            CGRectGetMaxY(bounds)-CGRectGetMaxY(rect),
+            CGRectGetWidth(rect),
+            CGRectGetHeight(rect));
+    }
+    
+    func typographicBoundsAsRect(line : CTLine , lineOrigin : CGPoint) -> CGRect {
+        var ascent: CGFloat = 0, descent: CGFloat = 0, leading: CGFloat = 0
+        let width = CGFloat(CTLineGetTypographicBounds(line, &ascent, &descent, &leading));
+        let height = ascent + descent;
+        
+        return CGRectMake(lineOrigin.x,lineOrigin.y - descent, width, height)
+    }
+    
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        for (rectString, link) in self.linkContainer {
-            let frame = CGRectFromString(rectString as String)
-            if frame.contains(point) {
+        let framesetter = CTFramesetterCreateWithAttributedString(textStorage)
+        var drawingRect = self.bounds
+        let sz = CTFramesetterSuggestFrameSizeWithConstraints(framesetter,CFRangeMake(0,0), nil, CGSizeMake(drawingRect.size.width,CGFloat.max), nil)
+        let delta = max(0 , ceil(sz.height - drawingRect.size.height)) + 10
+        drawingRect.origin.y -= delta
+        drawingRect.size.height += delta
+        drawingRect.origin.y -= (drawingRect.size.height - sz.height)/2
+        
+        let path = CGPathCreateMutable()
+        CGPathAddRect(path, nil, drawingRect)
+        let textFrame = CTFramesetterCreateFrame(framesetter,CFRangeMake(0,0), path, nil)
+        
+        let kVMargin : CGFloat = 5.0
+        let lines = CTFrameGetLines(textFrame)
+        
+        let nbLines = CFArrayGetCount(lines)
+
+        var originsArray = [CGPoint](count:nbLines, repeatedValue: CGPointZero)
+        CTFrameGetLineOrigins(textFrame, CFRangeMake(0,0), &originsArray)
+        
+        for lineIndex in  0..<nbLines {
+            let lineOriginFlipped = originsArray[lineIndex]
+            
+            let line: UnsafePointer<Void>? = CFArrayGetValueAtIndex(lines, 0)
+            let _line = unsafeBitCast(line!, AnyObject.self)
+            let lineRectFlipped = typographicBoundsAsRect(_line as! CTLine, lineOrigin: lineOriginFlipped)
+            var lineRect = rectFlipped(lineRectFlipped, bounds: rectFlipped(drawingRect, bounds: self.bounds))
+            lineRect = CGRectInset(lineRect, 0, -kVMargin);
+            if (CGRectContainsPoint(lineRect, point))
+            {
+                let relativePoint = CGPointMake(point.x-CGRectGetMinX(lineRect),
+                    point.y-CGRectGetMinY(lineRect))
+                var idx = CTLineGetStringIndexForPosition(_line as! CTLine, relativePoint)
+                if ((relativePoint.x < CTLineGetOffsetForStringIndex(_line as! CTLine, idx, nil)) && (idx>0)) {
+                    --idx;
+                    
+                }
+                print (">>self - \(idx)<<")
+                for checkingResult in linkContainer {
+                    if  (NSLocationInRange(idx, checkingResult.range)) {
+                        print (">>self - \(idx)<<")
+                    }
+                }
                 
             }
-            print("rect - \(frame) and point - \(point)")
+            
         }
-        return false;
+        return true
     }
+    
+    
 }
-
-
-

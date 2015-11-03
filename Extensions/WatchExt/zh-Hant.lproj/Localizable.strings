@@ -1,11 +1,8 @@
-/* 
-  Localizable.strings
+/* Localizable.strings
   meWrap
 
   Created by Sergey Maximenko on 9/18/15.
-  Copyright © 2015 Ravenpod. All rights reserved.
-*/
-
+  Copyright © 2015 Ravenpod. All rights reserved. */
 "comment" = "回應";
 "formatted_photo_by" = "拍攝者 %@";
 "no_recent_updates" = "未有最近更新";
@@ -34,5 +31,5 @@
 "APNS_MSG05" = "%@剛修輯了相片。";
 "APNS_TT06" = "meWrap有更新版本";
 "APNS_MSG06" = "meWrap有更新版本。現在就下載吧！";
-"APNS_TT07" = "New video";
-"APNS_MSG07" = "%@ just added a new video in '%@'. Check it out!";
+"APNS_TT07" = "新影片";
+"APNS_MSG07" = "%@為\"%@\"添加了新影片。";

@@ -1,13 +1,10 @@
-/* 
-  Localizable.strings
+/* Localizable.strings
   meWrap
 
   Created by Sergey Maximenko on 9/18/15.
-  Copyright © 2015 Ravenpod. All rights reserved.
-*/
-
-"less_today_stories" = "Less meWrap stories";
-"more_today_stories" = "More meWrap stories";
+  Copyright © 2015 Ravenpod. All rights reserved. */
+"less_today_stories" = "關閉";
+"more_today_stories" = "更多…";
 "minute" = "分鐘";
 "hour" = "小時";
 "day" = "天";

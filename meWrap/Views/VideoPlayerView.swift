@@ -8,6 +8,7 @@
 
 import Foundation
 import AVFoundation
+import AVKit
 
 @objc protocol VideoPlayerViewDelegate: NSObjectProtocol {
     
@@ -109,13 +110,10 @@ class VideoPlayerView: UIView {
         }
     }
     
-    private var _playing = false
-    var playing: Bool {
-        set {
-            if _playing != newValue {
-                _playing = newValue
-                
-                if newValue {
+    var playing: Bool = false {
+        didSet {
+            if playing != oldValue {
+                if playing {
                     
                     if let item = item {
                         if CMTimeCompare(item.currentTime(), item.duration) == 0 {
@@ -132,11 +130,8 @@ class VideoPlayerView: UIView {
                     delegate?.videoPlayerViewDidPause?(self)
                 }
                 
-                playButton?.selected = newValue
+                playButton?.selected = playing
             }
-        }
-        get {
-            return _playing
         }
     }
     
@@ -152,7 +147,7 @@ class VideoPlayerView: UIView {
             }
         } else if keyPath == "playbackLikelyToKeepUp" {
             if item.playbackLikelyToKeepUp {
-                if _playing && self.seeking == false {
+                if playing && self.seeking == false {
                     player.play()
                 }
                 spinner?.stopAnimating()
@@ -161,6 +156,8 @@ class VideoPlayerView: UIView {
             }
         }
     }
+    
+    private weak var timeObserver: AnyObject?
     
     func stopObservingTime(player: AVPlayer) {
         if let timeObserver = timeObserver {
@@ -208,14 +205,10 @@ class VideoPlayerView: UIView {
     
     var player: AVPlayer = AVPlayer()
     
-    private weak var timeObserver: AnyObject?
-    
     var url: NSURL? {
         didSet {
             if url != oldValue {
-                if _playing {
-                    playing = false
-                }
+                playing = false
                 if _item != nil {
                     _item = nil
                 }
@@ -261,7 +254,7 @@ class VideoPlayerView: UIView {
     }
     
     private func shouldSeekToTimeAtPoint(point: CGPoint) -> Bool {
-        return CGRectContainsPoint(CGRectInset(timeView.bounds, -6, -22), point) && _playing
+        return CGRectContainsPoint(CGRectInset(timeView.bounds, -6, -22), point) && playing
     }
     
     func tap(sender: UITapGestureRecognizer) {
@@ -289,7 +282,7 @@ class VideoPlayerView: UIView {
             case .Ended:
                 if seeking {
                     seeking = false
-                    if _playing {
+                    if playing {
                         player.play()
                     }
                 } else {
@@ -298,7 +291,7 @@ class VideoPlayerView: UIView {
             case .Cancelled, .Failed:
                 if seeking {
                     seeking = false
-                    if _playing {
+                    if playing {
                         player.play()
                     }
                 }

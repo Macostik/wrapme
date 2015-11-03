@@ -52,7 +52,11 @@
 "formatted_about_message" = "你正在使用%@\nv%@\n版本號 %@";
 "sign_out" = "登出";
 "sign_out_confirmation" = "確定要清除所有內容，並重設meWrap嗎？";
+<<<<<<< 33d0ec2bdba22315120cc52db3609eb5e6033ff3
 "downloading_photo" = "下載相片中。相片將會保存到此裝置的\"meWrap\"資料夾內。";
+=======
+"downloading_photo" = "下載相片中。相片將會保存到此裝置的\"%@\"資料夾內。";
+>>>>>>> change download candy verbiage
 "no_devices" = "未有註冊裝置";
 "terms_and_conditions" = "條款與使用規則";
 "formatted_wrap_unavailable" = "找不到\"%@\"。";
@@ -208,6 +212,7 @@
 "no_messages_today" = "今天沒有訊息。";
 "is_it_correct" = "正確嗎？";
 "confirm_your_details" = "確認個人資料";
+<<<<<<< 33d0ec2bdba22315120cc52db3609eb5e6033ff3
 "report_content" = "舉報";
 "why_reporting_contnet" = "為什麼你要舉報這相片或影片？";
 "content_is_spam_or_scam" = "內容是垃圾訊息或詐騙。";
@@ -237,3 +242,34 @@
 "notify_about_new_media" = "當有新相片或影片時通知我";
 "publishing_in_progress" = "內容發佈中，請稍後再試。";
 "formatted_upload_video_duration_limit" = "影片長度最長為為％i秒。";
+=======
+"report_content" = "Report Content";
+"why_reporting_contnet" = "Why are you reporting this content?";
+"content_is_spam_or_scam" = "The content is spam or a scam";
+"content_people_risk" = "The content puts people at risk";
+"self_harm" = "Self-harm";
+"harassment_or_bullying" = "Harassment or bullying";
+"drug_use" = "Drug use";
+"content_shouldn't_mewrap" = "The content shouldn't be on meWrap";
+"nudity_or_pornography" = "Nudity or pornography";
+"graphic_violence" = "Graphic violence";
+"hate_speech_or_symbol" = "Hate speech or symbol";
+"intellectual_property_violation" = "Intellectual property violation";
+"thank_you" = "Thank you";
+"thank_you_for_report" = "Thank you for you report. We will remove this content if it violates our community guidelines.";
+"video_suggestion" = "Hold for video, tap for photo";
+"slide_to_cancel" = "< Slide to cancel";
+"comment_limit" = "Please limit the comment length to 200 words.";
+"delete_video_confirmation" = "Are you sure you want to delete the video?";
+"media" = "Media";
+"video_is_uploading" = "Uploading the video now. Please wait.";
+"video_deleted" = "The video was deleted.";
+"video_unavailable" = "Video not found.";
+"downloading_video" = "Downloading the video now. It'll be in \"%@\" album momentarily.";
+"formatted_video_by" = "Video by %@";
+"no_video_to_upload" = "No video to be uploaded.";
+"notify_about_new_media" = "Notify me when new media is added.";
+"media" = "Media";
+"publishing_in_progress" = "Publishing in progress. Please try again later.";
+"formatted_upload_video_duration_limit" = "This video is too long, duration is limited up to %i seconds.";
+>>>>>>> change download candy verbiage

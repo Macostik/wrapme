@@ -48,8 +48,6 @@
 
 - (void)setCandy:(WLCandy *)candy {
     _candy = candy;
-    self.downloadingMediaLabel.text = [NSString stringWithFormat:[candy messageAppearanceByCandyType:@"downloading_video"
-                                                                                                 and:@"downloading_photo"], WLAlbumName];
     [[WLCandy notifier] addReceiver:self];
 }
 

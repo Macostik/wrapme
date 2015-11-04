@@ -168,6 +168,7 @@
     NSString *outputPath = [NSString stringWithFormat:@"%@/Documents/%@.mp4", NSHomeDirectory(), GUID()];
     session.outputFileType = AVFileTypeMPEG4;
     session.outputURL = [NSURL fileURLWithPath:outputPath];
+    session.shouldOptimizeForNetworkUse = YES;
     self.videoExportSession = session;
     [session exportAsynchronouslyWithCompletionHandler:^{
         weakSelf.videoExportSession = nil;
@@ -190,6 +191,7 @@
         NSString *path = [NSString stringWithFormat:@"%@/Documents/%@.mp4", NSHomeDirectory(), GUID()];
         exportSession.outputFileType = AVFileTypeMPEG4;
         exportSession.outputURL = [NSURL fileURLWithPath:path];
+        exportSession.shouldOptimizeForNetworkUse = YES;
         [exportSession exportAsynchronouslyWithCompletionHandler:^{
             weakSelf.videoExportSession = nil;
             run_in_main_queue(^{

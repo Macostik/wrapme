@@ -415,7 +415,7 @@
             } completion:^{
                 AVCaptureTorchMode torchMode = (AVCaptureTorchMode)weakSelf.flashMode;
                 [weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
-                    device.videoZoomFactor = _zoomScale;
+                    device.videoZoomFactor = Smoothstep(1, MIN(8, device.activeFormat.videoMaxZoomFactor), _zoomScale);
                     if ([device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
                         [device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
                     }
@@ -466,7 +466,7 @@
                 }
             } completion:^{
                 [weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
-                    device.videoZoomFactor = _zoomScale;
+                    device.videoZoomFactor = Smoothstep(1, MIN(8, device.activeFormat.videoMaxZoomFactor), _zoomScale);
                     if ([device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
                         [device setFocusMode:AVCaptureFocusModeAutoFocus];
                     }

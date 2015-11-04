@@ -25,8 +25,8 @@ class AssetCell: StreamReusableView {
         let options = PHImageRequestOptions()
         options.synchronous = false
         options.networkAccessAllowed = true
-        options.resizeMode = .Fast
-        options.deliveryMode = .FastFormat
+        options.resizeMode = .Exact
+        options.deliveryMode = .HighQualityFormat
         return options
     }()
     
@@ -36,6 +36,7 @@ class AssetCell: StreamReusableView {
             let thumbnail = CGSize(width: bounds.width * scale, height: bounds.height * scale)
             let options = AssetCell.requestImageOptions
             requestID = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: thumbnail, contentMode: .AspectFill, options: options, resultHandler: {[weak self] (image, info) -> Void in
+                self?.requestID = nil
                 self?.imageView.image = image
             })
             videoIndicator.hidden = asset.mediaType != .Video

@@ -60,6 +60,10 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
     self.tableFooterView = self.tableView.tableFooterView;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self fetchContributions];
+}
+
 - (void)setState:(WLTodayViewState)state {
     _state = state;
     

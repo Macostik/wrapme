@@ -180,14 +180,18 @@
     WLEntryDescriptor *descriptor = self.descriptor;
     NSDictionary *dictionary = descriptor.data;
     WLNotificationType type = self.type;
-    WLEntry *entry = nil;
+    WLEntry *entry = [descriptor.entryClass entry:descriptor.identifier uploadIdentifier:descriptor.uploadIdentifier];
     if (dictionary) {
         if (type == WLNotificationUserUpdate) {
             [[WLAuthorization currentAuthorization] updateWithUserData:dictionary];
         }
-        entry = [descriptor.entryClass API_entry:dictionary];
-    } else {
-        entry = [descriptor.entryClass entry:descriptor.identifier uploadIdentifier:descriptor.uploadIdentifier];
+        if (type == WLNotificationCandyAdd && self.originatedByCurrentUser) {
+            WLAsset* oldPicture = [entry.picture copy];
+            [entry API_setup:dictionary];
+            [oldPicture cacheForPicture:entry.picture];
+        } else {
+            [entry API_setup:dictionary];
+        }
     }
     
     self.inserted = entry.inserted;

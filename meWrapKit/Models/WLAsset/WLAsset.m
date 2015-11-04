@@ -68,7 +68,9 @@
 
 - (void)cacheForPicture:(WLAsset *)picture {
     WLImageCache *cache = [WLImageCache cache];
-    [cache setImageAtPath:self.original withUrl:picture.original];
+    if (![self.original hasPrefix:@"mp4"]) {
+        [cache setImageAtPath:self.original withUrl:picture.original];
+    }
     [cache setImageAtPath:self.small withUrl:picture.small];
     [cache setImageAtPath:self.large withUrl:picture.large];
 }

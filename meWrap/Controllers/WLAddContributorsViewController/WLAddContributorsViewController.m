@@ -150,9 +150,12 @@
     return @[self.sectionHeaderMetrics];
 }
 
-- (void)streamView:(StreamView * __nonnull)streamView didLayoutItem:(StreamItem * __nonnull)item {
-    WLArrangedAddressBookGroup *group = [self.filteredAddressBook.groups tryAt:item.position.section];
-    item.entry = [group.records tryAt:item.position.index];
+- (id  _Nullable (^)(StreamItem * _Nonnull))streamView:(StreamView *)streamView entryBlockForItem:(StreamItem *)item {
+    __weak typeof(self)weakSelf = self;
+    return ^id (StreamItem *item) {
+        WLArrangedAddressBookGroup *group = [weakSelf.filteredAddressBook.groups tryAt:item.position.section];
+        return [group.records tryAt:item.position.index];
+    };
 }
 
 - (NSArray * __nonnull)streamView:(StreamView * __nonnull)streamView metricsAt:(StreamPosition * __nonnull)position {

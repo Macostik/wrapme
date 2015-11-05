@@ -186,8 +186,14 @@
     return self.numberOfItemsBlock ? self.numberOfItemsBlock(self) : [self.items count];
 }
 
+- (id  _Nullable (^)(StreamItem * _Nonnull))streamView:(StreamView *)streamView entryBlockForItem:(StreamItem *)item {
+    __weak typeof(self)weakSelf = self;
+    return ^id (StreamItem *item) {
+        return [weakSelf.items tryAt:item.position.index];
+    };
+}
+
 - (void)streamView:(StreamView*)streamView didLayoutItem:(StreamItem * __nonnull)item {
-    item.entry = [self.items tryAt:item.position.index];
     if (self.didLayoutItemBlock) {
         self.didLayoutItemBlock(item);
     }

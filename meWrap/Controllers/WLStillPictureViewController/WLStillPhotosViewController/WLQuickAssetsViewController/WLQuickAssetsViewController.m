@@ -41,11 +41,8 @@
         item.selected = [weakSelf selectAsset:entry];
     }];
     [metrics setPrepareAppearing:^(StreamItem *item, PHAsset *asset) {
-        item.view.exclusiveTouch = weakSelf.mode != WLStillPictureModeDefault;
-    }];
-    [self.dataSource setDidLayoutItemBlock:^(StreamItem *item) {
-        PHAsset *asset = item.entry;
         item.selected = [weakSelf.selectedAssets containsObject:asset.localIdentifier];
+        item.view.exclusiveTouch = weakSelf.mode != WLStillPictureModeDefault;
     }];
     
     [self.dataSource addMetrics:metrics];

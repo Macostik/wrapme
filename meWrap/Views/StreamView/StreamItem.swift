@@ -20,22 +20,35 @@ class StreamItem: NSObject {
     
     var column: Int = 0
     
-    var entry: AnyObject?
+    var entryBlock: (StreamItem -> AnyObject?)?
+    
+    private var _entry: AnyObject?
+    var entry: AnyObject? {
+        set {
+            _entry = newValue
+        }
+        get {
+            if _entry == nil {
+                _entry = entryBlock?(self)
+            }
+            return _entry
+        }
+    }
     
     weak var metrics: StreamMetrics?
     
     weak var view: StreamReusableView? {
         didSet {
-            if let view = self.view {
-                view.selected = self.selected
+            if let view = view {
+                view.selected = selected
             }
         }
     }
     
     var selected: Bool = false {
         didSet {
-            if let view = self.view {
-                view.selected = self.selected
+            if let view = view {
+                view.selected = selected
             }
         }
     }

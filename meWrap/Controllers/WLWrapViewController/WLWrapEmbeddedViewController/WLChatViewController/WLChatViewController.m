@@ -477,8 +477,11 @@ CGFloat WLMinTextViewWidth;
     return [self.chat.entries count];
 }
 
-- (void)streamView:(StreamView * __nonnull)streamView didLayoutItem:(StreamItem * __nonnull)item {
-    item.entry = [self.chat.entries tryAt:item.position.index];
+- (id  _Nullable (^)(StreamItem * _Nonnull))streamView:(StreamView *)streamView entryBlockForItem:(StreamItem *)item {
+    __weak typeof(self)weakSelf = self;
+    return ^id (StreamItem *item) {
+        return [weakSelf.chat.entries tryAt:item.position.index];
+    };
 }
 
 - (NSArray*)streamView:(StreamView*)streamView metricsAt:(StreamPosition*)position {

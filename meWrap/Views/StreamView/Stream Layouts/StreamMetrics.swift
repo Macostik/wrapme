@@ -95,7 +95,7 @@ class StreamMetrics: NSObject {
         if let view = reusableViews.first {
             reusableViews.remove(view)
             view.didDequeue()
-            return view;
+            return view
         }
         return loadView()
     }

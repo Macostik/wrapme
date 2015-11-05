@@ -16,24 +16,16 @@ class SquareGridLayout: StreamLayout {
     var spacing: CGFloat = 0
     
     override func prepareLayout() {
-        if let streamView = self.streamView, let delegate = streamView.delegate as? GridLayoutDelegate {
-            if let columns = delegate.streamView?(streamView, layoutNumberOfColumns: self) {
-                numberOfColumns = columns
-            } else {
-                numberOfColumns = 1;
-            }
+        if let sv = self.streamView, let delegate = sv.delegate as? GridLayoutDelegate {
+            numberOfColumns = delegate.streamView?(sv, layoutNumberOfColumns: self) ?? 1
             
-            if let s = delegate.streamView?(streamView, layoutSpacing: self) {
-                spacing = s
-            } else {
-                spacing = 0
-            }
+            spacing = delegate.streamView?(sv, layoutSpacing: self) ?? 0
             
             let num = CGFloat(numberOfColumns)
             if horizontal {
-                size = (streamView.frame.size.height - spacing * (num + 1)) / num
+                size = (sv.frame.height - spacing * (num + 1)) / num
             } else {
-                size = (streamView.frame.size.width - spacing * (num + 1)) / num
+                size = (sv.frame.width - spacing * (num + 1)) / num
             }
         }
     }

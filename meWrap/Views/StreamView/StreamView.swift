@@ -14,9 +14,11 @@ var StreamViewCommonLocksChanged: String = "StreamViewCommonLocksChanged"
 @objc protocol StreamViewDelegate: UIScrollViewDelegate {
     func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int
     
-    func streamView(streamView: StreamView, didLayoutItem item: StreamItem)
-    
     func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics]
+    
+    optional func streamView(streamView: StreamView, didLayoutItem item: StreamItem)
+    
+    optional func streamView(streamView: StreamView, entryBlockForItem item: StreamItem) -> (StreamItem -> AnyObject?)?
     
     optional func streamViewWillChangeContentSize(streamView: StreamView, newContentSize: CGSize)
     
@@ -165,28 +167,25 @@ class StreamView: UIScrollView {
         
         clear()
         
-        if let layout = self.layout, let delegate = self.delegate as? StreamViewDelegate {
-            
-            if let numberOfSections = delegate.streamViewNumberOfSections?(self) {
-                self.numberOfSections = numberOfSections
-            } else {
-                numberOfSections = 1
-            }
-            
-            layout.prepareLayout()
-            
-            addItems(delegate, layout: layout);
-            
-            if let item = rootItem {
-                layout.layoutItem(item)
-            }
-            
-            layout.finalizeLayout()
-            
-            delegate.streamViewDidLayout?(self)
-            
-            updateVisibility()
+        guard let layout = self.layout, let delegate = self.delegate as? StreamViewDelegate else {
+            return
         }
+        
+        numberOfSections = delegate.streamViewNumberOfSections?(self) ?? 1
+        
+        layout.prepareLayout()
+        
+        addItems(delegate, layout: layout);
+        
+        if let item = rootItem {
+            layout.layoutItem(item)
+        }
+        
+        layout.finalizeLayout()
+        
+        delegate.streamViewDidLayout?(self)
+        
+        updateVisibility()
     }
     
     func changeContentSize(newContentSize: CGSize) {
@@ -225,7 +224,8 @@ class StreamView: UIScrollView {
                 let metrics = delegate.streamView(self, metricsAt:index)
                 for itemMetrics in metrics {
                     if let item = addItem(layout, metrics: itemMetrics, position: index) {
-                        delegate.streamView(self, didLayoutItem: item)
+                        item.entryBlock = delegate.streamView?(self, entryBlockForItem: item)
+                        delegate.streamView?(self, didLayoutItem: item)
                     }
                 }
             }
@@ -246,15 +246,13 @@ class StreamView: UIScrollView {
             }
         }
         
-        if rootItem == nil {
-            if let placeholder = delegate.streamViewPlaceholderMetrics?(self) {
-                if horizontal {
-                    placeholder.size = self.fittingContentWidth - layout.offset
-                } else {
-                    placeholder.size = self.fittingContentHeight - layout.offset
-                }
-                addItem(layout, metrics:placeholder, position:StreamPosition(section: 0, index: 0))
+        if rootItem == nil, let placeholder = delegate.streamViewPlaceholderMetrics?(self) {
+            if horizontal {
+                placeholder.size = self.fittingContentWidth - layout.offset
+            } else {
+                placeholder.size = self.fittingContentHeight - layout.offset
             }
+            addItem(layout, metrics:placeholder, position:StreamPosition(section: 0, index: 0))
         }
     }
     

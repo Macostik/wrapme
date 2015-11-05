@@ -68,7 +68,9 @@
 
 - (void)cacheForPicture:(WLAsset *)picture {
     WLImageCache *cache = [WLImageCache cache];
-    if (![self.original hasPrefix:@"mp4"]) {
+    if ([self.original hasPrefix:@"mp4"]) {
+        [[NSFileManager defaultManager] removeItemAtPath:self.original error:NULL];
+    } else {
         [cache setImageAtPath:self.original withUrl:picture.original];
     }
     [cache setImageAtPath:self.small withUrl:picture.small];

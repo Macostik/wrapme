@@ -51,12 +51,12 @@ class SmartLabel : UILabel {
     func checkingType() {
         let detector = try! NSDataDetector(types: NSTextCheckingType.PhoneNumber.rawValue | NSTextCheckingType.Link.rawValue)
         let results = detector.matchesInString(self.text!, options: .ReportProgress, range: NSMakeRange(0, self.text!.characters.count))
-        let mutableText = NSMutableAttributedString(attributedString: self.attributedText!)
-        for result in results {
-            mutableText.addAttributes([NSForegroundColorAttributeName : self.tintColor], range: result.range)
-        }
-        self.attributedText = mutableText
         linkContainer.appendContentsOf(results)
+//                let mutableText = NSMutableAttributedString(attributedString: self.attributedText!)
+//                for result in results {
+//                    mutableText.addAttributes([NSForegroundColorAttributeName : self.tintColor], range: result.range)
+//                }
+//                self.attributedText = mutableText
     }
     
     func rectFlipped (rect : CGRect, bounds : CGRect) -> CGRect {
@@ -77,7 +77,7 @@ class SmartLabel : UILabel {
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
 //        let framesetter = CTFramesetterCreateWithAttributedString(self.attributedText!)
 //        var drawingRect = self.bounds
-//        let sz = CTFramesetterSuggestFrameSizeWithConstraints(framesetter,CFRangeMake(0,0), nil, CGSizeMake(drawingRect.size.width,CGFloat.max), nil)
+//        let sz = CTFramesetterSuggestFrameSizeWithConstraints(framesetter,CFRangeMake(0, 0), nil, CGSizeMake(drawingRect.size.width,CGFloat.max), nil)
 //        let delta = max(0 , ceil(sz.height - drawingRect.size.height)) + 10
 //        drawingRect.origin.y -= delta
 //        drawingRect.size.height += delta
@@ -103,10 +103,9 @@ class SmartLabel : UILabel {
 //            let lineRectFlipped = typographicBoundsAsRect(_line as! CTLine, lineOrigin: lineOriginFlipped)
 //            var lineRect = rectFlipped(lineRectFlipped, bounds: rectFlipped(drawingRect, bounds: self.bounds))
 //            lineRect = CGRectInset(lineRect, 0, -kVMargin);
-//            let stringRange =  CTFrameGetStringRange(lineRect as! CTFrame)
 //            if (CGRectContainsPoint(lineRect, point))
 //            {
-//                print (">>self - \(stringRange) - \(lineRect)- \(lineOriginFlipped)<<")
+//                print (">>self - \(lineRect)- \(lineRectFlipped)<<")
 //                let relativePoint = CGPointMake(point.x-CGRectGetMinX(lineRect),
 //                    point.y-CGRectGetMinY(lineRect))
 //                var idx = CTLineGetStringIndexForPosition(_line as! CTLine, relativePoint)
@@ -130,57 +129,90 @@ class SmartLabel : UILabel {
         
         let lines = CTFrameGetLines(textFrame)
         let linesCount = CFArrayGetCount(lines)
-        var finalLineOrigin = [CGPoint](count:linesCount, repeatedValue: CGPointZero)
-        let finalLineIdx = CFArrayGetCount(lines) - 1;
-        CTFrameGetLineOrigins(textFrame, CFRangeMake(finalLineIdx, 1), &finalLineOrigin)
-        
-        var glyphPosition: CGPoint = CGPointZero
-        let line = CFArrayGetValueAtIndex(lines, finalLineIdx)
-        let glyphRuns = unsafeBitCast(line, AnyObject.self) as! CTLine
-        let runs = CTLineGetGlyphRuns(glyphRuns)
-       
-        let finalRun = CFArrayGetValueAtIndex(runs, CFArrayGetCount(runs) - 1)
-        let _finalRuns = unsafeBitCast(finalRun, AnyObject.self) as! CTRun
-        let lastGlyphIdx = CTRunGetGlyphCount(_finalRuns) - 1;
-        CTRunGetPositions(_finalRuns, CFRangeMake(lastGlyphIdx, 1), &glyphPosition)
-        
-        var glyphBounds = [CGRect](count:1, repeatedValue: CGRectZero)
-        let runAttributes = CTRunGetAttributes(_finalRuns)
-        let font = CFDictionaryGetValue(runAttributes, unsafeAddressOf(kCTFontAttributeName))
-        let _font = unsafeBitCast(font, AnyObject.self) as! CTFont
-        let string = (self.attributedText?.string)! as NSString
-       
-        var glyphs = Array<CGGlyph>(count: (self.attributedText?.string.characters.count)!, repeatedValue: 0)
-        var chars = [UniChar]()
-        for checkingRestult in linkContainer {
-            var chars = Array<CGGlyph>(count: checkingRestult.range.length , repeatedValue: 0)
-            string.getCharacters(&chars, range: checkingRestult.range)
-             print (">>self - \(chars)<<")
+        for var counter : Int = 0; counter < linesCount; counter++ {
+            let line = CFArrayGetValueAtIndex(lines, counter)
+            let _line = unsafeBitCast(line, AnyObject.self) as! CTLine
+            let runs = CTLineGetGlyphRuns(_line)
+            let finalRun = CFArrayGetValueAtIndex(runs, CFArrayGetCount(runs) - 1)
+            let _finalRuns = unsafeBitCast(finalRun, AnyObject.self) as! CTRun
+            let runRange = CTRunGetStringRange(_finalRuns)
+            let _runRange = NSMakeRange(runRange.location, runRange.length)
+             for checkingRestult in linkContainer {
+                let compareRange = NSIntersectionRange(_runRange, checkingRestult.range)
+                if  (compareRange.location > 0 && compareRange.length > 0) {
+    
+                    let runAttributes = CTRunGetAttributes(_finalRuns)
+                    let font = CFDictionaryGetValue(runAttributes, unsafeAddressOf(kCTFontAttributeName))
+                    let _font = unsafeBitCast(font, AnyObject.self) as! CTFont
+                    
+                    let string = (self.attributedText?.string)! as NSString
+                    var glyphs = Array<CGGlyph>(count: (self.attributedText?.string.characters.count)!, repeatedValue: 0)
+                    var chars = Array<UniChar>(count: checkingRestult.range.length, repeatedValue: 0)
+                    string.getCharacters(&chars, range: checkingRestult.range)
+                    CTFontGetGlyphsForCharacters(_font, &chars, &glyphs, chars.count)
+                    var glyphBounds = [CGRect](count:1, repeatedValue: CGRectZero)
+                    CTFontGetBoundingRectsForGlyphs(_font, .Default , &glyphs, &glyphBounds, 1)
+                    var idx = CTLineGetStringIndexForPosition(_line as! CTLine, point)
+                    var offset = CTLineGetOffsetForStringIndex(_line as! CTLine, idx, nil)
+                    
+                    let finalLine = CFArrayGetValueAtIndex(lines, CFIndex(counter))
+                    let _finalLine = unsafeBitCast(finalLine, AnyObject.self) as! CTLine
+                    let lineBounds = CTLineGetBoundsWithOptions(_finalLine, [.IncludeLanguageExtents])
+                    let finalRect = CGRectMake(lineBounds.origin.x, CGFloat(counter) * lineBounds.height, lineBounds.width, lineBounds.height)
+                     print (">>self \(offset)<<")
+                    if (CGRectContainsPoint(finalRect, point)) {
+                        print("Great!!!")
+                    }
+                }
+            }
         }
         
-       
-        for index in 25..<30 {
-            
-            chars.append(((self.attributedText?.string)! as NSString).characterAtIndex(index))
-            
-        }
-        let gotGlyphs = CTFontGetGlyphsForCharacters(_font, &chars, &glyphs, chars.count)
-//        CTRunGetGlyphs(_finalRuns, CFRangeMake(lastGlyphIdx, 1), &glyph)
-        CTFontGetBoundingRectsForGlyphs(_font, .Default , &glyphs[25], &glyphBounds, 1)
         
-        let finalLine = CFArrayGetValueAtIndex(lines, finalLineIdx)
-        let _finalLine = unsafeBitCast(finalLine, AnyObject.self) as! CTLine
-        let lineBounds = CTLineGetBoundsWithOptions(_finalLine, [.IncludeLanguageExtents])
-        
-        let desiredRect = CGRectMake(
-            CGRectGetMinX(self.bounds) + finalLineOrigin[0].x + glyphPosition.x + CGRectGetMinX(glyphBounds[0]),
-            CGRectGetMinY(self.bounds) + (CGRectGetHeight(self.bounds) - (finalLineOrigin[0].y + CGRectGetMaxY(lineBounds))),
-            CGRectGetWidth(glyphBounds[0]),
-            CGRectGetHeight(lineBounds)
-        )
+//        var glyphPosition: CGPoint = CGPointZero
+//        
+//       
+//        
+//        let lastGlyphIdx = CTRunGetGlyphCount(_finalRuns) - 1;
+//        
+//        CTRunGetPositions(_finalRuns, CFRangeMake(lastGlyphIdx, 1), &glyphPosition)
+//        
+//        var glyphBounds = [CGRect](count:1, repeatedValue: CGRectZero)
+//        let runAttributes = CTRunGetAttributes(_finalRuns)
+//        let font = CFDictionaryGetValue(runAttributes, unsafeAddressOf(kCTFontAttributeName))
+//        let _font = unsafeBitCast(font, AnyObject.self) as! CTFont
+//        let string = (self.attributedText?.string)! as NSString
+//       
+//        var glyphs = Array<CGGlyph>(count: (self.attributedText?.string.characters.count)!, repeatedValue: 0)
+//        var chars = [UniChar]()
+//        for checkingRestult in linkContainer {
+//            var chars = Array<CGGlyph>(count: checkingRestult.range.length , repeatedValue: 0)
+//            string.getCharacters(&chars, range: checkingRestult.range)
+//             print (">>self - \(chars)<<")
+//        }
+//        
+//       
+//        for index in 25..<30 {
+//            
+//            chars.append(((self.attributedText?.string)! as NSString).characterAtIndex(index))
+//            
+//        }
+//        let gotGlyphs = CTFontGetGlyphsForCharacters(_font, &chars, &glyphs, chars.count)
+////        CTRunGetGlyphs(_finalRuns, CFRangeMake(lastGlyphIdx, 1), &glyph)
+//        CTFontGetBoundingRectsForGlyphs(_font, .Default , &glyphs[25], &glyphBounds, 1)
+//        
+//        let finalLine = CFArrayGetValueAtIndex(lines, finalLineIdx)
+//        let _finalLine = unsafeBitCast(finalLine, AnyObject.self) as! CTLine
+//        let lineBounds = CTLineGetBoundsWithOptions(_finalLine, [.IncludeLanguageExtents])
+//        
+//        let desiredRect = CGRectMake(
+//            CGRectGetMinX(self.bounds) + finalLineOrigin[0].x + glyphPosition.x + CGRectGetMinX(glyphBounds[0]),
+//            CGRectGetMinY(self.bounds) + (CGRectGetHeight(self.bounds) - (finalLineOrigin[0].y + CGRectGetMaxY(lineBounds))),
+//            CGRectGetWidth(glyphBounds[0]),
+//            CGRectGetHeight(lineBounds)
+//        )
    
     
-        print (">>self - \(glyphs) <<")
+        
         
         return true
     }

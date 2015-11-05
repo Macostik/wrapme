@@ -231,6 +231,7 @@
 "video_deleted" = "已成功刪除影片。";
 "video_unavailable" = "找不到影片。";
 "downloading_video" = "下載影片中。影片將會保存到此裝置的\"%@\"資料夾內。";
+"downloading_media" = "Downloading the media now. It'll be in \"%@\" album momentarily.";
 "formatted_video_by" = "拍攝者 %@";
 "editing_video_internet_connection_error" = "找不到網絡連線，未能下載影片進行編輯。";
 "no_video_to_upload" = "請拍攝新影片或從圖庫中選擇影片上傳。";

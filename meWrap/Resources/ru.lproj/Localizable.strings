@@ -232,6 +232,7 @@
 "video_deleted" = "Видео было успешно удалено.";
 "video_unavailable" = "Это видео больше не доступно.";
 "downloading_video" = "Идет загрузка видео. Она появится в альбоме \"%@\"";
+"downloading_media" = "Downloading the media now. It'll be in \"%@\" album momentarily.";
 "formatted_video_by" = "Разместил %@";
 "no_video_to_upload" = "Нет видео, которые можно загрузить.";
 "notify_about_new_media" = "Напомнить когда будет добавлен новый медиа контент.";

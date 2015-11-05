@@ -231,6 +231,7 @@
 "video_deleted" = "The video was deleted.";
 "video_unavailable" = "Video not found.";
 "downloading_video" = "Downloading the video now. It'll be in \"%@\" album momentarily.";
+"downloading_media" = "Downloading the media now. It'll be in \"%@\" album momentarily.";
 "formatted_video_by" = "Video by %@";
 "editing_video_internet_connection_error" = "No internet connection. Can't download the video for editing.";
 "no_video_to_upload" = "No video to be uploaded.";

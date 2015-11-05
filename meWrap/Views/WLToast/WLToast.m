@@ -260,8 +260,6 @@
     if (candy.valid) {
         [self showWithMessage:[NSString stringWithFormat:[candy messageAppearanceByCandyType:@"downloading_video"
                                                                                          and:@"downloading_photo"], WLAlbumName]];
-    } else {
-        [self showWithMessage:@"no_presenting_data"];
     }
 }
 

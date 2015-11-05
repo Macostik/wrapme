@@ -116,7 +116,7 @@
     }]];
     
     [publicDataSource.loadingMetrics setSizeAt:^CGFloat(StreamPosition * position, StreamMetrics * metrics) {
-        return streamView.height - weakSelf.publicWrapsHeaderView.height;
+        return streamView.height - weakSelf.publicWrapsHeaderView.height - 48;
     }];
     
     [self.dataSource setRefreshable];

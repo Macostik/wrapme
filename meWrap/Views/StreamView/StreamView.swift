@@ -249,9 +249,9 @@ class StreamView: UIScrollView {
         if rootItem == nil {
             if let placeholder = delegate.streamViewPlaceholderMetrics?(self) {
                 if horizontal {
-                    placeholder.size = self.fittingContentWidth
+                    placeholder.size = self.fittingContentWidth - layout.offset
                 } else {
-                    placeholder.size = self.fittingContentHeight
+                    placeholder.size = self.fittingContentHeight - layout.offset
                 }
                 addItem(layout, metrics:placeholder, position:StreamPosition(section: 0, index: 0))
             }

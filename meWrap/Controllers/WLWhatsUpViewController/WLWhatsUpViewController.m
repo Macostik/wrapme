@@ -22,7 +22,6 @@
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 @property (strong, nonatomic) IBOutlet StreamMetrics *commentMetrics;
 @property (strong, nonatomic) IBOutlet StreamMetrics *candyMetrics;
-@property (weak, nonatomic) IBOutlet SmartLabel *smartLabel;
 
 @end
 
@@ -31,8 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     __weak typeof(self)weakSelf = self;
-    
-    self.smartLabel.text = @"The information +380957115540 contained in this web site is subject to change without notice. Copyright 1997-2009 Apple Inc. All rights reservedddd d apple.com. Apple Inc., 1 Infinite Loop, Cupertino, CA 95014d";
     
     [self.candyMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
         UIFont *fontNormal = [UIFont fontNormal];

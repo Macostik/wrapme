@@ -171,7 +171,7 @@ CGFloat WLMinTextViewWidth;
     }
     
     [[WLMessage notifier] addReceiver:self];
-    [[WLFontPresetter presetter] addReceiver:self];
+    [[WLFontPresetter defaultPresetter] addReceiver:self];
     
     [self.streamView.panGestureRecognizer addTarget:self action:@selector(dragging:)];
     

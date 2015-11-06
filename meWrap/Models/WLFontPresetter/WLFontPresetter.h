@@ -20,6 +20,6 @@
 
 @property (readonly, nonatomic) NSString* contentSizeCategory;
 
-+ (instancetype)presetter;
++ (instancetype)defaultPresetter;
 
 @end

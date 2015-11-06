@@ -46,7 +46,7 @@
     self.verificationEmailTextView.textContainer.lineFragmentPadding = 0;
     [self updateEmailConfirmationView];
     [[WLUser notifier] addReceiver:self];
-    [[WLFontPresetter presetter] addReceiver:self];
+    [[WLFontPresetter defaultPresetter] addReceiver:self];
 }
 
 - (void)viewDidLayoutSubviews {

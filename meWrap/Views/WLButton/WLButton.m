@@ -195,7 +195,7 @@
 - (void)setPreset:(NSString *)preset {
     _preset = preset;
     self.titleLabel.font = [self.titleLabel.font fontWithPreset:preset];
-    [[WLFontPresetter presetter] addReceiver:self];
+    [[WLFontPresetter defaultPresetter] addReceiver:self];
 }
 
 static CGFloat minTouchSize = 44;

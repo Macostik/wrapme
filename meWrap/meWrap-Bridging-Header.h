@@ -8,3 +8,5 @@
 #import "WLEntryKeys.h"
 #import "WLEntryNotifier.h"
 #import "WLEntry+Containment.h"
+#import "WLLabel.h"
+#import "WLFontPresetter.h"

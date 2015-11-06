@@ -10,7 +10,7 @@
 
 @implementation WLFontPresetter
 
-+ (instancetype)presetter {
++ (instancetype)defaultPresetter {
     static id instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

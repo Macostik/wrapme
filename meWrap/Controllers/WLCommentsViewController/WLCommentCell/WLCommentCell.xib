@@ -45,7 +45,7 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <label clipsSubviews="YES" contentMode="left" placeholderIntrinsicWidth="221" placeholderIntrinsicHeight="34" text="Text" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="QTr-oh-YKY" customClass="WLAttributedLabel">
+                <label clipsSubviews="YES" contentMode="left" placeholderIntrinsicWidth="221" placeholderIntrinsicHeight="34" text="Text" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="QTr-oh-YKY" customClass="SmartLabel" customModule="meWrap" customModuleProvider="target">
                     <rect key="frame" x="72" y="33" width="212" height="34"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

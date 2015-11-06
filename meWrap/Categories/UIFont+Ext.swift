@@ -85,7 +85,7 @@ extension UIFont {
     }
     
     func fontWithPreset(preset: String) -> UIFont? {
-        return UIFont(name: fontName, size: UIFont.sizeWithPreset(preset))
+        return UIFont.systemFontOfSize(UIFont.sizeWithPreset(preset))
     }
 }
 

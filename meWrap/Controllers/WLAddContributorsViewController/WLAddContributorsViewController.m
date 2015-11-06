@@ -92,7 +92,7 @@
     if (cached) {
         [[WLAddressBook addressBook] updateCachedRecords];
     }
-    [[WLFontPresetter presetter] addReceiver:self];
+    [[WLFontPresetter defaultPresetter] addReceiver:self];
 }
 
 - (void)filterContacts {

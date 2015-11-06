@@ -56,7 +56,6 @@
 @property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *emailConfirmationLayoutPrioritizer;
 @property (weak, nonatomic) IBOutlet UIButton *photoButton;
-
 @property (weak, nonatomic) WLRecentCandiesView *candiesView;
 
 @property (nonatomic) BOOL createWrapTipHidden;

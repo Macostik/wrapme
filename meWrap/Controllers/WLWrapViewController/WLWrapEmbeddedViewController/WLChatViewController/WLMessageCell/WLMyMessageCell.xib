@@ -19,7 +19,7 @@
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i9a-dj-YI8">
                     <rect key="frame" x="200" y="0.0" width="104" height="40"/>
                     <subviews>
-                        <label clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="244" verticalCompressionResistancePriority="744" text="message text" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="JR4-Ry-U5Q" customClass="WLAttributedLabel">
+                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="244" verticalCompressionResistancePriority="744" text="message text" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="JR4-Ry-U5Q" customClass="SmartLabel" customModule="meWrap" customModuleProvider="target">
                             <rect key="frame" x="6" y="2" width="92" height="18"/>
                             <animations/>
                             <color key="backgroundColor" red="0.95294117647058818" green="0.45882352941176469" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>

@@ -32,7 +32,7 @@
 - (void)setPreset:(NSString *)preset {
     _preset = preset;
     self.font = [self.font fontWithPreset:preset];
-    [[WLFontPresetter presetter] addReceiver:self];
+    [[WLFontPresetter defaultPresetter] addReceiver:self];
 }
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {

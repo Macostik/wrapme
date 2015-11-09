@@ -14,16 +14,17 @@ class SmartLabel : WLLabel, UIActionSheetDelegate {
     var bufferAttributedString: NSAttributedString?
     var _textColor: UIColor?
     
-    override var text: String! {
+    override var text: String? {
         get { return super.text }
         set {
-            let wordRange = NSMakeRange(0, newValue.characters.count)
-            let attributedText = NSMutableAttributedString(string: newValue)
+            let wordRange = NSMakeRange(0, newValue!.characters.count)
+            let attributedText = NSMutableAttributedString(string: newValue!)
             attributedText.addAttribute(NSForegroundColorAttributeName , value: _textColor!, range:wordRange)
             attributedText.addAttribute(NSFontAttributeName , value: self.font, range:wordRange)
             
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = self.textAlignment
+            paragraphStyle.lineBreakMode = self.lineBreakMode
             attributedText.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range: wordRange)
             
             self.attributedText = attributedText
@@ -48,11 +49,10 @@ class SmartLabel : WLLabel, UIActionSheetDelegate {
     
     func setup () {
         self.userInteractionEnabled = true
-         addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tap:"))
     }
     
     func checkingType() {
-        let detector = try! NSDataDetector(types: NSTextCheckingType.PhoneNumber.rawValue | NSTextCheckingType.Link.rawValue)
+        let detector = try! NSDataDetector(types: NSTextCheckingType.Link.rawValue)
         let results = detector.matchesInString(self.text!, options: .ReportProgress, range: NSMakeRange(0, self.text!.characters.count))
         linkContainer.appendContentsOf(results)
         let mutableText = NSMutableAttributedString(attributedString: self.attributedText!)
@@ -63,9 +63,10 @@ class SmartLabel : WLLabel, UIActionSheetDelegate {
         self.attributedText = mutableText
     }
     
-    func tap(sender: UITapGestureRecognizer) {
-        let point = sender.locationInView(self)
-        if (!CGRectContainsPoint(self.bounds, point)) { return }
+    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+        if  (!CGRectContainsPoint(self.bounds, point)) {
+            return false
+        }
         let framesetter = CTFramesetterCreateWithAttributedString(self.bufferAttributedString!)
         let drawingPath = CGPathCreateWithRect(self.bounds, nil)
         let textFrame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, (self.attributedText?.string.characters.count)!), drawingPath, nil)
@@ -94,10 +95,12 @@ class SmartLabel : WLLabel, UIActionSheetDelegate {
                             let urlString = "http://" + NSString(string: (self.bufferAttributedString?.string)!).substringWithRange(compareRange)
                             let url = NSURL(string: urlString)
                             UIApplication.sharedApplication().openURL(url!);
+                            return true
                         }
                     }
                 }
             }
         }
+        return false
     }
 }

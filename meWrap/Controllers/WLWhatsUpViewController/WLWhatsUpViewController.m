@@ -32,8 +32,8 @@
     __weak typeof(self)weakSelf = self;
     
     [self.candyMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
-        UIFont *fontNormal = [UIFont fontNormal];
-        UIFont *fontSmall = [UIFont fontSmall];
+        UIFont *fontNormal = [UIFont lightFontNormal];
+        UIFont *fontSmall = [UIFont lightFontSmall];
         return 2*floorf(fontNormal.lineHeight) + floorf(fontSmall.lineHeight) + WLPaddingCell;
     }];
     

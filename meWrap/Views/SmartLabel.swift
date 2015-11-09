@@ -8,11 +8,12 @@
 
 import Foundation
 
-class SmartLabel : WLLabel, UIActionSheetDelegate {
+class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate {
   
     var linkContainer = [NSTextCheckingResult]()
     var bufferAttributedString: NSAttributedString?
     var _textColor: UIColor?
+    var compareRange: NSRange?
     
     override var text: String? {
         get { return super.text }
@@ -49,6 +50,9 @@ class SmartLabel : WLLabel, UIActionSheetDelegate {
     
     func setup () {
         self.userInteractionEnabled = true
+        let longPress = UILongPressGestureRecognizer(target: self, action: "lognPress:")
+        longPress.delegate = self
+        addGestureRecognizer(longPress)
     }
     
     func checkingType() {
@@ -63,10 +67,9 @@ class SmartLabel : WLLabel, UIActionSheetDelegate {
         self.attributedText = mutableText
     }
     
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        if  (!CGRectContainsPoint(self.bounds, point)) {
-            return false
-        }
+    func lognPress(sender: UILongPressGestureRecognizer) {
+        let point = sender.locationInView(self)
+        if (!CGRectContainsPoint(self.bounds, point)) { return }
         let framesetter = CTFramesetterCreateWithAttributedString(self.bufferAttributedString!)
         let drawingPath = CGPathCreateWithRect(self.bounds, nil)
         let textFrame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, (self.attributedText?.string.characters.count)!), drawingPath, nil)
@@ -95,12 +98,14 @@ class SmartLabel : WLLabel, UIActionSheetDelegate {
                             let urlString = "http://" + NSString(string: (self.bufferAttributedString?.string)!).substringWithRange(compareRange)
                             let url = NSURL(string: urlString)
                             UIApplication.sharedApplication().openURL(url!);
-                            return true
                         }
                     }
                 }
             }
         }
-        return false
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        return gestureRecognizer is UILongPressGestureRecognizer && !self.linkContainer.isEmpty
     }
 }

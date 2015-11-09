@@ -17,7 +17,7 @@
 #import "WLWhatsUpSet.h"
 #import "WLWhatsUpEvent.h"
 
-@interface WLWhatsUpViewController () <WLEntryNotifyReceiver>
+@interface WLWhatsUpViewController () <WLEntryNotifyReceiver, WLWhatsUpSetBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 @property (strong, nonatomic) IBOutlet StreamMetrics *commentMetrics;
@@ -61,6 +61,7 @@
     [[WLWrap notifier] addReceiver:self];
     
     self.dataSource.items = [WLWhatsUpSet sharedSet];
+    [[WLWhatsUpSet sharedSet].broadcaster addReceiver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -74,6 +75,12 @@
 
 - (IBAction)back:(id)sender {
     [self.navigationController popViewControllerAnimated:NO];
+}
+
+// MARK: - WLWhatsUpSetBroadcastReceiver
+
+- (void)whatsUpBroadcaster:(WLBroadcaster *)broadcaster updated:(WLWhatsUpSet *)set {
+    self.dataSource.items = [WLWhatsUpSet sharedSet];
 }
 
 @end

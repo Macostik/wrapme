@@ -86,10 +86,12 @@ extension UIFont {
     
     func fontWithPreset(preset: String) -> UIFont? {
         switch self.fontName {
+        case let fontName where fontName.hasSuffix("Regular"):
+            return UIFont.regularFontWithPreset(preset)
         case let fontName where fontName.hasSuffix("Light"):
             return UIFont.lightFontWithPreset(preset)
         default:
-             return UIFont.regularFontWithPreset(preset)
+            return UIFont(name: fontName, size: UIFont.sizeWithPreset(preset))
         }
     }
 }

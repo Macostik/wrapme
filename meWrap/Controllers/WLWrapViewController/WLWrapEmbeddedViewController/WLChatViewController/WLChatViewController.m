@@ -223,15 +223,38 @@ CGFloat WLMinTextViewWidth;
     self.streamView.contentInset = self.streamView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, bottom, 0);
 }
 
+- (void)keyboardWillShow:(WLKeyboard *)keyboard {
+    [super keyboardWillShow:keyboard];
+    __weak typeof(self)weakSelf = self;
+    [keyboard performAnimation:^{
+        weakSelf.streamView.transform = CGAffineTransformMakeTranslation(0, -keyboard.height);
+    }];
+}
+
 - (void)keyboardDidShow:(WLKeyboard *)keyboard {
     [super keyboardDidShow:keyboard];
     [UIView performWithoutAnimation:^{
+        self.streamView.transform = CGAffineTransformIdentity;
         [self updateInsets:self.typingView.hidden];
+        self.streamView.contentOffset = CGPointMake(0, MIN(self.streamView.maximumContentOffset.y, self.streamView.contentOffset.y + keyboard.height));
     }];
 }
 
 - (void)keyboardWillHide:(WLKeyboard *)keyboard {
     [super keyboardWillHide:keyboard];
+    [UIView performWithoutAnimation:^{
+        CGFloat height = MAX(0, self.streamView.contentOffset.y - keyboard.height);
+        self.streamView.transform = CGAffineTransformMakeTranslation(0, height - self.streamView.contentOffset.y);
+        [self.streamView trySetContentOffset:CGPointMake(0, height)];
+    }];
+    __weak typeof(self)weakSelf = self;
+    [keyboard performAnimation:^{
+        weakSelf.streamView.transform = CGAffineTransformIdentity;
+    }];
+}
+
+- (void)keyboardDidHide:(WLKeyboard *)keyboard {
+    [super keyboardDidHide:keyboard];
     [UIView performWithoutAnimation:^{
         [self updateInsets:self.typingView.hidden];
     }];

@@ -41,7 +41,7 @@
     self.height = keyboardSize.height;
     self.duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     self.curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    self.isShow = self.height != 0;
+    self.isShown = YES;
 	[self broadcast:@selector(keyboardWillShow:)];
 }
 
@@ -61,11 +61,9 @@
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification {
-    self.height = 0;
     NSDictionary *userInfo = [notification userInfo];
     self.duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     self.curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    self.isShow = self.height != 0;
 	[self broadcast:@selector(keyboardWillHide:)];
 }
 
@@ -73,6 +71,7 @@
     self.height = 0;
     self.duration = 0;
     self.curve = 0;
+    self.isShown = NO;
 	[self broadcast:@selector(keyboardDidHide:)];
     [self.tapGestureRecognizer.view removeGestureRecognizer:self.tapGestureRecognizer];
 }

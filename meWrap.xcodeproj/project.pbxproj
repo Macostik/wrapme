@@ -603,7 +603,7 @@
 		5BD121521B0250B500FF5FBF /* WLDownloadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLDownloadingView.m; path = WLDownloadingView/WLDownloadingView.m; sourceTree = "<group>"; };
 		5BD3033F1B2971D2002EA8D7 /* WLWrapSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapSettingsViewController.h; path = WLWrapSettingsViewController/WLWrapSettingsViewController.h; sourceTree = "<group>"; };
 		5BD303401B2971D2002EA8D7 /* WLWrapSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapSettingsViewController.m; path = WLWrapSettingsViewController/WLWrapSettingsViewController.m; sourceTree = "<group>"; };
-		5BD529481BDA796000527077 /* SmartLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SmartLabel.swift; path = meWrap/Views/SmartLabel.swift; sourceTree = "<group>"; };
+		5BD529481BDA796000527077 /* SmartLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
 		5BDCA87D1B394C2F00C4AB3E /* NoMessagePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoMessagePlaceholderView.xib; sourceTree = "<group>"; };
 		5BF1B2481A49A683000BB2C1 /* meWrapToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = meWrapToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF85BAE1B8C774C000215C9 /* icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.ttf; sourceTree = "<group>"; };
@@ -1291,7 +1291,6 @@
 		12A7A6F618DA0945008FF6F0 = {
 			isa = PBXGroup;
 			children = (
-				5BD529481BDA796000527077 /* SmartLabel.swift */,
 				C5B19DA81BC3C0AC00EB5353 /* exportAdhoc.plist */,
 				C5B19DA91BC3C0AC00EB5353 /* exportAppStore.plist */,
 				C5A278C41B9598DF00D5C969 /* Info */,
@@ -1447,6 +1446,7 @@
 		12A7A73918DA09A9008FF6F0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5BD529481BDA796000527077 /* SmartLabel.swift */,
 				C51E34E91BD8EB4100C6F678 /* SeparatorView.swift */,
 				5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */,
 				C521E18B1BC7AE1B00505432 /* VideoPlayerView.swift */,

@@ -10,3 +10,4 @@
 #import "WLEntry+Containment.h"
 #import "WLLabel.h"
 #import "WLFontPresetter.h"
+#import "NSString+Additions.h"

@@ -33,9 +33,10 @@ let kPadding: CGFloat = 5.0
 
 class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate,  MFMessageComposeViewControllerDelegate {
   
-    var linkContainer: Set<CheckingType>?
+    lazy var linkContainer = Set<CheckingType>()
     var bufferAttributedString: NSAttributedString?
     var _textColor: UIColor?
+    var selectedLink: CheckingType?
     
     override var text: String? {
         get { return super.text }
@@ -67,6 +68,9 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     
     func setup () {
         self.userInteractionEnabled = true
+        let longPress = UILongPressGestureRecognizer(target: self, action: "lognPress:")
+        longPress.delegate = self
+        addGestureRecognizer(longPress)
     }
     
     func checkingType() {
@@ -75,16 +79,11 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
         guard let _results: [NSTextCheckingResult] = results else {
             return
         }
-        linkContainer = Set<CheckingType>()
         for result in _results {
             let link = (self.text! as NSString).substringWithRange(result.range)
             let checkingType = CheckingType(link: link, result: result)
-            linkContainer?.insert(checkingType)
+            linkContainer.insert(checkingType)
         }
-        
-        let longPress = UILongPressGestureRecognizer(target: self, action: "lognPress:")
-        longPress.delegate = self
-        addGestureRecognizer(longPress)
         
         let mutableText = NSMutableAttributedString(attributedString: self.attributedText!)
         for result in _results {
@@ -97,7 +96,8 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     //MARK: UIGestureRecognizerDelegate
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        if (gestureRecognizer is UILongPressGestureRecognizer && !self.linkContainer!.isEmpty) {
+        if (gestureRecognizer is UILongPressGestureRecognizer && !self.linkContainer.isEmpty) {
+            selectedLink = nil
             let point = touch.locationInView(self)
             let frameSetter = CTFramesetterCreateWithAttributedString(self.bufferAttributedString!)
             var drawRect = self.bounds
@@ -115,18 +115,17 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
                 let runRange = CTRunGetStringRange(_finalRuns)
                 let _runRange = NSMakeRange(runRange.location, runRange.length)
 
-                for checkingRestult in self.linkContainer! {
-                    let compareRange = NSIntersectionRange(_runRange, checkingRestult.result.range)
+                for checkingResult in self.linkContainer {
+                    let compareRange = NSIntersectionRange(_runRange, checkingResult.result.range)
                     if  (compareRange.length > 0)  {
-                        let originX = CTLineGetOffsetForStringIndex(evaluateLine, checkingRestult.result.range.location, nil)
-                        let offsetX = CTLineGetOffsetForStringIndex(evaluateLine, checkingRestult.result.range.location + checkingRestult.result.range.length, nil)
+                        let originX = CTLineGetOffsetForStringIndex(evaluateLine, checkingResult.result.range.location, nil)
+                        let offsetX = CTLineGetOffsetForStringIndex(evaluateLine, checkingResult.result.range.location + checkingResult.result.range.length, nil)
                         let finalLine = CFArrayGetValueAtIndex(lines, CFIndex(counter))
                         let _finalLine = unsafeBitCast(finalLine, CTLineRef.self)
                         let lineBounds = CTLineGetBoundsWithOptions(_finalLine, [.IncludeLanguageExtents])
                         let finalRect = CGRectMake(originX, CGFloat(counter) * lineBounds.height, offsetX, lineBounds.height)
                         if (CGRectContainsPoint(finalRect, point)) {
-                            self.linkContainer = []
-                            self.linkContainer?.insert(checkingRestult)
+                            selectedLink = checkingResult
                             return true
                         }
                     }
@@ -139,17 +138,16 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     
     func lognPress(sender: UILongPressGestureRecognizer) {
         if  sender.state == .Began {
-            let checkingResult = self.linkContainer!.first
-            if  (checkingResult!.result.resultType == .Link) {
-                let urlString = "http://" + checkingResult!.link
+            if  (selectedLink!.result.resultType == .Link) {
+                let urlString = "http://" + selectedLink!.link
                 if (urlString.isValidUrl()) {
                     let url = NSURL(string: urlString)
                     UIApplication.sharedApplication().openURL(url!);
-                } else if (checkingResult!.link.isValidEmail()) {
+                } else if (selectedLink!.link.isValidEmail()) {
                     if (MFMessageComposeViewController.canSendText()) {
                         let messageComposeVC = MFMessageComposeViewController()
                         messageComposeVC.messageComposeDelegate = self
-                        messageComposeVC.recipients = [checkingResult!.link]
+                        messageComposeVC.recipients = [selectedLink!.link]
                         UIWindow.mainWindow().rootViewController?.presentViewController(messageComposeVC, animated: true, completion: nil)
                     }
                 }

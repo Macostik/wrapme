@@ -23,6 +23,8 @@
 @property (strong, nonatomic) IBOutlet StreamMetrics *commentMetrics;
 @property (strong, nonatomic) IBOutlet StreamMetrics *candyMetrics;
 
+@property (strong, nonatomic) NSOrderedSet *events;
+
 @end
 
 @implementation WLWhatsUpViewController
@@ -38,19 +40,19 @@
     }];
     
     [self.candyMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
-        WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:position.index];
+        WLWhatsUpEvent *event = [weakSelf.events tryAt:position.index];
         return ![event.contribution isKindOfClass:[WLCandy class]];
     }];
     
     [self.commentMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
-        WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:position.index];
+        WLWhatsUpEvent *event = [weakSelf.events tryAt:position.index];
         UIFont *font = [UIFont fontNormal];
         CGFloat textHeight = [[event.contribution text] heightWithFont:font width:WLConstants.screenWidth - WLWhatsUpCommentHorizontalSpacing];
         return textHeight + weakSelf.candyMetrics.sizeAt(position, weakSelf.candyMetrics);
     }];
     
     [self.commentMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
-        WLWhatsUpEvent *event = [weakSelf.dataSource.items tryAt:position.index];
+        WLWhatsUpEvent *event = [weakSelf.events tryAt:position.index];
         return ![event.contribution isKindOfClass:[WLComment class]];
     }];
     
@@ -60,13 +62,18 @@
  
     [[WLWrap notifier] addReceiver:self];
     
-    self.dataSource.items = [WLWhatsUpSet sharedSet];
+    self.events = [[WLWhatsUpSet sharedSet].entries copy];
     [[WLWhatsUpSet sharedSet].broadcaster addReceiver:self];
+}
+
+- (void)setEvents:(NSOrderedSet *)events {
+    _events = events;
+    self.dataSource.items = events;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [(WLWhatsUpSet*)self.dataSource.items update:nil failure:nil];
+    [[WLWhatsUpSet sharedSet] update:nil failure:nil];
 }
 
 - (void)notifier:(WLEntryNotifier*)notifier willDeleteEntry:(WLEntry *)entry {
@@ -80,7 +87,7 @@
 // MARK: - WLWhatsUpSetBroadcastReceiver
 
 - (void)whatsUpBroadcaster:(WLBroadcaster *)broadcaster updated:(WLWhatsUpSet *)set {
-    self.dataSource.items = [WLWhatsUpSet sharedSet];
+    self.events = [set.entries copy];
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MessageUI
 
 struct CheckingType {
     let link: String!
@@ -18,12 +19,23 @@ struct CheckingType {
     }
 }
 
-class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate {
+extension CheckingType: Hashable, Equatable {
+    var hashValue: Int {
+        return link.hashValue
+    }
+}
+
+func ==(lhs: CheckingType, rhs: CheckingType) -> Bool {
+    return lhs.link.hashValue == rhs.link.hashValue
+}
+
+let kPadding: CGFloat = 5.0
+
+class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate,  MFMessageComposeViewControllerDelegate {
   
-    var linkContainer: [CheckingType]?
+    var linkContainer: Set<CheckingType>?
     var bufferAttributedString: NSAttributedString?
     var _textColor: UIColor?
-    var compareRange: NSRange?
     
     override var text: String? {
         get { return super.text }
@@ -32,11 +44,6 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate {
             let attributedText = NSMutableAttributedString(string: newValue!)
             attributedText.addAttribute(NSForegroundColorAttributeName , value: _textColor!, range:wordRange)
             attributedText.addAttribute(NSFontAttributeName , value: self.font, range:wordRange)
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = self.textAlignment
-            paragraphStyle.lineBreakMode = self.lineBreakMode
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range: wordRange)
             
             self.attributedText = attributedText
             checkingType()
@@ -68,11 +75,11 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate {
         guard let _results: [NSTextCheckingResult] = results else {
             return
         }
-        linkContainer = [CheckingType]()
+        linkContainer = Set<CheckingType>()
         for result in _results {
             let link = (self.text! as NSString).substringWithRange(result.range)
             let checkingType = CheckingType(link: link, result: result)
-            linkContainer?.append(checkingType)
+            linkContainer?.insert(checkingType)
         }
         
         let longPress = UILongPressGestureRecognizer(target: self, action: "lognPress:")
@@ -87,49 +94,72 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate {
         self.attributedText = mutableText
     }
     
-    func lognPress(sender: UILongPressGestureRecognizer) {
-        if  sender.state == .Began {
-            let point = sender.locationInView(self)
-            if (!CGRectContainsPoint(self.bounds, point)) { return }
-            let framesetter = CTFramesetterCreateWithAttributedString(self.bufferAttributedString!)
-            let drawingPath = CGPathCreateWithRect(self.bounds, nil)
-            let textFrame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, (self.attributedText?.string.characters.count)!), drawingPath, nil)
+    //MARK: UIGestureRecognizerDelegate
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if (gestureRecognizer is UILongPressGestureRecognizer && !self.linkContainer!.isEmpty) {
+            let point = touch.locationInView(self)
+            let frameSetter = CTFramesetterCreateWithAttributedString(self.bufferAttributedString!)
+            var drawRect = self.bounds
+            drawRect.size.height += kPadding
+            let drawingPath = CGPathCreateWithRect(drawRect, nil)
+            let textFrame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, (self.attributedText?.string.characters.count)!), drawingPath, nil)
             let lines = CTFrameGetLines(textFrame)
             let linesCount = CFArrayGetCount(lines)
             for var counter : Int = 0; counter < linesCount; counter++ {
                 let line = CFArrayGetValueAtIndex(lines, counter)
-                let _line = unsafeBitCast(line, AnyObject.self) as! CTLine
-                let runs = CTLineGetGlyphRuns(_line)
+                let evaluateLine = unsafeBitCast(line, CTLineRef.self)
+                let runs = CTLineGetGlyphRuns(evaluateLine)
                 let finalRun = CFArrayGetValueAtIndex(runs, CFArrayGetCount(runs) - 1)
-                let _finalRuns = unsafeBitCast(finalRun, AnyObject.self) as! CTRun
+                let _finalRuns = unsafeBitCast(finalRun, CTRun.self)
                 let runRange = CTRunGetStringRange(_finalRuns)
                 let _runRange = NSMakeRange(runRange.location, runRange.length)
+
                 for checkingRestult in self.linkContainer! {
                     let compareRange = NSIntersectionRange(_runRange, checkingRestult.result.range)
-                    if  (!NSEqualRanges(compareRange, NSMakeRange(NSNotFound,0))) {
-                        let originX = CTLineGetOffsetForStringIndex(_line, checkingRestult.result.range.location, nil)
-                        let offsetX = CTLineGetOffsetForStringIndex(_line, checkingRestult.result.range.location + checkingRestult.result.range.length, nil)
-                        
+                    if  (compareRange.length > 0)  {
+                        let originX = CTLineGetOffsetForStringIndex(evaluateLine, checkingRestult.result.range.location, nil)
+                        let offsetX = CTLineGetOffsetForStringIndex(evaluateLine, checkingRestult.result.range.location + checkingRestult.result.range.length, nil)
                         let finalLine = CFArrayGetValueAtIndex(lines, CFIndex(counter))
-                        let _finalLine = unsafeBitCast(finalLine, AnyObject.self) as! CTLine
+                        let _finalLine = unsafeBitCast(finalLine, CTLineRef.self)
                         let lineBounds = CTLineGetBoundsWithOptions(_finalLine, [.IncludeLanguageExtents])
                         let finalRect = CGRectMake(originX, CGFloat(counter) * lineBounds.height, offsetX, lineBounds.height)
                         if (CGRectContainsPoint(finalRect, point)) {
-                            if  (checkingRestult.result.resultType == .Link) {
-                                let urlString = "http://" + checkingRestult.link
-                                if (urlString.isValidUrl()) {
-                                    let url = NSURL(string: urlString)
-                                    UIApplication.sharedApplication().openURL(url!);
-                                }
-                            }
+                            self.linkContainer = []
+                            self.linkContainer?.insert(checkingRestult)
+                            return true
                         }
+                    }
+                }
+            }
+            return false
+        }
+        return false
+    }
+    
+    func lognPress(sender: UILongPressGestureRecognizer) {
+        if  sender.state == .Began {
+            let checkingResult = self.linkContainer!.first
+            if  (checkingResult!.result.resultType == .Link) {
+                let urlString = "http://" + checkingResult!.link
+                if (urlString.isValidUrl()) {
+                    let url = NSURL(string: urlString)
+                    UIApplication.sharedApplication().openURL(url!);
+                } else if (checkingResult!.link.isValidEmail()) {
+                    if (MFMessageComposeViewController.canSendText()) {
+                        let messageComposeVC = MFMessageComposeViewController()
+                        messageComposeVC.messageComposeDelegate = self
+                        messageComposeVC.recipients = [checkingResult!.link]
+                        UIWindow.mainWindow().rootViewController?.presentViewController(messageComposeVC, animated: true, completion: nil)
                     }
                 }
             }
         }
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        return gestureRecognizer is UILongPressGestureRecognizer && !self.linkContainer!.isEmpty
+    //MARK: MFMessageComposeViewControllerDelegate
+    
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
 }

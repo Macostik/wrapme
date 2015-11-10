@@ -245,8 +245,6 @@
 		C5A9CC921B9482D20084D0F5 /* WLMyMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A9CC901B9482D20084D0F5 /* WLMyMessageCell.xib */; };
 		C5AE6B5F1B8E014400EE41FB /* WLCommentWhatsUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5AE6B5D1B8E014400EE41FB /* WLCommentWhatsUpCell.xib */; };
 		C5AE6B621B8E015300EE41FB /* WLCandyWhatsUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5AE6B601B8E015300EE41FB /* WLCandyWhatsUpCell.xib */; };
-		C5AE8FB81BB0286D00A9B27B /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AE8FB61BB0286D00A9B27B /* TTTAttributedLabel.m */; };
-		C5AE8FBC1BB04CCB00A9B27B /* WLAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AE8FBA1BB04CCB00A9B27B /* WLAttributedLabel.m */; };
 		C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */; };
 		C5AEE4361B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4311B3AC9B4000C8CCF /* WLDrawingLine.m */; };
 		C5AEE43D1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4381B3AC9E3000C8CCF /* WLDrawingBrush.m */; };
@@ -896,10 +894,6 @@
 		C5AE6B5D1B8E014400EE41FB /* WLCommentWhatsUpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCommentWhatsUpCell.xib; path = WLWhatsUpViewController/WhatsUpCell/WLCommentWhatsUpCell.xib; sourceTree = "<group>"; };
 		C5AE6B601B8E015300EE41FB /* WLCandyWhatsUpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCandyWhatsUpCell.xib; path = WLWhatsUpViewController/WhatsUpCell/WLCandyWhatsUpCell.xib; sourceTree = "<group>"; };
 		C5AE8DAD1B7B4F32003CC6D4 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
-		C5AE8FB51BB0286D00A9B27B /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
-		C5AE8FB61BB0286D00A9B27B /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
-		C5AE8FB91BB04CCB00A9B27B /* WLAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAttributedLabel.h; sourceTree = "<group>"; };
-		C5AE8FBA1BB04CCB00A9B27B /* WLAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAttributedLabel.m; sourceTree = "<group>"; };
 		C5AEE4291B3AC9A7000C8CCF /* WLDrawingSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingSession.h; sourceTree = "<group>"; };
 		C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingSession.m; sourceTree = "<group>"; };
 		C5AEE4301B3AC9B4000C8CCF /* WLDrawingLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingLine.h; sourceTree = "<group>"; };
@@ -1442,7 +1436,6 @@
 				5B1DD0361BD7B67000D30E1A /* InternalScrollView.swift */,
 				C521E18B1BC7AE1B00505432 /* VideoPlayerView.swift */,
 				C51E34EB1BD8ECC300C6F678 /* GradientView.swift */,
-				C5AE8FB41BB0286D00A9B27B /* TTTAttributedLabel */,
 				C5177C381B7CE55E008102C7 /* WLWrapStatusImageView */,
 				C5BAD12F1B53F9C60028FCEB /* WLAlertView */,
 				C5978BE31B396FA500D5043E /* WLDrawingSession */,
@@ -2616,17 +2609,6 @@
 			path = WLWKContainingApplicationContext;
 			sourceTree = "<group>";
 		};
-		C5AE8FB41BB0286D00A9B27B /* TTTAttributedLabel */ = {
-			isa = PBXGroup;
-			children = (
-				C5AE8FB51BB0286D00A9B27B /* TTTAttributedLabel.h */,
-				C5AE8FB61BB0286D00A9B27B /* TTTAttributedLabel.m */,
-				C5AE8FB91BB04CCB00A9B27B /* WLAttributedLabel.h */,
-				C5AE8FBA1BB04CCB00A9B27B /* WLAttributedLabel.m */,
-			);
-			path = TTTAttributedLabel;
-			sourceTree = "<group>";
-		};
 		C5B2A11F1B4BFED8004759F3 /* WLChat */ = {
 			isa = PBXGroup;
 			children = (
@@ -3782,7 +3764,6 @@
 				C5568BE01A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */,
 				C50098411AFCCC6400729DA4 /* WLCommentCell.m in Sources */,
 				C5053E801BC7E3DC0040613A /* WLEntryDescriptor.m in Sources */,
-				C5AE8FBC1BB04CCB00A9B27B /* WLAttributedLabel.m in Sources */,
 				C55E10A01B3C0DE50032DFDA /* UIBezierPath+Interpolation.m in Sources */,
 				C55A452C1BAC1C4A0055AEC2 /* WLNetwork.m in Sources */,
 				C5E6EAA41BBAC3EC007FFA66 /* WLImageView.m in Sources */,
@@ -3915,7 +3896,6 @@
 				C54AF6CF19B8C491006F7EDB /* WLEmojiCell.m in Sources */,
 				C54531231A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				C523D8CE1BD775AC006FE7AB /* Country.swift in Sources */,
-				C5AE8FB81BB0286D00A9B27B /* TTTAttributedLabel.m in Sources */,
 				C5E6E9FC1BBAC3EC007FFA66 /* CoreData.xcdatamodeld in Sources */,
 				5BA432AD1A3F3F3D00B53BC7 /* WLConfirmView.m in Sources */,
 				C5053DD61BC7CCE30040613A /* WLContribution.m in Sources */,

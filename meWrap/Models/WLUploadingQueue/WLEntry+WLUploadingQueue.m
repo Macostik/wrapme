@@ -111,10 +111,20 @@
 
 - (void)prepareForUpdate:(WLContributionUpdatePreparingBlock)success failure:(WLFailureBlock)failure {
     WLContributionStatus status = [self statusOfAnyUploadingType];
-    if (status == WLContributionStatusInProgress) {
-         if (failure) failure(WLError([self messageAppearanceByCandyType:@"video_is_uploading" and:@"photo_is_uploading"]));
-    } else {
-        if (success) success(self, status);
+    switch (status) {
+        case WLContributionStatusInProgress:
+            if (failure) failure(WLError([self messageAppearanceByCandyType:@"video_is_uploading" and:@"photo_is_uploading"]));
+            break;
+        case WLContributionStatusFinished:
+            if ([self.identifier isEqualToString:self.uploadIdentifier]) {
+                if (failure) failure([NSError errorWithDescription:WLLS(@"publishing_in_progress")]);
+            } else {
+                if (success) success(self, status);
+            }
+            break;
+        default:
+            if (success) success(self, status);
+            break;
     }
 }
 

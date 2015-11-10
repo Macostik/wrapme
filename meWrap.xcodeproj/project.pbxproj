@@ -104,7 +104,6 @@
 		C52E1FDB1A41951300A2C370 /* WLBadgeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FCD1A41951300A2C370 /* WLBadgeLabel.m */; };
 		C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FCF1A41951300A2C370 /* WLTextField.m */; };
 		C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FE11A41952400A2C370 /* WLTextView.m */; };
-		C535B4741BC2D2DF00F5CBE9 /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C54DA0A01BBAC20500790F17 /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
 		C5390BED1B84544C00027D8B /* WLWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEB1B84544C00027D8B /* WLWrapCell.xib */; };
@@ -463,13 +462,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C535B4751BC2D2DF00F5CBE9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C54DA09F1BBAC20500790F17;
-			remoteInfo = meWrapWatchExt;
-		};
 		C54DA0AC1BBAC20600790F17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12A7A6F718DA0945008FF6F0 /* Project object */;
@@ -523,7 +515,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C535B4741BC2D2DF00F5CBE9 /* meWrapWatchExt.appex in Embed App Extensions */,
 				C5994D8A1B78894A0066A597 /* meWrapToday.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -3371,7 +3362,6 @@
 			);
 			dependencies = (
 				C5994D8C1B78894A0066A597 /* PBXTargetDependency */,
-				C535B4761BC2D2DF00F5CBE9 /* PBXTargetDependency */,
 			);
 			name = meWrap;
 			productName = WrapLive;
@@ -4062,11 +4052,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C535B4761BC2D2DF00F5CBE9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C54DA09F1BBAC20500790F17 /* meWrapWatchExt */;
-			targetProxy = C535B4751BC2D2DF00F5CBE9 /* PBXContainerItemProxy */;
-		};
 		C54DA0AD1BBAC20600790F17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C54DA0A91BBAC20600790F17 /* meWrapWatchApp */;

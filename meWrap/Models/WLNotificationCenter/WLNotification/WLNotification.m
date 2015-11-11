@@ -62,7 +62,7 @@
     self.identifier = [data stringForKey:@"msg_uid"];
     self.publishedAt = [data dateForKey:@"msg_published_at"];
     
-    NSDictionary *originator = data[@"originator"];
+    NSDictionary *originator = [data dictionaryForKey:@"originator"];
     if (originator) {
         self.originatedByCurrentUser = [originator[WLUserUIDKey] isEqualToString:[WLUser currentUser].identifier] && [originator[WLDeviceIDKey] isEqualToString:[WLAuthorization currentAuthorization].deviceUID];
     }

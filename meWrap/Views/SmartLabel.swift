@@ -57,6 +57,16 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
         }
     }
     
+    override var textColor: UIColor! {
+        get { return super.textColor }
+        set {
+            if let newValue: UIColor = newValue {
+                _textColor = newValue
+                self.layoutIfNeeded()
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -111,7 +121,6 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     //MARK: UIGestureRecognizerDelegate
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if (gestureRecognizer is UIPanGestureRecognizer) { return true }
         if (gestureRecognizer == tapGesture || gestureRecognizer == longPress && !self.linkContainer.isEmpty) {
             selectedLink = nil
             let point = gestureRecognizer.locationInView(self)
@@ -152,7 +161,7 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
             }
             return false
         }
-        return false
+        return true
     }
     
     func tapLink(sender: UITapGestureRecognizer) {
@@ -176,25 +185,24 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     func longPress(sender: UILongPressGestureRecognizer) {
         if (sender.state == .Began) {
             guard let link = selectedLink!.link else { return }
-            let buttonTitles = (NSLocalizedString("url_open_in_safari", comment: ""),
-            NSLocalizedString("url_add_to_reading_list", comment: ""),
-            NSLocalizedString("copy", comment: ""))
+            let buttonTitles = [NSLocalizedString("url_open_in_safari", comment: ""),
+                                NSLocalizedString("url_add_to_reading_list", comment: ""),
+                                NSLocalizedString("copy", comment: "")]
+            let actionSheet = UIActionSheet(title: link,
+                delegate: self,
+                cancelButtonTitle: NSLocalizedString("cancel", comment: ""),
+                destructiveButtonTitle: nil)
             if (selectedLink!.link.isValidEmail()) {
-                UIActionSheet(title: link,
-                    delegate: self,
-                    cancelButtonTitle: NSLocalizedString("cancel", comment: ""),
-                    destructiveButtonTitle: nil,
-                    otherButtonTitles:buttonTitles.2).showInView(self.window!)
+                actionSheet.addButtonWithTitle(buttonTitles.last)
             } else {
-                UIActionSheet(title: link,
-                    delegate: self,
-                    cancelButtonTitle: NSLocalizedString("cancel", comment: ""),
-                    destructiveButtonTitle: nil,
-                    otherButtonTitles:buttonTitles.0, buttonTitles.1, buttonTitles.2).showInView(self.window!)
+                for title in buttonTitles {
+                    actionSheet.addButtonWithTitle(title)
+                }
             }
+            actionSheet.showInView(self.window!)
             handlerActionSheet = { [weak self] in
                 if (link.isValidEmail()) {
-                     UIPasteboard.generalPasteboard().string = link
+                    UIPasteboard.generalPasteboard().string = link
                 } else {
                     guard let url = self!.validUrl(link) else { return }
                     if ($0 == 1) {

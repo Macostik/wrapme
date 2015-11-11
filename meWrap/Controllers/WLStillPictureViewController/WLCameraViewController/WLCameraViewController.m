@@ -401,8 +401,13 @@
     __weak typeof(self)weakSelf = self;
     if (![self.session.outputs containsObject:self.movieFileOutput]) {
         [self blurCamera:^(WLBlock completion) {
-            [self configureSession:^(AVCaptureSession *session) {
-                session.sessionPreset = AVCaptureSessionPresetMedium;
+            
+            AVCaptureSession* session = weakSelf.session;
+            AVCaptureDevice *device = weakSelf.videoInput.device;
+            AVCaptureTorchMode torchMode = (AVCaptureTorchMode)weakSelf.flashMode;
+            dispatch_async(weakSelf.sessionQueue, ^{
+                [session beginConfiguration];
+                
                 AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] error:nil];
                 if ([session canAddInput:input]) {
                     [session addInput:input];
@@ -412,9 +417,27 @@
                 if ([session canAddOutput:weakSelf.movieFileOutput]) {
                     [session addOutput:weakSelf.movieFileOutput];
                 }
-            } completion:^{
-                AVCaptureTorchMode torchMode = (AVCaptureTorchMode)weakSelf.flashMode;
-                [weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
+                if ([device lockForConfiguration:nil]) {
+                    AVCaptureDeviceFormat *activeFormat = nil;
+                    
+                    CGFloat targetRatio = (CGFloat)16.0f/(CGFloat)9.0f;
+                    
+                    for (AVCaptureDeviceFormat *format in device.formats) {
+                        CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(format.formatDescription);
+                        CGFloat ratio = (CGFloat)dimensions.width / (CGFloat)dimensions.height;
+                        if (ratio == targetRatio) {
+                            activeFormat = format;
+                            break;
+                        }
+                    }
+                    
+                    if (activeFormat) {
+                        session.sessionPreset = AVCaptureSessionPresetInputPriority;
+                        device.activeFormat = activeFormat;
+                    } else {
+                        session.sessionPreset = AVCaptureSessionPresetMedium;
+                    }
+                    
                     device.videoZoomFactor = Smoothstep(1, MIN(8, device.activeFormat.videoMaxZoomFactor), _zoomScale);
                     if ([device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
                         [device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
@@ -422,11 +445,16 @@
                     if (device.hasTorch && device.torchAvailable && [device isTorchModeSupported:torchMode]) {
                         device.torchMode = torchMode;
                     }
-                }];
-                [weakSelf applyDeviceOrientation:[WLDeviceManager manager].orientation forConnection:weakSelf.movieFileOutputConnection];
-                completion();
-                preparingCompletion();
-            }];
+                    [device unlockForConfiguration];
+                }
+                [session commitConfiguration];
+                run_in_main_queue(^{
+                    weakSelf.cameraView.layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+                    [weakSelf applyDeviceOrientation:[WLDeviceManager manager].orientation forConnection:weakSelf.movieFileOutputConnection];
+                    completion();
+                    preparingCompletion();
+                });
+            });
         }];
     }
 }
@@ -465,6 +493,7 @@
                     [session addOutput:weakSelf.stillImageOutput];
                 }
             } completion:^{
+                weakSelf.cameraView.layer.videoGravity = AVLayerVideoGravityResizeAspect;
                 [weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
                     device.videoZoomFactor = Smoothstep(1, MIN(8, device.activeFormat.videoMaxZoomFactor), _zoomScale);
                     if ([device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {

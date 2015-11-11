@@ -8,6 +8,7 @@
 
 import Foundation
 import MessageUI
+import SafariServices
 
 struct CheckingType {
     let link: String!
@@ -37,17 +38,22 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     var bufferAttributedString: NSAttributedString?
     var _textColor: UIColor?
     var selectedLink: CheckingType?
+    var tapGesture: UITapGestureRecognizer?
+    var longPress: UILongPressGestureRecognizer?
+    var handlerActionSheet: ((Int) -> Void)?
     
     override var text: String? {
         get { return super.text }
         set {
-            let wordRange = NSMakeRange(0, newValue!.characters.count)
-            let attributedText = NSMutableAttributedString(string: newValue!)
-            attributedText.addAttribute(NSForegroundColorAttributeName , value: _textColor!, range:wordRange)
-            attributedText.addAttribute(NSFontAttributeName , value: self.font, range:wordRange)
-            
-            self.attributedText = attributedText
-            checkingType()
+            if let newValue: String = newValue {
+                let wordRange = NSMakeRange(0, newValue.characters.count)
+                let attributedText = NSMutableAttributedString(string: newValue)
+                attributedText.addAttribute(NSForegroundColorAttributeName , value: _textColor!, range:wordRange)
+                attributedText.addAttribute(NSFontAttributeName , value: self.font, range:wordRange)
+                
+                self.attributedText = attributedText
+                checkingType()
+            }
         }
     }
     
@@ -68,8 +74,12 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     
     func setup () {
         self.userInteractionEnabled = true
-        let longPress = UILongPressGestureRecognizer(target: self, action: "lognPress:")
-        longPress.delegate = self
+        tapGesture = UITapGestureRecognizer(target: self, action: "tapLink:")
+        longPress = UILongPressGestureRecognizer(target: self, action: "longPress:")
+        guard let tapGesture: UITapGestureRecognizer = tapGesture, let longPress: UILongPressGestureRecognizer = longPress else { return }
+        tapGesture.delegate = self
+        tapGesture.delegate = self
+        addGestureRecognizer(tapGesture)
         addGestureRecognizer(longPress)
     }
     
@@ -79,10 +89,14 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
         guard let _results: [NSTextCheckingResult] = results else {
             return
         }
+        linkContainer = Set<CheckingType>()
         for result in _results {
-            let link = (self.text! as NSString).substringWithRange(result.range)
-            let checkingType = CheckingType(link: link, result: result)
-            linkContainer.insert(checkingType)
+            if let link: String = (self.text! as NSString).substringWithRange(result.range) {
+                if let checkingType: CheckingType = CheckingType(link: link, result: result) {
+                    linkContainer.removeAll()
+                    linkContainer.insert(checkingType)
+                }
+            }
         }
         
         let mutableText = NSMutableAttributedString(attributedString: self.attributedText!)
@@ -91,19 +105,22 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
         }
         bufferAttributedString = self.attributedText
         self.attributedText = mutableText
+        
     }
     
     //MARK: UIGestureRecognizerDelegate
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        if (gestureRecognizer is UILongPressGestureRecognizer && !self.linkContainer.isEmpty) {
+    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if (gestureRecognizer is UIPanGestureRecognizer) { return true }
+        if (gestureRecognizer == tapGesture || gestureRecognizer == longPress && !self.linkContainer.isEmpty) {
             selectedLink = nil
-            let point = touch.locationInView(self)
+            let point = gestureRecognizer.locationInView(self)
             let frameSetter = CTFramesetterCreateWithAttributedString(self.bufferAttributedString!)
             var drawRect = self.bounds
             drawRect.size.height += kPadding
             let drawingPath = CGPathCreateWithRect(drawRect, nil)
-            let textFrame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, (self.attributedText?.string.characters.count)!), drawingPath, nil)
+            guard let count = self.attributedText?.string.characters.count else { return false }
+            let textFrame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, count), drawingPath, nil)
             let lines = CTFrameGetLines(textFrame)
             let linesCount = CFArrayGetCount(lines)
             for var counter : Int = 0; counter < linesCount; counter++ {
@@ -125,8 +142,10 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
                         let lineBounds = CTLineGetBoundsWithOptions(_finalLine, [.IncludeLanguageExtents])
                         let finalRect = CGRectMake(originX, CGFloat(counter) * lineBounds.height, offsetX, lineBounds.height)
                         if (CGRectContainsPoint(finalRect, point)) {
-                            selectedLink = checkingResult
-                            return true
+                            if let checkingResult: CheckingType = checkingResult {
+                                selectedLink = checkingResult
+                                return true
+                            }
                         }
                     }
                 }
@@ -136,28 +155,83 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
         return false
     }
     
-    func lognPress(sender: UILongPressGestureRecognizer) {
-        if  sender.state == .Began {
-            if  (selectedLink!.result.resultType == .Link) {
-                let urlString = "http://" + selectedLink!.link
-                if (urlString.isValidUrl()) {
-                    let url = NSURL(string: urlString)
-                    UIApplication.sharedApplication().openURL(url!);
-                } else if (selectedLink!.link.isValidEmail()) {
-                    if (MFMessageComposeViewController.canSendText()) {
-                        let messageComposeVC = MFMessageComposeViewController()
-                        messageComposeVC.messageComposeDelegate = self
-                        messageComposeVC.recipients = [selectedLink!.link]
-                        UIWindow.mainWindow().rootViewController?.presentViewController(messageComposeVC, animated: true, completion: nil)
+    func tapLink(sender: UITapGestureRecognizer) {
+        if  (selectedLink!.result.resultType == .Link) {
+            let link = selectedLink!.link
+            if (link.isValidEmail()) {
+                if (MFMessageComposeViewController.canSendText()) {
+                    let messageComposeVC = MFMessageComposeViewController()
+                    messageComposeVC.messageComposeDelegate = self
+                    messageComposeVC.recipients = [link]
+                    UIWindow.mainWindow().rootViewController?.presentViewController(messageComposeVC, animated: true, completion: nil)
+                }
+            } else if let url = validUrl(link) {
+                UIApplication.sharedApplication().openURL(url)
+            } else {
+                WLToast.showWithMessage(NSLocalizedString("link_is_not_valid", comment: ""))
+            }
+        }
+    }
+    
+    func longPress(sender: UILongPressGestureRecognizer) {
+        if (sender.state == .Began) {
+            guard let link = selectedLink!.link else { return }
+            let buttonTitles = (NSLocalizedString("url_open_in_safari", comment: ""),
+            NSLocalizedString("url_add_to_reading_list", comment: ""),
+            NSLocalizedString("copy", comment: ""))
+            if (selectedLink!.link.isValidEmail()) {
+                UIActionSheet(title: link,
+                    delegate: self,
+                    cancelButtonTitle: NSLocalizedString("cancel", comment: ""),
+                    destructiveButtonTitle: nil,
+                    otherButtonTitles:buttonTitles.2).showInView(self.window!)
+            } else {
+                UIActionSheet(title: link,
+                    delegate: self,
+                    cancelButtonTitle: NSLocalizedString("cancel", comment: ""),
+                    destructiveButtonTitle: nil,
+                    otherButtonTitles:buttonTitles.0, buttonTitles.1, buttonTitles.2).showInView(self.window!)
+            }
+            handlerActionSheet = { [weak self] in
+                if (link.isValidEmail()) {
+                     UIPasteboard.generalPasteboard().string = link
+                } else {
+                    guard let url = self!.validUrl(link) else { return }
+                    if ($0 == 1) {
+                        UIApplication.sharedApplication().openURL(url);
+                    } else if ($0 == 2) {
+                        do {
+                            try SSReadingList.defaultReadingList()?.addReadingListItemWithURL(url, title: nil, previewText: nil)
+                        } catch _ {}
+                    } else {
+                        UIPasteboard.generalPasteboard().string = url.absoluteString
                     }
                 }
             }
         }
     }
     
+    func validUrl(var link: String) -> NSURL? {
+        let schema = link.rangeOfString("http(s)?://", options: [.RegularExpressionSearch, .CaseInsensitiveSearch])
+        if ((schema?.endIndex.predecessor()) == nil) {
+            link = "http://" + link
+        }
+        
+        return NSURL(string: link)
+    }
+    
     //MARK: MFMessageComposeViewControllerDelegate
     
     func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
         controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //MARK: UIActionSheetDelegate
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        if let handlerActionSheet: (Int) -> Void = handlerActionSheet {
+            handlerActionSheet(buttonIndex)
+        }
+        handlerActionSheet = nil
     }
 }

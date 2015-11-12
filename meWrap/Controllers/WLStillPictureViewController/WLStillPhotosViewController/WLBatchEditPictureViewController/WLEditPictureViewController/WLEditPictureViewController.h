@@ -14,7 +14,7 @@
 
 @property (weak, nonatomic, readonly) WLImageView *imageView;
 
-@property (strong, nonatomic) WLEditPicture* picture;
+@property (strong, nonatomic) MutableAsset *picture;
 
 - (void)updateDeletionState;
 

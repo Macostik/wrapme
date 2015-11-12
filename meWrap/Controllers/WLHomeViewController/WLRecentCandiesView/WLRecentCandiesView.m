@@ -7,7 +7,6 @@
 //
 
 #import "WLRecentCandiesView.h"
-#import "StreamDataSource.h"
 #import "WLCandyCell.h"
 
 @interface WLRecentCandiesView ()
@@ -22,20 +21,19 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
+    self.dataSource = [[StreamDataSource alloc] initWithStreamView:self.streamView];
     self.dataSource.numberOfGridColumns = 3;
     self.dataSource.sizeForGridColumns = 0.333f;
     self.streamView.layout = [[SquareGridLayout alloc] init];
     [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLCandyCell"]].disableMenu = YES;
-    [self.dataSource setNumberOfItemsBlock:^NSUInteger (StreamDataSource *dataSource) {
-        return ([dataSource.items count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2;
-    }];
     self.dataSource.layoutSpacing = WLConstants.pixelSize;
 }
 
-- (void)setup:(WLWrap*)wrap {
+- (void)setup:(Wrap *)wrap {
     [self layoutIfNeeded];
-    self.dataSource.items = wrap.recentCandies;
+    NSArray *recentCandies = wrap.recentCandies;
+    self.dataSource.numberOfItems = @(([recentCandies count] > WLHomeTopWrapCandiesLimit_2) ? WLHomeTopWrapCandiesLimit : WLHomeTopWrapCandiesLimit_2);
+    self.dataSource.items = recentCandies;
 }
 
 @end

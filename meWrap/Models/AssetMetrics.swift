@@ -88,9 +88,9 @@ class AssetMetrics: NSObject {
         }()
 }
 
-extension WLAsset {
+extension Asset {
     
-    func edit(dictionary: Dictionary<String, String>, metrics: AssetMetrics) -> WLAsset {
+    func edit(dictionary: [String : String], metrics: AssetMetrics) -> Asset {
         
         var original: String? = self.original
         var large: String? = self.large
@@ -132,7 +132,7 @@ extension WLAsset {
         }
         
         if changed {
-            let asset = WLAsset()
+            let asset = Asset()
             asset.type = self.type
             asset.original = original
             asset.large = large
@@ -144,7 +144,7 @@ extension WLAsset {
         return self
     }
     
-    private func parse(key: String?, dictionary: Dictionary<String, String>, uri: String, current: String?) -> String? {
+    private func parse(key: String?, dictionary: [String : String], uri: String, current: String?) -> String? {
         if let key = key, let url = dictionary[key] where url.characters.count > 0 {
             return prepend(url: url, uri: uri)
         } else {

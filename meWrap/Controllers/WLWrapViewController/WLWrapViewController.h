@@ -16,7 +16,7 @@ typedef NS_OPTIONS(NSUInteger, WLWrapSegment) {
 
 @interface WLWrapViewController : WLBaseViewController
 
-@property (weak, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) Wrap *wrap;
 
 @property (nonatomic) WLWrapSegment segment;
 

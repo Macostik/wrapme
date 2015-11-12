@@ -10,4 +10,6 @@
 
 @interface WLChangeProfileViewController : WLEditViewController
 
++ (NSAttributedString *)attributedVerificationSuggestion;
+
 @end

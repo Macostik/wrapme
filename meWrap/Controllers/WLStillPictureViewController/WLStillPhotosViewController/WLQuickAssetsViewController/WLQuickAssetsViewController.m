@@ -7,10 +7,24 @@
 //
 
 #import "WLQuickAssetsViewController.h"
-#import "StreamDataSource.h"
 #import "PHPhotoLibrary+Helper.h"
 
 @import Photos;
+
+@interface PHFetchResult (Photo) <WLBaseOrderedCollection>
+
+@end
+
+@implementation PHFetchResult (Photo)
+
+- (id)tryAt:(NSUInteger)index {
+    if (index < self.count) {
+        return [self objectAtIndex:index];
+    }
+    return nil;
+}
+
+@end
 
 @interface WLQuickAssetsViewController () <PHPhotoLibraryChangeObserver>
 
@@ -35,7 +49,7 @@
     
     __weak typeof(self)weakSelf = self;
     self.streamView.layout = [[SquareLayout alloc] initWithHorizontal:YES];
-    self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
+    self.dataSource = [[StreamDataSource alloc] initWithStreamView:self.streamView];
     StreamMetrics *metrics = [[StreamMetrics alloc] initWithIdentifier:@"AssetCell"];
     [metrics setSelection:^(StreamItem *item, id entry) {
         item.selected = [weakSelf selectAsset:entry];

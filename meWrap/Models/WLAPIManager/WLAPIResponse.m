@@ -7,14 +7,13 @@
 //
 
 #import "WLAPIResponse.h"
-#import "NSDictionary+Extended.h"
 
 @implementation WLAPIResponse
 
 + (instancetype)response:(NSDictionary *)dictionary {
     WLAPIResponse* response = [[self alloc] init];
     response.data = [dictionary dictionaryForKey:@"data"];
-    response.code = [dictionary integerForKey:@"return_code"];
+    response.code = [[dictionary numberForKey:@"return_code"] integerValue];
     response.message = [dictionary stringForKey:@"message"];
     return response;
 }

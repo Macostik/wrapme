@@ -7,7 +7,6 @@
 //
 
 #import "UIColor+CustomColors.h"
-#import "NSString+Additions.h"
 #import "GeometryHelper.h"
 
 WLColorCollection *WLColors = nil;

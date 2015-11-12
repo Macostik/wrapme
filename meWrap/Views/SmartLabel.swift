@@ -167,17 +167,15 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     func tapLink(sender: UITapGestureRecognizer) {
         if  (selectedLink!.result.resultType == .Link) {
             let link = selectedLink!.link
-            if (link.isValidEmail()) {
+            if (link.isValidEmail) {
                 if (MFMessageComposeViewController.canSendText()) {
                     let messageComposeVC = MFMessageComposeViewController()
                     messageComposeVC.messageComposeDelegate = self
                     messageComposeVC.recipients = [link]
-                    UIWindow.mainWindow().rootViewController?.presentViewController(messageComposeVC, animated: true, completion: nil)
+                    UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(messageComposeVC, animated: true, completion: nil)
                 }
             } else if let url = validUrl(link) {
                 UIApplication.sharedApplication().openURL(url)
-            } else {
-                WLToast.showWithMessage(NSLocalizedString("link_is_not_valid", comment: ""))
             }
         }
     }
@@ -185,14 +183,14 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     func longPress(sender: UILongPressGestureRecognizer) {
         if (sender.state == .Began) {
             guard let link = selectedLink!.link else { return }
-            let buttonTitles = [NSLocalizedString("url_open_in_safari", comment: ""),
-                                NSLocalizedString("url_add_to_reading_list", comment: ""),
-                                NSLocalizedString("copy", comment: "")]
+            let buttonTitles = ["url_open_in_safari".ls,
+                                "url_add_to_reading_list".ls,
+                                "copy".ls]
             let actionSheet = UIActionSheet(title: link,
                 delegate: self,
-                cancelButtonTitle: NSLocalizedString("cancel", comment: ""),
+                cancelButtonTitle: "cancel".ls,
                 destructiveButtonTitle: nil)
-            if (selectedLink!.link.isValidEmail()) {
+            if (selectedLink!.link.isValidEmail) {
                 actionSheet.addButtonWithTitle(buttonTitles.last)
             } else {
                 for title in buttonTitles {
@@ -201,7 +199,7 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
             }
             actionSheet.showInView(self.window!)
             handlerActionSheet = { [weak self] in
-                if (link.isValidEmail()) {
+                if (link.isValidEmail) {
                     UIPasteboard.generalPasteboard().string = link
                 } else {
                     guard let url = self!.validUrl(link) else { return }

@@ -35,7 +35,7 @@
 
 + (instancetype)queueForEntriesOfClass:(Class)entryClass;
 
-+ (void)upload:(WLUploading*)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
++ (void)upload:(Uploading *)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 + (void)start;
 
@@ -45,7 +45,7 @@
 
 - (void)start;
 
-- (void)upload:(WLUploading*)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
+- (void)upload:(Uploading *)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (void)addDependentQueue:(WLUploadingQueue*)queue;
 

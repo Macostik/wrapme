@@ -8,8 +8,6 @@
 
 #import "WLNotificationCenter.h"
 #import "WLSoundPlayer.h"
-#import "WLEntryNotifier.h"
-#import "WLSession.h"
 #import "WLOperationQueue.h"
 #import "PubNub+SharedInstance.h"
 #import "WLNotificationSubscription.h"
@@ -44,7 +42,7 @@
 
 @end
 
-@interface WLNotificationCenter () <PNObjectEventListener, WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate>
+@interface WLNotificationCenter () <PNObjectEventListener, EntryNotifying, WLNotificationSubscriptionDelegate>
 
 @property (strong, nonatomic) WLNotificationSubscription* userSubscription;
 
@@ -79,7 +77,8 @@
 }
 
 - (void)configure {
-    [[WLUser notifier] addReceiver:self];
+    [[User notifier] addReceiver:self];
+    [self registerForRemoteNotifications];
 }
 
 - (void)setup {
@@ -88,10 +87,10 @@
 }
 
 - (void)subscribe {
-    [self subscribeWithUser:[WLUser currentUser]];
+    [self subscribeWithUser:[User currentUser]];
 }
 
-- (void)subscribeWithUser:(WLUser*)user {
+- (void)subscribeWithUser:(User *)user {
     NSString* uuid = user.identifier;
     if (!uuid.nonempty) {
         return;
@@ -139,7 +138,7 @@
             if (success) success(notification);
         } else {
             runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-                [[WLEntryManager manager] assureSave:^{
+                [EntryContext.sharedContext assureSave:^{
                     [notification handle:^ {
                         [weakSelf addHandledNotifications:@[notification]];
                         if (success) success(notification);
@@ -202,13 +201,13 @@
 
 - (void)clear {
     self.userSubscription = nil;
-    WLSession.handledNotifications = nil;
-    WLSession.historyDate = nil;
+    [NSUserDefaults standardUserDefaults].handledNotifications = nil;
+    [NSUserDefaults standardUserDefaults].historyDate = nil;
     [[PubNub sharedInstance] currentConfiguration].uuid = nil;
 }
 
 - (BOOL)isAlreadyHandledNotification:(WLNotification*)notification {
-    return [WLSession.handledNotifications containsObject:notification.identifier];
+    return [[NSUserDefaults standardUserDefaults].handledNotifications containsObject:notification.identifier];
 }
 
 - (void)handleNotification:(WLNotification*)notification completion:(WLBlock)completion {
@@ -226,36 +225,36 @@
     }];
     
     if (identifiers.nonempty) {
-        NSMutableOrderedSet *handledNotifications = [WLSession.handledNotifications mutableCopy];
+        NSMutableOrderedSet *handledNotifications = [[NSUserDefaults standardUserDefaults].handledNotifications mutableCopy];
         if (handledNotifications.count > 100) {
             [handledNotifications removeObjectsInRange:NSMakeRange(0, MIN(100, identifiers.count))];
         }
         [handledNotifications unionOrderedSet:[NSOrderedSet orderedSetWithArray:identifiers]];
-        WLSession.handledNotifications = handledNotifications;
+        [NSUserDefaults standardUserDefaults].handledNotifications = handledNotifications;
     }
 }
 
 - (void)requestHistory {
     __weak typeof(self)weakSelf = self;
     runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-        NSDate *historyDate = WLSession.historyDate;
+        NSDate *historyDate = [NSUserDefaults standardUserDefaults].historyDate;
         if (historyDate) {
             NSDate *fromDate = historyDate;
             NSDate *toDate = [NSDate now];
 
             WLLog(@"PUBNUB - requesting history starting from: %@ to: %@", fromDate, toDate);
             
-            if  ([WLNetwork network].reachable && weakSelf.userSubscription) {
+            if  ([WLNetwork sharedNetwork].reachable && weakSelf.userSubscription) {
                 
                 [weakSelf.userSubscription history:fromDate to:toDate success:^(NSArray *messages) {
                     if (messages.count > 0) {
                         WLLog(@"PUBNUB - received history starting from: %@ to: %@", fromDate, toDate);
                         [weakSelf handleHistoryMessages:messages];
-                        WLSession.historyDate = [[NSDate dateWithTimetoken:[(NSDictionary*)[messages lastObject] numberForKey:@"timetoken"]] dateByAddingTimeInterval:0.001];
+                        [NSUserDefaults standardUserDefaults].historyDate = [[NSDate dateWithTimetoken:[(NSDictionary*)[messages lastObject] numberForKey:@"timetoken"]] dateByAddingTimeInterval:0.001];
                         [weakSelf requestHistory];
                     } else {
                         WLLog(@"PUBNUB - no missed messages in history");
-                        WLSession.historyDate = toDate;
+                        [NSUserDefaults standardUserDefaults].historyDate = toDate;
                     }
                     [operation finish];
                 } failure:^(NSError *error) {
@@ -266,7 +265,7 @@
             }
         } else {
             WLLog(@"PUBNUB - history date is empty");
-            WLSession.historyDate = [NSDate now];
+            [NSUserDefaults standardUserDefaults].historyDate = [NSDate now];
             [operation finish];
         }
     });
@@ -349,10 +348,6 @@
     
     deleteNotifications = [notifications where:@"event == %d", WLEventDelete];
     
-    deleteNotifications = [deleteNotifications sortedArrayUsingComparator:^NSComparisonResult(WLNotification* n1, WLNotification* n2) {
-        return [[n1.descriptor.entryClass uploadingOrder] compare:[n2.descriptor.entryClass uploadingOrder]];
-    }];
-    
     for (WLNotification *deleteNotification in deleteNotifications) {
         if (![notifications containsObject:deleteNotification]) {
             continue;
@@ -393,14 +388,14 @@
     }
 }
 
-// MARK: - WLEntryNotifyReceiver
+// MARK: - EntryNotifying
 
-- (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLEntry *)entry {
-    [self subscribeWithUser:(WLUser*)entry];
+- (void)notifier:(EntryNotifier *)notifier didAddEntry:(Entry *)entry {
+    [self subscribeWithUser:(User *)entry];
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
-    return [WLUser currentUser] == entry;
+- (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnEntry:(Entry *)entry {
+    return [User currentUser] == entry;
 }
 
 @end

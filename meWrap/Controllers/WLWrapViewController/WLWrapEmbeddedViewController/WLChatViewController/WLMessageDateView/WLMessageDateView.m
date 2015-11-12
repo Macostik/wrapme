@@ -7,8 +7,6 @@
 //
 
 #import "WLMessageDateView.h"
-#import "WLEntryManager.h"
-#import "NSDate+Formatting.h"
 
 @interface WLMessageDateView ()
 
@@ -18,7 +16,7 @@
 
 @implementation WLMessageDateView
 
-- (void)setup:(WLMessage *)message {
+- (void)setup:(Message *)message {
     self.dateLabel.text = [message.createdAt stringWithDateStyle:NSDateFormatterMediumStyle];
 }
 

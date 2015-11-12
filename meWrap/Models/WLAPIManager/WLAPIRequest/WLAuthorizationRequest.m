@@ -11,13 +11,14 @@
 #import "WLUploadingQueue.h"
 #import "WLOperationQueue.h"
 #import "WLNotificationCenter.h"
+#import "WLAPIEnvironment.h"
 
 @implementation WLAuthorizationRequest
 
 static BOOL authorized = NO;
 
 + (void)initialize {
-    NSHTTPCookie* cookie = [WLSession authorizationCookie];
+    NSHTTPCookie* cookie = [[NSUserDefaults standardUserDefaults] authorizationCookie];
     if (cookie) {
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
         authorized = YES;
@@ -29,10 +30,11 @@ static BOOL authorized = NO;
 }
 
 + (BOOL)requiresSignIn {
-    return !authorized || !WLSession.imageURI || !WLSession.avatarURI || !WLSession.videoURI || ![WLUser currentUser].identifier.nonempty;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return !authorized || !defaults.imageURI || !defaults.avatarURI || !defaults.videoURI || ![User currentUser].identifier.nonempty;
 }
 
-+ (instancetype)signUp:(WLAuthorization*)authorization {
++ (instancetype)signUp:(Authorization*)authorization {
     return [[[self POST:@"users"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
         [parameters trySetObject:authorization.deviceName forKey:@"device_name"];
@@ -49,7 +51,7 @@ static BOOL authorized = NO;
     }];
 }
 
-+ (instancetype)activation:(WLAuthorization*)authorization {
++ (instancetype)activation:(Authorization*)authorization {
     return [[[self POST:@"users/activate"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
         [parameters trySetObject:authorization.deviceName forKey:@"device_name"];
@@ -64,7 +66,7 @@ static BOOL authorized = NO;
     }];
 }
 
-+ (instancetype)signIn:(WLAuthorization*)authorization {
++ (instancetype)signIn:(Authorization*)authorization {
     return [[[[self POST:@"users/sign_in"] parametrize:^(WLAuthorizationRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[NSBundle mainBundle].buildVersion forKey:@"app_version"];
         [parameters trySetObject:authorization.deviceUID forKey:@"device_uid"];
@@ -80,38 +82,38 @@ static BOOL authorized = NO;
         
         for (NSHTTPCookie *cookie in [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies) {
             if ([cookie.name isEqualToString:@"_session_id"]) {
-                [WLSession setAuthorizationCookie:cookie];
+                [[NSUserDefaults standardUserDefaults] setAuthorizationCookie:cookie];
             }
         }
 		
         id pageSize = response.data[@"pagination_fetch_size"];
         if (pageSize) {
-            WLSession.pageSize = [pageSize integerValue];
+            [NSUserDefaults standardUserDefaults].pageSize = [pageSize integerValue];
         }
 		
 		if (response.data[@"image_uri"]) {
-			WLSession.imageURI = response.data[@"image_uri"];
+			[NSUserDefaults standardUserDefaults].imageURI = response.data[@"image_uri"];
         } else {
-            WLSession.imageURI = [WLAPIEnvironment currentEnvironment].defaultImageURI;
+            [NSUserDefaults standardUserDefaults].imageURI = [WLAPIEnvironment currentEnvironment].defaultImageURI;
         }
 		
 		if (response.data[@"avatar_uri"]) {
-			WLSession.avatarURI = response.data[@"avatar_uri"];
+			[NSUserDefaults standardUserDefaults].avatarURI = response.data[@"avatar_uri"];
         } else {
-            WLSession.avatarURI = [WLAPIEnvironment currentEnvironment].defaultAvatarURI;
+            [NSUserDefaults standardUserDefaults].avatarURI = [WLAPIEnvironment currentEnvironment].defaultAvatarURI;
         }
         
         if (response.data[@"video_uri"]) {
-            WLSession.videoURI = response.data[@"video_uri"];
+            [NSUserDefaults standardUserDefaults].videoURI = response.data[@"video_uri"];
         } else {
-            WLSession.videoURI = [WLAPIEnvironment currentEnvironment].defaultVideoURI;
+            [NSUserDefaults standardUserDefaults].videoURI = [WLAPIEnvironment currentEnvironment].defaultVideoURI;
         }
 		
         NSDictionary* userData = [response.data dictionaryForKey:@"user"];
         
-        WLUser* user = [WLUser API_entry:userData];
+        User *user = [User mappedEntry:userData];
         [authorization updateWithUserData:userData];
-        [user setCurrent];
+        User.currentUser = user;
         [user notifyOnAddition];
         
         if (user.firstTimeUse) {
@@ -147,18 +149,18 @@ static BOOL authorized = NO;
 }
 
 + (instancetype)signUp {
-    return [self signUp:[WLAuthorization currentAuthorization]];
+    return [self signUp:[Authorization currentAuthorization]];
 }
 
 + (instancetype)activation {
-    return [self activation:[WLAuthorization currentAuthorization]];
+    return [self activation:[Authorization currentAuthorization]];
 }
 
 + (instancetype)signIn {
-    return [self signIn:[WLAuthorization currentAuthorization]];
+    return [self signIn:[Authorization currentAuthorization]];
 }
 
-+ (void)saveTestUserData:(WLAuthorization*)auth {
++ (void)saveTestUserData:(Authorization*)auth {
 #ifdef PROJECT_DIR
     NSDictionary *authorizationData = nil;
     if (auth.phone.nonempty && auth.countryCode.nonempty) {
@@ -197,14 +199,14 @@ static BOOL authorized = NO;
 #endif
 }
 
-+ (void)preloadFirstWrapsWithUser:(WLUser*)user {
++ (void)preloadFirstWrapsWithUser:(User *)user {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         runUnaryQueuedOperation(WLOperationFetchingDataQueue,^(WLOperation *operation) {
-            [[WLPaginatedRequest wraps:nil] fresh:^(NSSet *set) {
+            [[WLPaginatedRequest wraps:nil] fresh:^(NSArray *array) {
                 NSOrderedSet *wraps = [user sortedWraps];
                 if (wraps.count > 0) {
-                    [wraps enumerateObjectsUsingBlock:^(WLWrap *wrap, NSUInteger idx, BOOL *stop) {
+                    [wraps enumerateObjectsUsingBlock:^(Wrap *wrap, NSUInteger idx, BOOL *stop) {
                         [wrap preload];
                         if (idx == 2) *stop = YES;
                     }];
@@ -223,15 +225,15 @@ static BOOL authorized = NO;
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         WLWhoIs* whoIs = [WLWhoIs sharedInstance];
         NSDictionary *userInfo = [response.data dictionaryForKey:WLUserKey];
-        whoIs.found = [userInfo boolForKey:@"found"];
-        whoIs.confirmed = [userInfo boolForKey:@"confirmed_email"];
-        NSString* userUID = [WLUser API_identifier:userInfo];
+        whoIs.found = [[userInfo numberForKey:@"found"] boolValue];
+        whoIs.confirmed = [[userInfo numberForKey:@"confirmed_email"] boolValue];
+        NSString* userUID = [User uid:userInfo];
         if (userUID.nonempty) {
-            WLUser *user = [WLUser entry:userUID];
-            [user setCurrent];
+            User *user = (User*)[User entry:userUID];
+            User.currentUser = user;
             [user notifyOnAddition];
         }
-        WLAuthorization* authorization = [[WLAuthorization alloc] init];
+        Authorization* authorization = [[Authorization alloc] init];
         authorization.email = email;
         if (!whoIs.confirmed) {
             authorization.unconfirmed_email = email;
@@ -257,11 +259,11 @@ static BOOL authorized = NO;
 
 + (instancetype)linkDevice:(NSString*)passcode {
     return [[[self POST:@"users/link_device"] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
-        [parameters trySetObject:[WLAuthorization currentAuthorization].email forKey:WLEmailKey];
-        [parameters trySetObject:[WLAuthorization currentAuthorization].deviceUID forKey:@"device_uid"];
+        [parameters trySetObject:[Authorization currentAuthorization].email forKey:WLEmailKey];
+        [parameters trySetObject:[Authorization currentAuthorization].deviceUID forKey:@"device_uid"];
         [parameters trySetObject:passcode forKey:@"approval_code"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+        Authorization *authorization = [Authorization currentAuthorization];
         authorization.password = [[response.data dictionaryForKey:@"device"] stringForKey:@"password"];
         [authorization setCurrent];
         success(authorization);
@@ -274,17 +276,17 @@ static BOOL authorized = NO;
 
 @end
 
-@implementation WLAuthorization (WLAuthorizationRequest)
+@implementation Authorization (WLAuthorizationRequest)
 
-- (id)signUp:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure {
+- (id)signUp:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     return [[WLAuthorizationRequest signUp:self] send:success failure:failure];
 }
 
-- (id)activate:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure {
+- (id)activate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     return [[WLAuthorizationRequest activation:self] send:success failure:failure];
 }
 
-- (id)signIn:(WLUserBlock)success failure:(WLFailureBlock)failure {
+- (id)signIn:(WLObjectBlock)success failure:(WLFailureBlock)failure {
 	return [[WLAuthorizationRequest signIn:self] send:success failure:failure];
 }
 

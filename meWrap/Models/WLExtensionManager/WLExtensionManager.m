@@ -10,10 +10,11 @@
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLNotificationCenter.h"
 #import "WLNotification.h"
+@import WatchConnectivity;
 
 @implementation WLExtensionManager
 
-+ (void)performRequest:(WLExtensionRequest*)request completionHandler:(void (^)(WLExtensionResponse *response))completionHandler {
++ (void)performRequest:(ExtensionRequest*)request completionHandler:(void (^)(ExtensionResponse *response))completionHandler {
     SEL selector = NSSelectorFromString(request.action);
     if ([self respondsToSelector:selector]) {
 #pragma clang diagnostic push
@@ -21,51 +22,65 @@
         [self performSelector:selector withObject:request withObject:completionHandler];
 #pragma clang diagnostic pop
     } else {
-        if (completionHandler) completionHandler([WLExtensionResponse failureWithMessage:@"Action is not supported."]);
+        if (completionHandler) completionHandler([ExtensionResponse failure:@"Action is not supported."]);
     }
 }
 
-+ (void)postComment:(WLExtensionRequest*)request completionHandler:(void (^)(WLExtensionResponse *response))completionHandler {
++ (void)postComment:(ExtensionRequest*)request completionHandler:(void (^)(ExtensionResponse *response))completionHandler {
     NSString *candyIdentifier = request.userInfo[WLCandyUIDKey];
     NSString *text = request.userInfo[@"text"];
-    if ([WLCandy entryExists:candyIdentifier]) {
-        WLCandy *candy = [WLCandy entry:candyIdentifier];
-        [candy uploadComment:text success:^(WLComment *comment) {
-            completionHandler([WLExtensionResponse success]);
+    if ([Candy entryExists:candyIdentifier]) {
+        Candy *candy = [Candy entry:candyIdentifier];
+        [candy uploadComment:text success:^(Comment *comment) {
+            completionHandler([ExtensionResponse success:nil]);
         } failure:^(NSError *error) {
-            completionHandler([WLExtensionResponse failureWithMessage:error.localizedDescription]);
+            completionHandler([ExtensionResponse failure:error.localizedDescription]);
         }];
     } else {
-        completionHandler([WLExtensionResponse failureWithMessage:@"Photo isn't available."]);
+        completionHandler([ExtensionResponse failure:@"Photo isn't available."]);
     }
 }
 
-+ (void)postMessage:(WLExtensionRequest*)request completionHandler:(void (^)(WLExtensionResponse *response))completionHandler {
++ (void)postMessage:(ExtensionRequest*)request completionHandler:(void (^)(ExtensionResponse *response))completionHandler {
     NSString *wrapIdentifier = request.userInfo[WLWrapUIDKey];
     NSString *text = request.userInfo[@"text"];
-    if ([WLWrap entryExists:wrapIdentifier]) {
-        WLWrap *wrap = [WLWrap entry:wrapIdentifier];
-        [wrap uploadMessage:text success:^(WLMessage *message) {
-            completionHandler([WLExtensionResponse success]);
+    if ([Wrap entryExists:wrapIdentifier]) {
+        Wrap *wrap = [Wrap entry:wrapIdentifier];
+        [wrap uploadMessage:text success:^(Message *message) {
+            completionHandler([ExtensionResponse success:nil]);
         } failure:^(NSError *error) {
-            completionHandler([WLExtensionResponse failureWithMessage:error.localizedDescription]);
+            completionHandler([ExtensionResponse failure:error.localizedDescription]);
         }];
     } else {
-        completionHandler([WLExtensionResponse failureWithMessage:@"Wrap isn't available."]);
+        completionHandler([ExtensionResponse failure:@"Wrap isn't available."]);
     }
 }
 
-+ (void)handleNotification:(WLExtensionRequest*)request completionHandler:(void (^)(WLExtensionResponse *response))completionHandler {
++ (void)handleNotification:(ExtensionRequest*)request completionHandler:(void (^)(ExtensionResponse *response))completionHandler {
     [[WLNotificationCenter defaultCenter] handleRemoteNotification:request.userInfo success:^(WLNotification *notification) {
-        WLEntry *entry = notification.entry;
+        Entry *entry = notification.entry;
         if (entry) {
-            completionHandler([WLExtensionResponse successWithUserInfo:@{@"entry":[entry dictionaryRepresentation]}]);
+            completionHandler([ExtensionResponse success:nil userInfo:@{@"entry":[entry serializeReference]}]);
         } else {
-            completionHandler([WLExtensionResponse failureWithMessage:@"No data"]);
+            completionHandler([ExtensionResponse failure:@"No data"]);
         }
     } failure:^(NSError *error) {
-        completionHandler([WLExtensionResponse failureWithMessage:error.localizedDescription]);
+        completionHandler([ExtensionResponse failure:error.localizedDescription]);
     }];
+}
+
++ (void)dataSync:(ExtensionRequest*)request completionHandler:(void (^)(ExtensionResponse *response))completionHandler {
+    if ([[UIDevice currentDevice] systemVersionSince:@"9"]) {
+        if ([WCSession defaultSession].paired && [WCSession defaultSession].watchAppInstalled) {
+            for (NSPersistentStore *store in EntryContext.sharedContext.persistentStoreCoordinator.persistentStores) {
+                NSURL *url = store.URL;
+                if ([url checkResourceIsReachableAndReturnError:nil]) {
+                    [[WCSession defaultSession] transferFile:url metadata:nil];
+                }
+            }
+        }
+    }
+    if (completionHandler) completionHandler([ExtensionResponse success:nil]);
 }
 
 @end

@@ -14,11 +14,10 @@
 #import "WLToast.h"
 #import "WLNavigationHelper.h"
 #import "PHPhotoLibrary+Helper.h"
-#import "WLEditPicture.h"
 
-@interface WLStillAvatarViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver>
+@interface WLStillAvatarViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate>
 
-@property (strong, nonatomic) WLEditPicture* picture;
+@property (strong, nonatomic) MutableAsset *picture;
 
 @end
 
@@ -28,9 +27,12 @@
     __weak typeof(self)weakSelf = self;
     [self editImage:image completion:^ (UIImage *resultImage, NSString *comment) {
         weakSelf.view.userInteractionEnabled = NO;
-        self.picture = [WLEditPicture picture:resultImage mode:weakSelf.mode completion:^(WLEditPicture *picture) {
-            if (saveToAlbum) [picture saveToAssets];
-            [weakSelf finishWithPictures:@[picture]];
+        MutableAsset *asset = [[MutableAsset alloc] init];
+        asset.mode = weakSelf.mode;
+        weakSelf.picture = asset;
+        [asset setImage:resultImage completion:^(MutableAsset * asset) {
+            if (saveToAlbum) [asset saveToAssets];
+            [weakSelf finishWithPictures:@[asset]];
             weakSelf.view.userInteractionEnabled = YES;
         }];
     }];

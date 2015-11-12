@@ -9,13 +9,11 @@
 #import "WLMessageCell.h"
 #import "WLTextView.h"
 #import "UIImage+Drawing.h"
-#import "UIView+QuatzCoreAnimations.h"
 #import "WLMenu.h"
 #import "WLImageView.h"
-#import "NSDate+Formatting.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface WLMessageCell () <WLEntryNotifyReceiver>
+@interface WLMessageCell () <EntryNotifying>
 
 @property (weak, nonatomic) IBOutlet WLImageView *avatarView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -31,7 +29,7 @@
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
     [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
-        [menu addCopyItem:^(WLMessage *message) {
+        [menu addCopyItem:^(Message *message) {
             if (message.text.nonempty) {
                 [[UIPasteboard generalPasteboard] setValue:message.text forPasteboardType:(id)kUTTypeText];
             }
@@ -81,7 +79,7 @@
     return image;
 }
 
-- (void)setup:(WLMessage*)message {
+- (void)setup:(Message*)message {
     if (self.nameLabel) {
         self.avatarView.url = message.contributor.picture.small;
         self.nameLabel.text = message.contributor.name;

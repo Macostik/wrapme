@@ -18,7 +18,7 @@
 
 @property (nonatomic, weak) id <WLWrapEmbeddedViewControllerDelegate> delegate;
 
-@property (weak, nonatomic) WLWrap *wrap;
+@property (weak, nonatomic) Wrap *wrap;
 
 @property (weak, nonatomic) WLBadgeLabel* badge;
 

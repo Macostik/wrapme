@@ -10,6 +10,6 @@
 
 @interface WLCandyViewController : WLBaseViewController
 
-@property (weak, nonatomic) WLCandy *candy;
+@property (weak, nonatomic) Candy *candy;
 
 @end

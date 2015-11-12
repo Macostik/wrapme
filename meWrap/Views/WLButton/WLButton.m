@@ -37,14 +37,14 @@
     if (localize) {
         NSString *text = self.titleLabel.text;
         if (text.nonempty) {
-            [super setTitle:WLLS(text) forState:UIControlStateNormal];
+            [super setTitle:text.ls forState:UIControlStateNormal];
         }
     }
 }
 
 - (void)setTitle:(NSString *)title forState:(UIControlState)state {
     if (self.localize) {
-        [super setTitle:WLLS(title) forState:state];
+        [super setTitle:title.ls forState:state];
     } else {
         [super setTitle:title forState:state];
     }

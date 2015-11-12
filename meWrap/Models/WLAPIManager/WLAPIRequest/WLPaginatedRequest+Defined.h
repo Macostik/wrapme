@@ -11,16 +11,18 @@
 static NSString* WLWrapContentTypeRecent = @"recent_candies";
 static NSString* WLWrapContentTypePaginated = @"paginated_by_date";
 
+@class Wrap;
+
 @interface WLPaginatedRequest (Defined)
 
 + (instancetype)wraps:(NSString*)scope;
 
-+ (instancetype)candies:(WLWrap*)wrap;
++ (instancetype)candies:(Wrap *)wrap;
 
-+ (instancetype)messages:(WLWrap*)wrap;
++ (instancetype)messages:(Wrap *)wrap;
 
-+ (instancetype)wrap:(WLWrap*)wrap contentType:(NSString*)contentType;
++ (instancetype)wrap:(Wrap *)wrap contentType:(NSString*)contentType;
 
-- (instancetype)candies:(WLWrap*)wrap;
+- (instancetype)candies:(Wrap *)wrap;
 
 @end

@@ -19,16 +19,18 @@
     return instance;
 }
 
+#if TARGET_OS_IOS
 - (instancetype)init {
     self = [super init];
     if (self) {
-		__weak typeof(self)weakSelf = self;
+        __weak typeof(self)weakSelf = self;
         [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
 			[weakSelf removeAllObjects];
 		}];
     }
     return self;
 }
+#endif
 
 + (UIImage*)imageWithIdentifier:(NSString*)identifier {
 	return [[self instance] imageWithIdentifier:identifier];

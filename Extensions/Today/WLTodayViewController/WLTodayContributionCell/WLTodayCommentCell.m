@@ -14,7 +14,7 @@
 
 @implementation WLTodayCommentCell
 
-- (void)setContribution:(WLComment *)comment {
+- (void)setContribution:(Comment *)comment {
     [super setContribution:comment];
     self.pictureView.url = comment.picture.small;
     self.wrapNameLabel.text = comment.candy.wrap.name;

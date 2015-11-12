@@ -10,6 +10,6 @@
 
 @interface WLTestUserPicker : UITableView
 
-+ (void)showInView:(UIView*)view selection:(void (^)(WLAuthorization* authorization))selection;
++ (void)showInView:(UIView*)view selection:(void (^)(Authorization *authorization))selection;
 
 @end

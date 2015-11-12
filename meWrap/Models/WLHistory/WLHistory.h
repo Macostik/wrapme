@@ -9,18 +9,15 @@
 #import "WLPaginatedSet.h"
 #import "WLHistoryItem.h"
 
-@class WLCandy;
-@class WLWrap;
-
 @interface WLHistory : WLPaginatedSet
 
-+ (instancetype)historyWithWrap:(WLWrap*)wrap;
++ (instancetype)historyWithWrap:(Wrap *)wrap;
 
-+ (instancetype)historyWithWrap:(WLWrap *)wrap checkCompletion:(BOOL)checkCompletion;
++ (instancetype)historyWithWrap:(Wrap *)wrap checkCompletion:(BOOL)checkCompletion;
 
 - (void)clear;
 
-- (WLHistoryItem*)itemWithCandy:(WLCandy*)candy;
+- (WLHistoryItem*)itemWithCandy:(Candy *)candy;
 
 @end
 

@@ -16,11 +16,9 @@
 #import "WLProfileEditSession.h"
 #import "WLTextView.h"
 #import "WLFontPresetter.h"
-#import "WLEditPicture.h"
 #import "WLImageView.h"
-#import "WLSession.h"
 
-@interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLEntryNotifyReceiver, WLFontPresetterReceiver, WLBroadcastReceiver>
+@interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, EntryNotifying, WLFontPresetterReceiver, WLBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *imagePlaceholderView;
@@ -38,14 +36,27 @@
 
 @dynamic editSession;
 
++ (NSAttributedString *)attributedVerificationSuggestion {
+    NSString *email = [[Authorization currentAuthorization] unconfirmed_email];
+    NSMutableAttributedString *emailVerificationString = [[NSMutableAttributedString alloc] initWithString:
+                                                          [[NSString alloc] initWithFormat:@"formatted_verification_email_text".ls, email]];
+    NSRange fullRange = NSMakeRange(0, emailVerificationString.length);
+    NSRange bitRange = [emailVerificationString.string rangeOfString:email];
+    [emailVerificationString setAttributes:@{NSFontAttributeName:[UIFont lightFontXSmall]}
+                                     range:fullRange];
+    [emailVerificationString setAttributes:@{NSFontAttributeName:[UIFont fontXSmall]}
+                                     range:bitRange];
+    return emailVerificationString;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.editSession = [[WLProfileEditSession alloc] initWithUser:[WLUser currentUser]];
+    self.editSession = [[WLProfileEditSession alloc] initWithUser:[User currentUser]];
     self.imagePlaceholderView.layer.cornerRadius = self.imagePlaceholderView.width/2;
     self.verificationEmailTextView.textContainerInset = UIEdgeInsetsZero;
     self.verificationEmailTextView.textContainer.lineFragmentPadding = 0;
     [self updateEmailConfirmationView];
-    [[WLUser notifier] addReceiver:self];
+    [[User notifier] addReceiver:self];
     [[WLFontPresetter defaultPresetter] addReceiver:self];
 }
 
@@ -59,15 +70,15 @@
 }
 
 - (void)updateEmailConfirmationView {
-    self.verificationEmailTextView.attributedText = [WLAuthorization attributedVerificationSuggestion];
-    self.emailConfirmationView.hidden = ![WLAuthorization currentAuthorization].unconfirmed_email.nonempty;
+    self.verificationEmailTextView.attributedText = [WLChangeProfileViewController attributedVerificationSuggestion];
+    self.emailConfirmationView.hidden = ![Authorization currentAuthorization].unconfirmed_email.nonempty;
 }
 
 - (void)setupEditableUserInterface {
-    WLUser *user = [WLUser currentUser];
+    User *user = [User currentUser];
     self.nameTextField.text = user.name;
     self.imageView.url = user.picture.large;
-    self.emailTextField.text = [WLAuthorization priorityEmail];
+    self.emailTextField.text = [[Authorization currentAuthorization] priorityEmail];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -93,7 +104,7 @@
 - (IBAction)resendEmailConfirmation:(UIButton*)sender {
     sender.userInteractionEnabled = NO;
     [[WLAPIRequest resendConfirmation:nil] send:^(id object) {
-        [WLToast showWithMessage:WLLS(@"confirmation_resend")];
+        [WLToast showWithMessage:@"confirmation_resend".ls];
         sender.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;
@@ -105,9 +116,9 @@
 - (void)validate:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     NSString* email = self.editSession.email;
     if (![email isValidEmail]) {
-        if (failure) failure([NSError errorWithDescription:WLLS(@"incorrect_email")]);
+        if (failure) failure([NSError errorWithDescription:@"incorrect_email".ls]);
     } else if (!self.editSession.name.nonempty) {
-        if (failure) failure([NSError errorWithDescription:WLLS(@"name_cannot_be_blank")]);
+        if (failure) failure([NSError errorWithDescription:@"name_cannot_be_blank".ls]);
     } else {
         if (success) success(nil);
     }
@@ -116,14 +127,14 @@
 - (void)apply:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     NSString* email = self.editSession.email;
     if (self.editSession.hasChangedEmail &&
-        ![[WLAuthorization currentAuthorization].email isEqualToString:email]) {
-        [WLSession setConfirmationDate:nil];
+        ![[Authorization currentAuthorization].email isEqualToString:email]) {
+        [[NSUserDefaults standardUserDefaults] setConfirmationDate:nil];
     }
-    [[WLAPIRequest updateUser:[WLUser currentUser] email:email] send:success failure:failure];
+    [[WLAPIRequest updateUser:[User currentUser] email:email] send:success failure:failure];
 }
 
 - (void)didCompleteDoneAction {
-    self.editSession = [[WLProfileEditSession alloc] initWithUser:[WLUser currentUser]];
+    self.editSession = [[WLProfileEditSession alloc] initWithUser:[User currentUser]];
     [self editSession:self.editSession hasChanges:NO];
 }
 
@@ -135,7 +146,7 @@
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-    WLAsset *picture = [[pictures lastObject] uploadablePicture:NO];
+    Asset *picture = [[pictures lastObject] uploadablePicture:NO];
     self.imageView.url = picture.large;
     self.editSession.url = picture.large;
     [self dismissViewControllerAnimated:NO completion:nil];
@@ -145,16 +156,16 @@
     return WLStillPictureModeSquare;
 }
 
-#pragma mark - WLEntryNotifyReceiver
+#pragma mark - EntryNotifying
 
-- (void)notifier:(WLEntryNotifier *)notifier willUpdateEntry:(WLUser *)user {
+- (void)notifier:(EntryNotifier *)notifier willUpdateEntry:(User *)user {
     [self updateEmailConfirmationView];
 }
 
 #pragma mark -  WLFontPresetterReceiver
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
-      self.verificationEmailTextView.attributedText = [WLAuthorization attributedVerificationSuggestion];
+      self.verificationEmailTextView.attributedText = [WLChangeProfileViewController attributedVerificationSuggestion];
 }
 
 #pragma mark - WLBroadcastReceiver

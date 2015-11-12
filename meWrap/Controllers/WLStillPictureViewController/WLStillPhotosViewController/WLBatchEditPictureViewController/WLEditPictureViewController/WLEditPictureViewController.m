@@ -7,7 +7,7 @@
 //
 
 #import "WLEditPictureViewController.h"
-#import "WLEditPicture.h"
+#import "WLImageView.h"
 
 @import AVKit;
 @import AVFoundation;

@@ -14,11 +14,10 @@
 #import "WLNavigationHelper.h"
 #import "WLBatchEditPictureViewController.h"
 #import "WLCollections.h"
-#import "WLEditPicture.h"
 
 @import Photos;
 
-@interface WLStillPhotosViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLEntryNotifyReceiver, WLBatchEditPictureViewControllerDelegate>
+@interface WLStillPhotosViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate, WLBatchEditPictureViewControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray* pictures;
 
@@ -35,10 +34,10 @@
 - (void)handleImage:(UIImage *)image saveToAlbum:(BOOL)saveToAlbum {
     __weak typeof(self)weakSelf = self;
     self.view.userInteractionEnabled = NO;
-    WLEditPicture *picture = [WLEditPicture picture:self.mode];
-    picture.saveToAlbum = saveToAlbum;
-    picture.date = [NSDate now];
-    [self addPicture:picture success:^(WLEditPicture *picture){
+    MutableAsset *picture = [[MutableAsset alloc] init];
+    picture.mode = self.mode;
+    picture.canBeSavedToAssets = saveToAlbum;
+    [self addPicture:picture success:^(MutableAsset *picture){
         runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
             [picture setImage:image completion:^(id object) {
                 weakSelf.view.userInteractionEnabled = YES;
@@ -59,7 +58,7 @@
     WLBlock completionBlock = ^ {
         queue.finishQueueBlock = nil;
         
-        [weakSelf.pictures sortUsingComparator:^NSComparisonResult(WLEditPicture* obj1, WLEditPicture* obj2) {
+        [weakSelf.pictures sortUsingComparator:^NSComparisonResult(MutableAsset *obj1, MutableAsset *obj2) {
             return [obj1.date compare:obj2.date];
         }];
         
@@ -89,11 +88,12 @@
 }
 
 - (void)cameraViewController:(WLCameraViewController *)controller didFinishWithVideoAtPath:(NSString *)path saveToAlbum:(BOOL)saveToAlbum {
-    WLEditPicture *picture = [WLEditPicture picture:self.mode];
-    picture.type = WLCandyTypeVideo;
+    MutableAsset *picture = [[MutableAsset alloc] init];
+    picture.mode = self.mode;
+    picture.type = MediaTypeVideo;
     picture.date = [NSDate now];
-    picture.saveToAlbum = saveToAlbum;
-    [self addPicture:picture success:^(WLEditPicture *picture) {
+    picture.canBeSavedToAssets = saveToAlbum;
+    [self addPicture:picture success:^(MutableAsset *picture) {
         controller.takePhotoButton.userInteractionEnabled = NO;
         runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
             [picture setVideoFromRecordAtPath:path completion:^(id object) {
@@ -110,7 +110,7 @@
 
 - (BOOL)quickAssetsViewController:(WLQuickAssetsViewController *)controller shouldSelectAsset:(PHAsset *)asset {
     if (asset.mediaType == PHAssetMediaTypeVideo && asset.duration >= maxVideoRecordedDuration + 1) {
-        [WLError([NSString stringWithFormat:WLLS(@"formatted_upload_video_duration_limit"), (int)maxVideoRecordedDuration]) show];
+        [WLError([NSString stringWithFormat:@"formatted_upload_video_duration_limit".ls, (int)maxVideoRecordedDuration]) show];
         return NO;
     } else {
         return [self shouldAddPicture:^{
@@ -125,7 +125,7 @@
 }
 
 - (void)quickAssetsViewController:(WLQuickAssetsViewController *)controller didDeselectAsset:(PHAsset *)asset {
-    [self.pictures removeSelectively:^BOOL(WLEditPicture* picture) {
+    [self.pictures removeSelectively:^BOOL(MutableAsset *picture) {
         if ([picture.assetID isEqualToString:asset.localIdentifier]) {
             if (picture.videoExportSession) {
                 [picture.videoExportSession cancelExport];
@@ -143,11 +143,12 @@
 
 - (void)handleAsset:(PHAsset*)asset {
     __weak typeof(self)weakSelf = self;
-    WLEditPicture *picture = [WLEditPicture picture:self.mode];
+    MutableAsset *picture = [[MutableAsset alloc] init];
+    picture.mode = self.mode;
     picture.assetID = asset.localIdentifier;
     picture.date = asset.creationDate;
-    picture.type = asset.mediaType == PHAssetMediaTypeVideo ? WLCandyTypeVideo : WLCandyTypeImage;
-    [self addPicture:picture success:^(WLEditPicture *picture) {
+    picture.type = asset.mediaType == PHAssetMediaTypeVideo ? MediaTypeVideo : MediaTypePhoto;
+    [self addPicture:picture success:^(MutableAsset *picture) {
         runQueuedOperation(@"wl_still_picture_queue",1,^(WLOperation *operation) {
             if (asset.mediaType == PHAssetMediaTypeVideo) {
                 [picture setVideoFromAsset:asset completion:^(id object) {
@@ -172,7 +173,7 @@
     }
 }
 
-- (void)addPicture:(WLEditPicture*)picture success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+- (void)addPicture:(MutableAsset *)picture success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
     [self shouldAddPicture:^{
         [weakSelf.pictures addObject:picture];
@@ -186,7 +187,7 @@
         if (success) success();
         return YES;
     } else {
-        if (failure) failure(WLError(WLLS(@"upload_photos_limit_error")));
+        if (failure) failure(WLError(@"upload_photos_limit_error".ls));
         return NO;
     }
 }
@@ -200,7 +201,7 @@
 
 - (void)batchEditPictureViewController:(WLBatchEditPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     
-    for (WLEditPicture *picture in pictures) {
+    for (MutableAsset *picture in pictures) {
         [picture saveToAssetsIfNeeded];
     }
     

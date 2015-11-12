@@ -19,18 +19,15 @@
         self.sortComparator = comparatorByCreatedAt;
         self.offset = CGPointZero;
         self.request = [WLPaginatedRequest candies:nil];
+        self.paginationDateKeyPath = @"createdAt";
         self.request.sameDay = YES;
     }
     return self;
 }
 
 - (void)configureRequest:(WLPaginatedRequest *)request {
-    WLWrap* wrap = [[self.entries firstObject] wrap];
+    Wrap *wrap = [[self.entries firstObject] wrap];
     [super configureRequest:[request candies:wrap]];
-}
-
-- (NSDate *)paginationDate {
-    return self.date;
 }
 
 @end

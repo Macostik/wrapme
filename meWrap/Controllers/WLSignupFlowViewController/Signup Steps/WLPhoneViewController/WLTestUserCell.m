@@ -19,7 +19,7 @@
 
 @implementation WLTestUserCell
 
-- (void)setAuthorization:(WLAuthorization *)authorization {
+- (void)setAuthorization:(Authorization *)authorization {
     _authorization = authorization;
     self.phone.text = [authorization fullPhoneNumber];
     self.email.text = [authorization email];

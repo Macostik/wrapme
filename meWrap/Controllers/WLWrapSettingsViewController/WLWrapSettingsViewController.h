@@ -10,6 +10,6 @@
 
 @interface WLWrapSettingsViewController : WLBaseViewController
 
-@property (weak, nonatomic) WLWrap *wrap;
+@property (weak, nonatomic) Wrap *wrap;
 
 @end

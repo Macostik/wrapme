@@ -27,7 +27,7 @@
 
 @implementation WLFollowingViewController
 
-+ (void)followWrapIfNeeded:(WLWrap *)wrap performAction:(WLBlock)action {
++ (void)followWrapIfNeeded:(Wrap *)wrap performAction:(WLBlock)action {
     if (wrap.requiresFollowing) {
         WLFollowingViewController *controller = [WLFollowingViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
         controller.wrap = wrap;
@@ -56,7 +56,7 @@
     self.imageView.url = self.wrap.picture.small;
     self.imageView.isFollowed = self.wrap.isPublic && self.wrap.isContributing;
     self.imageView.isOwner = [self.wrap.contributor current];
-    self.messageLabel.text = requiresFollowing ? WLLS(@"follow_wrap_suggestion") : WLLS(@"followed_wrap_suggestion");
+    self.messageLabel.text = (requiresFollowing ? @"follow_wrap_suggestion" : @"followed_wrap_suggestion").ls;
 }
 
 - (IBAction)close:(id)sender {

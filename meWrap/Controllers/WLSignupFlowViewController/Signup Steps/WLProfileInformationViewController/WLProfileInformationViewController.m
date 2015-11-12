@@ -12,7 +12,7 @@
 #import "WLStillPictureViewController.h"
 #import "WLProfileEditSession.h"
 #import "WLButton.h"
-#import "WLEditPicture.h"
+#import "WLImageView.h"
 
 @interface WLProfileInformationViewController () <UITextFieldDelegate, WLStillPictureViewControllerDelegate, WLKeyboardBroadcastReceiver>
 
@@ -20,7 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *createImageButton;
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *addPhotoLabel;
-@property (weak, nonatomic) WLUser * user;
+@property (weak, nonatomic) User * user;
 @property (strong, nonatomic) IBOutlet WLButton *continueButton;
 @property (strong, nonatomic) WLProfileEditSession *editSession;
 
@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-	self.user = [WLUser currentUser];
+	self.user = [User currentUser];
 	
 	self.nameTextField.text = self.user.name;
     
@@ -88,7 +88,7 @@
 }
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
-	WLAsset *picture = [[pictures lastObject] uploadablePicture:NO];
+	Asset *picture = [[pictures lastObject] uploadablePicture:NO];
 	self.profileImageView.url = picture.large;
     self.editSession.url = picture.large;
     [self verifyContinueButton];

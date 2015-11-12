@@ -14,10 +14,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.coverView.circled = YES;
-    [[WLWrap notifier] addReceiver:self];
+    [[Wrap notifier] addReceiver:self];
 }
 
-- (void)update:(WLWrap*)wrap {
+- (void)update:(Wrap *)wrap {
     self.coverView.url = wrap.picture.small;
     [self.coverView setIsFollowed:wrap.isPublic ? wrap.isContributing : NO];
     [self.coverView setIsOwner:wrap.isPublic ? [wrap.contributor current] : NO];
@@ -26,11 +26,11 @@
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLWrap *)wrap {
-    [self update:wrap];
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry {
+    [self update:(Wrap*)entry];
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+- (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnEntry:(Entry *)entry {
     return self.entry == entry;
 }
 

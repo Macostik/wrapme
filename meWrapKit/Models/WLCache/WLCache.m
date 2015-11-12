@@ -7,11 +7,9 @@
 //
 
 #import "WLCache.h"
-#import "NSString+Documents.h"
 #import "WLCollections.h"
 #import "NSObject+Extension.h"
 #import "GCDHelper.h"
-#import "WLSession.h"
 
 @interface WLCacheItem : NSObject
 
@@ -40,19 +38,15 @@
 @implementation WLCache
 
 + (void)initialize {
-    [[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:AppGroupIdentifier] path]];
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:[[[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.com.ravenpod.wraplive"] path]];
 }
 
-+ (instancetype)cache {
++ (instancetype)defaultCache {
 	return nil;
 }
 
-+ (instancetype)cacheWithIdentifier:(NSString *)identifier {
-	return [self cacheWithIdentifier:identifier relativeCache:nil];
-}
-
-+ (instancetype)cacheWithIdentifier:(NSString *)identifier relativeCache:(WLCache *)relativeCache {
-	return [[self alloc] initWithIdentifier:identifier relativeCache:relativeCache];
+- (instancetype)initWithIdentifier:(NSString *)identifier {
+    return [self initWithIdentifier:identifier relativeCache:nil];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier relativeCache:(WLCache *)relativeCache {

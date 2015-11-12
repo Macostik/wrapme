@@ -24,11 +24,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     if (self.phoneLabel) {
-        self.phoneLabel.text = [WLAuthorization currentAuthorization].fullPhoneNumber;
+        self.phoneLabel.text = [Authorization currentAuthorization].fullPhoneNumber;
     }
     
     if (self.emailLabel) {
-        self.emailLabel.text = [WLAuthorization currentAuthorization].email;
+        self.emailLabel.text = [Authorization currentAuthorization].email;
     }
 }
 

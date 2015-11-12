@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WLEntryView : UIView <WLEntryNotifyReceiver>
+@interface WLEntryView : UIView <EntryNotifying>
 
 @property (strong, nonatomic) id entry;
 

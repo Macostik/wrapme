@@ -7,6 +7,7 @@
 //
 
 #import "StreamReusableView.h"
+#import "WLImageView.h"
 
 @interface WLCandyCell : StreamReusableView
 

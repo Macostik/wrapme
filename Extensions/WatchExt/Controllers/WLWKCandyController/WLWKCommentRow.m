@@ -7,10 +7,7 @@
 //
 
 #import "WLWKCommentRow.h"
-#import "WLComment.h"
-#import "WLUser.h"
 #import "WKInterfaceImage+WLImageFetcher.h"
-#import "NSDate+Additions.h"
 
 @interface WLWKCommentRow ()
 
@@ -22,7 +19,7 @@
 
 @implementation WLWKCommentRow
 
-- (void)setEntry:(WLComment *)comment {
+- (void)setEntry:(Comment *)comment {
     [super setEntry:comment];
     self.avatar.url = comment.contributor.picture.small;
     [self.contributorNameLabel setText:comment.contributor.name];

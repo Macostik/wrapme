@@ -11,12 +11,12 @@
 @implementation WLEntryDescriptor
 
 - (BOOL)entryExists {
-    return [[WLEntryManager manager] entryExists:self.entryClass identifier:self.identifier];
+    return [[EntryContext sharedContext] hasEntry:self.entityName uid:self.identifier];
 }
 
 @end
 
-@implementation WLEntryManager (WLEntryDescriptor)
+@implementation EntryContext (WLEntryDescriptor)
 
 - (void)fetchEntries:(NSMutableDictionary *)descriptors {
     
@@ -47,7 +47,7 @@
     NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:@"WLEntry"];
     request.predicate = [NSPredicate predicateWithFormat:@"identifier IN %@ OR uploadIdentifier IN %@", uids, locuids];
     NSArray *array = [request execute];
-    for (WLEntry *entry in array) {
+    for (Entry *entry in array) {
         
         WLEntryDescriptor *descriptor = nil;
         for (NSString *identifier in descriptors) {
@@ -66,7 +66,7 @@
     }
     
     [descriptors enumerateKeysAndObjectsUsingBlock:^(NSString *identifier, WLEntryDescriptor *descriptor, BOOL *stop) {
-        WLEntry *entry = [[descriptor.entryClass alloc] initWithEntity:[descriptor.entryClass entity] insertIntoManagedObjectContext:self.context];
+        Entry *entry = [NSEntityDescription insertNewObjectForEntityForName:descriptor.entityName inManagedObjectContext:self];
         entry.identifier = descriptor.identifier;
         entry.uploadIdentifier = descriptor.uploadIdentifier;
         [self.cachedEntries setObject:entry forKey:entry.identifier];

@@ -16,9 +16,9 @@
     #import "meWrapKit.h"
     #import "WLConstants.h"
 	#import "meWrap-Swift.h"
-    #import "WLLocalization.h"
     #import "NSError+WLAPIManager.h"
     #import "WLAPIRequest+Defined.h"
     #import "WLPaginatedRequest+Defined.h"
     #import "WLLogger.h"
+    #import "WLEntry+API.h"
 #endif

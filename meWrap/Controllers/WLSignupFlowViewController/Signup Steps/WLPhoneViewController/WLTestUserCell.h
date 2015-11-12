@@ -10,6 +10,6 @@
 
 @interface WLTestUserCell : UITableViewCell
 
-@property (strong, nonatomic) WLAuthorization *authorization;
+@property (strong, nonatomic) Authorization *authorization;
 
 @end

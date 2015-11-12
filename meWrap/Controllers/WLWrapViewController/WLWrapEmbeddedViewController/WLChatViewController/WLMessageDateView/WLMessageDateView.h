@@ -8,8 +8,6 @@
 
 #import "StreamReusableView.h"
 
-@class WLMessage;
-
 @interface WLMessageDateView : StreamReusableView
 
 @end

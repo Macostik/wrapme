@@ -11,18 +11,12 @@
 
 @class WLPaginatedSet;
 
-@protocol WLPaginationEntry <NSObject>
-
-@property (readonly, nonatomic) NSDate *paginationDate;
-
-@end
-
 @protocol WLPaginatedSetDelegate <WLSetDelegate>
 
 @optional
-- (void)paginatedSetDidStartLoading:(WLPaginatedSet*)set;
+- (void)paginatedSetDidStartLoading:(WLPaginatedSet* __nonnull)set;
 
-- (void)paginatedSetDidFinishLoading:(WLPaginatedSet*)set;
+- (void)paginatedSetDidFinishLoading:(WLPaginatedSet* __nonnull)set;
 
 @end
 
@@ -30,38 +24,30 @@
 
 @property (nonatomic) BOOL completed;
 
-@property (strong, nonatomic) WLPaginatedRequest* request;
+@property (strong, nonatomic) WLPaginatedRequest* __nullable request;
 
-@property (nonatomic) NSMutableIndexSet *loadingTypes;
+@property (nonatomic) NSMutableIndexSet* __nonnull loadingTypes;
 
-@property (nonatomic, weak) id <WLPaginatedSetDelegate> delegate;
+@property (nonatomic, weak) id <WLPaginatedSetDelegate> __nullable delegate;
 
-+ (instancetype)setWithEntries:(NSSet*)entries request:(WLPaginatedRequest*)request;
+@property (strong, nonatomic) NSString * __nonnull paginationDateKeyPath;
 
-+ (instancetype)setWithRequest:(WLPaginatedRequest*)request;
++ (instancetype __nonnull)setWithEntries:(NSSet* __nullable)entries request:(WLPaginatedRequest* __nullable)request;
 
-- (void)configureRequest:(WLPaginatedRequest*)request;
++ (instancetype __nonnull)setWithRequest:(WLPaginatedRequest* __nullable)request;
 
-- (NSDate*)newerPaginationDate;
+- (void)configureRequest:(WLPaginatedRequest* __nullable)request;
 
-- (NSDate*)olderPaginationDate;
+- (NSDate* __nullable)newerPaginationDate;
 
-- (void)fresh:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (NSDate* __nullable)olderPaginationDate;
 
-- (void)newer:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (void)fresh:(WLArrayBlock __nullable)success failure:(WLFailureBlock __nullable)failure;
 
-- (void)older:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (void)newer:(WLArrayBlock __nullable)success failure:(WLFailureBlock __nullable)failure;
 
-- (void)handleResponse:(NSSet*)entries;
+- (void)older:(WLArrayBlock __nullable)success failure:(WLFailureBlock __nullable)failure;
 
-@end
-
-@interface WLEntry (WLPaginatedSet) <WLPaginationEntry>
-
-@property (readonly, nonatomic) NSDate *paginationDate;
-
-@end
-
-@interface WLCandy (WLPaginatedSet)
+- (void)handleResponse:(NSArray*  __nonnull)entries;
 
 @end

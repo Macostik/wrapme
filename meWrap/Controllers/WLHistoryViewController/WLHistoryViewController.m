@@ -24,6 +24,7 @@
 #import "PHPhotoLibrary+Helper.h"
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLImageEditorSession.h"
+#import "WLImageView.h"
 
 static NSTimeInterval WLHistoryBottomViewModeTogglingInterval = 4;
 
@@ -32,7 +33,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLHistoryBottomViewModeEditing
 };
 
-@interface WLHistoryViewController () <WLEntryNotifyReceiver, VideoPlayerViewDelegate>
+@interface WLHistoryViewController () <EntryNotifying, VideoPlayerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -50,7 +51,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet UILabel *playLabel;
 @property (weak, nonatomic) IBOutlet UIView *placeholderPlayLabel;
 
-@property (weak, nonatomic) WLComment *lastComment;
+@property (weak, nonatomic) Comment *lastComment;
 
 @property (weak, nonatomic) IBOutlet WLImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet WLTextView *lastCommentTextView;
@@ -67,7 +68,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 @property (nonatomic) NSUInteger currentHistoryItemIndex;
 
-@property (weak, nonatomic) WLCandy* removedCandy;
+@property (weak, nonatomic) Candy *removedCandy;
 
 @property (nonatomic) WLHistoryBottomViewMode bottomViewMode;
 
@@ -92,7 +93,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.videoPlayerView.delegate = self;
     
     __weak typeof(self)weakSelf = self;
-    self.paginationQueue = [WLOperationQueue queueNamed:GUID() capacity:1];
+    self.paginationQueue = [WLOperationQueue queueNamed:[NSString GUID] capacity:1];
     [self.paginationQueue setStartQueueBlock:^{
         [weakSelf.spinner startAnimating];
     }];
@@ -122,7 +123,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         }
     }
 
-    [[WLCandy notifier] addReceiver:self];
+    [[Candy notifier] addReceiver:self];
     
     self.commentButton.layer.borderColor = [UIColor whiteColor].CGColor;
 
@@ -147,7 +148,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)setBottomViewMode:(WLHistoryBottomViewMode)bottomViewMode {
-    WLCandy *candy = _candy;
+    Candy *candy = _candy;
     if (_bottomViewMode != bottomViewMode && !(bottomViewMode == WLHistoryBottomViewModeEditing && candy.editor == nil)) {
         _bottomViewMode = bottomViewMode;
         CATransition *transition = [CATransition animation];
@@ -159,15 +160,14 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [self setupBottomViewModeRelatedData:_bottomViewMode candy:candy];
 }
 
-- (void)setupBottomViewModeRelatedData:(WLHistoryBottomViewMode)bottomViewMode candy:(WLCandy*)candy {
+- (void)setupBottomViewModeRelatedData:(WLHistoryBottomViewMode)bottomViewMode candy:(Candy *)candy {
     if (bottomViewMode == WLHistoryBottomViewModeEditing && candy.editor != nil) {
         _bottomViewMode = WLHistoryBottomViewModeEditing;
-        self.postLabel.text = [NSString stringWithFormat:WLLS(@"formatted_edited_by"), candy.editor.name];
+        self.postLabel.text = [NSString stringWithFormat:@"formatted_edited_by".ls, candy.editor.name];
         self.timeLabel.text = candy.editedAt.timeAgoStringAtAMPM;
     } else {
         _bottomViewMode = WLHistoryBottomViewModeCreating;
-        self.postLabel.text = [NSString stringWithFormat:[candy messageAppearanceByCandyType:@"formatted_video_by"
-                                                                                         and:@"formatted_photo_by"], candy.contributor.name];
+        self.postLabel.text = [NSString stringWithFormat:(candy.isVideo ? @"formatted_video_by" : @"formatted_photo_by").ls, candy.contributor.name];
         self.timeLabel.text = candy.createdAt.timeAgoStringAtAMPM;
     }
 }
@@ -179,8 +179,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     if (!self.showCommentViewController) {
         [self setBarsHidden:NO animated:animated];
     }
-    if (_candy.invalid) {
-        WLCandy *nextCandy = [self candyAfterDeletingCandy:_candy];
+    if (!_candy.valid) {
+        Candy *nextCandy = [self candyAfterDeletingCandy:_candy];
         if (nextCandy) {
             [self setCandy:nextCandy direction:0 animated:NO];
         } else {
@@ -223,17 +223,17 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     }
 }
 
-- (void)setCandy:(WLCandy *)candy direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated {
+- (void)setCandy:(Candy *)candy direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated {
     _candy = candy;
     [self updateOwnerData];
     [self setViewController:[self candyViewController:candy] direction:direction animated:animated];
 }
 
-- (void)fetchCandiesOlderThen:(WLCandy*)candy {
+- (void)fetchCandiesOlderThen:(Candy *)candy {
     WLHistoryItem *historyItem = self.historyItem;
     if (historyItem.completed || historyItem.request.loading || !candy) return;
     [self.paginationQueue addOperationWithBlock:^(WLOperation *operation) {
-        [historyItem older:^(NSSet *candies) {
+        [historyItem older:^(NSArray *candies) {
             [operation finish];
         } failure:^(NSError *error) {
             if (error.isNetworkError) {
@@ -248,7 +248,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLHistory *history = self.history;
     if (history.completed || history.request.loading || !historyItem) return;
     [self.paginationQueue addOperationWithBlock:^(WLOperation *operation) {
-        [history older:^(NSSet *candies) {
+        [history older:^(NSArray *candies) {
             [operation finish];
         } failure:^(NSError *error) {
             if (error.isNetworkError) {
@@ -259,14 +259,14 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     }];
 }
 
-- (void)setCandy:(WLCandy *)candy {
+- (void)setCandy:(Candy *)candy {
     if (candy != _candy) {
         _candy = candy.valid ? candy : nil;
         if (self.isViewLoaded) [self updateOwnerData];
     }
 }
 
-- (void)setLastComment:(WLComment *)lastComment {
+- (void)setLastComment:(Comment *)lastComment {
     if (lastComment != _lastComment) {
         _lastComment = lastComment;
         UITextView *textView = self.lastCommentTextView;
@@ -283,7 +283,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)updateOwnerData {
-    WLCandy *candy = _candy;
+    Candy *candy = _candy;
     [candy markAsRead];
     [self.candyIndicator updateStatusIndicator:candy];
     [self setCommentButtonTitle:candy];
@@ -293,7 +293,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.reportButton.hidden = !self.deleteButton.hidden;
     VideoPlayerView *playerView = self.videoPlayerView;
     NSInteger type = candy.type;
-    if (type == WLCandyTypeVideo) {
+    if (type == MediaTypeVideo) {
         if (!playerView.playing) {
             playerView.url = [candy.picture.original smartURL];
         }
@@ -308,19 +308,19 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.bottomViewHeightPrioritizer.defaultState = !self.avatarImageView.hidden;
 }
 
-- (void)setCommentButtonTitle:(WLCandy *)candy {
-    NSString *title = WLLS(@"comment");
+- (void)setCommentButtonTitle:(Candy *)candy {
+    NSString *title = @"comment".ls;
     if (candy.commentCount == 1) {
-        title = WLLS(@"one_comment");
+        title = @"one_comment".ls;
     } else if (candy.commentCount > 1){
-        title = [NSString stringWithFormat:WLLS(@"formatted_comments"), (int)candy.commentCount];
+        title = [NSString stringWithFormat:@"formatted_comments".ls, (int)candy.commentCount];
     }
     [self.commentButton setTitle:title forState:UIControlStateNormal];
 }
 
-// MARK: - WLEntryNotifyReceiver
+// MARK: - EntryNotifying
 
-- (WLCandy*)candyAfterDeletingCandy:(WLCandy*)candy {
+- (Candy *)candyAfterDeletingCandy:(Candy *)candy {
     
     if (!self.wrap.candies.nonempty) {
         return nil;
@@ -361,29 +361,29 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     return [self.historyItem.entries firstObject];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLCandy *)candy {
+- (void)notifier:(EntryNotifier *)notifier didAddEntry:(Candy *)candy {
     self.currentCandyIndex = [self.historyItem.entries indexOfObject:self.candy];
     self.currentHistoryItemIndex = [self.history.entries indexOfObject:self.historyItem];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLCandy *)candy {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Candy *)candy {
     if (candy == self.candy) {
         [self updateOwnerData];
     }
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLCandy *)candy {
+- (void)notifier:(EntryNotifier *)notifier willDeleteEntry:(Candy *)candy {
     if (candy == self.candy) {
         if (self.navigationController.presentedViewController) {
             [self.navigationController dismissViewControllerAnimated:NO completion:nil];
         }
         if (self.removedCandy == candy) {
-            [WLToast showWithMessage:[candy messageAppearanceByCandyType:@"video_deleted" and:@"photo_deleted"]];
+            [WLToast showWithMessage:(candy.isVideo ? @"video_deleted" : @"photo_deleted").ls];
             self.removedCandy = nil;
         } else {
-            [WLToast showWithMessage:[candy messageAppearanceByCandyType:@"video_unavailable" and:@"photo_unavailable"]];
+            [WLToast showWithMessage:(candy.isVideo ? @"video_unavailable" : @"photo_unavailable").ls];
         }
-        WLCandy *nextCandy = [self candyAfterDeletingCandy:candy];
+        Candy *nextCandy = [self candyAfterDeletingCandy:candy];
         if (nextCandy) {
             [self setCandy:nextCandy direction:0 animated:NO];
             [self setBarsHidden:NO animated:YES];
@@ -394,16 +394,16 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [self removedCachedViewControllerForCandy:candy];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier willDeleteContainer:(WLWrap *)wrap {
+- (void)notifier:(EntryNotifier *)notifier willDeleteContainer:(Wrap *)wrap {
     [WLToast showMessageForUnavailableWrap:wrap];
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+- (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnEntry:(Entry *)entry {
     return entry.container == self.wrap;
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnContainer:(WLEntry *)entry {
+- (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnContainer:(Entry *)entry {
     return self.wrap == entry;
 }
 
@@ -411,7 +411,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (IBAction)back:(id)sender {
     BOOL animate = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
-    WLCandy* candy = self.candy;
+    Candy *candy = self.candy;
     if (candy.valid) {
         if (self.presentingImageView != nil && animate) {
             [self.navigationController popViewControllerAnimated:NO];
@@ -442,7 +442,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (IBAction)deleteCandy:(WLButton *)sender {
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
-        WLCandy *candy = weakSelf.candy;
+        Candy *candy = weakSelf.candy;
         [UIAlertController confirmCandyDeleting:candy success:^{
             weakSelf.removedCandy = candy;
             sender.loading = YES;
@@ -458,7 +458,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (IBAction)report:(id)sender {
-    WLCandy *candy = self.candy;
+    Candy *candy = self.candy;
     ReportViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"report"];
     [controller setReportClosure:^(NSString * code, ReportViewController *controller) {
         [[WLAPIRequest postCandy:candy violationCode:code] send:^(id object) {
@@ -473,7 +473,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (IBAction)editPhoto:(id)sender {
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
-        __weak WLCandy *candy = weakSelf.candy;
+        __weak Candy *candy = weakSelf.candy;
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
             [WLImageEditorSession editImage:image completion:^(UIImage *image) {
                 [candy editWithImage:image];
@@ -488,7 +488,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     __weak __typeof(self)weakSelf = self;
     sender.userInteractionEnabled = NO;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
-        __weak WLCandy *candy = weakSelf.candy;
+        __weak Candy *candy = weakSelf.candy;
         [weakSelf downloadCandyOriginal:candy success:^(UIImage *image) {
             [WLDrawingViewController draw:image finish:^(UIImage *image) {
                 [candy editWithImage:image];
@@ -518,9 +518,9 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     }];
 }
 
-- (void)downloadCandyOriginal:(WLCandy*)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
+- (void)downloadCandyOriginal:(Candy *)candy success:(WLImageBlock)success failure:(WLFailureBlock)failure {
     if (candy) {
-        [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
+        [candy prepareForUpdate:^(Contribution *contribution, WLContributionStatus status) {
             [WLDownloadingView downloadCandy:candy success:success failure:failure];
         } failure:failure];
     } else {
@@ -547,7 +547,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [self.cachedCandyViewControllers removeAllObjects];
 }
 
-- (WLCandyViewController *)candyViewController:(WLCandy*)candy {
+- (WLCandyViewController *)candyViewController:(Candy *)candy {
     if (!self.cachedCandyViewControllers) {
         self.cachedCandyViewControllers = [NSMapTable weakToStrongObjectsMapTable];
     }
@@ -567,7 +567,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     return candyViewController;
 }
 
-- (void)removedCachedViewControllerForCandy:(WLCandy*)candy {
+- (void)removedCachedViewControllerForCandy:(Candy *)candy {
     WLCandyViewController *candyViewController = [self.cachedCandyViewControllers objectForKey:candy];
     if (candyViewController) {
         [self.cachedCandyViewControllers removeObjectForKey:candy];
@@ -575,7 +575,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (UIViewController *)viewControllerAfterViewController:(WLCandyViewController *)viewController {
-    WLCandy *candy = viewController.candy;
+    Candy *candy = viewController.candy;
     WLHistoryItem *item = self.historyItem;
     candy = [item.entries tryAt:[item.entries indexOfObject:candy] + 1];
     if (candy) {
@@ -596,7 +596,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (UIViewController *)viewControllerBeforeViewController:(WLCandyViewController *)viewController {
-    WLCandy *candy = viewController.candy;
+    Candy *candy = viewController.candy;
     WLHistoryItem *item = self.historyItem;
     candy = [item.entries tryAt:[item.entries indexOfObject:candy] - 1];
     if (candy) {
@@ -639,17 +639,17 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 - (void)hideVideoPlayingViews:(BOOL)hide {
     self.videoPlayerView.playButton.hidden = hide;
     self.videoPlayerView.timeView.hidden = hide;
-    [self.videoPlayerView.playButton fade];
-    [self.videoPlayerView.timeView fade];
+    [self.videoPlayerView.playButton addAnimation:[CATransition transition:kCATransitionFade]];
+    [self.videoPlayerView.timeView addAnimation:[CATransition transition:kCATransitionFade]];
 }
 
 - (void)hideSecondaryViews:(BOOL)hide {
     self.bottomView.hidden = hide;
     self.topView.hidden = hide;
     self.commentButton.hidden = hide;
-    [self.bottomView fade];
-    [self.topView fade];
-    [self.commentButton fade];
+    [self.bottomView addAnimation:[CATransition transition:kCATransitionFade]];
+    [self.topView addAnimation:[CATransition transition:kCATransitionFade]];
+    [self.commentButton addAnimation:[CATransition transition:kCATransitionFade]];
 }
 
 - (void)videoPlayerViewDidPlay:(VideoPlayerView *)view {

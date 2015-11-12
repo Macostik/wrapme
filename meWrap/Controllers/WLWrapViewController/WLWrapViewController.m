@@ -85,23 +85,23 @@
 }
 
 - (void)updateWrapData {
-    WLWrap *wrap = self.wrap;
+    Wrap *wrap = self.wrap;
     self.nameLabel.text = wrap.name;
     if (wrap.isPublic) {
-        BOOL contributedByCurrentUser = wrap.contributedByCurrentUser;
+        BOOL contributorIsCurrent = wrap.contributor.current;
         self.publicWrapImageView.url = wrap.contributor.picture.small;
         self.publicWrapImageView.isFollowed = wrap.isContributing;
-        self.publicWrapImageView.isOwner = contributedByCurrentUser;
+        self.publicWrapImageView.isOwner = contributorIsCurrent;
         self.creatorName.text = wrap.contributor.name;
         BOOL requiresFollowing = wrap.requiresFollowing;
         self.segmentedControl.hidden = YES;
         self.settingsButton.hidden = requiresFollowing;
         self.publicWrapView.hidden = NO;
-        self.followButton.hidden = !requiresFollowing || contributedByCurrentUser;
-        self.unfollowButton.hidden = requiresFollowing || contributedByCurrentUser;
+        self.followButton.hidden = !requiresFollowing || contributorIsCurrent;
+        self.unfollowButton.hidden = requiresFollowing || contributorIsCurrent;
         self.publicWrapPrioritizer.defaultState = YES;
         self.publicWrapNameLabel.text = wrap.name;
-        self.ownerDescriptionLabel.hidden = !contributedByCurrentUser;
+        self.ownerDescriptionLabel.hidden = !contributorIsCurrent;
     } else {
         self.segmentedControl.hidden = NO;
         self.settingsButton.hidden = NO;
@@ -124,28 +124,28 @@
 - (void)addNotifyReceivers {
     __weak typeof(self)weakSelf = self;
     
-    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setEntryBlock:^WLEntry *{
+    [[Wrap notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
+        [receiver setEntry:^Entry *{
             return weakSelf.wrap;
         }];
-        receiver.didUpdateBlock = ^(WLWrap *wrap) {
+        receiver.didUpdate = ^(Entry *entry) {
             [weakSelf updateWrapData];
         };
-        receiver.willDeleteBlock = ^(WLWrap *wrap) {
+        receiver.willDelete = ^(Entry *entry) {
             if (weakSelf.viewAppeared) {
                 [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-                [WLToast showMessageForUnavailableWrap:wrap];
+                [WLToast showMessageForUnavailableWrap:(Wrap*)entry];
             }
         };
     }];
     
-    [WLCandy notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setContainerBlock:^WLEntry *{
+    [[Candy notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
+        [receiver setContainer:^Entry *{
             return weakSelf.wrap;
         }];
-        [receiver setDidAddBlock:^(WLCandy *candy) {
+        [receiver setDidAdd:^(Entry *entry) {
             if ([weakSelf isViewLoaded] && weakSelf.segment == WLWrapSegmentMedia) {
-                [candy markAsRead];
+                [entry markAsRead];
             }
         }];
     }];
@@ -203,7 +203,7 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     
-    WLWrap* wrap = controller.wrap ? : self.wrap;
+    Wrap *wrap = controller.wrap ? : self.wrap;
     if (self.wrap != wrap) {
         self.view = nil;
         self.viewController = nil;

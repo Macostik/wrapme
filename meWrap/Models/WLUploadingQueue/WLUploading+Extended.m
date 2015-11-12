@@ -7,24 +7,21 @@
 //
 
 #import "WLUploading+Extended.h"
-#import "WLEntry+API.h"
 #import "WLImageCache.h"
-#import "WLEntryNotifier.h"
 #import "WLOperationQueue.h"
 #import "WLAPIResponse.h"
 #import "WLAuthorizationRequest.h"
 #import "WLNetwork.h"
-#import "UIView+QuatzCoreAnimations.h"
 #import "WLNetwork.h"
 
-@implementation WLUploading (Extended)
+@implementation Uploading (Extended)
 
-+ (instancetype)uploading:(WLContribution *)contribution {
++ (instancetype)uploading:(Contribution *)contribution {
     return [self uploading:contribution type:WLEventAdd];
 }
 
-+ (instancetype)uploading:(WLContribution *)contribution type:(WLEvent)type {
-    WLUploading* uploading = [[WLUploading alloc] initWithEntity:[self entity] insertIntoManagedObjectContext:[WLEntryManager manager].context];
++ (instancetype)uploading:(Contribution *)contribution type:(WLEvent)type {
+    Uploading* uploading = [NSEntityDescription insertNewObjectForEntityForName:[Uploading entityName] inManagedObjectContext:EntryContext.sharedContext];
     uploading.type = type;
     uploading.contribution = contribution;
     contribution.uploading = uploading;
@@ -32,10 +29,10 @@
 }
 
 - (void)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    if (![WLNetwork network].reachable) {
+    if (![WLNetwork sharedNetwork].reachable) {
         if (failure) failure([NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorNetworkConnectionLost userInfo:@{NSLocalizedDescriptionKey:@"Network connection lost."}]);
     } else {
-        WLContribution *contribution = self.contribution;
+        Contribution *contribution = self.contribution;
         __weak typeof(self)weakSelf = self;
         [self sendTypedRequest:^(id object) {
             weakSelf.inProgress = NO;
@@ -45,9 +42,10 @@
         } failure:^(NSError *error) {
             weakSelf.inProgress = NO;
             if (error.isDuplicatedUploading) {
-                NSDictionary *data = [[error.userInfo dictionaryForKey:WLErrorResponseDataKey] objectForPossibleKeys:WLCandyKey, WLWrapKey, WLCommentKey, WLMessageKey, nil];
+                NSArray *keys = [NSArray arrayWithObjects:WLCandyKey, WLWrapKey, WLCommentKey, WLMessageKey, nil];
+                NSDictionary *data = [[error.userInfo dictionaryForKey:WLErrorResponseDataKey] objectForPossibleKeys:keys];
                 if ([data isKindOfClass:[NSDictionary class]]) {
-                    [contribution API_setup:data];
+                    [contribution map:data];
                 }
                 [weakSelf remove];
                 if (success) success(contribution);
@@ -79,7 +77,7 @@
 }
 
 - (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    WLContribution *contribution = self.contribution;
+    Contribution *contribution = self.contribution;
     if (contribution.status != WLContributionStatusReady || ![contribution canBeUploaded]) {
         if (failure) failure(nil);
         return nil;
@@ -88,7 +86,7 @@
 }
 
 - (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    WLContribution *contribution = self.contribution;
+    Contribution *contribution = self.contribution;
     if (!contribution.uploaded || [contribution statusOfUploadingEvent:WLEventUpdate] != WLContributionStatusReady) {
         if (failure) failure(nil);
         return nil;

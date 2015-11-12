@@ -8,16 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class WLAuthorization;
-
 @interface WLConfirmView : UIView
 
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 
-+ (void)showInView:(UIView*)view authorization:(WLAuthorization*)authorization success:(WLAuthorizationBlock)succes cancel:(WLBlock)cancel;
++ (void)showInView:(UIView*)view authorization:(Authorization*)authorization success:(WLObjectBlock)succes cancel:(WLBlock)cancel;
 
-- (void)showInView:(UIView*)view authorization:(WLAuthorization*)authorization success:(WLAuthorizationBlock)succes cancel:(WLBlock)cancel;
+- (void)showInView:(UIView*)view authorization:(Authorization*)authorization success:(WLObjectBlock)succes cancel:(WLBlock)cancel;
 
 - (void)confirmationSuccess:(WLObjectBlock)success cancel:(WLBlock)cancel;
 

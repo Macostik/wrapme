@@ -7,8 +7,6 @@
 //
 
 #import "WLDefinedComparators.h"
-#import "WLEntry.h"
-#import "NSDate+Additions.h"
 
 NSComparator defaultComparator = ^NSComparisonResult(id obj1, id obj2) {
     return [obj1 compare:obj2];

@@ -10,10 +10,10 @@ import Foundation
 
 let WLIndicatorWidth:CGFloat = 16.0
 
-class EntryStatusIndicator: UILabel, WLEntryNotifyReceiver {
+class EntryStatusIndicator: UILabel, EntryNotifying {
     
     @IBOutlet weak  var widthConstraint : NSLayoutConstraint?;
-    var contribution : WLContribution?
+    var contribution : Contribution?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,9 +23,8 @@ class EntryStatusIndicator: UILabel, WLEntryNotifyReceiver {
         super.init(coder: aDecoder)
     }
     
-    func identityByContributorStatus(contribution: WLContribution!) -> String! {
-        let container = contribution.container as? WLContribution
-        if container?.status != .Finished {
+    func identityByContributorStatus(contribution: Contribution!) -> String! {
+        if let container = contribution.container as? Contribution where container.status != .Finished {
             return "D"
         }
         
@@ -36,8 +35,8 @@ class EntryStatusIndicator: UILabel, WLEntryNotifyReceiver {
         }
     }
     
-    func updateStatusIndicator(contribution : WLContribution) {
-        self.hidden = contribution.invalid || !contribution.contributedByCurrentUser;
+    func updateStatusIndicator(contribution : Contribution) {
+        self.hidden = !contribution.valid || !(contribution.contributor?.current ?? false)
         if let widthConstraint = widthConstraint {
             UIView.performWithoutAnimation({ () -> Void in
                 widthConstraint.constant = self.hidden ? 0.0 : WLIndicatorWidth;
@@ -46,28 +45,30 @@ class EntryStatusIndicator: UILabel, WLEntryNotifyReceiver {
         }
         if self.contribution != contribution {
             self.contribution = contribution;
-            let contributionClass = contribution.classForCoder
-            contributionClass.notifier().addReceiver(self)
-            if let container = contribution.container as? WLContribution {
+            contribution.dynamicType.notifier().addReceiver(self)
+            if let container = contribution.container as? Contribution {
                 if container.status != .Finished {
-                    let containerClass = container.classForCoder
-                    containerClass.notifier().addReceiver(self)
+                    container.dynamicType.notifier().addReceiver(self)
                 }
             }
             self.setIconNameByCotribution(contribution)
         }
     }
     
-    func setIconNameByCotribution(contribution : WLContribution) {
+    func setIconNameByCotribution(contribution : Contribution) {
        self.text = self.identityByContributorStatus(contribution);
     }
     
-    func notifier(notifier : WLEntryNotifier, didUpdateEntry entry : WLEntry) {
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry) {
         self.setIconNameByCotribution(contribution!);
     }
     
-    func notifier(notifier : WLEntryNotifier, shouldNotifyOnEntry entry : WLEntry) -> Bool {
-        return contribution == entry || (contribution!.container != nil && entry == contribution!.container)
+    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
+        if let contribution = contribution {
+            return contribution == entry || (contribution.container != nil && entry == contribution.container)
+        } else {
+            return false
+        }
     }
 }
 

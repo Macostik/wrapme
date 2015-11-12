@@ -26,13 +26,13 @@
 }
 
 + (BOOL)showHintViewFromNibNamed:(NSString *)nibName inView:(UIView*)view drawing:(WLHintViewDrawing)drawing {
-    NSMutableDictionary *shownHints = WLSession.shownHints;
+    NSMutableDictionary *shownHints = [NSUserDefaults standardUserDefaults].shownHints;
     
     if ([shownHints objectForKey:nibName]) return NO;
     
     [shownHints setObject:@YES forKey:nibName];
     
-    WLSession.shownHints = shownHints;
+    [NSUserDefaults standardUserDefaults].shownHints = shownHints;
     
     WLHintView * hintView = [self loadFromNibNamed:nibName];
     

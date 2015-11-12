@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLEntryManager.h"
 
 @class NSEntityDescription;
 
@@ -17,9 +16,9 @@
 
 @property (strong, nonatomic) NSString *uploadIdentifier;
 
-@property (strong, nonatomic) NSDictionary *data;
+@property (strong, nonatomic) NSString *entityName;
 
-@property (strong, nonatomic) Class entryClass;
+@property (strong, nonatomic) NSDictionary *data;
 
 @property (strong, nonatomic) NSString *container;
 
@@ -27,7 +26,7 @@
 
 @end
 
-@interface WLEntryManager (WLEntryDescriptor)
+@interface EntryContext (WLEntryDescriptor)
 
 - (void)fetchEntries:(NSMutableDictionary *)descriptors;
 

@@ -13,7 +13,6 @@
 #import "WLProgressBar.h"
 #import "WLCircleImageView.h"
 #import "WLProgressBar+WLContribution.h"
-#import "NSString+Additions.h"
 #import "WLFontPresetter.h"
 #import "WLWhatsUpEvent.h"
 
@@ -31,7 +30,7 @@
 @implementation WLWhatsUpCell
 
 - (void)setup:(WLWhatsUpEvent*)event {
-    WLContribution *contribution = event.contribution;
+    Contribution *contribution = event.contribution;
     [contribution markAsRead];
     self.timeLabel.text = event.date.timeAgoStringAtAMPM;
     self.wrapImageView.url = contribution.picture.small;
@@ -43,7 +42,7 @@
 
 - (void)setup:(WLWhatsUpEvent*)event {
     [super setup:event];
-    WLComment *comment = event.contribution;
+    Comment *comment = event.contribution;
     self.pictureView.url = comment.contributor.picture.small;
     self.userNameLabel.text = [NSString stringWithFormat:@"%@:", comment.contributor.name];
     self.inWrapLabel.text = comment.candy.wrap.name;
@@ -56,14 +55,13 @@
 
 - (void)setup:(WLWhatsUpEvent*)event {
     [super setup:event];
-    WLCandy *candy = event.contribution;
+    Candy *candy = event.contribution;
     if (event.event == WLEventUpdate) {
         self.pictureView.url = candy.editor.picture.small;
-        self.userNameLabel.text = [NSString stringWithFormat:WLLS(@"formatted_edited_by"), candy.editor.name];
+        self.userNameLabel.text = [NSString stringWithFormat:@"formatted_edited_by".ls, candy.editor.name];
     } else {
         self.pictureView.url = candy.contributor.picture.small;
-        self.userNameLabel.text = [NSString stringWithFormat:[candy messageAppearanceByCandyType:@"formatted_video_by"
-                                                                                             and:@"formatted_photo_by"], candy.contributor.name];
+        self.userNameLabel.text = [NSString stringWithFormat:(candy.isVideo ? @"formatted_video_by" : @"formatted_photo_by").ls, candy.contributor.name];
     }
     self.inWrapLabel.text = candy.wrap.name;
     self.textView.text = nil;

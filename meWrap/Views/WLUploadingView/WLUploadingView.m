@@ -8,7 +8,6 @@
 
 #import "WLUploadingView.h"
 #import "WLUploadingQueue.h"
-#import "UIView+QuatzCoreAnimations.h"
 #import "WLNetwork.h"
 
 @interface WLUploadingView () <WLUploadingQueueReceiver, WLNetworkReceiver>
@@ -24,7 +23,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [[WLNetwork network] addReceiver:self];
+    [[WLNetwork sharedNetwork] addReceiver:self];
 }
 
 - (void)setQueue:(WLUploadingQueue *)queue {
@@ -39,11 +38,11 @@
 }
 
 - (void)updateWithQueue:(WLUploadingQueue*)queue {
-    [self fade];
+    [self addAnimation:[CATransition transition:kCATransitionFade]];
     self.hidden = queue.isEmpty;
     if (!self.hidden) {
         self.countLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)queue.count];
-        BOOL networkReachable = [WLNetwork network].reachable;
+        BOOL networkReachable = [WLNetwork sharedNetwork].reachable;
         self.backgroundColor = [(networkReachable ? WLColors.orange : WLColors.grayLight) colorWithAlphaComponent:0.8f];
         [self.arrowIcon setTitleColor:self.backgroundColor forState:UIControlStateNormal];
         [self startAnimating];
@@ -55,7 +54,7 @@
 
 
 - (void)startAnimating {
-    if (self.hidden || ![WLNetwork network].reachable) {
+    if (self.hidden || ![WLNetwork sharedNetwork].reachable) {
         [self stopAnimating];
         return;
     }

@@ -7,10 +7,7 @@
 //
 
 #import "WLPaginatedSet.h"
-#import "WLEntryManager.h"
-#import "WLEntry+API.h"
 #import "WLOperationQueue.h"
-#import "WLEntryNotifier.h"
 
 @interface WLPaginatedSet ()
 
@@ -29,6 +26,14 @@
 
 + (instancetype)setWithRequest:(WLPaginatedRequest *)request {
     return [self setWithEntries:nil request:request];
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.paginationDateKeyPath = @"updatedAt";
+    }
+    return self;
 }
 
 - (NSMutableIndexSet *)loadingTypes {
@@ -56,19 +61,19 @@
     }
 }
 
-- (void)fresh:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (void)fresh:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     [self send:WLPaginatedRequestTypeFresh success:success failure:failure];
 }
 
-- (void)newer:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (void)newer:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     [self send:WLPaginatedRequestTypeNewer success:success failure:failure];
 }
 
-- (void)older:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (void)older:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     [self send:WLPaginatedRequestTypeOlder success:success failure:failure];
 }
 
-- (id)send:(WLPaginatedRequestType)type success:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (id)send:(WLPaginatedRequestType)type success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     WLPaginatedRequest* request = self.request;
     if (request) {
         if ([self.loadingTypes containsIndex:type]) {
@@ -81,11 +86,11 @@
             if (weakSelf && request) {
                 weakSelf.request.type = type;
                 [weakSelf configureRequest:request];
-                [request send:^(NSSet *set) {
-                    [weakSelf handleResponse:set];
+                [request send:^(NSArray *array) {
+                    [weakSelf handleResponse:array];
                     [weakSelf removeLoadingType:type];
                     [operation finish];
-                    if (success) success(set);
+                    if (success) success(array);
                 } failure:^(NSError *error) {
                     [weakSelf removeLoadingType:type];
                     [operation finish];
@@ -113,17 +118,17 @@
 }
 
 - (NSDate *)newerPaginationDate {
-    WLEntry* firstEntry = [self.entries firstObject];
-    return firstEntry.paginationDate;
+    Entry *firstEntry = [self.entries firstObject];
+    return [firstEntry valueForKeyPath:self.paginationDateKeyPath];
 }
 
 - (NSDate *)olderPaginationDate {
-    WLEntry* lastEntry = [self.entries lastObject];
-    return lastEntry.paginationDate;
+    Entry *lastEntry = [self.entries lastObject];
+    return [lastEntry valueForKeyPath:self.paginationDateKeyPath];
 }
 
-- (void)handleResponse:(NSSet*)entries {
-    if ((!entries.nonempty || ![self addEntries:entries]) && self.request.type == WLPaginatedRequestTypeOlder) {
+- (void)handleResponse:(NSArray*)entries {
+    if ((!entries.nonempty || ![self addEntries:[entries set]]) && self.request.type == WLPaginatedRequestTypeOlder) {
         self.completed = YES;
     } else if (!self.entries.nonempty) {
         self.completed = YES;
@@ -135,22 +140,6 @@
         _completed = completed;
         [self didChange];
     }
-}
-
-@end
-
-@implementation WLEntry (WLPaginatedSet)
-
-- (NSDate *)paginationDate {
-    return self.updatedAt;
-}
-
-@end
-
-@implementation WLCandy (WLPaginatedSet)
-
-- (NSDate *)paginationDate {
-    return self.createdAt;
 }
 
 @end

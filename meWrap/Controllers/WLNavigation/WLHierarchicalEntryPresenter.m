@@ -11,15 +11,15 @@
 
 @implementation WLHierarchicalEntryPresenter
 
-+ (void)presentEntry:(WLEntry *)entry inNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
++ (void)presentEntry:(Entry *)entry inNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
     NSMutableArray *viewControllers = [self viewControllersForEntry:entry inNavigationController:navigationController];
     [viewControllers insertObject:navigationController.viewControllers.firstObject atIndex:0];
     [navigationController setViewControllers:viewControllers animated:animated];
 }
 
-+ (NSMutableArray *)viewControllersForEntry:(WLEntry*)entry inNavigationController:(UINavigationController*)navigationController {
++ (NSMutableArray *)viewControllersForEntry:(Entry *)entry inNavigationController:(UINavigationController*)navigationController {
     NSMutableArray *viewControllers = [NSMutableArray array];
-    WLEntry *currentEntry = entry;
+    Entry *currentEntry = entry;
     while (currentEntry.valid) {
         UIViewController *viewController = [currentEntry viewControllerWithNavigationController:navigationController];
         if (viewController) {
@@ -32,7 +32,7 @@
     }
     
     if (![viewControllers count]) {
-        [WLToast showWithMessage:WLLS(@"data_invalid")];
+        [WLToast showWithMessage:@"data_invalid".ls];
     }
     
     return [[[viewControllers reverseObjectEnumerator] allObjects] mutableCopy];

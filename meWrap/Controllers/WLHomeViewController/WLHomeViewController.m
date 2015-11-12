@@ -8,21 +8,17 @@
 
 #import "WLOperationQueue.h"
 #import "WLCandyViewController.h"
-#import "WLHomeDataSource.h"
 #import "WLHomeViewController.h"
 #import "WLNavigationHelper.h"
-#import "WLRefresher.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
 #import "WLUserView.h"
 #import "WLWrapCell.h"
 #import "WLWrapViewController.h"
-#import "UIView+QuatzCoreAnimations.h"
 #import "WLRemoteEntryHandler.h"
 #import "WLUploadingView.h"
 #import "WLAddressBook.h"
 #import "WLIntroductionViewController.h"
-#import "UIView+QuatzCoreAnimations.h"
 #import "WLTouchView.h"
 #import "WLChronologicalEntryPresenter.h"
 #import "WLCandyCell.h"
@@ -33,12 +29,13 @@
 #import "WLNavigationHelper.h"
 #import "WLHintView.h"
 #import "WLMessagesCounter.h"
-#import "SegmentedStreamDataSource.h"
 #import "WLUploadingQueue.h"
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLFollowingViewController.h"
 #import "WLSoundPlayer.h"
 #import "WLNetwork.h"
+#import "WLChangeProfileViewController.h"
+#import "WLRecentCandiesView.h"
 
 @interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
@@ -46,7 +43,7 @@
 
 @property (strong, nonatomic) IBOutlet PaginatedStreamDataSource *publicDataSource;
 
-@property (strong, nonatomic) IBOutlet WLHomeDataSource *homeDataSource;
+@property (strong, nonatomic) IBOutlet HomeDataSource *homeDataSource;
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UIView *emailConfirmationView;
 @property (weak, nonatomic) IBOutlet WLBadgeLabel *notificationsLabel;
@@ -74,7 +71,7 @@
 - (void)viewDidLoad {
     __weak StreamView *streamView = self.streamView;
     
-    __weak WLHomeDataSource *homeDataSource = self.homeDataSource;
+    __weak HomeDataSource *homeDataSource = self.homeDataSource;
     __weak PaginatedStreamDataSource *publicDataSource = self.publicDataSource;
     
     streamView.contentInset = streamView.scrollIndicatorInsets;
@@ -128,16 +125,16 @@
     
     [self addNotifyReceivers];
     
-    NSSet* wraps = [WLUser currentUser].wraps;
+    NSSet* wraps = [User currentUser].wraps;
     homeDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:nil]];
     
     if (wraps.nonempty) {
         [homeDataSource refresh];
     }
     
-    self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[WLCandy class]];
+    self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[Candy class]];
     
-    WLSession.numberOfLaunches++;
+    [NSUserDefaults standardUserDefaults].numberOfLaunches++;
     
     [self performSelector:@selector(showIntroductionIfNeeded) withObject:nil afterDelay:0.0];
     
@@ -151,7 +148,7 @@
 - (void)finalizeAppearingOfCandiesView:(WLRecentCandiesView*)candiesView {
     __weak typeof(self)weakSelf = self;
     StreamMetrics *metrics = [candiesView.dataSource.metrics firstObject];
-    [metrics setSelection:^(StreamItem *candyItem, WLCandy *candy) {
+    [metrics setSelection:^(StreamItem *candyItem, Candy *candy) {
         WLCandyCell *cell = (id)candyItem.view;
         
         if (!candy) {
@@ -180,7 +177,7 @@
 - (void)setCreateWrapTipHidden:(BOOL)createWrapTipHidden {
     _createWrapTipHidden = createWrapTipHidden;
     if (self.createWrapTipView.hidden != createWrapTipHidden) {
-        [self.createWrapTipView fade];
+        [self.createWrapTipView addAnimation:[CATransition transition:kCATransitionFade]];
         self.createWrapTipView.hidden = createWrapTipHidden;
     }
 }
@@ -192,9 +189,9 @@
 - (void)showCreateWrapTipIfNeeded {
     __weak typeof(self)weakSelf = self;
     runUnaryQueuedOperation(WLOperationFetchingDataQueue, ^(WLOperation *operation) {
-        WLUser *user = [WLUser currentUser];
+        User *user = [User currentUser];
         NSSet *wraps = user.wraps;
-        NSUInteger numberOfLaunches = [WLSession numberOfLaunches];
+        NSUInteger numberOfLaunches = [[NSUserDefaults standardUserDefaults] numberOfLaunches];
         
         void (^showBlock)(void) = ^ {
             if (weakSelf.createWrapTipHidden) {
@@ -221,7 +218,7 @@
 }
 
 - (void)showIntroductionIfNeeded {
-    if (WLSession.numberOfLaunches == 1) {
+    if ([NSUserDefaults standardUserDefaults].numberOfLaunches == 1) {
         static BOOL introductionShown = NO;
         if (!introductionShown) {
             introductionShown = YES;
@@ -249,7 +246,7 @@
     [self updateEmailConfirmationView:NO];
     [WLRemoteEntryHandler sharedHandler].isLoaded = [self isViewLoaded];
     [self.uploadingView update];
-    if (WLSession.numberOfLaunches >= 3 && [WLUser currentUser].wraps.count >= 3) {
+    if ([NSUserDefaults standardUserDefaults].numberOfLaunches >= 3 && [User currentUser].wraps.count >= 3) {
         [WLHintView showHomeSwipeTransitionHintViewInView:[UIWindow mainWindow]];
     }
     [self.streamView unlock];
@@ -262,9 +259,9 @@
 }
 
 - (void)updateEmailConfirmationView:(BOOL)animated {
-    BOOL hidden = ([[WLSession confirmationDate] isToday] || ![[WLAuthorization currentAuthorization] unconfirmed_email].nonempty);
+    BOOL hidden = ([[[NSUserDefaults standardUserDefaults] confirmationDate] isToday] || ![[Authorization currentAuthorization] unconfirmed_email].nonempty);
     if (!hidden) {
-        self.verificationEmailLabel.attributedText = [WLAuthorization attributedVerificationSuggestion];
+        self.verificationEmailLabel.attributedText = [WLChangeProfileViewController attributedVerificationSuggestion];
         [self deadlineEmailConfirmationView];
     }
     [self setEmailConfirmationViewHidden:hidden animated:animated];
@@ -275,7 +272,7 @@
 }
 
 - (void)deadlineEmailConfirmationView {
-    [WLSession setConfirmationDate:[NSDate now]];
+    [[NSUserDefaults standardUserDefaults] setConfirmationDate:[NSDate now]];
     [self performSelector:@selector(hideConfirmationEmailView) withObject:nil afterDelay:15.0f];
 }
 
@@ -284,9 +281,9 @@
 }
 
 - (void)openCameraAnimated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
-    WLWrap *wrap = nil;
+    Wrap *wrap = nil;
     if (self.dataSource.currentDataSource == self.publicDataSource) {
-        for (WLWrap *_wrap in [(WLPaginatedSet *)[self.publicDataSource items] entries]) {
+        for (Wrap *_wrap in [(WLPaginatedSet *)[self.publicDataSource items] entries]) {
             if (_wrap.isContributing) {
                 wrap = _wrap;
                 break;
@@ -299,7 +296,7 @@
     [self openCameraForWrap:wrap animated:animated startFromGallery:startFromGallery showWrapPicker:showPicker];
 }
 
-- (void)openCameraForWrap:(WLWrap*)wrap animated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
+- (void)openCameraForWrap:(Wrap *)wrap animated:(BOOL)animated startFromGallery:(BOOL)startFromGallery showWrapPicker:(BOOL)showPicker {
     if (wrap) {
         WLStillPictureViewController *stillPictureViewController = [WLStillPictureViewController stillPhotosViewController];
         stillPictureViewController.wrap = wrap;
@@ -326,7 +323,7 @@
     self.streamView.userInteractionEnabled = !performedAction;
 }
 
-- (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(WLWrap *)wrap {
+- (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(Wrap *)wrap {
     self.streamView.userInteractionEnabled = YES;
     WLWrapViewController *wrapViewController = [WLWrapViewController instantiate:self.storyboard];
     if (wrapViewController && wrap.valid) {
@@ -335,51 +332,54 @@
         [self.navigationController pushViewController:wrapViewController animated:YES];
     }
 }
-- (void)wrapCell:(WLWrapCell *)wrapCell presentCameraViewControllerForWrap:(WLWrap *)wrap {
+- (void)wrapCell:(WLWrapCell *)wrapCell presentCameraViewControllerForWrap:(Wrap *)wrap {
     self.streamView.userInteractionEnabled = YES;
     if (wrap.valid) {
         [self openCameraForWrap:wrap animated:YES startFromGallery:NO showWrapPicker:NO];
     }
 }
 
-// MARK: - WLEntryNotifyReceiver
+// MARK: - EntryNotifying
 
 - (void)addNotifyReceivers {
     
     __weak typeof(self)weakSelf = self;
     
-    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setDidAddBlock:^(WLWrap *wrap) {
+    [[Wrap notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
+        [receiver setDidAdd:^(Entry *entry) {
+            Wrap *wrap = (Wrap*)entry;
             if (wrap.isPublic) {
-                [weakSelf.publicDataSource.items sort:wrap];
+                [weakSelf.publicDataSource.paginatedSet sort:wrap];
             }
             if (wrap.isContributing) {
-                [weakSelf.homeDataSource.items sort:wrap];
+                [weakSelf.homeDataSource.paginatedSet sort:wrap];
             }
             weakSelf.streamView.contentOffset = CGPointZero;
         }];
-        [receiver setDidUpdateBlock:^(WLWrap *wrap) {
+        [receiver setDidUpdate:^(Entry *entry) {
+            Wrap *wrap = (Wrap*)entry;
             if (wrap.isPublic) {
-                [weakSelf.publicDataSource.items sort:wrap];
+                [weakSelf.publicDataSource.paginatedSet sort:wrap];
             }
             if (wrap.isContributing) {
-                [weakSelf.homeDataSource.items sort:wrap];
+                [weakSelf.homeDataSource.paginatedSet sort:wrap];
             } else {
-                [weakSelf.homeDataSource.items removeEntry:wrap];
+                [weakSelf.homeDataSource.paginatedSet removeEntry:wrap];
             }
         }];
-        [receiver setWillDeleteBlock:^(WLWrap *wrap) {
+        [receiver setWillDelete:^(Entry *entry) {
+            Wrap *wrap = (Wrap*)entry;
             if (wrap.isPublic) {
-                [weakSelf.publicDataSource.items removeEntry:wrap];
+                [weakSelf.publicDataSource.paginatedSet removeEntry:wrap];
             }
             if (wrap.isContributing) {
-                [weakSelf.homeDataSource.items removeEntry:wrap];
+                [weakSelf.homeDataSource.paginatedSet removeEntry:wrap];
             }
         }];
     }];
     
-    [WLUser notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        [receiver setDidUpdateBlock:^(WLUser *user) {
+    [[User notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
+        [receiver setDidUpdate:^(Entry *entry) {
             if (weakSelf.isTopViewController) {
                 [weakSelf updateEmailConfirmationView:YES];
             }
@@ -391,7 +391,7 @@
 
 - (IBAction)resendConfirmation:(id)sender {
     [[WLAPIRequest resendConfirmation:nil] send:^(id object) {
-        [WLToast showWithMessage:WLLS(@"confirmation_resend")];
+        [WLToast showWithMessage:@"confirmation_resend".ls];
     } failure:^(NSError *error) {
     }];
 }
@@ -410,8 +410,8 @@
 - (IBAction)hottestWrapsOpened:(id)sender {
     self.publicWrapsHeaderView.hidden = NO;
     NSSet *wraps = nil;
-    if (![WLNetwork network].reachable) {
-        wraps = [[WLWrap entriesWhere:@"isPublic == YES"] set];
+    if (![WLNetwork sharedNetwork].reachable) {
+        wraps = [[[[Wrap fetch] queryString:@"isPublic == YES"] execute] set];
     }
     self.publicDataSource.items = [WLPaginatedSet setWithEntries:wraps request:[WLPaginatedRequest wraps:@"public"]];
 }
@@ -424,7 +424,7 @@
 
 - (void)stillPictureViewController:(WLStillPictureViewController *)controller didFinishWithPictures:(NSArray *)pictures {
     [self dismissViewControllerAnimated:NO completion:nil];
-    WLWrap* wrap = controller.wrap;
+    Wrap* wrap = controller.wrap;
     if (wrap) {
         WLWrapViewController *controller = (WLWrapViewController*)[wrap viewControllerWithNavigationController:self.navigationController];
         if (controller) {
@@ -465,7 +465,7 @@
 
 // MARK: - WLPresentingImageViewDelegate
 
-- (UIView *)presentingImageView:(WLPresentingImageView *)presentingImageView dismissingViewForCandy:(WLCandy *)candy {
+- (UIView *)presentingImageView:(WLPresentingImageView *)presentingImageView dismissingViewForCandy:(Candy *)candy {
     [self.streamView scrollRectToVisible:self.candiesView.frame animated:NO];
     return [[self.candiesView.streamView itemPassingTest:^BOOL(StreamItem *item) {
         return item.entry == candy;

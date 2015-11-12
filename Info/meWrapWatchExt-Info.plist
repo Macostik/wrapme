@@ -43,5 +43,7 @@
 	<array>
 		<string>icons.ttf</string>
 	</array>
+	<key>WKExtensionDelegateClassName</key>
+	<string>$(PRODUCT_MODULE_NAME).WatchExtensionDelegate</string>
 </dict>
 </plist>

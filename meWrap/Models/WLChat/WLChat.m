@@ -23,7 +23,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
 
 @dynamic delegate;
 
-+ (instancetype)chatWithWrap:(WLWrap *)wrap {
++ (instancetype)chatWithWrap:(Wrap *)wrap {
     WLChat* chat = [[self alloc] init];
     chat.sortComparator = comparatorByCreatedAt;
     chat.sortDescending = NO;
@@ -44,7 +44,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     return self;
 }
 
-- (void)setWrap:(WLWrap *)wrap {
+- (void)setWrap:(Wrap *)wrap {
     _wrap = wrap;
     [self resetEntries:wrap.messages];
     if (wrap) {
@@ -54,7 +54,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
             weakSelf.subscription.delegate = weakSelf;
             [weakSelf.subscription hereNow:^(NSArray *uuids) {
                 for (NSDictionary* uuid in uuids) {
-                    WLUser* user = [WLUser entry:uuid[@"uuid"]];
+                    User *user = [User entry:uuid[@"uuid"]];
                     if ([user current]) {
                         continue;
                     }
@@ -69,14 +69,14 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     }
 }
 
-- (void)addTypingUser:(WLUser *)user {
+- (void)addTypingUser:(User *)user {
     if (![self.typingUsers containsObject:user]) {
         [self.typingUsers addObject:user];
         self.typingNames = [self namesOfUsers:self.typingUsers];
     }
 }
 
-- (void)removeTypingUser:(WLUser *)user {
+- (void)removeTypingUser:(User *)user {
     if ([self.typingUsers containsObject:user]) {
         [self.typingUsers removeObject:user];
         self.typingNames = [self namesOfUsers:self.typingUsers];
@@ -86,18 +86,18 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
 - (NSString *)namesOfUsers:(NSMutableOrderedSet*)users {
     if (!users.nonempty) return nil;
     if (users.count == 1) {
-        return [NSString stringWithFormat:WLLS(@"formatted_is_typing"), [(WLUser*)[users lastObject] name]];
+        return [NSString stringWithFormat:@"formatted_is_typing".ls, [(User *)[users lastObject] name]];
     } else if (users.count == 2) {
-        return [NSString stringWithFormat:WLLS(@"formatted_and_are_typing"), [(WLUser*)users[0] name], [(WLUser*)users[1] name]];
+        return [NSString stringWithFormat:@"formatted_and_are_typing".ls, [(User *)users[0] name], [(User *)users[1] name]];
     } else {
-        WLUser* lastUser = [users lastObject];
+        User *lastUser = [users lastObject];
         NSString* names = [[[[users array] remove:lastUser] valueForKey:@"name"] componentsJoinedByString:@", "];
-        return [NSString stringWithFormat:WLLS(@"formatted_and_are_typing"), names, lastUser.name];
+        return [NSString stringWithFormat:@"formatted_and_are_typing".ls, names, lastUser.name];
     }
 }
 
-- (BOOL)addEntry:(WLMessage*)message {
-    WLUser *contributor = message.contributor;
+- (BOOL)addEntry:(Message*)message {
+    User *contributor = message.contributor;
     if ([self.typingUsers containsObject:contributor]) {
         [self.typingUsers removeObject:contributor];
     }
@@ -109,18 +109,18 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
 
 #pragma mark - WLChatTypingChannelDelegate
 
-- (void)didBeginTyping:(WLUser *)user {
+- (void)didBeginTyping:(User *)user {
     if (![user current]) {
         if (!user.name.nonempty || !user.picture.large.nonempty) {
             __weak __typeof(self)weakSelf = self;
-            [self.wrap addContributorsObject:user];
-            [[WLAPIRequest user:user] send:^(WLUser *_user) {
+            [[self.wrap mutableContributors] addObject:user];
+            [[WLAPIRequest user:user] send:^(User *_user) {
                 [weakSelf addTypingUser:_user];
                 if ([weakSelf.delegate respondsToSelector:@selector(chat:didBeginTyping:)]) {
                     [weakSelf.delegate chat:weakSelf didBeginTyping:_user];
                 }
             } failure:^(NSError *error) {
-                [WLToast showWithMessage:WLLS(@"data_invalid")];
+                [WLToast showWithMessage:@"data_invalid".ls];
             }];
         } else {
             [self addTypingUser:user];
@@ -132,7 +132,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     }
 }
 
-- (void)didEndTyping:(WLUser *)user {
+- (void)didEndTyping:(User *)user {
     if (![user current]) {
         [self removeTypingUser:user];
         if ([self.delegate respondsToSelector:@selector(chat:didEndTyping:)]) {
@@ -148,24 +148,24 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     [_messagesWithDay removeAllObjects];
     [_groupMessages removeAllObjects];
     NSOrderedSet *messages = self.entries;
-    for (WLMessage *message in messages) {
+    for (Message *message in messages) {
         
         if (message.unread) {
             [_unreadMessages addObject:message];
         }
         
         NSUInteger index = [messages indexOfObject:message];
-        WLMessage* previousMessage = [messages tryAt:index - 1];
+        Message *previousMessage = [messages tryAt:index - 1];
         BOOL showDay = previousMessage == nil || ![previousMessage.createdAt isSameDay:message.createdAt];
         if (showDay) {
             [_messagesWithDay addObject:message];
-            if (!message.contributedByCurrentUser) [messagesWithName addObject:message];
+            if (!message.contributor.current) [messagesWithName addObject:message];
             [self.groupMessages addObject:message];
             continue;
         }
         
         if (previousMessage.contributor != message.contributor) {
-            if (!message.contributedByCurrentUser) [messagesWithName addObject:message];
+            if (!message.contributor.current) [messagesWithName addObject:message];
             [self.groupMessages addObject:message];
         }
     }
@@ -185,7 +185,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
 // MARK: - WLNotificationSubscriptionDelegate
 
 - (void)notificationSubscription:(WLNotificationSubscription *)subscription didReceivePresenceEvent:(PNPresenceEventData *)event {
-    WLUser* user = [WLUser entry:event.presence.uuid];
+    User *user = [User entry:event.presence.uuid];
     if ([user current]) {
         return;
     }
@@ -198,7 +198,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
     }
 }
 
-- (void)handleClientState:(NSDictionary*)state user:(WLUser*)user {
+- (void)handleClientState:(NSDictionary*)state user:(User *)user {
     if (state[WLChatTypingChannelTypingKey] == nil) return;
     BOOL typing = [state[WLChatTypingChannelTypingKey] boolValue];
     if (typing) {
@@ -221,7 +221,7 @@ static NSString *WLChatTypingChannelTypingKey = @"typing";
 }
 
 - (void)markAsRead {
-    [self.readMessages all:^(WLMessage *message) {
+    [self.readMessages all:^(Message *message) {
         [message markAsRead];
     }];
 }

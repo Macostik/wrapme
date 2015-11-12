@@ -7,9 +7,7 @@
 //
 
 #import "WLWKContributionsController.h"
-#import "WLWKCommentEventRow.h"
-#import "WKInterfaceController+SimplifiedTextInput.h"
-#import "WLWKParentApplicationContext.h"
+#import "WLWKEntryRow.h"
 
 typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     WLWKContributionsStateDefault,
@@ -17,11 +15,11 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     WLWKContributionsStateError
 };
 
-@interface WLWKContributionsController() <WLEntryNotifyReceiver>
+@interface WLWKContributionsController()
 
 @property (strong, nonatomic) IBOutlet WKInterfaceTable *table;
 
-@property (strong, nonatomic) NSOrderedSet* entries;
+@property (strong, nonatomic) NSArray* entries;
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *errorGroup;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *errorLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *placeholderGroup;
@@ -34,9 +32,18 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 
 @implementation WLWKContributionsController
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-    [self.noUpdatesLabel setText:NSLocalizedString(@"no_recent_updates", nil)];
+    [self.noUpdatesLabel setText:@"no_recent_updates".ls];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseUpdated) name:@"dataSync" object:nil];
+}
+
+- (void)databaseUpdated {
+    [self updateContributions];
 }
 
 - (void)setState:(WLWKContributionsState)state {
@@ -60,36 +67,12 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     }
 }
 
-- (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)remoteNotification {
-    __weak typeof(self)weakSelf = self;
-    [WLWKParentApplicationContext handleNotification:remoteNotification success:^(NSDictionary *dictionary) {
-        WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:dictionary[@"entry"]];
-        if ([entry isKindOfClass:[WLComment class]]) {
-            [weakSelf pushControllerWithName:@"candy" context:entry.container];
-        } else if ([entry isKindOfClass:[WLCandy class]]) {
-            [weakSelf pushControllerWithName:@"candy" context:entry];
-        } else if ([identifier isEqualToString:@"reply"] && [entry isKindOfClass:[WLMessage class]]) {
-            run_after(0.2f,^{
-                [weakSelf presentTextInputControllerWithSuggestionsFromFileNamed:@"WLWKChatReplyPresets" completion:^(NSString *result) {
-                    WLWrap *wrap = [(WLMessage*)entry wrap];
-                    [WLWKParentApplicationContext postMessage:result wrap:wrap.identifier success:^(NSDictionary *replyInfo) {
-                        [weakSelf pushControllerWithName:@"alert" context:[NSString stringWithFormat:@"Message \"%@\" sent!", result]];
-                    } failure:^(NSError *error) {
-                        [weakSelf pushControllerWithName:@"alert" context:error];
-                    }];
-                }];
-            });
-        }
-    } failure:^(NSError *error) {
-    }];
-}
-
-- (void)setEntries:(NSOrderedSet *)entries {
+- (void)setEntries:(NSArray *)entries {
     _entries = entries;
     
     NSMutableArray *rowTypes = [NSMutableArray array];
-    for (WLEntry *entry in entries) {
-        [rowTypes addObject:[[entry class] name]];
+    for (Entry *entry in entries) {
+        [rowTypes addObject:[[entry class] entityName]];
     }
     
     if (rowTypes.nonempty) {
@@ -100,8 +83,8 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     
     [self.table setRowTypes:rowTypes];
     
-    for (WLEntry *entry in entries) {
-        [[WLEntryManager manager].context refreshObject:entry mergeChanges:NO];
+    for (Entry *entry in entries) {
+        [EntryContext.sharedContext refreshObject:entry mergeChanges:NO];
         NSUInteger index = [entries indexOfObject:entry];
         WLWKEntryRow* row = [self.table rowControllerAtIndex:index];
         [row setEntry:entry];
@@ -109,11 +92,11 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
 }
 
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
-    WLEntry *entry = self.entries[rowIndex];
+    Entry *entry = self.entries[rowIndex];
     if (entry.valid) {
-        if ([entry isKindOfClass:[WLComment class]]) {
+        if ([entry isKindOfClass:[Comment class]]) {
             [self pushControllerWithName:@"candy" context:[(id)entry candy]];
-        } else if ([entry isKindOfClass:[WLCandy class]]) {
+        } else if ([entry isKindOfClass:[Candy class]]) {
             [self pushControllerWithName:@"candy" context:entry];
         }
     }
@@ -129,11 +112,14 @@ typedef NS_ENUM(NSUInteger, WLWKContributionsState) {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
     [self updateContributions];
+    [[WCSession defaultSession] dataSync:^(NSDictionary<NSString *,id> * reply) {
+    } failure:^(NSError * error) {
+    }];
 }
 
 - (void)updateContributions {
-    if ([WLUser currentUser]) {
-        self.entries = [WLContribution recentContributions:10];
+    if ([User currentUser]) {
+        self.entries = [Contribution recentContributions:10];
     } else {
         [self showError:[NSError errorWithDomain:NSURLErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey:@"No data for authorization. Please, check meWrap app on you iPhone."}]];
     }

@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.emailField.text = [WLAuthorization currentAuthorization].email;
+    self.emailField.text = [Authorization currentAuthorization].email;
 }
 
 - (IBAction)next:(WLButton*)sender {
@@ -51,10 +51,10 @@
 
 - (IBAction)useTestAccount:(id)sender {
     __weak typeof(self)weakSelf = self;
-    [WLTestUserPicker showInView:self.view.window selection:^(WLAuthorization *authorization) {
-        [WLConfirmView showInView:weakSelf.view authorization:authorization success:^(WLAuthorization *authorization) {
+    [WLTestUserPicker showInView:self.view.window selection:^(Authorization *authorization) {
+        [WLConfirmView showInView:weakSelf.view authorization:authorization success:^(Authorization *authorization) {
             if (authorization.password.nonempty) {
-                [authorization signIn:^(WLUser *user) {
+                [authorization signIn:^(User *user) {
                     [[UIStoryboard storyboardNamed:WLMainStoryboard] present:NO];
                 } failure:^(NSError *error) {
                     [error show];

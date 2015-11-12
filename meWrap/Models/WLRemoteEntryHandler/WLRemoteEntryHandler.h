@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class WLEntry;
 @class WLNotification;
 
 @interface WLRemoteEntryHandler : NSObject
@@ -17,9 +16,9 @@
 
 + (instancetype)sharedHandler;
 
-- (BOOL)presentEntry:(WLEntry*)entry;
+- (BOOL)presentEntry:(Entry *)entry;
 
-- (BOOL)presentEntry:(WLEntry*)entry animated:(BOOL)animated;
+- (BOOL)presentEntry:(Entry *)entry animated:(BOOL)animated;
 
 @end
 
@@ -32,11 +31,5 @@
 @interface WLRemoteEntryHandler (NSURL)
 
 - (void)presentEntryFromURL:(NSURL*)url failure:(WLFailureBlock)failure;
-
-@end
-
-@interface WLRemoteEntryHandler (WatchKit)
-
-- (void)presentEntryFromWatchKitEvent:(NSDictionary*)event;
 
 @end

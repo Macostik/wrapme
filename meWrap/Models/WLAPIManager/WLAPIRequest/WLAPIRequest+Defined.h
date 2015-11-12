@@ -10,51 +10,51 @@
 
 @interface WLAPIRequest (Defined)
 
-+ (instancetype)candy:(WLCandy*)candy;
++ (instancetype)candy:(Candy *)candy;
 
-+ (instancetype)deleteCandy:(WLCandy*)candy;
++ (instancetype)deleteCandy:(Candy *)candy;
 
-+ (instancetype)deleteComment:(WLComment*)comment;
++ (instancetype)deleteComment:(Comment *)comment;
 
-+ (instancetype)deleteWrap:(WLWrap*)wrap;
++ (instancetype)deleteWrap:(Wrap *)wrap;
 
-+ (instancetype)leaveWrap:(WLWrap *)wrap;
++ (instancetype)leaveWrap:(Wrap *)wrap;
 
-+ (instancetype)followWrap:(WLWrap*)wrap;
++ (instancetype)followWrap:(Wrap *)wrap;
 
-+ (instancetype)unfollowWrap:(WLWrap *)wrap;
++ (instancetype)unfollowWrap:(Wrap *)wrap;
 
-+ (instancetype)postComment:(WLComment*)comment;
++ (instancetype)postComment:(Comment *)comment;
 
 + (instancetype)resendConfirmation:(NSString*)email;
 
-+ (instancetype)resendInvite:(WLWrap*)wrap user:(WLUser*)user;
++ (instancetype)resendInvite:(Wrap *)wrap user:(User *)user;
 
-+ (instancetype)user:(WLUser*)user;
++ (instancetype)user:(User *)user;
 
-+ (instancetype)preferences:(WLWrap*)wrap;
++ (instancetype)preferences:(Wrap *)wrap;
 
-+ (instancetype)changePreferences:(WLWrap*)wrap;
++ (instancetype)changePreferences:(Wrap *)wrap;
 
-+ (instancetype)contributors:(WLWrap*)wrap;
++ (instancetype)contributors:(Wrap *)wrap;
 
 + (instancetype)verificationCall;
 
-+ (instancetype)uploadMessage:(WLMessage*)message;
++ (instancetype)uploadMessage:(Message*)message;
 
-+ (instancetype)addContributors:(NSSet*)contributors wrap:(WLWrap*)wrap;
++ (instancetype)addContributors:(NSSet*)contributors wrap:(Wrap *)wrap;
 
-+ (instancetype)removeContributors:(NSArray*)contributors wrap:(WLWrap*)wrap;
++ (instancetype)removeContributors:(NSArray*)contributors wrap:(Wrap *)wrap;
 
-+ (instancetype)uploadWrap:(WLWrap*)wrap;
++ (instancetype)uploadWrap:(Wrap *)wrap;
 
-+ (instancetype)updateUser:(WLUser*)user email:(NSString*)email;
++ (instancetype)updateUser:(User *)user email:(NSString*)email;
 
-+ (instancetype)uploadCandy:(WLCandy*)candy;
++ (instancetype)uploadCandy:(Candy *)candy;
 
-+ (instancetype)editCandy:(WLCandy*)candy;
++ (instancetype)editCandy:(Candy *)candy;
 
-+ (instancetype)updateWrap:(WLWrap*)wrap;
++ (instancetype)updateWrap:(Wrap *)wrap;
 
 + (instancetype)contributorsFromContacts:(NSSet*)contacts;
 

@@ -30,16 +30,16 @@
     NSString* appName = [NSBundle mainBundle].displayName;
     NSString* version = [NSBundle mainBundle].buildVersion;
     NSString* build = [NSBundle mainBundle].buildNumber;
-    NSString *message = [NSString stringWithFormat:WLLS(@"formatted_about_message"), appName, version, build];
+    NSString *message = [NSString stringWithFormat:@"formatted_about_message".ls, appName, version, build];
     [UIAlertController showWithMessage:message];
 }
 
 - (IBAction)signOut:(id)sender {
-    [UIAlertController showWithTitle:WLLS(@"sign_out") message:WLLS(@"sign_out_confirmation") cancel:WLLS(@"cancel") action:WLLS(@"sign_out") completion:^{
+    [UIAlertController showWithTitle:@"sign_out".ls message:@"sign_out_confirmation".ls cancel:@"cancel".ls action:@"sign_out".ls completion:^{
         [[WLOperationQueue queueNamed:WLOperationFetchingDataQueue] cancelAllOperations];
         [[WLAPIManager manager].operationQueue cancelAllOperations];
         [[WLNotificationCenter defaultCenter] clear];
-        [WLSession clear];
+        [[NSUserDefaults standardUserDefaults] clear];
         [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
     }];
 }
@@ -52,21 +52,21 @@
 - (IBAction)cleanCache:(WLButton*)sender {
     [[WLOperationQueue queueNamed:WLOperationFetchingDataQueue] cancelAllOperations];
     [[WLAPIManager manager].operationQueue cancelAllOperations];
-    __weak WLUser *currentUser = [WLUser currentUser];
-    __weak WLEntryManager *manager = [WLEntryManager manager];
-    [[WLWrap entries] all:^(WLEntry *entry) {
-        [manager uncacheEntry:entry];
-        [manager.context deleteObject:entry];
+    __weak User *currentUser = [User currentUser];
+    __weak EntryContext *context = EntryContext.sharedContext;
+    [[Wrap entries] all:^(Entry *entry) {
+        [context uncacheEntry:entry];
+        [context deleteObject:entry];
     }];
-    [[WLUser entries] all:^(WLEntry *entry) {
+    [[User entries] all:^(Entry *entry) {
         if (entry != currentUser) {
-            [manager uncacheEntry:entry];
-            [manager.context deleteObject:entry];
+            [context uncacheEntry:entry];
+            [context deleteObject:entry];
         }
     }];
-    [manager.context save:NULL];
+    [context save:NULL];
     currentUser.wraps = [NSSet set];
-    [[WLImageCache cache] clear];
+    [[WLImageCache defaultCache] clear];
     [[WLImageCache uploadingCache] clear];
     [[WLSystemImageCache instance] removeAllObjects];
     [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
@@ -89,7 +89,7 @@
     [[PubNub sharedInstance] channelsForGroup:[WLNotificationCenter defaultCenter].userSubscription.name withCompletion:^(PNChannelGroupChannelsResult *result, PNErrorStatus *status) {
         NSMutableString *message = [NSMutableString string];
         NSMutableArray *channels = [result.data.channels mutableCopy];
-        for (WLWrap *wrap in [WLUser currentUser].wraps) {
+        for (Wrap *wrap in [User currentUser].wraps) {
             if ([channels containsObject:wrap.identifier]) {
                 [message appendFormat:@"subscribed %@ : %@\n", wrap.name, wrap.identifier];
                 [channels removeObject:wrap.identifier];
@@ -109,7 +109,7 @@
     [[PubNub sharedInstance] pushNotificationEnabledChannelsForDeviceWithPushToken:[WLNotificationCenter defaultCenter].pushToken andCompletion:^(PNAPNSEnabledChannelsResult *result, PNErrorStatus *status) {
         NSMutableString *message = [NSMutableString string];
         NSMutableArray *channels = [result.data.channels mutableCopy];
-        for (WLWrap *wrap in [WLUser currentUser].wraps) {
+        for (Wrap *wrap in [User currentUser].wraps) {
             if ([channels containsObject:wrap.identifier]) {
                 [message appendFormat:@"enabled %@ : %@\n", wrap.name, wrap.identifier];
                 [channels removeObject:wrap.identifier];

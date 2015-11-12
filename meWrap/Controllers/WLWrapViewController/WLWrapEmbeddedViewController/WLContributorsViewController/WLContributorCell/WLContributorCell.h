@@ -13,18 +13,20 @@
 
 @protocol WLContributorCellDelegate <NSObject>
 
-- (void)contributorCell:(WLContributorCell*)cell didRemoveContributor:(WLUser*)contributor;
-- (void)contributorCell:(WLContributorCell*)cell didInviteContributor:(WLUser*)contributor completionHandler:(void (^)(BOOL))completionHandler;
-- (BOOL)contributorCell:(WLContributorCell*)cell isInvitedContributor:(WLUser*)contributor;
-- (BOOL)contributorCell:(WLContributorCell*)cell isCreator:(WLUser*)contributor;
-- (void)contributorCell:(WLContributorCell*)cell didToggleMenu:(WLUser*)contributor;
-- (BOOL)contributorCell:(WLContributorCell*)cell showMenu:(WLUser*)contributor;
+- (void)contributorCell:(WLContributorCell*)cell didRemoveContributor:(User *)contributor;
+- (void)contributorCell:(WLContributorCell*)cell didInviteContributor:(User *)contributor completionHandler:(void (^)(BOOL))completionHandler;
+- (BOOL)contributorCell:(WLContributorCell*)cell isInvitedContributor:(User *)contributor;
+- (BOOL)contributorCell:(WLContributorCell*)cell isCreator:(User *)contributor;
+- (void)contributorCell:(WLContributorCell*)cell didToggleMenu:(User *)contributor;
+- (BOOL)contributorCell:(WLContributorCell*)cell showMenu:(User *)contributor;
 
 @end
 
 @interface WLContributorCell : StreamReusableView
 
 @property (nonatomic, weak) IBOutlet id <WLContributorCellDelegate> delegate;
+
++ (NSString *)invitationHintText:(User*)user;
 
 - (void)setMenuHidden:(BOOL)hidden animated:(BOOL)animated;
 

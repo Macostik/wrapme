@@ -34,12 +34,12 @@
     [super viewDidLoad];
 	self.country = [Country getCurrentCountry];
     
-	self.phoneNumberTextField.text = [WLAuthorization currentAuthorization].phone;
+	self.phoneNumberTextField.text = [Authorization currentAuthorization].phone;
 }
 
 - (void)setCountry:(Country *)country {
 	_country = country;
-    [WLAuthorization currentAuthorization].countryCode = country.callingCode;
+    [Authorization currentAuthorization].countryCode = country.callingCode;
 	[self.selectCountryButton setTitle:country.name forState:UIControlStateNormal];
 	self.countryCodeLabel.text = [NSString stringWithFormat:@"+%@", country.callingCode];
     self.validation.country = country;
@@ -49,12 +49,12 @@
 
 - (IBAction)next:(WLButton*)sender {
     [self.view endEditing:YES];
-    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
+    Authorization *authorization = [Authorization currentAuthorization];
     authorization.countryCode = self.country.callingCode;
-    authorization.phone = phoneNumberClearing(self.phoneNumberTextField.text);
+    authorization.phone = [self.phoneNumberTextField.text clearPhoneNumber];
     authorization.formattedPhone = self.phoneNumberTextField.text;
     __weak typeof(self)weakSelf = self;
-    [self confirmAuthorization:authorization success:^(WLAuthorization *authorization) {
+    [self confirmAuthorization:authorization success:^(Authorization *authorization) {
         sender.loading = YES;
         [weakSelf signUpAuthorization:authorization success:^{
             sender.loading = NO;
@@ -75,16 +75,16 @@
     [self.navigationController pushViewController:controller animated:NO];
 }
 
-- (void)confirmAuthorization:(WLAuthorization*)authorization success:(void (^)(WLAuthorization *authorization))success {
+- (void)confirmAuthorization:(Authorization *)authorization success:(void (^)(Authorization *authorization))success {
     __weak typeof(self)weakSelf = self;
     [WLConfirmView showInView:self.view authorization:authorization success:success cancel:^{
         [weakSelf setStatus:WLSignupStepStatusCancel animated:NO];
     }];
 }
 
-- (void)signUpAuthorization:(WLAuthorization*)authorization success:(WLBlock)success failure:(WLFailureBlock)failure {
+- (void)signUpAuthorization:(Authorization *)authorization success:(WLBlock)success failure:(WLFailureBlock)failure {
 	__weak typeof(self)weakSelf = self;
-	[authorization signUp:^(WLAuthorization *authorization) {
+	[authorization signUp:^(Authorization *authorization) {
         [weakSelf setStatus:WLSignupStepStatusSuccess animated:NO];
         if (success) success();
 	} failure:^(NSError *error) {
@@ -93,8 +93,8 @@
 	}];
 }
 
-- (void)signInAuthorization:(WLAuthorization*)authorization {
-	[authorization signIn:^(WLUser *user) {
+- (void)signInAuthorization:(Authorization *)authorization {
+	[authorization signIn:^(User *user) {
         
 	} failure:^(NSError *error) {
 		[error show];
@@ -102,8 +102,8 @@
 }
 
 - (IBAction)phoneChanged:(UITextField *)sender {
-    WLAuthorization *authorization = [WLAuthorization currentAuthorization];
-    authorization.phone = phoneNumberClearing(sender.text);
+    Authorization *authorization = [Authorization currentAuthorization];
+    authorization.phone = [sender.text clearPhoneNumber];
     authorization.formattedPhone = sender.text;
 }
 

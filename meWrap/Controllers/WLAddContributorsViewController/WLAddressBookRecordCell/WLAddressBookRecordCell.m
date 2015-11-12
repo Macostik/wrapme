@@ -10,7 +10,7 @@
 #import "WLAddressBook.h"
 #import "WLAddressBookPhoneNumberCell.h"
 #import "WLAddressBookPhoneNumber.h"
-#import "StreamDataSource.h"
+#import "WLImageView.h"
 
 @interface WLAddressBookRecordCell ()
 
@@ -30,7 +30,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     __weak typeof(self)weakSelf = self;
-    self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
+    self.dataSource = [[StreamDataSource alloc] initWithStreamView:self.streamView];
     [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLAddressBookPhoneNumberCell" initializer:^(StreamMetrics *metrics) {
         metrics.size = 50;
         metrics.selectable = YES;

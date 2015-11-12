@@ -7,6 +7,7 @@
 //
 
 #import "PubNub+SharedInstance.h"
+#import "WLAPIEnvironment.h"
 
 @implementation PubNub (SharedInstance)
 

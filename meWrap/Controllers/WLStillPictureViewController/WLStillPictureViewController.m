@@ -18,7 +18,7 @@
 
 @import Photos;
 
-@interface WLStillPictureViewController () <WLWrapPickerViewControllerDelegate, WLEntryNotifyReceiver>
+@interface WLStillPictureViewController () <WLWrapPickerViewControllerDelegate, EntryNotifying>
 
 @end
 
@@ -55,7 +55,7 @@
     self.cameraViewController = cameraViewController;
     
     if (self.mode == WLStillPictureModeDefault) {
-        [[WLWrap notifier] addReceiver:self];
+        [[Wrap notifier] addReceiver:self];
     }
     
     if (self.wrap == nil && self.mode == WLStillPictureModeDefault) {
@@ -63,7 +63,7 @@
     }
 }
 
-- (void)setWrap:(WLWrap *)wrap {
+- (void)setWrap:(Wrap *)wrap {
     _wrap = wrap;
     for (id <WLStillPictureBaseViewController> controller in self.viewControllers) {
         if ([controller conformsToProtocol:@protocol(WLStillPictureBaseViewController)]) {
@@ -72,7 +72,7 @@
     }
 }
 
-- (void)setupWrapView:(WLWrap *)wrap {
+- (void)setupWrapView:(Wrap *)wrap {
     
 }
 
@@ -86,7 +86,7 @@
     }
 }
 
-- (void)stillPictureViewController:(id<WLStillPictureBaseViewController>)controller didSelectWrap:(WLWrap *)wrap {
+- (void)stillPictureViewController:(id<WLStillPictureBaseViewController>)controller didSelectWrap:(Wrap *)wrap {
     [self showWrapPickerWithController:YES];
 }
 
@@ -127,7 +127,7 @@
     return UIStatusBarAnimationSlide;
 }
 
-- (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
+- (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(WLBooleanBlock)completion {
     [self.topViewController requestAuthorizationForPresentingEntry:entry completion:completion];
 }
 
@@ -195,7 +195,7 @@
 
 // MARK: - WLWrapPickerViewControllerDelegate
 
-- (void)wrapPickerViewController:(WLWrapPickerViewController *)controller didSelectWrap:(WLWrap *)wrap {
+- (void)wrapPickerViewController:(WLWrapPickerViewController *)controller didSelectWrap:(Wrap *)wrap {
     self.wrap = wrap;
 }
 
@@ -211,21 +211,21 @@
     [controller hide];
 }
 
-// MARK: - WLEntryNotifyReceiver
+// MARK: - EntryNotifying
 
-- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLWrap *)wrap {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Wrap *)wrap {
     [self setupWrapView:wrap];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLEntry *)entry {
-    self.wrap = [[[WLUser currentUser] sortedWraps] firstObject];
+- (void)notifier:(EntryNotifier *)notifier willDeleteEntry:(Entry *)entry {
+    self.wrap = [[[User currentUser] sortedWraps] firstObject];
     id <WLStillPictureViewControllerDelegate> delegate = [self getValidDelegate];
     if (!self.presentedViewController && [delegate respondsToSelector:@selector(stillPictureViewController:didSelectWrap:)]) {
         [delegate stillPictureViewController:self didSelectWrap:self.wrap];
     }
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+- (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnEntry:(Entry *)entry {
     return self.wrap == entry;
 }
 

@@ -16,20 +16,20 @@ typedef NS_ENUM(NSUInteger, WLPaginatedRequestType) {
 
 @interface WLPaginatedRequest : WLAPIRequest
 
-@property (strong, nonatomic) NSDate* newer;
+@property (strong, nonatomic) NSDate*  __nullable newer;
 
-@property (strong, nonatomic) NSDate* older;
+@property (strong, nonatomic) NSDate*  __nullable older;
 
 @property (nonatomic) BOOL sameDay;
 
 @property (nonatomic) WLPaginatedRequestType type;
 
-- (id)fresh:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (id __nullable)fresh:(WLArrayBlock __nullable)success failure:(WLFailureBlock __nullable)failure;
 
-- (id)newer:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (id __nullable)newer:(WLArrayBlock __nullable)success failure:(WLFailureBlock __nullable)failure;
 
-- (id)older:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (id __nullable)older:(WLArrayBlock __nullable)success failure:(WLFailureBlock __nullable)failure;
 
-- (id)send:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (id __nullable)send:(WLArrayBlock __nullable)success failure:(WLFailureBlock __nullable)failure;
 
 @end

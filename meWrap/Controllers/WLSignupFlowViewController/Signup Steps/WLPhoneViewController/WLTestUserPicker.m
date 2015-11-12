@@ -9,22 +9,23 @@
 #import "WLTestUserPicker.h"
 #import "WLTestUserCell.h"
 #import "NSObject+NibAdditions.h"
+#import "WLAPIEnvironment.h"
 
 @interface WLTestUserPicker () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSArray* authorizations;
 
-@property (strong, nonatomic) void (^selection)(WLAuthorization* authorization);
+@property (strong, nonatomic) void (^selection)(Authorization *authorization);
 
 @end
 
 @implementation WLTestUserPicker
 
-+ (void)showInView:(UIView *)view selection:(void (^)(WLAuthorization *))selection {
++ (void)showInView:(UIView *)view selection:(void (^)(Authorization *))selection {
 	[view addSubview:[[WLTestUserPicker alloc] initWithFrame:view.bounds selection:selection]];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame selection:(void (^)(WLAuthorization *))selection {
+- (instancetype)initWithFrame:(CGRect)frame selection:(void (^)(Authorization *))selection {
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
 		self.backgroundColor = [UIColor whiteColor];
@@ -70,7 +71,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitle:WLLS(@"cancel") forState:UIControlStateNormal];
+    [button setTitle:@"cancel".ls forState:UIControlStateNormal];
     button.backgroundColor = WLColors.orange;
     [button addTarget:self action:@selector(removeFromSuperview) forControlEvents:UIControlEventTouchUpInside];
     return button;

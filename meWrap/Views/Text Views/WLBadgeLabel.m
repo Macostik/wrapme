@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 #import "WLBadgeLabel.h"
-#import "NSString+Additions.h"
 
 @interface WLBadgeLabel ()
 

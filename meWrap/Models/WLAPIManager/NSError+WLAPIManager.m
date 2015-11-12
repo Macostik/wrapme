@@ -7,9 +7,6 @@
 //
 
 #import "NSError+WLAPIManager.h"
-#import "WLEntry+API.h"
-#import "NSDictionary+Extended.h"
-#import "WLLocalization.h"
 
 @implementation NSError (WLAPIManager)
 
@@ -91,8 +88,8 @@ static NSDictionary *customErrorMessages = nil;
 
 + (NSDictionary*)customErrorMessages {
 	if (!customErrorMessages) {
-		customErrorMessages = @{NSURLErrorDomain:@{@(NSURLErrorTimedOut):WLLS(@"connection_was_lost"),
-												   @(NSURLErrorInternationalRoamingOff):WLLS(@"roaming_is_off")}};
+		customErrorMessages = @{NSURLErrorDomain:@{@(NSURLErrorTimedOut):@"connection_was_lost".ls,
+												   @(NSURLErrorInternationalRoamingOff):@"roaming_is_off".ls}};
 	}
 	return customErrorMessages;
 }

@@ -11,7 +11,7 @@
 
 @implementation WLNotificationEntryPresenter
 
-+ (void)presentEntry:(WLEntry *)entry inNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
++ (void)presentEntry:(Entry *)entry inNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
     NSMutableArray *controllers = [NSMutableArray array];
     
     UIViewController *rootViewController = navigationController.viewControllers.firstObject;

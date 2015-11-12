@@ -15,7 +15,6 @@
 #import "WLEmailConfirmationViewController.h"
 #import "WLLinkDeviceViewController.h"
 #import "WLActivationViewController.h"
-#import "UIView+QuatzCoreAnimations.h"
 #import "WLAuthorizationRequest.h"
 
 @interface WLSignupFlowViewController () <UINavigationControllerDelegate>
@@ -84,7 +83,7 @@
     // profile subflow (will be skipped if is not required)
     
     WLSignupStepCompletionBlock profileStepBlock = ^WLSignupStepViewController *{
-        WLUser *user = [WLUser currentUser];
+        User *user = [User currentUser];
         if (user.isSignupCompleted) {
             return completeSignUp();
         } else {

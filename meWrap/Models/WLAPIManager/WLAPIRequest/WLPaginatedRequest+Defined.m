@@ -7,32 +7,33 @@
 //
 
 #import "WLPaginatedRequest+Defined.h"
-#import "WLEntryNotifier.h"
 
 @implementation WLPaginatedRequest (Defined)
+
+// TODO: add mutable property
 
 + (instancetype)wraps:(NSString *)scope {
     return [[[self GET:@"wraps", nil] parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:scope forKey:@"scope"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        NSSet* wraps = [WLWrap API_entries:[WLWrap API_prefetchArray:[response.data arrayForKey:@"wraps"]]];
-        for (WLWrap *wrap in wraps) {
-            if (!wrap.isPublic) {
-                [[WLUser currentUser] addWraps:wraps];
-            }
-        }
+        NSArray* wraps = [Wrap mappedEntries:[Wrap API_prefetchArray:[response.data arrayForKey:@"wraps"]]];
+//        for (Wrap *wrap in wraps) {
+//            if (!wrap.isPublic) {
+//                [[[User currentUser] mutableWraps] addObjectsFromArray:wraps];
+//            }
+//        }
         success(wraps);
     }];
 }
 
-+ (instancetype)candies:(WLWrap *)wrap {
++ (instancetype)candies:(Wrap *)wrap {
     return [[[self alloc] init] candies:wrap];
 }
 
-+ (instancetype)messages:(WLWrap *)wrap {
++ (instancetype)messages:(Wrap *)wrap {
     return [[[[self GET:@"wraps/%@/chats", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet* messages = [WLMessage API_entries:[WLMessage API_prefetchArray:response.data[@"chats"]] container:wrap];
+            NSArray* messages = [Message mappedEntries:[Message API_prefetchArray:response.data[@"chats"]] container:wrap];
             if (messages.nonempty) {
                 [wrap notifyOnUpdate];
             }
@@ -51,14 +52,14 @@
     }];
 }
 
-- (instancetype)candies:(WLWrap *)wrap {
+- (instancetype)candies:(Wrap *)wrap {
     self.path = [NSString stringWithFormat:@"wraps/%@/candies", wrap.identifier];
     [[[self parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet* candies = [WLCandy API_entries:[WLCandy API_prefetchArray:response.data[WLCandiesKey]] container:wrap];
-            [wrap addCandies:candies];
+            NSArray* candies = [Candy mappedEntries:[Candy API_prefetchArray:response.data[WLCandiesKey]] container:wrap];
+            [[wrap mutableCandies] addObjectsFromArray:candies];
             success(candies);
         } else {
             success(nil);
@@ -71,7 +72,7 @@
     return self;
 }
 
-+ (instancetype)wrap:(WLWrap *)wrap contentType:(NSString *)contentType {
++ (instancetype)wrap:(Wrap *)wrap contentType:(NSString *)contentType {
     return [[[[self GET:@"wraps/%@", wrap.identifier] parametrize:^(WLPaginatedRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
         [parameters trySetObject:contentType forKey:@"pick"];
@@ -80,11 +81,11 @@
             [parameters trySetObject:@([request.newer endOfDay].timestamp) forKey:@"offset_in_epoch"];
         } else if (request.type == WLPaginatedRequestTypeOlder && request.older) {
             [parameters trySetObject:@"older_than" forKey:@"condition"];
-            [parameters trySetObject:@([request.older beginOfDay].timestamp) forKey:@"offset_in_epoch"];
+            [parameters trySetObject:@([request.older startOfDay].timestamp) forKey:@"offset_in_epoch"];
         }
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            success([wrap update:[WLWrap API_prefetchDictionary:response.data[WLWrapKey]]]);
+            success(@[[wrap update:[Wrap API_prefetchDictionary:response.data[WLWrapKey]]]]);
         } else {
             success(nil);
         }

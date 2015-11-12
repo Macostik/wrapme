@@ -7,7 +7,6 @@
 //
 
 #import "WLEmailValidation.h"
-#import "NSString+Additions.h"
 
 @implementation WLEmailValidation
 

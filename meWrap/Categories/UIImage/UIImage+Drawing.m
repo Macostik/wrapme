@@ -7,7 +7,6 @@
 //
 
 #import "UIImage+Drawing.h"
-#import "NSString+Documents.h"
 #import "PHPhotoLibrary+Helper.h"
 #import "GCDHelper.h"
 

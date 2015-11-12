@@ -32,11 +32,11 @@
     }];
 }
 
-- (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
+- (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(WLBooleanBlock)completion {
     if (!completion) return;
-    [UIAlertController showWithTitle:WLLS(@"unsaved_photo")
-                       message:WLLS(@"leave_screen_on_editing")
-                       buttons:@[WLLS(@"cancel"),WLLS(@"continue")]
+    [UIAlertController showWithTitle:@"unsaved_photo".ls
+                       message:@"leave_screen_on_editing".ls
+                       buttons:@[@"cancel".ls,@"continue".ls]
                     completion:^(NSUInteger index) {
                         completion(index == 1);
                     }];

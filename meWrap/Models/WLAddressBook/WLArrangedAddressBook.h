@@ -15,13 +15,13 @@ typedef void (^WLArrangedAddressBookUniqueRecordHandler)(BOOL exists, NSArray *r
 
 @interface WLArrangedAddressBook : NSObject
 
-@property (weak, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) Wrap *wrap;
 
 @property (strong, nonatomic) NSArray *groups;
 
 @property (strong, nonatomic) NSMutableSet *selectedPhoneNumbers;
 
-- (instancetype)initWithWrap:(WLWrap*)wrap;
+- (instancetype)initWithWrap:(Wrap *)wrap;
 
 - (void)addRecords:(NSSet*)records;
 

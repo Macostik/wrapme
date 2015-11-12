@@ -8,7 +8,6 @@
 
 #import "WLWhatsUpViewController.h"
 #import "WLUserView.h"
-#import "StreamDataSource.h"
 #import "WLNotificationCenter.h"
 #import "WLChronologicalEntryPresenter.h"
 #import "WLWhatsUpCell.h"
@@ -17,7 +16,7 @@
 #import "WLWhatsUpSet.h"
 #import "WLWhatsUpEvent.h"
 
-@interface WLWhatsUpViewController () <WLEntryNotifyReceiver, WLWhatsUpSetBroadcastReceiver>
+@interface WLWhatsUpViewController () <EntryNotifying, WLWhatsUpSetBroadcastReceiver>
 
 @property (strong, nonatomic) IBOutlet StreamDataSource *dataSource;
 @property (strong, nonatomic) IBOutlet StreamMetrics *commentMetrics;
@@ -41,7 +40,7 @@
     
     [self.candyMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
         WLWhatsUpEvent *event = [weakSelf.events tryAt:position.index];
-        return ![event.contribution isKindOfClass:[WLCandy class]];
+        return ![event.contribution isKindOfClass:[Candy class]];
     }];
     
     [self.commentMetrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
@@ -53,14 +52,14 @@
     
     [self.commentMetrics setHiddenAt:^BOOL(StreamPosition *position, StreamMetrics *metrics) {
         WLWhatsUpEvent *event = [weakSelf.events tryAt:position.index];
-        return ![event.contribution isKindOfClass:[WLComment class]];
+        return ![event.contribution isKindOfClass:[Comment class]];
     }];
     
     self.commentMetrics.selection = self.candyMetrics.selection = ^(StreamItem *item, WLWhatsUpEvent *event) {
         [WLChronologicalEntryPresenter presentEntry:event.contribution animated:YES];
     };
  
-    [[WLWrap notifier] addReceiver:self];
+    [[Wrap notifier] addReceiver:self];
     
     self.events = [[WLWhatsUpSet sharedSet].entries copy];
     [[WLWhatsUpSet sharedSet].broadcaster addReceiver:self];
@@ -76,8 +75,8 @@
     [[WLWhatsUpSet sharedSet] update:nil failure:nil];
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier willDeleteEntry:(WLEntry *)entry {
-    [WLToast showMessageForUnavailableWrap:(WLWrap*)entry];
+- (void)notifier:(EntryNotifier*)notifier willDeleteEntry:(Entry *)entry {
+    [WLToast showMessageForUnavailableWrap:(Wrap *)entry];
 }
 
 - (IBAction)back:(id)sender {

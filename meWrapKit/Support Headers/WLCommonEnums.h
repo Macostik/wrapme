@@ -14,9 +14,20 @@ typedef NS_ENUM(int16_t, WLEvent) {
     WLEventDelete
 };
 
+typedef NS_ENUM (NSUInteger, WLContributionStatus) {
+    WLContributionStatusReady,
+    WLContributionStatusInProgress,
+    WLContributionStatusFinished
+};
+
 typedef NS_ENUM(NSInteger, WLStillPictureMode) {
     WLStillPictureModeDefault,
     WLStillPictureModeSquare
+};
+
+typedef NS_ENUM(int16_t, MediaType) {
+    MediaTypePhoto = 10,
+    MediaTypeVideo = 20,
 };
 
 static CGFloat WLStillPictureCameraViewAspectRatio = 0.75f;

@@ -10,7 +10,7 @@
 
 @interface WLProfileEditSession : WLEditSession
 
-- (id)initWithUser:(WLEntry *)entry;
+- (id)initWithUser:(Entry *)entry;
 
 @property (strong, nonatomic) NSString *name;
 

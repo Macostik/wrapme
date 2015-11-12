@@ -7,18 +7,12 @@
 //
 
 #import "NSError+WLAPIManager.h"
-#import "WLEntryManager.h"
-#import "WLAuthorization.h"
 #import "WLAPIEnvironment.h"
 
-@class WLUser;
-@class WLComment;
 @class WLAPIResponse;
-@class WLDate;
-@class WLAuthorization;
 @class WLAPIRequest;
 
-@interface WLEntry (WLAPIManager)
+@interface Entry (WLAPIManager)
 
 @property (readonly, nonatomic) BOOL fetched;
 
@@ -36,28 +30,6 @@
 
 - (void)recursivelyFetchIfNeeded:(WLBlock)success failure:(WLFailureBlock)failure;
 
-+ (instancetype)entry;
-
-+ (instancetype)entry:(NSString *)identifier container:(WLEntry*)container;
-
-+ (instancetype)entry:(NSString *)identifier uploadIdentifier:(NSString *)uploadIdentifier;
-
-+ (NSSet*)API_entries:(NSArray*)array;
-
-+ (instancetype)API_entry:(NSDictionary*)dictionary;
-
-+ (NSSet*)API_entries:(NSArray*)array container:(id)container;
-
-+ (instancetype)API_entry:(NSDictionary*)dictionary container:(id)container;
-
-+ (NSString*)API_identifier:(NSDictionary*)dictionary;
-
-+ (NSString *)API_uploadIdentifier:(NSDictionary *)dictionary;
-
-- (instancetype)API_setup:(NSDictionary*)dictionary;
-
-- (instancetype)API_setup:(NSDictionary*)dictionary container:(id)container;
-
 + (NSArray*)API_prefetchArray:(NSArray*)array;
 
 + (NSDictionary*)API_prefetchDictionary:(NSDictionary*)dictionary;
@@ -72,60 +44,54 @@
 
 - (void)touch:(NSDate*)date;
 
-- (void)editPicture:(WLAsset*)editedPicture;
-
-- (void)markAsRead;
-
-- (void)markAsUnread;
+- (void)remove;
 
 @end
 
-@interface WLUser (WLAPIManager) @end
+@interface User (WLAPIManager) @end
 
-@interface WLDevice (WLAPIManager) @end
+@interface Device (WLAPIManager) @end
 
-@interface WLContribution (WLAPIManager)
-
-+ (instancetype)contribution;
+@interface Contribution (WLAPIManager)
 
 + (NSNumber*)uploadingOrder;
 
 @end
 
-@interface WLWrap (WLAPIManager)
+@interface Wrap (WLAPIManager)
 
-+ (instancetype)wrap;
+- (id)fetch:(NSString*)contentType success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
-- (id)fetch:(NSString*)contentType success:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (id)messagesNewer:(NSDate*)newer success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
-- (id)messagesNewer:(NSDate*)newer success:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (id)messagesOlder:(NSDate*)older newer:(NSDate*)newer success:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
-- (id)messagesOlder:(NSDate*)older newer:(NSDate*)newer success:(WLSetBlock)success failure:(WLFailureBlock)failure;
-
-- (id)messages:(WLSetBlock)success failure:(WLFailureBlock)failure;
+- (id)messages:(WLArrayBlock)success failure:(WLFailureBlock)failure;
 
 - (void)preload;
 
 @end
 
-@interface WLCandy (WLAPIManager)
+@interface Candy (WLAPIManager)
 
-+ (instancetype)candyWithType:(NSInteger)type wrap:(WLWrap*)wrap;
+- (void)setEditedPictureIfNeeded:(Asset *)editedPicture;
 
-- (void)addComment:(WLComment *)comment;
-
-- (void)removeComment:(WLComment *)comment;
-
-- (void)setEditedPictureIfNeeded:(WLAsset *)editedPicture;
+- (void)download:(WLBlock)success failure:(WLFailureBlock)failure;
 
 @end
 
-@interface WLMessage (WLAPIManager)
+@interface Message (WLAPIManager)
 
 @end
 
-@interface WLComment (WLAPIManager)
+@interface Comment (WLAPIManager)
 
 + (instancetype)comment:(NSString*)text;
+
+@end
+
+@interface NSString (Unicode)
+
+- (NSString *)escapedUnicode;
 
 @end

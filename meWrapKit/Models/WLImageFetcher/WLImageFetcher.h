@@ -7,9 +7,11 @@
 //
 
 #import "WLBroadcaster.h"
-#import "WLImageView.h"
+#import <UIKit/UIKit.h>
 
 @class WLImageFetcher;
+
+typedef void (^WLImageFetcherBlock)(UIImage* image, BOOL cached);
 
 @protocol WLImageFetching
 
@@ -24,7 +26,7 @@
 
 @interface WLImageFetcher : WLBroadcaster
 
-+ (instancetype)fetcher;
++ (instancetype)defaultFetcher;
 
 - (id)enqueueImageWithUrl:(NSString *)url;
 

@@ -9,10 +9,11 @@
 #import "WLCandyViewController.h"
 #import "WLDeviceManager.h"
 #import "WLToast.h"
+#import "WLImageView.h"
 @import AVKit;
 @import AVFoundation;
 
-@interface WLCandyViewController () <WLEntryNotifyReceiver, UIScrollViewDelegate>
+@interface WLCandyViewController () <EntryNotifying, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -40,13 +41,13 @@
     [self.scrollView.superview addGestureRecognizer:self.scrollView.pinchGestureRecognizer];
     self.scrollView.panGestureRecognizer.enabled = NO;
     
-    [[WLCandy notifier] addReceiver:self];
+    [[Candy notifier] addReceiver:self];
     
     [self setup:self.candy];
     [self refresh];
 }
 
-- (void)setup:(WLCandy *)candy {
+- (void)setup:(Candy *)candy {
     __weak typeof(self)weakSelf = self;
     self.spinner.hidden = NO;
     self.errorLabel.hidden = YES;
@@ -78,7 +79,7 @@
     [self refresh:self.candy];
 }
 
-- (void)refresh:(WLCandy*)candy {
+- (void)refresh:(Candy *)candy {
     [candy fetch:^(id object) { } failure:^(NSError *error) { }];
 }
 
@@ -91,7 +92,7 @@
     [super viewDidAppear:animated];
 }
 
-- (void)setCandy:(WLCandy *)candy {
+- (void)setCandy:(Candy *)candy {
     if (candy != _candy && candy.valid) {
         _candy = candy;
         if (self.isViewLoaded) {
@@ -101,13 +102,13 @@
     }
 }
 
-#pragma mark - WLEntryNotifyReceiver
+#pragma mark - EntryNotifying
 
-- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLCandy *)candy {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Candy *)candy {
     [self setup:candy];
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+- (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnEntry:(Entry *)entry {
     return self.candy == entry;
 }
 

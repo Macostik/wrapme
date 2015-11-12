@@ -6,13 +6,13 @@
 //  Copyright © 2015 Ravenpod. All rights reserved.
 //
 
-@interface WLEntry (WLUploadingQueue)
+@interface Entry (WLUploadingQueue)
 
 @end
 
-typedef void (^WLContributionUpdatePreparingBlock)(WLContribution *contribution, WLContributionStatus status);
+typedef void (^WLContributionUpdatePreparingBlock)(Contribution *contribution, WLContributionStatus status);
 
-@interface WLContribution (WLUploadingQueue)
+@interface Contribution (WLUploadingQueue)
 
 - (void)enqueueUpdate:(WLFailureBlock)failure;
 
@@ -20,21 +20,21 @@ typedef void (^WLContributionUpdatePreparingBlock)(WLContribution *contribution,
 
 @end
 
-@interface WLWrap (WLUploadingQueue)
+@interface Wrap (WLUploadingQueue)
 
-- (void)uploadMessage:(NSString*)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure;
+- (void)uploadMessage:(NSString*)text success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
-- (void)uploadPicture:(WLAsset *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure;
+- (void)uploadPicture:(Asset *)picture success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
-- (void)uploadPicture:(WLAsset *)picture;
+- (void)uploadPicture:(Asset *)picture;
 
 - (void)uploadPictures:(NSArray *)pictures;
 
 @end
 
-@interface WLCandy (WLUploadingQueue)
+@interface Candy (WLUploadingQueue)
 
-- (id)uploadComment:(NSString *)text success:(WLCommentBlock)success failure:(WLFailureBlock)failure;
+- (id)uploadComment:(NSString *)text success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 - (void)editWithImage:(UIImage*)image;
 

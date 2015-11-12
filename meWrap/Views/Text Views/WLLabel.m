@@ -16,14 +16,14 @@
     if (localize) {
         NSString *text = self.text;
         if (text.nonempty) {
-            [super setText:WLLS(text)];
+            [super setText:text.ls];
         }
     }
 }
 
 - (void)setText:(NSString *)text {
     if (self.localize) {
-        [super setText:WLLS(text)];
+        [super setText:text.ls];
     } else {
         [super setText:text];
     }

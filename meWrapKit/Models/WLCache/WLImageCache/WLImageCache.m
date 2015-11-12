@@ -7,13 +7,11 @@
 //
 
 #import "WLImageCache.h"
-#import "NSString+Documents.h"
-#import "NSString+MD5.h"
 #import <ImageIO/ImageIO.h>
-#import "NSDictionary+Extended.h"
-#import "NSString+Additions.h"
 #import "WLSystemImageCache.h"
 #import "GCDHelper.h"
+#import <CommonCrypto/CommonCrypto.h>
+#import <objc/runtime.h>
 
 static NSUInteger WLImageCacheSize = 524288000;
 
@@ -23,11 +21,11 @@ static NSUInteger WLImageCacheSize = 524288000;
 
 @implementation WLImageCache
 
-+ (instancetype)cache {
++ (instancetype)defaultCache {
     static WLImageCache *instance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		instance = [self cacheWithIdentifier:@"wl_ImagesCache"];
+		instance = [[self alloc] initWithIdentifier:@"wl_ImagesCache"];
         instance.size = WLImageCacheSize;
 	});
     return instance;
@@ -37,7 +35,7 @@ static NSUInteger WLImageCacheSize = 524288000;
     static WLImageCache *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [self cacheWithIdentifier:@"wl_UploadingImagesCache"];
+        instance = [[self alloc] initWithIdentifier:@"wl_UploadingImagesCache"];
         instance.compressionQuality = 0.75f;
         instance.size = 0;
     });
@@ -106,7 +104,14 @@ static NSUInteger WLImageCacheSize = 524288000;
 }
 
 - (void)setImage:(UIImage *)image completion:(void (^)(NSString *))completion {
-	[self setImage:image withIdentifier:[GUID() stringByAppendingPathExtension:@"jpg"] completion:completion];
+	[self setImage:image withIdentifier:[[NSString GUID] stringByAppendingPathExtension:@"jpg"] completion:completion];
+}
+
+- (NSString *)setImage:(UIImage *)image {
+    NSString *identifier = [[NSString GUID] stringByAppendingPathExtension:@"jpg"];
+    [self write:identifier object:image];
+    [self.identifiers addObject:identifier];
+    return identifier;
 }
 
 - (void)setImageAtPath:(NSString *)path withIdentifier:(NSString *)identifier {
@@ -154,7 +159,7 @@ static NSUInteger WLImageCacheSize = 524288000;
 }
 
 - (void)setImageData:(NSData*)data completion:(void (^)(NSString* path))completion {
-	[self setImageData:data withIdentifier:[GUID() stringByAppendingPathExtension:@"jpg"] completion:completion];
+	[self setImageData:data withIdentifier:[[NSString GUID] stringByAppendingPathExtension:@"jpg"] completion:completion];
 }
 
 @end
@@ -196,6 +201,25 @@ static NSUInteger WLImageCacheSize = 524288000;
     } else {
         return [[url MD5] stringByAppendingPathExtension:@"jpg"];
     }
+}
+
+@end
+
+@implementation NSString (MD5)
+
+- (NSString*)MD5 {
+    NSString* MD5 = [self associatedObjectForKey:"MD5"];
+    if (!MD5) {
+        const char *ptr = [self UTF8String];
+        unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
+        CC_MD5(ptr, (CC_LONG)strlen(ptr), md5Buffer);
+        NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+        for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+            [output appendFormat:@"%02x",md5Buffer[i]];
+        MD5 = output;
+        [self setAssociatedObject:MD5 forKey:"MD5"];
+    }
+    return MD5;
 }
 
 @end

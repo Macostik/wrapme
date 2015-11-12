@@ -9,7 +9,7 @@
 #import "WLWhatsUpSet.h"
 #import "WLWhatsUpEvent.h"
 
-@interface WLWhatsUpSet () <WLEntryNotifyReceiver>
+@interface WLWhatsUpSet () <EntryNotifying>
 
 @property (strong, nonatomic) NSString* contributionsPredicate;
 
@@ -35,9 +35,9 @@
         self.broadcaster = [[WLBroadcaster alloc] init];
         self.wrapCounters = [NSDictionary dictionary];
         self.sortComparator = comparatorByDate;
-        [[WLComment notifier] addReceiver:self];
-        [[WLCandy notifier] addReceiver:self];
-        [[WLWrap notifier] addReceiver:self];
+        [[Comment notifier] addReceiver:self];
+        [[Candy notifier] addReceiver:self];
+        [[Wrap notifier] addReceiver:self];
         self.contributionsPredicate = @"createdAt >= %@ AND contributor != nil AND contributor != %@";
         self.updatesPredicate = @"editedAt >= %@ AND editor != nil AND editor != %@";
         [self update:nil failure:nil];
@@ -47,7 +47,7 @@
 
 - (NSString *)predicateByAddingVariables:(NSString*)predicate {
     NSDate *dayAgo = [NSDate dayAgo];
-    WLUser *currentUser = [WLUser currentUser];
+    User *currentUser = [User currentUser];
     if (dayAgo && currentUser) {
         return [NSString stringWithFormat:predicate, dayAgo, currentUser];
     }
@@ -58,62 +58,62 @@
     
     __weak typeof(self)weakSelf = self;
     NSDate *dayAgo = [NSDate dayAgo];
-    WLUser *currentUser = [WLUser currentUser];
+    User *currentUser = [User currentUser];
     if (dayAgo && currentUser) {
-        [[WLEntryManager manager] performBlockInBackground:^(__autoreleasing id *result, NSError *__autoreleasing *error, NSManagedObjectContext *backgroundContext) {
-            
-            NSUInteger unreadEntriesCount = 0;
-            
-            NSMutableDictionary *wrapCounters = [NSMutableDictionary dictionary];
-            
-            NSMutableSet *events = [NSMutableSet set];
-            NSMutableArray *contributions = [NSMutableArray array];
-            [contributions adds:[[WLComment fetchRequest:weakSelf.contributionsPredicate, dayAgo, currentUser] executeInContext:backgroundContext]];
-            [contributions adds:[[WLCandy fetchRequest:weakSelf.contributionsPredicate, dayAgo, currentUser] executeInContext:backgroundContext]];
-            NSArray *updates = [[WLCandy fetchRequest:weakSelf.updatesPredicate, dayAgo, currentUser] executeInContext:backgroundContext];
-            
-            for (WLContribution *contribution in contributions) {
-                if (contribution.valid) {
-                    [events addObject:[WLWhatsUpEvent event:WLEventAdd contribution:contribution]];
-                    if (contribution.unread) {
-                        unreadEntriesCount++;
-                        if ([contribution isKindOfClass:[WLCandy class]]) {
-                            NSString *wrapId = [[(WLCandy*)contribution wrap] identifier];
-                            if (wrapId) {
-                                wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
-                            }
-                        }
-                    }
-                }
-            }
-            
-            for (WLContribution *contribution in updates) {
-                if (contribution.valid) {
-                    [events addObject:[WLWhatsUpEvent event:WLEventUpdate contribution:contribution]];
-                    if (contribution.unread) {
-                        unreadEntriesCount++;
-                    }
-                }
-            }
-            weakSelf.unreadEntriesCount = unreadEntriesCount;
-            weakSelf.wrapCounters = [wrapCounters copy];
-            *result = events;
-        } success:^(NSMutableSet *events, NSManagedObjectContext *mainContext) {
-            events = [events map:^id(WLWhatsUpEvent *event) {
-                WLContribution *contribution = event.contribution;
-                NSError *error = nil;
-                NSManagedObject *existingContributor = [mainContext existingObjectWithID:[contribution objectID] error:&error];
-                if (existingContributor != nil && !existingContributor.fault) {
-                    event.contribution = existingContributor;
-                }
-                return [event.contribution valid] && !error ? event : nil;
+        NSMutableArray *contributions = [NSMutableArray array];
+        
+        NSFetchRequest *request = [Comment fetch];
+        request.predicate = [NSPredicate predicateWithFormat:weakSelf.contributionsPredicate, dayAgo, currentUser];
+        [request execute:^(NSArray *result) {
+            [contributions adds:result];
+            NSFetchRequest *request = [Candy fetch];
+            request.predicate = [NSPredicate predicateWithFormat:weakSelf.contributionsPredicate, dayAgo, currentUser];
+            [request execute:^(NSArray *result) {
+                [contributions adds:result];
+                NSFetchRequest *request = [Candy fetch];
+                request.predicate = [NSPredicate predicateWithFormat:weakSelf.updatesPredicate, dayAgo, currentUser];
+                [request execute:^(NSArray *result) {
+                    NSArray *updates = result;
+                    [weakSelf handleControbutions:contributions updates:updates];
+                    if (success) success();
+                }];
             }];
-            [weakSelf resetEntries:events];
-            if (success) success();
-        } failure:^(NSError *error, NSManagedObjectContext *mainContext) {
-            if (failure) failure(error);
         }];
+    } else if (failure) {
+        failure(nil);
     }
+}
+
+- (void)handleControbutions:(NSArray*)contributions updates:(NSArray*)updates {
+    NSMutableDictionary *wrapCounters = [NSMutableDictionary dictionary];
+    NSUInteger unreadEntriesCount = 0;
+    NSMutableSet *events = [NSMutableSet set];
+    for (Contribution *contribution in contributions) {
+        if (contribution.valid) {
+            [events addObject:[WLWhatsUpEvent event:WLEventAdd contribution:contribution]];
+            if (contribution.unread) {
+                unreadEntriesCount++;
+                if ([contribution isKindOfClass:[Candy class]]) {
+                    NSString *wrapId = [[(Candy *)contribution wrap] identifier];
+                    if (wrapId) {
+                        wrapCounters[wrapId] = @([wrapCounters[wrapId] unsignedIntegerValue] + 1);
+                    }
+                }
+            }
+        }
+    }
+    
+    for (Contribution *contribution in updates) {
+        if (contribution.valid) {
+            [events addObject:[WLWhatsUpEvent event:WLEventUpdate contribution:contribution]];
+            if (contribution.unread) {
+                unreadEntriesCount++;
+            }
+        }
+    }
+    self.unreadEntriesCount = unreadEntriesCount;
+    self.wrapCounters = [wrapCounters copy];
+    [self resetEntries:events];
 }
 
 - (void)refreshCount:(void (^)(NSUInteger))success failure:(WLFailureBlock)failure {
@@ -123,12 +123,12 @@
     } failure:failure];
 }
 
-- (NSUInteger)unreadCandiesCountForWrap:(WLWrap *)wrap {
+- (NSUInteger)unreadCandiesCountForWrap:(Wrap *)wrap {
     return [self.wrapCounters[wrap.identifier] unsignedIntegerValue];
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier didAddEntry:(WLEntry*)entry {
-    if ([[(WLContribution*)entry contributor] current]) {
+- (void)notifier:(EntryNotifier*)notifier didAddEntry:(Entry *)entry {
+    if ([[(Contribution *)entry contributor] current]) {
         return;
     }
     __weak typeof(self)weakSelf = self;
@@ -138,8 +138,8 @@
     }];
 }
 
-- (void)notifier:(WLEntryNotifier*)notifier willDeleteEntry:(WLEntry *)entry {
-    if ([[(WLContribution*)entry contributor] current]) {
+- (void)notifier:(EntryNotifier*)notifier willDeleteEntry:(Entry *)entry {
+    if ([[(Contribution*)entry contributor] current]) {
         return;
     }
     __weak typeof(self)weakSelf = self;
@@ -149,7 +149,7 @@
     }];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry {
     __weak typeof(self)weakSelf = self;
     [self update:^{
         [weakSelf.broadcaster broadcast:@selector(whatsUpBroadcaster:updated:) object:weakSelf];

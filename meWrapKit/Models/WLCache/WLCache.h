@@ -25,11 +25,9 @@ typedef void (^WLCacheWriteCompletionBlock)(NSString* identifier);
 
 @property (strong, nonatomic) NSMutableSet* identifiers;
 
-+ (instancetype)cache;
++ (instancetype)defaultCache;
 
-+ (instancetype)cacheWithIdentifier:(NSString*)identifier;
-
-+ (instancetype)cacheWithIdentifier:(NSString*)identifier relativeCache:(WLCache*)relativeCache;
+- (instancetype)initWithIdentifier:(NSString *)identifier;
 
 - (void)configure;
 

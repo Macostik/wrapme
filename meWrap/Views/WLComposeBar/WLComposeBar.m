@@ -9,12 +9,10 @@
 #import "WLComposeBar.h"
 #import "NSObject+NibAdditions.h"
 #import <objc/runtime.h>
-#import "WLEmojiView.h"
-#import "WLEmoji.h"
 
 @interface WLComposeBar () <UITextViewDelegate, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (strong, nonatomic) WLEmojiView * emojiView;
+@property (strong, nonatomic) EmojiView * emojiView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
 @property (assign, nonatomic) IBInspectable CGFloat maxLines;
@@ -108,9 +106,9 @@
     return NO;
 }
 
-- (WLEmojiView *)emojiView {
+- (EmojiView *)emojiView {
 	if (!_emojiView) {
-		_emojiView = [WLEmojiView emojiViewWithTextView:self.textView];
+		_emojiView = [EmojiView emojiViewWithTextView:self.textView];
         _emojiView.backgroundColor = self.backgroundColor;
 	}
 	return _emojiView;

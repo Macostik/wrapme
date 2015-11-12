@@ -16,9 +16,9 @@
 
 @property (strong, nonatomic) WLHistoryItem *historyItem;
 
-@property (weak, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) Wrap *wrap;
 
-@property (weak, nonatomic) WLCandy* candy;
+@property (weak, nonatomic) Candy *candy;
 
 @property (nonatomic) BOOL showCommentViewController;
 

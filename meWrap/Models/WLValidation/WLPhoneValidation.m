@@ -8,7 +8,6 @@
 
 #import "WLPhoneValidation.h"
 #import <libPhoneNumber_iOS/NBAsYouTypeFormatter.h>
-#import "NSString+Additions.h"
 
 @interface WLPhoneValidation ()
 
@@ -23,7 +22,7 @@
     self.formatter = [[NBAsYouTypeFormatter alloc] initWithRegionCode:country.code];
     NSString* text = self.inputView.text;
     if (text.nonempty) {
-        self.inputView.text = [self.formatter inputString:phoneNumberClearing(text)];
+        self.inputView.text = [self.formatter inputString:[text clearPhoneNumber]];
         [self validate];
     }
 }

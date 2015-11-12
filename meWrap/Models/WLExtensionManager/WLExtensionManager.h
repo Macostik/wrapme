@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WLExtensionManager : NSObject <WLExtensionRequestActions>
+@interface WLExtensionManager : NSObject
 
-+ (void)performRequest:(WLExtensionRequest*)request completionHandler:(void (^)(WLExtensionResponse *response))completionHandler;
++ (void)performRequest:(ExtensionRequest*)request completionHandler:(void (^)(ExtensionResponse *response))completionHandler;
 
 @end

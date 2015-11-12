@@ -16,7 +16,7 @@
 
 @optional
 
-- (void)stillPictureViewController:(id <WLStillPictureBaseViewController>)controller didSelectWrap:(WLWrap*)wrap;
+- (void)stillPictureViewController:(id <WLStillPictureBaseViewController>)controller didSelectWrap:(Wrap *)wrap;
 
 @end
 
@@ -24,7 +24,7 @@
 
 @property (nonatomic) WLStillPictureMode mode;
 
-@property (weak, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) Wrap *wrap;
 
 @property (weak, nonatomic) IBOutlet WLWrapView *wrapView;
 
@@ -32,7 +32,7 @@
 
 - (IBAction)selectWrap:(UIButton*)sender;
 
-- (void)setupWrapView:(WLWrap *)wrap;
+- (void)setupWrapView:(Wrap *)wrap;
 
 @end
 

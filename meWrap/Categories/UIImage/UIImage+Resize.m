@@ -4,8 +4,6 @@
 // No warranty is expressed or implied.
 
 #import "UIImage+Resize.h"
-#import "NSObject+NibAdditions.h"
-#import "UIView+Shorthand.h"
 
 @implementation UIImage (Resize)
 
@@ -192,7 +190,8 @@
     
     [images enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray *value, BOOL *stop) {
         
-        view.size = [[value firstObject] CGSizeValue];
+        CGSize size = [[value firstObject] CGSizeValue];
+        view.frame = CGRectMake(0, 0, size.width, size.height);
         
         [view layoutIfNeeded];
         
@@ -219,7 +218,7 @@
 }
 
 + (void)allImagesSizeOfLaunchScreenView {
-    UIView *view = [UIView loadFromNibNamed:@"LaunchScreen" ownedBy:nil];
+    UIView *view = [[[NSBundle mainBundle] loadNibNamed:@"LaunchScreen" owner:nil options:nil] lastObject];
     [self allImagesSizeOfScreenView:view];
 }
 

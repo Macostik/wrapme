@@ -12,6 +12,16 @@
 
 @property (strong, nonatomic) IBOutlet WKInterfaceLabel *text;
 
-@property (weak, nonatomic) WLEntry* entry;
+@property (weak, nonatomic) Entry *entry;
+
+@end
+
+@interface WLWKCommentEventRow : WLWKEntryRow
+
+@end
+
+@interface WLWKCandyEventRow : WLWKEntryRow
+
+@property (strong, nonatomic) IBOutlet WKInterfaceGroup *group;
 
 @end

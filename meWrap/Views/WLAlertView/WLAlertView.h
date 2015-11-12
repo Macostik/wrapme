@@ -22,9 +22,9 @@ typedef void (^WLAlertViewCompletion)(NSUInteger index);
 
 @interface UIAlertController (DefinedAlerts)
 
-+ (void)confirmWrapDeleting:(WLWrap*)wrap success:(WLBlock)success failure:(WLFailureBlock)failure;
++ (void)confirmWrapDeleting:(Wrap *)wrap success:(WLBlock)success failure:(WLFailureBlock)failure;
 
-+ (void)confirmCandyDeleting:(WLCandy *)candy success:(WLBlock)success failure:(WLFailureBlock)failure;
++ (void)confirmCandyDeleting:(Candy *)candy success:(WLBlock)success failure:(WLFailureBlock)failure;
 
 + (void)confirmRedirectingToSignUp:(WLBlock)signUp tryAgain:(WLBlock)tryAgain;
 

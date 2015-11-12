@@ -7,7 +7,6 @@
 //
 
 #import "WLTouchView.h"
-#import "UIView+QuatzCoreAnimations.h"
 
 @implementation WLTouchView
 

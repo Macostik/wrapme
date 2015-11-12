@@ -7,17 +7,13 @@
 //
 
 #import "WLRemoteEntryHandler.h"
-#import "WLEntry.h"
 #import "WLNavigationHelper.h"
-#import "NSString+Additions.h"
 #import "WLNotificationEntryPresenter.h"
 #import "WLNotification.h"
 
 @interface WLRemoteEntryHandler ()
 
-@property (strong, nonatomic) NSString *entryIdentifier;
-
-@property (strong, nonatomic) Class entryClass;
+@property (strong, nonatomic) NSDictionary *entryReference;
 
 @property (strong, nonatomic) WLFailureBlock failureBlock;
 
@@ -34,16 +30,15 @@
     return _sharedHandler;
 }
 
-- (BOOL)presentEntry:(WLEntry *)entry {
+- (BOOL)presentEntry:(Entry *)entry {
     return [self presentEntry:entry animated:NO];
 }
 
-- (BOOL)presentEntry:(WLEntry *)entry animated:(BOOL)animated {
+- (BOOL)presentEntry:(Entry *)entry animated:(BOOL)animated {
     if (_isLoaded) {
         if (entry.valid) {
             [WLNotificationEntryPresenter presentEntryRequestingAuthorization:entry animated:animated];
-            self.entryIdentifier = nil;
-            self.entryClass = nil;
+            self.entryReference = nil;
         }
     }
     return _isLoaded;
@@ -52,22 +47,14 @@
 - (void)setIsLoaded:(BOOL)isLoaded {
     _isLoaded = isLoaded;
     if (_isLoaded) {
-        id entry = [self entryByClass];
+        Entry *entry = [Entry deserializeReference:self.entryReference];
         if ([entry valid]) {
             [self presentEntry:entry];
         } else {
-            if (self.failureBlock) self.failureBlock(WLError(WLLS(@"no_presenting_data")));
+            if (self.failureBlock) self.failureBlock(WLError(@"no_presenting_data".ls));
         }
         self.failureBlock = nil;
     }
-}
-
-- (WLEntry *)entryByClass {
-    if (self.entryClass && [self.entryClass entryExists:self.entryIdentifier]) {
-        return [self.entryClass entry:self.entryIdentifier];
-    }
-    
-    return nil;
 }
 
 @end
@@ -78,12 +65,11 @@
     if (notification.event != WLEventDelete) {
         if ([notification.descriptor entryExists]) {
             if (![self presentEntry:notification.entry]) {
-                self.entryClass = notification.descriptor.entryClass;
-                self.entryIdentifier = notification.descriptor.identifier;
+                self.entryReference = [notification.entry serializeReference];
                 self.failureBlock = failure;
             }
         } else {
-            if (failure) failure(WLError(WLLS(@"no_presenting_data")));
+            if (failure) failure(WLError(@"no_presenting_data".ls));
         }
     } else {
         if (failure) failure(WLError(@"Cannot handle delete event"));
@@ -95,35 +81,19 @@
 @implementation WLRemoteEntryHandler (NSURL)
 
 - (void)presentEntryFromURL:(NSURL*)url failure:(WLFailureBlock)failure {
-    NSDictionary *parameters = [[url query] URLQueryParameters];
+    
+    NSDictionary *parameters = [[url query] URLQuery];
     NSString *identifier = parameters[WLUIDKey];
     if (identifier.nonempty) {
-        NSString *key = [url path].lastPathComponent;
-        self.entryClass = [WLEntry entryClassByName:key];
-        self.entryIdentifier = identifier;
-        WLEntry *entry = [self entryByClass];
+        self.entryReference = parameters;
+        Entry *entry = [Entry deserializeReference:self.entryReference];
         if (entry) {
             [self presentEntry:entry];
         } else {
-            if (failure) failure(WLError(WLLS(@"no_presenting_data")));
+            if (failure) failure(WLError(@"no_presenting_data".ls));
         }
     } else {
         if (failure) failure(WLError(@"Invalid data"));
-    }
-}
-
-@end
-
-@implementation WLRemoteEntryHandler (WatchKit)
-
-- (void)presentEntryFromWatchKitEvent:(NSDictionary*)event {
-    NSString *identifier = event[@"identifier"];
-    NSString *entity = event[@"entity"];
-    if (identifier.nonempty && entity.nonempty) {
-        WLEntry *entry = [NSClassFromString(entity) entry:identifier];
-        if (entry) {
-            [self presentEntry:entry animated:NO];
-        }
     }
 }
 

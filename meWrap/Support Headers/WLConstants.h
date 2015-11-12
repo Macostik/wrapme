@@ -25,14 +25,15 @@ static void WLInitializeConstants (void) {
     };
 }
 
-static NSString *WLAlbumName = @"meWrap";
-static NSTimeInterval maxVideoRecordedDuration = 60;
-static NSInteger WLAddressBookPhoneNumberMinimumLength = 6;
-static NSInteger WLMaxRecentEmojiCount = 21;
-static NSUInteger WLProfileNameLimit = 40;
-static NSUInteger WLPhoneNumberLimit = 20;
-static NSUInteger WLWrapNameLimit = 190;
-static NSUInteger WLHomeTopWrapCandiesLimit = 6;
-static NSUInteger WLHomeTopWrapCandiesLimit_2 = 3;
-static CGFloat WLComposeBarDefaultCharactersLimit = 21000;
+static NSString *const WLAlbumName = @"meWrap";
+static NSTimeInterval const maxVideoRecordedDuration = 60;
+static NSInteger const WLAddressBookPhoneNumberMinimumLength = 6;
+static NSUInteger const WLProfileNameLimit = 40;
+static NSUInteger const WLPhoneNumberLimit = 20;
+static NSUInteger const WLWrapNameLimit = 190;
+static NSInteger const WLHomeTopWrapCandiesLimit = 6;
+static NSInteger const WLHomeTopWrapCandiesLimit_2 = 3;
+static CGFloat const WLComposeBarDefaultCharactersLimit = 21000;
+static NSString *const WLAppGroupEncryptedAuthorization = @"encrypted_authorization";
+static NSString *const AppGroupIdentifier = @"group.com.ravenpod.wraplive";
 

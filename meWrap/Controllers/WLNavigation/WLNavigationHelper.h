@@ -31,7 +31,7 @@ static NSString *WLIntroductionStoryboard = @"Introduction";
 
 + (instancetype)instantiate:(UIStoryboard*)storyboard;
 
-- (void)requestAuthorizationForPresentingEntry:(WLEntry*)entry completion:(WLBooleanBlock)completion;
+- (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(WLBooleanBlock)completion;
 
 - (void)pushViewController:(UIViewController*)controller animated:(BOOL)animated;
 

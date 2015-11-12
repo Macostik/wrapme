@@ -11,7 +11,7 @@
 
 @interface WLTodayContributionCell : UITableViewCell
 
-@property (weak, nonatomic) WLContribution *contribution;
+@property (weak, nonatomic) Contribution *contribution;
 
 @property (weak, nonatomic) IBOutlet WLImageView *pictureView;
 

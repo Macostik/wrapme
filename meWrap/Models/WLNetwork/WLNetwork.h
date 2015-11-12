@@ -23,6 +23,6 @@
 
 @property (strong, nonatomic) void (^changeReachabilityBlock) (WLNetwork *network);
 
-+ (instancetype)network;
++ (instancetype)sharedNetwork;
 
 @end

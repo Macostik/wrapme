@@ -18,7 +18,7 @@
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLImageEditorSession.h"
 
-@interface WLCandyCell () <WLEntryNotifyReceiver>
+@interface WLCandyCell () <EntryNotifying>
 
 @property (weak, nonatomic) IBOutlet WLImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
@@ -38,15 +38,15 @@
     if (!metrics.disableMenu) {
         __weak typeof(self)weakSelf = self;
         [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
-            __weak WLCandy* candy = weakSelf.entry;
+            __weak Candy *candy = weakSelf.entry;
             
             if (candy.wrap.requiresFollowing) {
                 return;
             }
             
-            [candy prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
+            [candy prepareForUpdate:^(Contribution *contribution, WLContributionStatus status) {
                 if (!candy.isVideo) {
-                    [menu addEditPhotoItem:^(WLCandy *candy) {
+                    [menu addEditPhotoItem:^(Candy *candy) {
                         [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
                             [WLImageEditorSession editImage:image completion:^(UIImage *image) {
                                 [candy editWithImage:image];
@@ -56,7 +56,7 @@
                         }];
                     }];
                     
-                    [menu addDrawPhotoItem:^(WLCandy *candy) {
+                    [menu addDrawPhotoItem:^(Candy *candy) {
                         [WLDownloadingView downloadCandy:candy success:^(UIImage *image) {
                             [WLDrawingViewController draw:image finish:^(UIImage *image) {
                                 [candy editWithImage:image];
@@ -68,7 +68,7 @@
                 }
             } failure:nil];
             
-            [menu addDownloadItem:^(WLCandy *candy) {
+            [menu addDownloadItem:^(Candy *candy) {
                 [candy download:^{
                     [WLToast showDownloadingMediaMessageForCandy:candy];
                 } failure:^(NSError *error) {
@@ -77,7 +77,7 @@
             }];
             
             if (candy.deletable) {
-                [menu addDeleteItem:^(WLCandy *candy) {
+                [menu addDeleteItem:^(Candy *candy) {
                     [UIAlertController confirmCandyDeleting:candy success:^{
                         weakSelf.userInteractionEnabled = NO;
                         [candy remove:^(id object) {
@@ -89,7 +89,7 @@
                     } failure:nil];
                 }];
             } else {
-                [menu addReportItem:^(WLCandy *candy) {
+                [menu addReportItem:^(Candy *candy) {
                     ReportViewController *controller = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateViewControllerWithIdentifier:@"report"];;
                     [controller setReportClosure:^(NSString * code, ReportViewController *controller) {
                         [[WLAPIRequest postCandy:candy violationCode:code] send:^(id object) {
@@ -111,7 +111,7 @@
     [self.coverView setImage:nil];
 }
 
-- (void)setup:(WLCandy*)candy {
+- (void)setup:(Candy *)candy {
 	self.userInteractionEnabled = YES;
     if (!candy) {
         self.videoIndicatorView.hidden = YES;
@@ -122,14 +122,14 @@
         return;
     }
     
-    self.videoIndicatorView.hidden = candy.type != WLCandyTypeVideo;
+    self.videoIndicatorView.hidden = candy.type != MediaTypeVideo;
     if (self.commentLabel) {
-        WLComment* comment = [candy latestComment];
+        Comment *comment = [candy latestComment];
         self.commentLabel.text = comment.text;
         self.commentLabel.superview.hidden = !self.commentLabel.text.nonempty;
     }
     
-    WLAsset *picture = candy.picture;
+    Asset *picture = candy.picture;
     
     if (picture.justUploaded) {
         [StreamView lock];
@@ -146,13 +146,13 @@
     self.coverView.url = picture.small;
 }
 
-#pragma mark - WLEntryNotifyReceiver
+#pragma mark - EntryNotifying
 
-- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry {
 	[self resetup];
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+- (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnEntry:(Entry *)entry {
     return self.entry == entry;
 }
 

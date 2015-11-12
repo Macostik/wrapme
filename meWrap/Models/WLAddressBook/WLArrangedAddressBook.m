@@ -15,11 +15,11 @@
     self = [super init];
     if (self) {
         self.groups = [[NSArray array] mutate:^(NSMutableArray *array) {
-            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:WLLS(@"friends_on_meWrap") addingRule:^BOOL(WLAddressBookRecord *record) {
+            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"friends_on_meWrap".ls addingRule:^BOOL(WLAddressBookRecord *record) {
                 WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
                 return phoneNumber.user != nil;
             }]];
-            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:WLLS(@"invite_to_meWrap") addingRule:^BOOL(WLAddressBookRecord *record) {
+            [array addObject:[[WLArrangedAddressBookGroup alloc] initWithTitle:@"invite_to_meWrap".ls addingRule:^BOOL(WLAddressBookRecord *record) {
                 WLAddressBookPhoneNumber *phoneNumber = [record.phoneNumbers lastObject];
                 return phoneNumber.user == nil;
             }]];
@@ -29,7 +29,7 @@
     return self;
 }
 
-- (instancetype)initWithWrap:(WLWrap *)wrap {
+- (instancetype)initWithWrap:(Wrap *)wrap {
     self = [self init];
     if (self) {
         self.wrap = wrap;
@@ -62,7 +62,7 @@
     
     if (!record.phoneNumbers.nonempty) {
         
-        if (failure) failure(WLError(WLLS(@"cannot_add_yourself")));
+        if (failure) failure(WLError(@"cannot_add_yourself".ls));
         
     } else if ([record.phoneNumbers count] == 1) {
         

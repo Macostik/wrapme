@@ -8,7 +8,6 @@
 
 #import "WLOperation.h"
 #import "WLOperationQueue.h"
-#import "NSString+Additions.h"
 
 @interface WLOperation ()
 

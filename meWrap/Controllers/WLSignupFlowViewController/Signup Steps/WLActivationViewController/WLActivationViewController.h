@@ -8,8 +8,6 @@
 
 #import "WLSignupStepViewController.h"
 
-@class WLAuthorization;
-
 @interface WLActivationViewController : WLSignupStepViewController
 
 @property (nonatomic) BOOL shouldSignIn;

@@ -6,15 +6,8 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLEntry+API.h"
-#import "WLSession.h"
-#import "NSDate+Formatting.h"
 #import "WLCollections.h"
 #import "WLAddressBook.h"
-#import "WLEntryNotifier.h"
-#import "NSString+Additions.h"
-#import "WLAuthorization.h"
-#import "NSDate+Additions.h"
 #import "WLWelcomeViewController.h"
 #import "WLImageCache.h"
 #import "WLAddressBookPhoneNumber.h"
@@ -24,72 +17,21 @@
 #import "WLAlertView.h"
 #import <AWSS3/AWSS3.h>
 #import "WLEntryDescriptor.h"
+#import "PHPhotoLibrary+Helper.h"
 
-@implementation WLEntry (WLAPIManager)
-
-+ (instancetype)entry {
-    WLEntry* entry = [self entry:GUID()];
-    entry.createdAt = [NSDate now];
-    entry.updatedAt = entry.createdAt;
-    return entry;
-}
-
-+ (instancetype)entry:(NSString *)identifier uploadIdentifier:(NSString *)uploadIdentifier {
-    return (id)[[WLEntryManager manager] entryOfClass:self identifier:identifier uploadIdentifier:uploadIdentifier];
-}
-
-+ (instancetype)entry:(NSString *)identifier container:(WLEntry*)container {
-    WLEntry* entry = [self entry:identifier];
-    entry.container = container;
-    return entry;
-}
-
-+ (NSSet*)API_entries:(NSArray*)array {
-    return [self API_entries:array container:nil];
-}
-
-+ (NSSet*)API_entries:(NSArray*)array container:(id)container {
-    if (array.count == 0) {
-        return nil;
-    }
-    NSMutableSet *set = [NSMutableSet setWithCapacity:[array count]];
-    for (NSDictionary* dictionary in array) {
-        WLEntry* entry = [self API_entry:dictionary container:container];
-        if (entry) {
-            [set addObject:entry];
-        }
-    }
-    return set;
-}
-
-+ (instancetype)API_entry:(NSDictionary*)dictionary {
-    return [self API_entry:dictionary container:nil];
-}
-
-+ (instancetype)API_entry:(NSDictionary *)dictionary container:(id)container {
-    NSString* identifier = [self API_identifier:dictionary];
-    return [[self entry:identifier] API_setup:dictionary container:container];
-}
-
-+ (NSString *)API_identifier:(NSDictionary *)dictionary {
-    return nil;
-}
-
-+ (NSString *)API_uploadIdentifier:(NSDictionary *)dictionary {
-    return nil;
-}
+@implementation Entry (WLAPIManager)
 
 + (NSArray*)API_prefetchArray:(NSArray *)array {
     NSMutableDictionary *descriptors = [NSMutableDictionary dictionary];
     [self API_prefetchDescriptors:descriptors inArray:array];
-    [[WLEntryManager manager] fetchEntries:descriptors];
+    [EntryContext.sharedContext fetchEntries:descriptors];
     return array;
 }
 
 + (NSDictionary*)API_prefetchDictionary:(NSDictionary *)dictionary {
     NSMutableDictionary *descriptors = [NSMutableDictionary dictionary];
     [self API_prefetchDescriptors:descriptors inDictionary:dictionary];
-    [[WLEntryManager manager] fetchEntries:descriptors];
+    [EntryContext.sharedContext fetchEntries:descriptors];
     return dictionary;
 }
 
@@ -100,39 +42,18 @@
 }
 
 + (void)API_prefetchDescriptors:(NSMutableDictionary*)descriptors inDictionary:(NSDictionary*)dictionary {
-    NSString *identifier = [self API_identifier:dictionary];
+    NSString *identifier = [self uid:dictionary];
     if (identifier && [descriptors objectForKey:identifier] == nil) {
         WLEntryDescriptor *descriptor = [[WLEntryDescriptor alloc] init];
-        descriptor.entryClass = self;
+        descriptor.entityName = [self entityName];
         descriptor.identifier = identifier;
-        descriptor.uploadIdentifier = [self API_uploadIdentifier:dictionary];
+        descriptor.uploadIdentifier = [self locuid:dictionary];
         [descriptors setObject:descriptor forKey:identifier];
     }
 }
 
-- (instancetype)API_setup:(NSDictionary *)dictionary {
-    if (dictionary) {
-        return [self API_setup:dictionary container:nil];
-    }
-    return self;
-}
-
-- (instancetype)API_setup:(NSDictionary*)dictionary container:(id)container {
-    NSDate* createdAt = [dictionary timestampDateForKey:WLContributedAtKey];
-    if (!NSDateEqual(self.createdAt, createdAt)) self.createdAt = createdAt;
-    NSDate* updatedAt = [dictionary timestampDateForKey:WLLastTouchedAtKey];
-    if (updatedAt) {
-        if (!self.updatedAt || [updatedAt later:self.updatedAt]) self.updatedAt = updatedAt;
-    } else {
-        if (!NSDateEqual(self.updatedAt, createdAt)) self.updatedAt = createdAt;
-    }
-    NSString* identifier = [[self class] API_identifier:dictionary];
-    if (!NSStringEqual(self.identifier, identifier)) self.identifier = identifier;
-    return self;
-}
-
 - (instancetype)update:(NSDictionary *)dictionary {
-    [self API_setup:dictionary];
+    [self map:dictionary container:nil];
     if (self.updated) {
         [self notifyOnUpdate];
     }
@@ -144,7 +65,7 @@
 }
 
 - (BOOL)recursivelyFetched {
-    WLEntry *entry = self;
+    Entry *entry = self;
     while (entry) {
         if (!entry.fetched) {
             return NO;
@@ -160,8 +81,8 @@
         if (success) success();
     } else {
         __weak typeof(self)weakSelf = self;
-        [self fetchIfNeeded:^ (WLEntry *entry) {
-            WLEntry *container = weakSelf.container;
+        [self fetchIfNeeded:^ (Entry *entry) {
+            Entry *container = weakSelf.container;
             if (container) {
                 [container recursivelyFetchIfNeeded:success failure:failure];
             } else {
@@ -228,14 +149,6 @@
     return [self newer:NO success:success failure:failure];
 }
 
-- (void)markAsRead {
-    if (self.valid && self.unread) self.unread = NO;
-}
-
-- (void)markAsUnread {
-    if (self.valid && !self.unread) self.unread = YES;
-}
-
 - (void)touch {
     [self touch:[NSDate now]];
 }
@@ -250,118 +163,41 @@
     }
 }
 
-- (void)editPicture:(WLAsset*)editedPicture {
-    if (self.picture != editedPicture) {
-        self.picture = editedPicture;
-    }
+- (void)remove {
+    __weak typeof(self)weakSelf = self;
+    EntryContext *manager = EntryContext.sharedContext;
+    [manager assureSave:^{
+        Entry *container = self.container;
+        [weakSelf notifyOnDeleting];
+        NSLog(@"WRAPLIVE - LOCAL DELETING: %@", weakSelf);
+        [manager deleteEntry:weakSelf];
+        [container notifyOnUpdate];
+    }];
 }
 
 @end
 
-@implementation WLUser (WLAPIManager)
+@implementation User (WLAPIManager)
 
-+ (NSString *)API_identifier:(NSDictionary *)dictionary {
-    return [dictionary stringForKey:WLUserUIDKey];
-}
-
-- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
-    
-    if (dictionary[WLSignInCountKey]) {
-        BOOL firstTimeUse = [dictionary integerForKey:WLSignInCountKey] == 1;
-        if (self.firstTimeUse != firstTimeUse) self.firstTimeUse = firstTimeUse;
-    }
-    
-    if (dictionary[WLNameKey]) {
-        NSString* name = [dictionary stringForKey:WLNameKey];
-        if (!NSStringEqual(self.name, name)) self.name = name;
-    }
-    
-    [self editPicture:[self.picture edit:dictionary[WLAvatarURLsKey] metrics:[AssetMetrics avatarMetrics]]];
-    
-    if (dictionary[WLDevicesKey]) {
-        NSSet* devices = [WLDevice API_entries:[dictionary arrayForKey:WLDevicesKey] container:self];
-        if (![self.devices isEqualToSet:devices]) {
-            self.devices = devices;
-            self.phones = nil;
-        }
-    }
-    
-    return [super API_setup:dictionary container:container];
-}
 
 @end
 
-@implementation WLDevice (WLAPIManager)
-
-+ (NSString *)API_identifier:(NSDictionary *)dictionary {
-    return [dictionary stringForKey:@"device_uid"];
-}
-
-- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
-    NSString* name = [dictionary stringForKey:@"device_name"];
-    if (!NSStringEqual(self.name, name)) self.name = name;
-    NSString* phone = [dictionary stringForKey:WLFullPhoneNumberKey];
-    if (!NSStringEqual(self.phone, phone)) self.phone = phone;
-    BOOL activated = [dictionary boolForKey:@"activated"];
-    if (self.activated != activated) self.activated = activated;
-    if (container && self.owner != container) self.owner = container;
-    NSDate* invitedAt = [dictionary timestampDateForKey:@"invited_at_in_epoch"];
-    if (!NSDateEqual(self.invitedAt, invitedAt)) self.invitedAt = invitedAt;
-    NSString* invitedBy = [dictionary stringForKey:@"invited_by_user_uid"];
-    if (!NSStringEqual(self.invitedBy, invitedBy)) self.invitedBy = invitedBy;
-    return [super API_setup:dictionary container:container];
-}
+@implementation Device (WLAPIManager)
 
 @end
 
-@implementation WLContribution (WLAPIManager)
-
-+ (instancetype)contribution {
-    WLContribution* contributrion = [self entry];
-    contributrion.uploadIdentifier = contributrion.identifier;
-    contributrion.contributor = [WLUser currentUser];
-    return contributrion;
-}
-
-+ (instancetype)API_entry:(NSDictionary *)dictionary container:(id)container {
-    NSString *identifier = [self API_identifier:dictionary];
-    NSString *uploadIdentifier = [self API_uploadIdentifier:dictionary];
-    return [[self entry:identifier uploadIdentifier:uploadIdentifier] API_setup:dictionary container:container];
-}
-
-+ (NSString *)API_uploadIdentifier:(NSDictionary *)dictionary {
-    return [dictionary stringForKey:WLUploadUIDKey];
-}
+@implementation Contribution (WLAPIManager)
 
 + (void)API_prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
     [super API_prefetchDescriptors:descriptors inDictionary:dictionary];
     
     if (dictionary[WLContributorKey]) {
-        [WLUser API_prefetchDescriptors:descriptors inDictionary:dictionary[WLContributorKey]];
+        [User API_prefetchDescriptors:descriptors inDictionary:dictionary[WLContributorKey]];
     }
     
     if (dictionary[WLEditorKey]) {
-        [WLUser API_prefetchDescriptors:descriptors inDictionary:dictionary[WLEditorKey]];
+        [User API_prefetchDescriptors:descriptors inDictionary:dictionary[WLEditorKey]];
     }
-}
-
-- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
-    
-    if (dictionary[WLUploadUIDKey]) {
-        NSString* uploadIdentifier = [dictionary stringForKey:WLUploadUIDKey];
-        if (!NSStringEqual(self.uploadIdentifier, uploadIdentifier)) self.uploadIdentifier = uploadIdentifier;
-    }
-    
-    WLUser *contributor = [WLUser API_entry:dictionary[WLContributorKey]];
-    if (self.contributor != contributor) self.contributor = contributor;
-    
-    WLUser *editor = [WLUser API_entry:dictionary[WLEditorKey]];
-    if (self.editor != editor) self.editor = editor;
-    
-    NSDate* editedAt = [dictionary timestampDateForKey:WLEditedAtKey];
-    if (!NSDateEqual(self.editedAt, editedAt)) self.editedAt = editedAt;
-    
-    return [super API_setup:dictionary container:container];
 }
 
 + (NSNumber *)uploadingOrder {
@@ -370,86 +206,33 @@
 
 @end
 
-@implementation WLWrap (WLAPIManager)
+@implementation Wrap (WLAPIManager)
 
 + (NSNumber *)uploadingOrder {
     return @1;
-}
-
-+ (instancetype)wrap {
-    WLWrap* wrap = [self contribution];
-    [wrap.contributor addWrap:wrap];
-    if (wrap.contributor) {
-        wrap.contributors = [NSSet setWithObject:wrap.contributor];
-    }
-    return wrap;
-}
-
-+ (NSString *)API_identifier:(NSDictionary *)dictionary {
-    return [dictionary stringForKey:WLWrapUIDKey];
 }
 
 + (void)API_prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
     [super API_prefetchDescriptors:descriptors inDictionary:dictionary];
     
     if (dictionary[WLContributorsKey]) {
-        [WLUser API_prefetchDescriptors:descriptors inArray:dictionary[WLContributorsKey]];
+        [User API_prefetchDescriptors:descriptors inArray:dictionary[WLContributorsKey]];
     }
     
     if (dictionary[WLCreatorKey] != nil) {
-        [WLUser API_prefetchDescriptors:descriptors inDictionary:dictionary[WLCreatorKey]];
+        [User API_prefetchDescriptors:descriptors inDictionary:dictionary[WLCreatorKey]];
     }
     
     if (dictionary[WLCandiesKey] != nil) {
-        [WLCandy API_prefetchDescriptors:descriptors inArray:dictionary[WLCandiesKey]];
+        [Candy API_prefetchDescriptors:descriptors inArray:dictionary[WLCandiesKey]];
     }
-}
-
-- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
-    [super API_setup:dictionary container:container];
-    NSString* name = [dictionary stringForKey:WLNameKey];
-    if (!NSStringEqual(self.name, name)) self.name = name;
-    
-    BOOL isPublic = [dictionary boolForKey:@"is_public"];
-    if (self.isPublic != isPublic) self.isPublic = isPublic;
-    
-    BOOL isRestrictedInvite = [dictionary boolForKey:@"is_restricted_invite"];
-    if (self.isRestrictedInvite != isRestrictedInvite) self.isRestrictedInvite = isRestrictedInvite;
-    
-    NSArray *contributorsArray = [dictionary arrayForKey:WLContributorsKey];
-    if (contributorsArray.nonempty) {
-        [self addContributors:[WLUser API_entries:contributorsArray]];
-    }
-    
-    WLUser *contributor = [WLUser API_entry:dictionary[WLCreatorKey]];
-    if (self.contributor != contributor) self.contributor = contributor;
-    
-    if (self.isPublic) {
-        if (dictionary[@"is_following"]) {
-            BOOL isFollowing = [dictionary boolForKey:@"is_following"];
-            if (isFollowing && !self.isContributing) {
-                [self addContributorsObject:[WLUser currentUser]];
-            } else if (!isFollowing && self.isContributing) {
-                [self removeContributorsObject:[WLUser currentUser]];
-            }
-        }
-    } else {
-        if (!self.isContributing) [self addContributorsObject:[WLUser currentUser]];
-    }
-    
-    NSSet* candies = [WLCandy API_entries:[dictionary arrayForKey:WLCandiesKey] container:self];
-    if (candies.nonempty && ![candies isSubsetOfSet:self.candies]) {
-        [self addCandies:candies];
-    }
-    
-    return self;
 }
 
 - (BOOL)fetched {
     return self.name.nonempty && self.contributor;
 }
 
-- (id)add:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+- (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     return [[WLAPIRequest uploadWrap:self] send:success failure:failure];
 }
 
@@ -466,7 +249,7 @@
             if (success) success(nil);
             break;
         case WLContributionStatusInProgress:
-            if (failure) failure([NSError errorWithDescription:WLLS(@"wrap_is_uploading")]);
+            if (failure) failure([NSError errorWithDescription:@"wrap_is_uploading".ls]);
             break;
         case WLContributionStatusFinished: {
             operation = [[WLAPIRequest deleteWrap:self] send:success failure:failure];
@@ -477,11 +260,11 @@
     return operation;
 }
 
-- (id)fetch:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (id)fetch:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     return [self fetch:WLWrapContentTypeRecent success:success failure:failure];
 }
 
-- (id)fetch:(NSString*)contentType success:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (id)fetch:(NSString*)contentType success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     if (self.uploaded) {
         return [[WLPaginatedRequest wrap:self contentType:contentType] send:success failure:failure];
     } else if (success) {
@@ -490,18 +273,18 @@
     return nil;
 }
 
-- (id)update:(WLWrapBlock)success failure:(WLFailureBlock)failure {
+- (id)update:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     return [[WLAPIRequest updateWrap:self] send:success failure:failure];
 }
 
-- (id)messagesNewer:(NSDate *)newer success:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (id)messagesNewer:(NSDate *)newer success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     WLPaginatedRequest* request = [WLPaginatedRequest messages:self];
     request.type = WLPaginatedRequestTypeNewer;
     request.newer = newer;
     return [request send:success failure:failure];
 }
 
-- (id)messagesOlder:(NSDate *)older newer:(NSDate *)newer success:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (id)messagesOlder:(NSDate *)older newer:(NSDate *)newer success:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     WLPaginatedRequest* request = [WLPaginatedRequest messages:self];
     request.type = WLPaginatedRequestTypeOlder;
     request.newer = newer;
@@ -509,7 +292,7 @@
     return [request send:success failure:failure];
 }
 
-- (id)messages:(WLSetBlock)success failure:(WLFailureBlock)failure {
+- (id)messages:(WLArrayBlock)success failure:(WLFailureBlock)failure {
     WLPaginatedRequest* request = [WLPaginatedRequest messages:self];
     request.type = WLPaginatedRequestTypeFresh;
     return [request send:success failure:failure];
@@ -517,9 +300,9 @@
 
 - (void)preload {
     WLHistory *history = [WLHistory historyWithWrap:self];
-    [history fresh:^(NSSet *set) {
+    [history fresh:^(NSArray *array) {
         [history.entries enumerateObjectsUsingBlock:^(WLHistoryItem* item, NSUInteger idx, BOOL *stop) {
-            [item.entries enumerateObjectsUsingBlock:^(WLCandy* candy, NSUInteger idx, BOOL *stop) {
+            [item.entries enumerateObjectsUsingBlock:^(Candy *candy, NSUInteger idx, BOOL *stop) {
                 [candy.picture fetch:nil];
                 if (idx == 5) *stop = YES;
             }];
@@ -530,58 +313,20 @@
 
 @end
 
-@implementation WLCandy (WLAPIManager)
+@implementation Candy (WLAPIManager)
 
 + (NSNumber *)uploadingOrder {
     return @2;
 }
 
-+ (instancetype)candyWithType:(NSInteger)type wrap:(WLWrap*)wrap {
-    WLCandy* candy = [self contribution];
-    candy.type = type;
-    return candy;
-}
-
-+ (NSString *)API_identifier:(NSDictionary *)dictionary {
-    return [dictionary stringForKey:WLCandyUIDKey];
-}
-
 + (void)API_prefetchDescriptors:(NSMutableDictionary *)descriptors inDictionary:(NSDictionary *)dictionary {
     [super API_prefetchDescriptors:descriptors inDictionary:dictionary];
     if (dictionary[WLCommentsKey]) {
-        [WLComment API_prefetchDescriptors:descriptors inArray:dictionary[WLCommentsKey]];
+        [Comment API_prefetchDescriptors:descriptors inArray:dictionary[WLCommentsKey]];
     }
 }
 
-- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
-    [super API_setup:dictionary container:container];
-    NSInteger type = [dictionary integerForKey:WLCandyTypeKey];
-    if (self.type != type) self.type = type;
-    NSSet *comments = [WLComment API_entries:[dictionary arrayForKey:WLCommentsKey] container:self];
-    if (![comments isSubsetOfSet:self.comments]) {
-        [self addComments:comments];
-    }
-    if (type == WLCandyTypeVideo) {
-        if (dictionary[WLMediaURLsKey]) {
-            [self editPicture:[self.picture edit:dictionary[WLMediaURLsKey] metrics:[AssetMetrics videoMetrics]]];
-        } else {
-            [self editPicture:[self.picture edit:dictionary[WLVideoURLsKey] metrics:[AssetMetrics videoMetrics]]];
-        }
-    } else {
-        if (dictionary[WLMediaURLsKey]) {
-            [self editPicture:[self.picture edit:dictionary[WLMediaURLsKey] metrics:[AssetMetrics imageMetrics]]];
-        } else {
-            [self editPicture:[self.picture edit:dictionary[WLImageURLsKey] metrics:[AssetMetrics imageMetrics]]];
-        }
-    }
-    
-    NSInteger commentCount = [dictionary integerForKey:WLCommentCountKey];
-    if (self.commentCount < commentCount) self.commentCount = commentCount;
-    self.container = container ? : (self.wrap ? : [WLWrap entry:[dictionary stringForKey:WLWrapUIDKey]]);
-    return self;
-}
-
-- (void)setEditedPictureIfNeeded:(WLAsset *)editedPicture {
+- (void)setEditedPictureIfNeeded:(Asset *)editedPicture {
     switch (self.status) {
         case WLContributionStatusReady:
             self.picture = editedPicture;
@@ -591,7 +336,7 @@
         case WLContributionStatusFinished:
             [self touch];
             self.editedAt = [NSDate now];
-            self.editor = [WLUser currentUser];
+            self.editor = [User currentUser];
             self.picture = editedPicture;
             break;
         default:
@@ -600,45 +345,26 @@
 }
 
 - (void)prepareForDeletion {
-    [self.wrap removeCandiesObject:self];
+    [[self.wrap mutableCandies] removeObject:self];
     [super prepareForDeletion];
-}
-
-- (void)addComment:(WLComment *)comment {
-    NSSet* comments = self.comments;
-    self.commentCount++;
-    if (!comment || [comments containsObject:comment]) {
-        return;
-    }
-    [self addCommentsObject:comment];
-    [self touch];
-    [comment notifyOnAddition];
-}
-
-- (void)removeComment:(WLComment *)comment {
-    NSSet* comments = self.comments;
-    if ([comments containsObject:comment]) {
-        [self removeCommentsObject:comment];
-        if (self.commentCount > 0)  self.commentCount--;
-    }
 }
 
 - (BOOL)fetched {
     return self.wrap && self.picture.original.nonempty;
 }
 
-- (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+- (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     NSMutableDictionary *metaData = [NSMutableDictionary dictionary];
     NSString* accept = [NSString stringWithFormat:@"application/vnd.ravenpod+json;version=%@",
                         [WLAPIEnvironment currentEnvironment].version];
     NSString *contributedAt = [NSString stringWithFormat:@"%f", [self.updatedAt timestamp]];
     [metaData trySetObject:accept forKey:@"Accept"];
-    [metaData trySetObject:[WLAuthorization currentAuthorization].deviceUID forKey:WLDeviceIDKey];
+    [metaData trySetObject:[Authorization currentAuthorization].deviceUID forKey:WLDeviceIDKey];
     [metaData trySetObject:self.contributor.identifier forKey:WLUserUIDKey];
     [metaData trySetObject:self.wrap.identifier forKey:WLWrapUIDKey];
     [metaData trySetObject:self.uploadIdentifier forKey:WLUploadUIDKey];
     [metaData trySetObject:contributedAt forKey:WLContributedAtKey];
-    WLComment *firstComment = [[self.comments where:@"uploading == nil"] anyObject];
+    Comment *firstComment = [[self.comments where:@"uploading == nil"] anyObject];
     if (firstComment) {
         NSString *escapeString = [firstComment.text escapedUnicode];
         [metaData trySetObject:escapeString forKey:@"message"];
@@ -656,8 +382,8 @@
                         [WLAPIEnvironment currentEnvironment].version];
     NSString *editedAt = [NSString stringWithFormat:@"%f", [self.updatedAt timestamp]];
     [metaData trySetObject:accept forKey:@"Accept"];
-    [metaData trySetObject:[WLAuthorization currentAuthorization].deviceUID forKey:WLDeviceIDKey];
-    [metaData trySetObject:[WLUser currentUser].identifier forKey:WLUserUIDKey];
+    [metaData trySetObject:[Authorization currentAuthorization].deviceUID forKey:WLDeviceIDKey];
+    [metaData trySetObject:[User currentUser].identifier forKey:WLUserUIDKey];
     [metaData trySetObject:self.wrap.identifier forKey:WLWrapUIDKey];
     [metaData trySetObject:self.identifier forKey:WLCandyUIDKey];
     [metaData trySetObject:editedAt forKey:WLEditedAtKey];
@@ -673,7 +399,7 @@
     uploadRequest.bucket = [[WLAPIEnvironment currentEnvironment] bucketUploadingIdentifier];
     uploadRequest.key = [self.picture.original lastPathComponent];
     uploadRequest.metadata = metaData;
-    if (self.type == WLCandyTypeVideo) {
+    if (self.type == MediaTypeVideo) {
         uploadRequest.contentType = @"video/mp4";
     } else {
         uploadRequest.contentType = @"image/jpeg";
@@ -700,12 +426,11 @@
             if (success) success(nil);
             break;
         case WLContributionStatusInProgress: {
-            if (failure) failure([NSError errorWithDescription:[self messageAppearanceByCandyType:@"video_is_uploading"
-                                                                                              and:@"photo_is_uploading"]]);
+            if (failure) failure([NSError errorWithDescription:(self.isVideo ? @"video_is_uploading" : @"photo_is_uploading").ls]);
         } break;
         case WLContributionStatusFinished: {
             if ([self.identifier isEqualToString:self.uploadIdentifier]) {
-                if (failure) failure([NSError errorWithDescription:WLLS(@"publishing_in_progress")]);
+                if (failure) failure([NSError errorWithDescription:@"publishing_in_progress".ls]);
             } else {
                 operation = [[WLAPIRequest deleteCandy:self] send:success failure:failure];
             }
@@ -720,68 +445,80 @@
     if (self.uploaded) {
         return [[WLAPIRequest candy:self] send:success failure:failure];
     } else {
-        if (failure) failure([NSError errorWithDescription:[self messageAppearanceByCandyType:@"video_is_uploading"
-                                                                                          and:@"photo_is_uploading"]]);
+        if (failure) failure([NSError errorWithDescription:(self.isVideo ? @"video_is_uploading" : @"photo_is_uploading").ls]);
         return nil;
+    }
+}
+
+- (void)download:(WLBlock)success failure:(WLFailureBlock)failure {
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusDenied) {
+        if (failure) failure(WLError(@"downloading_privacy_settings".ls));
+    } else {
+        __weak typeof(self)weakSelf = self;
+        if (weakSelf.type == MediaTypeVideo) {
+            NSString *url = weakSelf.picture.original;
+            if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+                [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
+                    return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:[NSURL fileURLWithPath:url]];
+                } collectionTitle:WLAlbumName success:success failure:failure];
+            } else {
+                NSURLSessionDownloadTask *task = [[NSURLSession sharedSession] downloadTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    if (error) {
+                        if (failure) failure(error);
+                    } else {
+                        NSURL* url = [[location URLByDeletingPathExtension] URLByAppendingPathExtension:@"mp4"];
+                        [[NSFileManager defaultManager] moveItemAtURL:location toURL:url error:nil];
+                        [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
+                            return [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
+                        } collectionTitle:WLAlbumName success:success failure:failure];
+                    }
+                }];
+                [task resume];
+            }
+        } else {
+            [[WLBlockImageFetching fetchingWithUrl:weakSelf.picture.original] enqueue:^(UIImage *image) {
+                [PHPhotoLibrary addAsset:^PHAssetChangeRequest *{
+                    return [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+                } collectionTitle:WLAlbumName success:success failure:failure];
+            } failure:failure];
+        }
     }
 }
 
 @end
 
-@implementation WLMessage (WLAPIManager)
-
-+ (NSString *)API_identifier:(NSDictionary *)dictionary {
-    return [dictionary stringForKey:@"chat_uid"];
-}
-
-- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
-    [super API_setup:dictionary container:container];
-    NSString* text = [dictionary stringForKey:WLContentKey];
-    if (!NSStringEqual(self.text, text)) self.text = text;
-    self.container = container ? : (self.wrap ? : [WLWrap entry:[dictionary stringForKey:WLWrapUIDKey]]);
-    return self;
-}
+@implementation Message (WLAPIManager)
 
 - (BOOL)fetched {
     return self.text.nonempty && self.wrap;
 }
 
-- (id)add:(WLCandyBlock)success failure:(WLFailureBlock)failure {
+- (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     return [[WLAPIRequest uploadMessage:self] send:success failure:failure];
 }
 
 - (void)prepareForDeletion {
-    [self.wrap removeMessagesObject:self];
+    [[self.wrap mutableMessages] removeObject:self];
     [super prepareForDeletion];
 }
 
 @end
 
-@implementation WLComment (WLAPIManager)
+@implementation Comment (WLAPIManager)
 
 + (NSNumber *)uploadingOrder {
     return @3;
 }
 
 + (instancetype)comment:(NSString *)text {
-    WLComment* comment = [self contribution];
+    Comment *comment = [self contribution];
     comment.text = text;
     return comment;
 }
 
-+ (NSString *)API_identifier:(NSDictionary *)dictionary {
-    return [dictionary stringForKey:WLCommentUIDKey];
-}
-
-- (instancetype)API_setup:(NSDictionary *)dictionary container:(id)container {
-    NSString* text = [dictionary stringForKey:WLContentKey];
-    if (!NSStringEqual(self.text, text)) self.text = text;
-    self.container = container ? : (self.candy ? : [WLCandy entry:[dictionary stringForKey:WLCandyUIDKey]]);
-    return [super API_setup:dictionary container:container];
-}
-
 - (void)prepareForDeletion {
-    [self.candy removeComment:self];
+    [[self.candy mutableComments] removeObject:self];
     [super prepareForDeletion];
 }
 
@@ -789,7 +526,7 @@
     return self.text.nonempty && self.candy;
 }
 
-- (id)add:(WLCommentBlock)success failure:(WLFailureBlock)failure {
+- (id)add:(WLObjectBlock)success failure:(WLFailureBlock)failure {
     if (self.candy.uploaded) {
         return [[WLAPIRequest postComment:self] send:success failure:failure];
     } else if (failure) {
@@ -805,7 +542,7 @@
             if (success) success(nil);
             break;
         case WLContributionStatusInProgress:
-            if (failure) failure([NSError errorWithDescription:WLLS(@"comment_is_uploading")]);
+            if (failure) failure([NSError errorWithDescription:@"comment_is_uploading".ls]);
             break;
         case WLContributionStatusFinished: {
             switch (self.candy.status) {
@@ -814,8 +551,7 @@
                     if (success) success(nil);
                     break;
                 case WLContributionStatusInProgress:
-                    if (failure) failure([NSError errorWithDescription:[self.candy messageAppearanceByCandyType:@"video_is_uploading"
-                                                                                                            and:@"photo_is_uploading"]]);
+                    if (failure) failure([NSError errorWithDescription:(self.candy.isVideo ? @"video_is_uploading" : @"photo_is_uploading").ls]);
                     break;
                 case WLContributionStatusFinished:
                     return [[WLAPIRequest deleteComment:self] send:success failure:failure];
@@ -829,6 +565,36 @@
             break;
     }
     return nil;
+}
+
+@end
+
+@implementation NSString (Unicode)
+
+- (NSString *)escapedUnicode {
+    NSData* data = [self dataUsingEncoding:NSUTF32LittleEndianStringEncoding allowLossyConversion:YES];
+    size_t bytesRead = 0;
+    const char* bytes = data.bytes;
+    NSMutableString* encodedString = [NSMutableString string];
+    while (bytesRead < data.length){
+        uint32_t codepoint = *((uint32_t*) &bytes[bytesRead]);
+        if (codepoint > 0x007E) {
+            [self getBytes:&codepoint
+                 maxLength:4
+                usedLength:nil
+                  encoding:NSUTF32StringEncoding
+                   options:0
+                     range:NSMakeRange(0, 0)
+            remainingRange:nil];
+            [encodedString appendFormat:@"\\u{%04x}", codepoint];
+        }
+        else {
+            [encodedString appendFormat:@"%C", (unichar)codepoint];
+        }
+        bytesRead += sizeof(uint32_t);
+    }
+    
+    return encodedString;
 }
 
 @end

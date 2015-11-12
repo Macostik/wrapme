@@ -8,7 +8,6 @@
 
 #import "WLBlockImageFetching.h"
 #import "WLImageFetcher.h"
-#import "NSString+Additions.h"
 
 @interface WLBlockImageFetching () <WLImageFetching>
 
@@ -41,7 +40,7 @@ static NSMutableDictionary *fetchings = nil;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.identifier = GUID();
+        self.identifier = [NSString GUID];
     }
     return self;
 }
@@ -53,7 +52,7 @@ static NSMutableDictionary *fetchings = nil;
     fetchings[self.identifier] = self;
     self.success = success;
     self.failure = failure;
-    return [[WLImageFetcher fetcher] enqueueImageWithUrl:self.url receiver:self];
+    return [[WLImageFetcher defaultFetcher] enqueueImageWithUrl:self.url receiver:self];
 }
 
 // MARK: - WLImageFetching

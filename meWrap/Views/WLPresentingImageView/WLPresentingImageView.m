@@ -22,11 +22,11 @@
     return [WLPresentingImageView loadFromNib];
 }
 
-- (void)presentCandy:(WLCandy *)candy fromView:(UIView *)view success:(void (^)(WLPresentingImageView *))success failure:(WLFailureBlock)failure {
+- (void)presentCandy:(Candy *)candy fromView:(UIView *)view success:(void (^)(WLPresentingImageView *))success failure:(WLFailureBlock)failure {
     [self presentingAsMainWindowSubview];
     UIImage *image = [WLSystemImageCache imageWithIdentifier:candy.picture.large];
     if (!image) {
-        image = [[WLImageCache cache] imageWithUrl:candy.picture.large];
+        image = [[WLImageCache defaultCache] imageWithUrl:candy.picture.large];
     }
     if (!image) {
         if (failure) failure(nil);
@@ -53,7 +53,7 @@
                      }];
 }
 
-- (void)dismissCandy:(WLCandy *)candy {
+- (void)dismissCandy:(Candy *)candy {
     
     UIView *dismissingView = [self.delegate presentingImageView:self dismissingViewForCandy:candy];
     if (!dismissingView) {
@@ -64,7 +64,7 @@
     [self presentingAsMainWindowSubview];
     UIImage *image = [WLSystemImageCache imageWithIdentifier:candy.picture.large];
     if (!image) {
-        image = [[WLImageCache cache] imageWithUrl:candy.picture.large];
+        image = [[WLImageCache defaultCache] imageWithUrl:candy.picture.large];
     }
     if (!image) {
         [self removeFromSuperview];

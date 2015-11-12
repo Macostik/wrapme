@@ -10,7 +10,7 @@
 
 @class WLHistory;
 
-@interface WLHistoryItem : WLPaginatedSet <WLPaginationEntry>
+@interface WLHistoryItem : WLPaginatedSet
 
 @property (weak, nonatomic) WLHistory *history;
 

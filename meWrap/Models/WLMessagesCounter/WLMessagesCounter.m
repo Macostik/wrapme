@@ -8,7 +8,7 @@
 
 #import "WLMessagesCounter.h"
 
-@interface WLMessagesCounter () <WLEntryNotifyReceiver>
+@interface WLMessagesCounter () <EntryNotifying>
 
 @property (strong, nonatomic) NSDictionary *counts;
 
@@ -31,14 +31,14 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [[WLMessage notifier] addReceiver:self];
+        [[Message notifier] addReceiver:self];
         
         NSExpressionDescription *count = [[NSExpressionDescription alloc] init];
         [count setExpression:[NSExpression expressionForFunction:@"count:" arguments:@[[NSExpression expressionForEvaluatedObject]]]];
         [count setName:@"count"];
         [count setExpressionResultType:NSDecimalAttributeType];
         
-        self.request = [[WLMessage fetchRequest] groupedBy:@[@"wrap"] fetch:@[count, @"wrap"]];
+        self.request = [[Message fetch] group:@[@"wrap"] fetch:@[count, @"wrap"]];
         
         [self update:nil];
     }
@@ -61,9 +61,9 @@
     __weak typeof(self)weakSelf = self;
     NSDate *dayAgo = [NSDate dayAgo];
     self.request.predicate = [NSPredicate predicateWithFormat:@"unread = YES AND createdAt >= %@", dayAgo];
-    [self.request execute:^(NSArray *array) {
+    [self.request execute:^(NSArray *result) {
         NSMutableDictionary *counts = [NSMutableDictionary dictionary];
-        for (NSDictionary *data in array) {
+        for (NSDictionary *data in result) {
             NSManagedObjectID *identifier = data[@"wrap"];
             if (identifier) {
                 [counts setObject:data[@"count"] forKey:identifier];
@@ -72,25 +72,19 @@
         weakSelf.counts = counts;
         if (completionHandler) completionHandler();
         updating = NO;
-    } failure:^(NSError *error) {
-        updating = NO;
     }];
 }
 
-- (NSUInteger)countForWrap:(WLWrap *)wrap {
+- (NSUInteger)countForWrap:(Wrap *)wrap {
     return [[self.counts objectForKey:[wrap objectID]] unsignedIntegerValue];
 }
 
-// MARK: - WLEntryNotifyReceiver
+// MARK: - EntryNotifying
 
-- (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLEntry *)entry {
+- (void)notifier:(EntryNotifier *)notifier didAddEntry:(Entry *)entry {
     if (entry.unread) {
         [self update:nil];
     }
-}
-
-- (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLEntry *)entry {
-    
 }
 
 @end

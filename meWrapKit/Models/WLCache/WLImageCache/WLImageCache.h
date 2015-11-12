@@ -23,6 +23,8 @@
 
 - (void)setImage:(UIImage*)image completion:(void (^)(NSString* path))completion;
 
+- (NSString*)setImage:(UIImage*)image;
+
 - (void)setImageAtPath:(NSString*)path withIdentifier:(NSString*)identifier;
 
 - (void)setImageData:(NSData*)data withIdentifier:(NSString*)identifier completion:(WLCacheWriteCompletionBlock)completion;
@@ -46,5 +48,11 @@
 - (void)setImageAtPath:(NSString*)path withUrl:(NSString*)url;
 
 - (void)setImageAtPath:(NSString*)path withUrl:(NSString*)url completion:(void (^)(void))completion;
+
+@end
+
+@interface NSString (MD5)
+
+- (NSString*)MD5;
 
 @end

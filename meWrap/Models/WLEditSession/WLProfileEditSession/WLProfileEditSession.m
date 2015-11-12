@@ -19,14 +19,14 @@
 }
 
 - (id)initialOriginalValue {
-    return [WLAuthorization priorityEmail];
+    return [[Authorization currentAuthorization] priorityEmail];
 }
 
 @end
 
 @implementation WLProfileEditSession
 
-- (instancetype)initWithUser:(WLEntry *)entry {
+- (instancetype)initWithUser:(Entry *)entry {
     NSMutableSet *properties = [NSMutableSet set];
     [properties addObject:[WLEditSessionProperty stringProperty:@"picture.large"]];
     [properties addObject:[WLEditSessionProperty stringProperty:@"name"]];

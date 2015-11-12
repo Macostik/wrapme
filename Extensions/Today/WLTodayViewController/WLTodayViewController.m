@@ -10,8 +10,6 @@
 #import <NotificationCenter/NotificationCenter.h>
 #import "WLTodayCandyCell.h"
 #import "WLTodayCommentCell.h"
-#import "WLSession.h"
-#import "WLAuthorization.h"
 #import "NSURL+WLRemoteEntryHandler.h"
 #import "GeometryHelper.h"
 
@@ -33,7 +31,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
-@property (strong, nonatomic) NSOrderedSet *contributions;
+@property (strong, nonatomic) NSArray *contributions;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (nonatomic) WLTodayViewState state;
@@ -82,14 +80,14 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
             break;
         case WLTodayViewStateShowMore:
             if (!self.tableView.tableFooterView) self.tableView.tableFooterView = self.tableFooterView;
-            [self.moreButton setTitle:NSLocalizedString(@"more_today_stories", nil) forState:UIControlStateNormal];
+            [self.moreButton setTitle:@"more_today_stories".ls forState:UIControlStateNormal];
             self.signUpButton.hidden = YES;
             self.moreButton.hidden = NO;
             [self.spinner stopAnimating];
             break;
         case WLTodayViewStateShowLess:
             if (!self.tableView.tableFooterView) self.tableView.tableFooterView = self.tableFooterView;
-            [self.moreButton setTitle:NSLocalizedString(@"less_today_stories", nil) forState:UIControlStateNormal];
+            [self.moreButton setTitle:@"less_today_stories".ls forState:UIControlStateNormal];
             self.signUpButton.hidden = YES;
             self.moreButton.hidden = NO;
             [self.spinner stopAnimating];
@@ -109,13 +107,13 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (NCUpdateResult)fetchContributions {
-    NSOrderedSet *contributions = [WLContribution recentContributions:WLRecentContributionsDefaultLimit];
-    NCUpdateResult updateResult = [self.contributions isEqualToOrderedSet:contributions] ? NCUpdateResultNoData : NCUpdateResultNewData;
+    NSArray *contributions = [Contribution recentContributions:6];
+    NCUpdateResult updateResult = [self.contributions isEqualToArray:contributions] ? NCUpdateResultNoData : NCUpdateResultNewData;
     self.contributions = contributions;
     return updateResult;
 }
 
-- (void)setContributions:(NSOrderedSet *)contributions {
+- (void)setContributions:(NSArray *)contributions {
     _contributions = contributions;
     if (contributions.count <= WLMinRow) {
         self.state = WLTodayViewStateNoFooter;
@@ -136,7 +134,7 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (void)updateExtensionWithResult:(void(^)(NCUpdateResult))result {
-    if ([WLUser currentUser] == nil) {
+    if ([User currentUser] == nil) {
         self.state = WLTodayViewStateUnauthorized;
         if (result) result(NCUpdateResultNoData);
         return;
@@ -161,8 +159,8 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WLContribution *contribution = self.contributions[indexPath.row];
-    if ([contribution isKindOfClass:[WLComment class]]) {
+    Contribution *contribution = self.contributions[indexPath.row];
+    if ([contribution isKindOfClass:[Comment class]]) {
         WLTodayContributionCell *cell = [tableView dequeueReusableCellWithIdentifier:WLTodayCommentCellIdentifier forIndexPath:indexPath];
         cell.contribution = contribution;
         return cell;
@@ -174,10 +172,10 @@ typedef NS_ENUM(NSUInteger, WLTodayViewState) {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    WLContribution *contribution = self.contributions[indexPath.row];
+    Contribution *contribution = self.contributions[indexPath.row];
     if (contribution.identifier != nil) {
         NSURL *url = nil;
-        if ([contribution isKindOfClass:[WLComment class]]) {
+        if ([contribution isKindOfClass:[Comment class]]) {
             url = [NSURL WLURLForRemoteEntryWithKey:WLCommentKey identifier:contribution.identifier];
         } else {
             url = [NSURL WLURLForRemoteEntryWithKey:WLCandyKey identifier:contribution.identifier];

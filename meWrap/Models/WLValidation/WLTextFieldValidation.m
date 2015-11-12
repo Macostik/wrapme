@@ -7,7 +7,6 @@
 //
 
 #import "WLTextFieldValidation.h"
-#import "NSString+Additions.h"
 
 @interface WLTextFieldValidation ()
 

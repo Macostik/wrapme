@@ -10,7 +10,7 @@
 
 @implementation WLChronologicalEntryPresenter
 
-+ (void)presentEntry:(WLEntry *)entry inNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
++ (void)presentEntry:(Entry *)entry inNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
     UIViewController *controller = [entry recursiveViewControllerWithNavigationController:navigationController];
     if (controller) {
         if ([navigationController.viewControllers containsObject:controller]) {

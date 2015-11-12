@@ -13,7 +13,7 @@
 #import "WLNotification.h"
 #import "WLSoundPlayer.h"
 
-@interface WLEmailConfirmationViewController () <WLEntryNotifyReceiver, WLNotificationSubscriptionDelegate>
+@interface WLEmailConfirmationViewController () <EntryNotifying, WLNotificationSubscriptionDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *resendEmailButton;
 @property (weak, nonatomic) IBOutlet UIButton *useAnotherEmailButton;
@@ -26,17 +26,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.emailLabel.text = [NSString stringWithFormat:@"%@ is not confirmed yet", [WLAuthorization currentAuthorization].email];
+    self.emailLabel.text = [NSString stringWithFormat:@"%@ is not confirmed yet", [Authorization currentAuthorization].email];
     self.useAnotherEmailButton.layer.borderWidth = 1;
     self.useAnotherEmailButton.layer.borderColor = [self.useAnotherEmailButton titleColorForState:UIControlStateNormal].CGColor;
     
-    [[WLUser notifier] addReceiver:self];
+    [[User notifier] addReceiver:self];
 }
 
 - (IBAction)resend:(id)sender {
     __weak typeof(self)weakSelf = self;
-    [[WLAPIRequest resendConfirmation:[WLAuthorization currentAuthorization].email] send:^(id object) {
-        [UIAlertController showWithMessage:WLLS(@"sending_confirming_email")];
+    [[WLAPIRequest resendConfirmation:[Authorization currentAuthorization].email] send:^(id object) {
+        [UIAlertController showWithMessage:@"sending_confirming_email".ls];
     } failure:^(NSError *error) {
         if ([error isError:WLErrorEmailAlreadyConfirmed]) {
             [weakSelf setSuccessStatusAnimated:NO];
@@ -49,15 +49,15 @@
 
 // MARK: - WLNotificationSubscriptionDelegate
 
-- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLEntry *)entry {
-    if (![WLAuthorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry {
+    if (![Authorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
         [WLSoundPlayer playSound:WLSound_s01];
         [self setSuccessStatusAnimated:NO];
     }
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
-    return entry == [WLUser currentUser];
+- (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnEntry:(Entry *)entry {
+    return entry == [User currentUser];
 }
 
 @end

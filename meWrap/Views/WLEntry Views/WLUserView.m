@@ -7,6 +7,7 @@
 //
 
 #import "WLUserView.h"
+#import "WLImageView.h"
 
 @implementation WLUserView
 
@@ -16,22 +17,22 @@
     avatarView.layer.borderWidth = WLConstants.pixelSize * 2.0f;
     avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
     avatarView.circled = YES;
-    self.entry = [WLUser currentUser];
-    [[WLUser notifier] addReceiver:self];
+    self.entry = [User currentUser];
+    [[User notifier] addReceiver:self];
 }
 
-- (void)update:(WLUser*)user {
+- (void)update:(User *)user {
     self.avatarView.url = user.picture.small;
     self.nameLabel.text = user.name;
 }
 
 // MARK: - WLEntryNotifyReceiver
 
-- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLUser *)user {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(User *)user {
     [self update:user];
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+- (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnEntry:(Entry *)entry {
     return self.entry == entry;
 }
 

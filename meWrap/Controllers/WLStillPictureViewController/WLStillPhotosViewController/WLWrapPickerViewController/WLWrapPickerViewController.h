@@ -9,11 +9,10 @@
 #import "WLBaseViewController.h"
 
 @class WLWrapPickerViewController;
-@class WLWrap;
 
 @protocol WLWrapPickerViewControllerDelegate <NSObject>
 
-- (void)wrapPickerViewController:(WLWrapPickerViewController*)controller didSelectWrap:(WLWrap*)wrap;
+- (void)wrapPickerViewController:(WLWrapPickerViewController*)controller didSelectWrap:(Wrap *)wrap;
 
 - (void)wrapPickerViewControllerDidFinish:(WLWrapPickerViewController*)controller;
 
@@ -25,7 +24,7 @@
 
 @property (nonatomic, weak) id <WLWrapPickerViewControllerDelegate> delegate;
 
-@property (weak, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) Wrap *wrap;
 
 - (void)showInViewController:(UIViewController*)controller animated:(BOOL)animated;
 

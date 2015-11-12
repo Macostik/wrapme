@@ -50,14 +50,14 @@
     if (localize) {
         NSString *text = self.placeholder;
         if (text.nonempty) {
-            [super setPlaceholder:WLLS(text)];
+            [super setPlaceholder:text.ls];
         }
     }
 }
 
 - (void)setPlaceholder:(NSString *)placeholder {
     if (self.localize) {
-        [super setPlaceholder:WLLS(placeholder)];
+        [super setPlaceholder:placeholder.ls];
     } else {
         [super setPlaceholder:placeholder];
     }

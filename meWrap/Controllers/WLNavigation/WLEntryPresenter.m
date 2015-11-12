@@ -16,19 +16,19 @@
 
 @implementation WLEntryPresenter
 
-+ (void)presentEntry:(WLEntry *)entry animated:(BOOL)animated {
++ (void)presentEntry:(Entry *)entry animated:(BOOL)animated {
     [self presentEntry:entry inNavigationController:[UINavigationController mainNavigationController] animated:animated];
 }
 
-+ (void)presentEntry:(WLEntry *)entry inNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
++ (void)presentEntry:(Entry *)entry inNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
     
 }
 
-+ (void)presentEntryRequestingAuthorization:(WLEntry *)entry animated:(BOOL)animated {
++ (void)presentEntryRequestingAuthorization:(Entry *)entry animated:(BOOL)animated {
     [self presentEntryRequestingAuthorization:entry inNavigationController:[UINavigationController mainNavigationController] animated:animated];
 }
 
-+ (void)presentEntryRequestingAuthorization:(WLEntry *)entry inNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
++ (void)presentEntryRequestingAuthorization:(Entry *)entry inNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
     UIViewController *presentedViewController = [navigationController presentedViewController];
     if (presentedViewController) {
         [presentedViewController requestAuthorizationForPresentingEntry:entry completion:^(BOOL flag) {
@@ -47,13 +47,13 @@
 
 @implementation UIViewController (WLEntryPresenter)
 
-- (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
+- (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(WLBooleanBlock)completion {
     if (completion) completion(YES);
 }
 
 @end
 
-@implementation WLEntry (WLEntryPresenter)
+@implementation Entry (WLEntryPresenter)
 
 - (UIViewController *)viewController {
     return nil;
@@ -68,7 +68,7 @@
 
 - (UIViewController *)recursiveViewControllerWithNavigationController:(UINavigationController *)navigationController {
     UIViewController *controller = nil;
-    WLEntry *currentEntry = self;
+    Entry *currentEntry = self;
     while (currentEntry.valid) {
         controller = [currentEntry viewControllerWithNavigationController:navigationController];
         if (controller) {
@@ -87,12 +87,12 @@
     return NO;
 }
 
-- (void)configureViewController:(UIViewController*)controller fromContainer:(WLEntry*)container {
+- (void)configureViewController:(UIViewController*)controller fromContainer:(Entry *)container {
 }
 
 @end
 
-@implementation WLCandy (WLEntryPresenter)
+@implementation Candy (WLEntryPresenter)
 
 - (UIViewController *)viewController {
     WLHistoryViewController* controller = [WLHistoryViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
@@ -108,10 +108,10 @@
 
 @end
 
-@implementation WLMessage (WLEntryPresenter)
+@implementation Message (WLEntryPresenter)
 
 - (UIViewController *)viewController {
-    WLWrap *wrap = self.wrap;
+    Wrap *wrap = self.wrap;
     if (wrap) {
         WLWrapViewController* controller = [WLWrapViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
         controller.wrap = wrap;
@@ -130,7 +130,7 @@
 
 @end
 
-@implementation WLWrap (WLEntryPresenter)
+@implementation Wrap (WLEntryPresenter)
 
 - (UIViewController *)viewController {
     WLWrapViewController* controller = [WLWrapViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
@@ -146,9 +146,9 @@
 
 @end
 
-@implementation WLComment (WLEntryPresenter)
+@implementation Comment (WLEntryPresenter)
 
-- (void)configureViewController:(UIViewController *)controller fromContainer:(WLEntry *)container {
+- (void)configureViewController:(UIViewController *)controller fromContainer:(Entry *)container {
     if (container == self.candy) {
         WLHistoryViewController *candyViewController = (WLHistoryViewController *)controller;
         if (candyViewController.isViewLoaded) {

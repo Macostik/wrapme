@@ -50,7 +50,7 @@ static NSMapTable *storyboards = nil;
 	return [self instantiateWithIdentifier:NSStringFromClass(self) storyboard:storyboard];
 }
 
-- (void)requestAuthorizationForPresentingEntry:(WLEntry *)entry completion:(WLBooleanBlock)completion {
+- (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(WLBooleanBlock)completion {
     if (completion) completion(YES);
 }
 

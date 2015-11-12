@@ -14,7 +14,7 @@
 
 @implementation WLTodayCandyCell
 
-- (void)setContribution:(WLCandy *)candy {
+- (void)setContribution:(Candy *)candy {
     [super setContribution:candy];
     self.pictureView.url = candy.picture.small;
     self.wrapNameLabel.text = candy.wrap.name;

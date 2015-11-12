@@ -7,13 +7,12 @@
 //
 
 #import "WLAPIRequest+Defined.h"
-#import "WLEntryNotifier.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLAddressBookRecord.h"
 
 @implementation WLAPIRequest (Defined)
 
-+ (instancetype)candy:(WLCandy *)candy {
++ (instancetype)candy:(Candy *)candy {
     WLAPIRequest *request = nil;
     if (candy.wrap) {
         request = [self GET:@"wraps/%@/candies/%@", candy.wrap.identifier, candy.identifier];
@@ -21,7 +20,7 @@
         request = [self GET:@"entities/%@", candy.identifier];
     }
     return [[request parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        success(candy.valid ? [candy update:[WLCandy API_prefetchDictionary:response.data[WLCandyKey]]] : nil);
+        success(candy.valid ? [candy update:[Candy API_prefetchDictionary:response.data[WLCandyKey]]] : nil);
     }] beforeFailure:^(NSError *error) {
         if (candy.uploaded && error.isContentUnavaliable) {
             [candy remove];
@@ -29,7 +28,7 @@
     }];
 }
 
-+ (instancetype)deleteCandy:(WLCandy *)candy {
++ (instancetype)deleteCandy:(Candy *)candy {
     return [[[self DELETE:@"wraps/%@/candies/%@", candy.wrap.identifier, candy.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         [candy remove];
         success(nil);
@@ -40,10 +39,10 @@
     }];
 }
 
-+ (instancetype)deleteComment:(WLComment *)comment {
++ (instancetype)deleteComment:(Comment *)comment {
     WLAPIRequest *request = [WLAPIRequest DELETE:@"wraps/%@/candies/%@/comments/%@", comment.candy.wrap.identifier, comment.candy.identifier, comment.identifier];
     return [request parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        WLCandy *candy = comment.candy;
+        Candy *candy = comment.candy;
         [comment remove];
         if (candy.valid) {
             candy.commentCount = [response.data[WLCommentCountKey] intValue];
@@ -52,7 +51,7 @@
     }];
 }
 
-+ (instancetype)deleteWrap:(WLWrap *)wrap {
++ (instancetype)deleteWrap:(Wrap *)wrap {
     return [[[self DELETE:@"wraps/%@", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         [wrap remove];
         success(nil);
@@ -63,10 +62,10 @@
     }];
 }
 
-+ (instancetype)leaveWrap:(WLWrap *)wrap {
++ (instancetype)leaveWrap:(Wrap *)wrap {
     return [[[self DELETE:@"wraps/%@/leave", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.isPublic) {
-            [wrap removeContributorsObject:[WLUser currentUser]];
+            [[wrap mutableContributors] removeObject:[User currentUser]];
             [wrap notifyOnUpdate];
         } else {
             [wrap remove];
@@ -79,10 +78,10 @@
     }];
 }
 
-+ (instancetype)followWrap:(WLWrap *)wrap {
++ (instancetype)followWrap:(Wrap *)wrap {
     return [[[self POST:@"wraps/%@/follow", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         [wrap touch];
-        [wrap addContributorsObject:[WLUser currentUser]];
+        [[wrap mutableContributors] addObject:[User currentUser]];
         [wrap notifyOnUpdate];
         success(nil);
     }] beforeFailure:^(NSError *error) {
@@ -92,9 +91,9 @@
     }];
 }
 
-+ (instancetype)unfollowWrap:(WLWrap *)wrap {
++ (instancetype)unfollowWrap:(Wrap *)wrap {
     return [[[self DELETE:@"wraps/%@/unfollow", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        [[WLUser currentUser] removeWrap:wrap];
+        [[[User currentUser] mutableWraps] removeObject:wrap];
         [wrap notifyOnUpdate];
         success(nil);
     }] beforeFailure:^(NSError *error) {
@@ -104,15 +103,15 @@
     }];
 }
 
-+ (instancetype)postComment:(WLComment*)comment {
++ (instancetype)postComment:(Comment *)comment {
     return [[[self POST:@"wraps/%@/candies/%@/comments", comment.candy.wrap.identifier, comment.candy.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:comment.text forKey:@"message"];
         [parameters trySetObject:comment.uploadIdentifier forKey:@"upload_uid"];
         [parameters trySetObject:@(comment.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        WLCandy *candy = comment.candy;
+        Candy *candy = comment.candy;
         if (candy.valid) {
-            [comment API_setup:[response.data dictionaryForKey:@"comment"]];
+            [comment map:[response.data dictionaryForKey:@"comment"]];
             [candy touch:comment.createdAt];
             int commentCount = [response.data[WLCommentCountKey] intValue];
             if (candy.commentCount < commentCount)
@@ -130,26 +129,26 @@
     }];
 }
 
-+ (instancetype)resendInvite:(WLWrap*)wrap user:(WLUser*)user {
++ (instancetype)resendInvite:(Wrap *)wrap user:(User *)user {
     return [[self POST:@"wraps/%@/resend_invitation", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:user.identifier forKey:WLUserUIDKey];
     }];
 }
 
-+ (instancetype)user:(WLUser*)user {
++ (instancetype)user:(User *)user {
     return [[self GET:@"users/%@", user.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        [user API_setup:response.data[@"user"]];
+        [user map:response.data[@"user"]];
         [user notifyOnUpdate];
         success(user);
     }];
 }
 
-+ (instancetype)preferences:(WLWrap*)wrap {
++ (instancetype)preferences:(Wrap *)wrap {
     return [[[self GET:@"wraps/%@/preferences", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
             NSDictionary *preference = [response.data dictionaryForKey:WLPreferenceKey];
-            wrap.isCandyNotifiable = [preference boolForKey:WLCandyNotifiableKey];
-            wrap.isChatNotifiable = [preference boolForKey:WLChatNotifiableKey];
+            wrap.isCandyNotifiable = [[preference numberForKey:WLCandyNotifiableKey] boolValue];
+            wrap.isChatNotifiable = [[preference numberForKey:WLChatNotifiableKey] boolValue];
             [wrap notifyOnUpdate];
             success(wrap);
         } else {
@@ -162,7 +161,7 @@
     }];
 }
 
-+ (instancetype)changePreferences:(WLWrap*)wrap {
++ (instancetype)changePreferences:(Wrap *)wrap {
     return [[[[self PUT:@"wraps/%@/preferences", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:@(wrap.isCandyNotifiable) forKey:WLCandyNotifiableKey];
         [parameters trySetObject:@(wrap.isChatNotifiable) forKey:WLChatNotifiableKey];
@@ -179,9 +178,9 @@
     }];
 }
 
-+ (instancetype)contributors:(WLWrap*)wrap {
++ (instancetype)contributors:(Wrap *)wrap {
     return [[[self GET:@"wraps/%@/contributors", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
-        NSSet *contributors = [WLUser API_entries:[WLUser API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]];
+        NSSet *contributors = [[User mappedEntries:[User API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]] set];
         if (wrap.valid && ![wrap.contributors isEqualToSet:contributors]) {
             wrap.contributors = contributors;
         }
@@ -195,32 +194,32 @@
 
 + (instancetype)verificationCall {
     return [[self POST:@"users/call"] parametrize:^(id request, NSMutableDictionary *parameters) {
-        [parameters trySetObject:[WLAuthorization currentAuthorization].email forKey:WLEmailKey];
-        [parameters trySetObject:[WLAuthorization currentAuthorization].deviceUID forKey:@"device_uid"];
+        [parameters trySetObject:[Authorization currentAuthorization].email forKey:WLEmailKey];
+        [parameters trySetObject:[Authorization currentAuthorization].deviceUID forKey:@"device_uid"];
     }];
 }
 
-+ (instancetype)uploadMessage:(WLMessage*)message {
++ (instancetype)uploadMessage:(Message*)message {
     return [[[[self POST:@"wraps/%@/chats", message.wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:message.text forKey:@"message"];
         [parameters trySetObject:message.uploadIdentifier forKey:WLUploadUIDKey];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (message.wrap.valid) {
-            [message API_setup:[response.data dictionaryForKey:WLMessageKey]];
+            [message map:[response.data dictionaryForKey:WLMessageKey]];
             [message notifyOnUpdate];
             success(message);
         } else {
             success(nil);
         }
     }] beforeFailure:^(NSError *error) {
-        WLWrap *wrap = message.wrap;
+        Wrap *wrap = message.wrap;
         if (wrap.uploaded && error.isContentUnavaliable) {
             [wrap remove];
         }
     }];
 }
 
-+ (instancetype)addContributors:(NSSet*)contributors wrap:(WLWrap*)wrap {
++ (instancetype)addContributors:(NSSet*)contributors wrap:(Wrap *)wrap {
     return [[[[self POST:@"wraps/%@/add_contributor", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         NSMutableSet *_contributors = [NSMutableSet setWithSet:contributors];
         
@@ -234,10 +233,10 @@
             WLAddressBookPhoneNumber *_person = [_contributors anyObject];
             if (_person.record) {
                 NSSet *groupedContributors = [_contributors where:@"record == %@", _person.record];
-                [invitees addObject:@{@"name":WLString(_person.name),@"phone_numbers":[[groupedContributors valueForKey:@"phone"] array]}];
+                [invitees addObject:@{@"name":_person.name?:@"",@"phone_numbers":[[groupedContributors valueForKey:@"phone"] array]}];
                 [_contributors minusSet:groupedContributors];
             } else {
-                [invitees addObject:@{@"name":WLString(_person.name),@"phone_number":_person.phone}];
+                [invitees addObject:@{@"name":_person.name?:@"",@"phone_number":_person.phone}];
                 [_contributors removeObject:_person];
             }
         }
@@ -247,7 +246,7 @@
         }] forKey:@"invitees"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet *contributors = [WLUser API_entries:[WLUser API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]];
+            NSSet *contributors = [[User mappedEntries:[User API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]] set];
             if (![wrap.contributors isEqualToSet:contributors]) {
                 wrap.contributors = contributors;
                 [wrap notifyOnUpdate];
@@ -263,12 +262,12 @@
     }];
 }
 
-+ (instancetype)removeContributors:(NSArray*)contributors wrap:(WLWrap*)wrap {
++ (instancetype)removeContributors:(NSArray*)contributors wrap:(Wrap *)wrap {
     return [[[[self DELETE:@"wraps/%@/remove_contributor", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:[[contributors where:@"user != nil"] valueForKeyPath:@"user.identifier"] forKey:@"user_uids"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSSet *contributors = [WLUser API_entries:[WLUser API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]];
+            NSSet *contributors = [[User mappedEntries:[User API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]] set];
             if (![wrap.contributors isEqualToSet:contributors]) {
                 wrap.contributors = contributors;
                 [wrap notifyOnUpdate];
@@ -284,14 +283,14 @@
     }];
 }
 
-+ (instancetype)uploadWrap:(WLWrap*)wrap {
++ (instancetype)uploadWrap:(Wrap *)wrap {
     return [[[self POST:@"wraps"] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:wrap.name forKey:@"name"];
         [parameters trySetObject:wrap.uploadIdentifier forKey:WLUploadUIDKey];
         [parameters trySetObject:@(wrap.updatedAt.timestamp) forKey:@"contributed_at_in_epoch"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            [wrap API_setup:response.data[WLWrapKey]];
+            [wrap map:response.data[WLWrapKey]];
             [wrap notifyOnAddition];
             success(wrap);
         } else {
@@ -300,7 +299,7 @@
     }];
 }
 
-+ (instancetype)updateUser:(WLUser*)user email:(NSString*)email {
++ (instancetype)updateUser:(User *)user email:(NSString*)email {
     return [[[[self PUT:@"users/update"] file:^NSString *(id request) {
         return user.picture.large;
     }] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
@@ -308,31 +307,31 @@
         [parameters trySetObject:email forKey:WLEmailKey];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         NSDictionary* userData = response.data[@"user"];
-        WLAuthorization* authorization = [WLAuthorization currentAuthorization];
+        Authorization* authorization = [Authorization currentAuthorization];
         [authorization updateWithUserData:userData];
-        [user API_setup:userData];
-        [user setCurrent];
+        [user map:userData];
+        User.currentUser = user;
         [user notifyOnUpdate];
         success(user);
     }];
 }
 
-+ (instancetype)uploadCandy:(WLCandy*)candy {
++ (instancetype)uploadCandy:(Candy *)candy {
     return [[[[[self POST:@"wraps/%@/candies", candy.wrap.identifier] file:^NSString *(id request) {
         return candy.picture.original;
     }] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:candy.uploadIdentifier forKey:WLUploadUIDKey];
         [parameters trySetObject:@([candy.updatedAt timestamp]) forKey:WLContributedAtKey];
-        WLComment *firstComment = [[candy.comments where:@"uploading == nil"] anyObject];
+        Comment *firstComment = [[candy.comments where:@"uploading == nil"] anyObject];
         if (firstComment) {
             [parameters trySetObject:firstComment.text forKey:@"message"];
             [parameters trySetObject:firstComment.uploadIdentifier forKey:@"message_upload_uid"];
         }
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (candy.wrap.valid) {
-            WLAsset* oldPicture = [candy.picture copy];
-            [candy API_setup:[response.data dictionaryForKey:WLCandyKey]];
-            [oldPicture cacheForPicture:candy.picture];
+            Asset* oldPicture = [candy.picture copy];
+            [candy map:[response.data dictionaryForKey:WLCandyKey]];
+            [oldPicture cacheForAsset:candy.picture];
             success(candy);
         } else {
             success(nil);
@@ -341,7 +340,7 @@
         if ([error isError:WLErrorUploadFileNotFound]) {
             [candy remove];
         } else {
-            WLWrap *wrap = candy.wrap;
+            Wrap *wrap = candy.wrap;
             if (wrap.uploaded && error.isContentUnavaliable) {
                 [candy remove];
                 [wrap remove];
@@ -350,18 +349,18 @@
     }];
 }
 
-+ (instancetype)editCandy:(WLCandy*)candy {
++ (instancetype)editCandy:(Candy *)candy {
     return [[[[[self PUT:@"wraps/%@/candies/%@/", candy.wrap.identifier, candy.identifier] file:^NSString *(id request) {
         return candy.picture.original;
     }] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:@([candy.updatedAt timestamp]) forKey:WLContributedAtKey];
-        candy.uploadIdentifier = GUID();
+        candy.uploadIdentifier = [NSString GUID];
         [parameters trySetObject:candy.uploadIdentifier forKey:WLUploadUIDKey];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (candy.wrap.valid) {
-            WLAsset* oldPicture = [candy.picture copy];
-            [candy API_setup:[response.data dictionaryForKey:WLCandyKey]];
-            [oldPicture cacheForPicture:candy.picture];
+            Asset* oldPicture = [candy.picture copy];
+            [candy map:[response.data dictionaryForKey:WLCandyKey]];
+            [oldPicture cacheForAsset:candy.picture];
             success(candy);
         } else {
             success(nil);
@@ -373,13 +372,13 @@
     }];
 }
 
-+ (instancetype)updateWrap:(WLWrap*)wrap {
++ (instancetype)updateWrap:(Wrap *)wrap {
     return [[[[self PUT:@"wraps/%@", wrap.identifier] parametrize:^(id request, NSMutableDictionary *parameters) {
         [parameters trySetObject:wrap.name forKey:@"name"];
         [parameters trySetObject:@(wrap.isRestrictedInvite) forKey:@"is_restricted_invite"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            [wrap API_setup:response.data[WLWrapKey]];
+            [wrap map:response.data[WLWrapKey]];
             [wrap notifyOnUpdate];
             success(wrap);
         } else {
@@ -408,14 +407,14 @@
             contact.phoneNumbers = [contact.phoneNumbers map:^id(WLAddressBookPhoneNumber *phoneNumber) {
                 NSDictionary *userData = [[users where:@"address_book_number == %@", phoneNumber.phone] lastObject];
                 if (userData) {
-                    WLUser *user = [WLUser API_entry:userData];
+                    User *user = [User mappedEntry:userData];
                     if (user) {
                         if ([user current] || [registeredUsers containsObject:user]) {
                             return nil;
                         }
                         [registeredUsers addObject:user];
                         phoneNumber.user = user;
-                        phoneNumber.activated = [userData integerForKey:WLSignInCountKey] > 0;
+                        phoneNumber.activated = [[userData numberForKey:WLSignInCountKey] integerValue] > 0;
                     }
                 }
                 return phoneNumber;
@@ -426,7 +425,7 @@
     }];
 }
 
-+ (instancetype)postCandy:(WLCandy *)candy violationCode:(NSString *)violationCode {
++ (instancetype)postCandy:(Candy *)candy violationCode:(NSString *)violationCode {
     return [[[[self POST:@"wraps/%@/candies/%@/violations/", candy.wrap.identifier, candy.identifier] parametrize:^(WLAPIRequest *request, NSMutableDictionary *parameters) {
         [parameters trySetObject:violationCode forKey:WLCandyViolationKey];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {

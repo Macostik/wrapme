@@ -21,7 +21,7 @@
 @implementation WLLinkDeviceViewController
 
 - (void)sendPasscode {
-    [[WLAuthorization currentAuthorization] signUp:^(WLAuthorization *authorization) {
+    [[Authorization currentAuthorization] signUp:^(Authorization *authorization) {
     } failure:^(NSError *error) {
     }];
 }
@@ -31,7 +31,7 @@
     __weak typeof(self)weakSelf = self;
     [[WLAuthorizationRequest linkDevice:self.passcodeField.text] send:^(id object) {
         [WLSoundPlayer playSound:WLSound_s01];
-        [[WLAuthorization currentAuthorization] signIn:^(WLUser *user) {
+        [[Authorization currentAuthorization] signIn:^(User *user) {
             [weakSelf setSuccessStatusAnimated:NO];
         } failure:^(NSError *error) {
             [error show];

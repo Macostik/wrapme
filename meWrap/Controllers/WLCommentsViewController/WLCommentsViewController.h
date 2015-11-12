@@ -10,7 +10,7 @@
 
 @interface WLCommentsViewController : WLBaseViewController
 
-@property (weak, nonatomic) WLCandy *candy;
+@property (weak, nonatomic) Candy *candy;
 
 - (void)presentForController:(UIViewController *)controller animated:(BOOL)animated;
 

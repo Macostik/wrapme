@@ -13,9 +13,9 @@
 @protocol WLChatDelegate <WLPaginatedSetDelegate>
 
 @optional
-- (void)chat:(WLChat*)chat didBeginTyping:(WLUser *)user;
+- (void)chat:(WLChat*)chat didBeginTyping:(User *)user;
 
-- (void)chat:(WLChat*)chat didEndTyping:(WLUser *)user;
+- (void)chat:(WLChat*)chat didEndTyping:(User *)user;
 
 - (void)chatDidChangeMessagesWithName:(WLChat*)chat;
 
@@ -39,9 +39,9 @@
 
 @property (strong, nonatomic) NSMutableOrderedSet* groupMessages;
 
-@property (weak, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) Wrap *wrap;
 
-+ (instancetype)chatWithWrap:(WLWrap*)wrap;
++ (instancetype)chatWithWrap:(Wrap *)wrap;
 
 - (void)sendTyping:(BOOL)typing;
 

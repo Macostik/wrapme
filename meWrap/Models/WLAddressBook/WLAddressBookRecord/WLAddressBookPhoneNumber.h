@@ -20,9 +20,9 @@
 
 @property (strong, nonatomic) NSString *label;
 
-@property (weak, nonatomic) WLUser *user;
+@property (weak, nonatomic) User *user;
 
-@property (strong, nonatomic) WLAsset *picture;
+@property (strong, nonatomic) Asset *picture;
 
 @property (nonatomic) BOOL activated;
 

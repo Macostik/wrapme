@@ -7,10 +7,9 @@
 //
 
 #import "StreamReusableView.h"
-#import "WLHistoryItemDataSource.h"
 
 @interface WLCandiesCell : StreamReusableView
 
-@property (strong, nonatomic, readonly) WLHistoryItemDataSource* dataSource;
+@property (strong, nonatomic, readonly) HistoryItemDataSource* dataSource;
 
 @end

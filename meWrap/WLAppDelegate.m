@@ -9,7 +9,6 @@
 #import "WLAppDelegate.h"
 #import "WLNotificationCenter.h"
 #import "WLKeyboard.h"
-#import "WLEntryManager.h"
 #import "WLMenu.h"
 #import "WLNavigationHelper.h"
 #import "NSObject+NibAdditions.h"
@@ -32,10 +31,9 @@
 #import "WLNetwork.h"
 #import <AWSCore/AWSCore.h>
 #import "WLExtensionManager.h"
+@import WatchConnectivity;
 
-@import Photos;
-
-@interface WLAppDelegate () <iVersionDelegate /*PHPhotoLibraryChangeObserver*/>
+@interface WLAppDelegate () <iVersionDelegate, WCSessionDelegate>
 
 @property (nonatomic) BOOL versionChanged;
 
@@ -44,6 +42,8 @@
 @implementation WLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [NSKeyedUnarchiver setClass:[Authorization class] forClassName:@"WLAuthorization"];
     
     [self registerUserNotificationSettings];
     
@@ -61,8 +61,8 @@
     
     [self initializeVersionTool];
     
-	[[WLNetwork network] configure];
-    [[WLNetwork network] setChangeReachabilityBlock:^(WLNetwork *network) {
+	[[WLNetwork sharedNetwork] configure];
+    [[WLNetwork sharedNetwork] setChangeReachabilityBlock:^(WLNetwork *network) {
         if (network.reachable) {
             if ([WLAuthorizationRequest authorized]) {
                 [WLUploadingQueue start];
@@ -84,6 +84,7 @@
     }];
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
 	return YES;
 }
 
@@ -97,7 +98,7 @@
             [UIAlertController confirmRedirectingToSignUp:^{
                 WLLog(@"ERROR - redirection to welcome screen, sign in failed: %@", error);
                 [[WLNotificationCenter defaultCenter] clear];
-                [WLSession clear];
+                [[NSUserDefaults standardUserDefaults] clear];
                 [storyboard present:YES];
                 topView.userInteractionEnabled = YES;
             } tryAgain:^{
@@ -135,9 +136,9 @@
 - (void)initializeVersionTool {
     iVersion *version = [iVersion sharedInstance];
     version.appStoreID = WLConstants.appStoreID;
-    version.updateAvailableTitle = WLLS(@"new_version_is_available");
-    version.downloadButtonLabel = WLLS(@"update");
-    version.remindButtonLabel = WLLS(@"not_now");
+    version.updateAvailableTitle = @"new_version_is_available".ls;
+    version.downloadButtonLabel = @"update".ls;
+    version.remindButtonLabel = @"not_now".ls;
     version.updatePriority = iVersionUpdatePriorityMedium;
 }
 
@@ -153,21 +154,21 @@
     [self.window makeKeyAndVisible];
     [UIWindow setMainWindow:self.window];
     
-    NSString *storedVersion = WLSession.appVersion;
+    NSString *storedVersion = [NSUserDefaults standardUserDefaults].appVersion;
     NSString *currentVersion = [NSBundle mainBundle].buildVersion;
     
     if (!storedVersion || [storedVersion compare:@"2.0" options:NSNumericSearch] == NSOrderedAscending) {
-        [WLSession clear];
+        [[NSUserDefaults standardUserDefaults] clear];
     }
     
     if (![storedVersion isEqualToString:currentVersion]) {
         self.versionChanged = YES;
-        WLSession.appVersion = currentVersion;
+        [NSUserDefaults standardUserDefaults].appVersion = currentVersion;
     }
 }
 
 - (void)presentInitialViewController {
-    void (^successBlock) (WLUser *user) = ^(WLUser *user) {
+    void (^successBlock) (User *user) = ^(User *user) {
         if (user.isSignupCompleted) {
             [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
         } else {
@@ -180,10 +181,10 @@
         }
     };
     
-    WLAuthorization* authorization = [WLAuthorization currentAuthorization];
+    Authorization* authorization = [Authorization currentAuthorization];
     if ([authorization canAuthorize]) {
         if (!self.versionChanged && ![WLAuthorizationRequest requiresSignIn]) {
-            WLUser *currentUser = [WLUser currentUser];
+            User *currentUser = [User currentUser];
             if (currentUser) {
                 successBlock(currentUser);
                 [currentUser notifyOnAddition];
@@ -193,7 +194,7 @@
         self.window.rootViewController = [[UIViewController alloc] initWithNibName:@"WLLaunchScreenViewController" bundle:nil];
         __weak typeof(self)weakSelf = self;
         [authorization signIn:successBlock failure:^(NSError *error) {
-            WLUser *currentUser = [WLUser currentUser];
+            User *currentUser = [User currentUser];
             if ([error isNetworkError] && currentUser) {
                 successBlock(currentUser);
             } else {
@@ -299,7 +300,7 @@
     if (type == WLNotificationUpdateAvailable) {
         [[UIApplication sharedApplication] openURL:[[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",@(WLConstants.appStoreID)] URL]];
     } else {
-        WLEntry *entry = notification.entry;
+        Entry *entry = notification.entry;
         if (entry) {
             [[WLRemoteEntryHandler sharedHandler] presentEntry:entry];
             if ([identifier isEqualToString:@"reply"]) {
@@ -310,36 +311,40 @@
     }
 }
 
-- (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
-    
-    __block BOOL completed = NO;
-    UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithExpirationHandler:^{
-        if (!completed && reply) reply([[WLExtensionResponse failureWithMessage:@"Background task expired."] serialize]);
-        completed = YES;
-    }];
-    
-    void (^completion) (WLExtensionResponse*) = ^ (WLExtensionResponse *response) {
-        if (!completed && reply) reply([response serialize]);
-        completed = YES;
-        [application endBackgroundTask:task];
-    };
-    
-    WLExtensionRequest *request = [WLExtensionRequest deserialize:userInfo];
-    [WLExtensionManager performRequest:request completionHandler:completion];
-}
-
 - (void)registerUserNotificationSettings {
     UIMutableUserNotificationCategory *category = [[UIMutableUserNotificationCategory alloc] init];
     category.identifier = @"chat";
     UIMutableUserNotificationAction *action = [[UIMutableUserNotificationAction alloc] init];
     action.identifier = @"reply";
-    action.title = WLLS(@"reply");
+    action.title = @"reply".ls;
     action.activationMode = UIUserNotificationActivationModeForeground;
     action.authenticationRequired = YES;
     [category setActions:@[action] forContext:UIUserNotificationActionContextDefault];
     UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
     UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:types categories:[NSSet setWithObject:category]];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+}
+
+// MARK: - WCSessionDelegate
+
+- (void)session:(WCSession *)session didReceiveMessage:(NSDictionary<NSString *,id> *)message replyHandler:(void (^)(NSDictionary<NSString *,id> * _Nonnull))replyHandler {
+    static dispatch_once_t onceToken;
+    onceToken = 0;
+    UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        dispatch_once(&onceToken, ^{
+            if (replyHandler) replyHandler([[ExtensionResponse failure:@"Background task expired."] serialize]);
+        });
+    }];
+    
+    void (^completion) (ExtensionResponse*) = ^ (ExtensionResponse *response) {
+        dispatch_once(&onceToken, ^{
+            if (replyHandler) replyHandler([response serialize]);
+        });
+        [[UIApplication sharedApplication] endBackgroundTask:task];
+    };
+    
+    ExtensionRequest *request = [ExtensionRequest deserialize:message];
+    [WLExtensionManager performRequest:request completionHandler:completion];
 }
 
 @end

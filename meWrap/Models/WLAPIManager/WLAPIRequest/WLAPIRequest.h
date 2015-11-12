@@ -7,12 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSDictionary+Extended.h"
 #import "WLCollections.h"
-#import "NSString+Additions.h"
-#import "NSDate+Additions.h"
 #import "WLAPIResponse.h"
-#import "WLEntry+API.h"
 #import <AFNetworking/AFNetworking.h>
 
 @class WLAPIRequest;

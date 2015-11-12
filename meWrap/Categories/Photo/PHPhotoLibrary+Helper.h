@@ -21,13 +21,3 @@
 
 @end
 
-@interface WLCandy (Photo)
-
-- (void)download:(WLBlock)success failure:(WLFailureBlock)failure;
-
-@end
-
-@interface PHFetchResult (Photo) <WLBaseOrderedCollection>
-
-@end
-

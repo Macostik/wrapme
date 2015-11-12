@@ -7,27 +7,26 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WLEntryManager.h"
 
 @interface WLEntryPresenter : NSObject
 
-+ (void)presentEntry:(WLEntry*)entry animated:(BOOL)animated;
++ (void)presentEntry:(Entry *)entry animated:(BOOL)animated;
 
-+ (void)presentEntry:(WLEntry*)entry inNavigationController:(UINavigationController*)navigationController animated:(BOOL)animated;
++ (void)presentEntry:(Entry *)entry inNavigationController:(UINavigationController*)navigationController animated:(BOOL)animated;
 
-+ (void)presentEntryRequestingAuthorization:(WLEntry*)entry animated:(BOOL)animated;
++ (void)presentEntryRequestingAuthorization:(Entry *)entry animated:(BOOL)animated;
 
-+ (void)presentEntryRequestingAuthorization:(WLEntry*)entry inNavigationController:(UINavigationController*)navigationController animated:(BOOL)animated;
++ (void)presentEntryRequestingAuthorization:(Entry *)entry inNavigationController:(UINavigationController*)navigationController animated:(BOOL)animated;
 
 @end
 
 @interface UIViewController (WLEntryPresenter)
 
-- (void)requestAuthorizationForPresentingEntry:(WLEntry*)entry completion:(WLBooleanBlock)completion;
+- (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(WLBooleanBlock)completion;
 
 @end
 
-@interface WLEntry (WLEntryPresenter)
+@interface Entry (WLEntryPresenter)
 
 - (UIViewController *)viewController;
 
@@ -37,14 +36,14 @@
 
 - (BOOL)isValidViewController:(UIViewController*)controller;
 
-- (void)configureViewController:(UIViewController*)controller fromContainer:(WLEntry*)container;
+- (void)configureViewController:(UIViewController*)controller fromContainer:(Entry *)container;
 
 @end
 
-@interface WLCandy (WLEntryPresenter) @end
+@interface Candy (WLEntryPresenter) @end
 
-@interface WLMessage (WLEntryPresenter) @end
+@interface Message (WLEntryPresenter) @end
 
-@interface WLWrap (WLEntryPresenter) @end
+@interface Wrap (WLEntryPresenter) @end
 
-@interface WLComment (WLEntryPresenter) @end
+@interface Comment (WLEntryPresenter) @end

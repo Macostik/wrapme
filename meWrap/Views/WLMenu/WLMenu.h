@@ -16,7 +16,7 @@ typedef void(^WLMenuConfiguration)(WLMenu* menu);
 
 @property (readonly, nonatomic) BOOL visible;
 
-@property (weak, nonatomic) WLEntry* entry;
+@property (weak, nonatomic) Entry *entry;
 
 @property (nonatomic) BOOL vibrate;
 

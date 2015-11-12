@@ -16,11 +16,11 @@
 
 + (BOOL)requiresSignIn;
 
-+ (instancetype)signUp:(WLAuthorization*)authorization;
++ (instancetype)signUp:(Authorization*)authorization;
 
-+ (instancetype)activation:(WLAuthorization*)authorization;
++ (instancetype)activation:(Authorization*)authorization;
 
-+ (instancetype)signIn:(WLAuthorization*)authorization;
++ (instancetype)signIn:(Authorization*)authorization;
 
 + (instancetype)signUp;
 
@@ -36,13 +36,13 @@
 
 @end
 
-@interface WLAuthorization (WLAuthorizationRequest)
+@interface Authorization (WLAuthorizationRequest)
 
-- (id)signUp:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure;
+- (id)signUp:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
-- (id)activate:(WLAuthorizationBlock)success failure:(WLFailureBlock)failure;
+- (id)activate:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
-- (id)signIn:(WLUserBlock)success failure:(WLFailureBlock)failure;
+- (id)signIn:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 
 @end
 

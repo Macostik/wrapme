@@ -9,6 +9,7 @@
 #import "WLCommentCell.h"
 #import "WLToast.h"
 #import "WLMenu.h"
+#import "WLImageView.h"
 
 @interface WLCommentCell ()
 
@@ -26,9 +27,9 @@
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
     [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
-        WLComment* comment = weakSelf.entry;
+        Comment *comment = weakSelf.entry;
         if (comment.deletable) {
-            [menu addDeleteItem:^(WLComment *comment) {
+            [menu addDeleteItem:^(Comment *comment) {
                 weakSelf.userInteractionEnabled = NO;
                 [weakSelf.entry remove:^(id object) {
                     weakSelf.userInteractionEnabled = YES;
@@ -38,7 +39,7 @@
                 }];
             }];
         }
-        [menu addCopyItem:^(WLComment *comment) {
+        [menu addCopyItem:^(Comment *comment) {
             if (comment.text.nonempty) {
                 [[UIPasteboard generalPasteboard] setValue:comment.text forPasteboardType:(id)kUTTypeText];
             }
@@ -47,7 +48,7 @@
     }];
 }
 
-- (void)setup:(WLComment *)entry {
+- (void)setup:(Comment *)entry {
 	self.userInteractionEnabled = YES;
     [entry markAsRead];
 	self.authorNameLabel.text = entry.contributor.name;

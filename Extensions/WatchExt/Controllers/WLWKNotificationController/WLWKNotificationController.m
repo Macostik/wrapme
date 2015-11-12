@@ -8,7 +8,7 @@
 
 #import "WLWKNotificationController.h"
 #import "WKInterfaceImage+WLImageFetcher.h"
-#import "WLWKParentApplicationContext.h"
+#import "WLImageCache.h"
 
 @interface WLWKNotificationController()
 
@@ -24,10 +24,10 @@
     
     [self.alertLabel setText:[self alertMessageFromNotification:remoteNotification]];
     [self.titleLabel setText:[self titleMessageFromNotification:remoteNotification]];
-    [WLWKParentApplicationContext handleNotification:remoteNotification success:^(NSDictionary *dictionary) {
-        WLEntry *entry = [WLEntry entryFromDictionaryRepresentation:[dictionary dictionaryForKey:@"entry"]];
+    [[WCSession defaultSession] handleNotification:remoteNotification success:^(NSDictionary *dictionary) {
+        Entry *entry = [Entry deserializeReference:[dictionary dictionaryForKey:@"entry"]];
         if (entry) {
-            [[WLImageCache cache] fetchIdentifiers];
+            [[WLImageCache defaultCache] fetchIdentifiers];
             self.image.url = entry.picture.small;
         } else {
             [self.image setHidden:YES];
@@ -43,7 +43,7 @@
     if ([alert isKindOfClass:[NSString class]]) {
         return alert;
     }
-    NSString *localizedAlert = NSLocalizedString(alert[@"loc-key"], nil);
+    NSString *localizedAlert = [alert[@"loc-key"] ls];
     NSArray *args = alert[@"loc-args"];
     if (args.count == 0) {
         return localizedAlert;
@@ -56,7 +56,7 @@
     if ([alert isKindOfClass:[NSString class]]) {
         return nil;
     }
-    NSString *title = NSLocalizedString(alert[@"title-loc-key"], nil);
+    NSString *title = [alert[@"title-loc-key"] ls];
     NSArray *args = alert[@"title-loc-args"];
     if (args.count == 0) {
         return title;

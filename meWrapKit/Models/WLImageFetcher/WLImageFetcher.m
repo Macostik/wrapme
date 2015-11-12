@@ -9,9 +9,6 @@
 #import "WLImageFetcher.h"
 #import "WLImageCache.h"
 #import "WLSystemImageCache.h"
-#import "UIView+QuatzCoreAnimations.h"
-#import "NSObject+AssociatedObjects.h"
-#import "NSString+Additions.h"
 #import "GCDHelper.h"
 
 @interface WLImageFetcher ()
@@ -22,7 +19,7 @@
 
 @implementation WLImageFetcher
 
-+ (instancetype)fetcher {
++ (instancetype)defaultFetcher {
     static id instance = nil;
     if (instance == nil) {
         instance = [[self alloc] init];
@@ -73,8 +70,8 @@
                 }];
             };
             
-            if ([[WLImageCache cache] containsImageWithUrl:url]) {
-                [[WLImageCache cache] imageWithUrl:url completion:success];
+            if ([[WLImageCache defaultCache] containsImageWithUrl:url]) {
+                [[WLImageCache defaultCache] imageWithUrl:url completion:success];
             } else if ([url isExistingFilePath]) {
                 [self setFileSystemUrl:url completion:success];
             } else {
@@ -94,7 +91,7 @@
         return [UIImage imageWithData:[NSData dataWithContentsOfURL:[url URL]]];
     }, ^(UIImage *image) {
         if (image) {
-            [[WLImageCache cache] setImage:image withUrl:url];
+            [[WLImageCache defaultCache] setImage:image withUrl:url];
             if (success) success(image, NO);
         } else {
             if (failure) failure(nil);

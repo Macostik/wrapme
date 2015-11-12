@@ -7,7 +7,6 @@
 //
 
 #import "WLNotificationSubscription.h"
-#import "WLUser.h"
 #import "NSDate+PNTimetoken.h"
 
 @interface WLNotificationSubscription () <PNObjectEventListener>
@@ -82,7 +81,7 @@
 }
 
 - (void)changeState:(NSDictionary*)state {
-    [[PubNub sharedInstance] setState:state forUUID:[WLUser currentUser].identifier onChannel:self.name withCompletion:nil];
+    [[PubNub sharedInstance] setState:state forUUID:[User currentUser].identifier onChannel:self.name withCompletion:nil];
 }
 
 - (void)hereNow:(WLArrayBlock)completion {

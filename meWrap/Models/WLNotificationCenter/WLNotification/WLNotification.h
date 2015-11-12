@@ -50,9 +50,9 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @property (nonatomic) WLEvent event;
 
-@property (strong, nonatomic) WLEntry* entry;
+@property (strong, nonatomic) Entry *entry;
 
-@property (strong, nonatomic) WLUser* requester;
+@property (strong, nonatomic) User *requester;
 
 @property (strong, nonatomic) WLEntryDescriptor* descriptor;
 
@@ -80,7 +80,7 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @end
 
-@interface WLEntry (WLNotification)
+@interface Entry (WLNotification)
 
 - (BOOL)notifiableForNotification:(WLNotification*)notification;
 
@@ -106,17 +106,17 @@ typedef NS_ENUM(NSUInteger, WLNotificationType) {
 
 @end
 
-@interface WLContribution (WLNotification)
+@interface Contribution (WLNotification)
 
 @end
 
-@interface WLUser (WLNotification) @end
+@interface User (WLNotification) @end
 
-@interface WLWrap (WLNotification) @end
+@interface Wrap (WLNotification) @end
 
-@interface WLCandy (WLNotification) @end
+@interface Candy (WLNotification) @end
 
-@interface WLMessage (WLNotification) @end
+@interface Message (WLNotification) @end
 
-@interface WLComment (WLNotification) @end
+@interface Comment (WLNotification) @end
 

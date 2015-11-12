@@ -38,7 +38,7 @@
     return _name;
 }
 
-- (WLAsset *)picture {
+- (Asset *)picture {
     if (!_picture) {
         if (_user.picture.small.nonempty) {
             _picture = _user.picture;

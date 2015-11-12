@@ -44,29 +44,29 @@
 }
 
 + (void)showWithMessage:(NSString *)message {
-    [self showWithTitle:nil message:message buttons:@[WLLS(@"ok")] completion:nil];
+    [self showWithTitle:nil message:message buttons:@[@"ok".ls] completion:nil];
 }
 
 @end
 
 @implementation UIAlertController (DefinedAlerts)
 
-+ (void)confirmWrapDeleting:(WLWrap*)wrap success:(WLBlock)success failure:(WLFailureBlock)failure {
++ (void)confirmWrapDeleting:(Wrap *)wrap success:(WLBlock)success failure:(WLFailureBlock)failure {
     NSString *title, *message;
     NSArray *buttons = nil;
     if (wrap.deletable) {
-        title = WLLS(@"delete_wrap");
-        message = [NSString stringWithFormat:WLLS(@"formatted_delete_wrap_confirmation"), wrap.name];
-        buttons = @[WLLS(@"cancel"),WLLS(@"delete")];
+        title = @"delete_wrap".ls;
+        message = [NSString stringWithFormat:@"formatted_delete_wrap_confirmation".ls, wrap.name];
+        buttons = @[@"cancel".ls,@"delete".ls];
     } else {
         if (wrap.isPublic) {
-            title = WLLS(@"unfollow_confirmation_title");
-            message = WLLS(@"unfollow_confirmation_message");
-            buttons = @[WLLS(@"uppercase_no"),WLLS(@"uppercase_yes")];
+            title = @"unfollow_confirmation_title".ls;
+            message = @"unfollow_confirmation_message".ls;
+            buttons = @[@"uppercase_no".ls,@"uppercase_yes".ls];
         } else {
-            title = WLLS(@"leave_wrap");
-            message = WLLS(@"leave_wrap_confirmation");
-            buttons = @[WLLS(@"uppercase_no"),WLLS(@"uppercase_yes")];
+            title = @"leave_wrap".ls;
+            message = @"leave_wrap_confirmation".ls;
+            buttons = @[@"uppercase_no".ls,@"uppercase_yes".ls];
         }
     }
     [UIAlertController showWithTitle:title
@@ -81,10 +81,10 @@
                     }];
 }
 
-+ (void)confirmCandyDeleting:(WLCandy *)candy success:(WLBlock)success failure:(WLFailureBlock)failure {
-    [UIAlertController showWithTitle:WLLS(@"delete_photo")
-                             message:[candy messageAppearanceByCandyType:@"delete_video_confirmation" and:@"delete_photo_confirmation"]
-                             buttons:@[WLLS(@"cancel"),WLLS(@"ok")]
++ (void)confirmCandyDeleting:(Candy *)candy success:(WLBlock)success failure:(WLFailureBlock)failure {
+    [UIAlertController showWithTitle:@"delete_photo".ls
+                             message:[(candy.isVideo ? @"delete_video_confirmation" : @"delete_photo_confirmation") ls]
+                             buttons:@[@"cancel".ls,@"ok".ls]
                           completion:^(NSUInteger index) {
                               if (index == 1) {
                                   if (success) success();
@@ -95,7 +95,7 @@
 }
 
 + (void)confirmRedirectingToSignUp:(WLBlock)signUp tryAgain:(WLBlock)tryAgain {
-    [UIAlertController showWithTitle:WLLS(@"authorization_error_title") message:WLLS(@"authorization_error_message") buttons:@[WLLS(@"try_again"),WLLS(@"authorization_error_sign_up")] completion:^(NSUInteger index) {
+    [UIAlertController showWithTitle:@"authorization_error_title".ls message:@"authorization_error_message".ls buttons:@[@"try_again".ls,@"authorization_error_sign_up".ls] completion:^(NSUInteger index) {
         if (index == 0) {
             if (tryAgain) tryAgain();
         } else {

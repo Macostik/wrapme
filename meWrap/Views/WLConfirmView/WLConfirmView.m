@@ -11,9 +11,9 @@
 
 @interface WLConfirmView ()
 
-@property (strong, nonatomic) WLAuthorization* authorization;
+@property (strong, nonatomic) Authorization* authorization;
 
-@property (strong, nonatomic) WLAuthorizationBlock success;
+@property (strong, nonatomic) WLObjectBlock success;
 @property (strong, nonatomic) WLBlock cancel;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 
@@ -21,11 +21,11 @@
 
 @implementation WLConfirmView
 
-+ (void)showInView:(UIView *)view authorization:(WLAuthorization *)authorization success:(WLAuthorizationBlock)succes cancel:(WLBlock)cancel {
++ (void)showInView:(UIView *)view authorization:(Authorization *)authorization success:(WLObjectBlock)succes cancel:(WLBlock)cancel {
     [[WLConfirmView loadFromNib] showInView:view authorization:authorization success:succes cancel:cancel];
 }
 
-- (void)showInView:(UIView *)view authorization:(WLAuthorization *)authorization success:(WLAuthorizationBlock)success cancel:(WLBlock)cancel {
+- (void)showInView:(UIView *)view authorization:(Authorization *)authorization success:(WLObjectBlock)success cancel:(WLBlock)cancel {
     self.frame = view.frame;
     self.authorization = authorization;
     [view addSubview:self];
@@ -46,7 +46,7 @@
     [self confirmationSuccess:success cancel:cancel];
 }
 
-- (void)setAuthorization:(WLAuthorization *)authorization {
+- (void)setAuthorization:(Authorization *)authorization {
     _authorization = authorization;
     self.emailLabel.text = [authorization email];
     self.phoneLabel.text = [authorization fullPhoneNumber];

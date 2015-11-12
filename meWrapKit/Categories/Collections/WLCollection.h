@@ -10,6 +10,10 @@
 #import "WLDefinedComparators.h"
 #import "DefinedBlocks.h"
 
+typedef id (^MapBlock)(id item);
+typedef BOOL(^SelectBlock)(id item);
+typedef void(^EnumBlock)(id item);
+
 @protocol WLCollection <NSObject>
 
 @property (readonly, nonatomic) BOOL nonempty;

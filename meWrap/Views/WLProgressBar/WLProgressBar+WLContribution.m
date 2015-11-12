@@ -22,7 +22,7 @@ static inline float progressValue(float progress) {
 - (void)setOperation:(AFURLConnectionOperation *)operation {
     self.progress = WLDefaultProgress;
     __weak typeof(self)weakSelf = self;
-    if ([WLNetwork network].reachable) {
+    if ([WLNetwork sharedNetwork].reachable) {
         [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
             float progress = WLUploadingDataProgressPart * ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
             [weakSelf setProgress:progressValue(progress) animated:YES];

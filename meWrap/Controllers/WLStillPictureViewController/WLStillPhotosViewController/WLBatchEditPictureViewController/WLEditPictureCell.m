@@ -7,7 +7,7 @@
 //
 
 #import "WLEditPictureCell.h"
-#import "WLEditPicture.h"
+#import "WLImageView.h"
 
 @interface WLEditPictureCell ()
 
@@ -26,16 +26,16 @@
     self.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
 }
 
-- (void)setup:(WLEditPicture*)picture {
+- (void)setup:(MutableAsset *)picture {
     self.imageView.url = picture.small;
     [self updateStatus];
     self.selectionView.hidden = !picture.selected;
     self.deletionView.hidden = !picture.deleted;
-    self.videoIndicator.hidden = picture.type != WLCandyTypeVideo;
+    self.videoIndicator.hidden = picture.type != MediaTypeVideo;
 }
 
 - (void)updateStatus {
-    WLEditPicture *picture = self.entry;
+    MutableAsset *picture = self.entry;
     NSMutableString *status = [NSMutableString string];
     if (picture.comment.trim.nonempty) [status appendString:@"4"];
     if (picture.edited) [status appendString:@"R"];

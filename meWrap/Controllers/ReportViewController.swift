@@ -18,7 +18,7 @@ class ReportCell : UICollectionViewCell {
     @IBOutlet weak var leadingContstraint: NSLayoutConstraint!
     
     var select : ((ReportCell, String) -> Void)?
-    var entry : Entry? {
+    var entry : ReportItem? {
         didSet {
             guard let entry = entry else {
                 return
@@ -45,7 +45,7 @@ class ReportCell : UICollectionViewCell {
 
 class CVDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    var data : [Entry] = []
+    var data : [ReportItem] = []
     var select : ((ReportCell, String) -> Void)?
     
     @IBInspectable var identifier: String = ""
@@ -78,7 +78,7 @@ enum InformationError: ErrorType {
     case InvalidError(String)
 }
 
-struct Entry {
+struct ReportItem {
     let title: String?
     let fontSize: CGFloat?
     var fontColor: UIColor?
@@ -98,8 +98,8 @@ struct Entry {
         indent = attribute["indent"] as? CGFloat
     }
     
-    static func entries(fileName : String) -> [Entry] {
-        var container:[Entry] = []
+    static func items(fileName : String) -> [ReportItem] {
+        var container:[ReportItem] = []
         let path = NSBundle.mainBundle().pathForResource(fileName, ofType: "plist")
         if  let path = path {
             let content = NSArray(contentsOfFile:path)! as Array
@@ -108,7 +108,7 @@ struct Entry {
             }
             for dict in content {
                 do {
-                    let entry = try Entry(attribute: dict as! Dictionary<String, AnyObject>)
+                    let entry = try ReportItem(attribute: dict as! Dictionary<String, AnyObject>)
                     container.append(entry!)
                 } catch InformationError.MissingError(let description) {
                     print("\(description)")
@@ -143,7 +143,7 @@ class ReportViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         doneButton.hidden = true
-        let reportList = Entry.entries("WLReportList")
+        let reportList = ReportItem.items("WLReportList")
         dataSource.select = {[unowned self] _ , violationCode in
             if let reportClosure = self.reportClosure {
                 reportClosure(violationCode, self)

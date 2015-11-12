@@ -16,6 +16,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
-- (void)update:(WLWrap*)wrap;
+- (void)update:(Wrap *)wrap;
 
 @end

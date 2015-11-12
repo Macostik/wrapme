@@ -8,7 +8,6 @@
 
 #import "WLSoundPlayer.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import "NSString+Additions.h"
 #import "WLNotification.h"
 #import "WLOperationQueue.h"
 
@@ -88,7 +87,7 @@ void WLSoundPlayerCompletion (SystemSoundID ssID, void *clientData) {
     if (notification.playSound) {
         switch (notification.type) {
             case WLNotificationContributorAdd:
-                if ([[WLUser currentUser].identifier isEqualToString:notification.data[WLUserUIDKey]]) {
+                if ([[User currentUser].identifier isEqualToString:notification.data[WLUserUIDKey]]) {
                      [self playSound:WLSound_s01];
                 }
                 break;

@@ -256,17 +256,16 @@
 
 @implementation WLToast (DefinedToasts)
 
-+ (void)showDownloadingMediaMessageForCandy:(WLCandy *)candy {
++ (void)showDownloadingMediaMessageForCandy:(Candy *)candy {
     if (candy.valid) {
-        [self showWithMessage:[NSString stringWithFormat:[candy messageAppearanceByCandyType:@"downloading_video"
-                                                                                         and:@"downloading_photo"], WLAlbumName]];
+        [self showWithMessage:[NSString stringWithFormat:(candy.isVideo ? @"downloading_video" : @"downloading_photo").ls, WLAlbumName]];
     } else {
-        [self showWithMessage:NSLocalizedString(@"downloading_media", nil)];
+        [self showWithMessage:@"downloading_media".ls];
     }
 }
 
-+ (void)showMessageForUnavailableWrap:(WLWrap *)wrap {
-    [self showWithMessage:[NSString stringWithFormat:WLLS(@"formatted_wrap_unavailable"), WLString(wrap.name)]];
++ (void)showMessageForUnavailableWrap:(Wrap *)wrap {
+    [self showWithMessage:[NSString stringWithFormat:@"formatted_wrap_unavailable".ls, wrap.name?:@""]];
 }
 
 @end

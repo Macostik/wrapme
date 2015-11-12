@@ -14,8 +14,8 @@
 
 - (void)wrapCellDidBeginPanning:(WLWrapCell *)wrapCell;
 - (void)wrapCellDidEndPanning:(WLWrapCell *)wrapCell performedAction:(BOOL)performedAction;
-- (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(WLWrap *)wrap;
-- (void)wrapCell:(WLWrapCell *)wrapCell presentCameraViewControllerForWrap:(WLWrap *)wrap;
+- (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(Wrap *)wrap;
+- (void)wrapCell:(WLWrapCell *)wrapCell presentCameraViewControllerForWrap:(Wrap *)wrap;
 
 @end
 

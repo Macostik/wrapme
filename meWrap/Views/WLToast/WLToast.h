@@ -10,8 +10,7 @@
 
 static NSTimeInterval WLToastDismissalDelay = 4.0f;
 
-@class WLToast;
-@class WLWrap;
+@class WLToast, Wrap, Candy;
 
 @protocol WLToastAppearance <NSObject>
 
@@ -63,8 +62,8 @@ static NSTimeInterval WLToastDismissalDelay = 4.0f;
 
 @interface WLToast (DefinedToasts)
 
-+ (void)showDownloadingMediaMessageForCandy:(WLCandy *)candy ;
++ (void)showDownloadingMediaMessageForCandy:(Candy *)candy ;
 
-+ (void)showMessageForUnavailableWrap:(WLWrap*)wrap;
++ (void)showMessageForUnavailableWrap:(Wrap *)wrap;
 
 @end

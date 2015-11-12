@@ -21,7 +21,7 @@
 
 @property (nonatomic, readonly) BOOL registered;
 
-@property (strong, nonatomic) WLAsset* picture;
+@property (strong, nonatomic) Asset* picture;
 
 @property (readonly, nonatomic) NSString *phoneStrings;
 

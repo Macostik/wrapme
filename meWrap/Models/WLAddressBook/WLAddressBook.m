@@ -130,13 +130,13 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                     if (result.nonempty) {
                         if (success) success(result);
                     } else {
-                        if (failure) failure([NSError errorWithDescription:WLLS(@"no_contacts_with_phone_number")]);
+                        if (failure) failure([NSError errorWithDescription:@"no_contacts_with_phone_number".ls]);
                     }
                     [operation finish];
                 });
             });
         } else {
-            if (failure) failure([NSError errorWithDescription:WLLS(@"no_contacts")]);
+            if (failure) failure([NSError errorWithDescription:@"no_contacts".ls]);
             [operation finish];
         }
     });
@@ -162,7 +162,7 @@ void addressBookChanged (ABAddressBookRef addressBook, CFDictionaryRef info, voi
                         sharedAddressBook = addressBook;
                         if (success) success(addressBook);
                     } else {
-                        if (failure) failure([NSError errorWithDescription:WLLS(@"no_access_to_contacts")]);
+                        if (failure) failure([NSError errorWithDescription:@"no_access_to_contacts".ls]);
                     }
                     [operation finish];
                 });

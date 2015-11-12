@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DefinedBlocks.h"
 
-@class WLAsset;
+@class Asset;
 
 @interface WLImageView : UIImageView
 

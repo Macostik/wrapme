@@ -12,7 +12,7 @@
 #import "WLAlertView.h"
 #import "WLButton.h"
 
-@interface WLWrapSettingsViewController ()
+@interface WLWrapSettingsViewController () <EntryNotifying>
 
 @property (weak, nonatomic) IBOutlet UITextField *wrapNameTextField;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
@@ -34,21 +34,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    WLWrap *wrap = self.wrap;
+    Wrap *wrap = self.wrap;
     
-    NSString *title = WLLS(wrap.deletable ? @"delete_wrap" : (wrap.isPublic ? @"following" :  @"leave_wrap"));
+    NSString *title = (wrap.deletable ? @"delete_wrap" : (wrap.isPublic ? @"following" :  @"leave_wrap")).ls;
     [self.actionButton setTitle:title forState:UIControlStateNormal];
     
     self.wrapNameTextField.text = wrap.name;
     self.editSession = [[WLEditSession alloc] initWithEntry:wrap stringProperties:@"name", nil];
     
-    if (wrap.isPublic && !wrap.contributedByCurrentUser) {
+    if (wrap.isPublic && !wrap.contributor.current) {
         BOOL isFollowing = wrap.isContributing;
         self.editButton.hidden = isFollowing;
         self.wrapNameTextField.enabled = !isFollowing;
     }
     
-    self.friendsInvitePrioritizer.defaultState = wrap.contributedByCurrentUser && !wrap.isPublic;
+    self.friendsInvitePrioritizer.defaultState = wrap.contributor.current && !wrap.isPublic;
     self.chatPrioritizer.defaultState = !wrap.isPublic;
 
     [self.candyNotifyTrigger setOn:self.wrap.isCandyNotifiable];
@@ -58,7 +58,7 @@
     self.chatNotifyTrigger.userInteractionEnabled = NO;
     
     __weak __typeof(self)weakSelf = self;
-    [[WLAPIRequest preferences:self.wrap] send:^(WLWrap *wrap) {
+    [[WLAPIRequest preferences:self.wrap] send:^(Wrap *wrap) {
         [weakSelf.candyNotifyTrigger setOn:wrap.isCandyNotifiable];
         [weakSelf.chatNotifyTrigger setOn:wrap.isChatNotifiable];
         weakSelf.candyNotifyTrigger.userInteractionEnabled = YES;
@@ -67,26 +67,12 @@
         weakSelf.candyNotifyTrigger.userInteractionEnabled = YES;
         weakSelf.chatNotifyTrigger.userInteractionEnabled = YES;
     }];
-    [self addNotifyReceivers];
-}
-
-- (void)addNotifyReceivers {
-    __weak typeof(self)weakSelf = self;
-    [WLWrap notifyReceiverOwnedBy:self setupBlock:^(WLEntryNotifyReceiver *receiver) {
-        receiver.willDeleteBlock = ^(WLWrap *wrap) {
-            if (weakSelf.viewAppeared && !weakSelf.userInitiatedDestructiveAction) {
-                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-                if (!wrap.deletable) {
-                    [WLToast showMessageForUnavailableWrap:wrap];
-                }
-            }
-        };
-    }];
+    [[Wrap notifier] addReceiver:self];
 }
 
 - (IBAction)handleAction:(WLButton *)sender {
     __weak __typeof(self)weakSelf = self;
-    WLWrap *wrap = self.wrap;
+    Wrap *wrap = self.wrap;
     BOOL deletable = wrap.deletable;
     [UIAlertController confirmWrapDeleting:wrap success:^{
         weakSelf.userInitiatedDestructiveAction = YES;
@@ -97,7 +83,7 @@
                 [weakSelf.navigationController popViewControllerAnimated:NO];
             } else {
                 [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-                if (deletable) [WLToast showWithMessage:WLLS(@"delete_wrap_success")];
+                if (deletable) [WLToast showWithMessage:@"delete_wrap_success".ls];
             }
             sender.loading = NO;
         } failure:^(NSError *error) {
@@ -117,7 +103,7 @@
     BOOL candyNotify = self.candyNotifyTrigger.on;
     BOOL chatNotify = self.chatNotifyTrigger.on;
     __weak typeof(self)weakSelf = self;
-    WLWrap *wrap = self.wrap;
+    Wrap *wrap = self.wrap;
     runUnaryQueuedOperation(@"wl_changing_notification_preferences_queue", ^(WLOperation *operation) {
         BOOL _candyNotify = wrap.isCandyNotifiable;
         BOOL _chatNotify = wrap.isChatNotifiable;
@@ -155,7 +141,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     __weak __typeof(self)weakSelf = self;
-    WLWrap *wrap = self.wrap;
+    Wrap *wrap = self.wrap;
     NSString *name = [textField.text trim];
     if (name.nonempty) {
         if (self.editSession.hasChanges) {
@@ -166,7 +152,7 @@
             }];
         }
     } else {
-        [WLToast showWithMessage:WLLS(@"wrap_name_cannot_be_blank")];
+        [WLToast showWithMessage:@"wrap_name_cannot_be_blank".ls];
         self.wrapNameTextField.text = [self.editSession originalValueForProperty:@"name"];
     }
     self.editButton.selected = NO;
@@ -175,15 +161,31 @@
 }
 
 - (IBAction)handleFriendsInvite:(UISwitch *)sender {
-    WLWrap *wrap = self.wrap;
+    Wrap *wrap = self.wrap;
     sender.userInteractionEnabled = NO;
     wrap.isRestrictedInvite = !sender.isOn;
-    [wrap update:^(WLWrap *wrap) {
+    [wrap update:^(Wrap *wrap) {
         [sender setOn:!wrap.isRestrictedInvite];
         sender.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;
     }];
+}
+
+// MARK: - EntryNotifying
+
+- (void)notifier:(EntryNotifier *)notifier willDeleteEntry:(Entry *)entry {
+    Wrap *wrap = (Wrap*)entry;
+    if (self.viewAppeared && !self.userInitiatedDestructiveAction) {
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        if (!wrap.deletable) {
+            [WLToast showMessageForUnavailableWrap:wrap];
+        }
+    }
+}
+
+- (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnEntry:(Entry *)entry {
+    return self.wrap == entry;
 }
 
 @end

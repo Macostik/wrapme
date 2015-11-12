@@ -6,14 +6,13 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLUploading.h"
 #import "WLCommonEnums.h"
 
-@interface WLUploading (Extended)
+@interface Uploading (Extended)
 
-+ (instancetype)uploading:(WLContribution*)contribution;
++ (instancetype)uploading:(Contribution *)contribution;
 
-+ (instancetype)uploading:(WLContribution*)contribution type:(WLEvent)type;
++ (instancetype)uploading:(Contribution *)contribution type:(WLEvent)type;
 
 - (void)upload:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 

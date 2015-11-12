@@ -28,17 +28,17 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.progressBar.progress = 0;
-    self.phoneNumberLabel.text = [[WLAuthorization currentAuthorization] fullPhoneNumber];
+    self.phoneNumberLabel.text = [[Authorization currentAuthorization] fullPhoneNumber];
     self.activationTextField.text = @"";
 }
 
 - (void)activate:(WLBlock)completion failure:(WLFailureBlock)failure {
-    [WLSession setConfirmationDate:[NSDate now]];
+    [[NSUserDefaults standardUserDefaults] setConfirmationDate:[NSDate now]];
 	NSString* activationCode = self.activationTextField.text;
 	if (activationCode.nonempty) {
 		__weak typeof(self)weakSelf = self;
-		[WLAuthorization currentAuthorization].activationCode = activationCode;
-        self.progressBar.operation = [[WLAuthorization currentAuthorization] activate:^(id object) {
+		[Authorization currentAuthorization].activationCode = activationCode;
+        self.progressBar.operation = [[Authorization currentAuthorization] activate:^(id object) {
             [weakSelf signIn:completion failure:failure];
         } failure:failure];
     } else {
@@ -48,7 +48,7 @@
 
 - (void)signIn:(WLBlock)completion failure:(WLFailureBlock)failure {
     if (self.shouldSignIn) {
-        self.progressBar.operation = [[WLAuthorization currentAuthorization] signIn:^(id object) {
+        self.progressBar.operation = [[Authorization currentAuthorization] signIn:^(id object) {
             completion();
         } failure:failure];
     } else {
@@ -74,7 +74,7 @@
     sender.userInteractionEnabled = NO;
     [[WLAPIRequest verificationCall] send:^(id object) {
         sender.userInteractionEnabled = YES;
-        [UIAlertController showWithMessage:[NSString stringWithFormat:WLLS(@"formatted_calling_now"), weakSelf.phoneNumberLabel.text]];
+        [UIAlertController showWithMessage:[NSString stringWithFormat:@"formatted_calling_now".ls, weakSelf.phoneNumberLabel.text]];
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;
         [error show];

@@ -10,10 +10,10 @@
 
 @interface WLFollowingViewController : WLBaseViewController
 
-@property (weak, nonatomic) WLWrap *wrap;
+@property (weak, nonatomic) Wrap *wrap;
 
 @property (strong, nonatomic) WLBlock actionBlock;
 
-+ (void)followWrapIfNeeded:(WLWrap *)wrap performAction:(WLBlock)action;
++ (void)followWrapIfNeeded:(Wrap *)wrap performAction:(WLBlock)action;
 
 @end

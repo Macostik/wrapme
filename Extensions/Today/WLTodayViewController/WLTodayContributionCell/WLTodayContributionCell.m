@@ -7,7 +7,6 @@
 //
 
 #import "WLTodayContributionCell.h"
-#import "NSDate+Additions.h"
 
 @interface WLTodayContributionCell ()
 
@@ -15,7 +14,7 @@
 
 @implementation WLTodayContributionCell
 
-- (void)setContribution:(WLContribution *)contribution {
+- (void)setContribution:(Contribution *)contribution {
     _contribution = contribution;
     self.timeLabel.text = [contribution.createdAt timeAgoStringAtAMPM];
 }

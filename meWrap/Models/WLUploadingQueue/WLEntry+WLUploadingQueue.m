@@ -8,24 +8,22 @@
 
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLUploadingQueue.h"
-#import "WLLocalization.h"
 #import "WLUploading+Extended.h"
-#import "WLEditPicture.h"
 
-@implementation WLEntry (WLUploadingQueue)
+@implementation Entry (WLUploadingQueue)
 
 @end
 
-@implementation WLContribution (WLUploadingQueue)
+@implementation Contribution (WLUploadingQueue)
 
 - (void)enqueueUpdate:(WLFailureBlock)failure {
     __weak typeof(self)weakSelf = self;
-    [self prepareForUpdate:^(WLContribution *contribution, WLContributionStatus status) {
+    [self prepareForUpdate:^(Contribution *contribution, WLContributionStatus status) {
         switch (status) {
             case WLContributionStatusReady: break;
             case WLContributionStatusFinished: {
                 [weakSelf notifyOnUpdate];
-                [WLUploadingQueue upload:[WLUploading uploading:weakSelf type:WLEventUpdate] success:nil failure:nil];
+                [WLUploadingQueue upload:[Uploading uploading:weakSelf type:WLEventUpdate] success:nil failure:nil];
             } break;
             default:
                 break;
@@ -36,7 +34,7 @@
 - (void)prepareForUpdate:(WLContributionUpdatePreparingBlock)success failure:(WLFailureBlock)failure {
     WLContributionStatus status = [self statusOfAnyUploadingType];
     if (status == WLContributionStatusInProgress) {
-        if (failure) failure(WLError(WLLS(@"photo_is_uploading")));
+        if (failure) failure(WLError(@"photo_is_uploading".ls));
     } else {
         if (success) success(self, status);
     }
@@ -44,36 +42,37 @@
 
 @end
 
-@implementation WLWrap (WLUploadingQueue)
+@implementation Wrap (WLUploadingQueue)
 
-- (void)uploadMessage:(NSString *)text success:(WLMessageBlock)success failure:(WLFailureBlock)failure {
-    __weak WLMessage* message = [WLMessage contribution];
-    message.contributor = [WLUser currentUser];
+- (void)uploadMessage:(NSString *)text success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    __weak Message *message = [Message contribution];
+    message.contributor = [User currentUser];
     message.wrap = self;
     message.text = text;
     [message notifyOnAddition];
-    [WLUploadingQueue upload:[WLUploading uploading:message] success:success failure:failure];
+    [WLUploadingQueue upload:[Uploading uploading:message] success:success failure:failure];
 }
 
-- (void)uploadPicture:(WLEditPicture *)picture success:(WLCandyBlock)success failure:(WLFailureBlock)failure {
-    WLCandy* candy = [WLCandy candyWithType:picture.type wrap:self];
+- (void)uploadPicture:(MutableAsset *)picture success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    Candy *candy = [Candy candy:picture.type];
+    candy.wrap = self;
     candy.picture = [picture uploadablePicture:YES];
     if (picture.comment.nonempty) {
-        [candy addCommentsObject:[WLComment comment:picture.comment]];
+        [[candy mutableComments] addObject:[Comment comment:picture.comment]];
     }
-    [self addCandiesObject:candy];
+    [[self mutableCandies] addObject:candy];
     [self touch];
     [candy notifyOnAddition];
-    [WLUploadingQueue upload:[WLUploading uploading:candy] success:success failure:failure];
+    [WLUploadingQueue upload:[Uploading uploading:candy] success:success failure:failure];
 }
 
-- (void)uploadPicture:(WLAsset *)picture {
-    [self uploadPicture:picture success:^(WLCandy *candy) { } failure:^(NSError *error) { }];
+- (void)uploadPicture:(Asset *)picture {
+    [self uploadPicture:picture success:^(Candy *candy) { } failure:^(NSError *error) { }];
 }
 
 - (void)uploadPictures:(NSArray *)pictures {
     __weak typeof(self)weakSelf = self;
-    for (WLAsset *picture in pictures) {
+    for (Asset *picture in pictures) {
         runUnaryQueuedOperation(@"wl_upload_candies_queue", ^(WLOperation *operation) {
             [weakSelf uploadPicture:picture];
             run_after(0.6f, ^{
@@ -85,12 +84,15 @@
 
 @end
 
-@implementation WLCandy (WLUploadingQueue)
+@implementation Candy (WLUploadingQueue)
 
-- (id)uploadComment:(NSString *)text success:(WLCommentBlock)success failure:(WLFailureBlock)failure {
-    WLComment* comment = [WLComment comment:text];
-    WLUploading* uploading = [WLUploading uploading:comment];
-    [self addComment:comment];
+- (id)uploadComment:(NSString *)text success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
+    Comment *comment = [Comment comment:text];
+    Uploading *uploading = [Uploading uploading:comment];
+    self.commentCount++;
+    [[self mutableComments] addObject:comment];
+    [self touch];
+    [comment notifyOnAddition];
     run_after(0.3f,^{
         [WLUploadingQueue upload:uploading success:success failure:failure];
     });
@@ -100,7 +102,8 @@
 - (void)editWithImage:(UIImage*)image {
     if (self.valid) {
         __weak typeof(self)weakSelf = self;
-        __block WLEditPicture *picture = [WLEditPicture picture:image completion:^(id object) {
+        __block MutableAsset *picture = [[MutableAsset alloc] init];
+        [picture setImage:image completion:^(MutableAsset *picture) {
             [weakSelf setEditedPictureIfNeeded:[picture uploadablePicture:NO]];
             [weakSelf enqueueUpdate:^(NSError *error) {
                 [error show];
@@ -113,11 +116,11 @@
     WLContributionStatus status = [self statusOfAnyUploadingType];
     switch (status) {
         case WLContributionStatusInProgress:
-            if (failure) failure(WLError([self messageAppearanceByCandyType:@"video_is_uploading" and:@"photo_is_uploading"]));
+            if (failure) failure(WLError((self.isVideo ? @"video_is_uploading" : @"photo_is_uploading").ls));
             break;
         case WLContributionStatusFinished:
             if ([self.identifier isEqualToString:self.uploadIdentifier]) {
-                if (failure) failure([NSError errorWithDescription:WLLS(@"publishing_in_progress")]);
+                if (failure) failure([NSError errorWithDescription:@"publishing_in_progress".ls]);
             } else {
                 if (success) success(self, status);
             }

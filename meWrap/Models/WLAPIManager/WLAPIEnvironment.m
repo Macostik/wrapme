@@ -7,9 +7,6 @@
 //
 
 #import "WLAPIEnvironment.h"
-#import "NSString+Additions.h"
-#import "WLAuthorization.h"
-#import "NSDictionary+Extended.h"
 #import "WLLogger.h"
 
 @implementation WLAPIEnvironment
@@ -68,7 +65,7 @@
     if (completion) {
         NSMutableArray *authorizations = [NSMutableArray array];
         for (NSDictionary *item in [[NSDictionary plist:@"WLTestUsers"] arrayForKey:self.name]) {
-            WLAuthorization* authorization = [[WLAuthorization alloc] init];
+            Authorization* authorization = [[Authorization alloc] init];
             authorization.deviceUID = [item objectForKey:@"deviceUID"];
             authorization.countryCode = [item objectForKey:@"countryCode"];
             authorization.phone = [item objectForKey:@"phone"];

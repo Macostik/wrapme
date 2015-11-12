@@ -62,9 +62,9 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
     self.rightSwipeActionConstraint.constant = 0;
 }
 
-- (void)setup:(WLWrap*)wrap {
+- (void)setup:(Wrap *)wrap {
 	self.nameLabel.text = wrap.name;
-    self.dateLabel.text = WLString(wrap.updatedAt.timeAgoStringAtAMPM);
+    self.dateLabel.text = wrap.updatedAt.timeAgoStringAtAMPM;
     self.coverView.url = wrap.picture.small;
     self.wrapNotificationLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:wrap];
     if (wrap.isPublic) {
@@ -92,7 +92,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 }
 
 - (void)updateChatNotifyCounter {
-    WLWrap *wrap = self.entry;
+    Wrap *wrap = self.entry;
     if (!wrap.isPublic) {
         NSUInteger messageConter = [[WLMessagesCounter instance] countForWrap:wrap];
         self.chatNotificationLabel.intValue = messageConter;
@@ -126,7 +126,7 @@ static CGFloat WLWrapCellSwipeActionWidth = 125;
 }
 
 - (BOOL)checkIfActionAllowed:(BOOL)isRightSwipeAction {
-    WLWrap *wrap = self.entry;
+    Wrap *wrap = self.entry;
     if (!wrap.isPublic) return YES;
     if (wrap.isContributing) return !isRightSwipeAction;
     return NO;

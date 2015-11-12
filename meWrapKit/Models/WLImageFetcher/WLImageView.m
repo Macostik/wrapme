@@ -8,9 +8,6 @@
 
 #import "WLImageView.h"
 #import "WLImageFetcher.h"
-#import "NSString+Additions.h"
-#import "WLAsset.h"
-#import "UIView+QuatzCoreAnimations.h"
 
 @interface WLImageView () <WLImageFetching>
 
@@ -62,7 +59,7 @@
     self.failure = failure;
     if (url.nonempty) {
         [self setDefaultIconViewHidden:YES];
-        [[WLImageFetcher fetcher] enqueueImageWithUrl:url receiver:self];
+        [[WLImageFetcher defaultFetcher] enqueueImageWithUrl:url receiver:self];
     } else {
         [self setDefaultIconViewHidden:NO];
     }
@@ -82,7 +79,7 @@
 - (void)setImage:(UIImage *)image animated:(BOOL)animated {
     self.image = image;
     if (animated) {
-        [self fade];
+        [self addAnimation:[CATransition transition:kCATransitionFade]];
     }
 }
 

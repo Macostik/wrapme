@@ -49,7 +49,7 @@ static inline NSArray* WLAddressBookGetPhones(ABRecordRef record) {
     CFIndex count = ABMultiValueGetCount(phones);
     for (CFIndex index = 0; index < count; ++index) {
         WLAddressBookPhoneNumber* person = [[WLAddressBookPhoneNumber alloc] init];
-        person.phone = phoneNumberClearing((__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, index));
+        person.phone = [(__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, index) clearPhoneNumber];
         if (person.phone.length >= WLAddressBookPhoneNumberMinimumLength) {
             CFStringRef phoneLabel = ABMultiValueCopyLabelAtIndex(phones, index);
             person.label = (__bridge_transfer NSString*)ABAddressBookCopyLocalizedLabel(phoneLabel);
@@ -68,7 +68,7 @@ static inline NSArray* WLAddressBookGetPhones(ABRecordRef record) {
 static inline NSString* WLAddressBookGetName(ABRecordRef record) {
     NSString* firstName = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonFirstNameProperty);
     NSString* lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(record, kABPersonLastNameProperty);
-    return [[NSString stringWithFormat:@"%@ %@",WLString(firstName),WLString(lastName)] trim];
+    return [[NSString stringWithFormat:@"%@ %@",firstName?:@"",lastName?:@""] trim];
 }
 
 static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
@@ -80,19 +80,19 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
     [phoneNumbers makeObjectsPerformSelector:@selector(setRecord:) withObject:self];
 }
 
-- (WLAsset *)picture {
+- (Asset *)picture {
     if (!_picture) {
         if (self.recordID && self.hasImage && [WLAddressBook addressBook]->sharedAddressBook != NULL) {
             ABRecordRef record = ABAddressBookGetPersonWithRecordID([WLAddressBook addressBook]->sharedAddressBook, self.recordID);
             NSString* identifier = [NSString stringWithFormat:@"addressbook_%d", self.recordID];
-            NSString *path = [[WLImageCache cache] pathWithIdentifier:identifier];
-            if (![[WLImageCache cache] containsObjectWithIdentifier:identifier]) {
+            NSString *path = [[WLImageCache defaultCache] pathWithIdentifier:identifier];
+            if (![[WLImageCache defaultCache] containsObjectWithIdentifier:identifier]) {
                 NSData* imageData = WLAddressBookGetImage(record);
                 if (imageData) {
-                    [[WLImageCache cache] setImageData:imageData withIdentifier:identifier];
+                    [[WLImageCache defaultCache] setImageData:imageData withIdentifier:identifier];
                 }
             }
-            WLAsset* picture = [WLAsset new];
+            Asset* picture = [Asset new];
             picture.large = picture.medium = picture.small = path;
             _picture = picture;
         }
@@ -108,7 +108,7 @@ static inline NSData* WLAddressBookGetImage(ABRecordRef record) {
 - (NSString *)phoneStrings {
     WLAddressBookPhoneNumber *person = [self.phoneNumbers lastObject];
     if (person) {
-        WLUser *user = person.user;
+        User *user = person.user;
         if (user.valid) {
             return [user phones];
         } else {

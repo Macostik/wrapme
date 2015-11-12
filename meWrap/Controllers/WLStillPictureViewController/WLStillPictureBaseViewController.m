@@ -28,21 +28,21 @@
     [self setupWrapView:self.wrap];
 }
 
-- (void)setWrap:(WLWrap *)wrap {
+- (void)setWrap:(Wrap *)wrap {
     _wrap = wrap;
     if (self.isViewLoaded) {
         [self setupWrapView:wrap];
     }
 }
 
-- (void)setupWrapView:(WLWrap *)wrap {
+- (void)setupWrapView:(Wrap *)wrap {
     if (self.wrapView) {
         self.wrapView.entry = wrap;
         self.wrapView.hidden = wrap == nil;
     }
 }
 
-- (void)stillPictureViewController:(WLStillPictureBaseViewController *)controller didSelectWrap:(WLWrap *)wrap {
+- (void)stillPictureViewController:(WLStillPictureBaseViewController *)controller didSelectWrap:(Wrap *)wrap {
     [self selectWrap:nil];
 }
 

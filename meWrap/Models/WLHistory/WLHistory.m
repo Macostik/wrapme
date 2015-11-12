@@ -7,14 +7,8 @@
 //
 
 #import "WLHistory.h"
-#import "WLCandy.h"
-#import "WLEntry.h"
-#import "NSDate+Formatting.h"
 #import "WLCollections.h"
-#import "NSDate+Additions.h"
-#import "WLEntryNotifier.h"
 #import "WLPaginatedRequest+Defined.h"
-#import "WLSession.h"
 
 @interface NSDate (WLHistory)
 
@@ -32,19 +26,19 @@
 
 @end
 
-@interface WLHistory () <WLEntryNotifyReceiver, WLBroadcastReceiver>
+@interface WLHistory () <EntryNotifying, WLBroadcastReceiver>
 
-@property (weak, nonatomic) WLWrap* wrap;
+@property (weak, nonatomic) Wrap *wrap;
 
 @end
 
 @implementation WLHistory
 
-+ (instancetype)historyWithWrap:(WLWrap*)wrap {
++ (instancetype)historyWithWrap:(Wrap *)wrap {
     return [self historyWithWrap:wrap checkCompletion:NO];
 }
 
-+ (instancetype)historyWithWrap:(WLWrap *)wrap checkCompletion:(BOOL)checkCompletion {
++ (instancetype)historyWithWrap:(Wrap *)wrap checkCompletion:(BOOL)checkCompletion {
     WLHistory *history = [[self alloc] init];
     history.wrap = wrap;
     [history fetchCandies:checkCompletion];
@@ -53,13 +47,13 @@
 }
 
 - (void)fetchCandies:(BOOL)checkCompletion {
-    NSFetchRequest *fetchRequest = [WLCandy fetchRequest:@"wrap == %@", self.wrap];
-    
+    NSFetchRequest *fetchRequest = [Candy fetch];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"wrap == %@", self.wrap];
     NSString *key = @"createdAt.historyItemDate";
     
     fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:key ascending:NO]];
     
-    NSManagedObjectContext *context = [WLEntryManager manager].context;
+    NSManagedObjectContext *context = EntryContext.sharedContext;
     
     NSFetchedResultsController *results = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                               managedObjectContext:context
@@ -71,10 +65,10 @@
     for (id <NSFetchedResultsSectionInfo> section in results.sections) {
         WLHistoryItem *item = [[WLHistoryItem alloc] init];
         NSArray *candies = [section objects];
-        item.date = [[candies.firstObject createdAt] beginOfDay];
+        item.date = [[candies.firstObject createdAt] startOfDay];
         [item.entries addObjectsFromArray:candies];
         if (checkCompletion) {
-            item.completed = candies.count < WLSession.pageSize;
+            item.completed = candies.count < [NSUserDefaults standardUserDefaults].pageSize;
         }
         [self.entries addObject:item];
     }
@@ -87,7 +81,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [[WLCandy notifier] addReceiver:self];
+        self.paginationDateKeyPath = @"date";
+        [[Candy notifier] addReceiver:self];
         self.sortComparator = comparatorByDate;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(systemTimeZoneChanged:) name:NSSystemTimeZoneDidChangeNotification object:nil];
     }
@@ -113,18 +108,17 @@
     NSMutableSet* dayEntries = [[NSMutableSet alloc] init];
     while (entriesCopy.nonempty) {
         [dayEntries removeAllObjects];
-        WLEntry *entry = [entriesCopy anyObject];
+        Entry *entry = [entriesCopy anyObject];
         [dayEntries addObject:entry];
         NSDate* date = [entry createdAt];
-        NSDate* beginOfDay = nil;
-        NSDate* beginOfNextDay = nil;
-        [date getBeginOfDay:&beginOfDay beginOfNextDay:&beginOfNextDay];
+        NSDate* beginOfDay = [date startOfDay];
+        NSDate* beginOfNextDay = [beginOfDay dateByAddingTimeInterval:86400];
         WLHistoryItem* group = [self itemForDate:beginOfDay];
         if (!group.entries.nonempty) {
             itemAdded = YES;
         }
         
-        for (WLEntry *entry in entriesCopy) {
+        for (Entry *entry in entriesCopy) {
             NSDate *createdAt = [entry createdAt];
             NSTimeInterval timestamp = createdAt.timestamp;
             if (date == nil && createdAt == nil)  {
@@ -146,8 +140,8 @@
     return candyAdded;
 }
 
-- (BOOL)addEntry:(WLCandy*)candy {
-    WLHistoryItem* group = [self itemForDate:candy.createdAt.beginOfDay];
+- (BOOL)addEntry:(Candy *)candy {
+    WLHistoryItem* group = [self itemForDate:candy.createdAt.startOfDay];
     if (!group.entries.nonempty) {
         [self.entries sort:self.sortComparator];
         [self didChange];
@@ -181,8 +175,8 @@
     [self.entries removeAllObjects];
 }
 
-- (void)sort:(WLCandy*)candy {
-    WLHistoryItem* item = [self itemForDate:candy.createdAt.beginOfDay];
+- (void)sort:(Candy *)candy {
+    WLHistoryItem* item = [self itemForDate:candy.createdAt.startOfDay];
     if ([item.entries containsObject:candy]) {
         [item sort];
     } else {
@@ -204,7 +198,7 @@
     }
 }
 
-- (WLHistoryItem *)itemWithCandy:(WLCandy *)candy {
+- (WLHistoryItem *)itemWithCandy:(Candy *)candy {
     return [self.entries select:^BOOL(WLHistoryItem* item) {
         return [item.entries containsObject:candy];
     }];
@@ -223,30 +217,30 @@
     return item;
 }
 
-- (void)handleResponse:(NSSet *)entries {
+- (void)handleResponse:(NSArray *)entries {
     NSMutableSet *candies = [self.wrap.candies mutableCopy];
     for (WLHistoryItem *item in self.entries) {
         [candies minusSet:item.entries.set];
     }
-    [super handleResponse:candies];
+    [super handleResponse:[candies array]];
 }
 
-// MARK: - WLEntryNotifyReceiver
+// MARK: - EntryNotifying
 
-- (void)notifier:(WLEntryNotifier *)notifier didAddEntry:(WLCandy *)candy {
+- (void)notifier:(EntryNotifier *)notifier didAddEntry:(Candy *)candy {
     [self addEntry:candy];
     if  ([candy.contributor current]) [self didChange];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier willDeleteEntry:(WLCandy *)candy {
+- (void)notifier:(EntryNotifier *)notifier willDeleteEntry:(Candy *)candy {
     [self removeEntry:candy];
 }
 
-- (void)notifier:(WLEntryNotifier *)notifier didUpdateEntry:(WLCandy *)candy {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Candy *)candy {
     [self sort:candy];
 }
 
-- (BOOL)notifier:(WLEntryNotifier *)notifier shouldNotifyOnEntry:(WLEntry *)entry {
+- (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnEntry:(Entry *)entry {
     return self.wrap == entry.container;
 }
 

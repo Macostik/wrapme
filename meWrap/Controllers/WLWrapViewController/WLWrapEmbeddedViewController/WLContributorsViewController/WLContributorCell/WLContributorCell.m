@@ -8,7 +8,7 @@
 
 #import "WLContributorCell.h"
 #import "WLButton.h"
-#import "StreamDataSource.h"
+#import "WLImageView.h"
 
 @interface WLContributorCell ()
 
@@ -30,9 +30,18 @@
 
 @implementation WLContributorCell
 
++ (NSString *)invitationHintText:(User*)user {
+    NSDate *invitedAt = user.invitedAt;
+    if (invitedAt) {
+        return [NSString stringWithFormat:@"Invite sent %@. Swipe to resend invite", [invitedAt stringWithDateStyle:NSDateFormatterLongStyle]];
+    } else {
+        return @"Invite sent. Swipe to resend invite";
+    }
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.dataSource = [StreamDataSource dataSourceWithStreamView:self.streamView];
+    self.dataSource = [[StreamDataSource alloc] initWithStreamView:self.streamView];
     self.removeMetrics = [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLContributorRemoveCell" size:76]];
     self.resendMetrics = [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLContributorResendCell" size:76]];
     self.spinnerMetrics = [self.dataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"WLContributorSpinnerCell" size:76]];
@@ -52,10 +61,10 @@
     self.spinnerMetrics.hidden = YES;
 }
 
-- (void)setup:(WLUser*)user {
+- (void)setup:(User *)user {
 	
     BOOL deletable = NO;
-    BOOL wrapContributedByCurrentUser = [self.delegate contributorCell:self isCreator:[WLUser currentUser]];
+    BOOL wrapContributedByCurrentUser = [self.delegate contributorCell:self isCreator:[User currentUser]];
     if (wrapContributedByCurrentUser) {
         deletable = ![user current];
     } else {
@@ -78,8 +87,8 @@
     self.dataSource.items = @[user];
     
     BOOL isCreator = [self.delegate contributorCell:self isCreator:user];
-    NSString * userNameText = [user current] ? WLLS(@"you") : user.name;
-    self.nameLabel.text = isCreator ? [NSString stringWithFormat:WLLS(@"formatted_owner"), userNameText] : userNameText;
+    NSString * userNameText = [user current] ? @"you".ls : user.name;
+    self.nameLabel.text = isCreator ? [NSString stringWithFormat:@"formatted_owner".ls, userNameText] : userNameText;
     self.phoneLabel.text = user.securePhones;
     
     self.inviteLabel.hidden = !canBeInvited;
@@ -94,7 +103,7 @@
     self.avatarView.url = url;
     
     if (canBeInvited) {
-        self.inviteLabel.text = user.invitationHintText;
+        self.inviteLabel.text = [WLContributorCell invitationHintText:user];
     }
     
     self.slideMenuButton.hidden = !deletable && !canBeInvited;

@@ -122,7 +122,8 @@ class MutableAsset: Asset {
     func setVideoFromRecordAtPath(path: String) {
         let asset = AVAsset(URL: NSURL(fileURLWithPath: path))
         if let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetMediumQuality) {
-            let outputPath = "\(NSHomeDirectory())/Documents/Videos/\(NSProcessInfo.processInfo().globallyUniqueString).mp4"
+            let name = NSString.GUID()
+            let outputPath = "\(NSHomeDirectory())/Documents/Videos/\(name).mp4"
             exportSession.outputURL = NSURL(fileURLWithPath: outputPath)
             exportSession.outputFileType = AVFileTypeMPEG4
             exportSession.shouldOptimizeForNetworkUse = true

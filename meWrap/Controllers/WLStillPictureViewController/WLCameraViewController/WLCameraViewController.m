@@ -513,7 +513,7 @@
 
 - (void)startVideoRecording {
     self.videoRecordingCancelled = NO;
-    NSString *videosDirectoryPath = @"Documents/Videos";
+    NSString *videosDirectoryPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/Videos"];
  	NSError *error = nil;
     [[NSFileManager defaultManager] createDirectoryAtPath:videosDirectoryPath withIntermediateDirectories:YES attributes:nil error:&error];
     NSString *path = [NSString stringWithFormat:@"%@/capturedVideo.mov", videosDirectoryPath];

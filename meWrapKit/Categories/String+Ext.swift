@@ -11,7 +11,7 @@ import Foundation
 extension NSString {
     
     class func GUID() -> String {
-        return NSProcessInfo.processInfo().globallyUniqueString
+        return NSUUID().UUIDString
     }
     
     var URL: NSURL? {

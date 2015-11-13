@@ -116,7 +116,8 @@ extension NSDate {
     }
     
     class func now(offset: NSTimeInterval) -> NSDate {
-        return NSDate(timeIntervalSinceNow: NSUserDefaults.sharedUserDefaults?.serverTimeDifference ?? 0 + offset)
+        let interval = ((NSUserDefaults.sharedUserDefaults?.serverTimeDifference ?? 0) + offset)
+        return NSDate(timeIntervalSinceNow: interval)
     }
     
     class func dateWithTimestamp(timestamp: NSTimeInterval) -> NSDate {

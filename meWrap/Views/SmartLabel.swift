@@ -115,7 +115,6 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
         }
         bufferAttributedString = self.attributedText
         self.attributedText = mutableText
-        
     }
     
     //MARK: UIGestureRecognizerDelegate
@@ -165,24 +164,25 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     }
     
     func tapLink(sender: UITapGestureRecognizer) {
-        if  (selectedLink!.result.resultType == .Link) {
-            let link = selectedLink!.link
-            if (link.isValidEmail) {
-                if (MFMessageComposeViewController.canSendText()) {
-                    let messageComposeVC = MFMessageComposeViewController()
-                    messageComposeVC.messageComposeDelegate = self
-                    messageComposeVC.recipients = [link]
-                    UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(messageComposeVC, animated: true, completion: nil)
+        if  (selectedLink?.result.resultType == .Link) {
+            if let link = selectedLink?.link {
+                if (link.isValidEmail) {
+                    if (MFMessageComposeViewController.canSendText()) {
+                        let messageComposeVC = MFMessageComposeViewController()
+                        messageComposeVC.messageComposeDelegate = self
+                        messageComposeVC.recipients = [link]
+                        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(messageComposeVC, animated: true, completion: nil)
+                    }
+                } else if let url = validUrl(link) {
+                    UIApplication.sharedApplication().openURL(url)
                 }
-            } else if let url = validUrl(link) {
-                UIApplication.sharedApplication().openURL(url)
             }
         }
     }
     
     func longPress(sender: UILongPressGestureRecognizer) {
         if (sender.state == .Began) {
-            guard let link = selectedLink!.link else { return }
+            guard let link = selectedLink?.link else { return }
             let buttonTitles = ["url_open_in_safari".ls,
                                 "url_add_to_reading_list".ls,
                                 "copy".ls]
@@ -190,7 +190,7 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
                 delegate: self,
                 cancelButtonTitle: "cancel".ls,
                 destructiveButtonTitle: nil)
-            if (selectedLink!.link.isValidEmail) {
+            if let link = selectedLink?.link where link.isValidEmail {
                 actionSheet.addButtonWithTitle(buttonTitles.last)
             } else {
                 for title in buttonTitles {

@@ -69,7 +69,11 @@ class Authorization: Archive {
     }
     
     var priorityEmail: String? {
-        return unconfirmed_email ?? email
+        if let unconfirmed_email = unconfirmed_email where unconfirmed_email.nonempty {
+            return unconfirmed_email
+        } else {
+            return email
+        }
     }
     
     func setCurrent() {

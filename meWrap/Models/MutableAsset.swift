@@ -59,7 +59,7 @@ class MutableAsset: Asset {
     func setImage(image: UIImage, completion: MutableAsset? -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
             self?.setImage(image)
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
+            dispatch_async(dispatch_get_main_queue(), {[weak self] () -> Void in
                 completion(self)
             })
         })
@@ -86,7 +86,7 @@ class MutableAsset: Asset {
     func setVideoAtPath(path: String, completion: MutableAsset? -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
             self?.setVideoAtPath(path)
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
+            dispatch_async(dispatch_get_main_queue(), {[weak self] () -> Void in
                 completion(self)
                 })
             })
@@ -113,7 +113,7 @@ class MutableAsset: Asset {
     func setVideoFromAsset(asset: PHAsset, completion: MutableAsset? -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
             self?.setVideoFromAsset(asset)
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
+            dispatch_async(dispatch_get_main_queue(), {[weak self] () -> Void in
                 completion(self)
                 })
             })
@@ -138,7 +138,7 @@ class MutableAsset: Asset {
     func setVideoFromRecordAtPath(path: String, completion: MutableAsset? -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
             self?.setVideoFromRecordAtPath(path)
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {[weak self] () -> Void in
+            dispatch_async(dispatch_get_main_queue(), {[weak self] () -> Void in
                 completion(self)
                 })
             })

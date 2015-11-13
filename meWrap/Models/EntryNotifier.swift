@@ -96,13 +96,6 @@ class EntryNotifyReceiver: NSObject, EntryNotifying {
     var willDelete: (Entry -> Void)?
     var willDeleteContainer: (Entry -> Void)?
     
-    private static var receiverKey: Int = 0
-    
-    required init(owner: AnyObject) {
-        super.init()
-        objc_setAssociatedObject(owner, &EntryNotifyReceiver.receiverKey, self, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-    }
-    
     func setup(block: EntryNotifyReceiver -> Void) {
         block(self)
     }
@@ -153,8 +146,9 @@ extension Entry {
     }
     
     class func notifyReceiver(owner: AnyObject) -> EntryNotifyReceiver {
-        let receiver = EntryNotifyReceiver(owner: owner)
-        self.notifier().addReceiver(receiver)
+        let receiver = EntryNotifyReceiver()
+        objc_setAssociatedObject(owner, "\(entityName())_EntryNotifyReceiver", receiver, .OBJC_ASSOCIATION_RETAIN)
+        notifier().addReceiver(receiver)
         return receiver
     }
     

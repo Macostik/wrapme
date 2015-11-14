@@ -12,7 +12,7 @@ class HistoryItemDataSource: PaginatedStreamDataSource {
     
     func fixedContentOffset(scrollView: UIScrollView, offset: CGFloat) -> CGFloat {
         let size = scrollView.width/2.5 + layoutSpacing
-        return min(scrollView.maximumContentOffset.x, max(0.0, size))
+        return min(scrollView.maximumContentOffset.x, max(0.0, round(offset/size)*size))
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {

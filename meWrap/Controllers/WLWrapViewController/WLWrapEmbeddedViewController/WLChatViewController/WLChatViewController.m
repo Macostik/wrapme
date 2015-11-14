@@ -11,7 +11,6 @@
 #import "WLChatViewController.h"
 #import "WLComposeBar.h"
 #import "WLKeyboard.h"
-#import "WLStreamLoadingView.h"
 #import "WLMessageCell.h"
 #import "WLSoundPlayer.h"
 #import "WLFontPresetter.h"

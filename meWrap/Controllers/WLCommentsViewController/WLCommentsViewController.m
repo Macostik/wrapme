@@ -12,7 +12,6 @@
 #import "WLSoundPlayer.h"
 #import "WLDeviceManager.h"
 #import "WLCommentCell.h"
-#import "WLStreamLoadingView.h"
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLHistoryViewController.h"
 

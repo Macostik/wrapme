@@ -32,7 +32,7 @@ class PaginatedStreamDataSource: StreamDataSource {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        let metrics = addFooterMetrics(WLStreamLoadingView.streamLoadingMetrics())
+        let metrics = addFooterMetrics(LoadingView.metrics())
         metrics.sizeAt = loadingMetricsSizeAt
         metrics.hidden = true
         loadingMetrics = metrics

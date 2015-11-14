@@ -10,7 +10,6 @@
 #import "WLContributorCell.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLHintView.h"
-#import "WLStreamLoadingView.h"
 
 const static CGFloat WLContributorsVerticalIndent = 48.0f;
 const static CGFloat WLContributorsHorizontalIndent = 96.0f;

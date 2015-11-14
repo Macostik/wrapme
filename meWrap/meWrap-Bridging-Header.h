@@ -15,7 +15,6 @@
 #import "SegmentedControl.h"
 #import "WLPaginatedSet.h"
 #import "WLNetwork.h"
-#import "WLStreamLoadingView.h"
 #import "NSError+WLAPIManager.h"
 #import "WLPaginatedRequest+Defined.h"
 #import "WLOperationQueue.h"

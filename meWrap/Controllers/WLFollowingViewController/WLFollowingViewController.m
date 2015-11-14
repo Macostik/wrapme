@@ -8,7 +8,6 @@
 
 #import "WLFollowingViewController.h"
 #import "WLButton.h"
-#import "WLNavigationHelper.h"
 #import "WLWrapStatusImageView.h"
 
 @interface WLFollowingViewController ()
@@ -29,7 +28,7 @@
 
 + (void)followWrapIfNeeded:(Wrap *)wrap performAction:(WLBlock)action {
     if (wrap.requiresFollowing) {
-        WLFollowingViewController *controller = [WLFollowingViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
+        WLFollowingViewController *controller = [UIStoryboard main][@"WLFollowingViewController"];
         controller.wrap = wrap;
         controller.actionBlock = action;
         UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

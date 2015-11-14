@@ -10,7 +10,6 @@
 #import "WLNotificationCenter.h"
 #import "WLKeyboard.h"
 #import "WLMenu.h"
-#import "WLNavigationHelper.h"
 #import "NSObject+NibAdditions.h"
 #import "WLRemoteEntryHandler.h"
 #import "WLHomeViewController.h"
@@ -90,7 +89,7 @@
 
 - (void)initializeAPIManager {
     [WLAPIRequest setUnauthorizedErrorBlock:^ (WLAPIRequest *request, NSError *error) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardNamed:WLSignUpStoryboard];
+        UIStoryboard *storyboard = [UIStoryboard signUp];
         if ([UIWindow mainWindow].rootViewController.storyboard != storyboard) {
             UIViewController *rootViewController = [UIWindow mainWindow].rootViewController.presentedViewController ? : [UIWindow mainWindow].rootViewController;
             UIView *topView = rootViewController.view;
@@ -170,14 +169,14 @@
 - (void)presentInitialViewController {
     void (^successBlock) (User *user) = ^(User *user) {
         if (user.isSignupCompleted) {
-            [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+            [[UIStoryboard main] present:YES];
         } else {
             WLLog(@"INITIAL SIGN IN - sign up is not completed, redirecting to profile step");
-            UINavigationController *signupNavigationController = [[UIStoryboard storyboardNamed:WLSignUpStoryboard] instantiateInitialViewController];
-            WLSignupFlowViewController *signupFlowViewController = [WLSignupFlowViewController instantiate:signupNavigationController.storyboard];
+            UINavigationController *navigation = [[UIStoryboard signUp] instantiateInitialViewController];
+            WLSignupFlowViewController *signupFlowViewController = navigation.storyboard [@"WLSignupFlowViewController"];
             signupFlowViewController.registrationNotCompleted = YES;
-            signupNavigationController.viewControllers = @[signupFlowViewController];
-            [UIWindow mainWindow].rootViewController = signupNavigationController;
+            navigation.viewControllers = @[signupFlowViewController];
+            [UIWindow mainWindow].rootViewController = navigation;
         }
     };
     
@@ -200,7 +199,7 @@
             } else {
                 [UIAlertController confirmRedirectingToSignUp:^{
                     WLLog(@"INITIAL SIGN IN ERROR - couldn't sign in, so redirecting to welcome screen");
-                    [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+                    [[UIStoryboard signUp] present:YES];
                 } tryAgain:^{
                     [weakSelf presentInitialViewController];
                 }];
@@ -208,7 +207,7 @@
         }];
     } else {
         WLLog(@"INITIAL SIGN IN - no data for signing in");
-        [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+        [[UIStoryboard signUp] present:YES];
     }
 }
 

@@ -7,12 +7,10 @@
 //
 
 #import "WLSettingsViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLToast.h"
 #import "WLButton.h"
 #import "WLAlertView.h"
 #import "WLNotificationCenter.h"
-#import "PHPhotoLibrary+Helper.h"
 #import "WLAPIRequest.h"
 #import "PubNub+SharedInstance.h"
 #import "WLAlertView.h"
@@ -40,7 +38,7 @@
         [[WLAPIManager manager].operationQueue cancelAllOperations];
         [[WLNotificationCenter defaultCenter] clear];
         [[NSUserDefaults standardUserDefaults] clear];
-        [[UIStoryboard storyboardNamed:WLSignUpStoryboard] present:YES];
+        [[UIStoryboard signUp] present:YES];
     }];
 }
 
@@ -69,7 +67,7 @@
     [[WLImageCache defaultCache] clear];
     [[WLImageCache uploadingCache] clear];
     [[WLSystemImageCache instance] removeAllObjects];
-    [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+    [[UIStoryboard main] present:YES];
 }
 
 - (void)addDemoImageWithCount:(NSUInteger)count {

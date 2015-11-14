@@ -10,7 +10,6 @@
 #import "WLCandyViewController.h"
 #import "WLComposeBar.h"
 #import "WLSoundPlayer.h"
-#import "WLNavigationHelper.h"
 #import "WLDeviceManager.h"
 #import "WLCommentCell.h"
 #import "WLStreamLoadingView.h"

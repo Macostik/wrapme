@@ -494,7 +494,7 @@ CGFloat WLMinTextViewWidth;
 
 // MARK: - StreamViewDelegate
 
-- (NSUInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSUInteger)section {
+- (NSInteger)streamView:(StreamView*)streamView numberOfItemsInSection:(NSInteger)section {
     [self updateBadge];
     return [self.chat.entries count];
 }

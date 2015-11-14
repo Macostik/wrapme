@@ -7,7 +7,6 @@
 //
 
 #import "WLWhatsUpSet.h"
-#import "WLWhatsUpEvent.h"
 
 @interface WLWhatsUpSet () <EntryNotifying>
 
@@ -90,7 +89,7 @@
     NSMutableSet *events = [NSMutableSet set];
     for (Contribution *contribution in contributions) {
         if (contribution.valid) {
-            [events addObject:[WLWhatsUpEvent event:WLEventAdd contribution:contribution]];
+            [events addObject:[[WhatsUpEvent alloc] initWithEvent:WLEventAdd contribution:contribution]];
             if (contribution.unread) {
                 unreadEntriesCount++;
                 if ([contribution isKindOfClass:[Candy class]]) {
@@ -105,7 +104,7 @@
     
     for (Contribution *contribution in updates) {
         if (contribution.valid) {
-            [events addObject:[WLWhatsUpEvent event:WLEventUpdate contribution:contribution]];
+            [events addObject:[[WhatsUpEvent alloc] initWithEvent:WLEventUpdate contribution:contribution]];
             if (contribution.unread) {
                 unreadEntriesCount++;
             }

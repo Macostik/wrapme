@@ -11,7 +11,6 @@
 #import "WLHintView.h"
 #import "WLWrapView.h"
 #import "WLToast.h"
-#import "WLNavigationHelper.h"
 #import "WLBatchEditPictureViewController.h"
 #import "WLCollections.h"
 
@@ -62,7 +61,7 @@
             return [obj1.date compare:obj2.date];
         }];
         
-        WLBatchEditPictureViewController *editController = [WLBatchEditPictureViewController instantiate:self.storyboard];
+        WLBatchEditPictureViewController *editController = self.storyboard[@"WLBatchEditPictureViewController"];
         editController.pictures = weakSelf.pictures;
         editController.delegate = weakSelf;
         editController.wrap = weakSelf.wrap;

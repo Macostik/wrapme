@@ -8,7 +8,6 @@
 
 #import "WLPhoneViewController.h"
 #import "WLCountriesViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLToast.h"
 #import "WLKeyboard.h"
 #import "WLButton.h"
@@ -65,7 +64,7 @@
 }
 
 - (IBAction)selectCountry:(id)sender {
-    WLCountriesViewController *controller = [WLCountriesViewController instantiate:self.storyboard];
+    WLCountriesViewController *controller = self.storyboard[@"WLCountriesViewController"];
     controller.selectedCountry = self.country;
     __weak typeof(self)weakSelf = self;
     [controller setSelectionBlock:^(Country *country) {

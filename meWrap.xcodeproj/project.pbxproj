@@ -94,7 +94,6 @@
 		C5390BED1B84544C00027D8B /* WLWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEB1B84544C00027D8B /* WLWrapCell.xib */; };
 		C5390BF01B845A6200027D8B /* WLCandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEE1B845A6200027D8B /* WLCandyCell.xib */; };
 		C5390BF31B845C5700027D8B /* WLRecentCandiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BF11B845C5700027D8B /* WLRecentCandiesView.xib */; };
-		C539B9BE1BA1C87F00C44D05 /* PHPhotoLibrary+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C539B9BC1BA1C87F00C44D05 /* PHPhotoLibrary+Helper.m */; };
 		C53DC22C1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53DC2281AA7637C00D2E4C0 /* WLUploadingView.m */; };
 		C53E5CEB1A84D876004F61B0 /* WLUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5CE71A84D876004F61B0 /* WLUserView.m */; };
 		C53E5CF11A84D886004F61B0 /* WLWrapView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5CED1A84D886004F61B0 /* WLWrapView.m */; };
@@ -127,10 +126,8 @@
 		C54773161A41911F004C5826 /* WLFontPresetter.m in Sources */ = {isa = PBXBuildFile; fileRef = C54773121A41911F004C5826 /* WLFontPresetter.m */; };
 		C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
 		C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLQAButton.m */; };
-		C54AF65419B8C491006F7EDB /* WLNavigationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FCC699199A5C4B009A0DC6 /* WLNavigationHelper.m */; };
 		C54AF65519B8C491006F7EDB /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
 		C54AF65B19B8C491006F7EDB /* WLProfileEditSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B242A3195C4D9200C5D208 /* WLProfileEditSession.m */; };
-		C54AF67A19B8C491006F7EDB /* WLWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */; };
 		C54AF67C19B8C491006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
@@ -145,7 +142,6 @@
 		C54AF6E519B8C491006F7EDB /* WLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */; };
 		C54AF6E719B8C491006F7EDB /* SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F0DAEF19338C9100F9D898 /* SegmentedControl.m */; };
 		C54AF6EC19B8C491006F7EDB /* WLAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 129654E218E197ED00FF43F6 /* WLAddressBook.m */; };
-		C54AF70519B8C491006F7EDB /* WLWhatsUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6465419A6264300F8243A /* WLWhatsUpCell.m */; };
 		C54AF70719B8C491006F7EDB /* WLToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DEC3EE1920F7E0007BE6CC /* WLToast.m */; };
 		C54AF71019B8C491006F7EDB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1A179C1937694B002B3737 /* MessageUI.framework */; };
 		C54AF71319B8C491006F7EDB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 121FC9E4190A93E50034486D /* SystemConfiguration.framework */; };
@@ -193,6 +189,7 @@
 		C55189121B8F46C000D1327E /* WLContributorSpinnerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C551890A1B8F46C000D1327E /* WLContributorSpinnerCell.xib */; };
 		C5528A0F1B3425C500AF1311 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		C5568BE01A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
+		C557BA831BF5D50900AE9974 /* WhatsUpEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557BA821BF5D50900AE9974 /* WhatsUpEvent.swift */; };
 		C558E7C91A65176100CC5706 /* WLHomePlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */; };
 		C559974C1A25EABE003D4B29 /* WLEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */; };
 		C55A451A1BAC18580055AEC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C55A451C1BAC18580055AEC2 /* Localizable.strings */; };
@@ -229,7 +226,6 @@
 		C58483E01BF22E8E00DAE7E9 /* CATransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58483DF1BF22E8E00DAE7E9 /* CATransition+Ext.swift */; };
 		C58483E11BF22E8E00DAE7E9 /* CATransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58483DF1BF22E8E00DAE7E9 /* CATransition+Ext.swift */; };
 		C58AB9991B1384F300932272 /* WLWhatsUpSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB9951B1384F300932272 /* WLWhatsUpSet.m */; };
-		C58AB99F1B13856700932272 /* WLWhatsUpEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB99B1B13856700932272 /* WLWhatsUpEvent.m */; };
 		C5994D8A1B78894A0066A597 /* meWrapToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* meWrapToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C59EF3C31B7A215700E777BC /* WLFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3C11B7A215700E777BC /* WLFollowingViewController.m */; };
 		C5A6150B1B9DC5C8009B92EF /* WLAddressBookRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A615091B9DC5C8009B92EF /* WLAddressBookRecordCell.xib */; };
@@ -271,8 +267,6 @@
 		C5AA71D31BE3AF1C00EA106A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA71B71BE3AF1500EA106A /* User.swift */; };
 		C5AA71D41BE3AF1C00EA106A /* Wrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA71B91BE3AF1500EA106A /* Wrap.swift */; };
 		C5AA71D61BE3D39D00EA106A /* MutableAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AA71D51BE3D39D00EA106A /* MutableAsset.swift */; };
-		C5AE6B5F1B8E014400EE41FB /* WLCommentWhatsUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5AE6B5D1B8E014400EE41FB /* WLCommentWhatsUpCell.xib */; };
-		C5AE6B621B8E015300EE41FB /* WLCandyWhatsUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5AE6B601B8E015300EE41FB /* WLCandyWhatsUpCell.xib */; };
 		C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */; };
 		C5AEE4361B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4311B3AC9B4000C8CCF /* WLDrawingLine.m */; };
 		C5AEE43D1B3AC9E3000C8CCF /* WLDrawingBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4381B3AC9E3000C8CCF /* WLDrawingBrush.m */; };
@@ -280,6 +274,7 @@
 		C5AEE44B1B3AE770000C8CCF /* WLColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AEE4461B3AE770000C8CCF /* WLColorPicker.m */; };
 		C5B2A1261B4BFED8004759F3 /* WLChat.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1211B4BFED8004759F3 /* WLChat.m */; };
 		C5B2A12D1B4C07DF004759F3 /* NSDate+PNTimetoken.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */; };
+		C5B4E5681BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B4E5671BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift */; };
 		C5B681261B835ABD00BEE613 /* WLCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5B681241B835ABD00BEE613 /* WLCountryCell.xib */; };
 		C5B6812E1B83721300BEE613 /* WLStreamLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B6812C1B83721300BEE613 /* WLStreamLoadingView.m */; };
 		C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B8F7181B82161500A5E541 /* WLDrawingViewController.m */; };
@@ -371,6 +366,8 @@
 		C5DD98A11BDA4CED00A5713A /* meWrapWatchExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C54DA0A01BBAC20500790F17 /* meWrapWatchExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF01A10E51B004AD41C /* s03.wav */; };
 		C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6CAF11A10E51B004AD41C /* s04.wav */; };
+		C5E4FD071BF7629E00575DA4 /* CommentWhatsUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E4FD051BF7629E00575DA4 /* CommentWhatsUpCell.xib */; };
+		C5E4FD081BF7629E00575DA4 /* CandyWhatsUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E4FD061BF7629E00575DA4 /* CandyWhatsUpCell.xib */; };
 		C5E6E7FF1BBAC35E007FFA66 /* WKInterfaceImage+WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C552329D1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m */; };
 		C5E6E8001BBAC35E007FFA66 /* WLWKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCAC3F1B2EDF2300080650 /* WLWKAlertController.m */; };
 		C5E6E8021BBAC35E007FFA66 /* WLWKCandyController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50645D51ABD815200CB4BE3 /* WLWKCandyController.m */; };
@@ -442,6 +439,8 @@
 		C5E7EF8F1BED0D9F00CDD4C3 /* Entry+APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7EF8E1BED0D9F00CDD4C3 /* Entry+APIRequest.swift */; };
 		C5E7EF901BED0D9F00CDD4C3 /* Entry+APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7EF8E1BED0D9F00CDD4C3 /* Entry+APIRequest.swift */; };
 		C5E7EF911BED0D9F00CDD4C3 /* Entry+APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7EF8E1BED0D9F00CDD4C3 /* Entry+APIRequest.swift */; };
+		C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */; };
+		C5ECD55C1BF64A41005791B1 /* WhatsUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557BA801BF5D47900AE9974 /* WhatsUpViewController.swift */; };
 		C5EE2CE21B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
 		C5EE2CEA1B567A970016889E /* WLRecentCandiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */; };
 		C5F076661BE26F0E00021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
@@ -654,8 +653,6 @@
 		C5111D371AB345D10094275C /* WLIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLIntroductionViewController.h; sourceTree = "<group>"; };
 		C5111D381AB345D10094275C /* WLIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLIntroductionViewController.m; sourceTree = "<group>"; };
 		C5122D481BD7D2A40096C742 /* UIFont+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Ext.swift"; sourceTree = "<group>"; };
-		C51383CE19A4AB3300D23257 /* WLWhatsUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWhatsUpViewController.h; path = WLWhatsUpViewController/WLWhatsUpViewController.h; sourceTree = "<group>"; };
-		C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWhatsUpViewController.m; path = WLWhatsUpViewController/WLWhatsUpViewController.m; sourceTree = "<group>"; };
 		C5177C391B7CE578008102C7 /* WLWrapStatusImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapStatusImageView.h; sourceTree = "<group>"; };
 		C5177C3A1B7CE578008102C7 /* WLWrapStatusImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapStatusImageView.m; sourceTree = "<group>"; };
 		C51A52191A24DCED00558BF3 /* WLPasscodeValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLPasscodeValidation.h; path = WLValidation/WLPasscodeValidation.h; sourceTree = "<group>"; };
@@ -705,8 +702,6 @@
 		C5390BEB1B84544C00027D8B /* WLWrapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLWrapCell.xib; path = WLHomeViewController/WLWrapCell/WLWrapCell.xib; sourceTree = "<group>"; };
 		C5390BEE1B845A6200027D8B /* WLCandyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCandyCell.xib; sourceTree = "<group>"; };
 		C5390BF11B845C5700027D8B /* WLRecentCandiesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLRecentCandiesView.xib; sourceTree = "<group>"; };
-		C539B9BB1BA1C87F00C44D05 /* PHPhotoLibrary+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHPhotoLibrary+Helper.h"; sourceTree = "<group>"; };
-		C539B9BC1BA1C87F00C44D05 /* PHPhotoLibrary+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHPhotoLibrary+Helper.m"; sourceTree = "<group>"; };
 		C53DC2271AA7637C00D2E4C0 /* WLUploadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploadingView.h; sourceTree = "<group>"; };
 		C53DC2281AA7637C00D2E4C0 /* WLUploadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploadingView.m; sourceTree = "<group>"; };
 		C53E5CE61A84D876004F61B0 /* WLUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUserView.h; sourceTree = "<group>"; };
@@ -800,6 +795,8 @@
 		C552329D1ACD478200886437 /* WKInterfaceImage+WLImageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKInterfaceImage+WLImageFetcher.m"; sourceTree = "<group>"; };
 		C5568BDB1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLProgressBar+WLContribution.h"; sourceTree = "<group>"; };
 		C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLProgressBar+WLContribution.m"; sourceTree = "<group>"; };
+		C557BA801BF5D47900AE9974 /* WhatsUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsUpViewController.swift; sourceTree = "<group>"; };
+		C557BA821BF5D50900AE9974 /* WhatsUpEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsUpEvent.swift; sourceTree = "<group>"; };
 		C558E7C41A65176100CC5706 /* WLHomePlaceholderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLHomePlaceholderView.xib; sourceTree = "<group>"; };
 		C55997471A25EABE003D4B29 /* WLEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEmailConfirmationViewController.h; sourceTree = "<group>"; };
 		C55997481A25EABE003D4B29 /* WLEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEmailConfirmationViewController.m; sourceTree = "<group>"; };
@@ -861,8 +858,6 @@
 		C58483DF1BF22E8E00DAE7E9 /* CATransition+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CATransition+Ext.swift"; path = "meWrapKit/Categories/CATransition+Ext.swift"; sourceTree = SOURCE_ROOT; };
 		C58AB9941B1384F300932272 /* WLWhatsUpSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWhatsUpSet.h; sourceTree = "<group>"; };
 		C58AB9951B1384F300932272 /* WLWhatsUpSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWhatsUpSet.m; sourceTree = "<group>"; };
-		C58AB99A1B13856700932272 /* WLWhatsUpEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWhatsUpEvent.h; sourceTree = "<group>"; };
-		C58AB99B1B13856700932272 /* WLWhatsUpEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWhatsUpEvent.m; sourceTree = "<group>"; };
 		C59EF3C01B7A215700E777BC /* WLFollowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLFollowingViewController.h; sourceTree = "<group>"; };
 		C59EF3C11B7A215700E777BC /* WLFollowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFollowingViewController.m; sourceTree = "<group>"; };
 		C5A278C51B9598DF00D5C969 /* meWrap-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "meWrap-Info.plist"; sourceTree = "<group>"; };
@@ -893,8 +888,6 @@
 		C5AA71B81BE3AF1500EA106A /* WLEntryKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEntryKeys.h; sourceTree = "<group>"; };
 		C5AA71B91BE3AF1500EA106A /* Wrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wrap.swift; sourceTree = "<group>"; };
 		C5AA71D51BE3D39D00EA106A /* MutableAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutableAsset.swift; sourceTree = "<group>"; };
-		C5AE6B5D1B8E014400EE41FB /* WLCommentWhatsUpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCommentWhatsUpCell.xib; path = WLWhatsUpViewController/WhatsUpCell/WLCommentWhatsUpCell.xib; sourceTree = "<group>"; };
-		C5AE6B601B8E015300EE41FB /* WLCandyWhatsUpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLCandyWhatsUpCell.xib; path = WLWhatsUpViewController/WhatsUpCell/WLCandyWhatsUpCell.xib; sourceTree = "<group>"; };
 		C5AE8DAD1B7B4F32003CC6D4 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		C5AEE4291B3AC9A7000C8CCF /* WLDrawingSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLDrawingSession.h; sourceTree = "<group>"; };
 		C5AEE42A1B3AC9A7000C8CCF /* WLDrawingSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLDrawingSession.m; sourceTree = "<group>"; };
@@ -912,6 +905,7 @@
 		C5B2A1211B4BFED8004759F3 /* WLChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLChat.m; sourceTree = "<group>"; };
 		C5B2A1271B4C07DF004759F3 /* NSDate+PNTimetoken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PNTimetoken.h"; sourceTree = "<group>"; };
 		C5B2A1281B4C07DF004759F3 /* NSDate+PNTimetoken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PNTimetoken.m"; sourceTree = "<group>"; };
+		C5B4E5671BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PHPhotoLibrary+Ext.swift"; sourceTree = "<group>"; };
 		C5B681241B835ABD00BEE613 /* WLCountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCountryCell.xib; sourceTree = "<group>"; };
 		C5B6812B1B83721300BEE613 /* WLStreamLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStreamLoadingView.h; path = WLLoadingView/WLStreamLoadingView.h; sourceTree = "<group>"; };
 		C5B6812C1B83721300BEE613 /* WLStreamLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLStreamLoadingView.m; path = WLLoadingView/WLStreamLoadingView.m; sourceTree = "<group>"; };
@@ -1018,8 +1012,6 @@
 		C5C3FEBA1B8F312D00F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-Portrait.png"; sourceTree = "<group>"; };
 		C5C3FEBC1B8F313100F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		C5C3FEBE1B8F313600F177EC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hant"; path = "zh-Hant.lproj/Default.png"; sourceTree = "<group>"; };
-		C5C6465319A6264300F8243A /* WLWhatsUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWhatsUpCell.h; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.h; sourceTree = "<group>"; };
-		C5C6465419A6264300F8243A /* WLWhatsUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWhatsUpCell.m; path = WLWhatsUpViewController/WhatsUpCell/WLWhatsUpCell.m; sourceTree = "<group>"; };
 		C5C694D41BEB91790045DAB5 /* NSUserDefaults+SharedGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+SharedGroup.swift"; sourceTree = "<group>"; };
 		C5C7696E1BAC10BF00B205CB /* NSError+WLAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+WLAPIManager.h"; sourceTree = "<group>"; };
 		C5C7696F1BAC10BF00B205CB /* NSError+WLAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WLAPIManager.m"; sourceTree = "<group>"; };
@@ -1070,6 +1062,8 @@
 		C5D7FE7C1B501CD000746908 /* WLNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNotification.m; sourceTree = "<group>"; };
 		C5D7FE8F1B501CDE00746908 /* WLSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSoundPlayer.h; sourceTree = "<group>"; };
 		C5D7FE901B501CDE00746908 /* WLSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSoundPlayer.m; sourceTree = "<group>"; };
+		C5E4FD051BF7629E00575DA4 /* CommentWhatsUpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentWhatsUpCell.xib; sourceTree = "<group>"; };
+		C5E4FD061BF7629E00575DA4 /* CandyWhatsUpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CandyWhatsUpCell.xib; sourceTree = "<group>"; };
 		C5E6E82D1BBAC3EC007FFA66 /* meWrapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = meWrapKit.h; sourceTree = "<group>"; };
 		C5E6E8321BBAC3EC007FFA66 /* DefinedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefinedBlocks.h; sourceTree = "<group>"; };
 		C5E6E8331BBAC3EC007FFA66 /* GCDHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDHelper.h; sourceTree = "<group>"; };
@@ -1123,6 +1117,7 @@
 		C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		C5E7AB7B1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Ext.swift"; sourceTree = "<group>"; };
 		C5E7EF8E1BED0D9F00CDD4C3 /* Entry+APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entry+APIRequest.swift"; sourceTree = "<group>"; };
+		C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Ext.swift"; sourceTree = "<group>"; };
 		C5EE2CDC1B5658F90016889E /* WLMessagesCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessagesCounter.h; sourceTree = "<group>"; };
 		C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMessagesCounter.m; sourceTree = "<group>"; };
 		C5EE2CE41B567A970016889E /* WLRecentCandiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLRecentCandiesView.h; sourceTree = "<group>"; };
@@ -1135,8 +1130,6 @@
 		C5F99B6D196BEB0C00A3FB19 /* WLMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMenu.h; sourceTree = "<group>"; };
 		C5F99B6E196BEB0C00A3FB19 /* WLMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMenu.m; sourceTree = "<group>"; };
 		C5FAC9011BE2B35F0060FEDB /* NSUserDefaults+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+Ext.swift"; sourceTree = "<group>"; };
-		C5FCC698199A5C4B009A0DC6 /* WLNavigationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNavigationHelper.h; sourceTree = "<group>"; };
-		C5FCC699199A5C4B009A0DC6 /* WLNavigationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLNavigationHelper.m; sourceTree = "<group>"; };
 		C5FE0A5B1ACD98F3007DBE95 /* WLCircleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCircleImageView.h; sourceTree = "<group>"; };
 		C5FE0A5C1ACD98F3007DBE95 /* WLCircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCircleImageView.m; sourceTree = "<group>"; };
 		C5FF14671BF340F800192754 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
@@ -1325,6 +1318,7 @@
 				C5053E811BC7F7280040613A /* ReportViewController.swift */,
 				C53012841BF4C0AD00098F9C /* HistoryItemDataSource.swift */,
 				C53012851BF4C0AD00098F9C /* HomeDataSource.swift */,
+				C5E4FD091BF762A500575DA4 /* WhatsUpViewController */,
 				C5B8F7161B8215FE00A5E541 /* WLDrawingViewController */,
 				C59EF3BF1B7A214000E777BC /* WLFollowingViewController */,
 				C560D2311AFBB53C006B906E /* WLHistoryViewController */,
@@ -1335,7 +1329,6 @@
 				C570059F1A1F9505007257A6 /* WLSettingsViewController */,
 				C58167FF19F169BD0081F350 /* WLBaseViewController */,
 				C504177919B9EE15000E55F3 /* WLAddContributorsViewController */,
-				C51383CD19A4AB0F00D23257 /* WLWhatsUpViewController */,
 				C5FCC697199A5C4B009A0DC6 /* WLNavigation */,
 				CE1FEABF196EB73000BF1B22 /* WLEditViewController */,
 				128156A81938A0BF00035F89 /* WLStillPictureViewController */,
@@ -1363,6 +1356,7 @@
 				C5AA71AE1BE3946700EA106A /* EntryNotifier.swift */,
 				C5AA71D51BE3D39D00EA106A /* MutableAsset.swift */,
 				C5FF14671BF340F800192754 /* Emoji.swift */,
+				C557BA821BF5D50900AE9974 /* WhatsUpEvent.swift */,
 				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
 				C5053E7D1BC7E3DC0040613A /* WLEntryDescriptor */,
 				C5053E5B1BC7DC150040613A /* WLOperation */,
@@ -1667,13 +1661,14 @@
 				C5E7AB7B1BCD4E28007E314B /* UIGestureRecognizer+Ext.swift */,
 				C510BF6C1BCF93C0008223A3 /* UIDevice+Ext.swift */,
 				C54CEF961BCFA86C00128CBE /* NSBundle+Ext.swift */,
+				C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */,
 				C54CEF981BCFAF1D00128CBE /* UINavigationController+Ext.swift */,
-				C54CEF9A1BCFAFA800128CBE /* UIButton+Ext.swift */,
 				C54CEF9C1BCFB09100128CBE /* UIViewController+Ext.swift */,
+				C54CEF9A1BCFAFA800128CBE /* UIButton+Ext.swift */,
 				C5122D481BD7D2A40096C742 /* UIFont+Ext.swift */,
 				C5FAC9011BE2B35F0060FEDB /* NSUserDefaults+Ext.swift */,
+				C5B4E5671BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift */,
 				C5053E681BC7DF890040613A /* UIImage */,
-				C539B9BA1BA1C87F00C44D05 /* Photo */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1700,17 +1695,6 @@
 				C54C56781B1DC81100CA4B12 /* WLSwipeActionView.m */,
 			);
 			name = WLTriangleView;
-			sourceTree = "<group>";
-		};
-		5BB04F1319D9794100B5C6EE /* WLWhatsUpCell */ = {
-			isa = PBXGroup;
-			children = (
-				C5C6465319A6264300F8243A /* WLWhatsUpCell.h */,
-				C5C6465419A6264300F8243A /* WLWhatsUpCell.m */,
-				C5AE6B5D1B8E014400EE41FB /* WLCommentWhatsUpCell.xib */,
-				C5AE6B601B8E015300EE41FB /* WLCandyWhatsUpCell.xib */,
-			);
-			name = WLWhatsUpCell;
 			sourceTree = "<group>";
 		};
 		5BD121571B0250E000FF5FBF /* WLDownloadingView */ = {
@@ -1934,16 +1918,6 @@
 			path = WLIntroductionViewController;
 			sourceTree = "<group>";
 		};
-		C51383CD19A4AB0F00D23257 /* WLWhatsUpViewController */ = {
-			isa = PBXGroup;
-			children = (
-				5BB04F1319D9794100B5C6EE /* WLWhatsUpCell */,
-				C51383CE19A4AB3300D23257 /* WLWhatsUpViewController.h */,
-				C51383CF19A4AB3300D23257 /* WLWhatsUpViewController.m */,
-			);
-			name = WLWhatsUpViewController;
-			sourceTree = "<group>";
-		};
 		C5177C381B7CE55E008102C7 /* WLWrapStatusImageView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2002,15 +1976,6 @@
 				C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */,
 			);
 			path = WLAddressBookGroupView;
-			sourceTree = "<group>";
-		};
-		C539B9BA1BA1C87F00C44D05 /* Photo */ = {
-			isa = PBXGroup;
-			children = (
-				C539B9BB1BA1C87F00C44D05 /* PHPhotoLibrary+Helper.h */,
-				C539B9BC1BA1C87F00C44D05 /* PHPhotoLibrary+Helper.m */,
-			);
-			path = Photo;
 			sourceTree = "<group>";
 		};
 		C53DC2261AA7632600D2E4C0 /* WLUploadingView */ = {
@@ -2398,8 +2363,6 @@
 			children = (
 				C58AB9941B1384F300932272 /* WLWhatsUpSet.h */,
 				C58AB9951B1384F300932272 /* WLWhatsUpSet.m */,
-				C58AB99A1B13856700932272 /* WLWhatsUpEvent.h */,
-				C58AB99B1B13856700932272 /* WLWhatsUpEvent.m */,
 			);
 			path = WLWhatsUpSet;
 			sourceTree = "<group>";
@@ -2816,6 +2779,16 @@
 			path = WLSoundPlayer;
 			sourceTree = "<group>";
 		};
+		C5E4FD091BF762A500575DA4 /* WhatsUpViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C557BA801BF5D47900AE9974 /* WhatsUpViewController.swift */,
+				C5E4FD051BF7629E00575DA4 /* CommentWhatsUpCell.xib */,
+				C5E4FD061BF7629E00575DA4 /* CandyWhatsUpCell.xib */,
+			);
+			name = WhatsUpViewController;
+			sourceTree = "<group>";
+		};
 		C5E6E8311BBAC3EC007FFA66 /* Support Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3016,8 +2989,6 @@
 		C5FCC697199A5C4B009A0DC6 /* WLNavigation */ = {
 			isa = PBXGroup;
 			children = (
-				C5FCC698199A5C4B009A0DC6 /* WLNavigationHelper.h */,
-				C5FCC699199A5C4B009A0DC6 /* WLNavigationHelper.m */,
 				C5603DBD1AD921EE00427DEC /* WLEntryPresenter.h */,
 				C5603DBE1AD921EE00427DEC /* WLEntryPresenter.m */,
 				C5603DC31AD922B800427DEC /* WLHierarchicalEntryPresenter.h */,
@@ -3136,7 +3107,6 @@
 			);
 			name = meWrapWatchApp;
 			productName = "meWrap WatchKit 1 App";
-			productReference = C54DA0AA1BBAC20600790F17 /* meWrapWatchApp.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		C55C36651ACEB7A800C614BD /* Tests */ = {
@@ -3252,7 +3222,6 @@
 				C5B91A421BB4101A000E08E7 /* Introduction.storyboard in Resources */,
 				C560B16C1AE6A0580010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */,
 				C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */,
-				C5AE6B5F1B8E014400EE41FB /* WLCommentWhatsUpCell.xib in Resources */,
 				C5C20BE01A239D6F008B2E2E /* WLTestUserCell.xib in Resources */,
 				C5A9CC921B9482D20084D0F5 /* WLMyMessageCell.xib in Resources */,
 				C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */,
@@ -3269,6 +3238,7 @@
 				C5B91A5B1BB41679000E08E7 /* WhatsUpPlaceholderView.xib in Resources */,
 				C5B91A3B1BB40423000E08E7 /* SignUp.storyboard in Resources */,
 				C551890C1B8F46C000D1327E /* WLContributorRemoveCell.xib in Resources */,
+				C5E4FD071BF7629E00575DA4 /* CommentWhatsUpCell.xib in Resources */,
 				C5B91A4F1BB414E1000E08E7 /* WLHomeSwipeTransitionView.xib in Resources */,
 				C5B91A591BB41679000E08E7 /* PublicWrapPlaceholderView.xib in Resources */,
 				C583A40F1AE79DCE0024003F /* WLTestUsers.plist in Resources */,
@@ -3293,7 +3263,6 @@
 				5B3CD74D19DAEA8E00D2216C /* Wraplive_TermsAndConditions.rtf in Resources */,
 				C5BEC3A31B8F16E800499EEA /* logo_and_caption_orange.png in Resources */,
 				C5BEC3851B8F099300499EEA /* WLContributorCell.xib in Resources */,
-				C5AE6B621B8E015300EE41FB /* WLCandyWhatsUpCell.xib in Resources */,
 				C5B91A5D1BB41679000E08E7 /* WLWrapPlaceholderViewHistory.xib in Resources */,
 				C54AF73719B8C491006F7EDB /* rings.plist in Resources */,
 				C5B91A601BB4177B000E08E7 /* WLConfirmView.xib in Resources */,
@@ -3326,6 +3295,7 @@
 				C5CBACF01BA70B70007D2403 /* WLStreamLoadingView.xib in Resources */,
 				C560B1721AE6A19B0010B2EC /* AdobeCreativeSDKCoreResources.bundle in Resources */,
 				C5C3FEAE1B8F311500F177EC /* Default-Portrait@2x.png in Resources */,
+				C5E4FD081BF7629E00575DA4 /* CandyWhatsUpCell.xib in Resources */,
 				C5B91A481BB412A0000E08E7 /* WLUnreadMessagesView.xib in Resources */,
 				5BF85BB01B8C774C000215C9 /* icons.ttf in Resources */,
 			);
@@ -3479,7 +3449,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C54AF65419B8C491006F7EDB /* WLNavigationHelper.m in Sources */,
 				C5C769881BAC10BF00B205CB /* WLAPIRequest+Defined.m in Sources */,
 				C54AF65519B8C491006F7EDB /* WLChangeProfileViewController.m in Sources */,
 				C5E6E9541BBAC3EC007FFA66 /* WLDefinedComparators.m in Sources */,
@@ -3535,6 +3504,7 @@
 				C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */,
 				C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */,
 				C5E6E9601BBAC3EC007FFA66 /* NSData+CommonCrypto.m in Sources */,
+				C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */,
 				C5BCF0011B551B7B00E4AD6D /* WLChatViewController.m in Sources */,
 				C530128A1BF4C87F00098F9C /* WrapPickerDataSource.swift in Sources */,
 				C5111D3C1AB345D10094275C /* WLIntroductionViewController.m in Sources */,
@@ -3551,12 +3521,12 @@
 				C5E7AB7A1BCD47D4007E314B /* UIView+Ext.swift in Sources */,
 				C58483E01BF22E8E00DAE7E9 /* CATransition+Ext.swift in Sources */,
 				C54FD2891BDA325E004B0545 /* AssetCell.swift in Sources */,
+				C557BA831BF5D50900AE9974 /* WhatsUpEvent.swift in Sources */,
 				C5C20BA41A238ED8008B2E2E /* WLTextFieldValidation.m in Sources */,
 				C5AA71C21BE3AF1500EA106A /* Wrap.swift in Sources */,
 				C55E10A71B3C0E1F0032DFDA /* CGPointExtension.m in Sources */,
 				C5E7AB761BCD399B007E314B /* UITextView+Ext.swift in Sources */,
 				C5C769AD1BAC143D00B205CB /* WLPaginatedSet.m in Sources */,
-				C54AF67A19B8C491006F7EDB /* WLWhatsUpViewController.m in Sources */,
 				C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */,
 				C5D051B71A9F7D7B00855A01 /* WLAddressBookRecord.m in Sources */,
 				C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */,
@@ -3565,6 +3535,7 @@
 				C54AF67C19B8C491006F7EDB /* main.m in Sources */,
 				C57E1CCB1B98930900E2303B /* StreamView.swift in Sources */,
 				C5C20BE81A239D6F008B2E2E /* WLProfileInformationViewController.m in Sources */,
+				C5B4E5681BF60E0300A4B223 /* PHPhotoLibrary+Ext.swift in Sources */,
 				C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */,
 				C5C20BD81A239D6F008B2E2E /* WLPhoneViewController.m in Sources */,
 				C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */,
@@ -3595,7 +3566,6 @@
 				C573FB901AB84AF400F1098C /* WLTouchView.m in Sources */,
 				C52E1FD31A41951300A2C370 /* WLButton.m in Sources */,
 				C581680519F169D90081F350 /* WLBaseViewController.m in Sources */,
-				C539B9BE1BA1C87F00C44D05 /* PHPhotoLibrary+Helper.m in Sources */,
 				C5E6E9F01BBAC3EC007FFA66 /* WLSystemImageCache.m in Sources */,
 				C54C42531BDE77BB003E644D /* ExtensionRequest.swift in Sources */,
 				C5E6E94E1BBAC3EC007FFA66 /* NSSet+WLCollection.m in Sources */,
@@ -3693,7 +3663,6 @@
 				C5BCF04D1B551C3E00E4AD6D /* WLCandyCell.m in Sources */,
 				C52279661BECCE8A00B1C49C /* NSDate+Formatting.swift in Sources */,
 				C5E6E99C1BBAC3EC007FFA66 /* UIColor+CustomColors.m in Sources */,
-				C58AB99F1B13856700932272 /* WLWhatsUpEvent.m in Sources */,
 				C54AF6E519B8C491006F7EDB /* WLMenu.m in Sources */,
 				C5053E701BC7DF890040613A /* UIImage+Drawing.m in Sources */,
 				C5AEE4361B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */,
@@ -3711,9 +3680,9 @@
 				C5BEE0EA1B2AC8C300D3CF70 /* WLNotificationCenter.m in Sources */,
 				C51E34EA1BD8EB4100C6F678 /* SeparatorView.swift in Sources */,
 				C54C567C1B1DC81100CA4B12 /* WLSwipeActionView.m in Sources */,
-				C54AF70519B8C491006F7EDB /* WLWhatsUpCell.m in Sources */,
 				C54AF70719B8C491006F7EDB /* WLToast.m in Sources */,
 				C5FF14681BF340F800192754 /* Emoji.swift in Sources */,
+				C5ECD55C1BF64A41005791B1 /* WhatsUpViewController.swift in Sources */,
 				C5CBA7C81BA9556B0008EAAE /* SquareGridLayout.swift in Sources */,
 				C5E6E9EA1BBAC3EC007FFA66 /* WLImageCache.m in Sources */,
 				C5FAC9021BE2B35F0060FEDB /* NSUserDefaults+Ext.swift in Sources */,

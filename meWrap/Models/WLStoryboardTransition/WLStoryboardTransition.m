@@ -7,7 +7,6 @@
 //
 
 #import "WLStoryboardTransition.h"
-#import "WLNavigationHelper.h"
 
 @implementation WLStoryboardTransition
 
@@ -16,13 +15,13 @@
     if (self.destinationID) {
         UIStoryboard *storyboard = nil;
         if (self.storyboard) {
-            storyboard = [UIStoryboard storyboardNamed:self.storyboard];
+            storyboard = [UIStoryboard storyboardWithName:self.storyboard bundle:nil];
         } else {
             storyboard = self.sourceViewController.storyboard;
         }
-        destinationViewController = [storyboard instantiateViewControllerWithIdentifier:self.destinationID];
+        destinationViewController = storyboard[self.destinationID];
     } else if (self.storyboard) {
-        destinationViewController = [[UIStoryboard storyboardNamed:self.storyboard] instantiateInitialViewController];
+        destinationViewController = [[UIStoryboard storyboardWithName:self.storyboard bundle:nil] instantiateInitialViewController];
     }
     if (destinationViewController) {
         if (self.sourceValue && self.destinationValue) {

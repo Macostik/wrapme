@@ -7,7 +7,6 @@
 //
 
 #import "WLPresentingImageView.h"
-#import "WLNavigationHelper.h"
 #import "WLCandyCell.h"
 
 @interface WLPresentingImageView ()

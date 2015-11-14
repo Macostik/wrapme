@@ -12,8 +12,6 @@
 #import "WLEditAvatarViewController.h"
 #import "WLHomeViewController.h"
 #import "WLToast.h"
-#import "WLNavigationHelper.h"
-#import "PHPhotoLibrary+Helper.h"
 
 @interface WLStillAvatarViewController () <WLCameraViewControllerDelegate, UINavigationControllerDelegate>
 
@@ -39,7 +37,7 @@
 }
 
 - (void)editImage:(UIImage*)image completion:(WLUploadPhotoCompletionBlock)completion {
-    WLEditAvatarViewController *controller = [WLEditAvatarViewController instantiate:self.storyboard];
+    WLEditAvatarViewController *controller = self.storyboard[@"WLEditAvatarViewController"];
     controller.mode = self.mode;
     controller.image = image;
     controller.delegate = self;

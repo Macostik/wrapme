@@ -12,7 +12,7 @@ import UIKit
 var StreamViewCommonLocksChanged: String = "StreamViewCommonLocksChanged"
 
 @objc protocol StreamViewDelegate: UIScrollViewDelegate {
-    func streamView(streamView: StreamView, numberOfItemsInSection section: UInt) -> UInt
+    func streamView(streamView: StreamView, numberOfItemsInSection section: Int) -> Int
     
     func streamView(streamView: StreamView, metricsAt position: StreamPosition) -> [StreamMetrics]
     
@@ -30,13 +30,13 @@ var StreamViewCommonLocksChanged: String = "StreamViewCommonLocksChanged"
     
     optional func streamViewFooterMetrics(streamView: StreamView) -> [StreamMetrics]
     
-    optional func streamView(streamView: StreamView, headerMetricsInSection section: UInt) -> [StreamMetrics]
+    optional func streamView(streamView: StreamView, headerMetricsInSection section: Int) -> [StreamMetrics]
     
-    optional func streamView(streamView: StreamView, footerMetricsInSection section: UInt) -> [StreamMetrics]
+    optional func streamView(streamView: StreamView, footerMetricsInSection section: Int) -> [StreamMetrics]
     
     optional func streamViewPlaceholderMetrics(streamView: StreamView) -> StreamMetrics?
     
-    optional func streamViewNumberOfSections(streamView: StreamView) -> UInt
+    optional func streamViewNumberOfSections(streamView: StreamView) -> Int
 }
 
 class StreamView: UIScrollView {
@@ -67,7 +67,7 @@ class StreamView: UIScrollView {
         }
     }
     
-    var numberOfSections: UInt = 1
+    var numberOfSections: Int = 1
     
     var reloadAfterUnlock = false
     

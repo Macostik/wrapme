@@ -9,7 +9,6 @@
 #import "WLSignupFlowViewController.h"
 #import "WLProfileInformationViewController.h"
 #import "WLPhoneViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLEmailViewController.h"
 #import "WLPhoneViewController.h"
 #import "WLEmailConfirmationViewController.h"
@@ -45,14 +44,14 @@
 - (void)completeSignup:(UINavigationController*)navigationController {
     __weak WLProfileInformationViewController* profileStep = [self stepViewController:@"WLProfileInformationViewController"];
     [profileStep setSuccessStatusBlock:^WLSignupStepViewController *{
-        [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+        [[UIStoryboard main] present:YES];
         return nil;
     }];
     navigationController.viewControllers = @[profileStep];
 }
 
 - (id)stepViewController:(NSString*)identifier {
-    id controller = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
+    id controller = self.storyboard[identifier];
     if (controller) {
         [self.stepViewControllers addObject:controller];
     }
@@ -76,7 +75,7 @@
     // final completion block
     
     WLSignupStepCompletionBlock completeSignUp = ^WLSignupStepViewController *{
-        [[UIStoryboard storyboardNamed:WLMainStoryboard] present:YES];
+        [[UIStoryboard main] present:YES];
         return nil;
     };
     

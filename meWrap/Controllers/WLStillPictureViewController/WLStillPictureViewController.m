@@ -7,7 +7,6 @@
 //
 
 #import "WLStillPictureViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLWrapPickerViewController.h"
 #import "WLToast.h"
 #import "WLHomeViewController.h"
@@ -33,11 +32,11 @@
 @synthesize mode = _mode;
 
 + (instancetype)stillPhotosViewController {
-    return [self instantiateWithIdentifier:@"WLStillPhotosViewController" storyboard:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
+    return [UIStoryboard camera][@"WLStillPhotosViewController"];
 }
 
 + (instancetype)stillAvatarViewController {
-    return [self instantiateWithIdentifier:@"WLStillAvatarViewController" storyboard:[UIStoryboard storyboardNamed:WLCameraStoryboard]];
+    return [UIStoryboard camera][@"WLStillAvatarViewController"];
 }
 
 - (void)viewDidLoad {
@@ -92,7 +91,7 @@
 
 - (void)showWrapPickerWithController:(BOOL)animated {
     [self.view layoutIfNeeded];
-    WLWrapPickerViewController *pickerController = [WLWrapPickerViewController instantiate:self.storyboard];
+    WLWrapPickerViewController *pickerController = self.storyboard[@"WLWrapPickerViewController"];
     pickerController.delegate = self;
     pickerController.wrap = self.wrap;
     [pickerController showInViewController:self animated:NO];

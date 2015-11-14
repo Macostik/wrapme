@@ -7,7 +7,6 @@
 //
 
 #import "WLEditAvatarViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLAlertView.h"
 #import "WLToast.h"
 #import "WLImageEditorSession.h"

@@ -9,7 +9,6 @@
 
 #import "WLWrapViewController.h"
 #import "WLStillPictureViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLMediaViewController.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
@@ -266,7 +265,7 @@
         return controller.class == class;
     }];
     if (viewController == nil) {
-        viewController = [class instantiate:self.storyboard];
+        viewController = self.storyboard[NSStringFromClass(class)];
         viewController.preferredViewFrame = self.containerView.bounds;
         viewController.wrap = self.wrap;
         viewController.delegate = self;

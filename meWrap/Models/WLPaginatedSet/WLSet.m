@@ -71,15 +71,15 @@
 
 // MARK: - WLBaseOrderedCollection
 
-- (NSUInteger)count {
+- (NSInteger)count {
     return self.entries.count;
 }
 
-- (id)objectAtIndex:(NSUInteger)index {
+- (id)objectAtIndex:(NSInteger)index {
     return [self.entries objectAtIndex:index];
 }
 
-- (id)tryAt:(NSUInteger)index {
+- (id)tryAt:(NSInteger)index {
     return [self.entries tryAt:index];
 }
 

@@ -16,7 +16,6 @@
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
 #import "WLMediaViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLUploadingView.h"
 #import "WLFollowingViewController.h"
 #import "WLWhatsUpSet.h"

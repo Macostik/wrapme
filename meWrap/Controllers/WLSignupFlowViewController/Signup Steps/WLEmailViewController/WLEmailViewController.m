@@ -9,7 +9,6 @@
 #import "WLEmailViewController.h"
 #import "WLButton.h"
 #import "WLTestUserPicker.h"
-#import "WLNavigationHelper.h"
 #import "NSObject+NibAdditions.h"
 #import "WLConfirmView.h"
 
@@ -55,7 +54,7 @@
         [WLConfirmView showInView:weakSelf.view authorization:authorization success:^(Authorization *authorization) {
             if (authorization.password.nonempty) {
                 [authorization signIn:^(User *user) {
-                    [[UIStoryboard storyboardNamed:WLMainStoryboard] present:NO];
+                    [[UIStoryboard main] present:NO];
                 } failure:^(NSError *error) {
                     [error show];
                 }];

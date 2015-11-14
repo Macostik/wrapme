@@ -7,7 +7,6 @@
 //
 
 #import "WLQuickAssetsViewController.h"
-#import "PHPhotoLibrary+Helper.h"
 
 @import Photos;
 

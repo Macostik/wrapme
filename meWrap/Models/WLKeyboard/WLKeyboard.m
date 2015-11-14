@@ -7,7 +7,6 @@
 //
 
 #import "WLKeyboard.h"
-#import "WLNavigationHelper.h"
 
 @interface WLKeyboard ()
 

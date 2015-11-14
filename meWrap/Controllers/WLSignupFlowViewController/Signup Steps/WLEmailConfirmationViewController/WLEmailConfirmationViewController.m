@@ -7,7 +7,6 @@
 //
 
 #import "WLEmailConfirmationViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLAlertView.h"
 #import "WLNotificationSubscription.h"
 #import "WLNotification.h"

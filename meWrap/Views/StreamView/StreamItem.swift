@@ -59,9 +59,9 @@ class StreamItem: NSObject {
 }
 
 class StreamPosition: NSObject {
-    let section: UInt
-    let index: UInt
-    init(section: UInt, index: UInt) {
+    let section: Int
+    let index: Int
+    init(section: Int, index: Int) {
         self.section = section
         self.index = index
     }

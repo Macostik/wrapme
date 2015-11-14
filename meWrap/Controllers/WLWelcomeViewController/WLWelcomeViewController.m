@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Ravenpod. All rights reserved.
 //
 
-#import "WLNavigationHelper.h"
 #import "WLSignupFlowViewController.h"
 #import "WLWelcomeViewController.h"
 
@@ -104,7 +103,7 @@ typedef enum : NSUInteger {
 }
 
 - (IBAction)agreeAndContinue:(id)sender {
-    [self.navigationController setViewControllers:@[[WLSignupFlowViewController instantiate:self.storyboard]] animated:NO];
+    [self.navigationController setViewControllers:@[self.storyboard[@"WLSignupFlowViewController"]] animated:NO];
 }
 
 #pragma mark -UIGestureRecognizerDelegate

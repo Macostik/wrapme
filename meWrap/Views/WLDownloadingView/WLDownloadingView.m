@@ -9,7 +9,6 @@
 #import "WLDownloadingView.h"
 #import "NSObject+NibAdditions.h"
 #import "WLProgressBar+WLContribution.h"
-#import "WLNavigationHelper.h"
 #import "WLNetwork.h"
 #import "WLImageFetcher.h"
 

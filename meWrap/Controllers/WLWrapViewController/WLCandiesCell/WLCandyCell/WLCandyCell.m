@@ -12,9 +12,7 @@
 #import "WLChronologicalEntryPresenter.h"
 #import "WLDownloadingView.h"
 #import "WLAlertView.h"
-#import "WLNavigationHelper.h"
 #import "WLDrawingViewController.h"
-#import "PHPhotoLibrary+Helper.h"
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLImageEditorSession.h"
 
@@ -90,7 +88,7 @@
                 }];
             } else {
                 [menu addReportItem:^(Candy *candy) {
-                    ReportViewController *controller = [[UIStoryboard storyboardNamed:WLMainStoryboard] instantiateViewControllerWithIdentifier:@"report"];;
+                    ReportViewController *controller = [UIStoryboard main][@"report"];;
                     [controller setReportClosure:^(NSString * code, ReportViewController *controller) {
                         [[WLAPIRequest postCandy:candy violationCode:code] send:^(id object) {
                             [controller reportingFinished];

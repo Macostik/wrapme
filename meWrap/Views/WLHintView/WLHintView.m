@@ -7,7 +7,6 @@
 //
 
 #import "WLHintView.h"
-#import "WLNavigationHelper.h"
 #import "NSObject+NibAdditions.h"
 #import "WLButton.h"
 

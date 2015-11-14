@@ -9,7 +9,6 @@
 #import "WLOperationQueue.h"
 #import "WLCandyViewController.h"
 #import "WLHomeViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
 #import "WLUserView.h"
@@ -26,7 +25,6 @@
 #import "WLHistoryViewController.h"
 #import "WLWhatsUpSet.h"
 #import "SegmentedControl.h"
-#import "WLNavigationHelper.h"
 #import "WLHintView.h"
 #import "WLMessagesCounter.h"
 #import "WLUploadingQueue.h"
@@ -222,7 +220,7 @@
         static BOOL introductionShown = NO;
         if (!introductionShown) {
             introductionShown = YES;
-            WLIntroductionViewController *introduction = [[UIStoryboard storyboardNamed:WLIntroductionStoryboard] instantiateInitialViewController];
+            WLIntroductionViewController *introduction = [[UIStoryboard introduction] instantiateInitialViewController];
             introduction.delegate = self;
             [self presentViewController:introduction animated:NO completion:nil];
             return;
@@ -325,7 +323,7 @@
 
 - (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(Wrap *)wrap {
     self.streamView.userInteractionEnabled = YES;
-    WLWrapViewController *wrapViewController = [WLWrapViewController instantiate:self.storyboard];
+    WLWrapViewController *wrapViewController = self.storyboard[@"WLWrapViewController"];
     if (wrapViewController && wrap.valid) {
         wrapViewController.wrap = wrap;
         wrapViewController.segment = WLWrapSegmentChat;

@@ -7,7 +7,6 @@
 //
 
 #import "WLNotificationEntryPresenter.h"
-#import "WLNavigationHelper.h"
 
 @implementation WLNotificationEntryPresenter
 

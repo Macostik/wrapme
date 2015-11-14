@@ -9,7 +9,6 @@
 #import "WLBatchEditPictureViewController.h"
 #import "WLWrapView.h"
 #import "WLEditPictureViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLComposeBar.h"
 #import "WLImageEditorSession.h"
 #import "WLEditPictureCell.h"
@@ -182,7 +181,7 @@ static const int WLInstanceCommentLimit = 1500;
 }
 
 - (WLEditPictureViewController *)editPictureViewControllerForPicture:(MutableAsset *)picture {
-    WLEditPictureViewController *editPictureViewController = [WLEditPictureViewController instantiate:self.storyboard];
+    WLEditPictureViewController *editPictureViewController = self.storyboard[@"WLEditPictureViewController"];
     editPictureViewController.picture = picture;
     return editPictureViewController;
 }

@@ -7,7 +7,6 @@
 //
 
 #import "WLRemoteEntryHandler.h"
-#import "WLNavigationHelper.h"
 #import "WLNotificationEntryPresenter.h"
 #import "WLNotification.h"
 

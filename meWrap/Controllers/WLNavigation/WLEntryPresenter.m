@@ -7,7 +7,6 @@
 //
 
 #import "WLEntryPresenter.h"
-#import "WLNavigationHelper.h"
 #import "WLToast.h"
 #import "WLWrapViewController.h"
 #import "WLCandyViewController.h"
@@ -95,7 +94,7 @@
 @implementation Candy (WLEntryPresenter)
 
 - (UIViewController *)viewController {
-    WLHistoryViewController* controller = [WLHistoryViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
+    WLHistoryViewController* controller = [UIStoryboard main][@"WLHistoryViewController"];
     controller.candy = self;
     return controller;
 }
@@ -113,7 +112,7 @@
 - (UIViewController *)viewController {
     Wrap *wrap = self.wrap;
     if (wrap) {
-        WLWrapViewController* controller = [WLWrapViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
+        WLWrapViewController* controller = [UIStoryboard main][@"WLWrapViewController"];
         controller.wrap = wrap;
         controller.segment = WLWrapSegmentChat;
         return controller;
@@ -133,7 +132,7 @@
 @implementation Wrap (WLEntryPresenter)
 
 - (UIViewController *)viewController {
-    WLWrapViewController* controller = [WLWrapViewController instantiate:[UIStoryboard storyboardNamed:WLMainStoryboard]];
+    WLWrapViewController* controller = [UIStoryboard main][@"WLWrapViewController"];
     controller.wrap = self;
     return controller;
 }

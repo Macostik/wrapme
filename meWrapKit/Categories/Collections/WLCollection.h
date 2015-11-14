@@ -56,19 +56,19 @@ typedef void(^EnumBlock)(id item);
 
 @protocol WLBaseOrderedCollection <NSObject>
 
-@property (nonatomic, readonly) NSUInteger count;
+@property (nonatomic, readonly) NSInteger count;
 
-- (id)objectAtIndex:(NSUInteger)index;
+- (id)objectAtIndex:(NSInteger)index;
 
-- (id)tryAt:(NSUInteger)index;
+- (id)tryAt:(NSInteger)index;
 
 @end
 
 @protocol WLOrderedCollection <WLCollection, WLBaseOrderedCollection>
 
-- (BOOL)containsAt:(NSUInteger)index;
+- (BOOL)containsAt:(NSInteger)index;
 
-- (instancetype)insert:(id)object at:(NSUInteger)index;
+- (instancetype)insert:(id)object at:(NSInteger)index;
 
 - (instancetype)sort;
 

@@ -7,10 +7,8 @@
 //
 
 #import "WLToast.h"
-#import "WLNavigationHelper.h"
 #import "WLLabel.h"
 #import "NSObject+NibAdditions.h"
-#import "WLNavigationHelper.h"
 #import "UIColor+CustomColors.h"
 
 @implementation WLToastAppearance

@@ -7,7 +7,6 @@
 //
 
 #import "WLEditViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLButton.h"
 
 @interface WLEditViewController ()

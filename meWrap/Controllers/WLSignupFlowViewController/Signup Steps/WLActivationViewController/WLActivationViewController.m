@@ -10,7 +10,6 @@
 #import "WLProfileInformationViewController.h"
 #import "WLProgressBar+WLContribution.h"
 #import "WLHomeViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLButton.h"
 #import "WLSoundPlayer.h"
 #import "WLAlertView.h"

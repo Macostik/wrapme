@@ -34,3 +34,22 @@ extension UIViewController {
         removeFromParentViewController()
     }
 }
+
+extension UIViewController {
+    
+    func requestAuthorizationForPresentingEntry(entry: Entry, completion: WLBooleanBlock) {
+        completion(true)
+    }
+    
+    var isTopViewController: Bool {
+        return navigationController?.topViewController == self
+    }
+    
+//    func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+//        return [.Portrait, .PortraitUpsideDown]
+//    }
+    
+    @IBAction func back(sender: UIButton) {
+        navigationController?.popViewControllerAnimated(false)
+    }
+}

@@ -7,7 +7,6 @@
 //
 
 #import "WLImageEditorSession.h"
-#import "WLNavigationHelper.h"
 #import <AdobeCreativeSDKCore/AdobeCreativeSDKCore.h>
 #import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
 

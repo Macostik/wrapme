@@ -13,7 +13,6 @@
 #import "WLHintView.h"
 #import "WLToast.h"
 #import "WLCandyViewController.h"
-#import "WLNavigationHelper.h"
 #import "WLDownloadingView.h"
 #import "WLImageCache.h"
 #import "WLPresentingImageView.h"
@@ -21,7 +20,6 @@
 #import "WLAlertView.h"
 #import "WLDrawingViewController.h"
 #import "WLFollowingViewController.h"
-#import "PHPhotoLibrary+Helper.h"
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLImageEditorSession.h"
 #import "WLImageView.h"
@@ -459,7 +457,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (IBAction)report:(id)sender {
     Candy *candy = self.candy;
-    ReportViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"report"];
+    ReportViewController *controller = self.storyboard[@"report"];
     [controller setReportClosure:^(NSString * code, ReportViewController *controller) {
         [[WLAPIRequest postCandy:candy violationCode:code] send:^(id object) {
             [controller reportingFinished];
@@ -512,7 +510,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         }
         [weakSelf setBarsHidden:YES animated:YES];
         [self applyScaleToCandyViewController:YES];
-        WLCommentsViewController *controller = [WLCommentsViewController instantiate:weakSelf.storyboard];
+        WLCommentsViewController *controller = weakSelf.storyboard[@"WLCommentsViewController"];
         controller.candy = weakSelf.candy;
         [controller presentForController:weakSelf animated:YES];
     }];
@@ -553,7 +551,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     }
     WLCandyViewController *candyViewController = [self.cachedCandyViewControllers objectForKey:candy];
     if (!candyViewController) {
-        candyViewController = [WLCandyViewController instantiate:self.storyboard];
+        candyViewController = self.storyboard[@"WLCandyViewController"];
         candyViewController.candy = candy;
         [self.cachedCandyViewControllers setObject:candyViewController forKey:candy];
     }

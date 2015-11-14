@@ -9,6 +9,19 @@
 import UIKit
 
 extension UINavigationController {
+    
+    @nonobjc private static var _mainNavigationController: UINavigationController? {
+        if let controller = UIWindow.mainWindow?.rootViewController as? UINavigationController {
+            return controller
+        } else {
+            return nil
+        }
+    }
+        
+    class func mainNavigationController() -> UINavigationController? {
+        return _mainNavigationController
+    }
+    
     public override func shouldAutorotate() -> Bool {
         return true
     }

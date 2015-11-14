@@ -137,16 +137,16 @@
 
 #pragma mark - StreamViewDelegate
 
-- (NSUInteger)streamViewNumberOfSections:(StreamView * __nonnull)streamView {
+- (NSInteger)streamViewNumberOfSections:(StreamView * __nonnull)streamView {
 	return [self.filteredAddressBook.groups count];
 }
 
-- (NSUInteger)streamView:(StreamView * __nonnull)streamView numberOfItemsInSection:(NSUInteger)section {
+- (NSInteger)streamView:(StreamView * __nonnull)streamView numberOfItemsInSection:(NSInteger)section {
     WLArrangedAddressBookGroup *group = self.filteredAddressBook.groups[section];
 	return [group.records count];
 }
 
-- (NSArray *)streamView:(StreamView * __nonnull)streamView headerMetricsInSection:(NSUInteger)section {
+- (NSArray *)streamView:(StreamView * __nonnull)streamView headerMetricsInSection:(NSInteger)section {
     return @[self.sectionHeaderMetrics];
 }
 

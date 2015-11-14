@@ -17,7 +17,6 @@
 #import "WLAlertView.h"
 #import <AWSS3/AWSS3.h>
 #import "WLEntryDescriptor.h"
-#import "PHPhotoLibrary+Helper.h"
 
 @implementation Entry (WLAPIManager)
 

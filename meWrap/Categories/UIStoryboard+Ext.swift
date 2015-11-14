@@ -10,25 +10,25 @@ import UIKit
 
 extension UIStoryboard {
     
-    @nonobjc private static weak var _main = UIStoryboard(name: "Main", bundle: nil)
+    @nonobjc private static var _main = UIStoryboard(name: "Main", bundle: nil)
     
     class func main() -> UIStoryboard? {
         return _main
     }
     
-    @nonobjc private static weak var _signUp = UIStoryboard(name: "SignUp", bundle: nil)
+    @nonobjc private static var _signUp = UIStoryboard(name: "SignUp", bundle: nil)
     
     class func signUp() -> UIStoryboard? {
         return _signUp
     }
     
-    @nonobjc private static weak var _camera = UIStoryboard(name: "Camera", bundle: nil)
+    @nonobjc private static var _camera = UIStoryboard(name: "Camera", bundle: nil)
     
     class func camera() -> UIStoryboard? {
         return _camera
     }
     
-    @nonobjc private static weak var _introduction = UIStoryboard(name: "Introduction", bundle: nil)
+    @nonobjc private static var _introduction = UIStoryboard(name: "Introduction", bundle: nil)
     
     class func introduction() -> UIStoryboard? {
         return _introduction

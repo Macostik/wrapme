@@ -77,7 +77,6 @@
         self.verificationEmailTextView.attributedText = [WLChangeProfileViewController verificationSuggestion:unconfirmed_email];
     }
     self.emailConfirmationView.hidden = !unconfirmed_email.nonempty;
-
 }
 
 - (void)setupEditableUserInterface {

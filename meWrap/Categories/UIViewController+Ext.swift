@@ -37,10 +37,6 @@ extension UIViewController {
 
 extension UIViewController {
     
-    func requestAuthorizationForPresentingEntry(entry: Entry, completion: WLBooleanBlock) {
-        completion(true)
-    }
-    
     var isTopViewController: Bool {
         return navigationController?.topViewController == self
     }

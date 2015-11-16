@@ -13,7 +13,6 @@
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
 #import "SegmentedControl.h"
-#import "WLEntryPresenter.h"
 #import "WLChatViewController.h"
 #import "WLContributorsViewController.h"
 #import "WLWhatsUpSet.h"

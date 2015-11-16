@@ -7,7 +7,6 @@
 //
 
 #import "WLRemoteEntryHandler.h"
-#import "WLNotificationEntryPresenter.h"
 #import "WLNotification.h"
 
 @interface WLRemoteEntryHandler ()
@@ -36,7 +35,7 @@
 - (BOOL)presentEntry:(Entry *)entry animated:(BOOL)animated {
     if (_isLoaded) {
         if (entry.valid) {
-            [WLNotificationEntryPresenter presentEntryRequestingAuthorization:entry animated:animated];
+            [NotificationEntryPresenter presentEntryRequestingAuthorization:entry animated:animated];
             self.entryReference = nil;
         }
     }

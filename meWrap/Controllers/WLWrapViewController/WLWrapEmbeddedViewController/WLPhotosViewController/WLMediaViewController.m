@@ -12,7 +12,6 @@
 #import "WLWrapCell.h"
 #import "WLCandyCell.h"
 #import "NSObject+NibAdditions.h"
-#import "WLChronologicalEntryPresenter.h"
 #import "WLPresentingImageView.h"
 #import "WLHistoryViewController.h"
 #import "WLMediaViewController.h"
@@ -65,11 +64,11 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
                     [presentingImageView presentCandy:candy fromView:item.view success:^(WLPresentingImageView *presetingImageView) {
                         [weakSelf.navigationController pushViewController:historyViewController animated:NO];
                     } failure:^(NSError *error) {
-                        [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
+                        [ChronologicalEntryPresenter presentEntry:candy animated:YES];
                     }];
                 }
             } else {
-                [WLChronologicalEntryPresenter presentEntry:candy animated:YES];
+                [ChronologicalEntryPresenter presentEntry:candy animated:YES];
             }
         }];
     }];

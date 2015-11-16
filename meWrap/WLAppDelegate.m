@@ -21,7 +21,6 @@
 #import "WLAddressBook.h"
 #import "WLNotification.h"
 #import "WLAlertView.h"
-#import "WLEntryPresenter.h"
 #import "WLWrapViewController.h"
 #import "CocoaLumberjack.h"
 #import "WLAuthorizationRequest.h"

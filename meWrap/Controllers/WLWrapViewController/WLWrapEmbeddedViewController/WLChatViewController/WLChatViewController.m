@@ -16,7 +16,6 @@
 #import "WLFontPresetter.h"
 #import "WLMessageDateView.h"
 #import "WLWrapViewController.h"
-#import "WLEntryPresenter.h"
 #import "WLToast.h"
 #import "WLBadgeLabel.h"
 #import "WLMessagesCounter.h"

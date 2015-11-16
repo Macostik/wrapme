@@ -9,7 +9,6 @@
 #import "WLCandiesCell.h"
 #import "WLCandyCell.h"
 #import "NSObject+NibAdditions.h"
-#import "WLChronologicalEntryPresenter.h"
 #import "WLHistoryItem.h"
 
 @interface WLCandiesCell ()

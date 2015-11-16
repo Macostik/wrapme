@@ -115,7 +115,9 @@ class WhatsUpViewController: WLBaseViewController {
     }
     
     func itemSelected(item: StreamItem?, entry: AnyObject?) {
-//        [WLChronologicalEntryPresenter presentEntry:event.contribution animated:YES];
+        if let event = entry as? WhatsUpEvent {
+            ChronologicalEntryPresenter.presentEntry(event.contribution, animated: true)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {

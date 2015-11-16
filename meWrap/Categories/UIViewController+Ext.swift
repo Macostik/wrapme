@@ -45,10 +45,6 @@ extension UIViewController {
         return navigationController?.topViewController == self
     }
     
-//    func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-//        return [.Portrait, .PortraitUpsideDown]
-//    }
-    
     @IBAction func back(sender: UIButton) {
         navigationController?.popViewControllerAnimated(false)
     }

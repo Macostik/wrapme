@@ -35,8 +35,11 @@
 
 @dynamic editSession;
 
-+ (NSAttributedString *)attributedVerificationSuggestion {
-    NSString *email = [[Authorization currentAuthorization] unconfirmed_email];
++ (NSAttributedString *)verificationSuggestion {
+    return [self verificationSuggestion:[[Authorization currentAuthorization] unconfirmed_email]];
+}
+
++ (NSAttributedString *)verificationSuggestion:(NSString*)email {
     NSMutableAttributedString *emailVerificationString = [[NSMutableAttributedString alloc] initWithString:
                                                           [[NSString alloc] initWithFormat:@"formatted_verification_email_text".ls, email]];
     NSRange fullRange = NSMakeRange(0, emailVerificationString.length);
@@ -69,8 +72,12 @@
 }
 
 - (void)updateEmailConfirmationView {
-    self.verificationEmailTextView.attributedText = [WLChangeProfileViewController attributedVerificationSuggestion];
-    self.emailConfirmationView.hidden = ![Authorization currentAuthorization].unconfirmed_email.nonempty;
+    NSString *unconfirmed_email = [Authorization currentAuthorization].unconfirmed_email;
+    if (unconfirmed_email.nonempty) {
+        self.verificationEmailTextView.attributedText = [WLChangeProfileViewController verificationSuggestion:unconfirmed_email];
+    }
+    self.emailConfirmationView.hidden = !unconfirmed_email.nonempty;
+
 }
 
 - (void)setupEditableUserInterface {
@@ -164,7 +171,7 @@
 #pragma mark -  WLFontPresetterReceiver
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
-      self.verificationEmailTextView.attributedText = [WLChangeProfileViewController attributedVerificationSuggestion];
+      self.verificationEmailTextView.attributedText = [WLChangeProfileViewController verificationSuggestion];
 }
 
 #pragma mark - WLBroadcastReceiver

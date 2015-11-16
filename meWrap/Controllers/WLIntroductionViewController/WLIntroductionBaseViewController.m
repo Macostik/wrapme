@@ -14,6 +14,10 @@
 
 @implementation WLIntroductionBaseViewController
 
+- (BOOL)shouldUsePreferredViewFrame {
+    return NO;
+}
+
 - (IBAction)continueIntroduction:(id)sender {
     [self.delegate introductionBaseViewControllerDidContinueIntroduction:self];
 }

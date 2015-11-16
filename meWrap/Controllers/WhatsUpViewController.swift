@@ -37,7 +37,7 @@ class CommentWhatsUpCell: WhatsUpCell {
         if let event = entry as? WhatsUpEvent, let comment = event.contribution as? Comment {
             super.setup(entry)
             pictureView.url = comment.contributor?.picture?.small
-            userNameLabel.text = "\(comment.contributor?.name):"
+            userNameLabel.text = "\(comment.contributor?.name ?? ""):"
             inWrapLabel.text = comment.candy?.wrap?.name
             textView.text = comment.text
         }

@@ -124,7 +124,7 @@ struct ReportItem {
     }
 }
 
-class ReportViewController : UIViewController {
+class ReportViewController : WLBaseViewController {
     weak var candy:AnyObject?
     private var reportList:NSArray?
     @IBOutlet weak var doneButton: UIButton!

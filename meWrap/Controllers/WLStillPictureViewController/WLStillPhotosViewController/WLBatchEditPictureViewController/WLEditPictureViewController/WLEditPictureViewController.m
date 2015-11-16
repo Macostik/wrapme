@@ -28,6 +28,10 @@
     [self updateDeletionState];
 }
 
+- (BOOL)shouldUsePreferredViewFrame {
+    return NO;
+}
+
 - (void)updateDeletionState {
     self.deletionView.hidden = !self.picture.deleted;
 }

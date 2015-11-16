@@ -259,7 +259,7 @@
 - (void)updateEmailConfirmationView:(BOOL)animated {
     BOOL hidden = ([[[NSUserDefaults standardUserDefaults] confirmationDate] isToday] || ![[Authorization currentAuthorization] unconfirmed_email].nonempty);
     if (!hidden) {
-        self.verificationEmailLabel.attributedText = [WLChangeProfileViewController attributedVerificationSuggestion];
+        self.verificationEmailLabel.attributedText = [WLChangeProfileViewController verificationSuggestion];
         [self deadlineEmailConfirmationView];
     }
     [self setEmailConfirmationViewHidden:hidden animated:animated];

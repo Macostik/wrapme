@@ -25,11 +25,7 @@ class Entry: NSManagedObject {
     }
     
     override var description: String {
-        return "\(self.dynamicType.displayName()): \(identifier)"
-    }
-    
-    class func displayName() -> String {
-        return ""
+        return "\(self.dynamicType.entityName()): \(identifier ?? "no_uid")"
     }
     
     func compare(entry: Entry) -> NSComparisonResult {
@@ -49,11 +45,11 @@ class Entry: NSManagedObject {
     }
     
     class func entries() -> [Entry]? {
-        return self.fetch().execute() as? [Entry]
+        return fetch().execute() as? [Entry]
     }
     
     class func fetch() -> NSFetchRequest {
-        return NSFetchRequest.fetch(self.entityName())
+        return NSFetchRequest.fetch(entityName())
     }
     
     class func deserializeReference(reference: [String : String]) -> Self? {

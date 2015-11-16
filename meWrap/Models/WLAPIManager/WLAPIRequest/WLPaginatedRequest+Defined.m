@@ -58,9 +58,7 @@
         [parameters trySetObject:[[NSTimeZone localTimeZone] name] forKey:@"tz"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
-            NSArray* candies = [Candy mappedEntries:[Candy API_prefetchArray:response.data[WLCandiesKey]] container:wrap];
-            [[wrap mutableCandies] addObjectsFromArray:candies];
-            success(candies);
+            success([Candy mappedEntries:[Candy API_prefetchArray:response.data[WLCandiesKey]] container:wrap]);
         } else {
             success(nil);
         }

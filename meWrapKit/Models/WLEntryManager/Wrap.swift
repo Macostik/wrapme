@@ -70,14 +70,9 @@ class Wrap: Contribution {
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        guard let keyPath = keyPath else {
-            return
-        }
-        switch keyPath {
-        case "comments":
+        if keyPath == "candies" {
             _recentCandies = nil
             _cover = nil
-        default: break
         }
     }
     
@@ -112,14 +107,6 @@ class Wrap: Contribution {
     
     var requiresFollowing: Bool {
         return isPublic && !isContributing
-    }
-    
-    var mutableCandies: NSMutableSet {
-        return mutableSetValueForKey("candies")
-    }
-    
-    var mutableMessages: NSMutableSet {
-        return mutableSetValueForKey("messages")
     }
     
     var mutableContributors: NSMutableSet {

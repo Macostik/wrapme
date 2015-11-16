@@ -11,7 +11,7 @@
         <relationship name="candy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Candy" inverseName="comments" inverseEntity="Candy" syncable="YES"/>
     </entity>
     <entity name="Contribution" representedClassName="Contribution" parentEntity="Entry">
-        <attribute name="editedAt" optional="YES" attributeType="Date" defaultDateTimeInterval="467573520" syncable="YES"/>
+        <attribute name="editedAt" optional="YES" attributeType="Date" defaultDateTimeInterval="-952500480" syncable="YES"/>
         <relationship name="contributor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="contributions" inverseEntity="User" syncable="YES"/>
         <relationship name="editor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="editings" inverseEntity="User" syncable="YES"/>
         <relationship name="uploading" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Uploading" inverseName="contribution" inverseEntity="Uploading" syncable="YES"/>
@@ -26,11 +26,11 @@
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="devices" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Entry" representedClassName="Entry" isAbstract="YES">
-        <attribute name="createdAt" optional="YES" attributeType="Date" defaultDateTimeInterval="467573580" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" defaultDateTimeInterval="-952500420" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picture" optional="YES" attributeType="Transformable" valueTransformerName="pictureTransformer" syncable="YES"/>
         <attribute name="unread" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" defaultDateTimeInterval="467573520" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" defaultDateTimeInterval="-952500480" syncable="YES"/>
         <attribute name="uploadIdentifier" optional="YES" attributeType="String" syncable="YES"/>
         <userInfo/>
     </entity>

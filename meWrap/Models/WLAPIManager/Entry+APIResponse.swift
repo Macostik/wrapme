@@ -59,10 +59,11 @@ extension Entry {
     }
     
     func map(dictionary: [String:AnyObject], container: Entry?) {
+        
         if let createdAt = dictionary.dateForKey(WLContributedAtKey) where self.createdAt != createdAt {
             self.createdAt = createdAt
         }
-        if let updatedAt = dictionary.dateForKey(WLLastTouchedAtKey) where self.updatedAt != updatedAt || updatedAt.later(self.updatedAt) {
+        if let updatedAt = dictionary.dateForKey(WLLastTouchedAtKey) where updatedAt.later(self.updatedAt) {
             self.updatedAt = updatedAt
         }
         if let uid = self.dynamicType.uid(dictionary) where uid != self.identifier {
@@ -228,8 +229,7 @@ extension Wrap {
         }
         
         if let array = dictionary[WLCandiesKey] as? [[String : AnyObject]] {
-            let candies = Set(Candy.mappedEntries(array))
-            mutableCandies.unionSet(candies)
+            Candy.mappedEntries(array, container: self)
         }
         
         super.map(dictionary, container: container)
@@ -250,11 +250,7 @@ extension Candy {
         }
         
         if let array = dictionary[WLCommentsKey] as? [[String : AnyObject]] {
-            let comments = Set(Comment.mappedEntries(array))
-            mutableComments.unionSet(comments)
-        }
-        if picture == nil {
-            print("picture == nil")
+            Comment.mappedEntries(array, container: self)
         }
         switch mediaType {
         case .Photo:
@@ -279,8 +275,11 @@ extension Candy {
             }
         }
         
-        if let commentCount = dictionary[WLCommentCountKey] as? Int16 where (self.commentCount < commentCount) {
-            self.commentCount = commentCount
+        if let commentCount = dictionary[WLCommentCountKey] as? Int {
+            let commentCount = Int16(commentCount)
+            if self.commentCount < commentCount {
+                self.commentCount = commentCount
+            }
         }
         
         super.map(dictionary, container: container)

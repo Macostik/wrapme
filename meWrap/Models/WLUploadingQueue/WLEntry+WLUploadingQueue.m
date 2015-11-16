@@ -58,10 +58,8 @@
     candy.wrap = self;
     candy.picture = [picture uploadablePicture:YES];
     if (picture.comment.nonempty) {
-        [[candy mutableComments] addObject:[Comment comment:picture.comment]];
+        [Comment comment:picture.comment].candy = candy;
     }
-    [[self mutableCandies] addObject:candy];
-    [self touch];
     [candy notifyOnAddition];
     [WLUploadingQueue upload:[Uploading uploading:candy] success:success failure:failure];
 }
@@ -90,8 +88,7 @@
     Comment *comment = [Comment comment:text];
     Uploading *uploading = [Uploading uploading:comment];
     self.commentCount++;
-    [[self mutableComments] addObject:comment];
-    [self touch];
+    comment.candy = self;
     [comment notifyOnAddition];
     run_after(0.3f,^{
         [WLUploadingQueue upload:uploading success:success failure:failure];

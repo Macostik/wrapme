@@ -344,7 +344,7 @@
 }
 
 - (void)prepareForDeletion {
-    [[self.wrap mutableCandies] removeObject:self];
+    self.wrap = nil;
     [super prepareForDeletion];
 }
 
@@ -498,7 +498,7 @@
 }
 
 - (void)prepareForDeletion {
-    [[self.wrap mutableMessages] removeObject:self];
+    self.wrap = nil;
     [super prepareForDeletion];
 }
 
@@ -517,7 +517,7 @@
 }
 
 - (void)prepareForDeletion {
-    [[self.candy mutableComments] removeObject:self];
+    self.candy = nil;
     [super prepareForDeletion];
 }
 

@@ -73,15 +73,10 @@ class Candy: Contribution {
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        guard let keyPath = keyPath else {
-            return
-        }
-        switch keyPath {
-            case "comments":
+        if keyPath == "comments" {
             _latestComment = nil
-            case "updatedAt":
+        } else if keyPath == "updatedAt" {
             wrap?.recentCandies = nil
-        default: break
         }
     }
     
@@ -118,9 +113,5 @@ class Candy: Contribution {
     
     var isVideo: Bool {
         return mediaType == .Video
-    }
-    
-    var mutableComments: NSMutableSet {
-        return mutableSetValueForKey("comments")
     }
 }

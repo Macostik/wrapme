@@ -221,6 +221,7 @@
 		C583A40F1AE79DCE0024003F /* WLTestUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = C583A4051AE79DCE0024003F /* WLTestUsers.plist */; };
 		C58483E01BF22E8E00DAE7E9 /* CATransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58483DF1BF22E8E00DAE7E9 /* CATransition+Ext.swift */; };
 		C58483E11BF22E8E00DAE7E9 /* CATransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58483DF1BF22E8E00DAE7E9 /* CATransition+Ext.swift */; };
+		C5861A671BFA07E300C64663 /* libmbl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5861A661BFA07E300C64663 /* libmbl.a */; };
 		C58AB9991B1384F300932272 /* WLWhatsUpSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C58AB9951B1384F300932272 /* WLWhatsUpSet.m */; };
 		C5994D8A1B78894A0066A597 /* meWrapToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5BF1B2481A49A683000BB2C1 /* meWrapToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C59EF3C31B7A215700E777BC /* WLFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C59EF3C11B7A215700E777BC /* WLFollowingViewController.m */; };
@@ -845,6 +846,11 @@
 		C581680119F169D90081F350 /* WLBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLBaseViewController.m; path = WLBaseViewController/WLBaseViewController.m; sourceTree = "<group>"; };
 		C583A4051AE79DCE0024003F /* WLTestUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WLTestUsers.plist; sourceTree = "<group>"; };
 		C58483DF1BF22E8E00DAE7E9 /* CATransition+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CATransition+Ext.swift"; path = "meWrapKit/Categories/CATransition+Ext.swift"; sourceTree = SOURCE_ROOT; };
+		C5861A621BFA07E300C64663 /* AudioConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioConfig.h; sourceTree = "<group>"; };
+		C5861A631BFA07E300C64663 /* Streamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Streamer.h; sourceTree = "<group>"; };
+		C5861A641BFA07E300C64663 /* CameraInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraInfo.h; sourceTree = "<group>"; };
+		C5861A651BFA07E300C64663 /* VideoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoConfig.h; sourceTree = "<group>"; };
+		C5861A661BFA07E300C64663 /* libmbl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmbl.a; sourceTree = "<group>"; };
 		C58AB9941B1384F300932272 /* WLWhatsUpSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWhatsUpSet.h; sourceTree = "<group>"; };
 		C58AB9951B1384F300932272 /* WLWhatsUpSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWhatsUpSet.m; sourceTree = "<group>"; };
 		C59EF3C01B7A215700E777BC /* WLFollowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLFollowingViewController.h; sourceTree = "<group>"; };
@@ -1150,6 +1156,7 @@
 				C560B1601AE69F7D0010B2EC /* AdobeCreativeSDKCore.framework in Frameworks */,
 				C54AF71019B8C491006F7EDB /* MessageUI.framework in Frameworks */,
 				C54AF71319B8C491006F7EDB /* SystemConfiguration.framework in Frameworks */,
+				C5861A671BFA07E300C64663 /* libmbl.a in Frameworks */,
 				C54AF71419B8C491006F7EDB /* CFNetwork.framework in Frameworks */,
 				C54AF71519B8C491006F7EDB /* CoreGraphics.framework in Frameworks */,
 				C54AF71619B8C491006F7EDB /* UIKit.framework in Frameworks */,
@@ -1249,6 +1256,7 @@
 		12A7A70118DA0945008FF6F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5861A581BFA079F00C64663 /* MBL */,
 				C57CB2A71BAAE5040050FBF7 /* libsqlite3.0.tbd */,
 				C57CB2A51BAAE4F60050FBF7 /* libz.tbd */,
 				C57CB2A31BAAE4ED0050FBF7 /* libc++.tbd */,
@@ -2321,6 +2329,19 @@
 				C583A4051AE79DCE0024003F /* WLTestUsers.plist */,
 			);
 			path = "Test Users";
+			sourceTree = "<group>";
+		};
+		C5861A581BFA079F00C64663 /* MBL */ = {
+			isa = PBXGroup;
+			children = (
+				C5861A621BFA07E300C64663 /* AudioConfig.h */,
+				C5861A631BFA07E300C64663 /* Streamer.h */,
+				C5861A641BFA07E300C64663 /* CameraInfo.h */,
+				C5861A651BFA07E300C64663 /* VideoConfig.h */,
+				C5861A661BFA07E300C64663 /* libmbl.a */,
+			);
+			name = MBL;
+			path = Frameworks/MBL;
 			sourceTree = "<group>";
 		};
 		C58AB9931B1384D800932272 /* WLWhatsUpSet */ = {
@@ -4079,6 +4100,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/MBL",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4137,6 +4159,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/MBL",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4455,6 +4478,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/MBL",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

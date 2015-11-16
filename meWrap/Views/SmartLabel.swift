@@ -32,7 +32,7 @@ func ==(lhs: CheckingType, rhs: CheckingType) -> Bool {
 
 let kPadding: CGFloat = 5.0
 
-class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate,  MFMessageComposeViewControllerDelegate {
+class SmartLabel : WLLabel, UIGestureRecognizerDelegate,  MFMailComposeViewControllerDelegate {
   
     lazy var linkContainer = Set<CheckingType>()
     var bufferAttributedString: NSAttributedString?
@@ -40,7 +40,6 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     var selectedLink: CheckingType?
     var tapGesture: UITapGestureRecognizer?
     var longPress: UILongPressGestureRecognizer?
-    var handlerActionSheet: ((Int) -> Void)?
     
     override var text: String? {
         get { return super.text }
@@ -171,12 +170,7 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
         if  (selectedLink?.result.resultType == .Link) {
             if let link = selectedLink?.link {
                 if (link.isValidEmail) {
-                    if (MFMessageComposeViewController.canSendText()) {
-                        let messageComposeVC = MFMessageComposeViewController()
-                        messageComposeVC.messageComposeDelegate = self
-                        messageComposeVC.recipients = [link]
-                        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(messageComposeVC, animated: true, completion: nil)
-                    }
+                   sendMessage(link)
                 } else if let url = validUrl(link) {
                     UIApplication.sharedApplication().openURL(url)
                 }
@@ -187,37 +181,48 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     func longPress(sender: UILongPressGestureRecognizer) {
         if (sender.state == .Began) {
             guard let link = selectedLink?.link else { return }
-            let buttonTitles = ["url_open_in_safari".ls,
-                                "url_add_to_reading_list".ls,
-                                "copy".ls]
-            let actionSheet = UIActionSheet(title: link,
-                delegate: self,
-                cancelButtonTitle: "cancel".ls,
-                destructiveButtonTitle: nil)
-            if let link = selectedLink?.link where link.isValidEmail {
-                actionSheet.addButtonWithTitle(buttonTitles.last)
+            guard let url = validUrl(link) else { return }
+            let actionSheetController = UIAlertController(title: link, message: nil, preferredStyle: .ActionSheet)
+            let cancelAction = UIAlertAction(title: "cancel".ls, style: .Cancel, handler: { (action) -> Void in
+                actionSheetController.dismissViewControllerAnimated(true, completion: nil)
+            })
+            let copyAction = UIAlertAction(title: "copy".ls , style: .Default, handler: { (action) -> Void in
+                UIPasteboard.generalPasteboard().string = link
+            })
+            
+            let openInSafariAction = UIAlertAction(title: "url_open_in_safari".ls, style: .Default, handler: { (action) -> Void in
+                UIApplication.sharedApplication().openURL(url);
+            })
+            
+            let sendMessageAction = UIAlertAction(title: "send_message".ls, style: .Default, handler: { (action) -> Void in
+                UIApplication.sharedApplication().openURL(url);
+            })
+        
+            let addReadingListAction = UIAlertAction(title: "url_add_to_reading_list".ls, style: .Default, handler: { (action) -> Void in
+                do {
+                    try SSReadingList.defaultReadingList()?.addReadingListItemWithURL(url, title: nil, previewText: nil)
+                } catch _ {}
+            })
+            
+            actionSheetController.addAction(cancelAction)
+            actionSheetController.addAction(copyAction)
+            if (link.isValidEmail) {
+                actionSheetController.addAction(sendMessageAction)
             } else {
-                for title in buttonTitles {
-                    actionSheet.addButtonWithTitle(title)
-                }
+                actionSheetController.addAction(openInSafariAction)
+                actionSheetController.addAction(addReadingListAction)
             }
-            actionSheet.showInView(self.window!)
-            handlerActionSheet = { [weak self] in
-                if (link.isValidEmail) {
-                    UIPasteboard.generalPasteboard().string = link
-                } else {
-                    guard let url = self!.validUrl(link) else { return }
-                    if ($0 == 1) {
-                        UIApplication.sharedApplication().openURL(url);
-                    } else if ($0 == 2) {
-                        do {
-                            try SSReadingList.defaultReadingList()?.addReadingListItemWithURL(url, title: nil, previewText: nil)
-                        } catch _ {}
-                    } else {
-                        UIPasteboard.generalPasteboard().string = url.absoluteString
-                    }
-                }
-            }
+    
+             UINavigationController.mainNavigationController()?.presentViewController(actionSheetController, animated: true, completion: nil)
+        }
+    }
+    
+    func sendMessage(link: String) {
+        if (MFMailComposeViewController.canSendMail()) {
+            let mailComposeVC = MFMailComposeViewController()
+            mailComposeVC.mailComposeDelegate = self
+            mailComposeVC.setToRecipients([link])
+            UINavigationController.mainNavigationController()?.presentViewController(mailComposeVC, animated: true, completion: nil)
         }
     }
     
@@ -230,18 +235,9 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
         return NSURL(string: link)
     }
     
-    //MARK: MFMessageComposeViewControllerDelegate
+    //MARK: MFMailComposeViewControllerDelegate
     
-    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         controller.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    //MARK: UIActionSheetDelegate
-    
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if let handlerActionSheet: (Int) -> Void = handlerActionSheet {
-            handlerActionSheet(buttonIndex)
-        }
-        handlerActionSheet = nil
     }
 }

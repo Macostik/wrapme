@@ -117,7 +117,6 @@
 		C54731BA1B906A7400B583FD /* WLQuickAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731A11B906A7400B583FD /* WLQuickAssetsViewController.m */; };
 		C54731BC1B906A7400B583FD /* WLStillPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731A31B906A7400B583FD /* WLStillPhotosViewController.m */; };
 		C54731BE1B906A7400B583FD /* WLWrapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731A61B906A7400B583FD /* WLWrapPickerViewController.m */; };
-		C54731C31B906AFA00B583FD /* WLCameraAdjustmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C54731C11B906AFA00B583FD /* WLCameraAdjustmentView.m */; };
 		C54731C61B9086DB00B583FD /* WLCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C54731C41B9086DB00B583FD /* WLCommentCell.xib */; };
 		C5475B501AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */; };
 		C5475B541AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B521AC59ABC00F9E8B3 /* WLTodayCommentCell.m */; };
@@ -744,8 +743,6 @@
 		C54731A31B906A7400B583FD /* WLStillPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLStillPhotosViewController.m; sourceTree = "<group>"; };
 		C54731A51B906A7400B583FD /* WLWrapPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWrapPickerViewController.h; sourceTree = "<group>"; };
 		C54731A61B906A7400B583FD /* WLWrapPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWrapPickerViewController.m; sourceTree = "<group>"; };
-		C54731C01B906AFA00B583FD /* WLCameraAdjustmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLCameraAdjustmentView.h; sourceTree = "<group>"; };
-		C54731C11B906AFA00B583FD /* WLCameraAdjustmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLCameraAdjustmentView.m; sourceTree = "<group>"; };
 		C54731C41B9086DB00B583FD /* WLCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCommentCell.xib; sourceTree = "<group>"; };
 		C5475B4D1AC596C500F9E8B3 /* WLTodayContributionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayContributionCell.h; sourceTree = "<group>"; };
 		C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayContributionCell.m; sourceTree = "<group>"; };
@@ -1981,7 +1978,6 @@
 		C53E5D501A851F71004F61B0 /* WLCameraViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C54731BF1B906AFA00B583FD /* WLCameraAdjustmentView */,
 				C53E5D591A851F71004F61B0 /* WLFlashSettingsControl */,
 				C53E5D571A851F71004F61B0 /* WLCameraViewController.h */,
 				C53E5D581A851F71004F61B0 /* WLCameraViewController.m */,
@@ -2103,15 +2099,6 @@
 				C53012881BF4C3A900098F9C /* WrapPickerDataSource.swift */,
 			);
 			path = WLWrapPickerViewController;
-			sourceTree = "<group>";
-		};
-		C54731BF1B906AFA00B583FD /* WLCameraAdjustmentView */ = {
-			isa = PBXGroup;
-			children = (
-				C54731C01B906AFA00B583FD /* WLCameraAdjustmentView.h */,
-				C54731C11B906AFA00B583FD /* WLCameraAdjustmentView.m */,
-			);
-			path = WLCameraAdjustmentView;
 			sourceTree = "<group>";
 		};
 		C5475B4C1AC596A800F9E8B3 /* WLTodayContributionCell */ = {
@@ -3612,7 +3599,6 @@
 				C53E5CEB1A84D876004F61B0 /* WLUserView.m in Sources */,
 				C5AEE44B1B3AE770000C8CCF /* WLColorPicker.m in Sources */,
 				C5E6EA981BBAC3EC007FFA66 /* WLBlockImageFetching.m in Sources */,
-				C54731C31B906AFA00B583FD /* WLCameraAdjustmentView.m in Sources */,
 				C5C769901BAC10BF00B205CB /* WLPaginatedRequest.m in Sources */,
 				C5F076661BE26F0E00021FAE /* EntryContext.swift in Sources */,
 				C52E1FE51A41952400A2C370 /* WLTextView.m in Sources */,

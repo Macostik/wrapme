@@ -11,7 +11,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Resize.h"
 #import "WLFlashModeControl.h"
-#import "WLCameraAdjustmentView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceManager.h"
 #import "WLToast.h"
@@ -92,6 +91,8 @@
 @property (nonatomic) NSTimeInterval videoRecordingTimeLeft;
 
 @property (strong, nonatomic) NSString *videoFilePath;
+
+@property (weak, nonatomic) UIView *focusView;
 
 @end
 
@@ -285,15 +286,18 @@
 }
 
 - (IBAction)flashModeChanged:(WLFlashModeControl *)sender {
-	self.flashMode = sender.mode;
-	if (self.flashMode != sender.mode) {
-        run_after_asap(^{
-            sender.mode = self.flashMode;
-        });
-	}
-    if (self.mode == WLStillPictureModeDefault) {
-        [NSUserDefaults standardUserDefaults].cameraDefaultFlashMode = @(self.flashMode);
-    }
+    __weak typeof(self)weakSelf = self;
+    AVCaptureFlashMode flashMode = sender.mode;
+    [self configureDevice:^(AVCaptureDevice *device) {
+        if ([device isFlashModeSupported:flashMode]) {
+            device.flashMode = flashMode;
+            if (weakSelf.mode == WLStillPictureModeDefault) {
+                [NSUserDefaults standardUserDefaults].cameraDefaultFlashMode = @(flashMode);
+            }
+        } else {
+            sender.mode = device.flashMode;
+        }
+    }];
 }
 
 - (IBAction)rotateCamera:(id)sender {
@@ -322,18 +326,20 @@
         return;
     }
 	
-	for (UIView* subview in self.cameraView.subviews) {
-		if ([subview isKindOfClass:[WLCameraAdjustmentView class]]) {
-			[subview removeFromSuperview];
-		}
-	}
+    if (self.focusView) {
+        [self.focusView removeFromSuperview];
+    }
 	
 	CGPoint point = [sender locationInView:self.cameraView];
     [self autoFocusAndExposureAtPoint:point];
-	WLCameraAdjustmentView *focusView = [[WLCameraAdjustmentView alloc] initWithFrame:CGRectMake(0, 0, 67, 67)];
+	UIView *focusView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 67, 67)];
 	focusView.center = point;
 	focusView.userInteractionEnabled = NO;
+    focusView.backgroundColor = [UIColor clearColor];
+    focusView.borderColor = [WLColors.orange colorWithAlphaComponent:0.5f];
+    focusView.borderWidth = 1;
 	[self.cameraView addSubview:focusView];
+    self.focusView = focusView;
 	[UIView animateWithDuration:0.33f delay:1.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
 		focusView.alpha = 0.0f;
 	} completion:^(BOOL finished) {
@@ -485,7 +491,7 @@
     if (![self.session.outputs containsObject:self.stillImageOutput]) {
         self.takePhotoButton.userInteractionEnabled = NO;
         [self blurCamera:^(WLBlock completion) {
-            [self configureSession:^(AVCaptureSession *session) {
+            [weakSelf configureSession:^(AVCaptureSession *session) {
                 session.sessionPreset = AVCaptureSessionPresetPhoto;
                 [session removeInput:weakSelf.audioInput];
                 [session removeOutput:weakSelf.movieFileOutput];
@@ -494,7 +500,7 @@
                 }
             } completion:^{
                 weakSelf.cameraView.layer.videoGravity = AVLayerVideoGravityResizeAspect;
-                [weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
+                [weakSelf configureDevice:^(AVCaptureDevice *device) {
                     device.videoZoomFactor = Smoothstep(1, MIN(8, device.activeFormat.videoMaxZoomFactor), _zoomScale);
                     if ([device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
                         [device setFocusMode:AVCaptureFocusModeAutoFocus];
@@ -699,25 +705,22 @@
     });
 }
 
-- (void)configureDevice:(AVCaptureDevice*)device configuration:(void (^)(AVCaptureDevice* device))configuration {
-	if ([device lockForConfiguration:nil]) {
-		configuration(device);
-		[device unlockForConfiguration];
-	}
-}
-
-- (void)configureCurrentDevice:(void (^)(AVCaptureDevice* device))configuration {
-	[self configureDevice:self.videoInput.device configuration:configuration];
+- (void)configureDevice:(void (^)(AVCaptureDevice* device))configuration {
+    AVCaptureDevice *device = self.videoInput.device;
+    if ([device lockForConfiguration:nil]) {
+        configuration(device);
+        [device unlockForConfiguration];
+    }
 }
 
 - (void)setFlashMode:(AVCaptureFlashMode)flashMode {
-    __weak typeof(self)weakSelf = self;
-    [self configureSession:^(AVCaptureSession *session) {
-        [weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
+    [self configureDevice:^(AVCaptureDevice *device) {
+        if ([device lockForConfiguration:nil]) {
             if ([device isFlashModeSupported:flashMode]) {
                 device.flashMode = flashMode;
             }
-        }];
+            [device unlockForConfiguration];
+        }
     }];
 }
 
@@ -725,72 +728,19 @@
 	return self.videoInput.device.flashMode;
 }
 
-- (BOOL)flashSupported {
-    return self.videoInput.device.hasFlash;
-}
-
-- (void)autoFocusAtPoint:(CGPoint)point {
-	__weak typeof(self)weakSelf = self;
-	[self configureSession:^(AVCaptureSession *session) {
-		[weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
-			if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
-				[device setFocusPointOfInterest:[weakSelf pointOfInterestFromPoint:point]];
-				[device setFocusMode:AVCaptureFocusModeAutoFocus];
-			}
-		}];
-	}];
-}
-
-- (void)autoExposureAtPoint:(CGPoint)point {
-	__weak typeof(self)weakSelf = self;
-	[self configureSession:^(AVCaptureSession *session) {
-		[weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
-			if ([device isExposurePointOfInterestSupported] && [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
-				[device setExposurePointOfInterest:[weakSelf pointOfInterestFromPoint:point]];
-				[device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
-			}
-		}];
-	}];
-}
-
 - (void)autoFocusAndExposureAtPoint:(CGPoint)point {
-	__weak typeof(self)weakSelf = self;
-	[self configureSession:^(AVCaptureSession *session) {
-		[weakSelf configureCurrentDevice:^(AVCaptureDevice *device) {
-			CGPoint pointOfInterest = [weakSelf pointOfInterestFromPoint:point];
-			if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
-				[device setFocusPointOfInterest:pointOfInterest];
-				[device setFocusMode:AVCaptureFocusModeAutoFocus];
-			}
-			if ([device isExposurePointOfInterestSupported] && [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
-				[device setExposurePointOfInterest:pointOfInterest];
-				[device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
-			}
-		}];
-	}];
-}
-
-- (CGPoint)pointOfInterestFromPoint:(CGPoint)point {
-    CGSize frameSize = self.cameraView.frame.size;
-    CGSize apertureSize = CMVideoFormatDescriptionGetCleanAperture([[self videoPort] formatDescription], YES).size;
-	CGSize scaledImageSize = CGSizeThatFillsSize(frameSize, apertureSize);
-	CGRect visibleViewRect = CGRectThatFitsSize(scaledImageSize, frameSize);
-    point.x += visibleViewRect.origin.x;
-    point.y += visibleViewRect.origin.y;
-    if ([self.stillImageOutputConnection isVideoMirrored]) {
-        point.x = frameSize.width - point.x;
-    }
-	CGPoint pointOfInterest = CGPointMake(point.x/scaledImageSize.width, point.y/scaledImageSize.height);
-    return pointOfInterest;
-}
-
-- (AVCaptureInputPort*)videoPort {
-    for (AVCaptureInputPort *port in [self.videoInput ports]) {
-        if ([port mediaType] == AVMediaTypeVideo) {
-            return port;
+    __weak typeof(self)weakSelf = self;
+    [self configureDevice:^(AVCaptureDevice *device) {
+        CGPoint pointOfInterest = [weakSelf.cameraView.layer captureDevicePointOfInterestForPoint:point];
+        if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+            [device setFocusPointOfInterest:pointOfInterest];
+            [device setFocusMode:AVCaptureFocusModeAutoFocus];
         }
-    }
-    return nil;
+        if ([device isExposurePointOfInterestSupported] && [device isExposureModeSupported:AVCaptureExposureModeAutoExpose]) {
+            [device setExposurePointOfInterest:pointOfInterest];
+            [device setExposureMode:AVCaptureExposureModeAutoExpose];
+        }
+    }];
 }
 
 - (void)setZoomScale:(CGFloat)zoomScale {

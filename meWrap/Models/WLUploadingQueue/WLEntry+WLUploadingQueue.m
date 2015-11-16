@@ -101,13 +101,11 @@
 
 - (void)editWithImage:(UIImage*)image {
     if (self.valid) {
-        __weak typeof(self)weakSelf = self;
-        __block MutableAsset *picture = [[MutableAsset alloc] init];
-        [picture setImage:image completion:^(MutableAsset *picture) {
-            [weakSelf setEditedPictureIfNeeded:[picture uploadablePicture:NO]];
-            [weakSelf enqueueUpdate:^(NSError *error) {
-                [error show];
-            }];
+        MutableAsset *picture = [[MutableAsset alloc] init];
+        [picture setImage:image];
+        [self setEditedPictureIfNeeded:[picture uploadablePicture:NO]];
+        [self enqueueUpdate:^(NSError *error) {
+            [error show];
         }];
     }
 }

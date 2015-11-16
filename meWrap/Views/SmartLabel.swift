@@ -120,47 +120,51 @@ class SmartLabel : WLLabel, UIActionSheetDelegate, UIGestureRecognizerDelegate, 
     //MARK: UIGestureRecognizerDelegate
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if (gestureRecognizer == tapGesture || gestureRecognizer == longPress && !self.linkContainer.isEmpty) {
+        if (gestureRecognizer == tapGesture || gestureRecognizer == longPress) {
+            if  (self.linkContainer.isEmpty) { return false }
             selectedLink = nil
             let point = gestureRecognizer.locationInView(self)
-            let frameSetter = CTFramesetterCreateWithAttributedString(self.bufferAttributedString!)
-            var drawRect = self.bounds
-            drawRect.size.height += kPadding
-            let drawingPath = CGPathCreateWithRect(drawRect, nil)
-            guard let count = self.attributedText?.string.characters.count else { return false }
-            let textFrame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, count), drawingPath, nil)
-            let lines = CTFrameGetLines(textFrame)
-            let linesCount = CFArrayGetCount(lines)
-            for var counter : Int = 0; counter < linesCount; counter++ {
-                let line = CFArrayGetValueAtIndex(lines, counter)
-                let evaluateLine = unsafeBitCast(line, CTLineRef.self)
-                let runs = CTLineGetGlyphRuns(evaluateLine)
-                let finalRun = CFArrayGetValueAtIndex(runs, CFArrayGetCount(runs) - 1)
-                let _finalRuns = unsafeBitCast(finalRun, CTRun.self)
-                let runRange = CTRunGetStringRange(_finalRuns)
-                let _runRange = NSMakeRange(runRange.location, runRange.length)
-
-                for checkingResult in self.linkContainer {
-                    let compareRange = NSIntersectionRange(_runRange, checkingResult.result.range)
-                    if  (compareRange.length > 0)  {
-                        let originX = CTLineGetOffsetForStringIndex(evaluateLine, checkingResult.result.range.location, nil)
-                        let offsetX = CTLineGetOffsetForStringIndex(evaluateLine, checkingResult.result.range.location + checkingResult.result.range.length, nil)
-                        let finalLine = CFArrayGetValueAtIndex(lines, CFIndex(counter))
-                        let _finalLine = unsafeBitCast(finalLine, CTLineRef.self)
-                        let lineBounds = CTLineGetBoundsWithOptions(_finalLine, [.IncludeLanguageExtents])
-                        let finalRect = CGRectMake(originX, CGFloat(counter) * lineBounds.height, offsetX, lineBounds.height)
-                        if (CGRectContainsPoint(finalRect, point)) {
-                            if let checkingResult: CheckingType = checkingResult {
-                                selectedLink = checkingResult
-                                return true
-                            }
+            return isLinkedPoint(point)
+        }
+        return true
+    }
+    
+    func isLinkedPoint(point: CGPoint) -> Bool  {
+        let frameSetter = CTFramesetterCreateWithAttributedString(self.bufferAttributedString!)
+        var drawRect = self.bounds
+        drawRect.size.height += kPadding
+        let drawingPath = CGPathCreateWithRect(drawRect, nil)
+        guard let count = self.attributedText?.string.characters.count else { return false }
+        let textFrame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, count), drawingPath, nil)
+        let lines = CTFrameGetLines(textFrame)
+        let linesCount = CFArrayGetCount(lines)
+        for var counter : Int = 0; counter < linesCount; counter++ {
+            let line = CFArrayGetValueAtIndex(lines, counter)
+            let evaluateLine = unsafeBitCast(line, CTLineRef.self)
+            let runs = CTLineGetGlyphRuns(evaluateLine)
+            let finalRun = CFArrayGetValueAtIndex(runs, CFArrayGetCount(runs) - 1)
+            let _finalRuns = unsafeBitCast(finalRun, CTRun.self)
+            let runRange = CTRunGetStringRange(_finalRuns)
+            let _runRange = NSMakeRange(runRange.location, runRange.length)
+            for checkingResult in self.linkContainer {
+                let compareRange = NSIntersectionRange(_runRange, checkingResult.result.range)
+                if  (compareRange.length > 0)  {
+                    let originX = CTLineGetOffsetForStringIndex(evaluateLine, checkingResult.result.range.location, nil)
+                    let offsetX = CTLineGetOffsetForStringIndex(evaluateLine, checkingResult.result.range.location + checkingResult.result.range.length, nil)
+                    let finalLine = CFArrayGetValueAtIndex(lines, CFIndex(counter))
+                    let _finalLine = unsafeBitCast(finalLine, CTLineRef.self)
+                    let lineBounds = CTLineGetBoundsWithOptions(_finalLine, [.IncludeLanguageExtents])
+                    let finalRect = CGRectMake(originX, CGFloat(counter) * lineBounds.height, offsetX, lineBounds.height)
+                    if (CGRectContainsPoint(finalRect, point)) {
+                        if let checkingResult: CheckingType = checkingResult {
+                            selectedLink = checkingResult
+                            return true
                         }
                     }
                 }
             }
-            return false
         }
-        return true
+        return false
     }
     
     func tapLink(sender: UITapGestureRecognizer) {

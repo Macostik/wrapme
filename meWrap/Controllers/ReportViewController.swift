@@ -150,6 +150,7 @@ class ReportViewController : WLBaseViewController {
             }
         }
         dataSource.data = reportList
+        collectionView.reloadData()
     }
     
     @IBAction func done() {

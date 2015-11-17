@@ -14,7 +14,6 @@
 #import "WLAuthorizationRequest.h"
 #import "WLOperationQueue.h"
 #import "WLHistory.h"
-#import "WLAlertView.h"
 #import <AWSS3/AWSS3.h>
 #import "WLEntryDescriptor.h"
 

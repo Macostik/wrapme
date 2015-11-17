@@ -288,6 +288,12 @@
     [self presentViewController:stillPictureViewController animated:NO completion:nil];
 }
 
+- (void)mediaViewControllerDidOpenLiveBroadcast:(WLMediaViewController *)controller {
+    LiveBroadcastViewController *liveBroadcastController = self.storyboard[@"liveBroadcast"];
+    liveBroadcastController.wrap = self.wrap;
+    [self.navigationController presentViewController:liveBroadcastController animated:NO completion:nil];
+}
+
 // MARK: - WLWhatsUpSetBroadcastReceiver
 
 - (void)whatsUpBroadcaster:(WLBroadcaster *)broadcaster updated:(WLWhatsUpSet *)set {

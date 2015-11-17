@@ -11,7 +11,6 @@
 #import "WLToast.h"
 #import "WLHomeViewController.h"
 #import "WLHintView.h"
-#import "WLWrapView.h"
 #import "WLCameraViewController.h"
 #import "UIImage+Resize.h"
 

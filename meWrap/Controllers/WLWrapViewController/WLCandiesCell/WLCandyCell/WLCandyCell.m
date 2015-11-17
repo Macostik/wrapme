@@ -10,7 +10,6 @@
 #import "WLToast.h"
 #import "WLMenu.h"
 #import "WLDownloadingView.h"
-#import "WLAlertView.h"
 #import "WLDrawingViewController.h"
 #import "WLEntry+WLUploadingQueue.h"
 #import "WLImageEditorSession.h"
@@ -75,7 +74,7 @@
             
             if (candy.deletable) {
                 [menu addDeleteItem:^(Candy *candy) {
-                    [UIAlertController confirmCandyDeleting:candy success:^{
+                    [UIAlertController confirmCandyDeleting:candy success:^(UIAlertAction *action) {
                         weakSelf.userInteractionEnabled = NO;
                         [candy remove:^(id object) {
                             weakSelf.userInteractionEnabled = YES;

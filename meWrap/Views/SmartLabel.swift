@@ -182,38 +182,29 @@ class SmartLabel : WLLabel, UIGestureRecognizerDelegate,  MFMailComposeViewContr
         if (sender.state == .Began) {
             guard let link = selectedLink?.link else { return }
             guard let url = validUrl(link) else { return }
-            let actionSheetController = UIAlertController(title: link, message: nil, preferredStyle: .ActionSheet)
-            let cancelAction = UIAlertAction(title: "cancel".ls, style: .Cancel, handler: { (action) -> Void in
-                actionSheetController.dismissViewControllerAnimated(true, completion: nil)
-            })
-            let copyAction = UIAlertAction(title: "copy".ls , style: .Default, handler: { (action) -> Void in
+            
+            
+            let actionSheet = UIAlertController.actionSheet(link)
+            actionSheet.action("cancel".ls, style: .Cancel)
+            actionSheet.action("copy".ls, handler: { (action) -> Void in
                 UIPasteboard.generalPasteboard().string = link
             })
             
-            let openInSafariAction = UIAlertAction(title: "url_open_in_safari".ls, style: .Default, handler: { (action) -> Void in
-                UIApplication.sharedApplication().openURL(url);
-            })
-            
-            let sendMessageAction = UIAlertAction(title: "send_message".ls, style: .Default, handler: { (action) -> Void in
-                UIApplication.sharedApplication().openURL(url);
-            })
-        
-            let addReadingListAction = UIAlertAction(title: "url_add_to_reading_list".ls, style: .Default, handler: { (action) -> Void in
-                do {
-                    try SSReadingList.defaultReadingList()?.addReadingListItemWithURL(url, title: nil, previewText: nil)
-                } catch _ {}
-            })
-            
-            actionSheetController.addAction(cancelAction)
-            actionSheetController.addAction(copyAction)
-            if (link.isValidEmail) {
-                actionSheetController.addAction(sendMessageAction)
-            } else {
-                actionSheetController.addAction(openInSafariAction)
-                actionSheetController.addAction(addReadingListAction)
+            let urlHandler: UIAlertAction -> Void = { (action) -> Void in
+                UIApplication.sharedApplication().openURL(url)
             }
-    
-             UINavigationController.mainNavigationController()?.presentViewController(actionSheetController, animated: true, completion: nil)
+            
+            if link.isValidEmail {
+                actionSheet.action("send_message".ls, handler: urlHandler)
+            } else {
+                actionSheet.action("url_open_in_safari".ls, handler: urlHandler)
+                actionSheet.action("url_add_to_reading_list".ls, handler: { (action) -> Void in
+                    do {
+                        try SSReadingList.defaultReadingList()?.addReadingListItemWithURL(url, title: nil, previewText: nil)
+                    } catch _ {}
+                })
+            }
+            actionSheet.show()
         }
     }
     

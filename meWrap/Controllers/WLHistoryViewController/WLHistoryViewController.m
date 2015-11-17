@@ -17,7 +17,6 @@
 #import "WLImageCache.h"
 #import "WLPresentingImageView.h"
 #import "WLCommentsViewController.h"
-#import "WLAlertView.h"
 #import "WLDrawingViewController.h"
 #import "WLFollowingViewController.h"
 #import "WLEntry+WLUploadingQueue.h"
@@ -441,7 +440,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         Candy *candy = weakSelf.candy;
-        [UIAlertController confirmCandyDeleting:candy success:^{
+        [UIAlertController confirmCandyDeleting:candy success:^(UIAlertAction *action) {
             weakSelf.removedCandy = candy;
             sender.loading = YES;
             [candy remove:^(id object) {

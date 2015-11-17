@@ -7,7 +7,6 @@
 //
 
 #import "WLEditAvatarViewController.h"
-#import "WLAlertView.h"
 #import "WLToast.h"
 #import "WLImageEditorSession.h"
 
@@ -33,12 +32,11 @@
 
 - (void)requestAuthorizationForPresentingEntry:(Entry *)entry completion:(WLBooleanBlock)completion {
     if (!completion) return;
-    [UIAlertController showWithTitle:@"unsaved_photo".ls
-                       message:@"leave_screen_on_editing".ls
-                       buttons:@[@"cancel".ls,@"continue".ls]
-                    completion:^(NSUInteger index) {
-                        completion(index == 1);
-                    }];
+    [[[UIAlertController alert:@"unsaved_photo".ls message:@"leave_screen_on_editing".ls] action:@"cancel".ls handler:^(UIAlertAction *action) {
+        completion(NO);
+    }] action:@"continue".ls handler:^(UIAlertAction *action) {
+        completion(YES);
+    }];
 }
 
 // MARK: - actions

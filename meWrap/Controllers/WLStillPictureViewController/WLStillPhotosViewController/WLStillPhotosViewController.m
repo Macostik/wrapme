@@ -9,7 +9,6 @@
 #import "WLStillPhotosViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLHintView.h"
-#import "WLWrapView.h"
 #import "WLToast.h"
 #import "WLBatchEditPictureViewController.h"
 #import "WLCollections.h"

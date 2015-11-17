@@ -7,7 +7,6 @@
 //
 
 #import "WLEmailConfirmationViewController.h"
-#import "WLAlertView.h"
 #import "WLNotificationSubscription.h"
 #import "WLNotification.h"
 #import "WLSoundPlayer.h"
@@ -35,7 +34,7 @@
 - (IBAction)resend:(id)sender {
     __weak typeof(self)weakSelf = self;
     [[WLAPIRequest resendConfirmation:[Authorization currentAuthorization].email] send:^(id object) {
-        [UIAlertController showWithMessage:@"sending_confirming_email".ls];
+        [[UIAlertController alert:@"sending_confirming_email".ls] show];
     } failure:^(NSError *error) {
         if ([error isError:WLErrorEmailAlreadyConfirmed]) {
             [weakSelf setSuccessStatusAnimated:NO];

@@ -12,7 +12,6 @@
 #import "WLHomeViewController.h"
 #import "WLButton.h"
 #import "WLSoundPlayer.h"
-#import "WLAlertView.h"
 
 @interface WLActivationViewController () <UITextFieldDelegate>
 
@@ -73,7 +72,7 @@
     sender.userInteractionEnabled = NO;
     [[WLAPIRequest verificationCall] send:^(id object) {
         sender.userInteractionEnabled = YES;
-        [UIAlertController showWithMessage:[NSString stringWithFormat:@"formatted_calling_now".ls, weakSelf.phoneNumberLabel.text]];
+        [[UIAlertController alert:[NSString stringWithFormat:@"formatted_calling_now".ls, weakSelf.phoneNumberLabel.text]] show];
     } failure:^(NSError *error) {
         sender.userInteractionEnabled = YES;
         [error show];

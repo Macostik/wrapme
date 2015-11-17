@@ -11,7 +11,6 @@
 #import "WLHomeViewController.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
-#import "WLUserView.h"
 #import "WLWrapCell.h"
 #import "WLWrapViewController.h"
 #import "WLRemoteEntryHandler.h"

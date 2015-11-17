@@ -9,7 +9,6 @@
 #import "WLWrapSettingsViewController.h"
 #import "WLToast.h"
 #import "WLEditSession.h"
-#import "WLAlertView.h"
 #import "WLButton.h"
 
 @interface WLWrapSettingsViewController () <EntryNotifying>
@@ -74,7 +73,7 @@
     __weak __typeof(self)weakSelf = self;
     Wrap *wrap = self.wrap;
     BOOL deletable = wrap.deletable;
-    [UIAlertController confirmWrapDeleting:wrap success:^{
+    [UIAlertController confirmWrapDeleting:wrap success:^(UIAlertAction *action) {
         weakSelf.userInitiatedDestructiveAction = YES;
         sender.loading = YES;
         weakSelf.view.userInteractionEnabled = NO;

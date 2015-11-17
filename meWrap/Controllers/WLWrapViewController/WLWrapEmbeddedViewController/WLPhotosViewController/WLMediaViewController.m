@@ -145,6 +145,15 @@ static CGFloat WLCandiesHistoryDateHeaderHeight = 42.0f;
     }];
 }
 
+- (IBAction)liveBroadcast:(id)sender {
+    __weak typeof(self)weakSelf = self;
+    [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
+        if ([weakSelf.delegate respondsToSelector:@selector(mediaViewControllerDidOpenLiveBroadcast:)]) {
+            [weakSelf.delegate mediaViewControllerDidOpenLiveBroadcast:weakSelf];
+        }
+    }];
+}
+
 // MARK: - Custom animation
 
 - (void)dropDownCollectionView {

@@ -14,7 +14,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "WLDeviceManager.h"
 #import "WLToast.h"
-#import "WLWrapView.h"
 #import "WLQuickAssetsViewController.h"
 #import "WLProgressBar.h"
 @import AVKit;
@@ -641,7 +640,7 @@
 }
 
 - (void)captureImage:(void (^)(UIImage*image))result failure:(WLFailureBlock)failure {
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_SIMULATOR
 	run_getting_object(^id{
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGSize size = CGSizeMake(width, width / 0.75);

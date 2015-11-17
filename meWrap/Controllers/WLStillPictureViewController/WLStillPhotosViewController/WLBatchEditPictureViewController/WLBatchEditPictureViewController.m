@@ -7,7 +7,6 @@
 //
 
 #import "WLBatchEditPictureViewController.h"
-#import "WLWrapView.h"
 #import "WLEditPictureViewController.h"
 #import "WLComposeBar.h"
 #import "WLImageEditorSession.h"
@@ -289,7 +288,7 @@ static const int WLInstanceCommentLimit = 1500;
 
 - (IBAction)composeBarDidFinish:(id)sender {
     [self.composeBar resignFirstResponder];
-    self.composeBar.trailingPrioritizer.defaultState = YES;
+    [self.composeBar setDoneButtonHidden:YES];
 }
 
 - (void)composeBarDidChangeText:(WLComposeBar *)composeBar {

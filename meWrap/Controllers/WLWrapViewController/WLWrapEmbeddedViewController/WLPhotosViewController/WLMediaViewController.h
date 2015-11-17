@@ -15,6 +15,8 @@
 @optional
 - (void)mediaViewControllerDidAddPhoto:(WLMediaViewController *)controller;
 
+- (void)mediaViewControllerDidOpenLiveBroadcast:(WLMediaViewController *)controller;
+
 @end
 
 @interface WLMediaViewController : WLWrapEmbeddedViewController

@@ -18,21 +18,12 @@ class CandyInteractionAnimationController: UIPercentDrivenInteractiveTransition,
     var navigationController: UINavigationController!
     var shouldCompleteTransition = false
     var transitionInProgress = false
+    var disablePan = false
     var speedCompletion: CGFloat = 0
     var percentComplition: CGFloat = 0
     var toViewController: UIViewController?
     var fromViewController: UIViewController?
-    
-    var direction: Direction?  {
-        didSet {
-            if  (oldValue != direction && direction != .Unknow) {
-//                cancelInteractiveTransition()
-//                navigationController.popViewControllerAnimated(true)
-            }
-        }
-    }
-    
-    static let sharedInstance = CandyInteractionAnimationController()
+    var direction: Direction?
     
     func attachToViewController(viewController: UIViewController) {
         navigationController = viewController.navigationController
@@ -44,6 +35,7 @@ class CandyInteractionAnimationController: UIPercentDrivenInteractiveTransition,
     }
     
     func handlePanGesture(gestureRecognizer: UIPanGestureRecognizer) {
+        if  (disablePan) { return }
         let viewTranslation = gestureRecognizer.translationInView(gestureRecognizer.view!.superview!)
         speedCompletion = gestureRecognizer.velocityInView(gestureRecognizer.view!.superview!).y
         switch gestureRecognizer.state {
@@ -54,12 +46,11 @@ class CandyInteractionAnimationController: UIPercentDrivenInteractiveTransition,
         case .Changed:
             percentComplition = (viewTranslation.y / UIScreen.mainScreen().bounds.height)
             shouldCompleteTransition = fabs(percentComplition) > 0.7 || fabs(speedCompletion) > 1000
-            updateInteractiveTransition(direction == .Down ? percentComplition : abs(percentComplition))
+            updateInteractiveTransition(percentComplition * (direction == .Up ? -1 : 1))
         case .Cancelled, .Ended:
             transitionInProgress = false
             if !shouldCompleteTransition || gestureRecognizer.state == .Cancelled {
                 cancelInteractiveTransition()
-                toViewController?.view.alpha = 1
             } else {
                 finishInteractiveTransition()
             }
@@ -90,6 +81,7 @@ class CandyInteractionAnimationController: UIPercentDrivenInteractiveTransition,
                     fromViewController.view.alpha = 0
                     toViewController.view.alpha = 1
                     }, completion: { Void in
+                        toViewController.view.alpha = 1
                         transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
                 })
             }

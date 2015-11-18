@@ -84,7 +84,7 @@ class Candy: Contribution {
     func sortedComments() -> [Comment]? {
         if let comments = comments as? Set<Comment> {
             return comments.sort({ (comment1, comment2) -> Bool in
-                return comment1.createdAt.timeIntervalSince1970 > comment2.createdAt.timeIntervalSince1970
+                return comment1.createdAt.timeIntervalSince1970 < comment2.createdAt.timeIntervalSince1970
             })
         } else {
             return nil

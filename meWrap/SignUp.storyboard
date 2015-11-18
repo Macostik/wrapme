@@ -340,6 +340,7 @@
                                             <color key="titleColor" red="0.7420814037322998" green="0.24434497952461243" blue="0.04564923420548439" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
+                                            <action selector="back:" destination="Raz-QX-I3L" eventType="touchUpInside" id="gMr-oz-VXU"/>
                                             <segue destination="hnT-Xe-eEw" kind="unwind" unwindAction="backSegue:" id="hfe-ct-pY2"/>
                                         </connections>
                                     </button>

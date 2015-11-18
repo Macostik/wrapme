@@ -135,6 +135,9 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         [self showCommentView];
     }
     self.candyInteractionController = [[CandyInteractionAnimationController alloc] init];
+    self.candyInteractionController.handlePanGesture = ^ (CGPoint point) {
+        weakSelf.contentView.y = point.y;
+    };
     [self.candyInteractionController attachToViewController:self];
     self.navigationController.delegate = self;
 }

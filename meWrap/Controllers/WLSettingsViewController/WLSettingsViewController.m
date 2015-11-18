@@ -37,6 +37,7 @@
         [[WLNotificationCenter defaultCenter] clear];
         [[NSUserDefaults standardUserDefaults] clear];
         [[UIStoryboard signUp] present:YES];
+        [[WLWhatsUpSet sharedSet] resetEntries:nil];
     }] show];
 }
 

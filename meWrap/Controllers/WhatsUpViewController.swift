@@ -123,7 +123,7 @@ class WhatsUpViewController: WLBaseViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         WLWhatsUpSet.sharedSet().update({ () -> Void in
-            }) { (error) -> Void in
+            }) {(error) -> Void in
         }
     }
 }

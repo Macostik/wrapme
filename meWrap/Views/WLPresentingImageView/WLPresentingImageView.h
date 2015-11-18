@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class WLPresentingImageView;
+@class WLPresentingImageView, Candy;
 
 @protocol WLPresentingImageViewDelegate <NSObject>
 

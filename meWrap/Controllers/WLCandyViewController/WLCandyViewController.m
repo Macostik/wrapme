@@ -15,7 +15,7 @@
 
 @interface WLCandyViewController () <EntryNotifying, UIScrollViewDelegate>
 
-@property (weak, nonatomic) IBOutlet WLImageView *imageView;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;

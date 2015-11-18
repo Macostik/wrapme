@@ -11,5 +11,6 @@
 @interface WLCandyViewController : WLBaseViewController
 
 @property (weak, nonatomic) Candy *candy;
+@property (weak, nonatomic) IBOutlet WLImageView *imageView;
 
 @end

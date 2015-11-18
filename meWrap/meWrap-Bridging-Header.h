@@ -24,3 +24,4 @@
 #import "WLBaseViewController.h"
 #import "WLImageView.h"
 #import "WLWhatsUpSet.h"
+#import "WLHistoryViewController.h"

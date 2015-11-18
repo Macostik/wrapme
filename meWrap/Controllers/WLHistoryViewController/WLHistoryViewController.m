@@ -45,7 +45,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet WLLabel *timeLabel;
 @property (weak, nonatomic) IBOutlet EntryStatusIndicator *commentIndicator;
 @property (weak, nonatomic) IBOutlet EntryStatusIndicator *candyIndicator;
-@property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UILabel *playLabel;
 @property (weak, nonatomic) IBOutlet UIView *placeholderPlayLabel;
 
@@ -74,7 +73,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 @property (weak, nonatomic) WLOperationQueue *paginationQueue;
 
-@property (strong, nonatomic) CandyInteractionAnimationController *candyInteractionController;
+@property (strong, nonatomic) CandyInteractionController *candyInteractionController;
 
 @end
 
@@ -134,12 +133,8 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     if (self.showCommentViewController) {
         [self showCommentView];
     }
-    self.candyInteractionController = [[CandyInteractionAnimationController alloc] init];
-    self.candyInteractionController.handlePanGesture = ^ (CGPoint point) {
-        weakSelf.contentView.y = point.y;
-    };
-    [self.candyInteractionController attachToViewController:self];
-    self.navigationController.delegate = self;
+    self.candyInteractionController = [CandyInteractionController new];
+    self.candyInteractionController.viewController = self;
 }
 
 - (void)toggleBottomViewMode {
@@ -658,7 +653,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)videoPlayerViewDidPlay:(VideoPlayerView *)view {
-    self.candyInteractionController.disablePan = true;
+//    self.candyInteractionController.disablePan = true;
     self.navigationController.delegate = nil;
     [self setBarsHidden:NO animated:YES];
     self.placeholderPlayLabel.hidden = self.playLabel.hidden = YES;
@@ -670,7 +665,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)videoPlayerViewDidPause:(VideoPlayerView *)view {
-    self.candyInteractionController.disablePan = false;
+//    self.candyInteractionController.disablePan = false;
     self.navigationController.delegate = self;
     [self hideVideoPlayingViews:NO];
     [self hideSecondaryViews:NO];
@@ -686,7 +681,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)videoPlayerViewDidPlayToEnd:(VideoPlayerView *)view {
-    self.candyInteractionController.disablePan = false;
+//    self.candyInteractionController.disablePan = false;
     self.placeholderPlayLabel.hidden =
     self.playLabel.hidden = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];
@@ -704,22 +699,26 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [self setBarsHidden:apply animated:YES];
 }
 
-- (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-                                            animationControllerForOperation:(UINavigationControllerOperation)operation
-                                                         fromViewController:(UIViewController *)fromVC
-                                                           toViewController:(UIViewController *)toVC {
-    BOOL canOperationPop = operation == UINavigationControllerOperationPop && self.candyInteractionController.transitionInProgress;
-    if (canOperationPop) {
-        [self setBarsHidden:YES animated:YES];
-        self.commentButtonPrioritizer.defaultState = NO;
-        return self.candyInteractionController;
-    }
-    return  nil;
-}
+//- (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+//                                            animationControllerForOperation:(UINavigationControllerOperation)operation
+//                                                         fromViewController:(UIViewController *)fromVC
+//                                                           toViewController:(UIViewController *)toVC {
+//    BOOL canOperationPop = operation == UINavigationControllerOperationPop && self.candyInteractionController.transitionInProgress;
+//    if (canOperationPop) {
+//        [self setBarsHidden:YES animated:YES];
+//        self.commentButtonPrioritizer.defaultState = NO;
+//        return self.candyInteractionController;
+//    }
+//    return  nil;
+//}
+//
+//- (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+//                                   interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
+//    return self.candyInteractionController.transitionInProgress ? self.candyInteractionController : nil;
+//}
 
-- (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
-                                   interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
-    return self.candyInteractionController.transitionInProgress ? self.candyInteractionController : nil;
+- (WLImageView *)imageView {
+    return [[self candyViewController:self.candy] imageView];
 }
 
 @end

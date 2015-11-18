@@ -10,6 +10,8 @@
 #import "WLPresentingImageView.h"
 #import "WLHistory.h"
 
+@class Wrap, Candy;
+
 @interface WLHistoryViewController : WLSwipeViewController
 
 @property (strong, nonatomic) WLHistory *history;
@@ -23,6 +25,8 @@
 @property (nonatomic) BOOL showCommentViewController;
 
 @property (strong, nonatomic) WLPresentingImageView *presentingImageView;
+
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
 

@@ -63,7 +63,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     @IBAction func startBroadcast(sender: UIButton) {
-        if composeBar.text.characters.count == 0 {
+        if composeBar.text.isEmpty {
             composeBar.becomeFirstResponder()
         } else {
             if composeBar.isFirstResponder() {

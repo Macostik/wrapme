@@ -64,7 +64,7 @@ class User: Entry {
             guard let phone = device.phone else {
                 continue
             }
-            if phones.characters.count > 0 {
+            if !phones.isEmpty {
                 phones += "\n"
             }
             if !current && secure && phone.characters.count > 4 {

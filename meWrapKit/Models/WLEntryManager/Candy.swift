@@ -77,6 +77,7 @@ class Candy: Contribution {
             _latestComment = nil
         } else if keyPath == "updatedAt" {
             wrap?.recentCandies = nil
+            wrap?.historyCandies = nil
         }
     }
     

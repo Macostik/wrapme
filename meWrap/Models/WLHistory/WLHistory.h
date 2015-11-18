@@ -13,11 +13,5 @@
 
 + (instancetype)historyWithWrap:(Wrap *)wrap;
 
-+ (instancetype)historyWithWrap:(Wrap *)wrap checkCompletion:(BOOL)checkCompletion;
-
-- (void)clear;
-
-- (WLHistoryItem*)itemWithCandy:(Candy *)candy;
-
 @end
 

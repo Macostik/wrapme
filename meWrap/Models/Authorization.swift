@@ -38,11 +38,11 @@ class Authorization: Archive {
     }
     
     var canSignUp: Bool {
-        return email?.characters.count > 0
+        return !(email?.isEmpty ?? true)
     }
     
     var canAuthorize: Bool {
-        return canSignUp && password?.characters.count > 0
+        return canSignUp && !(email?.isEmpty ?? true)
     }
     
     func updateWithUserData(userData: Dictionary<String, AnyObject>) {

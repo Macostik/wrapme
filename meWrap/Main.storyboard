@@ -4076,9 +4076,6 @@ QWRkEEZyaWVuZFZpZXc
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="92"/>
-                                <connections>
-                                    <outlet property="delegate" destination="R4B-e5-fki" id="hiY-aJ-yqd"/>
-                                </connections>
                             </scrollView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7qZ-uD-y8y" customClass="WLUploadingView">
                                 <rect key="frame" x="558" y="559" width="34" height="36"/>
@@ -4211,21 +4208,11 @@ QWRkEEZyaWVuZFZpZXc
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="addPhotoButton" destination="PNO-TY-VYu" id="m5b-cf-eyT"/>
-                        <outlet property="dataSource" destination="R4B-e5-fki" id="nPm-NP-w5V"/>
                         <outlet property="primaryConstraint" destination="8F6-xd-Raa" id="idQ-bf-VUC"/>
+                        <outlet property="streamView" destination="zI4-B5-vhI" id="oVx-JM-lqd"/>
                         <outlet property="uploadingView" destination="7qZ-uD-y8y" id="88j-sP-MSI"/>
                     </connections>
                 </viewController>
-                <customObject id="R4B-e5-fki" customClass="PaginatedStreamDataSource" customModule="meWrap" customModuleProvider="target">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLCandiesCell"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="WLWrapPlaceholderViewHistory"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="scrollDirectionLayoutPrioritizer" destination="SFh-vB-Xt1" id="kc9-SI-bGm"/>
-                        <outlet property="streamView" destination="zI4-B5-vhI" id="jGS-nh-jJc"/>
-                    </connections>
-                </customObject>
                 <customObject id="8F6-xd-Raa" customClass="LayoutPrioritizer" customModule="meWrap" customModuleProvider="target">
                     <connections>
                         <outletCollection property="parentViews" destination="z88-8Q-V7N" collectionClass="NSMutableArray" id="NSu-0h-eYw"/>

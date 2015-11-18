@@ -10,6 +10,4 @@
 
 @interface WLCandiesCell : StreamReusableView
 
-@property (strong, nonatomic, readonly) HistoryItemDataSource* dataSource;
-
 @end

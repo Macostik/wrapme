@@ -47,6 +47,11 @@ extension UIAlertController {
     func show() {
         if let window = UIWindow.mainWindow {
             if let presentingViewController = window.rootViewController?.presentedViewController ?? window.rootViewController {
+                
+                if actions.count == 0 {
+                    action("ok".ls)
+                }
+                
                 presentingViewController.presentViewController(self, animated: true, completion: nil)
             }
         }

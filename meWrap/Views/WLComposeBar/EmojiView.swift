@@ -37,7 +37,7 @@ class EmojiView: UIView {
         super.awakeFromNib()
         streamView.layout = GridLayout(horizontal: true)
         dataSource = StreamDataSource(streamView: streamView)
-        let metrics = GridMetrics(identifier: "EmojiCell")
+        let metrics = StreamMetrics(identifier: "EmojiCell")
         metrics.ratioAt = {[unowned self] (position, metrics) -> CGFloat in
             return (self.streamView.height/3) / (self.streamView.width/7)
         }

@@ -133,8 +133,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     if (self.showCommentViewController) {
         [self showCommentView];
     }
-    self.candyInteractionController = [CandyInteractionController new];
-    self.candyInteractionController.viewController = self;
+    self.candyInteractionController = [[CandyInteractionController alloc] initWithViewController:self];
 }
 
 - (void)toggleBottomViewMode {
@@ -653,7 +652,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)videoPlayerViewDidPlay:(VideoPlayerView *)view {
-//    self.candyInteractionController.disablePan = true;
+    self.candyInteractionController.allowGesture = NO;
     self.navigationController.delegate = nil;
     [self setBarsHidden:NO animated:YES];
     self.placeholderPlayLabel.hidden = self.playLabel.hidden = YES;
@@ -665,7 +664,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)videoPlayerViewDidPause:(VideoPlayerView *)view {
-//    self.candyInteractionController.disablePan = false;
+   self.candyInteractionController.allowGesture = YES;
     self.navigationController.delegate = self;
     [self hideVideoPlayingViews:NO];
     [self hideSecondaryViews:NO];
@@ -681,7 +680,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)videoPlayerViewDidPlayToEnd:(VideoPlayerView *)view {
-//    self.candyInteractionController.disablePan = false;
+ self.candyInteractionController.allowGesture = YES;
     self.placeholderPlayLabel.hidden =
     self.playLabel.hidden = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideAllViews) object:nil];

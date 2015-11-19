@@ -97,6 +97,7 @@ class StreamMetrics: NSObject {
             for object in nib.instantiateWithOwner(self.nibOwner, options: nil) {
                 if let reusing = object as? StreamReusableView {
                     reusing.metrics = self
+                    reusing.loadedWithMetrics(self)
                     return reusing
                 }
             }

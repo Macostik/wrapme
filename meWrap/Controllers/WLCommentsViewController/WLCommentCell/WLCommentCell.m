@@ -8,7 +8,6 @@
 
 #import "WLCommentCell.h"
 #import "WLToast.h"
-#import "WLMenu.h"
 #import "WLImageView.h"
 
 @interface WLCommentCell ()
@@ -26,10 +25,10 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
-    [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
+    [[FlowerMenu sharedMenu] registerView:self constructor:^(FlowerMenu *menu) {
         Comment *comment = weakSelf.entry;
         if (comment.deletable) {
-            [menu addDeleteItem:^(Comment *comment) {
+            [menu addDeleteAction:^(Comment *comment) {
                 weakSelf.userInteractionEnabled = NO;
                 [weakSelf.entry remove:^(id object) {
                     weakSelf.userInteractionEnabled = YES;
@@ -39,7 +38,7 @@
                 }];
             }];
         }
-        [menu addCopyItem:^(Comment *comment) {
+        [menu addCopyAction:^(Comment *comment) {
             if (comment.text.nonempty) {
                 [[UIPasteboard generalPasteboard] setValue:comment.text forPasteboardType:(id)kUTTypeText];
             }

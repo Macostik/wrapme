@@ -541,7 +541,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     viewController.view.alpha = offset;
 }
 
-// MARK: - WLDeviceOrientationBroadcastReceiver
+// MARK: - WLDeviceManagerReceiver
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return self.disableRotation ? [super supportedInterfaceOrientations] : UIInterfaceOrientationMaskAll;

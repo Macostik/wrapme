@@ -7,7 +7,6 @@
 //
 
 #import "WLPaginatedSet.h"
-#import "WLHistoryItem.h"
 
 @interface WLHistory : WLPaginatedSet
 

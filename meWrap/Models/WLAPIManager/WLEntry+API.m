@@ -299,12 +299,9 @@
 - (void)preload {
     WLHistory *history = [WLHistory historyWithWrap:self];
     [history fresh:^(NSArray *array) {
-        [history.entries enumerateObjectsUsingBlock:^(WLHistoryItem* item, NSUInteger idx, BOOL *stop) {
-            [item.entries enumerateObjectsUsingBlock:^(Candy *candy, NSUInteger idx, BOOL *stop) {
-                [candy.picture fetch:nil];
-                if (idx == 5) *stop = YES;
-            }];
-            if (idx == 4) *stop = YES;
+        [history.entries enumerateObjectsUsingBlock:^(Candy *candy, NSUInteger idx, BOOL *stop) {
+            [candy.picture fetch:nil];
+            if (idx == 20) *stop = YES;
         }];
     } failure:nil];
 }

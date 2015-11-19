@@ -6,7 +6,6 @@
 //
 //
 
-#import "WLCandiesCell.h"
 #import "WLCandyViewController.h"
 #import "WLComposeBar.h"
 #import "WLWrapCell.h"
@@ -58,7 +57,7 @@
         self.wrap.candies = nil;
     }
     
-    StreamMetrics *dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"WLCandiesCell"];
+    StreamMetrics *dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"HistoryDateSeparator"];
     dateMetrics.isSeparator = YES;
     dateMetrics.size = 42.0f;
     [dateMetrics setHiddenAt:^BOOL(StreamPosition * _Nonnull position, StreamMetrics * _Nonnull metrics) {

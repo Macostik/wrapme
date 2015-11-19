@@ -9,7 +9,6 @@
 #import "WLAppDelegate.h"
 #import "WLNotificationCenter.h"
 #import "WLKeyboard.h"
-#import "WLMenu.h"
 #import "NSObject+NibAdditions.h"
 #import "WLRemoteEntryHandler.h"
 #import "WLHomeViewController.h"

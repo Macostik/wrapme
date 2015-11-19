@@ -39,7 +39,7 @@
 
 @end
 
-@interface WLCameraViewController () <WLDeviceOrientationBroadcastReceiver, UIGestureRecognizerDelegate, AVCaptureFileOutputRecordingDelegate>
+@interface WLCameraViewController () <WLDeviceManagerReceiver, UIGestureRecognizerDelegate, AVCaptureFileOutputRecordingDelegate>
 
 #pragma mark - AVCaptureSession interface
 
@@ -102,7 +102,7 @@
 @dynamic delegate;
 
 - (void)dealloc {
-    [[WLDeviceManager manager] endUsingAccelerometer];
+    [[WLDeviceManager defaultManager] endUsingAccelerometer];
     if (self.videoFilePath) {
         [[NSFileManager defaultManager] removeItemAtPath:self.videoFilePath error:nil];
     }
@@ -123,8 +123,8 @@
     
     self.sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
 	
-    [[WLDeviceManager manager] addReceiver:self];
-    [[WLDeviceManager manager] beginUsingAccelerometer];
+    [[WLDeviceManager defaultManager] addReceiver:self];
+    [[WLDeviceManager defaultManager] beginUsingAccelerometer];
     
 	if (self.presentingViewController) {
 		self.view.frame = self.presentingViewController.view.bounds;
@@ -455,7 +455,7 @@
                 [session commitConfiguration];
                 run_in_main_queue(^{
                     weakSelf.cameraView.layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-                    [weakSelf applyDeviceOrientation:[WLDeviceManager manager].orientation forConnection:weakSelf.movieFileOutputConnection];
+                    [weakSelf applyDeviceOrientation:[WLDeviceManager defaultManager].orientation forConnection:weakSelf.movieFileOutputConnection];
                     completion();
                     preparingCompletion();
                 });
@@ -508,7 +508,7 @@
                         device.torchMode = AVCaptureTorchModeOff;
                     }
                 }];
-                [weakSelf applyDeviceOrientation:[WLDeviceManager manager].orientation forConnection:weakSelf.stillImageOutputConnection];
+                [weakSelf applyDeviceOrientation:[WLDeviceManager defaultManager].orientation forConnection:weakSelf.stillImageOutputConnection];
                 weakSelf.takePhotoButton.userInteractionEnabled = YES;
                 completion();
             }];
@@ -581,7 +581,7 @@
 	}
 	[session commitConfiguration];
 	self.flashModeControl.hidden = !videoInput.device.hasFlash;
-	[self applyDeviceOrientation:[WLDeviceManager manager].orientation];
+	[self applyDeviceOrientation:[WLDeviceManager defaultManager].orientation];
 }
 
 - (AVCaptureSession *)session {
@@ -817,7 +817,7 @@
     }
 }
 
-#pragma mark - WLDeviceOrientationBroadcastReceiver
+#pragma mark - WLDeviceManagerReceiver
 
 - (void)manager:(WLDeviceManager *)manager didChangeOrientation:(NSNumber*)orientation {
 	[self applyDeviceOrientation:[orientation integerValue]];

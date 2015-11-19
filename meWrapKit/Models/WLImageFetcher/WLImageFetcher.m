@@ -8,7 +8,6 @@
 
 #import "WLImageFetcher.h"
 #import "WLImageCache.h"
-#import "WLSystemImageCache.h"
 #import "GCDHelper.h"
 
 @interface WLImageFetcher ()
@@ -102,7 +101,7 @@
 
 - (void)setFileSystemUrl:(NSString *)url completion:(WLImageFetcherBlock)completion {
     if (!completion) return;
-    UIImage* image = [WLSystemImageCache imageWithIdentifier:url];
+    UIImage* image = [SystemImageCache instance][url];
     if (image) {
         completion(image, YES);
     } else {
@@ -111,7 +110,7 @@
             UIImage *image = [UIImage imageWithData:data];
             return image;
         }, ^ (UIImage* image) {
-            [WLSystemImageCache setImage:image withIdentifier:url];
+            [SystemImageCache instance][url] = image;
             completion(image, NO);
         });
     }

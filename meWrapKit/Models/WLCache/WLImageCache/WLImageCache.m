@@ -8,7 +8,6 @@
 
 #import "WLImageCache.h"
 #import <ImageIO/ImageIO.h>
-#import "WLSystemImageCache.h"
 #import "GCDHelper.h"
 #import <CommonCrypto/CommonCrypto.h>
 #import <objc/runtime.h>
@@ -49,12 +48,12 @@ static NSUInteger WLImageCacheSize = 524288000;
 
 - (id)read:(NSString *)identifier {
     if (!self.permitted) {
-        return [WLSystemImageCache imageWithIdentifier:identifier];
+        return [SystemImageCache instance][identifier];
     }
-    UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
+    UIImage* image = [SystemImageCache instance][identifier];
     if (image == nil) {
         image = [UIImage imageWithContentsOfFile:[self pathWithIdentifier:identifier]];
-        [WLSystemImageCache setImage:image withIdentifier:identifier];
+        [SystemImageCache instance][identifier] = image;
     }
     return image;
 }
@@ -67,12 +66,12 @@ static NSUInteger WLImageCacheSize = 524288000;
                 [imageData writeToFile:[self pathWithIdentifier:identifier] atomically:NO];
             }
         }
-        [WLSystemImageCache setImage:image withIdentifier:identifier];
+        [SystemImageCache instance][identifier] = image;
     }
 }
 
 - (BOOL)containsObjectWithIdentifier:(NSString *)identifier {
-	if ([WLSystemImageCache imageWithIdentifier:identifier] != nil) {
+	if ([SystemImageCache instance][identifier] != nil) {
 		return YES;
 	}
     if (self.permitted) {
@@ -87,7 +86,7 @@ static NSUInteger WLImageCacheSize = 524288000;
 }
 
 - (void)imageWithIdentifier:(NSString *)identifier completion:(void (^)(UIImage *image, BOOL cached))completion {
-	UIImage* image = [WLSystemImageCache imageWithIdentifier:identifier];
+	UIImage* image = [SystemImageCache instance][identifier];
 	if (image != nil || !self.permitted) {
 		completion(image, YES);
 		return;
@@ -119,12 +118,12 @@ static NSUInteger WLImageCacheSize = 524288000;
         NSString *toPath = [self pathWithIdentifier:identifier];
         NSError *error = nil;
         if ([[NSFileManager defaultManager] copyItemAtPath:path toPath:toPath error:&error]) {
-            UIImage* image = [WLSystemImageCache imageWithIdentifier:path];
+            UIImage* image = [SystemImageCache instance][path];
             if (image != nil) {
-                [WLSystemImageCache removeImageWithIdentifier:path];
+                [SystemImageCache instance][path] = nil;
             }
             image = [UIImage imageWithData:[[NSFileManager defaultManager] contentsAtPath:toPath]];
-            [WLSystemImageCache setImage:image withIdentifier:identifier];
+            [SystemImageCache instance][identifier] = image;
             [self.identifiers addObject:identifier];
             run_after_asap(^{
                 [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];

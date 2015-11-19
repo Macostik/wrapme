@@ -19,7 +19,6 @@
 #import "WLPaginatedRequest+Defined.h"
 #import "WLOperationQueue.h"
 #import "WLConstants.h"
-#import "WLHistoryItem.h"
 #import "UIColor+CustomColors.h"
 #import "WLBaseViewController.h"
 #import "WLImageView.h"
@@ -30,3 +29,4 @@
 #import "Streamer.h"
 #import "VideoConfig.h"
 #import "WLComposeBar.h"
+#import "WLDeviceManager.h"

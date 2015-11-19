@@ -31,7 +31,7 @@
 }
 
 - (IBAction)signOut:(id)sender {
-    [[[[UIAlertController alert:@"sign_out".ls message:@"sign_out_confirmation"] action:@"cancel".ls] action:@"sign_out".ls handler:^(UIAlertAction *action){
+    [[[[UIAlertController alert:@"sign_out".ls message:@"sign_out_confirmation".ls] action:@"cancel".ls] action:@"sign_out".ls handler:^(UIAlertAction *action){
         [[WLOperationQueue queueNamed:WLOperationFetchingDataQueue] cancelAllOperations];
         [[WLAPIManager manager].operationQueue cancelAllOperations];
         [[WLNotificationCenter defaultCenter] clear];
@@ -65,7 +65,7 @@
     currentUser.wraps = [NSSet set];
     [[WLImageCache defaultCache] clear];
     [[WLImageCache uploadingCache] clear];
-    [[WLSystemImageCache instance] removeAllObjects];
+    [[SystemImageCache instance] removeAllObjects];
     [[UIStoryboard main] present:YES];
 }
 

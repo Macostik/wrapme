@@ -7,7 +7,6 @@
 //
 
 #import "WLStillPictureBaseViewController.h"
-#import "WLWrapView.h"
 
 @interface WLStillPictureBaseViewController ()
 

@@ -11,12 +11,13 @@
 #import <objc/runtime.h>
 
 @interface WLComposeBar () <UITextViewDelegate, UICollectionViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) EmojiView * emojiView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
 @property (assign, nonatomic) IBInspectable CGFloat maxLines;
-
+@property (weak, nonatomic) IBOutlet LayoutPrioritizer *trailingPrioritizer;
 
 @end
 
@@ -32,7 +33,7 @@
     self.textView.layoutManager.allowsNonContiguousLayout = NO;
     self.textView.textContainer.lineFragmentPadding = 0;
     self.textView.textContainerInset = self.textView.contentInset = UIEdgeInsetsZero;
-	[self updatePioritizerState];
+	[self setDoneButtonHidden:YES];
     
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(becomeFirstResponder)]];
     [self.textView.superview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(becomeFirstResponder)]];
@@ -62,11 +63,11 @@
     self.textView.text = text;
     self.placeholderLabel.hidden = text.nonempty || self.textView.selectedRange.location != 0;
     [self updateHeight];
-    [self updatePioritizerState];
+    [self setDoneButtonHidden:!text.nonempty];
 }
 
-- (void)updatePioritizerState {
-    self.trailingPrioritizer.defaultState = !self.textView.text.nonempty;
+- (void)setDoneButtonHidden:(BOOL)hidden {
+    self.trailingPrioritizer.defaultState = hidden;
 }
 
 - (NSString *)placeholder {
@@ -140,12 +141,12 @@
     }
     self.placeholderLabel.hidden = textView.text.nonempty;
     [self updateHeight];
-    [self updatePioritizerState];
+    [self setDoneButtonHidden:!textView.text.nonempty];
     [self sendActionsForControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    [self updatePioritizerState];
+    [self setDoneButtonHidden:!textView.text.nonempty];
 	if ([self.delegate respondsToSelector:@selector(composeBarDidBeginEditing:)]) {
 		[self.delegate composeBarDidBeginEditing:self];
 	}
@@ -153,7 +154,7 @@
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    [self updatePioritizerState];
+    [self setDoneButtonHidden:!textView.text.nonempty];
 	if ([self.delegate respondsToSelector:@selector(composeBarDidEndEditing:)]) {
 		[self.delegate composeBarDidEndEditing:self];
 	}

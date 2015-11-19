@@ -17,11 +17,7 @@
         [parameters trySetObject:scope forKey:@"scope"];
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         NSArray* wraps = [Wrap mappedEntries:[Wrap API_prefetchArray:[response.data arrayForKey:@"wraps"]]];
-//        for (Wrap *wrap in wraps) {
-//            if (!wrap.isPublic) {
-//                [[[User currentUser] mutableWraps] addObjectsFromArray:wraps];
-//            }
-//        }
+        [[WLWhatsUpSet sharedSet] update:nil failure:nil];
         success(wraps);
     }];
 }

@@ -31,6 +31,11 @@ class StreamMetrics: NSObject {
         self.size = size
     }
     
+    convenience init(identifier: String, ratio: CGFloat) {
+        self.init(identifier: identifier)
+        self.ratio = ratio
+    }
+    
     func change(initializer: (StreamMetrics) -> Void) -> StreamMetrics {
         initializer(self)
         return self
@@ -45,19 +50,27 @@ class StreamMetrics: NSObject {
     @IBInspectable var hidden: Bool = false
     
     var hiddenAt: (StreamPosition, StreamMetrics) -> Bool = { index, metrics in
-        return metrics.hidden;
+        return metrics.hidden
     }
     
     @IBInspectable var size: CGFloat = 0
     
     var sizeAt: (StreamPosition, StreamMetrics) -> CGFloat = { index, metrics in
-        return metrics.size;
+        return metrics.size
     }
     
     @IBInspectable var insets: CGRect = CGRectZero
     
     var insetsAt: (StreamPosition, StreamMetrics) -> CGRect = { index, metrics in
-        return metrics.insets;
+        return metrics.insets
+    }
+    
+    @IBInspectable var ratio: CGFloat = 0
+    
+    var isSeparator = false
+    
+    var ratioAt: (StreamPosition, StreamMetrics) -> CGFloat = { index, metrics in
+        return metrics.ratio
     }
     
     var selectable = true
@@ -84,6 +97,7 @@ class StreamMetrics: NSObject {
             for object in nib.instantiateWithOwner(self.nibOwner, options: nil) {
                 if let reusing = object as? StreamReusableView {
                     reusing.metrics = self
+                    reusing.loadedWithMetrics(self)
                     return reusing
                 }
             }
@@ -121,7 +135,7 @@ class StreamMetrics: NSObject {
     
     func select(item: StreamItem?, entry: AnyObject?) {
         if (selection != nil) {
-            selection!(item, entry);
+            selection!(item, entry)
         }
     }
     

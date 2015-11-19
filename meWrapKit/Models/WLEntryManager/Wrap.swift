@@ -20,14 +20,27 @@ class Wrap: Contribution {
         return [Candy.entityName()]
     }
     
-    private var _recentCandies: [Candy]?
-    var recentCandies: [Candy]? {
+    private var _historyCandies: NSArray?
+    var historyCandies: NSArray? {
+        get {
+            if _historyCandies == nil {
+                if let candies = candies {
+                    _historyCandies = (candies.array() as NSArray).sortByCreatedAt()
+                }
+            }
+            return _historyCandies
+        }
+        set {
+            _historyCandies = newValue
+        }
+    }
+    
+    private var _recentCandies: NSArray?
+    var recentCandies: NSArray? {
         get {
             if _recentCandies == nil {
-                if let candies = candies as? Set<Candy> {
-                    _recentCandies = candies.sort({ (comment1, comment2) -> Bool in
-                        return comment1.createdAt.timeIntervalSince1970 > comment2.createdAt.timeIntervalSince1970
-                    })
+                if let candies = candies {
+                    _recentCandies = (candies.array() as NSArray).sortByUpdatedAt()
                 }
             }
             return _recentCandies
@@ -72,6 +85,7 @@ class Wrap: Contribution {
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "candies" {
             _recentCandies = nil
+            _historyCandies = nil
             _cover = nil
         }
     }

@@ -9,7 +9,6 @@
 #import "WLMessageCell.h"
 #import "WLTextView.h"
 #import "UIImage+Drawing.h"
-#import "WLMenu.h"
 #import "WLImageView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
@@ -28,8 +27,8 @@
 - (void)awakeFromNib {
 	[super awakeFromNib];
     __weak typeof(self)weakSelf = self;
-    [[WLMenu sharedMenu] addView:self configuration:^(WLMenu *menu) {
-        [menu addCopyItem:^(Message *message) {
+    [[FlowerMenu sharedMenu] registerView:self constructor:^(FlowerMenu *menu) {
+        [menu addCopyAction:^(Message *message) {
             if (message.text.nonempty) {
                 [[UIPasteboard generalPasteboard] setValue:message.text forPasteboardType:(id)kUTTypeText];
             }
@@ -90,10 +89,7 @@
         [self.indicator updateStatusIndicator:message];
     }
     
-    WLMenu *menu = [WLMenu sharedMenu];
-    if (menu.visible) {
-        [menu hide];
-    }
+    [[FlowerMenu sharedMenu] hide];
 }
 
 @end

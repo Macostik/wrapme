@@ -24,6 +24,10 @@
     self.selectTapGestureRecognizer = gestureRecognizer;
 }
 
+- (void)loadedWithMetrics:(StreamMetrics *)metrics {
+    
+}
+
 - (void)setEntry:(id)entry {
     _entry = entry;
     [self setup:entry];

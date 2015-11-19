@@ -240,3 +240,5 @@
 "formatted_upload_video_duration_limit" = "This video is too long, duration is limited up to %i seconds.";
 "link_is_not_valid" = "link is not valid";
 "send_message" = "Send message";
+"start_broadcast" = "Start Broadcast";
+"broadcast_text_placeholder" = "What're you seeing now?";

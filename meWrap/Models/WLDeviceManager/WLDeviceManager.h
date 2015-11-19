@@ -10,7 +10,7 @@
 
 @class WLDeviceManager;
 
-@protocol WLDeviceOrientationBroadcastReceiver
+@protocol WLDeviceManagerReceiver
 
 @optional
 - (void)manager:(WLDeviceManager*)manager didChangeOrientation:(NSNumber*)orientation;
@@ -21,7 +21,7 @@
 
 @property (readonly, nonatomic) UIDeviceOrientation orientation;
 
-+ (instancetype)manager;
++ (instancetype)defaultManager;
 
 - (void)beginUsingAccelerometer;
 

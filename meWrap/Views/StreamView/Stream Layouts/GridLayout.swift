@@ -66,11 +66,7 @@ class GridLayout: StreamLayout {
         var ratio: CGFloat = 1
         
         if let metrics = item.metrics {
-            if let metrics = item.metrics as? GridMetrics {
-                ratio = metrics.ratioAt(item.position!, metrics)
-            } else {
-                ratio = streamView.frame.height / metrics.sizeAt(item.position!, metrics)
-            }
+            ratio = metrics.ratioAt(item.position!, metrics)
         }
         
         let offset = offsets.minElement() ?? 0
@@ -99,11 +95,7 @@ class GridLayout: StreamLayout {
         var ratio: CGFloat = 1
         
         if let metrics = item.metrics {
-            if let metrics = item.metrics as? GridMetrics {
-                ratio = metrics.ratioAt(item.position!, metrics)
-            } else {
-                ratio = streamView.frame.width / metrics.sizeAt(item.position!, metrics)
-            }
+            ratio = metrics.ratioAt(item.position!, metrics)
         }
         
         let offset = offsets.minElement() ?? 0

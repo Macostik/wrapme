@@ -7,7 +7,6 @@
 //
 
 #import "WLPresentingImageView.h"
-#import "WLCandyCell.h"
 
 @interface WLPresentingImageView ()
 
@@ -23,7 +22,7 @@
 
 - (void)presentCandy:(Candy *)candy fromView:(UIView *)view success:(void (^)(WLPresentingImageView *))success failure:(WLFailureBlock)failure {
     [self presentingAsMainWindowSubview];
-    UIImage *image = [WLSystemImageCache imageWithIdentifier:candy.picture.large];
+    UIImage *image = [SystemImageCache instance][candy.picture.large];
     if (!image) {
         image = [[WLImageCache defaultCache] imageWithUrl:candy.picture.large];
     }
@@ -61,7 +60,7 @@
     }
     
     [self presentingAsMainWindowSubview];
-    UIImage *image = [WLSystemImageCache imageWithIdentifier:candy.picture.large];
+    UIImage *image = [SystemImageCache instance][candy.picture.large];
     if (!image) {
         image = [[WLImageCache defaultCache] imageWithUrl:candy.picture.large];
     }

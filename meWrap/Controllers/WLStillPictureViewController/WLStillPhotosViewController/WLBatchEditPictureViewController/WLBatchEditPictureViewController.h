@@ -21,7 +21,7 @@
 
 @property (nonatomic, weak) id <WLBatchEditPictureViewControllerDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet WLWrapView *wrapView;
+@property (weak, nonatomic) IBOutlet WrapView *wrapView;
 
 @property (strong, nonatomic) NSArray* pictures;
 

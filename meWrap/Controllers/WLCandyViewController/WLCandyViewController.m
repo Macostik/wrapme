@@ -33,7 +33,7 @@
     [super viewDidLoad];
 	
     self.scrollView.userInteractionEnabled = NO;
-    [[WLDeviceManager manager] addReceiver:self];
+    [[WLDeviceManager defaultManager] addReceiver:self];
     self.scrollView.minimumZoomScale = 1;
     self.scrollView.maximumZoomScale = 2;
     
@@ -112,7 +112,7 @@
     return self.candy == entry;
 }
 
-#pragma mark - WLDeviceOrientationBroadcastReceiver
+#pragma mark - WLDeviceManagerReceiver
 
 - (void)manager:(WLDeviceManager *)manager didChangeOrientation:(NSNumber*)orientation {
     self.scrollView.zoomScale = 1;

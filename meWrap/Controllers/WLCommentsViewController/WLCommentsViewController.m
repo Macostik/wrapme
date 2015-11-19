@@ -73,7 +73,7 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
     }
     
     [self addNotifyReceivers];
-    [[WLDeviceManager manager] addReceiver:self];
+    [[WLDeviceManager defaultManager] addReceiver:self];
     self.historyViewController = (WLHistoryViewController *)self.parentViewController;
 }
 

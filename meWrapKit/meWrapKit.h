@@ -20,7 +20,6 @@
 #import "WLImageFetcher.h"
 #import "WLBlockImageFetching.h"
 #import "WLImageCache.h"
-#import "WLSystemImageCache.h"
 #import "WLCache.h"
 #import "WLBroadcaster.h"
 #import "NSURL+WLRemoteEntryHandler.h"

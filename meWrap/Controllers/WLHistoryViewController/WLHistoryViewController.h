@@ -16,8 +16,6 @@
 
 @property (strong, nonatomic) WLHistory *history;
 
-@property (strong, nonatomic) WLHistoryItem *historyItem;
-
 @property (weak, nonatomic) Wrap *wrap;
 
 @property (weak, nonatomic) Candy *candy;

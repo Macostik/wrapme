@@ -17,7 +17,6 @@
 #import "WLImageCache.h"
 #import "WLPresentingImageView.h"
 #import "WLCommentsViewController.h"
-#import "WLAlertView.h"
 #import "WLDrawingViewController.h"
 #import "WLFollowingViewController.h"
 #import "WLEntry+WLUploadingQueue.h"
@@ -61,8 +60,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (strong, nonatomic) NSMapTable *cachedCandyViewControllers;
 
 @property (nonatomic) NSUInteger currentCandyIndex;
-
-@property (nonatomic) NSUInteger currentHistoryItemIndex;
 
 @property (weak, nonatomic) Candy *removedCandy;
 
@@ -108,15 +105,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     
     if (!_history && _wrap) {
         _history = [WLHistory historyWithWrap:self.wrap];
-    }
-    
-    if (!_historyItem) {
-        if (_candy) {
-            _historyItem = [self.history itemWithCandy:_candy];
-        } else {
-            _historyItem = [self.history.entries firstObject];
-            _candy = [_historyItem.entries firstObject];
-        }
     }
 
     [[Candy notifier] addReceiver:self];
@@ -212,15 +200,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     [self.primaryConstraint setDefaultState:!hidden animated:animated];
 }
 
-- (void)setHistoryItem:(WLHistoryItem *)historyItem direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated {
-    _historyItem = historyItem;
-    if (direction == WLSwipeViewControllerDirectionForward) {
-        [self setCandy:[historyItem.entries firstObject] direction:direction animated:animated];
-    } else {
-        [self setCandy:[historyItem.entries lastObject] direction:direction animated:animated];
-    }
-}
-
 - (void)setCandy:(Candy *)candy direction:(WLSwipeViewControllerDirection)direction animated:(BOOL)animated {
     _candy = candy;
     [self updateOwnerData];
@@ -228,30 +207,12 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 }
 
 - (void)fetchCandiesOlderThen:(Candy *)candy {
-    WLHistoryItem *historyItem = self.historyItem;
-    if (historyItem.completed || historyItem.request.loading || !candy) return;
-    [self.paginationQueue addOperationWithBlock:^(WLOperation *operation) {
-        [historyItem older:^(NSArray *candies) {
-            [operation finish];
-        } failure:^(NSError *error) {
-            if (error.isNetworkError) {
-                historyItem.completed = YES;
-            }
-            [operation finish];
-        }];
-    }];
-}
-
-- (void)fetchHistoryItemsOlderThen:(WLHistoryItem*)historyItem {
     WLHistory *history = self.history;
-    if (history.completed || history.request.loading || !historyItem) return;
+    if (history.completed || !candy) return;
     [self.paginationQueue addOperationWithBlock:^(WLOperation *operation) {
         [history older:^(NSArray *candies) {
             [operation finish];
         } failure:^(NSError *error) {
-            if (error.isNetworkError) {
-                historyItem.completed = YES;
-            }
             [operation finish];
         }];
     }];
@@ -324,44 +285,20 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         return nil;
     }
     
-    candy = [self.historyItem.entries tryAt:self.currentCandyIndex];
+    candy = [self.history.entries tryAt:self.currentCandyIndex];
     if (candy) {
         return candy;
-    }
-    
-    WLHistoryItem *nextItem = nil;
-    if ([self.history.entries containsObject:self.historyItem]) {
-        nextItem = [self.history.entries tryAt:[self.history.entries indexOfObject:self.historyItem] + 1];
     } else {
-        nextItem = [self.history.entries tryAt:self.currentHistoryItemIndex];
+        candy = [self.history.entries tryAt:self.currentCandyIndex - 1];
+        if (candy) {
+            return candy;
+        }
     }
-    if (nextItem) {
-        self.historyItem = nextItem;
-        return [nextItem.entries firstObject];
-    }
-    
-    candy = [self.historyItem.entries tryAt:self.currentCandyIndex - 1];
-    if (candy) {
-        return candy;
-    }
-    
-    WLHistoryItem *previousItem = nil;
-    if ([self.history.entries containsObject:self.historyItem]) {
-        previousItem = [self.history.entries tryAt:[self.history.entries indexOfObject:self.historyItem] - 1];
-    } else {
-        previousItem = [self.history.entries tryAt:self.currentHistoryItemIndex - 1];
-    }
-    if (previousItem) {
-        self.historyItem = previousItem;
-        return [previousItem.entries lastObject];
-    }
-    
-    return [self.historyItem.entries firstObject];
+    return [self.history.entries firstObject];
 }
 
 - (void)notifier:(EntryNotifier *)notifier didAddEntry:(Candy *)candy {
-    self.currentCandyIndex = [self.historyItem.entries indexOfObject:self.candy];
-    self.currentHistoryItemIndex = [self.history.entries indexOfObject:self.historyItem];
+    self.currentCandyIndex = [self.history.entries indexOfObject:self.candy];
 }
 
 - (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Candy *)candy {
@@ -441,7 +378,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     __weak typeof(self)weakSelf = self;
     [WLFollowingViewController followWrapIfNeeded:self.wrap performAction:^{
         Candy *candy = weakSelf.candy;
-        [UIAlertController confirmCandyDeleting:candy success:^{
+        [UIAlertController confirmCandyDeleting:candy success:^(UIAlertAction *action) {
             weakSelf.removedCandy = candy;
             sender.loading = YES;
             [candy remove:^(id object) {
@@ -574,20 +511,13 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (UIViewController *)viewControllerAfterViewController:(WLCandyViewController *)viewController {
     Candy *candy = viewController.candy;
-    WLHistoryItem *item = self.historyItem;
-    candy = [item.entries tryAt:[item.entries indexOfObject:candy] + 1];
+    candy = [self.history.entries tryAt:[self.history.entries indexOfObject:candy] + 1];
     if (candy) {
         return [self candyViewController:candy];
     }
     
-    if (item.completed) {
-        item = [self.history.entries tryAt:[self.history.entries indexOfObject:item] + 1];
-        if (item) {
-            return [self candyViewController:[item.entries firstObject]];
-        }
-        [self fetchHistoryItemsOlderThen:self.historyItem];
-    } else {
-        [self fetchCandiesOlderThen:self.candy];
+    if (!self.history.completed) {
+        [self fetchCandiesOlderThen:candy];
     }
     
     return nil;
@@ -595,33 +525,25 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (UIViewController *)viewControllerBeforeViewController:(WLCandyViewController *)viewController {
     Candy *candy = viewController.candy;
-    WLHistoryItem *item = self.historyItem;
-    candy = [item.entries tryAt:[item.entries indexOfObject:candy] - 1];
+    candy = [self.history.entries tryAt:[self.history.entries indexOfObject:candy] - 1];
     if (candy) {
         return [self candyViewController:candy];
     } else {
-        item = [self.history.entries tryAt:[self.history.entries indexOfObject:item] - 1];
-        if (item) {
-            return [self candyViewController:[item.entries lastObject]];
-        }
+        return nil;
     }
-    return nil;
 }
 
 - (void)didChangeViewController:(WLCandyViewController *)viewController {
     self.candy = [viewController candy];
-    self.historyItem = [self.history itemWithCandy:self.candy];
-    self.currentCandyIndex = [self.historyItem.entries indexOfObject:self.candy];
-    self.currentHistoryItemIndex = [self.history.entries indexOfObject:self.historyItem];
+    self.currentCandyIndex = [self.history.entries indexOfObject:self.candy];
     [self fetchCandiesOlderThen:self.candy];
-    [self fetchHistoryItemsOlderThen:self.historyItem];
 }
 
 - (void)didChangeOffsetForViewController:(UIViewController *)viewController offset:(CGFloat)offset {
     viewController.view.alpha = offset;
 }
 
-// MARK: - WLDeviceOrientationBroadcastReceiver
+// MARK: - WLDeviceManagerReceiver
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return self.disableRotation ? [super supportedInterfaceOrientations] : UIInterfaceOrientationMaskAll;
@@ -690,7 +612,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 // MARK: - CommentViewControllerDelegate
 
 - (void)applyScaleToCandyViewController:(BOOL)apply {
-     WLCandyViewController *candyViewController = [self candyViewController:self.candy];
+    WLCandyViewController *candyViewController = [self candyViewController:self.candy];
     [UIView animateWithDuration:.25 animations:^{
         candyViewController.view.transform = apply ? CGAffineTransformMakeScale(0.9, 0.9) : CGAffineTransformIdentity;
     }];

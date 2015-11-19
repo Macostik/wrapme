@@ -41,27 +41,39 @@ class SquareGridLayout: StreamLayout {
                 y = size * CGFloat(column) + spacing * (CGFloat(column) + 1)
                 item.column = column
             } else {
-                x = CGRectGetMaxX(previous.frame) + spacing
+                x = previous.frame.maxX + spacing
             }
         }
-        return CGRect(origin: CGPointMake(x, y), size: CGSizeMake(size, size))
+        return CGRect(x: x, y: y, width: size, height: size)
     }
     
     override func verticalFrameForItem(item: StreamItem, streamView: StreamView) -> CGRect {
-        var x = spacing
-        var y = spacing
-        var column: Int = 0
-        if let previous = item.previous {
-            if previous.column < numberOfColumns - 1 {
-                column = previous.column + 1
-                y = previous.frame.origin.y
-                x = size * CGFloat(column) + spacing * (CGFloat(column) + 1)
-                item.column = column
-            } else {
-                y = CGRectGetMaxY(previous.frame) + spacing
+        if let metrics = item.metrics, let position = item.position where metrics.isSeparator {
+            var y = spacing
+            if let previous = item.previous {
+                y = previous.frame.maxY + spacing
             }
+            return CGRect(x: 0, y: y, width: streamView.width, height: metrics.sizeAt(position, metrics))
+        } else {
+            var x = spacing
+            var y = spacing
+            var column: Int = 0
+            if let previous = item.previous {
+                if let metrics = previous.metrics where metrics.isSeparator {
+                    y = previous.frame.maxY + spacing
+                } else {
+                    if previous.column < numberOfColumns - 1 {
+                        column = previous.column + 1
+                        y = previous.frame.origin.y
+                        x = size * CGFloat(column) + spacing * (CGFloat(column) + 1)
+                        item.column = column
+                    } else {
+                        y = previous.frame.maxY + spacing
+                    }
+                }
+            }
+            return CGRect(x: x, y: y, width: size, height: size)
         }
-        return CGRect(origin: CGPointMake(x, y), size: CGSizeMake(size, size))
     }
 }
 

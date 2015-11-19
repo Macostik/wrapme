@@ -19,7 +19,7 @@
 
 @implementation WLDeviceManager
 
-+ (instancetype)manager {
++ (instancetype)defaultManager {
     static id instance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{

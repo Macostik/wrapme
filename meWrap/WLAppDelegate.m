@@ -9,7 +9,6 @@
 #import "WLAppDelegate.h"
 #import "WLNotificationCenter.h"
 #import "WLKeyboard.h"
-#import "WLMenu.h"
 #import "NSObject+NibAdditions.h"
 #import "WLRemoteEntryHandler.h"
 #import "WLHomeViewController.h"
@@ -20,7 +19,6 @@
 #import "WLToast.h"
 #import "WLAddressBook.h"
 #import "WLNotification.h"
-#import "WLAlertView.h"
 #import "WLWrapViewController.h"
 #import "CocoaLumberjack.h"
 #import "WLAuthorizationRequest.h"
@@ -93,13 +91,13 @@
             UIViewController *rootViewController = [UIWindow mainWindow].rootViewController.presentedViewController ? : [UIWindow mainWindow].rootViewController;
             UIView *topView = rootViewController.view;
             topView.userInteractionEnabled = YES;
-            [UIAlertController confirmRedirectingToSignUp:^{
+            [UIAlertController confirmRedirectingToSignUp:^(UIAlertAction *action) {
                 WLLog(@"ERROR - redirection to welcome screen, sign in failed: %@", error);
                 [[WLNotificationCenter defaultCenter] clear];
                 [[NSUserDefaults standardUserDefaults] clear];
                 [storyboard present:YES];
                 topView.userInteractionEnabled = YES;
-            } tryAgain:^{
+            } tryAgain:^(UIAlertAction *action) {
                 topView.userInteractionEnabled = NO;
                 WLObjectBlock successBlock = request.successBlock;
                 WLFailureBlock failureBlock = request.failureBlock;
@@ -196,10 +194,10 @@
             if ([error isNetworkError] && currentUser) {
                 successBlock(currentUser);
             } else {
-                [UIAlertController confirmRedirectingToSignUp:^{
+                [UIAlertController confirmRedirectingToSignUp:^(UIAlertAction *action) {
                     WLLog(@"INITIAL SIGN IN ERROR - couldn't sign in, so redirecting to welcome screen");
                     [[UIStoryboard signUp] present:YES];
-                } tryAgain:^{
+                } tryAgain:^(UIAlertAction *action) {
                     [weakSelf presentInitialViewController];
                 }];
             }

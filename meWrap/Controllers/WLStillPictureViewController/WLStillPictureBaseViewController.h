@@ -9,7 +9,6 @@
 #import "WLBaseViewController.h"
 
 @class WLStillPictureBaseViewController;
-@class WLWrapView;
 @protocol WLStillPictureBaseViewController;
 
 @protocol WLStillPictureBaseViewControllerDelegate <NSObject>
@@ -26,7 +25,7 @@
 
 @property (weak, nonatomic) Wrap *wrap;
 
-@property (weak, nonatomic) IBOutlet WLWrapView *wrapView;
+@property (weak, nonatomic) IBOutlet WrapView *wrapView;
 
 @property (nonatomic, weak) id <WLStillPictureBaseViewControllerDelegate> delegate;
 

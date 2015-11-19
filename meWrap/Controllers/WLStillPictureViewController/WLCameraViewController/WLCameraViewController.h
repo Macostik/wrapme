@@ -31,7 +31,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
 
-@property (weak, nonatomic) IBOutlet WLWrapView *wrapView;
+@property (weak, nonatomic) IBOutlet WrapView *wrapView;
 
 @property (nonatomic, weak) id <WLCameraViewControllerDelegate> delegate;
 

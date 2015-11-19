@@ -51,14 +51,6 @@ extension UIFont {
         }
     }
     
-    private class func fontWithName(fontName: String, preset: FontPreset) -> UIFont? {
-        return UIFont(name: fontName, size: sizeWithPreset(preset))
-    }
-    
-    class func fontWithName(fontName: String, preset: String) -> UIFont? {
-        return UIFont(name: fontName, size: sizeWithPreset(preset))
-    }
-    
     private static let adjustments: Dictionary<String, CGFloat> = [
         UIContentSizeCategoryExtraSmall:-3,
         UIContentSizeCategorySmall: -2,
@@ -68,19 +60,19 @@ extension UIFont {
         UIContentSizeCategoryExtraExtraLarge:2,
         UIContentSizeCategoryExtraExtraExtraLarge:3]
     
-    private class func regularFontWithPreset(preset: FontPreset) -> UIFont? {
+    private class func regularFontWithPreset(preset: FontPreset) -> UIFont {
         return  UIFont.systemFontOfSize(UIFont.sizeWithPreset(preset), weight: UIFontWeightRegular)
     }
     
-    class func regularFontWithPreset(preset: String) -> UIFont? {
+    class func regularFontWithPreset(preset: String) -> UIFont {
         return  UIFont.systemFontOfSize(UIFont.sizeWithPreset(preset), weight: UIFontWeightRegular)
     }
     
-    private class func lightFontWithPreset(preset: FontPreset) -> UIFont? {
+    private class func lightFontWithPreset(preset: FontPreset) -> UIFont {
         return UIFont.systemFontOfSize(UIFont.sizeWithPreset(preset), weight: UIFontWeightLight)
     }
     
-    class func lightFontWithPreset(preset: String) -> UIFont? {
+    class func lightFontWithPreset(preset: String) -> UIFont {
         return UIFont.systemFontOfSize(UIFont.sizeWithPreset(preset), weight: UIFontWeightLight)
     }
     

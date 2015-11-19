@@ -32,7 +32,7 @@ func ==(lhs: CheckingType, rhs: CheckingType) -> Bool {
 
 let kPadding: CGFloat = 5.0
 
-class SmartLabel : WLLabel, UIGestureRecognizerDelegate,  MFMailComposeViewControllerDelegate {
+class SmartLabel: WLLabel, UIGestureRecognizerDelegate,  MFMailComposeViewControllerDelegate {
   
     lazy var linkContainer = Set<CheckingType>()
     var bufferAttributedString: NSAttributedString?
@@ -83,11 +83,12 @@ class SmartLabel : WLLabel, UIGestureRecognizerDelegate,  MFMailComposeViewContr
     
     func setup () {
         self.userInteractionEnabled = true
-        tapGesture = UITapGestureRecognizer(target: self, action: "tapLink:")
-        longPress = UILongPressGestureRecognizer(target: self, action: "longPress:")
-        guard let tapGesture: UITapGestureRecognizer = tapGesture, let longPress: UILongPressGestureRecognizer = longPress else { return }
+        let tapGesture = UITapGestureRecognizer(target: self, action: "tapLink:")
+        let longPress = UILongPressGestureRecognizer(target: self, action: "longPress:")
+        self.tapGesture = tapGesture
+        self.longPress = longPress
         tapGesture.delegate = self
-        tapGesture.delegate = self
+        longPress.delegate = self
         addGestureRecognizer(tapGesture)
         addGestureRecognizer(longPress)
     }
@@ -98,16 +99,13 @@ class SmartLabel : WLLabel, UIGestureRecognizerDelegate,  MFMailComposeViewContr
         guard let _results: [NSTextCheckingResult] = results else {
             return
         }
-        linkContainer = Set<CheckingType>()
+        linkContainer.removeAll()
         for result in _results {
             if let link: String = (self.text! as NSString).substringWithRange(result.range) {
-                if let checkingType: CheckingType = CheckingType(link: link, result: result) {
-                    linkContainer.removeAll()
-                    linkContainer.insert(checkingType)
-                }
+                let checkingType = CheckingType(link: link, result: result)
+                linkContainer.insert(checkingType)
             }
         }
-        
         let mutableText = NSMutableAttributedString(attributedString: self.attributedText!)
         for result in _results {
             mutableText.addAttributes([NSForegroundColorAttributeName : self.tintColor], range: result.range)
@@ -137,7 +135,7 @@ class SmartLabel : WLLabel, UIGestureRecognizerDelegate,  MFMailComposeViewContr
         let textFrame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, count), drawingPath, nil)
         let lines = CTFrameGetLines(textFrame)
         let linesCount = CFArrayGetCount(lines)
-        for var counter : Int = 0; counter < linesCount; counter++ {
+        for var counter: Int = 0; counter < linesCount; counter++ {
             let line = CFArrayGetValueAtIndex(lines, counter)
             let evaluateLine = unsafeBitCast(line, CTLineRef.self)
             let runs = CTLineGetGlyphRuns(evaluateLine)
@@ -182,38 +180,28 @@ class SmartLabel : WLLabel, UIGestureRecognizerDelegate,  MFMailComposeViewContr
         if (sender.state == .Began) {
             guard let link = selectedLink?.link else { return }
             guard let url = validUrl(link) else { return }
-            let actionSheetController = UIAlertController(title: link, message: nil, preferredStyle: .ActionSheet)
-            let cancelAction = UIAlertAction(title: "cancel".ls, style: .Cancel, handler: { (action) -> Void in
-                actionSheetController.dismissViewControllerAnimated(true, completion: nil)
-            })
-            let copyAction = UIAlertAction(title: "copy".ls , style: .Default, handler: { (action) -> Void in
+            
+            let actionSheet = UIAlertController.actionSheet(link)
+            actionSheet.action("cancel".ls, style: .Cancel)
+            actionSheet.action("copy".ls, handler: { (action) -> Void in
                 UIPasteboard.generalPasteboard().string = link
             })
             
-            let openInSafariAction = UIAlertAction(title: "url_open_in_safari".ls, style: .Default, handler: { (action) -> Void in
-                UIApplication.sharedApplication().openURL(url);
-            })
-            
-            let sendMessageAction = UIAlertAction(title: "send_message".ls, style: .Default, handler: { (action) -> Void in
-                UIApplication.sharedApplication().openURL(url);
-            })
-        
-            let addReadingListAction = UIAlertAction(title: "url_add_to_reading_list".ls, style: .Default, handler: { (action) -> Void in
-                do {
-                    try SSReadingList.defaultReadingList()?.addReadingListItemWithURL(url, title: nil, previewText: nil)
-                } catch _ {}
-            })
-            
-            actionSheetController.addAction(cancelAction)
-            actionSheetController.addAction(copyAction)
-            if (link.isValidEmail) {
-                actionSheetController.addAction(sendMessageAction)
-            } else {
-                actionSheetController.addAction(openInSafariAction)
-                actionSheetController.addAction(addReadingListAction)
+            let urlHandler: UIAlertAction -> Void = { (action) -> Void in
+                UIApplication.sharedApplication().openURL(url)
             }
-    
-             UINavigationController.mainNavigationController()?.presentViewController(actionSheetController, animated: true, completion: nil)
+            
+            if link.isValidEmail {
+                actionSheet.action("send_message".ls, handler: urlHandler)
+            } else {
+                actionSheet.action("url_open_in_safari".ls, handler: urlHandler)
+                actionSheet.action("url_add_to_reading_list".ls, handler: { (action) -> Void in
+                    do {
+                        try SSReadingList.defaultReadingList()?.addReadingListItemWithURL(url, title: nil, previewText: nil)
+                    } catch _ {}
+                })
+            }
+            actionSheet.show()
         }
     }
     
@@ -231,7 +219,6 @@ class SmartLabel : WLLabel, UIGestureRecognizerDelegate,  MFMailComposeViewContr
         if ((schema?.endIndex.predecessor()) == nil) {
             link = "http://" + link
         }
-        
         return NSURL(string: link)
     }
     

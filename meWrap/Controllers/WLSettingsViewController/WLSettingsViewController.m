@@ -9,11 +9,9 @@
 #import "WLSettingsViewController.h"
 #import "WLToast.h"
 #import "WLButton.h"
-#import "WLAlertView.h"
 #import "WLNotificationCenter.h"
 #import "WLAPIRequest.h"
 #import "PubNub+SharedInstance.h"
-#import "WLAlertView.h"
 #import "WLNotificationSubscription.h"
 
 @interface WLSettingsViewController ()
@@ -29,17 +27,18 @@
     NSString* version = [NSBundle mainBundle].buildVersion;
     NSString* build = [NSBundle mainBundle].buildNumber;
     NSString *message = [NSString stringWithFormat:@"formatted_about_message".ls, appName, version, build];
-    [UIAlertController showWithMessage:message];
+    [[UIAlertController alert:message] show];
 }
 
 - (IBAction)signOut:(id)sender {
-    [UIAlertController showWithTitle:@"sign_out".ls message:@"sign_out_confirmation".ls cancel:@"cancel".ls action:@"sign_out".ls completion:^{
+    [[[[UIAlertController alert:@"sign_out".ls message:@"sign_out_confirmation".ls] action:@"cancel".ls] action:@"sign_out".ls handler:^(UIAlertAction *action){
         [[WLOperationQueue queueNamed:WLOperationFetchingDataQueue] cancelAllOperations];
         [[WLAPIManager manager].operationQueue cancelAllOperations];
         [[WLNotificationCenter defaultCenter] clear];
         [[NSUserDefaults standardUserDefaults] clear];
         [[UIStoryboard signUp] present:YES];
-    }];
+        [[WLWhatsUpSet sharedSet] resetEntries:nil];
+    }] show];
 }
 
 - (IBAction)addDemoImages:(id)sender {
@@ -66,7 +65,7 @@
     currentUser.wraps = [NSSet set];
     [[WLImageCache defaultCache] clear];
     [[WLImageCache uploadingCache] clear];
-    [[WLSystemImageCache instance] removeAllObjects];
+    [[SystemImageCache instance] removeAllObjects];
     [[UIStoryboard main] present:YES];
 }
 
@@ -99,7 +98,8 @@
         
         [[UIPasteboard generalPasteboard] setValue:message forPasteboardType:(id)kUTTypeText];
         
-        [UIAlertController showWithTitle:[WLNotificationCenter defaultCenter].pushToken.description message:message buttons:@[@"OK"] completion:nil];
+        NSString *token = [WLNotificationCenter defaultCenter].pushToken.description;
+        [[[UIAlertController alert:token message:message] action:@"ok".ls] show];
     }];
 }
 
@@ -119,7 +119,8 @@
         
         [[UIPasteboard generalPasteboard] setValue:message forPasteboardType:(id)kUTTypeText];
         
-        [UIAlertController showWithTitle:[WLNotificationCenter defaultCenter].pushToken.description message:message buttons:@[@"OK"] completion:nil];
+        NSString *token = [WLNotificationCenter defaultCenter].pushToken.description;
+        [[[UIAlertController alert:token message:message] action:@"ok".ls] show];
     }];
 }
 

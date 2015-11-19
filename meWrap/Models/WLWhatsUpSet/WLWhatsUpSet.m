@@ -55,6 +55,8 @@
 
 - (void)update:(WLBlock)success failure:(WLFailureBlock)failure {
     
+    [self resetEntries:nil];
+    
     __weak typeof(self)weakSelf = self;
     NSDate *dayAgo = [NSDate dayAgo];
     User *currentUser = [User currentUser];

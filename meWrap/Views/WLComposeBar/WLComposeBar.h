@@ -27,12 +27,10 @@
 
 @property (nonatomic, weak) IBOutlet id delegate;
 
-@property (weak, nonatomic) IBOutlet LayoutPrioritizer *trailingPrioritizer;
-
 @property (strong, nonatomic) NSString* text;
 
 @property (strong, nonatomic) NSString* placeholder;
 
-@property (nonatomic) BOOL doneButtonHidden;
+- (void)setDoneButtonHidden:(BOOL)hidden;
 
 @end

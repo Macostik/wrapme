@@ -55,7 +55,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 @property (weak, nonatomic) IBOutlet VideoPlayerView *videoPlayerView;
 
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *primaryConstraint;
-@property (weak, nonatomic) IBOutlet LayoutPrioritizer *commentButtonPrioritizer;
 @property (weak, nonatomic) IBOutlet LayoutPrioritizer *bottomViewHeightPrioritizer;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 

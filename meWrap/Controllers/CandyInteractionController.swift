@@ -13,7 +13,7 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
     var screenShotView: UIView?
     var isMoveUp: Bool = false
     var contentView: UIView
-    var currentViewController: UIViewController
+    var currentViewController: WLHistoryViewController
     var allowGesture = true
     private var panGesture: UIPanGestureRecognizer?
     
@@ -38,20 +38,36 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
         if (!allowGesture) { return }
         let translationPoint = gesture.translationInView(contentView)
         let velocity = gesture.velocityInView(contentView)
-        if (abs(velocity.x) > 0) { return }
+        let percentCompleted = abs(translationPoint.y/self.contentView.height)
         switch gesture.state {
         case .Began:
             isMoveUp = velocity.y < 0
             addSplashScreenToHierarchy()
+            setSecondaryVeiwHidden(true, animated: true)
         case .Changed:
-            UIView.performAnimated(true, animation: { () -> (Void) in
-                self.contentView.transform = CGAffineTransformMakeTranslation(0, translationPoint.y)
-                self.screenShotView?.alpha = abs(translationPoint.y/self.contentView.height)
+            UIView.animateWithDuration(0.0, animations: { [weak self]  () -> Void in
+                self!.contentView.transform = CGAffineTransformMakeTranslation(0, translationPoint.y)
+                self!.screenShotView?.alpha = percentCompleted
             })
-            
-        case .Cancelled, .Ended: break
-            
-        default: break
+        case .Ended:
+            if  (percentCompleted > 0.5 || abs(velocity.y) > 1000) {
+                currentViewController.navigationController?.popViewControllerAnimated(false)
+            } else {
+                UIView.animateWithDuration(0.25, animations: { [weak self] () -> Void in
+                     self!.contentView.transform = CGAffineTransformIdentity
+                    }, completion: { (finished) -> Void in
+                        self.screenShotView?.removeFromSuperview()
+                        self.setSecondaryVeiwHidden(false, animated: true)
+                })
+            }
+        default:
+            UIView.animateWithDuration(0.25, animations: { [weak self] () -> Void in
+                self!.contentView.transform = CGAffineTransformIdentity
+                }, completion: { (finished) -> Void in
+                    self.screenShotView?.removeFromSuperview()
+                    self.setSecondaryVeiwHidden(false, animated: true)
+            })
+            break
         }
     }
     
@@ -65,15 +81,23 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
         return nil
     }
     
+    func setSecondaryVeiwHidden(hidden: Bool, animated: Bool) {
+        currentViewController.scrollView?.alwaysBounceHorizontal = !hidden
+        currentViewController.setBarsHidden(hidden, animated: animated)
+        currentViewController.commentButtonPrioritizer?.defaultState = !hidden
+    }
+    
     func addSplashScreenToHierarchy () {
         screenShotView = presentingViewController()?.view.snapshotViewAfterScreenUpdates(true)
         screenShotView?.frame = contentView.frame
         screenShotView?.alpha = 0
         currentViewController.view.insertSubview(screenShotView!, belowSubview: contentView)
     }
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+    
+    //MARK: UIGestureRecognizerDelegate
+    
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let velocity = panGesture?.velocityInView(contentView)
+        return panGesture! == gestureRecognizer && abs(velocity!.x) < abs(velocity!.y)
     }
 }
-
-

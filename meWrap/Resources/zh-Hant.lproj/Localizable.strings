@@ -237,7 +237,7 @@
 "no_video_to_upload" = "請拍攝新影片或從圖庫中選擇影片上傳。";
 "notify_about_new_media" = "當有新相片或影片時通知我";
 "publishing_in_progress" = "內容發佈中，請稍後再試。";
-"formatted_upload_video_duration_limit" = "影片長度最長為為％i秒。";
+"formatted_upload_video_duration_limit" = "影片長度最長為％i秒。";
 "link_is_not_valid" = "link is not valid";
 "send_message" = "Send message";
 "start_broadcast" = "Start Broadcast";

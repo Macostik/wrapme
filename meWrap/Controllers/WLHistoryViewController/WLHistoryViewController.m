@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     WLHistoryBottomViewModeEditing
 };
 
-@interface WLHistoryViewController () <EntryNotifying, VideoPlayerViewDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
+@interface WLHistoryViewController () <EntryNotifying, VideoPlayerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -586,7 +586,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
 
 - (void)videoPlayerViewDidPause:(VideoPlayerView *)view {
    self.candyInteractionController.allowGesture = YES;
-    self.navigationController.delegate = self;
     [self hideVideoPlayingViews:NO];
     [self hideSecondaryViews:NO];
     self.scrollView.panGestureRecognizer.enabled = YES;
@@ -617,28 +616,6 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
         candyViewController.view.transform = apply ? CGAffineTransformMakeScale(0.9, 0.9) : CGAffineTransformIdentity;
     }];
     [self setBarsHidden:apply animated:YES];
-}
-
-//- (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-//                                            animationControllerForOperation:(UINavigationControllerOperation)operation
-//                                                         fromViewController:(UIViewController *)fromVC
-//                                                           toViewController:(UIViewController *)toVC {
-//    BOOL canOperationPop = operation == UINavigationControllerOperationPop && self.candyInteractionController.transitionInProgress;
-//    if (canOperationPop) {
-//        [self setBarsHidden:YES animated:YES];
-//        self.commentButtonPrioritizer.defaultState = NO;
-//        return self.candyInteractionController;
-//    }
-//    return  nil;
-//}
-//
-//- (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
-//                                   interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
-//    return self.candyInteractionController.transitionInProgress ? self.candyInteractionController : nil;
-//}
-
-- (WLImageView *)imageView {
-    return [[self candyViewController:self.candy] imageView];
 }
 
 @end

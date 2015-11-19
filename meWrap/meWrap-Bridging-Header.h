@@ -29,5 +29,5 @@
 #import "Streamer.h"
 #import "VideoConfig.h"
 #import "WLComposeBar.h"
-#import "WLDeviceManager.h"
 #import "WLHistoryViewController.h"
+#import "WLDeviceManager.h"

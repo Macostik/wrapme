@@ -437,7 +437,6 @@
 		C5F076661BE26F0E00021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
 		C5F076671BE2835400021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
 		C5F076681BE2835500021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
-		C5F0766C1BE2A97900021FAE /* EntryDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F0766B1BE2A97900021FAE /* EntryDescriptor.swift */; };
 		C5F4A1691BF3917600EFC8FA /* Entry+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F4A1681BF3917600EFC8FA /* Entry+Base.swift */; };
 		C5F5EAE91BDEA79F00DF1DA5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50647681ABD889100CB4BE3 /* CoreData.framework */; };
 		C5F7BA231BFCE44600F64D5A /* SystemImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA6D9F1BFCDEDA0029970A /* SystemImageCache.swift */; };
@@ -3416,7 +3415,6 @@
 				C5E6EAA41BBAC3EC007FFA66 /* WLImageView.m in Sources */,
 				C5053E611BC7DC150040613A /* WLOperationQueue.m in Sources */,
 				C52E1FDF1A41951300A2C370 /* WLTextField.m in Sources */,
-				C5F0766C1BE2A97900021FAE /* EntryDescriptor.swift in Sources */,
 				C5B8F71A1B82161500A5E541 /* WLDrawingViewController.m in Sources */,
 				C510BF6D1BCF93C0008223A3 /* UIDevice+Ext.swift in Sources */,
 				C5E6E9601BBAC3EC007FFA66 /* NSData+CommonCrypto.m in Sources */,

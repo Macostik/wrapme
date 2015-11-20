@@ -44,7 +44,7 @@
         return;
     }
     
-    NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:@"WLEntry"];
+    NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:@"Entry"];
     request.predicate = [NSPredicate predicateWithFormat:@"identifier IN %@ OR uploadIdentifier IN %@", uids, locuids];
     NSArray *array = [request execute];
     for (Entry *entry in array) {

@@ -39,8 +39,8 @@
         [[Comment notifier] addReceiver:self];
         [[Candy notifier] addReceiver:self];
         [[Wrap notifier] addReceiver:self];
-        self.commentPredicate = @"candy.wrap.isPublic == NO AND createdAt >= %@ AND contributor != nil AND contributor != %@";
-        self.candyPredicate = @"wrap.isPublic == NO AND createdAt >= %@ AND contributor != nil AND contributor != %@";
+        self.commentPredicate = @"candy.wrap.identifier IN %@ OR createdAt >= %@ AND contributor != nil AND contributor != %@";
+        self.candyPredicate = @"wrap.identifier IN %@ OR createdAt >= %@ AND contributor != nil AND contributor != %@";
         self.updatesPredicate = @"editedAt >= %@ AND editor != nil AND editor != %@";
         [self update:nil failure:nil];
     }
@@ -65,11 +65,11 @@
         NSMutableArray *contributions = [NSMutableArray array];
        
             NSFetchRequest *request = [Comment fetch];
-            request.predicate = [NSPredicate predicateWithFormat:weakSelf.commentPredicate, dayAgo, currentUser];
+            request.predicate = [NSPredicate predicateWithFormat:weakSelf.commentPredicate, currentUser.wraps, dayAgo, currentUser];
             [request execute:^(NSArray *result) {
                 [contributions adds:result];
                 NSFetchRequest *request = [Candy fetch];
-                request.predicate = [NSPredicate predicateWithFormat:weakSelf.candyPredicate, dayAgo, currentUser];
+                request.predicate = [NSPredicate predicateWithFormat:weakSelf.candyPredicate, currentUser.wraps, dayAgo, currentUser];
                 [request execute:^(NSArray *result) {
                     [contributions adds:result];
                     NSFetchRequest *request = [Candy fetch];

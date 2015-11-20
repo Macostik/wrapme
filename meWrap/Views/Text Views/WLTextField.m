@@ -7,7 +7,6 @@
 //
 
 #import "WLTextField.h"
-#import "WLFontPresetter.h"
 
 @implementation WLTextField
 
@@ -66,10 +65,10 @@
 - (void)setPreset:(NSString *)preset {
     _preset = preset;
     self.font = [self.font fontWithPreset:preset];
-    [[WLFontPresetter defaultPresetter] addReceiver:self];
+    [[FontPresetter defaultPresetter] addReceiver:self];
 }
 
-- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+- (void)presetterDidChangeContentSizeCategory:(FontPresetter *)presetter {
     self.font = [self.font fontWithPreset:self.preset];
 }
 

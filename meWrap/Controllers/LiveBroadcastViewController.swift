@@ -8,9 +8,15 @@
 
 import Foundation
 
+import AVFoundation
+
 class LiveBroadcastViewController: WLBaseViewController {
     
-    @IBOutlet weak var wrapNameLabel: UILabel?
+    weak var playerLayer: AVPlayerLayer?
+    
+    @IBOutlet weak var wrapNameLabel: UILabel!
+    
+    @IBOutlet weak var titleLabel: UILabel!
     
     private var connectionID: Int32?
     
@@ -20,46 +26,87 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     @IBOutlet weak var startButton: UIButton!
     
+    var isBroadcasting = false
+    
     var broadcast: LiveBroadcast?
+    
+    var playing = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         wrapNameLabel?.text = wrap?.name
-        guard let cameraInfo = CameraInfo.getCameraList().first as? CameraInfo else {
-            return
-        }
         
-        let videoConfig = VideoConfig()
-        videoConfig.videoSize = (cameraInfo.videoSizes?[1] as! NSValue).CGSizeValue()
-        videoConfig.bitrate = 2000000
-        videoConfig.fps = 30
-        videoConfig.keyFrameInterval = 2
-        videoConfig.profileLevel = VideoConfig.getSupportedProfiles().first as! String
-        
-        let audioConfig = AudioConfig()
-        audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
-        let streamer = Streamer.instance() as! Streamer
-        var orientation = AVCaptureVideoOrientation.Portrait
-        switch WLDeviceManager.defaultManager().orientation {
-        case .PortraitUpsideDown:
-            orientation = .PortraitUpsideDown
-            break
-        case .LandscapeLeft:
-            orientation = .LandscapeLeft
-            break
-        case .LandscapeRight:
-            orientation = .LandscapeRight
-            break
-        default: break
+        if let broadcast = broadcast {
+            isBroadcasting = false
+            titleLabel?.text = broadcast.title
+            composeBar.hidden = true
+            startButton.hidden = true
+            
+            if let url = broadcast.url.URL {
+                let layer = AVPlayerLayer()
+                layer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                layer.frame = view.bounds
+                view.layer.insertSublayer(layer, atIndex: 0)
+                playerLayer = layer
+                
+                let player = AVPlayer(URL: url)
+                layer.player = player
+                player.play()
+                playing = true
+                view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "togglePlayer"))
+            }
+        } else {
+            isBroadcasting = true
+            titleLabel?.hidden = true
+            guard let cameraInfo = CameraInfo.getCameraList().first as? CameraInfo else {
+                return
+            }
+            
+            let videoConfig = VideoConfig()
+            videoConfig.videoSize = (cameraInfo.videoSizes?[1] as! NSValue).CGSizeValue()
+            videoConfig.bitrate = 2000000
+            videoConfig.fps = 30
+            videoConfig.keyFrameInterval = 2
+            videoConfig.profileLevel = VideoConfig.getSupportedProfiles().first as! String
+            
+            let audioConfig = AudioConfig()
+            audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
+            let streamer = Streamer.instance() as! Streamer
+            var orientation = AVCaptureVideoOrientation.Portrait
+            switch WLDeviceManager.defaultManager().orientation {
+            case .PortraitUpsideDown:
+                orientation = .PortraitUpsideDown
+                break
+            case .LandscapeLeft:
+                orientation = .LandscapeLeft
+                break
+            case .LandscapeRight:
+                orientation = .LandscapeRight
+                break
+            default: break
+            }
+            let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self)
+            layer.frame = view.bounds
+            layer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            view.layer.insertSublayer(layer, atIndex: 0)
+            streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
         }
-        let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self)
-        layer.frame = view.bounds
-        layer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        view.layer.insertSublayer(layer, atIndex: 0)
-        streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
+    }
+    
+    func togglePlayer() {
+        if playing {
+            playing = false
+            playerLayer?.player?.pause()
+        } else {
+            playing = true
+            playerLayer?.player?.play()
+        }
     }
     
     func start() {
+        titleLabel?.text = composeBar.text
+        titleLabel?.hidden = false
+        
         let streamer = Streamer.instance() as! Streamer
         guard let userUID = User.currentUser?.identifier,
             let deviceUID = Authorization.currentAuthorization.deviceUID else {
@@ -124,10 +171,12 @@ class LiveBroadcastViewController: WLBaseViewController {
     }
     
     @IBAction func close(sender: UIButton) {
-        stop()
-        let streamer = Streamer.instance() as! Streamer
-        streamer.stopVideoCapture()
-        streamer.stopAudioCapture()
+        if isBroadcasting {
+            stop()
+            let streamer = Streamer.instance() as! Streamer
+            streamer.stopVideoCapture()
+            streamer.stopAudioCapture()
+        }
         presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
     }
     

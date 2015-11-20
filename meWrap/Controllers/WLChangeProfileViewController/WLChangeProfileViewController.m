@@ -14,10 +14,9 @@
 #import "WLWelcomeViewController.h"
 #import "WLProfileEditSession.h"
 #import "WLTextView.h"
-#import "WLFontPresetter.h"
 #import "WLImageView.h"
 
-@interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, EntryNotifying, WLFontPresetterReceiver, WLBroadcastReceiver>
+@interface WLChangeProfileViewController () <WLKeyboardBroadcastReceiver, UITextFieldDelegate, WLStillPictureViewControllerDelegate, EntryNotifying, FontPresetting, WLBroadcastReceiver>
 
 @property (weak, nonatomic) IBOutlet WLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *imagePlaceholderView;
@@ -59,7 +58,7 @@
     self.verificationEmailTextView.textContainer.lineFragmentPadding = 0;
     [self updateEmailConfirmationView];
     [[User notifier] addReceiver:self];
-    [[WLFontPresetter defaultPresetter] addReceiver:self];
+    [[FontPresetter defaultPresetter] addReceiver:self];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -169,7 +168,7 @@
 
 #pragma mark -  WLFontPresetterReceiver
 
-- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+- (void)presetterDidChangeContentSizeCategory:(FontPresetter *)presetter {
       self.verificationEmailTextView.attributedText = [WLChangeProfileViewController verificationSuggestion];
 }
 

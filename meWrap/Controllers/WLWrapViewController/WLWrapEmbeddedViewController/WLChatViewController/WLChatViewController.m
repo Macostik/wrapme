@@ -13,7 +13,6 @@
 #import "WLKeyboard.h"
 #import "WLMessageCell.h"
 #import "WLSoundPlayer.h"
-#import "WLFontPresetter.h"
 #import "WLMessageDateView.h"
 #import "WLWrapViewController.h"
 #import "WLToast.h"
@@ -171,7 +170,7 @@ CGFloat WLMinTextViewWidth;
     }
     
     [[Message notifier] addReceiver:self];
-    [[WLFontPresetter defaultPresetter] addReceiver:self];
+    [[FontPresetter defaultPresetter] addReceiver:self];
     
     [self.streamView.panGestureRecognizer addTarget:self action:@selector(dragging:)];
     
@@ -602,7 +601,7 @@ CGFloat WLMinTextViewWidth;
 
 #pragma mark - WLFontPresetterReceiver
 
-- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+- (void)presetterDidChangeContentSizeCategory:(FontPresetter *)presetter {
     [self.cachedMessageHeights removeAllObjects];
     self.messageFont = [UIFont fontNormal];
     self.nameFont = [UIFont lightFontSmaller];

@@ -8,6 +8,10 @@
 
 import UIKit
 
+func ==(lv: LiveBroadcast?, rv: LiveBroadcast?) -> Bool {
+    return lv?.wrap == rv?.wrap && lv?.broadcaster == rv?.broadcaster
+}
+
 class LiveBroadcast: NSObject {
 
     weak var broadcaster: User?
@@ -38,6 +42,7 @@ class LiveBroadcast: NSObject {
             return
         }
         broadcasts.removeAtIndex(index)
+        self.broadcasts[uid] = broadcasts
     }
     
     class func broadcastsForWrap(wrap: Wrap) -> [LiveBroadcast]? {

@@ -19,6 +19,7 @@
 #import "WLBadgeLabel.h"
 #import "WLUploadingQueue.h"
 #import "WLNetwork.h"
+@import AVKit;
 
 @interface WLMediaViewController () <WLPresentingImageViewDelegate, EntryNotifying>
 
@@ -62,7 +63,10 @@
     }];
     
     [self.dataSource.liveBroadcastMetrics setSelection:^(StreamItem *item, id entry) {
-        
+        LiveBroadcastViewController *liveBroadcastController = weakSelf.storyboard[@"liveBroadcast"];
+        liveBroadcastController.wrap = weakSelf.wrap;
+        liveBroadcastController.broadcast = entry;
+        [weakSelf.navigationController presentViewController:liveBroadcastController animated:NO completion:nil];
     }];
     
     StreamMetrics *dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"HistoryDateSeparator"];

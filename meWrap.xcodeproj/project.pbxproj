@@ -117,7 +117,6 @@
 		C5475B501AC596C500F9E8B3 /* WLTodayContributionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B4E1AC596C500F9E8B3 /* WLTodayContributionCell.m */; };
 		C5475B541AC59ABC00F9E8B3 /* WLTodayCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B521AC59ABC00F9E8B3 /* WLTodayCommentCell.m */; };
 		C5475B581AC59ACD00F9E8B3 /* WLTodayCandyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5475B561AC59ACD00F9E8B3 /* WLTodayCandyCell.m */; };
-		C54773161A41911F004C5826 /* WLFontPresetter.m in Sources */ = {isa = PBXBuildFile; fileRef = C54773121A41911F004C5826 /* WLFontPresetter.m */; };
 		C547A4541A026B3E005061AB /* WLKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C547A4501A026B3E005061AB /* WLKeyboard.m */; };
 		C549745B1ABC1C34000E3F54 /* WLQAButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C54974571ABC1C34000E3F54 /* WLQAButton.m */; };
 		C54AF65519B8C491006F7EDB /* WLChangeProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC00A4C619095E9800EE6EDA /* WLChangeProfileViewController.m */; };
@@ -430,6 +429,7 @@
 		C5E6F0281BFF558000FA3D4F /* MediaDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */; };
 		C5E6F02A1BFF643800FA3D4F /* LiveBroadcastMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F0291BFF643800FA3D4F /* LiveBroadcastMediaView.swift */; };
 		C5E6F02C1BFF644600FA3D4F /* LiveBroadcastMediaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E6F02B1BFF644600FA3D4F /* LiveBroadcastMediaView.xib */; };
+		C5E6F02E1BFF710900FA3D4F /* FontPresetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F02D1BFF710900FA3D4F /* FontPresetter.swift */; };
 		C5E7AB761BCD399B007E314B /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB751BCD399B007E314B /* UITextView+Ext.swift */; };
 		C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB771BCD3A79007E314B /* UIScrollView+Ext.swift */; };
 		C5E7AB7A1BCD47D4007E314B /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */; };
@@ -743,8 +743,6 @@
 		C5475B521AC59ABC00F9E8B3 /* WLTodayCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayCommentCell.m; sourceTree = "<group>"; };
 		C5475B551AC59ACD00F9E8B3 /* WLTodayCandyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTodayCandyCell.h; sourceTree = "<group>"; };
 		C5475B561AC59ACD00F9E8B3 /* WLTodayCandyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTodayCandyCell.m; sourceTree = "<group>"; };
-		C54773111A41911F004C5826 /* WLFontPresetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLFontPresetter.h; sourceTree = "<group>"; };
-		C54773121A41911F004C5826 /* WLFontPresetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFontPresetter.m; sourceTree = "<group>"; };
 		C547A44F1A026B3E005061AB /* WLKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLKeyboard.h; sourceTree = "<group>"; };
 		C547A4501A026B3E005061AB /* WLKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLKeyboard.m; sourceTree = "<group>"; };
 		C54974561ABC1C34000E3F54 /* WLQAButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLQAButton.h; path = WLButton/WLQAButton.h; sourceTree = "<group>"; };
@@ -1100,6 +1098,7 @@
 		C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaDataSource.swift; sourceTree = "<group>"; };
 		C5E6F0291BFF643800FA3D4F /* LiveBroadcastMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveBroadcastMediaView.swift; sourceTree = "<group>"; };
 		C5E6F02B1BFF644600FA3D4F /* LiveBroadcastMediaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveBroadcastMediaView.xib; sourceTree = "<group>"; };
+		C5E6F02D1BFF710900FA3D4F /* FontPresetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontPresetter.swift; sourceTree = "<group>"; };
 		C5E7AB751BCD399B007E314B /* UITextView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
 		C5E7AB771BCD3A79007E314B /* UIScrollView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Ext.swift"; sourceTree = "<group>"; };
 		C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -1306,10 +1305,10 @@
 			children = (
 				5B1D045A1BFCE16C00263102 /* CandyInteractionController.swift */,
 				C5053E811BC7F7280040613A /* ReportViewController.swift */,
-				C53012851BF4C0AD00098F9C /* HomeDataSource.swift */,
-				C553B18F1BF9F75600E50219 /* EntryPresenter.swift */,
 				C5861A6B1BFA3C9400C64663 /* LiveBroadcastViewController.swift */,
+				C53012851BF4C0AD00098F9C /* HomeDataSource.swift */,
 				C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */,
+				C553B18F1BF9F75600E50219 /* EntryPresenter.swift */,
 				C5E4FD091BF762A500575DA4 /* WhatsUpViewController */,
 				C5B8F7161B8215FE00A5E541 /* WLDrawingViewController */,
 				C59EF3BF1B7A214000E777BC /* WLFollowingViewController */,
@@ -1349,6 +1348,7 @@
 				C5FF14671BF340F800192754 /* Emoji.swift */,
 				C557BA821BF5D50900AE9974 /* WhatsUpEvent.swift */,
 				C552A83B1BFE1A7C00A7FFAD /* LiveBroadcast.swift */,
+				C5E6F02D1BFF710900FA3D4F /* FontPresetter.swift */,
 				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
 				C5053E7D1BC7E3DC0040613A /* WLEntryDescriptor */,
 				C5053E5B1BC7DC150040613A /* WLOperation */,
@@ -1366,7 +1366,6 @@
 				C55D77E51AE51BA0006FA19C /* WLRemoteEntryHandler */,
 				C5A82CCC1ACD979B00336027 /* WLDeviceManager */,
 				C577C2601A4C426300ECC7E5 /* iVersion */,
-				C54773101A41910E004C5826 /* WLFontPresetter */,
 				C5C20B8C1A238ACC008B2E2E /* WLValidation */,
 				C547A44E1A026B3E005061AB /* WLKeyboard */,
 				C57BDDB419FA5E9E003593F1 /* WLStoryboardTransition */,
@@ -2098,15 +2097,6 @@
 				C5475B561AC59ACD00F9E8B3 /* WLTodayCandyCell.m */,
 			);
 			path = WLTodayContributionCell;
-			sourceTree = "<group>";
-		};
-		C54773101A41910E004C5826 /* WLFontPresetter */ = {
-			isa = PBXGroup;
-			children = (
-				C54773111A41911F004C5826 /* WLFontPresetter.h */,
-				C54773121A41911F004C5826 /* WLFontPresetter.m */,
-			);
-			path = WLFontPresetter;
 			sourceTree = "<group>";
 		};
 		C547A44E1A026B3E005061AB /* WLKeyboard */ = {
@@ -3483,7 +3473,6 @@
 				C522795E1BECCA6B00B1C49C /* Dictionary+Ext.swift in Sources */,
 				C5C769861BAC10BF00B205CB /* WLAPIEnvironment.m in Sources */,
 				C5E7EF8F1BED0D9F00CDD4C3 /* Entry+APIRequest.swift in Sources */,
-				C54773161A41911F004C5826 /* WLFontPresetter.m in Sources */,
 				C573FB901AB84AF400F1098C /* WLTouchView.m in Sources */,
 				C52E1FD31A41951300A2C370 /* WLButton.m in Sources */,
 				C581680519F169D90081F350 /* WLBaseViewController.m in Sources */,
@@ -3583,6 +3572,7 @@
 				C552A8361BFDE9FE00A7FFAD /* HistoryDateSeparator.swift in Sources */,
 				C5AEE4361B3AC9B4000C8CCF /* WLDrawingLine.m in Sources */,
 				C54AF6E719B8C491006F7EDB /* SegmentedControl.m in Sources */,
+				C5E6F02E1BFF710900FA3D4F /* FontPresetter.swift in Sources */,
 				C56A76111A640F1900D1FBED /* WLStoryboardTransition.m in Sources */,
 				C5C20BD41A239D6F008B2E2E /* WLEmailViewController.m in Sources */,
 				C59CEBD31BFB20B500C3E686 /* EntryView.swift in Sources */,

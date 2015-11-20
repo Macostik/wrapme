@@ -161,7 +161,7 @@
         NSDictionary *state = event.presence.state;
         if (state[@"isBroadcasting"]) {
             NSString *uuid = event.presence.uuid;
-            NSString *wrapuid = event.presence.actualChannel;
+            NSString *wrapuid = event.actualChannel;
             BOOL isBroadcasting = [[state numberForKey:@"isBroadcasting"] boolValue];
             if (isBroadcasting) {
                 LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
@@ -169,6 +169,7 @@
                 broadcast.wrap = [Wrap entry:wrapuid allowInsert:NO];
                 broadcast.title = state[@"title"];
                 broadcast.channel = state[@"channel"];
+                broadcast.url = state[@"viewerURL"];
                 if (broadcast.wrap) {
                     [LiveBroadcast addBroadcast:broadcast];
                     [broadcast.wrap notifyOnUpdate];

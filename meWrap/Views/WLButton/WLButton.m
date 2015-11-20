@@ -7,7 +7,6 @@
 //
 
 #import "WLButton.h"
-#import "WLFontPresetter.h"
 
 @interface WLButton ()
 
@@ -195,7 +194,7 @@
 - (void)setPreset:(NSString *)preset {
     _preset = preset;
     self.titleLabel.font = [self.titleLabel.font fontWithPreset:preset];
-    [[WLFontPresetter defaultPresetter] addReceiver:self];
+    [[FontPresetter defaultPresetter] addReceiver:self];
 }
 
 static CGFloat minTouchSize = 44;
@@ -204,7 +203,7 @@ static CGFloat minTouchSize = 44;
     return _touchArea;
 }
 
-- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+- (void)presetterDidChangeContentSizeCategory:(FontPresetter *)presetter {
     self.titleLabel.font = [self.titleLabel.font fontWithPreset:self.preset];
 }
 

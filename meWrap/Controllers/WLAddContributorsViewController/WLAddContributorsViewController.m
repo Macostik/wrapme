@@ -11,12 +11,11 @@
 #import "WLAddressBookRecordCell.h"
 #import "WLAddressBookPhoneNumber.h"
 #import "WLButton.h"
-#import "WLFontPresetter.h"
 #import "WLArrangedAddressBook.h"
 #import "WLAddressBookGroupView.h"
 #import "NSObject+NibAdditions.h"
 
-@interface WLAddContributorsViewController () <StreamViewDelegate, WLAddressBookRecordCellDelegate, UITextFieldDelegate, WLFontPresetterReceiver, WLAddressBookReceiver>
+@interface WLAddContributorsViewController () <StreamViewDelegate, WLAddressBookRecordCellDelegate, UITextFieldDelegate, FontPresetting, WLAddressBookReceiver>
 
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
@@ -92,7 +91,7 @@
     if (cached) {
         [[WLAddressBook addressBook] updateCachedRecords];
     }
-    [[WLFontPresetter defaultPresetter] addReceiver:self];
+    [[FontPresetter defaultPresetter] addReceiver:self];
 }
 
 - (void)filterContacts {
@@ -220,7 +219,7 @@
 
 #pragma mark - WLFontPresetterReceiver
 
-- (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
+- (void)presetterDidChangeContentSizeCategory:(FontPresetter *)presetter {
     [self.streamView reload];
 }
 

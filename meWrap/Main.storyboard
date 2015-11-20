@@ -4257,6 +4257,9 @@ QWRkEEZyaWVuZFZpZXc
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="normal"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
                                 <animations/>
@@ -4266,6 +4269,35 @@ QWRkEEZyaWVuZFZpZXc
                                     <constraint firstItem="ejQ-zw-H7R" firstAttribute="leading" secondItem="x6q-A3-oyw" secondAttribute="leading" constant="6" id="lVL-dK-v3F"/>
                                     <constraint firstItem="ejQ-zw-H7R" firstAttribute="top" secondItem="x6q-A3-oyw" secondAttribute="top" constant="6" id="mq8-nL-eSH"/>
                                     <constraint firstAttribute="bottom" secondItem="ejQ-zw-H7R" secondAttribute="bottom" constant="6" id="vXg-aC-eTW"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6gi-jB-36P">
+                                <rect key="frame" x="12" y="77" width="38" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKm-rj-U2W" customClass="WLLabel">
+                                        <rect key="frame" x="6" y="6" width="26" height="18"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.9166492223739624" green="0.91662174463272095" blue="0.91663730144500732" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="0.1010000035" alpha="0.70265526109999998" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="JKm-rj-U2W" firstAttribute="top" secondItem="6gi-jB-36P" secondAttribute="top" constant="6" id="BBU-v2-EkL"/>
+                                    <constraint firstAttribute="bottom" secondItem="JKm-rj-U2W" secondAttribute="bottom" constant="6" id="UZp-ps-Uqv"/>
+                                    <constraint firstItem="JKm-rj-U2W" firstAttribute="leading" secondItem="6gi-jB-36P" secondAttribute="leading" constant="6" id="iVf-Dn-qhm"/>
+                                    <constraint firstAttribute="trailing" secondItem="JKm-rj-U2W" secondAttribute="trailing" constant="6" id="szY-0g-gM2"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -4452,16 +4484,18 @@ QWRkEEZyaWVuZFZpZXc
                             </button>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="u8X-Zw-0D3" secondAttribute="bottom" constant="12" id="5KJ-qu-pkL"/>
                             <constraint firstItem="sLm-tZ-lwk" firstAttribute="top" secondItem="TDj-ND-asZ" secondAttribute="bottom" constant="120" id="DHQ-C8-dip"/>
+                            <constraint firstItem="6gi-jB-36P" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="KA1-JH-SKc"/>
                             <constraint firstAttribute="trailing" secondItem="u8X-Zw-0D3" secondAttribute="trailing" constant="12" id="Wru-cd-CjX"/>
                             <constraint firstItem="x6q-A3-oyw" firstAttribute="top" secondItem="fet-Rv-pld" secondAttribute="bottom" constant="12" id="j0t-Y5-QoD"/>
                             <constraint firstItem="u8X-Zw-0D3" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="jbP-gu-KOb"/>
                             <constraint firstAttribute="trailing" secondItem="TDj-ND-asZ" secondAttribute="trailing" id="m88-yb-b4b"/>
                             <constraint firstAttribute="trailing" secondItem="lcy-Qn-Z2u" secondAttribute="trailing" constant="12" id="o0x-b9-7RJ"/>
                             <constraint firstItem="lcy-Qn-Z2u" firstAttribute="top" secondItem="fet-Rv-pld" secondAttribute="bottom" constant="12" id="qyn-yj-jIi"/>
+                            <constraint firstItem="6gi-jB-36P" firstAttribute="top" secondItem="x6q-A3-oyw" secondAttribute="bottom" constant="12" id="vIA-Rx-4ba"/>
                             <constraint firstItem="x6q-A3-oyw" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" constant="12" id="zJ4-1Q-NGY"/>
                             <constraint firstItem="TDj-ND-asZ" firstAttribute="leading" secondItem="IgI-7Y-zB6" secondAttribute="leading" id="zto-f0-guc"/>
                         </constraints>
@@ -4469,6 +4503,7 @@ QWRkEEZyaWVuZFZpZXc
                     <connections>
                         <outlet property="composeBar" destination="TDj-ND-asZ" id="z95-zG-RuZ"/>
                         <outlet property="startButton" destination="u8X-Zw-0D3" id="CAw-XR-ccT"/>
+                        <outlet property="titleLabel" destination="JKm-rj-U2W" id="uLx-6o-Jjy"/>
                         <outlet property="wrapNameLabel" destination="ejQ-zw-H7R" id="aLC-I6-NdZ"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="DHQ-C8-dip" id="ovN-65-h6S"/>
                         <outletCollection property="keyboardAdjustmentBottomConstraints" destination="5KJ-qu-pkL" id="UP6-ql-rzA"/>

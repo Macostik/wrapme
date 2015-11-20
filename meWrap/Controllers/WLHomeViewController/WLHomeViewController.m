@@ -153,6 +153,7 @@
                     broadcast.wrap = [Wrap entry:channel allowInsert:NO];
                     broadcast.title = state[@"title"];
                     broadcast.channel = state[@"channel"];
+                    broadcast.url = state[@"viewerURL"];
                     if (broadcast.wrap) {
                         [LiveBroadcast addBroadcast:broadcast];
                         [broadcast.wrap notifyOnUpdate];

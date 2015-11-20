@@ -38,7 +38,7 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
         let translationPoint = gesture.translationInView(contentView)
         let velocity = gesture.velocityInView(contentView)
         let percentCompleted = abs(translationPoint.y/self.contentView.height)
-        isMoveUp = velocity.y < 0
+        isMoveUp = velocity.y <= 0
         switch gesture.state {
         case .Began:
             addSplashScreenToHierarchy()

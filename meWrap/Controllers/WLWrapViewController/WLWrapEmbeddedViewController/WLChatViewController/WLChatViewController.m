@@ -129,7 +129,7 @@ CGFloat WLMinTextViewWidth;
     
     self.cachedMessageHeights = [NSMapTable strongToStrongObjectsMapTable];
 
-    self.messageFont = [UIFont fontSmall];
+    self.messageFont = [UIFont fontNormal];
     self.nameFont = [UIFont lightFontSmaller];
     
     __weak typeof(self)weakSelf = self;
@@ -604,7 +604,7 @@ CGFloat WLMinTextViewWidth;
 
 - (void)presetterDidChangeContentSizeCategory:(WLFontPresetter *)presetter {
     [self.cachedMessageHeights removeAllObjects];
-    self.messageFont = [UIFont fontSmall];
+    self.messageFont = [UIFont fontNormal];
     self.nameFont = [UIFont lightFontSmaller];
     [self reloadData];
 }

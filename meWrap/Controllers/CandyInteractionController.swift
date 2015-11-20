@@ -10,10 +10,10 @@ import UIKit
 
 class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
 
-    var screenShotView: UIView?
+    weak var screenShotView: UIView?
     var isMoveUp: Bool = false
-    var contentView: UIView
-    var currentViewController: WLHistoryViewController
+    unowned var contentView: UIView
+    unowned var currentViewController: WLHistoryViewController
     var allowGesture = true
     lazy var panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
     
@@ -47,8 +47,8 @@ class CandyInteractionController: NSObject, UIGestureRecognizerDelegate {
         case .Changed:
             UIView.performAnimated(true, animation: { () -> (Void) in
                 self.contentView.transform = CGAffineTransformMakeTranslation(0, translationPoint.y)
-                self.screenShotView?.alpha = percentCompleted
             })
+            self.screenShotView?.alpha = percentCompleted
         case .Ended, .Cancelled:
             if  (percentCompleted > 0.5 || abs(velocity.y) > 1000) {
                 let endPoint = contentView.height

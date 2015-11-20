@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="icons.ttf">
+            <string>icons</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SwipeAction" customModule="meWrap" customModuleProvider="target">
+            <connections>
+                <outletCollection property="indicators" destination="Qg2-Vg-zck" collectionClass="NSMutableArray" id="t7k-Pd-VFl"/>
+                <outletCollection property="indicators" destination="M2S-2q-wuR" collectionClass="NSMutableArray" id="wt5-60-op3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="right" id="RZ3-hT-C3C">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="eN4-k9-UsQ" customClass="SwipeActionView" customModule="meWrap" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.9529411793" green="0.45882353190000003" blue="0.14901961389999999" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2S-2q-wuR" customClass="WLLabel">
+                    <rect key="frame" x="25" y="17" width="17" height="17"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="icons" family="icons" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="xlarge"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="slide_to_chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qg2-Vg-zck" customClass="WLLabel">
+                    <rect key="frame" x="52" y="16" width="89" height="18"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="preset" value="small"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="localize" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="Qg2-Vg-zck" secondAttribute="centerY" id="9b5-KV-YsL"/>
+                <constraint firstAttribute="trailing" secondItem="eN4-k9-UsQ" secondAttribute="trailing" id="CcO-3V-1EE"/>
+                <constraint firstItem="Qg2-Vg-zck" firstAttribute="centerY" secondItem="M2S-2q-wuR" secondAttribute="centerY" id="EJ0-MM-hdZ"/>
+                <constraint firstItem="eN4-k9-UsQ" firstAttribute="leading" secondItem="RZ3-hT-C3C" secondAttribute="leading" id="NRR-hC-ZJ6"/>
+                <constraint firstItem="Qg2-Vg-zck" firstAttribute="leading" secondItem="M2S-2q-wuR" secondAttribute="trailing" constant="10" id="NYI-HS-osP"/>
+                <constraint firstItem="eN4-k9-UsQ" firstAttribute="top" secondItem="RZ3-hT-C3C" secondAttribute="top" id="TG0-Lu-8US"/>
+                <constraint firstAttribute="bottom" secondItem="eN4-k9-UsQ" secondAttribute="bottom" id="ZWh-c1-7t3"/>
+                <constraint firstItem="M2S-2q-wuR" firstAttribute="leading" secondItem="eN4-k9-UsQ" secondAttribute="leading" constant="25" id="e96-K1-WPA"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

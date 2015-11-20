@@ -41,7 +41,11 @@
     self.duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     self.curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
     self.isShown = YES;
-	[self broadcast:@selector(keyboardWillShow:)];
+    for (id receiver in [self broadcastReceivers]) {
+        if ([receiver respondsToSelector:@selector(keyboardWillShow:)]) {
+            [receiver keyboardWillShow:self];
+        }
+    }
 }
 
 - (void)keyboardDidShow:(NSNotification*)notification {
@@ -50,7 +54,11 @@
     self.height = keyboardSize.height;
     self.duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     self.curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
-	[self broadcast:@selector(keyboardDidShow:)];
+    for (id receiver in [self broadcastReceivers]) {
+        if ([receiver respondsToSelector:@selector(keyboardDidShow:)]) {
+            [receiver keyboardDidShow:self];
+        }
+    }
 	__weak UIWindow* window = [UIWindow mainWindow];
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithView:window];
     [tapGestureRecognizer setActionClosure:^(UIGestureRecognizer *sender) {
@@ -63,7 +71,11 @@
     NSDictionary *userInfo = [notification userInfo];
     self.duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     self.curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
-	[self broadcast:@selector(keyboardWillHide:)];
+    for (id receiver in [self broadcastReceivers]) {
+        if ([receiver respondsToSelector:@selector(keyboardWillHide:)]) {
+            [receiver keyboardWillHide:self];
+        }
+    }
 }
 
 - (void)keyboardDidHide:(NSNotification*)notification {
@@ -71,7 +83,11 @@
     self.duration = 0;
     self.curve = 0;
     self.isShown = NO;
-	[self broadcast:@selector(keyboardDidHide:)];
+    for (id receiver in [self broadcastReceivers]) {
+        if ([receiver respondsToSelector:@selector(keyboardDidHide:)]) {
+            [receiver keyboardDidHide:self];
+        }
+    }
     [self.tapGestureRecognizer.view removeGestureRecognizer:self.tapGestureRecognizer];
 }
 

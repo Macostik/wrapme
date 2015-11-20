@@ -71,6 +71,7 @@
 		C523D8CC1BD7733D006FE7AB /* Telephony.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523D8CB1BD7733D006FE7AB /* Telephony.swift */; };
 		C523D8CE1BD775AC006FE7AB /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523D8CD1BD775AC006FE7AB /* Country.swift */; };
 		C5284C981B95A8B0006455FB /* PlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5284C961B95A8B0006455FB /* PlaceholderView.m */; };
+		C52BA62C1BFF314600D58D75 /* WrapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52BA62B1BFF314600D58D75 /* WrapCell.swift */; };
 		C52CC6471BC6757800288FDC /* WLExtensionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C52CC6461BC6757800288FDC /* WLExtensionManager.m */; };
 		C52CC6511BC6813700288FDC /* WLWKNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C52CC64F1BC6813100288FDC /* WLWKNotificationController.m */; };
 		C52E1FD31A41951300A2C370 /* WLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C52E1FC91A41951300A2C370 /* WLButton.m */; };
@@ -90,9 +91,7 @@
 		C53012941BF4E4BF00098F9C /* Refresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C530127A1BF49AD600098F9C /* Refresher.swift */; };
 		C535F9CD1AA0923D00FF641E /* WLAddressBookGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */; };
 		C535F9D21AA0929500FF641E /* WLAddressBookGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */; };
-		C5390BED1B84544C00027D8B /* WLWrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEB1B84544C00027D8B /* WLWrapCell.xib */; };
 		C5390BF01B845A6200027D8B /* WLCandyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BEE1B845A6200027D8B /* WLCandyCell.xib */; };
-		C5390BF31B845C5700027D8B /* WLRecentCandiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5390BF11B845C5700027D8B /* WLRecentCandiesView.xib */; };
 		C53DC22C1AA7637C00D2E4C0 /* WLUploadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C53DC2281AA7637C00D2E4C0 /* WLUploadingView.m */; };
 		C53E5CFD1A84FBDB004F61B0 /* WLStillPictureBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5CF91A84FBDB004F61B0 /* WLStillPictureBaseViewController.m */; };
 		C53E5D771A851F71004F61B0 /* WLCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53E5D581A851F71004F61B0 /* WLCameraViewController.m */; };
@@ -126,7 +125,6 @@
 		C54AF67C19B8C491006F7EDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A70E18DA0946008FF6F0 /* main.m */; };
 		C54AF68419B8C491006F7EDB /* WLCandyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1104819067095007DB4AC /* WLCandyViewController.m */; };
 		C54AF68B19B8C491006F7EDB /* WLComposeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E8FF1E18E9885100BF1B96 /* WLComposeBar.m */; };
-		C54AF6A419B8C491006F7EDB /* WLWrapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */; };
 		C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */; };
 		C54AF6AE19B8C491006F7EDB /* WLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D653D918E4329F009CE64C /* WLProgressBar.m */; };
 		C54AF6BB19B8C491006F7EDB /* WLWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A7A73C18DA0A06008FF6F0 /* WLWelcomeViewController.m */; };
@@ -182,6 +180,9 @@
 		C552A8321BFDD37B00A7FFAD /* FlowerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA6D9A1BFCC8270029970A /* FlowerMenu.swift */; };
 		C552A8361BFDE9FE00A7FFAD /* HistoryDateSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552A8351BFDE9FE00A7FFAD /* HistoryDateSeparator.swift */; };
 		C552A8381BFDEA5E00A7FFAD /* HistoryDateSeparator.xib in Resources */ = {isa = PBXBuildFile; fileRef = C552A8371BFDEA5E00A7FFAD /* HistoryDateSeparator.xib */; };
+		C552A83C1BFE1A7C00A7FFAD /* LiveBroadcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552A83B1BFE1A7C00A7FFAD /* LiveBroadcast.swift */; };
+		C552A83E1BFE293300A7FFAD /* RecentCandiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552A83D1BFE293300A7FFAD /* RecentCandiesView.swift */; };
+		C552A8401BFE2BF600A7FFAD /* RecentCandiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C552A83F1BFE2BF600A7FFAD /* RecentCandiesView.xib */; };
 		C553B1901BF9F75600E50219 /* EntryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553B18F1BF9F75600E50219 /* EntryPresenter.swift */; };
 		C5568BE01A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m in Sources */ = {isa = PBXBuildFile; fileRef = C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */; };
 		C557BA831BF5D50900AE9974 /* WhatsUpEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557BA821BF5D50900AE9974 /* WhatsUpEvent.swift */; };
@@ -422,6 +423,13 @@
 		C5E6EAA21BBAC3EC007FFA66 /* WLImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8D91BBAC3EC007FFA66 /* WLImageFetcher.m */; };
 		C5E6EAA41BBAC3EC007FFA66 /* WLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8DB1BBAC3EC007FFA66 /* WLImageView.m */; };
 		C5E6EAA61BBAC3EC007FFA66 /* WLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E6E8DB1BBAC3EC007FFA66 /* WLImageView.m */; };
+		C5E6F0211BFF38C200FA3D4F /* LeftSwipeActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E6F01D1BFF38C200FA3D4F /* LeftSwipeActionView.xib */; };
+		C5E6F0221BFF38C200FA3D4F /* RightSwipeActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E6F01E1BFF38C200FA3D4F /* RightSwipeActionView.xib */; };
+		C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F01F1BFF38C200FA3D4F /* SwipeAction.swift */; };
+		C5E6F0241BFF38C200FA3D4F /* WrapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E6F0201BFF38C200FA3D4F /* WrapCell.xib */; };
+		C5E6F0281BFF558000FA3D4F /* MediaDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */; };
+		C5E6F02A1BFF643800FA3D4F /* LiveBroadcastMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6F0291BFF643800FA3D4F /* LiveBroadcastMediaView.swift */; };
+		C5E6F02C1BFF644600FA3D4F /* LiveBroadcastMediaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5E6F02B1BFF644600FA3D4F /* LiveBroadcastMediaView.xib */; };
 		C5E7AB761BCD399B007E314B /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB751BCD399B007E314B /* UITextView+Ext.swift */; };
 		C5E7AB781BCD3A79007E314B /* UIScrollView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB771BCD3A79007E314B /* UIScrollView+Ext.swift */; };
 		C5E7AB7A1BCD47D4007E314B /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */; };
@@ -433,7 +441,6 @@
 		C5ECD55B1BF649B9005791B1 /* UIStoryboard+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */; };
 		C5ECD55C1BF64A41005791B1 /* WhatsUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C557BA801BF5D47900AE9974 /* WhatsUpViewController.swift */; };
 		C5EE2CE21B5658F90016889E /* WLMessagesCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */; };
-		C5EE2CEA1B567A970016889E /* WLRecentCandiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */; };
 		C5F076661BE26F0E00021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
 		C5F076671BE2835400021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
 		C5F076681BE2835500021FAE /* EntryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F076651BE26F0E00021FAE /* EntryContext.swift */; };
@@ -546,8 +553,6 @@
 		12D578C619178C3400586995 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		12D653D818E4329F009CE64C /* WLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProgressBar.h; sourceTree = "<group>"; };
 		12D653D918E4329F009CE64C /* WLProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLProgressBar.m; sourceTree = "<group>"; };
-		12DCBA7918DB17D000A4BC44 /* WLWrapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapCell.h; path = WLHomeViewController/WLWrapCell/WLWrapCell.h; sourceTree = "<group>"; };
-		12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapCell.m; path = WLHomeViewController/WLWrapCell/WLWrapCell.m; sourceTree = "<group>"; };
 		12DCBA8918DB39B500A4BC44 /* WLWrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLWrapViewController.h; path = WLWrapViewController/WLWrapViewController.h; sourceTree = "<group>"; };
 		12DCBA8A18DB39B500A4BC44 /* WLWrapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLWrapViewController.m; path = WLWrapViewController/WLWrapViewController.m; sourceTree = "<group>"; };
 		12DEC3ED1920F7E0007BE6CC /* WLToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLToast.h; sourceTree = "<group>"; };
@@ -662,6 +667,7 @@
 		C5259D661ACC2333003D3317 /* meWrap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = meWrap.entitlements; sourceTree = "<group>"; };
 		C5284C951B95A8B0006455FB /* PlaceholderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderView.h; sourceTree = "<group>"; };
 		C5284C961B95A8B0006455FB /* PlaceholderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderView.m; sourceTree = "<group>"; };
+		C52BA62B1BFF314600D58D75 /* WrapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WrapCell.swift; path = WLHomeViewController/WrapCell.swift; sourceTree = "<group>"; };
 		C52CC6451BC6757800288FDC /* WLExtensionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLExtensionManager.h; sourceTree = "<group>"; };
 		C52CC6461BC6757800288FDC /* WLExtensionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLExtensionManager.m; sourceTree = "<group>"; };
 		C52CC64E1BC6813100288FDC /* WLWKNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWKNotificationController.h; sourceTree = "<group>"; };
@@ -689,9 +695,7 @@
 		C535F9C81AA0923D00FF641E /* WLAddressBookGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAddressBookGroupView.h; sourceTree = "<group>"; };
 		C535F9C91AA0923D00FF641E /* WLAddressBookGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAddressBookGroupView.m; sourceTree = "<group>"; };
 		C535F9CE1AA0929500FF641E /* WLAddressBookGroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLAddressBookGroupView.xib; sourceTree = "<group>"; };
-		C5390BEB1B84544C00027D8B /* WLWrapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WLWrapCell.xib; path = WLHomeViewController/WLWrapCell/WLWrapCell.xib; sourceTree = "<group>"; };
 		C5390BEE1B845A6200027D8B /* WLCandyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLCandyCell.xib; sourceTree = "<group>"; };
-		C5390BF11B845C5700027D8B /* WLRecentCandiesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLRecentCandiesView.xib; sourceTree = "<group>"; };
 		C53DC2271AA7637C00D2E4C0 /* WLUploadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUploadingView.h; sourceTree = "<group>"; };
 		C53DC2281AA7637C00D2E4C0 /* WLUploadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUploadingView.m; sourceTree = "<group>"; };
 		C53E5CF81A84FBDB004F61B0 /* WLStillPictureBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLStillPictureBaseViewController.h; path = WLStillPictureViewController/WLStillPictureBaseViewController.h; sourceTree = "<group>"; };
@@ -773,6 +777,9 @@
 		C552A8351BFDE9FE00A7FFAD /* HistoryDateSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDateSeparator.swift; sourceTree = "<group>"; };
 		C552A8371BFDEA5E00A7FFAD /* HistoryDateSeparator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryDateSeparator.xib; sourceTree = "<group>"; };
 		C552A8391BFDEA8900A7FFAD /* CandyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyCell.swift; sourceTree = "<group>"; };
+		C552A83B1BFE1A7C00A7FFAD /* LiveBroadcast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveBroadcast.swift; sourceTree = "<group>"; };
+		C552A83D1BFE293300A7FFAD /* RecentCandiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentCandiesView.swift; path = WLHomeViewController/RecentCandiesView.swift; sourceTree = "<group>"; };
+		C552A83F1BFE2BF600A7FFAD /* RecentCandiesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RecentCandiesView.xib; path = WLHomeViewController/RecentCandiesView.xib; sourceTree = "<group>"; };
 		C553B18F1BF9F75600E50219 /* EntryPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryPresenter.swift; sourceTree = "<group>"; };
 		C5568BDB1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WLProgressBar+WLContribution.h"; sourceTree = "<group>"; };
 		C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WLProgressBar+WLContribution.m"; sourceTree = "<group>"; };
@@ -1086,6 +1093,13 @@
 		C5E6E8D91BBAC3EC007FFA66 /* WLImageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLImageFetcher.m; sourceTree = "<group>"; };
 		C5E6E8DA1BBAC3EC007FFA66 /* WLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLImageView.h; sourceTree = "<group>"; };
 		C5E6E8DB1BBAC3EC007FFA66 /* WLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLImageView.m; sourceTree = "<group>"; };
+		C5E6F01D1BFF38C200FA3D4F /* LeftSwipeActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftSwipeActionView.xib; path = WLHomeViewController/LeftSwipeActionView.xib; sourceTree = "<group>"; };
+		C5E6F01E1BFF38C200FA3D4F /* RightSwipeActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RightSwipeActionView.xib; path = WLHomeViewController/RightSwipeActionView.xib; sourceTree = "<group>"; };
+		C5E6F01F1BFF38C200FA3D4F /* SwipeAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeAction.swift; path = WLHomeViewController/SwipeAction.swift; sourceTree = "<group>"; };
+		C5E6F0201BFF38C200FA3D4F /* WrapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WrapCell.xib; path = WLHomeViewController/WrapCell.xib; sourceTree = "<group>"; };
+		C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaDataSource.swift; sourceTree = "<group>"; };
+		C5E6F0291BFF643800FA3D4F /* LiveBroadcastMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveBroadcastMediaView.swift; sourceTree = "<group>"; };
+		C5E6F02B1BFF644600FA3D4F /* LiveBroadcastMediaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveBroadcastMediaView.xib; sourceTree = "<group>"; };
 		C5E7AB751BCD399B007E314B /* UITextView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
 		C5E7AB771BCD3A79007E314B /* UIScrollView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Ext.swift"; sourceTree = "<group>"; };
 		C5E7AB791BCD47D4007E314B /* UIView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -1097,8 +1111,6 @@
 		C5ECD55A1BF649B9005791B1 /* UIStoryboard+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Ext.swift"; sourceTree = "<group>"; };
 		C5EE2CDC1B5658F90016889E /* WLMessagesCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLMessagesCounter.h; sourceTree = "<group>"; };
 		C5EE2CDD1B5658F90016889E /* WLMessagesCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLMessagesCounter.m; sourceTree = "<group>"; };
-		C5EE2CE41B567A970016889E /* WLRecentCandiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLRecentCandiesView.h; sourceTree = "<group>"; };
-		C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLRecentCandiesView.m; sourceTree = "<group>"; };
 		C5F076651BE26F0E00021FAE /* EntryContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryContext.swift; sourceTree = "<group>"; };
 		C5F0766B1BE2A97900021FAE /* EntryDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDescriptor.swift; sourceTree = "<group>"; };
 		C5F4A1651BF36DD300EFC8FA /* StreamDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamDataSource.swift; sourceTree = "<group>"; };
@@ -1297,6 +1309,7 @@
 				C53012851BF4C0AD00098F9C /* HomeDataSource.swift */,
 				C553B18F1BF9F75600E50219 /* EntryPresenter.swift */,
 				C5861A6B1BFA3C9400C64663 /* LiveBroadcastViewController.swift */,
+				C5E6F0271BFF558000FA3D4F /* MediaDataSource.swift */,
 				C5E4FD091BF762A500575DA4 /* WhatsUpViewController */,
 				C5B8F7161B8215FE00A5E541 /* WLDrawingViewController */,
 				C59EF3BF1B7A214000E777BC /* WLFollowingViewController */,
@@ -1335,6 +1348,7 @@
 				C5AA71D51BE3D39D00EA106A /* MutableAsset.swift */,
 				C5FF14671BF340F800192754 /* Emoji.swift */,
 				C557BA821BF5D50900AE9974 /* WhatsUpEvent.swift */,
+				C552A83B1BFE1A7C00A7FFAD /* LiveBroadcast.swift */,
 				C50541551BD6545400AE6F2C /* WLImageEditorSession */,
 				C5053E7D1BC7E3DC0040613A /* WLEntryDescriptor */,
 				C5053E5B1BC7DC150040613A /* WLOperation */,
@@ -1410,8 +1424,13 @@
 		12A7A74218DA17F7008FF6F0 /* WLHomeViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C5EE2CE31B567A850016889E /* WLRecentCandiesView */,
-				12DCBA7818DB17B000A4BC44 /* WLWrapCell */,
+				C552A83D1BFE293300A7FFAD /* RecentCandiesView.swift */,
+				C552A83F1BFE2BF600A7FFAD /* RecentCandiesView.xib */,
+				C52BA62B1BFF314600D58D75 /* WrapCell.swift */,
+				C5E6F0201BFF38C200FA3D4F /* WrapCell.xib */,
+				C5E6F01F1BFF38C200FA3D4F /* SwipeAction.swift */,
+				C5E6F01D1BFF38C200FA3D4F /* LeftSwipeActionView.xib */,
+				C5E6F01E1BFF38C200FA3D4F /* RightSwipeActionView.xib */,
 				12A7A74318DA180C008FF6F0 /* WLHomeViewController.h */,
 				12A7A74418DA180C008FF6F0 /* WLHomeViewController.m */,
 			);
@@ -1436,16 +1455,6 @@
 				C5568BDC1A03FC3600C4E6C2 /* WLProgressBar+WLContribution.m */,
 			);
 			path = WLProgressBar;
-			sourceTree = "<group>";
-		};
-		12DCBA7818DB17B000A4BC44 /* WLWrapCell */ = {
-			isa = PBXGroup;
-			children = (
-				12DCBA7918DB17D000A4BC44 /* WLWrapCell.h */,
-				12DCBA7A18DB17D000A4BC44 /* WLWrapCell.m */,
-				C5390BEB1B84544C00027D8B /* WLWrapCell.xib */,
-			);
-			name = WLWrapCell;
 			sourceTree = "<group>";
 		};
 		12DCBA8818DB399B00A4BC44 /* WLWrapViewController */ = {
@@ -2477,6 +2486,8 @@
 				C5BCEFF71B551B7B00E4AD6D /* WLMediaViewController.m */,
 				C552A8351BFDE9FE00A7FFAD /* HistoryDateSeparator.swift */,
 				C552A8371BFDEA5E00A7FFAD /* HistoryDateSeparator.xib */,
+				C5E6F0291BFF643800FA3D4F /* LiveBroadcastMediaView.swift */,
+				C5E6F02B1BFF644600FA3D4F /* LiveBroadcastMediaView.xib */,
 			);
 			name = WLMediaViewController;
 			path = WLPhotosViewController;
@@ -2910,17 +2921,6 @@
 			path = WLMessagesCounter;
 			sourceTree = "<group>";
 		};
-		C5EE2CE31B567A850016889E /* WLRecentCandiesView */ = {
-			isa = PBXGroup;
-			children = (
-				C5EE2CE41B567A970016889E /* WLRecentCandiesView.h */,
-				C5EE2CE51B567A970016889E /* WLRecentCandiesView.m */,
-				C5390BF11B845C5700027D8B /* WLRecentCandiesView.xib */,
-			);
-			name = WLRecentCandiesView;
-			path = WLHomeViewController/WLRecentCandiesView;
-			sourceTree = "<group>";
-		};
 		C5FE0A5A1ACD98F3007DBE95 /* WLCircleImageView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3140,6 +3140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5B91A421BB4101A000E08E7 /* Introduction.storyboard in Resources */,
+				C5E6F0241BFF38C200FA3D4F /* WrapCell.xib in Resources */,
 				C560B16C1AE6A0580010B2EC /* AdobeCreativeSDKImageResources.bundle in Resources */,
 				C5E4CCFB1A1BA38C00B449F8 /* s04.wav in Resources */,
 				C5C20BE01A239D6F008B2E2E /* WLTestUserCell.xib in Resources */,
@@ -3147,13 +3148,14 @@
 				C5E4CCF81A1BA38900B449F8 /* s03.wav in Resources */,
 				5BA406871A8CC52B00C1749F /* WLToast.xib in Resources */,
 				C53012921BF4E3EA00098F9C /* EmojiView.xib in Resources */,
+				C5E6F0221BFF38C200FA3D4F /* RightSwipeActionView.xib in Resources */,
 				C5B8F7201B82172D00A5E541 /* WLDrawingViewController.xib in Resources */,
 				C5B91A4B1BB41343000E08E7 /* WLDownloadingView.xib in Resources */,
-				C5390BF31B845C5700027D8B /* WLRecentCandiesView.xib in Resources */,
 				C5B91A361BB3F812000E08E7 /* Main.storyboard in Resources */,
 				5BA4F8831A1CA08A00DB1A25 /* s02.wav in Resources */,
 				C54AF72219B8C491006F7EDB /* Images.xcassets in Resources */,
 				C53012901BF4E3EA00098F9C /* EmojiCell.xib in Resources */,
+				C552A8401BFE2BF600A7FFAD /* RecentCandiesView.xib in Resources */,
 				C54FD28B1BDA3415004B0545 /* AssetCell.xib in Resources */,
 				C5B91A5B1BB41679000E08E7 /* WhatsUpPlaceholderView.xib in Resources */,
 				C5B91A3B1BB40423000E08E7 /* SignUp.storyboard in Resources */,
@@ -3198,18 +3200,19 @@
 				C5B91A511BB414E1000E08E7 /* WLInviteHintView.xib in Resources */,
 				C54AF73B19B8C491006F7EDB /* CountryCodes.json in Resources */,
 				C509E2BA1B96F46A003F6C21 /* Default-667h@2x.png in Resources */,
+				C5E6F0211BFF38C200FA3D4F /* LeftSwipeActionView.xib in Resources */,
 				C5A9CC871B945DE00084D0F5 /* WLWrapPickerCell.xib in Resources */,
 				C5C3FEAC1B8F311500F177EC /* Default-Portrait.png in Resources */,
 				C551890E1B8F46C000D1327E /* WLContributorResendCell.xib in Resources */,
 				5BA130821B15A92600385C2C /* WLPresentingImageView.xib in Resources */,
 				C5C3FEAA1B8F311500F177EC /* Default@2x.png in Resources */,
 				C5BEC3A51B8F16E800499EEA /* logo_and_caption_orange@2x.png in Resources */,
-				C5390BED1B84544C00027D8B /* WLWrapCell.xib in Resources */,
 				C5A6150B1B9DC5C8009B92EF /* WLAddressBookRecordCell.xib in Resources */,
 				C54731C61B9086DB00B583FD /* WLCommentCell.xib in Resources */,
 				C54AF74119B8C491006F7EDB /* iTunesArtwork in Resources */,
 				C5C3FEB01B8F311500F177EC /* Default.png in Resources */,
 				C55189121B8F46C000D1327E /* WLContributorSpinnerCell.xib in Resources */,
+				C5E6F02C1BFF644600FA3D4F /* LiveBroadcastMediaView.xib in Resources */,
 				5BA6AA451A66779E00493582 /* Localizable.strings in Resources */,
 				C5BEC3A91B8F16E800499EEA /* logo_and_caption_white@2x.png in Resources */,
 				C5CBACF01BA70B70007D2403 /* LoadingView.xib in Resources */,
@@ -3374,6 +3377,7 @@
 				C5E6E9541BBAC3EC007FFA66 /* WLDefinedComparators.m in Sources */,
 				C5C7698E1BAC10BF00B205CB /* WLPaginatedRequest+Defined.m in Sources */,
 				C5284C981B95A8B0006455FB /* PlaceholderView.m in Sources */,
+				C5E6F0281BFF558000FA3D4F /* MediaDataSource.swift in Sources */,
 				5B1DD0371BD7B67000D30E1A /* InternalScrollView.swift in Sources */,
 				C5BCF0101B551B7B00E4AD6D /* WLMessageCell.m in Sources */,
 				5BD121561B0250B500FF5FBF /* WLDownloadingView.m in Sources */,
@@ -3422,6 +3426,7 @@
 				C5BCF0011B551B7B00E4AD6D /* WLChatViewController.m in Sources */,
 				C530128A1BF4C87F00098F9C /* WrapPickerDataSource.swift in Sources */,
 				C5111D3C1AB345D10094275C /* WLIntroductionViewController.m in Sources */,
+				C5E6F0231BFF38C200FA3D4F /* SwipeAction.swift in Sources */,
 				C530127D1BF4A5AB00098F9C /* SegmentedStreamDataSource.swift in Sources */,
 				C51A521E1A24DCED00558BF3 /* WLPasscodeValidation.m in Sources */,
 				C5AA71D61BE3D39D00EA106A /* MutableAsset.swift in Sources */,
@@ -3484,7 +3489,6 @@
 				C581680519F169D90081F350 /* WLBaseViewController.m in Sources */,
 				C54C42531BDE77BB003E644D /* ExtensionRequest.swift in Sources */,
 				C5E6E94E1BBAC3EC007FFA66 /* NSSet+WLCollection.m in Sources */,
-				C54AF6A419B8C491006F7EDB /* WLWrapCell.m in Sources */,
 				C5BCF03D1B551B7B00E4AD6D /* WLMediaViewController.m in Sources */,
 				C55A45301BAC1CBE0055AEC2 /* WLUploading+Extended.m in Sources */,
 				C54731B41B906A7400B583FD /* WLBatchEditPictureViewController.m in Sources */,
@@ -3502,6 +3506,7 @@
 				C5AA71BF1BE3AF1500EA106A /* Message.swift in Sources */,
 				C5E6E9DE1BBAC3EC007FFA66 /* WLBroadcaster.m in Sources */,
 				C5053E821BC7F7280040613A /* ReportViewController.swift in Sources */,
+				C552A83C1BFE1A7C00A7FFAD /* LiveBroadcast.swift in Sources */,
 				C5060D181BEBA6B3007FFD5B /* Entry+APIResponse.swift in Sources */,
 				C54731BA1B906A7400B583FD /* WLQuickAssetsViewController.m in Sources */,
 				C54AF6AB19B8C491006F7EDB /* WLHomeViewController.m in Sources */,
@@ -3537,6 +3542,7 @@
 				C5B2A1261B4BFED8004759F3 /* WLChat.m in Sources */,
 				C5177C3C1B7CE578008102C7 /* WLWrapStatusImageView.m in Sources */,
 				5BD303451B2971D2002EA8D7 /* WLWrapSettingsViewController.m in Sources */,
+				C5E6F02A1BFF643800FA3D4F /* LiveBroadcastMediaView.swift in Sources */,
 				C54531231A2497470048A677 /* WLPhoneValidation.m in Sources */,
 				C523D8CE1BD775AC006FE7AB /* Country.swift in Sources */,
 				C5E6E9FC1BBAC3EC007FFA66 /* CoreData.xcdatamodeld in Sources */,
@@ -3554,8 +3560,8 @@
 				C5E6EA9E1BBAC3EC007FFA66 /* WLImageFetcher.m in Sources */,
 				C54AF6DD19B8C491006F7EDB /* WLStillPictureViewController.m in Sources */,
 				C54C42631BDE8AEC003E644D /* Authorization.swift in Sources */,
-				C5EE2CEA1B567A970016889E /* WLRecentCandiesView.m in Sources */,
 				C5C20B9E1A238E22008B2E2E /* WLEmailValidation.m in Sources */,
+				C552A83E1BFE293300A7FFAD /* RecentCandiesView.swift in Sources */,
 				C5E6E9721BBAC3EC007FFA66 /* NSObject+AssociatedObjects.m in Sources */,
 				C5AEE42F1B3AC9A7000C8CCF /* WLDrawingSession.m in Sources */,
 				C5AA71BA1BE3AF1500EA106A /* Candy.swift in Sources */,
@@ -3599,6 +3605,7 @@
 				C5FAC9021BE2B35F0060FEDB /* NSUserDefaults+Ext.swift in Sources */,
 				C54531311A24A1F20048A677 /* WLCountryCell.m in Sources */,
 				C5AA71C01BE3AF1500EA106A /* Uploading.swift in Sources */,
+				C52BA62C1BFF314600D58D75 /* WrapCell.swift in Sources */,
 				C523D8CC1BD7733D006FE7AB /* Telephony.swift in Sources */,
 				C5BCF0151B551B7B00E4AD6D /* WLMessageDateView.m in Sources */,
 				C54531381A24D6750048A677 /* WLLinkDeviceViewController.m in Sources */,
@@ -4003,6 +4010,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;

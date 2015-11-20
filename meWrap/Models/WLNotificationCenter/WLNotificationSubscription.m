@@ -80,6 +80,10 @@
     [[PubNub sharedInstance] publish:message toChannel:self.name withCompletion:nil];
 }
 
+- (void)changeState:(NSDictionary*)state channel:(NSString*)channel {
+    [[PubNub sharedInstance] setState:state forUUID:[User currentUser].identifier onChannel:channel withCompletion:nil];
+}
+
 - (void)changeState:(NSDictionary*)state {
     [[PubNub sharedInstance] setState:state forUUID:[User currentUser].identifier onChannel:self.name withCompletion:nil];
 }

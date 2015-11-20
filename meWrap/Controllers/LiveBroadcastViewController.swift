@@ -20,6 +20,8 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     @IBOutlet weak var startButton: UIButton!
     
+    var broadcast: LiveBroadcast?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         wrapNameLabel?.text = wrap?.name
@@ -37,7 +39,20 @@ class LiveBroadcastViewController: WLBaseViewController {
         let audioConfig = AudioConfig()
         audioConfig.sampleRate = (AudioConfig.getSupportedSampleRates().first as! NSNumber).floatValue
         let streamer = Streamer.instance() as! Streamer
-        let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: .LandscapeRight, config: videoConfig, listener: self)
+        var orientation = AVCaptureVideoOrientation.Portrait
+        switch WLDeviceManager.defaultManager().orientation {
+        case .PortraitUpsideDown:
+            orientation = .PortraitUpsideDown
+            break
+        case .LandscapeLeft:
+            orientation = .LandscapeLeft
+            break
+        case .LandscapeRight:
+            orientation = .LandscapeRight
+            break
+        default: break
+        }
+        let layer = streamer.startVideoCaptureWithCamera(cameraInfo.cameraID, orientation: orientation, config: videoConfig, listener: self)
         layer.frame = view.bounds
         layer.videoGravity = AVLayerVideoGravityResizeAspectFill
         view.layer.insertSublayer(layer, atIndex: 0)
@@ -46,15 +61,48 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     func start() {
         let streamer = Streamer.instance() as! Streamer
-        if let userUID = User.currentUser?.identifier, let deviceUID = Authorization.currentAuthorization.deviceUID {
-            let uri = "rtsp://live.mewrap.me:1935/live/\(userUID)-\(deviceUID)"
-            print(uri)
-            connectionID = streamer.createConnectionWithListener(self, uri: uri, mode: 0)
+        guard let userUID = User.currentUser?.identifier,
+            let deviceUID = Authorization.currentAuthorization.deviceUID else {
+            return
         }
+        let channel = "\(userUID)-\(deviceUID)"
+        
+        let broadcast = LiveBroadcast()
+        broadcast.title = composeBar.text
+        broadcast.broadcaster = User.currentUser
+        broadcast.url = "http://live.mewrap.me:1935/live/\(channel)/playlist.m3u8"
+        broadcast.channel = channel
+        broadcast.wrap = wrap
+        LiveBroadcast.addBroadcast(broadcast)
+        wrap?.notifyOnUpdate()
+        
+        self.broadcast = broadcast
+        
+        let state: [NSObject : AnyObject] = [
+            "isBroadcasting":true,
+            "title":broadcast.title,
+            "viewerURL":broadcast.url,
+            "chatChannel":channel
+        ]
+        
+        if let channel = wrap?.identifier {
+            WLNotificationCenter.defaultCenter().userSubscription.changeState(state, channel: channel)
+        }
+        
+        let uri = "rtsp://live.mewrap.me:1935/live/\(channel)"
+        connectionID = streamer.createConnectionWithListener(self, uri: uri, mode: 0)
         
     }
     
     func stop() {
+        
+        if let broadcast = broadcast {
+            LiveBroadcast.removeBroadcast(broadcast)
+        }
+        if let channel = wrap?.identifier {
+            let state: [NSObject : AnyObject] = [ "isBroadcasting":false ]
+            WLNotificationCenter.defaultCenter().userSubscription.changeState(state, channel: channel)
+        }
         if let connectionID = connectionID {
             self.connectionID = nil
             let streamer = Streamer.instance() as! Streamer

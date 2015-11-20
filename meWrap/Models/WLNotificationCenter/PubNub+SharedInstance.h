@@ -12,4 +12,6 @@
 
 + (instancetype)sharedInstance;
 
++ (void)setSharedInstance:(id)sharedInstance;
+
 @end

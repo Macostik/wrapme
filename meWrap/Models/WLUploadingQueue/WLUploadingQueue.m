@@ -29,47 +29,47 @@
 @implementation WLUploadingQueue
 
 + (void)initialize {
-    WLUploadingQueue *wrapQueue = [WLUploadingQueue queueForEntriesOfClass:[Wrap class]];
-    WLUploadingQueue *candyQueue = [WLUploadingQueue queueForEntriesOfClass:[Candy class]];
+    WLUploadingQueue *wrapQueue = [WLUploadingQueue queueForEntityName:[Wrap entityName]];
+    WLUploadingQueue *candyQueue = [WLUploadingQueue queueForEntityName:[Candy entityName]];
     [wrapQueue addDependentQueue:candyQueue];
-    WLUploadingQueue *messageQueue = [WLUploadingQueue queueForEntriesOfClass:[Message class]];
+    WLUploadingQueue *messageQueue = [WLUploadingQueue queueForEntityName:[Message entityName]];
     messageQueue.simultaneousUploadingsLimit = 1;
     [wrapQueue addDependentQueue:messageQueue];
-    WLUploadingQueue *commentQueue = [WLUploadingQueue queueForEntriesOfClass:[Comment class]];
+    WLUploadingQueue *commentQueue = [WLUploadingQueue queueForEntityName:[Comment entityName]];
     [candyQueue addDependentQueue:commentQueue];
 }
 
 static NSMapTable *queues = nil;
 
-+ (instancetype)queueForEntriesOfClass:(Class)entryClass {
++ (instancetype)queueForEntityName:(NSString *)entityName {
     if (!queues) {
         queues = [NSMapTable strongToStrongObjectsMapTable];
     }
-    WLUploadingQueue *queue = [queues objectForKey:entryClass];
+    WLUploadingQueue *queue = [queues objectForKey:entityName];
     if (!queue) {
         queue = [[self alloc] init];
-        queue.entryClass = entryClass;
-        queue.queueName = [NSString stringWithFormat:@"wl_uploading_queue_%@", [NSStringFromClass(entryClass) lowercaseString]];
-        [queues setObject:queue forKey:entryClass];
+        queue.entityName = entityName;
+        queue.queueName = [NSString stringWithFormat:@"wl_uploading_queue_%@", [entityName lowercaseString]];
+        [queues setObject:queue forKey:entityName];
     }
     return queue;
 }
 
 + (void)upload:(Uploading *)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure {
-    [[self queueForEntriesOfClass:uploading.contribution.class] upload:uploading success:success failure:failure];
+    [[self queueForEntityName:uploading.contribution.entity.name] upload:uploading success:success failure:failure];
 }
 
 + (void)start {
     if (![WLNetwork sharedNetwork].reachable || ![WLAuthorizationRequest authorized]) {
         return;
     }
-    WLUploadingQueue *queue = [WLUploadingQueue queueForEntriesOfClass:[Wrap class]];
+    WLUploadingQueue *queue = [WLUploadingQueue queueForEntityName:[Wrap entityName]];
     [queue prepareAndStart];
 }
 
-- (void)setEntryClass:(Class)entryClass {
-    _entryClass = entryClass;
-    [[entryClass notifier] addReceiver:self];
+- (void)setEntityName:(NSString *)entityName {
+    _entityName = entityName;
+    [[EntryNotifier notifierForName:entityName] addReceiver:self];
 }
 
 - (instancetype)init {
@@ -83,7 +83,7 @@ static NSMapTable *queues = nil;
 
 - (void)prepare {
     NSMutableOrderedSet *uploadings = [[[[Uploading entries] selects:^BOOL(Uploading *uploading) {
-        return [uploading.contribution isKindOfClass:self.entryClass];
+        return [uploading.contribution.entity.name isEqualToString:self.entityName];
     }] orderedSet] mutableCopy];
     [uploadings sortByCreatedAt:NO];
     self.uploadings = uploadings;
@@ -120,9 +120,17 @@ static NSMapTable *queues = nil;
     if (_isUploading != isUploading) {
         _isUploading = isUploading;
         if (isUploading) {
-            [self broadcast:@selector(uploadingQueueDidStart:)];
+            for (id receiver in [self broadcastReceivers]) {
+                if ([receiver respondsToSelector:@selector(uploadingQueueDidStart:)]) {
+                    [receiver uploadingQueueDidStart:self];
+                }
+            }
         } else {
-            [self broadcast:@selector(uploadingQueueDidStop:)];
+            for (id receiver in [self broadcastReceivers]) {
+                if ([receiver respondsToSelector:@selector(uploadingQueueDidStop:)]) {
+                    [receiver uploadingQueueDidStop:self];
+                }
+            }
         }
     }
 }
@@ -134,14 +142,22 @@ static NSMapTable *queues = nil;
     [uploading upload:^(id object) {
         [weakSelf.uploadings removeObject:uploading];
         if (success) success(object);
-        [weakSelf broadcast:@selector(uploadingQueueDidChange:)];
+        for (id receiver in [self broadcastReceivers]) {
+            if ([receiver respondsToSelector:@selector(uploadingQueueDidChange:)]) {
+                [receiver uploadingQueueDidChange:self];
+            }
+        }
         weakSelf.isUploading = !weakSelf.isEmpty;
     } failure:^(NSError *error) {
         if (!uploading.contribution.valid) {
             [weakSelf.uploadings removeObject:uploading];
         }
         if (failure) failure(error);
-        [weakSelf broadcast:@selector(uploadingQueueDidChange:)];
+        for (id receiver in [self broadcastReceivers]) {
+            if ([receiver respondsToSelector:@selector(uploadingQueueDidChange:)]) {
+                [receiver uploadingQueueDidChange:self];
+            }
+        }
         weakSelf.isUploading = !weakSelf.isEmpty;
     }];
 }
@@ -174,7 +190,11 @@ static NSMapTable *queues = nil;
 - (void)addUploading:(Uploading *)uploading {
     if (![self.uploadings containsObject:uploading]) {
         [self.uploadings addObject:uploading];
-        [self broadcast:@selector(uploadingQueueDidChange:)];
+        for (id receiver in [self broadcastReceivers]) {
+            if ([receiver respondsToSelector:@selector(uploadingQueueDidChange:)]) {
+                [receiver uploadingQueueDidChange:self];
+            }
+        }
     }
 }
 
@@ -212,7 +232,11 @@ static NSMapTable *queues = nil;
     }
     if (removedUploadins.count > 0) {
         [self.uploadings minusSet:removedUploadins];
-        [self broadcast:@selector(uploadingQueueDidChange:)];
+        for (id receiver in [self broadcastReceivers]) {
+            if ([receiver respondsToSelector:@selector(uploadingQueueDidChange:)]) {
+                [receiver uploadingQueueDidChange:self];
+            }
+        }
         self.isUploading = !self.isEmpty;
         
         for (Uploading *uploading in removedUploadins) {
@@ -233,7 +257,11 @@ static NSMapTable *queues = nil;
     Uploading *uploading = [(Contribution *)entry uploading];
     if ([self.uploadings containsObject:uploading]) {
         [self.uploadings removeObject:uploading];
-        [self broadcast:@selector(uploadingQueueDidChange:)];
+        for (id receiver in [self broadcastReceivers]) {
+            if ([receiver respondsToSelector:@selector(uploadingQueueDidChange:)]) {
+                [receiver uploadingQueueDidChange:self];
+            }
+        }
         self.isUploading = !self.isEmpty;
     }
     for (WLUploadingQueue *queue in self.dependentQueues) {

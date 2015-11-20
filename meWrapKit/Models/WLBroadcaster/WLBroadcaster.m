@@ -16,18 +16,6 @@
 
 @implementation WLBroadcaster
 
-+ (instancetype)broadcaster {
-    return nil;
-}
-
-- (instancetype)initWithReceiver:(id)receiver {
-    self = [self init];
-    if (self) {
-        [self addReceiver:receiver];
-    }
-    return self;
-}
-
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -82,33 +70,14 @@
     return [[self.receivers allObjects] sortedArrayUsingComparator:comparator];
 }
 
-- (void)broadcast:(SEL)selector object:(id)object {
-	[self broadcast:selector object:object select:nil];
+- (id<NSFastEnumeration>)broadcastReceivers {
+    return self.prioritize ? [self sortedReceivers] : [self.receivers copy];
 }
 
-- (void)broadcast:(SEL)selector object:(id)object select:(WLBroadcastSelectReceiver)select {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    NSArray *receivers = nil;
-    if (self.prioritize) {
-        receivers = [self sortedReceivers];
-    } else {
-        receivers = [self.receivers copy];
+- (void)broadcast:(void (^)(id))block {
+    for (id receiver in [self broadcastReceivers]) {
+        block(receiver);
     }
-    for (id receiver in receivers) {
-        if ((select ? select(receiver, object) : YES) && [receiver respondsToSelector:selector]) {
-            [receiver performSelector:selector withObject:self withObject:object];
-        }
-    }
-#pragma clang diagnostic pop
-}
-
-- (void)broadcast:(SEL)selector {
-	[self broadcast:selector select:nil];
-}
-
-- (void)broadcast:(SEL)selector select:(WLBroadcastSelectReceiver)select {
-    [self broadcast:selector object:nil select:select];
 }
 
 @end

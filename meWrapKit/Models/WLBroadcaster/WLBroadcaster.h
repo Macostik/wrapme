@@ -28,10 +28,6 @@ typedef BOOL (^WLBroadcastSelectReceiver)(id receiver, id object);
 
 @property (nonatomic) BOOL prioritize;
 
-+ (instancetype)broadcaster;
-
-- (instancetype)initWithReceiver:(id)receiver;
-
 - (NSArray*)sortedReceivers;
 
 - (void)setup;
@@ -44,12 +40,8 @@ typedef BOOL (^WLBroadcastSelectReceiver)(id receiver, id object);
 
 - (BOOL)containsReceiver:(id)receiver;
 
-- (void)broadcast:(SEL)selector object:(id)object;
+- (id <NSFastEnumeration>)broadcastReceivers;
 
-- (void)broadcast:(SEL)selector object:(id)object select:(WLBroadcastSelectReceiver)select;
-
-- (void)broadcast:(SEL)selector;
-
-- (void)broadcast:(SEL)selector select:(WLBroadcastSelectReceiver)select;
+- (void)broadcast:(void (^)(id receiver))block;
 
 @end

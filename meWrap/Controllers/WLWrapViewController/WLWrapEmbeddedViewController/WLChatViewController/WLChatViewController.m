@@ -387,7 +387,7 @@ CGFloat WLMinTextViewWidth;
 }
 
 - (void)updateBadge {
-    self.badge.intValue = self.chat.unreadMessages.count;
+    self.badge.value = self.chat.unreadMessages.count;
 }
 
 #pragma mark - EntryNotifying

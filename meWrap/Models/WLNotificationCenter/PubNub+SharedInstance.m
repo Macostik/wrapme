@@ -11,10 +11,14 @@
 
 @implementation PubNub (SharedInstance)
 
+static id instance = nil;
+
 + (instancetype)sharedInstance {
-    
-    static id instance = nil;
     if (instance == nil) {
+        User *user = [User currentUser];
+        if (!user) {
+            return nil;
+        }
         NSString *publishKey, *subscribeKey;
         
         if ([WLAPIEnvironment currentEnvironment].isProduction) {
@@ -28,9 +32,14 @@
         [PNLog enabled:NO];
         
         PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:publishKey subscribeKey:subscribeKey];
+        configuration.uuid = user.identifier;
         instance = [self clientWithConfiguration:configuration];
     }
     return instance;
+}
+
++ (void)setSharedInstance:(id)sharedInstance {
+    instance = sharedInstance;
 }
 
 @end

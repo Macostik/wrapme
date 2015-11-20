@@ -23,7 +23,11 @@
     [super setup];
     __weak typeof(self)weakSelf = self;
     [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        [weakSelf broadcast:@selector(presetterDidChangeContentSizeCategory:)];
+        for (id receiver in [weakSelf broadcastReceivers]) {
+            if ([receiver respondsToSelector:@selector(presetterDidChangeContentSizeCategory:)]) {
+                [receiver presetterDidChangeContentSizeCategory:weakSelf];
+            }
+        }
     }];
 }
 

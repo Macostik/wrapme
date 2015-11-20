@@ -16,14 +16,14 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.intValue = 0;
+        self.value = 0;
     }
     return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder]) {
-        self.intValue = 0;
+        self.value = 0;
     }
     return self;
 }
@@ -31,7 +31,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.intValue = 0;
+        self.value = 0;
     }
     return self;
 }
@@ -50,8 +50,8 @@
     self.hidden = [self isHiddenValueForText:attributedText.string];
 }
 
-- (void)setIntValue:(NSUInteger)intValue {
-    [self setText:[NSString stringWithFormat:@"%lu", (unsigned long)intValue]];
+- (void)setValue:(NSUInteger)value {
+    [self setText:[NSString stringWithFormat:@"%lu", (unsigned long)value]];
 }
 
 - (CGSize)intrinsicContentSize {

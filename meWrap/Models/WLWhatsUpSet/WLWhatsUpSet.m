@@ -135,7 +135,11 @@
     }
     __weak typeof(self)weakSelf = self;
     [self update:^{
-        [weakSelf.broadcaster broadcast:@selector(whatsUpBroadcaster:updated:) object:weakSelf];
+        for (id receiver in [weakSelf.broadcaster broadcastReceivers]) {
+            if ([receiver respondsToSelector:@selector(whatsUpBroadcaster:updated:)]) {
+                [receiver whatsUpBroadcaster:weakSelf.broadcaster updated:weakSelf];
+            }
+        }
     } failure:^(NSError *error) {
     }];
 }
@@ -146,7 +150,11 @@
     }
     __weak typeof(self)weakSelf = self;
     [self update:^{
-        [weakSelf.broadcaster broadcast:@selector(whatsUpBroadcaster:updated:) object:weakSelf];
+        for (id receiver in [weakSelf.broadcaster broadcastReceivers]) {
+            if ([receiver respondsToSelector:@selector(whatsUpBroadcaster:updated:)]) {
+                [receiver whatsUpBroadcaster:weakSelf.broadcaster updated:weakSelf];
+            }
+        }
     } failure:^(NSError *error) {
     }];
 }
@@ -154,7 +162,11 @@
 - (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry {
     __weak typeof(self)weakSelf = self;
     [self update:^{
-        [weakSelf.broadcaster broadcast:@selector(whatsUpBroadcaster:updated:) object:weakSelf];
+        for (id receiver in [weakSelf.broadcaster broadcastReceivers]) {
+            if ([receiver respondsToSelector:@selector(whatsUpBroadcaster:updated:)]) {
+                [receiver whatsUpBroadcaster:weakSelf.broadcaster updated:weakSelf];
+            }
+        }
     } failure:^(NSError *error) {
     }];
 }

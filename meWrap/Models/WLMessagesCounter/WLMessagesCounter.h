@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class WLMessagesCounter;
+@class WLMessagesCounter, Wrap;
 
 @protocol WLMessagesCounterReceiver <NSObject>
 

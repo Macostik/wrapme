@@ -31,7 +31,11 @@
 
 - (void)setCachedRecords:(NSSet *)cachedRecords {
     _cachedRecords = cachedRecords;
-    [self broadcast:@selector(addressBook:didUpdateCachedRecords:) object:cachedRecords];
+    for (id receiver in [self broadcastReceivers]) {
+        if ([receiver respondsToSelector:@selector(addressBook:didUpdateCachedRecords:)]) {
+            [receiver addressBook:self didUpdateCachedRecords:cachedRecords];
+        }
+    }
 }
 
 - (BOOL)cachedRecords:(WLSetBlock)success failure:(WLFailureBlock)failure {

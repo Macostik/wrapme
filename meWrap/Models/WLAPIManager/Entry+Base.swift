@@ -25,14 +25,6 @@ extension Entry {
         }
     }
     
-    class func entry(uid: String?, locuid: String?) -> Self? {
-        return entry(self, uid: uid, locuid: locuid)
-    }
-    
-    class func entry<T>(type: T.Type, uid: String?, locuid: String?) -> T? {
-        return EntryContext.sharedContext.entry(entityName(), uid: uid, locuid: locuid) as? T
-    }
-    
     func markAsRead() {
         if valid && unread {
             unread = false

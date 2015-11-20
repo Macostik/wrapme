@@ -42,6 +42,8 @@
 
 - (void)changeState:(NSDictionary*)state;
 
+- (void)changeState:(NSDictionary*)state channel:(NSString*)channel;
+
 - (void)hereNow:(WLArrayBlock)completion;
 
 - (void)history:(NSDate*)from to:(NSDate*)to success:(WLArrayBlock)success failure:(WLFailureBlock)failure;

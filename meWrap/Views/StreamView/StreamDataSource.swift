@@ -182,7 +182,9 @@ extension StreamDataSource {
     }
     
     func streamView(streamView: StreamView, entryBlockForItem item: StreamItem) -> (StreamItem -> AnyObject?)? {
-        return entryForItem
+        return { [weak self] (_) -> AnyObject? in
+            return self?.entryForItem(item)
+        }
     }
     
     func streamViewWillChangeContentSize(streamView: StreamView, newContentSize: CGSize) {

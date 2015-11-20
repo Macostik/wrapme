@@ -31,3 +31,7 @@
 #import "WLComposeBar.h"
 #import "WLHistoryViewController.h"
 #import "WLDeviceManager.h"
+#import "WLNotificationCenter.h"
+#import "WLNotificationSubscription.h"
+#import "WLBadgeLabel.h"
+#import "WLMessagesCounter.h"

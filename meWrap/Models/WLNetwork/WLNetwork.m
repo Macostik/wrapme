@@ -32,7 +32,11 @@
     [manager startMonitoring];
     run_after(0.2, ^{
         [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-            [weakSelf broadcast:@selector(networkDidChangeReachability:)];
+            for (id receiver in [weakSelf broadcastReceivers]) {
+                if ([receiver respondsToSelector:@selector(networkDidChangeReachability:)]) {
+                    [receiver networkDidChangeReachability:weakSelf];
+                }
+            }
             if (weakSelf.changeReachabilityBlock) {
                 weakSelf.changeReachabilityBlock(weakSelf);
             }

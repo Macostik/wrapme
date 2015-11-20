@@ -26,31 +26,9 @@ class EntryNotifier: WLBroadcaster {
     
     let name: String
     
-    private var selectEntryBlock: WLBroadcastSelectReceiver!
-    
-    private var selectContainerBlock: WLBroadcastSelectReceiver!
-    
     required init(name: String) {
         self.name = name
         super.init()
-        selectEntryBlock = { (receiver, entry) -> Bool in
-            guard let receiver = receiver as? EntryNotifying else {
-                return false
-            }
-            guard let entry = entry as? Entry else {
-                return false
-            }
-            return receiver.notifier?(self, shouldNotifyOnEntry: entry) ?? true
-        }
-        selectContainerBlock = { (receiver, container) -> Bool in
-            guard let receiver = receiver as? EntryNotifying else {
-                return false
-            }
-            guard let container = container as? Entry else {
-                return false
-            }
-            return receiver.notifier?(self, shouldNotifyOnContainer: container) ?? true
-        }
     }
     
     private static var notifiers = [String : EntryNotifier]()
@@ -65,12 +43,24 @@ class EntryNotifier: WLBroadcaster {
         }
     }
     
+    func notifyOnEntry(entry: Entry, block: ((AnyObject!) -> Void)!) {
+        broadcast { (receiver) -> Void in
+            if receiver.notifier?(self, shouldNotifyOnEntry: entry) ?? true {
+                block(receiver)
+            }
+        }
+    }
+    
     func notifyOnAddition(entry: Entry) {
-        broadcast("notifier:didAddEntry:", object: entry, select: selectEntryBlock)
+        notifyOnEntry(entry) { (receiver) -> Void in
+            receiver.notifier?(self, didAddEntry: entry)
+        }
     }
     
     func notifyOnUpdate(entry: Entry) {
-        broadcast("notifier:didUpdateEntry:", object: entry, select: selectEntryBlock)
+        notifyOnEntry(entry) { (receiver) -> Void in
+            receiver.notifier?(self, didUpdateEntry: entry)
+        }
     }
     
     func notifyOnDeleting(entry: Entry) {
@@ -79,11 +69,17 @@ class EntryNotifier: WLBroadcaster {
                 EntryNotifier.notifierForName(entityName).notifyOnDeletingContainer(entry)
             }
         }
-        broadcast("notifier:willDeleteEntry:", object: entry, select: selectEntryBlock)
+        notifyOnEntry(entry) { (receiver) -> Void in
+            receiver.notifier?(self, willDeleteEntry: entry)
+        }
     }
     
     func notifyOnDeletingContainer(container: Entry) {
-        broadcast("notifier:willDeleteContainer:", object: container, select: selectContainerBlock)
+        broadcast { (receiver) -> Void in
+            if receiver.notifier?(self, shouldNotifyOnContainer: container) ?? true {
+                receiver.notifier?(self, willDeleteContainer: container)
+            }
+        }
     }
 }
 

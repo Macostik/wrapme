@@ -108,12 +108,12 @@
 }
 
 - (void)updateMessageCouter {
-    self.messageCountLabel.intValue = [[WLMessagesCounter instance] countForWrap:self.wrap];
+    self.messageCountLabel.value = [[WLMessagesCounter instance] countForWrap:self.wrap];
     [[WLMessagesCounter instance] update:nil];
 }
 
 - (void)updateCandyCounter {
-    self.candyCountLabel.intValue = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:self.wrap];
+    self.candyCountLabel.value = [[WLWhatsUpSet sharedSet] unreadCandiesCountForWrap:self.wrap];
 }
 
 // MARK: - WLEntryNotifyReceiver
@@ -303,7 +303,7 @@
 
 - (void)counterDidChange:(WLMessagesCounter *)counter {
     if (self.segment != WLWrapSegmentChat) {
-        self.messageCountLabel.intValue = [counter countForWrap:self.wrap];
+        self.messageCountLabel.value = [counter countForWrap:self.wrap];
     }
 }
 

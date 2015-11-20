@@ -49,7 +49,11 @@
     
     if (![_counts isEqualToDictionary:counts]) {
         _counts = counts;
-        [self broadcast:@selector(counterDidChange:)];
+        for (id receiver in [self broadcastReceivers]) {
+            if ([receiver respondsToSelector:@selector(counterDidChange:)]) {
+                [receiver counterDidChange:self];
+            }
+        }
     }
 }
 

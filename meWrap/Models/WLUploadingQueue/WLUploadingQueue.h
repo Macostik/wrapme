@@ -31,9 +31,9 @@
 
 @property (readonly, nonatomic) NSUInteger count;
 
-@property (strong, nonatomic) Class entryClass;
+@property (strong, nonatomic) NSString* entityName;
 
-+ (instancetype)queueForEntriesOfClass:(Class)entryClass;
++ (instancetype)queueForEntityName:(NSString*)entityName;
 
 + (void)upload:(Uploading *)uploading success:(WLObjectBlock)success failure:(WLFailureBlock)failure;
 

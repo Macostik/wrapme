@@ -33,11 +33,23 @@ class Entry: NSManagedObject {
     }
     
     class func entry(uid: String?) -> Self? {
-        return entry(self, uid: uid)
+        return entry(uid, locuid: nil)
     }
     
-    class func entry<T>(type: T.Type, uid: String?) -> T? {
-        return EntryContext.sharedContext.entry(entityName(), uid: uid) as? T
+    class func entry(uid: String?, locuid: String?) -> Self? {
+        return entry(self, uid: uid, locuid: locuid, allowInsert: true)
+    }
+    
+    class func entry(uid: String?, allowInsert: Bool) -> Self? {
+        return entry(self, uid: uid, locuid: nil, allowInsert: allowInsert)
+    }
+    
+    class func entry(uid: String?, locuid: String?, allowInsert: Bool) -> Self? {
+        return entry(self, uid: uid, locuid: locuid, allowInsert: allowInsert)
+    }
+    
+    class func entry<T>(type: T.Type, uid: String?, locuid: String?, allowInsert: Bool) -> T? {
+        return EntryContext.sharedContext.entry(entityName(), uid: uid, locuid: locuid, allowInsert: allowInsert) as? T
     }
     
     class func entryExists(uid: String?) -> Bool {

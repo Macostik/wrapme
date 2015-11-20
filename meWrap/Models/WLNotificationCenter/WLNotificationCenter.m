@@ -95,12 +95,11 @@
     if (!uuid.nonempty) {
         return;
     }
-    [[PubNub sharedInstance] currentConfiguration].uuid = uuid;
     NSString *channelName = [NSString stringWithFormat:@"cg-%@", uuid];
     if ([self.userSubscription.name isEqualToString:channelName]) {
         [self.userSubscription subscribe];
     } else {
-        self.userSubscription = [WLNotificationSubscription subscription:channelName presence:NO group:YES];
+        self.userSubscription = [WLNotificationSubscription subscription:channelName presence:YES group:YES];
         self.userSubscription.delegate = self;
         
         if (self.pushToken) {
@@ -157,6 +156,48 @@
 
 // MARK: - WLNotificationSubscriptionDelegate
 
+- (void)notificationSubscription:(WLNotificationSubscription *)subscription didReceivePresenceEvent:(PNPresenceEventData *)event {
+    if ([event.presenceEvent isEqualToString:@"state-change"]) {
+        NSDictionary *state = event.presence.state;
+        if (state[@"isBroadcasting"]) {
+            NSString *uuid = event.presence.uuid;
+            NSString *wrapuid = event.presence.actualChannel;
+            BOOL isBroadcasting = [[state numberForKey:@"isBroadcasting"] boolValue];
+            if (isBroadcasting) {
+                LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
+                broadcast.broadcaster = [User entry:uuid allowInsert:NO];
+                broadcast.wrap = [Wrap entry:wrapuid allowInsert:NO];
+                broadcast.title = state[@"title"];
+                broadcast.channel = state[@"channel"];
+                if (broadcast.wrap) {
+                    [LiveBroadcast addBroadcast:broadcast];
+                    [broadcast.wrap notifyOnUpdate];
+                }
+            } else {
+                LiveBroadcast *broadcast = nil;
+                for (NSString *uid in [LiveBroadcast broadcasts]) {
+                    if ([uid isEqualToString:wrapuid]) {
+                        NSArray *broadcasts = [LiveBroadcast broadcasts][uid];
+                        for (LiveBroadcast *_broadcast in broadcasts) {
+                            if ([_broadcast.broadcaster.identifier isEqualToString:uuid]) {
+                                broadcast = _broadcast;
+                                break;
+                            }
+                        }
+                    }
+                    if (broadcast) {
+                        break;
+                    }
+                }
+                if (broadcast) {
+                    [LiveBroadcast removeBroadcast:broadcast];
+                    [broadcast.wrap notifyOnUpdate];
+                }
+            }
+        }
+    }
+}
+
 - (void)notificationSubscription:(WLNotificationSubscription *)subscription didReceiveMessage:(PNMessageData *)message {
     [self.enqueuedMessages addObject:message];
     [self enqueueSelectorPerforming:@selector(handleEnqueuedMessages)];
@@ -203,7 +244,7 @@
     self.userSubscription = nil;
     [NSUserDefaults standardUserDefaults].handledNotifications = nil;
     [NSUserDefaults standardUserDefaults].historyDate = nil;
-    [[PubNub sharedInstance] currentConfiguration].uuid = nil;
+    [PubNub setSharedInstance:nil];
 }
 
 - (BOOL)isAlreadyHandledNotification:(WLNotification*)notification {

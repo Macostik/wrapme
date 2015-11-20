@@ -11,6 +11,8 @@ import CoreData
 
 @objc(Wrap)
 class Wrap: Contribution {
+    
+    var broadcasters = [User]()
 
     override class func entityName() -> String {
         return "Wrap"

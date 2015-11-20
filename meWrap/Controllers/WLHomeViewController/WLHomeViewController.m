@@ -11,7 +11,6 @@
 #import "WLHomeViewController.h"
 #import "WLBadgeLabel.h"
 #import "WLToast.h"
-#import "WLWrapCell.h"
 #import "WLWrapViewController.h"
 #import "WLRemoteEntryHandler.h"
 #import "WLUploadingView.h"
@@ -31,9 +30,8 @@
 #import "WLSoundPlayer.h"
 #import "WLNetwork.h"
 #import "WLChangeProfileViewController.h"
-#import "WLRecentCandiesView.h"
 
-@interface WLHomeViewController () <WLWrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
+@interface WLHomeViewController () <WrapCellDelegate, WLIntroductionViewControllerDelegate, WLTouchViewDelegate, WLPresentingImageViewDelegate, WLWhatsUpSetBroadcastReceiver, WLMessagesCounterReceiver>
 
 @property (strong, nonatomic) IBOutlet SegmentedStreamDataSource *dataSource;
 
@@ -49,7 +47,7 @@
 @property (weak, nonatomic) IBOutlet WLLabel *verificationEmailLabel;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *emailConfirmationLayoutPrioritizer;
 @property (weak, nonatomic) IBOutlet UIButton *photoButton;
-@property (weak, nonatomic) WLRecentCandiesView *candiesView;
+@property (weak, nonatomic) RecentCandiesView *candiesView;
 
 @property (nonatomic) BOOL createWrapTipHidden;
 @property (weak, nonatomic) IBOutlet UIView *publicWrapsHeaderView;
@@ -92,8 +90,7 @@
         }];
     }];
     
-    [homeDataSource addMetrics:[[StreamMetrics alloc] initWithInitializer:^(StreamMetrics *metrics) {
-        metrics.identifier = @"WLRecentCandiesView";
+    [homeDataSource addMetrics:[[StreamMetrics alloc] initWithIdentifier:@"RecentCandiesView" initializer:^(StreamMetrics *metrics) {
         [metrics setSizeAt:^CGFloat(StreamPosition *position, StreamMetrics *metrics) {
             int size = (streamView.width - 2.0f)/3.0f;
             return ([homeDataSource.wrap.candies count] > WLHomeTopWrapCandiesLimit_2 ? 2*size : size) + 5;
@@ -128,7 +125,7 @@
         [homeDataSource refresh];
     }
     
-    self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[Candy class]];
+    self.uploadingView.queue = [WLUploadingQueue queueForEntityName:[Candy entityName]];
     
     [NSUserDefaults standardUserDefaults].numberOfLaunches++;
     
@@ -139,10 +136,36 @@
     [[WLWhatsUpSet sharedSet].broadcaster addReceiver:self];
     
     [[WLMessagesCounter instance] addReceiver:self];
+    
+    [self fetchLiveBroadcasts];
 }
 
-- (void)finalizeAppearingOfCandiesView:(WLRecentCandiesView*)candiesView {
+- (void)fetchLiveBroadcasts {
+    [[PubNub sharedInstance] hereNowForChannelGroup:[WLNotificationCenter defaultCenter].userSubscription.name withCompletion:^(PNPresenceChannelGroupHereNowResult *result, PNErrorStatus *status) {
+        NSDictionary *channels = result.data.channels;
+        for (NSString *channel in channels) {
+            NSArray *uuids = channels[channel][@"uuids"];
+            for (NSDictionary *uuid in uuids) {
+                NSDictionary *state = uuid[@"state"];
+                if (state && [[state numberForKey:@"isBroadcasting"] boolValue]) {
+                    LiveBroadcast *broadcast = [[LiveBroadcast alloc] init];
+                    broadcast.broadcaster = [User entry:uuid[@"uuid"] allowInsert:NO];
+                    broadcast.wrap = [Wrap entry:channel allowInsert:NO];
+                    broadcast.title = state[@"title"];
+                    broadcast.channel = state[@"channel"];
+                    if (broadcast.wrap) {
+                        [LiveBroadcast addBroadcast:broadcast];
+                        [broadcast.wrap notifyOnUpdate];
+                    }
+                }
+            }
+        }
+    }];
+}
+
+- (void)finalizeAppearingOfCandiesView:(RecentCandiesView*)candiesView {
     __weak typeof(self)weakSelf = self;
+    
     StreamMetrics *metrics = [candiesView.dataSource.metrics firstObject];
     [metrics setSelection:^(StreamItem *candyItem, Candy *candy) {
         WLCandyCell *cell = (id)candyItem.view;
@@ -232,9 +255,9 @@
 	[super viewWillAppear:animated];
     [self.dataSource reload];
     __weak typeof(self)weakSelf = self;
-    self.notificationsLabel.intValue = [WLWhatsUpSet sharedSet].unreadEntriesCount;
+    self.notificationsLabel.value = [WLWhatsUpSet sharedSet].unreadEntriesCount;
     [[WLWhatsUpSet sharedSet] refreshCount:^(NSUInteger count) {
-        weakSelf.notificationsLabel.intValue = count;
+        weakSelf.notificationsLabel.value = count;
         [weakSelf.dataSource reload];
     } failure:nil];
     [[WLMessagesCounter instance] update:nil];
@@ -310,16 +333,16 @@
 
 // MARK: - WLWrapCellDelegate
 
-- (void)wrapCellDidBeginPanning:(WLWrapCell *)wrapCell {
+- (void)wrapCellDidBeginPanning:(WrapCell *)cell {
     [self.streamView lock];
 }
 
-- (void)wrapCellDidEndPanning:(WLWrapCell *)wrapCell performedAction:(BOOL)performedAction {
+- (void)wrapCellDidEndPanning:(WrapCell *)cell performedAction:(BOOL)performedAction {
     [self.streamView unlock];
     self.streamView.userInteractionEnabled = !performedAction;
 }
 
-- (void)wrapCell:(WLWrapCell *)wrapCell presentChatViewControllerForWrap:(Wrap *)wrap {
+- (void)wrapCell:(WrapCell *)cell presentChatViewControllerForWrap:(Wrap *)wrap {
     self.streamView.userInteractionEnabled = YES;
     WLWrapViewController *wrapViewController = self.storyboard[@"WLWrapViewController"];
     if (wrapViewController && wrap.valid) {
@@ -328,7 +351,7 @@
         [self.navigationController pushViewController:wrapViewController animated:YES];
     }
 }
-- (void)wrapCell:(WLWrapCell *)wrapCell presentCameraViewControllerForWrap:(Wrap *)wrap {
+- (void)wrapCell:(WrapCell *)cell presentCameraViewControllerForWrap:(Wrap *)wrap {
     self.streamView.userInteractionEnabled = YES;
     if (wrap.valid) {
         [self openCameraForWrap:wrap animated:YES startFromGallery:NO showWrapPicker:NO];
@@ -472,19 +495,19 @@
 
 - (void)whatsUpBroadcaster:(WLBroadcaster *)broadcaster updated:(WLWhatsUpSet *)set {
     for (StreamItem *item in self.streamView.visibleItems) {
-        if ([item.view isKindOfClass:[WLWrapCell class]]) {
-            [(WLWrapCell*)item.view updateCandyNotifyCounter];
+        if ([item.view isKindOfClass:[WrapCell class]]) {
+            [(WrapCell*)item.view updateCandyNotifyCounter];
         }
     }
-    self.notificationsLabel.intValue = set.unreadEntriesCount;
+    self.notificationsLabel.value = set.unreadEntriesCount;
 }
 
 // MARK: - WLMessagesCounterReceiver
 
 - (void)counterDidChange:(WLMessagesCounter *)counter {
     for (StreamItem *item in self.streamView.visibleItems) {
-        if ([item.view isKindOfClass:[WLWrapCell class]]) {
-            [(WLWrapCell*)item.view updateChatNotifyCounter];
+        if ([item.view isKindOfClass:[WrapCell class]]) {
+            [(WrapCell*)item.view updateChatNotifyCounter];
         }
     }
 }

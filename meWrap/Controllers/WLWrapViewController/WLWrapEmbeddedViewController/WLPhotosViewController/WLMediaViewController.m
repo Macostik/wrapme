@@ -8,7 +8,6 @@
 
 #import "WLCandyViewController.h"
 #import "WLComposeBar.h"
-#import "WLWrapCell.h"
 #import "WLCandyCell.h"
 #import "NSObject+NibAdditions.h"
 #import "WLPresentingImageView.h"
@@ -23,7 +22,7 @@
 
 @interface WLMediaViewController () <WLPresentingImageViewDelegate, EntryNotifying>
 
-@property (strong, nonatomic) PaginatedStreamDataSource *dataSource;
+@property (strong, nonatomic) MediaDataSource *dataSource;
 @property (weak, nonatomic) IBOutlet StreamView *streamView;
 @property (strong, nonatomic) IBOutlet LayoutPrioritizer *primaryConstraint;
 @property (weak, nonatomic) IBOutlet WLUploadingView *uploadingView;
@@ -49,13 +48,22 @@
     streamView.contentInset = streamView.scrollIndicatorInsets;
     streamView.layout = [[SquareGridLayout alloc] initWithHorizontal:NO];
     
-    self.dataSource = [[PaginatedStreamDataSource alloc] initWithStreamView:streamView];
+    self.dataSource = [[MediaDataSource alloc] initWithStreamView:streamView];
     self.dataSource.numberOfGridColumns = 3;
     self.dataSource.layoutSpacing = WLConstants.pixelSize;
     
     if (self.wrap.requiresFollowing && [WLNetwork sharedNetwork].reachable) {
         self.wrap.candies = nil;
     }
+    
+    [self.dataSource setLiveBroadcasts:^NSArray<LiveBroadcast *> * _Nonnull{
+        NSArray *broadcasts = [LiveBroadcast broadcastsForWrap:weakSelf.wrap];
+        return broadcasts;
+    }];
+    
+    [self.dataSource.liveBroadcastMetrics setSelection:^(StreamItem *item, id entry) {
+        
+    }];
     
     StreamMetrics *dateMetrics = [[StreamMetrics alloc] initWithIdentifier:@"HistoryDateSeparator"];
     dateMetrics.isSeparator = YES;
@@ -103,7 +111,7 @@
     
     [self firstLoadRequest];
     
-    self.uploadingView.queue = [WLUploadingQueue queueForEntriesOfClass:[Candy class]];
+    self.uploadingView.queue = [WLUploadingQueue queueForEntityName:[Candy entityName]];
     
     [[WLNetwork sharedNetwork] addReceiver:self];
     
@@ -134,7 +142,7 @@
             }
         }];
         [[WLWhatsUpSet sharedSet] refreshCount:^(NSUInteger count) {
-            weakSelf.badge.intValue = unreadCandyCounter;
+            weakSelf.badge.value = unreadCandyCounter;
         } failure:^(NSError *error) {
         }];
         self.dataSource.items = self.history;

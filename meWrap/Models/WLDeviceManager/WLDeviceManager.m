@@ -47,7 +47,11 @@
 
 - (void)orientationChanged:(NSNotification*)notification {
     self.orientationFromAccelerometer = nil;
-    [self broadcast:@selector(manager:didChangeOrientation:) object:@([UIDevice currentDevice].orientation)];
+    for (id receiver in [self broadcastReceivers]) {
+        if ([receiver respondsToSelector:@selector(manager:didChangeOrientation:)]) {
+            [receiver manager:self didChangeOrientation:@([UIDevice currentDevice].orientation)];
+        }
+    }
 }
 
 - (void)beginUsingAccelerometer {
@@ -79,7 +83,11 @@
         self.orientationFromAccelerometer = @(orientation);
         __weak typeof(self)weakSelf = self;
         run_in_main_queue(^{
-            [weakSelf broadcast:@selector(manager:didChangeOrientation:) object:weakSelf.orientationFromAccelerometer];
+            for (id receiver in [weakSelf broadcastReceivers]) {
+                if ([receiver respondsToSelector:@selector(manager:didChangeOrientation:)]) {
+                    [receiver manager:weakSelf didChangeOrientation:weakSelf.orientationFromAccelerometer];
+                }
+            }
         });
     }
 }

@@ -1431,7 +1431,7 @@
                 </customObject>
                 <customObject id="fHn-3G-fGW" customClass="HomeDataSource" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLWrapCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WrapCell"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="placeholderIdentifier" value="WLHomePlaceholderView"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -1440,7 +1440,7 @@
                 </customObject>
                 <customObject id="uJJ-OA-ZDD" customClass="PaginatedStreamDataSource" customModule="meWrap" customModuleProvider="target">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WLWrapCell"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="itemIdentifier" value="WrapCell"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="itemSize">
                             <real key="value" value="60"/>
                         </userDefinedRuntimeAttribute>

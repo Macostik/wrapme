@@ -55,7 +55,7 @@
     <entity name="Wrap" representedClassName="Wrap" parentEntity="Contribution">
         <attribute name="isCandyNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="isChatNotifiable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="isPublic" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isPublic" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isRestrictedInvite" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="candies" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Candy" inverseName="wrap" inverseEntity="Candy" syncable="YES"/>

@@ -10,9 +10,11 @@
 
 @interface WLWhatsUpSet () <EntryNotifying>
 
-@property (strong, nonatomic) NSString* contributionsPredicate;
+@property (strong, nonatomic) NSString* candyPredicate;
 
 @property (strong, nonatomic) NSString* updatesPredicate;
+
+@property (strong, nonatomic) NSString* commentPredicate;
 
 @property (strong, nonatomic) NSDictionary *wrapCounters;
 
@@ -37,7 +39,8 @@
         [[Comment notifier] addReceiver:self];
         [[Candy notifier] addReceiver:self];
         [[Wrap notifier] addReceiver:self];
-        self.contributionsPredicate = @"createdAt >= %@ AND contributor != nil AND contributor != %@";
+        self.commentPredicate = @"candy.wrap.isPublic == NO AND createdAt >= %@ AND contributor != nil AND contributor != %@";
+        self.candyPredicate = @"wrap.isPublic == NO AND createdAt >= %@ AND contributor != nil AND contributor != %@";
         self.updatesPredicate = @"editedAt >= %@ AND editor != nil AND editor != %@";
         [self update:nil failure:nil];
     }
@@ -55,31 +58,29 @@
 
 - (void)update:(WLBlock)success failure:(WLFailureBlock)failure {
     
-    [self resetEntries:nil];
-    
     __weak typeof(self)weakSelf = self;
     NSDate *dayAgo = [NSDate dayAgo];
     User *currentUser = [User currentUser];
     if (dayAgo && currentUser) {
         NSMutableArray *contributions = [NSMutableArray array];
-        
-        NSFetchRequest *request = [Comment fetch];
-        request.predicate = [NSPredicate predicateWithFormat:weakSelf.contributionsPredicate, dayAgo, currentUser];
-        [request execute:^(NSArray *result) {
-            [contributions adds:result];
-            NSFetchRequest *request = [Candy fetch];
-            request.predicate = [NSPredicate predicateWithFormat:weakSelf.contributionsPredicate, dayAgo, currentUser];
+       
+            NSFetchRequest *request = [Comment fetch];
+            request.predicate = [NSPredicate predicateWithFormat:weakSelf.commentPredicate, dayAgo, currentUser];
             [request execute:^(NSArray *result) {
                 [contributions adds:result];
                 NSFetchRequest *request = [Candy fetch];
-                request.predicate = [NSPredicate predicateWithFormat:weakSelf.updatesPredicate, dayAgo, currentUser];
+                request.predicate = [NSPredicate predicateWithFormat:weakSelf.candyPredicate, dayAgo, currentUser];
                 [request execute:^(NSArray *result) {
-                    NSArray *updates = result;
-                    [weakSelf handleControbutions:contributions updates:updates];
-                    if (success) success();
+                    [contributions adds:result];
+                    NSFetchRequest *request = [Candy fetch];
+                    request.predicate = [NSPredicate predicateWithFormat:weakSelf.updatesPredicate, dayAgo, currentUser];
+                    [request execute:^(NSArray *result) {
+                        NSArray *updates = result;
+                        [weakSelf handleControbutions:contributions updates:updates];
+                        if (success) success();
+                    }];
                 }];
             }];
-        }];
     } else if (failure) {
         failure(nil);
     }

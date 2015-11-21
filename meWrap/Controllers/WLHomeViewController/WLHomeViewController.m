@@ -143,8 +143,10 @@
 - (void)fetchLiveBroadcasts {
     [[PubNub sharedInstance] hereNowForChannelGroup:[WLNotificationCenter defaultCenter].userSubscription.name withCompletion:^(PNPresenceChannelGroupHereNowResult *result, PNErrorStatus *status) {
         NSDictionary *channels = result.data.channels;
+        NSMutableDictionary *broadcasts = [NSMutableDictionary dictionary];
         for (NSString *channel in channels) {
             NSArray *uuids = channels[channel][@"uuids"];
+            NSMutableArray *wrapBroadcasts = [NSMutableArray array];
             for (NSDictionary *uuid in uuids) {
                 NSDictionary *state = uuid[@"state"];
                 if (state && [[state numberForKey:@"isBroadcasting"] boolValue]) {
@@ -155,12 +157,15 @@
                     broadcast.channel = state[@"channel"];
                     broadcast.url = state[@"viewerURL"];
                     if (broadcast.wrap) {
-                        [LiveBroadcast addBroadcast:broadcast];
-                        [broadcast.wrap notifyOnUpdate];
+                        [wrapBroadcasts addObject:broadcast];
                     }
                 }
             }
+            if (wrapBroadcasts.nonempty) {
+                broadcasts[channel] = wrapBroadcasts;
+            }
         }
+        [LiveBroadcast refreshBroadcasts:broadcasts];
     }];
 }
 

@@ -172,7 +172,6 @@
                 broadcast.url = state[@"viewerURL"];
                 if (broadcast.wrap) {
                     [LiveBroadcast addBroadcast:broadcast];
-                    [broadcast.wrap notifyOnUpdate];
                 }
             } else {
                 LiveBroadcast *broadcast = nil;
@@ -192,7 +191,6 @@
                 }
                 if (broadcast) {
                     [LiveBroadcast removeBroadcast:broadcast];
-                    [broadcast.wrap notifyOnUpdate];
                 }
             }
         }

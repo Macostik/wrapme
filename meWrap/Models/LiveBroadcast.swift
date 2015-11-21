@@ -8,10 +8,6 @@
 
 import UIKit
 
-func ==(lv: LiveBroadcast?, rv: LiveBroadcast?) -> Bool {
-    return lv?.wrap == rv?.wrap && lv?.broadcaster == rv?.broadcaster
-}
-
 class LiveBroadcast: NSObject {
 
     weak var broadcaster: User?
@@ -27,9 +23,14 @@ class LiveBroadcast: NSObject {
             var broadcasts: [LiveBroadcast]! = self.broadcasts[uid]
             if broadcasts == nil {
                 broadcasts = [LiveBroadcast]()
+            } else {
+                if let index = broadcasts.indexOf({ $0.channel == broadcast.channel }) {
+                    broadcasts.removeAtIndex(index)
+                }
             }
             broadcasts.append(broadcast)
             self.broadcasts[uid] = broadcasts
+            broadcast.wrap?.notifyOnUpdate()
         }
     }
     
@@ -38,11 +39,19 @@ class LiveBroadcast: NSObject {
             return
         }
         guard var broadcasts = self.broadcasts[uid],
-            let index = broadcasts.indexOf(broadcast) else {
+            let index = broadcasts.indexOf({ $0.channel == broadcast.channel }) else {
             return
         }
         broadcasts.removeAtIndex(index)
         self.broadcasts[uid] = broadcasts
+        broadcast.wrap?.notifyOnUpdate()
+    }
+    
+    class func refreshBroadcasts(newBroadcasts: [String : [LiveBroadcast]]) {
+        self.broadcasts = newBroadcasts
+        for (_, broadcasts) in newBroadcasts {
+            broadcasts.first?.wrap?.notifyOnUpdate()
+        }
     }
     
     class func broadcastsForWrap(wrap: Wrap) -> [LiveBroadcast]? {

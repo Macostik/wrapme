@@ -30,7 +30,14 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     var broadcast: LiveBroadcast?
     
-    var playing = false
+    deinit {
+        guard let player = playerLayer?.player else {
+            return
+        }
+        player.removeObserver(self, forKeyPath: "status")
+        player.currentItem?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
+        player.currentItem?.removeObserver(self, forKeyPath: "playbackBufferEmpty")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +58,9 @@ class LiveBroadcastViewController: WLBaseViewController {
                 
                 let player = AVPlayer(URL: url)
                 layer.player = player
-                player.play()
-                playing = true
-                view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "togglePlayer"))
+                player.addObserver(self, forKeyPath: "status", options: .New, context: nil)
+                player.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
+                player.currentItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .New, context: nil)
             }
         } else {
             isBroadcasting = true
@@ -93,13 +100,22 @@ class LiveBroadcastViewController: WLBaseViewController {
         }
     }
     
-    func togglePlayer() {
-        if playing {
-            playing = false
-            playerLayer?.player?.pause()
-        } else {
-            playing = true
-            playerLayer?.player?.play()
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        guard let player = playerLayer?.player else {
+            return
+        }
+        if keyPath == "status" {
+            if player.status == .ReadyToPlay {
+                player.play()
+            }
+        } else if keyPath == "playbackLikelyToKeepUp" {
+            if player.currentItem?.playbackLikelyToKeepUp == true {
+                player.play()
+            }
+        } else if keyPath == "playbackBufferEmpty" {
+            if player.currentItem?.playbackBufferEmpty == true {
+                
+            }
         }
     }
     
@@ -121,7 +137,6 @@ class LiveBroadcastViewController: WLBaseViewController {
         broadcast.channel = channel
         broadcast.wrap = wrap
         LiveBroadcast.addBroadcast(broadcast)
-        wrap?.notifyOnUpdate()
         
         self.broadcast = broadcast
         

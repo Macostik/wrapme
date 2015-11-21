@@ -122,6 +122,8 @@
     if (self.wrap.candies.nonempty) {
         [self dropDownCollectionView];
     }
+    
+    [[Wrap notifier] addReceiver:self];
 }
 
 - (void)firstLoadRequest {
@@ -208,6 +210,18 @@
     }];
     [self.streamView scrollRectToVisible:item.frame animated:NO];
     return item.view;
+}
+
+// MARK: - EntryNotifying
+
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry event:(enum EntryUpdateEvent)event {
+    if (event == EntryUpdateEventLiveBroadcastsChanged) {
+        [self.dataSource reload];
+    }
+}
+
+- (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnEntry:(Entry *)entry {
+    return self.wrap == entry;
 }
 
 @end

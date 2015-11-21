@@ -59,7 +59,7 @@ class EntryStatusIndicator: UILabel, EntryNotifying {
        self.text = self.identityByContributorStatus(contribution);
     }
     
-    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry) {
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
         self.setIconNameByCotribution(contribution!);
     }
     

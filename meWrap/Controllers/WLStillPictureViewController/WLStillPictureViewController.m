@@ -211,7 +211,7 @@
 
 // MARK: - EntryNotifying
 
-- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Wrap *)wrap {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Wrap *)wrap event:(enum EntryUpdateEvent)event {
     [self setupWrapView:wrap];
 }
 

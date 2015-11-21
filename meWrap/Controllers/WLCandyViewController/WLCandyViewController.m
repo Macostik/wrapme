@@ -104,8 +104,10 @@
 
 #pragma mark - EntryNotifying
 
-- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Candy *)candy {
-    [self setup:candy];
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Candy * _Nonnull)entry event:(enum EntryUpdateEvent)event {
+    if (event == EntryUpdateEventDefault) {
+        [self setup:entry];
+    }
 }
 
 - (BOOL)notifier:(EntryNotifier *)notifier shouldNotifyOnEntry:(Entry *)entry {

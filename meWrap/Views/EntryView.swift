@@ -36,7 +36,7 @@ class EntryView: UIView {
 
 extension EntryView: EntryNotifying {
     
-    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry) {
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
         update(entry)
     }
     

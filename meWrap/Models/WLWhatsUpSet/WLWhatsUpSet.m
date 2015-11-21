@@ -159,7 +159,7 @@
     }];
 }
 
-- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry event:(enum EntryUpdateEvent)event {
     __weak typeof(self)weakSelf = self;
     [self update:^{
         for (id receiver in [weakSelf.broadcaster broadcastReceivers]) {

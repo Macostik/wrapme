@@ -66,7 +66,7 @@
     return [[[self DELETE:@"wraps/%@/leave", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.isPublic) {
             [[wrap mutableContributors] removeObject:[User currentUser]];
-            [wrap notifyOnUpdate];
+            [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
         } else {
             [wrap remove];
         }
@@ -82,7 +82,7 @@
     return [[[self POST:@"wraps/%@/follow", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         [wrap touch];
         [[wrap mutableContributors] addObject:[User currentUser]];
-        [wrap notifyOnUpdate];
+        [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
         success(nil);
     }] beforeFailure:^(NSError *error) {
         if (wrap.uploaded && error.isContentUnavaliable) {
@@ -94,7 +94,7 @@
 + (instancetype)unfollowWrap:(Wrap *)wrap {
     return [[[self DELETE:@"wraps/%@/unfollow", wrap.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         [[[User currentUser] mutableWraps] removeObject:wrap];
-        [wrap notifyOnUpdate];
+        [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
         success(nil);
     }] beforeFailure:^(NSError *error) {
         if (wrap.uploaded && error.isContentUnavaliable) {
@@ -138,7 +138,7 @@
 + (instancetype)user:(User *)user {
     return [[self GET:@"users/%@", user.identifier] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         [user map:response.data[@"user"]];
-        [user notifyOnUpdate];
+        [user notifyOnUpdate:EntryUpdateEventDefault];
         success(user);
     }];
 }
@@ -149,7 +149,7 @@
             NSDictionary *preference = [response.data dictionaryForKey:WLPreferenceKey];
             wrap.isCandyNotifiable = [[preference numberForKey:WLCandyNotifiableKey] boolValue];
             wrap.isChatNotifiable = [[preference numberForKey:WLChatNotifiableKey] boolValue];
-            [wrap notifyOnUpdate];
+            [wrap notifyOnUpdate:EntryUpdateEventPreferencesChanged];
             success(wrap);
         } else {
             success(nil);
@@ -206,7 +206,7 @@
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (message.wrap.valid) {
             [message map:[response.data dictionaryForKey:WLMessageKey]];
-            [message notifyOnUpdate];
+            [message notifyOnUpdate:EntryUpdateEventContentAdded];
             success(message);
         } else {
             success(nil);
@@ -249,7 +249,7 @@
             NSSet *contributors = [[User mappedEntries:[User API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]] set];
             if (![wrap.contributors isEqualToSet:contributors]) {
                 wrap.contributors = contributors;
-                [wrap notifyOnUpdate];
+                [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
             }
             success(wrap);
         } else {
@@ -270,7 +270,7 @@
             NSSet *contributors = [[User mappedEntries:[User API_prefetchArray:[response.data arrayForKey:WLContributorsKey]]] set];
             if (![wrap.contributors isEqualToSet:contributors]) {
                 wrap.contributors = contributors;
-                [wrap notifyOnUpdate];
+                [wrap notifyOnUpdate:EntryUpdateEventContributorsChanged];
             }
             success(wrap);
         } else {
@@ -311,7 +311,7 @@
         [authorization updateWithUserData:userData];
         [user map:userData];
         User.currentUser = user;
-        [user notifyOnUpdate];
+        [user notifyOnUpdate:EntryUpdateEventDefault];
         success(user);
     }];
 }
@@ -379,7 +379,7 @@
     }] parse:^(WLAPIResponse *response, WLObjectBlock success, WLFailureBlock failure) {
         if (wrap.valid) {
             [wrap map:response.data[WLWrapKey]];
-            [wrap notifyOnUpdate];
+            [wrap notifyOnUpdate:EntryUpdateEventDefault];
             success(wrap);
         } else {
             success(nil);

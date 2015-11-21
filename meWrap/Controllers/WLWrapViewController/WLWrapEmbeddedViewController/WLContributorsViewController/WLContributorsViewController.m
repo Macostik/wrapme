@@ -177,13 +177,15 @@ const static CGFloat WLContributorsMinHeight = 72.0f;
     return self.wrap == entry;
 }
 
-- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Wrap *)wrap {
-    NSMutableOrderedSet *contributors = [self sortedContributors];
-    if (![contributors isEqualToOrderedSet:(NSMutableOrderedSet*)self.dataSource.items]) {
-        self.dataSource.items = contributors;
-    }
-    if (!self.wrap.contributor.current) {
-        [self.restrictedInvitePrioritizer setDefaultState:!wrap.isRestrictedInvite animated:[self viewAppeared]];
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Wrap *)wrap event:(enum EntryUpdateEvent)event {
+    if (event == EntryUpdateEventContributorsChanged) {
+        NSMutableOrderedSet *contributors = [self sortedContributors];
+        if (![contributors isEqualToOrderedSet:(NSMutableOrderedSet*)self.dataSource.items]) {
+            self.dataSource.items = contributors;
+        }
+        if (!self.wrap.contributor.current) {
+            [self.restrictedInvitePrioritizer setDefaultState:!wrap.isRestrictedInvite animated:[self viewAppeared]];
+        }
     }
 }
 

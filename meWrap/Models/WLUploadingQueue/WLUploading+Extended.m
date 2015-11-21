@@ -38,7 +38,7 @@
             weakSelf.inProgress = NO;
             [weakSelf remove];
             if (success) success(object);
-            [contribution notifyOnUpdate];
+            [contribution notifyOnUpdate:EntryUpdateEventDefault];
         } failure:^(NSError *error) {
             weakSelf.inProgress = NO;
             if (error.isDuplicatedUploading) {
@@ -49,17 +49,17 @@
                 }
                 [weakSelf remove];
                 if (success) success(contribution);
-                [contribution notifyOnUpdate];
+                [contribution notifyOnUpdate:EntryUpdateEventDefault];
             } else if ([error isError:WLErrorContentUnavaliable]) {
                 [contribution remove];
                 if (failure) failure(error);
             } else {
-                [contribution notifyOnUpdate];
+                [contribution notifyOnUpdate:EntryUpdateEventDefault];
                 if (failure) failure(error);
             }
         }];
         self.inProgress = YES;
-        [contribution notifyOnUpdate];
+        [contribution notifyOnUpdate:EntryUpdateEventDefault];
     }
 }
 

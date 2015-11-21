@@ -125,7 +125,7 @@
         [receiver setEntry:^Entry *{
             return weakSelf.wrap;
         }];
-        receiver.didUpdate = ^(Entry *entry) {
+        receiver.didUpdate = ^(Entry *entry, EntryUpdateEvent event) {
             [weakSelf updateWrapData];
         };
         receiver.willDelete = ^(Entry *entry) {

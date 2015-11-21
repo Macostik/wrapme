@@ -28,7 +28,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     var isBroadcasting = false
     
-    var broadcast: LiveBroadcast?
+    weak var broadcast: LiveBroadcast?
     
     deinit {
         guard let player = playerLayer?.player else {
@@ -64,7 +64,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             }
         } else {
             isBroadcasting = true
-            titleLabel?.hidden = true
+            titleLabel?.superview?.hidden = true
             guard let cameraInfo = CameraInfo.getCameraList().first as? CameraInfo else {
                 return
             }
@@ -98,6 +98,7 @@ class LiveBroadcastViewController: WLBaseViewController {
             view.layer.insertSublayer(layer, atIndex: 0)
             streamer.startAudioCaptureWithConfig(audioConfig, listener: self)
         }
+        Wrap.notifier().addReceiver(self)
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -121,7 +122,7 @@ class LiveBroadcastViewController: WLBaseViewController {
     
     func start() {
         titleLabel?.text = composeBar.text
-        titleLabel?.hidden = false
+        titleLabel?.superview?.hidden = false
         
         let streamer = Streamer.instance() as! Streamer
         guard let userUID = User.currentUser?.identifier,
@@ -212,7 +213,7 @@ extension LiveBroadcastViewController: StreamerListener {
     
     @objc(connectionStateDidChangeId:State:Status:)
     func connectionStateDidChangeId(connectionID: Int32, state: ConnectionState, status: ConnectionStatus) {
-        if let connID = self.connectionID where connID == connectionID && state == .Disconnected {
+        if self.connectionID == connectionID && state == .Disconnected {
             stop()
             let delay: Int64 = status == .UnknownFail ? 1 : 3
             weak var weakSelf = self
@@ -228,5 +229,29 @@ extension LiveBroadcastViewController: StreamerListener {
 
     func audioCaptureStateDidChange(state: CaptureState) {
 
+    }
+}
+
+extension LiveBroadcastViewController: EntryNotifying {
+    
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
+        guard let wrap = wrap, let broadcast = broadcast else {
+            return
+        }
+        guard !isBroadcasting && event == .LiveBroadcastsChanged else {
+            return
+        }
+        guard let broadcasts = LiveBroadcast.broadcastsForWrap(wrap) where !broadcasts.contains(broadcast) else {
+            return
+        }
+        presentingViewController?.dismissViewControllerAnimated(false, completion: nil);
+    }
+    
+    func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
+        presentingViewController?.dismissViewControllerAnimated(false, completion: nil);
+    }
+    
+    func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool {
+        return wrap == entry
     }
 }

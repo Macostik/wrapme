@@ -8,6 +8,10 @@
 
 import UIKit
 
+@objc enum EntryUpdateEvent: Int {
+    case Default, ContentAdded, ContentChanged, ContentDeleted, ContributorsChanged, PreferencesChanged, LiveBroadcastsChanged
+}
+
 @objc protocol EntryNotifying {
     optional func notifier(notifier: EntryNotifier, shouldNotifyOnEntry entry: Entry) -> Bool
     
@@ -15,7 +19,7 @@ import UIKit
     
     optional func notifier(notifier: EntryNotifier, didAddEntry entry: Entry)
     
-    optional func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry)
+    optional func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent)
     
     optional func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry)
     
@@ -57,9 +61,9 @@ class EntryNotifier: WLBroadcaster {
         }
     }
     
-    func notifyOnUpdate(entry: Entry) {
+    func notifyOnUpdate(entry: Entry, event: EntryUpdateEvent) {
         notifyOnEntry(entry) { (receiver) -> Void in
-            receiver.notifier?(self, didUpdateEntry: entry)
+            receiver.notifier?(self, didUpdateEntry: entry, event: event)
         }
     }
     
@@ -88,7 +92,7 @@ class EntryNotifyReceiver: NSObject, EntryNotifying {
     var container: (Void -> Entry?)?
     var shouldNotify: (Entry -> Bool)?
     var didAdd: (Entry -> Void)?
-    var didUpdate: (Entry -> Void)?
+    var didUpdate: ((Entry, EntryUpdateEvent) -> Void)?
     var willDelete: (Entry -> Void)?
     var willDeleteContainer: (Entry -> Void)?
     
@@ -114,8 +118,8 @@ class EntryNotifyReceiver: NSObject, EntryNotifying {
         didAdd?(entry)
     }
     
-    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry) {
-        didUpdate?(entry)
+    func notifier(notifier: EntryNotifier, didUpdateEntry entry: Entry, event: EntryUpdateEvent) {
+        didUpdate?(entry, event)
     }
     
     func notifier(notifier: EntryNotifier, willDeleteEntry entry: Entry) {
@@ -153,8 +157,8 @@ extension Entry {
         touchContainer()
     }
     
-    func notifyOnUpdate() {
-        self.dynamicType.notifier().notifyOnUpdate(self)
+    func notifyOnUpdate(event: EntryUpdateEvent) {
+        self.dynamicType.notifier().notifyOnUpdate(self, event: event)
         touchContainer()
     }
     
@@ -169,7 +173,7 @@ extension Entry {
         }
         if container.updatedAt.compare(updatedAt) == .OrderedAscending {
             container.updatedAt = updatedAt
-            container.notifyOnUpdate()
+            container.notifyOnUpdate(.ContentChanged)
         }
     }
 }

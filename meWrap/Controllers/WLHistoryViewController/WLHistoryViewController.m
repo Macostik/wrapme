@@ -301,7 +301,7 @@ typedef NS_ENUM(NSUInteger, WLHistoryBottomViewMode) {
     self.currentCandyIndex = [self.history.entries indexOfObject:self.candy];
 }
 
-- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Candy *)candy {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Candy *)candy event:(enum EntryUpdateEvent)event {
     if (candy == self.candy) {
         [self updateOwnerData];
     }

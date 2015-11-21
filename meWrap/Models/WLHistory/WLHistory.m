@@ -57,7 +57,7 @@
     [self removeEntry:candy];
 }
 
-- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Candy *)candy {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Candy *)candy event:(enum EntryUpdateEvent)event {
     [self sort:candy];
 }
 

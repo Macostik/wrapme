@@ -47,7 +47,7 @@
 
 // MARK: - WLNotificationSubscriptionDelegate
 
-- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry event:(enum EntryUpdateEvent)event {
     if (![Authorization currentAuthorization].unconfirmed_email.nonempty && self.isTopViewController) {
         [WLSoundPlayer playSound:WLSound_s01];
         [self setSuccessStatusAnimated:NO];

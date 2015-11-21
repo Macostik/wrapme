@@ -129,7 +129,10 @@ static CGFloat WLNotificationCommentVerticalSpacing = 24.0f;
         receiver.willDelete = ^(Entry *entry) {
             weakSelf.dataSource.items = [(NSMutableOrderedSet*)weakSelf.dataSource.items remove:entry];
         };
-        receiver.didUpdate = receiver.didAdd = ^(Entry *entry) {
+        receiver.didAdd = ^(Entry *entry) {
+            weakSelf.dataSource.items = [weakSelf sortedComments];
+        };
+        receiver.didUpdate = ^(Entry *entry, EntryUpdateEvent event) {
             weakSelf.dataSource.items = [weakSelf sortedComments];
         };
     }];

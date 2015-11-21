@@ -44,7 +44,7 @@ extension Entry {
                 let container = entry.container
                 entry.notifyOnDeleting()
                 context.deleteEntry(entry)
-                container?.notifyOnUpdate()
+                container?.notifyOnUpdate(.ContentDeleted)
             }
         }
     }

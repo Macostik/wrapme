@@ -31,7 +31,7 @@
         if (wrap.valid) {
             NSArray* messages = [Message mappedEntries:[Message API_prefetchArray:response.data[@"chats"]] container:wrap];
             if (messages.nonempty) {
-                [wrap notifyOnUpdate];
+                [wrap notifyOnUpdate:EntryUpdateEventContentAdded];
             }
             success(messages);
         } else {

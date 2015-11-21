@@ -395,7 +395,7 @@ CGFloat WLMinTextViewWidth;
     [self insertMessage:message];
 }
 
-- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry {
+- (void)notifier:(EntryNotifier *)notifier didUpdateEntry:(Entry *)entry event:(enum EntryUpdateEvent)event {
     [self reloadData];
 }
 

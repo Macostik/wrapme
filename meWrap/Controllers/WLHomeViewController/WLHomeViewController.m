@@ -381,7 +381,7 @@
             }
             weakSelf.streamView.contentOffset = CGPointZero;
         }];
-        [receiver setDidUpdate:^(Entry *entry) {
+        [receiver setDidUpdate:^(Entry *entry, EntryUpdateEvent event) {
             Wrap *wrap = (Wrap*)entry;
             if (wrap.isPublic) {
                 [weakSelf.publicDataSource.paginatedSet sort:wrap];
@@ -404,7 +404,7 @@
     }];
     
     [[User notifyReceiver:self] setup:^(EntryNotifyReceiver *receiver) {
-        [receiver setDidUpdate:^(Entry *entry) {
+        [receiver setDidUpdate:^(Entry *entry, EntryUpdateEvent event) {
             if (weakSelf.isTopViewController) {
                 [weakSelf updateEmailConfirmationView:YES];
             }

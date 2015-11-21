@@ -53,7 +53,7 @@
 - (instancetype)update:(NSDictionary *)dictionary {
     [self map:dictionary container:nil];
     if (self.updated) {
-        [self notifyOnUpdate];
+        [self notifyOnUpdate:EntryUpdateEventDefault];
     }
     return self;
 }
@@ -159,18 +159,6 @@
     if (self.createdAt == nil) {
         self.createdAt = date;
     }
-}
-
-- (void)remove {
-    __weak typeof(self)weakSelf = self;
-    EntryContext *manager = EntryContext.sharedContext;
-    [manager assureSave:^{
-        Entry *container = self.container;
-        [weakSelf notifyOnDeleting];
-        NSLog(@"WRAPLIVE - LOCAL DELETING: %@", weakSelf);
-        [manager deleteEntry:weakSelf];
-        [container notifyOnUpdate];
-    }];
 }
 
 @end

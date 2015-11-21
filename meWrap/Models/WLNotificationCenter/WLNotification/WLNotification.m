@@ -355,7 +355,7 @@
 }
 
 - (void)finalizeUpdateNotification:(WLNotification *)notification {
-    [self notifyOnUpdate];
+    [self notifyOnUpdate:EntryUpdateEventDefault];
 }
 
 - (void)finalizeDeleteNotification:(WLNotification *)notification {
@@ -409,7 +409,7 @@
 
 - (void)finalizeAddNotification:(WLNotification *)notification {
     if (self.isPublic && !notification.inserted) {
-        [self notifyOnUpdate];
+        [self notifyOnUpdate:EntryUpdateEventContributorsChanged];
     } else {
         [self notifyOnAddition];
     }
@@ -424,7 +424,7 @@
             [super finalizeDeleteNotification:notification];
         } else {
             [[self mutableContributors] removeObject:user];
-            [self notifyOnUpdate];
+            [self notifyOnUpdate:EntryUpdateEventContributorsChanged];
         }
     }
 }

@@ -44,8 +44,6 @@
 
 - (void)touch:(NSDate*)date;
 
-- (void)remove;
-
 @end
 
 @interface User (WLAPIManager) @end

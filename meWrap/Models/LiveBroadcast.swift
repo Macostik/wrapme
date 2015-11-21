@@ -30,7 +30,7 @@ class LiveBroadcast: NSObject {
             }
             broadcasts.append(broadcast)
             self.broadcasts[uid] = broadcasts
-            broadcast.wrap?.notifyOnUpdate()
+            broadcast.wrap?.notifyOnUpdate(.LiveBroadcastsChanged)
         }
     }
     
@@ -44,13 +44,13 @@ class LiveBroadcast: NSObject {
         }
         broadcasts.removeAtIndex(index)
         self.broadcasts[uid] = broadcasts
-        broadcast.wrap?.notifyOnUpdate()
+        broadcast.wrap?.notifyOnUpdate(.LiveBroadcastsChanged)
     }
     
     class func refreshBroadcasts(newBroadcasts: [String : [LiveBroadcast]]) {
         self.broadcasts = newBroadcasts
         for (_, broadcasts) in newBroadcasts {
-            broadcasts.first?.wrap?.notifyOnUpdate()
+            broadcasts.first?.wrap?.notifyOnUpdate(.LiveBroadcastsChanged)
         }
     }
     

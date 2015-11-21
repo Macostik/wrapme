@@ -64,7 +64,10 @@
         receiver.willDelete = ^ (Entry *entry) {
             dataSource.items = [(NSMutableOrderedSet*)dataSource.items remove:(Wrap*)entry];
         };
-        receiver.didAdd = receiver.didUpdate = ^ (Entry *entry) {
+        receiver.didAdd = ^ (Entry *entry) {
+            dataSource.items = [[User currentUser] sortedWraps];
+        };
+        receiver.didUpdate = ^ (Entry *entry, EntryUpdateEvent event) {
             dataSource.items = [[User currentUser] sortedWraps];
         };
     }];
